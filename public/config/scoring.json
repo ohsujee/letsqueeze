@@ -1,0 +1,7 @@
+{
+  "normal":   { "start": 100, "floor": 50,  "durationMs": 10000 },
+  "difficile":{ "start": 200, "floor": 100, "durationMs": 10000 },
+  "lockoutMs": 8000,
+  "pauseOnBuzz": true,
+  "autoResetWhenAllLocked": true
+}

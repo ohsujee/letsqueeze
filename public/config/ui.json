@@ -1,0 +1,14 @@
+{
+  "style": "cartoonesque",
+  "colors": {
+    "primary": "#ff3b3b",
+    "accent": "#ffd400",
+    "outline": "#111111"
+  },
+  "popups": {
+    "buzzBannerMs": 2000
+  },
+  "confetti": {
+    "enabled": true
+  }
+}

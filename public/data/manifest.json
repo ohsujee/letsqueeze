@@ -1,0 +1,11 @@
+{
+  "version": "1",
+  "quizzes": [
+    {
+      "id": "general",
+      "title": "Culture générale",
+      "lang": "fr",
+      "questionsCount": 20
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "general",
+  "title": "Culture générale",
+  "lang": "fr",
+  "items": [
+    { "id": "q001", "question": "Quelle est la capitale de l'Italie ?", "answer": "Rome", "difficulty": "normal", "category": "Géo" },
+    { "id": "q002", "question": "Combien font 9 × 7 ?", "answer": "63", "difficulty": "normal", "category": "Maths" },
+    { "id": "q003", "question": "Qui a peint la Joconde ?", "answer": "Léonard de Vinci", "difficulty": "normal", "category": "Art" },
+    { "id": "q004", "question": "Quelle planète est la plus proche du Soleil ?", "answer": "Mercure", "difficulty": "normal", "category": "Science" },
+    { "id": "q005", "question": "En quelle année a eu lieu la Révolution française ?", "answer": "1789", "difficulty": "normal", "category": "Histoire" },
+    { "id": "q006", "question": "Quel est l’élément chimique dont le symbole est 'O' ?", "answer": "Oxygène", "difficulty": "normal", "category": "Science" },
+    { "id": "q007", "question": "Qui a écrit « Les Misérables » ?", "answer": "Victor Hugo", "difficulty": "difficile", "category": "Littérature" },
+    { "id": "q008", "question": "Quel océan borde l'ouest des États-Unis ?", "answer": "Pacifique", "difficulty": "normal", "category": "Géo" },
+    { "id": "q009", "question": "Quelle est la langue officielle du Brésil ?", "answer": "Portugais", "difficulty": "normal", "category": "Langue" },
+    { "id": "q010", "question": "Combien y a-t-il de continents sur Terre (modèle courant) ?", "answer": "7", "difficulty": "normal", "category": "Géo" },
+    { "id": "q011", "question": "E=mc² est une formule de quel physicien ?", "answer": "Albert Einstein", "difficulty": "normal", "category": "Science" },
+    { "id": "q012", "question": "Quelle est la capitale du Canada ?", "answer": "Ottawa", "difficulty": "normal", "category": "Géo" },
+    { "id": "q013", "question": "Le mont Everest est dans quelle chaîne de montagnes ?", "answer": "L'Himalaya", "difficulty": "normal", "category": "Géo" },
+    { "id": "q014", "question": "Comment s’appelait l’un des tout premiers ordinateurs électroniques programmables américains ?", "answer": "ENIAC", "difficulty": "difficile", "category": "Tech" },
+    { "id": "q015", "question": "Qui a composé la 9ᵉ symphonie ?", "answer": "Ludwig van Beethoven", "difficulty": "difficile", "category": "Musique" },
+    { "id": "q016", "question": "Quel métal est liquide à température ambiante ?", "answer": "Le mercure", "difficulty": "difficile", "category": "Science" },
+    { "id": "q017", "question": "En quelle année a eu lieu la première Coupe du Monde de football (FIFA) ?", "answer": "1930", "difficulty": "difficile", "category": "Sport" },
+    { "id": "q018", "question": "Quel est le plus grand désert du monde (par superficie) ?", "answer": "L’Antarctique", "difficulty": "difficile", "category": "Géo" },
+    { "id": "q019", "question": "Le symbole chimique 'Na' correspond à quel élément ?", "answer": "Le sodium", "difficulty": "difficile", "category": "Science" },
+    { "id": "q020", "question": "Quel est le plus long fleuve d’Afrique ?", "answer": "Le Nil", "difficulty": "normal", "category": "Géo" }
+  ]
+}

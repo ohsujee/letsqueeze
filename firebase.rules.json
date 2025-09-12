@@ -1,0 +1,28 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    "rooms": {
+      "$code": {
+        ".read": "auth != null",
+        "meta": {
+          ".write": "auth != null && auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val()"
+        },
+        "state": {
+          ".write": "auth != null && auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val()"
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid"
+          },
+          ".read": "auth != null"
+        },
+        "history": {
+          ".write": "auth != null && auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val()"
+        },
+        "__health__": {
+          ".write": "auth != null && auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val()"
+        }
+      }
+    }
+  }
+}
