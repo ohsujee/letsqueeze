@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
-import { auth, db, ref, onValue, update, runTransaction } from "@/lib/firebase";
+import {
+  auth, db, ref, onValue, update, runTransaction, serverTimestamp
+} from "@/lib/firebase";
 import PointsRing from "@/components/PointsRing";
 
 function useQuiz(quizId){
@@ -16,10 +18,18 @@ export default function HostGame(){
   const [state,setState]=useState(null);
   const [players,setPlayers]=useState([]);
   const [conf,setConf]=useState(null);
-  const [now,setNow]=useState(Date.now());
 
+  // Tick + offset serveur
+  const [localNow, setLocalNow] = useState(Date.now());
+  const [offset, setOffset] = useState(0); // ms to add to local time to get server time
   useEffect(()=>{ fetch("/config/scoring.json").then(r=>r.json()).then(setConf); },[]);
-  useEffect(()=>{ const id=setInterval(()=>setNow(Date.now()), 100); return ()=>clearInterval(id); },[]);
+  useEffect(()=>{
+    const offRef = ref(db, ".info/serverTimeOffset");
+    const unoff = onValue(offRef, s=> setOffset(Number(s.val())||0));
+    const id=setInterval(()=>setLocalNow(Date.now()), 100);
+    return ()=>{ clearInterval(id); unoff(); };
+  },[]);
+  const serverNow = localNow + offset;
 
   useEffect(()=>{
     const u1 = onValue(ref(db,`rooms/${code}/meta`), s=>setMeta(s.val()));
@@ -38,9 +48,9 @@ export default function HostGame(){
   const elapsedEffective = useMemo(()=>{
     if (!state?.revealed || !state?.lastRevealAt) return 0;
     const acc = state?.elapsedAcc || 0;
-    const end = state?.pausedAt ? state.pausedAt : now;
+    const end = state?.pausedAt ? state.pausedAt : serverNow;
     return acc + Math.max(0, end - state.lastRevealAt);
-  },[state?.revealed, state?.lastRevealAt, state?.elapsedAcc, state?.pausedAt, now]);
+  },[state?.revealed, state?.lastRevealAt, state?.elapsedAcc, state?.pausedAt, serverNow]);
 
   const { pointsEnJeu, ratioRemain, cfg } = useMemo(()=>{
     if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 0, cfg: null };
@@ -53,25 +63,26 @@ export default function HostGame(){
     return { pointsEnJeu: pts, ratioRemain: remain, cfg: c };
   },[conf, q, elapsedEffective]);
 
-  // Pause auto quand quelqu’un a le lock
+  // Pause auto quand lock pris → timestamp serveur
   useEffect(()=>{
     if(!isHost) return;
     if(state?.revealed && state?.lockUid && !state?.pausedAt){
-      update(ref(db,`rooms/${code}/state`), { pausedAt: Date.now() });
+      update(ref(db,`rooms/${code}/state`), { pausedAt: serverTimestamp() });
     }
   },[isHost, code, state?.revealed, state?.lockUid, state?.pausedAt]);
 
   function computeResumeFields(){
-    const already = (state?.elapsedAcc || 0) + (state?.pausedAt ? Math.max(0, state.pausedAt - (state?.lastRevealAt || 0)) : 0);
-    return { elapsedAcc: already, lastRevealAt: Date.now(), pausedAt: null };
+    // Utilise exclusivement les timestamps serveur déjà enregistrés
+    const already = (state?.elapsedAcc || 0)
+      + Math.max(0, (state?.pausedAt || 0) - (state?.lastRevealAt || 0));
+    return { elapsedAcc: already, lastRevealAt: serverTimestamp(), pausedAt: null };
   }
 
   async function revealToggle(){
     if(!isHost || !q) return;
-    const now = Date.now();
     if (!state?.revealed) {
       await update(ref(db,`rooms/${code}/state`), {
-        revealed: true, lastRevealAt: now, elapsedAcc: 0, pausedAt: null, lockUid: null
+        revealed: true, lastRevealAt: serverTimestamp(), elapsedAcc: 0, pausedAt: null, lockUid: null
       });
     } else {
       await update(ref(db,`rooms/${code}/state`), { revealed: false });
@@ -112,7 +123,7 @@ export default function HostGame(){
     const uid = state.lockUid;
 
     const updates = {};
-    const until = Date.now()+ms;
+    const until = serverNow + ms; // basé sur l'heure serveur
     updates[`rooms/${code}/players/${uid}/blockedUntil`] = until;
 
     if (meta?.mode === "équipes") {
@@ -168,13 +179,10 @@ export default function HostGame(){
             <b>Réponse (privée animateur) :</b> {q.answer}
           </div>
 
-          {/* Points en jeu — anneau glossy */}
           <div className="flex items-center gap-4">
             <PointsRing value={state?.revealed ? ratioRemain : 0} points={state?.revealed ? pointsEnJeu : 0} />
             <div className="text-sm opacity-80">
-              {cfg ? (
-                <>Descend de <b>{cfg.start}</b> à <b>{cfg.floor}</b> sur <b>{cfg.durationMs/1000}s</b>.</>
-              ) : "Chargement…"}
+              {cfg ? <>Descend de <b>{cfg.start}</b> à <b>{cfg.floor}</b> sur <b>{cfg.durationMs/1000}s</b>.</> : "Chargement…"}
             </div>
           </div>
 
