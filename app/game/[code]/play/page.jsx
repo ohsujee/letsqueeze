@@ -2,8 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
-  auth, db, ref, onValue, runTransaction, update,
-  signInAnonymously, onAuthStateChanged
+  auth, db, ref, onValue, runTransaction, update, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
 import Buzzer from "@/components/Buzzer";
 import PointsRing from "@/components/PointsRing";
@@ -19,11 +18,15 @@ export default function PlayerGame(){
   const [quiz,setQuiz]=useState(null);
   const [conf,setConf]=useState(null);
 
-  const [now, setNow] = useState(Date.now());
-  useEffect(()=>{ const id = setInterval(()=>setNow(Date.now()), 100); return ()=>clearInterval(id); },[]);
+  // Tick + offset serveur
+  const [localNow, setLocalNow] = useState(Date.now());
+  const [offset, setOffset] = useState(0);
+  useEffect(()=>{ const id = setInterval(()=>setLocalNow(Date.now()), 100); return ()=>clearInterval(id); },[]);
+  useEffect(()=>{ const u = onValue(ref(db, ".info/serverTimeOffset"), s=> setOffset(Number(s.val())||0)); return ()=>u(); },[]);
+  const serverNow = localNow + offset;
 
   // Auth
-  useEffect(()=>{ signInAnonymously(auth).then(()=>{}); const unsub = onAuthStateChanged(auth, ()=>{}); return ()=>unsub(); },[]);
+  useEffect(()=>{ signInAnonymously(auth).catch(()=>{}); const unsub = onAuthStateChanged(auth, ()=>{}); return ()=>unsub(); },[]);
 
   // Config scoring
   useEffect(()=>{ fetch("/config/scoring.json").then(r=>r.json()).then(setConf); },[]);
@@ -52,16 +55,17 @@ export default function PlayerGame(){
   const qIndex = state?.currentIndex || 0;
   const q = quiz?.items?.[qIndex];
 
-  const blockedMs = Math.max(0, (me?.blockedUntil || 0) - now);
+  // Pénalité basée sur l'heure serveur
+  const blockedMs = Math.max(0, (me?.blockedUntil || 0) - serverNow);
   const blocked = blockedMs > 0;
   const blockedSec = Math.ceil(blockedMs / 1000);
 
   const elapsedEffective = useMemo(()=>{
     if (!revealed || !state?.lastRevealAt) return 0;
     const acc = state?.elapsedAcc || 0;
-    const end = paused ? state.pausedAt : now;
+    const end = paused ? state.pausedAt : serverNow;
     return acc + Math.max(0, end - state.lastRevealAt);
-  }, [revealed, state?.lastRevealAt, state?.elapsedAcc, paused, state?.pausedAt, now]);
+  }, [revealed, state?.lastRevealAt, state?.elapsedAcc, paused, state?.pausedAt, serverNow]);
 
   const { pointsEnJeu, ratioRemain, cfg } = useMemo(()=>{
     if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 0, cfg: null };
@@ -111,7 +115,6 @@ export default function PlayerGame(){
             <div className="mb-2 text-lg font-black">Question</div>
             {revealed ? <div className="mb-3">{q.question}</div> : <div className="mb-3 opacity-60">En attente de révélation…</div>}
 
-            {/* Anneau Points en jeu */}
             <div className="flex items-center gap-4">
               <PointsRing value={revealed ? ratioRemain : 0} points={revealed ? pointsEnJeu : 0} />
               {cfg && <div className="text-sm opacity-80">De <b>{cfg.start}</b> à <b>{cfg.floor}</b> en <b>{cfg.durationMs/1000}s</b>{paused && <span className="ml-1">⏸︎</span>}</div>}
