@@ -62,6 +62,7 @@ export default function PlayerGame(){
   const qIndex = state?.currentIndex || 0;
   const q = quiz?.items?.[qIndex];
   const progressLabel = total ? `Q${Math.min(qIndex+1,total)} / ${total}` : "";
+  const title = (quiz?.title || (meta?.quizId ? meta.quizId.replace(/-/g, " ") : "Partie"));
 
   // Pénalité serveur
   const blockedMs = Math.max(0, (me?.blockedUntil || 0) - serverNow);
@@ -96,8 +97,8 @@ export default function PlayerGame(){
     if (res?.committed && res.snapshot?.val() === auth.currentUser.uid) {
       await update(ref(db,`rooms/${code}/state`), {
         buzzBanner: `🔔 ${me?.name||"Un joueur"} a buzzé !`,
-        pausedAt: serverTimestamp(),     // fige le décompte
-        lockedAt: serverTimestamp()      // fallback si pausedAt bloqué par règles
+        pausedAt: serverTimestamp(),
+        lockedAt: serverTimestamp()
       });
     }
   }
@@ -129,7 +130,7 @@ export default function PlayerGame(){
 
   return (
     <main className="p-6 max-w-xl mx-auto space-y-4">
-      <h1 className="text-2xl font-black">Player — Room {code}</h1>
+      <h1 className="text-2xl font-black">Player — {title}</h1>
 
       {myTeam && (
         <div className="card" style={{ backgroundColor: myTeam.color }}>
