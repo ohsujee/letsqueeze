@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
-  auth, db, ref, onValue, runTransaction, update, signInAnonymously, onAuthStateChanged, serverTimestamp
+  auth, db, ref, onValue, runTransaction, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
 import Buzzer from "@/components/Buzzer";
 import PointsRing from "@/components/PointsRing";
@@ -64,7 +64,7 @@ export default function PlayerGame(){
   const progressLabel = total ? `Q${Math.min(qIndex+1,total)} / ${total}` : "";
   const title = (quiz?.title || (meta?.quizId ? meta.quizId.replace(/-/g, " ") : "Partie"));
 
-  // Pénalité serveur
+  // Pénalité serveur (affichage seulement)
   const blockedMs = Math.max(0, (me?.blockedUntil || 0) - serverNow);
   const blocked = blockedMs > 0;
   const blockedSec = Math.ceil(blockedMs / 1000);
@@ -89,21 +89,14 @@ export default function PlayerGame(){
     return { pointsEnJeu: pts, ratioRemain: remain, cfg: c };
   }, [conf, q, elapsedEffective]);
 
-  // Buzz: prend le lock + fige le timer tout de suite
+  // Buzz: prend uniquement le lock (les écritures sensibles sont faites par le Host)
   async function buzz(){
     if(!revealed || blocked) return;
     const lockRef = ref(db, `rooms/${code}/state/lockUid`);
-    const res = await runTransaction(lockRef, cur => cur ? cur : auth.currentUser.uid );
-    if (res?.committed && res.snapshot?.val() === auth.currentUser.uid) {
-      await update(ref(db,`rooms/${code}/state`), {
-        buzzBanner: `🔔 ${me?.name||"Un joueur"} a buzzé !`,
-        pausedAt: serverTimestamp(),
-        lockedAt: serverTimestamp()
-      });
-    }
+    await runTransaction(lockRef, cur => cur ? cur : auth.currentUser.uid );
   }
 
-  // Sons: reveal & buzz
+  // Sons: reveal & buzz (déclenchés par changements d'état)
   const playReveal = useSound("/sounds/reveal.mp3");
   const playBuzz   = useSound("/sounds/buzz.mp3");
   const prevRevealAt = useRef(0);
@@ -182,7 +175,7 @@ export default function PlayerGame(){
       </div>
 
       <Buzzer onBuzz={buzz} disabled={!revealed || locked || blocked}/>
-      {blocked && <div className="card" style={{ background: "rgba(148,163,184,.2)" }}>⏳ Pénalité {blockedSec}s après erreur/buzz trop tôt</div>}
+      {blocked && <div className="card" style={{ background: "rgba(148,163,184,.2)" }}>⏳ Pénalité {Math.ceil(blockedMs/1000)}s après erreur/buzz trop tôt</div>}
     </main>
   );
 }
