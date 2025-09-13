@@ -2,12 +2,11 @@
 import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
-  auth, db, ref, onValue, runTransaction, update, signInAnonymously, onAuthStateChanged
+  auth, db, ref, onValue, runTransaction, update, signInAnonymously, onAuthStateChanged, serverTimestamp
 } from "@/lib/firebase";
 import Buzzer from "@/components/Buzzer";
 import PointsRing from "@/components/PointsRing";
 
-// petit hook sonore
 function useSound(url){
   const aRef = useRef(null);
   useEffect(()=>{ aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null; if(aRef.current){ aRef.current.preload="auto"; } },[url]);
@@ -64,18 +63,19 @@ export default function PlayerGame(){
   const q = quiz?.items?.[qIndex];
   const progressLabel = total ? `Q${Math.min(qIndex+1,total)} / ${total}` : "";
 
-  // Pénalité sur heure serveur
+  // Pénalité serveur
   const blockedMs = Math.max(0, (me?.blockedUntil || 0) - serverNow);
   const blocked = blockedMs > 0;
   const blockedSec = Math.ceil(blockedMs / 1000);
 
-  // Points synchro
+  // Points synchro (stop sur pausedAt ou lockedAt)
   const elapsedEffective = useMemo(()=>{
     if (!revealed || !state?.lastRevealAt) return 0;
     const acc = state?.elapsedAcc || 0;
-    const end = paused ? state.pausedAt : serverNow;
+    const hardStop = state?.pausedAt ?? state?.lockedAt ?? null;
+    const end = hardStop ?? serverNow;
     return acc + Math.max(0, end - state.lastRevealAt);
-  }, [revealed, state?.lastRevealAt, state?.elapsedAcc, paused, state?.pausedAt, serverNow]);
+  }, [revealed, state?.lastRevealAt, state?.elapsedAcc, state?.pausedAt, state?.lockedAt, serverNow]);
 
   const { pointsEnJeu, ratioRemain, cfg } = useMemo(()=>{
     if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 0, cfg: null };
@@ -88,12 +88,17 @@ export default function PlayerGame(){
     return { pointsEnJeu: pts, ratioRemain: remain, cfg: c };
   }, [conf, q, elapsedEffective]);
 
+  // Buzz: prend le lock + fige le timer tout de suite
   async function buzz(){
     if(!revealed || blocked) return;
     const lockRef = ref(db, `rooms/${code}/state/lockUid`);
     const res = await runTransaction(lockRef, cur => cur ? cur : auth.currentUser.uid );
     if (res?.committed && res.snapshot?.val() === auth.currentUser.uid) {
-      await update(ref(db,`rooms/${code}/state`), { buzzBanner: `🔔 ${me?.name||"Un joueur"} a buzzé !` });
+      await update(ref(db,`rooms/${code}/state`), {
+        buzzBanner: `🔔 ${me?.name||"Un joueur"} a buzzé !`,
+        pausedAt: serverTimestamp(),     // fige le décompte
+        lockedAt: serverTimestamp()      // fallback si pausedAt bloqué par règles
+      });
     }
   }
 
