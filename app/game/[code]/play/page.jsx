@@ -1,11 +1,18 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, runTransaction, update, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
 import Buzzer from "@/components/Buzzer";
 import PointsRing from "@/components/PointsRing";
+
+// petit hook sonore
+function useSound(url){
+  const aRef = useRef(null);
+  useEffect(()=>{ aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null; if(aRef.current){ aRef.current.preload="auto"; } },[url]);
+  return useCallback(()=>{ try{ if(aRef.current){ aRef.current.currentTime=0; aRef.current.play(); } }catch{} },[]);
+}
 
 export default function PlayerGame(){
   const { code } = useParams();
@@ -35,7 +42,7 @@ export default function PlayerGame(){
   useEffect(()=>{
     const u1 = onValue(ref(db,`rooms/${code}/state`), s=>{
       const v=s.val(); setState(v);
-      if(v?.phase==="ended") router.push("/end/"+code);
+      if(v?.phase==="ended") router.replace("/end/"+code);
     });
     const u2 = onValue(ref(db,`rooms/${code}/meta`), s=>{
       const m = s.val(); setMeta(m);
@@ -52,14 +59,17 @@ export default function PlayerGame(){
   const locked = !!state?.lockUid;
   const paused = !!state?.pausedAt;
 
+  const total = quiz?.items?.length || 0;
   const qIndex = state?.currentIndex || 0;
   const q = quiz?.items?.[qIndex];
+  const progressLabel = total ? `Q${Math.min(qIndex+1,total)} / ${total}` : "";
 
-  // Pénalité basée sur l'heure serveur
+  // Pénalité sur heure serveur
   const blockedMs = Math.max(0, (me?.blockedUntil || 0) - serverNow);
   const blocked = blockedMs > 0;
   const blockedSec = Math.ceil(blockedMs / 1000);
 
+  // Points synchro
   const elapsedEffective = useMemo(()=>{
     if (!revealed || !state?.lastRevealAt) return 0;
     const acc = state?.elapsedAcc || 0;
@@ -87,6 +97,22 @@ export default function PlayerGame(){
     }
   }
 
+  // Sons: reveal & buzz
+  const playReveal = useSound("/sounds/reveal.mp3");
+  const playBuzz   = useSound("/sounds/buzz.mp3");
+  const prevRevealAt = useRef(0);
+  const prevLock = useRef(null);
+  useEffect(()=>{
+    if(state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current){
+      playReveal(); prevRevealAt.current = state.lastRevealAt;
+    }
+  },[state?.revealed, state?.lastRevealAt, playReveal]);
+  useEffect(()=>{
+    const cur = state?.lockUid || null;
+    if(cur && cur !== prevLock.current) playBuzz();
+    prevLock.current = cur;
+  },[state?.lockUid, playBuzz]);
+
   const myTeam = me?.teamId ? meta?.teams?.[me.teamId] : null;
 
   const teamsSorted = useMemo(()=>{
@@ -112,7 +138,10 @@ export default function PlayerGame(){
       <div className="card">
         {q && (
           <>
-            <div className="mb-2 text-lg font-black">Question</div>
+            <div className="mb-2 flex items-center justify-between">
+              <div className="text-lg font-black">Question</div>
+              <div className="text-sm opacity-80">{progressLabel}</div>
+            </div>
             {revealed ? <div className="mb-3">{q.question}</div> : <div className="mb-3 opacity-60">En attente de révélation…</div>}
 
             <div className="flex items-center gap-4">
