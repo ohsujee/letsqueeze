@@ -11,8 +11,6 @@ function useQuiz(quizId){
   useEffect(()=>{ if(quizId) fetch(`/data/${quizId}.json`).then(r=>r.json()).then(setQuiz); },[quizId]);
   return quiz;
 }
-
-// petit hook sonore
 function useSound(url){
   const aRef = useRef(null);
   useEffect(()=>{ aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null; if(aRef.current){ aRef.current.preload="auto"; } },[url]);
@@ -65,9 +63,11 @@ export default function HostGame(){
   const elapsedEffective = useMemo(()=>{
     if (!state?.revealed || !state?.lastRevealAt) return 0;
     const acc = state?.elapsedAcc || 0;
-    const end = state?.pausedAt ? state.pausedAt : serverNow;
+    // stop sur pausedAt, sinon sur lockedAt, sinon continue
+    const hardStop = state?.pausedAt ?? state?.lockedAt ?? null;
+    const end = hardStop ?? serverNow;
     return acc + Math.max(0, end - state.lastRevealAt);
-  },[state?.revealed, state?.lastRevealAt, state?.elapsedAcc, state?.pausedAt, serverNow]);
+  },[state?.revealed, state?.lastRevealAt, state?.elapsedAcc, state?.pausedAt, state?.lockedAt, serverNow]);
 
   const { pointsEnJeu, ratioRemain, cfg } = useMemo(()=>{
     if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 0, cfg: null };
@@ -80,7 +80,7 @@ export default function HostGame(){
     return { pointsEnJeu: pts, ratioRemain: remain, cfg: c };
   },[conf, q, elapsedEffective]);
 
-  // Sons: reveal & buzz (déclenchement sur changement)
+  // Sons
   const playReveal = useSound("/sounds/reveal.mp3");
   const playBuzz   = useSound("/sounds/buzz.mp3");
   const prevRevealAt = useRef(0);
@@ -96,11 +96,10 @@ export default function HostGame(){
     prevLock.current = cur;
   },[state?.lockUid, playBuzz]);
 
-  // helpers
   function computeResumeFields(){
     const already = (state?.elapsedAcc || 0)
-      + Math.max(0, (state?.pausedAt || 0) - (state?.lastRevealAt || 0));
-    return { elapsedAcc: already, lastRevealAt: serverTimestamp(), pausedAt: null };
+      + Math.max(0, (state?.pausedAt || state?.lockedAt || 0) - (state?.lastRevealAt || 0));
+    return { elapsedAcc: already, lastRevealAt: serverTimestamp(), pausedAt: null, lockedAt: null };
   }
 
   // actions
@@ -108,7 +107,7 @@ export default function HostGame(){
     if(!isHost || !q) return;
     if (!state?.revealed) {
       await update(ref(db,`rooms/${code}/state`), {
-        revealed: true, lastRevealAt: serverTimestamp(), elapsedAcc: 0, pausedAt: null, lockUid: null
+        revealed: true, lastRevealAt: serverTimestamp(), elapsedAcc: 0, pausedAt: null, lockedAt: null, lockUid: null
       });
     } else {
       await update(ref(db,`rooms/${code}/state`), { revealed: false });
@@ -142,7 +141,7 @@ export default function HostGame(){
     }
     await update(ref(db,`rooms/${code}/state`), {
       currentIndex: next,
-      revealed: false, lockUid: null, pausedAt: null,
+      revealed: false, lockUid: null, pausedAt: null, lockedAt: null,
       elapsedAcc: 0, lastRevealAt: 0, buzzBanner: ""
     });
   }
@@ -171,6 +170,7 @@ export default function HostGame(){
     updates[`rooms/${code}/state/elapsedAcc`] = resume.elapsedAcc;
     updates[`rooms/${code}/state/lastRevealAt`] = resume.lastRevealAt;
     updates[`rooms/${code}/state/pausedAt`] = resume.pausedAt;
+    updates[`rooms/${code}/state/lockedAt`] = resume.lockedAt;
 
     await update(ref(db), updates);
   }
@@ -184,7 +184,7 @@ export default function HostGame(){
     }
     await update(ref(db,`rooms/${code}/state`), {
       currentIndex: next, revealed: false, lockUid: null,
-      pausedAt: null, elapsedAcc: 0, lastRevealAt: 0, buzzBanner: ""
+      pausedAt: null, lockedAt: null, elapsedAcc: 0, lastRevealAt: 0, buzzBanner: ""
     });
   }
   async function end(){ if(isHost){ await update(ref(db,`rooms/${code}/state`), { phase:"ended" }); router.replace(`/end/${code}`); } }
@@ -193,6 +193,8 @@ export default function HostGame(){
   const teamsArray = useMemo(()=>{
     const t = meta?.teams || {}; return Object.keys(t).map(k=>({ id:k, ...t[k]}));
   }, [meta?.teams]);
+
+  const playersSorted = useMemo(()=> players.slice().sort((a,b)=> (b.score||0)-(a.score||0)), [players]);
 
   return (
     <main className="p-6 pb-28 max-w-3xl mx-auto space-y-4">
@@ -227,7 +229,7 @@ export default function HostGame(){
           <div className="flex items-center gap-4">
             <PointsRing value={state?.revealed ? ratioRemain : 0} points={state?.revealed ? pointsEnJeu : 0} />
             <div className="text-sm opacity-80">
-              {cfg ? <>Descend de <b>{cfg.start}</b> à <b>{cfg.floor}</b> sur <b>{cfg.durationMs/1000}s</b>.</> : "Chargement…"}
+              {cfg ? <>De <b>{cfg.start}</b> à <b>{cfg.floor}</b> en <b>{cfg.durationMs/1000}s</b>.</> : "Chargement…"}
             </div>
           </div>
 
@@ -248,6 +250,19 @@ export default function HostGame(){
           </ul>
         </div>
       )}
+
+      {/* NOUVEAU : scores joueurs complets */}
+      <div className="card">
+        <b>Scores joueurs</b>
+        <ul className="mt-2 space-y-1">
+          {playersSorted.map((p,i)=>(
+            <li key={p.uid} className="card flex justify-between items-center">
+              <span>{i+1}. {p.name}</span>
+              <b>{p.score||0}</b>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <div className="sticky-bar">
         <button className="btn btn-primary w-full h-14 text-xl" onClick={revealToggle}>
