@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
-import { useParams } from "next/navigation";
+import { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, update, runTransaction, serverTimestamp
 } from "@/lib/firebase";
@@ -12,8 +12,17 @@ function useQuiz(quizId){
   return quiz;
 }
 
+// petit hook sonore
+function useSound(url){
+  const aRef = useRef(null);
+  useEffect(()=>{ aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null; if(aRef.current){ aRef.current.preload="auto"; } },[url]);
+  return useCallback(()=>{ try{ if(aRef.current){ aRef.current.currentTime=0; aRef.current.play(); } }catch{} },[]);
+}
+
 export default function HostGame(){
   const { code } = useParams();
+  const router = useRouter();
+
   const [meta,setMeta]=useState(null);
   const [state,setState]=useState(null);
   const [players,setPlayers]=useState([]);
@@ -21,16 +30,16 @@ export default function HostGame(){
 
   // Tick + offset serveur
   const [localNow, setLocalNow] = useState(Date.now());
-  const [offset, setOffset] = useState(0); // ms to add to local time to get server time
+  const [offset, setOffset] = useState(0);
   useEffect(()=>{ fetch("/config/scoring.json").then(r=>r.json()).then(setConf); },[]);
   useEffect(()=>{
-    const offRef = ref(db, ".info/serverTimeOffset");
-    const unoff = onValue(offRef, s=> setOffset(Number(s.val())||0));
+    const off = onValue(ref(db, ".info/serverTimeOffset"), s=> setOffset(Number(s.val())||0));
     const id=setInterval(()=>setLocalNow(Date.now()), 100);
-    return ()=>{ clearInterval(id); unoff(); };
+    return ()=>{ clearInterval(id); off(); };
   },[]);
   const serverNow = localNow + offset;
 
+  // DB listeners
   useEffect(()=>{
     const u1 = onValue(ref(db,`rooms/${code}/meta`), s=>setMeta(s.val()));
     const u2 = onValue(ref(db,`rooms/${code}/state`), s=>setState(s.val()));
@@ -40,11 +49,19 @@ export default function HostGame(){
     return ()=>{u1();u2();u3();};
   },[code]);
 
+  // Redirige host quand phase=ended
+  useEffect(()=>{
+    if(state?.phase === "ended") router.replace(`/end/${code}`);
+  }, [state?.phase, router, code]);
+
   const isHost = meta?.hostUid === auth.currentUser?.uid;
   const quiz  = useQuiz(meta?.quizId || "general");
+  const total = quiz?.items?.length || 0;
   const qIndex = state?.currentIndex || 0;
   const q = quiz?.items?.[qIndex];
+  const progressLabel = total ? `Q${Math.min(qIndex+1,total)} / ${total}` : "";
 
+  // compteur points (synchro serveur + pause)
   const elapsedEffective = useMemo(()=>{
     if (!state?.revealed || !state?.lastRevealAt) return 0;
     const acc = state?.elapsedAcc || 0;
@@ -63,21 +80,30 @@ export default function HostGame(){
     return { pointsEnJeu: pts, ratioRemain: remain, cfg: c };
   },[conf, q, elapsedEffective]);
 
-  // Pause auto quand lock pris → timestamp serveur
+  // Sons: reveal & buzz (déclenchement sur changement)
+  const playReveal = useSound("/sounds/reveal.mp3");
+  const playBuzz   = useSound("/sounds/buzz.mp3");
+  const prevRevealAt = useRef(0);
+  const prevLock = useRef(null);
   useEffect(()=>{
-    if(!isHost) return;
-    if(state?.revealed && state?.lockUid && !state?.pausedAt){
-      update(ref(db,`rooms/${code}/state`), { pausedAt: serverTimestamp() });
+    if(state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current){
+      playReveal(); prevRevealAt.current = state.lastRevealAt;
     }
-  },[isHost, code, state?.revealed, state?.lockUid, state?.pausedAt]);
+  },[state?.revealed, state?.lastRevealAt, playReveal]);
+  useEffect(()=>{
+    const cur = state?.lockUid || null;
+    if(cur && cur !== prevLock.current) playBuzz();
+    prevLock.current = cur;
+  },[state?.lockUid, playBuzz]);
 
+  // helpers
   function computeResumeFields(){
-    // Utilise exclusivement les timestamps serveur déjà enregistrés
     const already = (state?.elapsedAcc || 0)
       + Math.max(0, (state?.pausedAt || 0) - (state?.lastRevealAt || 0));
     return { elapsedAcc: already, lastRevealAt: serverTimestamp(), pausedAt: null };
   }
 
+  // actions
   async function revealToggle(){
     if(!isHost || !q) return;
     if (!state?.revealed) {
@@ -88,13 +114,11 @@ export default function HostGame(){
       await update(ref(db,`rooms/${code}/state`), { revealed: false });
     }
   }
-
   async function resetBuzzers(){
     if(!isHost) return;
     const resume = computeResumeFields();
     await update(ref(db,`rooms/${code}/state`), { lockUid: null, buzzBanner: "", ...resume });
   }
-
   async function validate(){
     if(!isHost || !q || !state?.lockUid || !conf) return;
     const uid = state.lockUid;
@@ -110,20 +134,25 @@ export default function HostGame(){
       }
     }
 
+    const next = (state.currentIndex||0)+1;
+    if (next >= total) {
+      await update(ref(db,`rooms/${code}/state`), { phase:"ended" });
+      router.replace(`/end/${code}`);
+      return;
+    }
     await update(ref(db,`rooms/${code}/state`), {
-      currentIndex: (state.currentIndex||0)+1,
+      currentIndex: next,
       revealed: false, lockUid: null, pausedAt: null,
       elapsedAcc: 0, lastRevealAt: 0, buzzBanner: ""
     });
   }
-
   async function wrong(){
     if(!isHost || !state?.lockUid || !conf) return;
     const ms = conf.lockoutMs || 8000;
     const uid = state.lockUid;
 
     const updates = {};
-    const until = serverNow + ms; // basé sur l'heure serveur
+    const until = serverNow + ms;
     updates[`rooms/${code}/players/${uid}/blockedUntil`] = until;
 
     if (meta?.mode === "équipes") {
@@ -145,8 +174,20 @@ export default function HostGame(){
 
     await update(ref(db), updates);
   }
-
-  async function end(){ if(isHost) await update(ref(db,`rooms/${code}/state`), { phase:"ended" }); }
+  async function skip(){
+    if(!isHost || total===0) return;
+    const next = (state?.currentIndex||0)+1;
+    if (next >= total) {
+      await update(ref(db,`rooms/${code}/state`), { phase:"ended" });
+      router.replace(`/end/${code}`);
+      return;
+    }
+    await update(ref(db,`rooms/${code}/state`), {
+      currentIndex: next, revealed: false, lockUid: null,
+      pausedAt: null, elapsedAcc: 0, lastRevealAt: 0, buzzBanner: ""
+    });
+  }
+  async function end(){ if(isHost){ await update(ref(db,`rooms/${code}/state`), { phase:"ended" }); router.replace(`/end/${code}`); } }
 
   const lockedName = state?.lockUid ? (players.find(p=>p.uid===state.lockUid)?.name || state.lockUid) : "—";
   const teamsArray = useMemo(()=>{
@@ -162,6 +203,7 @@ export default function HostGame(){
           <button className="btn" onClick={resetBuzzers}>Reset buzzers</button>
           <button className="btn" onClick={wrong}>✘ Mauvaise</button>
           <button className="btn btn-accent" onClick={validate}>✔ Valider</button>
+          <button className="btn" onClick={skip}>⏭ Passer</button>
           <button className="btn" onClick={end}>Terminer</button>
         </div>
         <div className="mt-3 card banner">
@@ -171,8 +213,11 @@ export default function HostGame(){
 
       {q ? (
         <div className="card space-y-4">
-          <div className="text-xl font-black">
-            Q{qIndex+1} — {q.category? `[${q.category}] `:""}{q.question}
+          <div className="flex items-center justify-between">
+            <div className="text-xl font-black">
+              {q.category? `[${q.category}] `:""}{q.question}
+            </div>
+            <div className="text-sm opacity-80">{progressLabel}</div>
           </div>
 
           <div className="card" style={{ background: "rgba(34,197,94,.12)" }}>
@@ -203,15 +248,6 @@ export default function HostGame(){
           </ul>
         </div>
       )}
-
-      <div className="card">
-        <b>Podium joueurs</b>
-        <ul className="grid grid-cols-2 gap-2 mt-2">
-          {players.slice().sort((a,b)=> (b.score||0)-(a.score||0)).slice(0,3).map((p,i)=>(
-            <li key={p.uid} className="card">{i+1}. {p.name} — <b>{p.score||0}</b></li>
-          ))}
-        </ul>
-      </div>
 
       <div className="sticky-bar">
         <button className="btn btn-primary w-full h-14 text-xl" onClick={revealToggle}>
