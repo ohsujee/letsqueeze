@@ -2,6 +2,8 @@
   "quizzes": [
     { "id": "general", "title": "Général" },
     { "id": "friends", "title": "Friends" },
-    { "id": "ma-famille-dabord", "title": "Ma Famille D'abord" }
+    { "id": "ma-famille-dabord", "title": "Ma Famille D'abord" },
+    { "id": "kollywood-1980-2018", "title": "Cinéma tamoul (Kollywood) 1980–2018" },
+    { "id": "kollywood_hard_2", "title": "Kollywood — Quiz #2 (difficile)" }
   ]
 }
