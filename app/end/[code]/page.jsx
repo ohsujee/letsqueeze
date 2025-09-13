@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 import { db, ref, onValue } from "@/lib/firebase";
 
 function rankWithTies(items, scoreKey = "score") {
-  // Standard competition ranking: 1,2,2,4…
   const sorted = items.slice().sort((a,b)=> (b[scoreKey]||0) - (a[scoreKey]||0));
   let lastScore = null, lastRank = 0, seen = 0;
   return sorted.map((it) => {
@@ -21,6 +20,7 @@ export default function EndPage(){
 
   const [players,setPlayers]=useState([]);
   const [meta,setMeta]=useState(null);
+  const [quizTitle, setQuizTitle] = useState("");
 
   useEffect(()=>{
     const u1 = onValue(ref(db,`rooms/${code}/players`), s=>{
@@ -30,6 +30,16 @@ export default function EndPage(){
     const u2 = onValue(ref(db,`rooms/${code}/meta`), s=> setMeta(s.val()));
     return ()=>{u1();u2();};
   },[code]);
+
+  // Charger le titre du quiz pour l'entête
+  useEffect(()=>{
+    if (meta?.quizId) {
+      fetch(`/data/${meta.quizId}.json`)
+        .then(r=>r.json())
+        .then(j=> setQuizTitle(j?.title || meta.quizId.replace(/-/g," ")))
+        .catch(()=> setQuizTitle(meta.quizId?.replace(/-/g," ") || "Partie"));
+    }
+  }, [meta?.quizId]);
 
   const modeEquipes = meta?.mode === "équipes";
 
@@ -43,7 +53,7 @@ export default function EndPage(){
 
   return (
     <main className="p-6 max-w-3xl mx-auto space-y-6">
-      <h1 className="text-3xl font-black">Fin de partie — {code}</h1>
+      <h1 className="text-3xl font-black">Fin de partie — {quizTitle || "Partie"}</h1>
 
       {modeEquipes && (
         <section className="space-y-3">
