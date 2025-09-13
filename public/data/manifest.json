@@ -1,11 +1,7 @@
 {
-  "version": "1",
   "quizzes": [
-    {
-      "id": "general",
-      "title": "Culture générale",
-      "lang": "fr",
-      "questionsCount": 20
-    }
+    { "id": "general", "title": "Général" },
+    { "id": "friends", "title": "Friends" },
+    { "id": "ma-famille-dabord", "title": "Ma Famille D'abord" }
   ]
 }
