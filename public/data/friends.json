@@ -1,0 +1,27 @@
+{
+  "id": "friends",
+  "title": "Friends",
+  "items": [
+    { "question": "Comment s'appelle le café où le groupe se retrouve ?", "answer": "Central Perk (VO/VF identique)", "difficulty": "normal", "category": "Lieu" },
+    { "question": "Quel est le métier de Ross au début de la série ?", "answer": "Paléontologue / Paleontologist", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Quel est le nom de famille de Monica et Ross ?", "answer": "Geller (VO/VF identique)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Comment s'appelle le pingouin en peluche de Joey ?", "answer": "Huggsy (VF : Huggsy le pingouin) / Huggsy the penguin", "difficulty": "normal", "category": "Objet" },
+    { "question": "Quelle est la chanson culte de Phoebe ?", "answer": "« Smelly Cat » (VO/VF identique)", "difficulty": "normal", "category": "Référence" },
+    { "question": "Quels animaux Joey et Chandler gardent-ils comme animaux de compagnie ?", "answer": "Un poussin et un canard / A chick and a duck", "difficulty": "normal", "category": "Gag récurrent" },
+    { "question": "Comment s'appelle le serveur blond de Central Perk ?", "answer": "Gunther (VO/VF identique)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Dans quelle ville se déroule la série ?", "answer": "New York (Manhattan) / New York City (Manhattan)", "difficulty": "normal", "category": "Lieu" },
+    { "question": "Quel est le deuxième prénom de Chandler ?", "answer": "Muriel (VO/VF identique)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Où Ross et Rachel se marient-ils par erreur, ivres ?", "answer": "Las Vegas (VO/VF identique)", "difficulty": "normal", "category": "Intrigue" },
+    { "question": "Comment s'appelle la deuxième épouse de Ross ?", "answer": "Emily Waltham (VO/VF identique)", "difficulty": "normal", "category": "Intrigue" },
+    { "question": "Quel costume Ross enfile pour expliquer Hanoucca à Ben ?", "answer": "Le « Tatou de Noël » (VF) / The Holiday Armadillo (VO)", "difficulty": "normal", "category": "Épisode" },
+
+    { "question": "Dans « Days of Our Lives », quel est le nom du personnage de Joey ?", "answer": "Dr. Drake Ramoray (VO/VF identique)", "difficulty": "difficile", "category": "Référence TV" },
+    { "question": "À la fin, quels sont les numéros définitifs des appartements de Monica et de Joey/Chandler ?", "answer": "Monica : 20 ; Joey/Chandler : 19 (VO/VF identique)", "difficulty": "difficile", "category": "Décor" },
+    { "question": "Comment s'appelle la sœur jumelle de Phoebe ?", "answer": "Ursula Buffay (VO/VF identique)", "difficulty": "difficile", "category": "Personnage" },
+    { "question": "Comment s'appelle la fille de Ross et Rachel ?", "answer": "Emma Geller-Green (VO/VF identique)", "difficulty": "difficile", "category": "Intrigue" },
+    { "question": "Quelle phrase culte Ross répète au sujet de Rachel ?", "answer": "« On avait rompu ! » (VF) / « We were on a break! » (VO)", "difficulty": "difficile", "category": "Réplique" },
+    { "question": "Quel est le nom du jeu TV pour lequel Joey auditionne comme animateur ?", "answer": "« Bamboozled » (VO) / (VF: souvent non traduit, parfois « Bamboozled »)", "difficulty": "difficile", "category": "Épisode" },
+    { "question": "Comment s'appelle le chat sphynx de Rachel ?", "answer": "Mrs. Whiskerson (VO) / Madame Whiskerson (VF)", "difficulty": "difficile", "category": "Intrigue" },
+    { "question": "Comment s'appellent les jumeaux adoptés par Monica et Chandler dans le final ?", "answer": "Jack et Erica (VO/VF identique)", "difficulty": "difficile", "category": "Finale" }
+  ]
+}
