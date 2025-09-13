@@ -1,0 +1,27 @@
+{
+  "id": "ma-famille-dabord",
+  "title": "Ma Famille D'abord",
+  "items": [
+    { "question": "Quel est le nom de famille de la famille principale ?", "answer": "Kyle (VO/VF identique)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Dans quelle ville se déroule la série ?", "answer": "Stamford, Connecticut (VO/VF identique)", "difficulty": "normal", "category": "Lieu" },
+    { "question": "Quelle entreprise possède Michael Kyle ?", "answer": "Kyle Trucking (société de transport) / Kyle Trucking (trucking company)", "difficulty": "normal", "category": "Intrigue" },
+    { "question": "Comment s'appellent les trois enfants de Michael et Jay ?", "answer": "Junior, Claire et Kady (VO/VF identique)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Quel est le prénom complet de Jay ?", "answer": "Janet « Jay » Kyle / Janet “Jay” Kyle", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Quel enfant change d’interprète après la saison 1 ?", "answer": "Claire (de Jazz Raycole à Jennifer Freeman) / Claire (Jazz Raycole → Jennifer Freeman)", "difficulty": "normal", "category": "Production" },
+    { "question": "Comment s'appelle la petite amie puis épouse de Junior ?", "answer": "Vanessa Scott (VO/VF identique)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Quel est le prénom complet du fils de Junior et Vanessa ?", "answer": "Michael Richard Kyle III (« Junior Jr. ») / Michael Richard Kyle III (“Junior Jr.”)", "difficulty": "normal", "category": "Intrigue" },
+    { "question": "Quel enfant prodige est le petit ami de Kady ?", "answer": "Franklin Aloysius Mumford (souvent « Franklin Mumford III ») / Franklin Aloysius Mumford (III)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Quel comédien incarne Bobby Shaw, rival de Michael ?", "answer": "Katt Williams (VO/VF identique)", "difficulty": "normal", "category": "Guest" },
+
+    { "question": "Comment s’appellent les parents de Vanessa ?", "answer": "Calvin Scott et Jasmine Scott (VO/VF identique)", "difficulty": "difficile", "category": "Personnage" },
+    { "question": "Où naît Junior Jr. lors de l’accouchement ?", "answer": "À la maison (accouchement à domicile) / At home (home birth)", "difficulty": "difficile", "category": "Épisode" },
+    { "question": "Quel est le nom de la sage-femme « new age » ?", "answer": "Summer Breeze (VO/VF identique)", "difficulty": "difficile", "category": "Épisode" },
+    { "question": "Quel épisode évoque explicitement la vente de l’entreprise familiale ?", "answer": "« Michael Sells the Business » (VO) / (VF: « Michael vend l’entreprise » selon versions)", "difficulty": "difficile", "category": "Épisode" },
+    { "question": "Combien de saisons et d’épisodes la série compte-t-elle ?", "answer": "5 saisons, 123 épisodes / 5 seasons, 123 episodes", "difficulty": "difficile", "category": "Infos série" },
+    { "question": "Lors d’une réunion d’anciens, quel événement oppose Michael et Bobby Shaw ?", "answer": "Un duel/défi de danse (« dance battle ») / Dance-off", "difficulty": "difficile", "category": "Épisode" },
+    { "question": "Où Junior travaille-t-il un temps avec son père ?", "answer": "Chez Kyle Trucking / At Kyle Trucking", "difficulty": "difficile", "category": "Intrigue" },
+    { "question": "Quel est le nom complet du père ?", "answer": "Michael Richard Kyle Sr. / Michael Richard Kyle Sr.", "difficulty": "difficile", "category": "Personnage" },
+    { "question": "Qui aide concrètement à l’accouchement de Vanessa ?", "answer": "Michael (le grand-père) assiste l’accouchement, guidé par Franklin / Michael delivers the baby, guided by Franklin", "difficulty": "difficile", "category": "Épisode" },
+    { "question": "Quel est le titre VO de la série ?", "answer": "« My Wife and Kids » / VF : « Ma Famille d’Abord »", "difficulty": "difficile", "category": "Infos série" }
+  ]
+}
