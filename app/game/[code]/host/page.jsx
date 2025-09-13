@@ -58,12 +58,12 @@ export default function HostGame(){
   const qIndex = state?.currentIndex || 0;
   const q = quiz?.items?.[qIndex];
   const progressLabel = total ? `Q${Math.min(qIndex+1,total)} / ${total}` : "";
+  const title = (quiz?.title || (meta?.quizId ? meta.quizId.replace(/-/g, " ") : "Partie"));
 
   // compteur points (synchro serveur + pause)
   const elapsedEffective = useMemo(()=>{
     if (!state?.revealed || !state?.lastRevealAt) return 0;
     const acc = state?.elapsedAcc || 0;
-    // stop sur pausedAt, sinon sur lockedAt, sinon continue
     const hardStop = state?.pausedAt ?? state?.lockedAt ?? null;
     const end = hardStop ?? serverNow;
     return acc + Math.max(0, end - state.lastRevealAt);
@@ -198,7 +198,7 @@ export default function HostGame(){
 
   return (
     <main className="p-6 pb-28 max-w-3xl mx-auto space-y-4">
-      <h1 className="text-3xl font-black">Écran Animateur — {code}</h1>
+      <h1 className="text-3xl font-black">Écran Animateur — {title}</h1>
 
       <div className="card">
         <div className="flex gap-2 flex-wrap">
@@ -251,7 +251,7 @@ export default function HostGame(){
         </div>
       )}
 
-      {/* NOUVEAU : scores joueurs complets */}
+      {/* Scores joueurs complets */}
       <div className="card">
         <b>Scores joueurs</b>
         <ul className="mt-2 space-y-1">
