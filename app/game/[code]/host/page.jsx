@@ -90,11 +90,23 @@ export default function HostGame(){
       playReveal(); prevRevealAt.current = state.lastRevealAt;
     }
   },[state?.revealed, state?.lastRevealAt, playReveal]);
+
+  // *** HOST RÉAGIT AU NOUVEAU LOCK → FIGE TIMER + BANNIÈRE ***
   useEffect(()=>{
+    if (!isHost) return;
     const cur = state?.lockUid || null;
-    if(cur && cur !== prevLock.current) playBuzz();
+    if (cur && cur !== prevLock.current) {
+      const name = players.find(p=>p.uid===cur)?.name || "Un joueur";
+      // on fige côté Host (droits garantis) et on pose la bannière
+      update(ref(db,`rooms/${code}/state`), {
+        pausedAt: serverTimestamp(),
+        lockedAt: serverTimestamp(),
+        buzzBanner: `🔔 ${name} a buzzé !`
+      }).catch(()=>{});
+      playBuzz();
+    }
     prevLock.current = cur;
-  },[state?.lockUid, playBuzz]);
+  },[isHost, state?.lockUid, code, players, playBuzz]);
 
   function computeResumeFields(){
     const already = (state?.elapsedAcc || 0)
@@ -107,7 +119,7 @@ export default function HostGame(){
     if(!isHost || !q) return;
     if (!state?.revealed) {
       await update(ref(db,`rooms/${code}/state`), {
-        revealed: true, lastRevealAt: serverTimestamp(), elapsedAcc: 0, pausedAt: null, lockedAt: null, lockUid: null
+        revealed: true, lastRevealAt: serverTimestamp(), elapsedAcc: 0, pausedAt: null, lockedAt: null, lockUid: null, buzzBanner: ""
       });
     } else {
       await update(ref(db,`rooms/${code}/state`), { revealed: false });
