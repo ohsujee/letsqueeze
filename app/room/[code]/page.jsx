@@ -1,244 +1,308 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import Qr from "@/components/Qr";
 import {
-  auth, db, ref, onValue, update,
-  signInAnonymously, onAuthStateChanged
+  auth, db, ref, onValue, update, set, remove, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
 
-const TEAM_PALETTE = [
-  { id: "t1", name: "Équipe 1", color: "#FF6B6B" },
-  { id: "t2", name: "Équipe 2", color: "#4D96FF" },
-  { id: "t3", name: "Équipe 3", color: "#43D17C" },
-  { id: "t4", name: "Équipe 4", color: "#B26BFF" }
+const TEAM_PRESETS = [
+  { id: "red",   name: "Rouges",  color: "#ef4444" },
+  { id: "blue",  name: "Bleus",   color: "#3b82f6" },
+  { id: "green", name: "Verts",   color: "#22c55e" },
+  { id: "yellow",name: "Jaunes",  color: "#eab308" },
 ];
 
-export default function LobbyPage(){
+export default function RoomLobby() {
   const { code } = useParams();
   const router = useRouter();
 
-  const [players,setPlayers]=useState([]);
-  const [meta,setMeta]=useState(null);
-  const [state,setState]=useState(null);
-  const [quizList,setQuizList]=useState([]);
-  const [user,setUser]=useState(null);
+  const [me, setMe] = useState(null);
+  const [meta, setMeta] = useState(null);
+  const [players, setPlayers] = useState([]);
+  const [state, setState] = useState(null);
+  const [manifest, setManifest] = useState([]);
+  const [showInvite, setShowInvite] = useState(true); // <- retour QR/partage
 
   // Auth
-  useEffect(()=>{
-    signInAnonymously(auth);
-    const unsub = onAuthStateChanged(auth, (u)=>setUser(u));
-    return ()=>unsub();
-  },[]);
+  useEffect(() => {
+    signInAnonymously(auth).catch(()=>{});
+    const unsub = onAuthStateChanged(auth, (u) => setMe(u));
+    return () => unsub();
+  }, []);
 
-  // Data listeners
-  useEffect(()=>{
-    const pRef = ref(db, `rooms/${code}/players`);
-    const mRef = ref(db, `rooms/${code}/meta`);
-    const sRef = ref(db, `rooms/${code}/state`);
-
-    const u1 = onValue(pRef, snap=>{
-      const val = snap.val()||{};
-      setPlayers(Object.values(val).sort((a,b)=>a.joinedAt-b.joinedAt));
+  // Data
+  useEffect(() => {
+    const u1 = onValue(ref(db, `rooms/${code}/meta`), s => setMeta(s.val() || {}));
+    const u2 = onValue(ref(db, `rooms/${code}/players`), s => {
+      const v = s.val() || {};
+      setPlayers(Object.values(v));
     });
-    const u2 = onValue(mRef, snap=> setMeta(snap.val()));
-    const u3 = onValue(sRef, snap=> setState(snap.val()));
+    const u3 = onValue(ref(db, `rooms/${code}/state`), s => setState(s.val() || {}));
+    return () => { u1(); u2(); u3(); };
+  }, [code]);
 
-    fetch("/data/manifest.json").then(r=>r.json()).then(m=>setQuizList(m.quizzes||[]));
-    return ()=>{ u1(); u2(); u3(); };
-  },[code]);
-
-  // Redirections jeu
-  useEffect(()=>{
-    if (!state?.phase || !meta || !user) return;
-    if (state.phase === "playing") {
-      const isHost = meta.hostUid === user.uid;
-      router.replace(isHost ? `/game/${code}/host` : `/game/${code}/play`);
-    } else if (state.phase === "ended") {
+  // Redirection si “playing”
+  useEffect(() => {
+    if (state?.phase === "playing") {
+      if (meta?.hostUid === auth.currentUser?.uid) router.replace(`/game/${code}/host`);
+      else router.replace(`/game/${code}/play`);
+    }
+    if (state?.phase === "ended") {
       router.replace(`/end/${code}`);
     }
-  },[state?.phase, meta, user, code, router]);
+  }, [state?.phase, meta?.hostUid, router, code]);
 
-  const isHost = meta?.hostUid === user?.uid;
-  const teamCount = Math.min(4, Math.max(0, meta?.teamCount || 0));
-  const activeTeams = useMemo(()=>{
-    const t = meta?.teams || {};
-    return TEAM_PALETTE
-      .filter((tp,i)=> i < teamCount)
-      .map(tp => ({ ...tp, ...(t[tp.id]||{}) })); // merge persisted score/name
-  }, [meta?.teams, teamCount]);
+  // Manifest quizz
+  useEffect(() => {
+    fetch("/data/manifest.json")
+      .then(r => r.json())
+      .then(j => setManifest(j?.quizzes || []))
+      .catch(() => setManifest([]));
+  }, []);
 
-  // —— Actions équipes ——
+  const isHost = meta?.hostUid === me?.uid;
+  const roomUrl = typeof window !== "undefined" ? `${location.origin}/join?code=${code}` : "";
 
-  async function setMode(mode){
-    if(!isHost) return;
-    await update(ref(db, `rooms/${code}/meta`), { mode });
+  const modeTeams = meta?.mode === "équipes";
+  const teams = meta?.teams || {};
+  const teamsList = useMemo(() => {
+    return Object.keys(teams).map((k) => ({ id: k, ...teams[k] }));
+  }, [teams]);
+
+  // --- Actions Host ---
+
+  function toggleInvite() {
+    setShowInvite(v => !v);
   }
 
-  async function applyTeamCount(n){
-    if(!isHost) return;
-    n = Math.min(4, Math.max(2, n));
-
-    // Construire updates pour créer/retirer les équipes
-    const updates = {};
-    updates[`rooms/${code}/meta/mode`] = "équipes";
-    updates[`rooms/${code}/meta/teamCount`] = n;
-
-    TEAM_PALETTE.forEach((tp, idx)=>{
-      if (idx < n) {
-        updates[`rooms/${code}/meta/teams/${tp.id}/name`] = meta?.teams?.[tp.id]?.name || tp.name;
-        updates[`rooms/${code}/meta/teams/${tp.id}/color`] = meta?.teams?.[tp.id]?.color || tp.color;
-        updates[`rooms/${code}/meta/teams/${tp.id}/score`] = meta?.teams?.[tp.id]?.score || 0;
+  async function shareRoom() {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "Rejoins la partie", text: `Code ${code}`, url: roomUrl });
       } else {
-        updates[`rooms/${code}/meta/teams/${tp.id}`] = null;
+        await navigator.clipboard.writeText(roomUrl);
+        alert("Lien copié !");
       }
-    });
-
-    await update(ref(db), updates);
+    } catch {}
   }
 
-  async function autoAssign(){
-    if(!isHost || activeTeams.length < 2) return;
-    const arr = players.slice();
-    if (!arr.length) return;
+  async function setMode(newMode) {
+    if (!isHost) return;
+    await update(ref(db, `rooms/${code}/meta`), { mode: newMode });
+  }
 
-    // Round-robin équilibré
+  async function setQuiz(quizId) {
+    if (!isHost) return;
+    await update(ref(db, `rooms/${code}/meta`), { quizId });
+  }
+
+  async function createTeams(n = 2) {
+    if (!isHost) return;
+    const chosen = TEAM_PRESETS.slice(0, Math.max(2, Math.min(4, n)));
+    const payload = {};
+    chosen.forEach((t, i) => {
+      const id = `t${i+1}`;
+      payload[id] = { name: t.name, color: t.color, score: 0 };
+    });
+    await update(ref(db, `rooms/${code}/meta`), { mode: "équipes", teams: payload });
+    // retire les teamId existants (on repart propre)
     const updates = {};
-    arr.forEach((p, idx)=>{
-      const team = activeTeams[idx % activeTeams.length];
-      updates[`rooms/${code}/players/${p.uid}/teamId`] = team.id;
+    players.forEach(p => { updates[`rooms/${code}/players/${p.uid}/teamId`] = ""; });
+    await update(ref(db), updates);
+  }
+
+  async function autoAssignBalanced() {
+    if (!isHost || !modeTeams || teamsList.length === 0) return;
+    const sorted = players.slice().sort((a, b) => (a.joinedAt||0) - (b.joinedAt||0));
+    const updates = {};
+    sorted.forEach((p, idx) => {
+      const t = teamsList[idx % teamsList.length];
+      updates[`rooms/${code}/players/${p.uid}/teamId`] = t.id;
     });
     await update(ref(db), updates);
   }
 
-  async function movePlayer(uid, teamId){
-    if(!isHost) return;
+  async function movePlayerToTeam(uid, teamId) {
+    if (!isHost) return;
     await update(ref(db, `rooms/${code}/players/${uid}`), { teamId });
   }
 
-  async function start(){
-    if(!isHost) return;
-    await update(ref(db, `rooms/${code}/state`), {
-      phase: "playing", currentIndex: 0, revealed: false, lockUid: null, buzzBanner: "",
-      lastRevealAt: 0, pausedAt: null, elapsedAcc: 0
+  async function kick(uid) {
+    if (!isHost) return;
+    const player = players.find(p => p.uid === uid);
+    const ok = confirm(`Kicker ${player?.name || "ce joueur"} ?`);
+    if (!ok) return;
+    await remove(ref(db, `rooms/${code}/players/${uid}`));
+  }
+
+  async function startGame() {
+    if (!isHost) return;
+    // initialise state si besoin
+    await set(ref(db, `rooms/${code}/state`), {
+      phase: "playing",
+      currentIndex: 0,
+      revealed: false,
+      lockUid: null,
+      lastRevealAt: 0,
+      elapsedAcc: 0,
+      pausedAt: null,
+      lockedAt: null,
+      buzzBanner: ""
     });
     router.replace(`/game/${code}/host`);
   }
 
-  const grouped = useMemo(()=>{
-    const byTeam = { none: [] };
-    activeTeams.forEach(t=> byTeam[t.id] = []);
-    players.forEach(p=>{
-      const tid = p.teamId && byTeam[p.teamId] ? p.teamId : "none";
-      byTeam[tid].push(p);
-    });
-    return byTeam;
-  }, [players, activeTeams]);
+  // --- Rendus ---
+
+  const quizTitle = useMemo(() => {
+    const q = manifest.find(q => q.id === meta?.quizId);
+    return q?.title || (meta?.quizId?.replace(/-/g, " ") || "—");
+  }, [manifest, meta?.quizId]);
 
   return (
     <main className="p-6 max-w-5xl mx-auto space-y-6">
-      <h1 className="text-3xl font-black">Lobby — Room {code}</h1>
-
-      {/* Paramètres */}
-      <div className="card space-y-3">
-        <div className="flex flex-wrap gap-2 items-center">
-          <div><b>Mode :</b> {meta?.mode || "individuel"}</div>
-          {isHost && (
-            <div className="flex gap-2">
-              <button className={"btn " + (meta?.mode==="individuel"?"btn-accent":"")} onClick={()=>setMode("individuel")}>Individuel</button>
-              <button className={"btn " + (meta?.mode==="équipes"?"btn-accent":"")} onClick={()=>setMode("équipes")}>Équipes</button>
-            </div>
-          )}
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-3xl font-black">Lobby — {quizTitle}</h1>
+          <div className="text-sm opacity-70">Code: <b>{code}</b></div>
         </div>
 
-        {meta?.mode === "équipes" && (
-          <div className="flex flex-wrap items-center gap-3">
-            <div><b>Nombre d’équipes :</b> {teamCount || "—"}</div>
-            {isHost && (
+        {isHost ? (
+          <div className="flex gap-2">
+            <button className="btn" onClick={toggleInvite}>
+              {showInvite ? "Masquer l'invitation" : "Afficher l'invitation"}
+            </button>
+            <Link href={`/`} className="btn">Quitter</Link>
+          </div>
+        ) : (
+          <Link href={`/join?code=${code}`} className="btn">Inviter un ami</Link>
+        )}
+      </header>
+
+      {/* Bloc invitation (QR + partage) */}
+      {showInvite && (
+        <section className="card">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <Qr value={roomUrl} />
+            <div className="grow">
+              <div className="text-lg font-bold">Invite des joueurs</div>
+              <div className="mt-1 text-sm break-all">{roomUrl}</div>
+              <div className="mt-3 flex gap-2 flex-wrap">
+                <button className="btn btn-primary" onClick={shareRoom}>Partager</button>
+                <button className="btn" onClick={async ()=>{ await navigator.clipboard.writeText(roomUrl); alert("Lien copié !"); }}>Copier le lien</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Paramètres Host */}
+      <section className="grid md:grid-cols-3 gap-4">
+        <div className="card space-y-3">
+          <div className="font-bold">Mode de jeu</div>
+          <div className="flex gap-2">
+            <button className={`btn ${!modeTeams ? "btn-accent" : ""}`} onClick={()=>setMode("individuel")}>Individuel</button>
+            <button className={`btn ${modeTeams ? "btn-accent" : ""}`} onClick={()=>setMode("équipes")}>Équipes</button>
+          </div>
+
+          {modeTeams && (
+            <>
+              <div className="font-bold mt-2">Équipes (2 à 4)</div>
               <div className="flex gap-2">
                 {[2,3,4].map(n=>(
-                  <button key={n} className={"btn " + (teamCount===n?"btn-primary":"")} onClick={()=>applyTeamCount(n)}>{n}</button>
+                  <button key={n} className="btn" onClick={()=>createTeams(n)}>{n} équipes</button>
                 ))}
-                <button className="btn btn-accent" onClick={autoAssign}>Auto-répartir</button>
               </div>
-            )}
-          </div>
-        )}
 
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div><b>Quiz :</b> {meta?.quizId}</div>
-          {isHost && (
-            <select className="card" value={meta?.quizId||"general"} onChange={e=>update(ref(db, `rooms/${code}/meta`), { quizId: e.target.value })}>
-              {quizList.map(q=> <option key={q.id} value={q.id}>{q.title}</option>)}
-            </select>
+              {teamsList.length > 0 && (
+                <>
+                  <div className="font-bold">Équilibrage</div>
+                  <button className="btn" onClick={autoAssignBalanced}>Auto-assigner (équilibré)</button>
+                </>
+              )}
+            </>
           )}
         </div>
-      </div>
 
-      {/* Grilles équipes */}
-      {meta?.mode === "équipes" ? (
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {activeTeams.map(team=>(
-            <div key={team.id} className="card">
-              <div className="rounded-xl border-4 border-black px-3 py-2 mb-3"
-                   style={{backgroundColor: team.color}}>
-                <div className="font-black">🏳️ {team.name}</div>
-                <div className="text-sm">Score: <b>{team.score||0}</b></div>
-              </div>
-              <ul className="space-y-2">
-                {grouped[team.id].map(p=>(
-                  <li key={p.uid} className="card flex items-center justify-between gap-2">
-                    <span>{p.name}</span>
-                    {isHost && (
+        <div className="card space-y-3">
+          <div className="font-bold">Quiz</div>
+          <select
+            className="card w-full"
+            value={meta?.quizId || ""}
+            onChange={(e)=>setQuiz(e.target.value)}
+          >
+            <option value="" disabled>— Choisir —</option>
+            {manifest.map(q => (
+              <option key={q.id} value={q.id}>{q.title}</option>
+            ))}
+          </select>
+
+          <div className="text-sm opacity-70">
+            Sélectionne un quiz dans la liste. Tu peux en ajouter dans <code>/public/data</code> puis mettre à jour <code>manifest.json</code>.
+          </div>
+        </div>
+
+        <div className="card space-y-3">
+          <div className="font-bold">Actions</div>
+          <button className="btn btn-primary w-full" disabled={!isHost || !meta?.quizId} onClick={startGame}>
+            Démarrer la partie
+          </button>
+          <Link href={`/`} className="btn w-full">Retour accueil</Link>
+        </div>
+      </section>
+
+      {/* Liste joueurs (kick & attribution d'équipe) */}
+      <section className="card">
+        <div className="font-bold mb-3">Joueurs ({players.length})</div>
+        {players.length === 0 ? (
+          <div className="opacity-70">En attente de joueurs…</div>
+        ) : (
+          <ul className="grid md:grid-cols-2 gap-2">
+            {players.map(p => {
+              const team = p.teamId && teams[p.teamId] ? teams[p.teamId] : null;
+              return (
+                <li key={p.uid} className="card flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    {team ? (
+                      <span className="px-2 py-0.5 rounded-xl border-2 border-black text-xs" style={{ backgroundColor: team.color }}>
+                        {team.name}
+                      </span>
+                    ) : modeTeams ? (
+                      <span className="px-2 py-0.5 rounded-xl border-2 border-dashed text-xs">—</span>
+                    ) : null}
+                    <span className="font-bold">{p.name}</span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    {modeTeams && teamsList.length > 0 && (
                       <select
                         className="card"
                         value={p.teamId || ""}
-                        onChange={(e)=>movePlayer(p.uid, e.target.value)}
+                        onChange={(e)=>movePlayerToTeam(p.uid, e.target.value)}
                       >
-                        {activeTeams.map(t=> <option key={t.id} value={t.id}>{t.name}</option>)}
-                        <option value="">Sans équipe</option>
+                        <option value="">—</option>
+                        {teamsList.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                       </select>
                     )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          {/* Sans équipe */}
-          <div className="card">
-            <div className="rounded-xl border-4 border-black px-3 py-2 mb-3 bg-gray-200">
-              <div className="font-black">👤 Sans équipe</div>
-            </div>
-            <ul className="space-y-2">
-              {grouped.none.map(p=>(
-                <li key={p.uid} className="card flex items-center justify-between gap-2">
-                  <span>{p.name}</span>
-                  {isHost && (
-                    <select
-                      className="card"
-                      value={p.teamId || ""}
-                      onChange={(e)=>movePlayer(p.uid, e.target.value)}
-                    >
-                      <option value="">Sans équipe</option>
-                      {activeTeams.map(t=> <option key={t.id} value={t.id}>{t.name}</option>)}
-                    </select>
-                  )}
+                    {isHost && (
+                      <button className="btn" onClick={()=>kick(p.uid)}>Kicker</button>
+                    )}
+                  </div>
                 </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ) : (
-        // Mode individuel: liste plate
-        <div className="card">
-          <b>Joueurs ({players.length})</b>
-          <ul className="mt-2 grid grid-cols-2 gap-2">
-            {players.map(p=> <li key={p.uid} className="card">{p.name}</li>)}
+              );
+            })}
           </ul>
-        </div>
-      )}
+        )}
+      </section>
 
-      {isHost && <button className="btn btn-primary w-full" onClick={start}>Démarrer la partie</button>}
+      <footer className="text-center text-xs opacity-60">
+        <div>Room <b>{code}</b> — {isHost ? "Vous êtes l'animateur" : "Vous êtes joueur"}</div>
+        <div className="mt-1">
+          {isHost ? <Link className="underline" href={`/game/${code}/host`}>Aller à l'écran animateur</Link> : <Link className="underline" href={`/game/${code}/play`}>Aller à l'écran joueur</Link>}
+        </div>
+      </footer>
     </main>
   );
 }
