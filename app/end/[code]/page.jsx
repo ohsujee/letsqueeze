@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import { db, ref, onValue } from "@/lib/firebase";
 
 function rankWithTies(items, scoreKey = "score") {
@@ -31,7 +32,6 @@ export default function EndPage(){
     return ()=>{u1();u2();};
   },[code]);
 
-  // Charger le titre du quiz pour l'entête
   useEffect(()=>{
     if (meta?.quizId) {
       fetch(`/data/${meta.quizId}.json`)
@@ -122,6 +122,11 @@ export default function EndPage(){
           </ul>
         </div>
       </section>
+
+      {/* Nouveau : retour au lobby pour enchaîner */}
+      <div className="flex justify-center">
+        <Link href={`/room/${code}`} className="btn btn-primary">Retour au lobby</Link>
+      </div>
     </main>
   );
 }
