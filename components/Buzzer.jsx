@@ -1,23 +1,29 @@
 "use client";
 export default function Buzzer({ onBuzz, disabled }) {
+  const enabled = !disabled;
   return (
     <>
-      {/* Espace de sécurité pour éviter la superposition sur le contenu */}
-      <div className="h-28" aria-hidden="true" />
+      {/* Espace de sécurité pour ne pas recouvrir le contenu */}
+      <div className="h-36" aria-hidden="true" />
       <div
-        className="fixed left-1/2 -translate-x-1/2 bottom-4 z-40"
-        style={{ pointerEvents: disabled ? "none" : "auto" }}
+        className="fixed left-1/2 -translate-x-1/2 bottom-6 z-40"
+        style={{ pointerEvents: enabled ? "auto" : "none" }}
       >
         <button
           onClick={onBuzz}
-          disabled={disabled}
-          aria-disabled={disabled}
-          className={`select-none rounded-full border-4 border-black font-extrabold text-3xl px-10 py-8 shadow-lg
-            ${disabled ? "opacity-50 grayscale cursor-not-allowed" : "bg-pink-500 active:scale-95"}
-            text-white`}
-          style={{
-            textShadow: "0 2px 0 rgba(0,0,0,.35)"
-          }}
+          disabled={!enabled}
+          aria-disabled={!enabled}
+          className={[
+            "select-none rounded-full border-8 border-black font-extrabold",
+            "flex items-center justify-center",
+            "w-48 h-48 md:w-56 md:h-56",       // ++ taille
+            "text-3xl md:text-4xl",
+            "shadow-lg transition-colors duration-150 ease-out",
+            enabled
+              ? "bg-gray-200 text-black hover:bg-red-600 hover:text-white active:bg-red-700 active:text-white"
+              : "bg-gray-200 text-black opacity-50 grayscale cursor-not-allowed"
+          ].join(" ")}
+          style={{ textShadow: enabled ? "0 2px 0 rgba(0,0,0,.25)" : "none" }}
         >
           BUZZ
         </button>
