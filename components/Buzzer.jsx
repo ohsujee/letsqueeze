@@ -4,50 +4,43 @@ import { useEffect, useMemo, useState } from 'react';
 import { ref, onValue, update, serverTimestamp } from 'firebase/database';
 import { db } from '@/lib/firebase';
 
-type Props = {
-  roomCode: string;
-  playerUid: string;
-};
-
-type RoomState = {
-  phase?: 'lobby' | 'playing' | 'end';
-  lockedBy?: string | null;
-  canBuzz?: boolean;
-};
-
-export default function BuzzerButton({ roomCode, playerUid }: Props) {
-  const [state, setState] = useState<RoomState>({});
+export default function Buzzer({ roomCode, playerUid }) {
+  const [state, setState] = useState({});
 
   useEffect(() => {
-    const unsub = onValue(ref(db, `rooms/${roomCode}/state`), (snap) => {
-      setState((snap.val() || {}) as RoomState);
+    if (!roomCode) return;
+    const code = String(roomCode).toUpperCase();
+    const unsub = onValue(ref(db, `rooms/${code}/state`), (snap) => {
+      setState(snap.val() || {});
     });
     return () => unsub();
   }, [roomCode]);
 
   const armed = useMemo(() => {
-    return !!state.canBuzz && (!state.lockedBy || state.lockedBy === '');
-  }, [state.canBuzz, state.lockedBy]);
+    const canBuzz = !!state?.canBuzz;
+    const lockedBy = state?.lockedBy ?? '';
+    return canBuzz && (!lockedBy || lockedBy === '');
+  }, [state]);
 
-  const isDisabled = !armed || state.phase !== 'playing';
+  const isDisabled = !armed || state?.phase !== 'playing';
 
   const handleBuzz = async () => {
     if (isDisabled) return;
-    await update(ref(db, `rooms/${roomCode}/state`), {
-      lockedBy: playerUid,
-      buzz: { uid: playerUid, at: serverTimestamp() },
-    });
-    // Optionnel: petit retour haptique (safe si non supporté)
+    const code = String(roomCode).toUpperCase();
     try {
-      (navigator as any)?.vibrate?.(15);
-    } catch {}
+      await update(ref(db, `rooms/${code}/state`), {
+        lockedBy: playerUid,
+        buzz: { uid: playerUid, at: serverTimestamp() },
+      });
+      // retour haptique léger (si dispo)
+      try { navigator?.vibrate?.(15); } catch {}
+    } catch (e) {
+      // no-op: on ne casse rien si la write échoue
+    }
   };
 
-  // Placement “pouce-friendly” :
-  // - Sur mobile: bouton très gros, légèrement AU-DESSUS du bas (12vh min),
-  //   + marge safe-area iOS si présente.
-  // - Sur desktop: plus raisonnable mais visible.
-  const bottomStyle: React.CSSProperties = {
+  // Placement pouce-friendly : un peu au-dessus du bas, en respectant la safe-area iOS
+  const bottomStyle = {
     bottom: 'max(12vh, calc(env(safe-area-inset-bottom, 0px) + 56px))',
   };
 
@@ -59,21 +52,18 @@ export default function BuzzerButton({ roomCode, playerUid }: Props) {
       <button
         onClick={handleBuzz}
         disabled={isDisabled}
-        // Gros bouton rond, ring épais, ombre marquée, transition douce.
         className={[
           'pointer-events-auto select-none rounded-full font-extrabold',
           'shadow-2xl focus:outline-none focus-visible:ring-8',
           'transition-all duration-200 ease-out active:scale-95',
-          // Tailles : très grand sur mobile, un peu plus raisonnable sur md+
+          // tailles : très grand sur mobile, un peu moins sur md+
           'w-[18rem] h-[18rem] text-3xl md:w-[16rem] md:h-[16rem] md:text-3xl',
-          // États visuels
           isDisabled
             ? 'bg-gray-200 text-black ring-8 ring-gray-300'
             : 'bg-red-600 text-white ring-[12px] ring-red-300 animate-pulse',
         ].join(' ')}
         aria-label="Buzzer"
         aria-live="polite"
-        // Évite le délai 300ms sur mobile + améliore le tap
         style={{ touchAction: 'manipulation' }}
       >
         {isDisabled ? 'En attente…' : 'BUZZ !'}
