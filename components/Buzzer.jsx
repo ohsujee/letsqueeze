@@ -9,8 +9,10 @@ import { db } from '@/lib/firebase';
  * - roomCode: string
  * - playerUid: string
  * - playerName: string
+ * - blockedUntil: number (timestamp)
+ * - serverNow: number (timestamp)
  */
-export default function Buzzer({ roomCode, playerUid, playerName }) {
+export default function Buzzer({ roomCode, playerUid, playerName, blockedUntil = 0, serverNow = Date.now() }) {
   const [state, setState] = useState({});
 
   // 1) Écouter l'état de la room
@@ -23,7 +25,12 @@ export default function Buzzer({ roomCode, playerUid, playerName }) {
     return () => unsub();
   }, [roomCode]);
 
-  // 2) Déterminer si le buzzer est "armé"
+  // 2) Vérifier si le joueur est en pénalité
+  const isBlocked = useMemo(() => {
+    return blockedUntil > serverNow;
+  }, [blockedUntil, serverNow]);
+
+  // 3) Déterminer si le buzzer est "armé"
   const armed = useMemo(() => {
     const s = state || {};
 
@@ -48,16 +55,16 @@ export default function Buzzer({ roomCode, playerUid, playerName }) {
     // Phase de jeu
     const phaseSignal = s.phase === 'question' || s.phase === 'playing';
 
-    // Buzzer armé si révélé ET pas déjà locké
-    return !locked && (canBuzzSignal || revealedSignal || phaseSignal);
-  }, [state]);
+    // Buzzer armé si révélé ET pas déjà locké ET pas en pénalité
+    return !locked && !isBlocked && (canBuzzSignal || revealedSignal || phaseSignal);
+  }, [state, isBlocked]);
 
   // Disabled si pas armé OU si on n'a pas les infos minimales
   const isDisabled = !armed || !roomCode || !playerUid;
 
-  // 3) Clic buzzer : tentative de lock avec transaction atomique
+  // 4) Clic buzzer : tentative de lock avec transaction atomique
   const handleBuzz = async () => {
-    if (isDisabled) return;
+    if (isDisabled || isBlocked) return;
     const code = String(roomCode).toUpperCase();
 
     try {
@@ -92,8 +99,14 @@ export default function Buzzer({ roomCode, playerUid, playerName }) {
     }
   };
 
-  const ready = !isDisabled;
-  const label = ready ? 'BUZZ !' : 'En attente…';
+  const ready = !isDisabled && !isBlocked;
+  const blockedSeconds = Math.ceil((blockedUntil - serverNow) / 1000);
+  
+  const label = isBlocked 
+    ? `Pénalité ${blockedSeconds}s`
+    : ready 
+      ? 'BUZZ !' 
+      : 'En attente…';
 
   return (
     <>
@@ -104,18 +117,20 @@ export default function Buzzer({ roomCode, playerUid, playerName }) {
         <div className="flex items-center justify-center pb-[env(safe-area-inset-bottom)] pt-2">
           <button
             onClick={handleBuzz}
-            disabled={isDisabled}
-            aria-disabled={isDisabled}
+            disabled={isDisabled || isBlocked}
+            aria-disabled={isDisabled || isBlocked}
             aria-label={label}
             className={[
               'transition-all duration-150 ease-out',
               'h-28 w-28 rounded-full shadow-lg',
               'text-lg font-extrabold tracking-wide',
               'border-4',
-              ready
-                ? 'bg-red-600 hover:bg-red-700 active:scale-95 text-white border-red-700'
-                : 'bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed',
-              ready ? 'animate-pulse' : ''
+              isBlocked
+                ? 'bg-orange-400 text-white border-orange-600'
+                : ready
+                  ? 'bg-red-600 hover:bg-red-700 active:scale-95 text-white border-red-700'
+                  : 'bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed',
+              ready && !isBlocked ? 'animate-pulse' : ''
             ].join(' ')}
           >
             {label}
