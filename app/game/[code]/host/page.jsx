@@ -70,7 +70,7 @@ export default function HostGame(){
   },[state?.revealed, state?.lastRevealAt, state?.elapsedAcc, state?.pausedAt, state?.lockedAt, serverNow]);
 
   const { pointsEnJeu, ratioRemain, cfg } = useMemo(()=>{
-    if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 0, cfg: null };
+    if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 1, cfg: null };
     const diff = q.difficulty === "difficile" ? "difficile" : "normal";
     const c = conf[diff];
     const ratio = Math.max(0, 1 - (elapsedEffective / c.durationMs));
@@ -167,6 +167,20 @@ export default function HostGame(){
     const updates = {};
     const until = serverNow + ms;
     
+    // Gestion buzz anticipé : malus -100 pts
+    const wasAnticipated = state?.buzz?.anticipated === true;
+    if (wasAnticipated) {
+      await runTransaction(ref(db,`rooms/${code}/players/${uid}/score`),(cur)=> (cur||0)-100);
+      
+      if (meta?.mode === "équipes") {
+        const player = players.find(p=>p.uid===uid);
+        const teamId = player?.teamId;
+        if (teamId) {
+          await runTransaction(ref(db,`rooms/${code}/meta/teams/${teamId}/score`),(cur)=> (cur||0)-100);
+        }
+      }
+    }
+    
     // Appliquer la pénalité
     if (meta?.mode === "équipes") {
       // Mode équipes : bloquer toute l'équipe
@@ -212,6 +226,7 @@ export default function HostGame(){
   async function end(){ if(isHost){ await update(ref(db,`rooms/${code}/state`), { phase:"ended" }); router.replace(`/end/${code}`); } }
 
   const lockedName = state?.lockUid ? (players.find(p=>p.uid===state.lockUid)?.name || state.lockUid) : "—";
+  const wasAnticipated = state?.buzz?.anticipated === true;
   const teamsArray = useMemo(()=>{
     const t = meta?.teams || {}; return Object.keys(t).map(k=>({ id:k, ...t[k]}));
   }, [meta?.teams]);
@@ -225,13 +240,14 @@ export default function HostGame(){
       <div className="card">
         <div className="flex gap-2 flex-wrap">
           <button className="btn" onClick={resetBuzzers}>Reset buzzers</button>
-          <button className="btn" onClick={wrong}>✘ Mauvaise</button>
+          <button className="btn" onClick={wrong}>✘ Mauvaise{wasAnticipated ? ' (-100pts)' : ''}</button>
           <button className="btn btn-accent" onClick={validate}>✔ Valider</button>
           <button className="btn" onClick={skip}>⏭ Passer</button>
           <button className="btn" onClick={end}>Terminer</button>
         </div>
         <div className="mt-3 card banner">
           <b>Buzz :</b> {state?.buzzBanner || "— en attente —"}
+          {wasAnticipated && <span className="ml-2 text-red-600 font-black">(ANTICIPÉ)</span>}
         </div>
       </div>
 
@@ -249,7 +265,10 @@ export default function HostGame(){
           </div>
 
           <div className="flex items-center gap-4">
-            <PointsRing value={state?.revealed ? ratioRemain : 0} points={state?.revealed ? pointsEnJeu : 0} />
+            <PointsRing 
+              value={ratioRemain} 
+              points={pointsEnJeu} 
+            />
             <div className="text-sm opacity-80">
               {cfg ? <>De <b>{cfg.start}</b> à <b>{cfg.floor}</b> en <b>{cfg.durationMs/1000}s</b>.</> : "Chargement…"}
             </div>
