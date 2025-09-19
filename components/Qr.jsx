@@ -1,14 +1,40 @@
 "use client";
 
 export default function Qr({ text, size = 256, className = "" }) {
-  // Vérification et fallback
-  const safeText = text || "https://example.com";
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(safeText)}`;
-
-  // Debug en développement
-  if (process.env.NODE_ENV === 'development' && !text) {
-    console.warn('Qr component: text prop is undefined');
+  // Ne pas utiliser de fallback vers example.com
+  if (!text) {
+    return (
+      <div className={`qr-container ${className}`}>
+        <div style={{ 
+          width: size, 
+          height: size, 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          background: '#f3f4f6',
+          border: '2px dashed #9ca3af',
+          borderRadius: 'var(--radius-lg)'
+        }}>
+          <span style={{ color: '#6b7280', fontSize: '14px' }}>Chargement...</span>
+        </div>
+        
+        <style jsx>{`
+          .qr-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background: #F8FAFC;
+            border-radius: var(--radius-lg);
+            border: 3px solid var(--retro-blue);
+            box-shadow: var(--shadow-medium);
+          }
+        `}</style>
+      </div>
+    );
   }
+
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(text)}`;
 
   return (
     <div className={`qr-container ${className}`}>
@@ -24,17 +50,9 @@ export default function Qr({ text, size = 256, className = "" }) {
         }} 
       />
       
-      {/* Affichage debug en dev */}
-      {process.env.NODE_ENV === 'development' && (
-        <div style={{ fontSize: '10px', marginTop: '4px', opacity: 0.7 }}>
-          {text ? text.substring(0, 50) + '...' : 'URL undefined'}
-        </div>
-      )}
-      
       <style jsx>{`
         .qr-container {
           display: flex;
-          flex-direction: column;
           justify-content: center;
           align-items: center;
           padding: 1rem;
