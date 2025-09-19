@@ -91,22 +91,24 @@ export default function HostGame(){
     }
   },[state?.revealed, state?.lastRevealAt, playReveal]);
 
-  // *** HOST RÉAGIT AU NOUVEAU LOCK → FIGE TIMER + BANNIÈRE ***
+  // *** HOST RÉAGIT AU NOUVEAU LOCK → FIGE TIMER AUTOMATIQUEMENT ***
   useEffect(()=>{
     if (!isHost) return;
     const cur = state?.lockUid || null;
     if (cur && cur !== prevLock.current) {
       const name = players.find(p=>p.uid===cur)?.name || "Un joueur";
-      // on fige côté Host (droits garantis) et on pose la bannière
+      
+      // Figer automatiquement le timer et mettre à jour la bannière
       update(ref(db,`rooms/${code}/state`), {
         pausedAt: serverTimestamp(),
         lockedAt: serverTimestamp(),
         buzzBanner: `🔔 ${name} a buzzé !`
       }).catch(()=>{});
+      
       playBuzz();
     }
     prevLock.current = cur;
-  },[isHost, state?.lockUid, code, players, playBuzz]);
+  },[isHost, state?.lockUid, code, players, playBuzz, serverNow]);
 
   function computeResumeFields(){
     const already = (state?.elapsedAcc || 0)
