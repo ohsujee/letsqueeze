@@ -78,7 +78,7 @@ export default function PlayerGame(){
   }, [revealed, state?.lastRevealAt, state?.elapsedAcc, state?.pausedAt, state?.lockedAt, serverNow]);
 
   const { pointsEnJeu, ratioRemain, cfg } = useMemo(()=>{
-    if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 0, cfg: null };
+    if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 1, cfg: null };
     const diff = q.difficulty === "difficile" ? "difficile" : "normal";
     const c = conf[diff];
     const ratio = Math.max(0, 1 - (elapsedEffective / c.durationMs));
@@ -115,7 +115,7 @@ export default function PlayerGame(){
 
   return (
     <main className="p-6 max-w-xl mx-auto space-y-4">
-      <h1 className="text-2xl font-black">Player — {title}</h1>
+      <h1 className="text-2xl font-black">{title}</h1>
 
       {myTeam && (
         <div className="card" style={{ backgroundColor: myTeam.color }}>
@@ -136,7 +136,10 @@ export default function PlayerGame(){
             {revealed ? <div className="mb-3">{q.question}</div> : <div className="mb-3 opacity-60">En attente de révélation…</div>}
 
             <div className="flex items-center gap-4">
-              <PointsRing value={revealed ? ratioRemain : 0} points={revealed ? pointsEnJeu : 0} />
+              <PointsRing 
+                value={ratioRemain} 
+                points={pointsEnJeu} 
+              />
               {cfg && <div className="text-sm opacity-80">De <b>{cfg.start}</b> à <b>{cfg.floor}</b> en <b>{cfg.durationMs/1000}s</b>{paused && <span className="ml-1">⏸︎</span>}</div>}
             </div>
           </>
@@ -172,13 +175,8 @@ export default function PlayerGame(){
         playerName={me?.name}
         blockedUntil={me?.blockedUntil || 0}
         serverNow={serverNow}
+        revealed={revealed}
       />
-      
-      {blocked && (
-        <div className="card" style={{ background: "rgba(251,146,60,.2)", border: "2px solid rgb(251,146,60)" }}>
-          ⏳ Pénalité {Math.ceil(blockedMs/1000)}s après mauvaise réponse
-        </div>
-      )}
     </main>
   );
 }
