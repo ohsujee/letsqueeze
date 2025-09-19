@@ -4,15 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { ref, onValue, update, runTransaction, serverTimestamp } from 'firebase/database';
 import { db } from '@/lib/firebase';
 
-/**
- * Props:
- * - roomCode: string
- * - playerUid: string
- * - playerName: string
- * - blockedUntil: number (timestamp)
- * - serverNow: number (timestamp)
- * - revealed: boolean (si la question est révélée)
- */
 export default function Buzzer({ 
   roomCode, 
   playerUid, 
@@ -37,22 +28,17 @@ export default function Buzzer({
   const buzzerState = useMemo(() => {
     const s = state || {};
     
-    // Vérifier si en pénalité
     const isBlocked = blockedUntil > serverNow;
     const blockedSeconds = Math.ceil((blockedUntil - serverNow) / 1000);
-    
-    // Vérifier si quelqu'un a déjà buzzé
     const isLocked = s.lockUid != null && s.lockUid !== '';
     const isMyBuzz = s.lockUid === playerUid;
     
-    // États possibles du buzzer
     if (isBlocked) {
       return {
         type: 'penalty',
         label: `${blockedSeconds}s`,
         sublabel: 'PÉNALITÉ',
-        disabled: true,
-        className: 'buzzer-penalty'
+        disabled: true
       };
     }
     
@@ -61,8 +47,7 @@ export default function Buzzer({
         type: 'success',
         label: '✓',
         sublabel: 'BUZZÉ !',
-        disabled: true,
-        className: 'buzzer-success'
+        disabled: true
       };
     }
     
@@ -71,30 +56,25 @@ export default function Buzzer({
         type: 'blocked',
         label: '⏸',
         sublabel: 'BLOQUÉ',
-        disabled: true,
-        className: 'buzzer-blocked'
+        disabled: true
       };
     }
     
-    // Buzzer peut être utilisé (révélé OU buzz anticipé autorisé)
-    if (revealed || true) { // On autorise toujours le buzz anticipé
+    if (revealed || true) {
       return {
         type: 'active',
         label: revealed ? 'BUZZ' : '⚡',
         sublabel: revealed ? '!' : 'ANTICIPÉ',
         disabled: false,
-        className: 'buzzer-active',
         isAnticipated: !revealed
       };
     }
     
-    // Inactif (ne devrait jamais arriver avec buzz anticipé)
     return {
       type: 'inactive',
       label: '🔒',
       sublabel: 'ATTENTE',
-      disabled: true,
-      className: 'buzzer-inactive'
+      disabled: true
     };
   }, [state, blockedUntil, serverNow, playerUid, revealed]);
 
@@ -105,22 +85,16 @@ export default function Buzzer({
     const code = String(roomCode).toUpperCase();
 
     try {
-      // Transaction atomique pour prendre le lock
       const lockRef = ref(db, `rooms/${code}/state/lockUid`);
       const result = await runTransaction(lockRef, (currentValue) => {
-        // Si pas de lock actuel, on prend le lock
         if (currentValue === null || currentValue === undefined) {
           return playerUid;
         }
-        // Sinon on garde l'existant
         return currentValue;
       });
 
-      // Si on a réussi à prendre le lock
       if (result.committed && result.snapshot.val() === playerUid) {
         const updates = {};
-        
-        // Marquer si c'est un buzz anticipé (avant révélation)
         const isAnticipatedBuzz = !revealed;
         
         updates[`rooms/${code}/state/buzzBanner`] = `🔔 ${playerName || 'Un joueur'} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`;
@@ -132,7 +106,6 @@ export default function Buzzer({
         
         await update(ref(db), updates);
         
-        // Feedback haptique
         try {
           navigator?.vibrate?.([100, 50, 200]);
         } catch {}
@@ -145,77 +118,65 @@ export default function Buzzer({
   return (
     <>
       {/* Spacer pour éviter que le contenu soit masqué */}
-      <div className="h-20" />
+      <div style={{ height: '100px' }} />
 
-      {/* Container du buzzer */}
-      <div className="buzzer-container">
-        <button
-          onClick={handleBuzz}
-          disabled={buzzerState.disabled}
-          className={`buzzer ${buzzerState.className}`}
-          aria-label={`${buzzerState.label} ${buzzerState.sublabel}`}
-        >
-          {/* Label principal */}
-          <div className="buzzer-main">
-            {buzzerState.label}
-          </div>
-          
-          {/* Sous-label */}
-          <div className="buzzer-sub">
-            {buzzerState.sublabel}
-          </div>
-        </button>
-      </div>
+      {/* Buzzer flottant en bas */}
+      <button
+        onClick={handleBuzz}
+        disabled={buzzerState.disabled}
+        className={`buzzer-floating buzzer-${buzzerState.type}`}
+        aria-label={`${buzzerState.label} ${buzzerState.sublabel}`}
+      >
+        <div className="buzzer-main">
+          {buzzerState.label}
+        </div>
+        <div className="buzzer-sub">
+          {buzzerState.sublabel}
+        </div>
+      </button>
       
-      {/* Styles CSS-in-JS pour le gros rond */}
       <style jsx>{`
-        .buzzer-container {
-          position: sticky;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          z-index: 40;
-          padding: 1rem;
-          padding-bottom: calc(1rem + env(safe-area-inset-bottom));
-          background: rgba(15, 23, 42, 0.98);
-          backdrop-filter: blur(12px);
-          border-top: 3px solid #06B6D4;
-          display: flex;
-          justify-content: center;
-          box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .buzzer {
-          width: 140px;
-          height: 140px;
+        .buzzer-floating {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 1000;
+          
+          width: 160px;
+          height: 160px;
           border: none;
           border-radius: 50%;
-          font-weight: 800;
-          cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          position: relative;
-          overflow: hidden;
+          
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-          border: 4px solid transparent;
+          
+          font-family: inherit;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          
+          box-shadow: 
+            0 12px 40px rgba(0, 0, 0, 0.6),
+            0 0 0 4px rgba(255, 255, 255, 0.1);
+          
+          border: 5px solid transparent;
         }
         
         .buzzer-main {
-          font-size: 2rem;
+          font-size: 2.5rem;
           font-weight: 900;
           line-height: 1;
           margin-bottom: 0.25rem;
         }
         
         .buzzer-sub {
-          font-size: 0.75rem;
+          font-size: 0.8rem;
           font-weight: 700;
-          letter-spacing: 1px;
+          letter-spacing: 1.5px;
           text-transform: uppercase;
-          opacity: 0.9;
+          opacity: 0.95;
         }
         
         /* États du buzzer */
@@ -231,9 +192,6 @@ export default function Buzzer({
           color: white;
           border-color: #B91C1C;
           animation: buzz-pulse 2s infinite ease-in-out;
-          box-shadow: 
-            0 8px 25px rgba(0, 0, 0, 0.4),
-            0 0 40px rgba(239, 68, 68, 0.5);
         }
         
         .buzzer-success {
@@ -241,8 +199,8 @@ export default function Buzzer({
           color: white;
           border-color: #047857;
           box-shadow: 
-            0 8px 25px rgba(0, 0, 0, 0.4),
-            0 0 40px rgba(16, 185, 129, 0.5);
+            0 12px 40px rgba(0, 0, 0, 0.6),
+            0 0 50px rgba(16, 185, 129, 0.4);
         }
         
         .buzzer-blocked {
@@ -260,38 +218,36 @@ export default function Buzzer({
           animation: penalty-flash 1.5s infinite ease-in-out;
         }
         
-        /* Effets hover et active */
+        /* Interactions */
         .buzzer-active:hover {
-          transform: scale(1.05);
+          transform: translateX(-50%) scale(1.05);
           box-shadow: 
-            0 12px 30px rgba(0, 0, 0, 0.5),
-            0 0 50px rgba(239, 68, 68, 0.7);
+            0 16px 50px rgba(0, 0, 0, 0.7),
+            0 0 60px rgba(239, 68, 68, 0.6);
         }
         
         .buzzer-active:active {
-          transform: scale(0.95);
+          transform: translateX(-50%) scale(0.95);
           box-shadow: 
-            0 4px 15px rgba(0, 0, 0, 0.4),
-            0 0 30px rgba(239, 68, 68, 0.4);
+            0 8px 30px rgba(0, 0, 0, 0.5),
+            0 0 40px rgba(239, 68, 68, 0.4);
         }
         
-        .buzzer:disabled {
-          transform: none !important;
+        .buzzer-floating:disabled {
+          transform: translateX(-50%) !important;
         }
         
         /* Animations */
         @keyframes buzz-pulse {
           0%, 100% {
-            transform: scale(1);
             box-shadow: 
-              0 8px 25px rgba(0, 0, 0, 0.4),
-              0 0 40px rgba(239, 68, 68, 0.5);
+              0 12px 40px rgba(0, 0, 0, 0.6),
+              0 0 50px rgba(239, 68, 68, 0.4);
           }
           50% {
-            transform: scale(1.03);
             box-shadow: 
-              0 12px 30px rgba(0, 0, 0, 0.5),
-              0 0 50px rgba(239, 68, 68, 0.7);
+              0 16px 50px rgba(0, 0, 0, 0.7),
+              0 0 70px rgba(239, 68, 68, 0.6);
           }
         }
         
@@ -308,31 +264,40 @@ export default function Buzzer({
         
         /* Responsive */
         @media (max-width: 640px) {
-          .buzzer {
-            width: 120px;
-            height: 120px;
+          .buzzer-floating {
+            width: 140px;
+            height: 140px;
+            bottom: 15px;
           }
           
           .buzzer-main {
-            font-size: 1.75rem;
+            font-size: 2rem;
           }
           
           .buzzer-sub {
-            font-size: 0.625rem;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+          }
+        }
+        
+        /* Safe area pour les téléphones avec encoche */
+        @supports (padding: max(0px)) {
+          .buzzer-floating {
+            bottom: max(20px, env(safe-area-inset-bottom) + 10px);
           }
         }
         
         /* Accessibilité */
-        .buzzer:focus-visible {
+        .buzzer-floating:focus-visible {
           outline: 4px solid #06B6D4;
-          outline-offset: 4px;
+          outline-offset: 6px;
         }
         
-        /* Préférence de mouvement réduit */
+        /* Mouvement réduit */
         @media (prefers-reduced-motion: reduce) {
-          .buzzer {
+          .buzzer-floating {
             animation: none !important;
-            transition: none !important;
+            transition: transform 0.2s ease !important;
           }
         }
       `}</style>
