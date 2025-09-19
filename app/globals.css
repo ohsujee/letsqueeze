@@ -1,123 +1,395 @@
-/* Studio TV Glossy — base theme */
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================
+   🎮 LET'S QUEEEZE - POLYGON GAME SHOW THEME
+   =========================================== */
 
 :root {
-  --bg-start: #0B1220;
-  --bg-end:   #05080F;
-  --text:     #E5E7EB;
-
-  --card:   rgba(15, 23, 42, 0.55);
-  --border: #1f2a44;
-
-  --primary-from: #2563EB; /* électrique */
-  --primary-to:   #9333EA; /* violet studio */
-
-  --accent-from:  #FBBF24; /* amber glossy */
-  --accent-to:    #FB7185; /* rose */
-
-  --ring:   #22D3EE;       /* cyan TV ring */
-  --ring-bg:#111827;       /* bg ring track */
-
-  --shadow-soft: 0 10px 30px rgba(0,0,0,0.35);
-  --glow-soft:   0 0 30px rgba(37,99,235,0.25);
-  --glow-hard:   0 0 70px rgba(147,51,234,0.35);
+  /* Backgrounds */
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-tertiary: #0f172a;
+  
+  /* Polygon Colors */
+  --polygon-blue: #2563eb;
+  --polygon-purple: #7c3aed;
+  --polygon-cyan: #06b6d4;
+  --polygon-yellow: #fbbf24;
+  --polygon-green: #10b981;
+  --polygon-red: #ef4444;
+  --polygon-orange: #f97316;
+  
+  /* Borders & Shadows */
+  --border-thick: 4px;
+  --border-mega: 6px;
+  --shadow-polygon: 0 6px 0 rgba(0,0,0,0.3);
+  --shadow-polygon-hover: 0 8px 0 rgba(0,0,0,0.4);
 }
 
+/* Base styling */
 html, body {
-  min-height: 100%;
-  color: var(--text);
-  background:
-    radial-gradient(1200px 600px at 50% -10%, #0F1A2F 0%, var(--bg-start) 35%, var(--bg-end) 100%);
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* Glass cards */
+/* ===========================================
+   🔷 POLYGON BASE COMPONENTS
+   =========================================== */
+
+.polygon-element {
+  position: relative;
+  clip-path: polygon(
+    12px 0, 
+    100% 0, 
+    100% calc(100% - 12px), 
+    calc(100% - 12px) 100%, 
+    0 100%, 
+    0 12px
+  );
+  transition: all 0.2s ease;
+}
+
+.polygon-element::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: -3px;
+  bottom: -3px;
+  background: rgba(0,0,0,0.2);
+  z-index: -1;
+  clip-path: inherit;
+  border-radius: inherit;
+}
+
+/* ===========================================
+   🎯 CARDS & CONTAINERS
+   =========================================== */
+
 .card {
-  backdrop-filter: blur(8px);
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
+  background: var(--bg-secondary);
+  border: var(--border-thick) solid var(--polygon-blue);
   padding: 1rem;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-polygon);
+  @apply polygon-element;
 }
 
-/* Buttons */
+.card:hover {
+  box-shadow: var(--shadow-polygon-hover);
+  transform: translateY(-1px);
+}
+
+.banner {
+  background: linear-gradient(135deg, var(--polygon-yellow), var(--polygon-orange));
+  border-color: var(--polygon-orange);
+  color: #92400e;
+  font-weight: 800;
+}
+
+/* ===========================================
+   🔘 BUTTONS
+   =========================================== */
+
 .btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 1rem;
-  font-weight: 800;
-  padding: .9rem 1.1rem;
-  transition: transform .06s ease, box-shadow .2s ease, opacity .2s ease;
+  padding: 0.75rem 1.5rem;
+  border: var(--border-thick) solid;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
   user-select: none;
+  transition: all 0.15s ease;
+  @apply polygon-element;
+  clip-path: polygon(
+    8px 0, 
+    100% 0, 
+    100% calc(100% - 8px), 
+    calc(100% - 8px) 100%, 
+    0 100%, 
+    0 8px
+  );
 }
 
-.btn:active { transform: translateY(1px) scale(0.995); }
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
 
 .btn-primary {
+  background: var(--polygon-blue);
+  border-color: #1d4ed8;
   color: white;
-  background-image: linear-gradient(180deg, var(--primary-from), var(--primary-to));
-  box-shadow: 0 6px 22px rgba(79,70,229,.35), var(--glow-soft);
-  border: none;
+  box-shadow: var(--shadow-polygon);
 }
-.btn-primary::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 40%);
-  border-radius: 1rem;
-  pointer-events: none;
+
+.btn-primary:hover:not(:disabled) {
+  background: #1d4ed8;
+  box-shadow: var(--shadow-polygon-hover);
 }
 
 .btn-accent {
-  color: #111;
-  background-image: linear-gradient(180deg, var(--accent-from), var(--accent-to));
-  box-shadow: 0 6px 22px rgba(251,191,36,.35), var(--glow-soft);
-  border: none;
+  background: var(--polygon-yellow);
+  border-color: #d97706;
+  color: #92400e;
+  box-shadow: var(--shadow-polygon);
 }
 
-/* Sticky bottom bar (host reveal) */
+.btn-accent:hover:not(:disabled) {
+  background: #f59e0b;
+  box-shadow: var(--shadow-polygon-hover);
+}
+
+.btn-success {
+  background: var(--polygon-green);
+  border-color: #059669;
+  color: white;
+  box-shadow: var(--shadow-polygon);
+}
+
+.btn-danger {
+  background: var(--polygon-red);
+  border-color: #dc2626;
+  color: white;
+  box-shadow: var(--shadow-polygon);
+}
+
+/* ===========================================
+   🎮 BUZZER STATES
+   =========================================== */
+
+.buzzer-base {
+  width: 85%;
+  height: 50px;
+  border: var(--border-mega) solid;
+  font-weight: 900;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  clip-path: polygon(
+    20px 0,
+    100% 0,
+    100% calc(100% - 20px),
+    calc(100% - 20px) 100%,
+    0 100%,
+    0 20px
+  );
+  box-shadow: 0 8px 0 rgba(0,0,0,0.4);
+}
+
+.buzzer-inactive {
+  background: #4b5563;
+  border-color: #374151;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.buzzer-active {
+  background: var(--polygon-red);
+  border-color: #dc2626;
+  color: white;
+  animation: polygon-pulse 2s infinite;
+}
+
+.buzzer-success {
+  background: var(--polygon-green);
+  border-color: #059669;
+  color: white;
+}
+
+.buzzer-blocked {
+  background: var(--polygon-yellow);
+  border-color: #d97706;
+  color: #92400e;
+}
+
+.buzzer-penalty {
+  background: var(--polygon-orange);
+  border-color: #ea580c;
+  color: white;
+}
+
+.buzzer-base:active:not(.buzzer-inactive) {
+  transform: translateY(4px);
+  box-shadow: 0 4px 0 rgba(0,0,0,0.4);
+}
+
+@keyframes polygon-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 8px 0 rgba(0,0,0,0.4);
+  }
+  50% { 
+    transform: scale(1.02);
+    box-shadow: 0 10px 0 rgba(0,0,0,0.4), 0 0 20px rgba(239, 68, 68, 0.3);
+  }
+}
+
+/* ===========================================
+   📱 MOBILE LAYOUT
+   =========================================== */
+
 .sticky-bar {
   position: sticky;
-  bottom: 0; left: 0; right: 0;
-  padding: .75rem;
-  background: rgba(8,12,20,.75);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem;
+  background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(8px);
-  border-top: 1px solid var(--border);
+  border-top: var(--border-thick) solid var(--polygon-blue);
+  z-index: 50;
 }
 
-/* Buzz banner */
-.banner {
-  background: linear-gradient(180deg, rgba(251,191,36,.25), rgba(251,113,133,.2));
-  border: 1px solid rgba(251,191,36,.4);
+/* Buzzer container */
+.buzzer-container {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  padding: 0.75rem;
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+  border-top: var(--border-thick) solid var(--polygon-cyan);
 }
 
-/* Progress ring (conic) */
+/* ===========================================
+   🎯 TIMER & PROGRESS
+   =========================================== */
+
 .ring-wrap {
   --size: 96px;
-  width: var(--size); height: var(--size);
+  width: var(--size);
+  height: var(--size);
   position: relative;
-  display: grid; place-items: center;
+  display: grid;
+  place-items: center;
 }
+
 .ring {
-  position: absolute; inset: 0;
-  border-radius: 999px;
-  background: conic-gradient(var(--ring) var(--deg,0deg), var(--ring-bg) 0deg);
-  filter: drop-shadow(var(--glow-hard));
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+  background: conic-gradient(var(--polygon-cyan) var(--deg, 0deg), var(--bg-tertiary) 0deg);
+  border: 3px solid var(--polygon-blue);
+  filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.3));
 }
+
 .ring::after {
-  content:"";
-  position: absolute; inset: 7px;
-  border-radius: 999px;
-  background: rgba(8,12,20,.9);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(6px);
+  content: "";
+  position: absolute;
+  inset: 8px;
+  clip-path: inherit;
+  background: var(--bg-secondary);
+  border: 2px solid var(--polygon-cyan);
 }
+
 .ring-label {
   position: relative;
   font-weight: 900;
   font-size: 1.25rem;
+  color: var(--polygon-cyan);
+  z-index: 10;
 }
 
-/* Headings */
-h1, h2, h3 { letter-spacing: .2px; }
+/* ===========================================
+   📺 SPECTATOR MODE (TV)
+   =========================================== */
+
+.spectator-tv {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .spectator-tv {
+    aspect-ratio: 16/9;
+    max-height: 100vh;
+  }
+}
+
+/* ===========================================
+   🎨 UTILITY CLASSES
+   =========================================== */
+
+.text-polygon-blue { color: var(--polygon-blue); }
+.text-polygon-cyan { color: var(--polygon-cyan); }
+.text-polygon-yellow { color: var(--polygon-yellow); }
+.text-polygon-green { color: var(--polygon-green); }
+.text-polygon-red { color: var(--polygon-red); }
+
+.bg-polygon-blue { background-color: var(--polygon-blue); }
+.bg-polygon-cyan { background-color: var(--polygon-cyan); }
+.bg-polygon-yellow { background-color: var(--polygon-yellow); }
+.bg-polygon-green { background-color: var(--polygon-green); }
+.bg-polygon-red { background-color: var(--polygon-red); }
+
+.border-polygon-blue { border-color: var(--polygon-blue); }
+.border-polygon-cyan { border-color: var(--polygon-cyan); }
+.border-polygon-yellow { border-color: var(--polygon-yellow); }
+
+/* ===========================================
+   📱 RESPONSIVE ADJUSTMENTS
+   =========================================== */
+
+@media (max-width: 640px) {
+  .buzzer-base {
+    width: 90%;
+    height: 50px;
+    font-size: 1rem;
+  }
+  
+  .card {
+    padding: 0.75rem;
+  }
+  
+  .btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* ===========================================
+   🎯 HEADINGS & TYPOGRAPHY
+   =========================================== */
+
+h1, h2, h3 {
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.font-black {
+  font-weight: 900;
+}
+
+/* Remove default button styles */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
