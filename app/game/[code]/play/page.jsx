@@ -89,13 +89,6 @@ export default function PlayerGame(){
     return { pointsEnJeu: pts, ratioRemain: remain, cfg: c };
   }, [conf, q, elapsedEffective]);
 
-  // Buzz: prend uniquement le lock (les écritures sensibles sont faites par le Host)
-  async function buzz(){
-    if(!revealed || blocked) return;
-    const lockRef = ref(db, `rooms/${code}/state/lockUid`);
-    await runTransaction(lockRef, cur => cur ? cur : auth.currentUser.uid );
-  }
-
   // Sons: reveal & buzz (déclenchés par changements d'état)
   const playReveal = useSound("/sounds/reveal.mp3");
   const playBuzz   = useSound("/sounds/buzz.mp3");
@@ -174,7 +167,7 @@ export default function PlayerGame(){
         )}
       </div>
 
-      <Buzzer onBuzz={buzz} disabled={!revealed || locked || blocked}/>
+      <Buzzer roomCode={code} playerUid={auth.currentUser?.uid} />
       {blocked && <div className="card" style={{ background: "rgba(148,163,184,.2)" }}>⏳ Pénalité {Math.ceil(blockedMs/1000)}s après erreur/buzz trop tôt</div>}
     </main>
   );
