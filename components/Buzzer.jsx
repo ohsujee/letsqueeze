@@ -49,7 +49,8 @@ export default function Buzzer({
     if (isBlocked) {
       return {
         type: 'penalty',
-        label: `Pénalité ${blockedSeconds}s`,
+        label: `${blockedSeconds}s`,
+        sublabel: 'PÉNALITÉ',
         disabled: true,
         className: 'buzzer-penalty'
       };
@@ -58,7 +59,8 @@ export default function Buzzer({
     if (isMyBuzz) {
       return {
         type: 'success',
-        label: '✓ Vous avez buzzé !',
+        label: '✓',
+        sublabel: 'BUZZÉ !',
         disabled: true,
         className: 'buzzer-success'
       };
@@ -67,7 +69,8 @@ export default function Buzzer({
     if (isLocked) {
       return {
         type: 'blocked',
-        label: 'Quelqu\'un a buzzé',
+        label: '⏸',
+        sublabel: 'BLOQUÉ',
         disabled: true,
         className: 'buzzer-blocked'
       };
@@ -77,7 +80,8 @@ export default function Buzzer({
     if (revealed || true) { // On autorise toujours le buzz anticipé
       return {
         type: 'active',
-        label: revealed ? 'BUZZ !' : '⚡ BUZZ ANTICIPÉ',
+        label: revealed ? 'BUZZ' : '⚡',
+        sublabel: revealed ? '!' : 'ANTICIPÉ',
         disabled: false,
         className: 'buzzer-active',
         isAnticipated: !revealed
@@ -87,7 +91,8 @@ export default function Buzzer({
     // Inactif (ne devrait jamais arriver avec buzz anticipé)
     return {
       type: 'inactive',
-      label: 'En attente...',
+      label: '🔒',
+      sublabel: 'ATTENTE',
       disabled: true,
       className: 'buzzer-inactive'
     };
@@ -129,7 +134,7 @@ export default function Buzzer({
         
         // Feedback haptique
         try {
-          navigator?.vibrate?.([50, 30, 100]);
+          navigator?.vibrate?.([100, 50, 200]);
         } catch {}
       }
     } catch (error) {
@@ -148,25 +153,21 @@ export default function Buzzer({
           onClick={handleBuzz}
           disabled={buzzerState.disabled}
           className={`buzzer ${buzzerState.className}`}
-          aria-label={buzzerState.label}
+          aria-label={`${buzzerState.label} ${buzzerState.sublabel}`}
         >
-          {/* Icône selon l'état */}
-          <span className="buzzer-icon">
-            {buzzerState.type === 'active' && (buzzerState.isAnticipated ? '⚡' : '🔥')}
-            {buzzerState.type === 'success' && '✓'}
-            {buzzerState.type === 'blocked' && '⏸'}
-            {buzzerState.type === 'penalty' && '⏳'}
-            {buzzerState.type === 'inactive' && '🔒'}
-          </span>
-          
-          {/* Label */}
-          <span className="buzzer-text">
+          {/* Label principal */}
+          <div className="buzzer-main">
             {buzzerState.label}
-          </span>
+          </div>
+          
+          {/* Sous-label */}
+          <div className="buzzer-sub">
+            {buzzerState.sublabel}
+          </div>
         </button>
       </div>
       
-      {/* Styles CSS-in-JS pour plus de contrôle */}
+      {/* Styles CSS-in-JS pour le gros rond */}
       <style jsx>{`
         .buzzer-container {
           position: sticky;
@@ -185,36 +186,36 @@ export default function Buzzer({
         }
         
         .buzzer {
-          width: 90%;
-          max-width: 400px;
-          height: 60px;
+          width: 140px;
+          height: 140px;
           border: none;
-          border-radius: 20px;
+          border-radius: 50%;
           font-weight: 800;
-          font-size: 1.1rem;
-          text-transform: uppercase;
-          letter-spacing: 1.5px;
           cursor: pointer;
           transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           position: relative;
           overflow: hidden;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 0.5rem;
           box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-          border: 3px solid transparent;
+          border: 4px solid transparent;
         }
         
-        .buzzer-icon {
-          font-size: 1.5rem;
-          display: flex;
-          align-items: center;
+        .buzzer-main {
+          font-size: 2rem;
+          font-weight: 900;
+          line-height: 1;
+          margin-bottom: 0.25rem;
         }
         
-        .buzzer-text {
-          font-weight: 800;
+        .buzzer-sub {
+          font-size: 0.75rem;
+          font-weight: 700;
           letter-spacing: 1px;
+          text-transform: uppercase;
+          opacity: 0.9;
         }
         
         /* États du buzzer */
@@ -232,7 +233,7 @@ export default function Buzzer({
           animation: buzz-pulse 2s infinite ease-in-out;
           box-shadow: 
             0 8px 25px rgba(0, 0, 0, 0.4),
-            0 0 30px rgba(239, 68, 68, 0.4);
+            0 0 40px rgba(239, 68, 68, 0.5);
         }
         
         .buzzer-success {
@@ -241,7 +242,7 @@ export default function Buzzer({
           border-color: #047857;
           box-shadow: 
             0 8px 25px rgba(0, 0, 0, 0.4),
-            0 0 30px rgba(16, 185, 129, 0.5);
+            0 0 40px rgba(16, 185, 129, 0.5);
         }
         
         .buzzer-blocked {
@@ -261,17 +262,17 @@ export default function Buzzer({
         
         /* Effets hover et active */
         .buzzer-active:hover {
-          transform: translateY(-2px) scale(1.02);
+          transform: scale(1.05);
           box-shadow: 
             0 12px 30px rgba(0, 0, 0, 0.5),
-            0 0 40px rgba(239, 68, 68, 0.6);
+            0 0 50px rgba(239, 68, 68, 0.7);
         }
         
         .buzzer-active:active {
-          transform: translateY(1px) scale(0.98);
+          transform: scale(0.95);
           box-shadow: 
             0 4px 15px rgba(0, 0, 0, 0.4),
-            0 0 20px rgba(239, 68, 68, 0.4);
+            0 0 30px rgba(239, 68, 68, 0.4);
         }
         
         .buzzer:disabled {
@@ -284,13 +285,13 @@ export default function Buzzer({
             transform: scale(1);
             box-shadow: 
               0 8px 25px rgba(0, 0, 0, 0.4),
-              0 0 30px rgba(239, 68, 68, 0.4);
+              0 0 40px rgba(239, 68, 68, 0.5);
           }
           50% {
-            transform: scale(1.02);
+            transform: scale(1.03);
             box-shadow: 
               0 12px 30px rgba(0, 0, 0, 0.5),
-              0 0 40px rgba(239, 68, 68, 0.6);
+              0 0 50px rgba(239, 68, 68, 0.7);
           }
         }
         
@@ -308,25 +309,23 @@ export default function Buzzer({
         /* Responsive */
         @media (max-width: 640px) {
           .buzzer {
-            height: 55px;
-            font-size: 1rem;
-            letter-spacing: 1px;
+            width: 120px;
+            height: 120px;
           }
           
-          .buzzer-icon {
-            font-size: 1.25rem;
+          .buzzer-main {
+            font-size: 1.75rem;
           }
           
-          .buzzer-container {
-            padding: 0.75rem;
-            padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+          .buzzer-sub {
+            font-size: 0.625rem;
           }
         }
         
         /* Accessibilité */
         .buzzer:focus-visible {
-          outline: 3px solid #06B6D4;
-          outline-offset: 3px;
+          outline: 4px solid #06B6D4;
+          outline-offset: 4px;
         }
         
         /* Préférence de mouvement réduit */
