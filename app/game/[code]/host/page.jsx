@@ -278,4 +278,27 @@ export default function HostGame(){
         <b>Scores joueurs</b>
         <ul className="mt-2 space-y-1">
           {playersSorted.map((p,i)=>(
-            <li key={
+            <li key={p.uid} className="card flex justify-between items-center">
+              <span>
+                {i+1}. {p.name}
+                {/* Affichage de la pénalité en cours */}
+                {(p.blockedUntil || 0) > serverNow && (
+                  <span className="ml-2 px-2 py-1 bg-orange-200 text-orange-800 rounded text-xs">
+                    ⏳ {Math.ceil(((p.blockedUntil || 0) - serverNow) / 1000)}s
+                  </span>
+                )}
+              </span>
+              <b>{p.score||0}</b>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="sticky-bar">
+        <button className="btn btn-primary w-full h-14 text-xl" onClick={revealToggle}>
+          {state?.revealed ? "Masquer la question" : "Révéler la question"}
+        </button>
+      </div>
+    </main>
+  );
+}
