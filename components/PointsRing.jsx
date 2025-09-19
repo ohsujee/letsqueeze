@@ -17,14 +17,9 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
   };
 
   const ringColor = getColor();
-  
-  const style = {
-    "--size": `${size}px`,
-    "--ring-color": ringColor,
-  };
 
   return (
-    <div className="points-ring-container" style={style}>
+    <div className="points-ring-container" style={{ "--size": `${size}px` }}>
       {/* Ring SVG pour animation fluide comme l'original */}
       <svg 
         width={size} 
@@ -43,7 +38,7 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
           opacity="0.3"
         />
         
-        {/* Progress circle avec animation */}
+        {/* Progress circle avec animation dégressive */}
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -54,7 +49,11 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
           strokeLinecap="round"
           strokeDasharray={`${Math.PI * (size - 16)} ${Math.PI * (size - 16)}`}
           strokeDashoffset={Math.PI * (size - 16) * (1 - displayValue)}
-          className="points-ring-progress"
+          style={{
+            transition: revealed 
+              ? 'stroke-dashoffset 0.1s linear, stroke 0.3s ease' 
+              : 'stroke 0.3s ease'
+          }}
         />
         
         {/* Glow effect circle */}
@@ -68,8 +67,13 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
           strokeLinecap="round"
           strokeDasharray={`${Math.PI * (size - 16)} ${Math.PI * (size - 16)}`}
           strokeDashoffset={Math.PI * (size - 16) * (1 - displayValue)}
-          className="points-ring-glow"
           opacity="0.6"
+          style={{
+            filter: 'blur(2px)',
+            transition: revealed 
+              ? 'stroke-dashoffset 0.1s linear, stroke 0.3s ease' 
+              : 'stroke 0.3s ease'
+          }}
         />
       </svg>
       
@@ -95,16 +99,7 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
         
         .points-ring-svg {
           position: absolute;
-          filter: drop-shadow(0 0 12px color-mix(in srgb, var(--ring-color) 30%, transparent));
-        }
-        
-        .points-ring-progress {
-          transition: ${revealed ? 'stroke-dashoffset 0.1s linear, stroke 0.3s ease' : 'stroke 0.3s ease'};
-        }
-        
-        .points-ring-glow {
-          filter: blur(2px);
-          transition: ${revealed ? 'stroke-dashoffset 0.1s linear, stroke 0.3s ease' : 'stroke 0.3s ease'};
+          filter: drop-shadow(0 0 12px rgba(6, 182, 212, 0.3));
         }
         
         .points-ring-content {
@@ -136,13 +131,6 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
           letter-spacing: 0.5px;
           line-height: 1;
           opacity: 0.8;
-        }
-        
-        /* Animation quand les points changent */
-        @keyframes points-change {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.1); }
-          100% { transform: scale(1); }
         }
         
         /* Responsive adjustments */
