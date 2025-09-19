@@ -21,7 +21,8 @@ export default function Room() {
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState({});
   const [isHost, setIsHost] = useState(false);
-  const [quizOptions, setQuizOptions] = useState([]); // État pour les quiz du manifest
+  const [quizOptions, setQuizOptions] = useState([]);
+  const [joinUrl, setJoinUrl] = useState(`https://www.circuitbreak.co/join?code=${code}`);
 
   // Charger le manifest des quiz
   useEffect(() => {
@@ -32,10 +33,16 @@ export default function Room() {
       })
       .catch(err => {
         console.error("Erreur chargement manifest:", err);
-        // Fallback en cas d'erreur
         setQuizOptions([{ id: "general", title: "Général" }]);
       });
   }, []);
+
+  // Mettre à jour l'URL avec le bon domaine
+  useEffect(() => {
+    if (typeof window !== "undefined" && code) {
+      setJoinUrl(`${window.location.origin}/join?code=${code}`);
+    }
+  }, [code]);
 
   // Auth
   useEffect(() => {
@@ -98,15 +105,10 @@ export default function Room() {
     router.push("/");
   };
 
-  const joinUrl = typeof window !== "undefined" 
-    ? `${window.location.origin}/join?code=${code}` 
-    : "";
-
   const copyLink = async () => {
     if (typeof navigator !== "undefined" && navigator.clipboard) {
       try {
         await navigator.clipboard.writeText(joinUrl);
-        // Feedback visuel basique
         const btn = document.querySelector('.copy-btn');
         if (btn) {
           const original = btn.textContent;
@@ -122,7 +124,6 @@ export default function Room() {
   const teamColors = ["#EF4444", "#3B82F6", "#10B981", "#F59E0B", "#8B5CF6", "#06B6D4"];
   const teamsSorted = Object.keys(teams).map(id => ({ id, ...teams[id] }));
 
-  // Trouver le titre du quiz sélectionné
   const selectedQuizTitle = quizOptions.find(q => q.id === (meta?.quizId || "general"))?.title || "Général";
 
   if (!meta) {
@@ -157,7 +158,6 @@ export default function Room() {
         Code: <span className="font-bold text-lg">{code}</span>
       </div>
 
-      {/* Section invitation */}
       <div className="card">
         <div className="text-center space-y-4">
           <Qr text={joinUrl} size={200} />
@@ -178,9 +178,7 @@ export default function Room() {
         </div>
       </div>
 
-      {/* Configuration du jeu */}
       <div className="grid md:grid-cols-3 gap-4">
-        {/* Mode de jeu */}
         <div className="card">
           <h3 className="font-bold mb-3">Mode de jeu</h3>
           <div className="space-y-2">
@@ -201,7 +199,6 @@ export default function Room() {
           </div>
         </div>
 
-        {/* Quiz */}
         <div className="card">
           <h3 className="font-bold mb-3">Quiz</h3>
           <select
@@ -221,7 +218,6 @@ export default function Room() {
           </div>
         </div>
 
-        {/* Actions */}
         <div className="card">
           <h3 className="font-bold mb-3">Actions</h3>
           <div className="space-y-2">
@@ -242,7 +238,6 @@ export default function Room() {
         </div>
       </div>
 
-      {/* Équipes (si mode équipes) */}
       {meta.mode === "équipes" && (
         <div className="card">
           <h3 className="font-bold mb-3">Équipes</h3>
@@ -264,7 +259,6 @@ export default function Room() {
         </div>
       )}
 
-      {/* Joueurs */}
       <div className="card">
         <h3 className="font-bold mb-3">Joueurs ({players.length})</h3>
         {players.length === 0 ? (
