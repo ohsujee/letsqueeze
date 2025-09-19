@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
-  auth, db, ref, onValue, runTransaction, signInAnonymously, onAuthStateChanged
+  auth, db, ref, onValue, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
 import Buzzer from "@/components/Buzzer";
 import PointsRing from "@/components/PointsRing";
@@ -56,7 +56,7 @@ export default function PlayerGame(){
 
   const revealed = !!state?.revealed;
   const locked = !!state?.lockUid;
-  const paused = !!state?.pausedAt;
+  const paused = !!state?.pausedAt || !!state?.lockedAt;
 
   const total = quiz?.items?.length || 0;
   const qIndex = state?.currentIndex || 0;
@@ -67,7 +67,6 @@ export default function PlayerGame(){
   // Pénalité serveur (affichage seulement)
   const blockedMs = Math.max(0, (me?.blockedUntil || 0) - serverNow);
   const blocked = blockedMs > 0;
-  const blockedSec = Math.ceil(blockedMs / 1000);
 
   // Points synchro (stop sur pausedAt ou lockedAt)
   const elapsedEffective = useMemo(()=>{
@@ -167,7 +166,11 @@ export default function PlayerGame(){
         )}
       </div>
 
-      <Buzzer roomCode={code} playerUid={auth.currentUser?.uid} />
+      <Buzzer 
+        roomCode={code} 
+        playerUid={auth.currentUser?.uid} 
+        playerName={me?.name}
+      />
       {blocked && <div className="card" style={{ background: "rgba(148,163,184,.2)" }}>⏳ Pénalité {Math.ceil(blockedMs/1000)}s après erreur/buzz trop tôt</div>}
     </main>
   );
