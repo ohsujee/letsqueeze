@@ -1,8 +1,9 @@
 "use client";
 
-export default function PointsRing({ value = 0, points = 0, size = 100, label = "pts" }) {
-  // Clamp value entre 0 et 1
-  const clampedValue = Math.max(0, Math.min(1, value));
+export default function PointsRing({ value = 0, points = 0, size = 100, label = "pts", revealed = false }) {
+  // Si pas révélé, le ring est à 100% (rempli)
+  // Si révélé, on utilise la vraie valeur
+  const clampedValue = revealed ? Math.max(0, Math.min(1, value)) : 1;
   const degrees = clampedValue * 360;
   
   // Couleurs dynamiques selon la valeur
