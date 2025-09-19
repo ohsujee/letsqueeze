@@ -1,15 +1,19 @@
 "use client";
 
-export default function PointsRing({ value = 0, points = 0, size = 100, label = "pts" }) {
-  // Clamp value entre 0 et 1
-  const clampedValue = Math.max(0, Math.min(1, value));
-  const degrees = clampedValue * 360;
+export default function PointsRing({ value = 0, points = 0, size = 100, label = "pts", revealed = false }) {
+  // Si pas révélé, le ring est toujours à 100%
+  // Si révélé, on utilise la vraie valeur
+  const displayValue = revealed ? Math.max(0, Math.min(1, value)) : 1;
+  const degrees = displayValue * 360;
   
-  // Couleurs dynamiques selon la valeur
+  // Couleurs dynamiques selon la valeur REELLE (pas la displayValue)
   const getColor = () => {
-    if (clampedValue > 0.7) return '#10B981'; // Vert (beaucoup de temps)
-    if (clampedValue > 0.4) return '#F59E0B'; // Orange (temps moyen)
-    if (clampedValue > 0.1) return '#EF4444'; // Rouge (peu de temps)
+    if (!revealed) return '#10B981'; // Vert quand pas révélé
+    
+    const realValue = Math.max(0, Math.min(1, value));
+    if (realValue > 0.7) return '#10B981'; // Vert (beaucoup de temps)
+    if (realValue > 0.4) return '#F59E0B'; // Orange (temps moyen)
+    if (realValue > 0.1) return '#EF4444'; // Rouge (peu de temps)
     return '#64748B'; // Gris (temps écoulé)
   };
 
@@ -51,7 +55,7 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
           strokeWidth="6"
           strokeLinecap="round"
           strokeDasharray={`${Math.PI * (size - 16)} ${Math.PI * (size - 16)}`}
-          strokeDashoffset={Math.PI * (size - 16) * (1 - clampedValue)}
+          strokeDashoffset={Math.PI * (size - 16) * (1 - displayValue)}
           className="points-ring-progress"
         />
         
@@ -65,7 +69,7 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
           strokeWidth="2"
           strokeLinecap="round"
           strokeDasharray={`${Math.PI * (size - 16)} ${Math.PI * (size - 16)}`}
-          strokeDashoffset={Math.PI * (size - 16) * (1 - clampedValue)}
+          strokeDashoffset={Math.PI * (size - 16) * (1 - displayValue)}
           className="points-ring-glow"
           opacity="0.6"
         />
@@ -97,12 +101,12 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
         }
         
         .points-ring-progress {
-          transition: stroke-dashoffset 0.5s ease, stroke 0.3s ease;
+          transition: ${revealed ? 'stroke-dashoffset 0.1s linear, stroke 0.3s ease' : 'stroke 0.3s ease'};
         }
         
         .points-ring-glow {
           filter: blur(2px);
-          transition: stroke-dashoffset 0.5s ease, stroke 0.3s ease;
+          transition: ${revealed ? 'stroke-dashoffset 0.1s linear, stroke 0.3s ease' : 'stroke 0.3s ease'};
         }
         
         .points-ring-content {
@@ -124,6 +128,7 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
           line-height: 1;
           text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
           margin-bottom: 2px;
+          transition: color 0.3s ease;
         }
         
         .points-ring-label {
@@ -141,10 +146,6 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
           0% { transform: scale(1); }
           50% { transform: scale(1.1); }
           100% { transform: scale(1); }
-        }
-        
-        .points-ring-number {
-          animation: points-change 0.3s ease;
         }
         
         /* Responsive adjustments */
