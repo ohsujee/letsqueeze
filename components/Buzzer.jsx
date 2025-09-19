@@ -26,7 +26,7 @@ export default function Buzzer({ roomCode, playerUid }) {
   const armed = useMemo(() => {
     const s = state || {};
 
-    // Acceptons tous les signaux possibles d’armement pour être tolérant
+    // Acceptons tous les signaux possibles d'armement pour être tolérant
     const canBuzzSignal =
       s.canBuzz === true ||
       s?.buzzer?.canBuzz === true ||
@@ -52,7 +52,7 @@ export default function Buzzer({ roomCode, playerUid }) {
     return !locked && (canBuzzSignal || revealedSignal || phaseSignal);
   }, [state]);
 
-  // Disabled si pas armé OU si on n’a pas les infos minimales
+  // Disabled si pas armé OU si on n'a pas les infos minimales
   const isDisabled = !armed || !roomCode || !playerUid;
 
   // 3) Clic buzzer : tentative de lock + trace
