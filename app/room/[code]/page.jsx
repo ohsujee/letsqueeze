@@ -22,7 +22,11 @@ export default function Room() {
   const [teams, setTeams] = useState({});
   const [isHost, setIsHost] = useState(false);
   const [quizOptions, setQuizOptions] = useState([]);
-  const [joinUrl, setJoinUrl] = useState(`https://www.circuitbreak.co/join?code=${code}`);
+
+  // Calculer joinUrl directement - pas d'état séparé
+  const joinUrl = typeof window !== "undefined" && code
+    ? `${window.location.origin}/join?code=${code}`
+    : `https://www.circuitbreak.co/join?code=${code}`;
 
   // Charger le manifest des quiz
   useEffect(() => {
@@ -36,13 +40,6 @@ export default function Room() {
         setQuizOptions([{ id: "general", title: "Général" }]);
       });
   }, []);
-
-  // Mettre à jour l'URL avec le bon domaine
-  useEffect(() => {
-    if (typeof window !== "undefined" && code) {
-      setJoinUrl(`${window.location.origin}/join?code=${code}`);
-    }
-  }, [code]);
 
   // Auth
   useEffect(() => {
