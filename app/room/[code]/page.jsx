@@ -1,282 +1,301 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
-import Qr from "@/components/Qr";
 import {
-  auth, db, ref, onValue, update, set, remove, signInAnonymously, onAuthStateChanged
+  auth,
+  db,
+  ref,
+  onValue,
+  update,
+  signInAnonymously,
+  onAuthStateChanged,
 } from "@/lib/firebase";
+import Qr from "@/components/Qr";
 
-const TEAM_PRESETS = [
-  { id: "red",   name: "Rouges",  color: "#ef4444" },
-  { id: "blue",  name: "Bleus",   color: "#3b82f6" },
-  { id: "green", name: "Verts",   color: "#22c55e" },
-  { id: "yellow",name: "Jaunes",  color: "#eab308" },
-];
-
-export default function RoomLobby() {
+export default function Room() {
   const { code } = useParams();
   const router = useRouter();
 
-  const [me, setMe] = useState(null);
   const [meta, setMeta] = useState(null);
   const [players, setPlayers] = useState([]);
-  const [state, setState] = useState(null);
-  const [manifest, setManifest] = useState([]);
-  const [showInvite, setShowInvite] = useState(true); // host peut réafficher QR
+  const [teams, setTeams] = useState({});
+  const [isHost, setIsHost] = useState(false);
+  const [quizOptions, setQuizOptions] = useState([]); // État pour les quiz du manifest
 
-  // Auth
-  useEffect(() => {
-    signInAnonymously(auth).catch(()=>{});
-    const unsub = onAuthStateChanged(auth, (u) => setMe(u));
-    return () => unsub();
-  }, []);
-
-  // Data
-  useEffect(() => {
-    const u1 = onValue(ref(db, `rooms/${code}/meta`), s => setMeta(s.val() || {}));
-    const u2 = onValue(ref(db, `rooms/${code}/players`), s => {
-      const v = s.val() || {};
-      setPlayers(Object.values(v));
-    });
-    const u3 = onValue(ref(db, `rooms/${code}/state`), s => setState(s.val() || {}));
-    return () => { u1(); u2(); u3(); };
-  }, [code]);
-
-  // Redirection uniquement quand "playing" (PLUS de redirection si "ended")
-  useEffect(() => {
-    if (state?.phase === "playing") {
-      if (meta?.hostUid === auth.currentUser?.uid) router.replace(`/game/${code}/host`);
-      else router.replace(`/game/${code}/play`);
-    }
-  }, [state?.phase, meta?.hostUid, router, code]);
-
-  // Manifest quizz
+  // Charger le manifest des quiz
   useEffect(() => {
     fetch("/data/manifest.json")
       .then(r => r.json())
-      .then(j => setManifest(j?.quizzes || []))
-      .catch(() => setManifest([]));
+      .then(data => {
+        setQuizOptions(data.quizzes || []);
+      })
+      .catch(err => {
+        console.error("Erreur chargement manifest:", err);
+        // Fallback en cas d'erreur
+        setQuizOptions([{ id: "general", title: "Général" }]);
+      });
   }, []);
 
-  const isHost = meta?.hostUid === me?.uid;
-  const roomUrl = typeof window !== "undefined" ? `${location.origin}/join?code=${code}` : "";
+  // Auth
+  useEffect(() => {
+    signInAnonymously(auth).catch(() => {});
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) setIsHost(meta?.hostUid === user.uid);
+    });
+    return () => unsub();
+  }, [meta?.hostUid]);
 
-  const modeTeams = meta?.mode === "équipes";
-  const teams = meta?.teams || {};
-  const teamsList = useMemo(() => Object.keys(teams).map((k) => ({ id: k, ...teams[k] })), [teams]);
+  // DB listeners
+  useEffect(() => {
+    if (!code) return;
 
-  // --- Actions Host ---
-  function toggleInvite() { setShowInvite(v => !v); }
-  async function shareRoom() {
-    try {
-      if (navigator.share) await navigator.share({ title: "Rejoins la partie", text: `Code ${code}`, url: roomUrl });
-      else { await navigator.clipboard.writeText(roomUrl); alert("Lien copié !"); }
-    } catch {}
-  }
-  async function setMode(newMode) { if (isHost) await update(ref(db, `rooms/${code}/meta`), { mode: newMode }); }
-  async function setQuiz(quizId) { if (isHost) await update(ref(db, `rooms/${code}/meta`), { quizId }); }
-  async function createTeams(n = 2) {
+    const metaUnsub = onValue(ref(db, `rooms/${code}/meta`), (snap) => {
+      const m = snap.val();
+      setMeta(m);
+      setTeams(m?.teams || {});
+    });
+
+    const playersUnsub = onValue(ref(db, `rooms/${code}/players`), (snap) => {
+      const p = snap.val() || {};
+      setPlayers(Object.values(p));
+    });
+
+    return () => {
+      metaUnsub();
+      playersUnsub();
+    };
+  }, [code]);
+
+  const handleStartGame = async () => {
     if (!isHost) return;
-    const chosen = TEAM_PRESETS.slice(0, Math.max(2, Math.min(4, n)));
-    const payload = {};
-    chosen.forEach((t, i) => { payload[`t${i+1}`] = { name: t.name, color: t.color, score: 0 }; });
-    await update(ref(db, `rooms/${code}/meta`), { mode: "équipes", teams: payload });
-    // retire teamId existants
-    const updates = {};
-    players.forEach(p => { updates[`rooms/${code}/players/${p.uid}/teamId`] = ""; });
-    await update(ref(db), updates);
-  }
-  async function autoAssignBalanced() {
-    if (!isHost || !modeTeams || teamsList.length === 0) return;
-    const sorted = players.slice().sort((a, b) => (a.joinedAt||0) - (b.joinedAt||0));
-    const updates = {};
-    sorted.forEach((p, idx) => { updates[`rooms/${code}/players/${p.uid}/teamId`] = teamsList[idx % teamsList.length].id; });
-    await update(ref(db), updates);
-  }
-  async function movePlayerToTeam(uid, teamId) { if (isHost) await update(ref(db, `rooms/${code}/players/${uid}`), { teamId }); }
-  async function kick(uid) {
-    if (!isHost) return;
-    const who = players.find(p => p.uid === uid)?.name || "ce joueur";
-    if (confirm(`Kicker ${who} ?`)) await remove(ref(db, `rooms/${code}/players/${uid}`));
-  }
-  async function startGame() {
-    if (!isHost) return;
-    await set(ref(db, `rooms/${code}/state`), {
+    await update(ref(db, `rooms/${code}/state`), {
       phase: "playing",
       currentIndex: 0,
       revealed: false,
       lockUid: null,
-      lastRevealAt: 0,
+      buzzBanner: "",
       elapsedAcc: 0,
+      lastRevealAt: 0,
       pausedAt: null,
       lockedAt: null,
-      buzzBanner: ""
     });
-    router.replace(`/game/${code}/host`);
-  }
+    router.push(`/game/${code}/host`);
+  };
 
-  const quizTitle = useMemo(() => {
-    const q = manifest.find(q => q.id === meta?.quizId);
-    return q?.title || (meta?.quizId?.replace(/-/g, " ") || "—");
-  }, [manifest, meta?.quizId]);
+  const handleModeToggle = async () => {
+    if (!isHost) return;
+    const newMode = meta?.mode === "équipes" ? "individuel" : "équipes";
+    await update(ref(db, `rooms/${code}/meta`), { mode: newMode });
+  };
+
+  const handleQuizChange = async (e) => {
+    if (!isHost) return;
+    await update(ref(db, `rooms/${code}/meta`), { quizId: e.target.value });
+  };
+
+  const handleQuit = () => {
+    router.push("/");
+  };
+
+  const joinUrl = typeof window !== "undefined" 
+    ? `${window.location.origin}/join?code=${code}` 
+    : "";
+
+  const copyLink = async () => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(joinUrl);
+        // Feedback visuel basique
+        const btn = document.querySelector('.copy-btn');
+        if (btn) {
+          const original = btn.textContent;
+          btn.textContent = 'Copié !';
+          setTimeout(() => { btn.textContent = original; }, 2000);
+        }
+      } catch (err) {
+        console.error("Erreur copie:", err);
+      }
+    }
+  };
+
+  const teamColors = ["#EF4444", "#3B82F6", "#10B981", "#F59E0B", "#8B5CF6", "#06B6D4"];
+  const teamsSorted = Object.keys(teams).map(id => ({ id, ...teams[id] }));
+
+  // Trouver le titre du quiz sélectionné
+  const selectedQuizTitle = quizOptions.find(q => q.id === (meta?.quizId || "general"))?.title || "Général";
+
+  if (!meta) {
+    return (
+      <main className="p-6 max-w-5xl mx-auto">
+        <div className="card text-center">
+          <h1 className="text-2xl font-black mb-4">Chargement...</h1>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="p-6 max-w-5xl mx-auto space-y-6">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-black">Lobby — {quizTitle}</h1>
-          <div className="text-sm opacity-70">Code: <b>{code}</b> {state?.phase === "ended" && <span className="ml-2">(Partie terminée)</span>}</div>
+      <div className="flex items-center justify-between">
+        <h1 className="text-4xl font-black">
+          Lobby — {selectedQuizTitle}
+        </h1>
+        <div className="flex gap-3">
+          {isHost && (
+            <button className="btn" onClick={() => router.push("/")}>
+              Masquer l'invitation
+            </button>
+          )}
+          <button className="btn btn-danger" onClick={handleQuit}>
+            Quitter
+          </button>
+        </div>
+      </div>
+
+      <div className="text-sm opacity-80">
+        Code: <span className="font-bold text-lg">{code}</span>
+      </div>
+
+      {/* Section invitation */}
+      <div className="card">
+        <div className="text-center space-y-4">
+          <Qr text={joinUrl} size={200} />
+          
+          <div>
+            <h3 className="text-lg font-bold mb-2">Invite des joueurs</h3>
+            <div className="text-sm opacity-80 mb-3">{joinUrl}</div>
+            
+            <div className="flex gap-2 justify-center">
+              <button className="btn btn-primary" onClick={handleStartGame} disabled={!isHost}>
+                Partager
+              </button>
+              <button className="btn copy-btn" onClick={copyLink}>
+                Copier le lien
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Configuration du jeu */}
+      <div className="grid md:grid-cols-3 gap-4">
+        {/* Mode de jeu */}
+        <div className="card">
+          <h3 className="font-bold mb-3">Mode de jeu</h3>
+          <div className="space-y-2">
+            <button
+              className={`btn w-full ${meta.mode === "individuel" ? "btn-accent" : ""}`}
+              onClick={handleModeToggle}
+              disabled={!isHost}
+            >
+              Individuel
+            </button>
+            <button
+              className={`btn w-full ${meta.mode === "équipes" ? "btn-accent" : ""}`}
+              onClick={handleModeToggle}
+              disabled={!isHost}
+            >
+              Équipes
+            </button>
+          </div>
         </div>
 
-        {isHost ? (
-          <div className="flex gap-2">
-            <button className="btn" onClick={toggleInvite}>
-              {showInvite ? "Masquer l'invitation" : "Afficher l'invitation"}
-            </button>
-            <Link href={`/`} className="btn">Quitter</Link>
+        {/* Quiz */}
+        <div className="card">
+          <h3 className="font-bold mb-3">Quiz</h3>
+          <select
+            value={meta.quizId || "general"}
+            onChange={handleQuizChange}
+            disabled={!isHost}
+            className="w-full p-3 rounded-lg bg-slate-700 border-2 border-blue-500 text-white"
+          >
+            {quizOptions.map(quiz => (
+              <option key={quiz.id} value={quiz.id}>
+                {quiz.title}
+              </option>
+            ))}
+          </select>
+          <div className="text-xs opacity-70 mt-2">
+            Choisis un quiz, puis démarre la partie.
           </div>
-        ) : (
-          <Link href={`/join?code=${code}`} className="btn">Inviter un ami</Link>
-        )}
-      </header>
+        </div>
 
-      {/* Bloc invitation (QR + partage) — host seulement */}
-      {isHost && showInvite && (
-        <section className="card">
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <Qr value={roomUrl} />
-            <div className="grow">
-              <div className="text-lg font-bold">Invite des joueurs</div>
-              <div className="mt-1 text-sm break-all">{roomUrl}</div>
-              <div className="mt-3 flex gap-2 flex-wrap">
-                <button className="btn btn-primary" onClick={shareRoom}>Partager</button>
-                <button className="btn" onClick={async ()=>{ await navigator.clipboard.writeText(roomUrl); alert("Lien copié !"); }}>Copier le lien</button>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Paramètres / actions — HOST UNIQUEMENT */}
-      {isHost && (
-        <section className="grid md:grid-cols-3 gap-4">
-          <div className="card space-y-3">
-            <div className="font-bold">Mode de jeu</div>
-            <div className="flex gap-2">
-              <button className={`btn ${!modeTeams ? "btn-accent" : ""}`} onClick={()=>setMode("individuel")}>Individuel</button>
-              <button className={`btn ${modeTeams ? "btn-accent" : ""}`} onClick={()=>setMode("équipes")}>Équipes</button>
-            </div>
-
-            {modeTeams && (
-              <>
-                <div className="font-bold mt-2">Équipes (2 à 4)</div>
-                <div className="flex gap-2">
-                  {[2,3,4].map(n=>(
-                    <button key={n} className="btn" onClick={()=>createTeams(n)}>{n} équipes</button>
-                  ))}
-                </div>
-
-                {teamsList.length > 0 && (
-                  <>
-                    <div className="font-bold">Équilibrage</div>
-                    <button className="btn" onClick={autoAssignBalanced}>Auto-assigner (équilibré)</button>
-                  </>
-                )}
-              </>
-            )}
-          </div>
-
-          <div className="card space-y-3">
-            <div className="font-bold">Quiz</div>
-            <select
-              className="card w-full"
-              value={meta?.quizId || ""}
-              onChange={(e)=>setQuiz(e.target.value)}
+        {/* Actions */}
+        <div className="card">
+          <h3 className="font-bold mb-3">Actions</h3>
+          <div className="space-y-2">
+            <button
+              className="btn btn-primary w-full"
+              onClick={handleStartGame}
+              disabled={!isHost}
             >
-              <option value="" disabled>— Choisir —</option>
-              {manifest.map(q => (
-                <option key={q.id} value={q.id}>{q.title}</option>
-              ))}
-            </select>
-
-            <div className="text-sm opacity-70">
-              Choisis un quiz, puis démarre la partie.
-            </div>
-          </div>
-
-          <div className="card space-y-3">
-            <div className="font-bold">Actions</div>
-            <button className="btn btn-primary w-full" disabled={!meta?.quizId} onClick={startGame}>
               Démarrer la partie
             </button>
-            <Link href={`/`} className="btn w-full">Retour accueil</Link>
+            <button
+              className="btn w-full"
+              onClick={() => router.push("/")}
+            >
+              Retour accueil
+            </button>
           </div>
-        </section>
-      )}
-
-      {/* Version joueur : simple info d'attente (pas d’actions host) */}
-      {!isHost && (
-        <section className="card">
-          <div className="font-bold mb-1">En attente de l’animateur…</div>
-          <div className="text-sm opacity-70">
-            L’animateur configure le mode et le quiz. La partie démarrera bientôt.
-          </div>
-        </section>
-      )}
-
-      {/* Liste joueurs (kick & team select visibles seulement pour host) */}
-      <section className="card">
-        <div className="font-bold mb-3">Joueurs ({players.length})</div>
-        {players.length === 0 ? (
-          <div className="opacity-70">En attente de joueurs…</div>
-        ) : (
-          <ul className="grid md:grid-cols-2 gap-2">
-            {players.map(p => {
-              const team = p.teamId && teams[p.teamId] ? teams[p.teamId] : null;
-              return (
-                <li key={p.uid} className="card flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    {team ? (
-                      <span className="px-2 py-0.5 rounded-xl border-2 border-black text-xs" style={{ backgroundColor: team.color }}>
-                        {team.name}
-                      </span>
-                    ) : modeTeams ? (
-                      <span className="px-2 py-0.5 rounded-xl border-2 border-dashed text-xs">—</span>
-                    ) : null}
-                    <span className="font-bold">{p.name}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    {isHost && modeTeams && teamsList.length > 0 && (
-                      <select
-                        className="card"
-                        value={p.teamId || ""}
-                        onChange={(e)=>movePlayerToTeam(p.uid, e.target.value)}
-                      >
-                        <option value="">—</option>
-                        {teamsList.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-                      </select>
-                    )}
-                    {isHost && (
-                      <button className="btn" onClick={()=>kick(p.uid)}>Kicker</button>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </section>
-
-      <footer className="text-center text-xs opacity-60">
-        <div>Room <b>{code}</b> — {isHost ? "Vous êtes l'animateur" : "Vous êtes joueur"}</div>
-        <div className="mt-1">
-          {isHost
-            ? <Link className="underline" href={`/game/${code}/host`}>Aller à l'écran animateur</Link>
-            : <Link className="underline" href={`/game/${code}/play`}>Aller à l'écran joueur</Link>}
         </div>
-      </footer>
+      </div>
+
+      {/* Équipes (si mode équipes) */}
+      {meta.mode === "équipes" && (
+        <div className="card">
+          <h3 className="font-bold mb-3">Équipes</h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {teamsSorted.map((team, index) => (
+              <div
+                key={team.id}
+                className="card"
+                style={{ 
+                  backgroundColor: team.color,
+                  color: '#1E293B',
+                  fontWeight: 'bold'
+                }}
+              >
+                {team.name}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Joueurs */}
+      <div className="card">
+        <h3 className="font-bold mb-3">Joueurs ({players.length})</h3>
+        {players.length === 0 ? (
+          <div className="text-center opacity-60 py-8">
+            En attente de joueurs...
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {players.map((player) => (
+              <div key={player.uid} className="card text-sm">
+                {player.name}
+                {meta.mode === "équipes" && player.teamId && (
+                  <div
+                    className="mt-1 px-2 py-1 rounded text-xs font-bold"
+                    style={{
+                      backgroundColor: teams[player.teamId]?.color || "#64748B",
+                      color: '#1E293B'
+                    }}
+                  >
+                    {teams[player.teamId]?.name || "Équipe"}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="text-center text-sm opacity-60">
+        Room {code} — {isHost ? "Vous êtes l'animateur" : "En attente..."}
+      </div>
     </main>
   );
 }
