@@ -4,10 +4,15 @@ import { useEffect, useMemo, useState } from 'react';
 import { ref, onValue, update, serverTimestamp } from 'firebase/database';
 import { db } from '@/lib/firebase';
 
+/**
+ * Props:
+ * - roomCode: string (code de la room)
+ * - playerUid: string (auth.uid du joueur)
+ */
 export default function Buzzer({ roomCode, playerUid }) {
-  const [state, setState] = useState({});
+  const [state, setState] = useState(null);
 
-  // 1) Écoute l'état de la room
+  // 1) Écouter l'état de la room (host met à jour canBuzz / revealed / lockedBy)
   useEffect(() => {
     if (!roomCode) return;
     const code = String(roomCode).toUpperCase();
@@ -17,11 +22,11 @@ export default function Buzzer({ roomCode, playerUid }) {
     return () => unsub();
   }, [roomCode]);
 
-  // 2) Détermine si le buzzer est "armé" (prêt) en tolérant plusieurs schémas
+  // 2) Déterminer si le buzzer est "armé" (prêt à buzz)
   const armed = useMemo(() => {
     const s = state || {};
 
-    // Signaux possibles dans différents codes
+    // Divers flags possibles selon l'écran host
     const canBuzzSignal =
       s.canBuzz === true ||
       s?.buzzer?.canBuzz === true ||
@@ -36,75 +41,71 @@ export default function Buzzer({ roomCode, playerUid }) {
       s.questionRevealed === true ||
       s?.question?.revealed === true;
 
-    // Noms possibles de "lock"
-    const lockedBy =
-      s.lockedBy ??
-      s.locked ??
-      (s.buzz && s.buzz.uid) ??
-      '';
+    const lockedBy = s?.lockedBy || '';
+    const lockFree = !lockedBy;
 
-    const lockFree = !lockedBy || lockedBy === '';
-
-    // -> buzzer armé si (révélé ou "canBuzz") ET pas déjà lock
     return (canBuzzSignal || revealedSignal) && lockFree;
   }, [state]);
 
-  // Pas de contrainte dure sur phase : on suit le signal d'armement
   const isDisabled = !armed;
 
-  // 3) Clic buzzer : on tente le lock direct + un fallback "buzzes/{uid}"
+  // 3) Clic: on tente le lock + trace du buzz (les rules ci-dessus autorisent ce cas)
   const handleBuzz = async () => {
-    if (isDisabled) return;
+    if (isDisabled || !roomCode || !playerUid) return;
+
     const code = String(roomCode).toUpperCase();
 
-    // Prépare les updates atomiques (root update évite 2 allers/retours)
     const rootUpdates = {};
+    // -> le lock (premier arrivé, premier servi, côté rules)
     rootUpdates[`rooms/${code}/state/lockedBy`] = playerUid;
-    rootUpdates[`rooms/${code}/state/buzz`] = { uid: playerUid, at: serverTimestamp() };
-    // Fallback si tes rules n'autorisent pas l'écriture dans /state :
-    rootUpdates[`rooms/${code}/buzzes/${playerUid}`] = { at: serverTimestamp() };
+    // -> la trace du buzz
+    rootUpdates[`rooms/${code}/state/buzz`] = {
+      uid: playerUid,
+      at: serverTimestamp(),
+    };
 
     try {
       await update(ref(db), rootUpdates);
-      try { navigator?.vibrate?.(15); } catch {} // haptique léger
+      // Haptique légère si dispo
+      try {
+        navigator?.vibrate?.(20);
+      } catch {}
     } catch {
-      // no-op: si ça échoue complètement, l'UI restera grise (aucun lock)
+      // Si jamais ça échoue, on ne spam pas d'erreur ici (rules / réseau)
     }
   };
 
-  // 4) Version "sticky" (pas "fixed") pour ne rien masquer + spacer intégré
-  //    -> le bouton reste accroché au bas de la fenêtre sans recouvrir le contenu
+  // Styles
+  const ready = !isDisabled;
+  const label = ready ? 'BUZZ !' : 'En attente…';
+
   return (
     <>
-      {/* Spacer: réserve un espace pour que le contenu ne soit jamais caché */}
-      <div aria-hidden className="h-[22rem] md:h-[18rem]" />
+      {/* Spacer: évite que l’UI soit cachée par le dock */}
+      <div className="h-28" />
 
-      {/* Dock sticky bas d'écran, safe-area iOS incluse */}
-      <div
-        className="sticky bottom-0 inset-x-0 z-40 flex justify-center pointer-events-none"
-        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 12px)' }}
-      >
-        <button
-          onClick={handleBuzz}
-          disabled={isDisabled}
-          className={[
-            'pointer-events-auto select-none rounded-full font-extrabold',
-            'shadow-2xl focus:outline-none focus-visible:ring-8',
-            'transition-all duration-200 ease-out active:scale-95',
-            // tailles : massif sur mobile, un peu moins sur md+
-            'w-[18rem] h-[18rem] text-3xl md:w-[16rem] md:h-[16rem] md:text-3xl',
-            // léger décalage vers le haut pour tomber naturellement sous le pouce
-            'translate-y-[-8px]',
-            isDisabled
-              ? 'bg-gray-200 text-black ring-8 ring-gray-300'
-              : 'bg-red-600 text-white ring-[12px] ring-red-300 animate-pulse',
-          ].join(' ')}
-          aria-label="Buzzer"
-          aria-live="polite"
-          style={{ touchAction: 'manipulation' }}
-        >
-          {isDisabled ? 'En attente…' : 'BUZZ !'}
-        </button>
+      {/* Dock sticky bas d’écran */}
+      <div className="sticky bottom-0 left-0 right-0 z-40">
+        <div className="flex items-center justify-center pb-[env(safe-area-inset-bottom)] pt-2">
+          <button
+            onClick={handleBuzz}
+            disabled={isDisabled}
+            aria-disabled={isDisabled}
+            aria-label={label}
+            className={[
+              'transition-all duration-150 ease-out',
+              'h-24 w-24 rounded-full shadow-lg',
+              'text-lg font-extrabold tracking-wide',
+              'border-4',
+              ready
+                ? 'bg-red-600 hover:bg-red-700 active:scale-95 text-white border-red-700'
+                : 'bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed',
+              ready ? 'animate-pulse' : ''
+            ].join(' ')}
+          >
+            {label}
+          </button>
+        </div>
       </div>
     </>
   );
