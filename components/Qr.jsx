@@ -1,7 +1,14 @@
 "use client";
 
 export default function Qr({ text, size = 256, className = "" }) {
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(text)}`;
+  // Vérification et fallback
+  const safeText = text || "https://example.com";
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(safeText)}`;
+
+  // Debug en développement
+  if (process.env.NODE_ENV === 'development' && !text) {
+    console.warn('Qr component: text prop is undefined');
+  }
 
   return (
     <div className={`qr-container ${className}`}>
@@ -17,9 +24,17 @@ export default function Qr({ text, size = 256, className = "" }) {
         }} 
       />
       
+      {/* Affichage debug en dev */}
+      {process.env.NODE_ENV === 'development' && (
+        <div style={{ fontSize: '10px', marginTop: '4px', opacity: 0.7 }}>
+          {text ? text.substring(0, 50) + '...' : 'URL undefined'}
+        </div>
+      )}
+      
       <style jsx>{`
         .qr-container {
           display: flex;
+          flex-direction: column;
           justify-content: center;
           align-items: center;
           padding: 1rem;
