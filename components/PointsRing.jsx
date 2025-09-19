@@ -1,44 +1,37 @@
 "use client";
 
 export default function PointsRing({ value = 0, points = 0, size = 100, label = "pts", revealed = false }) {
-  // Si pas révélé, le ring est toujours à 100%
-  // Si révélé, on utilise la vraie valeur pour l'animation dégressive
+  // Si pas révélé, le ring est à 100%
+  // Si révélé, on utilise la vraie valeur pour l'animation dégressive FLUIDE
   const displayValue = revealed ? Math.max(0, Math.min(1, value)) : 1;
-  const degrees = displayValue * 360;
   
-  // Couleurs dynamiques selon la valeur qui baisse
+  // Couleurs dynamiques selon la valeur qui baisse PROGRESSIVEMENT
   const getColor = () => {
     if (!revealed) return '#10B981'; // Vert quand pas révélé
     
     const realValue = Math.max(0, Math.min(1, value));
-    if (realValue > 0.7) return '#10B981'; // Vert (beaucoup de temps)
-    if (realValue > 0.4) return '#F59E0B'; // Orange (temps moyen)  
-    if (realValue > 0.1) return '#EF4444'; // Rouge (peu de temps)
-    return '#64748B'; // Gris (temps écoulé)
+    if (realValue > 0.7) return '#10B981'; // Vert (70-100%)
+    if (realValue > 0.4) return '#F59E0B'; // Orange (40-70%)  
+    if (realValue > 0.1) return '#EF4444'; // Rouge (10-40%)
+    return '#64748B'; // Gris (0-10% - temps écoulé)
   };
 
   const ringColor = getColor();
   
-  const style = {
-    "--deg": `${degrees}deg`,
-    "--size": `${size}px`,
-    "--ring-color": ringColor,
-  };
-
   return (
-    <div className="ring-wrap" style={style}>
-      {/* Ring CSS pur pour animation fluide */}
+    <div className="ring-wrap" style={{ '--size': `${size}px` }}>
+      {/* Ring avec animation CSS dégressive */}
       <div 
-        className="ring" 
+        className="ring"
         style={{
-          background: `conic-gradient(${ringColor} ${degrees}deg, var(--bg-accent) 0deg)`,
-          filter: `drop-shadow(0 0 12px ${ringColor}40)`
+          '--progress': `${displayValue * 100}%`,
+          '--ring-color': ringColor
         }}
       />
       
       {/* Content overlay */}
-      <div className="ring-label">
-        <div className="ring-number">
+      <div className="ring-content">
+        <div className="ring-number" style={{ color: ringColor }}>
           {points}
         </div>
         <div className="ring-text">
@@ -48,7 +41,6 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
       
       <style jsx>{`
         .ring-wrap {
-          --size: ${size}px;
           width: var(--size);
           height: var(--size);
           position: relative;
@@ -61,8 +53,13 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
           position: absolute;
           inset: 0;
           border-radius: 50%;
-          transition: ${revealed ? 'background 0.1s linear' : 'background 0.3s ease'};
-          border: 4px solid var(--bg-primary);
+          background: conic-gradient(
+            var(--ring-color) var(--progress), 
+            #334155 var(--progress)
+          );
+          transition: ${revealed ? 'background 0.05s linear' : 'background 0.3s ease'};
+          border: 4px solid #0F172A;
+          filter: drop-shadow(0 0 15px color-mix(in srgb, var(--ring-color) 40%, transparent));
         }
         
         .ring::after {
@@ -70,12 +67,12 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
           position: absolute;
           inset: 12px;
           border-radius: 50%;
-          background: var(--bg-secondary);
+          background: #1E293B;
           border: 3px solid var(--ring-color);
-          transition: border-color 0.3s ease;
+          transition: border-color 0.2s ease;
         }
         
-        .ring-label {
+        .ring-content {
           position: relative;
           z-index: 10;
           text-align: center;
@@ -87,33 +84,21 @@ export default function PointsRing({ value = 0, points = 0, size = 100, label = 
         
         .ring-number {
           font-size: ${size > 80 ? '1.5rem' : '1.25rem'};
-          font-weight: 800;
-          color: var(--ring-color);
+          font-weight: 900;
           line-height: 1;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+          text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
           margin-bottom: 2px;
-          transition: color 0.3s ease;
+          transition: color 0.2s ease;
         }
         
         .ring-text {
           font-size: ${size > 80 ? '0.75rem' : '0.625rem'};
           font-weight: 600;
-          color: var(--text-secondary);
+          color: #CBD5E1;
           text-transform: uppercase;
           letter-spacing: 0.5px;
           line-height: 1;
           opacity: 0.8;
-        }
-        
-        /* Animation de changement de points */
-        @keyframes points-bounce {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.15); }
-          100% { transform: scale(1); }
-        }
-        
-        .ring-number {
-          animation: points-bounce 0.4s ease;
         }
         
         /* Responsive */
