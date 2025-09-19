@@ -64,7 +64,7 @@ export default function PlayerGame(){
   const progressLabel = total ? `Q${Math.min(qIndex+1,total)} / ${total}` : "";
   const title = (quiz?.title || (meta?.quizId ? meta.quizId.replace(/-/g, " ") : "Partie"));
 
-  // Pénalité serveur (affichage seulement)
+  // Pénalité serveur
   const blockedMs = Math.max(0, (me?.blockedUntil || 0) - serverNow);
   const blocked = blockedMs > 0;
 
@@ -170,8 +170,15 @@ export default function PlayerGame(){
         roomCode={code} 
         playerUid={auth.currentUser?.uid} 
         playerName={me?.name}
+        blockedUntil={me?.blockedUntil || 0}
+        serverNow={serverNow}
       />
-      {blocked && <div className="card" style={{ background: "rgba(148,163,184,.2)" }}>⏳ Pénalité {Math.ceil(blockedMs/1000)}s après erreur/buzz trop tôt</div>}
+      
+      {blocked && (
+        <div className="card" style={{ background: "rgba(251,146,60,.2)", border: "2px solid rgb(251,146,60)" }}>
+          ⏳ Pénalité {Math.ceil(blockedMs/1000)}s après mauvaise réponse
+        </div>
+      )}
     </main>
   );
 }
