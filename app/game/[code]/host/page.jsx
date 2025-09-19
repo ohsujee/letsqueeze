@@ -108,7 +108,7 @@ export default function HostGame(){
       playBuzz();
     }
     prevLock.current = cur;
-  },[isHost, state?.lockUid, code, players, playBuzz, serverNow]);
+  },[isHost, state?.lockUid, code, players, playBuzz]);
 
   function computeResumeFields(){
     const already = (state?.elapsedAcc || 0)
@@ -166,18 +166,26 @@ export default function HostGame(){
 
     const updates = {};
     const until = serverNow + ms;
-    updates[`rooms/${code}/players/${uid}/blockedUntil`] = until;
-
+    
+    // Appliquer la pénalité
     if (meta?.mode === "équipes") {
+      // Mode équipes : bloquer toute l'équipe
       const player = players.find(p=>p.uid===uid);
       const teamId = player?.teamId;
       if (teamId) {
         players.filter(p=>p.teamId===teamId).forEach(p=>{
           updates[`rooms/${code}/players/${p.uid}/blockedUntil`] = until;
         });
+      } else {
+        // Fallback si pas d'équipe trouvée
+        updates[`rooms/${code}/players/${uid}/blockedUntil`] = until;
       }
+    } else {
+      // Mode individuel : bloquer seulement le joueur
+      updates[`rooms/${code}/players/${uid}/blockedUntil`] = until;
     }
 
+    // Reprendre le timer avec le temps déjà écoulé
     const resume = computeResumeFields();
     updates[`rooms/${code}/state/lockUid`] = null;
     updates[`rooms/${code}/state/buzzBanner`] = "";
@@ -270,19 +278,4 @@ export default function HostGame(){
         <b>Scores joueurs</b>
         <ul className="mt-2 space-y-1">
           {playersSorted.map((p,i)=>(
-            <li key={p.uid} className="card flex justify-between items-center">
-              <span>{i+1}. {p.name}</span>
-              <b>{p.score||0}</b>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="sticky-bar">
-        <button className="btn btn-primary w-full h-14 text-xl" onClick={revealToggle}>
-          {state?.revealed ? "Masquer la question" : "Révéler la question"}
-        </button>
-      </div>
-    </main>
-  );
-}
+            <li key={
