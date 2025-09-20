@@ -70,34 +70,39 @@ export default function Buzzer({
     };
   }, [state, blockedUntil, serverNow, playerUid, revealed]);
 
-  // 3) Fonction de buzz
+  // 3) Fonction de buzz - CORRIGÉE
   const handleBuzz = async () => {
     if (buzzerState.disabled || !roomCode || !playerUid) return;
     
     const code = String(roomCode).toUpperCase();
 
     try {
+      // Utiliser une transaction pour s'assurer qu'on prend le lock
       const lockRef = ref(db, `rooms/${code}/state/lockUid`);
       const result = await runTransaction(lockRef, (currentValue) => {
-        if (currentValue === null || currentValue === undefined) {
+        if (currentValue === null || currentValue === undefined || currentValue === '') {
           return playerUid;
         }
-        return currentValue;
+        return currentValue; // Quelqu'un d'autre a déjà le lock
       });
 
+      // Si on a réussi à prendre le lock
       if (result.committed && result.snapshot.val() === playerUid) {
-        const updates = {};
         const isAnticipatedBuzz = !revealed;
         
-        updates[`rooms/${code}/state/buzzBanner`] = `🔔 ${playerName || 'Un joueur'} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`;
-        updates[`rooms/${code}/state/buzz`] = {
-          uid: playerUid,
-          at: serverTimestamp(),
-          anticipated: isAnticipatedBuzz
+        // Mettre à jour la bannière et les infos de buzz
+        const updates = {
+          [`rooms/${code}/state/buzzBanner`]: `🔔 ${playerName || 'Un joueur'} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`,
+          [`rooms/${code}/state/buzz`]: {
+            uid: playerUid,
+            at: serverTimestamp(),
+            anticipated: isAnticipatedBuzz
+          }
         };
         
         await update(ref(db), updates);
         
+        // Vibration si supportée
         try {
           navigator?.vibrate?.([100, 50, 200]);
         } catch {}
