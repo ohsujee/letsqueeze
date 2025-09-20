@@ -161,17 +161,18 @@ export default function Room() {
 
       <div className="card">
         <div className="text-center space-y-4">
-          <Qr text={joinUrl} size={200} />
+          {/* N'afficher le QR que si on a l'URL */}
+          {joinUrl && <Qr text={joinUrl} size={200} />}
           
           <div>
             <h3 className="text-lg font-bold mb-2">Invite des joueurs</h3>
-            <div className="text-sm opacity-80 mb-3">{joinUrl}</div>
+            <div className="text-sm opacity-80 mb-3">{joinUrl || "Génération du lien..."}</div>
             
             <div className="flex gap-2 justify-center">
               <button className="btn btn-primary" onClick={handleStartGame} disabled={!isHost}>
                 Partager
               </button>
-              <button className="btn copy-btn" onClick={copyLink}>
+              <button className="btn copy-btn" onClick={copyLink} disabled={!joinUrl}>
                 Copier le lien
               </button>
             </div>
