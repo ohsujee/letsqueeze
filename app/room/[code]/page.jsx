@@ -69,11 +69,25 @@ export default function Room() {
       setPlayers(Object.values(p));
     });
 
+    // Écouter les changements d'état pour rediriger quand la partie commence
+    const stateUnsub = onValue(ref(db, `rooms/${code}/state`), (snap) => {
+      const state = snap.val();
+      if (state?.phase === "playing") {
+        // Rediriger selon le rôle
+        if (isHost) {
+          router.push(`/game/${code}/host`);
+        } else {
+          router.push(`/game/${code}/play`);
+        }
+      }
+    });
+
     return () => {
       metaUnsub();
       playersUnsub();
+      stateUnsub();
     };
-  }, [code]);
+  }, [code, router, isHost]);
 
   const handleStartGame = async () => {
     if (!isHost) return;
@@ -88,7 +102,7 @@ export default function Room() {
       pausedAt: null,
       lockedAt: null,
     });
-    router.push(`/game/${code}/host`);
+    // La redirection se fera automatiquement via le listener d'état
   };
 
   const handleModeToggle = async () => {
@@ -144,11 +158,6 @@ export default function Room() {
           Lobby — {selectedQuizTitle}
         </h1>
         <div className="flex gap-3">
-          {isHost && (
-            <button className="btn" onClick={() => router.push("/")}>
-              Masquer l'invitation
-            </button>
-          )}
           <button className="btn btn-danger" onClick={handleQuit}>
             Quitter
           </button>
@@ -169,9 +178,6 @@ export default function Room() {
             <div className="text-sm opacity-80 mb-3">{joinUrl || "Génération du lien..."}</div>
             
             <div className="flex gap-2 justify-center">
-              <button className="btn btn-primary" onClick={handleStartGame} disabled={!isHost}>
-                Partager
-              </button>
               <button className="btn copy-btn" onClick={copyLink} disabled={!joinUrl}>
                 Copier le lien
               </button>
@@ -180,65 +186,64 @@ export default function Room() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
-        <div className="card">
-          <h3 className="font-bold mb-3">Mode de jeu</h3>
-          <div className="space-y-2">
-            <button
-              className={`btn w-full ${meta.mode === "individuel" ? "btn-accent" : ""}`}
-              onClick={handleModeToggle}
-              disabled={!isHost}
-            >
-              Individuel
-            </button>
-            <button
-              className={`btn w-full ${meta.mode === "équipes" ? "btn-accent" : ""}`}
-              onClick={handleModeToggle}
-              disabled={!isHost}
-            >
-              Équipes
-            </button>
+      {/* Section des contrôles - visible seulement pour l'host */}
+      {isHost && (
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="card">
+            <h3 className="font-bold mb-3">Mode de jeu</h3>
+            <div className="space-y-2">
+              <button
+                className={`btn w-full ${meta.mode === "individuel" ? "btn-accent" : ""}`}
+                onClick={handleModeToggle}
+              >
+                Individuel
+              </button>
+              <button
+                className={`btn w-full ${meta.mode === "équipes" ? "btn-accent" : ""}`}
+                onClick={handleModeToggle}
+              >
+                Équipes
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="card">
-          <h3 className="font-bold mb-3">Quiz</h3>
-          <select
-            value={meta.quizId || "general"}
-            onChange={handleQuizChange}
-            disabled={!isHost}
-            className="w-full p-3 rounded-lg bg-slate-700 border-2 border-blue-500 text-white"
-          >
-            {quizOptions.map(quiz => (
-              <option key={quiz.id} value={quiz.id}>
-                {quiz.title}
-              </option>
-            ))}
-          </select>
-          <div className="text-xs opacity-70 mt-2">
-            Choisis un quiz, puis démarre la partie.
+          <div className="card">
+            <h3 className="font-bold mb-3">Quiz</h3>
+            <select
+              value={meta.quizId || "general"}
+              onChange={handleQuizChange}
+              className="w-full p-3 rounded-lg bg-slate-700 border-2 border-blue-500 text-white"
+            >
+              {quizOptions.map(quiz => (
+                <option key={quiz.id} value={quiz.id}>
+                  {quiz.title}
+                </option>
+              ))}
+            </select>
+            <div className="text-xs opacity-70 mt-2">
+              Choisis un quiz, puis démarre la partie.
+            </div>
           </div>
-        </div>
 
-        <div className="card">
-          <h3 className="font-bold mb-3">Actions</h3>
-          <div className="space-y-2">
-            <button
-              className="btn btn-primary w-full"
-              onClick={handleStartGame}
-              disabled={!isHost}
-            >
-              Démarrer la partie
-            </button>
-            <button
-              className="btn w-full"
-              onClick={() => router.push("/")}
-            >
-              Retour accueil
-            </button>
+          <div className="card">
+            <h3 className="font-bold mb-3">Actions</h3>
+            <div className="space-y-2">
+              <button
+                className="btn btn-primary w-full"
+                onClick={handleStartGame}
+              >
+                Démarrer la partie
+              </button>
+              <button
+                className="btn w-full"
+                onClick={() => router.push("/")}
+              >
+                Retour accueil
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {meta.mode === "équipes" && (
         <div className="card">
