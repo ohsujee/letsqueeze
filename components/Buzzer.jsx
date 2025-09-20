@@ -60,21 +60,13 @@ export default function Buzzer({
       };
     }
     
-    if (revealed || true) {
-      return {
-        type: 'active',
-        label: revealed ? 'BUZZ' : '⚡',
-        sublabel: revealed ? '!' : 'ANTICIPÉ',
-        disabled: false,
-        isAnticipated: !revealed
-      };
-    }
-    
+    // Toujours permettre de buzzer, mais indiquer si c'est anticipé
     return {
-      type: 'inactive',
-      label: '🔒',
-      sublabel: 'ATTENTE',
-      disabled: true
+      type: 'active',
+      label: revealed ? 'BUZZ' : '⚡',
+      sublabel: revealed ? '!' : 'ANTICIPÉ',
+      disabled: false,
+      isAnticipated: !revealed
     };
   }, [state, blockedUntil, serverNow, playerUid, revealed]);
 
@@ -260,6 +252,10 @@ export default function Buzzer({
             opacity: 0.8; 
             filter: brightness(0.8);
           }
+        }
+        
+        .buzzer:active:not(.buzzer-inactive) {
+          transform: scale(0.98);
         }
         
         /* Responsive */
