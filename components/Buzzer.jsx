@@ -70,42 +70,49 @@ export default function Buzzer({
     };
   }, [state, blockedUntil, serverNow, playerUid, revealed]);
 
-  // 3) Fonction de buzz - CORRIGÉE
+  // 3) Fonction de buzz - VERSION SIMPLE QUI FONCTIONNE
   const handleBuzz = async () => {
-    if (buzzerState.disabled || !roomCode || !playerUid) return;
+    if (buzzerState.disabled || !roomCode || !playerUid || !playerName) return;
     
     const code = String(roomCode).toUpperCase();
 
     try {
-      // Utiliser une transaction pour s'assurer qu'on prend le lock
+      // SIMPLIFIÉ : Essayer de prendre le lock directement
       const lockRef = ref(db, `rooms/${code}/state/lockUid`);
-      const result = await runTransaction(lockRef, (currentValue) => {
-        if (currentValue === null || currentValue === undefined || currentValue === '') {
+      
+      const result = await runTransaction(lockRef, (currentLockUid) => {
+        // Si personne n'a le lock, on le prend
+        if (!currentLockUid) {
           return playerUid;
         }
-        return currentValue; // Quelqu'un d'autre a déjà le lock
+        // Sinon on garde l'ancien
+        return currentLockUid;
       });
 
       // Si on a réussi à prendre le lock
       if (result.committed && result.snapshot.val() === playerUid) {
         const isAnticipatedBuzz = !revealed;
         
-        // Mettre à jour la bannière et les infos de buzz
-        const updates = {
-          [`rooms/${code}/state/buzzBanner`]: `🔔 ${playerName || 'Un joueur'} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`,
-          [`rooms/${code}/state/buzz`]: {
+        // Mettre à jour DIRECTEMENT sans transactions complexes
+        await update(ref(db, `rooms/${code}/state`), {
+          buzzBanner: `🔔 ${playerName} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`,
+          buzz: {
             uid: playerUid,
             at: serverTimestamp(),
             anticipated: isAnticipatedBuzz
           }
-        };
+        });
         
-        await update(ref(db), updates);
+        console.log(`Buzz ${isAnticipatedBuzz ? 'anticipé' : 'normal'} envoyé par ${playerName}`);
         
-        // Vibration si supportée
+        // Vibration
         try {
           navigator?.vibrate?.([100, 50, 200]);
-        } catch {}
+        } catch (e) {
+          console.log('Vibration non supportée');
+        }
+      } else {
+        console.log('Quelqu\'un d\'autre a déjà le lock');
       }
     } catch (error) {
       console.error('Erreur lors du buzz:', error);
@@ -257,10 +264,6 @@ export default function Buzzer({
             opacity: 0.8; 
             filter: brightness(0.8);
           }
-        }
-        
-        .buzzer:active:not(.buzzer-inactive) {
-          transform: scale(0.98);
         }
         
         /* Responsive */
