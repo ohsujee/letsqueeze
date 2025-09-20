@@ -1,29 +1,9 @@
 "use client";
 
 export default function Qr({ text, size = 256, className = "" }) {
-  // Ne pas afficher le QR code tant que l'URL correcte n'est pas fournie
-  if (!text || text === "") {
-    return (
-      <div className={`qr-container ${className}`} style={{ width: size, height: size }}>
-        <div className="flex items-center justify-center h-full text-sm opacity-50">
-          Génération du QR code...
-        </div>
-        
-        <style jsx>{`
-          .qr-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            background: #F8FAFC;
-            border-radius: var(--radius-lg);
-            border: 3px solid var(--retro-blue);
-            box-shadow: var(--shadow-medium);
-            transition: all 0.2s ease;
-          }
-        `}</style>
-      </div>
-    );
+  // Si pas de texte, ne rien afficher
+  if (!text) {
+    return null;
   }
 
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(text)}`;
