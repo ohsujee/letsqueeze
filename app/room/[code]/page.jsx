@@ -23,10 +23,14 @@ export default function Room() {
   const [isHost, setIsHost] = useState(false);
   const [quizOptions, setQuizOptions] = useState([]);
 
-  // Calculer joinUrl directement - pas d'état séparé
-  const joinUrl = typeof window !== "undefined" && code
-    ? `${window.location.origin}/join?code=${code}`
-    : `https://www.circuitbreak.co/join?code=${code}`;
+  // Calculer joinUrl seulement côté client et quand on a le code
+  const [joinUrl, setJoinUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && code) {
+      setJoinUrl(`${window.location.origin}/join?code=${code}`);
+    }
+  }, [code]);
 
   // Charger le manifest des quiz
   useEffect(() => {
@@ -103,7 +107,7 @@ export default function Room() {
   };
 
   const copyLink = async () => {
-    if (typeof navigator !== "undefined" && navigator.clipboard) {
+    if (typeof navigator !== "undefined" && navigator.clipboard && joinUrl) {
       try {
         await navigator.clipboard.writeText(joinUrl);
         const btn = document.querySelector('.copy-btn');
