@@ -10,7 +10,7 @@ export default function HostPage(){
   const [user,setUser]=useState(null);
   const [room,setRoom]=useState(null);
   const [code,setCode]=useState("");
-  const joinUrl = useMemo(()=> typeof window!=="undefined" ? window.location.origin + "/join?code="+code : "", [code]);
+  const joinUrl = useMemo(()=> typeof window!=="undefined" && code ? window.location.origin + "/join?code="+code : "", [code]);
 
   useEffect(()=>{
     signInAnonymously(auth).then(()=>setReady(true));
@@ -42,7 +42,7 @@ export default function HostPage(){
         <div className="space-y-3">
           <p className="card">Code room : <span className="font-black text-2xl">{code}</span></p>
           <div className="flex items-center gap-3 flex-wrap">
-            {joinUrl && <Qr value={joinUrl} />}
+            {joinUrl && <Qr text={joinUrl} />}
             <div className="space-y-2">
               <p><b>Inviter :</b> {joinUrl}</p>
               <div className="flex gap-2">
