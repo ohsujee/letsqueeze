@@ -97,18 +97,19 @@ export default function HostGame(){
     const cur = state?.lockUid || null;
     if (cur && cur !== prevLock.current) {
       const name = players.find(p=>p.uid===cur)?.name || "Un joueur";
+      const isAnticipated = state?.buzz?.anticipated === true;
       
       // Figer automatiquement le timer et mettre à jour la bannière
       update(ref(db,`rooms/${code}/state`), {
         pausedAt: serverTimestamp(),
         lockedAt: serverTimestamp(),
-        buzzBanner: `🔔 ${name} a buzzé !`
+        buzzBanner: `🔔 ${name} a buzzé !${isAnticipated ? ' (ANTICIPÉ)' : ''}`
       }).catch(()=>{});
       
       playBuzz();
     }
     prevLock.current = cur;
-  },[isHost, state?.lockUid, code, players, playBuzz]);
+  },[isHost, state?.lockUid, state?.buzz?.anticipated, code, players, playBuzz]);
 
   function computeResumeFields(){
     const already = (state?.elapsedAcc || 0)
