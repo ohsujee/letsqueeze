@@ -138,13 +138,17 @@ export default function HostGame(){
     const uid = state.lockUid;
     const pts = pointsEnJeu;
 
-    await runTransaction(ref(db,`rooms/${code}/players/${uid}/score`),(cur)=> (cur||0)+pts);
+    // Si c'était un buzz anticipé, pas de points (déjà pénalisé dans wrong())
+    const wasAnticipated = state?.buzz?.anticipated === true;
+    if (!wasAnticipated) {
+      await runTransaction(ref(db,`rooms/${code}/players/${uid}/score`),(cur)=> (cur||0)+pts);
 
-    if (meta?.mode === "équipes") {
-      const player = players.find(p=>p.uid===uid);
-      const teamId = player?.teamId;
-      if (teamId) {
-        await runTransaction(ref(db,`rooms/${code}/meta/teams/${teamId}/score`),(cur)=> (cur||0)+pts);
+      if (meta?.mode === "équipes") {
+        const player = players.find(p=>p.uid===uid);
+        const teamId = player?.teamId;
+        if (teamId) {
+          await runTransaction(ref(db,`rooms/${code}/meta/teams/${teamId}/score`),(cur)=> (cur||0)+pts);
+        }
       }
     }
 
@@ -168,21 +172,23 @@ export default function HostGame(){
     const updates = {};
     const until = serverNow + ms;
     
-    // Gestion buzz anticipé : malus -100 pts
+    // Gestion buzz anticipé : malus selon config
     const wasAnticipated = state?.buzz?.anticipated === true;
-    if (wasAnticipated) {
-      await runTransaction(ref(db,`rooms/${code}/players/${uid}/score`),(cur)=> (cur||0)-100);
+    const penalty = wasAnticipated ? (conf.anticipatedBuzzPenalty || 100) : 0;
+    
+    if (penalty > 0) {
+      await runTransaction(ref(db,`rooms/${code}/players/${uid}/score`),(cur)=> (cur||0)-penalty);
       
       if (meta?.mode === "équipes") {
         const player = players.find(p=>p.uid===uid);
         const teamId = player?.teamId;
         if (teamId) {
-          await runTransaction(ref(db,`rooms/${code}/meta/teams/${teamId}/score`),(cur)=> (cur||0)-100);
+          await runTransaction(ref(db,`rooms/${code}/meta/teams/${teamId}/score`),(cur)=> (cur||0)-penalty);
         }
       }
     }
     
-    // Appliquer la pénalité
+    // Appliquer la pénalité de temps
     if (meta?.mode === "équipes") {
       // Mode équipes : bloquer toute l'équipe
       const player = players.find(p=>p.uid===uid);
@@ -241,14 +247,26 @@ export default function HostGame(){
       <div className="card">
         <div className="flex gap-2 flex-wrap">
           <button className="btn" onClick={resetBuzzers}>Reset buzzers</button>
-          <button className="btn" onClick={wrong}>✘ Mauvaise{wasAnticipated ? ' (-100pts)' : ''}</button>
-          <button className="btn btn-accent" onClick={validate}>✔ Valider</button>
+          <button className="btn" onClick={wrong}>
+            ✘ Mauvaise{wasAnticipated ? ` (-${conf?.anticipatedBuzzPenalty || 100}pts)` : ''}
+          </button>
+          <button className="btn btn-accent" onClick={validate}>
+            ✔ Valider{wasAnticipated ? ' (sans points)' : ''}
+          </button>
           <button className="btn" onClick={skip}>⏭ Passer</button>
           <button className="btn" onClick={end}>Terminer</button>
         </div>
         <div className="mt-3 card banner">
           <b>Buzz :</b> {state?.buzzBanner || "— en attente —"}
-          {wasAnticipated && <span className="ml-2 text-red-600 font-black">(ANTICIPÉ)</span>}
+          {wasAnticipated && (
+            <div className="mt-2 p-2 bg-red-100 border-2 border-red-500 rounded-lg">
+              <span className="text-red-700 font-black">⚠️ BUZZ ANTICIPÉ</span>
+              <br />
+              <span className="text-sm text-red-600">
+                Question pas encore révélée ! Malus de {conf?.anticipatedBuzzPenalty || 100} points si fausse réponse.
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -272,6 +290,7 @@ export default function HostGame(){
             />
             <div className="text-sm opacity-80">
               {cfg ? <>De <b>{cfg.start}</b> à <b>{cfg.floor}</b> en <b>{cfg.durationMs/1000}s</b>.</> : "Chargement…"}
+              {wasAnticipated && <div className="text-red-600 font-bold">Buzz anticipé : pas de points même si correct !</div>}
             </div>
           </div>
 
@@ -300,25 +319,3 @@ export default function HostGame(){
           {playersSorted.map((p,i)=>(
             <li key={p.uid} className="card flex justify-between items-center">
               <span>
-                {i+1}. {p.name}
-                {/* Affichage de la pénalité en cours */}
-                {(p.blockedUntil || 0) > serverNow && (
-                  <span className="ml-2 px-2 py-1 bg-orange-200 text-orange-800 rounded text-xs">
-                    ⏳ {Math.ceil(((p.blockedUntil || 0) - serverNow) / 1000)}s
-                  </span>
-                )}
-              </span>
-              <b>{p.score||0}</b>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="sticky-bar">
-        <button className="btn btn-primary w-full h-14 text-xl" onClick={revealToggle}>
-          {state?.revealed ? "Masquer la question" : "Révéler la question"}
-        </button>
-      </div>
-    </main>
-  );
-}
