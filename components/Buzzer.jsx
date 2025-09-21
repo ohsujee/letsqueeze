@@ -60,24 +60,35 @@ export default function Buzzer({
       };
     }
     
-    // Toujours permettre de buzzer, mais indiquer si c'est anticipé
+    // Buzz normal (question révélée)
+    if (revealed) {
+      return {
+        type: 'active',
+        label: 'BUZZ',
+        sublabel: '!',
+        disabled: false,
+        isAnticipated: false
+      };
+    }
+    
+    // Buzz anticipé (question pas encore révélée)
     return {
-      type: 'active',
-      label: revealed ? 'BUZZ' : '⚡',
-      sublabel: revealed ? '!' : 'ANTICIPÉ',
+      type: 'anticipated',
+      label: '⚡',
+      sublabel: 'ANTICIPÉ',
       disabled: false,
-      isAnticipated: !revealed
+      isAnticipated: true
     };
   }, [state, blockedUntil, serverNow, playerUid, revealed]);
 
-  // 3) Fonction de buzz - VERSION SIMPLE QUI FONCTIONNE
+  // 3) Fonction de buzz
   const handleBuzz = async () => {
     if (buzzerState.disabled || !roomCode || !playerUid || !playerName) return;
     
     const code = String(roomCode).toUpperCase();
 
     try {
-      // SIMPLIFIÉ : Essayer de prendre le lock directement
+      // Essayer de prendre le lock directement
       const lockRef = ref(db, `rooms/${code}/state/lockUid`);
       
       const result = await runTransaction(lockRef, (currentLockUid) => {
@@ -93,7 +104,7 @@ export default function Buzzer({
       if (result.committed && result.snapshot.val() === playerUid) {
         const isAnticipatedBuzz = !revealed;
         
-        // Mettre à jour DIRECTEMENT sans transactions complexes
+        // Mettre à jour l'état avec les infos du buzz
         await update(ref(db, `rooms/${code}/state`), {
           buzzBanner: `🔔 ${playerName} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`,
           buzz: {
@@ -137,6 +148,11 @@ export default function Buzzer({
         <div className="buzzer-sub">
           {buzzerState.sublabel}
         </div>
+        {buzzerState.isAnticipated && (
+          <div className="buzzer-warning">
+            RISQUE: -100pts
+          </div>
+        )}
       </button>
       
       <style jsx>{`
@@ -182,6 +198,16 @@ export default function Buzzer({
           text-transform: uppercase;
           opacity: 0.95;
         }
+
+        .buzzer-warning {
+          font-size: 0.6rem;
+          font-weight: 700;
+          color: #ffffff;
+          background: rgba(255, 0, 0, 0.8);
+          padding: 2px 6px;
+          border-radius: 8px;
+          margin-top: 4px;
+        }
         
         /* États du buzzer */
         .buzzer-inactive {
@@ -196,6 +222,19 @@ export default function Buzzer({
           color: white;
           border-color: #B91C1C;
           animation: buzz-pulse 2s infinite ease-in-out;
+          box-shadow: 
+            0 12px 40px rgba(0, 0, 0, 0.6),
+            0 0 50px rgba(239, 68, 68, 0.4);
+        }
+
+        .buzzer-anticipated {
+          background: linear-gradient(135deg, #F97316, #EA580C);
+          color: white;
+          border-color: #C2410C;
+          animation: anticipated-pulse 1.5s infinite ease-in-out;
+          box-shadow: 
+            0 12px 40px rgba(0, 0, 0, 0.6),
+            0 0 50px rgba(249, 115, 22, 0.4);
         }
         
         .buzzer-success {
@@ -223,18 +262,12 @@ export default function Buzzer({
         }
         
         /* Interactions */
-        .buzzer-active:hover {
+        .buzzer-active:hover, .buzzer-anticipated:hover {
           transform: translateX(-50%) scale(1.05);
-          box-shadow: 
-            0 16px 50px rgba(0, 0, 0, 0.7),
-            0 0 60px rgba(239, 68, 68, 0.6);
         }
         
-        .buzzer-active:active {
+        .buzzer-active:active, .buzzer-anticipated:active {
           transform: translateX(-50%) scale(0.95);
-          box-shadow: 
-            0 8px 30px rgba(0, 0, 0, 0.5),
-            0 0 40px rgba(239, 68, 68, 0.4);
         }
         
         .buzzer-floating:disabled {
@@ -252,6 +285,19 @@ export default function Buzzer({
             box-shadow: 
               0 16px 50px rgba(0, 0, 0, 0.7),
               0 0 70px rgba(239, 68, 68, 0.6);
+          }
+        }
+
+        @keyframes anticipated-pulse {
+          0%, 100% {
+            box-shadow: 
+              0 12px 40px rgba(0, 0, 0, 0.6),
+              0 0 50px rgba(249, 115, 22, 0.4);
+          }
+          50% {
+            box-shadow: 
+              0 16px 50px rgba(0, 0, 0, 0.7),
+              0 0 70px rgba(249, 115, 22, 0.6);
           }
         }
         
@@ -281,6 +327,10 @@ export default function Buzzer({
           .buzzer-sub {
             font-size: 0.7rem;
             letter-spacing: 1px;
+          }
+
+          .buzzer-warning {
+            font-size: 0.5rem;
           }
         }
         
