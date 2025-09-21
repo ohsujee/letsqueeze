@@ -1,0 +1,26 @@
+{
+  "id": "culture-generale-fun-2",
+  "title": "Culture générale — questions variées",
+  "items": [
+    { "question": "Quel écrivain français a écrit « Le Petit Prince » ?", "answer": "Antoine de Saint-Exupéry", "difficulty": "normal", "category": "Littérature" },
+    { "question": "Dans quelle ville italienne se déroule l'action de « Roméo et Juliette » ?", "answer": "Vérone", "difficulty": "normal", "category": "Littérature" },
+    { "question": "Quel réalisateur a dirigé les films « Psychose » et « Les Oiseaux » ?", "answer": "Alfred Hitchcock", "difficulty": "normal", "category": "Cinéma" },
+    { "question": "Quelle est la monnaie officielle du Japon ?", "answer": "Le yen", "difficulty": "normal", "category": "Économie" },
+    { "question": "Qui a peint « La Nuit étoilée » ?", "answer": "Vincent van Gogh", "difficulty": "normal", "category": "Arts" },
+    { "question": "Quel fleuve traverse Londres ?", "answer": "La Tamise", "difficulty": "normal", "category": "Géographie" },
+    { "question": "Qui était le roi de France pendant la Révolution française ?", "answer": "Louis XVI", "difficulty": "normal", "category": "Histoire" },
+    { "question": "Quel instrument de musique Frédéric Chopin jouait-il principalement ?", "answer": "Le piano", "difficulty": "normal", "category": "Musique" },
+    { "question": "Dans quelle ville se trouve la statue de la Petite Sirène ?", "answer": "Copenhague", "difficulty": "normal", "category": "Géographie" },
+    { "question": "Quel est le nom de famille de Napoléon ?", "answer": "Bonaparte", "difficulty": "normal", "category": "Histoire" },
+    { "question": "Qui a écrit « Crime et Châtiment » ?", "answer": "Fiodor Dostoïevski", "difficulty": "normal", "category": "Littérature" },
+    { "question": "Quelle est la capitale de la Norvège ?", "answer": "Oslo", "difficulty": "normal", "category": "Géographie" },
+    { "question": "Quel peintre espagnol est associé au mouvement cubiste ?", "answer": "Pablo Picasso", "difficulty": "normal", "category": "Arts" },
+    { "question": "Dans quel pays se trouve le mont Fuji ?", "answer": "Le Japon", "difficulty": "normal", "category": "Géographie" },
+    { "question": "Qui a composé « La Flûte enchantée » ?", "answer": "Wolfgang Amadeus Mozart", "difficulty": "normal", "category": "Musique" },
+    { "question": "Quel empereur romain a légalisé le christianisme dans l'Empire ?", "answer": "Constantin Ier", "difficulty": "normal", "category": "Histoire" },
+    { "question": "Quel acteur américain a joué dans « Forrest Gump » ?", "answer": "Tom Hanks", "difficulty": "normal", "category": "Cinéma" },
+    { "question": "Quelle est la langue officielle de l'Argentine ?", "answer": "L'espagnol", "difficulty": "normal", "category": "Langues" },
+    { "question": "Qui a découvert la pénicilline ?", "answer": "Alexander Fleming", "difficulty": "normal", "category": "Sciences" },
+    { "question": "Dans quelle ville se trouve le musée du Louvre ?", "answer": "Paris", "difficulty": "normal", "category": "Arts/Géographie" }
+  ]
+}
