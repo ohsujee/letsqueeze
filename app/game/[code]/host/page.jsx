@@ -136,19 +136,26 @@ export default function HostGame(){
   async function validate(){
     if(!isHost || !q || !state?.lockUid || !conf) return;
     const uid = state.lockUid;
-    const pts = pointsEnJeu;
-
-    // Si c'était un buzz anticipé, pas de points (déjà pénalisé dans wrong())
     const wasAnticipated = state?.buzz?.anticipated === true;
-    if (!wasAnticipated) {
-      await runTransaction(ref(db,`rooms/${code}/players/${uid}/score`),(cur)=> (cur||0)+pts);
+    
+    // Calcul des points
+    let pts;
+    if (wasAnticipated) {
+      // Buzz anticipé correct = points maximum
+      const diff = q.difficulty === "difficile" ? "difficile" : "normal";
+      pts = conf[diff].start;
+    } else {
+      // Buzz normal = points dégressifs selon le temps
+      pts = pointsEnJeu;
+    }
 
-      if (meta?.mode === "équipes") {
-        const player = players.find(p=>p.uid===uid);
-        const teamId = player?.teamId;
-        if (teamId) {
-          await runTransaction(ref(db,`rooms/${code}/meta/teams/${teamId}/score`),(cur)=> (cur||0)+pts);
-        }
+    await runTransaction(ref(db,`rooms/${code}/players/${uid}/score`),(cur)=> (cur||0)+pts);
+
+    if (meta?.mode === "équipes") {
+      const player = players.find(p=>p.uid===uid);
+      const teamId = player?.teamId;
+      if (teamId) {
+        await runTransaction(ref(db,`rooms/${code}/meta/teams/${teamId}/score`),(cur)=> (cur||0)+pts);
       }
     }
 
@@ -240,6 +247,16 @@ export default function HostGame(){
 
   const playersSorted = useMemo(()=> players.slice().sort((a,b)=> (b.score||0)-(a.score||0)), [players]);
 
+  // Points à gagner selon le type de buzz
+  const pointsAGagner = useMemo(() => {
+    if (!conf || !q) return 0;
+    const diff = q.difficulty === "difficile" ? "difficile" : "normal";
+    if (wasAnticipated) {
+      return conf[diff].start; // Points maximum pour buzz anticipé
+    }
+    return pointsEnJeu; // Points dégressifs pour buzz normal
+  }, [conf, q, wasAnticipated, pointsEnJeu]);
+
   return (
     <main className="p-6 pb-28 max-w-3xl mx-auto space-y-4">
       <h1 className="text-3xl font-black">Écran Animateur — {title}</h1>
@@ -251,7 +268,7 @@ export default function HostGame(){
             ✘ Mauvaise{wasAnticipated ? ` (-${conf?.anticipatedBuzzPenalty || 100}pts)` : ''}
           </button>
           <button className="btn btn-accent" onClick={validate}>
-            ✔ Valider{wasAnticipated ? ' (sans points)' : ''}
+            ✔ Valider{wasAnticipated ? ` (+${conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0} pts MAX)` : ` (+${pointsEnJeu} pts)`}
           </button>
           <button className="btn" onClick={skip}>⏭ Passer</button>
           <button className="btn" onClick={end}>Terminer</button>
@@ -259,11 +276,11 @@ export default function HostGame(){
         <div className="mt-3 card banner">
           <b>Buzz :</b> {state?.buzzBanner || "— en attente —"}
           {wasAnticipated && (
-            <div className="mt-2 p-2 bg-red-100 border-2 border-red-500 rounded-lg">
-              <span className="text-red-700 font-black">⚠️ BUZZ ANTICIPÉ</span>
+            <div className="mt-2 p-2 bg-blue-100 border-2 border-blue-500 rounded-lg">
+              <span className="text-blue-700 font-black">⚡ BUZZ ANTICIPÉ</span>
               <br />
-              <span className="text-sm text-red-600">
-                Question pas encore révélée ! Malus de {conf?.anticipatedBuzzPenalty || 100} points si fausse réponse.
+              <span className="text-sm text-blue-600">
+                Question pas encore révélée ! Si correct = <b>{conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0} points MAX</b>, si faux = <b>-{conf?.anticipatedBuzzPenalty || 100} points</b>
               </span>
             </div>
           )}
@@ -286,11 +303,15 @@ export default function HostGame(){
           <div className="flex items-center gap-4">
             <PointsRing 
               value={ratioRemain} 
-              points={pointsEnJeu} 
+              points={wasAnticipated ? (conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0) : pointsEnJeu} 
             />
             <div className="text-sm opacity-80">
-              {cfg ? <>De <b>{cfg.start}</b> à <b>{cfg.floor}</b> en <b>{cfg.durationMs/1000}s</b>.</> : "Chargement…"}
-              {wasAnticipated && <div className="text-red-600 font-bold">Buzz anticipé : pas de points même si correct !</div>}
+              {cfg ? (
+                <>
+                  De <b>{cfg.start}</b> à <b>{cfg.floor}</b> en <b>{cfg.durationMs/1000}s</b>.
+                  {wasAnticipated && <div className="text-blue-600 font-bold">Buzz anticipé : {cfg.start} points si correct !</div>}
+                </>
+              ) : "Chargement…"}
             </div>
           </div>
 
@@ -319,3 +340,25 @@ export default function HostGame(){
           {playersSorted.map((p,i)=>(
             <li key={p.uid} className="card flex justify-between items-center">
               <span>
+                {i+1}. {p.name}
+                {/* Affichage de la pénalité en cours */}
+                {(p.blockedUntil || 0) > serverNow && (
+                  <span className="ml-2 px-2 py-1 bg-orange-200 text-orange-800 rounded text-xs">
+                    ⏳ {Math.ceil(((p.blockedUntil || 0) - serverNow) / 1000)}s
+                  </span>
+                )}
+              </span>
+              <b>{p.score||0}</b>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="sticky-bar">
+        <button className="btn btn-primary w-full h-14 text-xl" onClick={revealToggle}>
+          {state?.revealed ? "Masquer la question" : "Révéler la question"}
+        </button>
+      </div>
+    </main>
+  );
+}
