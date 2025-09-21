@@ -83,15 +83,30 @@ export default function Buzzer({
 
   // 3) Fonction de buzz
   const handleBuzz = async () => {
-    if (buzzerState.disabled || !roomCode || !playerUid || !playerName) return;
+    console.log('🔍 DEBUG handleBuzz:', {
+      disabled: buzzerState.disabled,
+      roomCode,
+      playerUid,
+      playerName,
+      revealed,
+      buzzerType: buzzerState.type
+    });
+
+    if (buzzerState.disabled || !roomCode || !playerUid || !playerName) {
+      console.log('❌ Buzz bloqué:', { disabled: buzzerState.disabled, roomCode, playerUid, playerName });
+      return;
+    }
     
     const code = String(roomCode).toUpperCase();
 
     try {
+      console.log('🔄 Tentative de lock...');
+      
       // Essayer de prendre le lock directement
       const lockRef = ref(db, `rooms/${code}/state/lockUid`);
       
       const result = await runTransaction(lockRef, (currentLockUid) => {
+        console.log('🔍 Transaction lock:', { currentLockUid, playerUid });
         // Si personne n'a le lock, on le prend
         if (!currentLockUid) {
           return playerUid;
@@ -100,9 +115,13 @@ export default function Buzzer({
         return currentLockUid;
       });
 
+      console.log('📊 Résultat transaction:', { committed: result.committed, value: result.snapshot.val() });
+
       // Si on a réussi à prendre le lock
       if (result.committed && result.snapshot.val() === playerUid) {
         const isAnticipatedBuzz = !revealed;
+        
+        console.log('✅ Lock obtenu, mise à jour état...', { isAnticipatedBuzz });
         
         // Mettre à jour l'état avec les infos du buzz
         await update(ref(db, `rooms/${code}/state`), {
@@ -114,7 +133,7 @@ export default function Buzzer({
           }
         });
         
-        console.log(`Buzz ${isAnticipatedBuzz ? 'anticipé' : 'normal'} envoyé par ${playerName}`);
+        console.log(`🎯 Buzz ${isAnticipatedBuzz ? 'anticipé' : 'normal'} envoyé par ${playerName}`);
         
         // Vibration
         try {
@@ -123,10 +142,10 @@ export default function Buzzer({
           console.log('Vibration non supportée');
         }
       } else {
-        console.log('Quelqu\'un d\'autre a déjà le lock');
+        console.log('⚠️ Quelqu\'un d\'autre a déjà le lock');
       }
     } catch (error) {
-      console.error('Erreur lors du buzz:', error);
+      console.error('💥 Erreur lors du buzz:', error);
     }
   };
 
