@@ -1,0 +1,27 @@
+{
+  "id": "disney-films-moderate",
+  "title": "Films Disney — difficulté modérée",
+  "items": [
+    { "question": "Quel est le premier long métrage d’animation Disney (1937) ?", "answer": "Blanche-Neige et les Sept Nains / Snow White and the Seven Dwarfs (1937)", "difficulty": "normal", "category": "Histoire" },
+    { "question": "Quelle princesse Disney est la seule à porter un tatouage visible ?", "answer": "Pocahontas", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Dans « La Belle et la Bête », quel objet enchanté sert de compte à rebours de la malédiction ?", "answer": "La rose enchantée / The Enchanted Rose", "difficulty": "normal", "category": "Objet" },
+    { "question": "Dans « Aladdin », comment s’appelle le tigre de Jasmine ?", "answer": "Rajah (VO/VF identique)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Dans « Le Roi Lion », comment s’appellent les hyènes les plus proches de Scar ?", "answer": "Shenzi, Banzai et Ed", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Dans « La Petite Sirène », sous quelle identité humaine Ursula tente-t-elle de séduire Éric ?", "answer": "Vanessa (VO/VF identique)", "difficulty": "normal", "category": "Intrigue" },
+    { "question": "Dans « Mulan », comment s’appelle le criquet porte-bonheur ami de Mushu ?", "answer": "Cri-Kee (VO/VF identique)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Dans « Le Bossu de Notre-Dame », quel est le nom du juge fanatique antagoniste ?", "answer": "Claude Frollo", "difficulty": "normal", "category": "Antagoniste" },
+    { "question": "Dans « Raiponce », comment s’appelle le caméléon compagnon de l’héroïne ?", "answer": "Pascal (VO/VF identique)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Dans « La Reine des neiges », quel monstre de neige Elsa crée-t-elle pour garder son palais ?", "answer": "Marshmallow (VO) / Marshmallow (souvent non traduit en VF)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Dans « Vaiana (Moana) », quel est le nom de la déesse dont il faut restituer le cœur ?", "answer": "Te Fiti", "difficulty": "normal", "category": "Intrigue" },
+    { "question": "Dans « Zootopie », de quelle petite ville rurale Judy Hopps est-elle originaire ?", "answer": "Bunnyburrow (VO) / Le Terrier (VF)", "difficulty": "normal", "category": "Lieu" },
+    { "question": "Dans « Les Nouveaux Héros » (Big Hero 6), comment s’appelle la ville futuriste où se déroule l’action ?", "answer": "San Fransokyo", "difficulty": "normal", "category": "Lieu" },
+    { "question": "Dans « La Princesse et la Grenouille », quel rêve professionnel Tiana poursuit-elle ?", "answer": "Ouvrir son propre restaurant à La Nouvelle-Orléans", "difficulty": "normal", "category": "Objectif" },
+    { "question": "Dans « La Belle au bois dormant », sous quel nom Aurore est-elle cachée par les fées ?", "answer": "Rose (VF) / Briar Rose (VO)", "difficulty": "normal", "category": "Intrigue" },
+    { "question": "Dans « Peter Pan », comment s’appelle le navire du capitaine Crochet ?", "answer": "Le Jolly Roger", "difficulty": "normal", "category": "Objet/Lieu" },
+    { "question": "Dans « Cendrillon », comment s’appelle le chat de Lady Trémaine ?", "answer": "Lucifer", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Dans « Hercule », quel est le nom du mentor satyre qui entraîne le héros ?", "answer": "Philoctète (« Phil ») / Philoctetes (Phil)", "difficulty": "normal", "category": "Personnage" },
+    { "question": "Dans « Lilo & Stitch », quel est le numéro d’expérience de Stitch ?", "answer": "626", "difficulty": "normal", "category": "Détail" },
+    { "question": "Dans « Kuzco, l’empereur mégalo », en quel animal Kuzco est-il transformé ?", "answer": "Un lama / A llama", "difficulty": "normal", "category": "Transformation" },
+    { "question": "Dans « Mulan », quel accessoire symbolique l’héroïne rapporte-t-elle à son père à la fin pour prouver son honneur ?", "answer": "L’épée de Shan-Yu et le sceau de l’Empereur", "difficulty": "normal", "category": "Intrigue/Objet" }
+  ]
+}
