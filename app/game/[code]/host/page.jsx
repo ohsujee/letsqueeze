@@ -5,6 +5,10 @@ import {
   auth, db, ref, onValue, update, runTransaction, serverTimestamp
 } from "@/lib/firebase";
 import PointsRing from "@/components/PointsRing";
+import { motion, AnimatePresence, useSpring } from "framer-motion";
+import { triggerConfetti } from "@/components/Confetti";
+import AnimatedLeaderboard, { TeamLeaderboard } from "@/components/AnimatedLeaderboard";
+import { RippleButton, ShineButton } from "@/components/InteractiveButton";
 
 function useQuiz(quizId){
   const [quiz,setQuiz]=useState(null);
@@ -120,9 +124,40 @@ export default function HostGame(){
   // actions
   async function revealToggle(){
     if(!isHost || !q) return;
+
     if (!state?.revealed) {
-      await update(ref(db,`rooms/${code}/state`), {
-        revealed: true, lastRevealAt: serverTimestamp(), elapsedAcc: 0, pausedAt: null, lockedAt: null, lockUid: null, buzzBanner: ""
+      // Utiliser une transaction pour préserver un buzz concurrent
+      const stateRef = ref(db, `rooms/${code}/state`);
+
+      await runTransaction(stateRef, (currentState) => {
+        if (!currentState) return currentState;
+
+        // Si quelqu'un a buzzé entre-temps, on préserve son buzz
+        if (currentState.lockUid) {
+          // Révéler la question mais garder le lock existant
+          return {
+            ...currentState,
+            revealed: true,
+            lastRevealAt: Date.now(),
+            elapsedAcc: 0,
+            pausedAt: currentState.pausedAt || null,
+            lockedAt: currentState.lockedAt || null
+            // lockUid, buzz, buzzBanner sont préservés
+          };
+        }
+
+        // Sinon, révélation normale sans buzz
+        return {
+          ...currentState,
+          revealed: true,
+          lastRevealAt: Date.now(),
+          elapsedAcc: 0,
+          pausedAt: null,
+          lockedAt: null,
+          lockUid: null,
+          buzzBanner: "",
+          buzz: null
+        };
       });
     } else {
       await update(ref(db,`rooms/${code}/state`), { revealed: false });
@@ -131,7 +166,7 @@ export default function HostGame(){
   async function resetBuzzers(){
     if(!isHost) return;
     const resume = computeResumeFields();
-    await update(ref(db,`rooms/${code}/state`), { lockUid: null, buzzBanner: "", ...resume });
+    await update(ref(db,`rooms/${code}/state`), { lockUid: null, buzzBanner: "", buzz: null, ...resume });
   }
   async function validate(){
     if(!isHost || !q || !state?.lockUid || !conf) return;
@@ -165,11 +200,23 @@ export default function HostGame(){
       router.replace(`/end/${code}`);
       return;
     }
-    await update(ref(db,`rooms/${code}/state`), {
-      currentIndex: next,
-      revealed: false, lockUid: null, pausedAt: null, lockedAt: null,
-      elapsedAcc: 0, lastRevealAt: 0, buzzBanner: ""
+
+    // Réinitialiser les pénalités de tous les joueurs
+    const updates = {};
+    players.forEach(p => {
+      updates[`rooms/${code}/players/${p.uid}/blockedUntil`] = 0;
     });
+    updates[`rooms/${code}/state/currentIndex`] = next;
+    updates[`rooms/${code}/state/revealed`] = false;
+    updates[`rooms/${code}/state/lockUid`] = null;
+    updates[`rooms/${code}/state/pausedAt`] = null;
+    updates[`rooms/${code}/state/lockedAt`] = null;
+    updates[`rooms/${code}/state/elapsedAcc`] = 0;
+    updates[`rooms/${code}/state/lastRevealAt`] = 0;
+    updates[`rooms/${code}/state/buzzBanner`] = "";
+    updates[`rooms/${code}/state/buzz`] = null;
+
+    await update(ref(db), updates);
   }
   async function wrong(){
     if(!isHost || !state?.lockUid || !conf) return;
@@ -217,6 +264,7 @@ export default function HostGame(){
     const resume = computeResumeFields();
     updates[`rooms/${code}/state/lockUid`] = null;
     updates[`rooms/${code}/state/buzzBanner`] = "";
+    updates[`rooms/${code}/state/buzz`] = null;
     updates[`rooms/${code}/state/elapsedAcc`] = resume.elapsedAcc;
     updates[`rooms/${code}/state/lastRevealAt`] = resume.lastRevealAt;
     updates[`rooms/${code}/state/pausedAt`] = resume.pausedAt;
@@ -232,10 +280,23 @@ export default function HostGame(){
       router.replace(`/end/${code}`);
       return;
     }
-    await update(ref(db,`rooms/${code}/state`), {
-      currentIndex: next, revealed: false, lockUid: null,
-      pausedAt: null, lockedAt: null, elapsedAcc: 0, lastRevealAt: 0, buzzBanner: ""
+
+    // Réinitialiser les pénalités de tous les joueurs
+    const updates = {};
+    players.forEach(p => {
+      updates[`rooms/${code}/players/${p.uid}/blockedUntil`] = 0;
     });
+    updates[`rooms/${code}/state/currentIndex`] = next;
+    updates[`rooms/${code}/state/revealed`] = false;
+    updates[`rooms/${code}/state/lockUid`] = null;
+    updates[`rooms/${code}/state/pausedAt`] = null;
+    updates[`rooms/${code}/state/lockedAt`] = null;
+    updates[`rooms/${code}/state/elapsedAcc`] = 0;
+    updates[`rooms/${code}/state/lastRevealAt`] = 0;
+    updates[`rooms/${code}/state/buzzBanner`] = "";
+    updates[`rooms/${code}/state/buzz`] = null;
+
+    await update(ref(db), updates);
   }
   async function end(){ if(isHost){ await update(ref(db,`rooms/${code}/state`), { phase:"ended" }); router.replace(`/end/${code}`); } }
 
@@ -263,15 +324,15 @@ export default function HostGame(){
 
       <div className="card">
         <div className="flex gap-2 flex-wrap">
-          <button className="btn" onClick={resetBuzzers}>Reset buzzers</button>
-          <button className="btn" onClick={wrong}>
+          <RippleButton className="btn" onClick={resetBuzzers}>Reset buzzers</RippleButton>
+          <RippleButton className="btn" onClick={wrong}>
             ✘ Mauvaise{wasAnticipated ? ` (-${conf?.anticipatedBuzzPenalty || 100}pts)` : ''}
-          </button>
-          <button className="btn btn-accent" onClick={validate}>
+          </RippleButton>
+          <ShineButton className="btn btn-accent" onClick={validate}>
             ✔ Valider{wasAnticipated ? ` (+${conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0} pts MAX)` : ` (+${pointsEnJeu} pts)`}
-          </button>
-          <button className="btn" onClick={skip}>⏭ Passer</button>
-          <button className="btn" onClick={end}>Terminer</button>
+          </ShineButton>
+          <RippleButton className="btn" onClick={skip}>⏭ Passer</RippleButton>
+          <RippleButton className="btn" onClick={end}>Terminer</RippleButton>
         </div>
         <div className="mt-3 card banner">
           <b>Buzz :</b> {state?.buzzBanner || "— en attente —"}
@@ -288,17 +349,34 @@ export default function HostGame(){
       </div>
 
       {q ? (
-        <div className="card space-y-4">
+        <motion.div
+          className="card space-y-4"
+          key={qIndex}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <div className="flex items-center justify-between">
-            <div className="text-xl font-black">
+            <motion.div
+              className="text-xl font-black"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
               {q.category? `[${q.category}] `:""}{q.question}
-            </div>
+            </motion.div>
             <div className="text-sm opacity-80">{progressLabel}</div>
           </div>
 
-          <div className="card" style={{ background: "rgba(34,197,94,.12)" }}>
+          <motion.div
+            className="card"
+            style={{ background: "rgba(34,197,94,.12)" }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
+          >
             <b>Réponse (privée animateur) :</b> {q.answer}
-          </div>
+          </motion.div>
 
           <div className="flex items-center gap-4">
             <PointsRing 
@@ -315,49 +393,27 @@ export default function HostGame(){
             </div>
           </div>
 
-          <div><b>Lock :</b> {lockedName}</div>
-        </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <b>Lock :</b> {lockedName}
+          </motion.div>
+        </motion.div>
       ) : <div className="card">Plus de questions. Terminez la partie.</div>}
 
       {meta?.mode === "équipes" && teamsArray.length > 0 && (
-        <div className="card">
-          <b>Scores des équipes</b>
-          <ul className="mt-2 grid grid-cols-2 gap-2">
-            {teamsArray.map(t=>(
-              <li key={t.id} className="card flex justify-between items-center">
-                <span className="font-bold" style={{backgroundColor:t.color}}>&nbsp;&nbsp;{t.name}&nbsp;&nbsp;</span>
-                <b>{t.score||0}</b>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <TeamLeaderboard teams={teamsArray} />
       )}
 
       {/* Scores joueurs complets */}
-      <div className="card">
-        <b>Scores joueurs</b>
-        <ul className="mt-2 space-y-1">
-          {playersSorted.map((p,i)=>(
-            <li key={p.uid} className="card flex justify-between items-center">
-              <span>
-                {i+1}. {p.name}
-                {/* Affichage de la pénalité en cours */}
-                {(p.blockedUntil || 0) > serverNow && (
-                  <span className="ml-2 px-2 py-1 bg-orange-200 text-orange-800 rounded text-xs">
-                    ⏳ {Math.ceil(((p.blockedUntil || 0) - serverNow) / 1000)}s
-                  </span>
-                )}
-              </span>
-              <b>{p.score||0}</b>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <AnimatedLeaderboard players={playersSorted} serverNow={serverNow} />
 
       <div className="sticky-bar">
-        <button className="btn btn-primary w-full h-14 text-xl" onClick={revealToggle}>
+        <ShineButton className="btn btn-primary w-full h-14 text-xl" onClick={revealToggle}>
           {state?.revealed ? "Masquer la question" : "Révéler la question"}
-        </button>
+        </ShineButton>
       </div>
     </main>
   );

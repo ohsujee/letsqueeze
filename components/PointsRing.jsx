@@ -1,6 +1,30 @@
 "use client";
 
+import { motion, useSpring, useTransform, AnimatePresence, useMotionValue } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+
 export default function PointsRing({ value = 1, points = 0, size = 100, label = "pts" }) {
+  const prevPoints = useRef(points);
+  const [displayPoints, setDisplayPoints] = useState(points);
+
+  // Animation fluide du compteur de points
+  const springPoints = useSpring(points, {
+    stiffness: 100,
+    damping: 20
+  });
+
+  useEffect(() => {
+    springPoints.set(points);
+    prevPoints.current = points;
+  }, [points, springPoints]);
+
+  // Mettre à jour l'affichage à chaque frame
+  useEffect(() => {
+    const unsubscribe = springPoints.on('change', (latest) => {
+      setDisplayPoints(Math.round(latest));
+    });
+    return unsubscribe;
+  }, [springPoints]);
   // On utilise TOUJOURS la vraie valeur pour l'animation
   const clampedValue = Math.max(0, Math.min(1, value));
   const degrees = clampedValue * 360;
@@ -21,14 +45,53 @@ export default function PointsRing({ value = 1, points = 0, size = 100, label = 
     "--ring-color": ringColor,
   };
 
+  // Animations basées sur le temps restant
+  const ringVariants = {
+    critical: {
+      scale: [1, 1.05, 1],
+      rotate: [0, -2, 2, -2, 0],
+      transition: {
+        duration: 0.5,
+        repeat: Infinity,
+        repeatDelay: 0.2
+      }
+    },
+    warning: {
+      scale: [1, 1.02, 1],
+      transition: {
+        duration: 1,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    },
+    normal: {
+      scale: 1,
+      rotate: 0
+    }
+  };
+
+  const getAnimationState = () => {
+    if (clampedValue <= 0.1) return 'critical';
+    if (clampedValue <= 0.4) return 'warning';
+    return 'normal';
+  };
+
   return (
-    <div className="points-ring-container" style={style}>
+    <motion.div
+      className="points-ring-container"
+      style={style}
+      variants={ringVariants}
+      animate={getAnimationState()}
+    >
       {/* Ring SVG pour un contrôle parfait */}
-      <svg 
-        width={size} 
-        height={size} 
+      <motion.svg
+        width={size}
+        height={size}
         className="points-ring-svg"
         style={{ transform: 'rotate(-90deg)' }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         {/* Background circle */}
         <circle
@@ -69,13 +132,22 @@ export default function PointsRing({ value = 1, points = 0, size = 100, label = 
           className="points-ring-glow"
           opacity="0.6"
         />
-      </svg>
-      
+      </motion.svg>
+
       {/* Content overlay */}
       <div className="points-ring-content">
-        <div className="points-ring-number">
-          {points}
-        </div>
+        <motion.div
+          className="points-ring-number"
+          animate={{
+            scale: clampedValue <= 0.1 ? [1, 1.1, 1] : 1
+          }}
+          transition={{
+            duration: 0.3,
+            repeat: clampedValue <= 0.1 ? Infinity : 0
+          }}
+        >
+          {displayPoints}
+        </motion.div>
         <div className="points-ring-label">
           {label}
         </div>
@@ -158,6 +230,6 @@ export default function PointsRing({ value = 1, points = 0, size = 100, label = 
           }
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 }

@@ -108,7 +108,27 @@ export default function Room() {
   const handleModeToggle = async () => {
     if (!isHost) return;
     const newMode = meta?.mode === "équipes" ? "individuel" : "équipes";
-    await update(ref(db, `rooms/${code}/meta`), { mode: newMode });
+
+    // Si on passe en mode équipe, créer les équipes si elles n'existent pas
+    if (newMode === "équipes" && (!teams || Object.keys(teams).length === 0)) {
+      const defaultTeams = {
+        team1: { name: "Équipe Rouge", color: teamColors[0], score: 0 },
+        team2: { name: "Équipe Bleue", color: teamColors[1], score: 0 },
+        team3: { name: "Équipe Verte", color: teamColors[2], score: 0 },
+        team4: { name: "Équipe Orange", color: teamColors[3], score: 0 }
+      };
+      await update(ref(db, `rooms/${code}/meta`), { mode: newMode, teams: defaultTeams });
+    } else if (newMode === "individuel") {
+      // Si on passe en mode individuel, retirer tous les joueurs des équipes
+      const updates = {};
+      players.forEach(p => {
+        updates[`rooms/${code}/players/${p.uid}/teamId`] = "";
+      });
+      updates[`rooms/${code}/meta/mode`] = newMode;
+      await update(ref(db), updates);
+    } else {
+      await update(ref(db, `rooms/${code}/meta`), { mode: newMode });
+    }
   };
 
   const handleQuizChange = async (e) => {
@@ -140,6 +160,48 @@ export default function Room() {
   const teamsSorted = Object.keys(teams).map(id => ({ id, ...teams[id] }));
 
   const selectedQuizTitle = quizOptions.find(q => q.id === (meta?.quizId || "general"))?.title || "Général";
+
+  // Fonctions de gestion des équipes
+  const handleAssignToTeam = async (playerUid, teamId) => {
+    if (!isHost) return;
+    await update(ref(db, `rooms/${code}/players/${playerUid}`), { teamId });
+  };
+
+  const handleRemoveFromTeam = async (playerUid) => {
+    if (!isHost) return;
+    await update(ref(db, `rooms/${code}/players/${playerUid}`), { teamId: "" });
+  };
+
+  const handleAutoBalance = async () => {
+    if (!isHost || !teams || Object.keys(teams).length === 0) return;
+
+    const teamIds = Object.keys(teams);
+    const updates = {};
+
+    // Mélanger aléatoirement les joueurs (algorithme Fisher-Yates)
+    const shuffledPlayers = [...players];
+    for (let i = shuffledPlayers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledPlayers[i], shuffledPlayers[j]] = [shuffledPlayers[j], shuffledPlayers[i]];
+    }
+
+    // Répartir les joueurs mélangés équitablement dans les équipes
+    shuffledPlayers.forEach((player, index) => {
+      const teamIndex = index % teamIds.length;
+      updates[`rooms/${code}/players/${player.uid}/teamId`] = teamIds[teamIndex];
+    });
+
+    await update(ref(db), updates);
+  };
+
+  const handleResetTeams = async () => {
+    if (!isHost) return;
+    const updates = {};
+    players.forEach(p => {
+      updates[`rooms/${code}/players/${p.uid}/teamId`] = "";
+    });
+    await update(ref(db), updates);
+  };
 
   if (!meta) {
     return (
@@ -245,54 +307,208 @@ export default function Room() {
         </div>
       )}
 
-      {meta.mode === "équipes" && (
+      {meta.mode === "équipes" && isHost && (
         <div className="card">
-          <h3 className="font-bold mb-3">Équipes</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {teamsSorted.map((team, index) => (
-              <div
-                key={team.id}
-                className="card"
-                style={{ 
-                  backgroundColor: team.color,
-                  color: '#1E293B',
-                  fontWeight: 'bold'
-                }}
-              >
-                {team.name}
-              </div>
-            ))}
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-bold">Gestion des équipes</h3>
+            <div className="flex gap-2">
+              <button className="btn btn-sm" onClick={handleAutoBalance}>
+                ⚖️ Auto-répartir
+              </button>
+              <button className="btn btn-sm btn-danger" onClick={handleResetTeams}>
+                🔄 Réinitialiser tout
+              </button>
+            </div>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {teamsSorted.map((team) => {
+              const teamPlayers = players.filter(p => p.teamId === team.id);
+              const unassignedPlayers = players.filter(p => !p.teamId || p.teamId === "");
+
+              return (
+                <div
+                  key={team.id}
+                  className="card p-3"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <div
+                      className="w-5 h-5 rounded-full"
+                      style={{ backgroundColor: team.color, boxShadow: `0 0 10px ${team.color}80` }}
+                    />
+                    <h4 className="font-bold text-lg">{team.name}</h4>
+                    <span className="text-xs opacity-60">({teamPlayers.length})</span>
+                  </div>
+
+                  {/* Joueurs de cette équipe */}
+                  <div className="space-y-1 min-h-[60px]">
+                    {teamPlayers.length === 0 ? (
+                      <div className="text-xs opacity-60 italic">Aucun joueur</div>
+                    ) : (
+                      teamPlayers.map(player => (
+                        <div key={player.uid} className="flex items-center justify-between bg-slate-700 px-2 py-1 rounded text-sm">
+                          <span>{player.name}</span>
+                          <button
+                            className="text-xs opacity-70 hover:opacity-100"
+                            onClick={() => handleRemoveFromTeam(player.uid)}
+                            title="Retirer de l'équipe"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+
+                  {/* Sélecteur pour ajouter un joueur */}
+                  {unassignedPlayers.length > 0 && (
+                    <select
+                      className="w-full mt-2 p-1 text-sm rounded bg-slate-700 border border-slate-600"
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          handleAssignToTeam(e.target.value, team.id);
+                          e.target.value = "";
+                        }
+                      }}
+                      defaultValue=""
+                    >
+                      <option value="" disabled>+ Ajouter un joueur</option>
+                      {unassignedPlayers.map(p => (
+                        <option key={p.uid} value={p.uid}>{p.name}</option>
+                      ))}
+                    </select>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Joueurs non assignés */}
+          {players.filter(p => !p.teamId || p.teamId === "").length > 0 && (
+            <div className="mt-4 p-3 bg-slate-700/50 rounded">
+              <h4 className="font-bold text-sm mb-2">Joueurs sans équipe ({players.filter(p => !p.teamId || p.teamId === "").length})</h4>
+              <div className="flex flex-wrap gap-2">
+                {players.filter(p => !p.teamId || p.teamId === "").map(player => (
+                  <div key={player.uid} className="bg-slate-600 px-3 py-1 rounded text-sm">
+                    {player.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
-      <div className="card">
-        <h3 className="font-bold mb-3">Joueurs ({players.length})</h3>
-        {players.length === 0 ? (
-          <div className="text-center opacity-60 py-8">
-            En attente de joueurs...
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            {players.map((player) => (
-              <div key={player.uid} className="card text-sm">
-                {player.name}
-                {meta.mode === "équipes" && player.teamId && (
-                  <div
-                    className="mt-1 px-2 py-1 rounded text-xs font-bold"
-                    style={{
-                      backgroundColor: teams[player.teamId]?.color || "#64748B",
-                      color: '#1E293B'
-                    }}
-                  >
-                    {teams[player.teamId]?.name || "Équipe"}
+      {meta.mode === "équipes" && !isHost && (
+        <div className="card">
+          <h3 className="font-bold mb-3">Équipes</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {teamsSorted.map((team) => {
+              const teamPlayers = players.filter(p => p.teamId === team.id);
+              const currentPlayer = players.find(p => p.uid === auth.currentUser?.uid);
+              const isMyTeam = currentPlayer?.teamId === team.id;
+
+              return (
+                <div
+                  key={team.id}
+                  className="card p-4"
+                  style={{
+                    backgroundColor: isMyTeam ? team.color : 'rgba(30, 41, 59, 0.5)',
+                    border: isMyTeam ? `3px solid ${team.color}` : '1px solid rgba(100, 116, 139, 0.3)',
+                    boxShadow: isMyTeam ? `0 0 20px ${team.color}80` : 'none',
+                    position: 'relative'
+                  }}
+                >
+                  {/* Badge "MON ÉQUIPE" */}
+                  {isMyTeam && (
+                    <div
+                      className="absolute -top-2 -right-2 px-3 py-1 rounded-full text-xs font-black"
+                      style={{
+                        backgroundColor: team.color,
+                        color: '#1E293B',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
+                      }}
+                    >
+                      ⭐ MON ÉQUIPE
+                    </div>
+                  )}
+
+                  {/* En-tête de l'équipe */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <div
+                      className="w-5 h-5 rounded-full"
+                      style={{ backgroundColor: team.color, boxShadow: `0 0 10px ${team.color}80` }}
+                    />
+                    <h4 className="font-bold text-lg" style={{ color: isMyTeam ? '#1E293B' : 'white' }}>
+                      {team.name}
+                    </h4>
+                    <span className="text-xs opacity-70" style={{ color: isMyTeam ? '#1E293B' : 'white' }}>
+                      ({teamPlayers.length})
+                    </span>
                   </div>
-                )}
-              </div>
-            ))}
+
+                  {/* Liste des joueurs */}
+                  <div className="space-y-1">
+                    {teamPlayers.length === 0 ? (
+                      <div className="text-sm opacity-60 italic" style={{ color: isMyTeam ? '#1E293B' : 'white' }}>
+                        Aucun joueur
+                      </div>
+                    ) : (
+                      teamPlayers.map(player => {
+                        const isMe = player.uid === auth.currentUser?.uid;
+                        return (
+                          <div
+                            key={player.uid}
+                            className="px-2 py-1 rounded text-sm"
+                            style={{
+                              backgroundColor: isMyTeam
+                                ? 'rgba(30, 41, 59, 0.3)'
+                                : 'rgba(100, 116, 139, 0.3)',
+                              color: isMyTeam ? '#1E293B' : 'white',
+                              fontWeight: isMe ? 'bold' : 'normal',
+                              border: isMe ? '2px solid currentColor' : 'none'
+                            }}
+                          >
+                            {isMe ? '👤 ' : ''}{player.name}
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        )}
-      </div>
+
+          {/* Message si pas d'équipe assignée */}
+          {players.find(p => p.uid === auth.currentUser?.uid && (!p.teamId || p.teamId === "")) && (
+            <div className="mt-4 p-3 bg-yellow-500/20 border-2 border-yellow-500 rounded text-center">
+              <span className="font-bold text-yellow-300">⚠️ Tu n'es pas encore assigné à une équipe</span>
+              <br />
+              <span className="text-sm opacity-80">L'animateur va t'assigner bientôt</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {meta.mode !== "équipes" && (
+        <div className="card">
+          <h3 className="font-bold mb-3">Joueurs ({players.length})</h3>
+          {players.length === 0 ? (
+            <div className="text-center opacity-60 py-8">
+              En attente de joueurs...
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              {players.map((player) => (
+                <div key={player.uid} className="card text-sm">
+                  {player.name}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="text-center text-sm opacity-60">
         Room {code} — {isHost ? "Vous êtes l'animateur" : "En attente..."}

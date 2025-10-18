@@ -23,7 +23,7 @@ export default function HostPage(){
     const now = Date.now();
     await set(ref(db, "rooms/"+c+"/meta"), {
       code: c, createdAt: now, hostUid: auth.currentUser.uid, expiresAt: now + 12*60*60*1000,
-      mode: "individuel", teamCount: 0, quizId: "general"
+      mode: "individuel", teamCount: 0, quizId: "general", teams: {}
     });
     await set(ref(db, "rooms/"+c+"/state"), {
       phase: "lobby", currentIndex: 0, revealed: false, lockUid: null, buzzBanner: "", lastRevealAt: 0

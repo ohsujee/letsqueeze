@@ -6,6 +6,8 @@ import {
 } from "@/lib/firebase";
 import Buzzer from "@/components/Buzzer";
 import PointsRing from "@/components/PointsRing";
+import { motion, AnimatePresence } from "framer-motion";
+import { triggerConfetti } from "@/components/Confetti";
 
 function useSound(url){
   const aRef = useRef(null);
@@ -104,7 +106,27 @@ export default function PlayerGame(){
     prevLock.current = cur;
   },[state?.lockUid, playBuzz]);
 
-  const myTeam = me?.teamId ? meta?.teams?.[me.teamId] : null;
+  // Confettis pour bonne réponse (quand la question change et que j'étais locké)
+  const prevQuestionIndex = useRef(-1);
+  const wasLockedByMe = useRef(false);
+  useEffect(() => {
+    const currentIndex = state?.currentIndex || 0;
+    const isLockedByMe = state?.lockUid === auth.currentUser?.uid;
+
+    // Si la question change et que j'étais locké = bonne réponse validée !
+    if (currentIndex !== prevQuestionIndex.current && prevQuestionIndex.current >= 0 && wasLockedByMe.current) {
+      // Déclencher les confettis multicolores
+      triggerConfetti('reward');
+      // Double rafale pour plus d'effet
+      setTimeout(() => triggerConfetti('reward'), 100);
+    }
+
+    // Mettre à jour les refs
+    prevQuestionIndex.current = currentIndex;
+    wasLockedByMe.current = isLockedByMe;
+  }, [state?.currentIndex, state?.lockUid]);
+
+  const myTeam = (meta?.mode === "équipes" && me?.teamId) ? meta?.teams?.[me.teamId] : null;
 
   const teamsSorted = useMemo(()=>{
     if (meta?.mode !== "équipes") return [];
@@ -123,7 +145,20 @@ export default function PlayerGame(){
         </div>
       )}
 
-      <div className="card banner"><b>Buzz :</b> {state?.buzzBanner || "— en attente —"}</div>
+      <motion.div
+        className="card banner"
+        animate={state?.buzzBanner && state.buzzBanner !== "— en attente —" ? {
+          scale: [1, 1.02, 1],
+          boxShadow: [
+            "0 1px 3px rgba(0,0,0,0.1)",
+            "0 4px 12px rgba(239, 68, 68, 0.3)",
+            "0 1px 3px rgba(0,0,0,0.1)"
+          ]
+        } : {}}
+        transition={{ duration: 0.5 }}
+      >
+        <b>Buzz :</b> {state?.buzzBanner || "— en attente —"}
+      </motion.div>
       <div className="card"><b>Mon score :</b> {me?.score||0}</div>
 
       <div className="card">
@@ -133,7 +168,40 @@ export default function PlayerGame(){
               <div className="text-lg font-black">Question</div>
               <div className="text-sm opacity-80">{progressLabel}</div>
             </div>
-            {revealed ? <div className="mb-3">{q.question}</div> : <div className="mb-3 opacity-60">En attente de révélation…</div>}
+            <AnimatePresence mode="wait">
+              {revealed ? (
+                <motion.div
+                  key="revealed"
+                  className="mb-3"
+                  initial={{ opacity: 0, x: -30, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 30, scale: 0.95 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 25
+                  }}
+                >
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                  >
+                    {q.question}
+                  </motion.span>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="waiting"
+                  className="mb-3 opacity-60"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.6 }}
+                  exit={{ opacity: 0 }}
+                >
+                  En attente de révélation…
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <div className="flex items-center gap-4">
               <PointsRing 

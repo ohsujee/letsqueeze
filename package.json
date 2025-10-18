@@ -12,8 +12,10 @@
     "node": ">=18"
   },
   "dependencies": {
+    "canvas-confetti": "^1.9.3",
     "classnames": "^2.5.1",
     "firebase": "^12.2.1",
+    "framer-motion": "^12.23.24",
     "next": "^14.2.32",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

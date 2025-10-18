@@ -3,14 +3,16 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ref, onValue, update, runTransaction, serverTimestamp } from 'firebase/database';
 import { db } from '@/lib/firebase';
+import { motion } from 'framer-motion';
+import { triggerConfetti } from '@/components/Confetti';
 
-export default function Buzzer({ 
-  roomCode, 
-  playerUid, 
-  playerName, 
-  blockedUntil = 0, 
+export default function Buzzer({
+  roomCode,
+  playerUid,
+  playerName,
+  blockedUntil = 0,
   serverNow = Date.now(),
-  revealed = false 
+  revealed = false
 }) {
   const [state, setState] = useState({});
 
@@ -81,7 +83,7 @@ export default function Buzzer({
     };
   }, [state, blockedUntil, serverNow, playerUid, revealed]);
 
-  // 3) Fonction de buzz
+  // 3) Fonction de buzz avec multi-path atomic update
   const handleBuzz = async () => {
     console.log('🔍 DEBUG handleBuzz:', {
       disabled: buzzerState.disabled,
@@ -96,46 +98,54 @@ export default function Buzzer({
       console.log('❌ Buzz bloqué:', { disabled: buzzerState.disabled, roomCode, playerUid, playerName });
       return;
     }
-    
+
     const code = String(roomCode).toUpperCase();
+    const isAnticipatedBuzz = !revealed;
 
     try {
-      console.log('🔄 Tentative de lock...');
-      
-      // Essayer de prendre le lock directement
+      console.log('🔄 Tentative de buzz...');
+
+      // Transaction sur lockUid pour garantir l'atomicité
       const lockRef = ref(db, `rooms/${code}/state/lockUid`);
-      
-      const result = await runTransaction(lockRef, (currentLockUid) => {
-        console.log('🔍 Transaction lock:', { currentLockUid, playerUid });
+
+      const result = await runTransaction(lockRef, (currentLock) => {
+        console.log('🔍 Transaction lockUid:', { currentLock, playerUid, isAnticipated: isAnticipatedBuzz });
+
         // Si personne n'a le lock, on le prend
-        if (!currentLockUid) {
+        if (!currentLock) {
           return playerUid;
         }
-        // Sinon on garde l'ancien
-        return currentLockUid;
+
+        // Sinon on garde le lock existant (abort)
+        return currentLock;
       });
 
-      console.log('📊 Résultat transaction:', { committed: result.committed, value: result.snapshot.val() });
+      console.log('📊 Résultat transaction:', {
+        committed: result.committed,
+        lockUid: result.snapshot.val()
+      });
 
       // Si on a réussi à prendre le lock
       if (result.committed && result.snapshot.val() === playerUid) {
-        const isAnticipatedBuzz = !revealed;
-        
-        console.log('✅ Lock obtenu, mise à jour état...', { isAnticipatedBuzz });
-        
-        // Mettre à jour l'état avec les infos du buzz
-        await update(ref(db, `rooms/${code}/state`), {
-          buzzBanner: `🔔 ${playerName} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`,
-          buzz: {
-            uid: playerUid,
-            at: serverTimestamp(),
-            anticipated: isAnticipatedBuzz
-          }
-        });
-        
-        console.log(`🎯 Buzz ${isAnticipatedBuzz ? 'anticipé' : 'normal'} envoyé par ${playerName}`);
-        
-        // Vibration
+        console.log(`✅ Lock obtenu, envoi des métadonnées buzz...`);
+
+        // Mettre à jour buzz et buzzBanner en parallèle (multi-path atomic update)
+        const updates = {};
+        updates[`rooms/${code}/state/buzz`] = {
+          uid: playerUid,
+          at: serverTimestamp(),
+          anticipated: isAnticipatedBuzz
+        };
+        updates[`rooms/${code}/state/buzzBanner`] = `🔔 ${playerName} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`;
+
+        await update(ref(db), updates);
+
+        console.log(`🎯 Buzz ${isAnticipatedBuzz ? 'anticipé' : 'normal'} réussi par ${playerName}`);
+
+        // Confetti de célébration
+        triggerConfetti('success');
+
+        // Vibration feedback
         try {
           navigator?.vibrate?.([100, 50, 200]);
         } catch (e) {
@@ -154,63 +164,91 @@ export default function Buzzer({
       {/* Spacer pour éviter que le contenu soit masqué */}
       <div style={{ height: '100px' }} />
 
-      {/* Buzzer flottant en bas */}
-      <button
-        onClick={handleBuzz}
-        disabled={buzzerState.disabled}
-        className={`buzzer-floating buzzer-${buzzerState.type}`}
-        aria-label={`${buzzerState.label} ${buzzerState.sublabel}`}
-      >
-        <div className="buzzer-main">
-          {buzzerState.label}
-        </div>
-        <div className="buzzer-sub">
-          {buzzerState.sublabel}
-        </div>
-        {buzzerState.isAnticipated && (
-          <div className="buzzer-warning">
-            RISQUE: -100pts
+      {/* Container fixe pour le positionnement */}
+      <div className="floating-buzzer-wrapper">
+        {/* Buzzer avec animations Framer Motion */}
+        <motion.button
+          onClick={handleBuzz}
+          disabled={buzzerState.disabled}
+          className={`floating-buzzer-btn floating-buzzer-${buzzerState.type}`}
+          aria-label={`${buzzerState.label} ${buzzerState.sublabel}`}
+          animate={{ scale: 1, opacity: 1 }}
+          whileHover={!buzzerState.disabled ? { scale: 1.05 } : {}}
+          whileTap={!buzzerState.disabled ? { scale: 0.95 } : {}}
+          initial={{ scale: 0.8, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        >
+          <motion.div
+            className="buzzer-main-label"
+            animate={buzzerState.type === 'active' || buzzerState.type === 'anticipated' ? {
+              scale: [1, 1.05, 1],
+            } : {}}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            {buzzerState.label}
+          </motion.div>
+          <div className="buzzer-sub-label">
+            {buzzerState.sublabel}
           </div>
-        )}
-      </button>
-      
-      <style jsx>{`
-        .buzzer-floating {
+          {buzzerState.isAnticipated && (
+            <motion.div
+              className="buzzer-warning-msg"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              RISQUE: -100pts
+            </motion.div>
+          )}
+        </motion.button>
+      </div>
+
+      <style jsx global>{`
+        /* Container fixe pour le positionnement */
+        .floating-buzzer-wrapper {
           position: fixed;
           bottom: 20px;
           left: 50%;
           transform: translateX(-50%);
           z-index: 1000;
-          
+          pointer-events: none;
+        }
+
+        /* Bouton animé par Framer Motion */
+        .floating-buzzer-btn {
+          pointer-events: auto;
           width: 160px;
           height: 160px;
           border: none;
           border-radius: 50%;
-          
+
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          
+
           font-family: inherit;
           cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          
-          box-shadow: 
+
+          box-shadow:
             0 12px 40px rgba(0, 0, 0, 0.6),
             0 0 0 4px rgba(255, 255, 255, 0.1);
-          
+
           border: 5px solid transparent;
         }
-        
-        .buzzer-main {
+
+        .buzzer-main-label {
           font-size: 2.5rem;
           font-weight: 900;
           line-height: 1;
           margin-bottom: 0.25rem;
         }
-        
-        .buzzer-sub {
+
+        .buzzer-sub-label {
           font-size: 0.8rem;
           font-weight: 700;
           letter-spacing: 1.5px;
@@ -218,7 +256,7 @@ export default function Buzzer({
           opacity: 0.95;
         }
 
-        .buzzer-warning {
+        .buzzer-warning-msg {
           font-size: 0.6rem;
           font-weight: 700;
           color: #ffffff;
@@ -229,68 +267,60 @@ export default function Buzzer({
         }
         
         /* États du buzzer */
-        .buzzer-inactive {
+        .floating-buzzer-inactive {
           background: linear-gradient(135deg, #64748B, #475569);
           color: #94A3B8;
           cursor: not-allowed;
           border-color: #475569;
         }
-        
-        .buzzer-active {
+
+        .floating-buzzer-active {
           background: linear-gradient(135deg, #EF4444, #DC2626);
           color: white;
           border-color: #B91C1C;
           animation: buzz-pulse 2s infinite ease-in-out;
-          box-shadow: 
+          box-shadow:
             0 12px 40px rgba(0, 0, 0, 0.6),
             0 0 50px rgba(239, 68, 68, 0.4);
         }
 
-        .buzzer-anticipated {
+        .floating-buzzer-anticipated {
           background: linear-gradient(135deg, #F97316, #EA580C);
           color: white;
           border-color: #C2410C;
           animation: anticipated-pulse 1.5s infinite ease-in-out;
-          box-shadow: 
+          box-shadow:
             0 12px 40px rgba(0, 0, 0, 0.6),
             0 0 50px rgba(249, 115, 22, 0.4);
         }
-        
-        .buzzer-success {
+
+        .floating-buzzer-success {
           background: linear-gradient(135deg, #10B981, #059669);
           color: white;
           border-color: #047857;
-          box-shadow: 
+          box-shadow:
             0 12px 40px rgba(0, 0, 0, 0.6),
             0 0 50px rgba(16, 185, 129, 0.4);
         }
-        
-        .buzzer-blocked {
+
+        .floating-buzzer-blocked {
           background: linear-gradient(135deg, #F59E0B, #D97706);
           color: #92400E;
           border-color: #B45309;
           cursor: not-allowed;
         }
-        
-        .buzzer-penalty {
+
+        .floating-buzzer-penalty {
           background: linear-gradient(135deg, #F97316, #EA580C);
           color: white;
           border-color: #C2410C;
           cursor: not-allowed;
           animation: penalty-flash 1.5s infinite ease-in-out;
         }
-        
-        /* Interactions */
-        .buzzer-active:hover, .buzzer-anticipated:hover {
-          transform: translateX(-50%) scale(1.05);
-        }
-        
-        .buzzer-active:active, .buzzer-anticipated:active {
-          transform: translateX(-50%) scale(0.95);
-        }
-        
-        .buzzer-floating:disabled {
-          transform: translateX(-50%) !important;
+
+        /* Interactions gérées par Framer Motion - pas de transform CSS */
+        .floating-buzzer-btn:disabled {
+          cursor: not-allowed;
         }
         
         /* Animations */
@@ -333,44 +363,46 @@ export default function Buzzer({
         
         /* Responsive */
         @media (max-width: 640px) {
-          .buzzer-floating {
-            width: 140px;
-            height: 140px;
+          .floating-buzzer-wrapper {
             bottom: 15px;
           }
-          
-          .buzzer-main {
+
+          .floating-buzzer-btn {
+            width: 140px;
+            height: 140px;
+          }
+
+          .buzzer-main-label {
             font-size: 2rem;
           }
-          
-          .buzzer-sub {
+
+          .buzzer-sub-label {
             font-size: 0.7rem;
             letter-spacing: 1px;
           }
 
-          .buzzer-warning {
+          .buzzer-warning-msg {
             font-size: 0.5rem;
           }
         }
-        
+
         /* Safe area pour les téléphones avec encoche */
         @supports (padding: max(0px)) {
-          .buzzer-floating {
+          .floating-buzzer-wrapper {
             bottom: max(20px, env(safe-area-inset-bottom) + 10px);
           }
         }
-        
+
         /* Accessibilité */
-        .buzzer-floating:focus-visible {
+        .floating-buzzer-btn:focus-visible {
           outline: 4px solid #06B6D4;
           outline-offset: 6px;
         }
-        
+
         /* Mouvement réduit */
         @media (prefers-reduced-motion: reduce) {
-          .buzzer-floating {
+          .floating-buzzer-btn {
             animation: none !important;
-            transition: transform 0.2s ease !important;
           }
         }
       `}</style>
