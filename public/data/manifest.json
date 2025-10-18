@@ -6,6 +6,10 @@
     { "id": "ma-famille-dabord", "title": "Ma Famille D'abord" },
     { "id": "kollywood-1980-2018", "title": "Cinéma tamoul (Kollywood) 1980–2018" },
     { "id": "disney-films-moderate", "title": "Films Disney — difficulté modérée" },
-    { "id": "kollywood_hard_2", "title": "Kollywood — Quiz #2 (difficile)" }
+    { "id": "kollywood_hard_2", "title": "Kollywood — Quiz #2 (difficile)" },
+    { "id": "kollywood-2000-2010-fresh-fr-ta", "title": "Kollywood 2000–2010 - 2"},
+    { "id": "kollywood-1990-2000-fresh-fr-ta", "title": "Kollywood 90-2000 - 1"}
+
+    
   ]
 }
