@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "next/navigation";
-import Link from "next/link";
-import { db, ref, onValue } from "@/lib/firebase";
+import { useParams, useRouter } from "next/navigation";
+import { db, ref, onValue, update } from "@/lib/firebase";
 
 function rankWithTies(items, scoreKey = "score") {
   const sorted = items.slice().sort((a,b)=> (b[scoreKey]||0) - (a[scoreKey]||0));
@@ -18,6 +17,7 @@ function rankWithTies(items, scoreKey = "score") {
 
 export default function EndPage(){
   const { code } = useParams();
+  const router = useRouter();
 
   const [players,setPlayers]=useState([]);
   const [meta,setMeta]=useState(null);
@@ -50,6 +50,41 @@ export default function EndPage(){
 
   const rankedPlayers = useMemo(()=> rankWithTies(players, "score"), [players]);
   const rankedTeams   = useMemo(()=> rankWithTies(teamsArray, "score"), [teamsArray]);
+
+  // Fonction pour réinitialiser les scores et retourner au lobby
+  const handleBackToLobby = async () => {
+    const updates = {};
+
+    // Réinitialiser les scores de tous les joueurs
+    players.forEach(player => {
+      updates[`rooms/${code}/players/${player.uid}/score`] = 0;
+      updates[`rooms/${code}/players/${player.uid}/blockedUntil`] = 0;
+    });
+
+    // Réinitialiser les scores des équipes
+    if (modeEquipes && teamsArray.length > 0) {
+      teamsArray.forEach(team => {
+        updates[`rooms/${code}/meta/teams/${team.id}/score`] = 0;
+      });
+    }
+
+    // Réinitialiser l'état de la partie
+    updates[`rooms/${code}/state/phase`] = "lobby";
+    updates[`rooms/${code}/state/currentIndex`] = 0;
+    updates[`rooms/${code}/state/revealed`] = false;
+    updates[`rooms/${code}/state/lockUid`] = null;
+    updates[`rooms/${code}/state/buzzBanner`] = "";
+    updates[`rooms/${code}/state/lastRevealAt`] = 0;
+    updates[`rooms/${code}/state/elapsedAcc`] = 0;
+    updates[`rooms/${code}/state/pausedAt`] = null;
+    updates[`rooms/${code}/state/lockedAt`] = null;
+    updates[`rooms/${code}/state/buzz`] = null;
+
+    await update(ref(db), updates);
+
+    // Rediriger vers le lobby
+    router.push(`/room/${code}`);
+  };
 
   return (
     <main className="p-6 max-w-3xl mx-auto space-y-6">
@@ -125,7 +160,7 @@ export default function EndPage(){
 
       {/* Nouveau : retour au lobby pour enchaîner */}
       <div className="flex justify-center">
-        <Link href={`/room/${code}`} className="btn btn-primary">Retour au lobby</Link>
+        <button onClick={handleBackToLobby} className="btn btn-primary">Retour au lobby</button>
       </div>
     </main>
   );

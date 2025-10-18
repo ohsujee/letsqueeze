@@ -2,10 +2,12 @@
 import { useEffect, useState, useMemo } from "react";
 import { auth, db, ref, set, update, onValue, signInAnonymously, onAuthStateChanged, runTransaction } from "@/lib/firebase";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Qr from "@/components/Qr";
 import { genCode } from "@/lib/utils";
 
 export default function HostPage(){
+  const router = useRouter();
   const [ready,setReady]=useState(false);
   const [user,setUser]=useState(null);
   const [room,setRoom]=useState(null);
@@ -29,8 +31,9 @@ export default function HostPage(){
       phase: "lobby", currentIndex: 0, revealed: false, lockUid: null, buzzBanner: "", lastRevealAt: 0
     });
     await set(ref(db, "rooms/"+c+"/__health__"), { aliveAt: now });
-    setCode(c);
-    setRoom(c);
+
+    // Rediriger automatiquement vers le lobby
+    router.push("/room/" + c);
   }
 
   return (
