@@ -126,6 +126,9 @@ export default function HostGame(){
     if(!isHost || !q) return;
 
     if (!state?.revealed) {
+      // Utiliser serverNow pour éviter les décalages de temps
+      const revealTime = serverNow;
+
       // Utiliser une transaction pour préserver un buzz concurrent
       const stateRef = ref(db, `rooms/${code}/state`);
 
@@ -138,7 +141,7 @@ export default function HostGame(){
           return {
             ...currentState,
             revealed: true,
-            lastRevealAt: Date.now(),
+            lastRevealAt: revealTime,
             elapsedAcc: 0,
             pausedAt: currentState.pausedAt || null,
             lockedAt: currentState.lockedAt || null
@@ -150,7 +153,7 @@ export default function HostGame(){
         return {
           ...currentState,
           revealed: true,
-          lastRevealAt: Date.now(),
+          lastRevealAt: revealTime,
           elapsedAcc: 0,
           pausedAt: null,
           lockedAt: null,
@@ -319,7 +322,7 @@ export default function HostGame(){
   }, [conf, q, wasAnticipated, pointsEnJeu]);
 
   return (
-    <main className="p-6 pb-28 max-w-3xl mx-auto space-y-4">
+    <main className="p-6 pb-36 max-w-3xl mx-auto space-y-4">
       <h1 className="text-3xl font-black">Écran Animateur — {title}</h1>
 
       <div className="card">
