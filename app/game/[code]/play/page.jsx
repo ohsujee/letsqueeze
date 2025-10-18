@@ -140,9 +140,40 @@ export default function PlayerGame(){
       <h1 className="text-2xl font-black">{title}</h1>
 
       {myTeam && (
-        <div className="card" style={{ backgroundColor: myTeam.color }}>
-          <b>Mon équipe :</b> {myTeam.name} — Score équipe: <b>{myTeam.score||0}</b>
-        </div>
+        <motion.div
+          className="card"
+          style={{
+            backgroundColor: 'rgba(30, 41, 59, 0.9)',
+            color: 'white',
+            border: `5px solid ${myTeam.color}`,
+            boxShadow: `0 8px 16px rgba(0,0,0,0.4), inset 0 0 0 1px ${myTeam.color}40`,
+            position: 'relative',
+            overflow: 'visible'
+          }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="absolute -top-3 -right-3 px-3 py-1.5 rounded-full text-sm font-black" style={{
+            backgroundColor: myTeam.color,
+            color: 'white',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.4)'
+          }}>
+            ⭐ MON ÉQUIPE
+          </div>
+          <div className="flex items-center gap-3">
+            <div
+              className="w-6 h-6 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: myTeam.color, boxShadow: `0 0 15px ${myTeam.color}80` }}
+            >
+              <span style={{ fontSize: '0.7rem' }}>⭐</span>
+            </div>
+            <div>
+              <div className="font-black text-xl">{myTeam.name}</div>
+              <div className="text-sm opacity-90">Score équipe: <b>{myTeam.score||0}</b> pts</div>
+            </div>
+          </div>
+        </motion.div>
       )}
 
       <motion.div

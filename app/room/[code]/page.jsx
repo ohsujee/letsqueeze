@@ -413,44 +413,64 @@ export default function Room() {
                   key={team.id}
                   className="card p-4"
                   style={{
-                    backgroundColor: isMyTeam ? team.color : 'rgba(30, 41, 59, 0.5)',
-                    border: isMyTeam ? `3px solid ${team.color}` : '1px solid rgba(100, 116, 139, 0.3)',
-                    boxShadow: isMyTeam ? `0 0 20px ${team.color}80` : 'none',
-                    position: 'relative'
+                    backgroundColor: isMyTeam ? 'rgba(30, 41, 59, 0.9)' : 'rgba(30, 41, 59, 0.5)',
+                    border: isMyTeam ? `5px solid ${team.color}` : '2px solid rgba(100, 116, 139, 0.3)',
+                    boxShadow: isMyTeam
+                      ? `0 10px 20px rgba(0,0,0,0.5), inset 0 0 0 1px ${team.color}40`
+                      : '0 2px 8px rgba(0,0,0,0.2)',
+                    position: 'relative',
+                    transform: isMyTeam ? 'scale(1.05)' : 'scale(1)',
+                    transition: 'all 0.3s ease'
                   }}
                 >
                   {/* Badge "MON ÉQUIPE" */}
                   {isMyTeam && (
                     <div
-                      className="absolute -top-2 -right-2 px-3 py-1 rounded-full text-xs font-black"
+                      className="absolute -top-3 -right-3 px-4 py-1.5 rounded-full text-sm font-black"
                       style={{
                         backgroundColor: team.color,
-                        color: '#1E293B',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
+                        color: 'white',
+                        boxShadow: `0 4px 12px rgba(0,0,0,0.4)`,
+                        animation: 'pulse 2s ease-in-out infinite'
                       }}
                     >
-                      ⭐ MON ÉQUIPE
+                      ⭐ C'EST TOI !
                     </div>
                   )}
 
                   {/* En-tête de l'équipe */}
-                  <div className="flex items-center gap-2 mb-3">
+                  <div className="flex items-center gap-3 mb-3">
                     <div
-                      className="w-5 h-5 rounded-full"
-                      style={{ backgroundColor: team.color, boxShadow: `0 0 10px ${team.color}80` }}
-                    />
-                    <h4 className="font-bold text-lg" style={{ color: isMyTeam ? '#1E293B' : 'white' }}>
-                      {team.name}
-                    </h4>
-                    <span className="text-xs opacity-70" style={{ color: isMyTeam ? '#1E293B' : 'white' }}>
-                      ({teamPlayers.length})
-                    </span>
+                      className="w-6 h-6 rounded-full flex items-center justify-center"
+                      style={{
+                        backgroundColor: team.color,
+                        boxShadow: isMyTeam
+                          ? `0 0 15px ${team.color}DD`
+                          : `0 0 10px ${team.color}60`
+                      }}
+                    >
+                      {isMyTeam && <span style={{ fontSize: '0.7rem', color: 'white' }}>⭐</span>}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-black text-xl" style={{
+                        color: 'white',
+                        textShadow: isMyTeam ? '0 2px 8px rgba(0,0,0,0.5)' : '0 2px 4px rgba(0,0,0,0.3)'
+                      }}>
+                        {team.name}
+                      </h4>
+                      <span className="text-xs font-semibold" style={{
+                        color: 'white',
+                        opacity: 0.85
+                      }}>
+                        {teamPlayers.length} joueur{teamPlayers.length > 1 ? 's' : ''}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Liste des joueurs */}
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     {teamPlayers.length === 0 ? (
-                      <div className="text-sm opacity-60 italic" style={{ color: isMyTeam ? '#1E293B' : 'white' }}>
+                      <div className="text-sm opacity-60 italic" style={{ color: 'white' }}>
                         Aucun joueur
                       </div>
                     ) : (
@@ -459,14 +479,15 @@ export default function Room() {
                         return (
                           <div
                             key={player.uid}
-                            className="px-2 py-1 rounded text-sm"
+                            className="px-3 py-2 rounded text-sm"
                             style={{
                               backgroundColor: isMyTeam
-                                ? 'rgba(30, 41, 59, 0.3)'
+                                ? (isMe ? team.color : 'rgba(255, 255, 255, 0.15)')
                                 : 'rgba(100, 116, 139, 0.3)',
-                              color: isMyTeam ? '#1E293B' : 'white',
+                              color: 'white',
                               fontWeight: isMe ? 'bold' : 'normal',
-                              border: isMe ? '2px solid currentColor' : 'none'
+                              border: isMe ? `3px solid ${team.color}` : 'none',
+                              boxShadow: isMe && isMyTeam ? `0 0 15px ${team.color}80` : 'none'
                             }}
                           >
                             {isMe ? '👤 ' : ''}{player.name}
