@@ -1,0 +1,20 @@
+{
+  "id": "escape-game",
+  "title": "Partie d'escape game",
+  "context": "Un sabotage informatique a paralysé votre entreprise entre 19h et 21h. Les logs montrent une connexion depuis votre compte. Vous vous défendez : vous jouiez à un escape game avec des amis.",
+  "accused_document": "<p>Vous aviez réservé une session d'<strong>escape game</strong> avec trois amis dans un centre de loisirs. À l'accueil, une animatrice avec des <strong>dreadlocks colorées</strong> et un <strong>piercing au sourcil</strong> vous a fait signer une décharge et expliqué les règles. Elle portait un <strong>t-shirt noir</strong> avec le logo de l'établissement. Le thème de votre salle était un <strong>laboratoire abandonné</strong>. Avant d'entrer, l'animatrice vous a demandé de ranger vos téléphones dans un <strong>casier verrouillé</strong>. La salle était plongée dans une <strong>lumière verte fluo</strong> avec une ambiance musicale inquiétante. Les murs étaient décorés avec de faux <strong>équipements scientifiques</strong> et des <strong>fioles colorées</strong>. Votre groupe devait résoudre des énigmes pour sortir en moins d'une heure. La première énigme concernait un <strong>code à quatre chiffres</strong> caché dans une formule chimique écrite au tableau. Un de vos amis, celui avec une <strong>veste en jean</strong>, était particulièrement doué pour les énigmes. Une autre amie, portant des <strong>baskets rouges</strong>, a trouvé une clé cachée dans un <strong>livre creux</strong>. Vous avez découvert un <strong>coffre-fort</strong> dissimulé derrière un faux miroir. À un moment, une alarme sonore s'est déclenchée, vous faisant tous sursauter. Le troisième ami, qui portait une <strong>casquette</strong>, a résolu une énigme avec des <strong>symboles lumineux</strong> au plafond. L'animatrice vous donnait des indices via un <strong>haut-parleur</strong> quand vous étiez bloqués. Vous avez finalement réussi à sortir quelques minutes avant la fin du temps imparti.</p>",
+  "inspector_summary": "Les accusés affirment avoir participé à une session d'escape game avec des amis pendant le sabotage.",
+  "inspector_questions": [
+    "Vous avez dit que l'animatrice avait des dreadlocks colorées — de quelles couleurs principalement ?",
+    "Vous avez dit avoir rangé vos téléphones dans un casier verrouillé — qui gardait la clé de ce casier ?",
+    "Vous avez dit que la salle était éclairée d'une lumière verte fluo — y avait-il d'autres sources de lumière ?",
+    "Vous avez dit que la première énigme concernait un code à quatre chiffres — avez-vous réussi à le trouver ou quelqu'un d'autre l'a trouvé ?",
+    "Vous avez dit qu'un ami portait une veste en jean — était-ce une veste claire ou foncée ?",
+    "Vous avez dit qu'une amie portait des baskets rouges — de quelle marque semblaient être ces baskets ?",
+    "Vous avez dit qu'elle a trouvé une clé dans un livre creux — quel type de livre était-ce : roman, encyclopédie, autre ?",
+    "Vous avez dit avoir découvert un coffre-fort derrière un faux miroir — qui a découvert ce coffre ?",
+    "Vous avez dit qu'un ami portait une casquette — de quelle couleur était cette casquette ?",
+    "Vous avez dit avoir fini quelques minutes avant la fin — combien de minutes exactement vous restait-il ?"
+  ],
+  "reading_time_seconds": 90
+}

@@ -875,3 +875,14 @@ main {
     opacity: 1;
   }
 }
+
+/* ===========================================
+   🕵️ ALIBI STYLES
+   =========================================== */
+
+/* Style pour les éléments en gras dans les alibis (nouveau format HTML) */
+.prose strong {
+  color: #fde047; /* text-yellow-300 */
+  font-weight: 700;
+}
+

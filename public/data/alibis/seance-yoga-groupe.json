@@ -1,0 +1,20 @@
+{
+  "id": "seance-yoga-groupe",
+  "title": "Séance de yoga en groupe",
+  "context": "Un vol de voiture a eu lieu entre 19h et 20h30 dans un parking souterrain. Votre véhicule correspond à la description donnée par un témoin. Vous dites avoir été ailleurs : à une séance de yoga.",
+  "accused_document": "<p>Ce soir-là, vous participiez à votre <strong>cours hebdomadaire de yoga vinyasa</strong> dans un studio du quartier. La salle était spacieuse avec des <strong>murs couleur beige clair</strong> et un <strong>parquet en bois blond</strong>. Des <strong>tapis de yoga violets</strong> étaient alignés en plusieurs rangées. La professeure, une femme d'une quarantaine d'années avec des <strong>cheveux gris coupés courts</strong>, portait un <strong>legging noir</strong> et un débardeur ajusté. Elle avait une <strong>voix douce et posée</strong> qui guidait les mouvements. Une quinzaine de personnes étaient présentes. Vous vous souvenez d'avoir été placé au <strong>deuxième rang près de la fenêtre</strong>, à côté d'un homme plus âgé avec une <strong>barbe blanche</strong> qui transpirait beaucoup. L'éclairage était tamisé avec des <strong>bougies parfumées à la lavande</strong> disposées aux quatre coins de la pièce. La professeure a commencé par des <strong>exercices de respiration</strong>, puis vous avez enchaîné plusieurs postures : la <strong>posture du chien tête en bas</strong>, celle du guerrier, et d'autres dont vous ne vous rappelez plus les noms. À un moment, quelqu'un a fait tomber une <strong>bouteille d'eau en métal</strong> qui a roulé bruyamment, interrompant la concentration générale. Vers la fin, vous avez fait une longue <strong>relaxation allongée sur le dos</strong> pendant laquelle la professeure a diffusé une <strong>musique zen avec des sons de nature</strong>. En sortant, vous avez croisé la personne qui animait le <strong>cours de pilates</strong> dans la salle d'à côté.</p>",
+  "inspector_summary": "Les accusés affirment avoir participé à un cours de yoga dans leur quartier pendant l'heure du vol.",
+  "inspector_questions": [
+    "Vous avez dit qu'il y avait environ quinze personnes — combien exactement de participants aviez-vous compté ?",
+    "Vous avez dit que les murs étaient beige clair — y avait-il des décorations ou affiches sur ces murs ?",
+    "Vous avez dit que les tapis étaient violets — étaient-ils tous de la même nuance de violet ?",
+    "Vous avez dit que la professeure avait des cheveux gris courts — portait-elle des bijoux ou accessoires visibles ?",
+    "Vous avez dit être au deuxième rang près de la fenêtre — combien de personnes y avait-il dans votre rangée ?",
+    "Vous avez dit qu'il y avait des bougies parfumées à la lavande — combien de bougies exactement dans la pièce ?",
+    "Vous avez dit avoir fait la posture du chien tête en bas — combien de temps êtes-vous resté dans cette position ?",
+    "Vous avez dit que quelqu'un a fait tomber une bouteille d'eau en métal — cette personne était-elle un homme ou une femme ?",
+    "Vous avez dit qu'il y avait une musique zen avec des sons de nature — quels types de sons : oiseaux, vagues, pluie ?",
+    "Vous avez dit avoir croisé quelqu'un du cours de pilates — cette personne entrait ou sortait de la salle ?"
+  ],
+  "reading_time_seconds": 90
+}

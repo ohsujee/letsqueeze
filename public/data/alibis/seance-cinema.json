@@ -1,0 +1,20 @@
+{
+  "id": "seance-cinema",
+  "title": "Séance de cinéma",
+  "context": "Un cambriolage a été perpétré dans votre immeuble entre 20h30 et 22h30. Vous habitez au cinquième étage. Vous affirmez être innocent : vous étiez au cinéma.",
+  "accused_document": "<p>Ce soir-là, vous êtes allé voir un film au <strong>cinéma multiplexe</strong> du centre commercial. En arrivant, vous avez acheté votre billet à une <strong>borne automatique tactile</strong> qui a imprimé un ticket avec un <strong>code-barres</strong>. Le hall d'entrée était animé avec l'odeur caractéristique du <strong>pop-corn beurré</strong> qui flottait dans l'air. Vous avez fait la queue au comptoir de confiserie derrière plusieurs personnes. Un employé avec une <strong>casquette rouge</strong> et un <strong>polo noir</strong> vous a servi. Vous avez commandé un <strong>grand soda</strong> et un paquet de bonbons. Votre salle était la <strong>numéro sept</strong>, accessible par un couloir avec de la <strong>moquette à motifs géométriques</strong>. Un contrôleur a scanné votre billet avec un <strong>pistolet scanner lumineux</strong>. La salle était à moitié remplie. Vous vous êtes installé vers le milieu, dans une rangée où il y avait déjà un couple et une personne seule avec un <strong>manteau posé sur le siège</strong> à côté d'elle. Les sièges étaient des <strong>fauteuils inclinables en tissu rouge</strong> confortables. Avant le film, il y a eu plusieurs publicités et bandes-annonces, dont une pour un film d'action avec des <strong>explosions spectaculaires</strong>. Pendant la séance, quelqu'un a fait tomber quelque chose qui a roulé bruyamment, provoquant des chuchotements agacés. Le film lui-même était un thriller psychologique assez sombre. À la fin, les lumières se sont rallumées progressivement et les spectateurs sont sortis lentement en discutant du film.</p>",
+  "inspector_summary": "Les accusés déclarent avoir passé la soirée dans une salle de cinéma pendant le cambriolage de leur immeuble.",
+  "inspector_questions": [
+    "Vous avez dit avoir acheté votre billet à une borne automatique — avez-vous payé en espèces ou par carte ?",
+    "Vous avez dit que l'employé portait une casquette rouge — y avait-il un logo sur cette casquette ?",
+    "Vous avez dit avoir commandé un grand soda — quelle boisson exactement : cola, limonade, autre ?",
+    "Vous avez dit que votre salle était la numéro sept — à quel étage se trouvait cette salle ?",
+    "Vous avez dit que la moquette avait des motifs géométriques — de quelles couleurs étaient ces motifs ?",
+    "Vous avez dit vous être installé vers le milieu — combien de rangs y avait-il devant vous approximativement ?",
+    "Vous avez dit qu'il y avait un couple dans votre rangée — ce couple était-il à votre droite ou à votre gauche ?",
+    "Vous avez dit avoir vu une bande-annonce pour un film d'action — vous souvenez-vous du titre ou d'un acteur ?",
+    "Vous avez dit que quelqu'un a fait tomber quelque chose — avez-vous vu ce que c'était ?",
+    "Vous avez dit que le film était un thriller psychologique — vous souvenez-vous du titre du film ?"
+  ],
+  "reading_time_seconds": 90
+}

@@ -1,0 +1,20 @@
+{
+  "id": "cours-danse-salsa",
+  "title": "Cours de danse salsa",
+  "context": "Une agression a eu lieu dans la rue entre 19h30 et 21h. Un témoin vous a formellement identifié. Vous contestez : vous étiez à un cours de danse.",
+  "accused_document": "<p>Ce soir-là, vous assistiez à votre <strong>cours hebdomadaire de salsa</strong> dans une salle de danse du quartier. En arrivant, vous avez entendu la <strong>musique latine rythmée</strong> qui s'échappait du studio. L'entrée était décorée avec des <strong>affiches de danseurs cubains</strong> colorées. Vous avez changé vos chaussures pour mettre des <strong>chaussures de danse à semelles souples</strong> que vous aviez apportées dans votre sac. La salle avait un <strong>parquet en bois verni</strong> et un <strong>mur entièrement recouvert de miroirs</strong>. Une quinzaine de personnes étaient présentes. Le professeur, un homme d'une quarantaine d'années avec une <strong>chemise blanche à manches courtes</strong> et un <strong>pantalon noir ajusté</strong>, a commencé par un échauffement. Vous étiez placé au <strong>troisième rang</strong>, à côté d'une femme avec des <strong>boucles d'oreilles dorées</strong> qui dansait très bien. Le professeur a mis une playlist de <strong>salsa cubaine</strong> et a démontré les pas de base en comptant à voix haute. L'éclairage de la salle était tamisé avec des <strong>spots colorés</strong> qui changeaient de couleur. Pendant les exercices en duo, vous avez dansé avec plusieurs partenaires différents en changeant toutes les quelques minutes. Un homme portant un <strong>bandana rouge</strong> transpirait beaucoup et s'essuyait régulièrement avec une serviette. À la pause, vous avez bu de l'eau à une <strong>fontaine murale</strong> près de l'entrée. Le cours s'est terminé par une chorégraphie collective où tout le groupe dansait ensemble en cercle.</p>",
+  "inspector_summary": "Les accusés prétendent avoir participé à un cours de danse salsa pendant l'heure de l'agression.",
+  "inspector_questions": [
+    "Vous avez dit qu'il y avait des affiches de danseurs cubains — combien d'affiches environ aviez-vous remarqué ?",
+    "Vous avez dit avoir mis des chaussures de danse à semelles souples — de quelle couleur étaient ces chaussures ?",
+    "Vous avez dit qu'une quinzaine de personnes étaient présentes — combien d'hommes et combien de femmes approximativement ?",
+    "Vous avez dit que le professeur portait une chemise blanche à manches courtes — avait-elle des motifs ou était-elle unie ?",
+    "Vous avez dit être au troisième rang — combien de rangées y avait-il en tout ?",
+    "Vous avez dit qu'une femme portait des boucles d'oreilles dorées — quelle était leur forme : rondes, pendantes, créoles ?",
+    "Vous avez dit que des spots colorés changeaient de couleur — quelles couleurs vous souvenez-vous avoir vues ?",
+    "Vous avez dit avoir dansé avec plusieurs partenaires — combien de partenaires différents au total ?",
+    "Vous avez dit qu'un homme portait un bandana rouge — ce bandana était-il sur la tête ou autour du cou ?",
+    "Vous avez dit avoir bu à une fontaine murale — cette fontaine avait-elle un bouton-poussoir ou un levier ?"
+  ],
+  "reading_time_seconds": 90
+}

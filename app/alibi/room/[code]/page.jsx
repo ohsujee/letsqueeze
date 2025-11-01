@@ -104,26 +104,47 @@ export default function AlibiLobby() {
     // Charger l'alibi sélectionné
     const alibiData = await fetch(`/data/alibis/${selectedAlibiId}.json`).then(r => r.json());
 
-    // Préparer les 10 questions : 7 prédéfinies + 3 vides pour personnalisation
-    const questions = [
-      ...alibiData.predefinedQuestions.map((q, i) => ({ id: i, text: q, custom: false })),
-      { id: 7, text: "", custom: true },
-      { id: 8, text: "", custom: true },
-      { id: 9, text: "", custom: true }
-    ];
+    // Déterminer si c'est le nouveau format ou l'ancien
+    const isNewFormat = alibiData.accused_document !== undefined;
+
+    // Préparer les questions selon le format
+    let questions;
+    if (isNewFormat) {
+      // Nouveau format : 10 questions prédéfinies (pas de questions custom)
+      questions = alibiData.inspector_questions.map((q, i) => ({
+        id: i,
+        text: q,
+        custom: false
+      }));
+    } else {
+      // Ancien format : 7 prédéfinies + 3 custom
+      questions = [
+        ...alibiData.predefinedQuestions.map((q, i) => ({ id: i, text: q, custom: false })),
+        { id: 7, text: "", custom: true },
+        { id: 8, text: "", custom: true },
+        { id: 9, text: "", custom: true }
+      ];
+    }
 
     // Initialiser les données du jeu
     await update(ref(db, `rooms_alibi/${code}`), {
       alibi: {
-        scenario: alibiData.scenario,
-        keyElements: alibiData.keyElements,
-        title: alibiData.title
+        // Nouveau format
+        context: alibiData.context || null,
+        accused_document: alibiData.accused_document || null,
+        inspector_summary: alibiData.inspector_summary || null,
+        // Ancien format (pour compatibilité)
+        scenario: alibiData.scenario || null,
+        keyElements: alibiData.keyElements || null,
+        // Commun
+        title: alibiData.title,
+        isNewFormat
       },
       questions,
       state: {
         phase: "prep",
         currentQuestion: 0,
-        prepTimeLeft: 90,
+        prepTimeLeft: alibiData.reading_time_seconds || 90,
         questionTimeLeft: 30,
         allAnswered: false
       }

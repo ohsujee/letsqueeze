@@ -1,5 +1,18 @@
 {
   "alibis": [
+    { "id": "salon-coiffure", "title": "Rendez-vous chez le coiffeur" },
+    { "id": "visite-musee", "title": "Visite au musée d'art moderne" },
+    { "id": "cours-danse-salsa", "title": "Cours de danse salsa" },
+    { "id": "atelier-ecriture", "title": "Atelier d'écriture créative" },
+    { "id": "seance-cinema", "title": "Séance de cinéma" },
+    { "id": "reparation-velo", "title": "Réparation de vélo" },
+    { "id": "degustation-vins", "title": "Dégustation de vins" },
+    { "id": "cours-natation", "title": "Cours de natation adulte" },
+    { "id": "escape-game", "title": "Partie d'escape game" },
+    { "id": "marche-producteurs", "title": "Visite au marché de producteurs" },
+    { "id": "cours-cuisine-risotto", "title": "Cours de cuisine - Risotto" },
+    { "id": "seance-yoga-groupe", "title": "Séance de yoga en groupe" },
+    { "id": "atelier-poterie", "title": "Atelier de poterie" },
     { "id": "studio-photo", "title": "L'Alibi du Studio Photo" },
     { "id": "restaurant-italien", "title": "Le Dîner au Restaurant" },
     { "id": "bibliotheque", "title": "La Journée à la Bibliothèque" }

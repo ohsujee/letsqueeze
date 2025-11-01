@@ -1,0 +1,20 @@
+{
+  "id": "marche-producteurs",
+  "title": "Visite au marché de producteurs",
+  "context": "Une altercation violente a éclaté dans un bar entre 10h et 12h. Plusieurs témoins affirment vous avoir vu sur place. Vous contestez : vous faisiez vos courses au marché.",
+  "accused_document": "<p>Ce matin-là, vous êtes allé au <strong>marché hebdomadaire de producteurs locaux</strong> qui se tient sur la place centrale. L'ambiance était animée avec les cris des vendeurs et l'odeur mélangée de <strong>fruits frais</strong> et de <strong>pain chaud</strong>. Le premier stand que vous avez visité vendait des légumes bio. La maraîchère, une femme d'une cinquantaine d'années avec un <strong>tablier vert</strong> et un <strong>chapeau de paille</strong>, vous a conseillé sur les légumes de saison. Vous avez acheté des <strong>tomates</strong>, des courgettes et un bouquet de <strong>basilic frais</strong>. Elle a pesé vos achats sur une <strong>vieille balance à cadran</strong> et les a mis dans un <strong>sac en papier kraft</strong>. Ensuite, vous êtes passé au stand de fromages où un fromager avec une <strong>grosse moustache</strong> vous a fait goûter plusieurs fromages sur des <strong>petits cubes de pain</strong>. Vous avez finalement choisi un morceau de <strong>comté</strong>. Au stand suivant, un boulanger vendait des pains artisanaux. Vous avez pris une <strong>baguette tradition</strong> encore tiède et un <strong>pain aux céréales</strong>. L'odeur était irrésistible. Un peu plus loin, un apiculteur présentait ses produits dans des <strong>pots en verre</strong> avec des étiquettes faites main. Vous avez acheté un pot de <strong>miel de lavande</strong>. Il y avait aussi un stand de volailles où pendaient des <strong>poulets rôtis dorés</strong> qui tournaient sur une broche. La file d'attente était longue. Vous avez croisé une voisine qui faisait aussi ses courses, portant un <strong>panier en osier</strong>. Avant de partir, vous êtes passé au stand de fleurs et avez acheté un petit bouquet.</p>",
+  "inspector_summary": "Les accusés prétendent avoir fait leurs courses au marché de producteurs locaux pendant l'altercation au bar.",
+  "inspector_questions": [
+    "Vous avez dit que la maraîchère portait un tablier vert — portait-elle aussi des gants ?",
+    "Vous avez dit avoir acheté des tomates — combien de tomates environ avez-vous achetées ?",
+    "Vous avez dit qu'elle a utilisé une vieille balance à cadran — de quelle couleur était cette balance ?",
+    "Vous avez dit que le fromager avait une grosse moustache — quelle était sa couleur : noire, grise, blanche ?",
+    "Vous avez dit qu'il vous a fait goûter sur des petits cubes de pain — combien de fromages avez-vous goûtés ?",
+    "Vous avez dit avoir pris une baguette tradition et un pain aux céréales — lequel avez-vous acheté en premier ?",
+    "Vous avez dit que l'apiculteur présentait ses produits dans des pots en verre — combien de variétés de miel proposait-il ?",
+    "Vous avez dit qu'il y avait des poulets rôtis sur une broche — combien de poulets tournaient sur la broche ?",
+    "Vous avez dit avoir croisé une voisine avec un panier en osier — lui avez-vous parlé ?",
+    "Vous avez dit avoir acheté un bouquet de fleurs — quels types de fleurs composaient ce bouquet ?"
+  ],
+  "reading_time_seconds": 90
+}

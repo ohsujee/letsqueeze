@@ -1,0 +1,20 @@
+{
+  "id": "degustation-vins",
+  "title": "Dégustation de vins",
+  "context": "Un accident de voiture avec délit de fuite a eu lieu entre 17h30 et 19h. Votre véhicule correspond à la description. Vous contestez : vous étiez à une dégustation de vins et n'aviez pas votre voiture.",
+  "accused_document": "<p>Vous assistiez à une <strong>dégustation de vins</strong> organisée dans une cave voûtée d'un restaurant. L'endroit était aménagé avec des <strong>tonneaux en bois</strong> le long des murs et un <strong>éclairage tamisé</strong> par des bougies. Une vingtaine de personnes étaient présentes, debout autour de plusieurs <strong>tables hautes</strong>. Le sommelier, un homme élégant avec un <strong>nœud papillon noir</strong> et une <strong>veste en velours vert</strong>, a commencé par expliquer le programme de la soirée. Sur chaque table se trouvaient des <strong>verres à vin en cristal</strong> et des crachoirs. Il y avait aussi des paniers avec du <strong>pain tranché</strong> et des <strong>morceaux de fromage</strong> pour nettoyer le palais entre les dégustations. Le sommelier a présenté le premier vin, un <strong>blanc sec</strong> de la vallée de la Loire, en détaillant son cépage et ses arômes. Vous étiez à côté d'une femme avec un <strong>carnet de notes</strong> qui prenait des notes détaillées sur chaque vin. Un homme portant une <strong>chemise à carreaux</strong> posait beaucoup de questions techniques au sommelier. Le deuxième vin était un <strong>rosé de Provence</strong> servi bien frais. Vous vous souvenez de l'odeur fruitée qui s'en dégageait. Le troisième était un <strong>rouge corsé</strong> du sud-ouest avec des tanins prononcés. Entre les dégustations, les participants échangeaient leurs impressions. Une musique de <strong>jazz doux</strong> créait une ambiance détendue. À la fin, le sommelier a offert un vin de dessert, un <strong>liquoreux doré</strong>. Certains participants sont restés discuter après la dégustation officielle.</p>",
+  "inspector_summary": "Les accusés affirment avoir participé à une dégustation de vins dans une cave pendant l'heure de l'accident.",
+  "inspector_questions": [
+    "Vous avez dit qu'une vingtaine de personnes étaient présentes — combien de tables hautes y avait-il dans la cave ?",
+    "Vous avez dit que le sommelier portait un nœud papillon noir — portait-il aussi des lunettes ?",
+    "Vous avez dit qu'il y avait des verres à vin en cristal — combien de verres par personne sur la table ?",
+    "Vous avez dit qu'il y avait du pain tranché — quel type de pain : baguette, pain de campagne, autre ?",
+    "Vous avez dit que le premier vin était un blanc sec de la Loire — vous souvenez-vous du nom du domaine ou de l'appellation ?",
+    "Vous avez dit être à côté d'une femme avec un carnet de notes — quelle était la couleur de ce carnet ?",
+    "Vous avez dit qu'un homme portait une chemise à carreaux — de quelles couleurs étaient ces carreaux ?",
+    "Vous avez dit que le rosé de Provence était servi bien frais — était-il dans un seau à glace ou sorti du réfrigérateur ?",
+    "Vous avez dit qu'il y avait une musique de jazz doux — était-ce un enregistrement ou un musicien sur place ?",
+    "Vous avez dit que certains sont restés après — êtes-vous resté aussi ou êtes-vous parti tout de suite ?"
+  ],
+  "reading_time_seconds": 90
+}

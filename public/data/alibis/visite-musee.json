@@ -1,0 +1,20 @@
+{
+  "id": "visite-musee",
+  "title": "Visite au musée d'art moderne",
+  "context": "Un incendie criminel a été déclenché dans un entrepôt entre 14h et 16h. Votre téléphone a borné dans le secteur. Vous affirmez être innocent : vous visitiez un musée.",
+  "accused_document": "<p>Cet après-midi, vous avez décidé de visiter le <strong>musée d'art moderne</strong> de la ville. À l'entrée, un agent de sécurité avec un <strong>uniforme bleu marine</strong> a inspecté votre sac. Vous avez acheté votre billet au guichet et reçu un <strong>bracelet en papier orange</strong> à porter au poignet. Le hall d'entrée était spacieux avec un <strong>plafond en verre</strong> qui laissait entrer la lumière naturelle. Une <strong>sculpture métallique abstraite</strong> trônait au centre. Vous avez commencé par le premier étage où se trouvait une exposition sur l'art contemporain. Les murs étaient peints en <strong>blanc immaculé</strong> et le sol était en <strong>parquet clair</strong>. Vous vous souvenez particulièrement d'une œuvre : une toile géante avec des <strong>taches de peinture rouge et jaune</strong>. Un groupe scolaire d'une dizaine d'enfants passait d'une salle à l'autre, guidé par une enseignante avec un <strong>foulard vert</strong>. Les enfants étaient plutôt bruyants. Dans une autre salle, vous avez observé une installation vidéo projetée sur <strong>trois écrans simultanément</strong>. Un banc rembourré permettait de s'asseoir pour regarder. Vous avez croisé un guide du musée, reconnaissable à son <strong>badge nominatif</strong> et son <strong>gilet bordeaux</strong>. Au deuxième étage, une exposition photo présentait des clichés en noir et blanc. Vous avez pris quelques photos avec votre téléphone, malgré l'interdiction du flash. En sortant, vous êtes passé par la <strong>boutique du musée</strong> qui vendait des cartes postales et des livres d'art.</p>",
+  "inspector_summary": "Les accusés affirment avoir visité un musée d'art moderne pendant le créneau de l'incendie.",
+  "inspector_questions": [
+    "Vous avez dit que l'agent de sécurité portait un uniforme bleu marine — portait-il une casquette ?",
+    "Vous avez dit avoir reçu un bracelet en papier orange — y avait-il quelque chose d'écrit dessus ?",
+    "Vous avez dit qu'il y avait une sculpture métallique abstraite — quelle était sa hauteur approximative ?",
+    "Vous avez dit avoir vu une toile avec des taches rouge et jaune — quelle couleur dominait ?",
+    "Vous avez dit qu'un groupe scolaire visitait — combien d'enfants environ dans ce groupe ?",
+    "Vous avez dit que l'enseignante portait un foulard vert — comment était-il noué : autour du cou ou dans les cheveux ?",
+    "Vous avez dit qu'une installation vidéo était projetée sur trois écrans — ces écrans étaient-ils de la même taille ?",
+    "Vous avez dit que le guide portait un gilet bordeaux — y avait-il des boutons ou une fermeture éclair ?",
+    "Vous avez dit avoir pris des photos — combien de photos environ avez-vous prises ?",
+    "Vous avez dit être passé par la boutique du musée — avez-vous acheté quelque chose ?"
+  ],
+  "reading_time_seconds": 90
+}

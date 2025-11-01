@@ -121,6 +121,21 @@ export default function AlibiPrep() {
     });
   };
 
+  // Fonction pour afficher du HTML (nouveau format)
+  const renderHTML = (html) => {
+    if (!html) return null;
+    return (
+      <div
+        dangerouslySetInnerHTML={{ __html: html }}
+        className="prose prose-invert max-w-none"
+        style={{
+          // Style pour les éléments en gras dans le HTML
+          '--tw-prose-bold': '#fde047', // text-yellow-300
+        }}
+      />
+    );
+  };
+
   return (
     <main className="p-6 max-w-4xl mx-auto space-y-6">
       {/* Timer */}
@@ -143,11 +158,23 @@ export default function AlibiPrep() {
           <p className="text-sm opacity-70">
             Mémorise les éléments en <strong className="text-yellow-300">gras</strong> - tu n'auras plus accès à ce texte pendant l'interrogatoire !
           </p>
-          <div className="prose prose-invert max-w-none">
-            <div className="whitespace-pre-wrap leading-relaxed">
-              {parseMarkdown(alibi.scenario)}
+
+          {alibi.isNewFormat ? (
+            // Nouveau format : Context + Accused Document
+            <div className="space-y-4">
+              <div className="p-3 bg-slate-700/50 rounded-lg border-l-4 border-primary">
+                <p className="text-sm font-bold opacity-90">{alibi.context}</p>
+              </div>
+              {renderHTML(alibi.accused_document)}
             </div>
-          </div>
+          ) : (
+            // Ancien format : Scenario avec markdown
+            <div className="prose prose-invert max-w-none">
+              <div className="whitespace-pre-wrap leading-relaxed">
+                {parseMarkdown(alibi.scenario)}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -160,51 +187,67 @@ export default function AlibiPrep() {
               Les suspects vont devoir défendre cet alibi. Prépare tes questions !
             </p>
             {alibi && (
-              <div className="prose prose-invert max-w-none">
-                <div className="whitespace-pre-wrap leading-relaxed text-sm opacity-90">
-                  {parseMarkdown(alibi.scenario)}
+              alibi.isNewFormat ? (
+                // Nouveau format : Context + Inspector Summary
+                <div className="space-y-4">
+                  <div className="p-3 bg-slate-700/50 rounded-lg border-l-4 border-accent">
+                    <p className="text-sm font-bold opacity-90">{alibi.context}</p>
+                  </div>
+                  <p className="text-sm opacity-80 italic">{alibi.inspector_summary}</p>
                 </div>
-              </div>
+              ) : (
+                // Ancien format : Scenario complet
+                <div className="prose prose-invert max-w-none">
+                  <div className="whitespace-pre-wrap leading-relaxed text-sm opacity-90">
+                    {parseMarkdown(alibi.scenario)}
+                  </div>
+                </div>
+              )
             )}
           </div>
 
           <div className="card space-y-4">
-            <h2 className="text-xl font-bold">Questions prédéfinies (7)</h2>
+            <h2 className="text-xl font-bold">
+              Questions prédéfinies ({alibi?.isNewFormat ? '10' : '7'})
+            </h2>
             <ol className="space-y-2 list-decimal list-inside">
-              {questions.slice(0, 7).map((q, i) => (
+              {questions.slice(0, alibi?.isNewFormat ? 10 : 7).map((q, i) => (
                 <li key={i} className="text-sm opacity-90">{q.text}</li>
               ))}
             </ol>
           </div>
 
-          <div className="card space-y-4">
-            <h2 className="text-xl font-bold">Questions personnalisées (3)</h2>
-            <p className="text-sm opacity-70">
-              Ajoute 3 questions basées sur l'alibi pour piéger les suspects !
-            </p>
-            <div className="space-y-3">
-              {[0, 1, 2].map((index) => (
-                <div key={index}>
-                  <label className="block text-sm font-bold mb-1 opacity-80">
-                    Question {8 + index}
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full p-3 rounded-lg bg-slate-700 border-2 border-accent text-white"
-                    placeholder="Ex: Quelle était la couleur exacte du café que vous avez commandé ?"
-                    value={customQuestions[index]}
-                    onChange={(e) => {
-                      const newCustom = [...customQuestions];
-                      newCustom[index] = e.target.value;
-                      setCustomQuestions(newCustom);
-                      handleSaveCustomQuestion(index, e.target.value);
-                    }}
-                    maxLength={200}
-                  />
-                </div>
-              ))}
+          {/* Questions personnalisées seulement pour l'ancien format */}
+          {!alibi?.isNewFormat && (
+            <div className="card space-y-4">
+              <h2 className="text-xl font-bold">Questions personnalisées (3)</h2>
+              <p className="text-sm opacity-70">
+                Ajoute 3 questions basées sur l'alibi pour piéger les suspects !
+              </p>
+              <div className="space-y-3">
+                {[0, 1, 2].map((index) => (
+                  <div key={index}>
+                    <label className="block text-sm font-bold mb-1 opacity-80">
+                      Question {8 + index}
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full p-3 rounded-lg bg-slate-700 border-2 border-accent text-white"
+                      placeholder="Ex: Quelle était la couleur exacte du café que vous avez commandé ?"
+                      value={customQuestions[index]}
+                      onChange={(e) => {
+                        const newCustom = [...customQuestions];
+                        newCustom[index] = e.target.value;
+                        setCustomQuestions(newCustom);
+                        handleSaveCustomQuestion(index, e.target.value);
+                      }}
+                      maxLength={200}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
 

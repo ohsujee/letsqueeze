@@ -1,0 +1,20 @@
+{
+  "id": "cours-natation",
+  "title": "Cours de natation adulte",
+  "context": "Un vol à l'arraché a été commis près de chez vous entre 18h et 19h30. Un témoin a donné une description qui vous ressemble. Vous niez : vous preniez un cours de natation.",
+  "accused_document": "<p>Ce soir-là, vous participiez à un <strong>cours de natation pour adultes</strong> à la piscine municipale. En arrivant, vous avez présenté votre <strong>carte d'abonnement</strong> à l'entrée et traversé le hall avec son <strong>odeur caractéristique de chlore</strong>. Les vestiaires étaient équipés de <strong>casiers métalliques bleus</strong> avec des cadenas à code. Vous avez enfilé votre <strong>maillot de bain</strong> et mis vos affaires dans un casier. Avant d'entrer dans le bassin, vous avez dû passer par les <strong>douches obligatoires</strong> avec de l'eau froide. La piscine était un <strong>bassin olympique de 50 mètres</strong> divisé en plusieurs couloirs par des <strong>lignes flottantes de couleurs</strong>. Le maître-nageur, un homme athlétique d'une trentaine d'années avec des <strong>lunettes de soleil sur la tête</strong> et un <strong>sifflet autour du cou</strong>, vous a assigné le <strong>couloir numéro quatre</strong>. Vous étiez un groupe de huit personnes de niveaux variés. Certains portaient des <strong>bonnets de bain colorés</strong>, d'autres nageaient tête nue. L'échauffement a commencé par des <strong>longueurs en crawl</strong> à rythme modéré. L'eau était à température agréable. Le maître-nageur restait au bord du bassin et criait des instructions. Une femme avec un <strong>maillot de bain à rayures</strong> nageait très vite et doublait régulièrement les autres. Un homme plus âgé faisait de la <strong>brasse</strong> tranquillement. Vous avez ensuite travaillé la technique avec une <strong>planche en mousse</strong> pour les jambes. À la fin, vous avez nagé quelques longueurs libres pour récupérer.</p>",
+  "inspector_summary": "Les accusés déclarent avoir suivi un cours de natation à la piscine municipale pendant le vol.",
+  "inspector_questions": [
+    "Vous avez dit que les casiers étaient métalliques bleus — de quel type de cadenas disposiez-vous : à clé ou à code ?",
+    "Vous avez dit que les douches étaient obligatoires — combien de pommeaux de douche y avait-il environ ?",
+    "Vous avez dit que le bassin était divisé par des lignes flottantes de couleurs — de quelles couleurs étaient ces lignes ?",
+    "Vous avez dit que le maître-nageur portait des lunettes de soleil sur la tête — portait-il aussi un t-shirt ou était-il torse nu ?",
+    "Vous avez dit être dans le couloir numéro quatre — combien de couloirs au total dans le bassin ?",
+    "Vous avez dit être un groupe de huit personnes — combien étaient des hommes et combien des femmes ?",
+    "Vous avez dit que certains portaient des bonnets de bain colorés — vous-même portiez-vous un bonnet ?",
+    "Vous avez dit qu'une femme avec un maillot à rayures nageait très vite — ces rayures étaient horizontales ou verticales ?",
+    "Vous avez dit qu'un homme plus âgé faisait de la brasse — cet homme portait-il des lunettes de natation ?",
+    "Vous avez dit avoir travaillé avec une planche en mousse — de quelle couleur était cette planche ?"
+  ],
+  "reading_time_seconds": 90
+}
