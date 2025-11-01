@@ -51,9 +51,10 @@ export default function HostGame(){
     return ()=>{u1();u2();u3();};
   },[code]);
 
-  // Redirige host quand phase=ended
+  // Redirige host quand phase=ended ou phase=lobby
   useEffect(()=>{
     if(state?.phase === "ended") router.replace(`/end/${code}`);
+    if(state?.phase === "lobby") router.replace(`/room/${code}`);
   }, [state?.phase, router, code]);
 
   const isHost = meta?.hostUid === auth.currentUser?.uid;

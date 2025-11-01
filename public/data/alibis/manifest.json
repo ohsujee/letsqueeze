@@ -1,0 +1,7 @@
+{
+  "alibis": [
+    { "id": "studio-photo", "title": "L'Alibi du Studio Photo" },
+    { "id": "restaurant-italien", "title": "Le Dîner au Restaurant" },
+    { "id": "bibliotheque", "title": "La Journée à la Bibliothèque" }
+  ]
+}

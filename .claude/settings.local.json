@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add app/end/[code]/page.jsx app/host/page.jsx public/data/manifest.json)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nStreamline host flow and reset scores on lobby return\n\nHost Flow Improvements:\n- Remove intermediary host screen after room creation\n- Auto-redirect to lobby immediately after creating room\n- Simpler workflow: Create → Lobby (no extra clicks needed)\n\nScore Reset:\n- Reset all player scores when returning to lobby from end screen\n- Reset all team scores when returning to lobby\n- Reset player penalties (blockedUntil)\n- Reset game state to lobby phase\n- Fresh start for each new quiz\n\nQuiz Selection:\n- Updated manifest.json with 4 new Kollywood quizzes\n- Now 11 quizzes available total\n- Fixed JSON syntax (missing commas)\n\nUX Benefits:\n- Faster room setup for hosts\n- No score accumulation between games\n- Clean slate for each new quiz session\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git pull --rebase origin main)",
+      "Bash(git add public/data/manifest.json)",
+      "Bash(git rebase --continue)",
+      "Bash(ren kollywood-2000-2010-fresh-fr-ta kollywood-2000-2010-fresh-fr-ta.json)",
+      "Bash(npm install canvas-confetti)",
+      "Bash(npm run dev:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

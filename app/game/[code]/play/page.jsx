@@ -44,6 +44,7 @@ export default function PlayerGame(){
     const u1 = onValue(ref(db,`rooms/${code}/state`), s=>{
       const v=s.val(); setState(v);
       if(v?.phase==="ended") router.replace("/end/"+code);
+      if(v?.phase==="lobby") router.replace("/room/"+code);
     });
     const u2 = onValue(ref(db,`rooms/${code}/meta`), s=>{
       const m = s.val(); setMeta(m);

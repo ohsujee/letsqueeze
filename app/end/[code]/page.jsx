@@ -2,6 +2,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { db, ref, onValue, update } from "@/lib/firebase";
+import { PodiumPremium } from "@/components/PodiumPremium";
+import { JuicyButton } from "@/components/JuicyButton";
+import { motion } from "framer-motion";
 
 function rankWithTies(items, scoreKey = "score") {
   const sorted = items.slice().sort((a,b)=> (b[scoreKey]||0) - (a[scoreKey]||0));
@@ -87,81 +90,121 @@ export default function EndPage(){
   };
 
   return (
-    <main className="p-6 max-w-3xl mx-auto space-y-6">
-      <h1 className="text-3xl font-black">Fin de partie — {quizTitle || "Partie"}</h1>
+    <main className="p-6 max-w-5xl mx-auto space-y-6 pb-32">
+      <motion.h1
+        className="game-title text-center"
+        initial={{ scale: 0, rotateZ: -180 }}
+        animate={{ scale: 1, rotateZ: 0 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
+      >
+        Fin de partie
+      </motion.h1>
 
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="text-center text-xl opacity-80"
+      >
+        {quizTitle || "Partie"}
+      </motion.div>
+
+      {/* Podium Premium avec top 3 */}
+      {rankedPlayers.length >= 1 && (
+        <motion.section
+          className="mt-12"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <h2 className="text-3xl font-black text-center mb-8">Podium</h2>
+          <PodiumPremium topPlayers={rankedPlayers.slice(0, 3)} />
+        </motion.section>
+      )}
+
+      {/* Classement complet - Mode Équipes */}
       {modeEquipes && (
-        <section className="space-y-3">
-          <h2 className="text-2xl font-black">Podium — Équipes</h2>
-          <ol className="grid md:grid-cols-3 gap-3">
-            {rankedTeams.slice(0,3).map(t=>(
-              <li key={t.id} className="card flex flex-col items-center justify-center text-center">
-                <div className="text-xl font-black">#{t.rank}</div>
-                <div className="mt-2 px-3 py-1 rounded-xl border-4 border-black font-bold" style={{backgroundColor:t.color}}>
-                  {t.name}
-                </div>
-                <div className="mt-2 text-lg"><b>{t.score||0}</b> pts</div>
-              </li>
-            ))}
-          </ol>
-
+        <motion.section
+          className="space-y-3 mt-12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          <h3 className="text-2xl font-black text-center">Classement Équipes</h3>
           <div className="card">
-            <b>Classement complet — Équipes</b>
-            <ul className="mt-2 space-y-1">
+            <ul className="space-y-2">
               {rankedTeams.map(t=>(
-                <li key={t.id} className="card flex justify-between items-center">
-                  <span><b>#{t.rank}</b> {t.name}</span>
-                  <b>{t.score||0}</b>
-                </li>
+                <motion.li
+                  key={t.id}
+                  className="card flex justify-between items-center"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <span className="flex items-center gap-3">
+                    <b className="text-2xl">#{t.rank}</b>
+                    <div className="px-3 py-1 rounded-xl border-3 border-white font-bold" style={{backgroundColor:t.color}}>
+                      {t.name}
+                    </div>
+                  </span>
+                  <b className="text-2xl">{t.score||0}</b>
+                </motion.li>
               ))}
             </ul>
           </div>
-        </section>
+        </motion.section>
       )}
 
-      <section className="space-y-3">
-        <h2 className="text-2xl font-black">Podium — Joueurs</h2>
-        <ol className="grid md:grid-cols-3 gap-3">
-          {rankedPlayers.slice(0,3).map(p=>(
-            <li key={p.uid} className="card flex flex-col items-center justify-center text-center">
-              <div className="text-xl font-black">#{p.rank}</div>
-              <div className="mt-2 font-bold">{p.name}</div>
-              <div className="mt-2 text-lg"><b>{p.score||0}</b> pts</div>
-              {modeEquipes && p.teamId && meta?.teams?.[p.teamId] && (
-                <div className="mt-1 text-xs px-2 py-0.5 rounded-xl border-2 border-black"
-                     style={{backgroundColor: meta.teams[p.teamId].color}}>
-                  {meta.teams[p.teamId].name}
-                </div>
-              )}
-            </li>
-          ))}
-        </ol>
-
+      {/* Classement complet - Joueurs */}
+      <motion.section
+        className="space-y-3 mt-12"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+      >
+        <h3 className="text-2xl font-black text-center">Classement Complet</h3>
         <div className="card">
-          <b>Classement complet — Joueurs</b>
-          <ul className="mt-2 space-y-1">
-            {rankedPlayers.map(p=>(
-              <li key={p.uid} className="card flex justify-between items-center">
-                <span>
-                  <b>#{p.rank}</b> {p.name}
+          <ul className="space-y-2">
+            {rankedPlayers.map((p, index)=>(
+              <motion.li
+                key={p.uid}
+                className="card flex justify-between items-center"
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 2 + index * 0.1 }}
+              >
+                <span className="flex items-center gap-3">
+                  <b className="text-2xl">
+                    {index === 0 && "🥇"}
+                    {index === 1 && "🥈"}
+                    {index === 2 && "🥉"}
+                    {index > 2 && `#${p.rank}`}
+                  </b>
+                  <span className="font-bold">{p.name}</span>
                   {modeEquipes && p.teamId && meta?.teams?.[p.teamId] && (
-                    <span className="ml-2 px-2 py-0.5 rounded-xl border-2 border-black text-xs"
+                    <span className="ml-2 px-2 py-0.5 rounded-xl border-2 border-white text-xs font-bold"
                           style={{backgroundColor: meta.teams[p.teamId].color}}>
                       {meta.teams[p.teamId].name}
                     </span>
                   )}
                 </span>
-                <b>{p.score||0}</b>
-              </li>
+                <b className="text-2xl score-display">{p.score||0}</b>
+              </motion.li>
             ))}
           </ul>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Nouveau : retour au lobby pour enchaîner */}
-      <div className="flex justify-center">
-        <button onClick={handleBackToLobby} className="btn btn-primary">Retour au lobby</button>
-      </div>
+      {/* Retour au lobby */}
+      <motion.div
+        className="flex justify-center mt-12"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.5 }}
+      >
+        <JuicyButton onClick={handleBackToLobby} className="btn-primary btn-lg">
+          🔄 Retour au lobby
+        </JuicyButton>
+      </motion.div>
     </main>
   );
 }
