@@ -1,0 +1,20 @@
+{
+  "id": "japan-expo",
+  "title": "Convention Japan Expo",
+  "context": "Une fraude à la carte bancaire a été détectée hier après-midi avec plusieurs paiements suspects effectués dans différents magasins. Votre carte aurait été utilisée. Vous contestez : vous étiez à une grande convention toute la journée.",
+  "accused_document": "<p>Hier, vous avez passé la journée à une grande <strong>convention</strong> dédiée à la culture japonaise. C'était un événement massif avec des milliers de visiteurs, des <strong>stands</strong> partout, et de nombreuses activités programmées.</p><p>En arrivant le matin, vous avez dû faire la <strong>queue</strong> à l'entrée pendant un moment avant d'accéder au hall principal. Une fois à l'intérieur, vous avez commencé par faire le tour des différents <strong>stands</strong> pour voir ce qui était proposé. Il y avait énormément de monde et beaucoup de <strong>cosplayers</strong> déguisés en personnages que vous reconnaissiez.</p><p>Vous vous êtes arrêtés à un stand particulier où un <strong>artiste</strong> célèbre donnait des <strong>dédicaces</strong>. La file d'attente était très longue mais vous avez attendu pour pouvoir le rencontrer. Vous avez fait <strong>dédicacer</strong> quelque chose que vous aviez apporté ou acheté sur place.</p><p>Dans l'après-midi, vous êtes allés voir un <strong>spectacle</strong> sur la scène principale. C'était une performance impressionnante qui a attiré énormément de spectateurs. Ensuite, vous avez acheté plusieurs <strong>produits dérivés</strong> dans différents stands, dont un article en particulier que vous cherchiez depuis longtemps.</p><p>Vous avez fini la journée en participant à un <strong>concours de cosplay</strong> où un participant déguisé en personnage spécifique a particulièrement marqué les esprits. Vous êtes partis en fin d'après-midi, fatigués mais contents de votre journée.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé toute la journée dans une grande convention pendant les transactions frauduleuses.",
+  "inspector_questions": [
+    "Vous avez dit être allés à une convention — quel était le nom exact de cet événement ?",
+    "Vous avez dit avoir fait la queue à l'entrée — combien de temps approximativement avez-vous attendu ?",
+    "Vous avez dit avoir vu des cosplayers — pouvez-vous décrire un cosplay qui vous a marqués ?",
+    "Vous avez dit qu'un artiste célèbre donnait des dédicaces — qui était cet artiste ?",
+    "Vous avez dit avoir fait dédicacer quelque chose — quoi exactement ?",
+    "Vous avez dit avoir vu un spectacle sur la scène principale — quel type de spectacle ?",
+    "Vous avez dit avoir acheté des produits dérivés — quel article en particulier cherchiez-vous ?",
+    "Vous avez dit avoir participé à un concours de cosplay — en tant que participant ou spectateur ?",
+    "Vous avez dit qu'un participant déguisé a marqué les esprits — en quel personnage était-il déguisé ?",
+    "Vous avez dit être partis en fin d'après-midi — qui a proposé de partir en premier ?"
+  ],
+  "reading_time_seconds": 90
+}

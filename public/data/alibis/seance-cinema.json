@@ -2,19 +2,19 @@
   "id": "seance-cinema",
   "title": "Séance de cinéma",
   "context": "Un cambriolage a été perpétré dans votre immeuble entre 20h30 et 22h30. Vous habitez au cinquième étage. Vous affirmez être innocent : vous étiez au cinéma.",
-  "accused_document": "<p>Ce soir-là, vous êtes allé voir un film au <strong>cinéma multiplexe</strong> du centre commercial. En arrivant, vous avez acheté votre billet à une <strong>borne automatique tactile</strong> qui a imprimé un ticket avec un <strong>code-barres</strong>. Le hall d'entrée était animé avec l'odeur caractéristique du <strong>pop-corn beurré</strong> qui flottait dans l'air. Vous avez fait la queue au comptoir de confiserie derrière plusieurs personnes. Un employé avec une <strong>casquette rouge</strong> et un <strong>polo noir</strong> vous a servi. Vous avez commandé un <strong>grand soda</strong> et un paquet de bonbons. Votre salle était la <strong>numéro sept</strong>, accessible par un couloir avec de la <strong>moquette à motifs géométriques</strong>. Un contrôleur a scanné votre billet avec un <strong>pistolet scanner lumineux</strong>. La salle était à moitié remplie. Vous vous êtes installé vers le milieu, dans une rangée où il y avait déjà un couple et une personne seule avec un <strong>manteau posé sur le siège</strong> à côté d'elle. Les sièges étaient des <strong>fauteuils inclinables en tissu rouge</strong> confortables. Avant le film, il y a eu plusieurs publicités et bandes-annonces, dont une pour un film d'action avec des <strong>explosions spectaculaires</strong>. Pendant la séance, quelqu'un a fait tomber quelque chose qui a roulé bruyamment, provoquant des chuchotements agacés. Le film lui-même était un thriller psychologique assez sombre. À la fin, les lumières se sont rallumées progressivement et les spectateurs sont sortis lentement en discutant du film.</p>",
+  "accused_document": "<p>Ce soir-là, vous êtes allés voir un <strong>film</strong> au <strong>cinéma</strong> avec quelqu'un. Vous aviez choisi ce film spécifiquement parce que vous aviez vu la <strong>bande-annonce</strong> qui avait l'air intéressante.</p><p>En arrivant au cinéma, vous avez acheté vos <strong>billets</strong> et vous êtes allés directement au <strong>comptoir</strong> pour prendre des <strong>snacks</strong>. Vous avez commandé du <strong>pop-corn</strong> et des <strong>boissons</strong>. L'employé qui vous a servis était assez sympathique et vous a fait une petite blague.</p><p>Vous vous êtes installés dans la <strong>salle</strong> avant le début de la séance. Il y avait déjà pas mal de monde. Vous étiez assis à un certain endroit dans la salle avec une bonne vue sur l'<strong>écran</strong>. À côté de vous, il y avait d'autres <strong>spectateurs</strong> dont un groupe qui parlait un peu trop fort avant le début.</p><p>Avant le film, il y a eu plusieurs <strong>bandes-annonces</strong> de films à venir. L'une d'entre elles vous a particulièrement marqué et vous en avez discuté avec votre compagnon. Il y avait aussi des <strong>publicités</strong> assez longues.</p><p>Pendant le <strong>film</strong>, quelqu'un dans la salle a fait quelque chose d'assez gênant qui a perturbé un peu l'ambiance. À un moment précis du film, il y a eu une scène particulièrement intense qui a fait réagir toute la salle. Vous vous souvenez bien de cette scène.</p><p>À la fin du film, vous êtes restés pendant le <strong>générique</strong> pour voir s'il y avait une scène post-générique. Ensuite, vous êtes sortis et vous avez discuté du film pendant quelques minutes avant de partir.</p>",
   "inspector_summary": "Les accusés déclarent avoir passé la soirée dans une salle de cinéma pendant le cambriolage de leur immeuble.",
   "inspector_questions": [
-    "Vous avez dit avoir acheté votre billet à une borne automatique — avez-vous payé en espèces ou par carte ?",
-    "Vous avez dit que l'employé portait une casquette rouge — y avait-il un logo sur cette casquette ?",
-    "Vous avez dit avoir commandé un grand soda — quelle boisson exactement : cola, limonade, autre ?",
-    "Vous avez dit que votre salle était la numéro sept — à quel étage se trouvait cette salle ?",
-    "Vous avez dit que la moquette avait des motifs géométriques — de quelles couleurs étaient ces motifs ?",
-    "Vous avez dit vous être installé vers le milieu — combien de rangs y avait-il devant vous approximativement ?",
-    "Vous avez dit qu'il y avait un couple dans votre rangée — ce couple était-il à votre droite ou à votre gauche ?",
-    "Vous avez dit avoir vu une bande-annonce pour un film d'action — vous souvenez-vous du titre ou d'un acteur ?",
-    "Vous avez dit que quelqu'un a fait tomber quelque chose — avez-vous vu ce que c'était ?",
-    "Vous avez dit que le film était un thriller psychologique — vous souvenez-vous du titre du film ?"
+    "Vous avez dit être allés voir un film au cinéma — quel était le nom du cinéma ?",
+    "Vous avez dit être allés avec quelqu'un — qui était cette personne ?",
+    "Vous avez dit que l'employé vous a fait une blague — quelle blague ?",
+    "Vous avez dit vous être installés à un certain endroit — où exactement dans la salle ?",
+    "Vous avez dit qu'un groupe parlait trop fort — de combien de personnes était composé ce groupe ?",
+    "Vous avez dit qu'une bande-annonce vous a marqué — pour quel film ?",
+    "Vous avez dit que quelqu'un a fait quelque chose de gênant — quoi exactement ?",
+    "Vous avez dit qu'il y a eu une scène intense — quelle scène exactement ?",
+    "Vous avez dit être restés pendant le générique — y avait-il une scène post-générique ?",
+    "Vous avez dit avoir discuté du film — avez-vous aimé le film ou pas ?"
   ],
   "reading_time_seconds": 90
 }

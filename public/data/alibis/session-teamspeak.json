@@ -1,0 +1,20 @@
+{
+  "id": "session-teamspeak",
+  "title": "Session gaming en ligne",
+  "context": "Un piratage de compte bancaire a été effectué hier soir depuis votre quartier. Les autorités ont des preuves numériques vous impliquant potentiellement. Vous affirmez que c'est impossible : vous étiez en ligne toute la soirée à jouer avec des amis sur TeamSpeak.",
+  "accused_document": "<p>Hier soir, vous avez passé plusieurs heures en ligne avec des amis sur <strong>TeamSpeak</strong> pour jouer ensemble à des <strong>jeux vidéo</strong>. Vous aviez prévu cette session gaming depuis quelques jours et tout le monde s'était connecté en même temps.</p><p>Vous étiez connectés sur un <strong>serveur</strong> privé que l'un de vos amis héberge. Il y avait plusieurs personnes dans le <strong>vocal</strong> et l'ambiance était déjà bien lancée quand vous avez rejoint. Certains de vos amis étaient déjà en train de lancer le premier <strong>jeu</strong> de la soirée.</p><p>Vous avez commencé par jouer à un <strong>jeu compétitif</strong> en équipe. Votre équipe était composée de plusieurs <strong>joueurs</strong> réguliers avec qui vous jouez souvent. Pendant les parties, vous communiquiez constamment en vocal pour coordonner vos <strong>stratégies</strong>. Un de vos coéquipiers en particulier était très vocal et donnait beaucoup d'instructions.</p><p>À un moment, vous avez enchaîné plusieurs <strong>parties</strong> d'affilée et votre équipe était sur une bonne série de victoires. Mais ensuite, vous avez perdu une partie de façon frustrante à cause d'une erreur que quelqu'un a faite. Ça a créé un petit moment de tension dans le vocal, mais vous avez fini par rire de la situation.</p><p>Plus tard dans la soirée, vous avez changé de <strong>jeu</strong> pour jouer à quelque chose de plus détendu. C'était un jeu coopératif où vous deviez tous travailler ensemble. Pendant ce temps, vous discutiez aussi de sujets <strong>hors-jeu</strong> et vous vous racontiez des anecdotes.</p><p>La session s'est terminée très tard dans la nuit. Certaines personnes sont parties progressivement, et vous étiez parmi les derniers à quitter le serveur vocal. Avant de vous déconnecter, vous avez déjà prévu la date de votre prochaine session ensemble.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée en ligne sur TeamSpeak à jouer avec des amis pendant le piratage.",
+  "inspector_questions": [
+    "Vous avez dit être connectés sur un serveur privé — quel est le nom de ce serveur ?",
+    "Vous avez dit qu'il y avait plusieurs personnes dans le vocal — combien exactement ?",
+    "Vous avez dit avoir joué à un jeu compétitif — à quel jeu exactement ?",
+    "Vous avez dit qu'un coéquipier était très vocal — qui était-ce ?",
+    "Vous avez dit avoir enchaîné plusieurs parties — combien de victoires consécutives avez-vous eues ?",
+    "Vous avez dit avoir perdu une partie à cause d'une erreur — qui a fait cette erreur ?",
+    "Vous avez dit avoir changé de jeu — à quel jeu coopératif avez-vous joué ensuite ?",
+    "Vous avez dit discuter de sujets hors-jeu — de quoi avez-vous parlé ?",
+    "Vous avez dit que la session s'est terminée tard — qui a quitté le serveur en premier ?",
+    "Vous avez dit avoir prévu la prochaine session — quand sera-t-elle ?"
+  ],
+  "reading_time_seconds": 90
+}

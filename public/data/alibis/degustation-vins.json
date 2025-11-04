@@ -2,19 +2,19 @@
   "id": "degustation-vins",
   "title": "Dégustation de vins",
   "context": "Un accident de voiture avec délit de fuite a eu lieu entre 17h30 et 19h. Votre véhicule correspond à la description. Vous contestez : vous étiez à une dégustation de vins et n'aviez pas votre voiture.",
-  "accused_document": "<p>Vous assistiez à une <strong>dégustation de vins</strong> organisée dans une cave voûtée d'un restaurant. L'endroit était aménagé avec des <strong>tonneaux en bois</strong> le long des murs et un <strong>éclairage tamisé</strong> par des bougies. Une vingtaine de personnes étaient présentes, debout autour de plusieurs <strong>tables hautes</strong>. Le sommelier, un homme élégant avec un <strong>nœud papillon noir</strong> et une <strong>veste en velours vert</strong>, a commencé par expliquer le programme de la soirée. Sur chaque table se trouvaient des <strong>verres à vin en cristal</strong> et des crachoirs. Il y avait aussi des paniers avec du <strong>pain tranché</strong> et des <strong>morceaux de fromage</strong> pour nettoyer le palais entre les dégustations. Le sommelier a présenté le premier vin, un <strong>blanc sec</strong> de la vallée de la Loire, en détaillant son cépage et ses arômes. Vous étiez à côté d'une femme avec un <strong>carnet de notes</strong> qui prenait des notes détaillées sur chaque vin. Un homme portant une <strong>chemise à carreaux</strong> posait beaucoup de questions techniques au sommelier. Le deuxième vin était un <strong>rosé de Provence</strong> servi bien frais. Vous vous souvenez de l'odeur fruitée qui s'en dégageait. Le troisième était un <strong>rouge corsé</strong> du sud-ouest avec des tanins prononcés. Entre les dégustations, les participants échangeaient leurs impressions. Une musique de <strong>jazz doux</strong> créait une ambiance détendue. À la fin, le sommelier a offert un vin de dessert, un <strong>liquoreux doré</strong>. Certains participants sont restés discuter après la dégustation officielle.</p>",
-  "inspector_summary": "Les accusés affirment avoir participé à une dégustation de vins dans une cave pendant l'heure de l'accident.",
+  "accused_document": "<p>Hier soir, vous avez participé à une <strong>dégustation de vins</strong> organisée dans un lieu spécialisé. C'était un événement avec plusieurs participants qui s'intéressent au vin. Vous y étiez allés avec quelqu'un et vous aviez réservé vos places à l'avance.</p><p>En arrivant, un <strong>sommelier</strong> vous a accueillis et expliqué le déroulement de la soirée. Il vous a présenté les différents <strong>vins</strong> qui allaient être dégustés. L'ambiance était conviviale et les gens discutaient déjà entre eux.</p><p>On vous a installés autour de <strong>tables</strong> avec des <strong>verres</strong> déjà préparés. Il y avait aussi du <strong>pain</strong> et du <strong>fromage</strong> pour accompagner. Le sommelier a commencé par présenter le premier <strong>vin</strong> en détaillant sa provenance et ses caractéristiques. Vous avez goûté et donné votre avis.</p><p>L'un des <strong>participants</strong> à votre table était vraiment connaisseur et posait beaucoup de questions au sommelier. À un moment, il a même fait une remarque qui a créé un petit débat avec le sommelier sur un point technique. Une autre personne à votre table ne connaissait rien au vin et faisait des commentaires assez drôles.</p><p>Au total, vous avez dégusté plusieurs <strong>vins différents</strong> : des blancs, des rosés et des rouges. Il y en avait un en particulier que vous avez beaucoup aimé et dont vous avez noté le nom. Votre compagnon, lui, préférait un autre vin complètement différent.</p><p>À la fin de la dégustation, le sommelier a proposé un <strong>vin spécial</strong> pour conclure la soirée. Certains participants ont acheté des <strong>bouteilles</strong> à emporter. Vous êtes restés encore un moment à discuter avec d'autres participants avant de partir.</p>",
+  "inspector_summary": "Les accusés affirment avoir participé à une dégustation de vins pendant l'heure de l'accident.",
   "inspector_questions": [
-    "Vous avez dit qu'une vingtaine de personnes étaient présentes — combien de tables hautes y avait-il dans la cave ?",
-    "Vous avez dit que le sommelier portait un nœud papillon noir — portait-il aussi des lunettes ?",
-    "Vous avez dit qu'il y avait des verres à vin en cristal — combien de verres par personne sur la table ?",
-    "Vous avez dit qu'il y avait du pain tranché — quel type de pain : baguette, pain de campagne, autre ?",
-    "Vous avez dit que le premier vin était un blanc sec de la Loire — vous souvenez-vous du nom du domaine ou de l'appellation ?",
-    "Vous avez dit être à côté d'une femme avec un carnet de notes — quelle était la couleur de ce carnet ?",
-    "Vous avez dit qu'un homme portait une chemise à carreaux — de quelles couleurs étaient ces carreaux ?",
-    "Vous avez dit que le rosé de Provence était servi bien frais — était-il dans un seau à glace ou sorti du réfrigérateur ?",
-    "Vous avez dit qu'il y avait une musique de jazz doux — était-ce un enregistrement ou un musicien sur place ?",
-    "Vous avez dit que certains sont restés après — êtes-vous resté aussi ou êtes-vous parti tout de suite ?"
+    "Vous avez dit avoir participé à une dégustation — où exactement se déroulait-elle ?",
+    "Vous avez dit y être allés avec quelqu'un — qui était cette personne ?",
+    "Vous avez dit qu'un participant était vraiment connaisseur — sur quel point technique y a-t-il eu débat ?",
+    "Vous avez dit qu'une personne faisait des commentaires drôles — quel genre de commentaires ?",
+    "Vous avez dit avoir dégusté plusieurs vins — combien exactement ?",
+    "Vous avez dit avoir beaucoup aimé un vin en particulier — quel vin ?",
+    "Vous avez dit que votre compagnon préférait un autre vin — lequel ?",
+    "Vous avez dit que le sommelier a proposé un vin spécial — quel type de vin ?",
+    "Vous avez dit que certains ont acheté des bouteilles — avez-vous acheté quelque chose ?",
+    "Vous avez dit être restés discuter — de quoi avez-vous discuté avec les autres participants ?"
   ],
   "reading_time_seconds": 90
 }

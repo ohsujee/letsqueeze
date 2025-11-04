@@ -1,0 +1,20 @@
+{
+  "id": "tournage-clip",
+  "title": "Tournage d'un clip vidéo",
+  "context": "Un vol à l'arraché a été commis hier après-midi dans une rue commerçante. Plusieurs témoins affirment avoir vu deux personnes qui vous ressemblent fuir les lieux. Vous contestez : vous participiez au tournage d'un clip vidéo toute la journée.",
+  "accused_document": "<p>Hier, vous avez participé toute la journée au <strong>tournage d'un clip vidéo</strong> pour un projet musical. C'était organisé par quelqu'un que vous connaissez qui travaillait sur ce projet depuis plusieurs mois.</p><p>Le tournage se déroulait dans un <strong>lieu</strong> spécifique qui avait été choisi pour son ambiance particulière. Une petite <strong>équipe technique</strong> était présente avec le matériel : caméras, lumières, et tout le nécessaire. Le <strong>réalisateur</strong> dirigeait les opérations et expliquait à tout le monde ce qu'il fallait faire pour chaque scène.</p><p>Vous jouiez un <strong>rôle</strong> dans le clip en tant que figurant. On vous avait demandé de porter un <strong>costume</strong> ou une tenue spécifique pour correspondre au concept du clip. Vous avez passé du temps avec les autres <strong>participants</strong> à attendre entre les prises et à discuter.</p><p>Le réalisateur a dû refaire une <strong>scène</strong> particulière de nombreuses fois parce qu'il n'était pas satisfait du résultat. À un moment, il y a eu un <strong>problème technique</strong> avec le matériel qui a retardé le tournage. Tout le monde a dû patienter pendant que l'équipe réglait le souci.</p><p>Pendant la pause déjeuner, toute l'équipe a mangé ensemble sur place. On vous a fourni des <strong>repas</strong> et des boissons. Vous avez profité de ce moment pour mieux connaître les autres personnes du projet.</p><p>Le tournage s'est poursuivi jusqu'en fin d'après-midi. La dernière <strong>scène</strong> filmée était particulièrement importante pour le clip. Le réalisateur a demandé à tout le monde de faire quelque chose de spécifique pour cette scène finale. Une fois terminé, il a remercié tout le monde et vous êtes partis.</p>",
+  "inspector_summary": "Les accusés affirment avoir participé au tournage d'un clip vidéo toute la journée pendant le vol.",
+  "inspector_questions": [
+    "Vous avez dit participer au tournage d'un clip — pour qui était ce clip ?",
+    "Vous avez dit que le tournage se déroulait dans un lieu spécifique — où exactement ?",
+    "Vous avez dit que le réalisateur dirigeait — comment s'appelait ce réalisateur ?",
+    "Vous avez dit jouer un rôle de figurant — quel était votre rôle précisément ?",
+    "Vous avez dit porter un costume spécifique — décrivez ce costume ou cette tenue.",
+    "Vous avez dit qu'une scène a dû être refaite — quelle scène et pourquoi ?",
+    "Vous avez dit qu'il y a eu un problème technique — quel était ce problème ?",
+    "Vous avez dit avoir mangé ensemble — qu'est-ce qui vous a été fourni comme repas ?",
+    "Vous avez dit que la dernière scène était importante — que deviez-vous faire dans cette scène ?",
+    "Vous avez dit être partis après — qui a proposé l'idée de ce clip au départ ?"
+  ],
+  "reading_time_seconds": 90
+}

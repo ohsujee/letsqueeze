@@ -1,0 +1,20 @@
+{
+  "id": "pub-karaoke",
+  "title": "Soirée karaoké au pub",
+  "context": "Un acte de vandalisme sur plusieurs voitures a été commis hier soir dans un parking public. Des témoins vous situent dans le quartier au moment des faits. Vous contestez : vous étiez dans un pub irlandais pour une soirée karaoké.",
+  "accused_document": "<p>Hier soir, vous êtes allés dans un <strong>pub irlandais</strong> avec des amis pour participer à leur soirée <strong>karaoké</strong> hebdomadaire. C'était bondé et l'ambiance était déjà bien lancée quand vous êtes arrivés.</p><p>Vous vous êtes installés à une <strong>table</strong> pas loin de la petite <strong>scène</strong> où les gens montaient chanter. Le <strong>barman</strong> vous a servi des <strong>pintes</strong> et d'autres boissons tout au long de la soirée. La déco était typiquement irlandaise avec des drapeaux et des affiches partout.</p><p>Au début, vous regardiez les autres <strong>chanteurs</strong> se succéder. Il y avait des gens de tous niveaux : certains chantaient vraiment bien, d'autres étaient complètement à côté de la plaque mais c'était drôle. L'un de vos <strong>amis</strong> a fini par monter sur scène et a chanté une <strong>chanson</strong> qui a fait réagir tout le pub. La performance était mémorable.</p><p>Ensuite, quelqu'un d'autre de votre groupe s'est lancé dans un <strong>duo</strong> avec une autre personne de votre table. Ils ont choisi une chanson que tout le monde connaissait et le public les a encouragés en tapant des mains. Vous vous rappelez que le <strong>micro</strong> avait un petit problème technique au milieu de leur performance.</p><p>Plus tard dans la soirée, on vous a convaincu de monter à votre tour. Vous avez choisi une <strong>chanson</strong> spécifique et vous l'avez chantée devant tout le monde. L'<strong>animateur</strong> du karaoké vous a même fait un commentaire après votre passage.</p><p>La soirée s'est terminée tard. Vous avez commandé encore quelques <strong>tournées</strong> et vous êtes restés jusqu'à ce que le pub ferme. Vous êtes partis en groupe en discutant de qui avait été le meilleur chanteur de la soirée.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée dans un pub irlandais pour un karaoké pendant les actes de vandalisme.",
+  "inspector_questions": [
+    "Vous avez dit être allés dans un pub irlandais — quel était le nom de ce pub ?",
+    "Vous avez dit que c'était leur soirée karaoké hebdomadaire — quel jour de la semaine était-ce ?",
+    "Vous avez dit que le barman vous a servi des pintes — qu'avez-vous bu exactement ?",
+    "Vous avez dit qu'un de vos amis a chanté une chanson mémorable — qui était-ce et quelle chanson ?",
+    "Vous avez dit que quelqu'un a fait un duo — qui étaient les deux personnes ?",
+    "Vous avez dit que le micro avait un problème technique — quel problème exactement ?",
+    "Vous avez dit avoir monté sur scène vous-même — quelle chanson avez-vous chantée ?",
+    "Vous avez dit que l'animateur vous a fait un commentaire — qu'a-t-il dit ?",
+    "Vous avez dit être restés jusqu'à la fermeture — qui a été élu meilleur chanteur de la soirée ?",
+    "Vous avez dit être partis en groupe — qui a payé l'addition finale ?"
+  ],
+  "reading_time_seconds": 90
+}

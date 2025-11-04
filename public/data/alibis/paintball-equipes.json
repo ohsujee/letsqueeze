@@ -1,0 +1,20 @@
+{
+  "id": "paintball-equipes",
+  "title": "Session de paintball",
+  "context": "Un cambriolage dans une maison individuelle a été signalé hier après-midi. Un voisin affirme avoir vu deux personnes sortir par la fenêtre. Vous contestez fermement : vous étiez sur un terrain de paintball avec un groupe.",
+  "accused_document": "<p>Hier après-midi, vous avez participé à une <strong>session de paintball</strong> organisée sur un terrain aménagé avec plusieurs zones de jeu. Vous étiez une dizaine de personnes réparties en deux <strong>équipes</strong> qui devaient s'affronter dans différents modes de jeu.</p><p>Au début, un <strong>responsable</strong> vous a expliqué les règles de sécurité et vous a équipés. Chacun a reçu un <strong>masque de protection</strong>, un <strong>lanceur</strong>, et des <strong>billes de peinture</strong> d'une couleur spécifique selon votre équipe. Votre équipe portait des <strong>chasubles</strong> d'une certaine couleur pour vous distinguer.</p><p>Le premier mode de jeu consistait à <strong>capturer une base</strong> adverse cachée dans la zone boisée. Pendant la partie, l'un de vos <strong>coéquipiers</strong> a tenté une manœuvre audacieuse mais s'est fait éliminer de façon spectaculaire. Vous vous rappelez avoir <strong>tiré</strong> sur plusieurs adversaires et avoir dû vous <strong>cacher</strong> derrière des obstacles en bois.</p><p>Entre deux parties, vous avez fait une pause pour <strong>recharger</strong> vos lanceurs et boire quelque chose. Votre équipe en a profité pour discuter d'une nouvelle <strong>stratégie</strong> à adopter pour la partie suivante.</p><p>La dernière partie était un mode différent du premier. Elle s'est terminée en fin d'après-midi et après ça, tout le monde s'est retrouvé pour discuter des moments forts de la journée avant de se séparer.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé l'après-midi sur un terrain de paintball avec un groupe pendant le cambriolage.",
+  "inspector_questions": [
+    "Vous avez dit être une dizaine de personnes — combien exactement étiez-vous ?",
+    "Vous avez dit avoir reçu des billes d'une couleur spécifique — de quelle couleur étaient vos billes ?",
+    "Vous avez dit que votre équipe portait des chasubles — de quelle couleur exactement ?",
+    "Vous avez dit qu'un coéquipier a tenté une manœuvre audacieuse — qui était-ce et quelle manœuvre ?",
+    "Vous avez dit avoir tiré sur plusieurs adversaires — combien de personnes avez-vous touchées ?",
+    "Vous avez dit avoir discuté d'une stratégie — quelle était cette stratégie ?",
+    "Vous avez dit que la dernière partie était un mode différent — quel était ce mode de jeu ?",
+    "Vous avez dit que la session s'est terminée en fin d'après-midi — quelle équipe a gagné le plus de parties ?",
+    "Vous avez dit vous être retrouvés pour discuter — qui a eu le plus d'éliminations de la journée ?",
+    "Vous avez dit vous être séparés après — qui est parti en premier du groupe ?"
+  ],
+  "reading_time_seconds": 90
+}

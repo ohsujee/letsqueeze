@@ -1,0 +1,20 @@
+{
+  "id": "salle-de-sport",
+  "title": "Séance à la salle de sport",
+  "context": "Un délit de fuite après un accident de voiture a été signalé hier en fin d'après-midi. Votre véhicule correspond à la description donnée par les témoins. Vous contestez fermement : vous étiez à la salle de sport pour un entraînement intensif.",
+  "accused_document": "<p>Hier en fin d'après-midi, vous aviez rendez-vous dans une <strong>salle de sport</strong> pour une session d'entraînement avec un <strong>coach sportif</strong>. C'était une séance que vous aviez réservée plusieurs jours à l'avance pour travailler votre condition physique.</p><p>En arrivant, vous avez badgé à l'<strong>accueil</strong> et vous êtes allés vous changer dans les <strong>vestiaires</strong>. Vous avez retrouvé votre coach dans la zone d'entraînement. Il vous avait préparé un <strong>programme</strong> spécifique pour la séance du jour axé sur un type d'exercices particulier.</p><p>Vous avez commencé par un <strong>échauffement</strong> assez intensif pour préparer votre corps. Ensuite, le coach vous a fait faire une série d'<strong>exercices</strong> différents. Il y avait notamment un exercice que vous détestiez particulièrement mais que le coach insistait pour que vous fassiez correctement.</p><p>À un moment pendant la séance, vous étiez tellement <strong>fatigué</strong> que vous avez demandé une pause. Le coach vous a dit que vous ne pouviez pas abandonner et vous a même donné une <strong>punition</strong> supplémentaire pour avoir essayé de vous arrêter. Vous vous souvenez très bien de cette punition parce qu'elle était vraiment difficile.</p><p>Il y avait d'autres <strong>personnes</strong> qui s'entraînaient dans la salle en même temps que vous. Certains faisaient de la <strong>musculation</strong>, d'autres du <strong>cardio</strong>. Vous avez croisé quelqu'un que vous connaissiez et vous vous êtes rapidement salués entre deux exercices.</p><p>La séance s'est terminée par des <strong>étirements</strong> et le coach vous a donné des conseils pour la prochaine fois. Vous étiez complètement épuisé. Avant de partir, vous avez pris une <strong>boisson</strong> au distributeur de la salle et vous avez discuté quelques minutes avec le coach de vos progrès.</p>",
+  "inspector_summary": "Les accusés affirment avoir été à la salle de sport avec un coach pendant le délit de fuite.",
+  "inspector_questions": [
+    "Vous avez dit avoir rendez-vous dans une salle de sport — quel est le nom de cette salle ?",
+    "Vous avez dit avoir retrouvé votre coach — comment s'appelle ce coach ?",
+    "Vous avez dit que le programme était axé sur un type d'exercices — quel type exactement ?",
+    "Vous avez dit détester particulièrement un exercice — quel exercice ?",
+    "Vous avez dit que le coach vous a donné une punition — quelle était cette punition ?",
+    "Vous avez dit avoir croisé quelqu'un que vous connaissiez — qui était-ce ?",
+    "Vous avez dit que des gens faisaient de la musculation et du cardio — combien de personnes approximativement y avait-il dans la salle ?",
+    "Vous avez dit que le coach vous a donné des conseils — quels conseils ?",
+    "Vous avez dit avoir pris une boisson au distributeur — quelle boisson exactement ?",
+    "Vous avez dit avoir discuté de vos progrès — avez-vous progressé depuis la dernière fois ?"
+  ],
+  "reading_time_seconds": 90
+}

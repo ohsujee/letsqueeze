@@ -1,20 +1,20 @@
 {
   "id": "escape-game",
-  "title": "Partie d'escape game",
-  "context": "Un sabotage informatique a paralysé votre entreprise entre 19h et 21h. Les logs montrent une connexion depuis votre compte. Vous vous défendez : vous jouiez à un escape game avec des amis.",
-  "accused_document": "<p>Vous aviez réservé une session d'<strong>escape game</strong> avec trois amis dans un centre de loisirs. À l'accueil, une animatrice avec des <strong>dreadlocks colorées</strong> et un <strong>piercing au sourcil</strong> vous a fait signer une décharge et expliqué les règles. Elle portait un <strong>t-shirt noir</strong> avec le logo de l'établissement. Le thème de votre salle était un <strong>laboratoire abandonné</strong>. Avant d'entrer, l'animatrice vous a demandé de ranger vos téléphones dans un <strong>casier verrouillé</strong>. La salle était plongée dans une <strong>lumière verte fluo</strong> avec une ambiance musicale inquiétante. Les murs étaient décorés avec de faux <strong>équipements scientifiques</strong> et des <strong>fioles colorées</strong>. Votre groupe devait résoudre des énigmes pour sortir en moins d'une heure. La première énigme concernait un <strong>code à quatre chiffres</strong> caché dans une formule chimique écrite au tableau. Un de vos amis, celui avec une <strong>veste en jean</strong>, était particulièrement doué pour les énigmes. Une autre amie, portant des <strong>baskets rouges</strong>, a trouvé une clé cachée dans un <strong>livre creux</strong>. Vous avez découvert un <strong>coffre-fort</strong> dissimulé derrière un faux miroir. À un moment, une alarme sonore s'est déclenchée, vous faisant tous sursauter. Le troisième ami, qui portait une <strong>casquette</strong>, a résolu une énigme avec des <strong>symboles lumineux</strong> au plafond. L'animatrice vous donnait des indices via un <strong>haut-parleur</strong> quand vous étiez bloqués. Vous avez finalement réussi à sortir quelques minutes avant la fin du temps imparti.</p>",
-  "inspector_summary": "Les accusés affirment avoir participé à une session d'escape game avec des amis pendant le sabotage.",
+  "title": "Escape game",
+  "context": "Un vol de scooter avec effraction a été commis hier après-midi dans un parking résidentiel. Des traces ADN ont été retrouvées sur les lieux. Vous niez catégoriquement : vous étiez enfermés dans un escape game avec des amis.",
+  "accused_document": "<p>Hier après-midi, vous avez réservé une session d'<strong>escape game</strong> avec un groupe d'amis. Le thème de la salle était particulier et assez immersif. En arrivant, un <strong>game master</strong> vous a accueillis et expliqué le scénario ainsi que les règles à respecter.</p><p>Vous êtes entrés dans une <strong>salle</strong> décorée dans l'ambiance du thème. Vous aviez <strong>60 minutes</strong> pour résoudre toutes les <strong>énigmes</strong> et sortir. Le chronomètre s'est lancé et vous avez commencé à fouiller la pièce pour trouver des <strong>indices</strong>.</p><p>La première <strong>énigme</strong> que vous avez résolue impliquait un mécanisme spécifique qui a ouvert un premier <strong>coffre</strong>. À l'intérieur, vous avez trouvé un <strong>code</strong> qui servait pour la suite. L'un de vos <strong>coéquipiers</strong> a eu l'intuition brillante de regarder quelque part où personne n'avait pensé chercher, ce qui vous a fait gagner beaucoup de temps.</p><p>À un moment, vous étiez complètement bloqués sur une énigme particulièrement difficile. Vous avez dû demander un <strong>indice</strong> au game master via l'interphone. Vers la fin, vous avez découvert un <strong>passage secret</strong> qui menait à la dernière partie de la salle.</p><p>Vous avez réussi à sortir avec quelques minutes restantes. Le game master est revenu vous féliciter et vous a montré votre <strong>temps final</strong> sur l'écran. Vous avez ensuite pris une <strong>photo</strong> de groupe devant le décor avant de partir.</p>",
+  "inspector_summary": "Les accusés affirment avoir été enfermés dans un escape game pendant le vol de scooter.",
   "inspector_questions": [
-    "Vous avez dit que l'animatrice avait des dreadlocks colorées — de quelles couleurs principalement ?",
-    "Vous avez dit avoir rangé vos téléphones dans un casier verrouillé — qui gardait la clé de ce casier ?",
-    "Vous avez dit que la salle était éclairée d'une lumière verte fluo — y avait-il d'autres sources de lumière ?",
-    "Vous avez dit que la première énigme concernait un code à quatre chiffres — avez-vous réussi à le trouver ou quelqu'un d'autre l'a trouvé ?",
-    "Vous avez dit qu'un ami portait une veste en jean — était-ce une veste claire ou foncée ?",
-    "Vous avez dit qu'une amie portait des baskets rouges — de quelle marque semblaient être ces baskets ?",
-    "Vous avez dit qu'elle a trouvé une clé dans un livre creux — quel type de livre était-ce : roman, encyclopédie, autre ?",
-    "Vous avez dit avoir découvert un coffre-fort derrière un faux miroir — qui a découvert ce coffre ?",
-    "Vous avez dit qu'un ami portait une casquette — de quelle couleur était cette casquette ?",
-    "Vous avez dit avoir fini quelques minutes avant la fin — combien de minutes exactement vous restait-il ?"
+    "Vous avez dit avoir réservé un escape game — quel était le nom du lieu ?",
+    "Vous avez dit que le thème de la salle était particulier — quel était ce thème exactement ?",
+    "Vous avez dit que vous étiez un groupe d'amis — combien étiez-vous précisément ?",
+    "Vous avez dit que la première énigme impliquait un mécanisme — quel type de mécanisme ?",
+    "Vous avez dit avoir trouvé un code dans le coffre — quel était ce code ?",
+    "Vous avez dit qu'un coéquipier a regardé quelque part d'inattendu — où exactement ?",
+    "Vous avez dit être bloqués sur une énigme difficile — quelle était cette énigme ?",
+    "Vous avez dit avoir découvert un passage secret — où menait-il et comment l'avez-vous trouvé ?",
+    "Vous avez dit avoir réussi à sortir — quel était votre temps final exactement ?",
+    "Vous avez dit avoir pris une photo — qui a pris la photo ?"
   ],
   "reading_time_seconds": 90
 }

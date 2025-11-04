@@ -1,20 +1,20 @@
 {
   "id": "visite-musee",
-  "title": "Visite au musée d'art moderne",
+  "title": "Visite au musée",
   "context": "Un incendie criminel a été déclenché dans un entrepôt entre 14h et 16h. Votre téléphone a borné dans le secteur. Vous affirmez être innocent : vous visitiez un musée.",
-  "accused_document": "<p>Cet après-midi, vous avez décidé de visiter le <strong>musée d'art moderne</strong> de la ville. À l'entrée, un agent de sécurité avec un <strong>uniforme bleu marine</strong> a inspecté votre sac. Vous avez acheté votre billet au guichet et reçu un <strong>bracelet en papier orange</strong> à porter au poignet. Le hall d'entrée était spacieux avec un <strong>plafond en verre</strong> qui laissait entrer la lumière naturelle. Une <strong>sculpture métallique abstraite</strong> trônait au centre. Vous avez commencé par le premier étage où se trouvait une exposition sur l'art contemporain. Les murs étaient peints en <strong>blanc immaculé</strong> et le sol était en <strong>parquet clair</strong>. Vous vous souvenez particulièrement d'une œuvre : une toile géante avec des <strong>taches de peinture rouge et jaune</strong>. Un groupe scolaire d'une dizaine d'enfants passait d'une salle à l'autre, guidé par une enseignante avec un <strong>foulard vert</strong>. Les enfants étaient plutôt bruyants. Dans une autre salle, vous avez observé une installation vidéo projetée sur <strong>trois écrans simultanément</strong>. Un banc rembourré permettait de s'asseoir pour regarder. Vous avez croisé un guide du musée, reconnaissable à son <strong>badge nominatif</strong> et son <strong>gilet bordeaux</strong>. Au deuxième étage, une exposition photo présentait des clichés en noir et blanc. Vous avez pris quelques photos avec votre téléphone, malgré l'interdiction du flash. En sortant, vous êtes passé par la <strong>boutique du musée</strong> qui vendait des cartes postales et des livres d'art.</p>",
-  "inspector_summary": "Les accusés affirment avoir visité un musée d'art moderne pendant le créneau de l'incendie.",
+  "accused_document": "<p>Cet après-midi, vous avez décidé d'aller visiter un <strong>musée</strong> avec quelqu'un. C'était une <strong>exposition</strong> temporaire sur un thème particulier qui vous intéressait depuis longtemps.</p><p>À l'entrée, vous avez dû faire la <strong>queue</strong> un moment avant d'acheter vos <strong>billets</strong>. Le prix était assez élevé mais l'exposition avait l'air d'en valoir la peine. On vous a donné quelque chose à porter ou à garder pour prouver que vous aviez payé.</p><p>En entrant dans la première <strong>salle</strong>, vous avez été impressionnés par l'ambiance. Il y avait plusieurs <strong>œuvres</strong> exposées et vous avez pris le temps de les regarder. Une œuvre en particulier vous a vraiment marqués et vous en avez longuement discuté avec votre compagnon. Vous aviez des avis assez différents sur cette œuvre.</p><p>Dans une autre salle, il y avait un <strong>groupe</strong> avec un <strong>guide</strong> qui expliquait certaines pièces de l'exposition. Vous vous êtes arrêtés pour écouter un moment. Le guide a raconté une anecdote intéressante sur l'un des <strong>artistes</strong> présentés.</p><p>À un moment, quelqu'un dans le musée a fait quelque chose qui n'était pas autorisé et un <strong>gardien</strong> est intervenu. Ça a créé un petit moment de tension. Vous avez aussi croisé d'autres <strong>visiteurs</strong> qui prenaient beaucoup de <strong>photos</strong> devant certaines œuvres.</p><p>Avant de partir, vous êtes passés par la <strong>boutique du musée</strong> où vous avez acheté un <strong>souvenir</strong>. Vous avez aussi pris un café à la <strong>cafétéria</strong> du musée et vous avez discuté de votre visite.</p>",
+  "inspector_summary": "Les accusés affirment avoir visité un musée pendant le créneau de l'incendie.",
   "inspector_questions": [
-    "Vous avez dit que l'agent de sécurité portait un uniforme bleu marine — portait-il une casquette ?",
-    "Vous avez dit avoir reçu un bracelet en papier orange — y avait-il quelque chose d'écrit dessus ?",
-    "Vous avez dit qu'il y avait une sculpture métallique abstraite — quelle était sa hauteur approximative ?",
-    "Vous avez dit avoir vu une toile avec des taches rouge et jaune — quelle couleur dominait ?",
-    "Vous avez dit qu'un groupe scolaire visitait — combien d'enfants environ dans ce groupe ?",
-    "Vous avez dit que l'enseignante portait un foulard vert — comment était-il noué : autour du cou ou dans les cheveux ?",
-    "Vous avez dit qu'une installation vidéo était projetée sur trois écrans — ces écrans étaient-ils de la même taille ?",
-    "Vous avez dit que le guide portait un gilet bordeaux — y avait-il des boutons ou une fermeture éclair ?",
-    "Vous avez dit avoir pris des photos — combien de photos environ avez-vous prises ?",
-    "Vous avez dit être passé par la boutique du musée — avez-vous acheté quelque chose ?"
+    "Vous avez dit être allés visiter un musée — quel musée exactement ?",
+    "Vous avez dit que l'exposition portait sur un thème particulier — quel thème ?",
+    "Vous avez dit qu'on vous a donné quelque chose pour prouver que vous aviez payé — quoi exactement ?",
+    "Vous avez dit qu'une œuvre vous a marqués — quelle œuvre et pourquoi ?",
+    "Vous avez dit avoir des avis différents sur cette œuvre — quels étaient vos avis respectifs ?",
+    "Vous avez dit que le guide a raconté une anecdote — quelle anecdote ?",
+    "Vous avez dit que quelqu'un a fait quelque chose de non autorisé — quoi exactement ?",
+    "Vous avez dit avoir acheté un souvenir — quel souvenir ?",
+    "Vous avez dit avoir pris un café à la cafétéria — qui a payé le café ?",
+    "Vous avez dit avoir discuté de votre visite — quelle a été votre œuvre préférée de l'exposition ?"
   ],
   "reading_time_seconds": 90
 }

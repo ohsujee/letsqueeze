@@ -1,0 +1,20 @@
+{
+  "id": "comedie-club",
+  "title": "Soirée comédie club",
+  "context": "Une escroquerie par téléphone a visé des personnes âgées hier soir. Les appels provenaient d'une zone proche de votre domicile. Vous affirmez qu'il est impossible que ce soit vous : vous étiez dans un club de comédie pour assister à des spectacles d'humour.",
+  "accused_document": "<p>Hier soir, vous êtes allés dans un <strong>club de comédie</strong> pour assister à une soirée spéciale avec plusieurs <strong>humoristes</strong> qui se succédaient sur scène. C'était une soirée organisée dans une petite salle intimiste avec le public installé autour de tables.</p><p>En arrivant, vous avez été placés à une <strong>table</strong> pas très loin de la scène. Vous aviez une bonne vue sur les <strong>comédiens</strong>. Le <strong>présentateur</strong> de la soirée a ouvert le spectacle en faisant quelques blagues pour chauffer le public.</p><p>Le premier humoriste à monter sur scène faisait des <strong>sketches</strong> sur un thème précis qui a fait rire toute la salle. À un moment, il a même <strong>interagi</strong> avec quelqu'un du public juste à côté de votre table, ce qui a créé un moment très drôle. Le deuxième <strong>comédien</strong> avait un style complètement différent du premier.</p><p>Entre les passages, vous en avez profité pour commander des <strong>boissons</strong> au bar. Le <strong>serveur</strong> qui vous a servis était assez sympathique et vous a recommandé quelque chose de spécial à boire. Vous avez aussi discuté de vos humoristes préférés.</p><p>Le dernier <strong>artiste</strong> de la soirée a clôturé le spectacle tard dans la nuit. Après le show, vous êtes restés encore un peu sur place pour finir vos verres avant de partir.</p>",
+  "inspector_summary": "Les accusés prétendent avoir passé la soirée dans un club de comédie à regarder des spectacles d'humour.",
+  "inspector_questions": [
+    "Vous avez dit être allés dans un club de comédie — quel était le nom de ce club ?",
+    "Vous avez dit être placés à une table — à quelle distance approximative de la scène étiez-vous ?",
+    "Vous avez dit que le présentateur a ouvert le spectacle — comment s'appelait ce présentateur ?",
+    "Vous avez dit que le premier humoriste faisait des sketches sur un thème précis — quel était ce thème ?",
+    "Vous avez dit qu'il a interagi avec quelqu'un du public — que s'est-il passé exactement ?",
+    "Vous avez dit que le deuxième comédien avait un style différent — quel était son style ?",
+    "Vous avez dit avoir commandé des boissons — qu'avez-vous pris exactement ?",
+    "Vous avez dit que le serveur vous a recommandé quelque chose — quoi exactement ?",
+    "Vous avez dit que le spectacle s'est terminé tard — quel humoriste était le meilleur selon vous ?",
+    "Vous avez dit être restés finir vos verres — qui a payé l'addition à la fin ?"
+  ],
+  "reading_time_seconds": 90
+}
