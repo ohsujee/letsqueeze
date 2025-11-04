@@ -18,6 +18,7 @@ export default function AlibiPrep() {
 
   const [timeLeft, setTimeLeft] = useState(90);
   const [myTeam, setMyTeam] = useState(null);
+  const [isHost, setIsHost] = useState(false);
   const [alibi, setAlibi] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [customQuestions, setCustomQuestions] = useState(["", "", ""]);
@@ -28,9 +29,14 @@ export default function AlibiPrep() {
     signInAnonymously(auth).catch(() => {});
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user && code) {
+        // Récupérer l'équipe du joueur
         onValue(ref(db, `rooms_alibi/${code}/players/${user.uid}`), (snap) => {
           const player = snap.val();
           if (player) setMyTeam(player.team);
+        });
+        // Vérifier si c'est l'hôte
+        onValue(ref(db, `rooms_alibi/${code}/meta/hostUid`), (snap) => {
+          setIsHost(snap.val() === user.uid);
         });
       }
     });
@@ -73,14 +79,24 @@ export default function AlibiPrep() {
     };
   }, [code, router]);
 
-  // Timer countdown
+  // Timer countdown (seulement pour l'hôte)
   useEffect(() => {
+    if (!isHost) return;
+
     if (timeLeft <= 0) {
       // Temps écoulé, passer à la phase interrogation
       if (timerRef.current) clearInterval(timerRef.current);
       update(ref(db, `rooms_alibi/${code}/state`), {
         phase: "interrogation",
         currentQuestion: 0
+      });
+      // Initialiser l'état de l'interrogation
+      update(ref(db, `rooms_alibi/${code}/interrogation`), {
+        currentQuestion: 0,
+        state: "waiting",
+        timeLeft: 30,
+        responses: {},
+        verdict: null
       });
       return;
     }
@@ -96,7 +112,7 @@ export default function AlibiPrep() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [timeLeft, code]);
+  }, [timeLeft, code, isHost]);
 
   const handleSaveCustomQuestion = async (index, text) => {
     const questionId = 7 + index;

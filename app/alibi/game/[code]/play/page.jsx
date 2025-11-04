@@ -19,16 +19,19 @@ export default function AlibiInterrogation() {
 
   const [myUid, setMyUid] = useState(null);
   const [myTeam, setMyTeam] = useState(null);
+  const [isHost, setIsHost] = useState(false);
   const [suspects, setSuspects] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [questionState, setQuestionState] = useState("waiting"); // waiting | answering | judging | verdict
+  const [questionState, setQuestionState] = useState("waiting"); // waiting | answering | verdict
   const [timeLeft, setTimeLeft] = useState(30);
+  const [allAnswered, setAllAnswered] = useState(false);
   const [myAnswer, setMyAnswer] = useState("");
   const [hasAnswered, setHasAnswered] = useState(false);
   const [responses, setResponses] = useState({});
-  const [verdict, setVerdict] = useState(null); // null | "correct" | "incorrect"
+  const [verdict, setVerdict] = useState(null); // null | "correct" | "incorrect" | "timeout"
   const timerRef = useRef(null);
+  const timeoutTriggeredRef = useRef(false);
 
   // Auth
   useEffect(() => {
@@ -40,6 +43,10 @@ export default function AlibiInterrogation() {
           onValue(ref(db, `rooms_alibi/${code}/players/${user.uid}`), (snap) => {
             const player = snap.val();
             if (player) setMyTeam(player.team);
+          });
+          // Vérifier si c'est l'hôte
+          onValue(ref(db, `rooms_alibi/${code}/meta/hostUid`), (snap) => {
+            setIsHost(snap.val() === user.uid);
           });
         }
       }
@@ -74,7 +81,14 @@ export default function AlibiInterrogation() {
       const data = snap.val() || {};
       setCurrentQuestion(data.currentQuestion || 0);
       setQuestionState(data.state || "waiting");
-      setTimeLeft(data.timeLeft || 30);
+
+      // L'hôte ne doit PAS écouter les mises à jour du timer pendant answering
+      // pour éviter la boucle : hôte écrit -> Firebase notifie -> hôte met à jour -> double décompte
+      const shouldListenToTimer = !isHost || data.state !== "answering";
+      if (shouldListenToTimer) {
+        setTimeLeft(data.timeLeft || 30);
+      }
+
       setResponses(data.responses || {});
       setVerdict(data.verdict || null);
     });
@@ -90,32 +104,80 @@ export default function AlibiInterrogation() {
       interroUnsub();
       stateUnsub();
     };
-  }, [code, router]);
+  }, [code, router, isHost]);
 
-  // Timer pour la phase answering
+  // Démarrer/arrêter le timer selon l'état
   useEffect(() => {
-    if (questionState !== "answering") {
-      if (timerRef.current) clearInterval(timerRef.current);
+    // Conditions pour arrêter le timer
+    if (!isHost || questionState !== "answering" || allAnswered) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
       return;
     }
 
-    if (timeLeft <= 0) {
-      // Temps écoulé, passer à judging
-      if (timerRef.current) clearInterval(timerRef.current);
-      update(ref(db, `rooms_alibi/${code}/interrogation`), {
-        state: "judging"
-      });
-      return;
+    // Démarrer le timer seulement s'il n'existe pas déjà
+    if (!timerRef.current) {
+      timerRef.current = setInterval(() => {
+        setTimeLeft(prevTime => {
+          const newTime = prevTime - 1;
+          if (newTime >= 0) {
+            update(ref(db, `rooms_alibi/${code}/interrogation`), { timeLeft: newTime });
+          }
+          return newTime;
+        });
+      }, 1000);
     }
 
-    timerRef.current = setInterval(() => {
-      update(ref(db, `rooms_alibi/${code}/interrogation/timeLeft`), timeLeft - 1);
-    }, 1000);
-
+    // Cleanup : arrêter le timer quand l'effet se nettoie
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
     };
-  }, [questionState, timeLeft, code]);
+  }, [questionState, isHost, allAnswered, code]);
+
+  // Détecter le timeout (séparé du timer)
+  useEffect(() => {
+    if (!isHost || questionState !== "answering") {
+      timeoutTriggeredRef.current = false;
+      return;
+    }
+
+    // Si le timer atteint 0 et que tous n'ont pas répondu
+    if (timeLeft <= 0 && !allAnswered && !timeoutTriggeredRef.current) {
+      timeoutTriggeredRef.current = true;
+
+      // Arrêter le timer immédiatement
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+
+      // Déclencher le timeout
+      update(ref(db, `rooms_alibi/${code}/interrogation`), {
+        state: "verdict",
+        verdict: "timeout"
+      });
+
+      // Attendre 4 secondes puis passer à la question suivante ou fin
+      setTimeout(async () => {
+        if (currentQuestion >= 9) {
+          await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
+        } else {
+          await update(ref(db, `rooms_alibi/${code}/interrogation`), {
+            currentQuestion: currentQuestion + 1,
+            state: "waiting",
+            timeLeft: 30,
+            responses: {},
+            verdict: null
+          });
+        }
+      }, 4000);
+    }
+  }, [timeLeft, allAnswered, questionState, isHost, code, currentQuestion]);
 
   // Actions INSPECTEURS
   const startQuestion = async () => {
@@ -130,7 +192,8 @@ export default function AlibiInterrogation() {
       verdict: null
     });
 
-    // Réinitialiser l'état local
+    // Réinitialiser l'état local (l'hôte doit initialiser son timer à 30)
+    setTimeLeft(30);
     setHasAnswered(false);
     setMyAnswer("");
   };
@@ -153,7 +216,7 @@ export default function AlibiInterrogation() {
       }, { onlyOnce: true });
     }
 
-    // Attendre 3 secondes puis passer à la question suivante ou fin
+    // Attendre 4 secondes puis passer à la question suivante ou fin
     setTimeout(async () => {
       if (currentQuestion >= 9) {
         // Dernière question, aller à la page de fin
@@ -168,8 +231,28 @@ export default function AlibiInterrogation() {
           verdict: null
         });
       }
-    }, 3000);
+    }, 4000);
   };
+
+  // Réinitialiser l'état local quand on change de question
+  useEffect(() => {
+    if (questionState === "waiting") {
+      setHasAnswered(false);
+      setMyAnswer("");
+      setAllAnswered(false);
+      timeoutTriggeredRef.current = false;
+      // Réinitialiser le timer à 30 secondes
+      setTimeLeft(30);
+    }
+  }, [currentQuestion, questionState]);
+
+  // Détecter quand tous les suspects ont répondu
+  useEffect(() => {
+    if (questionState === "answering" && suspects.length > 0) {
+      const allHaveAnswered = suspects.every(s => responses[s.uid]);
+      setAllAnswered(allHaveAnswered);
+    }
+  }, [questionState, suspects, responses]);
 
   // Actions SUSPECTS
   const submitAnswer = async () => {
@@ -182,17 +265,6 @@ export default function AlibiInterrogation() {
     });
 
     setHasAnswered(true);
-
-    // Vérifier si tous les suspects ont répondu
-    const allSuspectsAnswered = suspects.every(s =>
-      responses[s.uid] || s.uid === myUid
-    );
-
-    if (allSuspectsAnswered) {
-      await update(ref(db, `rooms_alibi/${code}/interrogation`), {
-        state: "judging"
-      });
-    }
   };
 
   const formatTime = (seconds) => {
@@ -274,83 +346,162 @@ export default function AlibiInterrogation() {
             </div>
           ) : (
             <div className="bg-green-500/20 border border-green-500 p-4 rounded-lg text-center">
-              <p className="font-bold text-green-400">✓ Réponse envoyée !</p>
-              <p className="text-sm opacity-70 mt-2">En attente des autres suspects...</p>
+              <div className="text-green-400 text-5xl mb-4">✓</div>
+              <p className="text-xl font-bold text-green-400">Réponse envoyée !</p>
+              <p className="text-lg opacity-70 mt-2">En attente du jugement des inspecteurs...</p>
             </div>
           )}
         </div>
       )}
 
       {questionState === "answering" && myTeam === "inspectors" && (
-        <div className="card text-center space-y-4">
-          <h2 className="text-3xl font-black">
-            ⏱️ {formatTime(timeLeft)}
-          </h2>
-          <p className="text-lg opacity-70">Les suspects répondent...</p>
-          <p className="text-sm opacity-50">
-            {Object.keys(responses).length} / {suspects.length} suspect(s) ont répondu
-          </p>
-        </div>
-      )}
-
-      {/* État: JUDGING - Inspecteurs jugent */}
-      {questionState === "judging" && myTeam === "inspectors" && (
-        <div className="card space-y-6">
-          <h2 className="text-2xl font-bold text-center">Réponses des suspects</h2>
-
-          <div className="space-y-4">
-            {suspects.map(suspect => {
-              const response = responses[suspect.uid];
-              return (
-                <div key={suspect.uid} className="bg-slate-700 p-4 rounded-lg">
-                  <p className="font-bold text-primary mb-2">🎭 {suspect.name}</p>
-                  <p className="text-lg">{response?.answer || "Pas de réponse"}</p>
-                </div>
-              );
-            })}
+        <div className="space-y-6">
+          {/* Timer et question */}
+          <div className="card text-center space-y-4">
+            <h2 className="text-3xl font-black">
+              {timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
+            </h2>
+            {timeLeft <= 10 && !allAnswered && (
+              <p className="text-red-400 font-bold animate-pulse">Temps presque écoulé !</p>
+            )}
+            {allAnswered && (
+              <p className="text-green-400 font-bold animate-pulse">✓ Toutes les réponses reçues !</p>
+            )}
+            <div className="bg-slate-700/50 p-4 rounded-lg border-l-4 border-accent">
+              <p className="text-lg font-bold mb-2">Question {currentQuestion + 1} :</p>
+              <p className="text-xl">{currentQuestionData?.text}</p>
+            </div>
+            <p className="text-sm opacity-70">
+              {Object.keys(responses).length} / {suspects.length} suspect(s) ont répondu
+            </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-600">
-            <button
-              className="btn btn-error h-16 text-xl"
-              onClick={() => judgeAnswers(false)}
-            >
-              ❌ Mauvaise réponse
-            </button>
-            <button
-              className="btn btn-success h-16 text-xl"
-              onClick={() => judgeAnswers(true)}
-            >
-              ✅ Bonne réponse
-            </button>
-          </div>
-        </div>
-      )}
+          {/* Réponses en temps réel */}
+          <div className="card space-y-4">
+            <h2 className="text-xl font-bold">Réponses des suspects :</h2>
+            <div className="space-y-3">
+              {suspects.map(suspect => {
+                const response = responses[suspect.uid];
+                return (
+                  <div
+                    key={suspect.uid}
+                    className={`p-4 rounded-lg transition-all ${
+                      response
+                        ? "bg-green-500/20 border-2 border-green-500"
+                        : "bg-slate-700/50 border-2 border-slate-600 opacity-50"
+                    }`}
+                  >
+                    <p className="font-bold text-primary mb-2">
+                      🎭 {suspect.name}
+                      {response && <span className="text-green-400 ml-2">✓</span>}
+                    </p>
+                    {response ? (
+                      <p className="text-lg">{response.answer}</p>
+                    ) : (
+                      <p className="text-sm italic opacity-50">En attente de réponse...</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
 
-      {questionState === "judging" && myTeam === "suspects" && (
-        <div className="card text-center">
-          <p className="text-lg opacity-70">
-            Les inspecteurs analysent vos réponses...
-          </p>
+            {/* Boutons de jugement - Affichés seulement quand toutes les réponses sont reçues */}
+            {allAnswered && (
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t-2 border-accent/50 mt-6">
+                <button
+                  className="btn btn-danger h-20 text-xl"
+                  onClick={() => judgeAnswers(false)}
+                >
+                  ❌ Refuser
+                </button>
+                <button
+                  className="btn btn-success h-20 text-xl"
+                  onClick={() => judgeAnswers(true)}
+                >
+                  ✅ Valider
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
 
       {/* État: VERDICT - Affichage du verdict */}
       {questionState === "verdict" && (
-        <div
-          className={`min-h-[400px] flex items-center justify-center rounded-lg ${
-            verdict === "correct" ? "bg-green-500" : "bg-red-500"
-          }`}
-        >
-          <div className="text-center">
-            <p className="text-6xl mb-4">{verdict === "correct" ? "✅" : "❌"}</p>
-            <p className="text-4xl font-black text-white">
-              {verdict === "correct" ? "BONNE RÉPONSE" : "MAUVAISE RÉPONSE"}
-            </p>
-            <p className="text-xl text-white/80 mt-4">
-              {currentQuestion >= 9 ? "Fin de l'interrogatoire..." : "Question suivante dans 3s..."}
-            </p>
-          </div>
+        <div className="space-y-6">
+          {/* Animation de verdict */}
+          {verdict === "correct" && (
+            <div className="min-h-[500px] flex items-center justify-center rounded-lg bg-gradient-to-br from-green-400 via-green-500 to-green-600 animate-pulse relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_50%)] animate-ping"></div>
+              <div className="text-center z-10 space-y-6 p-8">
+                <div className="text-9xl mb-4 animate-bounce">✅</div>
+                <p className="text-5xl font-black text-white drop-shadow-2xl animate-pulse">
+                  BONNE RÉPONSE !
+                </p>
+                <p className="text-2xl text-white/90 font-bold">
+                  Les suspects sont convaincants ! 🎉
+                </p>
+                <div className="flex gap-4 justify-center mt-8">
+                  <span className="text-4xl animate-bounce" style={{animationDelay: '0s'}}>🎊</span>
+                  <span className="text-4xl animate-bounce" style={{animationDelay: '0.1s'}}>⭐</span>
+                  <span className="text-4xl animate-bounce" style={{animationDelay: '0.2s'}}>🎉</span>
+                  <span className="text-4xl animate-bounce" style={{animationDelay: '0.3s'}}>✨</span>
+                </div>
+                <p className="text-xl text-white/80 mt-4">
+                  {currentQuestion >= 9 ? "Fin de l'interrogatoire..." : "Question suivante dans 4s..."}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {verdict === "incorrect" && (
+            <div className="min-h-[500px] flex items-center justify-center rounded-lg bg-gradient-to-br from-red-500 via-red-600 to-red-700 relative overflow-hidden">
+              <div className="absolute inset-0 opacity-20">
+                <div className="absolute top-0 left-0 w-full h-1 bg-white animate-pulse"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-white animate-pulse"></div>
+              </div>
+              <div className="text-center z-10 space-y-6 p-8">
+                <div className="text-9xl mb-4 animate-shake">❌</div>
+                <p className="text-5xl font-black text-white drop-shadow-2xl">
+                  MAUVAISE RÉPONSE
+                </p>
+                <p className="text-2xl text-white/90 font-bold">
+                  Les inspecteurs détectent l'incohérence ! 🕵️
+                </p>
+                <div className="flex gap-4 justify-center mt-8">
+                  <span className="text-4xl animate-pulse" style={{animationDelay: '0s'}}>⚠️</span>
+                  <span className="text-4xl animate-pulse" style={{animationDelay: '0.2s'}}>💥</span>
+                  <span className="text-4xl animate-pulse" style={{animationDelay: '0.4s'}}>⚠️</span>
+                </div>
+                <p className="text-xl text-white/80 mt-4">
+                  {currentQuestion >= 9 ? "Fin de l'interrogatoire..." : "Question suivante dans 4s..."}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {verdict === "timeout" && (
+            <div className="min-h-[500px] flex items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 via-red-500 to-red-600 relative overflow-hidden">
+              <div className="absolute inset-0 bg-black/20 animate-pulse"></div>
+              <div className="text-center z-10 space-y-6 p-8">
+                <div className="text-9xl mb-4 animate-spin" style={{animationDuration: '2s'}}>⏰</div>
+                <p className="text-5xl font-black text-white drop-shadow-2xl animate-pulse">
+                  TEMPS ÉCOULÉ !
+                </p>
+                <p className="text-2xl text-white/90 font-bold">
+                  Les suspects n'ont pas répondu à temps ! ⏱️
+                </p>
+                <div className="bg-red-700/50 p-4 rounded-lg border-2 border-white/50 mt-6">
+                  <p className="text-xl text-white font-bold">
+                    ⚠️ Échec automatique - Pas de point marqué
+                  </p>
+                </div>
+                <p className="text-xl text-white/80 mt-4">
+                  {currentQuestion >= 9 ? "Fin de l'interrogatoire..." : "Question suivante dans 4s..."}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </main>

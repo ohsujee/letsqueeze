@@ -9,6 +9,7 @@ import {
   onValue,
   update,
   remove,
+  set,
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
@@ -24,6 +25,8 @@ export default function AlibiLobby() {
   const [alibiOptions, setAlibiOptions] = useState([]);
   const [selectedAlibiId, setSelectedAlibiId] = useState(null);
   const [joinUrl, setJoinUrl] = useState("");
+  const [hostPseudo, setHostPseudo] = useState("");
+  const [hostJoined, setHostJoined] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {
@@ -48,10 +51,14 @@ export default function AlibiLobby() {
   useEffect(() => {
     signInAnonymously(auth).catch(() => {});
     const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) setIsHost(meta?.hostUid === user.uid);
+      if (user) {
+        setIsHost(meta?.hostUid === user.uid);
+        // Vérifier si l'hôte a déjà rejoint
+        setHostJoined(players.some(p => p.uid === user.uid));
+      }
     });
     return () => unsub();
-  }, [meta?.hostUid]);
+  }, [meta?.hostUid, players]);
 
   // DB listeners
   useEffect(() => {
@@ -82,6 +89,17 @@ export default function AlibiLobby() {
       stateUnsub();
     };
   }, [code, router]);
+
+  const handleHostJoin = async () => {
+    if (!isHost || !hostPseudo || !auth.currentUser) return;
+    const uid = auth.currentUser.uid;
+    await set(ref(db, `rooms_alibi/${code}/players/${uid}`), {
+      uid,
+      name: hostPseudo,
+      team: null,
+      joinedAt: Date.now()
+    });
+  };
 
   const handleSelectAlibi = async (alibiId) => {
     if (!isHost) return;
@@ -171,6 +189,30 @@ export default function AlibiLobby() {
               <p className="text-sm"><b>Code :</b> <span className="text-2xl font-black">{code}</span></p>
               <p className="text-sm break-all"><b>URL :</b> {joinUrl}</p>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Rejoindre en tant qu'hôte */}
+      {isHost && !hostJoined && (
+        <div className="card space-y-4 bg-accent/10 border-2 border-accent">
+          <h2 className="font-bold text-lg">🎮 Rejoindre la partie</h2>
+          <p className="text-sm opacity-80">Entre ton pseudo pour participer au jeu !</p>
+          <div className="flex gap-2">
+            <input
+              className="flex-1 p-3 rounded-lg bg-slate-700 border-2 border-accent text-white"
+              placeholder="Ton pseudo"
+              value={hostPseudo}
+              onChange={(e) => setHostPseudo(e.target.value)}
+              maxLength={20}
+            />
+            <button
+              className="btn btn-accent px-6"
+              onClick={handleHostJoin}
+              disabled={!hostPseudo}
+            >
+              Rejoindre
+            </button>
           </div>
         </div>
       )}

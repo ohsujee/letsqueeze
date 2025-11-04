@@ -43,6 +43,53 @@
           ".write": "auth != null && auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val()"
         }
       }
+    },
+    "rooms_alibi": {
+      "$code": {
+        ".read": "auth != null",
+        "meta": {
+          ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )"
+        },
+        "state": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()"
+        },
+        "teams": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()"
+        },
+        "score": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()"
+        },
+        "alibi": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()"
+        },
+        "questions": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()"
+        },
+        "interrogation": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()",
+          "responses": {
+            "$uid": {
+              ".write": "auth != null && auth.uid == $uid"
+            }
+          }
+        },
+        "answers": {
+          ".read": "auth != null",
+          ".write": "auth != null"
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val() )"
+          },
+          ".read": "auth != null"
+        }
+      }
     }
   }
 }
