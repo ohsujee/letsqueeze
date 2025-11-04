@@ -3,77 +3,72 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main data-theme="home" className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Floating particles */}
-      <div className="floating-particles"></div>
-
-      <div className="max-w-5xl w-full space-y-12 relative z-10">
-        {/* Main Title */}
-        <div className="text-center space-y-4">
+    <main data-theme="home" className="p-4">
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="text-center space-y-2">
           <h1 className="home-title">Let'sQueeeze</h1>
-          <p className="home-subtitle">Choisissez votre univers de jeu</p>
+          <p className="home-subtitle">Choisissez votre univers</p>
         </div>
 
         {/* Game Cards */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Quiz Buzzer Card */}
-          <div className="game-card-3d quiz group">
-            <div className="text-center space-y-4">
-              <div className="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                🎯
-              </div>
-              <h2 className="text-3xl font-black text-white">Quiz Buzzer</h2>
-              <p className="text-white/80 text-base">
+        <div className="grid md:grid-cols-2 gap-4">
+          {/* Quiz Buzzer */}
+          <div className="game-card space-y-4">
+            <div className="text-center">
+              <div className="text-5xl mb-3">🎯</div>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Quiz Buzzer
+              </h2>
+              <p className="text-white/80 text-sm mb-4">
                 Jeu de quiz multijoueur avec buzzer en temps réel
               </p>
-              <div className="pt-4 space-y-3">
-                <Link
-                  className="btn-3d block w-full text-center"
-                  href="/host"
-                >
-                  Créer une partie
-                </Link>
-                <Link
-                  className="btn-3d outline block w-full text-center"
-                  href="/join"
-                >
-                  Rejoindre une partie
-                </Link>
-              </div>
+            </div>
+            <div className="space-y-2">
+              <Link
+                className="home-btn home-btn-primary w-full text-center block"
+                href="/host"
+              >
+                Créer une partie
+              </Link>
+              <Link
+                className="home-btn home-btn-outline w-full text-center block"
+                href="/join"
+              >
+                Rejoindre
+              </Link>
             </div>
           </div>
 
-          {/* ALIBI Card */}
-          <div className="game-card-3d alibi group">
-            <div className="text-center space-y-4">
-              <div className="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                🕵️
-              </div>
-              <h2 className="text-3xl font-black text-white">ALIBI</h2>
-              <p className="text-white/80 text-base">
+          {/* ALIBI */}
+          <div className="game-card space-y-4">
+            <div className="text-center">
+              <div className="text-5xl mb-3">🕵️</div>
+              <h2 className="text-2xl font-bold text-white mb-2">ALIBI</h2>
+              <p className="text-white/80 text-sm mb-4">
                 Interrogatoire d'accusés - Trouvez les incohérences !
               </p>
-              <div className="pt-4 space-y-3">
-                <Link
-                  className="btn-3d orange block w-full text-center"
-                  href="/alibi"
-                >
-                  Créer une partie
-                </Link>
-                <Link
-                  className="btn-3d outline block w-full text-center"
-                  href="/alibi/join"
-                >
-                  Rejoindre une partie
-                </Link>
-              </div>
+            </div>
+            <div className="space-y-2">
+              <Link
+                className="home-btn home-btn-primary w-full text-center block"
+                href="/alibi"
+              >
+                Créer une partie
+              </Link>
+              <Link
+                className="home-btn home-btn-outline w-full text-center block"
+                href="/alibi/join"
+              >
+                Rejoindre
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Footer Info */}
+        {/* Footer */}
         <div className="text-center">
-          <p className="text-white/70 text-sm backdrop-blur-sm bg-white/10 inline-block px-6 py-3 rounded-full border border-white/20">
+          <p className="text-white/70 text-xs">
             Mobile-first • Jusqu'à 50 joueurs • Firebase RTDB
           </p>
         </div>
