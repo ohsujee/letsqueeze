@@ -144,7 +144,7 @@ export default function AlibiLobby() {
       ];
     }
 
-    // Initialiser les données du jeu
+    // Initialiser les données du jeu avec score réinitialisé
     await update(ref(db, `rooms_alibi/${code}`), {
       alibi: {
         // Nouveau format
@@ -165,6 +165,10 @@ export default function AlibiLobby() {
         prepTimeLeft: alibiData.reading_time_seconds || 90,
         questionTimeLeft: 30,
         allAnswered: false
+      },
+      score: {
+        correct: 0,
+        total: 10
       }
     });
   };

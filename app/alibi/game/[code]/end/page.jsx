@@ -47,13 +47,25 @@ export default function AlibiEnd() {
       setScore(s);
     });
 
-    return () => scoreUnsub();
-  }, [code]);
+    // Redirection automatique quand l'hôte retourne au lobby
+    const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
+      const state = snap.val();
+      if (state?.phase === "lobby") {
+        router.push(`/alibi/room/${code}`);
+      }
+    });
+
+    return () => {
+      scoreUnsub();
+      stateUnsub();
+    };
+  }, [code, router]);
 
   const handleReturnToLobby = async () => {
     if (!isHost) return;
 
-    // Réinitialiser la room pour une nouvelle partie
+    // Retourner au lobby SANS réinitialiser les scores
+    // Les scores seront réinitialisés au prochain démarrage de partie
     await update(ref(db, `rooms_alibi/${code}`), {
       state: {
         phase: "lobby",
@@ -61,10 +73,6 @@ export default function AlibiEnd() {
         prepTimeLeft: 90,
         questionTimeLeft: 30,
         allAnswered: false
-      },
-      score: {
-        correct: 0,
-        total: 10
       },
       interrogation: null,
       questions: null,
@@ -154,21 +162,20 @@ export default function AlibiEnd() {
         </div>
       )}
 
+      {/* Bouton retour au lobby pour les joueurs */}
       {!isHost && (
-        <div className="card text-center">
-          <p className="opacity-70">En attente que l'animateur relance une partie...</p>
+        <div className="card space-y-4">
+          <button
+            className="btn btn-primary w-full h-14 text-xl"
+            onClick={() => router.push(`/alibi/room/${code}`)}
+          >
+            Retour au lobby
+          </button>
+          <p className="text-sm text-center opacity-70">
+            Retourne au lobby pour la prochaine partie
+          </p>
         </div>
       )}
-
-      {/* Bouton retour à l'accueil */}
-      <div className="text-center">
-        <button
-          className="btn"
-          onClick={() => router.push("/")}
-        >
-          Retour à l'accueil
-        </button>
-      </div>
     </main>
   );
 }
