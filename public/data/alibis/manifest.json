@@ -1,20 +1,22 @@
 {
   "alibis": [
-    { "id": "salon-coiffure", "title": "Rendez-vous chez le coiffeur" },
-    { "id": "visite-musee", "title": "Visite au musée d'art moderne" },
-    { "id": "cours-danse-salsa", "title": "Cours de danse salsa" },
-    { "id": "atelier-ecriture", "title": "Atelier d'écriture créative" },
+    { "id": "match-equipe-locale", "title": "Match de foot local" },
+    { "id": "terrain-basket", "title": "Tournoi de basket" },
+    { "id": "karting-competition", "title": "Compétition de karting" },
+    { "id": "paintball-equipes", "title": "Session de paintball" },
+    { "id": "comedie-club", "title": "Soirée comédie club" },
+    { "id": "escape-game", "title": "Escape game" },
+    { "id": "japan-expo", "title": "Convention Japan Expo" },
+    { "id": "restaurant-italien", "title": "Dîner au restaurant italien" },
+    { "id": "pub-karaoke", "title": "Soirée karaoké au pub" },
+    { "id": "studio-enregistrement", "title": "Session en studio d'enregistrement" },
+    { "id": "tournage-clip", "title": "Tournage d'un clip vidéo" },
+    { "id": "session-teamspeak", "title": "Session gaming en ligne" },
+    { "id": "salle-de-sport", "title": "Séance à la salle de sport" },
     { "id": "seance-cinema", "title": "Séance de cinéma" },
-    { "id": "reparation-velo", "title": "Réparation de vélo" },
+    { "id": "visite-musee", "title": "Visite au musée" },
     { "id": "degustation-vins", "title": "Dégustation de vins" },
-    { "id": "cours-natation", "title": "Cours de natation adulte" },
-    { "id": "escape-game", "title": "Partie d'escape game" },
-    { "id": "marche-producteurs", "title": "Visite au marché de producteurs" },
-    { "id": "cours-cuisine-risotto", "title": "Cours de cuisine - Risotto" },
-    { "id": "seance-yoga-groupe", "title": "Séance de yoga en groupe" },
-    { "id": "atelier-poterie", "title": "Atelier de poterie" },
-    { "id": "studio-photo", "title": "L'Alibi du Studio Photo" },
-    { "id": "restaurant-italien", "title": "Le Dîner au Restaurant" },
-    { "id": "bibliotheque", "title": "La Journée à la Bibliothèque" }
+    { "id": "marche-producteurs", "title": "Marché de producteurs" },
+    { "id": "studio-photo", "title": "Shooting photo professionnel" }
   ]
 }
