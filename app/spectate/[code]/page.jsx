@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { db, ref, onValue } from "@/lib/firebase";
 import Qr from "@/components/Qr";
+import QrModal from "@/lib/components/QrModal";
 
 export default function SpectatorView() {
   const { code } = useParams();
@@ -89,7 +90,7 @@ export default function SpectatorView() {
           </div>
           
           <div className="spectator-qr">
-            <Qr text={joinUrl} size={150} />
+            <QrModal text={joinUrl} buttonText="📱 Afficher QR Code" />
           </div>
           
           <div className="spectator-code">

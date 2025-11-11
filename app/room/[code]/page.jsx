@@ -12,6 +12,10 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import Qr from "@/components/Qr";
+import QrModal from "@/lib/components/QrModal";
+import BottomNav from "@/lib/components/BottomNav";
+import TeamTabs from "@/lib/components/TeamTabs";
+import PlayerTeamView from "@/lib/components/PlayerTeamView";
 
 export default function Room() {
   const { code } = useParams();
@@ -47,9 +51,12 @@ export default function Room() {
 
   // Auth
   useEffect(() => {
-    signInAnonymously(auth).catch(() => {});
     const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) setIsHost(meta?.hostUid === user.uid);
+      if (user) {
+        setIsHost(meta?.hostUid === user.uid);
+      } else {
+        signInAnonymously(auth).catch(() => {});
+      }
     });
     return () => unsub();
   }, [meta?.hostUid]);
@@ -205,103 +212,104 @@ export default function Room() {
 
   if (!meta) {
     return (
-      <main className="p-6 max-w-5xl mx-auto">
-        <div className="card text-center">
-          <h1 className="text-2xl font-black mb-4">Chargement...</h1>
-        </div>
-      </main>
+      <div className="game-container">
+        <div className="bg-orb orb-1"></div>
+        <div className="bg-orb orb-2"></div>
+        <div className="bg-orb orb-3"></div>
+        <main className="game-content p-6 max-w-5xl mx-auto min-h-screen">
+          <div className="card text-center">
+            <h1 className="game-section-title mb-4">Chargement...</h1>
+          </div>
+        </main>
+      </div>
     );
   }
 
   return (
-    <main className="p-6 max-w-5xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-4xl font-black">
-          Lobby — {selectedQuizTitle}
-        </h1>
-        <div className="flex gap-3">
-          <button className="btn btn-danger" onClick={handleQuit}>
+    <div className="game-container">
+      {/* Background orbs */}
+      <div className="bg-orb orb-1"></div>
+      <div className="bg-orb orb-2"></div>
+      <div className="bg-orb orb-3"></div>
+
+      <main className="game-content p-4 md:p-6 max-w-5xl mx-auto space-y-4 md:space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
+      {/* Header - Mobile Optimized */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div className="flex-1">
+          <h1 className="game-page-title">
+            Lobby
+          </h1>
+          <div className="text-sm mt-1" style={{color: 'var(--text-secondary)'}}>
+            {selectedQuizTitle} • Code: <span className="font-bold text-base">{code}</span>
+          </div>
+        </div>
+        {isHost && (
+          <button className="btn btn-danger self-start md:self-auto" onClick={handleQuit}>
             Quitter
           </button>
-        </div>
-      </div>
-
-      <div className="text-sm opacity-80">
-        Code: <span className="font-bold text-lg">{code}</span>
+        )}
       </div>
 
       <div className="card">
         <div className="text-center space-y-4">
-          {/* N'afficher le QR que si on a l'URL */}
-          {joinUrl && <Qr text={joinUrl} size={200} />}
-          
-          <div>
-            <h3 className="text-lg font-bold mb-2">Invite des joueurs</h3>
-            <div className="text-sm opacity-80 mb-3">{joinUrl || "Génération du lien..."}</div>
-            
-            <div className="flex gap-2 justify-center">
-              <button className="btn copy-btn" onClick={copyLink} disabled={!joinUrl}>
-                Copier le lien
-              </button>
-            </div>
+          <h3 className="text-lg font-bold mb-2">Invite des joueurs</h3>
+          <div className="text-sm opacity-80 mb-3">{joinUrl || "Génération du lien..."}</div>
+
+          <div className="flex gap-2 justify-center flex-wrap">
+            <button className="btn copy-btn" onClick={copyLink} disabled={!joinUrl}>
+              Copier le lien
+            </button>
+            {joinUrl && <QrModal text={joinUrl} buttonText="Voir QR Code" />}
           </div>
         </div>
       </div>
 
-      {/* Section des contrôles - visible seulement pour l'host */}
+      {/* Section des contrôles - visible seulement pour l'host - Mobile First */}
       {isHost && (
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="card">
-            <h3 className="font-bold mb-3">Mode de jeu</h3>
-            <div className="space-y-2">
-              <button
-                className={`btn w-full ${meta.mode === "individuel" ? "btn-accent" : ""}`}
-                onClick={handleModeToggle}
-              >
-                Individuel
-              </button>
-              <button
-                className={`btn w-full ${meta.mode === "équipes" ? "btn-accent" : ""}`}
-                onClick={handleModeToggle}
-              >
-                Équipes
-              </button>
-            </div>
-          </div>
+        <div className="space-y-4">
+          {/* Primary Action - Always Visible */}
+          <button
+            className="btn btn-primary w-full h-14 text-lg font-bold"
+            onClick={handleStartGame}
+          >
+            🚀 Démarrer la partie
+          </button>
 
-          <div className="card">
-            <h3 className="font-bold mb-3">Quiz</h3>
-            <select
-              value={meta.quizId || "general"}
-              onChange={handleQuizChange}
-              className="w-full p-3 rounded-lg bg-slate-700 border-2 border-blue-500 text-white"
-            >
-              {quizOptions.map(quiz => (
-                <option key={quiz.id} value={quiz.id}>
-                  {quiz.title}
-                </option>
-              ))}
-            </select>
-            <div className="text-xs opacity-70 mt-2">
-              Choisis un quiz, puis démarre la partie.
+          {/* Settings Grid - Mobile: Stack, Tablet+: 2 cols */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Quiz Selection */}
+            <div className="card">
+              <h3 className="font-bold text-base mb-3">📚 Quiz</h3>
+              <select
+                value={meta.quizId || "general"}
+                onChange={handleQuizChange}
+                className="game-select"
+              >
+                {quizOptions.map(quiz => (
+                  <option key={quiz.id} value={quiz.id}>
+                    {quiz.title}
+                  </option>
+                ))}
+              </select>
             </div>
-          </div>
 
-          <div className="card">
-            <h3 className="font-bold mb-3">Actions</h3>
-            <div className="space-y-2">
-              <button
-                className="btn btn-primary w-full"
-                onClick={handleStartGame}
-              >
-                Démarrer la partie
-              </button>
-              <button
-                className="btn w-full"
-                onClick={() => router.push("/")}
-              >
-                Retour accueil
-              </button>
+            {/* Mode de jeu */}
+            <div className="card">
+              <h3 className="font-bold text-base mb-3">👥 Mode</h3>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  className={`btn ${meta.mode === "individuel" ? "btn-accent" : ""}`}
+                  onClick={handleModeToggle}
+                >
+                  Solo
+                </button>
+                <button
+                  className={`btn ${meta.mode === "équipes" ? "btn-accent" : ""}`}
+                  onClick={handleModeToggle}
+                >
+                  Équipes
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -309,220 +317,51 @@ export default function Room() {
 
       {meta.mode === "équipes" && isHost && (
         <div className="card">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-bold">Gestion des équipes</h3>
-            <div className="flex gap-2">
-              <button className="btn btn-sm" onClick={handleAutoBalance}>
-                ⚖️ Auto-répartir
-              </button>
-              <button className="btn btn-sm btn-danger" onClick={handleResetTeams}>
-                🔄 Réinitialiser tout
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {teamsSorted.map((team) => {
-              const teamPlayers = players.filter(p => p.teamId === team.id);
-              const unassignedPlayers = players.filter(p => !p.teamId || p.teamId === "");
-
-              return (
-                <div
-                  key={team.id}
-                  className="card p-3"
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <div
-                      className="w-5 h-5 rounded-full"
-                      style={{ backgroundColor: team.color, boxShadow: `0 0 10px ${team.color}80` }}
-                    />
-                    <h4 className="font-bold text-lg">{team.name}</h4>
-                    <span className="text-xs opacity-60">({teamPlayers.length})</span>
-                  </div>
-
-                  {/* Joueurs de cette équipe */}
-                  <div className="space-y-1 min-h-[60px]">
-                    {teamPlayers.length === 0 ? (
-                      <div className="text-xs opacity-60 italic">Aucun joueur</div>
-                    ) : (
-                      teamPlayers.map(player => (
-                        <div key={player.uid} className="flex items-center justify-between bg-slate-700 px-2 py-1 rounded text-sm">
-                          <span>{player.name}</span>
-                          <button
-                            className="text-xs opacity-70 hover:opacity-100"
-                            onClick={() => handleRemoveFromTeam(player.uid)}
-                            title="Retirer de l'équipe"
-                          >
-                            ✕
-                          </button>
-                        </div>
-                      ))
-                    )}
-                  </div>
-
-                  {/* Sélecteur pour ajouter un joueur */}
-                  {unassignedPlayers.length > 0 && (
-                    <select
-                      className="w-full mt-2 p-1 text-sm rounded bg-slate-700 border border-slate-600"
-                      onChange={(e) => {
-                        if (e.target.value) {
-                          handleAssignToTeam(e.target.value, team.id);
-                          e.target.value = "";
-                        }
-                      }}
-                      defaultValue=""
-                    >
-                      <option value="" disabled>+ Ajouter un joueur</option>
-                      {unassignedPlayers.map(p => (
-                        <option key={p.uid} value={p.uid}>{p.name}</option>
-                      ))}
-                    </select>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Joueurs non assignés */}
-          {players.filter(p => !p.teamId || p.teamId === "").length > 0 && (
-            <div className="mt-4 p-3 bg-slate-700/50 rounded">
-              <h4 className="font-bold text-sm mb-2">Joueurs sans équipe ({players.filter(p => !p.teamId || p.teamId === "").length})</h4>
-              <div className="flex flex-wrap gap-2">
-                {players.filter(p => !p.teamId || p.teamId === "").map(player => (
-                  <div key={player.uid} className="bg-slate-600 px-3 py-1 rounded text-sm">
-                    {player.name}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          <TeamTabs
+            teams={teams}
+            players={players}
+            onAssignToTeam={handleAssignToTeam}
+            onRemoveFromTeam={handleRemoveFromTeam}
+            onAutoBalance={handleAutoBalance}
+            onResetTeams={handleResetTeams}
+          />
         </div>
       )}
 
       {meta.mode === "équipes" && !isHost && (
         <div className="card">
-          <h3 className="font-bold mb-3">Équipes</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {teamsSorted.map((team) => {
-              const teamPlayers = players.filter(p => p.teamId === team.id);
-              const currentPlayer = players.find(p => p.uid === auth.currentUser?.uid);
-              const isMyTeam = currentPlayer?.teamId === team.id;
-
-              return (
-                <div
-                  key={team.id}
-                  className="card p-4"
-                  style={{
-                    backgroundColor: isMyTeam ? 'rgba(30, 41, 59, 0.9)' : 'rgba(30, 41, 59, 0.5)',
-                    border: isMyTeam ? `5px solid ${team.color}` : '2px solid rgba(100, 116, 139, 0.3)',
-                    boxShadow: isMyTeam
-                      ? `0 10px 20px rgba(0,0,0,0.5), inset 0 0 0 1px ${team.color}40`
-                      : '0 2px 8px rgba(0,0,0,0.2)',
-                    position: 'relative',
-                    transform: isMyTeam ? 'scale(1.05)' : 'scale(1)',
-                    transition: 'all 0.3s ease'
-                  }}
-                >
-                  {/* Badge "MON ÉQUIPE" */}
-                  {isMyTeam && (
-                    <div
-                      className="absolute -top-3 -right-3 px-4 py-1.5 rounded-full text-sm font-black"
-                      style={{
-                        backgroundColor: team.color,
-                        color: 'white',
-                        boxShadow: `0 4px 12px rgba(0,0,0,0.4)`,
-                        animation: 'pulse 2s ease-in-out infinite'
-                      }}
-                    >
-                      ⭐ C'EST TOI !
-                    </div>
-                  )}
-
-                  {/* En-tête de l'équipe */}
-                  <div className="flex items-center gap-3 mb-3">
-                    <div
-                      className="w-6 h-6 rounded-full flex items-center justify-center"
-                      style={{
-                        backgroundColor: team.color,
-                        boxShadow: isMyTeam
-                          ? `0 0 15px ${team.color}DD`
-                          : `0 0 10px ${team.color}60`
-                      }}
-                    >
-                      {isMyTeam && <span style={{ fontSize: '0.7rem', color: 'white' }}>⭐</span>}
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-black text-xl" style={{
-                        color: 'white',
-                        textShadow: isMyTeam ? '0 2px 8px rgba(0,0,0,0.5)' : '0 2px 4px rgba(0,0,0,0.3)'
-                      }}>
-                        {team.name}
-                      </h4>
-                      <span className="text-xs font-semibold" style={{
-                        color: 'white',
-                        opacity: 0.85
-                      }}>
-                        {teamPlayers.length} joueur{teamPlayers.length > 1 ? 's' : ''}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Liste des joueurs */}
-                  <div className="space-y-1.5">
-                    {teamPlayers.length === 0 ? (
-                      <div className="text-sm opacity-60 italic" style={{ color: 'white' }}>
-                        Aucun joueur
-                      </div>
-                    ) : (
-                      teamPlayers.map(player => {
-                        const isMe = player.uid === auth.currentUser?.uid;
-                        return (
-                          <div
-                            key={player.uid}
-                            className="px-3 py-2 rounded text-sm"
-                            style={{
-                              backgroundColor: isMyTeam
-                                ? (isMe ? team.color : 'rgba(255, 255, 255, 0.15)')
-                                : 'rgba(100, 116, 139, 0.3)',
-                              color: 'white',
-                              fontWeight: isMe ? 'bold' : 'normal',
-                              border: isMe ? `3px solid ${team.color}` : 'none',
-                              boxShadow: isMe && isMyTeam ? `0 0 15px ${team.color}80` : 'none'
-                            }}
-                          >
-                            {isMe ? '👤 ' : ''}{player.name}
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Message si pas d'équipe assignée */}
-          {players.find(p => p.uid === auth.currentUser?.uid && (!p.teamId || p.teamId === "")) && (
-            <div className="mt-4 p-3 bg-yellow-500/20 border-2 border-yellow-500 rounded text-center">
-              <span className="font-bold text-yellow-300">⚠️ Tu n'es pas encore assigné à une équipe</span>
-              <br />
-              <span className="text-sm opacity-80">L'animateur va t'assigner bientôt</span>
-            </div>
-          )}
+          <PlayerTeamView
+            teams={teams}
+            players={players}
+            currentPlayerUid={auth.currentUser?.uid}
+          />
         </div>
       )}
 
+      {/* Players List - Mobile Optimized */}
       {meta.mode !== "équipes" && (
         <div className="card">
-          <h3 className="font-bold mb-3">Joueurs ({players.length})</h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-bold text-base">👥 Joueurs</h3>
+            <span className="px-3 py-1 bg-blue-500/20 rounded-full text-sm font-bold">
+              {players.length}
+            </span>
+          </div>
           {players.length === 0 ? (
-            <div className="text-center opacity-60 py-8">
+            <div className="text-center opacity-85 py-8 text-base">
               En attente de joueurs...
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {players.map((player) => (
-                <div key={player.uid} className="card text-sm">
+                <div
+                  key={player.uid}
+                  className="card text-base font-medium p-3"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.15)'
+                  }}
+                >
                   {player.name}
                 </div>
               ))}
@@ -530,10 +369,58 @@ export default function Room() {
           )}
         </div>
       )}
-
-      <div className="text-center text-sm opacity-60">
-        Room {code} — {isHost ? "Vous êtes l'animateur" : "En attente..."}
-      </div>
     </main>
+
+    <BottomNav />
+
+    <style jsx>{`
+      .game-container {
+        position: relative;
+        min-height: 100vh;
+        background: #000000;
+        overflow: hidden;
+      }
+
+      .game-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Background orbs */
+      .bg-orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.12;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .orb-1 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, #4299E1 0%, transparent 70%);
+        top: -200px;
+        right: -100px;
+      }
+
+      .orb-2 {
+        width: 350px;
+        height: 350px;
+        background: radial-gradient(circle, #48BB78 0%, transparent 70%);
+        bottom: -100px;
+        left: -150px;
+      }
+
+      .orb-3 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
+        top: 300px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    `}</style>
+    </div>
   );
 }

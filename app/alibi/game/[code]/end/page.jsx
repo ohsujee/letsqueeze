@@ -11,6 +11,7 @@ import {
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
+import BottomNav from "@/lib/components/BottomNav";
 
 export default function AlibiEnd() {
   const { code } = useParams();
@@ -22,7 +23,6 @@ export default function AlibiEnd() {
   const [meta, setMeta] = useState(null);
 
   useEffect(() => {
-    signInAnonymously(auth).catch(() => {});
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user && code) {
         onValue(ref(db, `rooms_alibi/${code}/players/${user.uid}`), (snap) => {
@@ -34,6 +34,8 @@ export default function AlibiEnd() {
           setMeta(m);
           setIsHost(m?.hostUid === user.uid);
         });
+      } else if (!user) {
+        signInAnonymously(auth).catch(() => {});
       }
     });
     return () => unsub();
@@ -95,10 +97,16 @@ export default function AlibiEnd() {
   };
 
   return (
-    <main className="p-6 max-w-4xl mx-auto space-y-6">
-      {/* Score principal */}
-      <div className={`card text-center space-y-6 ${isSuccess ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
-        <h1 className="text-4xl font-black">🕵️ Fin de l'interrogatoire</h1>
+    <div className="game-container">
+      {/* Background orbs */}
+      <div className="bg-orb orb-1"></div>
+      <div className="bg-orb orb-2"></div>
+      <div className="bg-orb orb-3"></div>
+
+      <main className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
+        {/* Score principal */}
+        <div className={`card text-center space-y-6 ${isSuccess ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
+        <h1 className="game-page-title">🕵️ Fin de l'interrogatoire</h1>
 
         <div className="space-y-4">
           <p className="text-6xl font-black">
@@ -115,7 +123,7 @@ export default function AlibiEnd() {
       {/* Détails par équipe */}
       {myTeam === "suspects" && (
         <div className="card space-y-4">
-          <h2 className="text-2xl font-bold text-primary">🎭 Suspects</h2>
+          <h2 className="game-section-title text-primary">🎭 Suspects</h2>
           {isSuccess ? (
             <div className="space-y-2">
               <p className="text-lg">Bravo ! Vous avez défendu votre alibi avec succès.</p>
@@ -132,7 +140,7 @@ export default function AlibiEnd() {
 
       {myTeam === "inspectors" && (
         <div className="card space-y-4">
-          <h2 className="text-2xl font-bold text-accent">🕵️ Inspecteurs</h2>
+          <h2 className="game-section-title text-accent">🕵️ Inspecteurs</h2>
           {!isSuccess ? (
             <div className="space-y-2">
               <p className="text-lg">Excellent travail ! Vous avez démasqué les suspects.</p>
@@ -176,6 +184,58 @@ export default function AlibiEnd() {
           </p>
         </div>
       )}
-    </main>
+      </main>
+
+      <BottomNav />
+
+      <style jsx>{`
+        .game-container {
+          position: relative;
+          min-height: 100vh;
+          background: #000000;
+          overflow: hidden;
+        }
+
+        .game-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Background orbs */
+        .bg-orb {
+          position: fixed;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.12;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .orb-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
+          top: -200px;
+          right: -100px;
+        }
+
+        .orb-2 {
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
+          bottom: -100px;
+          left: -150px;
+        }
+
+        .orb-3 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
+          top: 300px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      `}</style>
+    </div>
   );
 }

@@ -10,8 +10,13 @@ export default function JoinClient({ initialCode = "" }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    signInAnonymously(auth).catch(() => {});
-    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
+    const unsub = onAuthStateChanged(auth, (u) => {
+      if(u){
+        setUser(u);
+      } else {
+        signInAnonymously(auth).catch(() => {});
+      }
+    });
     return () => unsub();
   }, []);
 
@@ -31,11 +36,17 @@ export default function JoinClient({ initialCode = "" }) {
   }
 
   return (
-    <main className="p-6 max-w-xl mx-auto space-y-6">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-black">🕵️ ALIBI</h1>
-        <h2 className="text-2xl font-bold">Rejoindre une partie</h2>
-      </div>
+    <div className="game-container">
+      {/* Background orbs */}
+      <div className="bg-orb orb-1"></div>
+      <div className="bg-orb orb-2"></div>
+      <div className="bg-orb orb-3"></div>
+
+      <main className="game-content p-6 max-w-xl mx-auto space-y-6 min-h-screen">
+        <div className="text-center space-y-4">
+          <h1 className="game-page-title">🕵️ ALIBI</h1>
+          <h2 className="game-section-title">Rejoindre une partie</h2>
+        </div>
 
       <div className="card space-y-4">
         <div>
@@ -43,11 +54,12 @@ export default function JoinClient({ initialCode = "" }) {
             Code de la room
           </label>
           <input
-            className="w-full p-4 rounded-lg bg-slate-700 border-2 border-accent text-white text-center text-xl font-mono tracking-widest"
+            className="game-input game-input-code game-input-accent"
             placeholder="ABCDEF"
             value={code}
             onChange={e => setCode(e.target.value.toUpperCase())}
             maxLength={6}
+            autoComplete="off"
           />
         </div>
 
@@ -56,11 +68,12 @@ export default function JoinClient({ initialCode = "" }) {
             Ton pseudo
           </label>
           <input
-            className="w-full p-4 rounded-lg bg-slate-700 border-2 border-accent text-white"
+            className="game-input game-input-accent"
             placeholder="Ton nom de joueur"
             value={pseudo}
             onChange={e => setPseudo(e.target.value)}
             maxLength={20}
+            autoComplete="name"
           />
         </div>
 
@@ -90,6 +103,56 @@ export default function JoinClient({ initialCode = "" }) {
           </div>
         </div>
       )}
-    </main>
+      </main>
+
+      <style jsx>{`
+        .game-container {
+          position: relative;
+          min-height: 100vh;
+          background: #000000;
+          overflow: hidden;
+        }
+
+        .game-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Background orbs */
+        .bg-orb {
+          position: fixed;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.12;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .orb-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
+          top: -200px;
+          right: -100px;
+        }
+
+        .orb-2 {
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
+          bottom: -100px;
+          left: -150px;
+        }
+
+        .orb-3 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
+          top: 300px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      `}</style>
+    </div>
   );
 }

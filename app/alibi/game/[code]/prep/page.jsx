@@ -11,6 +11,7 @@ import {
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
+import ExitButton from "@/lib/components/ExitButton";
 
 export default function AlibiPrep() {
   const { code } = useParams();
@@ -24,9 +25,17 @@ export default function AlibiPrep() {
   const [customQuestions, setCustomQuestions] = useState(["", "", ""]);
   const timerRef = useRef(null);
 
+  // Fonction pour quitter et terminer la partie si hôte
+  async function exitGame() {
+    if (isHost && code) {
+      // Si c'est l'hôte, terminer la partie pour tout le monde
+      await update(ref(db, `rooms_alibi/${code}/state`), { phase: "ended" });
+    }
+    router.push('/home');
+  }
+
   // Auth et récupération de l'équipe du joueur
   useEffect(() => {
-    signInAnonymously(auth).catch(() => {});
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user && code) {
         // Récupérer l'équipe du joueur
@@ -38,6 +47,8 @@ export default function AlibiPrep() {
         onValue(ref(db, `rooms_alibi/${code}/meta/hostUid`), (snap) => {
           setIsHost(snap.val() === user.uid);
         });
+      } else if (!user) {
+        signInAnonymously(auth).catch(() => {});
       }
     });
     return () => unsub();
@@ -153,13 +164,19 @@ export default function AlibiPrep() {
   };
 
   return (
-    <main className="p-6 max-w-4xl mx-auto space-y-6">
-      {/* Timer */}
-      <div className="card text-center">
-        <h1 className="text-4xl font-black mb-2">
+    <div className="game-container">
+      {/* Background orbs */}
+      <div className="bg-orb orb-1"></div>
+      <div className="bg-orb orb-2"></div>
+      <div className="bg-orb orb-3"></div>
+
+      <main className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
+        {/* Timer */}
+        <div className="card text-center">
+        <h1 className="game-page-title mb-2">
           {timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
         </h1>
-        <p className="text-lg opacity-80">Phase de préparation</p>
+        <p className="game-label opacity-80">Phase de préparation</p>
         {timeLeft <= 10 && (
           <p className="text-red-400 font-bold mt-2 animate-pulse">
             L'interrogatoire va commencer !
@@ -170,7 +187,7 @@ export default function AlibiPrep() {
       {/* Vue SUSPECTS : Alibi à mémoriser */}
       {myTeam === "suspects" && alibi && (
         <div className="card space-y-4">
-          <h2 className="text-2xl font-bold text-primary">🎭 Ton Alibi</h2>
+          <h2 className="game-section-title text-primary">🎭 Ton Alibi</h2>
           <p className="text-sm opacity-70">
             Mémorise les éléments en <strong className="text-yellow-300">gras</strong> - tu n'auras plus accès à ce texte pendant l'interrogatoire !
           </p>
@@ -198,7 +215,7 @@ export default function AlibiPrep() {
       {myTeam === "inspectors" && (
         <div className="space-y-6">
           <div className="card space-y-4">
-            <h2 className="text-2xl font-bold text-accent">🕵️ Contexte de l'alibi</h2>
+            <h2 className="game-section-title text-accent">🕵️ Contexte de l'alibi</h2>
             <p className="text-sm opacity-70">
               Les suspects vont devoir défendre cet alibi. Prépare tes questions !
             </p>
@@ -223,7 +240,7 @@ export default function AlibiPrep() {
           </div>
 
           <div className="card space-y-4">
-            <h2 className="text-xl font-bold">
+            <h2 className="game-section-title">
               Questions prédéfinies ({alibi?.isNewFormat ? '10' : '7'})
             </h2>
             <ol className="space-y-2 list-decimal list-inside">
@@ -236,7 +253,7 @@ export default function AlibiPrep() {
           {/* Questions personnalisées seulement pour l'ancien format */}
           {!alibi?.isNewFormat && (
             <div className="card space-y-4">
-              <h2 className="text-xl font-bold">Questions personnalisées (3)</h2>
+              <h2 className="game-section-title">Questions personnalisées (3)</h2>
               <p className="text-sm opacity-70">
                 Ajoute 3 questions basées sur l'alibi pour piéger les suspects !
               </p>
@@ -248,7 +265,7 @@ export default function AlibiPrep() {
                     </label>
                     <input
                       type="text"
-                      className="w-full p-3 rounded-lg bg-slate-700 border-2 border-accent text-white"
+                      className="game-input game-input-accent"
                       placeholder="Ex: Quelle était la couleur exacte du café que vous avez commandé ?"
                       value={customQuestions[index]}
                       onChange={(e) => {
@@ -258,6 +275,7 @@ export default function AlibiPrep() {
                         handleSaveCustomQuestion(index, e.target.value);
                       }}
                       maxLength={200}
+                      autoComplete="off"
                     />
                   </div>
                 ))}
@@ -273,6 +291,62 @@ export default function AlibiPrep() {
           <p className="opacity-70">Tu n'es assigné à aucune équipe...</p>
         </div>
       )}
-    </main>
+      </main>
+
+      <ExitButton
+        variant="minimal"
+        confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera abandonnée pour tous les joueurs." : "Voulez-vous vraiment quitter la préparation ?"}
+        onExit={exitGame}
+      />
+
+      <style jsx>{`
+        .game-container {
+          position: relative;
+          min-height: 100vh;
+          background: #000000;
+          overflow: hidden;
+        }
+
+        .game-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Background orbs */
+        .bg-orb {
+          position: fixed;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.12;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .orb-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
+          top: -200px;
+          right: -100px;
+        }
+
+        .orb-2 {
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
+          bottom: -100px;
+          left: -150px;
+        }
+
+        .orb-3 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
+          top: 300px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      `}</style>
+    </div>
   );
 }

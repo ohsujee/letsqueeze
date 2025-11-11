@@ -56,49 +56,69 @@ export default function EndPage(){
 
   // Fonction pour réinitialiser les scores et retourner au lobby
   const handleBackToLobby = async () => {
-    const updates = {};
+    try {
+      const updates = {};
 
-    // Réinitialiser les scores de tous les joueurs
-    players.forEach(player => {
-      updates[`rooms/${code}/players/${player.uid}/score`] = 0;
-      updates[`rooms/${code}/players/${player.uid}/blockedUntil`] = 0;
-    });
+      // Réinitialiser les scores de tous les joueurs
+      if (players && players.length > 0) {
+        players.forEach(player => {
+          if (player.uid) {
+            updates[`rooms/${code}/players/${player.uid}/score`] = 0;
+            updates[`rooms/${code}/players/${player.uid}/blockedUntil`] = 0;
+          }
+        });
+      }
 
-    // Réinitialiser les scores des équipes
-    if (modeEquipes && teamsArray.length > 0) {
-      teamsArray.forEach(team => {
-        updates[`rooms/${code}/meta/teams/${team.id}/score`] = 0;
-      });
+      // Réinitialiser les scores des équipes
+      if (modeEquipes && teamsArray && teamsArray.length > 0) {
+        teamsArray.forEach(team => {
+          if (team.id) {
+            updates[`rooms/${code}/meta/teams/${team.id}/score`] = 0;
+          }
+        });
+      }
+
+      // Réinitialiser l'état de la partie
+      updates[`rooms/${code}/state/phase`] = "lobby";
+      updates[`rooms/${code}/state/currentIndex`] = 0;
+      updates[`rooms/${code}/state/revealed`] = false;
+      updates[`rooms/${code}/state/lockUid`] = null;
+      updates[`rooms/${code}/state/buzzBanner`] = "";
+      updates[`rooms/${code}/state/lastRevealAt`] = 0;
+      updates[`rooms/${code}/state/elapsedAcc`] = 0;
+      updates[`rooms/${code}/state/pausedAt`] = null;
+      updates[`rooms/${code}/state/lockedAt`] = null;
+      updates[`rooms/${code}/state/buzz`] = null;
+
+      console.log('🔄 Retour au lobby - Updates:', updates);
+
+      await update(ref(db), updates);
+
+      console.log('✅ Updates Firebase réussis');
+
+      // Rediriger vers le lobby
+      router.push(`/room/${code}`);
+    } catch (error) {
+      console.error('❌ Erreur lors du retour au lobby:', error);
+      alert('Erreur lors du retour au lobby. Réessayez.');
     }
-
-    // Réinitialiser l'état de la partie
-    updates[`rooms/${code}/state/phase`] = "lobby";
-    updates[`rooms/${code}/state/currentIndex`] = 0;
-    updates[`rooms/${code}/state/revealed`] = false;
-    updates[`rooms/${code}/state/lockUid`] = null;
-    updates[`rooms/${code}/state/buzzBanner`] = "";
-    updates[`rooms/${code}/state/lastRevealAt`] = 0;
-    updates[`rooms/${code}/state/elapsedAcc`] = 0;
-    updates[`rooms/${code}/state/pausedAt`] = null;
-    updates[`rooms/${code}/state/lockedAt`] = null;
-    updates[`rooms/${code}/state/buzz`] = null;
-
-    await update(ref(db), updates);
-
-    // Rediriger vers le lobby
-    router.push(`/room/${code}`);
   };
 
   return (
-    <main className="p-6 max-w-5xl mx-auto space-y-6 pb-32">
-      <motion.h1
-        className="game-title text-center"
-        initial={{ scale: 0, rotateZ: -180 }}
-        animate={{ scale: 1, rotateZ: 0 }}
-        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      >
-        Fin de partie
-      </motion.h1>
+    <div className="game-container">
+      <div className="bg-orb orb-1"></div>
+      <div className="bg-orb orb-2"></div>
+      <div className="bg-orb orb-3"></div>
+
+      <main className="game-content p-6 max-w-5xl mx-auto space-y-6 pb-32">
+        <motion.h1
+          className="game-page-title text-center"
+          initial={{ scale: 0, rotateZ: -180 }}
+          animate={{ scale: 1, rotateZ: 0 }}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+        >
+          Fin de partie
+        </motion.h1>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -117,7 +137,7 @@ export default function EndPage(){
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <h2 className="text-3xl font-black text-center mb-8">Podium</h2>
+          <h2 className="game-section-title text-center mb-8">Podium</h2>
           <PodiumPremium topPlayers={rankedPlayers.slice(0, 3)} />
         </motion.section>
       )}
@@ -130,7 +150,7 @@ export default function EndPage(){
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
         >
-          <h3 className="text-2xl font-black text-center">Classement Équipes</h3>
+          <h3 className="game-section-title text-center">Classement Équipes</h3>
           <div className="card">
             <ul className="space-y-2">
               {rankedTeams.map(t=>(
@@ -160,7 +180,7 @@ export default function EndPage(){
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
       >
-        <h3 className="text-2xl font-black text-center">Classement Complet</h3>
+        <h3 className="game-section-title text-center">Classement Complet</h3>
         <div className="card">
           <ul className="space-y-2">
             {rankedPlayers.map((p, index)=>(
@@ -205,6 +225,56 @@ export default function EndPage(){
           🔄 Retour au lobby
         </JuicyButton>
       </motion.div>
-    </main>
+      </main>
+
+      <style jsx>{`
+        .game-container {
+          position: relative;
+          min-height: 100vh;
+          background: #000000;
+          overflow: hidden;
+        }
+
+        .game-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Background orbs */
+        .bg-orb {
+          position: fixed;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.12;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .orb-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
+          top: -200px;
+          right: -100px;
+        }
+
+        .orb-2 {
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
+          bottom: -100px;
+          left: -150px;
+        }
+
+        .orb-3 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
+          top: 300px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      `}</style>
+    </div>
   );
 }

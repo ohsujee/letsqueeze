@@ -9,6 +9,8 @@ import { motion, AnimatePresence, useSpring } from "framer-motion";
 import { triggerConfetti } from "@/components/Confetti";
 import AnimatedLeaderboard, { TeamLeaderboard } from "@/components/AnimatedLeaderboard";
 import { RippleButton, ShineButton } from "@/components/InteractiveButton";
+import ExitButton from "@/lib/components/ExitButton";
+import { MoreVertical } from "lucide-react";
 
 function useQuiz(quizId){
   const [quiz,setQuiz]=useState(null);
@@ -17,13 +19,40 @@ function useQuiz(quizId){
 }
 function useSound(url){
   const aRef = useRef(null);
-  useEffect(()=>{ aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null; if(aRef.current){ aRef.current.preload="auto"; } },[url]);
-  return useCallback(()=>{ try{ if(aRef.current){ aRef.current.currentTime=0; aRef.current.play(); } }catch{} },[]);
+  useEffect(()=>{
+    aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null;
+    if(aRef.current){
+      aRef.current.preload="auto";
+      aRef.current.volume = 0.5; // Volume par défaut
+    }
+  },[url]);
+  return useCallback(()=>{
+    if(aRef.current){
+      aRef.current.currentTime=0;
+      // Play avec gestion silencieuse des erreurs d'autoplay
+      const playPromise = aRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // Autoplay bloqué par le navigateur - pas grave, on ignore silencieusement
+          console.debug('Audio autoplay prevented (normal behavior):', error.message);
+        });
+      }
+    }
+  },[]);
 }
 
 export default function HostGame(){
   const { code } = useParams();
   const router = useRouter();
+
+  // Fonction pour quitter et terminer la partie pour tout le monde
+  async function exitAndEndGame() {
+    if (code) {
+      // Mettre la partie en phase "ended" pour rediriger tous les joueurs
+      await update(ref(db, `rooms/${code}/state`), { phase: "ended" });
+    }
+    router.push('/home');
+  }
 
   const [meta,setMeta]=useState(null);
   const [state,setState]=useState(null);
@@ -168,9 +197,12 @@ export default function HostGame(){
     }
   }
   async function resetBuzzers(){
+    console.log('🔄 resetBuzzers called, isHost:', isHost);
     if(!isHost) return;
     const resume = computeResumeFields();
+    console.log('📊 Resume fields:', resume);
     await update(ref(db,`rooms/${code}/state`), { lockUid: null, buzzBanner: "", buzz: null, ...resume });
+    console.log('✅ Buzzers reset!');
   }
   async function validate(){
     if(!isHost || !q || !state?.lockUid || !conf) return;
@@ -277,9 +309,12 @@ export default function HostGame(){
     await update(ref(db), updates);
   }
   async function skip(){
+    console.log('⏭ skip called, isHost:', isHost, 'total:', total);
     if(!isHost || total===0) return;
     const next = (state?.currentIndex||0)+1;
+    console.log('📍 Next question index:', next, 'Total:', total);
     if (next >= total) {
+      console.log('🏁 Last question, ending game');
       await update(ref(db,`rooms/${code}/state`), { phase:"ended" });
       router.replace(`/end/${code}`);
       return;
@@ -300,9 +335,18 @@ export default function HostGame(){
     updates[`rooms/${code}/state/buzzBanner`] = "";
     updates[`rooms/${code}/state/buzz`] = null;
 
+    console.log('📤 Sending updates:', updates);
     await update(ref(db), updates);
+    console.log('✅ Question skipped!');
   }
-  async function end(){ if(isHost){ await update(ref(db,`rooms/${code}/state`), { phase:"ended" }); router.replace(`/end/${code}`); } }
+  async function end(){
+    console.log('🏁 end called, isHost:', isHost);
+    if(isHost){
+      await update(ref(db,`rooms/${code}/state`), { phase:"ended" });
+      console.log('✅ Game ended, redirecting...');
+      router.replace(`/end/${code}`);
+    }
+  }
 
   const lockedName = state?.lockUid ? (players.find(p=>p.uid===state.lockUid)?.name || state.lockUid) : "—";
   const wasAnticipated = state?.buzz?.anticipated === true;
@@ -323,21 +367,74 @@ export default function HostGame(){
   }, [conf, q, wasAnticipated, pointsEnJeu]);
 
   return (
-    <main className="p-6 pb-36 max-w-3xl mx-auto space-y-4">
-      <h1 className="text-3xl font-black">Écran Animateur — {title}</h1>
+    <div className="game-container">
+      {/* Background orbs */}
+      <div className="bg-orb orb-1"></div>
+      <div className="bg-orb orb-2"></div>
+      <div className="bg-orb orb-3"></div>
+
+      <ExitButton
+        variant="minimal"
+        confirmMessage="Voulez-vous vraiment quitter ? La partie sera abandonnée pour tous les joueurs."
+        onExit={exitAndEndGame}
+      />
+
+      <main className="game-content p-6 max-w-3xl mx-auto space-y-4 min-h-screen" style={{paddingBottom: '150px'}}>
+        <h1 className="game-page-title">Écran Animateur — {title}</h1>
 
       <div className="card">
-        <div className="flex gap-2 flex-wrap">
-          <RippleButton className="btn" onClick={resetBuzzers}>Reset buzzers</RippleButton>
-          <RippleButton className="btn" onClick={wrong}>
+        <div className="flex gap-2 items-stretch flex-wrap">
+          {/* Primary Actions */}
+          <RippleButton
+            className="btn flex-1 h-14 text-lg"
+            style={{ background: 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)', border: 'none', minWidth: '140px' }}
+            onClick={wrong}
+          >
             ✘ Mauvaise{wasAnticipated ? ` (-${conf?.anticipatedBuzzPenalty || 100}pts)` : ''}
           </RippleButton>
-          <ShineButton className="btn btn-accent" onClick={validate}>
+          <ShineButton
+            className="btn btn-accent flex-1 h-14 text-lg"
+            onClick={validate}
+            style={{ minWidth: '140px' }}
+          >
             ✔ Valider{wasAnticipated ? ` (+${conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0} pts MAX)` : ` (+${pointsEnJeu} pts)`}
           </ShineButton>
-          <RippleButton className="btn" onClick={skip}>⏭ Passer</RippleButton>
-          <RippleButton className="btn" onClick={end}>Terminer</RippleButton>
         </div>
+
+        {/* Secondary Actions */}
+        <div className="flex gap-2 mt-3 flex-wrap">
+          <button
+            className="btn h-12 flex-1"
+            onClick={() => {
+              console.log('🔄 Reset buzzers clicked');
+              resetBuzzers();
+            }}
+            style={{ minWidth: '120px' }}
+          >
+            🔄 Reset
+          </button>
+          <button
+            className="btn h-12 flex-1"
+            onClick={() => {
+              console.log('⏭ Skip clicked');
+              skip();
+            }}
+            style={{ minWidth: '120px' }}
+          >
+            ⏭ Passer
+          </button>
+          <button
+            className="btn h-12 flex-1"
+            onClick={() => {
+              console.log('🏁 End clicked');
+              end();
+            }}
+            style={{ minWidth: '120px', background: 'rgba(239, 68, 68, 0.2)', border: '1px solid rgba(239, 68, 68, 0.5)' }}
+          >
+            🏁 Terminer
+          </button>
+        </div>
+
         <div className="mt-3 card banner">
           <b>Buzz :</b> {state?.buzzBanner || "— en attente —"}
           {wasAnticipated && (
@@ -419,6 +516,57 @@ export default function HostGame(){
           {state?.revealed ? "Masquer la question" : "Révéler la question"}
         </ShineButton>
       </div>
-    </main>
+      </main>
+
+      <style jsx>{`
+        .game-container {
+          position: relative;
+          min-height: 100vh;
+          background: #000000;
+          overflow: hidden;
+        }
+
+        .game-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Background orbs */
+        .bg-orb {
+          position: fixed;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.12;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .orb-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
+          top: -200px;
+          right: -100px;
+        }
+
+        .orb-2 {
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
+          bottom: -100px;
+          left: -150px;
+        }
+
+        .orb-3 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
+          top: 300px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+      `}</style>
+    </div>
   );
 }

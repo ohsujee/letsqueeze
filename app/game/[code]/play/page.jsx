@@ -8,11 +8,30 @@ import Buzzer from "@/components/Buzzer";
 import PointsRing from "@/components/PointsRing";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/Confetti";
+import ExitButton from "@/lib/components/ExitButton";
 
 function useSound(url){
   const aRef = useRef(null);
-  useEffect(()=>{ aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null; if(aRef.current){ aRef.current.preload="auto"; } },[url]);
-  return useCallback(()=>{ try{ if(aRef.current){ aRef.current.currentTime=0; aRef.current.play(); } }catch{} },[]);
+  useEffect(()=>{
+    aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null;
+    if(aRef.current){
+      aRef.current.preload="auto";
+      aRef.current.volume = 0.5; // Volume par défaut
+    }
+  },[url]);
+  return useCallback(()=>{
+    if(aRef.current){
+      aRef.current.currentTime=0;
+      // Play avec gestion silencieuse des erreurs d'autoplay
+      const playPromise = aRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // Autoplay bloqué par le navigateur - pas grave, on ignore silencieusement
+          console.debug('Audio autoplay prevented (normal behavior):', error.message);
+        });
+      }
+    }
+  },[]);
 }
 
 export default function PlayerGame(){
@@ -34,7 +53,14 @@ export default function PlayerGame(){
   const serverNow = localNow + offset;
 
   // Auth
-  useEffect(()=>{ signInAnonymously(auth).catch(()=>{}); const unsub = onAuthStateChanged(auth, ()=>{}); return ()=>unsub(); },[]);
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        signInAnonymously(auth).catch(() => {});
+      }
+    });
+    return () => unsub();
+  }, []);
 
   // Config scoring
   useEffect(()=>{ fetch("/config/scoring.json").then(r=>r.json()).then(setConf); },[]);
@@ -137,8 +163,20 @@ export default function PlayerGame(){
   }, [meta?.teams, meta?.mode]);
 
   return (
-    <main className="p-6 max-w-xl mx-auto space-y-4">
-      <h1 className="text-2xl font-black">{title}</h1>
+    <div className="game-container">
+      {/* Background orbs */}
+      <div className="bg-orb orb-1"></div>
+      <div className="bg-orb orb-2"></div>
+      <div className="bg-orb orb-3"></div>
+
+      <ExitButton
+        variant="minimal"
+        confirmMessage="Voulez-vous vraiment quitter ? Vous perdrez votre progression."
+        onExit={() => router.push('/home')}
+      />
+
+      <main className="game-content p-6 max-w-xl mx-auto space-y-4 min-h-screen" style={{paddingBottom: '100px'}}>
+        <h1 className="game-page-title">{title}</h1>
 
       {myTeam && (
         <motion.div
@@ -197,7 +235,7 @@ export default function PlayerGame(){
         {q && (
           <>
             <div className="mb-2 flex items-center justify-between">
-              <div className="text-lg font-black">Question</div>
+              <div className="game-section-title">Question</div>
               <div className="text-sm opacity-80">{progressLabel}</div>
             </div>
             <AnimatePresence mode="wait">
@@ -269,14 +307,64 @@ export default function PlayerGame(){
         )}
       </div>
 
-      <Buzzer 
-        roomCode={code} 
-        playerUid={auth.currentUser?.uid} 
+      <Buzzer
+        roomCode={code}
+        playerUid={auth.currentUser?.uid}
         playerName={me?.name}
         blockedUntil={me?.blockedUntil || 0}
         serverNow={serverNow}
         revealed={revealed}
       />
-    </main>
+      </main>
+
+      <style jsx>{`
+        .game-container {
+          position: relative;
+          min-height: 100vh;
+          background: #000000;
+          overflow: hidden;
+        }
+
+        .game-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Background orbs */
+        .bg-orb {
+          position: fixed;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.12;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .orb-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
+          top: -200px;
+          right: -100px;
+        }
+
+        .orb-2 {
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
+          bottom: -100px;
+          left: -150px;
+        }
+
+        .orb-3 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
+          top: 300px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      `}</style>
+    </div>
   );
 }

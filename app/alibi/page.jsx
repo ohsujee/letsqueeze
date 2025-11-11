@@ -9,8 +9,13 @@ export default function AlibiHostPage(){
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    signInAnonymously(auth).then(() => {});
-    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
+    const unsub = onAuthStateChanged(auth, (u) => {
+      if(u){
+        setUser(u);
+      } else {
+        signInAnonymously(auth).then(() => {});
+      }
+    });
     return () => unsub();
   }, []);
 
@@ -51,9 +56,14 @@ export default function AlibiHostPage(){
   }
 
   return (
-    <main className="p-6 max-w-xl mx-auto space-y-6">
-      <h1 className="text-3xl font-black">🕵️ ALIBI — Créer une partie</h1>
-      <p className="opacity-70">Interrogatoire d'accusés : trouvez les incohérences dans leur alibi !</p>
+    <div className="game-container">
+      <div className="bg-orb orb-1"></div>
+      <div className="bg-orb orb-2"></div>
+      <div className="bg-orb orb-3"></div>
+
+      <main className="game-content p-6 max-w-xl mx-auto space-y-6 min-h-screen">
+        <h1 className="game-page-title">🕵️ ALIBI — Créer une partie</h1>
+        <p className="opacity-70">Interrogatoire d'accusés : trouvez les incohérences dans leur alibi !</p>
 
       {!user && <p>Connexion anonyme…</p>}
       {user && (
@@ -72,6 +82,56 @@ export default function AlibiHostPage(){
           <li>Score final : nombre de réponses validées / 10</li>
         </ul>
       </div>
-    </main>
+      </main>
+
+      <style jsx>{`
+        .game-container {
+          position: relative;
+          min-height: 100vh;
+          background: #000000;
+          overflow: hidden;
+        }
+
+        .game-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Background orbs */
+        .bg-orb {
+          position: fixed;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.12;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .orb-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
+          top: -200px;
+          right: -100px;
+        }
+
+        .orb-2 {
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
+          bottom: -100px;
+          left: -150px;
+        }
+
+        .orb-3 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
+          top: 300px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      `}</style>
+    </div>
   );
 }

@@ -118,7 +118,7 @@ export function LeaderboardItem({ player, position, previousPosition, serverNow 
         animate={
           player.score !== player.previousScore ? {
             scale: [1, 1.3, 1],
-            color: ['currentColor', '#10B981', 'currentColor']
+            color: ['#FFFFFF', '#10B981', '#FFFFFF']
           } : {}
         }
         transition={{ duration: 0.5 }}
@@ -196,7 +196,7 @@ export function TeamLeaderboard({ teams }) {
                 animate={
                   team.score !== team.previousScore ? {
                     scale: [1, 1.3, 1],
-                    color: ['currentColor', '#10B981', 'currentColor']
+                    color: ['#FFFFFF', '#10B981', '#FFFFFF']
                   } : {}
                 }
                 transition={{ duration: 0.5 }}

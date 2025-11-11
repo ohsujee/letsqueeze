@@ -14,6 +14,8 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import Qr from "@/components/Qr";
+import QrModal from "@/lib/components/QrModal";
+import BottomNav from "@/lib/components/BottomNav";
 
 export default function AlibiLobby() {
   const { code } = useParams();
@@ -49,12 +51,13 @@ export default function AlibiLobby() {
 
   // Auth
   useEffect(() => {
-    signInAnonymously(auth).catch(() => {});
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsHost(meta?.hostUid === user.uid);
         // Vérifier si l'hôte a déjà rejoint
         setHostJoined(players.some(p => p.uid === user.uid));
+      } else {
+        signInAnonymously(auth).catch(() => {});
       }
     });
     return () => unsub();
@@ -180,18 +183,24 @@ export default function AlibiLobby() {
   const canStart = isHost && selectedAlibiId && inspectors.length > 0 && suspects.length > 0;
 
   return (
-    <main className="p-6 max-w-4xl mx-auto space-y-6">
-      <h1 className="text-3xl font-black">🕵️ ALIBI - Lobby</h1>
+    <div className="game-container">
+      {/* Background orbs */}
+      <div className="bg-orb orb-1"></div>
+      <div className="bg-orb orb-2"></div>
+      <div className="bg-orb orb-3"></div>
+
+      <main className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
+        <h1 className="game-page-title">🕵️ ALIBI - Lobby</h1>
 
       {/* QR Code et partage (Host seulement) */}
       {isHost && joinUrl && (
         <div className="card space-y-4">
           <h2 className="font-bold text-lg">Inviter des joueurs</h2>
-          <div className="flex items-start gap-4 flex-wrap">
-            <Qr text={joinUrl} />
-            <div className="flex-1 space-y-2">
-              <p className="text-sm"><b>Code :</b> <span className="text-2xl font-black">{code}</span></p>
-              <p className="text-sm break-all"><b>URL :</b> {joinUrl}</p>
+          <div className="space-y-3">
+            <p className="text-sm"><b>Code :</b> <span className="text-2xl font-black">{code}</span></p>
+            <p className="text-sm break-all"><b>URL :</b> {joinUrl}</p>
+            <div className="flex gap-2 flex-wrap">
+              {joinUrl && <QrModal text={joinUrl} buttonText="Voir QR Code" />}
             </div>
           </div>
         </div>
@@ -204,11 +213,12 @@ export default function AlibiLobby() {
           <p className="text-sm opacity-80">Entre ton pseudo pour participer au jeu !</p>
           <div className="flex gap-2">
             <input
-              className="flex-1 p-3 rounded-lg bg-slate-700 border-2 border-accent text-white"
+              className="game-input game-input-accent flex-1"
               placeholder="Ton pseudo"
               value={hostPseudo}
               onChange={(e) => setHostPseudo(e.target.value)}
               maxLength={20}
+              autoComplete="name"
             />
             <button
               className="btn btn-accent px-6"
@@ -226,7 +236,7 @@ export default function AlibiLobby() {
         <div className="card space-y-4">
           <h2 className="font-bold text-lg">Choisir un alibi</h2>
           <select
-            className="w-full p-3 rounded-lg bg-slate-700 border-2 border-accent text-white"
+            className="game-select game-select-accent"
             value={selectedAlibiId || ""}
             onChange={(e) => handleSelectAlibi(e.target.value)}
           >
@@ -356,6 +366,58 @@ export default function AlibiLobby() {
           </button>
         </div>
       )}
-    </main>
+      </main>
+
+      <BottomNav />
+
+      <style jsx>{`
+        .game-container {
+          position: relative;
+          min-height: 100vh;
+          background: #000000;
+          overflow: hidden;
+        }
+
+        .game-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Background orbs */
+        .bg-orb {
+          position: fixed;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.12;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .orb-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
+          top: -200px;
+          right: -100px;
+        }
+
+        .orb-2 {
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
+          bottom: -100px;
+          left: -150px;
+        }
+
+        .orb-3 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
+          top: 300px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      `}</style>
+    </div>
   );
 }

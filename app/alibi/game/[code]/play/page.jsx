@@ -12,6 +12,7 @@ import {
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
+import ExitButton from "@/lib/components/ExitButton";
 
 export default function AlibiInterrogation() {
   const { code } = useParams();
@@ -33,9 +34,17 @@ export default function AlibiInterrogation() {
   const timerRef = useRef(null);
   const timeoutTriggeredRef = useRef(false);
 
+  // Fonction pour quitter et terminer la partie si hôte
+  async function exitGame() {
+    if (isHost && code) {
+      // Si c'est l'hôte, terminer la partie pour tout le monde
+      await update(ref(db, `rooms_alibi/${code}/state`), { phase: "ended" });
+    }
+    router.push('/home');
+  }
+
   // Auth
   useEffect(() => {
-    signInAnonymously(auth).catch(() => {});
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setMyUid(user.uid);
@@ -49,6 +58,8 @@ export default function AlibiInterrogation() {
             setIsHost(snap.val() === user.uid);
           });
         }
+      } else {
+        signInAnonymously(auth).catch(() => {});
       }
     });
     return () => unsub();
@@ -274,10 +285,16 @@ export default function AlibiInterrogation() {
   const currentQuestionData = questions[currentQuestion];
 
   return (
-    <main className="p-6 max-w-4xl mx-auto space-y-6">
-      {/* Progression */}
-      <div className="card">
-        <h1 className="text-2xl font-bold">
+    <div className="game-container">
+      {/* Background orbs */}
+      <div className="bg-orb orb-1"></div>
+      <div className="bg-orb orb-2"></div>
+      <div className="bg-orb orb-3"></div>
+
+      <main className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
+        {/* Progression */}
+        <div className="card">
+        <h1 className="game-page-title">
           Question {currentQuestion + 1} / 10
         </h1>
         <div className="w-full bg-gray-700 rounded-full h-2 mt-2">
@@ -291,7 +308,7 @@ export default function AlibiInterrogation() {
       {/* État: WAITING - Inspecteurs lancent la question */}
       {questionState === "waiting" && myTeam === "inspectors" && (
         <div className="card space-y-4 text-center">
-          <h2 className="text-xl font-bold">Question {currentQuestion + 1}</h2>
+          <h2 className="game-section-title">Question {currentQuestion + 1}</h2>
           <p className="text-lg">{currentQuestionData?.text}</p>
           <button
             className="btn btn-accent w-full h-16 text-xl"
@@ -330,11 +347,12 @@ export default function AlibiInterrogation() {
           {!hasAnswered ? (
             <div className="space-y-3">
               <textarea
-                className="w-full p-4 rounded-lg bg-slate-700 border-2 border-primary text-white min-h-[120px]"
+                className="game-textarea game-textarea-accent"
                 placeholder="Ta réponse..."
                 value={myAnswer}
                 onChange={(e) => setMyAnswer(e.target.value)}
                 maxLength={500}
+                autoComplete="off"
               />
               <button
                 className="btn btn-primary w-full h-14 text-xl"
@@ -504,6 +522,62 @@ export default function AlibiInterrogation() {
           )}
         </div>
       )}
-    </main>
+      </main>
+
+      <ExitButton
+        variant="minimal"
+        confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera abandonnée pour tous les joueurs." : "Voulez-vous vraiment quitter l'interrogation ?"}
+        onExit={exitGame}
+      />
+
+      <style jsx>{`
+        .game-container {
+          position: relative;
+          min-height: 100vh;
+          background: #000000;
+          overflow: hidden;
+        }
+
+        .game-content {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Background orbs */
+        .bg-orb {
+          position: fixed;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.12;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .orb-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
+          top: -200px;
+          right: -100px;
+        }
+
+        .orb-2 {
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
+          bottom: -100px;
+          left: -150px;
+        }
+
+        .orb-3 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
+          top: 300px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      `}</style>
+    </div>
   );
 }
