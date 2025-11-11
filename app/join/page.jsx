@@ -4,7 +4,8 @@ import JoinClient from "./page.client";
 
 export const dynamic = "force-dynamic"; // évite le prerender strict
 
-export default function Page({ searchParams }) {
+export default async function Page(props) {
+  const searchParams = await props.searchParams;
   const initialCode = typeof searchParams?.code === "string" ? searchParams.code : "";
   return (
     <Suspense fallback={<div className="p-6">Chargement…</div>}>
