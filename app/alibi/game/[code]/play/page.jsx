@@ -449,10 +449,78 @@ export default function AlibiInterrogation() {
             )}
           </div>
 
-          <div className="bg-slate-700 p-4 rounded-lg">
-            <p className="text-lg font-bold mb-2">Question {currentQuestion + 1} :</p>
-            <p className="text-xl">{currentQuestionData?.text}</p>
-          </div>
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              boxShadow: [
+                '0 0 40px rgba(255, 109, 0, 0.4)',
+                '0 0 60px rgba(255, 109, 0, 0.6)',
+                '0 0 40px rgba(255, 109, 0, 0.4)'
+              ]
+            }}
+            transition={{
+              scale: { duration: 0.3 },
+              boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+            }}
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.15), rgba(245, 158, 11, 0.1))',
+              border: '2px solid rgba(255, 109, 0, 0.4)',
+              borderRadius: '1.5rem',
+              padding: '2rem',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+          >
+            {/* Spotlight effect */}
+            <div style={{
+              position: 'absolute',
+              top: '-50%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '200%',
+              height: '200%',
+              background: 'radial-gradient(circle, rgba(255, 109, 0, 0.15) 0%, transparent 50%)',
+              pointerEvents: 'none',
+              zIndex: 0
+            }} />
+
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <motion.div
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                style={{
+                  display: 'inline-block',
+                  background: 'rgba(255, 109, 0, 0.3)',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '0.75rem',
+                  marginBottom: '1rem',
+                  fontSize: '0.875rem',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}
+              >
+                🎯 Question {currentQuestion + 1} / 10
+              </motion.div>
+              <motion.p
+                className="text-2xl font-bold leading-relaxed"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                style={{
+                  color: 'white',
+                  textShadow: '0 2px 20px rgba(255, 109, 0, 0.5)',
+                  lineHeight: '1.5'
+                }}
+              >
+                {currentQuestionData?.text}
+              </motion.p>
+            </div>
+          </motion.div>
 
           {!hasAnswered ? (
             <div className="space-y-3">
@@ -560,10 +628,89 @@ export default function AlibiInterrogation() {
             {allAnswered && (
               <p className="text-green-400 font-bold animate-pulse">✓ Toutes les réponses reçues !</p>
             )}
-            <div className="bg-slate-700/50 p-4 rounded-lg border-l-4 border-accent">
-              <p className="text-lg font-bold mb-2">Question {currentQuestion + 1} :</p>
-              <p className="text-xl">{currentQuestionData?.text}</p>
+          </motion.div>
+
+          {/* Question Spotlight - Inspecteurs */}
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              boxShadow: [
+                '0 0 40px rgba(255, 109, 0, 0.4)',
+                '0 0 60px rgba(255, 109, 0, 0.6)',
+                '0 0 40px rgba(255, 109, 0, 0.4)'
+              ]
+            }}
+            transition={{
+              scale: { duration: 0.3 },
+              boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+            }}
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.15), rgba(245, 158, 11, 0.1))',
+              border: '2px solid rgba(255, 109, 0, 0.4)',
+              borderRadius: '1.5rem',
+              padding: '2rem',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+          >
+            {/* Spotlight effect */}
+            <div style={{
+              position: 'absolute',
+              top: '-50%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '200%',
+              height: '200%',
+              background: 'radial-gradient(circle, rgba(255, 109, 0, 0.15) 0%, transparent 50%)',
+              pointerEvents: 'none',
+              zIndex: 0
+            }} />
+
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <motion.div
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                style={{
+                  display: 'inline-block',
+                  background: 'rgba(255, 109, 0, 0.3)',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '0.75rem',
+                  marginBottom: '1rem',
+                  fontSize: '0.875rem',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}
+              >
+                🎯 Question {currentQuestion + 1} / 10
+              </motion.div>
+              <motion.p
+                className="text-2xl font-bold leading-relaxed"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                style={{
+                  color: 'white',
+                  textShadow: '0 2px 20px rgba(255, 109, 0, 0.5)',
+                  lineHeight: '1.5'
+                }}
+              >
+                {currentQuestionData?.text}
+              </motion.p>
             </div>
+          </motion.div>
+
+          {/* Compteur de réponses */}
+          <motion.div
+            className="card text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             <p className="text-sm opacity-70">
               {Object.keys(responses).length} / {suspects.length} suspect(s) ont répondu
             </p>

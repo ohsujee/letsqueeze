@@ -259,29 +259,104 @@ export default function AlibiPrep() {
         <motion.div
           className="card space-y-4"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            boxShadow: [
+              '0 4px 12px rgba(0, 0, 0, 0.2)',
+              '0 4px 30px rgba(99, 102, 241, 0.3)',
+              '0 4px 12px rgba(0, 0, 0, 0.2)'
+            ]
+          }}
+          transition={{
+            delay: 0.2,
+            duration: 0.5,
+            boxShadow: {
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }
+          }}
         >
-          <h2 className="game-section-title text-primary">🎭 Ton Alibi</h2>
-          <p className="text-sm opacity-70">
-            Mémorise bien tous les détails - tu n'auras plus accès à ce texte pendant l'interrogatoire !
-          </p>
+          <div className="flex items-center justify-between">
+            <h2 className="game-section-title text-primary">🎭 Ton Alibi</h2>
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                color: '#6366F1',
+                letterSpacing: '0.05em'
+              }}
+            >
+              À mémoriser
+            </motion.div>
+          </div>
+          <motion.p
+            className="text-sm opacity-70"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          >
+            ⚠️ Mémorise bien tous les détails - tu n'auras plus accès à ce texte pendant l'interrogatoire !
+          </motion.p>
 
           {alibi.isNewFormat ? (
             // Nouveau format : Context + Accused Document
             <div className="space-y-4">
-              <div className="p-3 bg-slate-700/50 rounded-lg border-l-4 border-primary mb-4">
-                <p className="text-sm font-bold opacity-90">{alibi.context}</p>
-              </div>
-              {renderHTML(alibi.accused_document)}
+              <motion.div
+                className="p-5 bg-slate-700/50 rounded-xl border-l-4 border-primary mb-4"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                style={{
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                }}
+              >
+                <div className="flex items-start gap-3 mb-3">
+                  <span className="text-2xl">⚠️</span>
+                  <p className="text-xs uppercase tracking-wider opacity-60 font-bold">Accusation</p>
+                </div>
+                <p className="text-base leading-relaxed font-medium opacity-95" style={{ lineHeight: '1.7' }}>
+                  {alibi.context}
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.8 }}
+                style={{
+                  padding: '1.5rem',
+                  background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05))',
+                  borderRadius: '1rem',
+                  border: '1px solid rgba(99, 102, 241, 0.2)'
+                }}
+              >
+                {renderHTML(alibi.accused_document)}
+              </motion.div>
             </div>
           ) : (
             // Ancien format : Scenario avec markdown
-            <div className="prose prose-invert max-w-none">
-              <div className="whitespace-pre-wrap leading-relaxed">
+            <motion.div
+              className="prose prose-invert max-w-none"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              <div
+                className="whitespace-pre-wrap leading-relaxed"
+                style={{
+                  padding: '1.5rem',
+                  background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05))',
+                  borderRadius: '1rem',
+                  border: '1px solid rgba(99, 102, 241, 0.2)'
+                }}
+              >
                 {parseMarkdown(alibi.scenario)}
               </div>
-            </div>
+            </motion.div>
           )}
         </motion.div>
       )}
@@ -303,8 +378,16 @@ export default function AlibiPrep() {
               alibi.isNewFormat ? (
                 // Nouveau format : Context + Inspector Summary
                 <div className="space-y-4">
-                  <div className="p-3 bg-slate-700/50 rounded-lg border-l-4 border-accent">
-                    <p className="text-sm font-bold opacity-90">{alibi.context}</p>
+                  <div className="p-5 bg-slate-700/50 rounded-xl border-l-4 border-accent mb-4" style={{
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                  }}>
+                    <div className="flex items-start gap-3 mb-3">
+                      <span className="text-2xl">⚠️</span>
+                      <p className="text-xs uppercase tracking-wider opacity-60 font-bold">Accusation</p>
+                    </div>
+                    <p className="text-base leading-relaxed font-medium opacity-95" style={{ lineHeight: '1.7' }}>
+                      {alibi.context}
+                    </p>
                   </div>
                   <p className="text-sm opacity-80 italic">{alibi.inspector_summary}</p>
                 </div>
