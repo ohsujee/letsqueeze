@@ -17,6 +17,7 @@ import ExitButton from "@/lib/components/ExitButton";
 import { CountdownOverlay } from "@/components/CountdownOverlay";
 import { ParticleEffects } from "@/components/ParticleEffects";
 import { PhaseTransition } from "@/components/PhaseTransition";
+import { VerdictTransition } from "@/components/VerdictTransition";
 
 export default function AlibiInterrogation() {
   const { code } = useParams();
@@ -309,7 +310,7 @@ export default function AlibiInterrogation() {
   const currentQuestionData = questions[currentQuestion];
 
   return (
-    <>
+    <div className="alibi-theme">
       {/* Header Fixe */}
       <header className="player-game-header">
         <div className="player-game-header-content">
@@ -776,193 +777,14 @@ export default function AlibiInterrogation() {
           </div>
         </div>
 
-      {/* Modal de verdict - Version spectaculaire */}
-      <AnimatePresence>
-        {questionState === "verdict" && verdict && (
-          <>
-            {/* Overlay avec effet de flash */}
-            <motion.div
-              className="buzz-modal-overlay"
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: 1,
-                backgroundColor: verdict === "correct"
-                  ? ["rgba(0, 0, 0, 0.7)", "rgba(16, 185, 129, 0.3)", "rgba(0, 0, 0, 0.7)"]
-                  : verdict === "incorrect"
-                  ? ["rgba(0, 0, 0, 0.7)", "rgba(239, 68, 68, 0.3)", "rgba(0, 0, 0, 0.7)"]
-                  : "rgba(0, 0, 0, 0.7)"
-              }}
-              exit={{ opacity: 0 }}
-              transition={{
-                backgroundColor: { duration: 0.8, times: [0, 0.3, 1] }
-              }}
-              onClick={(e) => e.stopPropagation()}
-            />
-
-            {/* Modal */}
-            <div className="buzz-modal" style={{ zIndex: 2000 }}>
-              <motion.div
-                className="buzz-modal-content"
-                initial={{ opacity: 0, scale: 0.5, y: 50 }}
-                animate={{
-                  opacity: 1,
-                  scale: [0.5, 1.1, 1],
-                  y: 0,
-                  rotate: [0, -5, 5, 0]
-                }}
-                exit={{ opacity: 0, scale: 0.8, y: 20 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 400,
-                  damping: 20,
-                  scale: { times: [0, 0.6, 1] }
-                }}
-                style={{
-                  background: verdict === "correct"
-                    ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(5, 150, 105, 0.95))'
-                    : verdict === "incorrect"
-                    ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(220, 38, 38, 0.95))'
-                    : 'linear-gradient(135deg, rgba(251, 191, 36, 0.95), rgba(245, 158, 11, 0.95))',
-                  border: verdict === "correct"
-                    ? '4px solid #10B981'
-                    : verdict === "incorrect"
-                    ? '4px solid #EF4444'
-                    : '4px solid #F59E0B',
-                  boxShadow: verdict === "correct"
-                    ? '0 0 80px rgba(16, 185, 129, 0.6), 0 20px 60px rgba(0, 0, 0, 0.5)'
-                    : verdict === "incorrect"
-                    ? '0 0 80px rgba(239, 68, 68, 0.6), 0 20px 60px rgba(0, 0, 0, 0.5)'
-                    : '0 0 80px rgba(245, 158, 11, 0.6), 0 20px 60px rgba(0, 0, 0, 0.5)'
-                }}
-              >
-                {/* Icône géante avec animation de pulsation */}
-                <motion.div
-                  className="buzz-modal-icon"
-                  style={{
-                    fontSize: '8rem',
-                    marginBottom: '1rem',
-                    filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))'
-                  }}
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    rotate: verdict === "correct" ? [0, 360] : [0, -10, 10, 0]
-                  }}
-                  transition={{
-                    scale: { duration: 0.6, repeat: Infinity, repeatDelay: 0.3 },
-                    rotate: { duration: verdict === "correct" ? 0.8 : 0.5 }
-                  }}
-                >
-                  {verdict === "correct" && "🎉"}
-                  {verdict === "incorrect" && "💥"}
-                  {verdict === "timeout" && "⏰"}
-                </motion.div>
-
-                {/* Message principal */}
-                <motion.div
-                  className="buzz-modal-player"
-                  style={{
-                    fontSize: '2.5rem',
-                    fontWeight: 900,
-                    marginBottom: '1rem',
-                    color: 'white',
-                    textShadow: '0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 255, 255, 0.3)',
-                    letterSpacing: '-0.02em'
-                  }}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  {verdict === "correct" && "VALIDÉ ! ✨"}
-                  {verdict === "incorrect" && "REFUSÉ ! ⚡"}
-                  {verdict === "timeout" && "TEMPS ÉCOULÉ ! ⚠️"}
-                </motion.div>
-
-                {/* Description */}
-                <motion.p
-                  style={{
-                    fontSize: '1.25rem',
-                    opacity: 0.95,
-                    marginBottom: '2rem',
-                    textAlign: 'center',
-                    color: 'white',
-                    fontWeight: 600,
-                    textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)'
-                  }}
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 0.95 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  {verdict === "correct" && "Les suspects sont convaincants ! 🎭"}
-                  {verdict === "incorrect" && "Les inspecteurs détectent l'incohérence ! 🕵️"}
-                  {verdict === "timeout" && "Les suspects n'ont pas répondu à temps ! ⌛"}
-                </motion.p>
-
-                {/* Compteur de points/questions */}
-                <motion.div
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.3)',
-                    padding: '0.75rem 1.5rem',
-                    borderRadius: '2rem',
-                    fontSize: '1rem',
-                    fontWeight: 700,
-                    color: 'white',
-                    marginBottom: '1.5rem'
-                  }}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.4, type: "spring" }}
-                >
-                  Question {currentQuestion + 1} / 10
-                </motion.div>
-
-                {/* Bouton Continuer (Inspecteurs seulement) */}
-                {myTeam === "inspectors" && (
-                  <motion.button
-                    className="btn btn-primary"
-                    onClick={handleNextQuestion}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    style={{
-                      width: '100%',
-                      height: '60px',
-                      fontSize: '1.25rem',
-                      fontWeight: 700,
-                      marginTop: '1.5rem',
-                      background: 'rgba(255, 255, 255, 0.95)',
-                      color: verdict === "correct" ? '#10B981' : '#EF4444',
-                      border: 'none',
-                      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
-                    }}
-                  >
-                    {currentQuestion >= 9 ? "🏁 Voir les résultats" : "⏭️ Question suivante"}
-                  </motion.button>
-                )}
-
-                {/* Message pour les suspects */}
-                {myTeam === "suspects" && (
-                  <motion.p
-                    style={{
-                      fontSize: '0.875rem',
-                      opacity: 0.7,
-                      color: 'white',
-                      fontWeight: 500,
-                      marginTop: '1rem'
-                    }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.7 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    En attente des inspecteurs...
-                  </motion.p>
-                )}
-              </motion.div>
-            </div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Transition de verdict fullscreen spectaculaire */}
+      <VerdictTransition
+        isVisible={questionState === "verdict" && verdict !== null}
+        verdict={verdict}
+        showButton={myTeam === "inspectors"}
+        onButtonClick={handleNextQuestion}
+        duration={3500}
+      />
       </main>
 
       <PhaseTransition
@@ -1023,6 +845,6 @@ export default function AlibiInterrogation() {
           transform: translateX(-50%);
         }
       `}</style>
-    </>
+    </div>
   );
 }

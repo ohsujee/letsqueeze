@@ -162,7 +162,8 @@ export default function AlibiEnd() {
   };
 
   return (
-    <div className="game-container">
+    <div className="alibi-theme">
+      <div className="game-container">
       {/* Background orbs */}
       <div className="bg-orb orb-1"></div>
       <div className="bg-orb orb-2"></div>
@@ -433,6 +434,7 @@ export default function AlibiEnd() {
           transform: translateX(-50%);
         }
       `}</style>
+      </div>
     </div>
   );
 }

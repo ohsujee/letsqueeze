@@ -241,7 +241,8 @@ export default function AlibiLobby() {
   const canStart = isHost && selectedAlibiId && inspectors.length > 0 && suspects.length > 0;
 
   return (
-    <div className="game-container">
+    <div className="alibi-theme">
+      <div className="game-container">
       {/* Paywall Modal */}
       <PaywallModal
         isOpen={showPaywall}
@@ -703,6 +704,7 @@ export default function AlibiLobby() {
           transform: translateX(-50%);
         }
       `}</style>
+      </div>
     </div>
   );
 }
