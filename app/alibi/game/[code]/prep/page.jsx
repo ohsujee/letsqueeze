@@ -14,6 +14,7 @@ import {
 import { motion } from 'framer-motion';
 import ExitButton from "@/lib/components/ExitButton";
 import { CountdownOverlay } from "@/components/CountdownOverlay";
+import { PhaseTransition } from "@/components/PhaseTransition";
 
 export default function AlibiPrep() {
   const { code } = useParams();
@@ -191,7 +192,7 @@ export default function AlibiPrep() {
   };
 
   return (
-    <>
+    <div className="alibi-theme">
       {/* Header Fixe */}
       <header className="player-game-header">
         <div className="player-game-header-content">
@@ -389,11 +390,14 @@ export default function AlibiPrep() {
         </div>
       </main>
 
-      <CountdownOverlay
+      <PhaseTransition
         isVisible={showCountdown}
-        message="L'interrogatoire commence !"
+        title="Interrogatoire"
+        subtitle="Les inspecteurs vont vous questionner..."
+        icon="🕵️"
+        theme="interrogation"
         onComplete={handleCountdownComplete}
-        countFrom={3}
+        duration={3500}
       />
 
       <style jsx>{`
@@ -444,6 +448,6 @@ export default function AlibiPrep() {
           transform: translateX(-50%);
         }
       `}</style>
-    </>
+    </div>
   );
 }

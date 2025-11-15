@@ -52,7 +52,8 @@
       "Bash(dir:*)",
       "Bash(timeout 15 npm run dev:*)",
       "Bash(timeout 20 npm run dev)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

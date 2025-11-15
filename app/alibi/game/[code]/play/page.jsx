@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ExitButton from "@/lib/components/ExitButton";
 import { CountdownOverlay } from "@/components/CountdownOverlay";
 import { ParticleEffects } from "@/components/ParticleEffects";
+import { PhaseTransition } from "@/components/PhaseTransition";
 
 export default function AlibiInterrogation() {
   const { code } = useParams();
@@ -371,20 +372,80 @@ export default function AlibiInterrogation() {
         </motion.div>
       )}
 
-      {/* État: ANSWERING - Suspects répondent */}
+      {/* État: ANSWERING - Suspects répondent - Version AAA */}
       {questionState === "answering" && myTeam === "suspects" && (
         <motion.div
           className="card space-y-4"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            boxShadow: timeLeft <= 5
+              ? ['0 0 0 rgba(239, 68, 68, 0)', '0 0 40px rgba(239, 68, 68, 0.8)', '0 0 0 rgba(239, 68, 68, 0)']
+              : timeLeft <= 10
+              ? '0 0 20px rgba(251, 191, 36, 0.5)'
+              : '0 4px 12px rgba(0, 0, 0, 0.2)'
+          }}
+          transition={{
+            delay: 0.1,
+            duration: 0.5,
+            boxShadow: timeLeft <= 5 ? { duration: 1, repeat: Infinity } : {}
+          }}
+          style={{
+            background: timeLeft <= 5
+              ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.15))'
+              : timeLeft <= 10
+              ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.1))'
+              : undefined,
+            border: timeLeft <= 5
+              ? '2px solid rgba(239, 68, 68, 0.5)'
+              : timeLeft <= 10
+              ? '2px solid rgba(251, 191, 36, 0.3)'
+              : undefined
+          }}
         >
           <div className="text-center">
-            <h2 className="text-3xl font-black mb-2">
-              {timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
-            </h2>
+            <motion.h2
+              className="text-3xl font-black mb-2"
+              animate={timeLeft <= 5 ? {
+                scale: [1, 1.1, 1],
+                color: ['#EF4444', '#FCA5A5', '#EF4444']
+              } : timeLeft <= 10 ? {
+                scale: [1, 1.05, 1]
+              } : {}}
+              transition={timeLeft <= 5 ? {
+                duration: 0.8,
+                repeat: Infinity
+              } : timeLeft <= 10 ? {
+                duration: 1,
+                repeat: Infinity
+              } : {}}
+              style={{
+                color: timeLeft <= 5 ? '#EF4444' : timeLeft <= 10 ? '#F59E0B' : 'white',
+                textShadow: timeLeft <= 5
+                  ? '0 0 20px rgba(239, 68, 68, 0.8)'
+                  : timeLeft <= 10
+                  ? '0 0 15px rgba(245, 158, 11, 0.6)'
+                  : 'none'
+              }}
+            >
+              {timeLeft <= 5 ? "🚨" : timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
+            </motion.h2>
             {timeLeft <= 10 && (
-              <p className="text-red-400 font-bold animate-pulse">Dépêche-toi !</p>
+              <motion.p
+                className="font-bold"
+                animate={{
+                  opacity: [0.7, 1, 0.7],
+                  scale: timeLeft <= 5 ? [1, 1.05, 1] : [1, 1.02, 1]
+                }}
+                transition={{ duration: timeLeft <= 5 ? 0.5 : 1, repeat: Infinity }}
+                style={{
+                  color: timeLeft <= 5 ? '#EF4444' : '#F59E0B',
+                  fontSize: timeLeft <= 5 ? '1.1rem' : '1rem'
+                }}
+              >
+                {timeLeft <= 5 ? '⚡ DÉPÊCHE-TOI ! ⚡' : 'Dépêche-toi !'}
+              </motion.p>
             )}
           </div>
 
@@ -423,18 +484,78 @@ export default function AlibiInterrogation() {
 
       {questionState === "answering" && myTeam === "inspectors" && (
         <div className="space-y-6">
-          {/* Timer et question */}
+          {/* Timer et question - Version AAA avec stress progressif */}
           <motion.div
             className="card text-center space-y-4"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              boxShadow: timeLeft <= 5
+                ? ['0 0 0 rgba(239, 68, 68, 0)', '0 0 40px rgba(239, 68, 68, 0.8)', '0 0 0 rgba(239, 68, 68, 0)']
+                : timeLeft <= 10
+                ? '0 0 20px rgba(251, 191, 36, 0.5)'
+                : '0 4px 12px rgba(0, 0, 0, 0.2)'
+            }}
+            transition={{
+              delay: 0.1,
+              duration: 0.5,
+              boxShadow: timeLeft <= 5 ? { duration: 1, repeat: Infinity } : {}
+            }}
+            style={{
+              background: timeLeft <= 5
+                ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.15))'
+                : timeLeft <= 10
+                ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.1))'
+                : undefined,
+              border: timeLeft <= 5
+                ? '2px solid rgba(239, 68, 68, 0.5)'
+                : timeLeft <= 10
+                ? '2px solid rgba(251, 191, 36, 0.3)'
+                : undefined
+            }}
           >
-            <h2 className="text-3xl font-black">
-              {timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
-            </h2>
+            <motion.h2
+              className="text-3xl font-black"
+              animate={timeLeft <= 5 ? {
+                scale: [1, 1.1, 1],
+                color: ['#EF4444', '#FCA5A5', '#EF4444']
+              } : timeLeft <= 10 ? {
+                scale: [1, 1.05, 1]
+              } : {}}
+              transition={timeLeft <= 5 ? {
+                duration: 0.8,
+                repeat: Infinity
+              } : timeLeft <= 10 ? {
+                duration: 1,
+                repeat: Infinity
+              } : {}}
+              style={{
+                color: timeLeft <= 5 ? '#EF4444' : timeLeft <= 10 ? '#F59E0B' : 'white',
+                textShadow: timeLeft <= 5
+                  ? '0 0 20px rgba(239, 68, 68, 0.8)'
+                  : timeLeft <= 10
+                  ? '0 0 15px rgba(245, 158, 11, 0.6)'
+                  : 'none'
+              }}
+            >
+              {timeLeft <= 5 ? "🚨" : timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
+            </motion.h2>
             {timeLeft <= 10 && !allAnswered && (
-              <p className="text-red-400 font-bold animate-pulse">Temps presque écoulé !</p>
+              <motion.p
+                className="font-bold"
+                animate={{
+                  opacity: [0.7, 1, 0.7],
+                  scale: timeLeft <= 5 ? [1, 1.05, 1] : [1, 1.02, 1]
+                }}
+                transition={{ duration: timeLeft <= 5 ? 0.5 : 1, repeat: Infinity }}
+                style={{
+                  color: timeLeft <= 5 ? '#EF4444' : '#F59E0B',
+                  fontSize: timeLeft <= 5 ? '1.1rem' : '1rem'
+                }}
+              >
+                {timeLeft <= 5 ? '⚡ DÉPÊCHEZ-VOUS ! ⚡' : 'Temps presque écoulé !'}
+              </motion.p>
             )}
             {allAnswered && (
               <p className="text-green-400 font-bold animate-pulse">✓ Toutes les réponses reçues !</p>
@@ -666,11 +787,14 @@ export default function AlibiInterrogation() {
       </AnimatePresence>
       </main>
 
-      <CountdownOverlay
+      <PhaseTransition
         isVisible={showCountdown}
-        message="Résultats de l'enquête !"
+        title="Enquête Terminée"
+        subtitle="Découvrez les résultats..."
+        icon="📊"
+        theme="end"
         onComplete={handleCountdownComplete}
-        countFrom={3}
+        duration={3500}
       />
 
       <style jsx>{`
