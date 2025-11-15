@@ -129,9 +129,10 @@ export default function ExitButton({
           display: flex;
           align-items: center;
           justify-content: center;
-          z-index: 1000;
+          z-index: 9999;
           animation: fadeIn 0.2s ease;
-          padding: 20px;
+          padding: 40px 20px;
+          overflow-y: auto;
         }
 
         .exit-modal {
@@ -140,9 +141,12 @@ export default function ExitButton({
           padding: 32px;
           max-width: 400px;
           width: 100%;
+          max-height: 80vh;
+          margin: auto;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
           animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
           text-align: center;
+          position: relative;
         }
 
         .exit-modal-title {

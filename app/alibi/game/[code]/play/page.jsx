@@ -236,23 +236,25 @@ export default function AlibiInterrogation() {
         update(ref(db, `rooms_alibi/${code}/score`), { correct: current + 1 });
       }, { onlyOnce: true });
     }
+  };
 
-    // Attendre 4 secondes puis passer à la question suivante ou fin
-    setTimeout(async () => {
-      if (currentQuestion >= 9) {
-        // Dernière question, aller à la page de fin
-        await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
-      } else {
-        // Question suivante
-        await update(ref(db, `rooms_alibi/${code}/interrogation`), {
-          currentQuestion: currentQuestion + 1,
-          state: "waiting",
-          timeLeft: 30,
-          responses: {},
-          verdict: null
-        });
-      }
-    }, 4000);
+  // Fonction pour passer à la question suivante (appelée par le bouton dans le modal)
+  const handleNextQuestion = async () => {
+    if (myTeam !== "inspectors") return;
+
+    if (currentQuestion >= 9) {
+      // Dernière question, aller à la page de fin
+      await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
+    } else {
+      // Question suivante
+      await update(ref(db, `rooms_alibi/${code}/interrogation`), {
+        currentQuestion: currentQuestion + 1,
+        state: "waiting",
+        timeLeft: 30,
+        responses: {},
+        verdict: null
+      });
+    }
   };
 
   // Réinitialiser l'état local quand on change de question
@@ -913,20 +915,49 @@ export default function AlibiInterrogation() {
                   Question {currentQuestion + 1} / 10
                 </motion.div>
 
-                {/* Auto-close indication */}
-                <motion.p
-                  style={{
-                    fontSize: '0.875rem',
-                    opacity: 0.7,
-                    color: 'white',
-                    fontWeight: 500
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.7 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  {currentQuestion >= 9 ? "🏁 Fin de l'interrogatoire..." : "⏭️ Question suivante..."}
-                </motion.p>
+                {/* Bouton Continuer (Inspecteurs seulement) */}
+                {myTeam === "inspectors" && (
+                  <motion.button
+                    className="btn btn-primary"
+                    onClick={handleNextQuestion}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    style={{
+                      width: '100%',
+                      height: '60px',
+                      fontSize: '1.25rem',
+                      fontWeight: 700,
+                      marginTop: '1.5rem',
+                      background: 'rgba(255, 255, 255, 0.95)',
+                      color: verdict === "correct" ? '#10B981' : '#EF4444',
+                      border: 'none',
+                      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+                    }}
+                  >
+                    {currentQuestion >= 9 ? "🏁 Voir les résultats" : "⏭️ Question suivante"}
+                  </motion.button>
+                )}
+
+                {/* Message pour les suspects */}
+                {myTeam === "suspects" && (
+                  <motion.p
+                    style={{
+                      fontSize: '0.875rem',
+                      opacity: 0.7,
+                      color: 'white',
+                      fontWeight: 500,
+                      marginTop: '1rem'
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.7 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    En attente des inspecteurs...
+                  </motion.p>
+                )}
               </motion.div>
             </div>
           </>
