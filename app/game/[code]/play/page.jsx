@@ -63,7 +63,12 @@ export default function PlayerGame(){
   }, []);
 
   // Config scoring
-  useEffect(()=>{ fetch("/config/scoring.json").then(r=>r.json()).then(setConf); },[]);
+  useEffect(()=>{
+    fetch(`/config/scoring.json?t=${Date.now()}`)
+      .then(r=>r.json())
+      .then(setConf)
+      .catch(err => console.error('Erreur chargement config:', err));
+  },[]);
 
   // DB listeners
   useEffect(()=>{
@@ -110,10 +115,14 @@ export default function PlayerGame(){
     if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 1, cfg: null };
     const diff = q.difficulty === "difficile" ? "difficile" : "normal";
     const c = conf[diff];
+
+    // Le ratio doit être basé sur le TEMPS, pas sur les points !
     const ratio = Math.max(0, 1 - (elapsedEffective / c.durationMs));
     const pts = Math.max(c.floor, Math.round(c.start * ratio));
-    const denom = Math.max(1, c.start - c.floor);
-    const remain = Math.max(0, Math.min(1, (pts - c.floor) / denom));
+
+    // La barre doit suivre le temps écoulé, pas la différence de points
+    const remain = ratio;
+
     return { pointsEnJeu: pts, ratioRemain: remain, cfg: c };
   }, [conf, q, elapsedEffective]);
 
@@ -163,171 +172,250 @@ export default function PlayerGame(){
   }, [meta?.teams, meta?.mode]);
 
   return (
-    <div className="game-container">
+    <div className="player-game-page">
       {/* Background orbs */}
       <div className="bg-orb orb-1"></div>
       <div className="bg-orb orb-2"></div>
       <div className="bg-orb orb-3"></div>
 
-      <ExitButton
-        variant="minimal"
-        confirmMessage="Voulez-vous vraiment quitter ? Vous perdrez votre progression."
-        onExit={() => router.push('/home')}
-      />
+      {/* Header fixe simple et clair */}
+      <header className="player-game-header">
+        <div className="player-game-header-content">
+          {/* Titre à gauche */}
+          <div className="player-game-title">{title}</div>
 
-      <main className="game-content p-6 max-w-xl mx-auto space-y-4 min-h-screen" style={{paddingBottom: '100px'}}>
-        <h1 className="game-page-title">{title}</h1>
+          {/* Progress au centre */}
+          <div className="player-progress-center">{progressLabel}</div>
 
-      {myTeam && (
-        <motion.div
-          className="card"
-          style={{
-            backgroundColor: 'rgba(30, 41, 59, 0.9)',
-            color: 'white',
-            border: `5px solid ${myTeam.color}`,
-            boxShadow: `0 8px 16px rgba(0,0,0,0.4), inset 0 0 0 1px ${myTeam.color}40`,
-            position: 'relative',
-            overflow: 'visible'
-          }}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="absolute -top-3 -right-3 px-3 py-1.5 rounded-full text-sm font-black" style={{
-            backgroundColor: myTeam.color,
-            color: 'white',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.4)'
-          }}>
-            ⭐ MON ÉQUIPE
+          {/* Bouton exit à droite */}
+          <div className="player-header-exit">
+            <ExitButton
+              variant="header"
+              confirmMessage="Voulez-vous vraiment quitter ? Vous perdrez votre progression."
+              onExit={() => router.push('/home')}
+            />
           </div>
-          <div className="flex items-center gap-3">
-            <div
-              className="w-6 h-6 rounded-full flex items-center justify-center"
-              style={{ backgroundColor: myTeam.color, boxShadow: `0 0 15px ${myTeam.color}80` }}
-            >
-              <span style={{ fontSize: '0.7rem' }}>⭐</span>
-            </div>
-            <div>
-              <div className="font-black text-xl">{myTeam.name}</div>
-              <div className="text-sm opacity-90">Score équipe: <b>{myTeam.score||0}</b> pts</div>
-            </div>
-          </div>
-        </motion.div>
-      )}
+        </div>
+      </header>
 
-      <motion.div
-        className="card banner"
-        animate={state?.buzzBanner && state.buzzBanner !== "— en attente —" ? {
-          scale: [1, 1.02, 1],
-          boxShadow: [
-            "0 1px 3px rgba(0,0,0,0.1)",
-            "0 4px 12px rgba(239, 68, 68, 0.3)",
-            "0 1px 3px rgba(0,0,0,0.1)"
-          ]
-        } : {}}
-        transition={{ duration: 0.5 }}
-      >
-        <b>Buzz :</b> {state?.buzzBanner || "— en attente —"}
-      </motion.div>
-      <div className="card"><b>Mon score :</b> {me?.score||0}</div>
-
-      <div className="card">
-        {q && (
-          <>
-            <div className="mb-2 flex items-center justify-between">
-              <div className="game-section-title">Question</div>
-              <div className="text-sm opacity-80">{progressLabel}</div>
+      <main className="player-game-content">
+        {/* Mon équipe badge si mode équipes */}
+        {myTeam && (
+          <motion.div
+            className="team-badge-large"
+            style={{
+              borderColor: myTeam.color,
+              boxShadow: `0 4px 16px ${myTeam.color}40, inset 0 0 0 1px ${myTeam.color}20`,
+            }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="team-badge-icon" style={{ backgroundColor: myTeam.color }}>
+              ⭐
             </div>
+            <div className="team-badge-info">
+              <div className="team-badge-name">{myTeam.name}</div>
+              <div className="team-badge-score">{myTeam.score||0} pts</div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Score du joueur - AU DESSUS de la question */}
+        <div style={{ position: 'relative' }}>
+          <motion.div
+            className="player-score-card"
+            key={me?.score}
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          >
+            <div className="player-score-label">Votre score</div>
+            <div className="player-score-value">{me?.score||0}</div>
+          </motion.div>
+
+          {/* Buzz notification toast - Ne s'affiche que si ce n'est pas moi qui ai buzzé */}
+          <AnimatePresence>
+            {state?.buzzBanner && state.buzzBanner !== "— en attente —" && state?.lockUid !== me?.uid && (
+              <motion.div
+                className="buzz-notification"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              >
+                <span className="buzz-notification-icon">🔔</span>
+                <span className="buzz-notification-text">{state.buzzBanner}</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Question principale avec barre de progression */}
+        <div className="question-main-card">
+          {/* Barre de progression des points - toujours visible */}
+          {q && (
+            <div className="points-progress-bar-container">
+              <div className="points-progress-info">
+                <span className="points-progress-label">Points en jeu</span>
+                <span className="points-progress-value">{pointsEnJeu}</span>
+              </div>
+              <div className="points-progress-bar-track">
+                <motion.div
+                  className="points-progress-bar-fill"
+                  initial={{ scaleX: 1 }}
+                  animate={{ scaleX: ratioRemain }}
+                  transition={{ duration: 0.5, ease: "linear" }}
+                />
+              </div>
+            </div>
+          )}
+
+          {q && (
             <AnimatePresence mode="wait">
               {revealed ? (
                 <motion.div
                   key="revealed"
-                  className="mb-3"
-                  initial={{ opacity: 0, x: -30, scale: 0.95 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: 30, scale: 0.95 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 25
-                  }}
+                  className="question-text-display"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.6 }}
-                  >
-                    {q.question}
-                  </motion.span>
+                  {q.question}
                 </motion.div>
               ) : (
                 <motion.div
                   key="waiting"
-                  className="mb-3 opacity-60"
+                  className="question-waiting"
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.6 }}
+                  animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  En attente de révélation…
+                  <div className="question-waiting-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <div>En attente de la question...</div>
                 </motion.div>
               )}
             </AnimatePresence>
+          )}
+        </div>
 
-            <div className="flex items-center gap-4">
-              <PointsRing 
-                value={ratioRemain} 
-                points={pointsEnJeu} 
-              />
-              {cfg && <div className="text-sm opacity-80">De <b>{cfg.start}</b> à <b>{cfg.floor}</b> en <b>{cfg.durationMs/1000}s</b>{paused && <span className="ml-1">⏸︎</span>}</div>}
-            </div>
-          </>
-        )}
-
+        {/* Leaderboard moderne */}
         {meta?.mode === "équipes" ? (
-          <>
-            <div className="mt-3 text-sm opacity-70">Classement des équipes</div>
-            <ul className="grid grid-cols-1 gap-2 mt-1">
+          <div className="leaderboard-card">
+            <div className="leaderboard-header">
+              <span className="leaderboard-icon">🏆</span>
+              <span className="leaderboard-title">Classement des équipes</span>
+            </div>
+            <div className="leaderboard-list">
               {teamsSorted.map((t,i)=>(
-                <li key={t.id} className="card flex justify-between items-center">
-                  <span className="font-bold" style={{backgroundColor:t.color}}>&nbsp;&nbsp;{i+1}. {t.name}&nbsp;&nbsp;</span>
-                  <b>{t.score||0}</b>
-                </li>
+                <div
+                  key={t.id}
+                  className="leaderboard-item"
+                  style={{
+                    background: i < 3 ? `linear-gradient(135deg, ${t.color}15, ${t.color}05)` : 'rgba(255,255,255,0.02)',
+                    borderColor: i < 3 ? `${t.color}40` : 'rgba(255,255,255,0.05)'
+                  }}
+                >
+                  <div className="leaderboard-item-rank">
+                    {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}`}
+                  </div>
+                  <div className="leaderboard-item-name">{t.name}</div>
+                  <div className="leaderboard-item-score">{t.score||0}</div>
+                </div>
               ))}
-            </ul>
-          </>
+            </div>
+          </div>
         ) : (
-          <>
-            <div className="mt-3 text-sm opacity-70">Top 3</div>
-            <ul className="grid grid-cols-2 gap-2 mt-1">
-              {players.slice().sort((a,b)=> (b.score||0)-(a.score||0)).slice(0,3).map((p,i)=>(
-                <li key={p.uid} className="card">{i+1}. {p.name} — <b>{p.score||0}</b></li>
-              ))}
-            </ul>
-          </>
-        )}
-      </div>
+          <div className="leaderboard-card">
+            <div className="leaderboard-header">
+              <span className="leaderboard-icon">🏆</span>
+              <span className="leaderboard-title">Classement</span>
+            </div>
 
-      <Buzzer
-        roomCode={code}
-        playerUid={auth.currentUser?.uid}
-        playerName={me?.name}
-        blockedUntil={me?.blockedUntil || 0}
-        serverNow={serverNow}
-        revealed={revealed}
-      />
+            {/* Top 3 - Podium style */}
+            <div className="leaderboard-podium">
+              {players.slice().sort((a,b)=> (b.score||0)-(a.score||0)).slice(0,3).map((p,i)=>{
+                const isMe = p.uid === me?.uid;
+                // Gradients colorés selon la position
+                const positionBackground = i === 0
+                  ? 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(251,191,36,0.1))'
+                  : i === 1
+                  ? 'linear-gradient(135deg, rgba(148,163,184,0.15), rgba(203,213,225,0.1))'
+                  : 'linear-gradient(135deg, rgba(205,127,50,0.15), rgba(180,100,30,0.1))';
+
+                return (
+                  <motion.div
+                    key={p.uid}
+                    className={`podium-item ${isMe ? 'podium-item-me' : ''}`}
+                    style={!isMe ? { background: positionBackground } : {}}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    <div className="podium-medal">
+                      {i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉'}
+                    </div>
+                    <div className="podium-name">
+                      {p.name}
+                      {isMe && <span className="podium-you-badge">Vous</span>}
+                    </div>
+                    <div className="podium-score">{p.score||0}</div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Autres joueurs - Liste compacte */}
+            {players.length > 3 && (
+              <div className="leaderboard-others">
+                <div className="leaderboard-others-title">Autres joueurs</div>
+                <div className="leaderboard-list-compact">
+                  {players.slice().sort((a,b)=> (b.score||0)-(a.score||0)).slice(3).map((p,i)=>{
+                    const isMe = p.uid === me?.uid;
+                    return (
+                      <div
+                        key={p.uid}
+                        className={`leaderboard-compact-item ${isMe ? 'leaderboard-compact-item-me' : ''}`}
+                      >
+                        <span className="leaderboard-compact-rank">{i+4}.</span>
+                        <span className="leaderboard-compact-name">{p.name}</span>
+                        <span className="leaderboard-compact-score">{p.score||0}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Espace pour le buzzer fixe en bas */}
+        <div style={{ height: '120px' }}></div>
       </main>
 
+      {/* Buzzer fixe en bas */}
+      <div className="buzzer-fixed-container">
+        <Buzzer
+          roomCode={code}
+          playerUid={auth.currentUser?.uid}
+          playerName={me?.name}
+          blockedUntil={me?.blockedUntil || 0}
+          serverNow={serverNow}
+          revealed={revealed}
+        />
+      </div>
+
       <style jsx>{`
-        .game-container {
+        .player-game-page {
           position: relative;
           min-height: 100vh;
           background: #000000;
-          overflow: hidden;
-        }
-
-        .game-content {
-          position: relative;
-          z-index: 1;
+          overflow-x: hidden;
         }
 
         /* Background orbs */
@@ -339,7 +427,6 @@ export default function PlayerGame(){
           pointer-events: none;
           z-index: 0;
         }
-
         .orb-1 {
           width: 400px;
           height: 400px;
@@ -347,7 +434,6 @@ export default function PlayerGame(){
           top: -200px;
           right: -100px;
         }
-
         .orb-2 {
           width: 350px;
           height: 350px;
@@ -355,7 +441,6 @@ export default function PlayerGame(){
           bottom: -100px;
           left: -150px;
         }
-
         .orb-3 {
           width: 300px;
           height: 300px;

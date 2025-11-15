@@ -16,19 +16,33 @@ import QrModal from "@/lib/components/QrModal";
 import BottomNav from "@/lib/components/BottomNav";
 import TeamTabs from "@/lib/components/TeamTabs";
 import PlayerTeamView from "@/lib/components/PlayerTeamView";
+import PaywallModal from "@/components/PaywallModal";
+import QuizSelectorModal from "@/components/QuizSelectorModal";
+import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { canAccessPack, isPro } from "@/lib/subscription";
+import { useToast } from "@/lib/hooks/useToast";
+import { motion } from "framer-motion";
 
 export default function Room() {
   const { code } = useParams();
   const router = useRouter();
+  const toast = useToast();
 
   const [meta, setMeta] = useState(null);
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState({});
   const [isHost, setIsHost] = useState(false);
   const [quizOptions, setQuizOptions] = useState([]);
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [showQuizSelector, setShowQuizSelector] = useState(false);
+  const [lockedQuizName, setLockedQuizName] = useState('');
 
   // Calculer joinUrl seulement côté client et quand on a le code
   const [joinUrl, setJoinUrl] = useState("");
+
+  // Get user profile for subscription check
+  const { user: currentUser, stats, subscription, loading: profileLoading } = useUserProfile();
+  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {
@@ -98,18 +112,47 @@ export default function Room() {
 
   const handleStartGame = async () => {
     if (!isHost) return;
-    await update(ref(db, `rooms/${code}/state`), {
-      phase: "playing",
-      currentIndex: 0,
-      revealed: false,
-      lockUid: null,
-      buzzBanner: "",
-      elapsedAcc: 0,
-      lastRevealAt: 0,
-      pausedAt: null,
-      lockedAt: null,
-    });
-    // La redirection se fera automatiquement via le listener d'état
+
+    try {
+      // Check if user can access the selected quiz
+      const selectedQuizId = meta?.quizId || "general";
+      const quizIndex = quizOptions.findIndex(q => q.id === selectedQuizId);
+
+      // Check freemium access
+      if (currentUser && !userIsPro && quizIndex >= 0) {
+        const hasAccess = canAccessPack(
+          { ...currentUser, subscription },
+          'quiz',
+          quizIndex
+        );
+
+        if (!hasAccess) {
+          // Show paywall
+          const selectedQuiz = quizOptions.find(q => q.id === selectedQuizId);
+          setLockedQuizName(selectedQuiz?.title || selectedQuizId);
+          setShowPaywall(true);
+          return;
+        }
+      }
+
+      await update(ref(db, `rooms/${code}/state`), {
+        phase: "playing",
+        currentIndex: 0,
+        revealed: false,
+        lockUid: null,
+        buzzBanner: "",
+        elapsedAcc: 0,
+        lastRevealAt: 0,
+        pausedAt: null,
+        lockedAt: null,
+      });
+
+      toast.success('Partie lancée !');
+      // La redirection se fera automatiquement via le listener d'état
+    } catch (error) {
+      console.error('Erreur lors du lancement de la partie:', error);
+      toast.error('Erreur lors du lancement de la partie');
+    }
   };
 
   const handleModeToggle = async () => {
@@ -138,9 +181,10 @@ export default function Room() {
     }
   };
 
-  const handleQuizChange = async (e) => {
+  const handleQuizChange = async (quizId) => {
     if (!isHost) return;
-    await update(ref(db, `rooms/${code}/meta`), { quizId: e.target.value });
+    await update(ref(db, `rooms/${code}/meta`), { quizId });
+    setShowQuizSelector(false);
   };
 
   const handleQuit = () => {
@@ -227,96 +271,268 @@ export default function Room() {
 
   return (
     <div className="game-container">
+      {/* Paywall Modal */}
+      <PaywallModal
+        isOpen={showPaywall}
+        onClose={() => setShowPaywall(false)}
+        contentType="quiz"
+        contentName={lockedQuizName}
+      />
+
+      {/* Quiz Selector Modal */}
+      <QuizSelectorModal
+        isOpen={showQuizSelector}
+        onClose={() => setShowQuizSelector(false)}
+        quizOptions={quizOptions}
+        selectedQuizId={meta?.quizId || "general"}
+        onSelectQuiz={handleQuizChange}
+        userIsPro={userIsPro}
+      />
+
       {/* Background orbs */}
       <div className="bg-orb orb-1"></div>
       <div className="bg-orb orb-2"></div>
       <div className="bg-orb orb-3"></div>
 
       <main className="game-content p-4 md:p-6 max-w-5xl mx-auto space-y-4 md:space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
-      {/* Header - Mobile Optimized */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      {/* Header - Glassmorphic Style */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col md:flex-row md:items-center md:justify-between gap-3"
+        style={{
+          background: 'rgba(255, 255, 255, 0.03)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          borderRadius: '1.5rem',
+          padding: '1.5rem',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+        }}
+      >
         <div className="flex-1">
-          <h1 className="game-page-title">
-            Lobby
-          </h1>
+          <motion.h1
+            className="game-page-title"
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 200 }}
+          >
+            🎮 Lobby
+          </motion.h1>
           <div className="text-sm mt-1" style={{color: 'var(--text-secondary)'}}>
-            {selectedQuizTitle} • Code: <span className="font-bold text-base">{code}</span>
+            {selectedQuizTitle} • Code: <span className="font-bold text-base" style={{color: '#60A5FA'}}>{code}</span>
           </div>
         </div>
-        {isHost && (
-          <button className="btn btn-danger self-start md:self-auto" onClick={handleQuit}>
-            Quitter
-          </button>
-        )}
-      </div>
+        <div className="flex gap-2">
+          {!isHost && (
+            <motion.button
+              className="btn btn-secondary"
+              onClick={() => router.push(`/spectate/${code}`)}
+              title="Regarder la partie sans jouer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              👁️ Spectateur
+            </motion.button>
+          )}
+          {isHost && (
+            <motion.button
+              className="btn btn-danger self-start md:self-auto"
+              onClick={handleQuit}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Quitter
+            </motion.button>
+          )}
+        </div>
+      </motion.div>
 
-      <div className="card">
+      <motion.div
+        className="card"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+      >
         <div className="text-center space-y-4">
-          <h3 className="text-lg font-bold mb-2">Invite des joueurs</h3>
-          <div className="text-sm opacity-80 mb-3">{joinUrl || "Génération du lien..."}</div>
+          <h3 className="text-lg font-bold mb-2">📲 Invite des joueurs</h3>
+          <motion.div
+            className="text-sm opacity-80 mb-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.8 }}
+            transition={{ delay: 0.3 }}
+          >
+            {joinUrl || "Génération du lien..."}
+          </motion.div>
 
           <div className="flex gap-2 justify-center flex-wrap">
-            <button className="btn copy-btn" onClick={copyLink} disabled={!joinUrl}>
-              Copier le lien
-            </button>
-            {joinUrl && <QrModal text={joinUrl} buttonText="Voir QR Code" />}
+            <motion.button
+              className="btn copy-btn"
+              onClick={copyLink}
+              disabled={!joinUrl}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              📋 Copier le lien
+            </motion.button>
+            {joinUrl && <QrModal text={joinUrl} buttonText="📱 Voir QR Code" />}
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Section des contrôles - visible seulement pour l'host - Mobile First */}
       {isHost && (
-        <div className="space-y-4">
+        <motion.div
+          className="space-y-4"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
           {/* Primary Action - Always Visible */}
-          <button
+          <motion.button
             className="btn btn-primary w-full h-14 text-lg font-bold"
             onClick={handleStartGame}
+            whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(99, 102, 241, 0.5)' }}
+            whileTap={{ scale: 0.98 }}
+            style={{
+              background: 'linear-gradient(135deg, #6366F1, #4F46E5)',
+              border: '2px solid rgba(99, 102, 241, 0.5)',
+              boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)'
+            }}
           >
             🚀 Démarrer la partie
-          </button>
+          </motion.button>
 
           {/* Settings Grid - Mobile: Stack, Tablet+: 2 cols */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Quiz Selection */}
-            <div className="card">
-              <h3 className="font-bold text-base mb-3">📚 Quiz</h3>
-              <select
-                value={meta.quizId || "general"}
-                onChange={handleQuizChange}
-                className="game-select"
-              >
-                {quizOptions.map(quiz => (
-                  <option key={quiz.id} value={quiz.id}>
-                    {quiz.title}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {/* Quiz Selection - Encart cliquable */}
+            <motion.div
+              className="card"
+              onClick={() => setShowQuizSelector(true)}
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              style={{
+                cursor: 'pointer',
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(59, 130, 246, 0.1))',
+                border: '2px solid rgba(99, 102, 241, 0.3)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+            >
+              {/* Shine effect */}
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  top: '-50%',
+                  left: '-50%',
+                  width: '200%',
+                  height: '200%',
+                  background: 'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)',
+                  pointerEvents: 'none'
+                }}
+                animate={{
+                  rotate: [0, 360]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <h3 className="font-bold text-base mb-3 flex items-center justify-between">
+                  <span>📚 Quiz Sélectionné</span>
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    style={{ fontSize: '1.25rem' }}
+                  >
+                    →
+                  </motion.span>
+                </h3>
+
+                {/* Quiz actuel affiché */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  borderRadius: '1rem',
+                  padding: '1rem',
+                  border: '1px solid rgba(255, 255, 255, 0.1)'
+                }}>
+                  <div style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '0.5rem' }}>
+                    {quizOptions.find(q => q.id === (meta?.quizId || "general"))?.emoji || '📝'}
+                  </div>
+                  <div style={{
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    textAlign: 'center',
+                    marginBottom: '0.5rem',
+                    color: 'white'
+                  }}>
+                    {selectedQuizTitle}
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: '0.5rem',
+                    fontSize: '0.75rem',
+                    color: 'rgba(255, 255, 255, 0.6)'
+                  }}>
+                    <span>
+                      {quizOptions.find(q => q.id === (meta?.quizId || "general"))?.difficulty || 'Normal'}
+                    </span>
+                    <span>•</span>
+                    <span>
+                      {quizOptions.find(q => q.id === (meta?.quizId || "general"))?.questionCount || 0} Questions
+                    </span>
+                  </div>
+                </div>
+
+                <div style={{
+                  marginTop: '0.75rem',
+                  textAlign: 'center',
+                  fontSize: '0.875rem',
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  fontWeight: 600
+                }}>
+                  Cliquez pour changer ✨
+                </div>
+              </div>
+            </motion.div>
 
             {/* Mode de jeu */}
             <div className="card">
               <h3 className="font-bold text-base mb-3">👥 Mode</h3>
               <div className="grid grid-cols-2 gap-2">
-                <button
+                <motion.button
                   className={`btn ${meta.mode === "individuel" ? "btn-accent" : ""}`}
                   onClick={handleModeToggle}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  Solo
-                </button>
-                <button
+                  🎯 Solo
+                </motion.button>
+                <motion.button
                   className={`btn ${meta.mode === "équipes" ? "btn-accent" : ""}`}
                   onClick={handleModeToggle}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  Équipes
-                </button>
+                  👥 Équipes
+                </motion.button>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
 
       {meta.mode === "équipes" && isHost && (
-        <div className="card">
+        <motion.div
+          className="card"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
           <TeamTabs
             teams={teams}
             players={players}
@@ -325,49 +541,76 @@ export default function Room() {
             onAutoBalance={handleAutoBalance}
             onResetTeams={handleResetTeams}
           />
-        </div>
+        </motion.div>
       )}
 
       {meta.mode === "équipes" && !isHost && (
-        <div className="card">
+        <motion.div
+          className="card"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
           <PlayerTeamView
             teams={teams}
             players={players}
             currentPlayerUid={auth.currentUser?.uid}
           />
-        </div>
+        </motion.div>
       )}
 
       {/* Players List - Mobile Optimized */}
       {meta.mode !== "équipes" && (
-        <div className="card">
+        <motion.div
+          className="card"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-bold text-base">👥 Joueurs</h3>
-            <span className="px-3 py-1 bg-blue-500/20 rounded-full text-sm font-bold">
+            <motion.span
+              className="px-3 py-1 rounded-full text-sm font-bold"
+              style={{
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(59, 130, 246, 0.3))',
+                border: '1px solid rgba(99, 102, 241, 0.5)'
+              }}
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
               {players.length}
-            </span>
+            </motion.span>
           </div>
           {players.length === 0 ? (
-            <div className="text-center opacity-85 py-8 text-base">
+            <motion.div
+              className="text-center opacity-85 py-8 text-base"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.85 }}
+              transition={{ delay: 0.5 }}
+            >
               En attente de joueurs...
-            </div>
+            </motion.div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {players.map((player) => (
-                <div
+              {players.map((player, index) => (
+                <motion.div
                   key={player.uid}
                   className="card text-base font-medium p-3"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.4 + index * 0.05, duration: 0.3 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
                   style={{
                     background: 'rgba(255, 255, 255, 0.08)',
                     border: '1px solid rgba(255, 255, 255, 0.15)'
                   }}
                 >
                   {player.name}
-                </div>
+                </motion.div>
               ))}
             </div>
           )}
-        </div>
+        </motion.div>
       )}
     </main>
 

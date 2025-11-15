@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth,
@@ -11,6 +11,8 @@ import {
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
+import { motion } from 'framer-motion';
+import { PodiumPremium } from '@/components/PodiumPremium';
 import BottomNav from "@/lib/components/BottomNav";
 
 export default function AlibiEnd() {
@@ -21,6 +23,7 @@ export default function AlibiEnd() {
   const [myTeam, setMyTeam] = useState(null);
   const [isHost, setIsHost] = useState(false);
   const [meta, setMeta] = useState(null);
+  const [players, setPlayers] = useState({});
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -49,6 +52,10 @@ export default function AlibiEnd() {
       setScore(s);
     });
 
+    const playersUnsub = onValue(ref(db, `rooms_alibi/${code}/players`), (snap) => {
+      setPlayers(snap.val() || {});
+    });
+
     // Redirection automatique quand l'hôte retourne au lobby
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
       const state = snap.val();
@@ -59,9 +66,24 @@ export default function AlibiEnd() {
 
     return () => {
       scoreUnsub();
+      playersUnsub();
       stateUnsub();
     };
   }, [code, router]);
+
+  // Calculer le top 3 des joueurs
+  const topPlayers = useMemo(() => {
+    const allPlayersArray = Object.values(players || {});
+    if (allPlayersArray.length === 0) return [];
+
+    // Pour Alibi, on donne le même score à tous (c'est un jeu d'équipe)
+    return allPlayersArray
+      .map(p => ({
+        ...p,
+        score: score?.correct || 0
+      }))
+      .slice(0, 3);
+  }, [players, score]);
 
   const handleReturnToLobby = async () => {
     if (!isHost) return;
@@ -105,24 +127,46 @@ export default function AlibiEnd() {
 
       <main className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
         {/* Score principal */}
-        <div className={`card text-center space-y-6 ${isSuccess ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
-        <h1 className="game-page-title">🕵️ Fin de l'interrogatoire</h1>
+        <motion.div
+          className={`card text-center space-y-6 ${isSuccess ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+        >
+          <h1 className="game-page-title">🕵️ Fin de l'interrogatoire</h1>
 
-        <div className="space-y-4">
-          <p className="text-6xl font-black">
-            {score.correct} / {score.total}
-          </p>
-          <p className="text-2xl opacity-80">{percentage}%</p>
-        </div>
+          <div className="space-y-4">
+            <p className="text-6xl font-black">
+              {score.correct} / {score.total}
+            </p>
+            <p className="text-2xl opacity-80">{percentage}%</p>
+          </div>
 
-        <div className={`p-6 rounded-lg ${isSuccess ? "bg-green-500/20" : "bg-red-500/20"}`}>
-          <p className="text-2xl font-bold">{getMessage()}</p>
-        </div>
-      </div>
+          <div className={`p-6 rounded-lg ${isSuccess ? "bg-green-500/20" : "bg-red-500/20"}`}>
+            <p className="text-2xl font-bold">{getMessage()}</p>
+          </div>
+        </motion.div>
+
+        {/* Podium Premium */}
+        {topPlayers.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            style={{ marginBottom: '2rem' }}
+          >
+            <PodiumPremium topPlayers={topPlayers} />
+          </motion.section>
+        )}
 
       {/* Détails par équipe */}
       {myTeam === "suspects" && (
-        <div className="card space-y-4">
+        <motion.div
+          className="card space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
           <h2 className="game-section-title text-primary">🎭 Suspects</h2>
           {isSuccess ? (
             <div className="space-y-2">
@@ -135,11 +179,16 @@ export default function AlibiEnd() {
               <p className="opacity-70">Seulement {score.correct} réponses validées sur {score.total}.</p>
             </div>
           )}
-        </div>
+        </motion.div>
       )}
 
       {myTeam === "inspectors" && (
-        <div className="card space-y-4">
+        <motion.div
+          className="card space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
           <h2 className="game-section-title text-accent">🕵️ Inspecteurs</h2>
           {!isSuccess ? (
             <div className="space-y-2">
@@ -152,12 +201,17 @@ export default function AlibiEnd() {
               <p className="opacity-70">Vous avez validé {score.correct} de leurs réponses sur {score.total}.</p>
             </div>
           )}
-        </div>
+        </motion.div>
       )}
 
       {/* Bouton retour au lobby (Host seulement) */}
       {isHost && (
-        <div className="card space-y-4">
+        <motion.div
+          className="card space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
           <button
             className="btn btn-accent w-full h-14 text-xl"
             onClick={handleReturnToLobby}
@@ -167,12 +221,17 @@ export default function AlibiEnd() {
           <p className="text-sm text-center opacity-70">
             Vous pourrez choisir un nouvel alibi et relancer une partie
           </p>
-        </div>
+        </motion.div>
       )}
 
       {/* Bouton retour au lobby pour les joueurs */}
       {!isHost && (
-        <div className="card space-y-4">
+        <motion.div
+          className="card space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
           <button
             className="btn btn-primary w-full h-14 text-xl"
             onClick={() => router.push(`/alibi/room/${code}`)}
@@ -182,7 +241,7 @@ export default function AlibiEnd() {
           <p className="text-sm text-center opacity-70">
             Retourne au lobby pour la prochaine partie
           </p>
-        </div>
+        </motion.div>
       )}
       </main>
 

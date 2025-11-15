@@ -39,54 +39,62 @@ export const ParticleEffects = {
     }, 200);
   },
 
-  // Pluie d'étoiles (podium)
+  // Pluie d'étoiles (podium) - Version subtile
   starRain: () => {
-    const duration = 3000;
+    const duration = 2000;
     const end = Date.now() + duration;
+    let lastTime = 0;
 
-    const frame = () => {
-      confetti({
-        particleCount: 2,
-        angle: 90,
-        spread: 45,
-        origin: { x: Math.random(), y: 0 },
-        colors: ['#FFD700', '#FFA500'],
-        shapes: ['star'],
-        scalar: 1.2,
-        gravity: 0.5,
-        drift: Math.random() * 2 - 1
-      });
+    const frame = (currentTime) => {
+      // Throttle: une particule toutes les 150ms
+      if (currentTime - lastTime > 150) {
+        confetti({
+          particleCount: 1,
+          angle: 90,
+          spread: 30,
+          origin: { x: Math.random(), y: 0 },
+          colors: ['#FFD700', '#C0C0C0', '#CD7F32', '#FFA500'], // Or, Argent, Bronze, Orange
+          shapes: ['star'],
+          scalar: 0.8,
+          gravity: 0.6,
+          drift: Math.random() * 1.5 - 0.75,
+          ticks: 120
+        });
+        lastTime = currentTime;
+      }
 
       if (Date.now() < end) {
         requestAnimationFrame(frame);
       }
     };
-    frame();
+    requestAnimationFrame(frame);
   },
 
-  // Feu d'artifice (fin de partie)
+  // Feu d'artifice (fin de partie) - Version élégante
   fireworks: () => {
-    const duration = 5000;
+    const duration = 3000;
     const end = Date.now() + duration;
 
-    const colors = ['#3B82F6', '#F59E0B', '#10B981', '#EF4444', '#8B5CF6'];
+    // Palette sophistiquée : or, argent, bronze, violet profond, bleu nuit
+    const colors = ['#FFD700', '#C0C0C0', '#CD7F32', '#6366F1', '#0EA5E9'];
 
     const frame = () => {
-      // Random explosions
+      // Petites explosions espacées
       confetti({
-        particleCount: 100,
-        startVelocity: 30,
+        particleCount: 35,
+        startVelocity: 20,
         spread: 360,
         origin: {
-          x: Math.random(),
-          y: Math.random() * 0.6
+          x: 0.3 + Math.random() * 0.4,
+          y: 0.2 + Math.random() * 0.4
         },
         colors: colors,
-        ticks: 200
+        ticks: 120,
+        scalar: 0.9
       });
 
       if (Date.now() < end) {
-        setTimeout(() => requestAnimationFrame(frame), Math.random() * 1000);
+        setTimeout(() => requestAnimationFrame(frame), 400 + Math.random() * 600);
       }
     };
     frame();

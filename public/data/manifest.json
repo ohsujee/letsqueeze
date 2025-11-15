@@ -1,15 +1,103 @@
 {
   "quizzes": [
-    { "id": "general", "title": "Général" },
-    { "id": "friends", "title": "Friends" },
-    { "id": "culture-generale-fun-2", "title": "Culture générale — questions variées" },
-    { "id": "ma-famille-dabord", "title": "Ma Famille D'abord" },
-    { "id": "kollywood-1980-2018", "title": "Cinéma tamoul (Kollywood) 1980–2018" },
-    { "id": "disney-films-moderate", "title": "Films Disney — difficulté modérée" },
-    { "id": "kollywood_hard_2", "title": "Kollywood — Quiz #2 (difficile)" },
-    { "id": "kollywood-2000-2010-fresh-fr-ta", "title": "Kollywood 2000–2010 - 2" },
-    { "id": "kollywood-1990-2000-fresh-fr-ta", "title": "Kollywood 90-2000 - 1" },
-    { "id": "kollywood-2010-2025-fun-details-fr-ta", "title": "Kollywood 2010–2025 - 3" },
-    { "id": "kollywood-2010-2025-fun-details-fr-ta-2", "title": "Kollywood 2010–2025 - 4" }
+    {
+      "id": "general",
+      "title": "Culture Générale",
+      "emoji": "🌍",
+      "difficulty": "Facile",
+      "questionCount": 20,
+      "category": "Général",
+      "description": "Questions variées sur la culture, science, géographie"
+    },
+    {
+      "id": "friends",
+      "title": "Friends",
+      "emoji": "☕",
+      "difficulty": "Moyen",
+      "questionCount": 30,
+      "category": "Séries TV",
+      "description": "Testez vos connaissances sur la série culte"
+    },
+    {
+      "id": "culture-generale-fun-2",
+      "title": "Culture Générale — Variées",
+      "emoji": "🎓",
+      "difficulty": "Moyen",
+      "questionCount": 25,
+      "category": "Général",
+      "description": "Découvrez des questions amusantes et instructives"
+    },
+    {
+      "id": "ma-famille-dabord",
+      "title": "Ma Famille D'abord",
+      "emoji": "👨‍👩‍👧‍👦",
+      "difficulty": "Moyen",
+      "questionCount": 28,
+      "category": "Séries TV",
+      "description": "Souvenirs de la famille Kyle"
+    },
+    {
+      "id": "kollywood-1980-2018",
+      "title": "Kollywood 1980–2018",
+      "emoji": "🎬",
+      "difficulty": "Difficile",
+      "questionCount": 22,
+      "category": "Cinéma Tamil",
+      "description": "Classiques du cinéma tamoul"
+    },
+    {
+      "id": "disney-films-moderate",
+      "title": "Films Disney",
+      "emoji": "🏰",
+      "difficulty": "Moyen",
+      "questionCount": 30,
+      "category": "Animation",
+      "description": "Magie des films Disney"
+    },
+    {
+      "id": "kollywood_hard_2",
+      "title": "Kollywood — Quiz #2",
+      "emoji": "🎥",
+      "difficulty": "Très Difficile",
+      "questionCount": 25,
+      "category": "Cinéma Tamil",
+      "description": "Pour les vrais cinéphiles tamouls"
+    },
+    {
+      "id": "kollywood-2000-2010-fresh-fr-ta",
+      "title": "Kollywood 2000–2010",
+      "emoji": "🎞️",
+      "difficulty": "Moyen",
+      "questionCount": 30,
+      "category": "Cinéma Tamil",
+      "description": "L'âge d'or du cinéma tamoul"
+    },
+    {
+      "id": "kollywood-1990-2000-fresh-fr-ta",
+      "title": "Kollywood 90–2000",
+      "emoji": "📽️",
+      "difficulty": "Moyen",
+      "questionCount": 28,
+      "category": "Cinéma Tamil",
+      "description": "Années 90 du cinéma tamoul"
+    },
+    {
+      "id": "kollywood-2010-2025-fun-details-fr-ta",
+      "title": "Kollywood 2010–2025 #1",
+      "emoji": "🎭",
+      "difficulty": "Moyen",
+      "questionCount": 32,
+      "category": "Cinéma Tamil",
+      "description": "Cinéma tamoul moderne"
+    },
+    {
+      "id": "kollywood-2010-2025-fun-details-fr-ta-2",
+      "title": "Kollywood 2010–2025 #2",
+      "emoji": "🎪",
+      "difficulty": "Difficile",
+      "questionCount": 30,
+      "category": "Cinéma Tamil",
+      "description": "Blockbusters récents"
+    }
   ]
 }

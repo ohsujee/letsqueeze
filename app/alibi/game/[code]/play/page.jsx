@@ -12,7 +12,10 @@ import {
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
+import { motion, AnimatePresence } from 'framer-motion';
 import ExitButton from "@/lib/components/ExitButton";
+import { CountdownOverlay } from "@/components/CountdownOverlay";
+import { ParticleEffects } from "@/components/ParticleEffects";
 
 export default function AlibiInterrogation() {
   const { code } = useParams();
@@ -28,6 +31,7 @@ export default function AlibiInterrogation() {
   const [timeLeft, setTimeLeft] = useState(30);
   const [allAnswered, setAllAnswered] = useState(false);
   const [myAnswer, setMyAnswer] = useState("");
+  const [showCountdown, setShowCountdown] = useState(false);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [responses, setResponses] = useState({});
   const [verdict, setVerdict] = useState(null); // null | "correct" | "incorrect" | "timeout"
@@ -42,6 +46,11 @@ export default function AlibiInterrogation() {
     }
     router.push('/home');
   }
+
+  // Fonction appelée quand le countdown est terminé
+  const handleCountdownComplete = () => {
+    router.push(`/alibi/game/${code}/end`);
+  };
 
   // Auth
   useEffect(() => {
@@ -106,8 +115,8 @@ export default function AlibiInterrogation() {
 
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
       const state = snap.val();
-      if (state?.phase === "end") {
-        router.push(`/alibi/game/${code}/end`);
+      if (state?.phase === "end" && !showCountdown) {
+        setShowCountdown(true);
       }
     });
 
@@ -265,6 +274,18 @@ export default function AlibiInterrogation() {
     }
   }, [questionState, suspects, responses]);
 
+  // Déclencher les effets visuels selon le verdict
+  useEffect(() => {
+    if (verdict === "correct") {
+      ParticleEffects.celebrate('high');
+    } else if (verdict === "incorrect") {
+      ParticleEffects.wrongAnswer();
+    } else if (verdict === "timeout") {
+      // Effet subtil pour timeout
+      ParticleEffects.wrongAnswer();
+    }
+  }, [verdict]);
+
   // Actions SUSPECTS
   const submitAnswer = async () => {
     if (myTeam !== "suspects" || !myUid || hasAnswered) return;
@@ -285,29 +306,47 @@ export default function AlibiInterrogation() {
   const currentQuestionData = questions[currentQuestion];
 
   return (
-    <div className="game-container">
-      {/* Background orbs */}
-      <div className="bg-orb orb-1"></div>
-      <div className="bg-orb orb-2"></div>
-      <div className="bg-orb orb-3"></div>
-
-      <main className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
-        {/* Progression */}
-        <div className="card">
-        <h1 className="game-page-title">
-          Question {currentQuestion + 1} / 10
-        </h1>
-        <div className="w-full bg-gray-700 rounded-full h-2 mt-2">
-          <div
-            className="bg-accent h-2 rounded-full transition-all"
-            style={{ width: `${((currentQuestion + 1) / 10) * 100}%` }}
-          />
+    <>
+      {/* Header Fixe */}
+      <header className="player-game-header">
+        <div className="player-game-header-content">
+          <div className="player-game-title">Question {currentQuestion + 1} / 10</div>
+          <div className="player-progress-center">
+            <div className="w-32 bg-gray-700 rounded-full h-2">
+              <div
+                className="bg-accent h-2 rounded-full transition-all"
+                style={{ width: `${((currentQuestion + 1) / 10) * 100}%` }}
+              />
+            </div>
+          </div>
+          <div className="player-header-exit">
+            <ExitButton
+              variant="header"
+              confirmMessage="Voulez-vous vraiment quitter ?"
+              onExit={() => router.push('/home')}
+            />
+          </div>
         </div>
-      </div>
+      </header>
+
+      {/* Contenu avec padding-top */}
+      <main className="player-game-content">
+        <div className="game-container">
+          {/* Background orbs */}
+          <div className="bg-orb orb-1"></div>
+          <div className="bg-orb orb-2"></div>
+          <div className="bg-orb orb-3"></div>
+
+          <div className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
 
       {/* État: WAITING - Inspecteurs lancent la question */}
       {questionState === "waiting" && myTeam === "inspectors" && (
-        <div className="card space-y-4 text-center">
+        <motion.div
+          className="card space-y-4 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+        >
           <h2 className="game-section-title">Question {currentQuestion + 1}</h2>
           <p className="text-lg">{currentQuestionData?.text}</p>
           <button
@@ -316,20 +355,30 @@ export default function AlibiInterrogation() {
           >
             ⏱️ Lancer le timer (30s)
           </button>
-        </div>
+        </motion.div>
       )}
 
       {questionState === "waiting" && myTeam === "suspects" && (
-        <div className="card text-center">
+        <motion.div
+          className="card text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+        >
           <p className="text-lg opacity-70">
             En attente que les inspecteurs lancent la question...
           </p>
-        </div>
+        </motion.div>
       )}
 
       {/* État: ANSWERING - Suspects répondent */}
       {questionState === "answering" && myTeam === "suspects" && (
-        <div className="card space-y-4">
+        <motion.div
+          className="card space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+        >
           <div className="text-center">
             <h2 className="text-3xl font-black mb-2">
               {timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
@@ -369,13 +418,18 @@ export default function AlibiInterrogation() {
               <p className="text-lg opacity-70 mt-2">En attente du jugement des inspecteurs...</p>
             </div>
           )}
-        </div>
+        </motion.div>
       )}
 
       {questionState === "answering" && myTeam === "inspectors" && (
         <div className="space-y-6">
           {/* Timer et question */}
-          <div className="card text-center space-y-4">
+          <motion.div
+            className="card text-center space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+          >
             <h2 className="text-3xl font-black">
               {timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
             </h2>
@@ -392,10 +446,15 @@ export default function AlibiInterrogation() {
             <p className="text-sm opacity-70">
               {Object.keys(responses).length} / {suspects.length} suspect(s) ont répondu
             </p>
-          </div>
+          </motion.div>
 
           {/* Réponses en temps réel */}
-          <div className="card space-y-4">
+          <motion.div
+            className="card space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
             <h2 className="text-xl font-bold">Réponses des suspects :</h2>
             <div className="space-y-3">
               {suspects.map(suspect => {
@@ -440,94 +499,178 @@ export default function AlibiInterrogation() {
                 </button>
               </div>
             )}
+          </motion.div>
+        </div>
+      )}
+
           </div>
         </div>
-      )}
 
-      {/* État: VERDICT - Affichage du verdict */}
-      {questionState === "verdict" && (
-        <div className="space-y-6">
-          {/* Animation de verdict */}
-          {verdict === "correct" && (
-            <div className="min-h-[500px] flex items-center justify-center rounded-lg bg-gradient-to-br from-green-400 via-green-500 to-green-600 animate-pulse relative overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_50%)] animate-ping"></div>
-              <div className="text-center z-10 space-y-6 p-8">
-                <div className="text-9xl mb-4 animate-bounce">✅</div>
-                <p className="text-5xl font-black text-white drop-shadow-2xl animate-pulse">
-                  BONNE RÉPONSE !
-                </p>
-                <p className="text-2xl text-white/90 font-bold">
-                  Les suspects sont convaincants ! 🎉
-                </p>
-                <div className="flex gap-4 justify-center mt-8">
-                  <span className="text-4xl animate-bounce" style={{animationDelay: '0s'}}>🎊</span>
-                  <span className="text-4xl animate-bounce" style={{animationDelay: '0.1s'}}>⭐</span>
-                  <span className="text-4xl animate-bounce" style={{animationDelay: '0.2s'}}>🎉</span>
-                  <span className="text-4xl animate-bounce" style={{animationDelay: '0.3s'}}>✨</span>
-                </div>
-                <p className="text-xl text-white/80 mt-4">
-                  {currentQuestion >= 9 ? "Fin de l'interrogatoire..." : "Question suivante dans 4s..."}
-                </p>
-              </div>
-            </div>
-          )}
+      {/* Modal de verdict - Version spectaculaire */}
+      <AnimatePresence>
+        {questionState === "verdict" && verdict && (
+          <>
+            {/* Overlay avec effet de flash */}
+            <motion.div
+              className="buzz-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+                backgroundColor: verdict === "correct"
+                  ? ["rgba(0, 0, 0, 0.7)", "rgba(16, 185, 129, 0.3)", "rgba(0, 0, 0, 0.7)"]
+                  : verdict === "incorrect"
+                  ? ["rgba(0, 0, 0, 0.7)", "rgba(239, 68, 68, 0.3)", "rgba(0, 0, 0, 0.7)"]
+                  : "rgba(0, 0, 0, 0.7)"
+              }}
+              exit={{ opacity: 0 }}
+              transition={{
+                backgroundColor: { duration: 0.8, times: [0, 0.3, 1] }
+              }}
+              onClick={(e) => e.stopPropagation()}
+            />
 
-          {verdict === "incorrect" && (
-            <div className="min-h-[500px] flex items-center justify-center rounded-lg bg-gradient-to-br from-red-500 via-red-600 to-red-700 relative overflow-hidden">
-              <div className="absolute inset-0 opacity-20">
-                <div className="absolute top-0 left-0 w-full h-1 bg-white animate-pulse"></div>
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-white animate-pulse"></div>
-              </div>
-              <div className="text-center z-10 space-y-6 p-8">
-                <div className="text-9xl mb-4 animate-shake">❌</div>
-                <p className="text-5xl font-black text-white drop-shadow-2xl">
-                  MAUVAISE RÉPONSE
-                </p>
-                <p className="text-2xl text-white/90 font-bold">
-                  Les inspecteurs détectent l'incohérence ! 🕵️
-                </p>
-                <div className="flex gap-4 justify-center mt-8">
-                  <span className="text-4xl animate-pulse" style={{animationDelay: '0s'}}>⚠️</span>
-                  <span className="text-4xl animate-pulse" style={{animationDelay: '0.2s'}}>💥</span>
-                  <span className="text-4xl animate-pulse" style={{animationDelay: '0.4s'}}>⚠️</span>
-                </div>
-                <p className="text-xl text-white/80 mt-4">
-                  {currentQuestion >= 9 ? "Fin de l'interrogatoire..." : "Question suivante dans 4s..."}
-                </p>
-              </div>
-            </div>
-          )}
+            {/* Modal */}
+            <div className="buzz-modal" style={{ zIndex: 2000 }}>
+              <motion.div
+                className="buzz-modal-content"
+                initial={{ opacity: 0, scale: 0.5, y: 50 }}
+                animate={{
+                  opacity: 1,
+                  scale: [0.5, 1.1, 1],
+                  y: 0,
+                  rotate: [0, -5, 5, 0]
+                }}
+                exit={{ opacity: 0, scale: 0.8, y: 20 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 20,
+                  scale: { times: [0, 0.6, 1] }
+                }}
+                style={{
+                  background: verdict === "correct"
+                    ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(5, 150, 105, 0.95))'
+                    : verdict === "incorrect"
+                    ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(220, 38, 38, 0.95))'
+                    : 'linear-gradient(135deg, rgba(251, 191, 36, 0.95), rgba(245, 158, 11, 0.95))',
+                  border: verdict === "correct"
+                    ? '4px solid #10B981'
+                    : verdict === "incorrect"
+                    ? '4px solid #EF4444'
+                    : '4px solid #F59E0B',
+                  boxShadow: verdict === "correct"
+                    ? '0 0 80px rgba(16, 185, 129, 0.6), 0 20px 60px rgba(0, 0, 0, 0.5)'
+                    : verdict === "incorrect"
+                    ? '0 0 80px rgba(239, 68, 68, 0.6), 0 20px 60px rgba(0, 0, 0, 0.5)'
+                    : '0 0 80px rgba(245, 158, 11, 0.6), 0 20px 60px rgba(0, 0, 0, 0.5)'
+                }}
+              >
+                {/* Icône géante avec animation de pulsation */}
+                <motion.div
+                  className="buzz-modal-icon"
+                  style={{
+                    fontSize: '8rem',
+                    marginBottom: '1rem',
+                    filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))'
+                  }}
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    rotate: verdict === "correct" ? [0, 360] : [0, -10, 10, 0]
+                  }}
+                  transition={{
+                    scale: { duration: 0.6, repeat: Infinity, repeatDelay: 0.3 },
+                    rotate: { duration: verdict === "correct" ? 0.8 : 0.5 }
+                  }}
+                >
+                  {verdict === "correct" && "🎉"}
+                  {verdict === "incorrect" && "💥"}
+                  {verdict === "timeout" && "⏰"}
+                </motion.div>
 
-          {verdict === "timeout" && (
-            <div className="min-h-[500px] flex items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 via-red-500 to-red-600 relative overflow-hidden">
-              <div className="absolute inset-0 bg-black/20 animate-pulse"></div>
-              <div className="text-center z-10 space-y-6 p-8">
-                <div className="text-9xl mb-4 animate-spin" style={{animationDuration: '2s'}}>⏰</div>
-                <p className="text-5xl font-black text-white drop-shadow-2xl animate-pulse">
-                  TEMPS ÉCOULÉ !
-                </p>
-                <p className="text-2xl text-white/90 font-bold">
-                  Les suspects n'ont pas répondu à temps ! ⏱️
-                </p>
-                <div className="bg-red-700/50 p-4 rounded-lg border-2 border-white/50 mt-6">
-                  <p className="text-xl text-white font-bold">
-                    ⚠️ Échec automatique - Pas de point marqué
-                  </p>
-                </div>
-                <p className="text-xl text-white/80 mt-4">
-                  {currentQuestion >= 9 ? "Fin de l'interrogatoire..." : "Question suivante dans 4s..."}
-                </p>
-              </div>
+                {/* Message principal */}
+                <motion.div
+                  className="buzz-modal-player"
+                  style={{
+                    fontSize: '2.5rem',
+                    fontWeight: 900,
+                    marginBottom: '1rem',
+                    color: 'white',
+                    textShadow: '0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 255, 255, 0.3)',
+                    letterSpacing: '-0.02em'
+                  }}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {verdict === "correct" && "VALIDÉ ! ✨"}
+                  {verdict === "incorrect" && "REFUSÉ ! ⚡"}
+                  {verdict === "timeout" && "TEMPS ÉCOULÉ ! ⚠️"}
+                </motion.div>
+
+                {/* Description */}
+                <motion.p
+                  style={{
+                    fontSize: '1.25rem',
+                    opacity: 0.95,
+                    marginBottom: '2rem',
+                    textAlign: 'center',
+                    color: 'white',
+                    fontWeight: 600,
+                    textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)'
+                  }}
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 0.95 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  {verdict === "correct" && "Les suspects sont convaincants ! 🎭"}
+                  {verdict === "incorrect" && "Les inspecteurs détectent l'incohérence ! 🕵️"}
+                  {verdict === "timeout" && "Les suspects n'ont pas répondu à temps ! ⌛"}
+                </motion.p>
+
+                {/* Compteur de points/questions */}
+                <motion.div
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.3)',
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '2rem',
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    color: 'white',
+                    marginBottom: '1.5rem'
+                  }}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.4, type: "spring" }}
+                >
+                  Question {currentQuestion + 1} / 10
+                </motion.div>
+
+                {/* Auto-close indication */}
+                <motion.p
+                  style={{
+                    fontSize: '0.875rem',
+                    opacity: 0.7,
+                    color: 'white',
+                    fontWeight: 500
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.7 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  {currentQuestion >= 9 ? "🏁 Fin de l'interrogatoire..." : "⏭️ Question suivante..."}
+                </motion.p>
+              </motion.div>
             </div>
-          )}
-        </div>
-      )}
+          </>
+        )}
+      </AnimatePresence>
       </main>
 
-      <ExitButton
-        variant="minimal"
-        confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera abandonnée pour tous les joueurs." : "Voulez-vous vraiment quitter l'interrogation ?"}
-        onExit={exitGame}
+      <CountdownOverlay
+        isVisible={showCountdown}
+        message="Résultats de l'enquête !"
+        onComplete={handleCountdownComplete}
+        countFrom={3}
       />
 
       <style jsx>{`
@@ -578,6 +721,6 @@ export default function AlibiInterrogation() {
           transform: translateX(-50%);
         }
       `}</style>
-    </div>
+    </>
   );
 }

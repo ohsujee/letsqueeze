@@ -4,17 +4,26 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signInWithGoogle, signInAnonymously, onAuthStateChanged, auth } from '@/lib/firebase';
 import { useSubscription } from '@/lib/hooks/useSubscription';
+import { initializeUserProfile } from '@/lib/userProfile';
+import { trackSignup, trackLogin, initAnalytics } from '@/lib/analytics';
+import { useToast } from '@/lib/hooks/useToast';
 
 export default function LoginPage() {
   const router = useRouter();
+  const toast = useToast();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { isPro, isAdmin, adminStatus } = useSubscription(user);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    // Initialize analytics
+    initAnalytics();
+
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
+        // Initialize user profile in Firebase
+        await initializeUserProfile(currentUser);
         // User is logged in, redirect to home
         router.push('/home');
       } else {
@@ -31,10 +40,23 @@ export default function LoginPage() {
     try {
       setLoading(true);
       setError(null);
-      await signInWithGoogle();
+      const result = await signInWithGoogle();
+
+      // Track signup or login
+      if (result && result.user) {
+        const isNewUser = result.user.metadata.creationTime === result.user.metadata.lastSignInTime;
+        if (isNewUser) {
+          trackSignup('google', result.user.uid);
+          toast.success('Compte créé avec succès !');
+        } else {
+          trackLogin('google', result.user.uid);
+          toast.success('Connexion réussie !');
+        }
+      }
       // User will be set by onAuthStateChanged
     } catch (err) {
       setError(err.message);
+      toast.error('Erreur de connexion : ' + err.message);
       setLoading(false);
     }
   };
@@ -43,10 +65,17 @@ export default function LoginPage() {
     try {
       setLoading(true);
       setError(null);
-      await signInAnonymously(auth);
+      const result = await signInAnonymously(auth);
+
+      // Track anonymous signup
+      if (result && result.user) {
+        trackSignup('anonymous', result.user.uid);
+        toast.success('Connexion anonyme réussie !');
+      }
       // User will be set by onAuthStateChanged
     } catch (err) {
       setError(err.message);
+      toast.error('Erreur de connexion anonyme : ' + err.message);
       setLoading(false);
     }
   };

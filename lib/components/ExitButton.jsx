@@ -8,7 +8,7 @@ export default function ExitButton({
   onExit,
   confirmMessage = "Voulez-vous vraiment quitter ? Votre progression sera perdue.",
   exitLabel = "Quitter",
-  variant = "default" // "default" | "minimal"
+  variant = "default" // "default" | "minimal" | "header"
 }) {
   const router = useRouter();
   const [showConfirm, setShowConfirm] = useState(false);
@@ -83,6 +83,25 @@ export default function ExitButton({
           min-height: 44px;
         }
 
+        .exit-button.header {
+          position: relative;
+          top: auto;
+          right: auto;
+          padding: 8px;
+          border-radius: 10px;
+          min-width: 40px;
+          min-height: 40px;
+          max-height: 40px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          box-shadow: none;
+        }
+
+        .exit-button.header:hover {
+          background: rgba(239, 68, 68, 0.2);
+          border-color: rgba(239, 68, 68, 0.5);
+        }
+
         .exit-button:hover {
           background: rgba(239, 68, 68, 0.8);
           border-color: rgba(255, 255, 255, 0.4);
@@ -110,7 +129,7 @@ export default function ExitButton({
           display: flex;
           align-items: center;
           justify-content: center;
-          z-index: 200;
+          z-index: 1000;
           animation: fadeIn 0.2s ease;
           padding: 20px;
         }

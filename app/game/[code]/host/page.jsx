@@ -62,7 +62,12 @@ export default function HostGame(){
   // Tick + offset serveur
   const [localNow, setLocalNow] = useState(Date.now());
   const [offset, setOffset] = useState(0);
-  useEffect(()=>{ fetch("/config/scoring.json").then(r=>r.json()).then(setConf); },[]);
+  useEffect(()=>{
+    fetch(`/config/scoring.json?t=${Date.now()}`)
+      .then(r=>r.json())
+      .then(setConf)
+      .catch(err => console.error('Erreur chargement config:', err));
+  },[]);
   useEffect(()=>{
     const off = onValue(ref(db, ".info/serverTimeOffset"), s=> setOffset(Number(s.val())||0));
     const id=setInterval(()=>setLocalNow(Date.now()), 100);
@@ -107,10 +112,13 @@ export default function HostGame(){
     if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 1, cfg: null };
     const diff = q.difficulty === "difficile" ? "difficile" : "normal";
     const c = conf[diff];
+    // Le ratio doit être basé sur le TEMPS, pas sur les points !
     const ratio = Math.max(0, 1 - (elapsedEffective / c.durationMs));
     const pts = Math.max(c.floor, Math.round(c.start * ratio));
-    const denom = Math.max(1, c.start - c.floor);
-    const remain = Math.max(0, Math.min(1, (pts - c.floor) / denom));
+
+    // La barre doit suivre le temps écoulé, pas la différence de points
+    const remain = ratio;
+
     return { pointsEnJeu: pts, ratioRemain: remain, cfg: c };
   },[conf, q, elapsedEffective]);
 
@@ -367,142 +375,212 @@ export default function HostGame(){
   }, [conf, q, wasAnticipated, pointsEnJeu]);
 
   return (
-    <div className="game-container">
+    <div className="host-game-page">
       {/* Background orbs */}
       <div className="bg-orb orb-1"></div>
       <div className="bg-orb orb-2"></div>
       <div className="bg-orb orb-3"></div>
 
-      <ExitButton
-        variant="minimal"
-        confirmMessage="Voulez-vous vraiment quitter ? La partie sera abandonnée pour tous les joueurs."
-        onExit={exitAndEndGame}
-      />
+      {/* Header fixe avec le même style que la page joueur */}
+      <header className="player-game-header">
+        <div className="player-game-header-content">
+          {/* Titre à gauche */}
+          <div className="player-game-title">{title}</div>
 
-      <main className="game-content p-6 max-w-3xl mx-auto space-y-4 min-h-screen" style={{paddingBottom: '150px'}}>
-        <h1 className="game-page-title">Écran Animateur — {title}</h1>
+          {/* Progress au centre */}
+          <div className="player-progress-center">{progressLabel}</div>
 
-      <div className="card">
-        <div className="flex gap-2 items-stretch flex-wrap">
-          {/* Primary Actions */}
-          <RippleButton
-            className="btn flex-1 h-14 text-lg"
-            style={{ background: 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)', border: 'none', minWidth: '140px' }}
-            onClick={wrong}
-          >
-            ✘ Mauvaise{wasAnticipated ? ` (-${conf?.anticipatedBuzzPenalty || 100}pts)` : ''}
-          </RippleButton>
-          <ShineButton
-            className="btn btn-accent flex-1 h-14 text-lg"
-            onClick={validate}
-            style={{ minWidth: '140px' }}
-          >
-            ✔ Valider{wasAnticipated ? ` (+${conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0} pts MAX)` : ` (+${pointsEnJeu} pts)`}
-          </ShineButton>
+          {/* Bouton exit à droite */}
+          <div className="player-header-exit">
+            <ExitButton
+              variant="header"
+              confirmMessage="Voulez-vous vraiment quitter ? La partie sera abandonnée pour tous les joueurs."
+              onExit={exitAndEndGame}
+            />
+          </div>
         </div>
+      </header>
 
-        {/* Secondary Actions */}
-        <div className="flex gap-2 mt-3 flex-wrap">
+      {/* Pop-up de validation qui apparaît quand quelqu'un buzz */}
+      <AnimatePresence>
+        {state?.lockUid && (
+          <>
+            {/* Overlay sombre */}
+            <motion.div
+              className="buzz-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={resetBuzzers}
+            />
+
+            {/* Modal centrée */}
+            <div className="buzz-modal">
+              <motion.div
+                className="buzz-modal-content"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              >
+                <div className="buzz-modal-icon">🔔</div>
+
+                <div className="buzz-modal-player">
+                  {lockedName}
+                </div>
+
+                <div className="buzz-modal-subtitle">a buzzé !</div>
+
+                {wasAnticipated && (
+                  <div className="buzz-modal-alert">
+                    <div className="buzz-modal-alert-title">⚡ BUZZ ANTICIPÉ</div>
+                    <div className="buzz-modal-alert-info">
+                      Si correct: <b>+{conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0} pts</b><br/>
+                      Si faux: <b>-{conf?.anticipatedBuzzPenalty || 100} pts</b>
+                    </div>
+                  </div>
+                )}
+
+                <div className="buzz-modal-points">
+                  {wasAnticipated
+                    ? `${conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0} points MAX`
+                    : `${pointsEnJeu} points`
+                  }
+                </div>
+
+                <div className="buzz-modal-actions">
+                  <RippleButton
+                    className="buzz-modal-btn buzz-modal-btn-wrong"
+                    onClick={wrong}
+                  >
+                    <span>✘</span>
+                    <span>Mauvaise</span>
+                    <span>
+                      {wasAnticipated ? `-${conf?.anticipatedBuzzPenalty || 100} pts` : '0 pts'}
+                    </span>
+                  </RippleButton>
+
+                  <ShineButton
+                    className="buzz-modal-btn buzz-modal-btn-correct"
+                    onClick={validate}
+                  >
+                    <span>✔</span>
+                    <span>Correcte</span>
+                    <span>
+                      +{wasAnticipated
+                        ? conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0
+                        : pointsEnJeu
+                      } pts
+                    </span>
+                  </ShineButton>
+                </div>
+
+                <button
+                  className="buzz-modal-reset"
+                  onClick={resetBuzzers}
+                >
+                  Reset
+                </button>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
+
+      <main className="player-game-content" style={{maxWidth: '800px', paddingBottom: '150px'}}>
+
+      {/* Actions simplifiées - Seulement les actions secondaires */}
+      <div className="host-actions-card">
+        <div className="flex gap-2 flex-wrap">
           <button
             className="btn h-12 flex-1"
-            onClick={() => {
-              console.log('🔄 Reset buzzers clicked');
-              resetBuzzers();
-            }}
+            onClick={resetBuzzers}
             style={{ minWidth: '120px' }}
           >
             🔄 Reset
           </button>
           <button
             className="btn h-12 flex-1"
-            onClick={() => {
-              console.log('⏭ Skip clicked');
-              skip();
-            }}
+            onClick={skip}
             style={{ minWidth: '120px' }}
           >
             ⏭ Passer
           </button>
           <button
             className="btn h-12 flex-1"
-            onClick={() => {
-              console.log('🏁 End clicked');
-              end();
+            onClick={end}
+            style={{
+              minWidth: '120px',
+              background: 'rgba(239, 68, 68, 0.2)',
+              border: '1px solid rgba(239, 68, 68, 0.5)'
             }}
-            style={{ minWidth: '120px', background: 'rgba(239, 68, 68, 0.2)', border: '1px solid rgba(239, 68, 68, 0.5)' }}
           >
             🏁 Terminer
           </button>
-        </div>
-
-        <div className="mt-3 card banner">
-          <b>Buzz :</b> {state?.buzzBanner || "— en attente —"}
-          {wasAnticipated && (
-            <div className="mt-2 p-2 bg-blue-100 border-2 border-blue-500 rounded-lg">
-              <span className="text-blue-700 font-black">⚡ BUZZ ANTICIPÉ</span>
-              <br />
-              <span className="text-sm text-blue-600">
-                Question pas encore révélée ! Si correct = <b>{conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0} points MAX</b>, si faux = <b>-{conf?.anticipatedBuzzPenalty || 100} points</b>
-              </span>
-            </div>
-          )}
         </div>
       </div>
 
       {q ? (
         <motion.div
-          className="card space-y-4"
+          className="question-main-card"
           key={qIndex}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.4 }}
         >
-          <div className="flex items-center justify-between">
-            <motion.div
-              className="text-xl font-black"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-            >
-              {q.category? `[${q.category}] `:""}{q.question}
-            </motion.div>
-            <div className="text-sm opacity-80">{progressLabel}</div>
-          </div>
-
-          <motion.div
-            className="card"
-            style={{ background: "rgba(34,197,94,.12)" }}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.4 }}
-          >
-            <b>Réponse (privée animateur) :</b> {q.answer}
-          </motion.div>
-
-          <div className="flex items-center gap-4">
-            <PointsRing 
-              value={ratioRemain} 
-              points={wasAnticipated ? (conf?.[q?.difficulty === "difficile" ? "difficile" : "normal"]?.start || 0) : pointsEnJeu} 
-            />
-            <div className="text-sm opacity-80">
+          {/* Barre de progression des points - Même style que page joueur */}
+          <div className="points-progress-bar-container">
+            <div className="points-progress-info">
+              <span className="points-progress-label">
+                Points en jeu {wasAnticipated && "- BUZZ ANTICIPÉ"}
+              </span>
+              <span className="points-progress-value">{pointsAGagner}</span>
+            </div>
+            <div className="points-progress-bar-track">
+              <motion.div
+                className="points-progress-bar-fill"
+                initial={{ scaleX: 1 }}
+                animate={{ scaleX: ratioRemain }}
+                transition={{ duration: 0.5, ease: "linear" }}
+              />
+            </div>
+            <div className="text-xs opacity-60 mt-1">
               {cfg ? (
                 <>
-                  De <b>{cfg.start}</b> à <b>{cfg.floor}</b> en <b>{cfg.durationMs/1000}s</b>.
-                  {wasAnticipated && <div className="text-blue-600 font-bold">Buzz anticipé : {cfg.start} points si correct !</div>}
+                  De <b>{cfg.start}</b> à <b>{cfg.floor}</b> pts en <b>{cfg.durationMs/1000}s</b>
                 </>
               ) : "Chargement…"}
             </div>
           </div>
 
+          {/* Question */}
+          <div className="question-text-display">
+            {q.question}
+          </div>
+
+          {/* Réponse pour l'animateur */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
+            className="host-answer-card"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
           >
-            <b>Lock :</b> {lockedName}
+            <div className="text-sm opacity-70 mb-1">Réponse (privée animateur)</div>
+            <div className="font-bold text-lg text-green-400">{q.answer}</div>
           </motion.div>
         </motion.div>
-      ) : <div className="card">Plus de questions. Terminez la partie.</div>}
+      ) : (
+        <div className="question-main-card">
+          <div className="question-waiting">
+            <div className="question-waiting-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div>Plus de questions. Terminez la partie.</div>
+          </div>
+        </div>
+      )}
 
       {meta?.mode === "équipes" && teamsArray.length > 0 && (
         <TeamLeaderboard teams={teamsArray} />
@@ -519,16 +597,11 @@ export default function HostGame(){
       </main>
 
       <style jsx>{`
-        .game-container {
+        .host-game-page {
           position: relative;
           min-height: 100vh;
           background: #000000;
-          overflow: hidden;
-        }
-
-        .game-content {
-          position: relative;
-          z-index: 1;
+          overflow-x: hidden;
         }
 
         /* Background orbs */

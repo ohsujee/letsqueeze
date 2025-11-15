@@ -237,61 +237,56 @@ export default function Buzzer({
           className={`floating-buzzer-btn`}
           aria-label={`${buzzerState.label} ${buzzerState.sublabel}`}
           animate={{
-            scale: 1,
             opacity: 1,
           }}
           whileHover={!buzzerState.disabled ? {
-            scale: 1.08,
             y: -8,
             transition: { type: "spring", stiffness: 400, damping: 10 }
           } : {}}
           whileTap={!buzzerState.disabled ? {
-            scale: 0.92,
             y: 8,
             transition: { duration: 0.1 }
           } : {}}
-          initial={{ scale: 0.8, opacity: 0 }}
+          initial={{ opacity: 0 }}
           transition={{
-            type: "spring",
-            stiffness: 300,
-            damping: 20
+            duration: 0.3
           }}
         >
           {/* SVG Buzzer Neumorphic Moderne - GRAND avec espace pour le glow */}
-          <svg className="buzzer-svg" viewBox="-40 -40 320 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className="buzzer-svg" viewBox="-60 -60 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               {/* Gradients neumorphiques selon l'état */}
-              <radialGradient id="activeGradient" cx="35%" cy="35%">
+              <radialGradient id="activeGradient" cx="50%" cy="50%">
                 <stop offset="0%" stopColor="#FCA5A5" />
                 <stop offset="50%" stopColor="#EF4444" />
                 <stop offset="100%" stopColor="#B91C1C" />
               </radialGradient>
 
-              <radialGradient id="anticipatedGradient" cx="35%" cy="35%">
+              <radialGradient id="anticipatedGradient" cx="50%" cy="50%">
                 <stop offset="0%" stopColor="#FDBA74" />
                 <stop offset="50%" stopColor="#F97316" />
                 <stop offset="100%" stopColor="#C2410C" />
               </radialGradient>
 
-              <radialGradient id="successGradient" cx="35%" cy="35%">
+              <radialGradient id="successGradient" cx="50%" cy="50%">
                 <stop offset="0%" stopColor="#6EE7B7" />
                 <stop offset="50%" stopColor="#10B981" />
                 <stop offset="100%" stopColor="#047857" />
               </radialGradient>
 
-              <radialGradient id="blockedGradient" cx="35%" cy="35%">
+              <radialGradient id="blockedGradient" cx="50%" cy="50%">
                 <stop offset="0%" stopColor="#CBD5E1" />
                 <stop offset="50%" stopColor="#94A3B8" />
                 <stop offset="100%" stopColor="#64748B" />
               </radialGradient>
 
-              <radialGradient id="penaltyGradient" cx="35%" cy="35%">
+              <radialGradient id="penaltyGradient" cx="50%" cy="50%">
                 <stop offset="0%" stopColor="#FDBA74" />
                 <stop offset="50%" stopColor="#F97316" />
                 <stop offset="100%" stopColor="#C2410C" />
               </radialGradient>
 
-              <radialGradient id="inactiveGradient" cx="35%" cy="35%">
+              <radialGradient id="inactiveGradient" cx="50%" cy="50%">
                 <stop offset="0%" stopColor="#94A3B8" />
                 <stop offset="50%" stopColor="#64748B" />
                 <stop offset="100%" stopColor="#475569" />
@@ -313,7 +308,7 @@ export default function Buzzer({
             </defs>
 
             {/* Ombre portée au sol - soft et réaliste */}
-            <ellipse cx="120" cy="265" rx="90" ry="20" fill="url(#innerShadow)" opacity="0.4"/>
+            <ellipse cx="120" cy="240" rx="90" ry="20" fill="url(#innerShadow)" opacity="0.4"/>
 
             {/* Cercle extérieur - Border subtle */}
             <circle cx="120" cy="120" r="105"
@@ -355,44 +350,21 @@ export default function Buzzer({
               </g>
             )}
 
-            {/* Ring pulse animé pour état actif - RÉDUIT */}
+            {/* Ring pulse animé pour état actif - Ripple FORT */}
             {buzzerState.type === 'active' && (
-              <motion.circle
-                cx="120" cy="120" r="100"
-                fill="none"
-                stroke="#EF4444"
-                strokeWidth="3"
-                opacity="0.5"
-                initial={{ scale: 1, opacity: 0.5 }}
-                animate={{
-                  scale: [1, 1.06],
-                  opacity: [0.5, 0],
-                }}
-                transition={{
-                  duration: 1.8,
-                  repeat: Infinity,
-                  ease: "easeOut"
-                }}
-              />
+              <>
+                <circle cx="120" cy="120" r="110" fill="none" stroke="#EF4444" strokeWidth="4" className="pulse-ring-strong pulse-ring-1" />
+                <circle cx="120" cy="120" r="110" fill="none" stroke="#EF4444" strokeWidth="4" className="pulse-ring-strong pulse-ring-2" />
+                <circle cx="120" cy="120" r="110" fill="none" stroke="#EF4444" strokeWidth="4" className="pulse-ring-strong pulse-ring-3" />
+              </>
             )}
+            {/* Ring pulse animé pour état anticipé - Ripple DOUX */}
             {buzzerState.type === 'anticipated' && (
-              <motion.circle
-                cx="120" cy="120" r="100"
-                fill="none"
-                stroke="#F97316"
-                strokeWidth="3"
-                opacity="0.5"
-                initial={{ scale: 1, opacity: 0.5 }}
-                animate={{
-                  scale: [1, 1.06],
-                  opacity: [0.5, 0],
-                }}
-                transition={{
-                  duration: 1.8,
-                  repeat: Infinity,
-                  ease: "easeOut"
-                }}
-              />
+              <>
+                <circle cx="120" cy="120" r="110" fill="none" stroke="#F97316" strokeWidth="2" className="pulse-ring-soft pulse-ring-1" />
+                <circle cx="120" cy="120" r="110" fill="none" stroke="#F97316" strokeWidth="2" className="pulse-ring-soft pulse-ring-2" />
+                <circle cx="120" cy="120" r="110" fill="none" stroke="#F97316" strokeWidth="2" className="pulse-ring-soft pulse-ring-3" />
+              </>
             )}
           </svg>
 
@@ -429,7 +401,7 @@ export default function Buzzer({
           pointer-events: auto;
           position: relative;
           width: 340px;
-          height: 380px;
+          height: 340px;
           border: none;
           background: transparent;
           padding: 0;
@@ -440,6 +412,8 @@ export default function Buzzer({
           /* Extra espace pour le glow - IMPORTANT pour éviter la coupe */
           padding: 40px;
           margin: -40px;
+          /* Force le centre de transformation au centre visuel */
+          transform-origin: center center;
         }
 
         /* SVG du buzzer */
@@ -504,7 +478,7 @@ export default function Buzzer({
         
         /* Cercle neumorphique avec gradients réalistes */
         .buzzer-circle-neomorph {
-          transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+          /* Pas de transition pour éviter l'effet breathing */
         }
 
         .buzzer-inactive {
@@ -514,18 +488,12 @@ export default function Buzzer({
 
         .buzzer-active {
           fill: url(#activeGradient);
-          filter:
-            drop-shadow(0 0 15px rgba(239, 68, 68, 0.7))
-            drop-shadow(0 0 25px rgba(239, 68, 68, 0.3))
-            drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+          filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
         }
 
         .buzzer-anticipated {
           fill: url(#anticipatedGradient);
-          filter:
-            drop-shadow(0 0 15px rgba(249, 115, 22, 0.7))
-            drop-shadow(0 0 25px rgba(249, 115, 22, 0.3))
-            drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+          filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
         }
 
         .buzzer-success {
@@ -553,6 +521,71 @@ export default function Buzzer({
           cursor: not-allowed;
         }
         
+        /* Animation pulse ring - Deux variantes : soft (doux) et strong (fort) */
+        .pulse-ring-soft, .pulse-ring-strong {
+          opacity: 0;
+        }
+
+        /* RIPPLE DOUX - Pour bouton anticipé (orange) */
+        .pulse-ring-soft.pulse-ring-1 {
+          animation: pulse-fade-soft 2.5s ease-out infinite;
+        }
+
+        .pulse-ring-soft.pulse-ring-2 {
+          animation: pulse-fade-soft 2.5s ease-out infinite;
+          animation-delay: 0.83s;
+        }
+
+        .pulse-ring-soft.pulse-ring-3 {
+          animation: pulse-fade-soft 2.5s ease-out infinite;
+          animation-delay: 1.66s;
+        }
+
+        @keyframes pulse-fade-soft {
+          0% {
+            opacity: 0;
+          }
+          15% {
+            opacity: 0.3;
+          }
+          50% {
+            opacity: 0.15;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+
+        /* RIPPLE FORT - Pour bouton buzzer (rouge) */
+        .pulse-ring-strong.pulse-ring-1 {
+          animation: pulse-fade-strong 1.5s ease-out infinite;
+        }
+
+        .pulse-ring-strong.pulse-ring-2 {
+          animation: pulse-fade-strong 1.5s ease-out infinite;
+          animation-delay: 0.5s;
+        }
+
+        .pulse-ring-strong.pulse-ring-3 {
+          animation: pulse-fade-strong 1.5s ease-out infinite;
+          animation-delay: 1s;
+        }
+
+        @keyframes pulse-fade-strong {
+          0% {
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.8;
+          }
+          35% {
+            opacity: 0.5;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+
         /* Animations - Subtiles et professionnelles */
         @keyframes success-celebrate {
           0% {
@@ -583,13 +616,9 @@ export default function Buzzer({
 
           .floating-buzzer-btn {
             width: 300px;
-            height: 340px;
+            height: 300px;
             padding: 35px;
             margin: -35px;
-          }
-
-          .buzzer-content {
-            margin-top: -30px;
           }
 
           .buzzer-main-label {
@@ -610,7 +639,7 @@ export default function Buzzer({
         @media (max-width: 380px) {
           .floating-buzzer-btn {
             width: 260px;
-            height: 300px;
+            height: 260px;
             padding: 30px;
             margin: -30px;
           }

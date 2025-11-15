@@ -24,22 +24,34 @@ function AnimatedScore({ score }) {
     return unsubscribe;
   }, [springScore]);
 
-  return <span className="font-bold">{displayScore}</span>;
+  return (
+    <span className="host-leaderboard-score">
+      {displayScore}
+    </span>
+  );
 }
 
 /**
- * Badge de position avec animation
+ * Badge de position avec animation - Emojis simples pour top 3
  */
 function PositionBadge({ position, previousPosition }) {
   const didImprove = previousPosition && position < previousPosition;
   const didWorsen = previousPosition && position > previousPosition;
 
+  // Emojis pour le top 3, sinon le numéro
+  const getMedalEmoji = (pos) => {
+    if (pos === 1) return '🥇';
+    if (pos === 2) return '🥈';
+    if (pos === 3) return '🥉';
+    return pos;
+  };
+
   return (
     <motion.span
-      className="inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm"
+      className="inline-flex items-center justify-center font-bold text-2xl"
       style={{
-        background: position === 1 ? '#F59E0B' : position === 2 ? '#94A3B8' : position === 3 ? '#CD7F32' : '#64748B',
-        color: 'white'
+        position: 'relative',
+        minWidth: '32px'
       }}
       animate={didImprove ? {
         scale: [1, 1.3, 1],
@@ -49,10 +61,10 @@ function PositionBadge({ position, previousPosition }) {
       } : {}}
       transition={{ duration: 0.5 }}
     >
-      {position}
+      {getMedalEmoji(position)}
       {didImprove && (
         <motion.span
-          className="absolute -top-1 -right-1 text-green-500"
+          className="absolute -top-1 -right-1 text-green-500 text-sm"
           initial={{ scale: 0 }}
           animate={{ scale: [0, 1.5, 1] }}
           transition={{ duration: 0.3 }}
@@ -62,7 +74,7 @@ function PositionBadge({ position, previousPosition }) {
       )}
       {didWorsen && (
         <motion.span
-          className="absolute -top-1 -right-1 text-red-500"
+          className="absolute -top-1 -right-1 text-red-500 text-sm"
           initial={{ scale: 0 }}
           animate={{ scale: [0, 1.5, 1] }}
           transition={{ duration: 0.3 }}

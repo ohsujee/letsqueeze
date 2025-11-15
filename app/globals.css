@@ -439,7 +439,6 @@ p {
 .buzzer-active {
   background: linear-gradient(135deg, #EA4335, #D93025);
   color: white;
-  animation: buzz-pulse 1.5s infinite;
 }
 
 .buzzer-success {
@@ -452,16 +451,7 @@ p {
   color: white;
 }
 
-@keyframes buzz-pulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 6px 20px rgba(234, 67, 53, 0.3);
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(234, 67, 53, 0.5);
-  }
-}
+/* Animation buzz-pulse supprimée - le buzzer ne doit pas faire de breathing */
 
 /* ===========================================
    📝 FORM ELEMENTS - VISIBLES !
@@ -1268,5 +1258,929 @@ textarea:focus-visible {
   height: auto !important;
   max-width: none !important;
   width: 100% !important;
+}
+
+/* ===========================================
+   🎮 PLAYER GAME PAGE - Professional 2025 Design
+   Inspired by Kahoot, Quizizz - Mobile-first
+   =========================================== */
+
+/* Header fixe - Simple et clair avec meilleur spacing */
+.player-game-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 64px;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.player-game-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 64px;
+}
+
+.player-game-title {
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 2.6em;
+}
+
+.player-progress-center {
+  text-align: center;
+  padding: 0.5rem 1.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.player-header-exit {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Main content avec padding pour header fixe */
+.player-game-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 5.5rem 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Score du joueur - Card au-dessus de la question */
+.player-score-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.1));
+  border: 2px solid rgba(251, 191, 36, 0.4);
+  border-radius: 1rem;
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 4px 16px rgba(251, 191, 36, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.player-score-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(252, 211, 77, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.player-score-value {
+  font-size: 2rem;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  color: #FCD34D;
+  letter-spacing: 0.025em;
+  text-shadow: 0 2px 12px rgba(251, 191, 36, 0.6);
+}
+
+/* Team badge moderne */
+.team-badge-large {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 2px solid;
+  border-radius: 1rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.team-badge-large:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.team-badge-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.team-badge-info {
+  flex: 1;
+}
+
+.team-badge-name {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.team-badge-score {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+}
+
+/* Buzz notification toast */
+.buzz-notification {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(220, 38, 38, 0.2));
+  border: 2px solid rgba(239, 68, 68, 0.6);
+  border-radius: 1rem;
+  backdrop-filter: blur(30px);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+  min-height: 72px;
+}
+
+.buzz-notification-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.buzz-notification-text {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* Question card - Grande et centrée style Kahoot */
+.question-main-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Barre de progression des points - Minimaliste */
+.points-progress-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.points-progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.points-progress-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.points-progress-value {
+  font-size: 1.125rem;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  color: #FCD34D;
+  letter-spacing: 0.025em;
+}
+
+.points-progress-bar-track {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.points-progress-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #FCD34D 0%, #F59E0B 100%);
+  border-radius: 9999px;
+  transform-origin: left;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.6);
+}
+
+.question-text-display {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.question-waiting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  padding: 2rem 0;
+  flex: 1;
+}
+
+/* Dots pulsants au lieu du spinner - Doux et lent */
+.question-waiting-dots {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.question-waiting-dots span {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: dotPulse 2.4s ease-in-out infinite;
+}
+
+.question-waiting-dots span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.question-waiting-dots span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+}
+
+/* Leaderboard moderne */
+.leaderboard-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.leaderboard-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaderboard-icon {
+  font-size: 1.5rem;
+}
+
+.leaderboard-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.025em;
+}
+
+/* Podium style - Top 3 */
+.leaderboard-podium {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.podium-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.podium-item:hover {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.podium-item-me {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.15));
+  border: 2px solid rgba(59, 130, 246, 0.5);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+}
+
+.podium-medal {
+  font-size: 2rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.podium-name {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.podium-you-badge {
+  padding: 0.125rem 0.5rem;
+  background: rgba(59, 130, 246, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  border-radius: 9999px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: #93C5FD;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.podium-score {
+  font-size: 1.25rem;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  color: #FCD34D;
+  letter-spacing: 0.025em;
+}
+
+/* Autres joueurs */
+.leaderboard-others {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.leaderboard-others-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.leaderboard-list-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.leaderboard-compact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.leaderboard-compact-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.leaderboard-compact-item-me {
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  font-weight: 600;
+}
+
+.leaderboard-compact-rank {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  width: 2rem;
+}
+
+.leaderboard-compact-name {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.leaderboard-compact-score {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: rgba(251, 191, 36, 0.9);
+}
+
+/* Leaderboard list - Pour mode équipes */
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.leaderboard-item:hover {
+  transform: translateX(4px);
+}
+
+.leaderboard-item-rank {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.leaderboard-item-name {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+}
+
+.leaderboard-item-score {
+  font-size: 1.125rem;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  color: #FCD34D;
+}
+
+/* Buzzer container fixe en bas */
+.buzzer-fixed-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  padding: 1rem;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 60%, transparent 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+.buzzer-fixed-container > * {
+  pointer-events: auto;
+}
+
+/* ===========================================
+   🎮 HOST PAGE - Same Design System
+   =========================================== */
+
+.host-actions-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.host-answer-card {
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(52, 168, 83, 0.15), rgba(45, 146, 72, 0.1));
+  border: 2px solid rgba(52, 168, 83, 0.4);
+  border-radius: 1rem;
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 4px 16px rgba(52, 168, 83, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Score dans le leaderboard host - Même style que côté joueur */
+.host-leaderboard-score {
+  font-size: 1.25rem;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  color: #FCD34D;
+  letter-spacing: 0.025em;
+  text-shadow: 0 1px 8px rgba(251, 191, 36, 0.4);
+}
+
+/* Buzz Modal - Pop-up pour validation rapide */
+.buzz-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  cursor: pointer;
+}
+
+.buzz-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 201;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  padding: 20px;
+}
+
+.buzz-modal > * {
+  pointer-events: auto;
+}
+
+.buzz-modal-content {
+  width: 100%;
+  max-width: 460px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1.75rem;
+  padding: 2rem;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.buzz-modal-icon {
+  font-size: 3.5rem;
+  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+  line-height: 1;
+}
+
+.buzz-modal-player {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: white;
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-shadow: 0 2px 16px rgba(255, 255, 255, 0.3);
+  margin-top: -0.25rem;
+}
+
+.buzz-modal-subtitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: -0.75rem;
+}
+
+.buzz-modal-alert {
+  padding: 1rem 1.5rem;
+  background: rgba(59, 130, 246, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 1rem;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.buzz-modal-alert-title {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #93C5FD;
+  letter-spacing: 0.025em;
+}
+
+.buzz-modal-alert-info {
+  font-size: 0.8rem;
+  color: rgba(147, 197, 253, 0.8);
+  line-height: 1.4;
+}
+
+.buzz-modal-alert-info b {
+  font-weight: 800;
+  color: #93C5FD;
+}
+
+.buzz-modal-points {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  color: #FCD34D;
+  text-shadow: 0 2px 16px rgba(251, 191, 36, 0.5);
+  padding: 0.75rem 2rem;
+  background: rgba(251, 191, 36, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.buzz-modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.buzz-modal-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 1.5rem 1.25rem;
+  border-radius: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid;
+  height: 140px;
+  position: relative;
+  overflow: hidden;
+}
+
+.buzz-modal-btn span {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.buzz-modal-btn span:first-child {
+  font-size: 2.75rem;
+  line-height: 1;
+}
+
+.buzz-modal-btn span:nth-child(2) {
+  font-size: 1.125rem;
+  font-weight: 900;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.buzz-modal-btn span:nth-child(3) {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.buzz-modal-btn-wrong {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(220, 38, 38, 0.12));
+  border-color: rgba(239, 68, 68, 0.4);
+  color: white;
+}
+
+.buzz-modal-btn-wrong:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.2));
+  border-color: rgba(239, 68, 68, 0.6);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35);
+}
+
+.buzz-modal-btn-correct {
+  background: linear-gradient(135deg, rgba(52, 168, 83, 0.18), rgba(45, 146, 72, 0.12));
+  border-color: rgba(52, 168, 83, 0.4);
+  color: white;
+}
+
+.buzz-modal-btn-correct:hover {
+  background: linear-gradient(135deg, rgba(52, 168, 83, 0.3), rgba(45, 146, 72, 0.2));
+  border-color: rgba(52, 168, 83, 0.6);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(52, 168, 83, 0.35);
+}
+
+.buzz-modal-reset {
+  margin-top: 0.25rem;
+  padding: 0.875rem 1.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.025em;
+}
+
+.buzz-modal-reset:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .player-game-header {
+    min-height: 56px;
+  }
+
+  .player-game-header-content {
+    padding: 0.75rem 1rem;
+    gap: 0.75rem;
+    min-height: 56px;
+  }
+
+  .player-game-title {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    max-height: 2.4em;
+  }
+
+  .player-progress-center {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.875rem;
+  }
+
+  .player-game-content {
+    padding-top: 4.5rem;
+  }
+
+  .player-score-card {
+    padding: 0.875rem 1.25rem;
+  }
+
+  .player-score-value {
+    font-size: 1.5rem;
+  }
+
+  .question-main-card {
+    padding: 1.25rem;
+  }
+
+  .question-text-display {
+    font-size: 1.25rem;
+  }
+
+  .points-progress-value {
+    font-size: 1rem;
+  }
+
+  .podium-item {
+    padding: 0.875rem 1rem;
+  }
+
+  .podium-medal {
+    font-size: 1.75rem;
+  }
+
+  .podium-score {
+    font-size: 1.125rem;
+  }
+
+  .host-actions-card {
+    padding: 1.25rem;
+  }
+
+  .host-answer-card {
+    padding: 0.875rem 1rem;
+  }
+
+  /* Buzz Modal Mobile */
+  .buzz-modal {
+    padding: 16px;
+  }
+
+  .buzz-modal-content {
+    padding: 1.75rem 1.25rem;
+    max-width: 100%;
+    gap: 1rem;
+  }
+
+  .buzz-modal-icon {
+    font-size: 2.75rem;
+  }
+
+  .buzz-modal-player {
+    font-size: 1.5rem;
+  }
+
+  .buzz-modal-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .buzz-modal-alert {
+    padding: 0.875rem 1.125rem;
+  }
+
+  .buzz-modal-alert-title {
+    font-size: 0.9rem;
+  }
+
+  .buzz-modal-alert-info {
+    font-size: 0.75rem;
+  }
+
+  .buzz-modal-points {
+    font-size: 1.375rem;
+    padding: 0.625rem 1.5rem;
+  }
+
+  .buzz-modal-btn {
+    padding: 1.25rem 0.875rem;
+    height: 125px;
+  }
+
+  .buzz-modal-btn span:first-child {
+    font-size: 2.25rem;
+  }
+
+  .buzz-modal-btn span:nth-child(2) {
+    font-size: 0.95rem;
+  }
+
+  .buzz-modal-btn span:nth-child(3) {
+    font-size: 0.75rem;
+  }
+
+  .buzz-modal-actions {
+    gap: 0.75rem;
+  }
+
+  .buzz-modal-reset {
+    font-size: 0.8rem;
+    padding: 0.75rem 1.5rem;
+  }
 }
 

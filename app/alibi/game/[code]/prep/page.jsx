@@ -11,7 +11,9 @@ import {
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
+import { motion } from 'framer-motion';
 import ExitButton from "@/lib/components/ExitButton";
+import { CountdownOverlay } from "@/components/CountdownOverlay";
 
 export default function AlibiPrep() {
   const { code } = useParams();
@@ -23,6 +25,7 @@ export default function AlibiPrep() {
   const [alibi, setAlibi] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [customQuestions, setCustomQuestions] = useState(["", "", ""]);
+  const [showCountdown, setShowCountdown] = useState(false);
   const timerRef = useRef(null);
 
   // Fonction pour quitter et terminer la partie si hôte
@@ -33,6 +36,11 @@ export default function AlibiPrep() {
     }
     router.push('/home');
   }
+
+  // Fonction appelée quand le countdown est terminé
+  const handleCountdownComplete = () => {
+    router.push(`/alibi/game/${code}/play`);
+  };
 
   // Auth et récupération de l'équipe du joueur
   useEffect(() => {
@@ -75,8 +83,8 @@ export default function AlibiPrep() {
 
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
       const state = snap.val();
-      if (state?.phase === "interrogation") {
-        router.push(`/alibi/game/${code}/play`);
+      if (state?.phase === "interrogation" && !showCountdown) {
+        setShowCountdown(true);
       }
       if (state?.prepTimeLeft !== undefined) {
         setTimeLeft(state.prepTimeLeft);
@@ -130,6 +138,25 @@ export default function AlibiPrep() {
     await update(ref(db, `rooms_alibi/${code}/questions/${questionId}`), { text });
   };
 
+  const handleSkipPrep = async () => {
+    if (!isHost || !code) return;
+    // Passer directement à la phase interrogation
+    if (timerRef.current) clearInterval(timerRef.current);
+    await update(ref(db, `rooms_alibi/${code}/state`), {
+      phase: "interrogation",
+      currentQuestion: 0,
+      prepTimeLeft: 0
+    });
+    // Initialiser l'état de l'interrogation
+    await update(ref(db, `rooms_alibi/${code}/interrogation`), {
+      currentQuestion: 0,
+      state: "waiting",
+      timeLeft: 30,
+      responses: {},
+      verdict: null
+    });
+  };
+
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -164,38 +191,85 @@ export default function AlibiPrep() {
   };
 
   return (
-    <div className="game-container">
-      {/* Background orbs */}
-      <div className="bg-orb orb-1"></div>
-      <div className="bg-orb orb-2"></div>
-      <div className="bg-orb orb-3"></div>
+    <>
+      {/* Header Fixe */}
+      <header className="player-game-header">
+        <div className="player-game-header-content">
+          <div className="player-game-title">{alibi?.title || "Alibi"}</div>
+          <div className="player-progress-center">
+            {timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
+          </div>
+          <div className="player-header-exit">
+            <ExitButton
+              variant="header"
+              confirmMessage="Voulez-vous vraiment quitter ?"
+              onExit={() => router.push('/home')}
+            />
+          </div>
+        </div>
+      </header>
 
-      <main className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
-        {/* Timer */}
-        <div className="card text-center">
-        <h1 className="game-page-title mb-2">
-          {timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
-        </h1>
-        <p className="game-label opacity-80">Phase de préparation</p>
-        {timeLeft <= 10 && (
-          <p className="text-red-400 font-bold mt-2 animate-pulse">
-            L'interrogatoire va commencer !
-          </p>
-        )}
-      </div>
+      {/* Contenu avec padding-top */}
+      <main className="player-game-content">
+        <div className="game-container">
+          {/* Background orbs */}
+          <div className="bg-orb orb-1"></div>
+          <div className="bg-orb orb-2"></div>
+          <div className="bg-orb orb-3"></div>
+
+          <div className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
+            {/* Info préparation */}
+            <motion.div
+              className="card text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+            >
+              <p className="game-label opacity-80">Phase de préparation</p>
+              {timeLeft <= 10 && (
+                <p className="text-red-400 font-bold mt-2 animate-pulse">
+                  L'interrogatoire va commencer !
+                </p>
+              )}
+            </motion.div>
+
+            {/* Bouton Skip pour l'hôte */}
+            {isHost && timeLeft > 0 && (
+              <motion.div
+                className="card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.5 }}
+              >
+                <button
+                  className="btn btn-secondary w-full h-12 text-base"
+                  onClick={handleSkipPrep}
+                >
+                  ⏭️ Passer directement aux questions (Dev/Test)
+                </button>
+                <p className="text-xs text-center opacity-60 mt-2">
+                  Raccourci pour les tests - Saute la phase de préparation
+                </p>
+              </motion.div>
+            )}
 
       {/* Vue SUSPECTS : Alibi à mémoriser */}
       {myTeam === "suspects" && alibi && (
-        <div className="card space-y-4">
+        <motion.div
+          className="card space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
           <h2 className="game-section-title text-primary">🎭 Ton Alibi</h2>
           <p className="text-sm opacity-70">
-            Mémorise les éléments en <strong className="text-yellow-300">gras</strong> - tu n'auras plus accès à ce texte pendant l'interrogatoire !
+            Mémorise bien tous les détails - tu n'auras plus accès à ce texte pendant l'interrogatoire !
           </p>
 
           {alibi.isNewFormat ? (
             // Nouveau format : Context + Accused Document
             <div className="space-y-4">
-              <div className="p-3 bg-slate-700/50 rounded-lg border-l-4 border-primary">
+              <div className="p-3 bg-slate-700/50 rounded-lg border-l-4 border-primary mb-4">
                 <p className="text-sm font-bold opacity-90">{alibi.context}</p>
               </div>
               {renderHTML(alibi.accused_document)}
@@ -208,13 +282,18 @@ export default function AlibiPrep() {
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
       )}
 
       {/* Vue INSPECTEURS : Contexte + Questions */}
       {myTeam === "inspectors" && (
         <div className="space-y-6">
-          <div className="card space-y-4">
+          <motion.div
+            className="card space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
             <h2 className="game-section-title text-accent">🕵️ Contexte de l'alibi</h2>
             <p className="text-sm opacity-70">
               Les suspects vont devoir défendre cet alibi. Prépare tes questions !
@@ -237,9 +316,14 @@ export default function AlibiPrep() {
                 </div>
               )
             )}
-          </div>
+          </motion.div>
 
-          <div className="card space-y-4">
+          <motion.div
+            className="card space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             <h2 className="game-section-title">
               Questions prédéfinies ({alibi?.isNewFormat ? '10' : '7'})
             </h2>
@@ -248,11 +332,16 @@ export default function AlibiPrep() {
                 <li key={i} className="text-sm opacity-90">{q.text}</li>
               ))}
             </ol>
-          </div>
+          </motion.div>
 
           {/* Questions personnalisées seulement pour l'ancien format */}
           {!alibi?.isNewFormat && (
-            <div className="card space-y-4">
+            <motion.div
+              className="card space-y-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+            >
               <h2 className="game-section-title">Questions personnalisées (3)</h2>
               <p className="text-sm opacity-70">
                 Ajoute 3 questions basées sur l'alibi pour piéger les suspects !
@@ -280,23 +369,31 @@ export default function AlibiPrep() {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
       )}
 
       {/* Aucune équipe assignée */}
       {!myTeam && (
-        <div className="card text-center">
+        <motion.div
+          className="card text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
           <p className="opacity-70">Tu n'es assigné à aucune équipe...</p>
-        </div>
+        </motion.div>
       )}
+          </div>
+        </div>
       </main>
 
-      <ExitButton
-        variant="minimal"
-        confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera abandonnée pour tous les joueurs." : "Voulez-vous vraiment quitter la préparation ?"}
-        onExit={exitGame}
+      <CountdownOverlay
+        isVisible={showCountdown}
+        message="L'interrogatoire commence !"
+        onComplete={handleCountdownComplete}
+        countFrom={3}
       />
 
       <style jsx>{`
@@ -347,6 +444,6 @@ export default function AlibiPrep() {
           transform: translateX(-50%);
         }
       `}</style>
-    </div>
+    </>
   );
 }
