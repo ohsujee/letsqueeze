@@ -131,27 +131,18 @@ export default function AlibiLobby() {
     await remove(ref(db, `rooms_alibi/${code}/players/${uid}`));
   };
 
-  const handleAutoBalance = async () => {
+  // Assignation automatique avec RANDOMISATION à chaque appel
+  const handleAutoAssign = async () => {
     if (!isHost) return;
 
-    // Get all players
-    const allPlayers = players;
-    const inspectorCount = allPlayers.filter(p => p.team === 'inspectors').length;
-    const suspectCount = allPlayers.filter(p => p.team === 'suspects').length;
-    const unassignedPlayers = allPlayers.filter(p => !p.team);
+    // Shuffle TOUS les joueurs (même ceux déjà assignés) pour vraie randomisation
+    const allPlayers = [...players].sort(() => Math.random() - 0.5);
 
-    if (unassignedPlayers.length === 0) return;
-
-    // Distribute unassigned players to balance teams
+    // Distribuer en alternance
     const updates = {};
-    unassignedPlayers.forEach((player, index) => {
-      // Alternate assignment starting with the smaller team
-      const currentInspectorCount = inspectorCount + updates[`rooms_alibi/${code}/players/${player.uid}/team`] === 'inspectors' ? 1 : 0;
-      const currentSuspectCount = suspectCount + updates[`rooms_alibi/${code}/players/${player.uid}/team`] === 'suspects' ? 1 : 0;
-
-      // Assign to the team with fewer members
-      const assignTo = currentInspectorCount <= currentSuspectCount ? 'inspectors' : 'suspects';
-      updates[`rooms_alibi/${code}/players/${player.uid}/team`] = assignTo;
+    allPlayers.forEach((player, index) => {
+      const team = index % 2 === 0 ? 'inspectors' : 'suspects';
+      updates[`rooms_alibi/${code}/players/${player.uid}/team`] = team;
     });
 
     await update(ref(db), updates);
@@ -404,19 +395,22 @@ export default function AlibiLobby() {
                 background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.15), rgba(245, 158, 11, 0.1))',
                 border: '2px solid rgba(255, 109, 0, 0.3)',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                isolation: 'isolate',
+                contain: 'layout style paint'
               }}
             >
-              {/* Shine effect */}
+              {/* Shine effect - contained version */}
               <motion.div
                 style={{
                   position: 'absolute',
-                  top: '-50%',
-                  left: '-50%',
-                  width: '200%',
-                  height: '200%',
+                  top: '-25%',
+                  left: '-25%',
+                  width: '150%',
+                  height: '150%',
                   background: 'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)',
-                  pointerEvents: 'none'
+                  pointerEvents: 'none',
+                  willChange: 'transform'
                 }}
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
@@ -539,88 +533,244 @@ export default function AlibiLobby() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <div className="flex items-center justify-between">
-            <h2 className="font-bold text-lg">Assigner les équipes</h2>
-            {unassigned.length > 0 && (
-              <button
-                className="btn btn-sm btn-accent"
-                onClick={handleAutoBalance}
+          {/* Header avec assignation auto */}
+          <div className="flex items-center justify-between mb-4">
+            <motion.h2
+              className="font-bold text-xl"
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              style={{
+                background: 'linear-gradient(135deg, #FF6D00, #F59E0B)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              🎭 Assigner les rôles
+            </motion.h2>
+            {players.length > 0 && (
+              <motion.button
+                className="btn btn-accent"
+                onClick={handleAutoAssign}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  background: 'linear-gradient(135deg, #FF6D00, #F59E0B)',
+                  border: 'none',
+                  boxShadow: '0 4px 15px rgba(255, 109, 0, 0.4)'
+                }}
               >
-                ⚖️ Équilibrer auto
-              </button>
+                🎲 Assignation auto
+              </motion.button>
             )}
           </div>
 
-          {/* Non assignés */}
+          {/* Non assignés - Design premium */}
           {unassigned.length > 0 && (
-            <div className="space-y-2">
-              <h3 className="text-sm font-bold opacity-70">Non assignés ({unassigned.length})</h3>
+            <motion.div
+              className="card mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              style={{
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.1)'
+              }}
+            >
+              <h3 className="text-sm font-bold opacity-70 mb-3 flex items-center gap-2">
+                <span>⏳</span>
+                <span>En attente d'assignation ({unassigned.length})</span>
+              </h3>
               <div className="space-y-2">
-                {unassigned.map(player => (
-                  <div key={player.uid} className="flex items-center gap-2 p-2 bg-slate-700 rounded">
-                    <span className="flex-1">{player.name}</span>
-                    <button
-                      className="btn btn-sm btn-accent"
+                {unassigned.map((player, index) => (
+                  <motion.div
+                    key={player.uid}
+                    className="flex items-center gap-2 p-3 rounded-lg"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04))',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      backdropFilter: 'blur(10px)'
+                    }}
+                  >
+                    <span className="flex-1 font-medium">{player.name}</span>
+                    <motion.button
+                      className="btn btn-sm"
                       onClick={() => handleAssignTeam(player.uid, "inspectors")}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.2), rgba(245, 158, 11, 0.1))',
+                        border: '1px solid rgba(255, 109, 0, 0.4)',
+                        color: '#FF6D00',
+                        fontWeight: 600
+                      }}
                     >
-                      → Inspecteur
-                    </button>
-                    <button
-                      className="btn btn-sm btn-primary"
+                      🕵️ Inspecteur
+                    </motion.button>
+                    <motion.button
+                      className="btn btn-sm"
                       onClick={() => handleAssignTeam(player.uid, "suspects")}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(59, 130, 246, 0.1))',
+                        border: '1px solid rgba(99, 102, 241, 0.4)',
+                        color: '#6366F1',
+                        fontWeight: 600
+                      }}
                     >
-                      → Suspect
-                    </button>
-                    <button
-                      className="btn btn-sm btn-error"
+                      🎭 Suspect
+                    </motion.button>
+                    <motion.button
+                      className="btn btn-sm"
                       onClick={() => handleKickPlayer(player.uid)}
+                      whileHover={{ scale: 1.05, rotate: 90 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        background: 'rgba(239, 68, 68, 0.1)',
+                        border: '1px solid rgba(239, 68, 68, 0.3)',
+                        color: '#EF4444',
+                        minWidth: '36px'
+                      }}
                     >
                       ✕
-                    </button>
-                  </div>
+                    </motion.button>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
 
+          {/* Équipes - Grid premium avec thème detective */}
           <div className="grid md:grid-cols-2 gap-4">
-            {/* Inspecteurs */}
-            <div className="space-y-2">
-              <h3 className="text-sm font-bold text-accent">🕵️ Inspecteurs ({inspectors.length})</h3>
+            {/* Inspecteurs - Orange theme */}
+            <motion.div
+              className="card"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.1), rgba(245, 158, 11, 0.05))',
+                border: '2px solid rgba(255, 109, 0, 0.3)',
+                boxShadow: '0 4px 20px rgba(255, 109, 0, 0.1)'
+              }}
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <span style={{ fontSize: '1.5rem' }}>🕵️</span>
+                <h3 className="font-bold text-lg text-accent">
+                  Inspecteurs
+                </h3>
+                <span className="ml-auto px-2 py-1 rounded-full text-xs font-bold"
+                  style={{
+                    background: 'rgba(255, 109, 0, 0.2)',
+                    color: '#FF6D00'
+                  }}
+                >
+                  {inspectors.length}
+                </span>
+              </div>
               <div className="space-y-2">
-                {inspectors.map(player => (
-                  <div key={player.uid} className="flex items-center gap-2 p-2 bg-accent/10 rounded border border-accent">
-                    <span className="flex-1">{player.name}</span>
-                    <button
-                      className="btn btn-sm"
+                {inspectors.map((player, index) => (
+                  <motion.div
+                    key={player.uid}
+                    className="flex items-center gap-2 p-3 rounded-lg group"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    whileHover={{ x: 5 }}
+                    style={{
+                      background: 'rgba(255, 109, 0, 0.15)',
+                      border: '1px solid rgba(255, 109, 0, 0.3)'
+                    }}
+                  >
+                    <span className="font-medium flex-1">{player.name}</span>
+                    <motion.button
+                      className="btn btn-sm opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={() => handleAssignTeam(player.uid, null)}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        fontSize: '0.75rem'
+                      }}
                     >
                       Retirer
-                    </button>
-                  </div>
+                    </motion.button>
+                  </motion.div>
                 ))}
-                {inspectors.length === 0 && <p className="text-sm opacity-50 italic">Aucun inspecteur</p>}
+                {inspectors.length === 0 && (
+                  <p className="text-sm opacity-50 italic text-center py-4">
+                    Aucun inspecteur assigné
+                  </p>
+                )}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Suspects */}
-            <div className="space-y-2">
-              <h3 className="text-sm font-bold text-primary">🎭 Suspects ({suspects.length})</h3>
+            {/* Suspects - Blue theme */}
+            <motion.div
+              className="card"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              style={{
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.05))',
+                border: '2px solid rgba(99, 102, 241, 0.3)',
+                boxShadow: '0 4px 20px rgba(99, 102, 241, 0.1)'
+              }}
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <span style={{ fontSize: '1.5rem' }}>🎭</span>
+                <h3 className="font-bold text-lg text-primary">
+                  Suspects
+                </h3>
+                <span className="ml-auto px-2 py-1 rounded-full text-xs font-bold"
+                  style={{
+                    background: 'rgba(99, 102, 241, 0.2)',
+                    color: '#6366F1'
+                  }}
+                >
+                  {suspects.length}
+                </span>
+              </div>
               <div className="space-y-2">
-                {suspects.map(player => (
-                  <div key={player.uid} className="flex items-center gap-2 p-2 bg-primary/10 rounded border border-primary">
-                    <span className="flex-1">{player.name}</span>
-                    <button
-                      className="btn btn-sm"
+                {suspects.map((player, index) => (
+                  <motion.div
+                    key={player.uid}
+                    className="flex items-center gap-2 p-3 rounded-lg group"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    whileHover={{ x: -5 }}
+                    style={{
+                      background: 'rgba(99, 102, 241, 0.15)',
+                      border: '1px solid rgba(99, 102, 241, 0.3)'
+                    }}
+                  >
+                    <span className="font-medium flex-1">{player.name}</span>
+                    <motion.button
+                      className="btn btn-sm opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={() => handleAssignTeam(player.uid, null)}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        fontSize: '0.75rem'
+                      }}
                     >
                       Retirer
-                    </button>
-                  </div>
+                    </motion.button>
+                  </motion.div>
                 ))}
-                {suspects.length === 0 && <p className="text-sm opacity-50 italic">Aucun suspect</p>}
+                {suspects.length === 0 && (
+                  <p className="text-sm opacity-50 italic text-center py-4">
+                    Aucun suspect assigné
+                  </p>
+                )}
               </div>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       )}
