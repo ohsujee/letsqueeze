@@ -23,10 +23,36 @@ export default function JoinClient({ initialCode = "" }) {
   async function join() {
     if (!code || !pseudo || !auth.currentUser) return;
     const uid = auth.currentUser.uid;
-    await set(ref(db, `rooms/${code}/players/${uid}`), {
-      uid, name: pseudo, score: 0, teamId: "", blockedUntil: 0, joinedAt: Date.now()
-    });
-    router.push("/room/" + code);
+
+    // Détecter le type de jeu en checkant quelle room existe
+    const { get } = await import("@/lib/firebase");
+
+    // Check si c'est une room Alibi
+    const alibiMetaSnapshot = await get(ref(db, `rooms_alibi/${code}/meta`));
+    if (alibiMetaSnapshot.exists()) {
+      // C'est une room Alibi
+      await set(ref(db, `rooms_alibi/${code}/players/${uid}`), {
+        uid,
+        name: pseudo,
+        team: null,
+        joinedAt: Date.now()
+      });
+      router.push("/alibi/room/" + code);
+      return;
+    }
+
+    // Sinon c'est une room Quiz normale
+    const quizMetaSnapshot = await get(ref(db, `rooms/${code}/meta`));
+    if (quizMetaSnapshot.exists()) {
+      await set(ref(db, `rooms/${code}/players/${uid}`), {
+        uid, name: pseudo, score: 0, teamId: "", blockedUntil: 0, joinedAt: Date.now()
+      });
+      router.push("/room/" + code);
+      return;
+    }
+
+    // Aucune room trouvée avec ce code
+    alert("❌ Code invalide ! Aucune partie trouvée avec ce code.");
   }
 
   return (
