@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, auth, signOutUser } from '@/lib/firebase';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useTheme } from '@/lib/contexts/ThemeContext';
+import { storage } from '@/lib/utils/storage';
 import BottomNav from '@/lib/components/BottomNav';
+import { ChevronRight, Lightbulb } from 'lucide-react';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -24,12 +26,12 @@ export default function ProfilePage() {
         setUser(currentUser);
         setLoading(false);
 
-        // Load settings from localStorage
-        const savedSound = localStorage.getItem('soundEffects');
-        const savedNotifications = localStorage.getItem('notifications');
+        // Load settings from storage
+        const savedSound = storage.get('soundEffects');
+        const savedNotifications = storage.get('notifications');
 
-        if (savedSound) setSoundEffects(savedSound === 'true');
-        if (savedNotifications) setNotifications(savedNotifications === 'true');
+        if (savedSound !== null) setSoundEffects(savedSound);
+        if (savedNotifications !== null) setNotifications(savedNotifications);
       }
     });
 
@@ -52,13 +54,13 @@ export default function ProfilePage() {
   const handleToggleSound = () => {
     const newValue = !soundEffects;
     setSoundEffects(newValue);
-    localStorage.setItem('soundEffects', newValue.toString());
+    storage.set('soundEffects', newValue);
   };
 
   const handleToggleNotifications = () => {
     const newValue = !notifications;
     setNotifications(newValue);
-    localStorage.setItem('notifications', newValue.toString());
+    storage.set('notifications', newValue);
   };
 
   const getInitials = (name) => {
@@ -252,6 +254,25 @@ export default function ProfilePage() {
             </div>
           </div>
         </section>
+
+        {/* Philips Hue Link - Admin only */}
+        {user?.email === 'yogarajah.sujeevan@gmail.com' && (
+          <button
+            onClick={() => router.push('/profile/hue')}
+            className="hue-card"
+          >
+            <div className="hue-card-content">
+              <div className="hue-icon">
+                <Lightbulb size={24} />
+              </div>
+              <div className="hue-info">
+                <span className="hue-title">Philips Hue</span>
+                <span className="hue-subtitle">Effets lumineux immersifs</span>
+              </div>
+              <ChevronRight size={20} className="hue-chevron" />
+            </div>
+          </button>
+        )}
 
         {/* Sign Out Button */}
         <button className="btn-signout" onClick={handleSignOut}>
@@ -644,6 +665,68 @@ export default function ProfilePage() {
         /* Bottom padding for nav */
         .bottom-padding {
           height: 96px;
+        }
+
+        /* Hue Card */
+        .hue-card {
+          width: 100%;
+          padding: 0;
+          margin-bottom: var(--space-4);
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.1));
+          border: 1px solid rgba(139, 92, 246, 0.3);
+          border-radius: var(--radius-lg);
+          cursor: pointer;
+          transition: all var(--transition-base);
+          overflow: hidden;
+        }
+
+        .hue-card:hover {
+          transform: translateY(-2px);
+          border-color: rgba(139, 92, 246, 0.5);
+          box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+        }
+
+        .hue-card-content {
+          display: flex;
+          align-items: center;
+          gap: var(--space-4);
+          padding: var(--space-4);
+        }
+
+        .hue-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: var(--radius-md);
+          background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          flex-shrink: 0;
+        }
+
+        .hue-info {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
+        }
+
+        .hue-title {
+          font-size: var(--font-size-base);
+          font-weight: var(--font-weight-semibold);
+          color: var(--text-primary);
+        }
+
+        .hue-subtitle {
+          font-size: var(--font-size-sm);
+          color: var(--text-secondary);
+        }
+
+        .hue-chevron {
+          color: var(--text-tertiary);
+          flex-shrink: 0;
         }
       `}</style>
     </div>

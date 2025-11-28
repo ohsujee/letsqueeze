@@ -14,10 +14,11 @@ import {
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
 import ExitButton from "@/lib/components/ExitButton";
-import { CountdownOverlay } from "@/components/CountdownOverlay";
-import { ParticleEffects } from "@/components/ParticleEffects";
-import { PhaseTransition } from "@/components/PhaseTransition";
-import { VerdictTransition } from "@/components/VerdictTransition";
+import { CountdownOverlay } from "@/components/shared/CountdownOverlay";
+import { ParticleEffects } from "@/components/shared/ParticleEffects";
+import { PhaseTransition } from "@/components/transitions/PhaseTransition";
+import { VerdictTransition } from "@/components/alibi/VerdictTransition";
+import { hueScenariosService } from "@/lib/hue-module";
 
 export default function AlibiInterrogation() {
   const { code } = useParams();
@@ -220,6 +221,9 @@ export default function AlibiInterrogation() {
   const startQuestion = async () => {
     if (myTeam !== "inspectors") return;
 
+    // Trigger Hue pour début d'interrogatoire
+    hueScenariosService.trigger('alibi', 'roundStart');
+
     // Réinitialiser l'état de la question
     await set(ref(db, `rooms_alibi/${code}/interrogation`), {
       currentQuestion,
@@ -293,17 +297,28 @@ export default function AlibiInterrogation() {
     }
   }, [questionState, suspects, responses]);
 
-  // Déclencher les effets visuels selon le verdict
+  // Déclencher les effets visuels et Hue selon le verdict
   useEffect(() => {
     if (verdict === "correct") {
       ParticleEffects.celebrate('high');
+      hueScenariosService.trigger('alibi', 'goodAnswer');
     } else if (verdict === "incorrect") {
       ParticleEffects.wrongAnswer();
+      hueScenariosService.trigger('alibi', 'badAnswer');
     } else if (verdict === "timeout") {
       // Effet subtil pour timeout
       ParticleEffects.wrongAnswer();
+      hueScenariosService.trigger('alibi', 'timeUp');
     }
   }, [verdict]);
+
+  // Ambiance Hue au chargement + cleanup
+  useEffect(() => {
+    hueScenariosService.trigger('alibi', 'ambiance');
+    return () => {
+      hueScenariosService.testScenario('reset');
+    };
+  }, []);
 
   // Actions SUSPECTS
   const submitAnswer = async () => {
@@ -481,8 +496,8 @@ export default function AlibiInterrogation() {
             style={{
               background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.15), rgba(245, 158, 11, 0.1))',
               border: '2px solid rgba(255, 109, 0, 0.4)',
-              borderRadius: '1.5rem',
-              padding: '2rem',
+              borderRadius: 'var(--radius-xl)',
+              padding: 'var(--space-8)',
               position: 'relative',
               overflow: 'hidden'
             }}
@@ -508,13 +523,13 @@ export default function AlibiInterrogation() {
                 style={{
                   display: 'inline-block',
                   background: 'rgba(255, 109, 0, 0.3)',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '0.75rem',
-                  marginBottom: '1rem',
-                  fontSize: '0.875rem',
+                  padding: 'var(--space-2) var(--space-4)',
+                  borderRadius: 'var(--radius-md)',
+                  marginBottom: 'var(--space-4)',
+                  fontSize: 'var(--font-size-sm)',
                   fontWeight: 700,
                   textTransform: 'uppercase',
-                  letterSpacing: '0.05em'
+                  letterSpacing: 'var(--letter-spacing-wide)'
                 }}
               >
                 🎯 Question {currentQuestion + 1} / 10
@@ -527,7 +542,7 @@ export default function AlibiInterrogation() {
                 style={{
                   color: 'white',
                   textShadow: '0 2px 20px rgba(255, 109, 0, 0.5)',
-                  lineHeight: '1.5'
+                  lineHeight: 'var(--line-height-relaxed)'
                 }}
               >
                 {currentQuestionData?.text}
@@ -554,10 +569,10 @@ export default function AlibiInterrogation() {
               </button>
             </div>
           ) : (
-            <div className="bg-green-500/20 border border-green-500 p-4 rounded-lg text-center">
-              <div className="text-green-400 text-5xl mb-4">✓</div>
+            <div className="bg-green-500/20 border border-green-500 rounded-lg text-center" style={{ padding: 'var(--space-4)' }}>
+              <div className="text-green-400 text-5xl" style={{ marginBottom: 'var(--space-4)' }}>✓</div>
               <p className="text-xl font-bold text-green-400">Réponse envoyée !</p>
-              <p className="text-lg opacity-70 mt-2">En attente du jugement des inspecteurs...</p>
+              <p className="text-lg opacity-70" style={{ marginTop: 'var(--space-2)' }}>En attente du jugement des inspecteurs...</p>
             </div>
           )}
         </motion.div>
@@ -663,8 +678,8 @@ export default function AlibiInterrogation() {
             style={{
               background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.15), rgba(245, 158, 11, 0.1))',
               border: '2px solid rgba(255, 109, 0, 0.4)',
-              borderRadius: '1.5rem',
-              padding: '2rem',
+              borderRadius: 'var(--radius-xl)',
+              padding: 'var(--space-8)',
               position: 'relative',
               overflow: 'hidden'
             }}
@@ -690,13 +705,13 @@ export default function AlibiInterrogation() {
                 style={{
                   display: 'inline-block',
                   background: 'rgba(255, 109, 0, 0.3)',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '0.75rem',
-                  marginBottom: '1rem',
-                  fontSize: '0.875rem',
+                  padding: 'var(--space-2) var(--space-4)',
+                  borderRadius: 'var(--radius-md)',
+                  marginBottom: 'var(--space-4)',
+                  fontSize: 'var(--font-size-sm)',
                   fontWeight: 700,
                   textTransform: 'uppercase',
-                  letterSpacing: '0.05em'
+                  letterSpacing: 'var(--letter-spacing-wide)'
                 }}
               >
                 🎯 Question {currentQuestion + 1} / 10
@@ -709,7 +724,7 @@ export default function AlibiInterrogation() {
                 style={{
                   color: 'white',
                   textShadow: '0 2px 20px rgba(255, 109, 0, 0.5)',
-                  lineHeight: '1.5'
+                  lineHeight: 'var(--line-height-relaxed)'
                 }}
               >
                 {currentQuestionData?.text}

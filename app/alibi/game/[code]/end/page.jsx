@@ -12,9 +12,10 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
-import { PodiumPremium } from '@/components/PodiumPremium';
+import { PodiumPremium } from '@/components/ui/PodiumPremium';
 import BottomNav from "@/lib/components/BottomNav";
-import { ParticleEffects } from "@/components/ParticleEffects";
+import { ParticleEffects } from "@/components/shared/ParticleEffects";
+import { hueScenariosService } from "@/lib/hue-module";
 
 export default function AlibiEnd() {
   const { code } = useParams();
@@ -128,13 +129,15 @@ export default function AlibiEnd() {
         setDisplayScore(target);
         clearInterval(timer);
 
-        // Trigger confetti after score reveal
+        // Trigger confetti and Hue after score reveal
         setTimeout(() => {
           if (!confettiTriggered) {
             if (isSuccess) {
               ParticleEffects.celebrate('high');
+              hueScenariosService.trigger('alibi', 'victory');
             } else {
               ParticleEffects.wrongAnswer();
+              hueScenariosService.trigger('alibi', 'defeat');
             }
             setConfettiTriggered(true);
           }

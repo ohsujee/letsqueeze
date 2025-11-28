@@ -4,13 +4,14 @@ import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, update, runTransaction, serverTimestamp
 } from "@/lib/firebase";
-import PointsRing from "@/components/PointsRing";
+import PointsRing from "@/components/game/PointsRing";
 import { motion, AnimatePresence, useSpring } from "framer-motion";
-import { triggerConfetti } from "@/components/Confetti";
-import AnimatedLeaderboard, { TeamLeaderboard } from "@/components/AnimatedLeaderboard";
-import { RippleButton, ShineButton } from "@/components/InteractiveButton";
+import { triggerConfetti } from "@/components/shared/Confetti";
+import AnimatedLeaderboard, { TeamLeaderboard } from "@/components/game/AnimatedLeaderboard";
+import { RippleButton, ShineButton } from "@/components/ui/InteractiveButton";
 import ExitButton from "@/lib/components/ExitButton";
 import { MoreVertical } from "lucide-react";
+import { hueScenariosService } from "@/lib/hue-module";
 
 function useQuiz(quizId){
   const [quiz,setQuiz]=useState(null);
@@ -70,7 +71,8 @@ export default function HostGame(){
   },[]);
   useEffect(()=>{
     const off = onValue(ref(db, ".info/serverTimeOffset"), s=> setOffset(Number(s.val())||0));
-    const id=setInterval(()=>setLocalNow(Date.now()), 100);
+    // Polling réduit de 100ms à 500ms pour économiser CPU/batterie
+    const id=setInterval(()=>setLocalNow(Date.now()), 500);
     return ()=>{ clearInterval(id); off(); };
   },[]);
   const serverNow = localNow + offset;
@@ -90,6 +92,11 @@ export default function HostGame(){
     if(state?.phase === "ended") router.replace(`/end/${code}`);
     if(state?.phase === "lobby") router.replace(`/room/${code}`);
   }, [state?.phase, router, code]);
+
+  // Ambiance Hue au chargement de la page host
+  useEffect(() => {
+    hueScenariosService.trigger('letsqueeze', 'ambiance');
+  }, []);
 
   const isHost = meta?.hostUid === auth.currentUser?.uid;
   const quiz  = useQuiz(meta?.quizId || "general");
@@ -127,11 +134,22 @@ export default function HostGame(){
   const playBuzz   = useSound("/sounds/buzz.mp3");
   const prevRevealAt = useRef(0);
   const prevLock = useRef(null);
+  const timeUpTriggered = useRef(false);
+
   useEffect(()=>{
     if(state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current){
       playReveal(); prevRevealAt.current = state.lastRevealAt;
+      timeUpTriggered.current = false; // Reset timeUp flag pour nouvelle question
     }
   },[state?.revealed, state?.lastRevealAt, playReveal]);
+
+  // Trigger Hue timeUp quand le temps est écoulé
+  useEffect(() => {
+    if (state?.revealed && ratioRemain <= 0 && !timeUpTriggered.current && !state?.lockUid) {
+      timeUpTriggered.current = true;
+      hueScenariosService.trigger('letsqueeze', 'timeUp');
+    }
+  }, [state?.revealed, ratioRemain, state?.lockUid]);
 
   // *** HOST RÉAGIT AU NOUVEAU LOCK → FIGE TIMER AUTOMATIQUEMENT ***
   useEffect(()=>{
@@ -147,8 +165,9 @@ export default function HostGame(){
         lockedAt: serverTimestamp(),
         buzzBanner: `🔔 ${name} a buzzé !${isAnticipated ? ' (ANTICIPÉ)' : ''}`
       }).catch(()=>{});
-      
+
       playBuzz();
+      hueScenariosService.trigger('letsqueeze', 'buzz');
     }
     prevLock.current = cur;
   },[isHost, state?.lockUid, state?.buzz?.anticipated, code, players, playBuzz]);
@@ -164,6 +183,9 @@ export default function HostGame(){
     if(!isHost || !q) return;
 
     if (!state?.revealed) {
+      // Trigger Hue pour nouvelle question
+      hueScenariosService.trigger('letsqueeze', 'roundStart');
+
       // Utiliser serverNow pour éviter les décalages de temps
       const revealTime = serverNow;
 
@@ -214,9 +236,13 @@ export default function HostGame(){
   }
   async function validate(){
     if(!isHost || !q || !state?.lockUid || !conf) return;
+
+    // Trigger Hue bonne réponse
+    hueScenariosService.trigger('letsqueeze', 'goodAnswer');
+
     const uid = state.lockUid;
     const wasAnticipated = state?.buzz?.anticipated === true;
-    
+
     // Calcul des points
     let pts;
     if (wasAnticipated) {
@@ -264,6 +290,10 @@ export default function HostGame(){
   }
   async function wrong(){
     if(!isHost || !state?.lockUid || !conf) return;
+
+    // Trigger Hue mauvaise réponse
+    hueScenariosService.trigger('letsqueeze', 'badAnswer');
+
     const ms = conf.lockoutMs || 8000;
     const uid = state.lockUid;
 
@@ -482,7 +512,7 @@ export default function HostGame(){
         )}
       </AnimatePresence>
 
-      <main className="player-game-content" style={{maxWidth: '800px', paddingBottom: '150px'}}>
+      <main className="player-game-content" style={{maxWidth: '800px', paddingBottom: 'var(--space-16)'}}>
 
       {/* Actions simplifiées - Seulement les actions secondaires */}
       <div className="host-actions-card">

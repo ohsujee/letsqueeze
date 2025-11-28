@@ -2,10 +2,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { db, ref, onValue, update } from "@/lib/firebase";
-import { PodiumPremium } from "@/components/PodiumPremium";
-import { JuicyButton } from "@/components/JuicyButton";
+import { PodiumPremium } from "@/components/ui/PodiumPremium";
+import { JuicyButton } from "@/components/ui/JuicyButton";
 import { motion } from "framer-motion";
 import { useToast } from "@/lib/hooks/useToast";
+import { hueScenariosService } from "@/lib/hue-module";
 
 function rankWithTies(items, scoreKey = "score") {
   const sorted = items.slice().sort((a,b)=> (b[scoreKey]||0) - (a[scoreKey]||0));
@@ -63,6 +64,11 @@ export default function EndPage(){
         .catch(()=> setQuizTitle(meta.quizId?.replace(/-/g," ") || "Partie"));
     }
   }, [meta?.quizId]);
+
+  // Hue victory effect on page load
+  useEffect(() => {
+    hueScenariosService.trigger('letsqueeze', 'victory');
+  }, []);
 
   const modeEquipes = meta?.mode === "équipes";
   const isHost = myUid && meta?.hostUid === myUid;
