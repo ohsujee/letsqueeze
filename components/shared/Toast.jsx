@@ -9,26 +9,27 @@ const TOAST_ICONS = {
   info: 'ℹ️'
 };
 
+// Couleurs basées sur les variables CSS du design system
 const TOAST_COLORS = {
   success: {
-    bg: 'rgba(34, 197, 94, 0.15)',
-    border: '#22c55e',
-    text: '#22c55e'
+    bg: 'var(--glow-green)',
+    border: 'var(--brand-green)',
+    text: 'var(--brand-green)'
   },
   error: {
     bg: 'rgba(239, 68, 68, 0.15)',
-    border: '#ef4444',
-    text: '#ef4444'
+    border: 'var(--brand-red)',
+    text: 'var(--brand-red)'
   },
   warning: {
-    bg: 'rgba(251, 191, 36, 0.15)',
-    border: '#fbbf24',
-    text: '#fbbf24'
+    bg: 'var(--glow-yellow)',
+    border: 'var(--brand-yellow)',
+    text: 'var(--brand-yellow)'
   },
   info: {
-    bg: 'rgba(59, 130, 246, 0.15)',
-    border: '#3b82f6',
-    text: '#3b82f6'
+    bg: 'var(--glow-blue)',
+    border: 'var(--brand-blue)',
+    text: 'var(--brand-blue)'
   }
 };
 
@@ -53,23 +54,23 @@ export function Toast({ id, type = 'info', message, duration = 5000, onDismiss }
       style={{
         background: colors.bg,
         border: `2px solid ${colors.border}`,
-        borderRadius: '12px',
-        padding: '16px 20px',
+        borderRadius: 'var(--radius-md)',
+        padding: 'var(--space-4) var(--space-5)',
         minWidth: '300px',
         maxWidth: '500px',
-        backdropFilter: 'blur(10px)',
-        boxShadow: `0 8px 32px ${colors.border}40`,
-        marginBottom: '12px'
+        backdropFilter: 'blur(var(--glass-blur))',
+        boxShadow: 'var(--shadow-lg)',
+        marginBottom: 'var(--space-3)'
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <span style={{ fontSize: '24px' }}>{TOAST_ICONS[type]}</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+        <span style={{ fontSize: 'var(--font-size-2xl)' }}>{TOAST_ICONS[type]}</span>
         <div style={{ flex: 1 }}>
           <p style={{
             margin: 0,
-            fontSize: '15px',
-            fontWeight: '600',
-            color: '#ffffff'
+            fontSize: 'var(--font-size-base)',
+            fontWeight: 'var(--font-weight-semibold)',
+            color: 'var(--text-primary)'
           }}>
             {message}
           </p>
@@ -80,11 +81,11 @@ export function Toast({ id, type = 'info', message, duration = 5000, onDismiss }
             background: 'transparent',
             border: 'none',
             color: colors.text,
-            fontSize: '20px',
+            fontSize: 'var(--font-size-xl)',
             cursor: 'pointer',
-            padding: '0 4px',
+            padding: '0 var(--space-1)',
             opacity: 0.7,
-            transition: 'opacity 0.2s'
+            transition: 'opacity var(--transition-fast)'
           }}
           onMouseEnter={(e) => e.target.style.opacity = '1'}
           onMouseLeave={(e) => e.target.style.opacity = '0.7'}
@@ -101,9 +102,9 @@ export function ToastContainer({ toasts, onDismiss }) {
     <div
       style={{
         position: 'fixed',
-        top: '20px',
-        right: '20px',
-        zIndex: 9999,
+        top: 'var(--space-5)',
+        right: 'var(--space-5)',
+        zIndex: 'var(--z-tooltip)',
         pointerEvents: 'none'
       }}
     >

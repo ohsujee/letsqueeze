@@ -1,8 +1,8 @@
 "use client";
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
-import { useGameAudio } from '@/hooks/useGameAudio';
-import { ParticleEffects } from './ParticleEffects';
+import { useGameAudio } from '@/lib/hooks/useGameAudio';
+import { ParticleEffects } from '@/components/shared/ParticleEffects';
 
 export const PodiumPremium = ({ topPlayers }) => {
   const audio = useGameAudio();

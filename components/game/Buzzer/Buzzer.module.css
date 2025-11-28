@@ -1,0 +1,152 @@
+/* Container fixe pour le positionnement */
+.wrapper {
+  position: fixed;
+  bottom: var(--space-5);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-modal);
+  pointer-events: none;
+}
+
+/* Bouton buzzer SVG */
+.button {
+  pointer-events: auto;
+  position: relative;
+  width: 340px;
+  height: 340px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-10);
+  margin: calc(-1 * var(--space-10));
+  transform-origin: center center;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
+
+.button:focus-visible {
+  outline: 4px solid var(--brand-cyan);
+  outline-offset: var(--space-2);
+}
+
+/* SVG du buzzer */
+.svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Contenu texte */
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.mainLabel {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-black);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-1);
+  color: var(--text-primary);
+  text-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(255, 255, 255, 0.4),
+    0 0 15px rgba(255, 255, 255, 0.6);
+  font-family: var(--font-display);
+}
+
+.subLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--text-primary);
+  opacity: 0.98;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  font-family: var(--font-display);
+}
+
+.warningMsg {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.5);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Spacer */
+.spacer {
+  height: 100px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .wrapper {
+    bottom: var(--space-3);
+  }
+
+  .button {
+    width: 300px;
+    height: 300px;
+    padding: var(--space-8);
+    margin: calc(-1 * var(--space-8));
+  }
+
+  .mainLabel {
+    font-size: var(--font-size-4xl);
+  }
+
+  .subLabel {
+    font-size: var(--font-size-xs);
+  }
+
+  .warningMsg {
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 380px) {
+  .button {
+    width: 260px;
+    height: 260px;
+    padding: var(--space-8);
+    margin: calc(-1 * var(--space-8));
+  }
+
+  .mainLabel {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+/* Safe area */
+@supports (padding: max(0px)) {
+  .wrapper {
+    bottom: max(20px, env(safe-area-inset-bottom) + 10px);
+  }
+}
+
+/* Mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    animation: none !important;
+  }
+}
