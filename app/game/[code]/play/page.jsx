@@ -4,10 +4,10 @@ import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
-import Buzzer from "@/components/Buzzer";
-import PointsRing from "@/components/PointsRing";
+import Buzzer from "@/components/game/Buzzer";
+import PointsRing from "@/components/game/PointsRing";
 import { motion, AnimatePresence } from "framer-motion";
-import { triggerConfetti } from "@/components/Confetti";
+import { triggerConfetti } from "@/components/shared/Confetti";
 import ExitButton from "@/lib/components/ExitButton";
 
 function useSound(url){
@@ -48,7 +48,8 @@ export default function PlayerGame(){
   // Tick + offset serveur
   const [localNow, setLocalNow] = useState(Date.now());
   const [offset, setOffset] = useState(0);
-  useEffect(()=>{ const id = setInterval(()=>setLocalNow(Date.now()), 100); return ()=>clearInterval(id); },[]);
+  // Polling réduit de 100ms à 500ms pour économiser CPU/batterie
+  useEffect(()=>{ const id = setInterval(()=>setLocalNow(Date.now()), 500); return ()=>clearInterval(id); },[]);
   useEffect(()=>{ const u = onValue(ref(db, ".info/serverTimeOffset"), s=> setOffset(Number(s.val())||0)); return ()=>u(); },[]);
   const serverNow = localNow + offset;
 

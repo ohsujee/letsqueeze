@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, auth } from '@/lib/firebase';
+import { storage } from '@/lib/utils/storage';
 import { Zap } from 'lucide-react';
 
 export default function SplashScreen() {
@@ -11,7 +12,7 @@ export default function SplashScreen() {
 
   useEffect(() => {
     // Check if user has seen onboarding
-    const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
+    const hasSeenOnboarding = storage.get('hasSeenOnboarding');
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setTimeout(() => {

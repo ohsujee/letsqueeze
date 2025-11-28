@@ -12,9 +12,10 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion } from 'framer-motion';
+import DOMPurify from 'dompurify';
 import ExitButton from "@/lib/components/ExitButton";
-import { CountdownOverlay } from "@/components/CountdownOverlay";
-import { PhaseTransition } from "@/components/PhaseTransition";
+import { CountdownOverlay } from "@/components/shared/CountdownOverlay";
+import { PhaseTransition } from "@/components/transitions/PhaseTransition";
 
 export default function AlibiPrep() {
   const { code } = useParams();
@@ -192,12 +193,17 @@ export default function AlibiPrep() {
     });
   };
 
-  // Fonction pour afficher du HTML (nouveau format)
+  // Fonction pour afficher du HTML (nouveau format) - SANITIZED contre XSS
   const renderHTML = (html) => {
     if (!html) return null;
+    // Sanitize HTML pour prévenir les attaques XSS
+    const sanitizedHTML = DOMPurify.sanitize(html, {
+      ALLOWED_TAGS: ['strong', 'em', 'b', 'i', 'u', 'br', 'p', 'span', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4'],
+      ALLOWED_ATTR: ['class', 'style']
+    });
     return (
       <div
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
         className="prose prose-invert max-w-none"
         style={{
           // Style pour les éléments en gras dans le HTML
@@ -295,11 +301,11 @@ export default function AlibiPrep() {
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
               style={{
-                fontSize: '0.75rem',
+                fontSize: 'var(--font-size-xs)',
                 fontWeight: 700,
                 textTransform: 'uppercase',
                 color: '#6366F1',
-                letterSpacing: '0.05em'
+                letterSpacing: 'var(--letter-spacing-wide)'
               }}
             >
               À mémoriser
@@ -318,12 +324,13 @@ export default function AlibiPrep() {
             // Nouveau format : Context + Accused Document
             <div className="space-y-4">
               <motion.div
-                className="p-5 bg-slate-700/50 rounded-xl border-l-4 border-primary mb-4"
+                className="bg-slate-700/50 rounded-xl border-l-4 border-primary mb-4"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
                 style={{
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                  padding: 'var(--space-5)',
+                  boxShadow: 'var(--shadow-md)'
                 }}
               >
                 <div className="flex items-start gap-3 mb-3">
@@ -339,9 +346,9 @@ export default function AlibiPrep() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
                 style={{
-                  padding: '1.5rem',
+                  padding: 'var(--space-6)',
                   background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05))',
-                  borderRadius: '1rem',
+                  borderRadius: 'var(--radius-lg)',
                   border: '1px solid rgba(99, 102, 241, 0.2)'
                 }}
               >
@@ -359,9 +366,9 @@ export default function AlibiPrep() {
               <div
                 className="whitespace-pre-wrap leading-relaxed"
                 style={{
-                  padding: '1.5rem',
+                  padding: 'var(--space-6)',
                   background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05))',
-                  borderRadius: '1rem',
+                  borderRadius: 'var(--radius-lg)',
                   border: '1px solid rgba(99, 102, 241, 0.2)'
                 }}
               >
@@ -389,8 +396,9 @@ export default function AlibiPrep() {
               alibi.isNewFormat ? (
                 // Nouveau format : Context + Inspector Summary
                 <div className="space-y-4">
-                  <div className="p-5 bg-slate-700/50 rounded-xl border-l-4 border-accent mb-4" style={{
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
+                  <div className="bg-slate-700/50 rounded-xl border-l-4 border-accent mb-4" style={{
+                    padding: 'var(--space-5)',
+                    boxShadow: 'var(--shadow-md)'
                   }}>
                     <div className="flex items-start gap-3 mb-3">
                       <span className="text-2xl">⚠️</span>

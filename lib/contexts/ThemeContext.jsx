@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
+import { storage } from '@/lib/utils/storage';
 
 const ThemeContext = createContext({
   theme: 'dark',
@@ -20,17 +21,17 @@ export function ThemeProvider({ children }) {
   const [theme, setThemeState] = useState('dark'); // Dark mode par défaut
   const [mounted, setMounted] = useState(false);
 
-  // Load theme from localStorage on mount
+  // Load theme from storage on mount
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = storage.getOrDefault('theme', 'dark');
     setThemeState(savedTheme);
     document.documentElement.setAttribute('data-theme', savedTheme);
   }, []);
 
   const setTheme = (newTheme) => {
     setThemeState(newTheme);
-    localStorage.setItem('theme', newTheme);
+    storage.set('theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
   };
 

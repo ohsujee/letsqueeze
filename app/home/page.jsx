@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { onAuthStateChanged, auth, db, ref, set } from '@/lib/firebase';
 import { useSubscription } from '@/lib/hooks/useSubscription';
+import { storage } from '@/lib/utils/storage';
 import GameCard from '@/lib/components/GameCard';
 import BottomNav from '@/lib/components/BottomNav';
 import { Target, UserSearch, Gamepad2, Heart, Sparkles } from 'lucide-react';
@@ -44,10 +45,10 @@ export default function HomePage() {
         setUser(currentUser);
         setLoading(false);
 
-        // Load favorites from localStorage
-        const savedFavorites = localStorage.getItem('favorites');
+        // Load favorites from storage
+        const savedFavorites = storage.get('favorites');
         if (savedFavorites) {
-          setFavorites(JSON.parse(savedFavorites));
+          setFavorites(savedFavorites);
         }
       }
     });
@@ -61,7 +62,7 @@ export default function HomePage() {
       : [...favorites, gameId];
 
     setFavorites(newFavorites);
-    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+    storage.set('favorites', newFavorites);
   };
 
   const handleGameClick = async (game) => {

@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { db, ref, onValue } from "@/lib/firebase";
-import Qr from "@/components/Qr";
+import Qr from "@/components/ui/Qr";
 import QrModal from "@/lib/components/QrModal";
 
 export default function SpectatorView() {

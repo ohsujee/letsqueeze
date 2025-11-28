@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useState, useCallback } from 'react';
-import { ToastContainer } from '@/components/Toast';
+import { ToastContainer } from '@/components/shared/Toast';
 
 export const ToastContext = createContext(null);
 

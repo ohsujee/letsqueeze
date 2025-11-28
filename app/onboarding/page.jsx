@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { storage } from '@/lib/utils/storage';
 
 const slides = [
   {
@@ -43,7 +44,7 @@ export default function OnboardingPage() {
 
   const handleComplete = () => {
     // Mark onboarding as seen
-    localStorage.setItem('hasSeenOnboarding', 'true');
+    storage.set('hasSeenOnboarding', true);
     router.push('/login');
   };
 

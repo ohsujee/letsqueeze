@@ -68,27 +68,27 @@ export default function ExitButton({
       <style jsx>{`
         .exit-button {
           position: fixed;
-          top: 20px;
-          right: 20px;
-          z-index: 100;
+          top: var(--space-5);
+          right: var(--space-5);
+          z-index: var(--z-dropdown);
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 12px 16px;
+          gap: var(--space-2);
+          padding: var(--space-3) var(--space-4);
           background: rgba(0, 0, 0, 0.5);
           backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 12px;
-          color: white;
-          font-weight: 600;
+          border: 1px solid var(--glass-border);
+          border-radius: var(--radius-md);
+          color: var(--text-primary);
+          font-weight: var(--font-weight-semibold);
           cursor: pointer;
-          transition: all 0.2s ease;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          transition: all var(--transition-base);
+          box-shadow: var(--shadow-md);
         }
 
         .exit-button.minimal {
-          padding: 10px;
-          border-radius: 50%;
+          padding: var(--space-3);
+          border-radius: var(--radius-full);
           min-width: 44px;
           min-height: 44px;
         }
@@ -97,24 +97,24 @@ export default function ExitButton({
           position: relative;
           top: auto;
           right: auto;
-          padding: 8px;
-          border-radius: 10px;
+          padding: var(--space-2);
+          border-radius: var(--radius-sm);
           min-width: 40px;
           min-height: 40px;
           max-height: 40px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          background: var(--state-hover);
+          border: 1px solid var(--border-subtle);
           box-shadow: none;
         }
 
         .exit-button.header:hover {
           background: rgba(239, 68, 68, 0.2);
-          border-color: rgba(239, 68, 68, 0.5);
+          border-color: var(--brand-red);
         }
 
         .exit-button:hover {
-          background: rgba(239, 68, 68, 0.8);
-          border-color: rgba(255, 255, 255, 0.4);
+          background: var(--brand-red);
+          border-color: var(--glass-border);
           transform: scale(1.05);
           box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
         }
@@ -124,16 +124,16 @@ export default function ExitButton({
         }
 
         .exit-label {
-          font-size: 14px;
-          letter-spacing: 0.02em;
+          font-size: var(--font-size-sm);
+          letter-spacing: var(--letter-spacing-wide);
         }
 
         /* Mobile adjustments */
         @media (max-width: 640px) {
           .exit-button {
-            top: 12px;
-            right: 12px;
-            padding: 10px 12px;
+            top: var(--space-3);
+            right: var(--space-3);
+            padding: var(--space-3);
           }
 
           .exit-label {
@@ -141,7 +141,7 @@ export default function ExitButton({
           }
 
           .exit-button.minimal {
-            padding: 10px;
+            padding: var(--space-3);
             min-width: 44px;
             min-height: 44px;
           }

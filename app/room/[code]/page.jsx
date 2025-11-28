@@ -11,13 +11,13 @@ import {
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
-import Qr from "@/components/Qr";
+import Qr from "@/components/ui/Qr";
 import QrModal from "@/lib/components/QrModal";
 import BottomNav from "@/lib/components/BottomNav";
 import TeamTabs from "@/lib/components/TeamTabs";
 import PlayerTeamView from "@/lib/components/PlayerTeamView";
-import PaywallModal from "@/components/PaywallModal";
-import QuizSelectorModal from "@/components/QuizSelectorModal";
+import PaywallModal from "@/components/ui/PaywallModal";
+import QuizSelectorModal from "@/components/ui/QuizSelectorModal";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
@@ -297,8 +297,8 @@ export default function Room() {
           background: 'rgba(255, 255, 255, 0.03)',
           backdropFilter: 'blur(20px)',
           border: '1px solid rgba(255, 255, 255, 0.1)',
-          borderRadius: '1.5rem',
-          padding: '1.5rem',
+          borderRadius: 'var(--radius-xl)',
+          padding: 'var(--space-6)',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
         }}
       >
@@ -435,18 +435,18 @@ export default function Room() {
                 {/* Quiz actuel affiché */}
                 <div style={{
                   background: 'rgba(255, 255, 255, 0.05)',
-                  borderRadius: '1rem',
-                  padding: '1rem',
+                  borderRadius: 'var(--radius-lg)',
+                  padding: 'var(--space-4)',
                   border: '1px solid rgba(255, 255, 255, 0.1)'
                 }}>
-                  <div style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '0.5rem' }}>
+                  <div style={{ fontSize: 'var(--font-size-4xl)', textAlign: 'center', marginBottom: 'var(--space-2)' }}>
                     {quizOptions.find(q => q.id === (meta?.quizId || "general"))?.emoji || '📝'}
                   </div>
                   <div style={{
-                    fontSize: '1rem',
+                    fontSize: 'var(--font-size-base)',
                     fontWeight: 700,
                     textAlign: 'center',
-                    marginBottom: '0.5rem',
+                    marginBottom: 'var(--space-2)',
                     color: 'white'
                   }}>
                     {selectedQuizTitle}
@@ -454,8 +454,8 @@ export default function Room() {
                   <div style={{
                     display: 'flex',
                     justifyContent: 'center',
-                    gap: '0.5rem',
-                    fontSize: '0.75rem',
+                    gap: 'var(--space-2)',
+                    fontSize: 'var(--font-size-xs)',
                     color: 'rgba(255, 255, 255, 0.6)'
                   }}>
                     <span>
@@ -469,9 +469,9 @@ export default function Room() {
                 </div>
 
                 <div style={{
-                  marginTop: '0.75rem',
+                  marginTop: 'var(--space-3)',
                   textAlign: 'center',
-                  fontSize: '0.875rem',
+                  fontSize: 'var(--font-size-sm)',
                   color: 'rgba(255, 255, 255, 0.7)',
                   fontWeight: 600
                 }}>

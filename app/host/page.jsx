@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import { auth, db, ref, set, update, onValue, signInAnonymously, onAuthStateChanged, runTransaction } from "@/lib/firebase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Qr from "@/components/Qr";
+import Qr from "@/components/ui/Qr";
 import QrModal from "@/lib/components/QrModal";
 import { genCode } from "@/lib/utils";
 import BottomNav from "@/lib/components/BottomNav";

@@ -14,11 +14,11 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
-import Qr from "@/components/Qr";
+import Qr from "@/components/ui/Qr";
 import QrModal from "@/lib/components/QrModal";
 import BottomNav from "@/lib/components/BottomNav";
-import PaywallModal from "@/components/PaywallModal";
-import AlibiSelectorModal from "@/components/AlibiSelectorModal";
+import PaywallModal from "@/components/ui/PaywallModal";
+import AlibiSelectorModal from "@/components/alibi/AlibiSelectorModal";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { canAccessPack, isPro } from "@/lib/subscription";
 
@@ -263,8 +263,8 @@ export default function AlibiLobby() {
             background: 'rgba(255, 255, 255, 0.03)',
             backdropFilter: 'blur(20px)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '1.5rem',
-            padding: '1.5rem',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-6)',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
           }}
         >
@@ -419,11 +419,11 @@ export default function AlibiLobby() {
                 {/* Alibi actuel affiché */}
                 <div style={{
                   background: 'rgba(255, 255, 255, 0.05)',
-                  borderRadius: '1rem',
-                  padding: '1rem',
+                  borderRadius: 'var(--radius-lg)',
+                  padding: 'var(--space-4)',
                   border: '1px solid rgba(255, 255, 255, 0.1)'
                 }}>
-                  <div style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '0.5rem' }}>
+                  <div style={{ fontSize: 'var(--font-size-4xl)', textAlign: 'center', marginBottom: 'var(--space-2)' }}>
                     {selectedAlibiId ? (
                       {
                         "match-equipe-locale": "⚽",
@@ -448,17 +448,17 @@ export default function AlibiLobby() {
                     ) : '📚'}
                   </div>
                   <div style={{
-                    fontSize: '1rem',
+                    fontSize: 'var(--font-size-base)',
                     fontWeight: 700,
                     textAlign: 'center',
-                    marginBottom: '0.25rem',
+                    marginBottom: 'var(--space-1)',
                     color: 'white'
                   }}>
                     {selectedAlibiId ? alibiOptions.find(a => a.id === selectedAlibiId)?.title : 'Choisir un alibi'}
                   </div>
                   <div style={{
                     textAlign: 'center',
-                    fontSize: '0.75rem',
+                    fontSize: 'var(--font-size-xs)',
                     color: 'rgba(255, 255, 255, 0.6)'
                   }}>
                     {selectedAlibiId ? '10 questions • Interrogatoire' : 'Cliquer pour parcourir'}
@@ -545,7 +545,7 @@ export default function AlibiLobby() {
               <h3 className="text-base font-bold mb-4">En attente d'assignation ({unassigned.length})</h3>
               <div className="space-y-2">
                 {unassigned.map(player => (
-                  <div key={player.uid} className="flex items-center gap-2 px-5 py-2.5 bg-slate-700/50 rounded-lg">
+                  <div key={player.uid} className="flex items-center gap-3 p-4 bg-slate-700/50 rounded-lg">
                     <span className="flex-1 text-base font-medium">{player.name}</span>
                     <div className="flex gap-2">
                       <button
@@ -612,7 +612,7 @@ export default function AlibiLobby() {
                 {inspectors.map((player) => (
                   <div
                     key={player.uid}
-                    className="flex items-center gap-3 px-5 py-2.5 rounded-lg group relative"
+                    className="flex items-center gap-3 p-4 rounded-lg group relative"
                     style={{
                       background: 'rgba(255, 109, 0, 0.08)',
                       border: '1px solid rgba(255, 109, 0, 0.2)',
@@ -694,7 +694,7 @@ export default function AlibiLobby() {
                 {suspects.map((player) => (
                   <div
                     key={player.uid}
-                    className="flex items-center gap-3 px-5 py-2.5 rounded-lg group relative"
+                    className="flex items-center gap-3 p-4 rounded-lg group relative"
                     style={{
                       background: 'rgba(99, 102, 241, 0.08)',
                       border: '1px solid rgba(99, 102, 241, 0.2)',
