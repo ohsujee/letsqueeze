@@ -1,0 +1,27 @@
+{
+  "id": "culture-generale-6-sport",
+  "title": "Culture Générale — Sport",
+  "lang": "fr",
+  "items": [
+    { "id": "cgsp001", "question": "Combien de joueurs composent une équipe de football sur le terrain ?", "answer": "11", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "cgsp002", "question": "Dans quel sport utilise-t-on un volant (shuttlecock) ?", "answer": "Le badminton", "difficulty": "normal", "category": "Sports de raquette" },
+    { "id": "cgsp003", "question": "Quel pays a remporté la Coupe du Monde de football 2022 ?", "answer": "L'Argentine", "difficulty": "normal", "category": "Football" },
+    { "id": "cgsp004", "question": "Combien de sets faut-il gagner pour remporter un match de tennis masculin en Grand Chelem ?", "answer": "3 (sur 5)", "difficulty": "normal", "category": "Tennis" },
+    { "id": "cgsp005", "question": "Quel nageur américain détient le record de médailles olympiques ?", "answer": "Michael Phelps", "difficulty": "normal", "category": "Natation" },
+    { "id": "cgsp006", "question": "Dans quel sport peut-on réaliser un « slam dunk » ?", "answer": "Le basketball", "difficulty": "normal", "category": "Basketball" },
+    { "id": "cgsp007", "question": "Quel coureur jamaïcain est surnommé « Usain Bolt » ?", "answer": "Usain Bolt (c'est son vrai nom !)", "difficulty": "normal", "category": "Athlétisme" },
+    { "id": "cgsp008", "question": "Combien de points vaut un essai au rugby ?", "answer": "5 points", "difficulty": "normal", "category": "Rugby" },
+    { "id": "cgsp009", "question": "Quel sport se pratique sur un tatami avec des prises et des projections ?", "answer": "Le judo", "difficulty": "normal", "category": "Arts martiaux" },
+    { "id": "cgsp010", "question": "Quelle équipe de basketball NBA a remporté le plus de titres ?", "answer": "Les Boston Celtics (ou Lakers avec 17)", "difficulty": "normal", "category": "Basketball" },
+    { "id": "cgsp011", "question": "Quel cycliste espagnol a remporté 5 Tours de France ?", "answer": "Miguel Indurain", "difficulty": "normal", "category": "Cyclisme" },
+    { "id": "cgsp012", "question": "Dans quel sport utilise-t-on des gants de 10 oz ?", "answer": "La boxe", "difficulty": "normal", "category": "Combat" },
+    { "id": "cgsp013", "question": "Quel pays a inventé le football moderne ?", "answer": "L'Angleterre", "difficulty": "normal", "category": "Football" },
+    { "id": "cgsp014", "question": "Combien de trous compte un parcours de golf standard ?", "answer": "18", "difficulty": "normal", "category": "Golf" },
+    { "id": "cgsp015", "question": "Quel joueur de tennis a remporté le plus de titres du Grand Chelem (hommes) ?", "answer": "Novak Djokovic (24)", "difficulty": "normal", "category": "Tennis" },
+    { "id": "cgsp016", "question": "Quel footballeur portugais a remporté 5 Ballons d'Or ?", "answer": "Cristiano Ronaldo", "difficulty": "difficile", "category": "Football" },
+    { "id": "cgsp017", "question": "Dans quel sport le « carton jaune » a-t-il été introduit pour la première fois en 1970 ?", "answer": "Le football", "difficulty": "difficile", "category": "Football" },
+    { "id": "cgsp018", "question": "Quel pays a remporté le plus de Coupes du Monde de football ?", "answer": "Le Brésil (5)", "difficulty": "difficile", "category": "Football" },
+    { "id": "cgsp019", "question": "Quel est le record du monde du 100m masculin détenu par Usain Bolt ?", "answer": "9,58 secondes", "difficulty": "difficile", "category": "Athlétisme" },
+    { "id": "cgsp020", "question": "Quel sport combine ski de fond et tir à la carabine ?", "answer": "Le biathlon", "difficulty": "difficile", "category": "Sports d'hiver" }
+  ]
+}

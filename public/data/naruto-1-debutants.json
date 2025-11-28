@@ -1,0 +1,27 @@
+{
+  "id": "naruto-1-debutants",
+  "title": "Naruto — Débutants",
+  "lang": "fr",
+  "items": [
+    { "id": "nar1001", "question": "Comment s'appelle le héros principal de la série Naruto ?", "answer": "Naruto Uzumaki", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "nar1002", "question": "Quel démon à queues est scellé dans le corps de Naruto ?", "answer": "Kyubi (le démon renard à neuf queues)", "difficulty": "normal", "category": "Personnage" },
+    { "id": "nar1003", "question": "Dans quel village Naruto a-t-il grandi ?", "answer": "Konoha (le village caché de la feuille)", "difficulty": "normal", "category": "Lieu" },
+    { "id": "nar1004", "question": "Comment s'appelle le meilleur ami et rival de Naruto ?", "answer": "Sasuke Uchiha", "difficulty": "normal", "category": "Personnage" },
+    { "id": "nar1005", "question": "Quelle kunoichi aux cheveux roses fait partie de l'équipe 7 ?", "answer": "Sakura Haruno", "difficulty": "normal", "category": "Personnage" },
+    { "id": "nar1006", "question": "Quel est le nom du sensei de l'équipe 7, toujours en retard ?", "answer": "Kakashi Hatake", "difficulty": "normal", "category": "Personnage" },
+    { "id": "nar1007", "question": "Quel est le plat préféré de Naruto ?", "answer": "Les ramens", "difficulty": "normal", "category": "Détail" },
+    { "id": "nar1008", "question": "Quelle technique de clonage est la spécialité de Naruto ?", "answer": "Multi-clonage (Kage Bunshin no Jutsu)", "difficulty": "normal", "category": "Techniques" },
+    { "id": "nar1009", "question": "Quel est le rêve de Naruto depuis le début de la série ?", "answer": "Devenir Hokage", "difficulty": "normal", "category": "Intrigue" },
+    { "id": "nar1010", "question": "Comment s'appelle le maître pervers qui entraîne Naruto ?", "answer": "Jiraiya (l'ermite pervers)", "difficulty": "normal", "category": "Personnage" },
+    { "id": "nar1011", "question": "Quel clan possède le Sharingan comme dojutsu ?", "answer": "Le clan Uchiha", "difficulty": "normal", "category": "Clans" },
+    { "id": "nar1012", "question": "Comment s'appelle l'organisation criminelle qui traque les démons à queues ?", "answer": "L'Akatsuki", "difficulty": "normal", "category": "Organisation" },
+    { "id": "nar1013", "question": "Quel personnage porte un masque orange et prétend être idiot ?", "answer": "Tobi", "difficulty": "normal", "category": "Personnage" },
+    { "id": "nar1014", "question": "Quel animal invoque Naruto après son entraînement avec Jiraiya ?", "answer": "Des crapauds (Gamabunta)", "difficulty": "normal", "category": "Invocations" },
+    { "id": "nar1015", "question": "Quel est le surnom donné à Naruto à cause de son énergie ?", "answer": "Le ninja le plus imprévisible", "difficulty": "normal", "category": "Surnom" },
+    { "id": "nar1016", "question": "Quel frère de Sasuke a massacré tout le clan Uchiha ?", "answer": "Itachi Uchiha", "difficulty": "difficile", "category": "Personnage" },
+    { "id": "nar1017", "question": "Comment s'appelle la technique ultime de Naruto, une sphère de chakra ?", "answer": "Rasengan", "difficulty": "difficile", "category": "Techniques" },
+    { "id": "nar1018", "question": "Quel Hokage a scellé Kyubi dans Naruto ?", "answer": "Le 4e Hokage, Minato Namikaze (le père de Naruto)", "difficulty": "difficile", "category": "Histoire" },
+    { "id": "nar1019", "question": "Quel est le vrai nom de Kyubi ?", "answer": "Kurama", "difficulty": "difficile", "category": "Démons" },
+    { "id": "nar1020", "question": "Quel membre de l'Akatsuki était le partenaire d'Itachi ?", "answer": "Kisame Hoshigaki", "difficulty": "difficile", "category": "Akatsuki" }
+  ]
+}

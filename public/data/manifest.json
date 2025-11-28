@@ -5,70 +5,169 @@
       "title": "Culture Générale",
       "emoji": "🌍",
       "difficulty": "Facile",
-      "questionCount": 20,
+      "questionCount": 22,
       "category": "Général",
       "description": "Questions variées sur la culture, science, géographie"
-    },
-    {
-      "id": "friends",
-      "title": "Friends",
-      "emoji": "☕",
-      "difficulty": "Moyen",
-      "questionCount": 30,
-      "category": "Séries TV",
-      "description": "Testez vos connaissances sur la série culte"
     },
     {
       "id": "culture-generale-fun-2",
       "title": "Culture Générale — Variées",
       "emoji": "🎓",
       "difficulty": "Moyen",
-      "questionCount": 25,
+      "questionCount": 22,
       "category": "Général",
       "description": "Découvrez des questions amusantes et instructives"
+    },
+    {
+      "id": "culture-generale-3-sciences",
+      "title": "Culture Générale — Sciences",
+      "emoji": "🔬",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Général",
+      "description": "Physique, chimie, biologie et inventions"
+    },
+    {
+      "id": "culture-generale-4-histoire",
+      "title": "Culture Générale — Histoire",
+      "emoji": "📜",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Général",
+      "description": "Des pharaons à la chute du mur de Berlin"
+    },
+    {
+      "id": "culture-generale-5-geographie",
+      "title": "Culture Générale — Géographie",
+      "emoji": "🗺️",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Général",
+      "description": "Capitales, fleuves, montagnes et pays"
+    },
+    {
+      "id": "culture-generale-6-sport",
+      "title": "Culture Générale — Sport",
+      "emoji": "⚽",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Général",
+      "description": "Football, tennis, JO et records sportifs"
+    },
+    {
+      "id": "culture-generale-7-cinema",
+      "title": "Culture Générale — Cinéma",
+      "emoji": "🎬",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Général",
+      "description": "Blockbusters, acteurs et réalisateurs cultes"
+    },
+    {
+      "id": "culture-generale-8-musique",
+      "title": "Culture Générale — Musique",
+      "emoji": "🎵",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Général",
+      "description": "Rock, pop, rap et musique classique"
+    },
+    {
+      "id": "friends",
+      "title": "Friends",
+      "emoji": "☕",
+      "difficulty": "Moyen",
+      "questionCount": 21,
+      "category": "Séries TV",
+      "description": "Testez vos connaissances sur la série culte"
     },
     {
       "id": "ma-famille-dabord",
       "title": "Ma Famille D'abord",
       "emoji": "👨‍👩‍👧‍👦",
       "difficulty": "Moyen",
-      "questionCount": 28,
+      "questionCount": 19,
       "category": "Séries TV",
       "description": "Souvenirs de la famille Kyle"
-    },
-    {
-      "id": "kollywood-1980-2018",
-      "title": "Kollywood 1980–2018",
-      "emoji": "🎬",
-      "difficulty": "Difficile",
-      "questionCount": 22,
-      "category": "Cinéma Tamil",
-      "description": "Classiques du cinéma tamoul"
     },
     {
       "id": "disney-films-moderate",
       "title": "Films Disney",
       "emoji": "🏰",
       "difficulty": "Moyen",
-      "questionCount": 30,
+      "questionCount": 23,
       "category": "Animation",
       "description": "Magie des films Disney"
     },
     {
-      "id": "kollywood_hard_2",
-      "title": "Kollywood — Quiz #2",
-      "emoji": "🎥",
-      "difficulty": "Très Difficile",
-      "questionCount": 25,
+      "id": "naruto-1-debutants",
+      "title": "Naruto — Débutants",
+      "emoji": "🍥",
+      "difficulty": "Facile",
+      "questionCount": 20,
+      "category": "Anime",
+      "description": "Les bases du ninja le plus imprévisible"
+    },
+    {
+      "id": "naruto-2-intermediaire",
+      "title": "Naruto — Intermédiaire",
+      "emoji": "🦊",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Anime",
+      "description": "Akatsuki, bijuu et techniques secrètes"
+    },
+    {
+      "id": "naruto-3-expert",
+      "title": "Naruto — Expert",
+      "emoji": "👁️",
+      "difficulty": "Difficile",
+      "questionCount": 20,
+      "category": "Anime",
+      "description": "Révélations, Otsutsuki et fin de série"
+    },
+    {
+      "id": "onepiece-1-debutants",
+      "title": "One Piece — Débutants",
+      "emoji": "🏴‍☠️",
+      "difficulty": "Facile",
+      "questionCount": 20,
+      "category": "Anime",
+      "description": "L'équipage du Chapeau de Paille"
+    },
+    {
+      "id": "onepiece-2-intermediaire",
+      "title": "One Piece — Intermédiaire",
+      "emoji": "⚓",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Anime",
+      "description": "Yonko, Marine et fruits du démon"
+    },
+    {
+      "id": "onepiece-3-expert",
+      "title": "One Piece — Expert",
+      "emoji": "👑",
+      "difficulty": "Difficile",
+      "questionCount": 20,
+      "category": "Anime",
+      "description": "Laugh Tale, Gear 5 et mystères du monde"
+    },
+    {
+      "id": "kollywood-1980-2018",
+      "title": "Kollywood 1980–2018",
+      "emoji": "🎬",
+      "difficulty": "Difficile",
+      "questionCount": 18,
       "category": "Cinéma Tamil",
-      "description": "Pour les vrais cinéphiles tamouls"
+      "description": "Classiques du cinéma tamoul"
     },
     {
       "id": "kollywood-2000-2010-fresh-fr-ta",
       "title": "Kollywood 2000–2010",
       "emoji": "🎞️",
       "difficulty": "Moyen",
-      "questionCount": 30,
+      "questionCount": 22,
       "category": "Cinéma Tamil",
       "description": "L'âge d'or du cinéma tamoul"
     },
@@ -77,7 +176,7 @@
       "title": "Kollywood 90–2000",
       "emoji": "📽️",
       "difficulty": "Moyen",
-      "questionCount": 28,
+      "questionCount": 20,
       "category": "Cinéma Tamil",
       "description": "Années 90 du cinéma tamoul"
     },
@@ -86,7 +185,7 @@
       "title": "Kollywood 2010–2025 #1",
       "emoji": "🎭",
       "difficulty": "Moyen",
-      "questionCount": 32,
+      "questionCount": 16,
       "category": "Cinéma Tamil",
       "description": "Cinéma tamoul moderne"
     },
@@ -95,7 +194,7 @@
       "title": "Kollywood 2010–2025 #2",
       "emoji": "🎪",
       "difficulty": "Difficile",
-      "questionCount": 30,
+      "questionCount": 22,
       "category": "Cinéma Tamil",
       "description": "Blockbusters récents"
     }

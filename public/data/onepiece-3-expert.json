@@ -1,0 +1,27 @@
+{
+  "id": "onepiece-3-expert",
+  "title": "One Piece — Expert",
+  "lang": "fr",
+  "items": [
+    { "id": "op3001", "question": "Comment s'appelle l'île où se trouvent les Poneglyphes et la vraie histoire du monde ?", "answer": "Laugh Tale (Raftel)", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "op3002", "question": "Quel est le vrai nom du fruit du démon de Luffy révélé récemment ?", "answer": "Hito Hito no Mi, modèle Nika", "difficulty": "normal", "category": "Révélation" },
+    { "id": "op3003", "question": "Qui sont les « Cinq Doyens » (Gorosei) qui dirigent le Gouvernement Mondial ?", "answer": "Les 5 anciens qui gouvernent le monde", "difficulty": "normal", "category": "Gouvernement" },
+    { "id": "op3004", "question": "Comment s'appelle la forme éveillée du fruit de Luffy (Gear 5) ?", "answer": "Gear Fifth", "difficulty": "normal", "category": "Techniques" },
+    { "id": "op3005", "question": "Quel est le nom du royaume ancien détruit par le Gouvernement Mondial ?", "answer": "Le Royaume Ancien (Ancient Kingdom)", "difficulty": "normal", "category": "Histoire" },
+    { "id": "op3006", "question": "Comment s'appelle le fils de Barbe Blanche qui apparaît à Wano ?", "answer": "Weevil (Edward Weevil)", "difficulty": "normal", "category": "Personnages" },
+    { "id": "op3007", "question": "Quel est le nom des créations du Dr. Vegapunk qui remplacent les Corsaires ?", "answer": "Les Seraphim", "difficulty": "normal", "category": "Technologie" },
+    { "id": "op3008", "question": "Comment s'appelle la forme hybride de Kaido, mi-dragon mi-humain ?", "answer": "Forme Hybride du fruit Uo Uo no Mi", "difficulty": "normal", "category": "Fruits du démon" },
+    { "id": "op3009", "question": "Quel est le nom de l'épée légendaire noire de Mihawk ?", "answer": "Yoru", "difficulty": "normal", "category": "Armes" },
+    { "id": "op3010", "question": "Comment s'appelle la technique de Zoro qui utilise le Haki de l'Armement sur ses sabres ?", "answer": "Enma (avec Haki de l'Armement avancé)", "difficulty": "normal", "category": "Techniques" },
+    { "id": "op3011", "question": "Quel est le nom de la prison secrète au 6e niveau d'Impel Down ?", "answer": "Niveau 6 : L'Enfer Éternel", "difficulty": "normal", "category": "Lieux" },
+    { "id": "op3012", "question": "Comment s'appelle l'alliance formée par Luffy, Law et Kid à Wano ?", "answer": "L'Alliance Ninja-Pirate-Mink-Samourai", "difficulty": "normal", "category": "Alliances" },
+    { "id": "op3013", "question": "Quel personnage possède le fruit Op Op no Mi, le fruit de l'immortalité ?", "answer": "Trafalgar Law", "difficulty": "normal", "category": "Fruits du démon" },
+    { "id": "op3014", "question": "Comment s'appelle le leader secret au-dessus des Cinq Doyens ?", "answer": "Im (Imu)", "difficulty": "normal", "category": "Gouvernement" },
+    { "id": "op3015", "question": "Quel est le nom du Road Poneglyph rouge qui mène à Laugh Tale ?", "answer": "Road Poneglyph (il y en a 4)", "difficulty": "normal", "category": "Objets" },
+    { "id": "op3016", "question": "Comment s'appelle la mère de Luffy ?", "answer": "Non révélée (inconnue)", "difficulty": "difficile", "category": "Famille" },
+    { "id": "op3017", "question": "Quel est le nom de la technique de Sanji qui enflamme ses jambes ?", "answer": "Diable Jambe", "difficulty": "difficile", "category": "Techniques" },
+    { "id": "op3018", "question": "Comment s'appelle l'île des scientifiques où se trouve Vegapunk ?", "answer": "Egghead", "difficulty": "difficile", "category": "Lieux" },
+    { "id": "op3019", "question": "Quel est le nom du « Siècle Oublié » caché par le Gouvernement ?", "answer": "Le Siècle Oublié (Void Century)", "difficulty": "difficile", "category": "Histoire" },
+    { "id": "op3020", "question": "Quelle prime (bounty) Luffy atteint-il après Wano ?", "answer": "3 milliards de Berrys", "difficulty": "difficile", "category": "Primes" }
+  ]
+}

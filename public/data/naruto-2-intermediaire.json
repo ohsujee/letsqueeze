@@ -1,0 +1,27 @@
+{
+  "id": "naruto-2-intermediaire",
+  "title": "Naruto — Intermédiaire",
+  "lang": "fr",
+  "items": [
+    { "id": "nar2001", "question": "Quel est le nom complet de Rock Lee, le spécialiste du taijutsu ?", "answer": "Rock Lee", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "nar2002", "question": "Comment s'appelle le Byakugan, le dojutsu du clan Hyuga ?", "answer": "L'œil blanc (Byakugan)", "difficulty": "normal", "category": "Dojutsu" },
+    { "id": "nar2003", "question": "Quel personnage contrôle le sable et devient Kazekage ?", "answer": "Gaara", "difficulty": "normal", "category": "Personnage" },
+    { "id": "nar2004", "question": "Quel membre de l'Akatsuki utilise des marionnettes ?", "answer": "Sasori", "difficulty": "normal", "category": "Akatsuki" },
+    { "id": "nar2005", "question": "Comment s'appelle la technique de téléportation instantanée du 4e Hokage ?", "answer": "Hiraishin no Jutsu (Dieu du Tonnerre Volant)", "difficulty": "normal", "category": "Techniques" },
+    { "id": "nar2006", "question": "Quel est le nom de l'équipe de Gaara avec Kankuro et Temari ?", "answer": "L'équipe du Sable (ou équipe Baki)", "difficulty": "normal", "category": "Équipes" },
+    { "id": "nar2007", "question": "Quel membre de l'Akatsuki est immortel grâce à un rituel religieux ?", "answer": "Hidan", "difficulty": "normal", "category": "Akatsuki" },
+    { "id": "nar2008", "question": "Comment s'appelle le sensei de Rock Lee, Neji et Tenten ?", "answer": "Might Guy (Maito Gai)", "difficulty": "normal", "category": "Personnage" },
+    { "id": "nar2009", "question": "Quel bijuu (démon à queues) est scellé dans Gaara ?", "answer": "Shukaku (Ichibi, le démon à une queue)", "difficulty": "normal", "category": "Démons" },
+    { "id": "nar2010", "question": "Quelle est la spécialité du clan Nara (famille de Shikamaru) ?", "answer": "La manipulation des ombres", "difficulty": "normal", "category": "Clans" },
+    { "id": "nar2011", "question": "Comment s'appelle la transformation de Sasuke avec le sceau maudit ?", "answer": "Le sceau maudit du Ciel (niveau 2)", "difficulty": "normal", "category": "Transformations" },
+    { "id": "nar2012", "question": "Quel personnage féminin maîtrise les techniques médicales et a une force surhumaine ?", "answer": "Tsunade", "difficulty": "normal", "category": "Personnage" },
+    { "id": "nar2013", "question": "Quel village caché est dirigé par le Kazekage ?", "answer": "Suna (le village caché du Sable)", "difficulty": "normal", "category": "Villages" },
+    { "id": "nar2014", "question": "Comment s'appelle le serpent géant qu'invoque Orochimaru ?", "answer": "Manda", "difficulty": "normal", "category": "Invocations" },
+    { "id": "nar2015", "question": "Quel est le vrai objectif de l'Akatsuki ?", "answer": "Capturer tous les démons à queues", "difficulty": "normal", "category": "Intrigue" },
+    { "id": "nar2016", "question": "Quel membre de l'Akatsuki utilise des explosions artistiques (« L'art est une explosion ! ») ?", "answer": "Deidara", "difficulty": "difficile", "category": "Akatsuki" },
+    { "id": "nar2017", "question": "Comment s'appelle la technique qui permet de ramener les morts (utilisée par Orochimaru) ?", "answer": "Edo Tensei (Réincarnation des âmes)", "difficulty": "difficile", "category": "Techniques" },
+    { "id": "nar2018", "question": "Quel est le nom de la mère de Naruto ?", "answer": "Kushina Uzumaki", "difficulty": "difficile", "category": "Famille" },
+    { "id": "nar2019", "question": "Quel est le nom du dojutsu le plus puissant, évolution du Sharingan ?", "answer": "Le Rinnegan", "difficulty": "difficile", "category": "Dojutsu" },
+    { "id": "nar2020", "question": "Comment s'appelle le fondateur de l'Akatsuki qui possède le Rinnegan ?", "answer": "Pain (Nagato)", "difficulty": "difficile", "category": "Akatsuki" }
+  ]
+}

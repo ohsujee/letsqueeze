@@ -1,0 +1,27 @@
+{
+  "id": "culture-generale-4-histoire",
+  "title": "Culture Générale — Histoire",
+  "lang": "fr",
+  "items": [
+    { "id": "cgh001", "question": "En quelle année Christophe Colomb a-t-il découvert l'Amérique ?", "answer": "1492", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "cgh002", "question": "Quel pharaon égyptien est célèbre pour son masque funéraire en or ?", "answer": "Toutânkhamon", "difficulty": "normal", "category": "Égypte" },
+    { "id": "cgh003", "question": "Quelle guerre mondiale a commencé en 1914 ?", "answer": "La Première Guerre mondiale", "difficulty": "normal", "category": "Guerres" },
+    { "id": "cgh004", "question": "Quel empereur français a été exilé sur l'île d'Elbe puis à Sainte-Hélène ?", "answer": "Napoléon Bonaparte", "difficulty": "normal", "category": "France" },
+    { "id": "cgh005", "question": "En quelle année le mur de Berlin est-il tombé ?", "answer": "1989", "difficulty": "normal", "category": "XXe siècle" },
+    { "id": "cgh006", "question": "Quel pays a lancé le premier homme dans l'espace ?", "answer": "L'URSS (Union Soviétique)", "difficulty": "normal", "category": "Espace" },
+    { "id": "cgh007", "question": "Quel roi de France a été surnommé le « Roi Soleil » ?", "answer": "Louis XIV", "difficulty": "normal", "category": "France" },
+    { "id": "cgh008", "question": "Quelle civilisation a construit le Machu Picchu ?", "answer": "Les Incas", "difficulty": "normal", "category": "Amériques" },
+    { "id": "cgh009", "question": "En quelle année l'homme a-t-il marché sur la Lune pour la première fois ?", "answer": "1969", "difficulty": "normal", "category": "Espace" },
+    { "id": "cgh010", "question": "Quel président américain a aboli l'esclavage aux États-Unis ?", "answer": "Abraham Lincoln", "difficulty": "normal", "category": "USA" },
+    { "id": "cgh011", "question": "Quelle reine d'Angleterre a régné pendant 63 ans au XIXe siècle ?", "answer": "La reine Victoria", "difficulty": "normal", "category": "Royauté" },
+    { "id": "cgh012", "question": "Quel événement a marqué le début de la Révolution française ?", "answer": "La prise de la Bastille (14 juillet 1789)", "difficulty": "normal", "category": "France" },
+    { "id": "cgh013", "question": "Quel empire a été fondé par Gengis Khan ?", "answer": "L'Empire mongol", "difficulty": "normal", "category": "Asie" },
+    { "id": "cgh014", "question": "En quelle année a eu lieu l'attentat du 11 septembre aux États-Unis ?", "answer": "2001", "difficulty": "normal", "category": "XXIe siècle" },
+    { "id": "cgh015", "question": "Quelle ville italienne était célèbre pour ses gladiateurs dans l'Antiquité ?", "answer": "Rome", "difficulty": "normal", "category": "Antiquité" },
+    { "id": "cgh016", "question": "Quel traité a mis fin à la Première Guerre mondiale ?", "answer": "Le traité de Versailles (1919)", "difficulty": "difficile", "category": "Guerres" },
+    { "id": "cgh017", "question": "Quel conquistador espagnol a conquis l'Empire aztèque ?", "answer": "Hernán Cortés", "difficulty": "difficile", "category": "Conquêtes" },
+    { "id": "cgh018", "question": "Quelle dynastie chinoise a construit la Grande Muraille ?", "answer": "La dynastie Qin", "difficulty": "difficile", "category": "Chine" },
+    { "id": "cgh019", "question": "En quelle année a eu lieu la bataille de Waterloo ?", "answer": "1815", "difficulty": "difficile", "category": "France" },
+    { "id": "cgh020", "question": "Quel philosophe grec a été le maître d'Alexandre le Grand ?", "answer": "Aristote", "difficulty": "difficile", "category": "Antiquité" }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "culture-generale-7-cinema",
+  "title": "Culture Générale — Cinéma",
+  "lang": "fr",
+  "items": [
+    { "id": "cgc001", "question": "Quel acteur incarne Jack Sparrow dans « Pirates des Caraïbes » ?", "answer": "Johnny Depp", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "cgc002", "question": "Quel film a remporté l'Oscar du meilleur film en 1998 avec Leonardo DiCaprio ?", "answer": "Titanic", "difficulty": "normal", "category": "Oscars" },
+    { "id": "cgc003", "question": "Quel réalisateur est célèbre pour « Pulp Fiction » et « Kill Bill » ?", "answer": "Quentin Tarantino", "difficulty": "normal", "category": "Réalisateurs" },
+    { "id": "cgc004", "question": "Dans quel film peut-on entendre « Je suis ton père » ?", "answer": "Star Wars (L'Empire contre-attaque)", "difficulty": "normal", "category": "Répliques" },
+    { "id": "cgc005", "question": "Quel acteur joue le Joker dans « The Dark Knight » (2008) ?", "answer": "Heath Ledger", "difficulty": "normal", "category": "Super-héros" },
+    { "id": "cgc006", "question": "Quelle saga de films met en scène un anneau magique à détruire ?", "answer": "Le Seigneur des Anneaux", "difficulty": "normal", "category": "Fantasy" },
+    { "id": "cgc007", "question": "Quel acteur incarne James Bond le plus grand nombre de fois ?", "answer": "Roger Moore (7 films)", "difficulty": "normal", "category": "Espionnage" },
+    { "id": "cgc008", "question": "Quel film d'animation Pixar met en scène des jouets qui prennent vie ?", "answer": "Toy Story", "difficulty": "normal", "category": "Animation" },
+    { "id": "cgc009", "question": "Quel réalisateur a créé « Inception » et « Interstellar » ?", "answer": "Christopher Nolan", "difficulty": "normal", "category": "Réalisateurs" },
+    { "id": "cgc010", "question": "Dans quel film Tom Hanks est-il coincé sur une île déserte avec un ballon nommé Wilson ?", "answer": "Seul au monde (Cast Away)", "difficulty": "normal", "category": "Drame" },
+    { "id": "cgc011", "question": "Quelle actrice incarne Hermione Granger dans Harry Potter ?", "answer": "Emma Watson", "difficulty": "normal", "category": "Fantasy" },
+    { "id": "cgc012", "question": "Quel film de Spielberg met en scène des dinosaures ressuscités ?", "answer": "Jurassic Park", "difficulty": "normal", "category": "Science-fiction" },
+    { "id": "cgc013", "question": "Quel acteur incarne Iron Man dans le MCU ?", "answer": "Robert Downey Jr.", "difficulty": "normal", "category": "Super-héros" },
+    { "id": "cgc014", "question": "Quel film français a remporté l'Oscar du meilleur film en 2012 ?", "answer": "The Artist", "difficulty": "normal", "category": "France" },
+    { "id": "cgc015", "question": "Dans quel film un homme vit sans le savoir dans une émission de télé-réalité ?", "answer": "The Truman Show", "difficulty": "normal", "category": "Drame" },
+    { "id": "cgc016", "question": "Quel acteur a joué dans « Fight Club », « Se7en » et « Inglourious Basterds » ?", "answer": "Brad Pitt", "difficulty": "difficile", "category": "Acteurs" },
+    { "id": "cgc017", "question": "Quel film de Stanley Kubrick se déroule dans un hôtel hanté avec Jack Nicholson ?", "answer": "Shining", "difficulty": "difficile", "category": "Horreur" },
+    { "id": "cgc018", "question": "Quel est le film le plus rentable de tous les temps (box-office mondial) ?", "answer": "Avatar (2009)", "difficulty": "difficile", "category": "Records" },
+    { "id": "cgc019", "question": "Quel réalisateur japonais a réalisé « Les Sept Samouraïs » ?", "answer": "Akira Kurosawa", "difficulty": "difficile", "category": "Réalisateurs" },
+    { "id": "cgc020", "question": "Dans quel film de 1999, Keanu Reeves découvre que la réalité est une simulation ?", "answer": "Matrix", "difficulty": "difficile", "category": "Science-fiction" }
+  ]
+}

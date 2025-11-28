@@ -1,0 +1,27 @@
+{
+  "id": "culture-generale-3-sciences",
+  "title": "Culture Générale — Sciences",
+  "lang": "fr",
+  "items": [
+    { "id": "cgs001", "question": "Quelle planète du système solaire est surnommée la « planète rouge » ?", "answer": "Mars", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "cgs002", "question": "Quel gaz les plantes absorbent-elles pour produire de l'oxygène ?", "answer": "Le dioxyde de carbone (CO2)", "difficulty": "normal", "category": "Biologie" },
+    { "id": "cgs003", "question": "Combien d'os compte le corps humain adulte ?", "answer": "206", "difficulty": "normal", "category": "Anatomie" },
+    { "id": "cgs004", "question": "Quel scientifique a formulé la théorie de la relativité ?", "answer": "Albert Einstein", "difficulty": "normal", "category": "Physique" },
+    { "id": "cgs005", "question": "Quel est le plus grand organe du corps humain ?", "answer": "La peau", "difficulty": "normal", "category": "Anatomie" },
+    { "id": "cgs006", "question": "Quelle est la formule chimique de l'eau ?", "answer": "H2O", "difficulty": "normal", "category": "Chimie" },
+    { "id": "cgs007", "question": "Quel animal est le plus proche parent génétique de l'homme ?", "answer": "Le chimpanzé", "difficulty": "normal", "category": "Biologie" },
+    { "id": "cgs008", "question": "Quelle est la vitesse de la lumière (approximativement) ?", "answer": "300 000 km/s", "difficulty": "normal", "category": "Physique" },
+    { "id": "cgs009", "question": "Quel inventeur est associé à l'ampoule électrique ?", "answer": "Thomas Edison", "difficulty": "normal", "category": "Inventions" },
+    { "id": "cgs010", "question": "Quel est le symbole chimique de l'or ?", "answer": "Au", "difficulty": "normal", "category": "Chimie" },
+    { "id": "cgs011", "question": "Combien de chromosomes possède une cellule humaine normale ?", "answer": "46", "difficulty": "normal", "category": "Génétique" },
+    { "id": "cgs012", "question": "Quelle planète est connue pour ses anneaux spectaculaires ?", "answer": "Saturne", "difficulty": "normal", "category": "Astronomie" },
+    { "id": "cgs013", "question": "Quel gaz compose environ 78% de l'atmosphère terrestre ?", "answer": "L'azote", "difficulty": "normal", "category": "Chimie" },
+    { "id": "cgs014", "question": "Qui a découvert la pénicilline ?", "answer": "Alexander Fleming", "difficulty": "normal", "category": "Médecine" },
+    { "id": "cgs015", "question": "Quelle est l'unité de mesure de la résistance électrique ?", "answer": "L'ohm", "difficulty": "normal", "category": "Physique" },
+    { "id": "cgs016", "question": "Quel est le nom de la première femme à avoir reçu deux prix Nobel (Physique et Chimie) ?", "answer": "Marie Curie", "difficulty": "difficile", "category": "Histoire des sciences" },
+    { "id": "cgs017", "question": "Quel est le nombre d'Avogadro (ordre de grandeur) ?", "answer": "6,02 × 10²³", "difficulty": "difficile", "category": "Chimie" },
+    { "id": "cgs018", "question": "Quelle particule subatomique a été découverte au CERN en 2012 ?", "answer": "Le boson de Higgs", "difficulty": "difficile", "category": "Physique" },
+    { "id": "cgs019", "question": "Quel scientifique a proposé la théorie de l'évolution par sélection naturelle ?", "answer": "Charles Darwin", "difficulty": "difficile", "category": "Biologie" },
+    { "id": "cgs020", "question": "Quel est le pH d'une solution neutre ?", "answer": "7", "difficulty": "difficile", "category": "Chimie" }
+  ]
+}
