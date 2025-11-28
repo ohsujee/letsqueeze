@@ -154,10 +154,6 @@ export default function EndPage(){
 
   return (
     <div className="end-page-container">
-      <div className="bg-orb orb-1"></div>
-      <div className="bg-orb orb-2"></div>
-      <div className="bg-orb orb-3"></div>
-
       {/* Header fixe avec même style que le jeu */}
       <header className="player-game-header">
         <div className="player-game-header-content" style={{justifyContent: 'center'}}>

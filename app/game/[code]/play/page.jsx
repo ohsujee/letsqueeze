@@ -173,11 +173,6 @@ export default function PlayerGame(){
 
   return (
     <div className="player-game-page">
-      {/* Background orbs */}
-      <div className="bg-orb orb-1"></div>
-      <div className="bg-orb orb-2"></div>
-      <div className="bg-orb orb-3"></div>
-
       {/* Header fixe simple et clair */}
       <header className="player-game-header">
         <div className="player-game-header-content">
@@ -418,37 +413,6 @@ export default function PlayerGame(){
           overflow-x: hidden;
         }
 
-        /* Background orbs */
-        .bg-orb {
-          position: fixed;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.12;
-          pointer-events: none;
-          z-index: 0;
-        }
-        .orb-1 {
-          width: 400px;
-          height: 400px;
-          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
-          top: -200px;
-          right: -100px;
-        }
-        .orb-2 {
-          width: 350px;
-          height: 350px;
-          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
-          bottom: -100px;
-          left: -150px;
-        }
-        .orb-3 {
-          width: 300px;
-          height: 300px;
-          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
-          top: 300px;
-          left: 50%;
-          transform: translateX(-50%);
-        }
       `}</style>
     </div>
   );

@@ -152,11 +152,6 @@ export default function HomePage() {
 
   return (
     <div className="home-container">
-      {/* Animated Background Orbs */}
-      <div className="bg-orb orb-1"></div>
-      <div className="bg-orb orb-2"></div>
-      <div className="bg-orb orb-3"></div>
-
       <main className="home-content">
         {/* Modern Header 2025 */}
         <header className="home-header-modern">
@@ -344,88 +339,6 @@ export default function HomePage() {
           background: var(--bg-primary);
           position: relative;
           overflow: hidden;
-        }
-
-        /* Animated Background Orbs */
-        .bg-orb {
-          position: fixed;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.12;
-          pointer-events: none;
-          z-index: 0;
-          animation: float-slow 20s ease-in-out infinite;
-          will-change: transform;
-        }
-
-        .orb-1 {
-          width: 400px;
-          height: 400px;
-          background: var(--brand-electric);
-          top: -200px;
-          right: -200px;
-          animation-delay: 0s;
-        }
-
-        .orb-2 {
-          width: 350px;
-          height: 350px;
-          background: var(--brand-violet);
-          bottom: -150px;
-          left: -150px;
-          animation-delay: 7s;
-        }
-
-        .orb-3 {
-          width: 300px;
-          height: 300px;
-          background: var(--brand-neon);
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          animation-delay: 14s;
-        }
-
-        @keyframes float-slow {
-          0%, 100% {
-            transform: translate(0, 0) scale(1);
-          }
-          25% {
-            transform: translate(30px, -30px) scale(1.05);
-          }
-          50% {
-            transform: translate(-20px, 20px) scale(0.95);
-          }
-          75% {
-            transform: translate(20px, 30px) scale(1.02);
-          }
-        }
-
-        /* Mobile orb adjustments */
-        @media (max-width: 768px) {
-          .bg-orb {
-            filter: blur(60px);
-            opacity: 0.08;
-          }
-
-          .orb-1 {
-            width: 300px;
-            height: 300px;
-            top: -150px;
-            right: -150px;
-          }
-
-          .orb-2 {
-            width: 250px;
-            height: 250px;
-            bottom: -100px;
-            left: -100px;
-          }
-
-          .orb-3 {
-            width: 200px;
-            height: 200px;
-          }
         }
 
         .home-content {
@@ -809,12 +722,6 @@ export default function HomePage() {
           }
         }
 
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-          .bg-orb {
-            animation: none;
-          }
-        }
       `}</style>
     </div>
   );

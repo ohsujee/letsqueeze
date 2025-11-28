@@ -252,11 +252,6 @@ export default function AlibiLobby() {
         userIsPro={userIsPro}
       />
 
-      {/* Background orbs */}
-      <div className="bg-orb orb-1"></div>
-      <div className="bg-orb orb-2"></div>
-      <div className="bg-orb orb-3"></div>
-
       <main className="game-content p-4 md:p-6 max-w-5xl mx-auto space-y-4 md:space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
         {/* Header - Glassmorphic Style */}
         <motion.div
@@ -318,10 +313,10 @@ export default function AlibiLobby() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.5 }}
       >
-        <div className="text-center space-y-4">
-          <h3 className="text-lg font-bold mb-2">📲 Invite des joueurs</h3>
+        <div className="text-center space-y-3">
+          <h3 className="text-base font-bold">📲 Invite des joueurs</h3>
           <motion.div
-            className="text-sm opacity-80 mb-3"
+            className="text-sm opacity-80"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.8 }}
             transition={{ delay: 0.3 }}
@@ -329,7 +324,7 @@ export default function AlibiLobby() {
             {joinUrl || "Génération du lien..."}
           </motion.div>
 
-          <div className="flex gap-2 justify-center flex-wrap">
+          <div className="flex gap-2 justify-center flex-wrap pt-1">
             <motion.button
               className="btn copy-btn"
               onClick={async () => {
@@ -400,32 +395,25 @@ export default function AlibiLobby() {
                 contain: 'layout style paint'
               }}
             >
-              {/* Shine effect - contained version */}
-              <motion.div
+              {/* Shine effect - static gradient */}
+              <div
                 style={{
                   position: 'absolute',
-                  top: '-25%',
-                  left: '-25%',
-                  width: '150%',
-                  height: '150%',
-                  background: 'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)',
-                  pointerEvents: 'none',
-                  willChange: 'transform'
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%)',
+                  pointerEvents: 'none'
                 }}
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               />
 
               <div style={{ position: 'relative', zIndex: 1 }}>
                 <h3 className="font-bold text-base mb-3 flex items-center justify-between">
                   <span>🕵️ Alibi Sélectionné</span>
-                  <motion.span
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    style={{ fontSize: '1.25rem' }}
-                  >
+                  <span style={{ fontSize: '1.25rem', opacity: 0.6 }}>
                     →
-                  </motion.span>
+                  </span>
                 </h3>
 
                 {/* Alibi actuel affiché */}
@@ -514,8 +502,11 @@ export default function AlibiLobby() {
 
           {!canStart && (
             <motion.div
-              className="text-sm text-yellow-400 text-center p-3 rounded-lg"
-              style={{ background: 'rgba(251, 191, 36, 0.1)' }}
+              className="text-sm text-yellow-400 text-center px-4 py-3 rounded-lg mt-4"
+              style={{
+                background: 'rgba(251, 191, 36, 0.1)',
+                border: '1px solid rgba(251, 191, 36, 0.3)'
+              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
@@ -534,243 +525,219 @@ export default function AlibiLobby() {
           transition={{ delay: 0.4, duration: 0.5 }}
         >
           {/* Header avec assignation auto */}
-          <div className="flex items-center justify-between mb-4">
-            <motion.h2
-              className="font-bold text-xl"
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              style={{
-                background: 'linear-gradient(135deg, #FF6D00, #F59E0B)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-              }}
-            >
-              🎭 Assigner les rôles
-            </motion.h2>
+          <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/10">
+            <h2 className="text-lg font-bold">
+              Assigner les rôles
+            </h2>
             {players.length > 0 && (
-              <motion.button
-                className="btn btn-accent"
+              <button
+                className="btn btn-accent px-4 py-2"
                 onClick={handleAutoAssign}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  background: 'linear-gradient(135deg, #FF6D00, #F59E0B)',
-                  border: 'none',
-                  boxShadow: '0 4px 15px rgba(255, 109, 0, 0.4)'
-                }}
               >
                 🎲 Assignation auto
-              </motion.button>
+              </button>
             )}
           </div>
 
-          {/* Non assignés - Design premium */}
+          {/* Non assignés */}
           {unassigned.length > 0 && (
-            <motion.div
-              className="card mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              style={{
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.1)'
-              }}
-            >
-              <h3 className="text-sm font-bold opacity-70 mb-3 flex items-center gap-2">
-                <span>⏳</span>
-                <span>En attente d'assignation ({unassigned.length})</span>
-              </h3>
+            <div className="card mb-6">
+              <h3 className="text-base font-bold mb-4">En attente d'assignation ({unassigned.length})</h3>
               <div className="space-y-2">
-                {unassigned.map((player, index) => (
-                  <motion.div
-                    key={player.uid}
-                    className="flex items-center gap-2 p-3 rounded-lg"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04))',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
-                      backdropFilter: 'blur(10px)'
-                    }}
-                  >
-                    <span className="flex-1 font-medium">{player.name}</span>
-                    <motion.button
-                      className="btn btn-sm"
-                      onClick={() => handleAssignTeam(player.uid, "inspectors")}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.2), rgba(245, 158, 11, 0.1))',
-                        border: '1px solid rgba(255, 109, 0, 0.4)',
-                        color: '#FF6D00',
-                        fontWeight: 600
-                      }}
-                    >
-                      🕵️ Inspecteur
-                    </motion.button>
-                    <motion.button
-                      className="btn btn-sm"
-                      onClick={() => handleAssignTeam(player.uid, "suspects")}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(59, 130, 246, 0.1))',
-                        border: '1px solid rgba(99, 102, 241, 0.4)',
-                        color: '#6366F1',
-                        fontWeight: 600
-                      }}
-                    >
-                      🎭 Suspect
-                    </motion.button>
-                    <motion.button
-                      className="btn btn-sm"
-                      onClick={() => handleKickPlayer(player.uid)}
-                      whileHover={{ scale: 1.05, rotate: 90 }}
-                      whileTap={{ scale: 0.95 }}
-                      style={{
-                        background: 'rgba(239, 68, 68, 0.1)',
-                        border: '1px solid rgba(239, 68, 68, 0.3)',
-                        color: '#EF4444',
-                        minWidth: '36px'
-                      }}
-                    >
-                      ✕
-                    </motion.button>
-                  </motion.div>
+                {unassigned.map(player => (
+                  <div key={player.uid} className="flex items-center gap-2 px-5 py-2.5 bg-slate-700/50 rounded-lg">
+                    <span className="flex-1 text-base font-medium">{player.name}</span>
+                    <div className="flex gap-2">
+                      <button
+                        className="btn btn-sm btn-accent px-2.5 py-1.5"
+                        onClick={() => handleAssignTeam(player.uid, "inspectors")}
+                      >
+                        🕵️ Inspecteur
+                      </button>
+                      <button
+                        className="btn btn-sm btn-primary px-2.5 py-1.5"
+                        onClick={() => handleAssignTeam(player.uid, "suspects")}
+                      >
+                        🎭 Suspect
+                      </button>
+                      <button
+                        className="btn btn-sm btn-error px-2.5 py-1.5"
+                        onClick={() => handleKickPlayer(player.uid)}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           )}
 
-          {/* Équipes - Grid premium avec thème detective */}
-          <div className="grid md:grid-cols-2 gap-4">
-            {/* Inspecteurs - Orange theme */}
-            <motion.div
-              className="card"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
+          {/* Équipes - Design moderne thème detective */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Inspecteurs - Thème Orange Detective */}
+            <div
+              className="card relative overflow-hidden"
               style={{
-                background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.1), rgba(245, 158, 11, 0.05))',
+                background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.12), rgba(245, 158, 11, 0.08))',
                 border: '2px solid rgba(255, 109, 0, 0.3)',
-                boxShadow: '0 4px 20px rgba(255, 109, 0, 0.1)'
+                boxShadow: '0 4px 24px rgba(255, 109, 0, 0.15)'
               }}
             >
-              <div className="flex items-center gap-2 mb-3">
-                <span style={{ fontSize: '1.5rem' }}>🕵️</span>
-                <h3 className="font-bold text-lg text-accent">
-                  Inspecteurs
-                </h3>
-                <span className="ml-auto px-2 py-1 rounded-full text-xs font-bold"
+              {/* Header avec icône + badge */}
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-11 h-11 rounded-lg flex items-center justify-center text-xl flex-shrink-0"
                   style={{
-                    background: 'rgba(255, 109, 0, 0.2)',
+                    background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.25), rgba(245, 158, 11, 0.15))'
+                  }}
+                >
+                  🕵️
+                </div>
+                <h3 className="text-base font-bold text-orange-400 flex-1">INSPECTEURS</h3>
+                <div
+                  className="flex items-center justify-center min-w-[2rem] h-7 px-3 rounded-full text-xs font-bold flex-shrink-0"
+                  style={{
+                    background: 'rgba(255, 109, 0, 0.25)',
+                    border: '1px solid rgba(255, 109, 0, 0.5)',
                     color: '#FF6D00'
                   }}
                 >
                   {inspectors.length}
-                </span>
+                </div>
               </div>
+
+              {/* Liste des joueurs */}
               <div className="space-y-2">
-                {inspectors.map((player, index) => (
-                  <motion.div
+                {inspectors.map((player) => (
+                  <div
                     key={player.uid}
-                    className="flex items-center gap-2 p-3 rounded-lg group"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    whileHover={{ x: 5 }}
+                    className="flex items-center gap-3 px-5 py-2.5 rounded-lg group relative"
                     style={{
-                      background: 'rgba(255, 109, 0, 0.15)',
-                      border: '1px solid rgba(255, 109, 0, 0.3)'
+                      background: 'rgba(255, 109, 0, 0.08)',
+                      border: '1px solid rgba(255, 109, 0, 0.2)',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 109, 0, 0.15)';
+                      e.currentTarget.style.borderColor = 'rgba(255, 109, 0, 0.4)';
+                      e.currentTarget.style.transform = 'translateX(4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 109, 0, 0.08)';
+                      e.currentTarget.style.borderColor = 'rgba(255, 109, 0, 0.2)';
+                      e.currentTarget.style.transform = 'translateX(0)';
                     }}
                   >
-                    <span className="font-medium flex-1">{player.name}</span>
-                    <motion.button
-                      className="btn btn-sm opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={() => handleAssignTeam(player.uid, null)}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                    <span className="font-medium flex-1 text-orange-100">{player.name}</span>
+                    <button
+                      className="btn btn-sm opacity-0 group-hover:opacity-100 transition-opacity text-xs px-2.5 py-1.5"
                       style={{
                         background: 'rgba(255, 255, 255, 0.1)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        fontSize: '0.75rem'
+                        border: '1px solid rgba(255, 109, 0, 0.3)',
+                        color: '#FF9D5C'
                       }}
+                      onClick={() => handleAssignTeam(player.uid, null)}
                     >
                       Retirer
-                    </motion.button>
-                  </motion.div>
+                    </button>
+                  </div>
                 ))}
                 {inspectors.length === 0 && (
-                  <p className="text-sm opacity-50 italic text-center py-4">
-                    Aucun inspecteur assigné
-                  </p>
+                  <div
+                    className="text-center py-6 rounded-lg"
+                    style={{
+                      background: 'rgba(255, 109, 0, 0.05)',
+                      border: '1px dashed rgba(255, 109, 0, 0.2)'
+                    }}
+                  >
+                    <p className="text-sm text-orange-400/60 italic">Aucun inspecteur assigné</p>
+                  </div>
                 )}
               </div>
-            </motion.div>
+            </div>
 
-            {/* Suspects - Blue theme */}
-            <motion.div
-              className="card"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
+            {/* Suspects - Thème Indigo Mystère */}
+            <div
+              className="card relative overflow-hidden"
               style={{
-                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.05))',
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(59, 130, 246, 0.08))',
                 border: '2px solid rgba(99, 102, 241, 0.3)',
-                boxShadow: '0 4px 20px rgba(99, 102, 241, 0.1)'
+                boxShadow: '0 4px 24px rgba(99, 102, 241, 0.15)'
               }}
             >
-              <div className="flex items-center gap-2 mb-3">
-                <span style={{ fontSize: '1.5rem' }}>🎭</span>
-                <h3 className="font-bold text-lg text-primary">
-                  Suspects
-                </h3>
-                <span className="ml-auto px-2 py-1 rounded-full text-xs font-bold"
+              {/* Header avec icône + badge */}
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-11 h-11 rounded-lg flex items-center justify-center text-xl flex-shrink-0"
                   style={{
-                    background: 'rgba(99, 102, 241, 0.2)',
-                    color: '#6366F1'
+                    background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(59, 130, 246, 0.15))'
+                  }}
+                >
+                  🎭
+                </div>
+                <h3 className="text-base font-bold text-indigo-400 flex-1">SUSPECTS</h3>
+                <div
+                  className="flex items-center justify-center min-w-[2rem] h-7 px-3 rounded-full text-xs font-bold flex-shrink-0"
+                  style={{
+                    background: 'rgba(99, 102, 241, 0.25)',
+                    border: '1px solid rgba(99, 102, 241, 0.5)',
+                    color: '#818CF8'
                   }}
                 >
                   {suspects.length}
-                </span>
+                </div>
               </div>
+
+              {/* Liste des joueurs */}
               <div className="space-y-2">
-                {suspects.map((player, index) => (
-                  <motion.div
+                {suspects.map((player) => (
+                  <div
                     key={player.uid}
-                    className="flex items-center gap-2 p-3 rounded-lg group"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    whileHover={{ x: -5 }}
+                    className="flex items-center gap-3 px-5 py-2.5 rounded-lg group relative"
                     style={{
-                      background: 'rgba(99, 102, 241, 0.15)',
-                      border: '1px solid rgba(99, 102, 241, 0.3)'
+                      background: 'rgba(99, 102, 241, 0.08)',
+                      border: '1px solid rgba(99, 102, 241, 0.2)',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(99, 102, 241, 0.15)';
+                      e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
+                      e.currentTarget.style.transform = 'translateX(-4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(99, 102, 241, 0.08)';
+                      e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.2)';
+                      e.currentTarget.style.transform = 'translateX(0)';
                     }}
                   >
-                    <span className="font-medium flex-1">{player.name}</span>
-                    <motion.button
-                      className="btn btn-sm opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={() => handleAssignTeam(player.uid, null)}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                    <span className="font-medium flex-1 text-indigo-100">{player.name}</span>
+                    <button
+                      className="btn btn-sm opacity-0 group-hover:opacity-100 transition-opacity text-xs px-2.5 py-1.5"
                       style={{
                         background: 'rgba(255, 255, 255, 0.1)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        fontSize: '0.75rem'
+                        border: '1px solid rgba(99, 102, 241, 0.3)',
+                        color: '#A5B4FC'
                       }}
+                      onClick={() => handleAssignTeam(player.uid, null)}
                     >
                       Retirer
-                    </motion.button>
-                  </motion.div>
+                    </button>
+                  </div>
                 ))}
                 {suspects.length === 0 && (
-                  <p className="text-sm opacity-50 italic text-center py-4">
-                    Aucun suspect assigné
-                  </p>
+                  <div
+                    className="text-center py-6 rounded-lg"
+                    style={{
+                      background: 'rgba(99, 102, 241, 0.05)',
+                      border: '1px dashed rgba(99, 102, 241, 0.2)'
+                    }}
+                  >
+                    <p className="text-sm text-indigo-400/60 italic">Aucun suspect assigné</p>
+                  </div>
                 )}
               </div>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
       )}
@@ -785,13 +752,13 @@ export default function AlibiLobby() {
         >
           <h2 className="font-bold text-lg">En attente de démarrage...</h2>
           {players.find(p => p.uid === auth.currentUser?.uid)?.team === "inspectors" && (
-            <div className="p-4 bg-accent/10 border border-accent rounded-lg text-center">
+            <div className="px-4 py-3 bg-accent/10 border border-accent rounded-lg text-center">
               <p className="text-2xl font-bold text-accent">🕵️ Tu es INSPECTEUR</p>
               <p className="text-sm opacity-70 mt-2">Tu devras interroger les suspects et trouver les incohérences</p>
             </div>
           )}
           {players.find(p => p.uid === auth.currentUser?.uid)?.team === "suspects" && (
-            <div className="p-4 bg-primary/10 border border-primary rounded-lg text-center">
+            <div className="px-4 py-3 bg-primary/10 border border-primary rounded-lg text-center">
               <p className="text-2xl font-bold text-primary">🎭 Tu es SUSPECT</p>
               <p className="text-sm opacity-70 mt-2">Tu devras mémoriser ton alibi et répondre aux questions</p>
             </div>
@@ -811,47 +778,11 @@ export default function AlibiLobby() {
           position: relative;
           min-height: 100vh;
           background: #000000;
-          overflow: hidden;
         }
 
         .game-content {
           position: relative;
           z-index: 1;
-        }
-
-        /* Background orbs */
-        .bg-orb {
-          position: fixed;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.12;
-          pointer-events: none;
-          z-index: 0;
-        }
-
-        .orb-1 {
-          width: 400px;
-          height: 400px;
-          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
-          top: -200px;
-          right: -100px;
-        }
-
-        .orb-2 {
-          width: 350px;
-          height: 350px;
-          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
-          bottom: -100px;
-          left: -150px;
-        }
-
-        .orb-3 {
-          width: 300px;
-          height: 300px;
-          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
-          top: 300px;
-          left: 50%;
-          transform: translateX(-50%);
         }
       `}</style>
       </div>

@@ -257,9 +257,6 @@ export default function Room() {
   if (!meta) {
     return (
       <div className="game-container">
-        <div className="bg-orb orb-1"></div>
-        <div className="bg-orb orb-2"></div>
-        <div className="bg-orb orb-3"></div>
         <main className="game-content p-6 max-w-5xl mx-auto min-h-screen">
           <div className="card text-center">
             <h1 className="game-section-title mb-4">Chargement...</h1>
@@ -288,11 +285,6 @@ export default function Room() {
         onSelectQuiz={handleQuizChange}
         userIsPro={userIsPro}
       />
-
-      {/* Background orbs */}
-      <div className="bg-orb orb-1"></div>
-      <div className="bg-orb orb-2"></div>
-      <div className="bg-orb orb-3"></div>
 
       <main className="game-content p-4 md:p-6 max-w-5xl mx-auto space-y-4 md:space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
       {/* Header - Glassmorphic Style */}
@@ -419,37 +411,25 @@ export default function Room() {
                 overflow: 'hidden'
               }}
             >
-              {/* Shine effect */}
-              <motion.div
+              {/* Shine effect - static */}
+              <div
                 style={{
                   position: 'absolute',
-                  top: '-50%',
-                  left: '-50%',
-                  width: '200%',
-                  height: '200%',
-                  background: 'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%)',
                   pointerEvents: 'none'
-                }}
-                animate={{
-                  rotate: [0, 360]
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "linear"
                 }}
               />
 
               <div style={{ position: 'relative', zIndex: 1 }}>
                 <h3 className="font-bold text-base mb-3 flex items-center justify-between">
                   <span>📚 Quiz Sélectionné</span>
-                  <motion.span
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    style={{ fontSize: '1.25rem' }}
-                  >
+                  <span style={{ fontSize: '1.25rem', opacity: 0.6 }}>
                     →
-                  </motion.span>
+                  </span>
                 </h3>
 
                 {/* Quiz actuel affiché */}
@@ -569,17 +549,15 @@ export default function Room() {
         >
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-bold text-base">👥 Joueurs</h3>
-            <motion.span
+            <span
               className="px-3 py-1 rounded-full text-sm font-bold"
               style={{
                 background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(59, 130, 246, 0.3))',
                 border: '1px solid rgba(99, 102, 241, 0.5)'
               }}
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
             >
               {players.length}
-            </motion.span>
+            </span>
           </div>
           {players.length === 0 ? (
             <motion.div
@@ -595,7 +573,7 @@ export default function Room() {
               {players.map((player, index) => (
                 <motion.div
                   key={player.uid}
-                  className="card text-base font-medium p-3"
+                  className="card text-base font-medium px-5 py-3"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4 + index * 0.05, duration: 0.3 }}
@@ -627,41 +605,6 @@ export default function Room() {
       .game-content {
         position: relative;
         z-index: 1;
-      }
-
-      /* Background orbs */
-      .bg-orb {
-        position: fixed;
-        border-radius: 50%;
-        filter: blur(80px);
-        opacity: 0.12;
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      .orb-1 {
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, #4299E1 0%, transparent 70%);
-        top: -200px;
-        right: -100px;
-      }
-
-      .orb-2 {
-        width: 350px;
-        height: 350px;
-        background: radial-gradient(circle, #48BB78 0%, transparent 70%);
-        bottom: -100px;
-        left: -150px;
-      }
-
-      .orb-3 {
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
-        top: 300px;
-        left: 50%;
-        transform: translateX(-50%);
       }
     `}</style>
     </div>

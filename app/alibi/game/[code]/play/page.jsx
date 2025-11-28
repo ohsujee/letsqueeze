@@ -40,13 +40,24 @@ export default function AlibiInterrogation() {
   const timerRef = useRef(null);
   const timeoutTriggeredRef = useRef(false);
 
-  // Fonction pour quitter et terminer la partie si hôte
+  // Fonction pour quitter et retourner au lobby
   async function exitGame() {
     if (isHost && code) {
-      // Si c'est l'hôte, terminer la partie pour tout le monde
-      await update(ref(db, `rooms_alibi/${code}/state`), { phase: "ended" });
+      // Si c'est l'hôte, ramener tout le monde au lobby
+      await update(ref(db, `rooms_alibi/${code}`), {
+        state: {
+          phase: "lobby",
+          currentQuestion: 0,
+          prepTimeLeft: 90,
+          questionTimeLeft: 30,
+          allAnswered: false
+        },
+        interrogation: null,
+        questions: null,
+        alibi: null
+      });
     }
-    router.push('/home');
+    router.push(`/alibi/room/${code}`);
   }
 
   // Fonction appelée quand le countdown est terminé
@@ -119,6 +130,10 @@ export default function AlibiInterrogation() {
       const state = snap.val();
       if (state?.phase === "end" && !showCountdown) {
         setShowCountdown(true);
+      }
+      // Redirection vers le lobby si l'hôte quitte
+      if (state?.phase === "lobby") {
+        router.push(`/alibi/room/${code}`);
       }
     });
 
@@ -326,8 +341,8 @@ export default function AlibiInterrogation() {
           <div className="player-header-exit">
             <ExitButton
               variant="header"
-              confirmMessage="Voulez-vous vraiment quitter ?"
-              onExit={() => router.push('/home')}
+              confirmMessage="Voulez-vous vraiment quitter ? Tout le monde retournera au lobby."
+              onExit={exitGame}
             />
           </div>
         </div>
@@ -336,11 +351,6 @@ export default function AlibiInterrogation() {
       {/* Contenu avec padding-top */}
       <main className="player-game-content">
         <div className="game-container">
-          {/* Background orbs */}
-          <div className="bg-orb orb-1"></div>
-          <div className="bg-orb orb-2"></div>
-          <div className="bg-orb orb-3"></div>
-
           <div className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
 
       {/* État: WAITING - Inspecteurs lancent la question */}
@@ -808,41 +818,6 @@ export default function AlibiInterrogation() {
         .game-content {
           position: relative;
           z-index: 1;
-        }
-
-        /* Background orbs */
-        .bg-orb {
-          position: fixed;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.12;
-          pointer-events: none;
-          z-index: 0;
-        }
-
-        .orb-1 {
-          width: 400px;
-          height: 400px;
-          background: radial-gradient(circle, #4299E1 0%, transparent 70%);
-          top: -200px;
-          right: -100px;
-        }
-
-        .orb-2 {
-          width: 350px;
-          height: 350px;
-          background: radial-gradient(circle, #48BB78 0%, transparent 70%);
-          bottom: -100px;
-          left: -150px;
-        }
-
-        .orb-3 {
-          width: 300px;
-          height: 300px;
-          background: radial-gradient(circle, #9F7AEA 0%, transparent 70%);
-          top: 300px;
-          left: 50%;
-          transform: translateX(-50%);
         }
       `}</style>
     </div>
