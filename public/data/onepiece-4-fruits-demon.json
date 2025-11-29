@@ -1,0 +1,27 @@
+{
+  "id": "onepiece-4-fruits-demon",
+  "title": "One Piece — Fruits du Démon",
+  "lang": "fr",
+  "items": [
+    { "id": "op4001", "question": "Quel fruit du démon donne à Luffy un corps extensible comme du caoutchouc ?", "answer": "Gomu Gomu no Mi (fruit du caoutchoutier)", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "op4002", "question": "Quelle est la vraie nature du fruit de Luffy, révélée comme Zoan mythique ?", "answer": "Hito Hito no Mi, modèle Nika", "difficulty": "normal", "category": "Révélation" },
+    { "id": "op4003", "question": "Quel fruit de type Logia permet de créer et contrôler le feu ?", "answer": "Mera Mera no Mi", "difficulty": "normal", "category": "Logia" },
+    { "id": "op4004", "question": "Quel fruit de type Logia permet de contrôler la foudre ?", "answer": "Goro Goro no Mi", "difficulty": "normal", "category": "Logia" },
+    { "id": "op4005", "question": "Quel fruit de type Logia permet de contrôler la glace ?", "answer": "Hie Hie no Mi", "difficulty": "normal", "category": "Logia" },
+    { "id": "op4006", "question": "Quel fruit de type Logia permet de se transformer en sable ?", "answer": "Suna Suna no Mi", "difficulty": "normal", "category": "Logia" },
+    { "id": "op4007", "question": "Quel fruit de type Logia permet de contrôler le magma ?", "answer": "Magu Magu no Mi", "difficulty": "normal", "category": "Logia" },
+    { "id": "op4008", "question": "Quel fruit permet à Chopper de se transformer en formes humaines ?", "answer": "Hito Hito no Mi (fruit de l'humain)", "difficulty": "normal", "category": "Zoan" },
+    { "id": "op4009", "question": "Quel fruit de type Paramecia permet de découper n'importe quoi dans une zone ?", "answer": "Ope Ope no Mi", "difficulty": "normal", "category": "Paramecia" },
+    { "id": "op4010", "question": "Quel fruit permet à Robin de faire pousser des membres n'importe où ?", "answer": "Hana Hana no Mi", "difficulty": "normal", "category": "Paramecia" },
+    { "id": "op4011", "question": "Quel fruit permet à Brook de revenir d'entre les morts ?", "answer": "Yomi Yomi no Mi", "difficulty": "normal", "category": "Paramecia" },
+    { "id": "op4012", "question": "Quel fruit des ténèbres peut annuler les pouvoirs des autres fruits ?", "answer": "Yami Yami no Mi", "difficulty": "normal", "category": "Logia" },
+    { "id": "op4013", "question": "Quel fruit de type Zoan mythique transforme Kaido en dragon ?", "answer": "Uo Uo no Mi, modèle Seiryu", "difficulty": "difficile", "category": "Zoan" },
+    { "id": "op4014", "question": "Quel fruit de type Zoan mythique donne les pouvoirs d'un phénix ?", "answer": "Tori Tori no Mi, modèle Phénix", "difficulty": "difficile", "category": "Zoan" },
+    { "id": "op4015", "question": "Quel fruit permet à Doflamingo de créer et contrôler des fils ?", "answer": "Ito Ito no Mi", "difficulty": "difficile", "category": "Paramecia" },
+    { "id": "op4016", "question": "Quel fruit permet à Big Mom de manipuler les âmes ?", "answer": "Soru Soru no Mi", "difficulty": "difficile", "category": "Paramecia" },
+    { "id": "op4017", "question": "Quel fruit permet à Hancock de transformer les gens en pierre par amour ?", "answer": "Mero Mero no Mi", "difficulty": "difficile", "category": "Paramecia" },
+    { "id": "op4018", "question": "Quel fruit permet à Sugar de transformer les gens en jouets ?", "answer": "Hobi Hobi no Mi", "difficulty": "difficile", "category": "Paramecia" },
+    { "id": "op4019", "question": "Combien de types de fruits du démon existe-t-il ?", "answer": "3 types (Paramecia, Zoan, Logia)", "difficulty": "difficile", "category": "Classification" },
+    { "id": "op4020", "question": "Que se passe-t-il si quelqu'un mange deux fruits du démon ?", "answer": "Il meurt (le corps explose)", "difficulty": "difficile", "category": "Règle" }
+  ]
+}

@@ -6,7 +6,7 @@
       "emoji": "🌍",
       "difficulty": "Facile",
       "questionCount": 22,
-      "category": "Général",
+      "category": "Culture Générale",
       "description": "Questions variées sur la culture, science, géographie"
     },
     {
@@ -15,7 +15,7 @@
       "emoji": "🎓",
       "difficulty": "Moyen",
       "questionCount": 22,
-      "category": "Général",
+      "category": "Culture Générale",
       "description": "Découvrez des questions amusantes et instructives"
     },
     {
@@ -24,7 +24,7 @@
       "emoji": "🔬",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Général",
+      "category": "Culture Générale",
       "description": "Physique, chimie, biologie et inventions"
     },
     {
@@ -33,7 +33,7 @@
       "emoji": "📜",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Général",
+      "category": "Culture Générale",
       "description": "Des pharaons à la chute du mur de Berlin"
     },
     {
@@ -42,7 +42,7 @@
       "emoji": "🗺️",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Général",
+      "category": "Culture Générale",
       "description": "Capitales, fleuves, montagnes et pays"
     },
     {
@@ -51,7 +51,7 @@
       "emoji": "⚽",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Général",
+      "category": "Culture Générale",
       "description": "Football, tennis, JO et records sportifs"
     },
     {
@@ -60,7 +60,7 @@
       "emoji": "🎬",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Général",
+      "category": "Culture Générale",
       "description": "Blockbusters, acteurs et réalisateurs cultes"
     },
     {
@@ -69,8 +69,62 @@
       "emoji": "🎵",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Général",
+      "category": "Culture Générale",
       "description": "Rock, pop, rap et musique classique"
+    },
+    {
+      "id": "culture-generale-9-litterature",
+      "title": "Culture Générale — Littérature",
+      "emoji": "📚",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture Générale",
+      "description": "Grands auteurs et œuvres classiques"
+    },
+    {
+      "id": "culture-generale-10-art",
+      "title": "Culture Générale — Art & Peinture",
+      "emoji": "🎨",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture Générale",
+      "description": "De la Renaissance au Pop Art"
+    },
+    {
+      "id": "culture-generale-11-gastronomie",
+      "title": "Culture Générale — Gastronomie",
+      "emoji": "🍽️",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture Générale",
+      "description": "Cuisines du monde et gastronomie"
+    },
+    {
+      "id": "culture-generale-12-technologie",
+      "title": "Culture Générale — Technologie",
+      "emoji": "💻",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture Générale",
+      "description": "GAFAM, IA et innovations tech"
+    },
+    {
+      "id": "culture-generale-13-nature",
+      "title": "Culture Générale — Nature & Animaux",
+      "emoji": "🦁",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture Générale",
+      "description": "Faune, flore et écosystèmes"
+    },
+    {
+      "id": "culture-generale-14-mythologie",
+      "title": "Culture Générale — Mythologie",
+      "emoji": "⚡",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture Générale",
+      "description": "Dieux grecs, nordiques et égyptiens"
     },
     {
       "id": "friends",
@@ -105,7 +159,7 @@
       "emoji": "🍥",
       "difficulty": "Facile",
       "questionCount": 20,
-      "category": "Anime",
+      "category": "Anime — Naruto",
       "description": "Les bases du ninja le plus imprévisible"
     },
     {
@@ -114,7 +168,7 @@
       "emoji": "🦊",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Anime",
+      "category": "Anime — Naruto",
       "description": "Akatsuki, bijuu et techniques secrètes"
     },
     {
@@ -123,8 +177,35 @@
       "emoji": "👁️",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Anime",
+      "category": "Anime — Naruto",
       "description": "Révélations, Otsutsuki et fin de série"
+    },
+    {
+      "id": "naruto-4-clans-villages",
+      "title": "Naruto — Clans & Villages",
+      "emoji": "🏯",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Anime — Naruto",
+      "description": "Les 5 villages et les clans légendaires"
+    },
+    {
+      "id": "naruto-5-techniques",
+      "title": "Naruto — Techniques & Jutsu",
+      "emoji": "🌀",
+      "difficulty": "Difficile",
+      "questionCount": 20,
+      "category": "Anime — Naruto",
+      "description": "Rasengan, Sharingan et jutsu interdits"
+    },
+    {
+      "id": "naruto-6-akatsuki",
+      "title": "Naruto — L'Akatsuki",
+      "emoji": "☁️",
+      "difficulty": "Difficile",
+      "questionCount": 20,
+      "category": "Anime — Naruto",
+      "description": "L'organisation criminelle aux nuages rouges"
     },
     {
       "id": "onepiece-1-debutants",
@@ -132,7 +213,7 @@
       "emoji": "🏴‍☠️",
       "difficulty": "Facile",
       "questionCount": 20,
-      "category": "Anime",
+      "category": "Anime — One Piece",
       "description": "L'équipage du Chapeau de Paille"
     },
     {
@@ -141,7 +222,7 @@
       "emoji": "⚓",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Anime",
+      "category": "Anime — One Piece",
       "description": "Yonko, Marine et fruits du démon"
     },
     {
@@ -150,39 +231,66 @@
       "emoji": "👑",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Anime",
+      "category": "Anime — One Piece",
       "description": "Laugh Tale, Gear 5 et mystères du monde"
     },
     {
+      "id": "onepiece-4-fruits-demon",
+      "title": "One Piece — Fruits du Démon",
+      "emoji": "🍎",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Anime — One Piece",
+      "description": "Logia, Paramecia et Zoan mythiques"
+    },
+    {
+      "id": "onepiece-5-empereurs-corsaires",
+      "title": "One Piece — Empereurs & Corsaires",
+      "emoji": "⚔️",
+      "difficulty": "Difficile",
+      "questionCount": 20,
+      "category": "Anime — One Piece",
+      "description": "Yonko, Shichibukai et équilibre mondial"
+    },
+    {
+      "id": "onepiece-6-arcs-saga",
+      "title": "One Piece — Arcs & Sagas",
+      "emoji": "🗺️",
+      "difficulty": "Difficile",
+      "questionCount": 20,
+      "category": "Anime — One Piece",
+      "description": "De East Blue à Egghead"
+    },
+    {
       "id": "kollywood-1980-2018",
-      "title": "Kollywood 1980–2018",
+      "title": "Kollywood — Classiques 1980–2018",
       "emoji": "🎬",
       "difficulty": "Difficile",
       "questionCount": 18,
       "category": "Cinéma Tamil",
-      "description": "Classiques du cinéma tamoul"
-    },
-    {
-      "id": "kollywood-2000-2010-fresh-fr-ta",
-      "title": "Kollywood 2000–2010",
-      "emoji": "🎞️",
-      "difficulty": "Moyen",
-      "questionCount": 22,
-      "category": "Cinéma Tamil",
-      "description": "L'âge d'or du cinéma tamoul"
+      "description": "Les films cultes du cinéma tamoul"
     },
     {
       "id": "kollywood-1990-2000-fresh-fr-ta",
-      "title": "Kollywood 90–2000",
+      "title": "Kollywood — Années 90",
       "emoji": "📽️",
       "difficulty": "Moyen",
       "questionCount": 20,
       "category": "Cinéma Tamil",
-      "description": "Années 90 du cinéma tamoul"
+      "description": "L'âge d'or des années 90"
+    },
+    {
+      "id": "kollywood-2000-2010-fresh-fr-ta",
+      "title": "Kollywood — Années 2000",
+      "emoji": "🎞️",
+      "difficulty": "Moyen",
+      "questionCount": 22,
+      "category": "Cinéma Tamil",
+      "description": "La décennie dorée 2000-2010"
     },
     {
       "id": "kollywood-2010-2025-fun-details-fr-ta",
-      "title": "Kollywood 2010–2025 #1",
+      "title": "Kollywood — Moderne #1",
       "emoji": "🎭",
       "difficulty": "Moyen",
       "questionCount": 16,
@@ -191,12 +299,66 @@
     },
     {
       "id": "kollywood-2010-2025-fun-details-fr-ta-2",
-      "title": "Kollywood 2010–2025 #2",
+      "title": "Kollywood — Moderne #2",
       "emoji": "🎪",
       "difficulty": "Difficile",
       "questionCount": 22,
       "category": "Cinéma Tamil",
       "description": "Blockbusters récents"
+    },
+    {
+      "id": "kollywood-acteurs-legendes",
+      "title": "Kollywood — Acteurs Légendaires",
+      "emoji": "⭐",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Cinéma Tamil",
+      "description": "Rajini, Kamal et les icônes du cinéma"
+    },
+    {
+      "id": "kollywood-musique-ost",
+      "title": "Kollywood — Musique & OST",
+      "emoji": "🎶",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Cinéma Tamil",
+      "description": "A.R. Rahman, Ilaiyaraaja et les hits"
+    },
+    {
+      "id": "kollywood-repliques-cultes",
+      "title": "Kollywood — Répliques Cultes",
+      "emoji": "💬",
+      "difficulty": "Difficile",
+      "questionCount": 20,
+      "category": "Cinéma Tamil",
+      "description": "Les dialogues les plus mémorables"
+    },
+    {
+      "id": "kollywood-realisateurs",
+      "title": "Kollywood — Réalisateurs",
+      "emoji": "🎥",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Cinéma Tamil",
+      "description": "Mani Ratnam, Shankar et les maîtres"
+    },
+    {
+      "id": "kollywood-films-cultes",
+      "title": "Kollywood — Films Cultes",
+      "emoji": "🏆",
+      "difficulty": "Difficile",
+      "questionCount": 20,
+      "category": "Cinéma Tamil",
+      "description": "Les chefs-d'œuvre incontournables"
+    },
+    {
+      "id": "kollywood-anecdotes",
+      "title": "Kollywood — Anecdotes & Fun Facts",
+      "emoji": "🤔",
+      "difficulty": "Difficile",
+      "questionCount": 20,
+      "category": "Cinéma Tamil",
+      "description": "Records, secrets de tournage et faits insolites"
     }
   ]
 }

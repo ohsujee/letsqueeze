@@ -1,0 +1,27 @@
+{
+  "id": "onepiece-6-arcs-saga",
+  "title": "One Piece — Arcs & Sagas",
+  "lang": "fr",
+  "items": [
+    { "id": "op6001", "question": "Dans quel arc Luffy libère-t-il Nami de la tyrannie d'Arlong ?", "answer": "Arc Arlong Park", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "op6002", "question": "Dans quel arc l'équipage visite-t-il une île flottante dans le ciel ?", "answer": "Arc Skypiea", "difficulty": "normal", "category": "Arc" },
+    { "id": "op6003", "question": "Dans quel arc Luffy affronte-t-il Crocodile pour sauver le royaume de Vivi ?", "answer": "Arc Alabasta", "difficulty": "normal", "category": "Arc" },
+    { "id": "op6004", "question": "Dans quel arc le Going Merry est-il définitivement détruit ?", "answer": "Arc Enies Lobby / Water 7", "difficulty": "normal", "category": "Arc" },
+    { "id": "op6005", "question": "Dans quel arc Luffy tente de sauver son frère Ace de l'exécution ?", "answer": "Arc Marineford (Guerre au Sommet)", "difficulty": "normal", "category": "Arc" },
+    { "id": "op6006", "question": "Dans quel arc Luffy s'entraîne pendant 2 ans avec Rayleigh ?", "answer": "Arc Post-Marineford / Timeskip", "difficulty": "normal", "category": "Arc" },
+    { "id": "op6007", "question": "Dans quel arc l'équipage découvre le royaume sous-marin des hommes-poissons ?", "answer": "Arc Île des Hommes-Poissons", "difficulty": "normal", "category": "Arc" },
+    { "id": "op6008", "question": "Dans quel arc Luffy affronte Doflamingo pour libérer Dressrosa ?", "answer": "Arc Dressrosa", "difficulty": "normal", "category": "Arc" },
+    { "id": "op6009", "question": "Dans quel arc Luffy affronte Big Mom pour récupérer Sanji ?", "answer": "Arc Whole Cake Island", "difficulty": "normal", "category": "Arc" },
+    { "id": "op6010", "question": "Dans quel arc Luffy et ses alliés renversent Kaido et Big Mom ?", "answer": "Arc Wano", "difficulty": "normal", "category": "Arc" },
+    { "id": "op6011", "question": "Dans quel arc l'équipage rencontre Vegapunk sur son île laboratoire ?", "answer": "Arc Egghead", "difficulty": "normal", "category": "Arc" },
+    { "id": "op6012", "question": "Dans quel arc Luffy obtient pour la première fois le Gear Second ?", "answer": "Arc Enies Lobby", "difficulty": "normal", "category": "Technique" },
+    { "id": "op6013", "question": "Dans quel arc Luffy éveille son fruit du démon et atteint le Gear 5 ?", "answer": "Arc Wano", "difficulty": "difficile", "category": "Technique" },
+    { "id": "op6014", "question": "Combien de membres rejoignent l'équipage pendant l'arc East Blue ?", "answer": "4 (Zoro, Nami, Usopp, Sanji)", "difficulty": "difficile", "category": "Équipage" },
+    { "id": "op6015", "question": "Dans quel arc Robin rejoint-elle officiellement l'équipage ?", "answer": "Arc Alabasta", "difficulty": "difficile", "category": "Équipage" },
+    { "id": "op6016", "question": "Dans quel arc Franky et Brook rejoignent-ils l'équipage ?", "answer": "Water 7/Enies Lobby (Franky) et Thriller Bark (Brook)", "difficulty": "difficile", "category": "Équipage" },
+    { "id": "op6017", "question": "Dans quel arc Jinbe rejoint-il officiellement l'équipage ?", "answer": "Arc Whole Cake Island / Wano", "difficulty": "difficile", "category": "Équipage" },
+    { "id": "op6018", "question": "Combien de Road Ponéglyphes l'équipage a-t-il collecté à ce jour ?", "answer": "3 sur 4 (après Wano)", "difficulty": "difficile", "category": "Progression" },
+    { "id": "op6019", "question": "Dans quelle saga l'équipage est-il séparé pendant 2 ans ?", "answer": "Saga Summit War (Guerre au Sommet)", "difficulty": "difficile", "category": "Saga" },
+    { "id": "op6020", "question": "Quelle saga actuelle mène vers la destination finale Laugh Tale ?", "answer": "Saga Final", "difficulty": "difficile", "category": "Saga" }
+  ]
+}

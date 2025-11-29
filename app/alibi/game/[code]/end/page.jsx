@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth,
@@ -12,7 +12,6 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
-import { PodiumPremium } from '@/components/ui/PodiumPremium';
 import BottomNav from "@/lib/components/BottomNav";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { hueScenariosService } from "@/lib/hue-module";
@@ -76,19 +75,6 @@ export default function AlibiEnd() {
     };
   }, [code, router]);
 
-  // Calculer le top 3 des joueurs
-  const topPlayers = useMemo(() => {
-    const allPlayersArray = Object.values(players || {});
-    if (allPlayersArray.length === 0) return [];
-
-    // Pour Alibi, on donne le même score à tous (c'est un jeu d'équipe)
-    return allPlayersArray
-      .map(p => ({
-        ...p,
-        score: score?.correct || 0
-      }))
-      .slice(0, 3);
-  }, [players, score]);
 
   const handleReturnToLobby = async () => {
     if (!isHost) return;
@@ -284,62 +270,6 @@ export default function AlibiEnd() {
           </div>
         </motion.div>
 
-        {/* Podium Premium */}
-        {topPlayers.length > 0 && (
-          <motion.section
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            style={{ marginBottom: '2rem' }}
-          >
-            <PodiumPremium topPlayers={topPlayers} />
-          </motion.section>
-        )}
-
-      {/* Détails par équipe */}
-      {myTeam === "suspects" && (
-        <motion.div
-          className="card space-y-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <h2 className="game-section-title text-primary">🎭 Suspects</h2>
-          {isSuccess ? (
-            <div className="space-y-2">
-              <p className="text-lg">Bravo ! Vous avez défendu votre alibi avec succès.</p>
-              <p className="opacity-70">Les inspecteurs ont validé {score.correct} de vos réponses sur {score.total}.</p>
-            </div>
-          ) : (
-            <div className="space-y-2">
-              <p className="text-lg">Les inspecteurs ont trouvé trop d'incohérences...</p>
-              <p className="opacity-70">Seulement {score.correct} réponses validées sur {score.total}.</p>
-            </div>
-          )}
-        </motion.div>
-      )}
-
-      {myTeam === "inspectors" && (
-        <motion.div
-          className="card space-y-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <h2 className="game-section-title text-accent">🕵️ Inspecteurs</h2>
-          {!isSuccess ? (
-            <div className="space-y-2">
-              <p className="text-lg">Excellent travail ! Vous avez démasqué les suspects.</p>
-              <p className="opacity-70">Vous avez détecté {score.total - score.correct} incohérence(s) sur {score.total} questions.</p>
-            </div>
-          ) : (
-            <div className="space-y-2">
-              <p className="text-lg">Les suspects s'en sortent plutôt bien...</p>
-              <p className="opacity-70">Vous avez validé {score.correct} de leurs réponses sur {score.total}.</p>
-            </div>
-          )}
-        </motion.div>
-      )}
 
       {/* Bouton retour au lobby (Host seulement) */}
       {isHost && (

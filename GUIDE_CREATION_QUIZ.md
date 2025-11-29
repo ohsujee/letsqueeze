@@ -314,10 +314,92 @@ Pour les questions sur les films/séries, inclure les deux :
 
 ## 8. Erreurs à Éviter
 
+### 🚨 L'ERREUR FATALE N°1 : La Réponse dans la Question
+
+> **C'est l'erreur la plus grave et la plus fréquente !** Si la réponse apparaît dans la question, le quiz perd tout son intérêt.
+
+#### Exemples de Questions CATASTROPHIQUES (à ne JAMAIS faire)
+
+```
+❌ CATASTROPHIQUE - Réponse littérale dans la question :
+"Quel est le nom complet de Rock Lee ?"
+→ Réponse : "Rock Lee"
+→ LA RÉPONSE EST DÉJÀ DANS LA QUESTION ! Aucun intérêt !
+
+❌ CATASTROPHIQUE - Réponse dans le contexte :
+"Comment s'appelle le Byakugan, le dojutsu du clan Hyuga ?"
+→ Réponse : "Le Byakugan"
+→ Vous avez littéralement donné la réponse !
+
+❌ CATASTROPHIQUE - Réponse dans le titre de l'œuvre :
+"Comment s'appelle le fils de Naruto dans Boruto ?"
+→ Réponse : "Boruto"
+→ Le prénom est dans le titre de la série !
+
+❌ CATASTROPHIQUE - Réponse évidente par déduction :
+"Comment s'appelle le royaume d'Alabasta dont Vivi est la princesse ?"
+→ Réponse : "Alabasta"
+→ Vous venez de le dire !
+
+❌ CATASTROPHIQUE - Réponse dans la parenthèse :
+"Comment s'appelle la forme Gear 5 de Luffy ?"
+→ Réponse : "Gear Fifth"
+→ C'est la même chose avec un chiffre en lettres !
+```
+
+#### Comment CORRIGER ces Questions
+
+```
+✅ CORRIGÉ - Rock Lee :
+"Quel ninja de Konoha ne peut utiliser ni ninjutsu ni genjutsu, seulement le taijutsu ?"
+→ Réponse : "Rock Lee"
+→ On décrit le personnage SANS donner son nom !
+
+✅ CORRIGÉ - Byakugan :
+"Quel dojutsu héréditaire permet de voir à 360° et les points de chakra ?"
+→ Réponse : "Le Byakugan"
+→ On décrit les capacités, pas le nom !
+
+✅ CORRIGÉ - Boruto :
+"Comment s'appelle le fils aîné de Naruto et Hinata ?"
+→ Réponse : "Boruto"
+→ On ne mentionne pas le titre de la série !
+
+✅ CORRIGÉ - Alabasta :
+"Dans quel royaume désertique la princesse Vivi doit-elle empêcher une guerre civile ?"
+→ Réponse : "Alabasta"
+→ On décrit le lieu sans le nommer !
+
+✅ CORRIGÉ - Gear 5 :
+"Quelle transformation Luffy atteint-il en éveillant son fruit du démon face à Kaido ?"
+→ Réponse : "Gear Fifth / Gear 5"
+→ On décrit le contexte sans nommer la forme !
+```
+
+#### La Règle d'Or Anti-Spoiler
+
+> **Avant de valider une question, posez-vous cette question :**
+> *"Est-ce que quelqu'un qui n'a JAMAIS vu/lu l'œuvre pourrait deviner la réponse juste en lisant ma question ?"*
+>
+> Si OUI → Réécrivez la question !
+
+#### Types de Spoilers à Éviter
+
+| Type de spoiler | Exemple à éviter | Correction |
+|-----------------|------------------|------------|
+| **Nom dans la question** | "Qui est Kakashi Hatake ?" | "Quel ninja masqué est le sensei de l'équipe 7 ?" |
+| **Réponse dans le titre** | "Dans One Piece, quel est le trésor ?" | "Quel trésor légendaire Gol D. Roger a-t-il caché ?" |
+| **Réponse entre parenthèses** | "Qu'est-ce que le Rasengan (boule de chakra) ?" | "Quelle technique Naruto a-t-il apprise de Jiraiya ?" |
+| **Réponse paraphrasée** | "Quel est le surnom de Chapeau de Paille ?" | "Quel surnom la Marine donne-t-elle à Luffy ?" |
+| **Famille/relation qui révèle** | "Le frère de Sasuke, Itachi, a fait quoi ?" | "Quel membre du clan Uchiha a massacré tout son clan ?" |
+
+---
+
 ### Les 7 Péchés Capitaux du Quiz
 
 | ❌ À éviter | ✅ À faire |
 |------------|-----------|
+| **Réponse dans la question** | **Décrire sans nommer** |
 | Questions trop nichées | Rester dans la culture populaire |
 | Réponses impossibles à deviner | Inclure des indices contextuels |
 | Que des questions difficiles | Mixer les niveaux |
@@ -362,6 +444,7 @@ Avant de publier ton quiz, vérifie :
 - [ ] Catégories variées
 - [ ] Réponses vérifiées (2 sources minimum)
 - [ ] Questions claires et non ambiguës
+- [ ] **⚠️ AUCUNE réponse ne figure dans la question** (vérifier chaque question !)
 
 ### Expérience Joueur
 - [ ] Première question facile et engageante

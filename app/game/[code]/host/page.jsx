@@ -195,17 +195,18 @@ export default function HostGame(){
       await runTransaction(stateRef, (currentState) => {
         if (!currentState) return currentState;
 
-        // Si quelqu'un a buzzé entre-temps, on préserve son buzz
-        if (currentState.lockUid) {
-          // Révéler la question mais garder le lock existant
+        // TOUJOURS préserver un buzz existant (même si arrivé à la milliseconde près)
+        // On vérifie lockUid OU buzz.uid pour plus de sécurité
+        const hasBuzz = currentState.lockUid || currentState.buzz?.uid;
+
+        if (hasBuzz) {
+          // Révéler la question mais garder le lock existant intact
           return {
             ...currentState,
             revealed: true,
             lastRevealAt: revealTime,
-            elapsedAcc: 0,
-            pausedAt: currentState.pausedAt || null,
-            lockedAt: currentState.lockedAt || null
-            // lockUid, buzz, buzzBanner sont préservés
+            elapsedAcc: 0
+            // On ne touche PAS à : lockUid, buzz, buzzBanner, pausedAt, lockedAt
           };
         }
 
@@ -455,6 +456,14 @@ export default function HostGame(){
                 </div>
 
                 <div className="buzz-modal-subtitle">a buzzé !</div>
+
+                {/* Réponse à la question - visible pour l'hôte */}
+                {q && (
+                  <div className="buzz-modal-answer">
+                    <div className="buzz-modal-answer-label">Réponse attendue</div>
+                    <div className="buzz-modal-answer-value">{q.answer}</div>
+                  </div>
+                )}
 
                 {wasAnticipated && (
                   <div className="buzz-modal-alert">

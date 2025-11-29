@@ -1,0 +1,27 @@
+{
+  "id": "onepiece-5-empereurs-corsaires",
+  "title": "One Piece — Empereurs & Corsaires",
+  "lang": "fr",
+  "items": [
+    { "id": "op5001", "question": "Quels quatre pirates régnaient sur le Nouveau Monde au début de la série ?", "answer": "Shanks, Kaido, Big Mom, Barbe Blanche", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "op5002", "question": "Quel Empereur pirate roux a inspiré Luffy à devenir pirate ?", "answer": "Shanks le Roux", "difficulty": "normal", "category": "Empereur" },
+    { "id": "op5003", "question": "Quel Empereur était surnommé « l'homme le plus fort du monde » ?", "answer": "Barbe Blanche (Edward Newgate)", "difficulty": "normal", "category": "Empereur" },
+    { "id": "op5004", "question": "Quelle Empereur est une géante qui dirige l'île des gâteaux Totto Land ?", "answer": "Big Mom (Charlotte Linlin)", "difficulty": "normal", "category": "Empereur" },
+    { "id": "op5005", "question": "Quel Empereur était réputé invincible et roi des bêtes à Wano ?", "answer": "Kaido", "difficulty": "normal", "category": "Empereur" },
+    { "id": "op5006", "question": "Quel pirate est devenu Empereur après avoir volé le fruit de Barbe Blanche ?", "answer": "Barbe Noire (Marshall D. Teach)", "difficulty": "normal", "category": "Empereur" },
+    { "id": "op5007", "question": "Quel épéiste Corsaire est le plus grand bretteur du monde ?", "answer": "Dracule Mihawk", "difficulty": "normal", "category": "Corsaire" },
+    { "id": "op5008", "question": "Quel Corsaire au flamant rose contrôlait Dressrosa avec des fils ?", "answer": "Doflamingo", "difficulty": "normal", "category": "Corsaire" },
+    { "id": "op5009", "question": "Quelle Corsaire est l'impératrice des Amazones de l'île des femmes ?", "answer": "Boa Hancock", "difficulty": "normal", "category": "Corsaire" },
+    { "id": "op5010", "question": "Quel ancien Corsaire chirurgien possède le fruit de l'opération ?", "answer": "Trafalgar Law", "difficulty": "normal", "category": "Corsaire" },
+    { "id": "op5011", "question": "Quel Corsaire cyborg ressemble à un ours et peut repousser n'importe quoi ?", "answer": "Bartholomew Kuma", "difficulty": "normal", "category": "Corsaire" },
+    { "id": "op5012", "question": "Quel Corsaire géant possède une ombre qui combat pour lui ?", "answer": "Gecko Moria", "difficulty": "normal", "category": "Corsaire" },
+    { "id": "op5013", "question": "Quels nouveaux Empereurs ont émergé après les événements de Wano ?", "answer": "Luffy et Buggy", "difficulty": "difficile", "category": "Nouveau" },
+    { "id": "op5014", "question": "Combien d'Empereurs règnent sur le Nouveau Monde à la fois ?", "answer": "4 Empereurs (Yonko)", "difficulty": "difficile", "category": "Système" },
+    { "id": "op5015", "question": "Combien de Grands Corsaires existaient avant leur dissolution ?", "answer": "7 Corsaires (Shichibukai)", "difficulty": "difficile", "category": "Système" },
+    { "id": "op5016", "question": "Quel ancien Corsaire homme-poisson tyrannisait l'île des hommes-poissons ?", "answer": "Jinbe", "difficulty": "difficile", "category": "Corsaire" },
+    { "id": "op5017", "question": "Quel Empereur possède deux fruits du démon, ce qui est normalement impossible ?", "answer": "Barbe Noire", "difficulty": "difficile", "category": "Mystère" },
+    { "id": "op5018", "question": "Qui a remplacé les Corsaires comme force militaire du Gouvernement ?", "answer": "Les Seraphim", "difficulty": "difficile", "category": "Changement" },
+    { "id": "op5019", "question": "Quel Empereur a été vaincu par Luffy à Whole Cake Island puis Wano ?", "answer": "Big Mom et Kaido", "difficulty": "difficile", "category": "Combat" },
+    { "id": "op5020", "question": "Quel équilibre mondial les trois grandes puissances maintiennent-elles ?", "answer": "Marine + Corsaires + Empereurs = équilibre", "difficulty": "difficile", "category": "Politique" }
+  ]
+}

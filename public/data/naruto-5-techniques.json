@@ -1,0 +1,27 @@
+{
+  "id": "naruto-5-techniques",
+  "title": "Naruto — Techniques & Jutsu",
+  "lang": "fr",
+  "items": [
+    { "id": "nar5001", "question": "Quelle sphère de chakra tournoyante est la technique signature de Naruto ?", "answer": "Rasengan", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "nar5002", "question": "Quelle technique de foudre concentrée dans la main est la signature de Sasuke ?", "answer": "Chidori", "difficulty": "normal", "category": "Technique" },
+    { "id": "nar5003", "question": "Quelle technique permet de créer des clones solides qui partagent les expériences ?", "answer": "Kage Bunshin no Jutsu (Multi-clonage)", "difficulty": "normal", "category": "Technique" },
+    { "id": "nar5004", "question": "Quelle technique de téléportation instantanée a rendu le 4e Hokage légendaire ?", "answer": "Hiraishin no Jutsu", "difficulty": "normal", "category": "Technique" },
+    { "id": "nar5005", "question": "Quelle technique d'invocation permet d'appeler des animaux géants ?", "answer": "Kuchiyose no Jutsu", "difficulty": "normal", "category": "Technique" },
+    { "id": "nar5006", "question": "Quelle technique du Sharingan projette des flammes noires inextinguibles ?", "answer": "Amaterasu", "difficulty": "normal", "category": "Dojutsu" },
+    { "id": "nar5007", "question": "Quelle technique crée un guerrier spectral géant autour de l'utilisateur ?", "answer": "Susanoo", "difficulty": "normal", "category": "Dojutsu" },
+    { "id": "nar5008", "question": "Quelle technique du Mangekyo de Kakashi/Obito manipule l'espace ?", "answer": "Kamui", "difficulty": "normal", "category": "Dojutsu" },
+    { "id": "nar5009", "question": "Quelle technique permet de marcher sur l'eau en concentrant le chakra ?", "answer": "Contrôle du chakra (technique de base)", "difficulty": "normal", "category": "Technique" },
+    { "id": "nar5010", "question": "Quelle technique de substitution permet d'échapper à une attaque ?", "answer": "Kawarimi no Jutsu", "difficulty": "normal", "category": "Technique" },
+    { "id": "nar5011", "question": "Quelle technique de transformation permet de changer d'apparence ?", "answer": "Henge no Jutsu", "difficulty": "normal", "category": "Technique" },
+    { "id": "nar5012", "question": "Quelle technique combine le Rasengan avec le chakra du vent ?", "answer": "Rasenshuriken", "difficulty": "normal", "category": "Technique" },
+    { "id": "nar5013", "question": "Quelle technique interdite ressuscite les morts sous contrôle ?", "answer": "Edo Tensei", "difficulty": "difficile", "category": "Technique" },
+    { "id": "nar5014", "question": "Quelle technique du Rinnegan permet d'attirer ou repousser tout ?", "answer": "Shinra Tensei / Bansho Ten'in", "difficulty": "difficile", "category": "Dojutsu" },
+    { "id": "nar5015", "question": "Quelle technique du Byakugan frappe les points de chakra (tenketsu) ?", "answer": "Juken (Poing souple)", "difficulty": "difficile", "category": "Taijutsu" },
+    { "id": "nar5016", "question": "Combien de portes intérieures peut-on ouvrir avec le Hachimon Tonko ?", "answer": "8 portes", "difficulty": "difficile", "category": "Taijutsu" },
+    { "id": "nar5017", "question": "Quelle technique Uchiha modifie la réalité au prix de la cécité d'un œil ?", "answer": "Izanagi", "difficulty": "difficile", "category": "Dojutsu" },
+    { "id": "nar5018", "question": "Quelle technique du Rinnegan permet de ramener les morts à la vie ?", "answer": "Gedo Rinne Tensei", "difficulty": "difficile", "category": "Dojutsu" },
+    { "id": "nar5019", "question": "Quelle technique genjutsu plonge la victime dans une boucle temporelle de torture ?", "answer": "Tsukuyomi", "difficulty": "difficile", "category": "Genjutsu" },
+    { "id": "nar5020", "question": "Quelle technique ultime plonge l'humanité entière dans un genjutsu via la lune ?", "answer": "Mugen Tsukuyomi", "difficulty": "difficile", "category": "Genjutsu" }
+  ]
+}

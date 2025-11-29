@@ -1,0 +1,27 @@
+{
+  "id": "kollywood-films-cultes",
+  "title": "Kollywood — Films Cultes",
+  "lang": "fr-ta",
+  "items": [
+    { "id": "kwcult001", "question": "FR: Quel film de 1995 a établi l'image « mass » de Rajinikanth en gangster reconverti ? | TA: 1995-ல் ரஜினியின் 'மாஸ்' இமேஜை நிலைநாட்டிய படம் எது?", "answer": "Baashha", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "kwcult002", "question": "FR: Quel film de 1987 figure dans la liste « All-TIME 100 Movies » du magazine TIME ? | TA: TIME பத்திரிகையின் 'All-TIME 100 Movies' பட்டியலில் உள்ள 1987 தமிழ் படம் எது?", "answer": "Nayakan", "difficulty": "normal", "category": "International" },
+    { "id": "kwcult003", "question": "FR: Quel film de science-fiction de 2010 a battu tous les records au box-office indien ? | TA: 2010-ல் இந்திய பாக்ஸ் ஆபிஸ் ரெக்கார்ட் உடைத்த அறிவியல் படம் எது?", "answer": "Enthiran (Robot)", "difficulty": "normal", "category": "Record" },
+    { "id": "kwcult004", "question": "FR: Quel film de 2000 avec Ajith et Shalini est devenu un classique romantique ? | TA: அஜித்-ஷாலினி நடித்த 2000 காதல் கிளாசிக் படம் எது?", "answer": "Alaipayuthey", "difficulty": "normal", "category": "Romance" },
+    { "id": "kwcult005", "question": "FR: Quel film de 2003 a redéfini le genre policier tamoul avec Suriya ? | TA: சூர்யாவுடன் 2003-ல் போலீஸ் ஜானரை மறுவரையறை செய்த படம் எது?", "answer": "Kaakha Kaakha", "difficulty": "normal", "category": "Policier" },
+    { "id": "kwcult006", "question": "FR: Quel film de 2004 raconte les amours passées via des invitations de mariage ? | TA: திருமண அழைப்பிதழ் மூலம் பழைய காதலை நினைவுகூரும் 2004 படம் எது?", "answer": "Autograph", "difficulty": "normal", "category": "Nostalgie" },
+    { "id": "kwcult007", "question": "FR: Quel film d'action de 2004 avec Vijay a popularisé le kabaddi au cinéma ? | TA: 2004-ல் கபடியை சினிமாவில் பிரபலமாக்கிய விஜய் ஆக்ஷன் படம் எது?", "answer": "Ghilli", "difficulty": "normal", "category": "Sport" },
+    { "id": "kwcult008", "question": "FR: Quel film de 2014 explore le monde du cinéma et des gangsters de Madurai ? | TA: 2014-ல் சினிமா மற்றும் மதுரை கேங்ஸ்டர் உலகை காட்டும் படம் எது?", "answer": "Jigarthanda", "difficulty": "normal", "category": "Meta-cinéma" },
+    { "id": "kwcult009", "question": "FR: Quel film de 2018 sur les violences de caste a bouleversé le Tamil Nadu ? | TA: 2018-ல் சாதிய வன்முறை பற்றிய உணர்ச்சிகரமான படம் எது?", "answer": "Pariyerum Perumal", "difficulty": "normal", "category": "Social" },
+    { "id": "kwcult010", "question": "FR: Quel film de 2018 avec Vijay Sethupathi explore une réunion de lycéens 22 ans après ? | TA: 22 ஆண்டுகளுக்குப் பிறகு பழைய வகுப்பு நண்பர்களை சந்திக்கும் 2018 படம் எது?", "answer": "96", "difficulty": "normal", "category": "Nostalgie" },
+    { "id": "kwcult011", "question": "FR: Quel thriller de 2018 suit un policier traquant un tueur en série masqué ? | TA: 2018-ல் முகமூடி கொலைகாரனை வேட்டையாடும் த்ரில்லர் படம் எது?", "answer": "Ratsasan", "difficulty": "normal", "category": "Thriller" },
+    { "id": "kwcult012", "question": "FR: Quel film de 2021 oppose un professeur à un criminel dans un foyer pour jeunes ? | TA: 2021-ல் ஆசிரியர் vs குற்றவாளி இளைஞர் காப்பகத்தில் மோதும் படம் எது?", "answer": "Master", "difficulty": "normal", "category": "Action" },
+    { "id": "kwcult013", "question": "FR: Quel film de 2022 adapte le roman historique de Kalki sur les Cholas ? | TA: கல்கியின் சோழர்கள் பற்றிய நாவலை 2022-ல் திரைப்படமாக்கியது எது?", "answer": "Ponniyin Selvan", "difficulty": "difficile", "category": "Épique" },
+    { "id": "kwcult014", "question": "FR: Quel film de 2019 sans aucune chanson suit un évadé de prison dans une nuit ? | TA: 2019-ல் பாடல்கள் இல்லாமல் ஒரு இரவில் நடக்கும் ஜெயில் தப்பியோன் படம் எது?", "answer": "Kaithi", "difficulty": "difficile", "category": "Action" },
+    { "id": "kwcult015", "question": "FR: Quel film de 2020 inspiré de Captain Gopinath raconte un rêve d'aviation ? | TA: கேப்டன் கோபிநாத் கதையை அடிப்படையாக கொண்ட 2020 விமான கனவு படம் எது?", "answer": "Soorarai Pottru", "difficulty": "difficile", "category": "Biopic" },
+    { "id": "kwcult016", "question": "FR: Quel film de 2021 sur la boxe des années 70 a été salué par la critique ? | TA: 70களின் குத்துச்சண்டை பற்றிய 2021 விமர்சன வெற்றி படம் எது?", "answer": "Sarpatta Parambarai", "difficulty": "difficile", "category": "Sport" },
+    { "id": "kwcult017", "question": "FR: Quel film de 2022 connecte « Kaithi » et « Vikram » dans un même univers ? | TA: 'கைதி' மற்றும் 'விக்ரம்' ஒரே உலகில் இணைக்கும் 2022 படம் எது?", "answer": "Vikram (LCU - Lokesh Cinematic Universe)", "difficulty": "difficile", "category": "Univers connecté" },
+    { "id": "kwcult018", "question": "FR: Quel film de 2023 avec Rajinikanth revisite le thème du policier retraité vengeur ? | TA: 2023-ல் ரஜினி ஓய்வுபெற்ற போலீஸாக பழிவாங்கும் படம் எது?", "answer": "Jailer", "difficulty": "difficile", "category": "Action" },
+    { "id": "kwcult019", "question": "FR: Quel film de 2024 avec Vijay Sethupathi cache un secret derrière une poubelle nommée Lakshmi ? | TA: 2024-ல் 'லக்ஷ்மி' என்ற குப்பைத்தொட்டி ரகசியம் வைத்திருக்கும் படம் எது?", "answer": "Maharaja", "difficulty": "difficile", "category": "Thriller" },
+    { "id": "kwcult020", "question": "FR: Quel film de 2015 a remporté le National Award et représenté l'Inde aux Oscars ? | TA: 2015-ல் தேசிய விருது பெற்று இந்தியாவின் ஆஸ்கார் பிரதிநிதியான படம் எது?", "answer": "Visaranai", "difficulty": "difficile", "category": "Récompense" }
+  ]
+}

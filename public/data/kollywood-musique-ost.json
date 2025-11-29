@@ -1,0 +1,27 @@
+{
+  "id": "kollywood-musique-ost",
+  "title": "Kollywood — Musique & OST",
+  "lang": "fr-ta",
+  "items": [
+    { "id": "kwmus001", "question": "FR: Quel compositeur a révolutionné la musique tamoule avec « Roja » en 1992 ? | TA: 1992-ல் 'ரோஜா' படத்தின் மூலம் தமிழ் இசையை புரட்சி செய்தவர் யார்?", "answer": "A.R. Rahman", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "kwmus002", "question": "FR: Quelle chanson virale de 2012 a fait connaître le « Tanglish » au monde entier ? | TA: 2012-ல் உலகம் முழுவதும் வைரலான 'டேங்கிலிஷ்' பாடல் எது?", "answer": "Why This Kolaveri Di", "difficulty": "normal", "category": "Viral" },
+    { "id": "kwmus003", "question": "FR: Quel compositeur légendaire a créé les musiques de Rajinikanth pendant 25 ans ? | TA: 25 ஆண்டுகளாக ரஜினிகாந்த் படங்களுக்கு இசையமைத்தவர் யார்?", "answer": "Ilaiyaraaja", "difficulty": "normal", "category": "Légende" },
+    { "id": "kwmus004", "question": "FR: Quelle berceuse de « Viswasam » est devenue un hit incontournable ? | TA: 'விஸ்வாசம்' படத்தின் பிரபல தாலாட்டு பாடல் எது?", "answer": "Kannana Kanne", "difficulty": "normal", "category": "Hit" },
+    { "id": "kwmus005", "question": "FR: Quel jeune compositeur a signé les musiques de « 96 » et « Premam » ? | TA: '96' மற்றும் 'பிரேமம்' படங்களுக்கு இசையமைத்த இளம் இசையமைப்பாளர் யார்?", "answer": "Govind Vasantha", "difficulty": "normal", "category": "Nouvelle génération" },
+    { "id": "kwmus006", "question": "FR: Quelle chanson romantique de « Alaipayuthey » reste un classique des mariages ? | TA: 'அலைபாயுதே' படத்தின் எந்த பாடல் திருமணங்களில் இன்றும் ஒலிக்கிறது?", "answer": "Snehithane / Pachai Nirame", "difficulty": "normal", "category": "Classique" },
+    { "id": "kwmus007", "question": "FR: Quel compositeur a créé la bande-son épique de « Baahubali » ? | TA: 'பாகுபலி' படத்தின் இசையை உருவாக்கியவர் யார்?", "answer": "M.M. Keeravani", "difficulty": "normal", "category": "Blockbuster" },
+    { "id": "kwmus008", "question": "FR: Quelle chanson de « Enthiran » avec des paroles futuristes est devenue culte ? | TA: 'எந்திரன்' படத்தின் எதிர்கால பாடல் எது?", "answer": "Kilimanjaro / Irumbile Oru Irudhaiyam", "difficulty": "normal", "category": "Sci-Fi" },
+    { "id": "kwmus009", "question": "FR: Quel chanteur playback est la voix de Rajinikanth depuis « Baashha » ? | TA: 'பாஷா' முதல் ரஜினிகாந்த்துக்கு குரல் கொடுக்கும் பாடகர் யார்?", "answer": "S.P. Balasubrahmanyam", "difficulty": "normal", "category": "Playback" },
+    { "id": "kwmus010", "question": "FR: Quel compositeur signe les musiques de Vijay depuis « Thuppakki » ? | TA: 'துப்பாக்கி' முதல் விஜய் படங்களுக்கு இசையமைப்பவர் யார்?", "answer": "Anirudh Ravichander", "difficulty": "normal", "category": "Collaboration" },
+    { "id": "kwmus011", "question": "FR: Quelle chanson de « Master » a battu des records sur YouTube ? | TA: 'மாஸ்டர்' படத்தின் யூடியூப் ரெக்கார்ட் உடைத்த பாடல் எது?", "answer": "Vaathi Coming", "difficulty": "normal", "category": "Record" },
+    { "id": "kwmus012", "question": "FR: Quel slow romantique de « Vinnaithaandi Varuvaayaa » reste inoubliable ? | TA: 'விண்ணைத்தாண்டி வருவாயா' படத்தின் மறக்க முடியாத பாடல் எது?", "answer": "Anbil Avan / Hosanna", "difficulty": "normal", "category": "Romance" },
+    { "id": "kwmus013", "question": "FR: Quel compositeur a créé « Anbe Sivam » et « Bombay » pour Mani Ratnam ? | TA: மணி ரத்னத்தின் 'அன்பே சிவம்' மற்றும் 'பாம்பே' இசையமைத்தவர் யார்?", "answer": "A.R. Rahman", "difficulty": "difficile", "category": "Collaboration" },
+    { "id": "kwmus014", "question": "FR: Quelle chanson de « Kadhal Desam » a lancé la carrière d'Abbas et Vineeth ? | TA: 'காதல் தேசம்' படத்தின் எந்த பாடல் அப்பாஸ்-வினீத் ஜோடியை பிரபலமாக்கியது?", "answer": "Mukkala Mukkabala / En Veetu Thottathil", "difficulty": "difficile", "category": "90s" },
+    { "id": "kwmus015", "question": "FR: Quel compositeur a signé « Kaakha Kaakha » et « Vettaiyaadu Vilaiyaadu » ? | TA: 'காக்கா காக்கா' மற்றும் 'வேட்டையாடு விளையாடு' இசையமைத்தவர் யார்?", "answer": "Harris Jayaraj", "difficulty": "difficile", "category": "Thriller" },
+    { "id": "kwmus016", "question": "FR: Quelle chanteuse playback a prêté sa voix à des milliers de chansons tamoules ? | TA: ஆயிரக்கணக்கான தமிழ் பாடல்களுக்கு குரல் கொடுத்த பெண் பாடகர் யார்?", "answer": "S. Janaki / P. Susheela", "difficulty": "difficile", "category": "Légende" },
+    { "id": "kwmus017", "question": "FR: Quelle chanson de « Pariyerum Perumal » a touché les cœurs sur les discriminations ? | TA: 'பரியேறும் பெருமாள்' படத்தின் உணர்வுபூர்வமான பாடல் எது?", "answer": "Karuppi", "difficulty": "difficile", "category": "Social" },
+    { "id": "kwmus018", "question": "FR: Quel jeune compositeur a percé avec « Soodhu Kavvum » et « Pizza » ? | TA: 'சூது கவ்வும்' மற்றும் 'பிட்சா' படங்களால் பிரபலமான இளம் இசையமைப்பாளர் யார்?", "answer": "Santhosh Narayanan", "difficulty": "difficile", "category": "Indie" },
+    { "id": "kwmus019", "question": "FR: Quelle chanson de « Jailer » a fait danser toute l'Inde en 2023 ? | TA: 2023-ல் 'ஜெயிலர்' படத்தின் எந்த பாடல் இந்தியா முழுவதும் ஹிட் ஆனது?", "answer": "Kaavaalaa", "difficulty": "difficile", "category": "Hit" },
+    { "id": "kwmus020", "question": "FR: Quel compositeur a créé la musique de « Ponniyin Selvan » ? | TA: 'பொன்னியின் செல்வன்' படத்தின் இசையமைப்பாளர் யார்?", "answer": "A.R. Rahman", "difficulty": "difficile", "category": "Épique" }
+  ]
+}

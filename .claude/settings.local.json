@@ -53,7 +53,14 @@
       "Bash(timeout 15 npm run dev:*)",
       "Bash(timeout 20 npm run dev)",
       "Bash(rm:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(find:*)",
+      "Bash(npm audit:*)",
+      "Bash(sort:*)",
+      "Bash(git pull:*)",
+      "Bash(git merge:*)",
+      "Bash(for f in public/data/naruto-*.json public/data/onepiece-*.json public/data/culture-generale-[3-8]*.json)",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []

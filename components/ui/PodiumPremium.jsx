@@ -150,7 +150,7 @@ export const PodiumPremium = ({ topPlayers }) => {
                   position: 'relative',
                   zIndex: 1
                 }}>
-                  {player.name.charAt(0).toUpperCase()}
+                  {(player.name || 'J').charAt(0).toUpperCase()}
                 </span>
               </motion.div>
 
@@ -195,7 +195,7 @@ export const PodiumPremium = ({ topPlayers }) => {
                 delay: ranks[i] === 1 ? 0.8 : ranks[i] === 2 ? 0.5 : 1.1
               }}
             >
-              {player.name}
+              {player.name || 'Joueur'}
             </motion.div>
 
             {/* Score avec effet néon */}

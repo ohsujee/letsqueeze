@@ -1,0 +1,27 @@
+{
+  "id": "culture-generale-9-litterature",
+  "title": "Culture Générale — Littérature",
+  "lang": "fr",
+  "items": [
+    { "id": "cglit001", "question": "Quel auteur français a écrit « Les Misérables » et « Notre-Dame de Paris » ?", "answer": "Victor Hugo", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "cglit002", "question": "Quelle auteure britannique a créé le sorcier le plus célèbre du monde ?", "answer": "J.K. Rowling", "difficulty": "normal", "category": "Fantasy" },
+    { "id": "cglit003", "question": "Quel écrivain américain a écrit « Le Vieil Homme et la Mer » ?", "answer": "Ernest Hemingway", "difficulty": "normal", "category": "Classique" },
+    { "id": "cglit004", "question": "Quel poète français du XIXe siècle a écrit « Les Fleurs du Mal » ?", "answer": "Charles Baudelaire", "difficulty": "normal", "category": "Poésie" },
+    { "id": "cglit005", "question": "Quel auteur britannique a créé Sherlock Holmes ?", "answer": "Arthur Conan Doyle", "difficulty": "normal", "category": "Policier" },
+    { "id": "cglit006", "question": "Quelle auteure anglaise est surnommée la « Reine du Crime » ?", "answer": "Agatha Christie", "difficulty": "normal", "category": "Policier" },
+    { "id": "cglit007", "question": "Quel auteur français a écrit « Le Petit Prince » ?", "answer": "Antoine de Saint-Exupéry", "difficulty": "normal", "category": "Jeunesse" },
+    { "id": "cglit008", "question": "Quel auteur britannique a créé l'univers de la Terre du Milieu ?", "answer": "J.R.R. Tolkien", "difficulty": "normal", "category": "Fantasy" },
+    { "id": "cglit009", "question": "Quel philosophe français du XVIIIe siècle a écrit « Candide » ?", "answer": "Voltaire", "difficulty": "normal", "category": "Philosophie" },
+    { "id": "cglit010", "question": "Quel auteur russe a écrit « Guerre et Paix » et « Anna Karénine » ?", "answer": "Léon Tolstoï", "difficulty": "normal", "category": "Classique" },
+    { "id": "cglit011", "question": "Quel dramaturge anglais a écrit « Roméo et Juliette » et « Hamlet » ?", "answer": "William Shakespeare", "difficulty": "normal", "category": "Théâtre" },
+    { "id": "cglit012", "question": "Quel auteur américain a écrit « 1984 » et « La Ferme des animaux » ?", "answer": "George Orwell", "difficulty": "normal", "category": "Dystopie" },
+    { "id": "cglit013", "question": "Quel auteur colombien a écrit « Cent ans de solitude » ?", "answer": "Gabriel García Márquez", "difficulty": "difficile", "category": "Latino" },
+    { "id": "cglit014", "question": "Quel auteur français a écrit « À la recherche du temps perdu » ?", "answer": "Marcel Proust", "difficulty": "difficile", "category": "Classique" },
+    { "id": "cglit015", "question": "Quel auteur tchèque a écrit « La Métamorphose » et « Le Procès » ?", "answer": "Franz Kafka", "difficulty": "difficile", "category": "Absurde" },
+    { "id": "cglit016", "question": "Quel auteur américain a écrit « Moby Dick » ?", "answer": "Herman Melville", "difficulty": "difficile", "category": "Aventure" },
+    { "id": "cglit017", "question": "Quelle auteure française a écrit « L'Amant » et obtenu le prix Goncourt ?", "answer": "Marguerite Duras", "difficulty": "difficile", "category": "Contemporain" },
+    { "id": "cglit018", "question": "Quel auteur japonais a écrit « Norwegian Wood » et « Kafka sur le rivage » ?", "answer": "Haruki Murakami", "difficulty": "difficile", "category": "Contemporain" },
+    { "id": "cglit019", "question": "Quel dramaturge français a écrit « En attendant Godot » ?", "answer": "Samuel Beckett", "difficulty": "difficile", "category": "Théâtre" },
+    { "id": "cglit020", "question": "Quel auteur italien a écrit « Le Nom de la rose » ?", "answer": "Umberto Eco", "difficulty": "difficile", "category": "Historique" }
+  ]
+}

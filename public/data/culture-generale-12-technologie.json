@@ -1,0 +1,27 @@
+{
+  "id": "culture-generale-12-technologie",
+  "title": "Culture Générale — Technologie",
+  "lang": "fr",
+  "items": [
+    { "id": "cgtech001", "question": "Quelle entreprise américaine a créé l'iPhone et le Mac ?", "answer": "Apple", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "cgtech002", "question": "Quel moteur de recherche domine Internet avec plus de 90% de parts de marché ?", "answer": "Google", "difficulty": "normal", "category": "Internet" },
+    { "id": "cgtech003", "question": "Quel réseau social fondé par Mark Zuckerberg compte plus de 2 milliards d'utilisateurs ?", "answer": "Facebook (Meta)", "difficulty": "normal", "category": "Réseaux sociaux" },
+    { "id": "cgtech004", "question": "Quelle entreprise d'Elon Musk fabrique des voitures électriques ?", "answer": "Tesla", "difficulty": "normal", "category": "Automobile" },
+    { "id": "cgtech005", "question": "Quel système d'exploitation mobile équipe la majorité des smartphones dans le monde ?", "answer": "Android", "difficulty": "normal", "category": "Mobile" },
+    { "id": "cgtech006", "question": "Quelle plateforme de vidéos appartenant à Google a été fondée en 2005 ?", "answer": "YouTube", "difficulty": "normal", "category": "Vidéo" },
+    { "id": "cgtech007", "question": "Quel entrepreneur a fondé Amazon et Blue Origin ?", "answer": "Jeff Bezos", "difficulty": "normal", "category": "Entrepreneur" },
+    { "id": "cgtech008", "question": "Quelle entreprise chinoise fabrique les smartphones Mate et P Series ?", "answer": "Huawei", "difficulty": "normal", "category": "Mobile" },
+    { "id": "cgtech009", "question": "Quel service de streaming musical suédois a révolutionné l'industrie musicale ?", "answer": "Spotify", "difficulty": "normal", "category": "Streaming" },
+    { "id": "cgtech010", "question": "Quel réseau social de vidéos courtes appartenant à ByteDance est très populaire ?", "answer": "TikTok", "difficulty": "normal", "category": "Réseaux sociaux" },
+    { "id": "cgtech011", "question": "Quelle console de jeux vidéo de Sony a dominé le marché depuis 1994 ?", "answer": "PlayStation", "difficulty": "normal", "category": "Gaming" },
+    { "id": "cgtech012", "question": "Quel langage de programmation est le plus utilisé pour le développement web côté client ?", "answer": "JavaScript", "difficulty": "normal", "category": "Programmation" },
+    { "id": "cgtech013", "question": "Quelle entreprise d'IA a créé ChatGPT et DALL-E ?", "answer": "OpenAI", "difficulty": "difficile", "category": "IA" },
+    { "id": "cgtech014", "question": "Quelle cryptomonnaie créée en 2009 par Satoshi Nakamoto est la plus connue ?", "answer": "Bitcoin", "difficulty": "difficile", "category": "Crypto" },
+    { "id": "cgtech015", "question": "Quel terme désigne la réalité virtuelle immersive combinée au monde réel ?", "answer": "Réalité augmentée (AR) / Métavers", "difficulty": "difficile", "category": "VR/AR" },
+    { "id": "cgtech016", "question": "Quelle loi informatique prédit le doublement des transistors tous les 2 ans ?", "answer": "La loi de Moore", "difficulty": "difficile", "category": "Théorie" },
+    { "id": "cgtech017", "question": "Quel protocole permet les échanges sécurisés sur Internet (cadenas vert) ?", "answer": "HTTPS (TLS/SSL)", "difficulty": "difficile", "category": "Sécurité" },
+    { "id": "cgtech018", "question": "Quel terme désigne l'hébergement de données sur des serveurs distants ?", "answer": "Le Cloud (Cloud Computing)", "difficulty": "difficile", "category": "Infrastructure" },
+    { "id": "cgtech019", "question": "Quelle entreprise de Satya Nadella a racheté LinkedIn et GitHub ?", "answer": "Microsoft", "difficulty": "difficile", "category": "Entreprise" },
+    { "id": "cgtech020", "question": "Quel terme anglais désigne l'Internet des objets connectés ?", "answer": "IoT (Internet of Things)", "difficulty": "difficile", "category": "Concept" }
+  ]
+}

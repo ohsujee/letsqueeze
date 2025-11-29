@@ -55,15 +55,16 @@ export default function Buzzer({
     return { type: 'anticipated', label: '⚡', sublabel: 'ANTICIPÉ', disabled: false, isAnticipated: true };
   }, [optimisticState, blockedUntil, serverNow, playerUid, revealed]);
 
-  // Fonction de buzz
+  // Fonction de buzz - Transaction atomique sur tout l'état pour éviter les race conditions
   const handleBuzz = async () => {
     if (buzzerState.disabled || !roomCode || !playerUid || !playerName) return;
 
     const code = String(roomCode).toUpperCase();
     const isAnticipatedBuzz = !revealed;
+    const buzzTime = Date.now();
 
     try {
-      // Optimistic update
+      // Optimistic update - affichage immédiat côté client
       setOptimisticState({
         lockUid: playerUid,
         buzzBanner: `🔔 ${playerName} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`
@@ -72,23 +73,42 @@ export default function Buzzer({
       playSound('buzz');
       navigator?.vibrate?.([100, 50, 200]);
 
-      // Transaction atomique
-      const lockRef = ref(db, `rooms/${code}/state/lockUid`);
-      const result = await runTransaction(lockRef, (currentLock) => {
-        return currentLock ? currentLock : playerUid;
+      // Transaction atomique sur TOUT l'objet state
+      // Firebase garantit que le PREMIER qui commit gagne
+      // Si conflit, la transaction retry automatiquement avec les nouvelles données
+      const stateRef = ref(db, `rooms/${code}/state`);
+      const result = await runTransaction(stateRef, (currentState) => {
+        if (!currentState) return currentState;
+
+        // Si quelqu'un a déjà buzzé, on ne change rien
+        // Le retry de Firebase garantit qu'on voit toujours l'état le plus récent
+        if (currentState.lockUid) {
+          return currentState; // Garder le buzz existant
+        }
+
+        // Personne n'a buzzé - je prends le lock avec TOUTES les infos atomiquement
+        return {
+          ...currentState,
+          lockUid: playerUid,
+          buzz: {
+            uid: playerUid,
+            at: buzzTime,
+            anticipated: isAnticipatedBuzz
+          },
+          buzzBanner: `🔔 ${playerName} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`
+        };
       });
 
-      if (result.committed && result.snapshot.val() === playerUid) {
-        const updates = {};
-        updates[`rooms/${code}/state/buzz`] = { uid: playerUid, at: serverTimestamp(), anticipated: isAnticipatedBuzz };
-        updates[`rooms/${code}/state/buzzBanner`] = `🔔 ${playerName} a buzzé !${isAnticipatedBuzz ? ' (ANTICIPÉ)' : ''}`;
-        await update(ref(db), updates);
+      // Vérifier si j'ai gagné le buzz
+      if (result.committed && result.snapshot.val()?.lockUid === playerUid) {
         triggerConfetti('success');
       } else {
+        // Un autre joueur a buzzé avant moi (transaction a retry et vu son buzz)
         playSound('error');
       }
     } catch (error) {
       console.error('Erreur buzz:', error);
+      playSound('error');
     }
   };
 

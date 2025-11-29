@@ -1,0 +1,27 @@
+{
+  "id": "kollywood-repliques-cultes",
+  "title": "Kollywood — Répliques Cultes",
+  "lang": "fr-ta",
+  "items": [
+    { "id": "kwrep001", "question": "FR: De quel film vient « Naan oru thadava sonna, nooru thadava sonna maathiri » ? | TA: 'நான் ஒரு தடவ சொன்னா, நூறு தடவ சொன்ன மாதிரி' - எந்த படம்?", "answer": "Baashha (1995)", "difficulty": "normal", "category": "Échauffement" },
+    { "id": "kwrep002", "question": "FR: Quel film contient la réplique « En vazhi thani vazhi » ? | TA: 'என் வழி தனி வழி' - எந்த படம்?", "answer": "Padayappa (1999)", "difficulty": "normal", "category": "Rajini" },
+    { "id": "kwrep003", "question": "FR: De quel film vient « Neenga nallavara? Kettavara? » ? | TA: 'நீங்க நல்லவரா? கெட்டவரா?' - எந்த படம்?", "answer": "Nayakan (1987)", "difficulty": "normal", "category": "Kamal" },
+    { "id": "kwrep004", "question": "FR: Quel film contient « Speed one terahertz, memory one zettabyte » ? | TA: 'ஸ்பீட் ஒன் டெராஹெர்ட்ஸ், மெமரி ஒன் ஜெட்டாபைட்' - எந்த படம்?", "answer": "Enthiran (2010)", "difficulty": "normal", "category": "Sci-Fi" },
+    { "id": "kwrep005", "question": "FR: De quel film vient « I am waiting » répété par le héros ? | TA: 'ஐ ஆம் வெயிட்டிங்' என்று ஹீரோ சொல்லும் படம் எது?", "answer": "Thuppakki (2012)", "difficulty": "normal", "category": "Vijay" },
+    { "id": "kwrep006", "question": "FR: Quel film contient « Anbe Sivam » comme philosophie centrale ? | TA: 'அன்பே சிவம்' என்ற தத்துவம் உள்ள படம் எது?", "answer": "Anbe Sivam (2003)", "difficulty": "normal", "category": "Philosophie" },
+    { "id": "kwrep007", "question": "FR: De quel film vient « Magizhchi » comme mot clé du héros ? | TA: 'மகிழ்ச்சி' என்று ஹீரோ சொல்லும் படம் எது?", "answer": "VIP (2014)", "difficulty": "normal", "category": "Dhanush" },
+    { "id": "kwrep008", "question": "FR: Quel film contient « Never ever give up » comme slogan ? | TA: 'நெவர் எவர் கிவ் அப்' என்ற ஸ்லோகன் உள்ள படம் எது?", "answer": "Vivegam (2017)", "difficulty": "normal", "category": "Ajith" },
+    { "id": "kwrep009", "question": "FR: De quel film vient la réplique « Gethu » devenue virale ? | TA: 'கெத்து' என்ற வார்த்தை வைரலான படம் எது?", "answer": "Theri (2016)", "difficulty": "normal", "category": "Viral" },
+    { "id": "kwrep010", "question": "FR: Quel film contient « Kannama » comme terme affectueux récurrent ? | TA: 'கண்ணம்மா' என்று அடிக்கடி சொல்லும் படம் எது?", "answer": "Viswasam (2019)", "difficulty": "normal", "category": "Ajith" },
+    { "id": "kwrep011", "question": "FR: De quel film vient « Vaathi coming » comme phrase culte ? | TA: 'வாத்தி கமிங்' என்ற பிரபல வசனம் எந்த படம்?", "answer": "Master (2021)", "difficulty": "normal", "category": "Vijay" },
+    { "id": "kwrep012", "question": "FR: Quel film contient « Kabali da » comme phrase signature ? | TA: 'கபாலி டா' என்ற சிக்னேச்சர் வசனம் உள்ள படம் எது?", "answer": "Kabali (2016)", "difficulty": "normal", "category": "Rajini" },
+    { "id": "kwrep013", "question": "FR: De quel film vient « Therikkudhu » popularisé par Vadivelu ? | TA: வடிவேலு பிரபலமாக்கிய 'தெறிக்குது' எந்த படம்?", "answer": "Winner (2003)", "difficulty": "difficile", "category": "Comédie" },
+    { "id": "kwrep014", "question": "FR: Quel film contient « Nota » comme expression de Santhanam ? | TA: சந்தானம் சொல்லும் 'நோட்டா' எந்த படம்?", "answer": "Boss Engira Bhaskaran (2010)", "difficulty": "difficile", "category": "Comédie" },
+    { "id": "kwrep015", "question": "FR: De quel film vient « Azhuguni » comme révélation comique ? | TA: 'அழுகுனி' என்ற திருப்பம் உள்ள படம் எது?", "answer": "Jigarthanda (2014)", "difficulty": "difficile", "category": "Twist" },
+    { "id": "kwrep016", "question": "FR: Quel film contient la règle « Ne jamais kidnapper de politiciens » ? | TA: 'அரசியல்வாதிகளை கடத்தக்கூடாது' என்ற விதி உள்ள படம் எது?", "answer": "Soodhu Kavvum (2013)", "difficulty": "difficile", "category": "Comédie noire" },
+    { "id": "kwrep017", "question": "FR: De quel film vient « Billa » comme nom de code cool ? | TA: 'பில்லா' என்ற கூல் பெயர் உள்ள படம் எது?", "answer": "Billa (2007)", "difficulty": "difficile", "category": "Action" },
+    { "id": "kwrep018", "question": "FR: Quel film contient « Assault Sethu » comme nom de gangster ? | TA: 'அசால்ட் சேது' என்ற கேங்ஸ்டர் பெயர் உள்ள படம் எது?", "answer": "Jigarthanda (2014)", "difficulty": "difficile", "category": "Antagoniste" },
+    { "id": "kwrep019", "question": "FR: De quel film vient « Chumma kizhi » comme expression de Rajini ? | TA: ரஜினியின் 'சும்மா கிழி' எந்த படம்?", "answer": "Darbar (2020)", "difficulty": "difficile", "category": "Rajini" },
+    { "id": "kwrep020", "question": "FR: Quel film contient « Muthuvel Pandian » comme nom du héros retraité ? | TA: 'முத்துவேல் பாண்டியன்' என்ற ஓய்வுபெற்ற ஹீரோ பெயர் உள்ள படம் எது?", "answer": "Jailer (2023)", "difficulty": "difficile", "category": "Rajini" }
+  ]
+}

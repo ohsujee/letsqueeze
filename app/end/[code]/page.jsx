@@ -38,23 +38,32 @@ export default function EndPage(){
 
   const [state, setState] = useState(null);
 
+  // Calculer isHost après avoir les données nécessaires
+  const isHost = myUid && meta?.hostUid === myUid;
+
   useEffect(()=>{
     const u1 = onValue(ref(db,`rooms/${code}/players`), s=>{
       const v=s.val()||{};
-      setPlayers(Object.values(v));
+      // Inclure l'uid depuis les clés Firebase
+      const playersWithUid = Object.entries(v).map(([uid, data]) => ({ uid, ...data }));
+      setPlayers(playersWithUid);
     });
     const u2 = onValue(ref(db,`rooms/${code}/meta`), s=> setMeta(s.val()));
     const u3 = onValue(ref(db,`rooms/${code}/state`), s=> setState(s.val()));
     return ()=>{u1();u2();u3();};
   },[code]);
 
-  // Rediriger automatiquement si l'hôte retourne au lobby
+  // Rediriger automatiquement si l'hôte retourne au lobby (joueurs seulement)
   useEffect(() => {
-    if (state?.phase === "lobby" && !isHost) {
+    // Attendre que les données soient chargées
+    if (myUid === null || meta === null) return;
+
+    const hostCheck = myUid && meta?.hostUid === myUid;
+    if (state?.phase === "lobby" && !hostCheck) {
       console.log('🔄 L\'hôte est retourné au lobby, redirection automatique...');
       router.push(`/room/${code}`);
     }
-  }, [state?.phase, isHost, router, code]);
+  }, [state?.phase, myUid, meta, router, code]);
 
   useEffect(()=>{
     if (meta?.quizId) {
@@ -71,7 +80,6 @@ export default function EndPage(){
   }, []);
 
   const modeEquipes = meta?.mode === "équipes";
-  const isHost = myUid && meta?.hostUid === myUid;
 
   const teamsArray = useMemo(()=>{
     const t = meta?.teams || {};
