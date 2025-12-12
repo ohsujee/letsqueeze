@@ -186,42 +186,15 @@ export default function HostGame(){
       // Trigger Hue pour nouvelle question
       hueScenariosService.trigger('letsqueeze', 'roundStart');
 
-      // Utiliser serverNow pour éviter les décalages de temps
-      const revealTime = serverNow;
-
-      // Utiliser une transaction pour préserver un buzz concurrent
-      const stateRef = ref(db, `rooms/${code}/state`);
-
-      await runTransaction(stateRef, (currentState) => {
-        if (!currentState) return currentState;
-
-        // TOUJOURS préserver un buzz existant (même si arrivé à la milliseconde près)
-        // On vérifie lockUid OU buzz.uid pour plus de sécurité
-        const hasBuzz = currentState.lockUid || currentState.buzz?.uid;
-
-        if (hasBuzz) {
-          // Révéler la question mais garder le lock existant intact
-          return {
-            ...currentState,
-            revealed: true,
-            lastRevealAt: revealTime,
-            elapsedAcc: 0
-            // On ne touche PAS à : lockUid, buzz, buzzBanner, pausedAt, lockedAt
-          };
-        }
-
-        // Sinon, révélation normale sans buzz
-        return {
-          ...currentState,
-          revealed: true,
-          lastRevealAt: revealTime,
-          elapsedAcc: 0,
-          pausedAt: null,
-          lockedAt: null,
-          lockUid: null,
-          buzzBanner: "",
-          buzz: null
-        };
+      // IMPORTANT: Ne JAMAIS toucher aux champs du buzz ici !
+      // On utilise update() pour modifier UNIQUEMENT les champs de révélation
+      // Cela évite toute race condition avec un buzz concurrent
+      await update(ref(db, `rooms/${code}/state`), {
+        revealed: true,
+        lastRevealAt: serverTimestamp(),
+        elapsedAcc: 0
+        // On ne touche PAS à : lockUid, buzz, buzzBanner, pausedAt, lockedAt
+        // Ces champs sont gérés par : resetBuzzers(), validate(), wrong(), skip()
       });
     } else {
       await update(ref(db,`rooms/${code}/state`), { revealed: false });

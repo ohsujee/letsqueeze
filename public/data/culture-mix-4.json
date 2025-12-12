@@ -1,0 +1,27 @@
+{
+  "id": "culture-mix-4",
+  "title": "Culture G - Mix #4",
+  "lang": "fr",
+  "items": [
+    { "id": "mix4001", "question": "Héros grec. 12 travaux. Lion de Némée. Fils de Zeus. Qui est-il ?", "answer": "Héraclès (Hercule)", "difficulty": "normal", "category": "Mythologie" },
+    { "id": "mix4002", "question": "Désert le plus chaud. Afrique du Nord. Dunes et oasis. Quel désert ?", "answer": "Le Sahara", "difficulty": "normal", "category": "Géo" },
+    { "id": "mix4003", "question": "Chanteuse américaine. 'Bad Guy'. Cheveux verts puis blonds. Qui est-elle ?", "answer": "Billie Eilish", "difficulty": "normal", "category": "Musique" },
+    { "id": "mix4004", "question": "Découvreur de l'Amérique. 1492. Trois caravelles. Navigateur génois. Qui est-il ?", "answer": "Christophe Colomb", "difficulty": "normal", "category": "Histoire" },
+    { "id": "mix4005", "question": "Sport de combat japonais. Ceintures de couleur. Kimono blanc. Quel sport ?", "answer": "Le judo", "difficulty": "normal", "category": "Sport" },
+    { "id": "mix4006", "question": "Voiture électrique. Elon Musk. Autopilot. Quelle marque ?", "answer": "Tesla", "difficulty": "normal", "category": "Tech" },
+    { "id": "mix4007", "question": "Pays en forme de botte. Rome, Venise, Milan. Pâtes et pizza. Quel pays ?", "answer": "L'Italie", "difficulty": "normal", "category": "Géo" },
+    { "id": "mix4008", "question": "Romancier français. Les Misérables, Notre-Dame de Paris. Exilé à Guernesey. Qui est-il ?", "answer": "Victor Hugo", "difficulty": "normal", "category": "Littérature" },
+    { "id": "mix4009", "question": "NBA legend. 6 titres avec les Bulls. 'Air Jordan'. Qui est-il ?", "answer": "Michael Jordan", "difficulty": "normal", "category": "Sport" },
+    { "id": "mix4010", "question": "Film de 1999. Pilule rouge ou bleue. 'Il n'y a pas de cuillère'. Quel film ?", "answer": "Matrix", "difficulty": "normal", "category": "Cinéma" },
+    { "id": "mix4011", "question": "Plus petit os du corps humain. Dans l'oreille. 3 mm. Quel os ?", "answer": "L'étrier", "difficulty": "normal", "category": "Sciences" },
+    { "id": "mix4012", "question": "Chanteur britannique. 'Shape of You'. Cheveux roux. Guitare acoustique. Qui est-il ?", "answer": "Ed Sheeran", "difficulty": "normal", "category": "Musique" },
+    { "id": "mix4013", "question": "Fromage français. Trous caractéristiques. Origine suisse-française. Quel fromage ?", "answer": "L'emmental (ou gruyère)", "difficulty": "normal", "category": "Food" },
+    { "id": "mix4014", "question": "Oiseau qui ne vole pas. Manchot cousin. Nouvelle-Zélande. Quel animal ?", "answer": "Le kiwi", "difficulty": "normal", "category": "Nature" },
+    { "id": "mix4015", "question": "Console de jeux. Mario, Zelda, Pokémon. Switch. Quelle entreprise ?", "answer": "Nintendo", "difficulty": "normal", "category": "Gaming" },
+    { "id": "mix4016", "question": "Architecte espagnol. Sagrada Familia. Barcelone. Style organique. Qui est-il ?", "answer": "Antoni Gaudí", "difficulty": "difficile", "category": "Art" },
+    { "id": "mix4017", "question": "Conflit 1939-1945. Hitler, Churchill, Roosevelt. 60 millions de morts. Quel conflit ?", "answer": "La Seconde Guerre mondiale", "difficulty": "difficile", "category": "Histoire" },
+    { "id": "mix4018", "question": "Sauce japonaise. Soja fermenté. Accompagne sushis. Quelle sauce ?", "answer": "La sauce soja", "difficulty": "difficile", "category": "Food" },
+    { "id": "mix4019", "question": "Unité de mesure électrique. Volt × Ampère. Puissance. Quelle unité ?", "answer": "Le watt", "difficulty": "difficile", "category": "Sciences" },
+    { "id": "mix4020", "question": "Acteur australien. Wolverine. Hugh Jackman dans la vraie vie. 17 ans dans le rôle. Quel personnage ?", "answer": "Wolverine (Logan)", "difficulty": "difficile", "category": "Cinéma" }
+  ]
+}

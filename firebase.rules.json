@@ -35,7 +35,7 @@
         },
         "state": {
           ".read": "auth != null",
-          ".write": "auth != null && ( !root.child('rooms/'+$code+'/meta/hostUid').exists() || auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val() )",
+          ".write": "auth != null && ( auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val() || ( !data.child('lockUid').exists() && newData.child('lockUid').val() == auth.uid && newData.child('buzz/uid').val() == auth.uid && root.child('rooms/'+$code+'/state/phase').val() == 'playing' ) )",
           "lockUid": {
             ".write": "auth != null && ( auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val() || ( !data.exists() && newData.val() == auth.uid && ( root.child('rooms/'+$code+'/state/canBuzz').val() == true || root.child('rooms/'+$code+'/state/buzzer/canBuzz').val() == true || root.child('rooms/'+$code+'/state/isBuzzArmed').val() == true || root.child('rooms/'+$code+'/state/can_buzz').val() == true || root.child('rooms/'+$code+'/state/buzzEnabled').val() == true || root.child('rooms/'+$code+'/state/armed').val() == true || root.child('rooms/'+$code+'/state/revealed').val() == true || root.child('rooms/'+$code+'/state/question/revealed').val() == true || root.child('rooms/'+$code+'/state/phase').val() == 'playing' ) ) )"
           },

@@ -1,6 +1,55 @@
 "use client";
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+
+/**
+ * Composant Particles séparé pour éviter les glitches SSR
+ */
+function Particles({ count = 20 }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Générer les positions une seule fois au montage
+  const particles = useMemo(() => {
+    if (!mounted) return [];
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    return [...Array(count)].map((_, i) => ({
+      id: i,
+      startX: Math.random() * w,
+      endX: Math.random() * w,
+      duration: 3 + Math.random() * 2,
+      delay: Math.random() * 2,
+      startY: h + 100
+    }));
+  }, [mounted, count]);
+
+  if (!mounted) return null;
+
+  return (
+    <>
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          initial={{ opacity: 0, x: p.startX, y: p.startY }}
+          animate={{ opacity: [0, 0.6, 0], y: -100, x: p.endX }}
+          transition={{ duration: p.duration, repeat: Infinity, delay: p.delay }}
+          style={{
+            position: 'absolute',
+            width: '4px',
+            height: '4px',
+            background: 'white',
+            borderRadius: '50%',
+            pointerEvents: 'none'
+          }}
+        />
+      ))}
+    </>
+  );
+}
 
 /**
  * Transition cinématique entre les phases du jeu
@@ -196,35 +245,8 @@ export function PhaseTransition({
           />
         </div>
 
-        {/* Particles flottants */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{
-              opacity: 0,
-              x: Math.random() * window.innerWidth,
-              y: window.innerHeight + 100
-            }}
-            animate={{
-              opacity: [0, 0.6, 0],
-              y: -100,
-              x: Math.random() * window.innerWidth
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2
-            }}
-            style={{
-              position: 'absolute',
-              width: '4px',
-              height: '4px',
-              background: 'white',
-              borderRadius: '50%',
-              pointerEvents: 'none'
-            }}
-          />
-        ))}
+        {/* Particles flottants - générées une seule fois côté client */}
+        <Particles count={20} />
       </motion.div>
     </AnimatePresence>
   );

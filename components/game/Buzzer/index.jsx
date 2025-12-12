@@ -57,7 +57,29 @@ export default function Buzzer({
 
   // Fonction de buzz - Transaction atomique sur tout l'état pour éviter les race conditions
   const handleBuzz = async () => {
-    if (buzzerState.disabled || !roomCode || !playerUid || !playerName) return;
+    console.log('🔔 handleBuzz called', {
+      disabled: buzzerState.disabled,
+      roomCode,
+      playerUid,
+      playerName
+    });
+
+    if (buzzerState.disabled) {
+      console.log('❌ Buzz disabled - button is disabled');
+      return;
+    }
+    if (!roomCode) {
+      console.log('❌ Buzz failed - no roomCode');
+      return;
+    }
+    if (!playerUid) {
+      console.log('❌ Buzz failed - no playerUid (auth not ready?)');
+      return;
+    }
+    if (!playerName) {
+      console.log('❌ Buzz failed - no playerName (player data not loaded?)');
+      return;
+    }
 
     const code = String(roomCode).toUpperCase();
     const isAnticipatedBuzz = !revealed;
@@ -77,15 +99,25 @@ export default function Buzzer({
       // Firebase garantit que le PREMIER qui commit gagne
       // Si conflit, la transaction retry automatiquement avec les nouvelles données
       const stateRef = ref(db, `rooms/${code}/state`);
+      console.log('🔄 Starting transaction on', `rooms/${code}/state`);
+
       const result = await runTransaction(stateRef, (currentState) => {
-        if (!currentState) return currentState;
+        console.log('📦 Transaction received currentState:', currentState);
+
+        // Si le state n'existe pas, on abort la transaction (return undefined)
+        if (!currentState) {
+          console.log('⚠️ currentState is null/undefined - aborting transaction');
+          return undefined; // Abort transaction instead of returning null
+        }
 
         // Si quelqu'un a déjà buzzé, on ne change rien
         // Le retry de Firebase garantit qu'on voit toujours l'état le plus récent
         if (currentState.lockUid) {
-          return currentState; // Garder le buzz existant
+          console.log('🔒 Already locked by:', currentState.lockUid);
+          return; // Abort - someone already buzzed
         }
 
+        console.log('✅ No lock - setting lockUid to:', playerUid);
         // Personne n'a buzzé - je prends le lock avec TOUTES les infos atomiquement
         return {
           ...currentState,
@@ -99,15 +131,22 @@ export default function Buzzer({
         };
       });
 
+      console.log('📊 Transaction result:', {
+        committed: result.committed,
+        lockUid: result.snapshot.val()?.lockUid
+      });
+
       // Vérifier si j'ai gagné le buzz
       if (result.committed && result.snapshot.val()?.lockUid === playerUid) {
+        console.log('🎉 Buzz successful!');
         triggerConfetti('success');
       } else {
         // Un autre joueur a buzzé avant moi (transaction a retry et vu son buzz)
+        console.log('😢 Buzz failed - someone else was faster or transaction aborted');
         playSound('error');
       }
     } catch (error) {
-      console.error('Erreur buzz:', error);
+      console.error('❌ Erreur buzz:', error);
       playSound('error');
     }
   };

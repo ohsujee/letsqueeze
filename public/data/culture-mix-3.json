@@ -1,0 +1,27 @@
+{
+  "id": "culture-mix-3",
+  "title": "Culture G - Mix #3",
+  "lang": "fr",
+  "items": [
+    { "id": "mix3001", "question": "Dieu grec de la mer. Trident. Frère de Zeus. Qui est-il ?", "answer": "Poséidon", "difficulty": "normal", "category": "Mythologie" },
+    { "id": "mix3002", "question": "Plus grande forêt tropicale. Poumon de la Terre. Fleuve Amazone. Quelle forêt ?", "answer": "L'Amazonie", "difficulty": "normal", "category": "Géo" },
+    { "id": "mix3003", "question": "Rappeur français. 'Ratpi World'. Ancien de Sexion d'Assaut. Qui est-il ?", "answer": "Gims", "difficulty": "normal", "category": "Musique" },
+    { "id": "mix3004", "question": "Mur tombé en 1989. Séparait Est et Ouest. Allemagne réunifiée. Quel mur ?", "answer": "Le mur de Berlin", "difficulty": "normal", "category": "Histoire" },
+    { "id": "mix3005", "question": "Sport sur glace avec palet. Crosse et patins. NHL. Quel sport ?", "answer": "Le hockey sur glace", "difficulty": "normal", "category": "Sport" },
+    { "id": "mix3006", "question": "IA de conversation. Créée par OpenAI. Lancée en 2022. Quel chatbot ?", "answer": "ChatGPT", "difficulty": "normal", "category": "Tech" },
+    { "id": "mix3007", "question": "Pays aux 17 000 îles. Plus grand archipel. Jakarta capitale. Quel pays ?", "answer": "L'Indonésie", "difficulty": "normal", "category": "Géo" },
+    { "id": "mix3008", "question": "Auteure britannique. Harry Potter. Plus riche que la Reine (jadis). Qui est-elle ?", "answer": "J.K. Rowling", "difficulty": "normal", "category": "Littérature" },
+    { "id": "mix3009", "question": "Boxeur américain. 'Float like a butterfly'. Mohamed Ali à la naissance. Quel sportif ?", "answer": "Muhammad Ali", "difficulty": "normal", "category": "Sport" },
+    { "id": "mix3010", "question": "Film de 1994. Tom Hanks sur un banc. 'La vie c'est comme une boîte de chocolats'. Quel film ?", "answer": "Forrest Gump", "difficulty": "normal", "category": "Cinéma" },
+    { "id": "mix3011", "question": "Organe qui pompe le sang. 100 000 battements par jour. Quelle partie du corps ?", "answer": "Le cœur", "difficulty": "normal", "category": "Sciences" },
+    { "id": "mix3012", "question": "Groupe sud-coréen. 'Dynamite', 'Butter'. ARMY de fans. Quel groupe ?", "answer": "BTS", "difficulty": "normal", "category": "Musique" },
+    { "id": "mix3013", "question": "Dessert français. Crème, sucre brûlé. Caramélisé au chalumeau. Quel dessert ?", "answer": "La crème brûlée", "difficulty": "normal", "category": "Food" },
+    { "id": "mix3014", "question": "Félin tacheté le plus rapide. 120 km/h. Savane africaine. Quel animal ?", "answer": "Le guépard", "difficulty": "normal", "category": "Nature" },
+    { "id": "mix3015", "question": "Plateforme vidéo. Racheté par Google. 'Broadcast Yourself'. Quel site ?", "answer": "YouTube", "difficulty": "normal", "category": "Tech" },
+    { "id": "mix3016", "question": "Pharaon le plus célèbre. Toutânkhamon en français. Tombeau découvert en 1922. Par qui ?", "answer": "Howard Carter", "difficulty": "difficile", "category": "Histoire" },
+    { "id": "mix3017", "question": "Sport automobile. 24 Heures du Mans. Endurance. Circuit de la Sarthe. Quelle compétition ?", "answer": "Les 24 Heures du Mans", "difficulty": "difficile", "category": "Sport" },
+    { "id": "mix3018", "question": "Sculpteur italien. David de Florence. Plafond de la Chapelle Sixtine. Qui est-il ?", "answer": "Michel-Ange", "difficulty": "difficile", "category": "Art" },
+    { "id": "mix3019", "question": "Satellite naturel de la Terre. Mare Tranquillitatis. Apollo 11 s'y posa. Quel astre ?", "answer": "La Lune", "difficulty": "difficile", "category": "Sciences" },
+    { "id": "mix3020", "question": "Cocktail cubain. Rhum, menthe, citron vert, sucre. Rafraîchissant. Quel cocktail ?", "answer": "Le mojito", "difficulty": "difficile", "category": "Food" }
+  ]
+}

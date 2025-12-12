@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth,
@@ -20,14 +20,18 @@ export default function AlibiEnd() {
   const { code } = useParams();
   const router = useRouter();
 
-  const [score, setScore] = useState({ correct: 0, total: 10 });
+  const [score, setScore] = useState(null); // null = loading
   const [myTeam, setMyTeam] = useState(null);
   const [isHost, setIsHost] = useState(false);
   const [meta, setMeta] = useState(null);
   const [players, setPlayers] = useState({});
   const [displayScore, setDisplayScore] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
-  const [confettiTriggered, setConfettiTriggered] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Refs pour éviter les re-renders qui relancent l'animation
+  const animationStartedRef = useRef(false);
+  const confettiTriggeredRef = useRef(false);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -54,6 +58,8 @@ export default function AlibiEnd() {
     const scoreUnsub = onValue(ref(db, `rooms_alibi/${code}/score`), (snap) => {
       const s = snap.val() || { correct: 0, total: 10 };
       setScore(s);
+      // Petit délai pour une transition fluide
+      setTimeout(() => setIsLoaded(true), 100);
     });
 
     const playersUnsub = onValue(ref(db, `rooms_alibi/${code}/players`), (snap) => {
@@ -97,17 +103,36 @@ export default function AlibiEnd() {
     router.push(`/alibi/room/${code}`);
   };
 
-  const percentage = Math.round((score.correct / score.total) * 100);
+  // Attendre que le score soit chargé pour calculer
+  const percentage = score ? Math.round((score.correct / score.total) * 100) : 0;
   const isSuccess = percentage >= 50;
 
-  // Animated score counter + confetti
+  // Animated score counter + confetti (une seule fois)
   useEffect(() => {
-    if (score.correct === 0) return;
+    // Ne pas relancer si déjà démarré ou pas de score
+    if (!score || animationStartedRef.current) return;
+
+    // Marquer comme démarré immédiatement
+    animationStartedRef.current = true;
+
+    // Si score = 0, afficher directement sans animation
+    if (score.correct === 0) {
+      setDisplayScore(0);
+      setTimeout(() => {
+        if (!confettiTriggeredRef.current) {
+          confettiTriggeredRef.current = true;
+          ParticleEffects.wrongAnswer();
+          hueScenariosService.trigger('alibi', 'defeat');
+        }
+        setShowMessage(true);
+      }, 500);
+      return;
+    }
 
     let current = 0;
     const target = score.correct;
-    const duration = 2000; // 2 seconds
-    const increment = target / (duration / 50); // Update every 50ms
+    const duration = 2000;
+    const increment = target / (duration / 50);
 
     const timer = setInterval(() => {
       current += increment;
@@ -115,9 +140,10 @@ export default function AlibiEnd() {
         setDisplayScore(target);
         clearInterval(timer);
 
-        // Trigger confetti and Hue after score reveal
+        // Trigger confetti et Hue après le compteur
         setTimeout(() => {
-          if (!confettiTriggered) {
+          if (!confettiTriggeredRef.current) {
+            confettiTriggeredRef.current = true;
             if (isSuccess) {
               ParticleEffects.celebrate('high');
               hueScenariosService.trigger('alibi', 'victory');
@@ -125,21 +151,18 @@ export default function AlibiEnd() {
               ParticleEffects.wrongAnswer();
               hueScenariosService.trigger('alibi', 'defeat');
             }
-            setConfettiTriggered(true);
           }
         }, 300);
 
-        // Show message after confetti
-        setTimeout(() => {
-          setShowMessage(true);
-        }, 800);
+        // Message après confetti
+        setTimeout(() => setShowMessage(true), 800);
       } else {
         setDisplayScore(Math.floor(current));
       }
     }, 50);
 
     return () => clearInterval(timer);
-  }, [score.correct, isSuccess, confettiTriggered]);
+  }, [score, isSuccess]); // Plus de confettiTriggered dans les deps !
 
   const getMessage = () => {
     if (percentage === 100) return "Parfait ! Alibi béton ! 🏆";
@@ -149,6 +172,32 @@ export default function AlibiEnd() {
     if (percentage >= 30) return "Alibi fragile... Beaucoup d'incohérences ! ⚠️";
     return "Alibi effondré ! Trop d'erreurs ! ❌";
   };
+
+  // Écran de chargement pendant que le score charge
+  if (!isLoaded || !score) {
+    return (
+      <div className="alibi-theme">
+        <div className="game-container">
+          <main className="game-content p-6 max-w-4xl mx-auto min-h-screen flex items-center justify-center">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center"
+            >
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                className="text-6xl mb-4"
+              >
+                🕵️
+              </motion.div>
+              <p className="text-xl opacity-70">Calcul des résultats...</p>
+            </motion.div>
+          </main>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="alibi-theme">

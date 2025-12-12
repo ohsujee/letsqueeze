@@ -1,0 +1,27 @@
+{
+  "id": "culture-mix-10",
+  "title": "Culture G - Mix #10",
+  "lang": "fr",
+  "items": [
+    { "id": "mix10001", "question": "Monstre grec. Serpents en guise de cheveux. Regard pétrifiant. Quelle créature ?", "answer": "Méduse", "difficulty": "normal", "category": "Mythologie" },
+    { "id": "mix10002", "question": "Plus grand pays du monde. Moscou à l'ouest. 17 millions km². Quel pays ?", "answer": "La Russie", "difficulty": "normal", "category": "Géo" },
+    { "id": "mix10003", "question": "Groupe pop suédois. 'Dancing Queen'. ABBA réuni en avatars. Quel groupe ?", "answer": "ABBA", "difficulty": "normal", "category": "Musique" },
+    { "id": "mix10004", "question": "Chute de Constantinople. 1453. Fin de l'Empire byzantin. Conquérant turc. Quel sultan ?", "answer": "Mehmed II (le Conquérant)", "difficulty": "normal", "category": "Histoire" },
+    { "id": "mix10005", "question": "Sport collectif avec ballon ovale. Essais et transformations. All Blacks. Quel sport ?", "answer": "Le rugby", "difficulty": "normal", "category": "Sport" },
+    { "id": "mix10006", "question": "Application de messagerie. Meta (Facebook). Coche bleue = lu. Quelle app ?", "answer": "WhatsApp", "difficulty": "normal", "category": "Tech" },
+    { "id": "mix10007", "question": "Capitale du Brésil. Ni Rio ni São Paulo. Construite en 1960. Quelle ville ?", "answer": "Brasília", "difficulty": "normal", "category": "Géo" },
+    { "id": "mix10008", "question": "Auteur d''À la recherche du temps perdu'. Madeleine célèbre. Français. Qui est-il ?", "answer": "Marcel Proust", "difficulty": "normal", "category": "Littérature" },
+    { "id": "mix10009", "question": "Tenniseur espagnol. Roi de Roland-Garros. 14 titres sur terre battue. Qui est-il ?", "answer": "Rafael Nadal", "difficulty": "normal", "category": "Sport" },
+    { "id": "mix10010", "question": "Film de 2019. Joker sans Batman. Joaquin Phoenix. Escaliers de danse. Quel film ?", "answer": "Joker", "difficulty": "normal", "category": "Cinéma" },
+    { "id": "mix10011", "question": "Étoile la plus proche de la Terre. Centre du système solaire. Quel astre ?", "answer": "Le Soleil", "difficulty": "normal", "category": "Sciences" },
+    { "id": "mix10012", "question": "Chanteur jamaïcain. Reggae. 'No Woman, No Cry'. Rastafarisme. Qui est-il ?", "answer": "Bob Marley", "difficulty": "normal", "category": "Musique" },
+    { "id": "mix10013", "question": "Plat indien. Poulet mariné, tandoor. Rouge épicé. Quel plat ?", "answer": "Le poulet tandoori (ou tikka masala)", "difficulty": "normal", "category": "Food" },
+    { "id": "mix10014", "question": "Seul mammifère à vraiment voler. Pas planer, voler. Nocturne. Quel animal ?", "answer": "La chauve-souris", "difficulty": "normal", "category": "Nature" },
+    { "id": "mix10015", "question": "Jeu de survie cubique. Creeper. Blocs. Microsoft l'a racheté. Quel jeu ?", "answer": "Minecraft", "difficulty": "normal", "category": "Gaming" },
+    { "id": "mix10016", "question": "Peintre néerlandais. La Jeune Fille à la perle. Vermeer en néerlandais. Qui est-il ?", "answer": "Johannes Vermeer", "difficulty": "difficile", "category": "Art" },
+    { "id": "mix10017", "question": "Guerre froide. Mur de Berlin symbolique. USA vs URSS. Années ?", "answer": "1947-1991 (environ)", "difficulty": "difficile", "category": "Histoire" },
+    { "id": "mix10018", "question": "Plat thaïlandais. Nouilles sautées. Cacahuètes, crevettes, citron vert. Quel plat ?", "answer": "Le pad thaï", "difficulty": "difficile", "category": "Food" },
+    { "id": "mix10019", "question": "Premier antibiotique découvert. 1928. Alexander Fleming. Quel médicament ?", "answer": "La pénicilline", "difficulty": "difficile", "category": "Sciences" },
+    { "id": "mix10020", "question": "Réalisateur de 'Parasite'. Palme d'Or et Oscar. Coréen. Qui est-il ?", "answer": "Bong Joon-ho", "difficulty": "difficile", "category": "Cinéma" }
+  ]
+}

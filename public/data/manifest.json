@@ -2,129 +2,115 @@
   "quizzes": [
     {
       "id": "general",
-      "title": "Culture Générale",
+      "title": "Culture G - Mix",
       "emoji": "🌍",
       "difficulty": "Facile",
       "questionCount": 22,
-      "category": "Culture Générale",
-      "description": "Questions variées sur la culture, science, géographie"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-fun-2",
-      "title": "Culture Générale — Variées",
+      "title": "Culture G - Fun",
       "emoji": "🎓",
       "difficulty": "Moyen",
       "questionCount": 22,
-      "category": "Culture Générale",
-      "description": "Découvrez des questions amusantes et instructives"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-3-sciences",
-      "title": "Culture Générale — Sciences",
+      "title": "Culture G - Sciences",
       "emoji": "🔬",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "Physique, chimie, biologie et inventions"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-4-histoire",
-      "title": "Culture Générale — Histoire",
+      "title": "Culture G - Histoire",
       "emoji": "📜",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "Des pharaons à la chute du mur de Berlin"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-5-geographie",
-      "title": "Culture Générale — Géographie",
+      "title": "Culture G - Géo",
       "emoji": "🗺️",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "Capitales, fleuves, montagnes et pays"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-6-sport",
-      "title": "Culture Générale — Sport",
+      "title": "Culture G - Sport",
       "emoji": "⚽",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "Football, tennis, JO et records sportifs"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-7-cinema",
-      "title": "Culture Générale — Cinéma",
+      "title": "Culture G - Cinéma",
       "emoji": "🎬",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "Blockbusters, acteurs et réalisateurs cultes"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-8-musique",
-      "title": "Culture Générale — Musique",
+      "title": "Culture G - Musique",
       "emoji": "🎵",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "Rock, pop, rap et musique classique"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-9-litterature",
-      "title": "Culture Générale — Littérature",
+      "title": "Culture G - Livres",
       "emoji": "📚",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "Grands auteurs et œuvres classiques"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-10-art",
-      "title": "Culture Générale — Art & Peinture",
+      "title": "Culture G - Art",
       "emoji": "🎨",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "De la Renaissance au Pop Art"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-11-gastronomie",
-      "title": "Culture Générale — Gastronomie",
+      "title": "Culture G - Food",
       "emoji": "🍽️",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "Cuisines du monde et gastronomie"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-12-technologie",
-      "title": "Culture Générale — Technologie",
+      "title": "Culture G - Tech",
       "emoji": "💻",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "GAFAM, IA et innovations tech"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-13-nature",
-      "title": "Culture Générale — Nature & Animaux",
+      "title": "Culture G - Nature",
       "emoji": "🦁",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "Faune, flore et écosystèmes"
+      "category": "Culture G"
     },
     {
       "id": "culture-generale-14-mythologie",
-      "title": "Culture Générale — Mythologie",
+      "title": "Culture G - Mythes",
       "emoji": "⚡",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Culture Générale",
-      "description": "Dieux grecs, nordiques et égyptiens"
+      "category": "Culture G"
     },
     {
       "id": "friends",
@@ -132,8 +118,7 @@
       "emoji": "☕",
       "difficulty": "Moyen",
       "questionCount": 21,
-      "category": "Séries TV",
-      "description": "Testez vos connaissances sur la série culte"
+      "category": "Séries"
     },
     {
       "id": "ma-famille-dabord",
@@ -141,224 +126,279 @@
       "emoji": "👨‍👩‍👧‍👦",
       "difficulty": "Moyen",
       "questionCount": 19,
-      "category": "Séries TV",
-      "description": "Souvenirs de la famille Kyle"
+      "category": "Séries"
     },
     {
       "id": "disney-films-moderate",
-      "title": "Films Disney",
+      "title": "Disney",
       "emoji": "🏰",
       "difficulty": "Moyen",
       "questionCount": 23,
-      "category": "Animation",
-      "description": "Magie des films Disney"
+      "category": "Animation"
     },
     {
       "id": "naruto-1-debutants",
-      "title": "Naruto — Débutants",
+      "title": "Naruto #1 Facile",
       "emoji": "🍥",
       "difficulty": "Facile",
       "questionCount": 20,
-      "category": "Anime — Naruto",
-      "description": "Les bases du ninja le plus imprévisible"
+      "category": "Naruto"
     },
     {
       "id": "naruto-2-intermediaire",
-      "title": "Naruto — Intermédiaire",
+      "title": "Naruto #2 Moyen",
       "emoji": "🦊",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Anime — Naruto",
-      "description": "Akatsuki, bijuu et techniques secrètes"
+      "category": "Naruto"
     },
     {
       "id": "naruto-3-expert",
-      "title": "Naruto — Expert",
+      "title": "Naruto #3 Expert",
       "emoji": "👁️",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Anime — Naruto",
-      "description": "Révélations, Otsutsuki et fin de série"
+      "category": "Naruto"
     },
     {
       "id": "naruto-4-clans-villages",
-      "title": "Naruto — Clans & Villages",
+      "title": "Naruto - Clans",
       "emoji": "🏯",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Anime — Naruto",
-      "description": "Les 5 villages et les clans légendaires"
+      "category": "Naruto"
     },
     {
       "id": "naruto-5-techniques",
-      "title": "Naruto — Techniques & Jutsu",
+      "title": "Naruto - Jutsu",
       "emoji": "🌀",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Anime — Naruto",
-      "description": "Rasengan, Sharingan et jutsu interdits"
+      "category": "Naruto"
     },
     {
       "id": "naruto-6-akatsuki",
-      "title": "Naruto — L'Akatsuki",
+      "title": "Naruto - Akatsuki",
       "emoji": "☁️",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Anime — Naruto",
-      "description": "L'organisation criminelle aux nuages rouges"
+      "category": "Naruto"
     },
     {
       "id": "onepiece-1-debutants",
-      "title": "One Piece — Débutants",
+      "title": "One Piece #1 Facile",
       "emoji": "🏴‍☠️",
       "difficulty": "Facile",
       "questionCount": 20,
-      "category": "Anime — One Piece",
-      "description": "L'équipage du Chapeau de Paille"
+      "category": "One Piece"
     },
     {
       "id": "onepiece-2-intermediaire",
-      "title": "One Piece — Intermédiaire",
+      "title": "One Piece #2 Moyen",
       "emoji": "⚓",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Anime — One Piece",
-      "description": "Yonko, Marine et fruits du démon"
+      "category": "One Piece"
     },
     {
       "id": "onepiece-3-expert",
-      "title": "One Piece — Expert",
+      "title": "One Piece #3 Expert",
       "emoji": "👑",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Anime — One Piece",
-      "description": "Laugh Tale, Gear 5 et mystères du monde"
+      "category": "One Piece"
     },
     {
       "id": "onepiece-4-fruits-demon",
-      "title": "One Piece — Fruits du Démon",
+      "title": "One Piece - Fruits",
       "emoji": "🍎",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Anime — One Piece",
-      "description": "Logia, Paramecia et Zoan mythiques"
+      "category": "One Piece"
     },
     {
       "id": "onepiece-5-empereurs-corsaires",
-      "title": "One Piece — Empereurs & Corsaires",
+      "title": "One Piece - Empereurs",
       "emoji": "⚔️",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Anime — One Piece",
-      "description": "Yonko, Shichibukai et équilibre mondial"
+      "category": "One Piece"
     },
     {
       "id": "onepiece-6-arcs-saga",
-      "title": "One Piece — Arcs & Sagas",
+      "title": "One Piece - Arcs",
       "emoji": "🗺️",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Anime — One Piece",
-      "description": "De East Blue à Egghead"
+      "category": "One Piece"
     },
     {
       "id": "kollywood-1980-2018",
-      "title": "Kollywood — Classiques 1980–2018",
+      "title": "Kollywood 80-2018",
       "emoji": "🎬",
       "difficulty": "Difficile",
       "questionCount": 18,
-      "category": "Cinéma Tamil",
-      "description": "Les films cultes du cinéma tamoul"
+      "category": "Kollywood"
     },
     {
       "id": "kollywood-1990-2000-fresh-fr-ta",
-      "title": "Kollywood — Années 90",
+      "title": "Kollywood 90s",
       "emoji": "📽️",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Cinéma Tamil",
-      "description": "L'âge d'or des années 90"
+      "category": "Kollywood"
     },
     {
       "id": "kollywood-2000-2010-fresh-fr-ta",
-      "title": "Kollywood — Années 2000",
+      "title": "Kollywood 2000s",
       "emoji": "🎞️",
       "difficulty": "Moyen",
       "questionCount": 22,
-      "category": "Cinéma Tamil",
-      "description": "La décennie dorée 2000-2010"
+      "category": "Kollywood"
     },
     {
       "id": "kollywood-2010-2025-fun-details-fr-ta",
-      "title": "Kollywood — Moderne #1",
+      "title": "Kollywood 2010s #1",
       "emoji": "🎭",
       "difficulty": "Moyen",
       "questionCount": 16,
-      "category": "Cinéma Tamil",
-      "description": "Cinéma tamoul moderne"
+      "category": "Kollywood"
     },
     {
       "id": "kollywood-2010-2025-fun-details-fr-ta-2",
-      "title": "Kollywood — Moderne #2",
+      "title": "Kollywood 2010s #2",
       "emoji": "🎪",
       "difficulty": "Difficile",
       "questionCount": 22,
-      "category": "Cinéma Tamil",
-      "description": "Blockbusters récents"
+      "category": "Kollywood"
     },
     {
       "id": "kollywood-acteurs-legendes",
-      "title": "Kollywood — Acteurs Légendaires",
+      "title": "Kollywood - Acteurs",
       "emoji": "⭐",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Cinéma Tamil",
-      "description": "Rajini, Kamal et les icônes du cinéma"
+      "category": "Kollywood"
     },
     {
       "id": "kollywood-musique-ost",
-      "title": "Kollywood — Musique & OST",
+      "title": "Kollywood - Musique",
       "emoji": "🎶",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Cinéma Tamil",
-      "description": "A.R. Rahman, Ilaiyaraaja et les hits"
+      "category": "Kollywood"
     },
     {
       "id": "kollywood-repliques-cultes",
-      "title": "Kollywood — Répliques Cultes",
+      "title": "Kollywood - Répliques",
       "emoji": "💬",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Cinéma Tamil",
-      "description": "Les dialogues les plus mémorables"
+      "category": "Kollywood"
     },
     {
       "id": "kollywood-realisateurs",
-      "title": "Kollywood — Réalisateurs",
+      "title": "Kollywood - Réals",
       "emoji": "🎥",
       "difficulty": "Moyen",
       "questionCount": 20,
-      "category": "Cinéma Tamil",
-      "description": "Mani Ratnam, Shankar et les maîtres"
+      "category": "Kollywood"
     },
     {
       "id": "kollywood-films-cultes",
-      "title": "Kollywood — Films Cultes",
+      "title": "Kollywood - Cultes",
       "emoji": "🏆",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Cinéma Tamil",
-      "description": "Les chefs-d'œuvre incontournables"
+      "category": "Kollywood"
     },
     {
       "id": "kollywood-anecdotes",
-      "title": "Kollywood — Anecdotes & Fun Facts",
+      "title": "Kollywood - Fun Facts",
       "emoji": "🤔",
       "difficulty": "Difficile",
       "questionCount": 20,
-      "category": "Cinéma Tamil",
-      "description": "Records, secrets de tournage et faits insolites"
+      "category": "Kollywood"
+    },
+    {
+      "id": "culture-mix-1",
+      "title": "Culture G - Mix #1",
+      "emoji": "🎲",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture G"
+    },
+    {
+      "id": "culture-mix-2",
+      "title": "Culture G - Mix #2",
+      "emoji": "🎯",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture G"
+    },
+    {
+      "id": "culture-mix-3",
+      "title": "Culture G - Mix #3",
+      "emoji": "🧩",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture G"
+    },
+    {
+      "id": "culture-mix-4",
+      "title": "Culture G - Mix #4",
+      "emoji": "🎪",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture G"
+    },
+    {
+      "id": "culture-mix-5",
+      "title": "Culture G - Mix #5",
+      "emoji": "🌟",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture G"
+    },
+    {
+      "id": "culture-mix-6",
+      "title": "Culture G - Mix #6",
+      "emoji": "💫",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture G"
+    },
+    {
+      "id": "culture-mix-7",
+      "title": "Culture G - Mix #7",
+      "emoji": "✨",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture G"
+    },
+    {
+      "id": "culture-mix-8",
+      "title": "Culture G - Mix #8",
+      "emoji": "🎰",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture G"
+    },
+    {
+      "id": "culture-mix-9",
+      "title": "Culture G - Mix #9",
+      "emoji": "🎳",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture G"
+    },
+    {
+      "id": "culture-mix-10",
+      "title": "Culture G - Mix #10",
+      "emoji": "🏅",
+      "difficulty": "Moyen",
+      "questionCount": 20,
+      "category": "Culture G"
     }
   ]
 }

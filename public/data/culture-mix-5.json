@@ -1,0 +1,27 @@
+{
+  "id": "culture-mix-5",
+  "title": "Culture G - Mix #5",
+  "lang": "fr",
+  "items": [
+    { "id": "mix5001", "question": "Dieu égyptien. Tête de chacal. Embaumement. Guide des morts. Qui est-il ?", "answer": "Anubis", "difficulty": "normal", "category": "Mythologie" },
+    { "id": "mix5002", "question": "Plus petit pays du monde. Enclavé dans Rome. Le Pape y réside. Quel pays ?", "answer": "Le Vatican", "difficulty": "normal", "category": "Géo" },
+    { "id": "mix5003", "question": "Chanteuse américaine. 'Poker Face', 'Born This Way'. Robe en viande. Qui est-elle ?", "answer": "Lady Gaga", "difficulty": "normal", "category": "Musique" },
+    { "id": "mix5004", "question": "Reine d'Angleterre. 70 ans de règne. Morte en 2022. Qui est-elle ?", "answer": "Élisabeth II", "difficulty": "normal", "category": "Histoire" },
+    { "id": "mix5005", "question": "Sport avec club et balle blanche. 18 trous. Tiger Woods. Quel sport ?", "answer": "Le golf", "difficulty": "normal", "category": "Sport" },
+    { "id": "mix5006", "question": "Réseau social. Posts de 280 caractères. Rebaptisé X. Quelle plateforme ?", "answer": "Twitter", "difficulty": "normal", "category": "Tech" },
+    { "id": "mix5007", "question": "Pays le plus peuplé. Plus d'1,4 milliard d'habitants. Grande Muraille. Quel pays ?", "answer": "La Chine (ou l'Inde)", "difficulty": "normal", "category": "Géo" },
+    { "id": "mix5008", "question": "Dramaturge anglais. Romeo et Juliette, Hamlet. 'To be or not to be'. Qui est-il ?", "answer": "William Shakespeare", "difficulty": "normal", "category": "Littérature" },
+    { "id": "mix5009", "question": "Pilote F1 britannique. 7 titres mondiaux. Mercedes. Chevalier. Qui est-il ?", "answer": "Lewis Hamilton", "difficulty": "normal", "category": "Sport" },
+    { "id": "mix5010", "question": "Film de 2009. Planète Pandora. Avatars bleus. James Cameron. Quel film ?", "answer": "Avatar", "difficulty": "normal", "category": "Cinéma" },
+    { "id": "mix5011", "question": "Centre de contrôle du corps. 86 milliards de neurones. Matière grise. Quel organe ?", "answer": "Le cerveau", "difficulty": "normal", "category": "Sciences" },
+    { "id": "mix5012", "question": "DJ français. 'Get Lucky' avec Daft Punk. Révélation 2013. Qui est-il ?", "answer": "Pharrell Williams (ou Nile Rodgers)", "difficulty": "normal", "category": "Musique" },
+    { "id": "mix5013", "question": "Pain italien. Huile d'olive, romarin, sel. Plat et moelleux. Quel pain ?", "answer": "La focaccia", "difficulty": "normal", "category": "Food" },
+    { "id": "mix5014", "question": "Insecte pollinisateur. Produit du miel. Reine et ouvrières. Quel animal ?", "answer": "L'abeille", "difficulty": "normal", "category": "Nature" },
+    { "id": "mix5015", "question": "Jeu vidéo. Blocs qui tombent. Créé en URSS. Musique russe. Quel jeu ?", "answer": "Tetris", "difficulty": "normal", "category": "Gaming" },
+    { "id": "mix5016", "question": "Peintre surréaliste espagnol. Montres molles. Moustache. Qui est-il ?", "answer": "Salvador Dalí", "difficulty": "difficile", "category": "Art" },
+    { "id": "mix5017", "question": "Assassinat en 1963. Dallas, Texas. Jackie Kennedy à ses côtés. Quel président ?", "answer": "John F. Kennedy (JFK)", "difficulty": "difficile", "category": "Histoire" },
+    { "id": "mix5018", "question": "Vin pétillant français. Région éponyme. Dom Pérignon. Quel vin ?", "answer": "Le champagne", "difficulty": "difficile", "category": "Food" },
+    { "id": "mix5019", "question": "Théorie de Darwin. Sélection naturelle. 'L'Origine des espèces'. Quelle théorie ?", "answer": "La théorie de l'évolution", "difficulty": "difficile", "category": "Sciences" },
+    { "id": "mix5020", "question": "Actrice australienne. Nicole Kidman mariée à Tom Cruise puis Keith Urban. Eyes Wide Shut. Qui est-elle ?", "answer": "Nicole Kidman", "difficulty": "difficile", "category": "Cinéma" }
+  ]
+}

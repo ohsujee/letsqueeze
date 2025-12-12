@@ -1,6 +1,62 @@
 "use client";
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+
+/**
+ * Particles explosifs - composant séparé pour éviter glitches SSR
+ */
+function ExplosiveParticles({ count = 30, color }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const particles = useMemo(() => {
+    if (!mounted) return [];
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    return [...Array(count)].map((_, i) => ({
+      id: i,
+      startX: cx,
+      startY: cy,
+      endX: cx + (Math.random() - 0.5) * 800,
+      endY: cy + (Math.random() - 0.5) * 800,
+      scale: Math.random() * 2 + 1,
+      duration: 2 + Math.random(),
+      delay: Math.random() * 0.5
+    }));
+  }, [mounted, count]);
+
+  if (!mounted) return null;
+
+  return (
+    <>
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          initial={{ opacity: 0, x: p.startX, y: p.startY, scale: 0 }}
+          animate={{
+            opacity: [0, 1, 0],
+            x: p.endX,
+            y: p.endY,
+            scale: [0, p.scale, 0]
+          }}
+          transition={{ duration: p.duration, delay: p.delay, ease: "easeOut" }}
+          style={{
+            position: 'absolute',
+            width: '8px',
+            height: '8px',
+            background: color,
+            borderRadius: '50%',
+            pointerEvents: 'none',
+            boxShadow: `0 0 10px ${color}`
+          }}
+        />
+      ))}
+    </>
+  );
+}
 
 /**
  * Transition fullscreen spectaculaire pour les verdicts Alibi
@@ -261,37 +317,7 @@ export function VerdictTransition({
         </div>
 
         {/* Particles explosifs */}
-        {[...Array(30)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{
-              opacity: 0,
-              x: typeof window !== 'undefined' ? window.innerWidth / 2 : 0,
-              y: typeof window !== 'undefined' ? window.innerHeight / 2 : 0,
-              scale: 0
-            }}
-            animate={{
-              opacity: [0, 1, 0],
-              x: typeof window !== 'undefined' ? window.innerWidth / 2 + (Math.random() - 0.5) * 800 : 0,
-              y: typeof window !== 'undefined' ? window.innerHeight / 2 + (Math.random() - 0.5) * 800 : 0,
-              scale: [0, Math.random() * 2 + 1, 0]
-            }}
-            transition={{
-              duration: 2 + Math.random(),
-              delay: Math.random() * 0.5,
-              ease: "easeOut"
-            }}
-            style={{
-              position: 'absolute',
-              width: '8px',
-              height: '8px',
-              background: config.particleColor,
-              borderRadius: '50%',
-              pointerEvents: 'none',
-              boxShadow: `0 0 10px ${config.particleColor}`
-            }}
-          />
-        ))}
+        <ExplosiveParticles count={30} color={config.particleColor} />
       </motion.div>
     </AnimatePresence>
   );
