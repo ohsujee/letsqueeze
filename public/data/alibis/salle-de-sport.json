@@ -1,20 +1,20 @@
 {
   "id": "salle-de-sport",
-  "title": "Séance à la salle de sport",
-  "context": "Un délit de fuite après un accident de voiture a été signalé hier en fin d'après-midi. Votre véhicule correspond à la description donnée par les témoins. Vous contestez fermement : vous étiez à la salle de sport pour un entraînement intensif.",
-  "accused_document": "<p>Hier en fin d'après-midi, vous aviez rendez-vous dans une salle de sport pour une session d'entraînement avec un coach sportif. C'était une séance que vous aviez réservée plusieurs jours à l'avance pour travailler votre condition physique.</p><p>En arrivant, vous avez badgé à l'accueil et vous êtes allés vous changer dans les vestiaires. Vous avez retrouvé votre coach dans la zone d'entraînement. Il vous avait préparé un programme spécifique pour la séance du jour axé sur un type d'exercices particulier.</p><p>Vous avez commencé par un échauffement assez intensif pour préparer votre corps. Ensuite, le coach vous a fait faire une série d'exercices différents. Il y avait notamment un exercice que vous détestiez particulièrement mais que le coach insistait pour que vous fassiez correctement.</p><p>À un moment pendant la séance, vous étiez tellement fatigué que vous avez demandé une pause. Le coach vous a dit que vous ne pouviez pas abandonner et vous a même donné une punition supplémentaire pour avoir essayé de vous arrêter. Vous vous souvenez très bien de cette punition parce qu'elle était vraiment difficile.</p><p>Il y avait d'autres personnes qui s'entraînaient dans la salle en même temps que vous. Certains faisaient de la musculation, d'autres du cardio. Vous avez croisé quelqu'un que vous connaissiez et vous vous êtes rapidement salués entre deux exercices.</p><p>La séance s'est terminée par des étirements et le coach vous a donné des conseils pour la prochaine fois. Vous étiez complètement épuisé. Avant de partir, vous avez pris une boisson au distributeur de la salle et vous avez discuté quelques minutes avec le coach de vos progrès.</p>",
-  "inspector_summary": "Les accusés affirment avoir été à la salle de sport avec un coach pendant le délit de fuite.",
+  "title": "Salle de sport miteuse",
+  "context": "Une voiture de police a ete taguee avec des insultes hier en fin d'apres-midi. Des cameras de surveillance vous situent dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier en fin d'apres-midi, le groupe avait rendez-vous dans une salle de sport pour une seance avec un coach. L'endroit etait dans un sous-sol qui sentait la transpiration et le desinfectant bon marche. La moquette de l'entree etait usee et tachee.</p><p>Le coach etait un type muscle qui hurlait ses instructions. Il portait un debardeur avec une citation de motivation imprimee dessus. Il regardait le groupe avec mepris comme s'il doutait de leurs capacites physiques.</p><p>Les machines etaient vieilles et certaines faisaient des bruits inquietants. Un tapis de course grinçait a chaque foulée. Les halteres etaient poisseuses et avaient des traces de rouille. Les vestiaires sentaient l'humidite et les casiers fermaient mal.</p><p>Le coach a impose des exercices impossibles et s'est moque quand quelqu'un du groupe n'y arrivait pas. Il a donne une punition humiliante a tout le groupe pour avoir demande une pause. Quelqu'un a failli vomir tellement c'etait intense.</p><p>A la fin, le coach a fait un discours condescendant sur le manque de forme physique du groupe. Il a note les performances sur un tableau blanc avec un classement. Le groupe est parti epuise, humilie, en se promettant de ne jamais revenir.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi dans une salle de sport pendant le tag sur la voiture de police.",
   "inspector_questions": [
-    "Vous avez dit avoir rendez-vous dans une salle de sport — quel est le nom de cette salle ?",
-    "Vous avez dit avoir retrouvé votre coach — comment s'appelle ce coach ?",
-    "Vous avez dit que le programme était axé sur un type d'exercices — quel type exactement ?",
-    "Vous avez dit détester particulièrement un exercice — quel exercice ?",
-    "Vous avez dit que le coach vous a donné une punition — quelle était cette punition ?",
-    "Vous avez dit avoir croisé quelqu'un que vous connaissiez — qui était-ce ?",
-    "Vous avez dit que des gens faisaient de la musculation et du cardio — combien de personnes approximativement y avait-il dans la salle ?",
-    "Vous avez dit que le coach vous a donné des conseils — quels conseils ?",
-    "Vous avez dit avoir pris une boisson au distributeur — quelle boisson exactement ?",
-    "Vous avez dit avoir discuté de vos progrès — avez-vous progressé depuis la dernière fois ?"
+    "Vous avez dit avoir rendez-vous dans une salle de sport — quel etait le nom exact de cette salle ?",
+    "Vous avez dit que le coach portait un debardeur avec une citation — ecrivez cette citation mot pour mot.",
+    "Vous avez dit qu'un tapis de course grinçait — ecrivez l'onomatopee exacte de ce grincement.",
+    "Vous avez dit que le coach s'est moque de quelqu'un — qui du groupe etait-ce et qu'a dit le coach ?",
+    "Vous avez dit qu'il a donne une punition humiliante — quelle etait cette punition exactement ?",
+    "Vous avez dit que quelqu'un a failli vomir — qui du groupe etait-ce ?",
+    "Vous avez dit qu'il y avait un classement sur un tableau — a quelle position etait le groupe ?",
+    "Vous avez dit que le coach a fait un discours — qu'a-t-il dit exactement a la fin ?",
+    "Vous avez dit etre partis epuises — qui du groupe etait le plus epuise ?",
+    "Vous avez dit vous etre promis de ne jamais revenir — qui du groupe avait trouve cette salle au depart ?"
   ],
   "reading_time_seconds": 90
 }

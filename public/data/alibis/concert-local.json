@@ -1,0 +1,20 @@
+{
+  "id": "concert-local",
+  "title": "Concert local inaudible",
+  "context": "Un panneau d'affichage municipal a ete recouvert de colle et de plumes hier soir. Des temoins affirment avoir vu un groupe correspondant a votre description fuir en riant. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe est alle voir un concert dans une petite salle locale. L'endroit etait un sous-sol humide qui sentait la biere renversee et la transpiration. Les murs suintaient et le plafond etait bas.</p><p>A l'entree, le vigile a fouille les sacs avec une agressivite inutile. Il portait un t-shirt noir avec le nom de la salle imprime dans le dos. Il a confisque une bouteille d'eau a quelqu'un du groupe sans raison.</p><p>La salle etait bondee et il faisait une chaleur suffocante. Impossible de voir la scene a cause des gens devant. Le son etait beaucoup trop fort et completement sature. Les basses faisaient vibrer les organes et donnaient la nausee.</p><p>Le groupe qui jouait etait catastrophique. Le chanteur n'arretait pas de se tromper dans les paroles. La guitare etait desaccordee et faisait un bruit strident. L'eclairage stroboscopique donnait mal a la tete a tout le monde.</p><p>Quelqu'un a renverse une biere sur quelqu'un du groupe. Un autre s'est fait marcher sur le pied par un type bourre. Le groupe est parti avant la fin du concert avec les oreilles qui sifflaient et les vetements qui puaient.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe la soiree a un concert local pendant l'incident du panneau.",
+  "inspector_questions": [
+    "Vous avez dit etre alles voir un concert — quel etait le nom exact de cette salle ?",
+    "Vous avez dit que le vigile portait un t-shirt avec un nom — ecrivez ce nom exactement.",
+    "Vous avez dit que le vigile a confisque une bouteille — a qui du groupe appartenait-elle ?",
+    "Vous avez dit que la guitare faisait un bruit strident — ecrivez l'onomatopee exacte de ce bruit.",
+    "Vous avez dit avoir vu un groupe jouer — quel etait le nom de ce groupe ?",
+    "Vous avez dit que quelqu'un a renverse une biere — sur qui du groupe ?",
+    "Vous avez dit que quelqu'un s'est fait marcher sur le pied — qui du groupe etait-ce ?",
+    "Vous avez dit etre partis avec les oreilles qui sifflent — ecrivez l'onomatopee de ce sifflement.",
+    "Vous avez dit etre partis avant la fin — qui du groupe a propose de partir ?",
+    "Vous avez dit etre partis — combien avait coute l'entree ?"
+  ],
+  "reading_time_seconds": 90
+}

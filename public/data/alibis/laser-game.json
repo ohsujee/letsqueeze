@@ -1,0 +1,20 @@
+{
+  "id": "laser-game",
+  "title": "Laser game defaillant",
+  "context": "Des poubelles ont ete renversees et leur contenu etale sur la chaussee hier soir. Des cameras vous situent dans le secteur au moment des faits. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe a participe a une session de laser game dans un complexe en peripherie. L'entree etait un couloir sombre qui sentait la transpiration et le plastique chaud. La moquette au sol etait usee et collante par endroits.</p><p>Le responsable etait un ado boutonneux qui expliquait les regles en marmonnant. Il portait un t-shirt avec le slogan du laser game imprime dessus. Il avait l'air de s'ennuyer profondement et repondait aux questions en soupirant.</p><p>Les gilets distribues etaient lourds et inconfortables. Les sangles etaient poisseuses et certaines ne se fermaient plus. Le pistolet laser attribue au groupe avait un probleme de visee et tirait de travers. Les capteurs ne detectaient pas tous les tirs.</p><p>L'arene etait minuscule et mal entretenue. Des panneaux lumineux ne fonctionnaient plus et certains obstacles etaient casses. Un joueur adverse a pousse quelqu'un du groupe qui est tombe. L'ambiance sonore faisait un bruit de fond strident en permanence.</p><p>A la fin, le tableau des scores etait completement buggé. Les points ne correspondaient a rien. Le groupe a reclame mais le responsable s'en fichait. Tout le monde est reparti frustre avec des courbatures a cause des gilets.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe la soiree dans un laser game pendant l'incident des poubelles.",
+  "inspector_questions": [
+    "Vous avez dit etre alles dans un laser game — quel etait le nom exact de ce complexe ?",
+    "Vous avez dit que le responsable portait un t-shirt avec un slogan — ecrivez ce slogan exactement.",
+    "Vous avez dit que le pistolet tirait de travers — de quel cote exactement ?",
+    "Vous avez dit que l'ambiance sonore faisait un bruit strident — ecrivez l'onomatopee exacte de ce bruit.",
+    "Vous avez dit qu'un joueur adverse a pousse quelqu'un — qui du groupe est tombe ?",
+    "Vous avez dit que le tableau des scores etait buggé — quel score affichait-il pour le groupe ?",
+    "Vous avez dit avoir reclame — qui du groupe a parle au responsable ?",
+    "Vous avez dit avoir des courbatures — combien de temps a dure la session ?",
+    "Vous avez dit etre repartis frustres — qui du groupe avait reserve cette session ?",
+    "Vous avez dit etre partis — a quelle heure approximativement ?"
+  ],
+  "reading_time_seconds": 90
+}

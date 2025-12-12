@@ -1,20 +1,20 @@
 {
   "id": "pub-karaoke",
-  "title": "Soirée karaoké au pub",
-  "context": "Un acte de vandalisme sur plusieurs voitures a été commis hier soir dans un parking public. Des témoins vous situent dans le quartier au moment des faits. Vous contestez : vous étiez dans un pub irlandais pour une soirée karaoké.",
-  "accused_document": "<p>Hier soir, vous êtes allés dans un pub irlandais avec des amis pour participer à leur soirée karaoké hebdomadaire. C'était bondé et l'ambiance était déjà bien lancée quand vous êtes arrivés.</p><p>Vous vous êtes installés à une table pas loin de la petite scène où les gens montaient chanter. Le barman vous a servi des pintes et d'autres boissons tout au long de la soirée. La déco était typiquement irlandaise avec des drapeaux et des affiches partout.</p><p>Au début, vous regardiez les autres chanteurs se succéder. Il y avait des gens de tous niveaux : certains chantaient vraiment bien, d'autres étaient complètement à côté de la plaque mais c'était drôle. L'un de vos amis a fini par monter sur scène et a chanté une chanson qui a fait réagir tout le pub. La performance était mémorable.</p><p>Ensuite, quelqu'un d'autre de votre groupe s'est lancé dans un duo avec une autre personne de votre table. Ils ont choisi une chanson que tout le monde connaissait et le public les a encouragés en tapant des mains. Vous vous rappelez que le micro avait un petit problème technique au milieu de leur performance.</p><p>Plus tard dans la soirée, on vous a convaincu de monter à votre tour. Vous avez choisi une chanson spécifique et vous l'avez chantée devant tout le monde. L'animateur du karaoké vous a même fait un commentaire après votre passage.</p><p>La soirée s'est terminée tard. Vous avez commandé encore quelques tournées et vous êtes restés jusqu'à ce que le pub ferme. Vous êtes partis en groupe en discutant de qui avait été le meilleur chanteur de la soirée.</p>",
-  "inspector_summary": "Les accusés affirment avoir passé la soirée dans un pub irlandais pour un karaoké pendant les actes de vandalisme.",
+  "title": "Karaoke dans pub louche",
+  "context": "Plusieurs vitrines de magasins ont ete taguees avec des inscriptions obscenes hier soir dans le centre-ville. Des temoins vous ont vu dans le secteur avec des sacs suspects. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe s'est retrouve dans un pub irlandais pour une soiree karaoke. L'endroit avait l'air mieux sur les photos internet. En entrant, ca sentait la biere renversee et le vieux bois moisi. La moquette au sol etait poisseuse et faisait un bruit de ventouse a chaque pas.</p><p>Le groupe s'est installe a une table bancale pres de la scene. Les chaises etaient depareillees et une d'entre elles avait un pied plus court. Le barman, un type avec un tablier tache, a pris les commandes sans lever les yeux de son telephone. Il y avait une ardoise derriere lui avec les cocktails du jour ecrits a la craie.</p><p>Les premiers chanteurs etaient catastrophiques. Un type a hurle une chanson tellement faux que ca faisait mal aux oreilles. Le micro gresillait et l'animateur du karaoke portait un badge avec un slogan dessus. Quelqu'un du groupe a fini par monter sur scene et a chante quelque chose qui a fait reagir toute la salle.</p><p>Le systeme de son a plante en plein milieu d'une chanson. L'ecran avec les paroles affichait n'importe quoi. L'animateur a du tout redemarrer en tapant sur la machine qui faisait un bruit metallique etrange.</p><p>A la fin de la soiree, le barman a apporte une addition completement fausse avec des consommations en trop. Il a fallu raler pendant dix minutes pour faire corriger. Le groupe est parti en se demandant pourquoi il avait choisi cet endroit.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe la soiree dans un pub irlandais pour un karaoke pendant les tags.",
   "inspector_questions": [
-    "Vous avez dit être allés dans un pub irlandais — quel était le nom de ce pub ?",
-    "Vous avez dit que c'était leur soirée karaoké hebdomadaire — quel jour de la semaine était-ce ?",
-    "Vous avez dit que le barman vous a servi des pintes — qu'avez-vous bu exactement ?",
-    "Vous avez dit qu'un de vos amis a chanté une chanson mémorable — qui était-ce et quelle chanson ?",
-    "Vous avez dit que quelqu'un a fait un duo — qui étaient les deux personnes ?",
-    "Vous avez dit que le micro avait un problème technique — quel problème exactement ?",
-    "Vous avez dit avoir monté sur scène vous-même — quelle chanson avez-vous chantée ?",
-    "Vous avez dit que l'animateur vous a fait un commentaire — qu'a-t-il dit ?",
-    "Vous avez dit être restés jusqu'à la fermeture — qui a été élu meilleur chanteur de la soirée ?",
-    "Vous avez dit être partis en groupe — qui a payé l'addition finale ?"
+    "Vous avez dit etre alles dans un pub irlandais — quel etait le nom exact de ce pub ?",
+    "Vous avez dit qu'il y avait une ardoise avec les cocktails — quel etait le cocktail du jour ecrit dessus ?",
+    "Vous avez dit que l'animateur portait un badge avec un slogan — ecrivez ce slogan mot pour mot.",
+    "Vous avez dit que quelqu'un du groupe a chante — qui etait-ce et quelle chanson ?",
+    "Vous avez dit que le micro gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
+    "Vous avez dit que la machine faisait un bruit metallique — ecrivez l'onomatopee exacte de ce bruit.",
+    "Vous avez dit que l'addition etait fausse — quel montant etait affiche avant correction ?",
+    "Vous avez dit avoir du raler pour corriger — qui du groupe a reclame aupres du barman ?",
+    "Vous avez dit etre partis a la fin — a quelle heure approximativement le groupe est-il parti ?",
+    "Vous avez dit vous etre demande pourquoi cet endroit — qui du groupe avait propose ce pub au depart ?"
   ],
   "reading_time_seconds": 90
 }

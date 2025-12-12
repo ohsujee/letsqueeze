@@ -1,20 +1,20 @@
 {
   "id": "terrain-basket",
-  "title": "Tournoi de basket",
-  "context": "Un vol de voiture avec violence a été commis hier en fin d'après-midi dans un parking souterrain. Plusieurs témoins affirment avoir vu deux personnes correspondant à votre profil quitter les lieux en courant. Vous affirmez que c'est impossible : vous étiez sur un terrain de basket pour un tournoi.",
-  "accused_document": "<p>Hier après-midi, vous participiez à un tournoi de basket organisé sur un terrain extérieur. C'était un tournoi à élimination directe, et votre équipe devait affronter une équipe adverse dans les quarts de finale.</p><p>Vous vous êtes retrouvés sur le terrain en début d'après-midi. Il faisait beau et l'ambiance était déjà bien chaude avec plusieurs équipes qui s'échauffaient autour. Votre équipe portait des maillots de couleur vive pour se distinguer.</p><p>Pendant le match, l'un de vos coéquipiers a tenté un dunk spectaculaire qui a fait réagir tout le monde sur place. L'arbitre a sifflé plusieurs fois pour des fautes, et à un moment donné, un joueur adverse particulièrement grand a dominé sous le panier.</p><p>Entre deux matchs, vous avez fait une pause et vous êtes allés chercher des boissons chez un vendeur installé pas loin du terrain. Vous avez discuté de votre stratégie pour le prochain match en buvant.</p><p>Le tournoi s'est terminé en fin d'après-midi. Votre équipe a joué plusieurs matchs d'affilée. Après la fin, vous êtes restés traîner sur place pour discuter avec les autres participants.</p>",
-  "inspector_summary": "Les accusés prétendent avoir passé l'après-midi sur un terrain de basket lors d'un tournoi pendant le vol avec violence.",
+  "title": "Tournoi de basket chaotique",
+  "context": "Une moto a ete incendiee dans un parking souterrain hier apres-midi. Des cameras montrent un groupe correspondant a votre description quittant les lieux precipitamment. Vous contestez.",
+  "accused_document": "<p>Hier apres-midi, le groupe a participe a un tournoi de basket sur un terrain exterieur. L'endroit etait un terrain municipal en piteux etat. Le sol etait craquele et les lignes de jeu a peine visibles. Ca sentait le goudron chaud et les poubelles a cote.</p><p>L'organisation etait chaotique. L'arbitre etait un type qui connaissait pas les regles et sifflait n'importe quoi. Il portait un maillot avec le logo de la federation imprime dessus. Il a fait des appels scandaleux qui ont avantage l'equipe adverse.</p><p>Les paniers etaient deformes et les filets completement dechires. Le ballon fourni etait degonfle et rebondissait de travers. Quelqu'un du groupe s'est foule la cheville a cause d'un trou dans le terrain.</p><p>Pendant le match, un joueur adverse a fait une faute violente qui n'a pas ete sifflee. Ca a declenche une altercation. L'arbitre a menace d'expulser tout le monde. Le public autour huait et criait des insultes.</p><p>L'equipe du groupe a perdu lamentablement avec un score humiliant. A la fin, l'organisateur a annonce le classement sur un tableau blanc efface a moitie. Le groupe est parti epuise, degoute, avec des courbatures partout.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi sur un terrain de basket pour un tournoi pendant l'incendie de la moto.",
   "inspector_questions": [
-    "Vous avez dit participer à un tournoi — quel était le nom ou le thème de ce tournoi ?",
-    "Vous avez dit avoir affronté une équipe adverse — comment s'appelait cette équipe ?",
-    "Vous avez dit que votre équipe portait des maillots de couleur vive — de quelle couleur exactement ?",
-    "Vous avez dit qu'un coéquipier a tenté un dunk spectaculaire — qui était ce coéquipier ?",
-    "Vous avez dit qu'un joueur adverse était particulièrement grand — de quelle taille approximativement ?",
-    "Vous avez dit avoir acheté des boissons — quel type de boisson exactement avez-vous pris ?",
-    "Vous avez dit avoir discuté de stratégie — quelle était cette stratégie ?",
-    "Vous avez dit avoir joué plusieurs matchs — combien de matchs exactement avez-vous joués ?",
-    "Vous avez dit que le tournoi s'est terminé en fin d'après-midi — qui a remporté le tournoi ?",
-    "Vous avez dit être restés traîner après — qui est parti en premier de votre groupe ?"
+    "Vous avez dit avoir participe a un tournoi — quel etait le nom exact de ce tournoi ?",
+    "Vous avez dit que l'arbitre portait un maillot avec un logo — decrivez ce logo exactement.",
+    "Vous avez dit que le ballon etait degonfle — ecrivez l'onomatopee exacte du rebond de ce ballon.",
+    "Vous avez dit que quelqu'un s'est foule la cheville — qui du groupe etait-ce ?",
+    "Vous avez dit qu'un joueur adverse a fait une faute violente — quelle faute exactement ?",
+    "Vous avez dit qu'il y a eu une altercation — qu'a dit le joueur du groupe concerne ?",
+    "Vous avez dit que le public criait des insultes — quelle insulte avez-vous entendue ?",
+    "Vous avez dit avoir perdu avec un score humiliant — quel etait le score final ?",
+    "Vous avez dit etre partis degoutés — qui du groupe avait propose de participer a ce tournoi ?",
+    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
   ],
   "reading_time_seconds": 90
 }

@@ -1,20 +1,20 @@
 {
   "id": "tournage-clip",
-  "title": "Tournage d'un clip vidéo",
-  "context": "Un vol à l'arraché a été commis hier après-midi dans une rue commerçante. Plusieurs témoins affirment avoir vu deux personnes qui vous ressemblent fuir les lieux. Vous contestez : vous participiez au tournage d'un clip vidéo toute la journée.",
-  "accused_document": "<p>Hier, vous avez participé toute la journée au tournage d'un clip vidéo pour un projet musical. C'était organisé par quelqu'un que vous connaissez qui travaillait sur ce projet depuis plusieurs mois.</p><p>Le tournage se déroulait dans un lieu spécifique qui avait été choisi pour son ambiance particulière. Une petite équipe technique était présente avec le matériel : caméras, lumières, et tout le nécessaire. Le réalisateur dirigeait les opérations et expliquait à tout le monde ce qu'il fallait faire pour chaque scène.</p><p>Vous jouiez un rôle dans le clip en tant que figurant. On vous avait demandé de porter un costume ou une tenue spécifique pour correspondre au concept du clip. Vous avez passé du temps avec les autres participants à attendre entre les prises et à discuter.</p><p>Le réalisateur a dû refaire une scène particulière de nombreuses fois parce qu'il n'était pas satisfait du résultat. À un moment, il y a eu un problème technique avec le matériel qui a retardé le tournage. Tout le monde a dû patienter pendant que l'équipe réglait le souci.</p><p>Pendant la pause déjeuner, toute l'équipe a mangé ensemble sur place. On vous a fourni des repas et des boissons. Vous avez profité de ce moment pour mieux connaître les autres personnes du projet.</p><p>Le tournage s'est poursuivi jusqu'en fin d'après-midi. La dernière scène filmée était particulièrement importante pour le clip. Le réalisateur a demandé à tout le monde de faire quelque chose de spécifique pour cette scène finale. Une fois terminé, il a remercié tout le monde et vous êtes partis.</p>",
-  "inspector_summary": "Les accusés affirment avoir participé au tournage d'un clip vidéo toute la journée pendant le vol.",
+  "title": "Tournage de clip amateur",
+  "context": "Des panneaux de signalisation ont ete arraches et empiles sur un rond-point hier apres-midi. Des temoins vous ont vu dans le secteur avec des outils. Vous contestez.",
+  "accused_document": "<p>Hier apres-midi, le groupe a participe au tournage d'un clip video amateur. Le lieu choisi etait un entrepot desaffecte qui sentait la moisissure et l'huile de machine. Le sol etait jonche de debris et il faisait un froid glacial a l'interieur.</p><p>Le realisateur etait un type stresse qui hurlait ses instructions. Il portait une casquette avec le nom de sa boite de production imprime dessus. Il n'arretait pas de changer d'avis et tout le monde etait perdu.</p><p>Le materiel etait amateur. La camera tremblait et le son etait capte par un micro qui gresillait. Les projecteurs surchauffaient et ont failli mettre le feu a un rideau. Quelqu'un du groupe a du les eteindre en urgence.</p><p>Les costumes fournis etaient ridicules et inconfortables. Ils grattaient et sentaient le renfermé comme s'ils n'avaient pas ete laves depuis des annees. Le maquillage fait sur place coulait a cause de la chaleur des projecteurs.</p><p>Le tournage a dure des heures pour un resultat mediocre. Le realisateur a fait une remarque desagreable sur le manque de professionnalisme du groupe. Tout le monde est parti epuise en doutant que ce clip sorte un jour.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi sur un tournage de clip pendant le vol des panneaux.",
   "inspector_questions": [
-    "Vous avez dit participer au tournage d'un clip — pour qui était ce clip ?",
-    "Vous avez dit que le tournage se déroulait dans un lieu spécifique — où exactement ?",
-    "Vous avez dit que le réalisateur dirigeait — comment s'appelait ce réalisateur ?",
-    "Vous avez dit jouer un rôle de figurant — quel était votre rôle précisément ?",
-    "Vous avez dit porter un costume spécifique — décrivez ce costume ou cette tenue.",
-    "Vous avez dit qu'une scène a dû être refaite — quelle scène et pourquoi ?",
-    "Vous avez dit qu'il y a eu un problème technique — quel était ce problème ?",
-    "Vous avez dit avoir mangé ensemble — qu'est-ce qui vous a été fourni comme repas ?",
-    "Vous avez dit que la dernière scène était importante — que deviez-vous faire dans cette scène ?",
-    "Vous avez dit être partis après — qui a proposé l'idée de ce clip au départ ?"
+    "Vous avez dit avoir participe a un tournage — pour quel artiste ou projet etait ce clip ?",
+    "Vous avez dit que le realisateur portait une casquette avec un nom — ecrivez ce nom exactement.",
+    "Vous avez dit que le micro gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
+    "Vous avez dit que les projecteurs ont failli mettre le feu — qui du groupe les a eteints ?",
+    "Vous avez dit que les costumes etaient ridicules — decrivez le costume que le groupe devait porter.",
+    "Vous avez dit que le maquillage coulait — qui du groupe etait le plus affecte ?",
+    "Vous avez dit que le realisateur a fait une remarque desagreable — qu'a-t-il dit exactement ?",
+    "Vous avez dit que le tournage a dure des heures — combien de temps exactement ?",
+    "Vous avez dit douter que le clip sorte — qui du groupe avait trouve cette opportunite ?",
+    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
   ],
   "reading_time_seconds": 90
 }

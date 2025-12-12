@@ -1,20 +1,20 @@
 {
   "id": "studio-photo",
-  "title": "Shooting photo professionnel",
-  "context": "Un cambriolage dans une bijouterie a eu lieu hier après-midi. Des témoins vous situent dans le quartier au moment des faits. Vous contestez : vous étiez dans un studio photo pour un shooting professionnel.",
-  "accused_document": "<p>Hier après-midi, vous aviez rendez-vous dans un studio photo pour faire un shooting professionnel. C'était pour avoir de nouvelles photos pour votre CV ou vos réseaux sociaux. Vous aviez réservé ce créneau depuis plusieurs semaines.</p><p>En arrivant au studio, vous avez été accueillis par le photographe qui vous a montré l'espace de travail. Il vous a expliqué comment allait se dérouler la séance et vous a proposé différents concepts et fonds pour les photos. Vous avez choisi un style particulier qui vous plaisait.</p><p>Vous aviez apporté plusieurs tenues différentes pour varier les photos. Le photographe vous a fait essayer différentes poses et vous donnait des instructions pour bien vous positionner. Entre les prises, vous regardiez les photos sur son écran pour voir le rendu.</p><p>Le photographe utilisait du matériel professionnel avec des éclairages spécifiques qu'il ajustait régulièrement. À un moment, il a dû changer quelque chose dans son installation parce que la lumière ne lui convenait pas. Vous avez fait une pause au milieu de la séance pour boire quelque chose et vous reposer.</p><p>La séance a duré assez longtemps. Le photographe a pris énormément de clichés pour avoir un maximum de choix. Il vous a raconté quelques anecdotes sur d'autres séances qu'il avait faites. L'ambiance était détendue et professionnelle.</p><p>À la fin, vous avez payé la prestation et le photographe vous a dit quand les photos retouchées seraient prêtes. Après être sortis du studio, vous êtes allés prendre quelque chose dans un café à proximité avant de rentrer chez vous.</p>",
-  "inspector_summary": "Les accusés affirment avoir passé l'après-midi dans un studio photo pour un shooting professionnel pendant le cambriolage.",
+  "title": "Shooting photo amateur",
+  "context": "Un banc public a ete arrache et jete dans une vitrine hier apres-midi. Des temoins affirment avoir vu un groupe correspondant a votre description fuir les lieux. Vous contestez.",
+  "accused_document": "<p>Hier apres-midi, le groupe avait rendez-vous dans un studio photo pour un shooting. L'endroit etait dans un local commercial miteux. En entrant, ca sentait la poussiere et les vieux tissus. Le sol etait jonche de cables mal ranges.</p><p>Le photographe etait un type bizarre qui faisait des commentaires genants sur les poses. Il portait un gilet avec le nom de son studio brode dessus. Il insistait pour que le groupe prenne des positions ridicules et soupirait quand ca ne lui convenait pas.</p><p>Le materiel avait l'air datė. Le flash faisait un bruit sourd a chaque declenchement et aveuglait completement. Les fonds proposes etaient froisses et taches. Une des lumieres ne fonctionnait pas et le photographe a du bricoler avec du scotch.</p><p>A un moment, le photographe a montre les premieres photos sur son ecran. C'etait horrible. Tout le monde avait l'air deforme et les couleurs etaient bizarres. Il a blame le groupe pour ne pas savoir poser.</p><p>La seance a dure beaucoup plus longtemps que prevu parce que rien n'etait satisfaisant. Le photographe a fini par abandonner en disant qu'il ferait de son mieux en retouche. Le groupe est parti sans aucune confiance dans le resultat final.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi dans un studio photo pendant la destruction du banc.",
   "inspector_questions": [
-    "Vous avez dit avoir rendez-vous dans un studio photo — quel était le nom de ce studio ?",
-    "Vous avez dit que c'était pour votre CV ou vos réseaux — pour quoi exactement ?",
-    "Vous avez dit que le photographe vous a proposé différents fonds — quel style avez-vous choisi ?",
-    "Vous avez dit avoir apporté plusieurs tenues — combien et lesquelles ?",
-    "Vous avez dit regarder les photos sur son écran — qu'en pensiez-vous au fur et à mesure ?",
-    "Vous avez dit que le photographe a dû changer son installation — quel problème avait-il ?",
-    "Vous avez dit avoir fait une pause — qu'avez-vous bu ?",
-    "Vous avez dit que le photographe vous a raconté des anecdotes — lesquelles ?",
-    "Vous avez dit avoir payé la prestation — combien et comment ?",
-    "Vous avez dit être allés dans un café après — quel café et qu'avez-vous pris ?"
+    "Vous avez dit avoir rendez-vous dans un studio photo — quel etait le nom exact de ce studio ?",
+    "Vous avez dit que le photographe portait un gilet avec un nom — ecrivez ce nom exactement.",
+    "Vous avez dit que le flash faisait un bruit sourd — ecrivez l'onomatopee exacte de ce bruit.",
+    "Vous avez dit que le photographe faisait des commentaires genants — qu'a-t-il dit exactement ?",
+    "Vous avez dit qu'il insistait pour des positions ridicules — quelle pose a-t-il demandee ?",
+    "Vous avez dit qu'une lumiere ne fonctionnait pas — de quel cote du studio etait-elle ?",
+    "Vous avez dit que le photographe a blame le groupe — qu'a-t-il dit exactement ?",
+    "Vous avez dit que la seance a dure longtemps — combien de temps au total ?",
+    "Vous avez dit etre partis sans confiance — qui du groupe avait reserve ce shooting ?",
+    "Vous avez dit avoir un rendez-vous — a quelle heure le groupe etait-il arrive ?"
   ],
   "reading_time_seconds": 90
 }

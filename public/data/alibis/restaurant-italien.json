@@ -1,20 +1,20 @@
 {
   "id": "restaurant-italien",
-  "title": "Dîner au restaurant italien",
-  "context": "Un vol avec violence a été commis hier soir dans une station-service. Vous correspondez au signalement des agresseurs. Vous affirmez que c'est impossible : vous dîniez dans un restaurant italien avec des amis.",
-  "accused_document": "<p>Hier soir, vous aviez réservé une table dans un restaurant italien pour un dîner entre amis. C'était pour célébrer une occasion spéciale, et vous étiez plusieurs personnes autour de la table.</p><p>En arrivant au restaurant, vous avez été accueillis par le patron qui vous a installés à une table. L'ambiance était chaleureuse avec une décoration typiquement italienne. Vous étiez bien placés dans le restaurant avec une bonne vue sur la salle.</p><p>Le serveur vous a apporté la carte et vous a recommandé quelques spécialités de la maison. Vous avez commencé par commander des apéritifs et des entrées à partager. L'un de vos amis a commandé un plat que le serveur lui avait particulièrement recommandé.</p><p>Pour le plat principal, chacun a choisi quelque chose de différent. Vous vous rappelez avoir commandé un plat de pâtes fraîches qui était délicieux. Vous avez aussi partagé plusieurs bouteilles de vin italien au cours du repas. À un moment, quelqu'un à votre table a renversé un peu de vin, ce qui a créé un petit moment d'embarras.</p><p>Le serveur a apporté un dessert spécial pour l'occasion avec des bougies. Tout le restaurant a chanté pour votre ami. Le chef est même sorti de sa cuisine pour vous saluer et demander si tout s'était bien passé.</p><p>Le repas s'est terminé tard dans la soirée. L'addition était assez élevée et vous l'avez partagée entre plusieurs personnes. Vous êtes restés encore un moment à discuter avant de quitter le restaurant.</p>",
-  "inspector_summary": "Les accusés affirment avoir dîné dans un restaurant italien pendant le vol à la station-service.",
+  "title": "Restaurant italien catastrophique",
+  "context": "Un abribus a ete defonce a coups de masse hier soir. Des debris de verre ont blesse un passant. Des temoins vous ont vu dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe avait reserve dans un restaurant italien cense etre bien note en ligne. En arrivant, la devanture etait miteuse et l'enseigne clignotait. A l'interieur, ca sentait la friture et le fromage rance. La nappe en plastique de la table etait collante.</p><p>Le serveur etait un type stresse qui transpirait et oubliait tout. Il portait un tablier tache avec le nom du restaurant brode dessus. Il a mis vingt minutes a prendre la commande et s'est trompe deux fois.</p><p>Les pizzas sont arrivees tiedes avec une pate molle et degoulinante d'huile. Le fromage avait une texture caoutchouteuse suspecte. Un plat de pates commande etait completement different de la description du menu. Le pain servi en accompagnement etait dur comme de la pierre.</p><p>A un moment, quelqu'un de la table d'a cote s'est plaint bruyamment au patron. Ca a cree un esclandre. Le patron a hausse le ton et l'ambiance est devenue tres genante. Le televiseur accroche au mur diffusait un match avec le son a fond qui gresillait.</p><p>L'addition comportait des erreurs avec des plats factures en double. Le serveur a soupire quand le groupe a demande de corriger. Le groupe est parti en laissant le pourboire minimum, ecœure par l'experience.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe la soiree dans un restaurant italien pendant la destruction de l'abribus.",
   "inspector_questions": [
-    "Vous avez dit avoir réservé un restaurant italien — quel était le nom de ce restaurant ?",
-    "Vous avez dit célébrer une occasion spéciale — quelle était cette occasion ?",
-    "Vous avez dit être plusieurs personnes — combien étiez-vous exactement ?",
-    "Vous avez dit que le serveur a recommandé des spécialités — lesquelles ?",
-    "Vous avez dit avoir commandé des apéritifs — qu'avez-vous pris ?",
-    "Vous avez dit avoir commandé des pâtes fraîches — quel type de pâtes exactement ?",
-    "Vous avez dit avoir partagé des bouteilles de vin — quel type de vin ?",
-    "Vous avez dit que quelqu'un a renversé du vin — qui était-ce ?",
-    "Vous avez dit que le restaurant a chanté — pour qui était-ce ?",
-    "Vous avez dit avoir partagé l'addition — qui a payé et comment ?"
+    "Vous avez dit avoir reserve dans un restaurant italien — quel etait le nom exact de ce restaurant ?",
+    "Vous avez dit que le serveur portait un tablier avec un nom — ecrivez ce nom exactement.",
+    "Vous avez dit que le serveur s'est trompe — quelle erreur a-t-il faite exactement ?",
+    "Vous avez dit qu'un plat etait different de la description — quel plat et quelle etait la difference ?",
+    "Vous avez dit que le televiseur gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
+    "Vous avez dit que quelqu'un s'est plaint au patron — qu'a dit cette personne exactement ?",
+    "Vous avez dit que l'addition comportait des erreurs — quel etait le montant avant correction ?",
+    "Vous avez dit avoir laisse le pourboire minimum — combien exactement ?",
+    "Vous avez dit etre partis ecœures — qui du groupe a paye l'addition ?",
+    "Vous avez dit avoir reserve — qui du groupe avait choisi ce restaurant ?"
   ],
   "reading_time_seconds": 90
 }

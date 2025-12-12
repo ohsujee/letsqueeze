@@ -1,0 +1,20 @@
+{
+  "id": "quiz-pub",
+  "title": "Soiree quiz pub nulle",
+  "context": "Une statue d'art moderne a ete renversee et cassee dans un parc hier soir. Des temoins affirment avoir vu un groupe correspondant a votre description s'enfuir en riant. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe a participe a une soiree quiz dans un pub. L'endroit etait un bar miteux avec une odeur de biere eventee et de cacahuetes rances. Les tables etaient collantes et les chaises branlantes.</p><p>L'animateur du quiz etait un type avec un micro qui gresillait. Il portait un t-shirt avec le slogan de la soiree imprime dessus. Il faisait des blagues qui ne faisaient rire que lui et lisait les questions d'un ton monocorde.</p><p>Les questions etaient soit beaucoup trop faciles soit completement impossibles. Certaines etaient mal formulees et n'avaient pas de bonne reponse. Le groupe a conteste une reponse mais l'animateur a refuse d'admettre son erreur et a fait une remarque cassante.</p><p>L'equipe d'a cote trichait ouvertement sur son telephone. Quand le groupe l'a signale, l'animateur n'a rien fait. Les enceintes crachotaient un jingle horrible entre chaque manche qui vrillait les tympans.</p><p>A la fin, le groupe a fini a une place humiliante au classement. Le lot du gagnant etait ridicule et l'animateur s'est moque des perdants. Tout le monde est parti degoute en jurant de ne plus jamais participer a ce quiz.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe la soiree a un quiz de pub pendant le vandalisme de la statue.",
+  "inspector_questions": [
+    "Vous avez dit avoir participe a un quiz — dans quel pub exactement ?",
+    "Vous avez dit que l'animateur portait un t-shirt avec un slogan — ecrivez ce slogan mot pour mot.",
+    "Vous avez dit que l'equipe d'a cote trichait — combien de personnes etaient dans cette equipe ?",
+    "Vous avez dit avoir conteste une reponse — quelle question et quelle reponse etait fausse ?",
+    "Vous avez dit que l'animateur a fait une remarque cassante — qu'a-t-il dit exactement ?",
+    "Vous avez dit qu'il y avait plusieurs manches — combien de manches au total ?",
+    "Vous avez dit avoir fini a une place humiliante — quelle place exactement ?",
+    "Vous avez dit que le lot etait ridicule — c'etait quoi exactement ?",
+    "Vous avez dit etre partis degoutés — qui du groupe avait propose ce quiz ?",
+    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
+  ],
+  "reading_time_seconds": 90
+}

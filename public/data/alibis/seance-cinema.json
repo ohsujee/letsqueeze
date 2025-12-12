@@ -1,20 +1,20 @@
 {
   "id": "seance-cinema",
-  "title": "Séance de cinéma",
-  "context": "Un cambriolage a été perpétré dans votre immeuble entre 20h30 et 22h30. Vous habitez au cinquième étage. Vous affirmez être innocent : vous étiez au cinéma.",
-  "accused_document": "<p>Ce soir-là, vous êtes allés voir un film au cinéma avec quelqu'un. Vous aviez choisi ce film spécifiquement parce que vous aviez vu la bande-annonce qui avait l'air intéressante.</p><p>En arrivant au cinéma, vous avez acheté vos billets et vous êtes allés directement au comptoir pour prendre des snacks. Vous avez commandé du pop-corn et des boissons. L'employé qui vous a servis était assez sympathique et vous a fait une petite blague.</p><p>Vous vous êtes installés dans la salle avant le début de la séance. Il y avait déjà pas mal de monde. Vous étiez assis à un certain endroit dans la salle avec une bonne vue sur l'écran. À côté de vous, il y avait d'autres spectateurs dont un groupe qui parlait un peu trop fort avant le début.</p><p>Avant le film, il y a eu plusieurs bandes-annonces de films à venir. L'une d'entre elles vous a particulièrement marqué et vous en avez discuté avec votre compagnon. Il y avait aussi des publicités assez longues.</p><p>Pendant le film, quelqu'un dans la salle a fait quelque chose d'assez gênant qui a perturbé un peu l'ambiance. À un moment précis du film, il y a eu une scène particulièrement intense qui a fait réagir toute la salle. Vous vous souvenez bien de cette scène.</p><p>À la fin du film, vous êtes restés pendant le générique pour voir s'il y avait une scène post-générique. Ensuite, vous êtes sortis et vous avez discuté du film pendant quelques minutes avant de partir.</p>",
-  "inspector_summary": "Les accusés déclarent avoir passé la soirée dans une salle de cinéma pendant le cambriolage de leur immeuble.",
+  "title": "Seance de cinema ratee",
+  "context": "Un animal a ete libere de son enclos au zoo municipal hier soir. Des temoins affirment avoir vu un groupe correspondant a votre description s'enfuir des lieux. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe est alle au cinema pour voir un film tres attendu. La salle etait dans un vieux complexe qui sentait le pop-corn brule et la moquette humide. L'escalator pour monter aux salles etait en panne.</p><p>A la caisse, l'employe etait d'une lenteur exasperante. Il portait un badge avec un slogan du cinema imprime dessus. Il a fait payer le plein tarif alors que le groupe pensait avoir droit a une reduction.</p><p>Les sieges attribues etaient tout devant, avec la nuque cassee pour voir l'ecran. Un groupe de jeunes derriere n'arretait pas de parler et de ricaner. L'un d'eux faisait un bruit agaçant avec son telephone a repetition. Le son du film etait beaucoup trop fort et saturait.</p><p>A un moment, la projection s'est arretee a cause d'un probleme technique. L'ecran est devenu noir et les lumieres se sont rallumees. Il a fallu attendre quinze minutes avant que ca reparte. Les gens ralaient et quelqu'un a crie une insulte.</p><p>Le film etait une deception totale, beaucoup moins bien que la bande-annonce. Une scene cle etait tellement mauvaise que des gens ont ri nerveusement. Le groupe est sorti frustre en regrettant d'avoir depense de l'argent pour ca.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe la soiree au cinema pendant la liberation de l'animal.",
   "inspector_questions": [
-    "Vous avez dit être allés voir un film au cinéma — quel était le nom du cinéma ?",
-    "Vous avez dit être allés avec quelqu'un — qui était cette personne ?",
-    "Vous avez dit que l'employé vous a fait une blague — quelle blague ?",
-    "Vous avez dit vous être installés à un certain endroit — où exactement dans la salle ?",
-    "Vous avez dit qu'un groupe parlait trop fort — de combien de personnes était composé ce groupe ?",
-    "Vous avez dit qu'une bande-annonce vous a marqué — pour quel film ?",
-    "Vous avez dit que quelqu'un a fait quelque chose de gênant — quoi exactement ?",
-    "Vous avez dit qu'il y a eu une scène intense — quelle scène exactement ?",
-    "Vous avez dit être restés pendant le générique — y avait-il une scène post-générique ?",
-    "Vous avez dit avoir discuté du film — avez-vous aimé le film ou pas ?"
+    "Vous avez dit etre alles au cinema — quel etait le nom exact de ce cinema ?",
+    "Vous avez dit que l'employe portait un badge avec un slogan — ecrivez ce slogan mot pour mot.",
+    "Vous avez dit avoir vu un film — quel etait le titre exact de ce film ?",
+    "Vous avez dit qu'un jeune faisait un bruit avec son telephone — ecrivez l'onomatopee exacte de ce bruit.",
+    "Vous avez dit que le son saturait — ecrivez l'onomatopee exacte de cette saturation.",
+    "Vous avez dit que quelqu'un a crie une insulte — qu'a crie cette personne exactement ?",
+    "Vous avez dit qu'une scene etait tellement mauvaise — quelle scene exactement ?",
+    "Vous avez dit avoir paye le plein tarif — combien coutait la place exactement ?",
+    "Vous avez dit etre sortis frustres — qui du groupe avait propose d'aller voir ce film ?",
+    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
   ],
   "reading_time_seconds": 90
 }

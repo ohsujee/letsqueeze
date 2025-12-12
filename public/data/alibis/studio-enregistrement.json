@@ -1,20 +1,20 @@
 {
   "id": "studio-enregistrement",
-  "title": "Session en studio d'enregistrement",
-  "context": "Une escroquerie financière a été orchestrée hier après-midi depuis un cybercafé. L'adresse IP correspond à un lieu proche de votre zone habituelle. Vous niez : vous étiez en studio pour enregistrer de la musique.",
-  "accused_document": "<p>Hier après-midi, vous aviez réservé une session dans un studio d'enregistrement pour travailler sur un nouveau morceau. Vous y étiez avec quelqu'un qui collaborait avec vous sur ce projet musical.</p><p>En arrivant au studio, un producteur vous a accueillis et vous a fait visiter les installations. Il vous a expliqué comment la session allait se dérouler et vous a installés dans la cabine d'enregistrement avec les casques et le micro principal.</p><p>Vous avez commencé par enregistrer un refrain spécifique du morceau. Le producteur vous demandait de refaire plusieurs prises pour obtenir le meilleur résultat possible. Il vous donnait des indications depuis la régie pour améliorer votre performance. Le style musical que vous enregistriez était un genre assez particulier.</p><p>À un moment, vous avez eu un débat avec le producteur sur la tonalité à utiliser pour une partie du morceau. Vous n'étiez pas d'accord sur l'approche à adopter, mais vous avez fini par trouver un compromis. Votre collaborateur a aussi enregistré sa partie pendant la session.</p><p>Vers la fin, le producteur vous a fait écouter le mixage préliminaire de ce que vous veniez d'enregistrer. Vous avez pris des notes sur les ajustements à faire pour la prochaine session. Vous avez aussi commandé des plats à livrer car la session durait longtemps et vous aviez faim.</p><p>La session s'est terminée en soirée. Le producteur vous a donné une copie des fichiers enregistrés sur une clé USB. Vous avez discuté de la date de la prochaine session avant de partir.</p>",
-  "inspector_summary": "Les accusés affirment avoir passé l'après-midi en studio d'enregistrement pendant l'escroquerie financière.",
+  "title": "Studio d'enregistrement pourri",
+  "context": "Une enseigne lumineuse de magasin a ete arrachee et jetee sur la chaussee hier apres-midi. Des temoins vous ont vu dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier apres-midi, le groupe avait reserve un studio d'enregistrement pour travailler sur un projet musical. L'adresse etait dans un immeuble delabré. L'escalier pour y acceder sentait le renfermé et l'humidite. La porte du studio etait blindee avec de la mousse acoustique qui se decollait.</p><p>Le producteur etait un type pretentieux qui soupirait a chaque prise. Il portait un t-shirt avec le logo du studio imprime dessus. Il regardait le groupe comme s'il perdait son temps avec des amateurs.</p><p>Le materiel etait vetuste. Le micro principal gresillait et captait des bruits parasites. Les casques etaient inconfortables et laissaient des marques sur les oreilles. La cabine d'enregistrement sentait la transpiration des utilisateurs precedents.</p><p>Le producteur a fait recommencer la meme partie des dizaines de fois sans jamais etre satisfait. Il levait les yeux au ciel a chaque erreur. A un moment, il a fait une remarque cassante sur le manque de talent du groupe. L'ambiance est devenue tres tendue.</p><p>A la fin, le producteur a fait ecouter le resultat avec un air blase. C'etait mediocre. Il a facture le plein tarif malgre tous les problemes techniques. Le groupe est parti degoute en se demandant pourquoi il avait choisi ce studio.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi dans un studio d'enregistrement pendant le vol de l'enseigne.",
   "inspector_questions": [
-    "Vous avez dit avoir réservé un studio d'enregistrement — quel était le nom de ce studio ?",
-    "Vous avez dit être avec quelqu'un — qui était votre collaborateur ?",
-    "Vous avez dit avoir enregistré un refrain — pouvez-vous le fredonner ou en dire les paroles ?",
-    "Vous avez dit que le producteur vous a demandé de refaire plusieurs prises — combien de fois exactement ?",
-    "Vous avez dit que le style musical était particulier — quel genre exactement ?",
-    "Vous avez dit avoir eu un débat sur la tonalité — quelle tonalité avez-vous finalement choisie ?",
-    "Vous avez dit que votre collaborateur a enregistré sa partie — quelle partie exactement ?",
-    "Vous avez dit avoir commandé des plats à livrer — qu'avez-vous commandé ?",
-    "Vous avez dit que la session s'est terminée en soirée — qui a eu l'idée du morceau au départ ?",
-    "Vous avez dit avoir reçu une copie sur clé USB — de quelle couleur était cette clé ?"
+    "Vous avez dit avoir reserve un studio — quel etait le nom exact de ce studio ?",
+    "Vous avez dit que le producteur portait un t-shirt avec un logo — decrivez ce logo exactement.",
+    "Vous avez dit que le micro gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
+    "Vous avez dit avoir travaille sur un projet — quel etait le titre du morceau ?",
+    "Vous avez dit avoir recommence des dizaines de fois — combien de prises exactement ?",
+    "Vous avez dit que le producteur a fait une remarque cassante — qu'a-t-il dit exactement ?",
+    "Vous avez dit que le resultat etait mediocre — quel style musical c'etait ?",
+    "Vous avez dit avoir paye le plein tarif — quel etait le montant exact ?",
+    "Vous avez dit etre partis degoutés — qui du groupe avait trouve ce studio ?",
+    "Vous avez dit avoir un projet musical — qui du groupe avait eu l'idee de ce projet ?"
   ],
   "reading_time_seconds": 90
 }

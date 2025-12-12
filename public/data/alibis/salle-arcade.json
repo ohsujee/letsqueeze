@@ -1,0 +1,20 @@
+{
+  "id": "salle-arcade",
+  "title": "Salle d'arcade pourrie",
+  "context": "Un panneau publicitaire geant a ete taggué avec des obscenites hier apres-midi. Des cameras montrent un groupe correspondant a votre description avec des bombes de peinture. Vous contestez.",
+  "accused_document": "<p>Hier apres-midi, le groupe est alle dans une salle d'arcade retro pour jouer. L'endroit etait dans un centre commercial mourant. En entrant, ca sentait le plastique surchauffe et la poussiere. La moquette etait tachee et decoloree par endroits.</p><p>Le gerant etait un vieux type grognon assis derriere un comptoir graisseux. Il portait une casquette avec le logo de l'arcade brode dessus. Il echangeait les pieces contre des jetons en soupirant comme si ca le derangeait.</p><p>La plupart des machines etaient en panne ou fonctionnaient mal. L'ecran d'une borne clignotait et donnait mal aux yeux. Les manettes etaient poisseuses et certains boutons restaient enfonces. Une machine a avalé les jetons sans lancer la partie.</p><p>Le groupe a reclame un remboursement mais le gerant a refuse en montrant un panneau avec une inscription. La seule machine qui marchait correctement etait monopolisee par un gamin insupportable qui refusait de laisser sa place.</p><p>Le distributeur de boissons a rendu une canette tiede et cabossee. Quelqu'un du groupe a fait tomber des jetons qui ont roule sous une machine impossible a atteindre. Le groupe est parti frustre apres avoir gaspille tout son argent sans vraiment jouer.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi dans une salle d'arcade pendant le tag du panneau.",
+  "inspector_questions": [
+    "Vous avez dit etre alles dans une salle d'arcade — quel etait le nom exact de cette arcade ?",
+    "Vous avez dit que le gerant portait une casquette avec un logo — decrivez ce logo exactement.",
+    "Vous avez dit qu'une machine a avale les jetons — quel jeu etait-ce ?",
+    "Vous avez dit qu'il y avait un panneau avec une inscription — ecrivez cette inscription mot pour mot.",
+    "Vous avez dit qu'un gamin monopolisait une machine — a quel jeu jouait-il ?",
+    "Vous avez dit que quelqu'un a fait tomber des jetons — qui du groupe etait-ce ?",
+    "Vous avez dit que le distributeur a rendu une canette tiede — quelle boisson etait-ce ?",
+    "Vous avez dit avoir gaspille tout votre argent — combien le groupe avait-il echange en jetons ?",
+    "Vous avez dit etre partis frustres — qui du groupe avait propose d'aller a l'arcade ?",
+    "Vous avez dit etre partis — a quelle heure approximativement ?"
+  ],
+  "reading_time_seconds": 90
+}

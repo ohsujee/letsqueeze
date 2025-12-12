@@ -1,0 +1,20 @@
+{
+  "id": "spa-douteux",
+  "title": "Spa bien-etre douteux",
+  "context": "Une bouche d'egout a ete ouverte et des cones de chantier jetes dedans hier apres-midi. Des temoins vous ont vu dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier apres-midi, le groupe s'est rendu dans un spa pour une seance de detente. L'endroit etait cense etre relaxant mais en arrivant, ca sentait le chlore agressif melange a un parfum chimique ecoeurant. Le carrelage de l'entree etait mouille et glissant.</p><p>La receptionniste etait une femme seche qui parlait avec condescendance. Elle portait une tunique avec le logo du spa brode dessus. Elle a fait payer d'avance et a refuse d'expliquer les differentes options.</p><p>Les vestiaires etaient exigus et mal ventiles. Les casiers fermaient mal et les serviettes fournies etaient rapeuses et sentaient l'humidite. Le peignoir distribue avait une tache suspecte sur l'epaule.</p><p>Le jacuzzi etait tiede et l'eau avait une couleur verdatre inquietante. Des cheveux flottaient a la surface. Le sauna etait beaucoup trop chaud et la porte coinçait. Quelqu'un du groupe a failli s'evanouir a cause de la chaleur.</p><p>Un employe a fait une remarque desagreable sur le niveau de bruit du groupe. Le hammam etait en panne et personne n'avait prevenu. Le groupe est parti stresse au lieu d'etre detendu, en jurant de ne jamais remettre les pieds dans cet endroit.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi dans un spa pendant l'incident de la bouche d'egout.",
+  "inspector_questions": [
+    "Vous avez dit etre alles dans un spa — quel etait le nom exact de cet etablissement ?",
+    "Vous avez dit que la receptionniste portait une tunique avec un logo — decrivez ce logo exactement.",
+    "Vous avez dit que le peignoir avait une tache — de quelle couleur etait cette tache ?",
+    "Vous avez dit que l'eau du jacuzzi etait verdatre — a quelle temperature etait-elle environ ?",
+    "Vous avez dit que quelqu'un a failli s'evanouir — qui du groupe etait-ce ?",
+    "Vous avez dit qu'un employe a fait une remarque desagreable — qu'a-t-il dit exactement ?",
+    "Vous avez dit avoir paye d'avance — combien coutait la seance exactement ?",
+    "Vous avez dit que le hammam etait en panne — qui du groupe avait voulu l'essayer ?",
+    "Vous avez dit etre partis stresses — qui du groupe avait trouve ce spa ?",
+    "Vous avez dit jurer de ne jamais revenir — comment le groupe est-il rentre ?"
+  ],
+  "reading_time_seconds": 90
+}

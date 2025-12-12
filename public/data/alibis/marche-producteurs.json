@@ -1,20 +1,20 @@
 {
   "id": "marche-producteurs",
-  "title": "Marché de producteurs",
-  "context": "Une altercation violente a éclaté dans un bar entre 10h et 12h. Plusieurs témoins affirment vous avoir vu sur place. Vous contestez : vous faisiez vos courses au marché.",
-  "accused_document": "<p>Ce matin-là, vous êtes allés au marché avec quelqu'un pour faire vos courses de la semaine. C'était un marché local avec plusieurs stands de producteurs. L'ambiance était animée et il y avait déjà beaucoup de monde.</p><p>Vous avez commencé par aller à un stand de légumes. Le vendeur était très sympathique et vous a conseillé sur les produits de saison. Vous avez acheté plusieurs légumes et aussi des herbes aromatiques. Il vous a mis tout ça dans un sac et vous a donné un petit conseil de cuisine.</p><p>Ensuite, vous êtes passés au stand de fromages où vous avez pu goûter plusieurs produits avant d'acheter. Le fromager vous a fait goûter son fromage préféré qui était vraiment délicieux. Vous en avez pris un morceau. Votre compagnon, lui, préférait un autre fromage complètement différent.</p><p>Vous êtes aussi allés au stand du boulanger pour acheter du pain frais. Il y avait une bonne odeur de pain qui sortait du four. Vous avez pris plusieurs types de pain différents pour la semaine. Un autre stand vendait du miel et des produits de la ruche, vous y avez acheté quelque chose.</p><p>À un moment, vous avez croisé quelqu'un que vous connaissiez qui faisait aussi ses courses. Vous avez discuté quelques minutes avec cette personne. Il y avait aussi un stand qui avait une très longue file d'attente parce que ses produits avaient l'air vraiment bons.</p><p>Avant de partir, vous êtes passés voir un dernier stand où vous avez acheté quelque chose de spécial. Vous êtes rentrés chez vous avec plusieurs sacs remplis de courses.</p>",
-  "inspector_summary": "Les accusés prétendent avoir fait leurs courses au marché de producteurs locaux pendant l'altercation au bar.",
+  "title": "Marche de producteurs glauque",
+  "context": "Un scooter a ete vole puis incendie dans une impasse hier matin. Des temoins affirment avoir vu un groupe correspondant a votre description quitter les lieux precipitamment. Vous contestez.",
+  "accused_document": "<p>Ce matin-la, le groupe est alle au marche local pour faire des courses. L'endroit etait bonde et ca sentait un melange de poisson pas frais et de legumes pourris laisses au soleil. Les alleés etaient etroites et les gens se bousculaient.</p><p>Le premier stand visite vendait des legumes avec des mouches qui tournaient autour. Le vendeur etait un vieux type grognon qui criait les prix. Il portait une casquette avec une inscription brodee dessus. Les tomates proposees etaient molles et tachees.</p><p>Au stand de fromages, l'odeur etait insupportable. Le fromager insistait pour faire gouter des trucs suspects. Un fromage en particulier avait une croute verdatre douteuse. Il y avait une ardoise avec les prix ecrits a la craie a moitie effacee.</p><p>Le stand de charcuterie avait des mouches collees sur le papier tue-mouches au-dessus. Le vendeur tranchait la viande avec un couteau qui avait l'air pas tres propre. Le sol autour du stand etait gras et glissant.</p><p>Quelqu'un du groupe a marche dans une flaque d'eau croupie pres des cagettes. Un autre s'est fait engueuler par un commercant pour avoir touche un fruit sans acheter. Le groupe est parti avec des sacs qui suintaient et une envie de prendre une douche.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe la matinee au marche de producteurs pendant le vol du scooter.",
   "inspector_questions": [
-    "Vous avez dit être allés au marché — quel marché exactement ?",
-    "Vous avez dit y être allés avec quelqu'un — qui était cette personne ?",
-    "Vous avez dit que le vendeur de légumes vous a donné un conseil de cuisine — quel conseil ?",
-    "Vous avez dit avoir acheté plusieurs légumes — lesquels ?",
-    "Vous avez dit que le fromager vous a fait goûter son fromage préféré — quel fromage ?",
-    "Vous avez dit que votre compagnon préférait un autre fromage — lequel ?",
-    "Vous avez dit avoir acheté plusieurs types de pain — lesquels ?",
-    "Vous avez dit avoir acheté quelque chose au stand de miel — quoi exactement ?",
-    "Vous avez dit avoir croisé quelqu'un que vous connaissiez — qui était-ce ?",
-    "Vous avez dit avoir acheté quelque chose de spécial au dernier stand — quoi et quel stand ?"
+    "Vous avez dit etre alles au marche — quel etait le nom exact de ce marche ?",
+    "Vous avez dit que le vendeur de legumes portait une casquette — ecrivez l'inscription brodee dessus mot pour mot.",
+    "Vous avez dit qu'un fromage avait une croute verdatre — quel etait le nom de ce fromage selon le fromager ?",
+    "Vous avez dit qu'il y avait une ardoise avec les prix — quel etait le prix du fromage le plus cher affiche ?",
+    "Vous avez dit que quelqu'un a marche dans une flaque — qui du groupe etait-ce ?",
+    "Vous avez dit que quelqu'un s'est fait engueuler — qui du groupe etait-ce et quel fruit avait-il touche ?",
+    "Vous avez dit que le commercant a engueule — qu'a-t-il dit exactement ?",
+    "Vous avez dit que les sacs suintaient — qu'est-ce que le groupe avait achete au final ?",
+    "Vous avez dit etre partis — a quelle heure approximativement le groupe a-t-il quitte le marche ?",
+    "Vous avez dit avoir envie de prendre une douche — comment le groupe est-il rentre ?"
   ],
   "reading_time_seconds": 90
 }

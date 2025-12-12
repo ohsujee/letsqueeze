@@ -1,20 +1,20 @@
 {
   "id": "visite-musee",
-  "title": "Visite au musée",
-  "context": "Un incendie criminel a été déclenché dans un entrepôt entre 14h et 16h. Votre téléphone a borné dans le secteur. Vous affirmez être innocent : vous visitiez un musée.",
-  "accused_document": "<p>Cet après-midi, vous avez décidé d'aller visiter un musée avec quelqu'un. C'était une exposition temporaire sur un thème particulier qui vous intéressait depuis longtemps.</p><p>À l'entrée, vous avez dû faire la queue un moment avant d'acheter vos billets. Le prix était assez élevé mais l'exposition avait l'air d'en valoir la peine. On vous a donné quelque chose à porter ou à garder pour prouver que vous aviez payé.</p><p>En entrant dans la première salle, vous avez été impressionnés par l'ambiance. Il y avait plusieurs œuvres exposées et vous avez pris le temps de les regarder. Une œuvre en particulier vous a vraiment marqués et vous en avez longuement discuté avec votre compagnon. Vous aviez des avis assez différents sur cette œuvre.</p><p>Dans une autre salle, il y avait un groupe avec un guide qui expliquait certaines pièces de l'exposition. Vous vous êtes arrêtés pour écouter un moment. Le guide a raconté une anecdote intéressante sur l'un des artistes présentés.</p><p>À un moment, quelqu'un dans le musée a fait quelque chose qui n'était pas autorisé et un gardien est intervenu. Ça a créé un petit moment de tension. Vous avez aussi croisé d'autres visiteurs qui prenaient beaucoup de photos devant certaines œuvres.</p><p>Avant de partir, vous êtes passés par la boutique du musée où vous avez acheté un souvenir. Vous avez aussi pris un café à la cafétéria du musée et vous avez discuté de votre visite.</p>",
-  "inspector_summary": "Les accusés affirment avoir visité un musée pendant le créneau de l'incendie.",
+  "title": "Visite de musee ennuyeuse",
+  "context": "Une boite aux lettres a ete arrachee et utilisee pour defoncer une vitrine hier apres-midi. Des temoins affirment avoir vu un groupe correspondant a votre description fuir les lieux. Vous contestez.",
+  "accused_document": "<p>Hier apres-midi, le groupe est alle visiter un musee pour voir une exposition temporaire. En arrivant, la file d'attente etait interminable et ca sentait le renfermé et la poussiere. L'entree coutait une fortune pour ce que c'etait.</p><p>Le vigile a l'entree etait desagreable et a fouille les sacs avec suspicion. Il portait un badge avec le slogan du musee imprime dessus. Il a fait une remarque sur le sac de quelqu'un du groupe.</p><p>Les salles etaient bondees et surchauffees. Impossible de voir les oeuvres correctement avec tous les gens qui se bousculaient. Un groupe scolaire hurlait et courait partout. Le gardien d'une salle faisait des remarques seches a quiconque s'approchait trop.</p><p>L'exposition elle-meme etait decevante. Les oeuvres principales etaient en restauration et remplacees par des photos. Les cartels explicatifs etaient illegibles et certains manquaient completement. Le climatisation faisait un bruit de fond agaçant en permanence.</p><p>A la boutique, les prix etaient scandaleux pour des objets de mauvaise qualite. Le cafe du musee servait du cafe tiede dans des gobelets en carton pour le prix d'un repas. Le groupe est sorti frustre en se disant que c'etait de l'argent jete par les fenetres.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi au musee pendant la destruction de la vitrine.",
   "inspector_questions": [
-    "Vous avez dit être allés visiter un musée — quel musée exactement ?",
-    "Vous avez dit que l'exposition portait sur un thème particulier — quel thème ?",
-    "Vous avez dit qu'on vous a donné quelque chose pour prouver que vous aviez payé — quoi exactement ?",
-    "Vous avez dit qu'une œuvre vous a marqués — quelle œuvre et pourquoi ?",
-    "Vous avez dit avoir des avis différents sur cette œuvre — quels étaient vos avis respectifs ?",
-    "Vous avez dit que le guide a raconté une anecdote — quelle anecdote ?",
-    "Vous avez dit que quelqu'un a fait quelque chose de non autorisé — quoi exactement ?",
-    "Vous avez dit avoir acheté un souvenir — quel souvenir ?",
-    "Vous avez dit avoir pris un café à la cafétéria — qui a payé le café ?",
-    "Vous avez dit avoir discuté de votre visite — quelle a été votre œuvre préférée de l'exposition ?"
+    "Vous avez dit etre alles au musee — quel etait le nom exact de ce musee ?",
+    "Vous avez dit que le vigile portait un badge avec un slogan — ecrivez ce slogan mot pour mot.",
+    "Vous avez dit que le vigile a fait une remarque sur un sac — qu'a-t-il dit exactement ?",
+    "Vous avez dit avoir vu une exposition temporaire — quel etait le theme de cette exposition ?",
+    "Vous avez dit que la climatisation faisait un bruit — ecrivez l'onomatopee exacte de ce bruit.",
+    "Vous avez dit que les oeuvres principales etaient en restauration — lesquelles exactement ?",
+    "Vous avez dit avoir achete quelque chose a la boutique — quoi exactement et a quel prix ?",
+    "Vous avez dit que le cafe etait tiede — qui du groupe a commande ce cafe ?",
+    "Vous avez dit etre sortis frustres — qui du groupe avait propose cette visite ?",
+    "Vous avez dit que c'etait de l'argent jete — combien le groupe a-t-il depense au total ?"
   ],
   "reading_time_seconds": 90
 }

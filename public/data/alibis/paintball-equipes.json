@@ -1,20 +1,20 @@
 {
   "id": "paintball-equipes",
-  "title": "Session de paintball",
-  "context": "Un cambriolage dans une maison individuelle a été signalé hier après-midi. Un voisin affirme avoir vu deux personnes sortir par la fenêtre. Vous contestez fermement : vous étiez sur un terrain de paintball avec un groupe.",
-  "accused_document": "<p>Hier après-midi, vous avez participé à une session de paintball organisée sur un terrain aménagé avec plusieurs zones de jeu. Vous étiez une dizaine de personnes réparties en deux équipes qui devaient s'affronter dans différents modes de jeu.</p><p>Au début, un responsable vous a expliqué les règles de sécurité et vous a équipés. Chacun a reçu un masque de protection, un lanceur, et des billes de peinture d'une couleur spécifique selon votre équipe. Votre équipe portait des chasubles d'une certaine couleur pour vous distinguer.</p><p>Le premier mode de jeu consistait à capturer une base adverse cachée dans la zone boisée. Pendant la partie, l'un de vos coéquipiers a tenté une manœuvre audacieuse mais s'est fait éliminer de façon spectaculaire. Vous vous rappelez avoir tiré sur plusieurs adversaires et avoir dû vous cacher derrière des obstacles en bois.</p><p>Entre deux parties, vous avez fait une pause pour recharger vos lanceurs et boire quelque chose. Votre équipe en a profité pour discuter d'une nouvelle stratégie à adopter pour la partie suivante.</p><p>La dernière partie était un mode différent du premier. Elle s'est terminée en fin d'après-midi et après ça, tout le monde s'est retrouvé pour discuter des moments forts de la journée avant de se séparer.</p>",
-  "inspector_summary": "Les accusés affirment avoir passé l'après-midi sur un terrain de paintball avec un groupe pendant le cambriolage.",
+  "title": "Paintball dans hangar pourri",
+  "context": "Une cabine telephonique a ete arrachee et jetee dans un canal hier apres-midi. Des temoins ont vu un groupe correspondant a votre description fuir en courant. Vous contestez.",
+  "accused_document": "<p>Hier apres-midi, le groupe a participe a une session de paintball dans un terrain en peripherie. L'endroit etait un vieux hangar reconverti qui sentait la peinture sechee et la poussiere. Le parking n'etait qu'un terrain vague plein de nids-de-poule.</p><p>Le responsable etait un type bourru qui aboyait les regles de securite. Il portait un gilet avec le nom du terrain imprime dans le dos. Les equipements distribues etaient uses jusqu'a la corde. Les masques avaient des traces de sueur sechee et les visières etaient rayees.</p><p>Le lanceur attribue au groupe fuyait et laissait des traces de peinture sur les mains. Les billes etaient d'une couleur specifique pour identifier l'equipe. Certaines billes etaient deformees et ne tiraient pas droit.</p><p>Pendant une partie, quelqu'un du groupe s'est pris une bille en pleine nuque parce que son masque etait mal ajuste. Ca a laisse un bleu enorme. Un autre s'est vautre dans la boue en courant et a fini couvert de terre. Le sol du terrain faisait un bruit de succion a chaque pas.</p><p>A la fin, le responsable a annonce les scores sur un tableau blanc efface a moitie. L'equipe du groupe a perdu toutes les manches. Tout le monde est reparti sale, couvert de peinture, avec des bleus partout.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi sur un terrain de paintball pendant l'incident de la cabine telephonique.",
   "inspector_questions": [
-    "Vous avez dit être une dizaine de personnes — combien exactement étiez-vous ?",
-    "Vous avez dit avoir reçu des billes d'une couleur spécifique — de quelle couleur étaient vos billes ?",
-    "Vous avez dit que votre équipe portait des chasubles — de quelle couleur exactement ?",
-    "Vous avez dit qu'un coéquipier a tenté une manœuvre audacieuse — qui était-ce et quelle manœuvre ?",
-    "Vous avez dit avoir tiré sur plusieurs adversaires — combien de personnes avez-vous touchées ?",
-    "Vous avez dit avoir discuté d'une stratégie — quelle était cette stratégie ?",
-    "Vous avez dit que la dernière partie était un mode différent — quel était ce mode de jeu ?",
-    "Vous avez dit que la session s'est terminée en fin d'après-midi — quelle équipe a gagné le plus de parties ?",
-    "Vous avez dit vous être retrouvés pour discuter — qui a eu le plus d'éliminations de la journée ?",
-    "Vous avez dit vous être séparés après — qui est parti en premier du groupe ?"
+    "Vous avez dit etre alles sur un terrain de paintball — quel etait le nom exact de ce terrain ?",
+    "Vous avez dit que le responsable portait un gilet avec un nom — ecrivez ce nom exactement.",
+    "Vous avez dit que les billes etaient d'une couleur specifique — quelle couleur exactement ?",
+    "Vous avez dit que quelqu'un s'est pris une bille dans la nuque — qui du groupe etait-ce ?",
+    "Vous avez dit que quelqu'un s'est vautre dans la boue — qui du groupe etait-ce ?",
+    "Vous avez dit que le sol faisait un bruit de succion — ecrivez l'onomatopee exacte de ce bruit.",
+    "Vous avez dit que l'equipe a perdu toutes les manches — combien de manches ont ete jouees au total ?",
+    "Vous avez dit que les scores etaient sur un tableau blanc — quel etait le score final de la derniere manche ?",
+    "Vous avez dit etre repartis sales — qui du groupe etait le plus couvert de peinture ?",
+    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
   ],
   "reading_time_seconds": 90
 }

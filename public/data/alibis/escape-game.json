@@ -1,20 +1,20 @@
 {
   "id": "escape-game",
-  "title": "Escape game",
-  "context": "Un vol de scooter avec effraction a été commis hier après-midi dans un parking résidentiel. Des traces ADN ont été retrouvées sur les lieux. Vous niez catégoriquement : vous étiez enfermés dans un escape game avec des amis.",
-  "accused_document": "<p>Hier après-midi, vous avez réservé une session d'escape game avec un groupe d'amis. Le thème de la salle était particulier et assez immersif. En arrivant, un game master vous a accueillis et expliqué le scénario ainsi que les règles à respecter.</p><p>Vous êtes entrés dans une salle décorée dans l'ambiance du thème. Vous aviez 60 minutes pour résoudre toutes les énigmes et sortir. Le chronomètre s'est lancé et vous avez commencé à fouiller la pièce pour trouver des indices.</p><p>La première énigme que vous avez résolue impliquait un mécanisme spécifique qui a ouvert un premier coffre. À l'intérieur, vous avez trouvé un code qui servait pour la suite. L'un de vos coéquipiers a eu l'intuition brillante de regarder quelque part où personne n'avait pensé chercher, ce qui vous a fait gagner beaucoup de temps.</p><p>À un moment, vous étiez complètement bloqués sur une énigme particulièrement difficile. Vous avez dû demander un indice au game master via l'interphone. Vers la fin, vous avez découvert un passage secret qui menait à la dernière partie de la salle.</p><p>Vous avez réussi à sortir avec quelques minutes restantes. Le game master est revenu vous féliciter et vous a montré votre temps final sur l'écran. Vous avez ensuite pris une photo de groupe devant le décor avant de partir.</p>",
-  "inspector_summary": "Les accusés affirment avoir été enfermés dans un escape game pendant le vol de scooter.",
+  "title": "Escape game miteux",
+  "context": "Une voiture a ete incendiee hier apres-midi sur le parking d'un supermarche. Les cameras montrent un groupe correspondant a votre description quittant les lieux en courant. Vous contestez.",
+  "accused_document": "<p>Hier apres-midi, le groupe a decide de tester un escape game trouve sur internet avec une promo douteuse. En arrivant, l'enseigne au-dessus de la porte etait a moitie decrochee et clignotait. L'accueil sentait le renferme melange a une odeur de vieux tapis humide.</p><p>Le game master etait un type bizarre qui marmonnait ses explications en fixant le mur. Il portait un t-shirt avec une inscription dessus. Il a lance le chrono et a enferme le groupe dans une salle au decor defrachi. La moquette etait collante sous les pieds et certains accessoires etaient casses ou scotches grossierement.</p><p>Le groupe a commence a chercher des indices mais un des cadenas etait bloque. Impossible de l'ouvrir meme avec le bon code. Il a fallu appeler a l'aide via un interphone qui gresillait. Le game master a mis plusieurs minutes a repondre et a fini par venir debloquer le truc en soupirant bruyamment.</p><p>Une des enigmes necessitait d'appuyer sur un bouton qui faisait un bruit particulier a chaque pression. Le groupe a echoue lamentablement et le chrono a sonne avant que quiconque puisse finir. Le game master est revenu avec un air blase et a marmonne un commentaire desagreable sur la performance du groupe.</p><p>En sortant, le panneau d'affichage des scores dans l'entree montrait que le groupe etait classe dernier. Quelqu'un a quand meme voulu prendre une photo devant le decor pitoyable avant de partir.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi enfermes dans un escape game pendant l'incendie.",
   "inspector_questions": [
-    "Vous avez dit avoir réservé un escape game — quel était le nom du lieu ?",
-    "Vous avez dit que le thème de la salle était particulier — quel était ce thème exactement ?",
-    "Vous avez dit que vous étiez un groupe d'amis — combien étiez-vous précisément ?",
-    "Vous avez dit que la première énigme impliquait un mécanisme — quel type de mécanisme ?",
-    "Vous avez dit avoir trouvé un code dans le coffre — quel était ce code ?",
-    "Vous avez dit qu'un coéquipier a regardé quelque part d'inattendu — où exactement ?",
-    "Vous avez dit être bloqués sur une énigme difficile — quelle était cette énigme ?",
-    "Vous avez dit avoir découvert un passage secret — où menait-il et comment l'avez-vous trouvé ?",
-    "Vous avez dit avoir réussi à sortir — quel était votre temps final exactement ?",
-    "Vous avez dit avoir pris une photo — qui a pris la photo ?"
+    "Vous avez dit avoir trouve cet escape game en ligne — quel etait le nom exact de l'etablissement ?",
+    "Vous avez dit que le game master portait un t-shirt avec une inscription — ecrivez cette inscription mot pour mot.",
+    "Vous avez dit que la salle avait un theme — quel etait ce theme exactement ?",
+    "Vous avez dit qu'un cadenas etait bloque — quel etait le code que le groupe avait trouve ?",
+    "Vous avez dit que l'interphone gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
+    "Vous avez dit qu'un bouton faisait un bruit particulier — ecrivez l'onomatopee exacte de ce bruit.",
+    "Vous avez dit que le game master a fait un commentaire desagreable — qu'a-t-il dit exactement ?",
+    "Vous avez dit que le groupe etait classe dernier — quel etait le temps final affiche ?",
+    "Vous avez dit avoir pris une photo — qui du groupe a pris cette photo ?",
+    "Vous avez dit etre partis apres — comment le groupe est-il rentre ?"
   ],
   "reading_time_seconds": 90
 }

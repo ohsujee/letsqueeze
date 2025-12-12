@@ -1,0 +1,20 @@
+{
+  "id": "soiree-poker",
+  "title": "Soiree poker truquee",
+  "context": "Un feu de voiture a ete declenche dans un parking prive hier soir. Des cameras montrent un groupe correspondant a votre description quittant les lieux precipitamment. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe a participe a une soiree poker organisee dans l'arriere-salle d'un bar. L'endroit etait enfume et sentait le tabac froid malgre l'interdiction. L'eclairage etait une ampoule nue qui pendait du plafond et donnait mal a la tete.</p><p>L'organisateur etait un type louche avec une chemise brillante et trop de bagues. Il portait une casquette avec un slogan imprime dessus. Il melangeait les cartes d'une facon suspecte et souriait bizarrement.</p><p>La table de jeu etait bancale et le tapis vert etait tache et troue par endroits. Les jetons etaient depareilles et certains etaient feles. Les cartes etaient usees et on pouvait presque voir a travers.</p><p>Quelqu'un du groupe a accuse un autre joueur de tricher. Ca a cree une tension enorme. L'organisateur a pris parti et ca a degenere en dispute. Un verre a ete renverse sur les cartes.</p><p>A la fin, le groupe avait perdu tout son argent dans des circonstances douteuses. L'organisateur a fait un commentaire moqueur en empochant les gains. Le groupe est parti furieux en se sentant arnaque.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe la soiree a une partie de poker pendant l'incendie de la voiture.",
+  "inspector_questions": [
+    "Vous avez dit avoir participe a une soiree poker — dans quel bar etait-ce exactement ?",
+    "Vous avez dit que l'organisateur portait une casquette avec un slogan — ecrivez ce slogan exactement.",
+    "Vous avez dit que quelqu'un a accuse un autre de tricher — qui du groupe a accuse qui ?",
+    "Vous avez dit qu'un verre a ete renverse — qui du groupe l'a renverse ?",
+    "Vous avez dit que l'organisateur a fait un commentaire moqueur — qu'a-t-il dit exactement ?",
+    "Vous avez dit avoir perdu tout votre argent — combien le groupe avait-il mise au depart ?",
+    "Vous avez dit vous sentir arnaques — quelle main suspecte a fait perdre le groupe ?",
+    "Vous avez dit que les cartes etaient usees — de quelle marque etaient-elles ?",
+    "Vous avez dit etre partis furieux — qui du groupe a propose de participer a cette soiree ?",
+    "Vous avez dit etre partis — a quelle heure approximativement le groupe est-il parti ?"
+  ],
+  "reading_time_seconds": 90
+}

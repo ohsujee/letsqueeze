@@ -1,0 +1,20 @@
+{
+  "id": "cours-cuisine",
+  "title": "Cours de cuisine catastrophe",
+  "context": "Des vehicules ont ete rayes avec une cle dans un parking prive hier soir. Des cameras vous situent dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe a participe a un cours de cuisine collectif dans un atelier. L'endroit etait un local exigu qui sentait le graillon et les oignons brules. Les plans de travail etaient taches et les ustensiles avaient l'air d'avoir vecu.</p><p>Le chef qui animait le cours etait un type impatient qui levait les yeux au ciel a chaque question. Il portait une toque avec le logo de l'atelier brode dessus. Il donnait les instructions trop vite et soupirait quand quelqu'un ne suivait pas.</p><p>Les ingredients fournis etaient de qualite douteuse. Les legumes etaient mous et les herbes fletrées. Le four faisait un bruit inquietant et chauffait de maniere inegale. Un des bruleurs ne s'allumait plus.</p><p>Quelqu'un du groupe a fait bruler sa preparation. La fumee a envahi la piece et le detecteur de fumee s'est declenche. Le chef a hurle et fait une remarque humiliante devant tout le monde. Un autre participant a coupe quelqu'un avec un couteau mal affute.</p><p>Le resultat final etait immangeable. Le chef a goute et fait une grimace de degout sans rien dire. Le groupe est parti affame en ayant paye cher pour ne rien pouvoir manger.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe la soiree a un cours de cuisine pendant les rayures sur les voitures.",
+  "inspector_questions": [
+    "Vous avez dit avoir participe a un cours de cuisine — quel etait le nom exact de cet atelier ?",
+    "Vous avez dit que le chef portait une toque avec un logo — decrivez ce logo exactement.",
+    "Vous avez dit que les legumes etaient mous — quels legumes exactement ?",
+    "Vous avez dit que la fumee a envahi la piece — combien de temps a dure l'evacuation ?",
+    "Vous avez dit que quelqu'un a fait bruler sa preparation — qui du groupe etait-ce ?",
+    "Vous avez dit que le chef a fait une remarque humiliante — qu'a-t-il dit exactement ?",
+    "Vous avez dit que quelqu'un s'est fait couper — qui du groupe a coupe qui ?",
+    "Vous avez dit que le resultat etait immangeable — quel plat etiez-vous censes preparer ?",
+    "Vous avez dit avoir paye cher — combien coutait le cours exactement ?",
+    "Vous avez dit etre partis affames — qui du groupe avait reserve ce cours ?"
+  ],
+  "reading_time_seconds": 90
+}

@@ -1,20 +1,20 @@
 {
   "id": "match-equipe-locale",
-  "title": "Match de foot local",
-  "context": "Un incendie criminel a été déclenché hier après-midi dans un entrepôt abandonné. Des témoins affirment avoir vu deux personnes correspondant à votre description quitter les lieux en courant. Vous contestez fermement : vous étiez au stade pour encourager votre équipe locale de foot.",
-  "accused_document": "<p>Hier après-midi, vous étiez au stade pour voir un match de foot de votre équipe locale préférée. C'était un match important contre une équipe rivale de la région. Le match devait commencer en milieu d'après-midi.</p><p>Devant le stade, vous avez eu du mal à rentrer car votre porte d'entrée habituelle était bloquée par la foule. Vous avez donc dû passer par une autre porte sur le côté.</p><p>L'ambiance dans le stade était électrique. Les supporters autour de vous chantaient très fort un chant spécifique pour encourager l'équipe. Tout le monde sautait en rythme.</p><p>Vous étiez installé dans les tribunes avec une bonne vue sur le terrain. Pendant le match, un joueur de votre équipe portant un vêtement de couleur vive a fait une action spectaculaire qui a fait hurler tout le stade.</p><p>Après le match, vous êtes allé à la boutique du club pour acheter un maillot. Vous avez demandé à faire floquer un nom dans le dos.</p><p>Ensuite, vous êtes allé dîner dans un restaurant juste à côté du stade. Vous avez commandé à manger et discuté du match pendant un long moment avant de rentrer chez vous.</p>",
-  "inspector_summary": "Les accusés affirment avoir passé l'après-midi au stade pour assister à un match de football de leur équipe locale pendant l'incendie.",
+  "title": "Match de foot lamentable",
+  "context": "Des mannequins de vitrine ont ete voles et retrouves disposes de facon obscene sur un rond-point hier apres-midi. Des cameras vous situent dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier apres-midi, le groupe etait au stade pour voir un match de foot d'une equipe locale. Les gradins etaient a moitie vides et sentaient la biere eventee et les merguez froides. Les sieges en plastique etaient fissures et inconfortables.</p><p>L'entree s'est faite par un tourniquet rouille qui coinçait. Le vigile a l'entree portait un gilet avec le logo du club brode dessus. Il a fouille les sacs avec un air suspicieux et a confisque une bouteille d'eau a quelqu'un du groupe.</p><p>Les supporters autour etaient une poignee de types qui hurlaient un chant ridicule a chaque action. L'un d'eux portait une echarpe avec un slogan imprime dessus. Le match etait d'un niveau catastrophique avec des joueurs qui se rataient constamment.</p><p>A la mi-temps, le groupe est alle chercher a manger au stand. Les hot-dogs etaient tiedes et le pain etait mou. Le vendeur a rendu la monnaie en soupirant. La sono du stade gresillait et crachait une musique insupportable.</p><p>L'equipe locale a perdu lamentablement. Un joueur s'est fait expulser pour une faute stupide. Les supporters ont hue et certains sont partis avant la fin. Le groupe est sorti degoute en se demandant pourquoi il avait paye pour voir ca.</p>",
+  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi au stade pour un match de foot pendant le vol des mannequins.",
   "inspector_questions": [
-    "Vous avez dit être allé voir un match — quelles équipes jouaient exactement ?",
-    "Vous avez dit que votre porte était bloquée — par quelle porte êtes-vous finalement entré ?",
-    "Vous avez dit que les supporters chantaient un chant — pouvez-vous fredonner ou réciter ce chant ?",
-    "Vous avez dit être dans les tribunes — dans quelle tribune précisément étiez-vous ?",
-    "Vous avez dit qu'un joueur portait un vêtement de couleur vive — de quelle couleur exactement ?",
-    "Vous avez dit avoir acheté un maillot — quel nom avez-vous fait floquer dessus ?",
-    "Vous avez dit être allé dans un restaurant — comment s'appelle ce restaurant ?",
-    "Vous avez dit avoir regardé le match — qui a gagné à la fin ?",
-    "Vous avez dit avoir commandé à manger — qui a payé l'addition au restaurant ?",
-    "Vous avez dit être sorti du stade — à quelle heure approximativement êtes-vous rentré chez vous ?"
+    "Vous avez dit etre alles voir un match — quelles equipes jouaient exactement ?",
+    "Vous avez dit que le vigile portait un gilet avec un logo — decrivez ce logo exactement.",
+    "Vous avez dit que les supporters hurlaient un chant — ecrivez les paroles de ce chant.",
+    "Vous avez dit qu'un supporter portait une echarpe avec un slogan — ecrivez ce slogan mot pour mot.",
+    "Vous avez dit que la sono gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
+    "Vous avez dit qu'un joueur s'est fait expulser — pour quelle faute exactement ?",
+    "Vous avez dit que l'equipe a perdu — quel etait le score final ?",
+    "Vous avez dit que le vigile a confisque une bouteille — a qui du groupe appartenait-elle ?",
+    "Vous avez dit etre sortis degoutés — qui du groupe avait propose d'aller voir ce match ?",
+    "Vous avez dit avoir paye — combien coutait l'entree par personne ?"
   ],
   "reading_time_seconds": 90
 }

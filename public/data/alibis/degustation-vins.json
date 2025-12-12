@@ -1,20 +1,20 @@
 {
   "id": "degustation-vins",
-  "title": "Dégustation de vins",
-  "context": "Un accident de voiture avec délit de fuite a eu lieu entre 17h30 et 19h. Votre véhicule correspond à la description. Vous contestez : vous étiez à une dégustation de vins et n'aviez pas votre voiture.",
-  "accused_document": "<p>Hier soir, vous avez participé à une dégustation de vins organisée dans un lieu spécialisé. C'était un événement avec plusieurs participants qui s'intéressent au vin. Vous y étiez allés avec quelqu'un et vous aviez réservé vos places à l'avance.</p><p>En arrivant, un sommelier vous a accueillis et expliqué le déroulement de la soirée. Il vous a présenté les différents vins qui allaient être dégustés. L'ambiance était conviviale et les gens discutaient déjà entre eux.</p><p>On vous a installés autour de tables avec des verres déjà préparés. Il y avait aussi du pain et du fromage pour accompagner. Le sommelier a commencé par présenter le premier vin en détaillant sa provenance et ses caractéristiques. Vous avez goûté et donné votre avis.</p><p>L'un des participants à votre table était vraiment connaisseur et posait beaucoup de questions au sommelier. À un moment, il a même fait une remarque qui a créé un petit débat avec le sommelier sur un point technique. Une autre personne à votre table ne connaissait rien au vin et faisait des commentaires assez drôles.</p><p>Au total, vous avez dégusté plusieurs vins différents : des blancs, des rosés et des rouges. Il y en avait un en particulier que vous avez beaucoup aimé et dont vous avez noté le nom. Votre compagnon, lui, préférait un autre vin complètement différent.</p><p>À la fin de la dégustation, le sommelier a proposé un vin spécial pour conclure la soirée. Certains participants ont acheté des bouteilles à emporter. Vous êtes restés encore un moment à discuter avec d'autres participants avant de partir.</p>",
-  "inspector_summary": "Les accusés affirment avoir participé à une dégustation de vins pendant l'heure de l'accident.",
+  "title": "Degustation de vins douteuse",
+  "context": "Une statue historique a ete renversee et vandalisee hier soir sur la place principale. Des cameras de surveillance montrent un groupe correspondant a votre description quittant les lieux. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe a participe a une degustation de vins organisee dans une cave voutee. L'endroit etait sense etre prestigieux mais en arrivant, ca sentait le moisi et l'humidite. Les murs suintaient par endroits et il faisait un froid glacial.</p><p>Le sommelier etait un type pretentieux qui parlait avec un accent exagere. Il portait un tablier avec le logo de l'etablissement brode dessus. Il regardait le groupe de haut comme s'il doutait de leurs capacites a apprecier le vin.</p><p>Les verres etaient ternes et avaient des traces de calcaire. Le premier vin servi avait un gout bizarre, comme du vinaigre. Le sommelier a insiste pour dire que c'etait normal et que le groupe ne comprenait pas. Le pain qui accompagnait etait rassis et le fromage avait une odeur suspecte.</p><p>Un des participants a la table d'a cote a fait tomber sa carafe qui s'est brisee en mille morceaux. Le sommelier a pousse un soupir theatral et a marmonne quelque chose de desagreable. Le bruit de verre casse a resonne dans toute la cave.</p><p>A la fin, le sommelier a tente de vendre des bouteilles hors de prix en faisant culpabiliser le groupe. L'addition etait scandaleuse pour la qualite. Quelqu'un du groupe a laisse un avis negatif sur son telephone avant meme de sortir.</p>",
+  "inspector_summary": "Les accuses affirment avoir participe a une degustation de vins pendant le vandalisme de la statue.",
   "inspector_questions": [
-    "Vous avez dit avoir participé à une dégustation — où exactement se déroulait-elle ?",
-    "Vous avez dit y être allés avec quelqu'un — qui était cette personne ?",
-    "Vous avez dit qu'un participant était vraiment connaisseur — sur quel point technique y a-t-il eu débat ?",
-    "Vous avez dit qu'une personne faisait des commentaires drôles — quel genre de commentaires ?",
-    "Vous avez dit avoir dégusté plusieurs vins — combien exactement ?",
-    "Vous avez dit avoir beaucoup aimé un vin en particulier — quel vin ?",
-    "Vous avez dit que votre compagnon préférait un autre vin — lequel ?",
-    "Vous avez dit que le sommelier a proposé un vin spécial — quel type de vin ?",
-    "Vous avez dit que certains ont acheté des bouteilles — avez-vous acheté quelque chose ?",
-    "Vous avez dit être restés discuter — de quoi avez-vous discuté avec les autres participants ?"
+    "Vous avez dit avoir participe a une degustation — quel etait le nom exact de l'etablissement ?",
+    "Vous avez dit que le sommelier portait un tablier avec un logo — decrivez ce logo exactement.",
+    "Vous avez dit que le premier vin avait un gout bizarre — quel etait le nom de ce vin selon le sommelier ?",
+    "Vous avez dit que le fromage avait une odeur suspecte — quel type de fromage etait-ce ?",
+    "Vous avez dit qu'une carafe s'est brisee — ecrivez l'onomatopee exacte du bruit de verre casse.",
+    "Vous avez dit que le sommelier a marmonne quelque chose — qu'a-t-il dit exactement ?",
+    "Vous avez dit que l'addition etait scandaleuse — quel etait le montant total ?",
+    "Vous avez dit que quelqu'un a laisse un avis negatif — qui du groupe a ecrit cet avis ?",
+    "Vous avez dit etre partis apres — qui du groupe a paye l'addition ?",
+    "Vous avez dit avoir quitte l'etablissement — comment le groupe est-il rentre ?"
   ],
   "reading_time_seconds": 90
 }
