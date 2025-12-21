@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,17 +10,17 @@ module.exports = {
       colors: {
         // Retro Game Show Theme
         'retro-blue': '#3B82F6',
-        'retro-orange': '#F59E0B', 
+        'retro-orange': '#F59E0B',
         'retro-green': '#10B981',
         'retro-red': '#EF4444',
         'retro-purple': '#8B5CF6',
         'retro-cyan': '#06B6D4',
-        
+
         // Backgrounds
         'bg-primary': '#0F172A',
         'bg-secondary': '#1E293B',
         'bg-accent': '#334155',
-        
+
         // Text colors
         'text-primary': '#F8FAFC',
         'text-secondary': '#CBD5E1',
@@ -34,7 +34,7 @@ module.exports = {
       },
       borderRadius: {
         'sm': '8px',
-        'md': '12px', 
+        'md': '12px',
         'lg': '16px',
         'xl': '20px',
       }

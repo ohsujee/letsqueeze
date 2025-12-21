@@ -32,22 +32,24 @@ export default function SelectorModal({
 }) {
   const [mounted, setMounted] = useState(false);
 
-  // Couleurs selon la variante (utilisant les variables CSS du design system)
+  // Couleurs selon la variante (guide de style UI)
   const colors = variant === 'alibi'
     ? {
-        gradient: 'var(--game-alibi-gradient)',
-        border: 'var(--border-subtle)',
-        borderSelected: 'var(--brand-yellow)',
-        bgSelected: 'var(--glow-yellow)',
-        shadow: 'var(--glow-yellow)',
+        gradient: 'linear-gradient(135deg, #f59e0b, #ea580c)',
+        border: 'rgba(255, 255, 255, 0.1)',
+        borderSelected: 'var(--alibi-primary, #f59e0b)',
+        bgSelected: 'rgba(245, 158, 11, 0.15)',
+        shadow: 'rgba(245, 158, 11, 0.3)',
+        glowColor: '#f59e0b',
         btnClass: 'btn-accent'
       }
     : {
-        gradient: 'var(--game-quiz-gradient)',
-        border: 'var(--border-subtle)',
-        borderSelected: 'var(--brand-green)',
-        bgSelected: 'var(--glow-green)',
-        shadow: 'var(--glow-green)',
+        gradient: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+        border: 'rgba(255, 255, 255, 0.1)',
+        borderSelected: 'var(--success, #22c55e)',
+        bgSelected: 'rgba(34, 197, 94, 0.15)',
+        shadow: 'rgba(34, 197, 94, 0.3)',
+        glowColor: '#22c55e',
         btnClass: 'btn-primary'
       };
 
@@ -133,12 +135,13 @@ export default function SelectorModal({
                 width: '100%',
                 maxWidth: '900px',
                 maxHeight: '85vh',
-                background: 'var(--bg-elevated)',
-                backdropFilter: 'blur(var(--glass-blur))',
-                border: `2px solid ${colors.border}`,
-                borderRadius: 'var(--radius-2xl)',
-                padding: 'var(--space-8)',
-                boxShadow: `var(--shadow-xl)${variant === 'alibi' ? ', 0 0 40px rgba(255, 109, 0, 0.2)' : ''}`,
+                background: 'rgba(20, 20, 30, 0.95)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: `2px solid ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.3)' : 'rgba(139, 92, 246, 0.3)'}`,
+                borderRadius: '20px',
+                padding: '2rem',
+                boxShadow: `0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(139, 92, 246, 0.15)'}`,
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
@@ -152,15 +155,17 @@ export default function SelectorModal({
                 alignItems: 'center',
                 marginBottom: '1.5rem',
                 paddingBottom: '1rem',
-                borderBottom: `1px solid ${variant === 'alibi' ? 'rgba(255, 109, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)'}`
+                borderBottom: `1px solid ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(139, 92, 246, 0.2)'}`
               }}>
                 <motion.h2
                   style={{
+                    fontFamily: "var(--font-title, 'Bungee'), cursive",
                     fontSize: '1.75rem',
-                    fontWeight: 900,
-                    background: colors.gradient,
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
+                    fontWeight: 400,
+                    color: 'var(--text-primary, #ffffff)',
+                    textShadow: variant === 'alibi'
+                      ? '0 0 10px rgba(245, 158, 11, 0.5), 0 0 30px rgba(245, 158, 11, 0.3)'
+                      : '0 0 10px rgba(139, 92, 246, 0.5), 0 0 30px rgba(139, 92, 246, 0.3)',
                     margin: 0
                   }}
                   initial={{ x: -20, opacity: 0 }}
@@ -176,11 +181,11 @@ export default function SelectorModal({
                     height: '44px',
                     minWidth: '44px',
                     minHeight: '44px',
-                    borderRadius: '50%',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    color: 'white',
-                    fontSize: '2.5rem',
+                    borderRadius: '12px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '2px solid rgba(255, 255, 255, 0.1)',
+                    color: 'var(--text-secondary, rgba(255, 255, 255, 0.7))',
+                    fontSize: '1.5rem',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
@@ -189,17 +194,23 @@ export default function SelectorModal({
                     margin: 0,
                     lineHeight: 1,
                     fontFamily: 'system-ui, -apple-system, sans-serif',
-                    fontWeight: 200,
-                    position: 'relative'
+                    fontWeight: 300,
+                    transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)';
+                    e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+                    e.currentTarget.style.color = '#ef4444';
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                    e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)';
+                    e.currentTarget.style.transform = 'scale(1)';
                   }}
                 >
-                  <span style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    marginTop: '-1px'
-                  }}>×</span>
+                  ×
                 </button>
               </div>
 
@@ -298,9 +309,10 @@ export default function SelectorModal({
 
                         {/* Title */}
                         <div style={{
+                          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
                           fontSize: '0.95rem',
                           fontWeight: 700,
-                          color: 'white',
+                          color: 'var(--text-primary, #ffffff)',
                           minHeight: '2.5rem',
                           display: 'flex',
                           alignItems: 'center',
@@ -367,7 +379,7 @@ export default function SelectorModal({
                 style={{
                   marginTop: '1.5rem',
                   paddingTop: '1rem',
-                  borderTop: `1px solid ${variant === 'alibi' ? 'rgba(255, 109, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)'}`,
+                  borderTop: `1px solid ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(139, 92, 246, 0.2)'}`,
                   textAlign: 'center'
                 }}
                 initial={{ y: 20, opacity: 0 }}
@@ -375,15 +387,29 @@ export default function SelectorModal({
                 transition={{ delay: 0.3 }}
               >
                 <motion.button
-                  className={`btn ${colors.btnClass}`}
                   onClick={onClose}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
                   style={{
                     minWidth: '200px',
-                    height: '48px',
+                    height: '52px',
+                    padding: '0 2rem',
+                    background: variant === 'alibi'
+                      ? 'linear-gradient(135deg, #f59e0b, #ea580c)'
+                      : 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+                    border: 'none',
+                    borderRadius: '12px',
+                    color: 'white',
+                    fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
                     fontSize: '1rem',
-                    fontWeight: 700
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    cursor: 'pointer',
+                    boxShadow: variant === 'alibi'
+                      ? '0 4px 15px rgba(245, 158, 11, 0.4), 0 0 30px rgba(245, 158, 11, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                      : '0 4px 15px rgba(139, 92, 246, 0.4), 0 0 30px rgba(139, 92, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                    transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
                   }}
                 >
                   Confirmer

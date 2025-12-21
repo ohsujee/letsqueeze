@@ -1,0 +1,1001 @@
+{
+  "id": "database-culture-generale",
+  "title": "Culture Générale",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "cg-sci001",
+      "question": "Né à Ulm en 1879, ce physicien théoricien a reçu le prix Nobel en 1921 pour ses travaux sur l'effet photoélectrique. Réfugié aux États-Unis pour fuir le nazisme, il est mondialement célèbre pour sa théorie de la relativité et son équation E=mc². Qui est-ce ?",
+      "answer": "Albert Einstein",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci002",
+      "question": "Polonaise naturalisée française, cette physicienne a reçu deux prix Nobel dans deux disciplines différentes : physique en 1903 et chimie en 1911. Elle a découvert le polonium et le radium avec son mari Pierre. Qui est-ce ?",
+      "answer": "Marie Curie",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci003",
+      "question": "En 1928, ce médecin écossais découvre par accident qu'une moisissure détruit les bactéries dans ses boîtes de Pétri. Cette découverte révolutionnaire donnera naissance au premier antibiotique, la pénicilline. Qui est-ce ?",
+      "answer": "Alexander Fleming",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci004",
+      "question": "Auteur de 'L'Origine des espèces' publié en 1859, ce naturaliste britannique a développé la théorie de l'évolution par sélection naturelle après son voyage aux îles Galápagos. Qui est-ce ?",
+      "answer": "Charles Darwin",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci005",
+      "question": "Inventeur américain surnommé 'le sorcier de Menlo Park', il a déposé plus de 1000 brevets dont celui de l'ampoule électrique et du phonographe. Fondateur de General Electric, il a révolutionné l'éclairage moderne. Qui est-ce ?",
+      "answer": "Thomas Edison",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci006",
+      "question": "Quatrième planète du système solaire en partant du Soleil, cette sphère céleste de couleur rouille est explorée par les rovers Curiosity et Perseverance. Voisine de la Terre, elle porte le nom du dieu romain de la guerre. Quelle est cette planète ?",
+      "answer": "Mars",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci007",
+      "question": "Composée de deux atomes d'hydrogène et un atome d'oxygène, cette molécule essentielle à la vie couvre 71% de la surface terrestre. Sa formule chimique est connue de tous les écoliers. Quelle est cette formule ?",
+      "answer": "H2O (l'eau)",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci008",
+      "question": "Découverte en 2012 au CERN par les équipes ATLAS et CMS, cette particule élémentaire explique pourquoi les autres particules ont une masse. Elle porte le nom du physicien britannique qui l'avait théorisée en 1964. Quelle est cette particule ?",
+      "answer": "Le boson de Higgs",
+      "difficulty": "difficile",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci009",
+      "question": "Célèbre pour ses anneaux spectaculaires composés de glace et de roche, cette géante gazeuse est la sixième planète du système solaire. Son satellite Titan possède une atmosphère dense. Quelle est cette planète ?",
+      "answer": "Saturne",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci010",
+      "question": "Représentant 78% de l'atmosphère terrestre, ce gaz incolore et inodore porte le symbole N. Essentiel aux engrais, il est aussi utilisé sous forme liquide pour la congélation rapide. Quel est ce gaz ?",
+      "answer": "L'azote",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci011",
+      "question": "Plus grand organe du corps humain avec une surface totale d'environ 2 mètres carrés, cette enveloppe protectrice régule la température et protège des infections. Quel est cet organe ?",
+      "answer": "La peau",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci012",
+      "question": "Cette constante physique fondamentale équivaut à environ 300 000 kilomètres par seconde dans le vide. Représentée par la lettre 'c', elle est au cœur de la théorie de la relativité. Quelle est cette vitesse ?",
+      "answer": "La vitesse de la lumière",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci013",
+      "question": "Créateur du tableau périodique des éléments en 1869, ce chimiste russe a classé les 63 éléments connus à l'époque et prédit l'existence d'éléments encore non découverts. Qui est-ce ?",
+      "answer": "Dmitri Mendeleïev",
+      "difficulty": "difficile",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci014",
+      "question": "Contenant environ 86 milliards de neurones, cet organe de 1,4 kg contrôle toutes les fonctions du corps humain. Divisé en deux hémisphères, il est protégé par le crâne. Quel est cet organe ?",
+      "answer": "Le cerveau",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci015",
+      "question": "Plus grande planète du système solaire, cette géante gazeuse possède une Grande Tache Rouge, une tempête qui fait rage depuis plus de 300 ans. Elle compte 95 satellites naturels dont Ganymède. Quelle est cette planète ?",
+      "answer": "Jupiter",
+      "difficulty": "normal",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-hist001",
+      "question": "Navigateur génois au service de la Couronne d'Espagne, il atteint les Bahamas le 12 octobre 1492 à bord de la Santa María, accompagné de la Pinta et la Niña. Persuadé d'avoir atteint l'Asie, il ouvre la voie à la colonisation des Amériques. Qui est-ce ?",
+      "answer": "Christophe Colomb",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist002",
+      "question": "Général corse devenu empereur des Français en 1804, il a dominé l'Europe pendant une décennie avant sa défaite finale à Waterloo en 1815. Exilé à Sainte-Hélène, il y meurt en 1821. Qui est-ce ?",
+      "answer": "Napoléon Bonaparte",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist003",
+      "question": "Survenu le 14 juillet 1789, cet événement marque le début symbolique de la Révolution française. Une foule parisienne prend d'assaut une prison royale pour s'emparer de ses armes et libérer les prisonniers. Quel est cet événement ?",
+      "answer": "La prise de la Bastille",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist004",
+      "question": "Tombé dans la nuit du 9 novembre 1989, ce mur de béton de 155 kilomètres divisait une capitale européenne en deux depuis 1961. Sa chute symbolise la fin de la Guerre Froide. De quel mur s'agit-il ?",
+      "answer": "Le mur de Berlin",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist005",
+      "question": "Premier homme dans l'espace le 12 avril 1961, ce cosmonaute soviétique effectue une orbite complète de la Terre à bord de Vostok 1 en 108 minutes. Son 'Poyekhali!' (C'est parti!) est resté célèbre. Qui est-ce ?",
+      "answer": "Youri Gagarine",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist006",
+      "question": "Commandant de la mission Apollo 11, cet astronaute américain devient le premier homme à marcher sur la Lune le 20 juillet 1969. Sa phrase 'Un petit pas pour l'homme, un bond de géant pour l'humanité' est restée légendaire. Qui est-ce ?",
+      "answer": "Neil Armstrong",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist007",
+      "question": "Roi de France guillotiné le 21 janvier 1793 place de la Révolution à Paris, il était l'époux de Marie-Antoinette. Son procès devant la Convention l'a condamné pour haute trahison. Qui est-ce ?",
+      "answer": "Louis XVI",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist008",
+      "question": "Surnommé le Roi-Soleil, ce monarque absolu règne sur la France pendant 72 ans, de 1643 à 1715. Il fait construire le château de Versailles et aurait prononcé 'L'État, c'est moi'. Qui est-ce ?",
+      "answer": "Louis XIV",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist009",
+      "question": "16e président des États-Unis, ce républicain né dans une cabane du Kentucky abolit l'esclavage en 1865. Assassiné par John Wilkes Booth au théâtre Ford, il est considéré comme l'un des plus grands présidents américains. Qui est-ce ?",
+      "answer": "Abraham Lincoln",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist010",
+      "question": "Découvert en 1922 par l'archéologue Howard Carter dans la Vallée des Rois, ce pharaon égyptien mort à 19 ans est célèbre pour son masque funéraire en or massif. Son tombeau est le plus intact jamais découvert. Qui est-ce ?",
+      "answer": "Toutânkhamon",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist011",
+      "question": "Conflitm mondial de 1914 à 1918, surnommé 'la Der des Ders', cette guerre fait 18 millions de morts et se termine par l'armistice du 11 novembre. Le traité de Versailles en 1919 impose de lourdes réparations à l'Allemagne. De quel conflit s'agit-il ?",
+      "answer": "La Première Guerre mondiale",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist012",
+      "question": "Reine du Royaume-Uni de 1952 à 2022, elle détient le record du plus long règne britannique avec 70 ans sur le trône. Décédée au château de Balmoral en Écosse, elle est remplacée par son fils Charles III. Qui est-ce ?",
+      "answer": "Élisabeth II",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist013",
+      "question": "Le 11 septembre 2001, deux avions détournés par Al-Qaïda frappent les tours jumelles du World Trade Center à New York. Cet attentat fait près de 3000 victimes et déclenche la guerre contre le terrorisme. Quelle est cette date tragique en abrégé ?",
+      "answer": "Le 11 septembre (ou 9/11)",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist014",
+      "question": "Avocat indien formé à Londres, ce leader pacifiste mène l'Inde vers l'indépendance en 1947 grâce à la désobéissance civile non-violente. Surnommé le Mahatma, il est assassiné en 1948. Qui est-ce ?",
+      "answer": "Gandhi (Mohandas Karamchand Gandhi)",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist015",
+      "question": "Le 26 avril 1986, le réacteur n°4 de cette centrale nucléaire soviétique explose, provoquant la pire catastrophe nucléaire de l'histoire. Une zone d'exclusion de 30 km existe toujours autour du site. De quelle catastrophe s'agit-il ?",
+      "answer": "Tchernobyl",
+      "difficulty": "difficile",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-geo001",
+      "question": "Avec une superficie de 17,1 millions de km² répartie sur 11 fuseaux horaires, ce pays s'étend de l'Europe à l'Asie. Sa capitale Moscou abrite le Kremlin et la Place Rouge. Quel est ce pays ?",
+      "answer": "La Russie",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo002",
+      "question": "Culminant à 8849 mètres d'altitude dans l'Himalaya, ce sommet situé à la frontière entre le Népal et le Tibet est le point le plus élevé de la Terre. Son nom signifie 'Front du ciel' en tibétain. Quel est ce sommet ?",
+      "answer": "L'Everest",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo003",
+      "question": "Long de 6 650 kilomètres, ce fleuve traverse l'Ouganda, le Soudan et l'Égypte avant de se jeter dans la Méditerranée. Les pyramides de Gizeh se dressent sur sa rive ouest. Quel est ce fleuve ?",
+      "answer": "Le Nil",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo004",
+      "question": "Capitale de l'Australie depuis 1913, cette ville planifiée a été construite spécifiquement pour ce rôle, ni Sydney ni Melbourne n'ayant été retenues. Elle abrite le Parlement fédéral. Quelle est cette ville ?",
+      "answer": "Canberra",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo005",
+      "question": "Plus petit État du monde avec une superficie de 0,44 km², ce territoire enclavé dans Rome est le siège de l'Église catholique. Le Pape y réside et la basilique Saint-Pierre en est le joyau. Quel est ce pays ?",
+      "answer": "Le Vatican",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo006",
+      "question": "Traversant Paris d'est en ouest, ce fleuve de 777 kilomètres prend sa source en Côte-d'Or et se jette dans la Manche au Havre. La Tour Eiffel et Notre-Dame se dressent sur ses berges. Quel est ce fleuve ?",
+      "answer": "La Seine",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo007",
+      "question": "Reconnaissable à sa forme de botte, ce pays méditerranéen compte Rome, Venise et Florence parmi ses villes emblématiques. Berceau de la Renaissance, il est célèbre pour sa cuisine, sa mode et son patrimoine. Quel est ce pays ?",
+      "answer": "L'Italie",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo008",
+      "question": "Capitale fédérale du Brésil depuis 1960, cette ville planifiée en forme d'avion a été conçue par l'urbaniste Lucio Costa. Contrairement à Rio de Janeiro ou São Paulo, elle n'a pas d'accès à la mer. Quelle est cette ville ?",
+      "answer": "Brasília",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo009",
+      "question": "Large de seulement 14 kilomètres à son point le plus étroit, ce détroit sépare l'Europe de l'Afrique et relie la Méditerranée à l'Atlantique. Le rocher britannique qui le surplombe porte le même nom. Quel est ce détroit ?",
+      "answer": "Le détroit de Gibraltar",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo010",
+      "question": "Avec 17 000 îles dont Java et Sumatra, cet archipel d'Asie du Sud-Est est le plus grand du monde. Sa capitale Jakarta compte plus de 10 millions d'habitants. Quel est ce pays ?",
+      "answer": "L'Indonésie",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo011",
+      "question": "Couvrant environ 5,5 millions de km², cette forêt tropicale traversée par l'Amazone est surnommée le 'poumon de la Terre'. Elle s'étend sur neuf pays dont le Brésil qui en possède 60%. Quelle est cette forêt ?",
+      "answer": "L'Amazonie (ou forêt amazonienne)",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo012",
+      "question": "S'étendant sur 9 millions de km² en Afrique du Nord, ce désert est le plus grand désert chaud du monde. Son nom signifie 'désert' en arabe et il couvre 11 pays dont l'Algérie, la Libye et l'Égypte. Quel est ce désert ?",
+      "answer": "Le Sahara",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo013",
+      "question": "Capitale de la Mongolie, cette ville d'1,5 million d'habitants se trouve au cœur des steppes d'Asie centrale. Son nom signifie 'Héros rouge' en mongol. Quelle est cette ville ?",
+      "answer": "Oulan-Bator",
+      "difficulty": "difficile",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo014",
+      "question": "Pays scandinave célèbre pour ses fjords spectaculaires, il possède le plus haut niveau de vie au monde grâce à son pétrole. Sa capitale Oslo est connue pour le Prix Nobel de la Paix. Quel est ce pays ?",
+      "answer": "La Norvège",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-geo015",
+      "question": "Longue de 2300 kilomètres au large de l'Australie, cette structure vivante visible depuis l'espace est le plus grand récif corallien du monde. Elle abrite des milliers d'espèces marines. Quel est ce site naturel ?",
+      "answer": "La Grande Barrière de Corail",
+      "difficulty": "normal",
+      "category": "Géographie"
+    },
+    {
+      "id": "cg-sport001",
+      "question": "Vainqueur de la Coupe du Monde 2022 au Qatar avec l'Argentine, ce joueur totalise 8 Ballons d'Or. Passé par Barcelone puis le PSG, il joue aujourd'hui à l'Inter Miami. Qui est-ce ?",
+      "answer": "Lionel Messi",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport002",
+      "question": "Détenteur du record du monde du 100 mètres en 9,58 secondes établi à Berlin en 2009, ce sprinter jamaïcain a remporté 8 médailles d'or olympiques. Son surnom 'Lightning Bolt' reflète sa vitesse fulgurante. Qui est-ce ?",
+      "answer": "Usain Bolt",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport003",
+      "question": "Avec 23 médailles d'or olympiques en natation, cet Américain est l'athlète le plus titré de l'histoire des Jeux. Spécialiste du papillon et du 4 nages, il a dominé sa discipline de 2004 à 2016. Qui est-ce ?",
+      "answer": "Michael Phelps",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport004",
+      "question": "Quintuple Ballon d'Or et légende du Real Madrid, ce Portugais est connu pour sa célébration 'SIUUU' et son sens du but. Rival de Messi, il joue aujourd'hui en Arabie saoudite. Qui est-ce ?",
+      "answer": "Cristiano Ronaldo",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport005",
+      "question": "Avec 24 titres du Grand Chelem, ce tennisman serbe détient le record absolu de victoires en tournois majeurs. Numéro 1 mondial pendant plus de 400 semaines, il domine le tennis depuis 15 ans. Qui est-ce ?",
+      "answer": "Novak Djokovic",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport006",
+      "question": "Surnommé 'Air Jordan' pour ses dunks spectaculaires, ce basketteur américain a remporté 6 titres NBA avec les Chicago Bulls dans les années 90. Sa marque de chaussures est devenue emblématique. Qui est-ce ?",
+      "answer": "Michael Jordan",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport007",
+      "question": "Roi de Roland-Garros avec 14 titres sur terre battue, ce tennisman espagnol gaucher est le maître incontesté du tournoi parisien. Surnommé 'Rafa', il a pris sa retraite en 2024. Qui est-ce ?",
+      "answer": "Rafael Nadal",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport008",
+      "question": "Pilote britannique de Formule 1, il a égalé les 7 titres mondiaux de Michael Schumacher avant de remporter un 8e potentiellement contesté en 2021. Chevalier par la Reine, il défend activement les droits civiques. Qui est-ce ?",
+      "answer": "Lewis Hamilton",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport009",
+      "question": "Boxeur américain né Cassius Clay, il change de nom après sa conversion à l'islam. Champion du monde des poids lourds à trois reprises, il est célèbre pour sa formule 'Float like a butterfly, sting like a bee'. Qui est-ce ?",
+      "answer": "Muhammad Ali",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport010",
+      "question": "Seule équipe nationale de football à avoir remporté 5 Coupes du Monde, cette sélection sud-américaine a vu passer Pelé, Ronaldo et Neymar. Son maillot jaune et vert est reconnaissable entre tous. Quelle est cette équipe ?",
+      "answer": "Le Brésil (la Seleção)",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport011",
+      "question": "Première gymnaste à réaliser certaines figures qui portent désormais son nom, cette Américaine d'1m42 a remporté 4 médailles d'or aux JO de Rio 2016. Considérée comme la plus grande gymnaste de l'histoire. Qui est-ce ?",
+      "answer": "Simone Biles",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-sport012",
+      "question": "Plus ancienne course automobile d'endurance au monde, cette compétition de 24 heures se déroule chaque année en juin sur le circuit de la Sarthe. Toyota et Porsche y ont brillé. Quelle est cette course ?",
+      "answer": "Les 24 Heures du Mans",
+      "difficulty": "normal",
+      "category": "Sport"
+    },
+    {
+      "id": "cg-cine001",
+      "question": "Film de 1997 réalisé par James Cameron, cette romance tragique entre Jack et Rose se déroule lors du naufrage d'un paquebot en 1912. Avec 11 Oscars, il reste l'un des plus grands succès du cinéma. Quel est ce film ?",
+      "answer": "Titanic",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine002",
+      "question": "Réalisateur américain de blockbusters comme E.T., Jurassic Park et La Liste de Schindler, il a cofondé le studio DreamWorks. Ses lunettes rondes et sa barbe sont reconnaissables. Qui est-ce ?",
+      "answer": "Steven Spielberg",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine003",
+      "question": "Film de science-fiction de 1999 où Keanu Reeves doit choisir entre la pilule rouge et la pilule bleue, il révolutionne les effets spéciaux avec le 'bullet time'. La phrase 'Il n'y a pas de cuillère' est devenue culte. Quel est ce film ?",
+      "answer": "Matrix",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine004",
+      "question": "Premier long-métrage entièrement en images de synthèse en 1995, ce film Pixar raconte l'histoire d'un cow-boy jaloux de l'arrivée d'un ranger de l'espace. Woody et Buzz sont devenus des icônes. Quel est ce film ?",
+      "answer": "Toy Story",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine005",
+      "question": "Réalisateur britannique surnommé 'le maître du suspense', il a tourné Psychose, Les Oiseaux et Fenêtre sur cour. Ses caméos dans ses propres films sont légendaires. Qui est-ce ?",
+      "answer": "Alfred Hitchcock",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine006",
+      "question": "Film de 2009 de James Cameron se déroulant sur la planète Pandora, il détient le record du film le plus rentable de l'histoire avec près de 3 milliards de dollars. Ses Na'vi bleus ont marqué les esprits. Quel est ce film ?",
+      "answer": "Avatar",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine007",
+      "question": "Trilogie épique de Peter Jackson adaptée des romans de Tolkien, elle remporte 17 Oscars dont 11 pour le dernier volet. Frodon doit détruire l'Anneau Unique au Mordor. Quelle est cette saga ?",
+      "answer": "Le Seigneur des Anneaux",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine008",
+      "question": "Acteur américain oscarisé pour son rôle dans Forrest Gump, il a aussi brillé dans Seul au monde et Apollo 13. Son personnage attendant sur un banc avec une boîte de chocolats est iconique. Qui est-ce ?",
+      "answer": "Tom Hanks",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine009",
+      "question": "Réalisateur américain célèbre pour ses dialogues ciselés et sa violence stylisée, il a signé Pulp Fiction, Kill Bill et Inglourious Basterds. Son amour pour les pieds dans ses films est notoire. Qui est-ce ?",
+      "answer": "Quentin Tarantino",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine010",
+      "question": "Maître du cinéma d'animation japonais et cofondateur du Studio Ghibli, il a réalisé Le Voyage de Chihiro, Totoro et Princesse Mononoké. Oscar d'honneur en 2014. Qui est-ce ?",
+      "answer": "Hayao Miyazaki",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine011",
+      "question": "Film de 1972 de Francis Ford Coppola, cette saga mafieuse met en scène la famille Corleone. La phrase 'Je vais lui faire une offre qu'il ne peut pas refuser' est devenue mythique. Quel est ce film ?",
+      "answer": "Le Parrain",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine012",
+      "question": "Réalisateur britannique de Inception, Interstellar et The Dark Knight, il est connu pour ses récits complexes et son refus du numérique. Christopher... qui ? Quel est son nom complet ?",
+      "answer": "Christopher Nolan",
+      "difficulty": "normal",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-cine013",
+      "question": "Palme d'Or à Cannes et Oscar du meilleur film en 2020, ce thriller sud-coréen de Bong Joon-ho explore les inégalités sociales à travers deux familles. C'est le premier film non anglophone à remporter l'Oscar suprême. Quel est ce film ?",
+      "answer": "Parasite",
+      "difficulty": "difficile",
+      "category": "Cinéma"
+    },
+    {
+      "id": "cg-mus001",
+      "question": "Groupe britannique formé à Liverpool en 1960, il compte John Lennon, Paul McCartney, George Harrison et Ringo Starr. Avec plus de 600 millions d'albums vendus, c'est le groupe le plus influent de l'histoire. Quel est ce groupe ?",
+      "answer": "The Beatles",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus002",
+      "question": "Surnommé le 'Roi de la Pop', ce chanteur américain a révolutionné le clip vidéo avec Thriller et Bad. Son moonwalk et son gant pailleté sont légendaires. Décédé en 2009 à Los Angeles. Qui est-ce ?",
+      "answer": "Michael Jackson",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus003",
+      "question": "Groupe britannique mené par Freddie Mercury, il a produit Bohemian Rhapsody, un opéra rock de 6 minutes devenu hymne mondial. Le concert de Live Aid en 1985 reste mythique. Quel est ce groupe ?",
+      "answer": "Queen",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus004",
+      "question": "Compositeur allemand devenu sourd à 26 ans, il continue malgré tout à composer ses plus grandes œuvres dont la 9e Symphonie et l'Hymne à la Joie. Mort à Vienne en 1827. Qui est-ce ?",
+      "answer": "Ludwig van Beethoven",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus005",
+      "question": "Chanteuse originaire de la Barbade, elle est connue pour ses tubes Umbrella et Diamonds. Fondatrice de Fenty Beauty et Savage X Fenty, elle est aussi milliardaire. Qui est-ce ?",
+      "answer": "Rihanna",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus006",
+      "question": "Duo électro français formé par Thomas Bangalter et Guy-Manuel de Homem-Christo, ils sont reconnaissables à leurs casques de robots. Get Lucky et Around the World sont parmi leurs tubes. Quel est ce duo ?",
+      "answer": "Daft Punk",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus007",
+      "question": "Chanteur français d'origine arménienne décédé en 2018, il a interprété plus de 1200 chansons dont La Bohème et Emmenez-moi. Figure emblématique de la chanson française pendant 60 ans. Qui est-ce ?",
+      "answer": "Charles Aznavour",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus008",
+      "question": "Rappeur américain assassiné à Las Vegas en 1996, il est considéré comme l'un des plus grands de l'histoire du hip-hop. Changes et California Love restent des classiques. Qui est-ce ?",
+      "answer": "Tupac (2Pac)",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus009",
+      "question": "Chanteuse québécoise à la voix puissante, elle interprète My Heart Will Go On, thème du film Titanic. Résidente à Las Vegas pendant des années, elle a vendu plus de 200 millions d'albums. Qui est-ce ?",
+      "answer": "Céline Dion",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus010",
+      "question": "Prodige autrichien mort à 35 ans en 1791, il compose La Flûte enchantée, Don Giovanni et le Requiem inachevé. Enfant prodige, il compose dès l'âge de 5 ans. Qui est-ce ?",
+      "answer": "Wolfgang Amadeus Mozart",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus011",
+      "question": "Groupe de rock irlandais formé à Dublin en 1976, il est mené par le chanteur Bono. With or Without You et One figurent parmi leurs tubes. Engagés pour l'humanitaire, ils ont vendu 170 millions d'albums. Quel est ce groupe ?",
+      "answer": "U2",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus012",
+      "question": "Chanteuse britannique aux albums titrés par des nombres (19, 21, 25, 30), elle a remporté 16 Grammy Awards. Hello et Rolling in the Deep sont des tubes planétaires. Qui est-ce ?",
+      "answer": "Adele",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-lit001",
+      "question": "Écrivain français du XIXe siècle, il est l'auteur des Misérables et de Notre-Dame de Paris. Exilé à Guernesey pendant le Second Empire, il est panthéonisé en 1885. Qui est-ce ?",
+      "answer": "Victor Hugo",
+      "difficulty": "normal",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit002",
+      "question": "Auteure britannique créatrice de l'univers Harry Potter, elle est devenue la première auteure milliardaire. Ses 7 romans ont été vendus à plus de 500 millions d'exemplaires. Qui est-ce ?",
+      "answer": "J.K. Rowling",
+      "difficulty": "normal",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit003",
+      "question": "Aviateur et écrivain français disparu en mer en 1944, il est l'auteur du Petit Prince, conte philosophique traduit dans 300 langues. Le renard y enseigne que 'l'essentiel est invisible pour les yeux'. Qui est-ce ?",
+      "answer": "Antoine de Saint-Exupéry",
+      "difficulty": "normal",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit004",
+      "question": "Professeur d'Oxford et philologue britannique, il a créé l'univers de la Terre du Milieu avec Le Seigneur des Anneaux et Le Hobbit. Ses langues elfiques sont d'une complexité remarquable. Qui est-ce ?",
+      "answer": "J.R.R. Tolkien",
+      "difficulty": "normal",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit005",
+      "question": "Dramaturge anglais né à Stratford-upon-Avon en 1564, il a écrit Hamlet, Roméo et Juliette et Macbeth. 'Être ou ne pas être' est sa réplique la plus célèbre. Qui est-ce ?",
+      "answer": "William Shakespeare",
+      "difficulty": "normal",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit006",
+      "question": "Auteur britannique de romans policiers, elle a créé les détectives Hercule Poirot et Miss Marple. Avec 2 milliards de livres vendus, elle est l'écrivaine la plus lue après la Bible. Qui est-ce ?",
+      "answer": "Agatha Christie",
+      "difficulty": "normal",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit007",
+      "question": "Écrivain britannique auteur de 1984 et La Ferme des animaux, ses œuvres dénoncent le totalitarisme. Le terme 'Big Brother' vient de son roman dystopique. Qui est-ce ?",
+      "answer": "George Orwell",
+      "difficulty": "normal",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit008",
+      "question": "Médecin écossais créateur de Sherlock Holmes, il publie la première aventure du détective consultant en 1887. Watson est le narrateur fidèle des enquêtes au 221B Baker Street. Qui est-ce ?",
+      "answer": "Arthur Conan Doyle",
+      "difficulty": "normal",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit009",
+      "question": "Écrivain russe auteur de Guerre et Paix et Anna Karénine, ses romans épiques dépeignent la société russe du XIXe siècle. Il meurt dans une gare en 1910 après avoir fui son domicile. Qui est-ce ?",
+      "answer": "Léon Tolstoï",
+      "difficulty": "normal",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit010",
+      "question": "Écrivain français du XXe siècle, il est l'auteur d'À la recherche du temps perdu en 7 volumes. L'épisode de la madeleine trempée dans le thé est devenu emblématique de la mémoire involontaire. Qui est-ce ?",
+      "answer": "Marcel Proust",
+      "difficulty": "difficile",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-art001",
+      "question": "Peintre, sculpteur et architecte italien de la Renaissance, il a peint le plafond de la Chapelle Sixtine et sculpté le David de Florence. Rival de Léonard de Vinci, il incarne le génie universel. Qui est-ce ?",
+      "answer": "Michel-Ange",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art002",
+      "question": "Polymathe italien de la Renaissance, il a peint La Joconde et La Cène. Inventeur visionnaire, ses carnets contiennent des croquis d'hélicoptères et de sous-marins. Son sourire énigmatique est au Louvre. Qui est-ce ?",
+      "answer": "Léonard de Vinci",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art003",
+      "question": "Peintre post-impressionniste néerlandais, il se coupe l'oreille en 1888 et meurt à 37 ans. La Nuit étoilée et Les Tournesols sont parmi ses œuvres les plus célèbres. Qui est-ce ?",
+      "answer": "Vincent van Gogh",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art004",
+      "question": "Peintre espagnol cofondateur du cubisme avec Georges Braque, il réalise Guernica en réponse au bombardement de la ville basque. L'artiste le plus prolifique du XXe siècle selon le Guinness. Qui est-ce ?",
+      "answer": "Pablo Picasso",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art005",
+      "question": "Chef de file de l'impressionnisme français, il peint Les Nymphéas dans son jardin de Giverny et la série des Cathédrales de Rouen. Son tableau 'Impression, soleil levant' donne son nom au mouvement. Qui est-ce ?",
+      "answer": "Claude Monet",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art006",
+      "question": "Peintre surréaliste espagnol à la moustache extravagante, il est célèbre pour ses montres molles dans La Persistance de la mémoire. Excentrique assumé, il vit à Figueras et Port Lligat. Qui est-ce ?",
+      "answer": "Salvador Dalí",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art007",
+      "question": "Figure du Pop Art américain, il réalise des sérigraphies de Marilyn Monroe et des boîtes de soupe Campbell's. Sa Factory à New York devient le lieu emblématique de l'avant-garde des années 60. Qui est-ce ?",
+      "answer": "Andy Warhol",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art008",
+      "question": "Sculpteur français du XIXe siècle, il crée Le Penseur et Le Baiser. Sa Porte de l'Enfer reste inachevée. Le musée qui porte son nom est à Paris dans l'hôtel Biron. Qui est-ce ?",
+      "answer": "Auguste Rodin",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art009",
+      "question": "Peintre mexicaine aux sourcils joints et aux autoportraits douloureux, elle épouse le muraliste Diego Rivera. Ses œuvres expriment sa souffrance physique après un grave accident. Qui est-ce ?",
+      "answer": "Frida Kahlo",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art010",
+      "question": "Architecte catalan visionnaire, il conçoit la Sagrada Familia de Barcelone, toujours inachevée plus de 100 ans après sa mort. Le parc Güell et la Casa Batlló sont aussi de lui. Qui est-ce ?",
+      "answer": "Antoni Gaudí",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-food001",
+      "question": "Plat national espagnol originaire de Valence, il se compose de riz, safran, fruits de mer ou viande, cuit dans une large poêle du même nom. Traditionnellement préparé au feu de bois. Quel est ce plat ?",
+      "answer": "La paella",
+      "difficulty": "normal",
+      "category": "Gastronomie"
+    },
+    {
+      "id": "cg-food002",
+      "question": "Symbole de la boulangerie française, ce pain de 65 cm environ est inscrit au patrimoine immatériel de l'UNESCO depuis 2022. Croustillante à l'extérieur, moelleuse à l'intérieur. Quel est ce pain ?",
+      "answer": "La baguette",
+      "difficulty": "normal",
+      "category": "Gastronomie"
+    },
+    {
+      "id": "cg-food003",
+      "question": "Vin effervescent produit exclusivement dans la région française du même nom, il ne peut porter cette appellation que s'il respecte des règles strictes. Dom Pérignon et Veuve Clicquot sont des maisons célèbres. Quel est ce vin ?",
+      "answer": "Le champagne",
+      "difficulty": "normal",
+      "category": "Gastronomie"
+    },
+    {
+      "id": "cg-food004",
+      "question": "Plat japonais composé de riz vinaigré surmonté de poisson cru, de fruits de mer ou d'omelette. Le wasabi et le gingembre l'accompagnent. À ne pas confondre avec les makis roulés. Quel est ce plat ?",
+      "answer": "Les sushis (nigiri)",
+      "difficulty": "normal",
+      "category": "Gastronomie"
+    },
+    {
+      "id": "cg-food005",
+      "question": "Chef français de Lyon triplement étoilé pendant 55 ans consécutifs, il est surnommé 'le pape de la gastronomie'. Son restaurant porte son nom et les Bocuse d'Or lui rendent hommage. Qui est-ce ?",
+      "answer": "Paul Bocuse",
+      "difficulty": "difficile",
+      "category": "Gastronomie"
+    },
+    {
+      "id": "cg-food006",
+      "question": "Condiment coréen à base de chou fermenté et pimenté, il accompagne presque tous les repas en Corée. Riche en probiotiques, il est inscrit au patrimoine de l'UNESCO. Quel est ce condiment ?",
+      "answer": "Le kimchi",
+      "difficulty": "normal",
+      "category": "Gastronomie"
+    },
+    {
+      "id": "cg-food007",
+      "question": "Plat péruvien de poisson cru mariné dans du jus de citron vert avec oignons et coriandre. Le 'tigre de lait' désigne le jus de la marinade, bu comme digestif. Quel est ce plat ?",
+      "answer": "Le ceviche",
+      "difficulty": "normal",
+      "category": "Gastronomie"
+    },
+    {
+      "id": "cg-food008",
+      "question": "Champignon souterrain à l'arôme puissant, recherché par des cochons ou des chiens. La variété noire du Périgord et la blanche d'Alba sont les plus prisées. On l'appelle aussi 'diamant noir'. Quel est ce champignon ?",
+      "answer": "La truffe",
+      "difficulty": "difficile",
+      "category": "Gastronomie"
+    },
+    {
+      "id": "cg-tech001",
+      "question": "Entreprise américaine fondée par Steve Jobs, Steve Wozniak et Ron Wayne en 1976, elle révolutionne l'informatique avec le Macintosh puis les smartphones avec l'iPhone. Basée à Cupertino. Quelle est cette entreprise ?",
+      "answer": "Apple",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "cg-tech002",
+      "question": "Moteur de recherche dominant avec plus de 90% des parts de marché mondial, il est créé par Larry Page et Sergey Brin en 1998. Devenu Alphabet en 2015, il possède YouTube et Android. Quelle est cette entreprise ?",
+      "answer": "Google",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "cg-tech003",
+      "question": "Réseau social fondé par Mark Zuckerberg en 2004 à Harvard, il compte aujourd'hui 3 milliards d'utilisateurs. Renommé Meta en 2021, il possède Instagram et WhatsApp. Quel était son nom original ?",
+      "answer": "Facebook",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "cg-tech004",
+      "question": "Entrepreneur sud-africain à la tête de Tesla et SpaceX, il a racheté Twitter (devenu X) en 2022. Neuralink et The Boring Company font aussi partie de ses projets. Qui est-ce ?",
+      "answer": "Elon Musk",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "cg-tech005",
+      "question": "Cryptomonnaie décentralisée créée en 2009 par le mystérieux Satoshi Nakamoto, elle repose sur la technologie blockchain. Son symbole est ₿ et son cours a atteint des sommets historiques. Quelle est cette monnaie ?",
+      "answer": "Le Bitcoin",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "cg-tech006",
+      "question": "Application de messagerie instantanée créée en 2009 et rachetée par Facebook en 2014 pour 19 milliards de dollars. La double coche bleue indique que le message a été lu. Quelle est cette application ?",
+      "answer": "WhatsApp",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "cg-tech007",
+      "question": "Intelligence artificielle conversationnelle lancée par OpenAI en novembre 2022, elle utilise le modèle GPT. Capable de rédiger, coder et converser, elle a atteint 100 millions d'utilisateurs en 2 mois. Quel est son nom ?",
+      "answer": "ChatGPT",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "cg-tech008",
+      "question": "Plateforme de vidéos courtes chinoise au logo en forme de note de musique, elle compte plus d'un milliard d'utilisateurs. Son algorithme addictif et ses danses virales ont conquis les jeunes. Quelle est cette application ?",
+      "answer": "TikTok",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "cg-tech009",
+      "question": "Console de jeux vidéo japonaise créée par Sony en 1994, elle a révolutionné le gaming avec ses manettes DualShock. La PS5 est la dernière génération. Quelle est cette console ?",
+      "answer": "PlayStation",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "cg-tech010",
+      "question": "Système d'exploitation mobile développé par Google et lancé en 2008, il équipe 70% des smartphones mondiaux. Son logo est un petit robot vert. Quel est ce système ?",
+      "answer": "Android",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "cg-nat001",
+      "question": "Plus grand mammifère marin pesant jusqu'à 200 tonnes pour 30 mètres de long, ce cétacé se nourrit de krill. Son chant peut parcourir des milliers de kilomètres sous l'eau. Quel est cet animal ?",
+      "answer": "La baleine bleue",
+      "difficulty": "normal",
+      "category": "Nature"
+    },
+    {
+      "id": "cg-nat002",
+      "question": "Félin le plus rapide du monde pouvant atteindre 120 km/h en quelques secondes, il chasse dans les savanes africaines. Son pelage tacheté et ses larmes noires le distinguent du léopard. Quel est cet animal ?",
+      "answer": "Le guépard",
+      "difficulty": "normal",
+      "category": "Nature"
+    },
+    {
+      "id": "cg-nat003",
+      "question": "Primate d'Afrique centrale partageant 98% de notre ADN, il utilise des outils et vit en groupes sociaux complexes. Menacé par la déforestation et le braconnage. Quel est cet animal ?",
+      "answer": "Le chimpanzé",
+      "difficulty": "normal",
+      "category": "Nature"
+    },
+    {
+      "id": "cg-nat004",
+      "question": "Insecte pollinisateur essentiel à l'écosystème, il produit du miel et de la cire. Organisé en colonies avec une reine, des ouvrières et des faux-bourdons, il est menacé par les pesticides. Quel est cet insecte ?",
+      "answer": "L'abeille",
+      "difficulty": "normal",
+      "category": "Nature"
+    },
+    {
+      "id": "cg-nat005",
+      "question": "Seul mammifère capable de voler véritablement grâce à ses ailes membraneuses, il utilise l'écholocation pour chasser la nuit. Certaines espèces pollinisent les fleurs. Quel est cet animal ?",
+      "answer": "La chauve-souris",
+      "difficulty": "normal",
+      "category": "Nature"
+    },
+    {
+      "id": "cg-nat006",
+      "question": "Mollusque à huit bras doté de trois cœurs et d'un sang bleu, il est considéré comme l'invertébré le plus intelligent. Capable de changer de couleur et de s'échapper de son aquarium. Quel est cet animal ?",
+      "answer": "La pieuvre (ou poulpe)",
+      "difficulty": "normal",
+      "category": "Nature"
+    },
+    {
+      "id": "cg-nat007",
+      "question": "Amphibien mexicain à l'étonnant sourire permanent, il possède la capacité de régénérer ses membres, son cœur et même son cerveau. En danger critique d'extinction dans la nature. Quel est cet animal ?",
+      "answer": "L'axolotl",
+      "difficulty": "difficile",
+      "category": "Nature"
+    },
+    {
+      "id": "cg-nat008",
+      "question": "Phénomène lumineux visible près des pôles, il se forme quand les particules solaires entrent en collision avec l'atmosphère. Vertes, rouges ou violettes, ces lumières dansent dans le ciel nocturne. Quel est ce phénomène ?",
+      "answer": "Les aurores boréales (ou australes)",
+      "difficulty": "normal",
+      "category": "Nature"
+    },
+    {
+      "id": "cg-nat009",
+      "question": "Plus petit oiseau du monde avec 5 cm et 2 grammes, il peut battre des ailes jusqu'à 80 fois par seconde et voler en marche arrière. Son bec fin lui permet de boire le nectar des fleurs. Quel est cet oiseau ?",
+      "answer": "Le colibri",
+      "difficulty": "normal",
+      "category": "Nature"
+    },
+    {
+      "id": "cg-nat010",
+      "question": "Plus grand poisson du monde pouvant atteindre 18 mètres, ce requin se nourrit uniquement de plancton et de petits poissons. Malgré sa taille, il est totalement inoffensif pour l'homme. Quel est cet animal ?",
+      "answer": "Le requin-baleine",
+      "difficulty": "normal",
+      "category": "Nature"
+    },
+    {
+      "id": "cg-myth001",
+      "question": "Roi des dieux de l'Olympe dans la mythologie grecque, il règne sur le ciel et la foudre. Frère de Poséidon et Hadès, il est célèbre pour ses nombreuses aventures amoureuses. Qui est-ce ?",
+      "answer": "Zeus",
+      "difficulty": "normal",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth002",
+      "question": "Demi-dieu grec célèbre pour ses douze travaux, il tue le lion de Némée et l'hydre de Lerne. Fils de Zeus et d'Alcmène, il devient immortel après sa mort. Qui est-ce ?",
+      "answer": "Héraclès (Hercule)",
+      "difficulty": "normal",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth003",
+      "question": "Dieu grec des mers et des océans, il brandit un trident et déclenche tempêtes et tremblements de terre. Frère de Zeus, il rivalise avec Athéna pour le patronage d'Athènes. Qui est-ce ?",
+      "answer": "Poséidon",
+      "difficulty": "normal",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth004",
+      "question": "Dieu nordique du tonnerre armé du marteau Mjolnir, il protège Asgard des géants. Fils d'Odin, il est popularisé par les films Marvel. Qui est-ce ?",
+      "answer": "Thor",
+      "difficulty": "normal",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth005",
+      "question": "Gorgone à la chevelure de serpents dont le regard pétrifiait quiconque la regardait, elle est décapitée par Persée grâce à son bouclier miroir. De son sang naît Pégase. Qui est-ce ?",
+      "answer": "Méduse",
+      "difficulty": "normal",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth006",
+      "question": "Dieu égyptien à tête de chacal, il préside à la momification et guide les âmes vers l'au-delà. Il pèse le cœur des défunts contre la plume de Maât. Qui est-ce ?",
+      "answer": "Anubis",
+      "difficulty": "normal",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth007",
+      "question": "Dieu nordique de la malice et de la ruse, il peut changer de forme à volonté. Père du loup Fenrir et du serpent Jörmungandr, il causera le Ragnarök. Qui est-ce ?",
+      "answer": "Loki",
+      "difficulty": "normal",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth008",
+      "question": "Titan grec condamné par Zeus à porter la voûte céleste sur ses épaules pour l'éternité. Son nom désigne aujourd'hui un recueil de cartes géographiques. Qui est-ce ?",
+      "answer": "Atlas",
+      "difficulty": "normal",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth009",
+      "question": "Roi de Corinthe condamné aux Enfers à pousser éternellement un rocher qui retombe toujours avant le sommet. Albert Camus en fait le symbole de l'absurde. Qui est-ce ?",
+      "answer": "Sisyphe",
+      "difficulty": "difficile",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth010",
+      "question": "Arbre cosmique de la mythologie nordique, il relie les neuf mondes dont Asgard et Midgard. Trois racines le maintiennent, et le dragon Nídhögg ronge ses racines. Quel est son nom ?",
+      "answer": "Yggdrasil",
+      "difficulty": "difficile",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth011",
+      "question": "Dieu hindou à tête d'éléphant, fils de Shiva et Parvati, il est le dieu de la sagesse et celui qui lève les obstacles. On l'invoque au début de toute entreprise. Qui est-ce ?",
+      "answer": "Ganesh",
+      "difficulty": "normal",
+      "category": "Mythologie"
+    },
+    {
+      "id": "cg-myth012",
+      "question": "Cheval ailé né du sang de Méduse, il devient la monture de Bellérophon puis rejoint les écuries de Zeus. Symbole d'inspiration poétique, il est associé aux Muses. Qui est-ce ?",
+      "answer": "Pégase",
+      "difficulty": "normal",
+      "category": "Mythologie"
+    }
+  ]
+}

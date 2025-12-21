@@ -503,16 +503,263 @@ export default function AlibiPrep() {
       />
 
       <style jsx>{`
+        /* ===== ALIBI PREP PAGE - Guide UI Compliant ===== */
+
+        /* Alibi Theme Variables */
+        .alibi-theme {
+          --alibi-primary: #f59e0b;
+          --alibi-glow: #fbbf24;
+          --alibi-dark: #b45309;
+          --bg-primary: #0a0a0f;
+          --bg-secondary: #12121a;
+          --bg-card: rgba(20, 20, 30, 0.8);
+          --text-primary: #ffffff;
+          --text-secondary: rgba(255, 255, 255, 0.7);
+          --text-muted: rgba(255, 255, 255, 0.5);
+        }
+
         .game-container {
           position: relative;
-          min-height: 100vh;
-          background: #000000;
+          min-height: 100dvh;
+          background: var(--bg-primary);
           overflow: hidden;
+        }
+
+        /* Animated Background - Alibi Theme (Amber/Gold) */
+        .game-container::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background:
+            radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 20%, rgba(251, 191, 36, 0.10) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 50%, rgba(180, 83, 9, 0.08) 0%, transparent 60%),
+            var(--bg-primary);
+          pointer-events: none;
         }
 
         .game-content {
           position: relative;
           z-index: 1;
+        }
+
+        /* Header - Guide Compliant */
+        .player-game-header {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          background: rgba(10, 10, 15, 0.9);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(245, 158, 11, 0.15);
+          padding: 12px 16px;
+        }
+
+        .player-game-header-content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .player-game-title {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.875rem;
+          font-weight: 700;
+          color: var(--text-secondary);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .player-progress-center {
+          font-family: var(--font-mono, 'Roboto Mono'), monospace;
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--alibi-glow);
+          text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        .player-header-exit {
+          opacity: 0.7;
+          transition: opacity 0.2s;
+        }
+
+        .player-header-exit:hover {
+          opacity: 1;
+        }
+
+        /* Main Content */
+        .player-game-content {
+          position: relative;
+          z-index: 1;
+          padding-top: 60px;
+        }
+
+        /* Cards - Glassmorphism Alibi */
+        .alibi-theme :global(.card) {
+          background: rgba(20, 20, 30, 0.8);
+          border-radius: 16px;
+          padding: 1.25rem;
+          border: 1px solid rgba(245, 158, 11, 0.15);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.03),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .alibi-theme :global(.card:hover) {
+          border-color: rgba(245, 158, 11, 0.25);
+          box-shadow:
+            0 8px 30px rgba(0, 0, 0, 0.5),
+            0 0 20px rgba(245, 158, 11, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        /* Section Titles - Guide Compliant */
+        .alibi-theme :global(.game-section-title) {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1.125rem;
+          font-weight: 700;
+          color: var(--text-primary);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          text-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .alibi-theme :global(.game-section-title.text-primary) {
+          color: var(--alibi-glow);
+        }
+
+        .alibi-theme :global(.game-section-title.text-accent) {
+          color: #60a5fa;
+        }
+
+        /* Labels */
+        .alibi-theme :global(.game-label) {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: var(--text-secondary);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        /* Buttons - Alibi Theme */
+        .alibi-theme :global(.btn) {
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 12px 24px;
+          color: var(--text-primary);
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .alibi-theme :global(.btn:hover) {
+          background: rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
+        }
+
+        .alibi-theme :global(.btn:active) {
+          transform: translateY(1px) scale(0.98);
+        }
+
+        .alibi-theme :global(.btn-secondary) {
+          background: rgba(245, 158, 11, 0.1);
+          border: 2px solid rgba(245, 158, 11, 0.3);
+          color: var(--alibi-glow);
+        }
+
+        .alibi-theme :global(.btn-secondary:hover) {
+          background: rgba(245, 158, 11, 0.2);
+          border-color: rgba(245, 158, 11, 0.5);
+          box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+        }
+
+        /* Inputs - Alibi Accent */
+        .alibi-theme :global(.game-input) {
+          width: 100%;
+          padding: 14px 18px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          color: var(--text-primary);
+          font-family: 'Inter', sans-serif;
+          font-size: 1rem;
+          letter-spacing: 0.02em;
+          transition: all 0.3s ease;
+        }
+
+        .alibi-theme :global(.game-input:focus) {
+          outline: none;
+          border-color: var(--alibi-primary);
+          background: rgba(245, 158, 11, 0.08);
+          box-shadow:
+            0 0 0 4px rgba(245, 158, 11, 0.15),
+            0 0 20px rgba(245, 158, 11, 0.1);
+        }
+
+        .alibi-theme :global(.game-input::placeholder) {
+          color: var(--text-muted);
+        }
+
+        .alibi-theme :global(.game-input-accent) {
+          border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .alibi-theme :global(.game-input-accent:focus) {
+          border-color: var(--alibi-glow);
+          box-shadow:
+            0 0 0 4px rgba(251, 191, 36, 0.2),
+            0 0 25px rgba(251, 191, 36, 0.15);
+        }
+
+        /* Prose styling for alibi content */
+        .alibi-theme :global(.prose) {
+          color: var(--text-primary);
+        }
+
+        .alibi-theme :global(.prose strong) {
+          color: var(--alibi-glow);
+          font-weight: 700;
+        }
+
+        /* Animation pulsante pour les alertes */
+        @keyframes alibi-pulse {
+          0%, 100% {
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+          }
+          50% {
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.5);
+          }
+        }
+
+        /* Animation de flottement */
+        @keyframes alibi-float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+
+        /* Urgence animation */
+        .alibi-theme :global(.animate-pulse) {
+          animation: alibi-pulse 2s ease-in-out infinite;
+        }
+
+        /* Text glow effect */
+        .alibi-theme :global(.text-yellow-300) {
+          color: var(--alibi-glow) !important;
+          text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
         }
       `}</style>
     </div>

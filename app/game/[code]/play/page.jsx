@@ -5,7 +5,7 @@ import {
   auth, db, ref, onValue, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
 import Buzzer from "@/components/game/Buzzer";
-import PointsRing from "@/components/game/PointsRing";
+import Leaderboard from "@/components/game/Leaderboard";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import ExitButton from "@/lib/components/ExitButton";
@@ -48,8 +48,8 @@ export default function PlayerGame(){
   // Tick + offset serveur
   const [localNow, setLocalNow] = useState(Date.now());
   const [offset, setOffset] = useState(0);
-  // Polling réduit de 100ms à 500ms pour économiser CPU/batterie
-  useEffect(()=>{ const id = setInterval(()=>setLocalNow(Date.now()), 500); return ()=>clearInterval(id); },[]);
+  // Polling pour mise à jour des points (200ms = bon compromis fluidité/CPU)
+  useEffect(()=>{ const id = setInterval(()=>setLocalNow(Date.now()), 200); return ()=>clearInterval(id); },[]);
   useEffect(()=>{ const u = onValue(ref(db, ".info/serverTimeOffset"), s=> setOffset(Number(s.val())||0)); return ()=>u(); },[]);
   const serverNow = localNow + offset;
 
@@ -80,13 +80,13 @@ export default function PlayerGame(){
     });
     const u2 = onValue(ref(db,`rooms/${code}/meta`), s=>{
       const m = s.val(); setMeta(m);
-      if(m?.quizId) fetch(`/data/${m.quizId}.json`).then(r=>r.json()).then(setQuiz);
     });
     const u3 = onValue(ref(db,`rooms/${code}/players`), s=>{
       const v = s.val()||{}; const arr = Object.values(v);
       setPlayers(arr); setMe(arr.find(p=>p.uid===auth.currentUser?.uid)||null);
     });
-    return ()=>{u1();u2();u3();};
+    const u4 = onValue(ref(db,`rooms/${code}/quiz`), s=>setQuiz(s.val()));
+    return ()=>{u1();u2();u3();u4();};
   },[code, router]);
 
   const revealed = !!state?.revealed;
@@ -117,14 +117,14 @@ export default function PlayerGame(){
     const diff = q.difficulty === "difficile" ? "difficile" : "normal";
     const c = conf[diff];
 
-    // Le ratio doit être basé sur le TEMPS, pas sur les points !
+    // Ratio de temps restant (1 = début, 0 = fin des 20s)
     const ratio = Math.max(0, 1 - (elapsedEffective / c.durationMs));
-    const pts = Math.max(c.floor, Math.round(c.start * ratio));
 
-    // La barre doit suivre le temps écoulé, pas la différence de points
-    const remain = ratio;
+    // Points = floor + (start - floor) × ratio
+    // Ainsi les points descendent de start à floor sur toute la durée
+    const pts = Math.round(c.floor + (c.start - c.floor) * ratio);
 
-    return { pointsEnJeu: pts, ratioRemain: remain, cfg: c };
+    return { pointsEnJeu: pts, ratioRemain: ratio, cfg: c };
   }, [conf, q, elapsedEffective]);
 
   // Sons: reveal & buzz (déclenchés par changements d'état)
@@ -172,248 +172,431 @@ export default function PlayerGame(){
       .sort((a,b)=> (b.score||0)-(a.score||0));
   }, [meta?.teams, meta?.mode]);
 
+  const isMyTurn = state?.lockUid === me?.uid;
+
   return (
-    <div className="player-game-page">
-      {/* Header fixe simple et clair */}
-      <header className="player-game-header">
-        <div className="player-game-header-content">
-          {/* Titre à gauche */}
-          <div className="player-game-title">{title}</div>
+    <div className={`player-game-page ${isMyTurn ? 'my-turn' : ''}`}>
+      {/* Glow vert quand c'est mon tour */}
+      <AnimatePresence>
+        {isMyTurn && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 50,
+              pointerEvents: 'none',
+              boxShadow: 'inset 0 0 60px 5px rgba(34, 197, 94, 0.25)'
+            }}
+          />
+        )}
+      </AnimatePresence>
 
-          {/* Progress au centre */}
-          <div className="player-progress-center">{progressLabel}</div>
-
-          {/* Bouton exit à droite */}
-          <div className="player-header-exit">
+      {/* Header */}
+      <header className="game-header">
+        <div className="game-header-content">
+          <div className="game-header-left">
+            <div className="game-header-progress">{progressLabel}</div>
+            <div className="game-header-title">{title}</div>
+          </div>
+          <div className="game-header-right">
+            {/* Mon score dans le header */}
+            <div className="my-score-badge">
+              <span className="my-score-value">{me?.score || 0}</span>
+              <span className="my-score-label">pts</span>
+            </div>
             <ExitButton
               variant="header"
-              confirmMessage="Voulez-vous vraiment quitter ? Vous perdrez votre progression."
+              confirmMessage="Voulez-vous vraiment quitter ?"
               onExit={() => router.push('/home')}
             />
           </div>
         </div>
       </header>
 
-      <main className="player-game-content">
-        {/* Mon équipe badge si mode équipes */}
-        {myTeam && (
-          <motion.div
-            className="team-badge-large"
-            style={{
-              borderColor: myTeam.color,
-              boxShadow: `0 4px 16px ${myTeam.color}40, inset 0 0 0 1px ${myTeam.color}20`,
-            }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4 }}
-          >
-            <div className="team-badge-icon" style={{ backgroundColor: myTeam.color }}>
-              ⭐
-            </div>
-            <div className="team-badge-info">
-              <div className="team-badge-name">{myTeam.name}</div>
-              <div className="team-badge-score">{myTeam.score||0} pts</div>
-            </div>
-          </motion.div>
-        )}
-
-        {/* Score du joueur - AU DESSUS de la question */}
-        <div style={{ position: 'relative' }}>
-          <motion.div
-            className="player-score-card"
-            key={me?.score}
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
-          >
-            <div className="player-score-label">Votre score</div>
-            <div className="player-score-value">{me?.score||0}</div>
-          </motion.div>
-
-          {/* Buzz notification toast - Ne s'affiche que si ce n'est pas moi qui ai buzzé */}
-          <AnimatePresence>
-            {state?.buzzBanner && state.buzzBanner !== "— en attente —" && state?.lockUid !== me?.uid && (
-              <motion.div
-                className="buzz-notification"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              >
-                <span className="buzz-notification-icon">🔔</span>
-                <span className="buzz-notification-text">{state.buzzBanner}</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Question principale avec barre de progression */}
-        <div className="question-main-card">
-          {/* Barre de progression des points - toujours visible */}
-          {q && (
-            <div className="points-progress-bar-container">
-              <div className="points-progress-info">
-                <span className="points-progress-label">Points en jeu</span>
-                <span className="points-progress-value">{pointsEnJeu}</span>
+      {/* Notification buzz */}
+      <AnimatePresence>
+        {state?.buzzBanner && state?.lockUid !== me?.uid && (
+          <div className="buzz-notification-wrapper">
+            <motion.div
+              className="buzz-notification"
+              initial={{ opacity: 0, scale: 0.9, y: -30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: -20 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            >
+              <div className="buzz-notification-icon">🔔</div>
+              <div className="buzz-notification-content">
+                <span className="buzz-notification-label">Quelqu'un a buzzé !</span>
+                <span className="buzz-notification-name">
+                  {players.find(p => p.uid === state.lockUid)?.name || 'Joueur'}
+                </span>
               </div>
-              <div className="points-progress-bar-track">
-                <motion.div
-                  className="points-progress-bar-fill"
-                  initial={{ scaleX: 1 }}
-                  animate={{ scaleX: ratioRemain }}
-                  transition={{ duration: 0.5, ease: "linear" }}
-                />
-              </div>
-            </div>
-          )}
-
-          {q && (
-            <AnimatePresence mode="wait">
-              {revealed ? (
-                <motion.div
-                  key="revealed"
-                  className="question-text-display"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {q.question}
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="waiting"
-                  className="question-waiting"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <div className="question-waiting-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <div>En attente de la question...</div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          )}
-        </div>
-
-        {/* Leaderboard moderne */}
-        {meta?.mode === "équipes" ? (
-          <div className="leaderboard-card">
-            <div className="leaderboard-header">
-              <span className="leaderboard-icon">🏆</span>
-              <span className="leaderboard-title">Classement des équipes</span>
-            </div>
-            <div className="leaderboard-list">
-              {teamsSorted.map((t,i)=>(
-                <div
-                  key={t.id}
-                  className="leaderboard-item"
-                  style={{
-                    background: i < 3 ? `linear-gradient(135deg, ${t.color}15, ${t.color}05)` : 'rgba(255,255,255,0.02)',
-                    borderColor: i < 3 ? `${t.color}40` : 'rgba(255,255,255,0.05)'
-                  }}
-                >
-                  <div className="leaderboard-item-rank">
-                    {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}`}
-                  </div>
-                  <div className="leaderboard-item-name">{t.name}</div>
-                  <div className="leaderboard-item-score">{t.score||0}</div>
-                </div>
-              ))}
-            </div>
+            </motion.div>
           </div>
-        ) : (
-          <div className="leaderboard-card">
-            <div className="leaderboard-header">
-              <span className="leaderboard-icon">🏆</span>
-              <span className="leaderboard-title">Classement</span>
-            </div>
+        )}
+      </AnimatePresence>
 
-            {/* Top 3 - Podium style */}
-            <div className="leaderboard-podium">
-              {players.slice().sort((a,b)=> (b.score||0)-(a.score||0)).slice(0,3).map((p,i)=>{
-                const isMe = p.uid === me?.uid;
-                // Gradients colorés selon la position
-                const positionBackground = i === 0
-                  ? 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(251,191,36,0.1))'
-                  : i === 1
-                  ? 'linear-gradient(135deg, rgba(148,163,184,0.15), rgba(203,213,225,0.1))'
-                  : 'linear-gradient(135deg, rgba(205,127,50,0.15), rgba(180,100,30,0.1))';
+      {/* Main Content - Sans scroll */}
+      <main className="game-content">
+        {/* Question Card */}
+        <div className="question-card">
+          {/* Points en jeu */}
+          <div className="points-badge">
+            <span className="points-value">{pointsEnJeu}</span>
+            <span className="points-label">points</span>
+          </div>
 
-                return (
+          {/* Zone de question - hauteur fixe */}
+          <div className="question-content">
+            {q ? (
+              <AnimatePresence mode="wait">
+                {revealed ? (
                   <motion.div
-                    key={p.uid}
-                    className={`podium-item ${isMe ? 'podium-item-me' : ''}`}
-                    style={!isMe ? { background: positionBackground } : {}}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 }}
+                    key="revealed"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
                   >
-                    <div className="podium-medal">
-                      {i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉'}
-                    </div>
-                    <div className="podium-name">
-                      {p.name}
-                      {isMe && <span className="podium-you-badge">Vous</span>}
-                    </div>
-                    <div className="podium-score">{p.score||0}</div>
+                    <span className="question-text">{q.question}</span>
                   </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Autres joueurs - Liste compacte */}
-            {players.length > 3 && (
-              <div className="leaderboard-others">
-                <div className="leaderboard-others-title">Autres joueurs</div>
-                <div className="leaderboard-list-compact">
-                  {players.slice().sort((a,b)=> (b.score||0)-(a.score||0)).slice(3).map((p,i)=>{
-                    const isMe = p.uid === me?.uid;
-                    return (
-                      <div
-                        key={p.uid}
-                        className={`leaderboard-compact-item ${isMe ? 'leaderboard-compact-item-me' : ''}`}
-                      >
-                        <span className="leaderboard-compact-rank">{i+4}.</span>
-                        <span className="leaderboard-compact-name">{p.name}</span>
-                        <span className="leaderboard-compact-score">{p.score||0}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+                ) : (
+                  <motion.div
+                    key="waiting"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <div className="waiting-dots">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div className="waiting-label">En attente...</div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            ) : (
+              <div className="waiting-label">Chargement...</div>
             )}
           </div>
-        )}
+        </div>
 
-        {/* Espace pour le buzzer fixe en bas */}
-        <div style={{ height: '120px' }}></div>
+        {/* Classement */}
+        <Leaderboard players={players} currentPlayerUid={me?.uid} />
       </main>
 
-      {/* Buzzer fixe en bas */}
-      <div className="buzzer-fixed-container">
+      {/* Buzzer en footer */}
+      <footer className="buzzer-footer">
         <Buzzer
           roomCode={code}
           playerUid={auth.currentUser?.uid}
           playerName={me?.name}
           blockedUntil={me?.blockedUntil || 0}
           serverNow={serverNow}
-          revealed={revealed}
         />
-      </div>
+      </footer>
 
       <style jsx>{`
+        /* ===== LAYOUT PRINCIPAL - Sans scroll, comme l'host ===== */
         .player-game-page {
-          position: relative;
-          min-height: 100vh;
-          background: #000000;
-          overflow-x: hidden;
+          min-height: 100dvh;
+          display: flex;
+          flex-direction: column;
+          background: var(--bg-primary, #0a0a0f);
+          overflow: hidden;
         }
 
+        .player-game-page::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background:
+            radial-gradient(ellipse at 20% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 20%, rgba(239, 68, 68, 0.08) 0%, transparent 50%),
+            var(--bg-primary, #0a0a0f);
+          pointer-events: none;
+        }
+
+        /* ===== GLOW VERT - C'est mon tour ===== */
+        .my-turn-glow {
+          position: fixed;
+          inset: 0;
+          z-index: 50;
+          pointer-events: none;
+          box-shadow: inset 0 0 80px 20px rgba(34, 197, 94, 0.4);
+          border: 3px solid rgba(34, 197, 94, 0.6);
+          border-radius: 0;
+        }
+
+        /* ===== HEADER ===== */
+        .game-header {
+          flex-shrink: 0;
+          position: relative;
+          z-index: 10;
+          background: rgba(10, 10, 15, 0.95);
+          backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+          padding: 12px 16px;
+          padding-top: calc(12px + env(safe-area-inset-top));
+        }
+
+        .game-header-content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          max-width: 600px;
+          margin: 0 auto;
+          gap: 12px;
+        }
+
+        .game-header-left {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex: 1;
+          min-width: 0;
+        }
+
+        .game-header-progress {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1rem;
+          color: var(--quiz-glow, #a78bfa);
+          text-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
+          flex-shrink: 0;
+        }
+
+        .game-header-title {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .game-header-right {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex-shrink: 0;
+        }
+
+        .my-score-badge {
+          display: flex;
+          align-items: baseline;
+          gap: 4px;
+          background: rgba(139, 92, 246, 0.15);
+          border: 1px solid rgba(139, 92, 246, 0.3);
+          border-radius: 20px;
+          padding: 6px 12px;
+        }
+
+        .my-score-value {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1rem;
+          color: var(--quiz-glow, #a78bfa);
+        }
+
+        .my-score-label {
+          font-size: 0.7rem;
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== BUZZ NOTIFICATION ===== */
+        .buzz-notification-wrapper {
+          position: fixed;
+          top: calc(10px + env(safe-area-inset-top));
+          left: 16px;
+          right: 16px;
+          z-index: 100;
+          display: flex;
+          justify-content: center;
+          pointer-events: none;
+        }
+
+        .buzz-notification {
+          pointer-events: auto;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px 20px;
+          background: rgba(20, 20, 30, 0.95);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 2px solid var(--danger, #ef4444);
+          border-radius: 16px;
+          box-shadow:
+            0 0 30px rgba(239, 68, 68, 0.4),
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .buzz-notification-icon {
+          font-size: 1.5rem;
+          filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.6));
+          animation: buzz-icon-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes buzz-icon-pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.15); }
+        }
+
+        .buzz-notification-content {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+
+        .buzz-notification-label {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.7rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: var(--danger-glow, #f87171);
+        }
+
+        .buzz-notification-name {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.1rem;
+          color: var(--text-primary, #ffffff);
+          text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .game-content {
+          flex: 1;
+          position: relative;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 16px;
+          gap: 12px;
+          overflow: hidden;
+          min-height: 0;
+        }
+
+        /* ===== QUESTION CARD ===== */
+        .question-card {
+          width: 100%;
+          max-width: 500px;
+          height: 200px;
+          flex-shrink: 0;
+          background: rgba(20, 20, 30, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 20px;
+          padding: 14px 18px;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .points-badge {
+          display: flex;
+          align-items: baseline;
+          justify-content: center;
+          gap: 5px;
+          margin-bottom: 6px;
+          flex-shrink: 0;
+        }
+
+        .points-value {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.3rem;
+          color: var(--quiz-glow, #a78bfa);
+          text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .points-label {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.7rem;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.5);
+          text-transform: uppercase;
+        }
+
+        .question-content {
+          flex: 1;
+          min-height: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+
+        .question-text {
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: var(--text-primary, #ffffff);
+          line-height: 1.45;
+          text-align: center;
+          max-height: 100%;
+          overflow-y: auto;
+          padding: 4px;
+        }
+
+        .waiting-label {
+          color: var(--text-muted, rgba(255, 255, 255, 0.5));
+          font-size: 0.85rem;
+        }
+
+        .waiting-dots {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-bottom: 12px;
+        }
+
+        .waiting-dots span {
+          width: 10px;
+          height: 10px;
+          background: var(--quiz-primary, #8b5cf6);
+          border-radius: 50%;
+          animation: dot-bounce 1.4s ease-in-out infinite;
+        }
+
+        .waiting-dots span:nth-child(1) { animation-delay: 0s; }
+        .waiting-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .waiting-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dot-bounce {
+          0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+          40% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* ===== BUZZER FOOTER ===== */
+        .buzzer-footer {
+          flex-shrink: 0;
+          position: relative;
+          z-index: 10;
+          width: 100%;
+          max-width: 500px;
+          margin: 0 auto;
+          padding: 0 16px;
+          padding-bottom: env(safe-area-inset-bottom);
+        }
       `}</style>
     </div>
   );

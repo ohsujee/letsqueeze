@@ -334,7 +334,7 @@ export default function HueSettingsPage() {
         <div className="hue-loading-spinner" />
         <style jsx>{`
           .hue-loading {
-            min-height: 100vh;
+            min-height: 100dvh;
             background: #000;
             display: flex;
             align-items: center;
@@ -809,7 +809,7 @@ export default function HueSettingsPage() {
 
       <style jsx>{`
         .hue-page {
-          min-height: 100vh;
+          min-height: 100dvh;
           background: #000;
           color: white;
           position: relative;

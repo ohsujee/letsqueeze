@@ -7,6 +7,7 @@ import Qr from "@/components/ui/Qr";
 import QrModal from "@/lib/components/QrModal";
 import { genCode } from "@/lib/utils";
 import BottomNav from "@/lib/components/BottomNav";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function HostPage(){
   const router = useRouter();
@@ -35,7 +36,7 @@ export default function HostPage(){
     const now = Date.now();
     await set(ref(db, "rooms/"+c+"/meta"), {
       code: c, createdAt: now, hostUid: auth.currentUser.uid, expiresAt: now + 12*60*60*1000,
-      mode: "individuel", teamCount: 0, quizId: "general", teams: {}
+      mode: "individuel", teamCount: 0, quizId: "database-culture-generale", teams: {}
     });
     await set(ref(db, "rooms/"+c+"/state"), {
       phase: "lobby", currentIndex: 0, revealed: false, lockUid: null, buzzBanner: "", lastRevealAt: 0
@@ -48,7 +49,13 @@ export default function HostPage(){
 
   return (
     <div className="game-container">
-      <main className="game-content p-6 max-w-xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
+      <motion.main
+        className="game-content p-6 max-w-xl mx-auto space-y-6 min-h-screen"
+        style={{paddingBottom: '100px'}}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+      >
         <h1 className="game-page-title">Animateur — Créer une room</h1>
         {!user && <p>Connexion anonyme…</p>}
         {user && !room && <button className="btn btn-primary" onClick={createRoom}>Créer une room</button>}
@@ -65,14 +72,14 @@ export default function HostPage(){
             </div>
           </div>
         )}
-      </main>
+      </motion.main>
 
       <BottomNav />
 
       <style jsx>{`
         .game-container {
           position: relative;
-          min-height: 100vh;
+          min-height: 100dvh;
           background: #000000;
           overflow: hidden;
         }

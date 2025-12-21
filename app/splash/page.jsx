@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, auth } from '@/lib/firebase';
 import { storage } from '@/lib/utils/storage';
 import { Zap } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function SplashScreen() {
   const router = useRouter();
@@ -39,7 +40,12 @@ export default function SplashScreen() {
       <div className="orb orb-2"></div>
       <div className="orb orb-3"></div>
 
-      <div className="splash-content">
+      <motion.div
+        className="splash-content"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+      >
         {/* Logo with Pulsing Glow */}
         <div className="splash-logo">
           <div className="logo-ring"></div>
@@ -56,20 +62,20 @@ export default function SplashScreen() {
         <div className="loading-container">
           <div className="loading-bar"></div>
         </div>
-      </div>
+      </motion.div>
 
       <style jsx>{`
         .splash-screen {
-          min-height: 100vh;
+          min-height: 100dvh;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: var(--bg-primary);
+          background: var(--bg-primary, #0a0a0f);
           position: relative;
           overflow: hidden;
         }
 
-        /* Animated Orbs - Floating Background */
+        /* Animated Orbs - Floating Background - Guide Colors */
         .orb {
           position: absolute;
           border-radius: 50%;
@@ -81,7 +87,7 @@ export default function SplashScreen() {
         .orb-1 {
           width: 300px;
           height: 300px;
-          background: var(--brand-electric);
+          background: var(--quiz-primary, #8b5cf6);
           top: -100px;
           right: -100px;
           animation-delay: 0s;
@@ -90,7 +96,7 @@ export default function SplashScreen() {
         .orb-2 {
           width: 250px;
           height: 250px;
-          background: var(--brand-violet);
+          background: var(--alibi-primary, #f59e0b);
           bottom: -80px;
           left: -80px;
           animation-delay: 2s;
@@ -99,7 +105,7 @@ export default function SplashScreen() {
         .orb-3 {
           width: 200px;
           height: 200px;
-          background: var(--brand-neon);
+          background: var(--success, #22c55e);
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
@@ -142,7 +148,7 @@ export default function SplashScreen() {
           width: 140px;
           height: 140px;
           border-radius: 50%;
-          border: 3px solid var(--brand-electric);
+          border: 3px solid var(--quiz-primary, #8b5cf6);
           animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
@@ -160,7 +166,7 @@ export default function SplashScreen() {
         .logo-icon {
           width: 120px;
           height: 120px;
-          background: var(--gradient-primary);
+          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed));
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -168,7 +174,7 @@ export default function SplashScreen() {
           color: white;
           box-shadow:
             0 10px 40px rgba(0, 0, 0, 0.3),
-            0 0 60px var(--glow-electric);
+            0 0 60px rgba(139, 92, 246, 0.4);
           animation: bounce 2s ease-in-out infinite;
           position: relative;
           z-index: 2;
@@ -183,20 +189,35 @@ export default function SplashScreen() {
           }
         }
 
-        /* Title with Animated Gradient */
+        /* Title with Animated Gradient - Guide Compliant */
         .splash-title {
-          font-family: var(--font-display);
+          font-family: var(--font-title, 'Bungee'), cursive;
           font-size: clamp(2.5rem, 10vw, 4rem);
-          font-weight: var(--font-weight-black);
-          line-height: var(--line-height-tight);
-          letter-spacing: var(--letter-spacing-tight);
+          font-weight: 400;
+          line-height: 1.2;
+          letter-spacing: 0.02em;
           margin-bottom: 0.5rem;
-          background: var(--gradient-primary);
-          background-size: 200% 200%;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: gradient-shift 3s ease infinite;
+          color: var(--text-primary, #ffffff);
+          text-shadow:
+            0 0 10px rgba(139, 92, 246, 0.5),
+            0 0 30px rgba(139, 92, 246, 0.3),
+            0 0 60px rgba(139, 92, 246, 0.2);
+          animation: glow-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+          0%, 100% {
+            text-shadow:
+              0 0 10px rgba(139, 92, 246, 0.5),
+              0 0 30px rgba(139, 92, 246, 0.3),
+              0 0 60px rgba(139, 92, 246, 0.2);
+          }
+          50% {
+            text-shadow:
+              0 0 20px rgba(139, 92, 246, 0.7),
+              0 0 40px rgba(139, 92, 246, 0.5),
+              0 0 80px rgba(139, 92, 246, 0.3);
+          }
         }
 
         @keyframes gradient-shift {
@@ -209,10 +230,13 @@ export default function SplashScreen() {
         }
 
         .splash-subtitle {
-          font-size: var(--font-size-lg);
-          color: var(--text-secondary);
-          font-weight: var(--font-weight-semibold);
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: var(--font-size-lg, 1.125rem);
+          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+          font-weight: 600;
           margin-bottom: 3rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
           animation: fadeIn 0.8s ease-in 0.3s both;
         }
 
@@ -220,8 +244,8 @@ export default function SplashScreen() {
         .loading-container {
           width: 200px;
           height: 4px;
-          background: var(--bg-tertiary);
-          border-radius: var(--radius-full);
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 9999px;
           margin: 0 auto;
           overflow: hidden;
           animation: fadeIn 1s ease-in 0.5s both;
@@ -229,10 +253,10 @@ export default function SplashScreen() {
 
         .loading-bar {
           height: 100%;
-          background: var(--gradient-primary);
-          border-radius: var(--radius-full);
+          background: linear-gradient(90deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed), var(--alibi-primary, #f59e0b));
+          border-radius: 9999px;
           animation: loading 2s ease-in-out infinite;
-          box-shadow: 0 0 20px var(--glow-electric);
+          box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
         }
 
         @keyframes loading {

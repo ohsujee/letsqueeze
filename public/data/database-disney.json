@@ -1,0 +1,217 @@
+{
+  "id": "database-disney",
+  "title": "Films Disney",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "dis001",
+      "question": "Fils du roi Mufasa dans ce classique Disney de 1994, ce lionceau s'exile après avoir cru causer la mort de son père. Recueilli par Timon et Pumbaa, il apprend la philosophie 'Hakuna Matata' avant de revenir affronter son oncle Scar. Qui est-ce ?",
+      "answer": "Simba",
+      "difficulty": "normal",
+      "category": "Le Roi Lion"
+    },
+    {
+      "id": "dis002",
+      "question": "Orpheline maltraitée par sa belle-mère Lady Tremaine et ses demi-sœurs Anastasie et Javotte, cette princesse Disney reçoit l'aide d'une fée marraine qui transforme une citrouille en carrosse. Elle perd sa pantoufle de verre à minuit. Qui est-ce ?",
+      "answer": "Cendrillon",
+      "difficulty": "normal",
+      "category": "Cendrillon"
+    },
+    {
+      "id": "dis003",
+      "question": "Premier long-métrage d'animation Disney sorti en 1937, ce film raconte l'histoire d'une princesse empoisonnée par une pomme et sauvée par le baiser d'un prince. Les nains s'appellent Prof, Grincheux, Dormeur, Timide, Joyeux, Atchoum et Simplet. Quel est ce film ?",
+      "answer": "Blanche-Neige et les Sept Nains",
+      "difficulty": "normal",
+      "category": "Classiques"
+    },
+    {
+      "id": "dis004",
+      "question": "Rose enchantée dont les pétales tombent un à un, elle représente le temps imparti à la Bête pour trouver l'amour avant de rester monstre pour toujours. Elle est protégée sous une cloche de verre. Quel est cet objet emblématique ?",
+      "answer": "La rose enchantée",
+      "difficulty": "normal",
+      "category": "La Belle et la Bête"
+    },
+    {
+      "id": "dis005",
+      "question": "Fille du chef Powhatan de la tribu amérindienne, cette héroïne Disney rencontre le colon anglais John Smith en Virginie. Elle porte un tatouage sur le bras et est inspirée d'une figure historique réelle. Qui est-ce ?",
+      "answer": "Pocahontas",
+      "difficulty": "normal",
+      "category": "Pocahontas"
+    },
+    {
+      "id": "dis006",
+      "question": "Sorcière des mers qui vole la voix d'Ariel en échange de jambes humaines, elle transforme la sirène en humaine muette. Elle utilise un coquillage pour emprisonner la voix. Qui est cette méchante d'un Disney de 1989 ?",
+      "answer": "Ursula",
+      "difficulty": "normal",
+      "category": "La Petite Sirène"
+    },
+    {
+      "id": "dis007",
+      "question": "Trio de hyènes complices de Scar dans Le Roi Lion, elles vivent au cimetière des éléphants et participent à la mort de Mufasa. Deux d'entre elles rient constamment tandis que la troisième ne parle qu'en riant. Qui sont-elles ?",
+      "answer": "Shenzi, Banzai et Ed",
+      "difficulty": "normal",
+      "category": "Le Roi Lion"
+    },
+    {
+      "id": "dis008",
+      "question": "Petit dragon rouge envoyé par les ancêtres pour protéger Mulan, il est petit, bavard et rêve de retrouver son honneur de gardien. Eddie Murphy lui prête sa voix dans la version originale. Qui est-ce ?",
+      "answer": "Mushu",
+      "difficulty": "normal",
+      "category": "Mulan"
+    },
+    {
+      "id": "dis009",
+      "question": "Caméléon vert compagnon de Raiponce dans le film de 2010, il change de couleur selon ses émotions et ne parle pas. Il déteste Flynn Rider au début avant de devenir son ami. Comment s'appelle-t-il ?",
+      "answer": "Pascal",
+      "difficulty": "normal",
+      "category": "Raiponce"
+    },
+    {
+      "id": "dis010",
+      "question": "Juge fanatique de Notre-Dame de Paris (1996), il élève Quasimodo après avoir tué sa mère gitane. Obsédé par la 'pureté', il poursuit Esmeralda de son amour malsain. Qui est ce méchant Disney ?",
+      "answer": "Claude Frollo",
+      "difficulty": "normal",
+      "category": "Le Bossu de Notre-Dame"
+    },
+    {
+      "id": "dis011",
+      "question": "Génie bleu vivant dans une lampe magique, il exauce trois vœux à Aladdin tout en rêvant de liberté. Robin Williams lui prête sa voix dans la version originale de 1992. Qui est-ce ?",
+      "answer": "Le Génie",
+      "difficulty": "normal",
+      "category": "Aladdin"
+    },
+    {
+      "id": "dis012",
+      "question": "Reine des neiges qui s'isole après avoir accidentellement blessé sa sœur Anna avec ses pouvoirs de glace, elle chante 'Libérée, Délivrée' en construisant son palais de glace. Qui est-ce ?",
+      "answer": "Elsa",
+      "difficulty": "normal",
+      "category": "La Reine des Neiges"
+    },
+    {
+      "id": "dis013",
+      "question": "Bonhomme de neige vivant créé par les pouvoirs d'Elsa dans La Reine des Neiges, il rêve de découvrir l'été malgré le risque de fondre. Il adore les câlins chaleureux. Qui est-ce ?",
+      "answer": "Olaf",
+      "difficulty": "normal",
+      "category": "La Reine des Neiges"
+    },
+    {
+      "id": "dis014",
+      "question": "Déesse créatrice des îles polynésiennes dans Vaiana (Moana), son cœur a été volé par Maui il y a mille ans. Sans ce cœur, elle se transforme en Te Kā, un démon de lave. Qui est-ce ?",
+      "answer": "Te Fiti",
+      "difficulty": "normal",
+      "category": "Vaiana"
+    },
+    {
+      "id": "dis015",
+      "question": "Première lapine officier de police dans la métropole de Zootopie, elle fait équipe avec le renard escroc Nick Wilde pour résoudre une affaire de disparitions. Originaire de Bunnyburrow. Qui est-ce ?",
+      "answer": "Judy Hopps",
+      "difficulty": "normal",
+      "category": "Zootopie"
+    },
+    {
+      "id": "dis016",
+      "question": "Robot médecin gonflable blanc créé par Tadashi dans Les Nouveaux Héros (Big Hero 6), il devient le partenaire de Hiro dans leur combat contre le crime à San Fransokyo. Qui est-ce ?",
+      "answer": "Baymax",
+      "difficulty": "normal",
+      "category": "Les Nouveaux Héros"
+    },
+    {
+      "id": "dis017",
+      "question": "Jeune cuisinière afro-américaine de La Nouvelle-Orléans dans La Princesse et la Grenouille, elle rêve d'ouvrir son propre restaurant. Transformée en grenouille après avoir embrassé le prince Naveen. Qui est-ce ?",
+      "answer": "Tiana",
+      "difficulty": "normal",
+      "category": "La Princesse et la Grenouille"
+    },
+    {
+      "id": "dis018",
+      "question": "Chat gris malveillant de la maison de Lady Tremaine dans Cendrillon, il pourchasse sans cesse les souris Jaq et Gus. Son nom évoque le Diable lui-même. Comment s'appelle-t-il ?",
+      "answer": "Lucifer",
+      "difficulty": "difficile",
+      "category": "Cendrillon"
+    },
+    {
+      "id": "dis019",
+      "question": "Satyre à pattes de bouc entraîneur de héros grecs dans Hercule, il a formé des champions comme Achille avant de découvrir Hercule. Son nom complet est grec mais on l'appelle Phil. Quel est son vrai nom ?",
+      "answer": "Philoctète",
+      "difficulty": "difficile",
+      "category": "Hercule"
+    },
+    {
+      "id": "dis020",
+      "question": "Numéro d'expérience génétique de Stitch, cette créature bleue destructrice créée par le Dr Jumba atterrit à Hawaï où elle est adoptée par Lilo. Quel est ce numéro ?",
+      "answer": "626",
+      "difficulty": "difficile",
+      "category": "Lilo et Stitch"
+    },
+    {
+      "id": "dis021",
+      "question": "Empereur Inca transformé accidentellement en lama par la potion d'Yzma dans Kuzco, l'Empereur Mégalo, il doit traverser la jungle pour retrouver forme humaine. En quel animal est-il transformé ?",
+      "answer": "Un lama",
+      "difficulty": "normal",
+      "category": "Kuzco"
+    },
+    {
+      "id": "dis022",
+      "question": "Trophées remis à Mulan par l'Empereur de Chine pour avoir sauvé le pays des Huns, ces deux objets symbolisent son honneur retrouvé. L'un appartient au chef ennemi. Quels sont ces objets ?",
+      "answer": "L'épée de Shan-Yu et le sceau de l'Empereur",
+      "difficulty": "difficile",
+      "category": "Mulan"
+    },
+    {
+      "id": "dis023",
+      "question": "Princesse endormie sous le nom de Rose dans La Belle au Bois Dormant, elle est élevée par trois fées (Flora, Pâquerette et Pimprenelle) pour la protéger de la malédiction de Maléfique. Quel est son vrai prénom ?",
+      "answer": "Aurore",
+      "difficulty": "normal",
+      "category": "La Belle au Bois Dormant"
+    },
+    {
+      "id": "dis024",
+      "question": "Vaisseau pirate du Capitaine Crochet dans Peter Pan, il navigue dans les eaux de Pays Imaginaire. Son pavillon noir terrifie les Enfants Perdus. Comment s'appelle ce navire ?",
+      "answer": "Le Jolly Roger",
+      "difficulty": "normal",
+      "category": "Peter Pan"
+    },
+    {
+      "id": "dis025",
+      "question": "Demi-dieu polynésien tatoué qui a volé le cœur de Te Fiti, il possède un hameçon magique qui lui permet de se transformer. Il accompagne Vaiana dans sa quête. Qui est-ce ?",
+      "answer": "Maui",
+      "difficulty": "normal",
+      "category": "Vaiana"
+    },
+    {
+      "id": "dis026",
+      "question": "Jeune garçon mexicain passionné de musique dans Coco, il se retrouve au Pays des Morts le jour de la Fête des Morts. Il découvre un secret de famille lié au célèbre chanteur Ernesto de la Cruz. Qui est-ce ?",
+      "answer": "Miguel Rivera",
+      "difficulty": "normal",
+      "category": "Coco"
+    },
+    {
+      "id": "dis027",
+      "question": "Renard escroc de Zootopie qui fait équipe avec la lapine Judy Hopps, il rêve de devenir scout mais a été humilié enfant à cause de son espèce. Il finit par devenir policier. Qui est-ce ?",
+      "answer": "Nick Wilde",
+      "difficulty": "normal",
+      "category": "Zootopie"
+    },
+    {
+      "id": "dis028",
+      "question": "Ville fusion de San Francisco et Tokyo dans Les Nouveaux Héros, cette métropole futuriste mélange architecture asiatique et américaine. Le pont ressemble au Golden Gate mais en style japonais. Quelle est cette ville ?",
+      "answer": "San Fransokyo",
+      "difficulty": "difficile",
+      "category": "Les Nouveaux Héros"
+    },
+    {
+      "id": "dis029",
+      "question": "Petit grillon porte-bonheur offert à Mulan par sa grand-mère, il accompagne la guerrière dans son aventure pour sauver la Chine. Il s'appelle comment dans la version française ?",
+      "answer": "Cri-Kee",
+      "difficulty": "difficile",
+      "category": "Mulan"
+    },
+    {
+      "id": "dis030",
+      "question": "Tigre domestique de la princesse Jasmine dans Aladdin, ce félin protecteur grogne sur tous les prétendants sauf Aladdin. Il vit dans le palais d'Agrabah. Comment s'appelle-t-il ?",
+      "answer": "Rajah",
+      "difficulty": "normal",
+      "category": "Aladdin"
+    }
+  ]
+}

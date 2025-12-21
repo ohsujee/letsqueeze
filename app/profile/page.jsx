@@ -8,6 +8,8 @@ import { useTheme } from '@/lib/contexts/ThemeContext';
 import { storage } from '@/lib/utils/storage';
 import BottomNav from '@/lib/components/BottomNav';
 import { ChevronRight, Lightbulb } from 'lucide-react';
+import hueService from '@/lib/hue-module/services/hueService';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -15,6 +17,8 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [soundEffects, setSoundEffects] = useState(true);
   const [notifications, setNotifications] = useState(true);
+  const [hueEffectsEnabled, setHueEffectsEnabled] = useState(true);
+  const [hueConnected, setHueConnected] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { isPro, isAdmin, tier, adminStatus } = useSubscription(user);
 
@@ -32,6 +36,11 @@ export default function ProfilePage() {
 
         if (savedSound !== null) setSoundEffects(savedSound);
         if (savedNotifications !== null) setNotifications(savedNotifications);
+
+        // Load Hue settings (reload config car SSR ne charge pas localStorage)
+        hueService.loadConfig();
+        setHueConnected(hueService.isConnected);
+        setHueEffectsEnabled(hueService.effectsEnabled);
       }
     });
 
@@ -63,6 +72,12 @@ export default function ProfilePage() {
     storage.set('notifications', newValue);
   };
 
+  const handleToggleHueEffects = () => {
+    const newValue = !hueEffectsEnabled;
+    setHueEffectsEnabled(newValue);
+    hueService.setEffectsEnabled(newValue);
+  };
+
   const getInitials = (name) => {
     if (!name) return '?';
     return name
@@ -79,19 +94,20 @@ export default function ProfilePage() {
         <div className="loading-spinner"></div>
         <style jsx>{`
           .loading-screen {
-            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--bg-primary);
+            background: var(--bg-primary, #0a0a0f);
           }
           .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border-primary);
-            border-top-color: var(--brand-blue);
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--quiz-primary, #8b5cf6);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
           }
           @keyframes spin {
             to { transform: rotate(360deg); }
@@ -103,7 +119,12 @@ export default function ProfilePage() {
 
   return (
     <div className="profile-container">
-      <main className="profile-content">
+      <motion.main
+        className="profile-content"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+      >
         {/* Profile Header */}
         <section className="profile-header">
           {/* Avatar */}
@@ -140,31 +161,52 @@ export default function ProfilePage() {
             <span className="card-icon">💳</span>
             Abonnement
           </h2>
-          <div className="subscription-info">
-            <div className="plan-info">
-              <span className="plan-label">Plan actuel</span>
-              <span className="plan-value">{tier?.displayName || 'Free'}</span>
-            </div>
-            {isPro && (
-              <div className="benefits-list">
-                <div className="benefit-item">✓ Accès illimité</div>
-                <div className="benefit-item">✓ Sans publicité</div>
-                <div className="benefit-item">✓ Tous les packs</div>
+
+          {isPro ? (
+            <>
+              {/* Pro users see their benefits */}
+              <div className="benefits-grid">
+                <div className="benefit-card unlocked">
+                  <div className="benefit-icon">♾️</div>
+                  <div className="benefit-text">Illimité</div>
+                </div>
+                <div className="benefit-card unlocked">
+                  <div className="benefit-icon">🚫</div>
+                  <div className="benefit-text">Sans pub</div>
+                </div>
+                <div className="benefit-card unlocked">
+                  <div className="benefit-icon">📦</div>
+                  <div className="benefit-text">Tous packs</div>
+                </div>
               </div>
-            )}
-          </div>
-          {!isPro ? (
-            <button className="btn-upgrade" onClick={() => router.push('/subscribe')}>
-              Passer à Pro
-            </button>
-          ) : isAdmin ? (
-            <button className="btn-manage" disabled>
-              Compte Admin
-            </button>
+              {!isAdmin && (
+                <button className="btn-manage" onClick={() => router.push('/subscribe')}>
+                  Gérer l'abonnement
+                </button>
+              )}
+            </>
           ) : (
-            <button className="btn-manage" onClick={() => router.push('/subscribe')}>
-              Gérer l'abonnement
-            </button>
+            <>
+              {/* Free users see what they're missing */}
+              <div className="benefits-grid">
+                <div className="benefit-card locked">
+                  <div className="benefit-icon">🔒</div>
+                  <div className="benefit-text">Illimité</div>
+                </div>
+                <div className="benefit-card locked">
+                  <div className="benefit-icon">🔒</div>
+                  <div className="benefit-text">Sans pub</div>
+                </div>
+                <div className="benefit-card locked">
+                  <div className="benefit-icon">🔒</div>
+                  <div className="benefit-text">Tous packs</div>
+                </div>
+              </div>
+              <button className="btn-upgrade" onClick={() => router.push('/subscribe')}>
+                <span className="btn-icon">⭐</span>
+                Débloquer Pro
+              </button>
+            </>
           )}
         </section>
 
@@ -245,6 +287,21 @@ export default function ProfilePage() {
               </button>
             </div>
 
+            {(hueConnected || user?.email === 'yogarajah.sujeevan@gmail.com') && (
+              <div className="setting-item">
+                <div className="setting-info">
+                  <span className="setting-icon">💡</span>
+                  <span className="setting-label">Effets Philips Hue</span>
+                </div>
+                <button
+                  className={`toggle ${hueEffectsEnabled ? 'active' : ''}`}
+                  onClick={handleToggleHueEffects}
+                >
+                  <div className="toggle-thumb"></div>
+                </button>
+              </div>
+            )}
+
             <div className="setting-item">
               <div className="setting-info">
                 <span className="setting-icon">🗣️</span>
@@ -291,19 +348,21 @@ export default function ProfilePage() {
 
         {/* Bottom padding for nav */}
         <div className="bottom-padding"></div>
-      </main>
+      </motion.main>
 
       {/* Bottom Navigation */}
       <BottomNav />
 
       <style jsx>{`
         .profile-container {
-          min-height: 100vh;
-          background: #000000;
+          min-height: 100dvh;
+          background: var(--bg-primary, #0a0a0f);
           position: relative;
+          padding: 0 16px;
+          box-sizing: border-box;
         }
 
-        /* Background orbs like home page */
+        /* Guide: Animated Background with Radial Gradients */
         .profile-container::before {
           content: '';
           position: fixed;
@@ -311,68 +370,90 @@ export default function ProfilePage() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: radial-gradient(circle at 80% 20%, rgba(66, 153, 225, 0.08) 0%, transparent 50%),
-                      radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+          background:
+            radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 60%);
           pointer-events: none;
           z-index: 0;
+          animation: bg-pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes bg-pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
         }
 
         .profile-content {
-          padding: var(--space-6);
+          padding-top: 20px;
           padding-bottom: 0;
-          max-width: 640px;
+          max-width: 600px;
           margin: 0 auto;
           position: relative;
           z-index: 1;
+          box-sizing: border-box;
+          width: 100%;
         }
 
         /* Profile Header */
         .profile-header {
           text-align: center;
           margin-bottom: 2rem;
+          padding-top: 1rem;
         }
 
         .avatar-container {
-          margin-bottom: 1rem;
+          margin-bottom: 1.25rem;
+          position: relative;
+          display: inline-block;
         }
 
         .avatar-image,
         .avatar-placeholder {
-          width: 96px;
-          height: 96px;
-          border-radius: var(--radius-full);
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
           margin: 0 auto;
         }
 
         .avatar-image {
           object-fit: cover;
-          border: 4px solid var(--border-primary);
-          box-shadow: var(--shadow-md);
+          border: 3px solid rgba(139, 92, 246, 0.5);
+          box-shadow:
+            0 0 30px rgba(139, 92, 246, 0.3),
+            0 8px 24px rgba(0, 0, 0, 0.4);
         }
 
         .avatar-placeholder {
-          background: linear-gradient(135deg, var(--brand-blue), var(--brand-green));
+          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed));
           display: flex;
           align-items: center;
           justify-content: center;
+          font-family: var(--font-title, 'Bungee'), cursive;
           font-size: 2rem;
-          font-weight: var(--font-weight-bold);
+          font-weight: 400;
           color: white;
-          border: 4px solid var(--border-primary);
-          box-shadow: var(--shadow-md);
+          border: 3px solid rgba(255, 255, 255, 0.2);
+          box-shadow:
+            0 0 30px rgba(139, 92, 246, 0.4),
+            0 8px 24px rgba(0, 0, 0, 0.4),
+            inset 0 2px 10px rgba(255, 255, 255, 0.1);
         }
 
         .user-name {
-          font-size: var(--font-size-2xl);
-          font-weight: var(--font-weight-extrabold);
-          color: var(--text-primary);
-          margin-bottom: var(--space-1);
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: clamp(1.5rem, 5vw, 2rem);
+          font-weight: 400;
+          color: var(--text-primary, #ffffff);
+          margin-bottom: 0.25rem;
+          text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
         }
 
         .user-email {
-          font-size: var(--font-size-sm);
-          color: var(--text-secondary);
-          margin-bottom: var(--space-4);
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.875rem;
+          color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+          margin-bottom: 1rem;
         }
 
         .badges {
@@ -385,142 +466,226 @@ export default function ProfilePage() {
         .badge {
           padding: 0.5rem 1rem;
           border-radius: 20px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-size: 0.75rem;
           font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .badge.admin {
-          background: linear-gradient(135deg, #A855F7, #EC4899);
+          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #ec4899);
           color: white;
+          box-shadow:
+            0 4px 12px rgba(139, 92, 246, 0.4),
+            0 0 20px rgba(139, 92, 246, 0.2);
         }
 
         .badge.pro {
-          background: linear-gradient(135deg, #FFD700, #FF6D00);
-          color: white;
+          background: linear-gradient(135deg, #fbbf24, #f59e0b);
+          color: #1a1a2e;
+          box-shadow:
+            0 4px 12px rgba(245, 158, 11, 0.4),
+            0 0 20px rgba(245, 158, 11, 0.2);
         }
 
-        /* Card */
+        /* Guide: Glassmorphism Card */
         .card {
-          background: var(--bg-card);
-          border-radius: var(--radius-lg);
-          padding: var(--space-6);
-          margin-bottom: var(--space-4);
-          box-shadow: var(--shadow-sm);
-          border: 1px solid var(--border-primary);
+          background: rgba(20, 20, 30, 0.7);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-radius: 16px;
+          padding: 1.25rem;
+          margin-bottom: 1rem;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .card-title {
           display: flex;
           align-items: center;
-          gap: var(--space-2);
-          font-size: var(--font-size-lg);
-          font-weight: var(--font-weight-bold);
-          color: var(--text-primary);
-          margin-bottom: var(--space-4);
+          gap: 0.5rem;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--text-primary, #ffffff);
+          margin-bottom: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
         .card-icon {
-          font-size: var(--font-size-xl);
+          font-size: 1.25rem;
         }
 
-        /* Subscription Card */
-        .subscription-info {
+        /* Subscription Card - Game Style */
+        .subscription-card .benefits-grid {
           margin-bottom: 1rem;
         }
 
-        .plan-info {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 0.75rem;
+        /* Benefits Grid - Achievement Style */
+        .benefits-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.5rem;
         }
 
-        .plan-label {
-          font-size: var(--font-size-sm);
-          color: var(--text-secondary);
-        }
-
-        .plan-value {
-          font-size: var(--font-size-base);
-          font-weight: var(--font-weight-bold);
-          color: var(--text-primary);
-        }
-
-        .benefits-list {
+        .benefit-card {
+          position: relative;
           display: flex;
           flex-direction: column;
-          gap: var(--space-2);
-          padding: var(--space-3);
-          background: var(--bg-secondary);
-          border-radius: var(--radius-md);
+          align-items: center;
+          justify-content: center;
+          padding: 1rem 0.5rem;
+          border-radius: 12px;
+          overflow: hidden;
+          transition: all 0.3s ease;
         }
 
-        .benefit-item {
-          font-size: var(--font-size-sm);
-          color: var(--brand-green);
-          font-weight: var(--font-weight-medium);
+        /* Unlocked state - Green glow */
+        .benefit-card.unlocked {
+          background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05));
+          border: 1px solid rgba(34, 197, 94, 0.3);
         }
 
+        .benefit-card.unlocked:hover {
+          transform: translateY(-2px);
+          border-color: rgba(34, 197, 94, 0.5);
+          box-shadow: 0 8px 20px rgba(34, 197, 94, 0.2);
+        }
+
+        .benefit-card.unlocked .benefit-icon {
+          filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.5));
+        }
+
+        .benefit-card.unlocked .benefit-text {
+          color: var(--success, #22c55e);
+        }
+
+        /* Locked state - Grayed out */
+        .benefit-card.locked {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .benefit-card.locked .benefit-icon {
+          opacity: 0.5;
+          filter: grayscale(100%);
+        }
+
+        .benefit-card.locked .benefit-text {
+          color: var(--text-muted, rgba(255, 255, 255, 0.4));
+        }
+
+        .benefit-icon {
+          font-size: 1.5rem;
+          margin-bottom: 0.375rem;
+          transition: all 0.3s ease;
+        }
+
+        .benefit-text {
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.6875rem;
+          font-weight: 600;
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: 0.03em;
+          transition: color 0.3s ease;
+        }
+
+        .btn-icon {
+          margin-right: 0.5rem;
+        }
+
+        /* Guide: 3D Button - Upgrade */
         .btn-upgrade {
           width: 100%;
-          padding: 0.875rem;
-          background: linear-gradient(135deg, #4285F4, #34A853);
+          padding: 1rem;
+          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed));
           color: white;
           border: none;
           border-radius: 12px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+          box-shadow:
+            0 4px 0 #6d28d9,
+            0 6px 20px rgba(139, 92, 246, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-upgrade:hover {
+          transform: translateY(-2px);
+          box-shadow:
+            0 6px 0 #6d28d9,
+            0 10px 30px rgba(139, 92, 246, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-upgrade:active {
+          transform: translateY(2px);
+          box-shadow:
+            0 2px 0 #6d28d9,
+            0 4px 10px rgba(139, 92, 246, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-manage {
+          width: 100%;
+          padding: 1rem;
+          background: rgba(255, 255, 255, 0.05);
+          color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.875rem;
           font-weight: 700;
           cursor: pointer;
           transition: all 0.2s ease;
         }
 
-        .btn-upgrade:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
-        }
-
-        .btn-upgrade:active {
-          transform: translateY(0);
-        }
-
-        .btn-manage {
-          width: 100%;
-          padding: var(--space-4);
-          background: var(--bg-secondary);
-          color: var(--text-secondary);
-          border: 2px solid var(--border-primary);
-          border-radius: var(--radius-md);
-          font-weight: var(--font-weight-bold);
-          cursor: pointer;
-          transition: all var(--transition-base);
-        }
-
         .btn-manage:disabled {
           cursor: not-allowed;
-          opacity: 0.6;
+          opacity: 0.5;
         }
 
         .btn-manage:not(:disabled):hover {
-          background: var(--bg-tertiary);
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Stats Card */
         .stats-grid {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 0.75rem;
         }
 
         .stat-item {
           display: flex;
           align-items: center;
-          gap: var(--space-4);
-          padding: var(--space-3);
-          background: var(--bg-secondary);
-          border-radius: var(--radius-md);
+          gap: 1rem;
+          padding: 0.875rem;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 12px;
+          transition: all 0.2s ease;
+        }
+
+        .stat-item:hover {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(139, 92, 246, 0.2);
         }
 
         .stat-icon {
-          font-size: var(--font-size-3xl);
+          font-size: 1.75rem;
         }
 
         .stat-info {
@@ -529,28 +694,40 @@ export default function ProfilePage() {
 
         .stat-label {
           display: block;
-          font-size: var(--font-size-sm);
-          color: var(--text-secondary);
-          margin-bottom: var(--space-1);
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.75rem;
+          color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+          margin-bottom: 0.125rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
         .stat-value {
-          font-size: var(--font-size-base);
-          font-weight: var(--font-weight-bold);
-          color: var(--text-primary);
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--text-primary, #ffffff);
         }
 
         /* Settings Card */
         .settings-list {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 0.875rem;
         }
 
         .setting-item {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          padding: 0.75rem;
+          background: rgba(255, 255, 255, 0.02);
+          border-radius: 12px;
+          transition: background 0.2s ease;
+        }
+
+        .setting-item:hover {
+          background: rgba(255, 255, 255, 0.04);
         }
 
         .setting-info {
@@ -560,68 +737,76 @@ export default function ProfilePage() {
         }
 
         .setting-icon {
-          font-size: var(--font-size-xl);
+          font-size: 1.25rem;
         }
 
         .setting-label {
-          font-size: var(--font-size-base);
-          color: var(--text-primary);
-          font-weight: var(--font-weight-medium);
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.9375rem;
+          color: var(--text-primary, #ffffff);
+          font-weight: 500;
         }
 
         .setting-value {
-          font-size: var(--font-size-sm);
-          color: var(--text-secondary);
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.875rem;
+          color: var(--text-secondary, rgba(255, 255, 255, 0.6));
         }
 
-        /* Toggle Switch */
+        /* Guide: Toggle Switch */
         .toggle {
           position: relative;
-          width: 48px;
+          width: 52px;
           height: 28px;
-          background: var(--bg-tertiary);
-          border-radius: var(--radius-full);
-          border: none;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 14px;
+          border: 2px solid rgba(255, 255, 255, 0.1);
           cursor: pointer;
-          transition: background var(--transition-base);
+          transition: all 0.3s ease;
         }
 
         .toggle.active {
-          background: var(--brand-green);
+          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed));
+          border-color: transparent;
+          box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
         }
 
         .toggle-thumb {
           position: absolute;
           top: 2px;
           left: 2px;
-          width: 24px;
-          height: 24px;
+          width: 20px;
+          height: 20px;
           background: white;
           border-radius: 50%;
-          transition: transform 0.2s ease;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .toggle.active .toggle-thumb {
-          transform: translateX(20px);
+          transform: translateX(24px);
         }
 
-        /* Sign Out Button */
+        /* Guide: Sign Out Button - Danger Style */
         .btn-signout {
           width: 100%;
-          padding: var(--space-4);
+          padding: 1rem;
           background: transparent;
-          color: var(--brand-red);
-          border: 2px solid var(--brand-red);
-          border-radius: var(--radius-md);
-          font-weight: var(--font-weight-bold);
+          color: var(--error, #ef4444);
+          border: 2px solid rgba(239, 68, 68, 0.3);
+          border-radius: 12px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.9375rem;
+          font-weight: 700;
           cursor: pointer;
-          transition: all var(--transition-base);
-          margin-bottom: var(--space-4);
+          transition: all 0.2s ease;
+          margin-bottom: 1rem;
         }
 
         .btn-signout:hover {
-          background: rgba(234, 67, 53, 0.1);
+          background: rgba(239, 68, 68, 0.1);
+          border-color: rgba(239, 68, 68, 0.5);
+          box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
         }
 
         .btn-signout:active {
@@ -631,35 +816,38 @@ export default function ProfilePage() {
         /* Footer */
         .profile-footer {
           text-align: center;
-          padding: 1rem 0;
+          padding: 1.5rem 0;
         }
 
         .footer-text {
-          font-size: var(--font-size-xs);
-          color: var(--text-tertiary);
-          margin-bottom: var(--space-2);
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.75rem;
+          color: var(--text-tertiary, rgba(255, 255, 255, 0.4));
+          margin-bottom: 0.5rem;
         }
 
         .footer-links {
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: var(--space-2);
+          gap: 0.5rem;
         }
 
         .footer-link {
-          font-size: var(--font-size-xs);
-          color: var(--brand-blue);
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.75rem;
+          color: var(--quiz-primary, #8b5cf6);
           text-decoration: none;
+          transition: color 0.2s ease;
         }
 
         .footer-link:hover {
-          text-decoration: underline;
+          color: var(--quiz-secondary, #7c3aed);
         }
 
         .footer-separator {
-          color: var(--text-tertiary);
-          font-size: var(--font-size-xs);
+          color: var(--text-tertiary, rgba(255, 255, 255, 0.4));
+          font-size: 0.75rem;
         }
 
         /* Bottom padding for nav */
@@ -667,42 +855,47 @@ export default function ProfilePage() {
           height: 96px;
         }
 
-        /* Hue Card */
+        /* Guide: Hue Card - Special Gradient */
         .hue-card {
           width: 100%;
           padding: 0;
-          margin-bottom: var(--space-4);
+          margin-bottom: 1rem;
           background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.1));
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
           border: 1px solid rgba(139, 92, 246, 0.3);
-          border-radius: var(--radius-lg);
+          border-radius: 16px;
           cursor: pointer;
-          transition: all var(--transition-base);
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
           overflow: hidden;
         }
 
         .hue-card:hover {
-          transform: translateY(-2px);
+          transform: translateY(-3px);
           border-color: rgba(139, 92, 246, 0.5);
-          box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
+          box-shadow:
+            0 12px 32px rgba(139, 92, 246, 0.3),
+            0 0 40px rgba(139, 92, 246, 0.15);
         }
 
         .hue-card-content {
           display: flex;
           align-items: center;
-          gap: var(--space-4);
-          padding: var(--space-4);
+          gap: 1rem;
+          padding: 1rem;
         }
 
         .hue-icon {
           width: 48px;
           height: 48px;
-          border-radius: var(--radius-md);
-          background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+          border-radius: 12px;
+          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #3b82f6);
           display: flex;
           align-items: center;
           justify-content: center;
           color: white;
           flex-shrink: 0;
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
         }
 
         .hue-info {
@@ -714,19 +907,88 @@ export default function ProfilePage() {
         }
 
         .hue-title {
-          font-size: var(--font-size-base);
-          font-weight: var(--font-weight-semibold);
-          color: var(--text-primary);
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--text-primary, #ffffff);
         }
 
         .hue-subtitle {
-          font-size: var(--font-size-sm);
-          color: var(--text-secondary);
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.8125rem;
+          color: var(--text-secondary, rgba(255, 255, 255, 0.6));
         }
 
         .hue-chevron {
-          color: var(--text-tertiary);
+          color: var(--text-tertiary, rgba(255, 255, 255, 0.4));
           flex-shrink: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+          .profile-container {
+            padding: 0 16px;
+          }
+
+          .profile-content {
+            padding-top: 16px;
+          }
+
+          .avatar-image,
+          .avatar-placeholder {
+            width: 88px;
+            height: 88px;
+          }
+
+          .avatar-placeholder {
+            font-size: 1.75rem;
+          }
+
+          .card {
+            padding: 1rem;
+            border-radius: 14px;
+          }
+
+          .benefits-grid {
+            gap: 0.375rem;
+          }
+
+          .benefit-card {
+            padding: 0.75rem 0.25rem;
+          }
+
+          .benefit-icon {
+            font-size: 1.25rem;
+          }
+
+          .benefit-text {
+            font-size: 0.625rem;
+          }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 380px) {
+          .profile-container {
+            padding: 0 12px;
+          }
+
+          .card {
+            padding: 0.875rem;
+            border-radius: 12px;
+          }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          .profile-container::before {
+            animation: none;
+          }
+
+          .toggle-thumb,
+          .btn-upgrade,
+          .hue-card {
+            transition: none;
+          }
         }
       `}</style>
     </div>

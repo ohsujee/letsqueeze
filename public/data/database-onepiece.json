@@ -1,0 +1,847 @@
+{
+  "id": "database-onepiece",
+  "title": "One Piece - Base de données complète",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "op001",
+      "question": "Capitaine du Thousand Sunny, ce pirate a mangé un fruit du démon qui lui permet d'étirer son corps comme du caoutchouc. Inspiré par Shanks le Roux qui lui a donné son chapeau de paille, il veut devenir le Roi des Pirates. Qui est-ce ?",
+      "answer": "Monkey D. Luffy",
+      "difficulty": "normal",
+      "category": "Équipage"
+    },
+    {
+      "id": "op002",
+      "question": "Titre suprême que veut obtenir le héros au chapeau de paille, il désigne le pirate ayant trouvé le trésor légendaire au bout de Grand Line. Gol D. Roger fut le seul à le porter. Quel est ce titre ?",
+      "answer": "Roi des Pirates",
+      "difficulty": "normal",
+      "category": "Titres"
+    },
+    {
+      "id": "op003",
+      "question": "Trésor légendaire caché sur la dernière île de Grand Line par le précédent Roi des Pirates, sa découverte provoquerait un bouleversement mondial selon Barbe Blanche. Quel est ce trésor ?",
+      "answer": "Le One Piece",
+      "difficulty": "normal",
+      "category": "Intrigue"
+    },
+    {
+      "id": "op004",
+      "question": "Mangé accidentellement par le héros enfant, ce fruit du démon transforme son corps en caoutchouc élastique. Son vrai nom, caché par le Gouvernement, est le Hito Hito no Mi modèle Nika. Quel est ce fruit ?",
+      "answer": "Le Gomu Gomu no Mi (fruit du caoutchoutier)",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op005",
+      "question": "Premier membre recruté par le capitaine, cet épéiste au sens de l'orientation catastrophique manie trois sabres simultanément. Il rêve de devenir le plus grand épéiste du monde en battant Mihawk. Qui est-ce ?",
+      "answer": "Roronoa Zoro",
+      "difficulty": "normal",
+      "category": "Équipage"
+    },
+    {
+      "id": "op006",
+      "question": "Cuisinier de l'équipage et ancien sous-chef du Baratie, ce gentleman ne frappe jamais avec ses mains et tombe amoureux de chaque femme qu'il croise. Il allume ses jambes avec le Diable Jambe. Qui est-ce ?",
+      "answer": "Sanji",
+      "difficulty": "normal",
+      "category": "Équipage"
+    },
+    {
+      "id": "op007",
+      "question": "Navigatrice de l'équipage au passé de voleuse, cette cartographe peut prédire les changements météorologiques. Ancienne esclave d'Arlong, elle a été libérée par le capitaine. Qui est-ce ?",
+      "answer": "Nami",
+      "difficulty": "normal",
+      "category": "Équipage"
+    },
+    {
+      "id": "op008",
+      "question": "Médecin de l'équipage, ce renne au nez bleu a mangé le Hito Hito no Mi qui lui permet de parler et de se transformer. Élevé par le Dr Hiluluk et Kureha sur l'île de Drum. Qui est-ce ?",
+      "answer": "Tony Tony Chopper",
+      "difficulty": "normal",
+      "category": "Équipage"
+    },
+    {
+      "id": "op009",
+      "question": "Premier navire de l'équipage offert par Kaya, ce bateau à tête de bélier a développé un esprit grâce à l'amour de son équipage. Il a été brûlé lors de funérailles marines à Water Seven. Quel est ce navire ?",
+      "answer": "Le Going Merry (Vogue Merry)",
+      "difficulty": "normal",
+      "category": "Navires"
+    },
+    {
+      "id": "op010",
+      "question": "Exécuté sur l'échafaud de Loguetown il y a 22 ans, ses dernières paroles ont déclenché l'Ère de la Piraterie. Seul pirate à avoir trouvé le trésor légendaire, il portait la moustache emblématique. Qui était-ce ?",
+      "answer": "Gol D. Roger",
+      "difficulty": "normal",
+      "category": "Légendes"
+    },
+    {
+      "id": "op011",
+      "question": "Tireur d'élite de l'équipage et fils du pirate Yasopp, ce menteur compulsif au long nez a grandi au village de Syrup. Son alter-ego héroïque s'appelle Sogeking. Qui est-ce ?",
+      "answer": "Usopp",
+      "difficulty": "normal",
+      "category": "Équipage"
+    },
+    {
+      "id": "op012",
+      "question": "Organisation militaire mondiale chargée de traquer les pirates, elle est dirigée par les Amiraux et répond au Gouvernement Mondial. Son QG était à Marineford avant d'être déplacé. Quelle est cette organisation ?",
+      "answer": "La Marine",
+      "difficulty": "normal",
+      "category": "Organisations"
+    },
+    {
+      "id": "op013",
+      "question": "Charpentier de l'équipage et ancien voyou de Water Seven, ce cyborg a transformé son corps en arme après une explosion. Il a construit le Thousand Sunny. Qui est-ce ?",
+      "answer": "Franky",
+      "difficulty": "normal",
+      "category": "Équipage"
+    },
+    {
+      "id": "op014",
+      "question": "Musicien de l'équipage ressuscité grâce au Yomi Yomi no Mi, ce squelette à l'afro était le dernier survivant de l'équipage des Rumbar Pirates. Il cherchait à retrouver Laboon. Qui est-ce ?",
+      "answer": "Brook",
+      "difficulty": "normal",
+      "category": "Équipage"
+    },
+    {
+      "id": "op015",
+      "question": "Groupe de onze pirates rookies ayant atteint Sabaody en même temps avec des primes supérieures à 100 millions de Berrys, ils représentent la nouvelle génération de pirates. Quel est leur surnom ?",
+      "answer": "Les Supernovas (ou la Pire Génération)",
+      "difficulty": "normal",
+      "category": "Pirates"
+    },
+    {
+      "id": "op016",
+      "question": "Second commandant de la flotte de Barbe Blanche et fils biologique de Gol D. Roger, ce pirate aux poings de feu a été exécuté à Marineford après avoir été trahi par Barbe Noire. Qui était-ce ?",
+      "answer": "Portgas D. Ace",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "op017",
+      "question": "Surnom donné au capitaine de l'équipage en référence au couvre-chef que lui a confié Shanks, il est devenu le symbole de l'équipage et apparaît sur leur drapeau pirate. Quel est ce surnom ?",
+      "answer": "Chapeau de Paille (Mugiwara)",
+      "difficulty": "normal",
+      "category": "Surnoms"
+    },
+    {
+      "id": "op018",
+      "question": "Empereur des mers aux cheveux roux qui a sacrifié son bras pour sauver le héros enfant, ce pirate lui a confié son chapeau de paille en attendant qu'il devienne un grand pirate. Qui est-ce ?",
+      "answer": "Shanks le Roux",
+      "difficulty": "normal",
+      "category": "Empereurs"
+    },
+    {
+      "id": "op019",
+      "question": "Homme-poisson qui tyrannisait Cocoyashi et avait réduit Nami en esclavage, ce pirate au nez de requin-scie a été le premier grand ennemi vaincu par le capitaine en East Blue. Qui était-ce ?",
+      "answer": "Arlong",
+      "difficulty": "normal",
+      "category": "Antagonistes"
+    },
+    {
+      "id": "op020",
+      "question": "Archéologue de l'équipage et seule survivante d'Ohara, cette femme recherchée depuis l'âge de 8 ans peut faire fleurir des parties de son corps n'importe où. Elle déchiffre les Ponéglyphes. Qui est-ce ?",
+      "answer": "Nico Robin",
+      "difficulty": "normal",
+      "category": "Équipage"
+    },
+    {
+      "id": "op021",
+      "question": "Quatre pirates légendaires dominant le Nouveau Monde, ils maintiennent l'équilibre du pouvoir avec la Marine et les Corsaires. Shanks, Kaido, Big Mom et Barbe Blanche en faisaient partie. Quel est leur titre ?",
+      "answer": "Les Quatre Empereurs (Yonko)",
+      "difficulty": "normal",
+      "category": "Système"
+    },
+    {
+      "id": "op022",
+      "question": "Capacité rare possédée par une personne sur un million permettant d'imposer sa volonté et de faire s'évanouir les faibles d'esprit, ce Haki est la marque des grands leaders. Quel est ce pouvoir ?",
+      "answer": "Le Haki des Rois (Haoshoku)",
+      "difficulty": "normal",
+      "category": "Haki"
+    },
+    {
+      "id": "op023",
+      "question": "Organisation secrète contrôlant le monde depuis 800 ans depuis la cité sainte de Marie-Geoise, elle a effacé le Siècle Oublié des livres d'histoire. Les Cinq Doyens en sont les dirigeants visibles. Quelle est cette organisation ?",
+      "answer": "Le Gouvernement Mondial",
+      "difficulty": "normal",
+      "category": "Organisations"
+    },
+    {
+      "id": "op024",
+      "question": "Système de sept pirates puissants alliés au Gouvernement Mondial en échange de l'immunité, ils chassaient d'autres pirates légalement. Ce système a été aboli après Reverie. Quel est ce groupe ?",
+      "answer": "Les Sept Grands Corsaires (Shichibukai)",
+      "difficulty": "normal",
+      "category": "Système"
+    },
+    {
+      "id": "op025",
+      "question": "Fruit du démon de type Logia permettant de créer et devenir du feu, il a été mangé par Ace puis récupéré après sa mort. Sabo l'a obtenu lors du tournoi de Dressrosa. Quel est ce fruit ?",
+      "answer": "Le Mera Mera no Mi",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op026",
+      "question": "Ancien QG de la Marine où s'est déroulée la Guerre au Sommet, cette forteresse imprenable a été le théâtre de la mort d'Ace et de Barbe Blanche. Quel est ce lieu ?",
+      "answer": "Marineford",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "op027",
+      "question": "Amiral promu Fleet Admiral après la guerre, ce partisan de la justice absolue possède le fruit du magma. Il a tué Ace d'un poing de lave et affronte les pirates sans pitié. Qui est-ce ?",
+      "answer": "Akainu (Sakazuki)",
+      "difficulty": "normal",
+      "category": "Marine"
+    },
+    {
+      "id": "op028",
+      "question": "Criminel le plus recherché au monde et leader de l'Armée Révolutionnaire, cet homme mystérieux au tatouage facial est le père du héros au chapeau de paille. Qui est-ce ?",
+      "answer": "Monkey D. Dragon",
+      "difficulty": "normal",
+      "category": "Famille"
+    },
+    {
+      "id": "op029",
+      "question": "Prison sous-marine à six niveaux gardée par des créatures démoniaques, elle était réputée impossible à violer. Le héros y a fait irruption pour sauver son frère avant son exécution. Quel est ce lieu ?",
+      "answer": "Impel Down",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "op030",
+      "question": "Île céleste située à 10000 mètres d'altitude, ce royaume dans les nuages était dirigé par un faux dieu possédant le fruit de la foudre. Accessible par le Knock Up Stream. Quel est ce lieu ?",
+      "answer": "Skypiea",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "op031",
+      "question": "Surnommé l'homme le plus fort du monde, ce géant à la moustache blanche pouvait créer des tremblements de terre. Capitaine d'une flotte immense, il est mort debout à Marineford. Qui était-ce ?",
+      "answer": "Barbe Blanche (Edward Newgate)",
+      "difficulty": "normal",
+      "category": "Empereurs"
+    },
+    {
+      "id": "op032",
+      "question": "Royaume désertique d'Alabasta manipulé par un Corsaire qui voulait s'emparer de son arme antique, il a été sauvé par l'équipage au chapeau de paille. La princesse Vivi en est l'héritière. Quel est ce pays ?",
+      "answer": "Alabasta",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "op033",
+      "question": "Ancien roi du monde souterrain et Corsaire aux lunettes roses, ce manipulateur contrôlait les gens avec des fils invisibles. Il régnait sur Dressrosa avant d'être vaincu par le héros. Qui est-ce ?",
+      "answer": "Doflamingo",
+      "difficulty": "normal",
+      "category": "Corsaires"
+    },
+    {
+      "id": "op034",
+      "question": "Technique du héros consistant à gonfler ses os en y insufflant de l'air, elle lui permet d'agrandir ses membres temporairement. C'est la troisième évolution de son pouvoir. Quelle est cette technique ?",
+      "answer": "Gear Third",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "op035",
+      "question": "Ancien Amiral pacifiste ayant quitté la Marine par désaccord avec Akainu, ce maître de la glace peut geler les océans. Il a affronté son rival pendant 10 jours sur Punk Hazard. Qui est-ce ?",
+      "answer": "Aokiji (Kuzan)",
+      "difficulty": "normal",
+      "category": "Marine"
+    },
+    {
+      "id": "op036",
+      "question": "Royaume sous-marin situé à 10000 mètres de profondeur, il est peuplé de sirènes et d'hommes-poissons. Protégé par une bulle géante, il était sous la protection de Barbe Blanche. Quel est ce lieu ?",
+      "answer": "L'Île des Hommes-Poissons (Fishman Island)",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "op037",
+      "question": "Organisation secrète combattant le Gouvernement Mondial pour libérer les pays opprimés, elle est dirigée par le père du héros. Sabo en est le chef d'état-major. Quelle est cette armée ?",
+      "answer": "L'Armée Révolutionnaire",
+      "difficulty": "normal",
+      "category": "Organisations"
+    },
+    {
+      "id": "op038",
+      "question": "Fruit du démon de type Logia permettant d'absorber tout et d'annuler les pouvoirs des autres fruits, il ne rend pas son utilisateur intangible. Barbe Noire l'a obtenu en tuant un camarade. Quel est ce fruit ?",
+      "answer": "Le Yami Yami no Mi (fruit des ténèbres)",
+      "difficulty": "difficile",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op039",
+      "question": "Ancien membre de l'équipage de Barbe Blanche ayant tué un commandant pour voler son fruit, ce pirate possède deux pouvoirs impossibles. Il est devenu Empereur après la guerre. Qui est-ce ?",
+      "answer": "Marshall D. Teach (Barbe Noire)",
+      "difficulty": "difficile",
+      "category": "Empereurs"
+    },
+    {
+      "id": "op040",
+      "question": "Dernière île de Grand Line accessible uniquement avec quatre Road Ponéglyphes, c'est là que le One Piece est caché. Seul l'équipage de Roger l'a atteinte. Quelle est cette île ?",
+      "answer": "Laugh Tale (Raftel)",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "op041",
+      "question": "Vérité sur le fruit du héros cachée par le Gouvernement depuis 800 ans, son vrai nom est le Hito Hito no Mi modèle Nika, un Zoan mythique divin. Cette révélation a choqué le monde. Quelle est cette identité ?",
+      "answer": "Le fruit de Nika (Dieu du Soleil)",
+      "difficulty": "normal",
+      "category": "Révélations"
+    },
+    {
+      "id": "op042",
+      "question": "Conseil de cinq vieillards immortels dirigeant le Gouvernement Mondial depuis Marie-Geoise, ils sont au-dessus de tous sauf d'une mystérieuse figure sur le trône vide. Quel est ce conseil ?",
+      "answer": "Les Gorosei (Cinq Doyens)",
+      "difficulty": "normal",
+      "category": "Gouvernement"
+    },
+    {
+      "id": "op043",
+      "question": "Transformation ultime du héros éveillant son fruit du démon, elle lui donne un aspect blanc cartoonesque et une liberté de combat totale. Il l'atteint face à Kaido à Wano. Quelle est cette forme ?",
+      "answer": "Gear Fifth",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "op044",
+      "question": "Royaume antique détruit par les fondateurs du Gouvernement Mondial il y a 800 ans, son existence est interdite de recherche sous peine de mort. Les Ponéglyphes racontent son histoire. Quel est ce royaume ?",
+      "answer": "Le Royaume Ancien (Ancient Kingdom)",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "op045",
+      "question": "Cyborgs enfants créés par Vegapunk à partir des gènes des anciens Corsaires, ils remplacent le système des Sept Grands Corsaires aboli après Reverie. Quelles sont ces armes ?",
+      "answer": "Les Seraphim",
+      "difficulty": "normal",
+      "category": "Technologie"
+    },
+    {
+      "id": "op046",
+      "question": "Fruit du démon de type Zoan mythique le plus rare transformant en dragon oriental, il appartient à la créature la plus forte du monde. Kaido l'a utilisé pour terroriser Wano. Quel est ce fruit ?",
+      "answer": "Le Uo Uo no Mi modèle Seiryu (dragon azur)",
+      "difficulty": "difficile",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op047",
+      "question": "Une des douze lames suprêmes de grade Saijo O Wazamono, cette épée noire géante en forme de croix est maniée par le plus grand épéiste du monde. Zoro rêve de la surpasser. Quelle est cette arme ?",
+      "answer": "Yoru",
+      "difficulty": "normal",
+      "category": "Armes"
+    },
+    {
+      "id": "op048",
+      "question": "Sabre légendaire du seigneur de Wano Kozuki Oden, cette lame draine constamment le Haki de son utilisateur et peut le tuer s'il n'est pas assez fort. Zoro l'a reçue d'Hiyori. Quel est ce sabre ?",
+      "answer": "Enma",
+      "difficulty": "normal",
+      "category": "Armes"
+    },
+    {
+      "id": "op049",
+      "question": "Niveau secret d'Impel Down caché même du Gouvernement Mondial, les prisonniers qui y sont enfermés sont effacés de l'existence. Des criminels surpuissants y étaient détenus. Quel est cet étage ?",
+      "answer": "Le Niveau 6 (L'Enfer Éternel)",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "op050",
+      "question": "Coalition formée pour renverser Kaido et Big Mom à Wano, elle réunit pirates, ninjas, minks et samouraïs sous la bannière de Kozuki. Le héros en est la figure centrale. Quelle est cette alliance ?",
+      "answer": "L'Alliance Ninja-Pirate-Mink-Samourai",
+      "difficulty": "normal",
+      "category": "Alliances"
+    },
+    {
+      "id": "op051",
+      "question": "Capitaine des Heart Pirates au surnom de Chirurgien de la Mort, ce médecin tatoué possède le fruit de l'opération permettant de créer une salle où il contrôle tout. Allié du héros. Qui est-ce ?",
+      "answer": "Trafalgar Law",
+      "difficulty": "normal",
+      "category": "Pirates"
+    },
+    {
+      "id": "op052",
+      "question": "Figure mystérieuse aux yeux rouges siégeant sur le trône vide de Marie-Geoise, cette personne commande même aux Cinq Doyens. Son identité reste le plus grand secret du monde. Qui est-ce ?",
+      "answer": "Im (Imu)",
+      "difficulty": "difficile",
+      "category": "Gouvernement"
+    },
+    {
+      "id": "op053",
+      "question": "Pierres antiques de couleur rouge indiquant un point géographique, quatre sont nécessaires pour localiser l'île finale par triangulation. L'équipage en possède trois après Wano. Combien en faut-il ?",
+      "answer": "4 Road Ponéglyphes",
+      "difficulty": "normal",
+      "category": "Objets"
+    },
+    {
+      "id": "op054",
+      "question": "Empereur des mers surnommé la créature la plus forte du monde, ce géant aux cornes a essayé de se suicider plus de 40 fois. Il régnait sur Wano avec une armée de Zoans. Qui était-ce ?",
+      "answer": "Kaido",
+      "difficulty": "normal",
+      "category": "Empereurs"
+    },
+    {
+      "id": "op055",
+      "question": "Impératrice pirate régnant sur Totto Land, cette géante cannibale obsédée par les mariages peut voler les années de vie avec son fruit. Elle a 85 enfants. Qui est-ce ?",
+      "answer": "Big Mom (Charlotte Linlin)",
+      "difficulty": "normal",
+      "category": "Empereurs"
+    },
+    {
+      "id": "op056",
+      "question": "Épéiste solitaire aux yeux de faucon et ancien Corsaire, ce maître absolu du sabre cherche un rival digne de lui. Il a entraîné Zoro pendant deux ans. Qui est-ce ?",
+      "answer": "Dracule Mihawk",
+      "difficulty": "normal",
+      "category": "Corsaires"
+    },
+    {
+      "id": "op057",
+      "question": "Impératrice de l'île des femmes Amazon Lily et ancienne Corsaire, cette beauté légendaire peut pétrifier par l'amour. Secrètement amoureuse du héros. Qui est-ce ?",
+      "answer": "Boa Hancock",
+      "difficulty": "normal",
+      "category": "Corsaires"
+    },
+    {
+      "id": "op058",
+      "question": "Ancien Corsaire cyborg ours géant silencieux, ce révolutionnaire peut repousser tout avec ses paumes. Transformé en arme par le Gouvernement, il protégeait le Sunny. Qui est-ce ?",
+      "answer": "Bartholomew Kuma",
+      "difficulty": "normal",
+      "category": "Corsaires"
+    },
+    {
+      "id": "op059",
+      "question": "Ancien Corsaire manipulateur d'ombres au cou démesurément long, ce créateur de zombies régnait sur Thriller Bark. Il a été vaincu par l'équipage au chapeau de paille. Qui est-ce ?",
+      "answer": "Gecko Moria",
+      "difficulty": "normal",
+      "category": "Corsaires"
+    },
+    {
+      "id": "op060",
+      "question": "Homme-poisson maître du karaté aquatique et ancien Corsaire, il a rejoint l'équipage au chapeau de paille comme barreur. C'est le dixième membre officiel. Qui est-ce ?",
+      "answer": "Jinbe",
+      "difficulty": "normal",
+      "category": "Équipage"
+    },
+    {
+      "id": "op061",
+      "question": "Arc narratif où l'équipage a libéré Nami de l'emprise d'Arlong, c'est la première grande victoire du capitaine et le moment où Nami rejoint officiellement l'équipe. Quel est cet arc ?",
+      "answer": "Arc Arlong Park",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op062",
+      "question": "Arc se déroulant sur une île céleste à 10000 mètres d'altitude, l'équipage y affronte un faux dieu à la foudre. La cloche d'or légendaire s'y trouve. Quel est cet arc ?",
+      "answer": "Arc Skypiea",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op063",
+      "question": "Arc où l'équipage sauve un royaume désertique d'une guerre civile orchestrée par Crocodile, la princesse Vivi les accompagnait. C'est leur première aventure sur Grand Line. Quel est cet arc ?",
+      "answer": "Arc Alabasta",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op064",
+      "question": "Arc double où l'équipage attaque le QG judiciaire pour sauver Robin et dit adieu au Going Merry, le capitaine y déclare la guerre au Gouvernement Mondial. Quel est cet arc ?",
+      "answer": "Arc Water 7 / Enies Lobby",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op065",
+      "question": "Arc de la grande guerre où le héros tente de sauver son frère de l'exécution, Barbe Blanche et Ace y trouvent la mort. C'est le tournant de la série. Quel est cet arc ?",
+      "answer": "Arc Marineford (Guerre au Sommet)",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op066",
+      "question": "Période de deux ans où l'équipage séparé s'entraîne individuellement avant de se retrouver, chaque membre a été envoyé sur une île différente par Kuma. Quelle est cette période ?",
+      "answer": "L'ellipse (Timeskip)",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op067",
+      "question": "Arc où l'équipage réuni plonge à 10000 mètres de profondeur pour atteindre le royaume des sirènes, le héros y détruit le Noah d'un coup. Quel est cet arc ?",
+      "answer": "Arc Île des Hommes-Poissons",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op068",
+      "question": "Arc où le héros libère un royaume transformé en jouets par Doflamingo, le tournoi du colisée et le Gear Fourth y sont introduits. Sabo y réapparaît vivant. Quel est cet arc ?",
+      "answer": "Arc Dressrosa",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op069",
+      "question": "Arc où l'équipage infiltre le territoire de Big Mom pour récupérer Sanji, le gâteau de mariage géant et les Germa 66 y apparaissent. Jinbe quitte officiellement Big Mom. Quel est cet arc ?",
+      "answer": "Arc Whole Cake Island",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op070",
+      "question": "Arc le plus long de la série où l'alliance affronte Kaido et Big Mom pour libérer le pays des samouraïs, le Gear Fifth y est révélé. Le héros devient Empereur. Quel est cet arc ?",
+      "answer": "Arc Wano",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op071",
+      "question": "Arc actuel où l'équipage visite l'île laboratoire du plus grand scientifique, les secrets du monde y sont révélés. Le Gouvernement y lance une attaque massive. Quel est cet arc ?",
+      "answer": "Arc Egghead",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "op072",
+      "question": "Fruit du démon de type Logia permettant de devenir et créer de la foudre, il permet de se déplacer à la vitesse de l'éclair. Enel l'utilisait pour se faire passer pour un dieu. Quel est ce fruit ?",
+      "answer": "Le Goro Goro no Mi",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op073",
+      "question": "Fruit du démon de type Logia permettant de devenir et créer de la glace, son utilisateur peut geler les océans entiers. Aokiji l'a utilisé pour traverser la mer à pied. Quel est ce fruit ?",
+      "answer": "Le Hie Hie no Mi",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op074",
+      "question": "Fruit du démon de type Logia permettant de devenir et créer du sable, son utilisateur peut assécher tout ce qu'il touche. Crocodile l'utilisait pour dominer Alabasta. Quel est ce fruit ?",
+      "answer": "Le Suna Suna no Mi",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op075",
+      "question": "Fruit du démon de type Logia permettant de devenir et créer du magma, sa chaleur surpasse même le feu. Akainu l'a utilisé pour tuer Ace. Quel est ce fruit ?",
+      "answer": "Le Magu Magu no Mi",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op076",
+      "question": "Fruit du démon de type Zoan ayant donné l'intelligence et la parole à un renne, il permet des transformations humanoïdes multiples. Chopper l'a mangé par accident. Quel est ce fruit ?",
+      "answer": "Le Hito Hito no Mi (fruit de l'humain)",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op077",
+      "question": "Fruit du démon de type Paramecia créant une salle d'opération où l'utilisateur contrôle tout, il peut offrir l'immortalité au prix de la vie du donneur. Law le possède. Quel est ce fruit ?",
+      "answer": "Le Ope Ope no Mi",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op078",
+      "question": "Fruit du démon de type Paramecia permettant de faire fleurir des parties de son corps n'importe où, idéal pour l'espionnage et le combat à distance. Robin le possède. Quel est ce fruit ?",
+      "answer": "Le Hana Hana no Mi",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op079",
+      "question": "Fruit du démon de type Paramecia offrant une seconde vie après la mort, le corps devient un squelette animé. Brook l'a utilisé pour revenir mais s'est perdu 50 ans. Quel est ce fruit ?",
+      "answer": "Le Yomi Yomi no Mi",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op080",
+      "question": "Fruit du démon de type Zoan mythique transformant en phénix aux flammes bleues régénératrices, il appartient au premier commandant de Barbe Blanche. Marco le possède. Quel est ce fruit ?",
+      "answer": "Le Tori Tori no Mi modèle Phénix",
+      "difficulty": "difficile",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op081",
+      "question": "Fruit du démon de type Paramecia permettant de contrôler des fils invisibles tranchants et de manipuler des gens comme des marionnettes. Doflamingo l'avait éveillé. Quel est ce fruit ?",
+      "answer": "Le Ito Ito no Mi",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op082",
+      "question": "Fruit du démon de type Paramecia permettant de voler l'espérance de vie et de créer des êtres vivants artificiels appelés Homies. Big Mom terrorise avec ce pouvoir. Quel est ce fruit ?",
+      "answer": "Le Soru Soru no Mi",
+      "difficulty": "difficile",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op083",
+      "question": "Fruit du démon de type Paramecia permettant de pétrifier par l'amour ceux qui sont attirés par l'utilisateur, son pouvoir est lié à la beauté légendaire d'Hancock. Quel est ce fruit ?",
+      "answer": "Le Mero Mero no Mi",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op084",
+      "question": "Fruit du démon de type Paramecia transformant les vivants en jouets et effaçant leur existence des mémoires, utilisé par Sugar à Dressrosa. Extrêmement dangereux. Quel est ce fruit ?",
+      "answer": "Le Hobi Hobi no Mi",
+      "difficulty": "difficile",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op085",
+      "question": "Système de classification des fruits du démon en trois catégories : ceux qui altèrent le corps, ceux qui transforment en animal, et ceux qui transforment en élément. Quels sont ces trois types ?",
+      "answer": "Paramecia, Zoan et Logia",
+      "difficulty": "normal",
+      "category": "Système"
+    },
+    {
+      "id": "op086",
+      "question": "Second navire de l'équipage construit par Franky avec le bois d'Adam, ce bateau en forme de lion peut naviguer sous l'eau et dans les airs. Il remplace le Going Merry. Quel est ce navire ?",
+      "answer": "Le Thousand Sunny",
+      "difficulty": "normal",
+      "category": "Navires"
+    },
+    {
+      "id": "op087",
+      "question": "Grand-père du héros et vice-amiral légendaire de la Marine, ce vieil homme a entraîné son petit-fils à coups de poing d'amour. Il voulait qu'il devienne Marine. Qui est-ce ?",
+      "answer": "Monkey D. Garp",
+      "difficulty": "normal",
+      "category": "Famille"
+    },
+    {
+      "id": "op088",
+      "question": "Frère adoptif du héros et d'Ace élevé avec eux par les bandits du mont Corvo, ce révolutionnaire aux cheveux blonds a survécu à l'attaque du Dragon Céleste. Il a le fruit du feu. Qui est-ce ?",
+      "answer": "Sabo",
+      "difficulty": "normal",
+      "category": "Famille"
+    },
+    {
+      "id": "op089",
+      "question": "Père biologique d'Ace et ancien Roi des Pirates, ce légendaire pirate à la moustache a découvert le One Piece et déclenché l'Ère de la Piraterie par ses derniers mots. Qui était-ce ?",
+      "answer": "Gol D. Roger",
+      "difficulty": "normal",
+      "category": "Légendes"
+    },
+    {
+      "id": "op090",
+      "question": "Scientifique génial surnommé l'homme le plus intelligent du monde, ce vieil homme aux cheveux en forme de pomme a créé les Pacifistas et les Seraphim. Son île laboratoire est Egghead. Qui est-ce ?",
+      "answer": "Vegapunk",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "op091",
+      "question": "Période de 100 ans effacée des livres d'histoire par le Gouvernement Mondial, étudier cette époque est un crime capital. Les Ponéglyphes en conservent la mémoire. Quelle est cette période ?",
+      "answer": "Le Siècle Oublié (Void Century)",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "op092",
+      "question": "Pierres indestructibles gravées dans une langue ancienne contenant l'histoire interdite et les localisations des armes antiques, seuls les archéologues d'Ohara savaient les lire. Que sont ces pierres ?",
+      "answer": "Les Ponéglyphes",
+      "difficulty": "normal",
+      "category": "Objets"
+    },
+    {
+      "id": "op093",
+      "question": "Trois armes de destruction massive créées durant le Siècle Oublié, leurs noms sont Pluton, Poséidon et Uranus. Le Gouvernement veut les contrôler. Que sont ces objets ?",
+      "answer": "Les Armes Antiques",
+      "difficulty": "normal",
+      "category": "Objets"
+    },
+    {
+      "id": "op094",
+      "question": "Capacité permettant de sentir la présence et les émotions des êtres vivants, c'est la forme la plus accessible du Haki. Le héros l'utilise naturellement. Quel est ce Haki ?",
+      "answer": "Le Haki de l'Observation (Kenbunshoku)",
+      "difficulty": "normal",
+      "category": "Haki"
+    },
+    {
+      "id": "op095",
+      "question": "Capacité permettant de renforcer son corps avec une armure invisible et de toucher les utilisateurs de Logia, c'est le Haki le plus offensif. Zoro et Sanji le maîtrisent. Quel est ce Haki ?",
+      "answer": "Le Haki de l'Armement (Busoshoku)",
+      "difficulty": "normal",
+      "category": "Haki"
+    },
+    {
+      "id": "op096",
+      "question": "Prime actuelle du héros après sa victoire contre Kaido à Wano, elle est l'une des plus élevées jamais attribuées et reflète son nouveau statut d'Empereur. Quel est ce montant ?",
+      "answer": "3 milliards de Berrys",
+      "difficulty": "difficile",
+      "category": "Primes"
+    },
+    {
+      "id": "op097",
+      "question": "Technique de jambe du cuisinier où ses jambes s'enflamment mystérieusement sans fruit du démon, la chaleur produite est surhumaine. Son origine reste inexpliquée. Quelle est cette technique ?",
+      "answer": "Diable Jambe",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "op098",
+      "question": "Première transformation du héros pompant le sang plus vite pour augmenter sa vitesse et sa puissance, elle rétrécit son corps après utilisation. Créée face à CP9. Quelle est cette forme ?",
+      "answer": "Gear Second",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "op099",
+      "question": "Quatrième transformation du héros gonflant ses muscles avec de l'air comprimé et du Haki, elle le rend rebondissant et extrêmement puissant. Créée à Dressrosa. Quelle est cette forme ?",
+      "answer": "Gear Fourth",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "op100",
+      "question": "Technique ultime de Zoro utilisant ses trois sabres pour créer un démon à neuf épées, c'est son attaque la plus puissante avant l'ellipse. Utilisée contre Kaku. Quelle est cette technique ?",
+      "answer": "Ashura",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "op101",
+      "question": "Baleine géante vivant au Cap des Jumeaux attendant le retour des Rumbar Pirates depuis 50 ans, Brook lui avait promis de revenir. L'équipage l'a rencontrée en entrant sur Grand Line. Quelle est cette baleine ?",
+      "answer": "Laboon",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "op102",
+      "question": "Style de combat à trois sabres créé par Zoro où il tient un sabre dans chaque main et un dans la bouche, personne d'autre ne le pratique. C'est sa marque distinctive. Quel est ce style ?",
+      "answer": "Santoryu (style à trois sabres)",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "op103",
+      "question": "Clan des samouraïs de Wano qui attendait le retour de la lune depuis 800 ans, leur seigneur Oden a été exécuté par Kaido et Orochi. Le symbole de la grue leur appartient. Quel est ce clan ?",
+      "answer": "Le clan Kozuki",
+      "difficulty": "normal",
+      "category": "Clans"
+    },
+    {
+      "id": "op104",
+      "question": "Neuf samouraïs légendaires ayant servi Kozuki Oden et voyagé dans le temps pour accomplir la prophétie, ils ont attendu 20 ans pour la bataille d'Onigashima. Qui sont-ils ?",
+      "answer": "Les Neuf Fourreaux Rouges",
+      "difficulty": "normal",
+      "category": "Groupes"
+    },
+    {
+      "id": "op105",
+      "question": "Tribu de créatures mi-humaines mi-animales vivant sur Zou, ils peuvent se transformer en Sulong sous la pleine lune. Carrot et les Ducs en font partie. Quelle est cette tribu ?",
+      "answer": "Les Minks",
+      "difficulty": "normal",
+      "category": "Races"
+    },
+    {
+      "id": "op106",
+      "question": "Éléphant géant millénaire sur le dos duquel vivent les Minks, il marche dans la mer depuis 1000 ans. Zou est le nom de cette île mobile. Quelle est cette créature ?",
+      "answer": "Zunisha",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "op107",
+      "question": "Organisation criminelle dirigée par Jigen puis Kaido cherchant à créer des armes de destruction massive, elle possède le Karma et a créé Kawaki. Kara est son nom dans Boruto. Quelle est cette organisation ?",
+      "answer": "L'organisation Kara (dans Boruto) / Beast Pirates (dans One Piece)",
+      "difficulty": "difficile",
+      "category": "Organisations"
+    },
+    {
+      "id": "op108",
+      "question": "Descendants des 20 rois fondateurs du Gouvernement Mondial vivant à Marie-Geoise, ces nobles peuvent tuer des roturiers sans conséquence. Ils portent des bulles sur la tête. Qui sont-ils ?",
+      "answer": "Les Dragons Célestes (Tenryuubito)",
+      "difficulty": "normal",
+      "category": "Gouvernement"
+    },
+    {
+      "id": "op109",
+      "question": "Organisation secrète d'assassins du Gouvernement Mondial, ses agents sont numérotés et utilisent le Rokushiki. Rob Lucci en était le plus puissant. Quelle est cette organisation ?",
+      "answer": "Le CP9 (Cipher Pol No. 9)",
+      "difficulty": "normal",
+      "category": "Organisations"
+    },
+    {
+      "id": "op110",
+      "question": "Six techniques de combat surhumaines utilisées par les agents du CP9, elles incluent le Geppo pour voler et le Tekkai pour durcir le corps. Comment s'appelle cet ensemble ?",
+      "answer": "Le Rokushiki",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "op111",
+      "question": "Agent du CP9 au physique félin ayant failli tuer Robin, c'est le plus puissant assassin du Gouvernement avant son arrestation. Il revient dans le CP0. Qui est-ce ?",
+      "answer": "Rob Lucci",
+      "difficulty": "normal",
+      "category": "Antagonistes"
+    },
+    {
+      "id": "op112",
+      "question": "Épéiste créateur de tous les sabres de grade Meito, ce forgeron légendaire de Wano a vécu il y a des siècles. Ses lames les plus célèbres sont les douze Saijo O Wazamono. Qui est-ce ?",
+      "answer": "Shimotsuki Kozaburo / les forgerons de Wano",
+      "difficulty": "difficile",
+      "category": "Histoire"
+    },
+    {
+      "id": "op113",
+      "question": "Système de grades classant les sabres du monde par qualité et puissance, les douze suprêmes sont au sommet. Shusui et Enma appartiennent au grade juste en dessous. Quel est ce système ?",
+      "answer": "Le système Meito (sabres de renom)",
+      "difficulty": "normal",
+      "category": "Armes"
+    },
+    {
+      "id": "op114",
+      "question": "Fruit du démon permettant de voyager dans le temps mais uniquement vers le futur, utilisé par Kozuki Toki pour envoyer les samouraïs 20 ans plus tard. Quel est ce fruit ?",
+      "answer": "Le Toki Toki no Mi",
+      "difficulty": "difficile",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op115",
+      "question": "Seigneur légendaire de Wano qui a dansé nu dans les rues pour faire rire sa fille, il a voyagé avec Roger et appris l'histoire du monde. Exécuté par Kaido. Qui est-ce ?",
+      "answer": "Kozuki Oden",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "op116",
+      "question": "Fille de Kozuki Oden devenue courtisane sous le nom de Komurasaki, elle a donné le sabre Enma à Zoro. Son frère Momonosuke est le futur shogun. Qui est-ce ?",
+      "answer": "Kozuki Hiyori",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "op117",
+      "question": "Fils de Kozuki Oden envoyé 20 ans dans le futur à l'âge de 8 ans, ce garçon au fruit du dragon rose est devenu le nouveau shogun de Wano. Qui est-ce ?",
+      "answer": "Kozuki Momonosuke",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "op118",
+      "question": "Forteresse volante en forme de crâne où Kaido avait établi son quartier général, la bataille finale de Wano s'y est déroulée. L'île a failli s'écraser sur la capitale. Quel est ce lieu ?",
+      "answer": "Onigashima",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "op119",
+      "question": "Réunion mondiale des dirigeants de 50 pays membres du Gouvernement Mondial se tenant à Marie-Geoise tous les quatre ans, de grandes décisions y sont prises. Quel est cet événement ?",
+      "answer": "La Reverie",
+      "difficulty": "normal",
+      "category": "Événements"
+    },
+    {
+      "id": "op120",
+      "question": "Équilibre du pouvoir maintenu par trois grandes forces : la Marine, les Sept Corsaires et les Quatre Empereurs. Ce système a été détruit par l'abolition des Corsaires. Quel est ce concept ?",
+      "answer": "Les Trois Grandes Puissances",
+      "difficulty": "normal",
+      "category": "Système"
+    }
+  ]
+}

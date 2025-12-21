@@ -823,16 +823,311 @@ export default function AlibiInterrogation() {
       />
 
       <style jsx>{`
+        /* ===== ALIBI PLAY PAGE - Guide UI Compliant ===== */
+
+        /* Alibi Theme Variables */
+        .alibi-theme {
+          --alibi-primary: #f59e0b;
+          --alibi-glow: #fbbf24;
+          --alibi-dark: #b45309;
+          --bg-primary: #0a0a0f;
+          --bg-secondary: #12121a;
+          --bg-card: rgba(20, 20, 30, 0.8);
+          --text-primary: #ffffff;
+          --text-secondary: rgba(255, 255, 255, 0.7);
+          --text-muted: rgba(255, 255, 255, 0.5);
+          --success: #22c55e;
+          --danger: #ef4444;
+        }
+
         .game-container {
           position: relative;
-          min-height: 100vh;
-          background: #000000;
+          min-height: 100dvh;
+          background: var(--bg-primary);
           overflow: hidden;
+        }
+
+        /* Animated Background - Alibi Theme (Amber/Gold) */
+        .game-container::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background:
+            radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 20%, rgba(251, 191, 36, 0.10) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 50%, rgba(180, 83, 9, 0.08) 0%, transparent 60%),
+            var(--bg-primary);
+          pointer-events: none;
         }
 
         .game-content {
           position: relative;
           z-index: 1;
+        }
+
+        /* Header - Guide Compliant */
+        .player-game-header {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          background: rgba(10, 10, 15, 0.9);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(245, 158, 11, 0.15);
+          padding: 12px 16px;
+        }
+
+        .player-game-header-content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .player-game-title {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.875rem;
+          font-weight: 700;
+          color: var(--text-secondary);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .player-progress-center {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .player-progress-center :global(.bg-gray-700) {
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .player-progress-center :global(.bg-accent) {
+          background: linear-gradient(90deg, var(--alibi-primary), var(--alibi-glow));
+          box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+        }
+
+        .player-header-exit {
+          opacity: 0.7;
+          transition: opacity 0.2s;
+        }
+
+        .player-header-exit:hover {
+          opacity: 1;
+        }
+
+        /* Main Content */
+        .player-game-content {
+          position: relative;
+          z-index: 1;
+          padding-top: 60px;
+        }
+
+        /* Cards - Glassmorphism Alibi */
+        .alibi-theme :global(.card) {
+          background: rgba(20, 20, 30, 0.8);
+          border-radius: 16px;
+          padding: 1.25rem;
+          border: 1px solid rgba(245, 158, 11, 0.15);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.03),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Section Titles - Guide Compliant */
+        .alibi-theme :global(.game-section-title) {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1.125rem;
+          font-weight: 700;
+          color: var(--alibi-glow);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Buttons - Alibi Theme */
+        .alibi-theme :global(.btn) {
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 12px 24px;
+          color: var(--text-primary);
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .alibi-theme :global(.btn:hover) {
+          background: rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
+        }
+
+        .alibi-theme :global(.btn:active) {
+          transform: translateY(1px) scale(0.98);
+        }
+
+        .alibi-theme :global(.btn-primary) {
+          background: linear-gradient(135deg, var(--alibi-primary), var(--alibi-dark));
+          border: none;
+          color: white;
+          box-shadow:
+            0 4px 15px rgba(245, 158, 11, 0.4),
+            0 0 30px rgba(245, 158, 11, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .alibi-theme :global(.btn-primary:hover) {
+          box-shadow:
+            0 6px 20px rgba(245, 158, 11, 0.5),
+            0 0 40px rgba(245, 158, 11, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.25);
+          transform: translateY(-2px) scale(1.02);
+        }
+
+        .alibi-theme :global(.btn-primary:disabled) {
+          opacity: 0.5;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        .alibi-theme :global(.btn-accent) {
+          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+          border: none;
+          color: white;
+          box-shadow:
+            0 4px 15px rgba(59, 130, 246, 0.4),
+            0 0 30px rgba(59, 130, 246, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .alibi-theme :global(.btn-accent:hover) {
+          box-shadow:
+            0 6px 20px rgba(59, 130, 246, 0.5),
+            0 0 40px rgba(59, 130, 246, 0.3);
+          transform: translateY(-2px) scale(1.02);
+        }
+
+        .alibi-theme :global(.btn-success) {
+          background: linear-gradient(135deg, #22c55e, #16a34a);
+          border: none;
+          color: white;
+          box-shadow:
+            0 4px 15px rgba(34, 197, 94, 0.4),
+            0 0 30px rgba(34, 197, 94, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .alibi-theme :global(.btn-success:hover) {
+          box-shadow:
+            0 6px 20px rgba(34, 197, 94, 0.5),
+            0 0 40px rgba(34, 197, 94, 0.3);
+          transform: translateY(-2px) scale(1.02);
+        }
+
+        .alibi-theme :global(.btn-danger) {
+          background: linear-gradient(135deg, #ef4444, #dc2626);
+          border: none;
+          color: white;
+          box-shadow:
+            0 4px 15px rgba(239, 68, 68, 0.4),
+            0 0 30px rgba(239, 68, 68, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .alibi-theme :global(.btn-danger:hover) {
+          box-shadow:
+            0 6px 20px rgba(239, 68, 68, 0.5),
+            0 0 40px rgba(239, 68, 68, 0.3);
+          transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Textarea - Alibi Theme */
+        .alibi-theme :global(.game-textarea) {
+          width: 100%;
+          min-height: 120px;
+          padding: 16px 18px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          color: var(--text-primary);
+          font-family: 'Inter', sans-serif;
+          font-size: 1rem;
+          line-height: 1.6;
+          resize: vertical;
+          transition: all 0.3s ease;
+        }
+
+        .alibi-theme :global(.game-textarea:focus) {
+          outline: none;
+          border-color: var(--alibi-primary);
+          background: rgba(245, 158, 11, 0.08);
+          box-shadow:
+            0 0 0 4px rgba(245, 158, 11, 0.15),
+            0 0 20px rgba(245, 158, 11, 0.1);
+        }
+
+        .alibi-theme :global(.game-textarea::placeholder) {
+          color: var(--text-muted);
+        }
+
+        .alibi-theme :global(.game-textarea-accent) {
+          border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        /* Response cards */
+        .alibi-theme :global(.text-primary) {
+          color: var(--alibi-glow) !important;
+        }
+
+        /* Animation pulsante pour les alertes */
+        @keyframes alibi-pulse {
+          0%, 100% {
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+          }
+          50% {
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.5);
+          }
+        }
+
+        /* Animation de flottement */
+        @keyframes alibi-float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+
+        /* Urgence animation */
+        .alibi-theme :global(.animate-pulse) {
+          animation: alibi-pulse 2s ease-in-out infinite;
+        }
+
+        /* Grid layout for judgment buttons */
+        .alibi-theme :global(.grid) {
+          display: grid;
+        }
+
+        .alibi-theme :global(.grid-cols-2) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .alibi-theme :global(.gap-4) {
+          gap: 1rem;
+        }
+
+        /* Border accent */
+        .alibi-theme :global(.border-accent\\/50) {
+          border-color: rgba(245, 158, 11, 0.5);
         }
       `}</style>
     </div>

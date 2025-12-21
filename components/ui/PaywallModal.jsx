@@ -133,19 +133,16 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
         .paywall-backdrop {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.75);
-          backdrop-filter: blur(4px);
+          background: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           z-index: 9998;
           animation: fadeIn 0.2s ease;
         }
 
         @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
         /* Modal */
@@ -158,13 +155,17 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
           max-width: 500px;
           max-height: 90vh;
           overflow-y: auto;
-          background: var(--bg-card);
-          border: 3px solid var(--border-primary);
-          border-radius: var(--radius-xl);
+          background: rgba(20, 20, 30, 0.95);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 2px solid rgba(139, 92, 246, 0.3);
+          border-radius: 20px;
           padding: 2rem;
           z-index: 9999;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-          animation: slideUp 0.3s ease;
+          box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.5),
+            0 0 60px rgba(139, 92, 246, 0.15);
+          animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         @keyframes slideUp {
@@ -183,18 +184,24 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
           position: absolute;
           top: 1rem;
           right: 1rem;
-          background: var(--bg-secondary);
-          border: 2px solid var(--border-primary);
-          border-radius: var(--radius-md);
-          padding: 0.5rem;
+          width: 40px;
+          height: 40px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           cursor: pointer;
-          transition: all 0.2s ease;
-          color: var(--text-primary);
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
         }
 
         .close-btn:hover {
-          background: var(--bg-tertiary);
-          border-color: var(--brand-red);
+          background: rgba(239, 68, 68, 0.15);
+          border-color: rgba(239, 68, 68, 0.4);
+          color: var(--danger, #ef4444);
+          transform: scale(1.05);
         }
 
         /* Icon */
@@ -206,35 +213,33 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
         .icon {
           font-size: 4rem;
           display: inline-block;
-          animation: bounce 1s ease infinite;
+          animation: bounce 2s ease-in-out infinite;
+          filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
         }
 
         @keyframes bounce {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
         }
 
         /* Title */
         .title {
+          font-family: var(--font-title, 'Bungee'), cursive;
           font-size: 2rem;
-          font-weight: 900;
+          font-weight: 400;
           text-align: center;
-          color: var(--text-primary);
+          color: var(--text-primary, #ffffff);
           margin-bottom: 0.75rem;
-          background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+          text-shadow:
+            0 0 10px rgba(139, 92, 246, 0.5),
+            0 0 30px rgba(139, 92, 246, 0.3);
         }
 
         /* Description */
         .description {
           text-align: center;
-          color: var(--text-secondary);
+          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+          font-family: var(--font-body, 'Inter'), sans-serif;
           font-size: 1rem;
           margin-bottom: 1.5rem;
           line-height: 1.5;
@@ -242,16 +247,20 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
 
         /* Benefits */
         .benefits-container {
-          background: var(--bg-secondary);
-          border-radius: var(--radius-lg);
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 14px;
           padding: 1.5rem;
           margin-bottom: 1.5rem;
         }
 
         .benefits-title {
-          font-size: 1.125rem;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1rem;
           font-weight: 700;
-          color: var(--text-primary);
+          color: var(--text-primary, #ffffff);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
           margin-bottom: 1rem;
         }
 
@@ -262,8 +271,9 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
         }
 
         .benefit-item {
+          font-family: var(--font-body, 'Inter'), sans-serif;
           font-size: 0.9375rem;
-          color: var(--text-secondary);
+          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
           margin-bottom: 0.75rem;
           display: flex;
           align-items: flex-start;
@@ -283,27 +293,28 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
         }
 
         .pricing-option {
-          background: var(--bg-secondary);
-          border: 3px solid var(--border-primary);
-          border-radius: var(--radius-lg);
+          background: rgba(255, 255, 255, 0.03);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 14px;
           padding: 1rem;
           text-align: center;
-          transition: all 0.2s ease;
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .pricing-option:hover {
-          border-color: var(--brand-blue);
-          transform: scale(1.02);
+          border-color: rgba(139, 92, 246, 0.4);
+          transform: translateY(-2px);
         }
 
         .pricing-option-best {
-          border-color: var(--brand-yellow);
-          background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 109, 0, 0.1));
+          border-color: rgba(245, 158, 11, 0.4);
+          background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+          box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);
         }
 
         .pricing-option-selected {
-          border-color: var(--brand-green) !important;
-          box-shadow: 0 0 0 2px var(--brand-green);
+          border-color: var(--success, #22c55e) !important;
+          box-shadow: 0 0 0 2px var(--success, #22c55e), 0 0 20px rgba(34, 197, 94, 0.3);
         }
 
         .pricing-header {
@@ -314,40 +325,47 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
         }
 
         .pricing-label {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-weight: 700;
           font-size: 0.875rem;
-          color: var(--text-primary);
+          color: var(--text-primary, #ffffff);
         }
 
         .pricing-badge {
-          background: var(--brand-blue);
+          background: var(--quiz-primary, #8b5cf6);
           color: white;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-size: 0.625rem;
           font-weight: 700;
           padding: 0.25rem 0.5rem;
           border-radius: 10px;
+          text-transform: uppercase;
         }
 
         .pricing-badge-best {
-          background: linear-gradient(135deg, var(--brand-yellow), var(--brand-orange));
+          background: linear-gradient(135deg, var(--alibi-primary, #f59e0b), #ea580c);
+          box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
         }
 
         .pricing-price {
+          font-family: var(--font-title, 'Bungee'), cursive;
           font-size: 1.75rem;
-          font-weight: 900;
-          color: var(--text-primary);
+          font-weight: 400;
+          color: var(--text-primary, #ffffff);
           margin-bottom: 0.25rem;
         }
 
         .pricing-period {
+          font-family: var(--font-body, 'Inter'), sans-serif;
           font-size: 0.875rem;
           font-weight: 500;
-          color: var(--text-secondary);
+          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
         }
 
         .pricing-savings {
+          font-family: var(--font-body, 'Inter'), sans-serif;
           font-size: 0.75rem;
-          color: var(--text-tertiary);
+          color: var(--text-muted, rgba(255, 255, 255, 0.5));
           margin-top: 0.25rem;
         }
 
@@ -362,47 +380,58 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
         .btn-upgrade {
           width: 100%;
           padding: 1rem 1.5rem;
-          background: linear-gradient(135deg, var(--brand-yellow), var(--brand-orange));
+          background: linear-gradient(135deg, var(--alibi-primary, #f59e0b), #ea580c);
           color: white;
           border: none;
-          border-radius: var(--radius-md);
-          font-weight: 900;
+          border-radius: 12px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-weight: 700;
           font-size: 1.125rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
           cursor: pointer;
-          transition: transform 0.2s ease;
-          box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          box-shadow:
+            0 4px 15px rgba(245, 158, 11, 0.4),
+            0 0 30px rgba(245, 158, 11, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .btn-upgrade:hover {
-          transform: scale(1.05);
+          transform: translateY(-2px) scale(1.02);
+          box-shadow:
+            0 6px 20px rgba(245, 158, 11, 0.5),
+            0 0 40px rgba(245, 158, 11, 0.3);
         }
 
         .btn-upgrade:active {
-          transform: scale(0.95);
+          transform: translateY(1px) scale(0.98);
         }
 
         .btn-cancel {
           width: 100%;
-          padding: 0.75rem 1.5rem;
+          padding: 0.875rem 1.5rem;
           background: transparent;
-          color: var(--text-secondary);
-          border: 2px solid var(--border-primary);
-          border-radius: var(--radius-md);
+          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-weight: 600;
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: all 0.3s ease;
         }
 
         .btn-cancel:hover {
-          background: var(--bg-secondary);
-          border-color: var(--text-tertiary);
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Footer */
         .footer-text {
           text-align: center;
+          font-family: var(--font-body, 'Inter'), sans-serif;
           font-size: 0.75rem;
-          color: var(--text-tertiary);
+          color: var(--text-muted, rgba(255, 255, 255, 0.5));
         }
 
         /* Mobile adjustments */

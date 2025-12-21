@@ -1,152 +1,250 @@
 /* Container fixe pour le positionnement */
 .wrapper {
   position: fixed;
-  bottom: var(--space-5);
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: var(--z-modal);
+  z-index: 500;
   pointer-events: none;
 }
 
-/* Bouton buzzer SVG */
+/* Bouton buzzer - Base 3D */
 .button {
   pointer-events: auto;
   position: relative;
-  width: 340px;
-  height: 340px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
   border: none;
-  background: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-10);
-  margin: calc(-1 * var(--space-10));
   transform-origin: center center;
+  transition: all 0.15s ease;
 }
 
-.button:disabled {
+/* ===== ÉTAT ACTIF (Rouge) - Peut buzzer ===== */
+.active {
+  background: linear-gradient(145deg, #f87171, #dc2626);
+  border: 4px solid #b91c1c;
+  box-shadow:
+    0 8px 0 #991b1b,
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(239, 68, 68, 0.4),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.3),
+    inset 0 4px 10px rgba(255, 255, 255, 0.2);
+  animation: pulse-active 2s ease-in-out infinite;
+}
+
+@keyframes pulse-active {
+  0%, 100% {
+    box-shadow:
+      0 8px 0 #991b1b,
+      0 15px 30px rgba(0, 0, 0, 0.4),
+      0 0 30px rgba(239, 68, 68, 0.4),
+      inset 0 -4px 10px rgba(0, 0, 0, 0.3),
+      inset 0 4px 10px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 8px 0 #991b1b,
+      0 15px 30px rgba(0, 0, 0, 0.4),
+      0 0 60px rgba(239, 68, 68, 0.6),
+      inset 0 -4px 10px rgba(0, 0, 0, 0.3),
+      inset 0 4px 10px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.active:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 4px 0 #991b1b,
+    0 8px 15px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(239, 68, 68, 0.5),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.3),
+    inset 0 2px 5px rgba(255, 255, 255, 0.2);
+}
+
+/* ===== ÉTAT SUCCESS (Vert) - J'ai buzzé ===== */
+.success {
+  background: linear-gradient(145deg, #6ee7b7, #10b981);
+  border: 4px solid #047857;
+  box-shadow:
+    0 8px 0 #065f46,
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    0 0 50px rgba(16, 185, 129, 0.6),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.3),
+    inset 0 4px 10px rgba(255, 255, 255, 0.2);
+  cursor: default;
+  animation: success-glow 1s ease-out;
+}
+
+@keyframes success-glow {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ===== ÉTAT BLOCKED (Gris) - Quelqu'un d'autre a buzzé ===== */
+.blocked {
+  background: linear-gradient(145deg, #94a3b8, #64748b);
+  border: 4px solid #475569;
+  box-shadow:
+    0 8px 0 #334155,
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(100, 116, 139, 0.3),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.3),
+    inset 0 4px 10px rgba(255, 255, 255, 0.15);
   cursor: not-allowed;
+  opacity: 0.85;
 }
 
-.button:focus-visible {
-  outline: 4px solid var(--brand-cyan);
-  outline-offset: var(--space-2);
+/* ===== ÉTAT PENALTY (Orange) - Pénalité temps ===== */
+.penalty {
+  background: linear-gradient(145deg, #fdba74, #f97316);
+  border: 4px solid #c2410c;
+  box-shadow:
+    0 8px 0 #9a3412,
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(249, 115, 22, 0.4),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.3),
+    inset 0 4px 10px rgba(255, 255, 255, 0.2);
+  cursor: not-allowed;
+  animation: penalty-flash 1.5s ease-in-out infinite;
 }
 
-/* SVG du buzzer */
-.svg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+@keyframes penalty-flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
-/* Contenu texte */
-.content {
+/* ===== Croix pour état blocked ===== */
+.crossOverlay {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
+}
+
+.crossOverlay::before,
+.crossOverlay::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.crossOverlay::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.crossOverlay::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* ===== Contenu texte ===== */
+.content {
+  position: relative;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  width: 100%;
 }
 
 .mainLabel {
-  font-size: var(--font-size-5xl);
-  font-weight: var(--font-weight-black);
-  line-height: var(--line-height-tight);
-  margin-bottom: var(--space-1);
-  color: var(--text-primary);
+  font-family: 'Bungee', var(--font-title, cursive), sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #7f1d1d;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  /* Effet gravé : ombre claire en bas, sombre en haut */
   text-shadow:
-    0 3px 6px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(255, 255, 255, 0.4),
-    0 0 15px rgba(255, 255, 255, 0.6);
-  font-family: var(--font-display);
+    0 -1px 1px rgba(0, 0, 0, 0.4),
+    0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
 .subLabel {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-extrabold);
-  letter-spacing: var(--letter-spacing-wide);
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-primary);
-  opacity: 0.98;
+  color: #ffffff;
+  opacity: 0.9;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  font-family: var(--font-display);
+  margin-top: 4px;
 }
 
-.warningMsg {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
-  background: rgba(0, 0, 0, 0.5);
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-md);
-  margin-top: var(--space-2);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Spacer */
+/* Spacer pour éviter que le contenu passe sous le buzzer */
 .spacer {
-  height: 100px;
+  height: 120px;
 }
 
-/* Responsive */
+/* ===== Responsive ===== */
 @media (max-width: 640px) {
   .wrapper {
-    bottom: var(--space-3);
+    bottom: 16px;
   }
 
   .button {
-    width: 300px;
-    height: 300px;
-    padding: var(--space-8);
-    margin: calc(-1 * var(--space-8));
+    width: 160px;
+    height: 160px;
   }
 
   .mainLabel {
-    font-size: var(--font-size-4xl);
+    font-size: 1.75rem;
   }
 
   .subLabel {
-    font-size: var(--font-size-xs);
+    font-size: 0.625rem;
   }
 
-  .warningMsg {
-    font-size: var(--font-size-xs);
+  .crossOverlay {
+    width: 60px;
+    height: 60px;
   }
 }
 
 @media (max-width: 380px) {
   .button {
-    width: 260px;
-    height: 260px;
-    padding: var(--space-8);
-    margin: calc(-1 * var(--space-8));
+    width: 140px;
+    height: 140px;
   }
 
   .mainLabel {
-    font-size: var(--font-size-3xl);
+    font-size: 1.5rem;
+  }
+
+  .crossOverlay {
+    width: 50px;
+    height: 50px;
   }
 }
 
 /* Safe area */
 @supports (padding: max(0px)) {
   .wrapper {
-    bottom: max(20px, env(safe-area-inset-bottom) + 10px);
+    bottom: max(16px, calc(env(safe-area-inset-bottom) + 12px));
   }
 }
 
 /* Mouvement réduit */
 @media (prefers-reduced-motion: reduce) {
-  .button {
+  .active,
+  .penalty {
     animation: none !important;
   }
 }

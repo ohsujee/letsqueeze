@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/utils/storage';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const slides = [
   {
@@ -53,11 +54,24 @@ export default function OnboardingPage() {
 
   return (
     <div className="onboarding-screen" style={{ background: slide.color }}>
-      <div className="onboarding-content">
+      <motion.div
+        className="onboarding-content"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+      >
         {/* Slide Content */}
-        <div className="slide-content" key={slide.id}>
-          {/* Icon */}
-          <div className="slide-icon">{slide.icon}</div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            className="slide-content"
+            key={slide.id}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Icon */}
+            <div className="slide-icon">{slide.icon}</div>
 
           {/* Title */}
           <h1 className="slide-title">{slide.title}</h1>
@@ -65,11 +79,12 @@ export default function OnboardingPage() {
           {/* Description */}
           <p className="slide-description">{slide.description}</p>
 
-          {/* Subtitle */}
-          {slide.subtitle && (
-            <p className="slide-subtitle">{slide.subtitle}</p>
-          )}
-        </div>
+            {/* Subtitle */}
+            {slide.subtitle && (
+              <p className="slide-subtitle">{slide.subtitle}</p>
+            )}
+          </motion.div>
+        </AnimatePresence>
 
         {/* Bottom Section */}
         <div className="onboarding-bottom">
@@ -86,15 +101,20 @@ export default function OnboardingPage() {
           </div>
 
           {/* Next Button */}
-          <button className="btn-next" onClick={handleNext}>
+          <motion.button
+            className="btn-next"
+            onClick={handleNext}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             {isLastSlide ? 'Commencer' : 'Suivant'}
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
 
       <style jsx>{`
         .onboarding-screen {
-          min-height: 100vh;
+          min-height: 100dvh;
           display: flex;
           align-items: center;
           justify-content: center;

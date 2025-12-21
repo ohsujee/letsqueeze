@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { auth, db, ref, set, signInAnonymously, onAuthStateChanged } from "@/lib/firebase";
+import { motion } from "framer-motion";
+import BottomNav from "@/lib/components/BottomNav";
 
 export default function JoinClient({ initialCode = "" }) {
   const router = useRouter();
@@ -56,84 +58,60 @@ export default function JoinClient({ initialCode = "" }) {
   }
 
   return (
-    <div className="game-container">
-      <main className="game-content p-6 max-w-xl mx-auto space-y-6 min-h-screen">
-        <div className="text-center space-y-4">
-          <h1 className="game-page-title">LET'S QUEEEZE</h1>
-          <h2 className="game-section-title">Rejoindre une partie</h2>
+    <div className="join-container">
+      <motion.main
+        className="join-content"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        <div className="join-header">
+          <h1 className="page-title">Rejoindre</h1>
         </div>
 
-      <div className="card space-y-4">
-        <div>
-          <label className="block text-sm font-bold mb-2 opacity-80">
-            Code de la room
-          </label>
-          <input
-            className="game-input game-input-code"
-            placeholder="ABCDEF"
-            value={code}
-            onChange={e=>setCode(e.target.value.toUpperCase())}
-            maxLength={6}
-            autoComplete="off"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-bold mb-2 opacity-80">
-            Ton pseudo
-          </label>
-          <input
-            className="game-input"
-            placeholder="Ton nom de joueur"
-            value={pseudo}
-            onChange={e=>setPseudo(e.target.value)}
-            maxLength={20}
-            autoComplete="name"
-          />
-        </div>
-
-        <button 
-          className="btn btn-primary w-full h-14 text-xl" 
-          onClick={join} 
-          disabled={!pseudo || !code || !user}
-        >
-          {!user ? "Connexion..." : "Rejoindre la partie"}
-        </button>
-      </div>
-
-      <div className="text-center">
-        <button 
-          className="btn" 
-          onClick={() => router.push("/")}
-        >
-          Retour à l'accueil
-        </button>
-      </div>
-
-      {initialCode && (
-        <div className="card" style={{ background: "rgba(34,197,94,.12)" }}>
-          <div className="text-center">
-            <div className="text-sm opacity-80">Code détecté automatiquement</div>
-            <div className="text-lg font-bold text-retro-green">{initialCode}</div>
+        <div className="join-card">
+          <div className="input-group">
+            <label className="input-label">Code de la room</label>
+            <input
+              className="input-field input-code"
+              placeholder="ABCDEF"
+              value={code}
+              onChange={e=>setCode(e.target.value.toUpperCase())}
+              maxLength={6}
+              autoComplete="off"
+            />
           </div>
+
+          <div className="input-group">
+            <label className="input-label">Ton pseudo</label>
+            <input
+              className="input-field"
+              placeholder="Ton nom de joueur"
+              value={pseudo}
+              onChange={e=>setPseudo(e.target.value)}
+              maxLength={20}
+              autoComplete="name"
+            />
+          </div>
+
+          <button
+            className="btn-join"
+            onClick={join}
+            disabled={!pseudo || !code || !user}
+          >
+            {!user ? "Connexion..." : "Rejoindre la partie"}
+          </button>
         </div>
-      )}
-      </main>
 
-      <style jsx>{`
-        .game-container {
-          position: relative;
-          min-height: 100vh;
-          background: #000000;
-          overflow: hidden;
-        }
+        {initialCode && (
+          <div className="join-detected-code">
+            <div className="label">Code détecté automatiquement</div>
+            <div className="code">{initialCode}</div>
+          </div>
+        )}
+      </motion.main>
 
-        .game-content {
-          position: relative;
-          z-index: 1;
-        }
-
-      `}</style>
+      <BottomNav />
     </div>
   );
 }

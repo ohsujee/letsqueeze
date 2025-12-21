@@ -119,18 +119,24 @@ export default function QrModal({ text, buttonText = "Afficher QR Code", closeTe
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          padding: 12px 20px;
-          min-height: 44px;
-          background: var(--gradient-primary);
+          gap: 0.5rem;
+          padding: 0.875rem 1.5rem;
+          min-height: 48px;
+          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #7c3aed);
           color: white;
           border: none;
           border-radius: 12px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-weight: 600;
-          font-size: 16px;
+          font-size: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
           cursor: pointer;
           transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          box-shadow:
+            0 4px 15px rgba(139, 92, 246, 0.4),
+            0 0 30px rgba(139, 92, 246, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
           position: relative;
           overflow: hidden;
         }
@@ -155,11 +161,14 @@ export default function QrModal({ text, buttonText = "Afficher QR Code", closeTe
 
         .qr-modal-btn:hover {
           transform: translateY(-2px) scale(1.02);
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+          box-shadow:
+            0 6px 20px rgba(139, 92, 246, 0.5),
+            0 0 40px rgba(139, 92, 246, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
         .qr-modal-btn:active {
-          transform: translateY(0) scale(0.98);
+          transform: translateY(1px) scale(0.98);
           transition: all 0.1s ease;
         }
 
@@ -174,10 +183,9 @@ export default function QrModal({ text, buttonText = "Afficher QR Code", closeTe
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(0, 0, 0, 0.75);
+          background: rgba(0, 0, 0, 0.8);
           z-index: 100;
           will-change: opacity, backdrop-filter;
-          /* Backdrop filter sera animé par Framer Motion */
         }
 
         .qr-modal-content {
@@ -187,49 +195,53 @@ export default function QrModal({ text, buttonText = "Afficher QR Code", closeTe
           transform: translate(-50%, -50%);
           width: 90%;
           max-width: 400px;
-          background: linear-gradient(135deg, rgba(26, 26, 26, 0.98), rgba(20, 20, 20, 0.98));
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 24px;
+          background: rgba(20, 20, 30, 0.95);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 2px solid rgba(139, 92, 246, 0.3);
+          border-radius: 20px;
           box-shadow:
             0 0 0 1px rgba(255, 255, 255, 0.05),
             0 24px 64px rgba(0, 0, 0, 0.6),
-            0 8px 24px rgba(0, 0, 0, 0.4);
+            0 0 60px rgba(139, 92, 246, 0.15);
           z-index: 101;
           overflow: hidden;
           will-change: transform, opacity;
-          /* Enable GPU acceleration */
           transform: translate3d(-50%, -50%, 0);
         }
 
         /* Active state when modal is open */
         .qr-modal-btn-active {
-          background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9));
-          box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
+          background: linear-gradient(135deg, var(--danger, #ef4444), #dc2626);
+          box-shadow:
+            0 4px 15px rgba(239, 68, 68, 0.4),
+            0 0 30px rgba(239, 68, 68, 0.2);
         }
 
         .qr-modal-btn-active:hover {
-          background: linear-gradient(135deg, rgba(239, 68, 68, 1), rgba(220, 38, 38, 1));
-          box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+          box-shadow:
+            0 6px 20px rgba(239, 68, 68, 0.5),
+            0 0 40px rgba(239, 68, 68, 0.3);
         }
 
         .qr-modal-body {
-          padding: 32px;
+          padding: 2rem;
           text-align: center;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 24px;
+          gap: 1.5rem;
         }
 
         .qr-code-container {
           display: inline-block;
-          padding: 20px;
+          padding: 1.25rem;
           background: linear-gradient(135deg, #FFFFFF, #F8F9FA);
-          border-radius: 20px;
+          border-radius: 16px;
           box-shadow:
             0 0 0 1px rgba(0, 0, 0, 0.05),
             0 8px 24px rgba(0, 0, 0, 0.15),
-            0 4px 12px rgba(0, 0, 0, 0.1);
+            0 0 40px rgba(139, 92, 246, 0.1);
           will-change: transform;
           transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -243,14 +255,14 @@ export default function QrModal({ text, buttonText = "Afficher QR Code", closeTe
           width: 256px;
           height: 256px;
           border-radius: 12px;
-          /* Prevent image flickering during animation */
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
         }
 
         .qr-modal-text {
-          color: rgba(255, 255, 255, 0.85);
-          font-size: 15px;
+          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.9375rem;
           line-height: 1.6;
           margin: 0;
           max-width: 320px;
@@ -267,12 +279,12 @@ export default function QrModal({ text, buttonText = "Afficher QR Code", closeTe
           }
 
           .qr-modal-body {
-            padding: 24px 20px;
-            gap: 20px;
+            padding: 1.5rem 1.25rem;
+            gap: 1.25rem;
           }
 
           .qr-modal-text {
-            font-size: 14px;
+            font-size: 0.875rem;
           }
         }
       `}</style>

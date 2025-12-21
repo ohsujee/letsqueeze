@@ -105,7 +105,7 @@ export function ShineButton({ children, onClick, className = '', disabled = fals
 /**
  * Bouton avec effet de glow pulsant
  */
-export function GlowButton({ children, onClick, className = '', disabled = false, glowColor = 'rgba(59, 130, 246, 0.5)', ...props }) {
+export function GlowButton({ children, onClick, className = '', disabled = false, glowColor = 'rgba(139, 92, 246, 0.5)', ...props }) {
   return (
     <motion.button
       onClick={onClick}
@@ -210,7 +210,7 @@ export function AnimatedInput({ className = '', ...props }) {
       className={className}
       whileFocus={{
         scale: 1.01,
-        boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.2)"
+        boxShadow: "0 0 0 4px rgba(139, 92, 246, 0.2), 0 0 20px rgba(139, 92, 246, 0.1)"
       }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       {...props}
@@ -225,10 +225,11 @@ export function AnimatedCheckbox({ checked, onChange, label, className = '' }) {
   return (
     <label className={`flex items-center gap-2 cursor-pointer ${className}`}>
       <motion.div
-        className="relative w-6 h-6 border-2 border-gray-400 rounded flex items-center justify-center"
+        className="relative w-6 h-6 border-2 rounded flex items-center justify-center"
         animate={{
-          backgroundColor: checked ? '#10B981' : 'transparent',
-          borderColor: checked ? '#10B981' : '#94A3B8'
+          backgroundColor: checked ? '#22c55e' : 'transparent',
+          borderColor: checked ? '#22c55e' : 'rgba(255, 255, 255, 0.3)',
+          boxShadow: checked ? '0 0 15px rgba(34, 197, 94, 0.4)' : 'none'
         }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}

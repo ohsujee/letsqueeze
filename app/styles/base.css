@@ -13,9 +13,9 @@ html {
 }
 
 html, body {
-  min-height: 100vh;
-  background: #000000;
-  color: white;
+  min-height: 100dvh;
+  background: var(--bg-primary, #0a0a0f);
+  color: var(--text-primary, white);
   font-family: var(--font-primary);
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);

@@ -63,7 +63,8 @@ export const JuicyButton = ({ children, onClick, className = "", disabled = fals
             width: 8,
             height: 8,
             borderRadius: '50%',
-            background: '#3B82F6',
+            background: 'var(--quiz-glow, #a78bfa)',
+            boxShadow: '0 0 8px var(--quiz-primary, #8b5cf6)',
             pointerEvents: 'none'
           }}
         />

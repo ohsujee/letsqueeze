@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { db, ref, onValue, update } from "@/lib/firebase";
 import { PodiumPremium } from "@/components/ui/PodiumPremium";
-import { JuicyButton } from "@/components/ui/JuicyButton";
+import Leaderboard from "@/components/game/Leaderboard";
 import { motion } from "framer-motion";
 import { useToast } from "@/lib/hooks/useToast";
 import { hueScenariosService } from "@/lib/hue-module";
@@ -167,173 +167,173 @@ export default function EndPage(){
   };
 
   return (
-    <div className="end-page-container">
-      {/* Header fixe avec même style que le jeu */}
-      <header className="player-game-header">
-        <div className="player-game-header-content" style={{justifyContent: 'center'}}>
-          <motion.div
-            className="player-game-title"
-            style={{textAlign: 'center', fontSize: '1.25rem'}}
-            initial={{ scale: 0, rotateZ: -180 }}
-            animate={{ scale: 1, rotateZ: 0 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          >
-            🏆 {quizTitle || "Partie terminée"}
-          </motion.div>
+    <div className="end-page">
+      {/* Main Content - Tout sur une page */}
+      <main className="end-content">
+        {/* Titre du quiz */}
+        <div className="end-header">
+          <span className="trophy-icon">🏆</span>
+          <span className="title-text">{quizTitle || "Partie terminée"}</span>
         </div>
-      </header>
 
-      <main className="player-game-content" style={{maxWidth: '900px', paddingTop: '100px', paddingBottom: '150px'}}>
-
-      {/* Podium Premium avec top 3 */}
-      {rankedPlayers.length >= 1 && (
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          style={{marginBottom: '2rem'}}
-        >
-          <PodiumPremium topPlayers={rankedPlayers.slice(0, 3)} />
-        </motion.section>
-      )}
-
-      {/* Classement complet - Mode Équipes */}
-      {modeEquipes && (
-        <motion.section
-          className="space-y-3 mt-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-        >
-          <h3 className="game-section-title text-center">Classement Équipes</h3>
-          <div className="card">
-            <ul className="space-y-2">
-              {rankedTeams.map(t=>(
-                <motion.li
-                  key={t.id}
-                  className="card flex justify-between items-center"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <span className="flex items-center gap-3">
-                    <b className="text-2xl">#{t.rank}</b>
-                    <div className="px-3 py-1 rounded-xl border-3 border-white font-bold" style={{backgroundColor:t.color}}>
-                      {t.name}
-                    </div>
-                  </span>
-                  <b className="text-2xl">{t.score||0}</b>
-                </motion.li>
-              ))}
-            </ul>
+        {/* Podium animé */}
+        {rankedPlayers.length >= 1 && (
+          <div className="podium-section">
+            <PodiumPremium topPlayers={rankedPlayers.slice(0, 3)} />
           </div>
-        </motion.section>
-      )}
-
-      {/* Statistiques Globales */}
-      {stats && (
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-          style={{marginBottom: '2rem'}}
-        >
-          <div className="grid grid-cols-2 gap-3">
-            <motion.div
-              className="card text-center"
-              style={{padding: '1.5rem'}}
-              whileHover={{ scale: 1.02 }}
-            >
-              <div className="text-3xl mb-2">🏆</div>
-              <div className="text-2xl font-bold" style={{color: '#FCD34D'}}>{stats.maxScore}</div>
-              <div className="text-sm opacity-60">Meilleur score</div>
-            </motion.div>
-
-            <motion.div
-              className="card text-center"
-              style={{padding: '1.5rem'}}
-              whileHover={{ scale: 1.02 }}
-            >
-              <div className="text-3xl mb-2">📈</div>
-              <div className="text-2xl font-bold" style={{color: '#60A5FA'}}>{stats.avgScore}</div>
-              <div className="text-sm opacity-60">Score moyen</div>
-            </motion.div>
-          </div>
-        </motion.section>
-      )}
-
-      {/* Classement complet - Joueurs */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        style={{marginBottom: '2rem'}}
-      >
-        <div className="card">
-          <div style={{marginBottom: '1rem', fontSize: '1.125rem', fontWeight: '700', opacity: 0.9}}>
-            Classement complet
-          </div>
-          <div className="space-y-2">
-            {rankedPlayers.map((p, index)=>(
-              <motion.div
-                key={p.uid}
-                className="card flex justify-between items-center"
-                whileHover={{ scale: 1.01 }}
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.5 + index * 0.05 }}
-                style={{
-                  background: index < 3
-                    ? `linear-gradient(135deg, ${
-                        index === 0 ? 'rgba(245,158,11,0.15)' :
-                        index === 1 ? 'rgba(148,163,184,0.15)' :
-                        'rgba(205,127,50,0.15)'
-                      }, rgba(255,255,255,0.05))`
-                    : undefined
-                }}
-              >
-                <span className="flex items-center gap-3">
-                  <span style={{fontSize: '1.5rem', minWidth: '2rem'}}>
-                    {index === 0 && "🥇"}
-                    {index === 1 && "🥈"}
-                    {index === 2 && "🥉"}
-                    {index > 2 && `#${p.rank}`}
-                  </span>
-                  <span className="font-bold">{p.name}</span>
-                  {modeEquipes && p.teamId && meta?.teams?.[p.teamId] && (
-                    <span className="ml-2 px-2 py-0.5 rounded-xl border-2 border-white text-xs font-bold"
-                          style={{backgroundColor: meta.teams[p.teamId].color}}>
-                      {meta.teams[p.teamId].name}
-                    </span>
-                  )}
-                </span>
-                <span className="host-leaderboard-score">{p.score||0}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Actions */}
-      <motion.div
-        className="flex gap-3 flex-col"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2 }}
-      >
-        {isHost && (
-          <button className="btn btn-primary w-full h-14 text-lg" onClick={handleBackToLobby}>
-            🔄 Retour au lobby
-          </button>
         )}
-        <button className="btn w-full h-14 text-lg" onClick={() => router.push('/home')}
-          style={{
-            background: isHost ? 'rgba(255, 255, 255, 0.05)' : 'rgba(99, 102, 241, 0.8)',
-            border: isHost ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid rgba(99, 102, 241, 1)'
-          }}
-        >
-          🏠 Retour à l'accueil
-        </button>
-      </motion.div>
+
+        {/* Classement */}
+        <div className="leaderboard-wrapper">
+          <Leaderboard players={players} currentPlayerUid={myUid} />
+        </div>
       </main>
+
+      {/* Footer fixe */}
+      <footer className="end-footer">
+        <button
+          className="action-btn"
+          onClick={isHost ? handleBackToLobby : () => router.push(`/room/${code}`)}
+        >
+          {isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+        </button>
+      </footer>
+
+      <style jsx>{`
+        /* ===== LAYOUT - Une seule page ===== */
+        .end-page {
+          height: 100dvh;
+          display: flex;
+          flex-direction: column;
+          background: var(--bg-primary, #0a0a0f);
+          overflow: hidden;
+        }
+
+        .end-page::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background: var(--bg-primary, #0a0a0f);
+          pointer-events: none;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .end-content {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          z-index: 1;
+          padding: 16px;
+          padding-top: calc(16px + env(safe-area-inset-top));
+          max-width: 500px;
+          margin: 0 auto;
+          width: 100%;
+          min-height: 0;
+          overflow: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        .end-header {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 8px 0;
+          flex-shrink: 0;
+          position: relative;
+          z-index: 1;
+        }
+
+        .trophy-icon {
+          font-size: 1.5rem;
+        }
+
+        .title-text {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: clamp(1rem, 4vw, 1.3rem);
+          color: var(--text-primary, #ffffff);
+        }
+
+        /* ===== PODIUM ===== */
+        .podium-section {
+          flex-shrink: 0;
+          position: relative;
+          z-index: 2;
+          transform: scale(0.5);
+          transform-origin: center top;
+          margin: 0 0 -200px 0;
+          filter: saturate(0.85);
+        }
+
+        /* ===== LEADERBOARD ===== */
+        .leaderboard-wrapper {
+          flex: 1;
+          min-height: 150px;
+          display: flex;
+          overflow: hidden;
+          position: relative;
+          z-index: 3;
+        }
+
+        /* ===== FOOTER FIXE ===== */
+        .end-footer {
+          flex-shrink: 0;
+          position: relative;
+          z-index: 10;
+          padding: 16px;
+          padding-bottom: calc(16px + env(safe-area-inset-bottom));
+          background: rgba(10, 10, 15, 0.95);
+          backdrop-filter: blur(20px);
+          border-top: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .action-btn {
+          display: block;
+          width: 100%;
+          max-width: 400px;
+          margin: 0 auto;
+          padding: 18px 32px;
+          border: none;
+          border-radius: 14px;
+          cursor: pointer;
+
+          /* Typographie style guide */
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1.1rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: white;
+
+          /* Fond gradient + profondeur 3D */
+          background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+          box-shadow:
+            0 5px 0 #5b21b6,
+            0 8px 15px rgba(139, 92, 246, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+          transition: all 0.15s ease;
+        }
+
+
+        .action-btn:hover {
+          transform: translateY(-2px);
+          box-shadow:
+            0 7px 0 #5b21b6,
+            0 10px 20px rgba(139, 92, 246, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .action-btn:active {
+          transform: translateY(3px);
+          box-shadow:
+            0 2px 0 #5b21b6,
+            0 4px 8px rgba(139, 92, 246, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+      `}</style>
     </div>
   );
 }

@@ -28,9 +28,9 @@ export const PodiumPremium = ({ topPlayers }) => {
   const podiumHeights = [140, 200, 100];
   const medals = ['🥈', '🥇', '🥉'];
   const colors = [
-    { primary: '#C0C0C0', secondary: '#E8E8E8', glow: 'rgba(192, 192, 192, 0.6)' },
-    { primary: '#FFD700', secondary: '#FFA500', glow: 'rgba(255, 215, 0, 0.8)' },
-    { primary: '#CD7F32', secondary: '#8B4513', glow: 'rgba(205, 127, 50, 0.6)' }
+    { primary: '#C0C0C0', secondary: '#E8E8E8', glow: 'rgba(192, 192, 192, 0.3)' },
+    { primary: '#FFD700', secondary: '#FFA500', glow: 'rgba(255, 215, 0, 0.4)' },
+    { primary: '#CD7F32', secondary: '#8B4513', glow: 'rgba(205, 127, 50, 0.3)' }
   ];
   const ranks = [2, 1, 3];
 
@@ -41,28 +41,9 @@ export const PodiumPremium = ({ topPlayers }) => {
       justifyContent: 'center',
       alignItems: 'flex-end',
       gap: '1rem',
-      padding: '2rem 0',
+      padding: '0.5rem 0 0 0',
       position: 'relative'
     }}>
-      {/* Spotlight sur le gagnant */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '200px',
-          height: '200px',
-          background: `radial-gradient(circle, ${colors[1].glow} 0%, transparent 70%)`,
-          filter: 'blur(40px)',
-          zIndex: 0,
-          pointerEvents: 'none'
-        }}
-        animate={{
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{ duration: 3, repeat: Infinity }}
-      />
 
       {podiumOrder.map((player, i) => {
         if (!player) return null;
@@ -80,13 +61,12 @@ export const PodiumPremium = ({ topPlayers }) => {
               zIndex: isWinner ? 10 : 5,
               position: 'relative'
             }}
-            initial={{ y: 300, opacity: 0, rotateX: -90 }}
-            animate={{ y: 0, opacity: 1, rotateX: 0 }}
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{
               delay: ranks[i] === 1 ? 0.3 : ranks[i] === 2 ? 0 : 0.6,
-              type: "spring",
-              stiffness: 60,
-              damping: 12
+              duration: 0.5,
+              ease: "easeOut"
             }}
           >
             {/* Médaille flottante */}
@@ -116,7 +96,7 @@ export const PodiumPremium = ({ topPlayers }) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   border: '4px solid rgba(255, 255, 255, 0.3)',
-                  boxShadow: `0 10px 40px ${color.glow}, inset 0 2px 10px rgba(255,255,255,0.3)`,
+                  boxShadow: `0 4px 15px ${color.glow}, inset 0 2px 8px rgba(255,255,255,0.2)`,
                   overflow: 'hidden'
                 }}
                 whileHover={{ scale: 1.1, rotate: 5 }}
@@ -155,7 +135,7 @@ export const PodiumPremium = ({ topPlayers }) => {
               </motion.div>
 
               {/* Emoji médaille */}
-              <motion.div
+              <div
                 style={{
                   position: 'absolute',
                   top: '-10px',
@@ -163,49 +143,36 @@ export const PodiumPremium = ({ topPlayers }) => {
                   fontSize: isWinner ? '3.5rem' : '2.5rem',
                   filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
                 }}
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{
-                  delay: ranks[i] === 1 ? 0.6 : ranks[i] === 2 ? 0.3 : 0.9,
-                  type: "spring",
-                  stiffness: 200
-                }}
               >
                 {medals[i]}
-              </motion.div>
+              </div>
             </motion.div>
 
             {/* Nom du joueur */}
-            <motion.div
+            <div
               style={{
-                fontSize: isWinner ? '1.5rem' : '1.25rem',
-                fontWeight: 900,
+                fontSize: '1.1rem',
+                fontWeight: 700,
                 color: 'white',
                 textAlign: 'center',
                 marginBottom: '0.75rem',
-                textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-                maxWidth: '150px',
+                maxWidth: '120px',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap'
               }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: ranks[i] === 1 ? 0.8 : ranks[i] === 2 ? 0.5 : 1.1
-              }}
             >
               {player.name || 'Joueur'}
-            </motion.div>
+            </div>
 
-            {/* Score avec effet néon */}
-            <motion.div
+            {/* Score */}
+            <div
               style={{
                 fontSize: isWinner ? '2rem' : '1.5rem',
                 fontWeight: 900,
                 fontFamily: 'var(--font-mono)',
                 color: color.primary,
-                textShadow: `0 0 20px ${color.glow}, 0 0 40px ${color.glow}`,
+                textShadow: `0 0 10px ${color.glow}`,
                 marginBottom: '1.5rem',
                 padding: '0.5rem 1.5rem',
                 background: 'rgba(0, 0, 0, 0.3)',
@@ -213,15 +180,9 @@ export const PodiumPremium = ({ topPlayers }) => {
                 border: `2px solid ${color.primary}`,
                 backdropFilter: 'blur(10px)'
               }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                delay: ranks[i] === 1 ? 1 : ranks[i] === 2 ? 0.7 : 1.3,
-                type: "spring"
-              }}
             >
               {player.score}
-            </motion.div>
+            </div>
 
             {/* Piédestal moderne avec glassmorphisme */}
             <motion.div
@@ -231,7 +192,7 @@ export const PodiumPremium = ({ topPlayers }) => {
                 borderRadius: '1rem 1rem 0 0',
                 border: `2px solid ${color.primary}60`,
                 borderBottom: 'none',
-                boxShadow: `0 -10px 40px ${color.glow}, inset 0 2px 10px rgba(255,255,255,0.1)`,
+                boxShadow: `0 -4px 15px ${color.glow}, inset 0 1px 5px rgba(255,255,255,0.1)`,
                 backdropFilter: 'blur(20px)',
                 display: 'flex',
                 flexDirection: 'column',
@@ -271,7 +232,7 @@ export const PodiumPremium = ({ topPlayers }) => {
                 fontSize: isWinner ? '4rem' : '3rem',
                 fontWeight: 900,
                 color: 'white',
-                textShadow: `0 4px 20px ${color.glow}`,
+                textShadow: `0 2px 8px ${color.glow}`,
                 position: 'relative',
                 zIndex: 1
               }}>

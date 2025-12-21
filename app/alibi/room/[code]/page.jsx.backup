@@ -1,0 +1,1312 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import {
+  auth,
+  db,
+  ref,
+  onValue,
+  update,
+  remove,
+  set,
+  signInAnonymously,
+  onAuthStateChanged,
+} from "@/lib/firebase";
+import { motion, AnimatePresence } from 'framer-motion';
+import Qr from "@/components/ui/Qr";
+import QrModal from "@/lib/components/QrModal";
+import BottomNav from "@/lib/components/BottomNav";
+import PaywallModal from "@/components/ui/PaywallModal";
+import AlibiSelectorModal from "@/components/alibi/AlibiSelectorModal";
+import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { canAccessPack, isPro } from "@/lib/subscription";
+
+export default function AlibiLobby() {
+  const { code } = useParams();
+  const router = useRouter();
+
+  const [meta, setMeta] = useState(null);
+  const [players, setPlayers] = useState([]);
+  const [isHost, setIsHost] = useState(false);
+  const [alibiOptions, setAlibiOptions] = useState([]);
+  const [selectedAlibiId, setSelectedAlibiId] = useState(null);
+  const [joinUrl, setJoinUrl] = useState("");
+  const [hostPseudo, setHostPseudo] = useState("");
+  const [hostJoined, setHostJoined] = useState(false);
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [showAlibiSelector, setShowAlibiSelector] = useState(false);
+  const [lockedAlibiName, setLockedAlibiName] = useState('');
+
+  // Get user profile for subscription check
+  const { user: currentUser, subscription } = useUserProfile();
+  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && code) {
+      setJoinUrl(`${window.location.origin}/alibi/join?code=${code}`);
+    }
+  }, [code]);
+
+  // Charger le manifest des alibis
+  useEffect(() => {
+    fetch("/data/alibis/manifest.json")
+      .then(r => r.json())
+      .then(data => {
+        setAlibiOptions(data.alibis || []);
+      })
+      .catch(err => {
+        console.error("Erreur chargement manifest alibis:", err);
+        setAlibiOptions([]);
+      });
+  }, []);
+
+  // Auth
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsHost(meta?.hostUid === user.uid);
+        // Vérifier si l'hôte a déjà rejoint
+        setHostJoined(players.some(p => p.uid === user.uid));
+      } else {
+        signInAnonymously(auth).catch(() => {});
+      }
+    });
+    return () => unsub();
+  }, [meta?.hostUid, players]);
+
+  // DB listeners
+  useEffect(() => {
+    if (!code) return;
+
+    const metaUnsub = onValue(ref(db, `rooms_alibi/${code}/meta`), (snap) => {
+      const m = snap.val();
+      setMeta(m);
+      setSelectedAlibiId(m?.alibiId || null);
+    });
+
+    const playersUnsub = onValue(ref(db, `rooms_alibi/${code}/players`), (snap) => {
+      const p = snap.val() || {};
+      setPlayers(Object.values(p));
+    });
+
+    // Écouter les changements d'état pour rediriger quand la préparation commence
+    const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
+      const state = snap.val();
+      if (state?.phase === "prep") {
+        router.push(`/alibi/game/${code}/prep`);
+      }
+    });
+
+    return () => {
+      metaUnsub();
+      playersUnsub();
+      stateUnsub();
+    };
+  }, [code, router]);
+
+  const handleHostJoin = async () => {
+    if (!isHost || !hostPseudo || !auth.currentUser) return;
+    const uid = auth.currentUser.uid;
+    await set(ref(db, `rooms_alibi/${code}/players/${uid}`), {
+      uid,
+      name: hostPseudo,
+      team: null,
+      joinedAt: Date.now()
+    });
+  };
+
+  const handleSelectAlibi = async (alibiId) => {
+    if (!isHost) return;
+    await update(ref(db, `rooms_alibi/${code}/meta`), { alibiId });
+  };
+
+  const handleAssignTeam = async (uid, team) => {
+    if (!isHost) return;
+    await update(ref(db, `rooms_alibi/${code}/players/${uid}`), { team });
+  };
+
+  const handleKickPlayer = async (uid) => {
+    if (!isHost) return;
+    await remove(ref(db, `rooms_alibi/${code}/players/${uid}`));
+  };
+
+  // Assignation automatique avec RANDOMISATION à chaque appel
+  const handleAutoAssign = async () => {
+    if (!isHost) return;
+
+    // Shuffle TOUS les joueurs (même ceux déjà assignés) pour vraie randomisation
+    const allPlayers = [...players].sort(() => Math.random() - 0.5);
+
+    // Distribuer en alternance
+    const updates = {};
+    allPlayers.forEach((player, index) => {
+      const team = index % 2 === 0 ? 'inspectors' : 'suspects';
+      updates[`rooms_alibi/${code}/players/${player.uid}/team`] = team;
+    });
+
+    await update(ref(db), updates);
+  };
+
+  const handleStartGame = async () => {
+    if (!isHost || !selectedAlibiId) return;
+
+    // Check if user can access the selected alibi
+    const alibiIndex = alibiOptions.findIndex(a => a.id === selectedAlibiId);
+
+    // Check freemium access
+    if (currentUser && !userIsPro && alibiIndex >= 0) {
+      const hasAccess = canAccessPack(
+        { ...currentUser, subscription },
+        'alibi',
+        alibiIndex
+      );
+
+      if (!hasAccess) {
+        // Show paywall
+        const selectedAlibi = alibiOptions.find(a => a.id === selectedAlibiId);
+        setLockedAlibiName(selectedAlibi?.title || selectedAlibiId);
+        setShowPaywall(true);
+        return;
+      }
+    }
+
+    // Charger l'alibi sélectionné
+    const alibiData = await fetch(`/data/alibis/${selectedAlibiId}.json`).then(r => r.json());
+
+    // Déterminer si c'est le nouveau format ou l'ancien
+    const isNewFormat = alibiData.accused_document !== undefined;
+
+    // Préparer les questions selon le format
+    let questions;
+    if (isNewFormat) {
+      // Nouveau format : 10 questions prédéfinies (pas de questions custom)
+      questions = alibiData.inspector_questions.map((q, i) => ({
+        id: i,
+        text: q,
+        custom: false
+      }));
+    } else {
+      // Ancien format : 7 prédéfinies + 3 custom
+      questions = [
+        ...alibiData.predefinedQuestions.map((q, i) => ({ id: i, text: q, custom: false })),
+        { id: 7, text: "", custom: true },
+        { id: 8, text: "", custom: true },
+        { id: 9, text: "", custom: true }
+      ];
+    }
+
+    // Initialiser les données du jeu avec score réinitialisé
+    await update(ref(db, `rooms_alibi/${code}`), {
+      alibi: {
+        // Nouveau format
+        context: alibiData.context || null,
+        accused_document: alibiData.accused_document || null,
+        inspector_summary: alibiData.inspector_summary || null,
+        // Ancien format (pour compatibilité)
+        scenario: alibiData.scenario || null,
+        keyElements: alibiData.keyElements || null,
+        // Commun
+        title: alibiData.title,
+        isNewFormat
+      },
+      questions,
+      state: {
+        phase: "prep",
+        currentQuestion: 0,
+        prepTimeLeft: alibiData.reading_time_seconds || 90,
+        questionTimeLeft: 30,
+        allAnswered: false
+      },
+      score: {
+        correct: 0,
+        total: 10
+      }
+    });
+  };
+
+  const inspectors = players.filter(p => p.team === "inspectors");
+  const suspects = players.filter(p => p.team === "suspects");
+  const unassigned = players.filter(p => !p.team);
+
+  const canStart = isHost && selectedAlibiId && inspectors.length > 0 && suspects.length > 0;
+
+  return (
+    <div className="alibi-theme">
+      <div className="game-container">
+      {/* Paywall Modal */}
+      <PaywallModal
+        isOpen={showPaywall}
+        onClose={() => setShowPaywall(false)}
+        contentType="alibi"
+        contentName={lockedAlibiName}
+      />
+
+      {/* Alibi Selector Modal */}
+      <AlibiSelectorModal
+        isOpen={showAlibiSelector}
+        onClose={() => setShowAlibiSelector(false)}
+        alibiOptions={alibiOptions}
+        selectedAlibiId={selectedAlibiId}
+        onSelectAlibi={handleSelectAlibi}
+        userIsPro={userIsPro}
+      />
+
+      <main className="alibi-lobby-content">
+        {/* Header - Glassmorphic Style */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col md:flex-row md:items-center md:justify-between gap-3"
+          style={{
+            background: 'rgba(255, 255, 255, 0.03)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-6)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+          }}
+        >
+          <div className="flex-1">
+            <motion.h1
+              className="game-page-title"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200 }}
+            >
+              🕵️ Lobby Alibi
+            </motion.h1>
+            <div className="text-sm mt-1" style={{color: 'var(--text-secondary)'}}>
+              {selectedAlibiId ? alibiOptions.find(a => a.id === selectedAlibiId)?.title || 'Alibi' : 'Aucun alibi sélectionné'} • Code: <span className="font-bold text-base" style={{color: 'var(--alibi-glow, #fbbf24)'}}>{code}</span>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            {!isHost && (
+              <motion.button
+                className="btn btn-secondary"
+                onClick={() => router.push(`/spectate/${code}`)}
+                title="Regarder la partie sans jouer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                👁️ Spectateur
+              </motion.button>
+            )}
+            {isHost && (
+              <motion.button
+                className="btn btn-danger self-start md:self-auto"
+                onClick={() => router.push('/')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Quitter
+              </motion.button>
+            )}
+          </div>
+        </motion.div>
+
+      {/* Invite des joueurs - Special Highlight Card */}
+      <motion.div
+        className="invite-card"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+      >
+        <div className="invite-title">📲 Invite des joueurs</div>
+        <div className="room-code">{code}</div>
+        <div className="invite-url">{joinUrl || "Génération du lien..."}</div>
+
+        <div className="invite-actions">
+          <motion.button
+            className="btn btn-accent copy-btn"
+            onClick={async () => {
+              if (typeof navigator !== "undefined" && navigator.clipboard && joinUrl) {
+                try {
+                  await navigator.clipboard.writeText(joinUrl);
+                  const btn = document.querySelector('.copy-btn');
+                  if (btn) {
+                    const original = btn.textContent;
+                    btn.textContent = '✓ Copié !';
+                    setTimeout(() => { btn.textContent = original; }, 2000);
+                  }
+                } catch (err) {
+                  console.error("Erreur copie:", err);
+                }
+              }
+            }}
+            disabled={!joinUrl}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            📋 Copier le lien
+          </motion.button>
+          {joinUrl && <QrModal text={joinUrl} buttonText="📱 QR Code" />}
+        </div>
+      </motion.div>
+
+      {/* Section des contrôles - visible seulement pour l'host */}
+      {isHost && (
+        <motion.div
+          className="space-y-4"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          {/* Primary Action - Démarrer la partie */}
+          <motion.button
+            className="btn btn-accent w-full h-14 text-lg font-bold"
+            onClick={handleStartGame}
+            disabled={!canStart}
+            whileHover={canStart ? { scale: 1.02, boxShadow: '0 0 30px rgba(245, 158, 11, 0.5)' } : {}}
+            whileTap={canStart ? { scale: 0.98 } : {}}
+            style={{
+              background: canStart ? 'linear-gradient(135deg, var(--alibi-primary, #f59e0b), #d97706)' : undefined,
+              border: canStart ? '2px solid rgba(245, 158, 11, 0.5)' : undefined,
+              boxShadow: canStart ? '0 4px 0 #b45309, 0 0 20px rgba(245, 158, 11, 0.3)' : undefined
+            }}
+          >
+            🚀 Démarrer la partie
+          </motion.button>
+
+          {/* Settings Grid - 2 colonnes */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Sélection de l'alibi - Card cliquable */}
+            <motion.div
+              className="card"
+              onClick={() => setShowAlibiSelector(true)}
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              style={{
+                cursor: 'pointer',
+                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.1))',
+                border: '2px solid rgba(245, 158, 11, 0.3)',
+                position: 'relative',
+                overflow: 'hidden',
+                isolation: 'isolate',
+                contain: 'layout style paint'
+              }}
+            >
+              {/* Shine effect - static gradient */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%)',
+                  pointerEvents: 'none'
+                }}
+              />
+
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <h3 className="font-bold text-base mb-3 flex items-center justify-between">
+                  <span>🕵️ Alibi Sélectionné</span>
+                  <span style={{ fontSize: '1.25rem', opacity: 0.6 }}>
+                    →
+                  </span>
+                </h3>
+
+                {/* Alibi actuel affiché */}
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  borderRadius: 'var(--radius-lg)',
+                  padding: 'var(--space-4)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)'
+                }}>
+                  <div style={{ fontSize: 'var(--font-size-4xl)', textAlign: 'center', marginBottom: 'var(--space-2)' }}>
+                    {selectedAlibiId ? (
+                      {
+                        "match-equipe-locale": "⚽",
+                        "terrain-basket": "🏀",
+                        "karting-competition": "🏎️",
+                        "paintball-equipes": "🎯",
+                        "comedie-club": "🎭",
+                        "escape-game": "🔐",
+                        "japan-expo": "🎌",
+                        "restaurant-italien": "🍝",
+                        "pub-karaoke": "🎤",
+                        "studio-enregistrement": "🎙️",
+                        "tournage-clip": "🎬",
+                        "session-teamspeak": "🎮",
+                        "salle-de-sport": "💪",
+                        "seance-cinema": "🎥",
+                        "visite-musee": "🖼️",
+                        "degustation-vins": "🍷",
+                        "marche-producteurs": "🥬",
+                        "studio-photo": "📸"
+                      }[selectedAlibiId] || '🎭'
+                    ) : '📚'}
+                  </div>
+                  <div style={{
+                    fontSize: 'var(--font-size-base)',
+                    fontWeight: 700,
+                    textAlign: 'center',
+                    marginBottom: 'var(--space-1)',
+                    color: 'white'
+                  }}>
+                    {selectedAlibiId ? alibiOptions.find(a => a.id === selectedAlibiId)?.title : 'Choisir un alibi'}
+                  </div>
+                  <div style={{
+                    textAlign: 'center',
+                    fontSize: 'var(--font-size-xs)',
+                    color: 'rgba(255, 255, 255, 0.6)'
+                  }}>
+                    {selectedAlibiId ? '10 questions • Interrogatoire' : 'Cliquer pour parcourir'}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Rejoindre en tant qu'hôte */}
+            {!hostJoined && (
+              <motion.div
+                className="card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={{
+                  background: 'rgba(245, 158, 11, 0.1)',
+                  border: '2px solid rgba(245, 158, 11, 0.3)'
+                }}
+              >
+                <h3 className="font-bold text-base mb-3">🎮 Rejoindre la partie</h3>
+                <div className="flex gap-2">
+                  <input
+                    className="game-input game-input-accent flex-1"
+                    placeholder="Ton pseudo"
+                    value={hostPseudo}
+                    onChange={(e) => setHostPseudo(e.target.value)}
+                    maxLength={20}
+                    autoComplete="name"
+                  />
+                  <button
+                    className="btn btn-accent px-6"
+                    onClick={handleHostJoin}
+                    disabled={!hostPseudo}
+                  >
+                    ✓
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </div>
+
+          {!canStart && (
+            <motion.div
+              className="text-sm text-yellow-400 text-center px-4 py-3 rounded-lg mt-4"
+              style={{
+                background: 'rgba(251, 191, 36, 0.1)',
+                border: '1px solid rgba(251, 191, 36, 0.3)'
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              ⚠️ Sélectionne un alibi et assigne au moins 1 inspecteur et 1 suspect pour démarrer
+            </motion.div>
+          )}
+        </motion.div>
+      )}
+
+      {/* Assignation des équipes (Host seulement) */}
+      {isHost && (
+        <motion.div
+          className="card space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          {/* Header avec assignation auto */}
+          <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/10">
+            <h2 className="text-lg font-bold">
+              Assigner les rôles
+            </h2>
+            {players.length > 0 && (
+              <button
+                className="btn btn-accent px-4 py-2"
+                onClick={handleAutoAssign}
+              >
+                🎲 Assignation auto
+              </button>
+            )}
+          </div>
+
+          {/* Non assignés */}
+          {unassigned.length > 0 && (
+            <div className="card mb-6">
+              <h3 className="text-base font-bold mb-4">En attente d'assignation ({unassigned.length})</h3>
+              <div className="space-y-2">
+                {unassigned.map(player => (
+                  <div key={player.uid} className="flex items-center gap-3 p-4 bg-slate-700/50 rounded-lg">
+                    <span className="flex-1 text-base font-medium">{player.name}</span>
+                    <div className="flex gap-2">
+                      <button
+                        className="btn btn-sm btn-accent px-2.5 py-1.5"
+                        onClick={() => handleAssignTeam(player.uid, "inspectors")}
+                      >
+                        🕵️ Inspecteur
+                      </button>
+                      <button
+                        className="btn btn-sm btn-primary px-2.5 py-1.5"
+                        onClick={() => handleAssignTeam(player.uid, "suspects")}
+                      >
+                        🎭 Suspect
+                      </button>
+                      <button
+                        className="btn btn-sm btn-error px-2.5 py-1.5"
+                        onClick={() => handleKickPlayer(player.uid)}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Équipes - Design moderne thème detective */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Inspecteurs - Thème Orange Detective */}
+            <div
+              className="card relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.08))',
+                border: '2px solid rgba(245, 158, 11, 0.3)',
+                boxShadow: '0 4px 24px rgba(245, 158, 11, 0.15)'
+              }}
+            >
+              {/* Header avec icône + badge */}
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-11 h-11 rounded-lg flex items-center justify-center text-xl flex-shrink-0"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.15))'
+                  }}
+                >
+                  🕵️
+                </div>
+                <h3 className="text-base font-bold text-orange-400 flex-1">INSPECTEURS</h3>
+                <div
+                  className="flex items-center justify-center min-w-[2rem] h-7 px-3 rounded-full text-xs font-bold flex-shrink-0"
+                  style={{
+                    background: 'rgba(245, 158, 11, 0.25)',
+                    border: '1px solid rgba(245, 158, 11, 0.5)',
+                    color: 'var(--alibi-glow, #fbbf24)'
+                  }}
+                >
+                  {inspectors.length}
+                </div>
+              </div>
+
+              {/* Liste des joueurs */}
+              <div className="space-y-2">
+                {inspectors.map((player) => (
+                  <div
+                    key={player.uid}
+                    className="flex items-center gap-3 p-4 rounded-lg group relative"
+                    style={{
+                      background: 'rgba(245, 158, 11, 0.08)',
+                      border: '1px solid rgba(245, 158, 11, 0.2)',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(245, 158, 11, 0.15)';
+                      e.currentTarget.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+                      e.currentTarget.style.transform = 'translateX(4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(245, 158, 11, 0.08)';
+                      e.currentTarget.style.borderColor = 'rgba(245, 158, 11, 0.2)';
+                      e.currentTarget.style.transform = 'translateX(0)';
+                    }}
+                  >
+                    <span className="font-medium flex-1 text-orange-100">{player.name}</span>
+                    <button
+                      className="btn btn-sm opacity-0 group-hover:opacity-100 transition-opacity text-xs px-2.5 py-1.5"
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        border: '1px solid rgba(245, 158, 11, 0.3)',
+                        color: '#FF9D5C'
+                      }}
+                      onClick={() => handleAssignTeam(player.uid, null)}
+                    >
+                      Retirer
+                    </button>
+                  </div>
+                ))}
+                {inspectors.length === 0 && (
+                  <div
+                    className="text-center py-6 rounded-lg"
+                    style={{
+                      background: 'rgba(245, 158, 11, 0.05)',
+                      border: '1px dashed rgba(245, 158, 11, 0.2)'
+                    }}
+                  >
+                    <p className="text-sm text-orange-400/60 italic">Aucun inspecteur assigné</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Suspects - Thème Indigo Mystère */}
+            <div
+              className="card relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(59, 130, 246, 0.08))',
+                border: '2px solid rgba(99, 102, 241, 0.3)',
+                boxShadow: '0 4px 24px rgba(99, 102, 241, 0.15)'
+              }}
+            >
+              {/* Header avec icône + badge */}
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="w-11 h-11 rounded-lg flex items-center justify-center text-xl flex-shrink-0"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(59, 130, 246, 0.15))'
+                  }}
+                >
+                  🎭
+                </div>
+                <h3 className="text-base font-bold text-indigo-400 flex-1">SUSPECTS</h3>
+                <div
+                  className="flex items-center justify-center min-w-[2rem] h-7 px-3 rounded-full text-xs font-bold flex-shrink-0"
+                  style={{
+                    background: 'rgba(99, 102, 241, 0.25)',
+                    border: '1px solid rgba(99, 102, 241, 0.5)',
+                    color: '#818CF8'
+                  }}
+                >
+                  {suspects.length}
+                </div>
+              </div>
+
+              {/* Liste des joueurs */}
+              <div className="space-y-2">
+                {suspects.map((player) => (
+                  <div
+                    key={player.uid}
+                    className="flex items-center gap-3 p-4 rounded-lg group relative"
+                    style={{
+                      background: 'rgba(99, 102, 241, 0.08)',
+                      border: '1px solid rgba(99, 102, 241, 0.2)',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(99, 102, 241, 0.15)';
+                      e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
+                      e.currentTarget.style.transform = 'translateX(-4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(99, 102, 241, 0.08)';
+                      e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.2)';
+                      e.currentTarget.style.transform = 'translateX(0)';
+                    }}
+                  >
+                    <span className="font-medium flex-1 text-indigo-100">{player.name}</span>
+                    <button
+                      className="btn btn-sm opacity-0 group-hover:opacity-100 transition-opacity text-xs px-2.5 py-1.5"
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        border: '1px solid rgba(99, 102, 241, 0.3)',
+                        color: '#A5B4FC'
+                      }}
+                      onClick={() => handleAssignTeam(player.uid, null)}
+                    >
+                      Retirer
+                    </button>
+                  </div>
+                ))}
+                {suspects.length === 0 && (
+                  <div
+                    className="text-center py-6 rounded-lg"
+                    style={{
+                      background: 'rgba(99, 102, 241, 0.05)',
+                      border: '1px dashed rgba(99, 102, 241, 0.2)'
+                    }}
+                  >
+                    <p className="text-sm text-indigo-400/60 italic">Aucun suspect assigné</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Vue joueur : voir son équipe */}
+      {!isHost && (
+        <motion.div
+          className="card space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <h2 className="font-bold text-lg">En attente de démarrage...</h2>
+          {players.find(p => p.uid === auth.currentUser?.uid)?.team === "inspectors" && (
+            <div className="px-4 py-3 bg-accent/10 border border-accent rounded-lg text-center">
+              <p className="text-2xl font-bold text-accent">🕵️ Tu es INSPECTEUR</p>
+              <p className="text-sm opacity-70 mt-2">Tu devras interroger les suspects et trouver les incohérences</p>
+            </div>
+          )}
+          {players.find(p => p.uid === auth.currentUser?.uid)?.team === "suspects" && (
+            <div className="px-4 py-3 bg-primary/10 border border-primary rounded-lg text-center">
+              <p className="text-2xl font-bold text-primary">🎭 Tu es SUSPECT</p>
+              <p className="text-sm opacity-70 mt-2">Tu devras mémoriser ton alibi et répondre aux questions</p>
+            </div>
+          )}
+          {!players.find(p => p.uid === auth.currentUser?.uid)?.team && (
+            <p className="text-center opacity-70">L'animateur va t'assigner à une équipe...</p>
+          )}
+        </motion.div>
+      )}
+
+      </main>
+
+      <BottomNav />
+
+      <style jsx>{`
+        /* ========== ALIBI LOBBY - GUIDE COMPLIANT ========== */
+
+        .game-container {
+          position: relative;
+          min-height: 100dvh;
+          background: var(--bg-primary, #0a0a0f);
+          overflow-x: hidden;
+        }
+
+        /* Animated Background - Alibi Theme (Amber/Gold) */
+        .game-container::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background:
+            radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 50%, rgba(217, 119, 6, 0.08) 0%, transparent 60%),
+            var(--bg-primary, #0a0a0f);
+          pointer-events: none;
+        }
+
+        /* Main Content - Full Width, No Tailwind conflicts */
+        .alibi-lobby-content {
+          position: relative;
+          z-index: 1;
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 16px;
+          padding-bottom: 100px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+          .alibi-lobby-content {
+            padding: 24px;
+            gap: 24px;
+          }
+        }
+
+        /* ========== PAGE TITLE ========== */
+        .alibi-lobby-content :global(.game-page-title) {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: clamp(1.5rem, 5vw, 2rem);
+          color: var(--text-primary, #ffffff);
+          margin: 0;
+          text-shadow:
+            0 0 10px var(--alibi-glow, #fbbf24),
+            0 0 30px rgba(245, 158, 11, 0.4),
+            0 0 60px rgba(245, 158, 11, 0.2);
+        }
+
+        /* ========== CARDS - Glassmorphism ========== */
+        .alibi-lobby-content :global(.card) {
+          background: rgba(20, 20, 30, 0.7);
+          border-radius: 16px;
+          padding: 1.25rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        /* ========== INVITE CARD - Special Highlight ========== */
+        .invite-card {
+          background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.05));
+          border: 2px solid rgba(245, 158, 11, 0.3);
+          border-radius: 20px;
+          padding: 1.5rem;
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          box-shadow:
+            0 4px 30px rgba(245, 158, 11, 0.15),
+            0 0 60px rgba(245, 158, 11, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .invite-card::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+          animation: invite-glow 4s ease-in-out infinite;
+          pointer-events: none;
+        }
+
+        @keyframes invite-glow {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .invite-title {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--alibi-glow, #fbbf24);
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+
+        .room-code {
+          font-family: var(--font-mono, 'Roboto Mono'), monospace;
+          font-size: clamp(2rem, 8vw, 3rem);
+          font-weight: 700;
+          color: var(--text-primary, #ffffff);
+          text-align: center;
+          letter-spacing: 0.2em;
+          text-shadow:
+            0 0 20px var(--alibi-glow, #fbbf24),
+            0 0 40px rgba(245, 158, 11, 0.4);
+          margin-bottom: 0.5rem;
+        }
+
+        .invite-url {
+          font-family: var(--font-mono, 'Roboto Mono'), monospace;
+          font-size: 0.75rem;
+          color: var(--text-muted, rgba(255, 255, 255, 0.5));
+          text-align: center;
+          word-break: break-all;
+          margin-bottom: 1rem;
+        }
+
+        .invite-actions {
+          display: flex;
+          gap: 12px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        /* ========== BUTTONS - Guide Style with 3D Effect ========== */
+        .alibi-lobby-content :global(.btn) {
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 12px 20px;
+          color: var(--text-primary, #ffffff);
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-weight: 600;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+          position: relative;
+        }
+
+        .alibi-lobby-content :global(.btn:hover) {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.2);
+          transform: translateY(-2px);
+        }
+
+        .alibi-lobby-content :global(.btn:active) {
+          transform: translateY(1px);
+        }
+
+        /* Primary Button - Alibi Theme with 3D */
+        .alibi-lobby-content :global(.btn-primary) {
+          background: linear-gradient(135deg, var(--alibi-primary, #f59e0b), #d97706);
+          border: none;
+          color: white;
+          box-shadow:
+            0 4px 0 #b45309,
+            0 6px 20px rgba(245, 158, 11, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .alibi-lobby-content :global(.btn-primary:hover) {
+          transform: translateY(-2px);
+          box-shadow:
+            0 6px 0 #b45309,
+            0 10px 30px rgba(245, 158, 11, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .alibi-lobby-content :global(.btn-primary:active) {
+          transform: translateY(2px);
+          box-shadow:
+            0 2px 0 #b45309,
+            0 4px 10px rgba(245, 158, 11, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Accent Button - Alibi Theme */
+        .alibi-lobby-content :global(.btn-accent) {
+          background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.15));
+          border: 2px solid rgba(245, 158, 11, 0.4);
+          color: var(--alibi-glow, #fbbf24);
+          box-shadow:
+            0 3px 0 rgba(180, 83, 9, 0.5),
+            0 0 20px rgba(245, 158, 11, 0.2);
+        }
+
+        .alibi-lobby-content :global(.btn-accent:hover) {
+          background: linear-gradient(135deg, rgba(245, 158, 11, 0.35), rgba(245, 158, 11, 0.25));
+          border-color: rgba(245, 158, 11, 0.6);
+          transform: translateY(-2px);
+          box-shadow:
+            0 5px 0 rgba(180, 83, 9, 0.5),
+            0 0 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .alibi-lobby-content :global(.btn-accent:active) {
+          transform: translateY(1px);
+          box-shadow:
+            0 1px 0 rgba(180, 83, 9, 0.5),
+            0 0 15px rgba(245, 158, 11, 0.2);
+        }
+
+        /* Secondary Button */
+        .alibi-lobby-content :global(.btn-secondary) {
+          background: rgba(99, 102, 241, 0.15);
+          border-color: rgba(99, 102, 241, 0.3);
+          color: #a5b4fc;
+        }
+
+        .alibi-lobby-content :global(.btn-secondary:hover) {
+          background: rgba(99, 102, 241, 0.25);
+          border-color: rgba(99, 102, 241, 0.5);
+          box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Danger Button */
+        .alibi-lobby-content :global(.btn-danger) {
+          background: rgba(239, 68, 68, 0.15);
+          border-color: rgba(239, 68, 68, 0.3);
+          color: #fca5a5;
+        }
+
+        .alibi-lobby-content :global(.btn-danger:hover) {
+          background: rgba(239, 68, 68, 0.25);
+          border-color: rgba(239, 68, 68, 0.5);
+          box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+        }
+
+        /* Small Button */
+        .alibi-lobby-content :global(.btn-sm) {
+          padding: 8px 14px;
+          font-size: 0.8rem;
+          border-radius: 8px;
+        }
+
+        /* ========== INPUTS ========== */
+        .alibi-lobby-content :global(.game-input) {
+          width: 100%;
+          padding: 14px 18px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          color: var(--text-primary, #ffffff);
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+        }
+
+        .alibi-lobby-content :global(.game-input:focus) {
+          outline: none;
+          border-color: var(--alibi-primary, #f59e0b);
+          background: rgba(245, 158, 11, 0.1);
+          box-shadow:
+            0 0 0 4px rgba(245, 158, 11, 0.15),
+            0 0 20px rgba(245, 158, 11, 0.1);
+        }
+
+        .alibi-lobby-content :global(.game-input::placeholder) {
+          color: var(--text-muted, rgba(255, 255, 255, 0.5));
+        }
+
+        .alibi-lobby-content :global(.game-input-accent) {
+          border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        /* ========== TEAM SECTIONS ========== */
+        .teams-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+          .teams-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+          }
+        }
+
+        .team-card {
+          background: rgba(20, 20, 30, 0.7);
+          border-radius: 16px;
+          padding: 1.25rem;
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          transition: all 0.3s ease;
+        }
+
+        .team-card.inspectors {
+          border: 2px solid rgba(245, 158, 11, 0.3);
+          box-shadow: 0 4px 24px rgba(245, 158, 11, 0.1);
+        }
+
+        .team-card.suspects {
+          border: 2px solid rgba(99, 102, 241, 0.3);
+          box-shadow: 0 4px 24px rgba(99, 102, 241, 0.1);
+        }
+
+        .team-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 1rem;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .team-icon {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.25rem;
+        }
+
+        .team-card.inspectors .team-icon {
+          background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.1));
+        }
+
+        .team-card.suspects .team-icon {
+          background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(99, 102, 241, 0.1));
+        }
+
+        .team-name {
+          flex: 1;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.9rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .team-card.inspectors .team-name {
+          color: var(--alibi-glow, #fbbf24);
+        }
+
+        .team-card.suspects .team-name {
+          color: #a5b4fc;
+        }
+
+        .team-count {
+          padding: 4px 12px;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 700;
+        }
+
+        .team-card.inspectors .team-count {
+          background: rgba(245, 158, 11, 0.2);
+          color: var(--alibi-glow, #fbbf24);
+          border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .team-card.suspects .team-count {
+          background: rgba(99, 102, 241, 0.2);
+          color: #a5b4fc;
+          border: 1px solid rgba(99, 102, 241, 0.4);
+        }
+
+        .player-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px;
+          border-radius: 10px;
+          margin-bottom: 8px;
+          transition: all 0.2s ease;
+        }
+
+        .team-card.inspectors .player-item {
+          background: rgba(245, 158, 11, 0.08);
+          border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+
+        .team-card.inspectors .player-item:hover {
+          background: rgba(245, 158, 11, 0.15);
+          border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .team-card.suspects .player-item {
+          background: rgba(99, 102, 241, 0.08);
+          border: 1px solid rgba(99, 102, 241, 0.15);
+        }
+
+        .team-card.suspects .player-item:hover {
+          background: rgba(99, 102, 241, 0.15);
+          border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .player-name {
+          flex: 1;
+          font-weight: 500;
+          color: var(--text-primary, #ffffff);
+        }
+
+        .empty-team {
+          text-align: center;
+          padding: 24px;
+          border-radius: 12px;
+          border: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .empty-team p {
+          font-size: 0.875rem;
+          color: var(--text-muted, rgba(255, 255, 255, 0.5));
+          font-style: italic;
+        }
+
+        /* ========== UTILITY CLASSES ========== */
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .flex-1 { flex: 1; }
+        .flex-wrap { flex-wrap: wrap; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 8px; }
+        .gap-3 { gap: 12px; }
+        .gap-4 { gap: 16px; }
+        .gap-6 { gap: 24px; }
+        .text-center { text-align: center; }
+        .text-sm { font-size: 0.875rem; }
+        .text-base { font-size: 1rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .font-bold { font-weight: 700; }
+        .font-medium { font-weight: 500; }
+        .w-full { width: 100%; }
+        .h-14 { height: 56px; }
+        .mt-1 { margin-top: 4px; }
+        .mt-2 { margin-top: 8px; }
+        .mt-4 { margin-top: 16px; }
+        .mb-3 { margin-bottom: 12px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .pb-4 { padding-bottom: 16px; }
+        .px-4 { padding-left: 16px; padding-right: 16px; }
+        .px-6 { padding-left: 24px; padding-right: 24px; }
+        .py-2 { padding-top: 8px; padding-bottom: 8px; }
+        .py-3 { padding-top: 12px; padding-bottom: 12px; }
+        .p-4 { padding: 16px; }
+        .rounded-lg { border-radius: 12px; }
+        .space-y-2 > * + * { margin-top: 8px; }
+        .space-y-4 > * + * { margin-top: 16px; }
+        .opacity-60 { opacity: 0.6; }
+        .opacity-70 { opacity: 0.7; }
+        .opacity-80 { opacity: 0.8; }
+
+        .self-start { align-self: flex-start; }
+
+        .border-b { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .border-white\\/10 { border-color: rgba(255, 255, 255, 0.1); }
+
+        .grid { display: grid; }
+        .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+
+        @media (min-width: 768px) {
+          .md\\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+          .md\\:flex-row { flex-direction: row; }
+          .md\\:items-center { align-items: center; }
+          .md\\:justify-between { justify-content: space-between; }
+          .md\\:self-auto { align-self: auto; }
+        }
+
+        /* Colors */
+        .text-yellow-400 { color: #facc15; }
+        .text-orange-400 { color: var(--alibi-glow, #fbbf24); }
+        .text-orange-100 { color: #ffedd5; }
+        .text-indigo-400 { color: #818cf8; }
+        .text-indigo-100 { color: #e0e7ff; }
+        .bg-slate-700\\/50 { background: rgba(51, 65, 85, 0.5); }
+
+        /* Warning box */
+        .warning-box {
+          background: rgba(251, 191, 36, 0.1);
+          border: 1px solid rgba(251, 191, 36, 0.3);
+          border-radius: 12px;
+          padding: 12px 16px;
+          color: #fbbf24;
+          font-size: 0.875rem;
+          text-align: center;
+        }
+
+        /* Player role cards */
+        .role-card {
+          padding: 16px;
+          border-radius: 12px;
+          text-align: center;
+        }
+
+        .role-card.inspector {
+          background: rgba(245, 158, 11, 0.1);
+          border: 2px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .role-card.suspect {
+          background: rgba(99, 102, 241, 0.1);
+          border: 2px solid rgba(99, 102, 241, 0.4);
+        }
+
+        .role-title {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.5rem;
+          margin-bottom: 8px;
+        }
+
+        .role-card.inspector .role-title {
+          color: var(--alibi-glow, #fbbf24);
+        }
+
+        .role-card.suspect .role-title {
+          color: #818cf8;
+        }
+
+        .role-description {
+          font-size: 0.875rem;
+          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+        }
+      `}</style>
+      </div>
+    </div>
+  );
+}

@@ -61,7 +61,17 @@
       "Bash(git merge:*)",
       "Bash(for f in public/data/naruto-*.json public/data/onepiece-*.json public/data/culture-generale-[3-8]*.json)",
       "Bash(done)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(cd:*)",
+      "Bash(for file in \"E:\\\\LetsQueeze\\\\public\\\\data\"/*.json)",
+      "Bash(then python3 -m json.tool \"$file\")",
+      "Bash(fi)",
+      "Bash(ls -la \"E:\\\\LetsQueeze\\\\public\\\\data\"\" | grep -v \"^d\" | grep \".json \")",
+      "WebFetch(domain:triviabliss.com)",
+      "WebFetch(domain:www.triviahalloffame.com)",
+      "WebFetch(domain:www.qbwiki.com)",
+      "Bash(ls:*)",
+      "Bash(npx firebase deploy:*)"
     ],
     "deny": [],
     "ask": []

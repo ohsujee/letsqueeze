@@ -90,13 +90,16 @@ export default function PlayerTeamView({ teams, players, currentPlayerUid }) {
         .player-team-view {
           display: flex;
           flex-direction: column;
-          gap: var(--space-4);
+          gap: 1rem;
         }
 
         .view-title {
-          font-size: var(--font-size-lg);
-          font-weight: var(--font-weight-bold);
-          color: white;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1.125rem;
+          font-weight: 700;
+          color: var(--text-primary, #ffffff);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
           margin: 0;
         }
 
@@ -104,80 +107,93 @@ export default function PlayerTeamView({ teams, players, currentPlayerUid }) {
         .my-team-banner {
           display: flex;
           align-items: center;
-          gap: var(--space-3);
-          padding: var(--space-4);
-          background: linear-gradient(135deg, rgba(66, 153, 225, 0.2), rgba(66, 153, 225, 0.1));
-          border: 2px solid rgba(66, 153, 225, 0.4);
-          border-radius: 12px;
-          color: white;
+          gap: 0.75rem;
+          padding: 1rem;
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+          border: 2px solid rgba(139, 92, 246, 0.4);
+          border-radius: 14px;
+          color: var(--text-primary, #ffffff);
+          box-shadow: 0 0 25px rgba(139, 92, 246, 0.15);
         }
 
         .banner-emoji {
-          font-size: 24px;
+          font-size: 1.5rem;
+          filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
         }
 
         .banner-text {
-          font-size: 16px;
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 1rem;
           font-weight: 500;
         }
 
         .banner-text strong {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-weight: 700;
-          color: var(--brand-electric);
+          color: var(--quiz-glow, #a78bfa);
         }
 
         /* Teams Grid */
         .teams-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: var(--space-4);
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 1rem;
         }
 
         .team-card {
           position: relative;
-          padding: var(--space-4);
-          background: rgba(255, 255, 255, 0.05);
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          transition: all 0.3s ease;
+          padding: 1rem;
+          background: rgba(20, 20, 30, 0.6);
+          border: 2px solid rgba(255, 255, 255, 0.08);
+          border-radius: 14px;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .team-card.my-team {
-          background: rgba(66, 153, 225, 0.15);
-          border-color: rgba(66, 153, 225, 0.4);
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.08));
+          border-color: rgba(139, 92, 246, 0.4);
           transform: scale(1.02);
-          box-shadow: 0 4px 16px rgba(66, 153, 225, 0.2);
+          box-shadow:
+            0 8px 24px rgba(139, 92, 246, 0.2),
+            0 0 40px rgba(139, 92, 246, 0.1);
         }
 
         .team-card:hover {
-          border-color: rgba(255, 255, 255, 0.2);
+          border-color: rgba(255, 255, 255, 0.15);
+          transform: translateY(-2px);
         }
 
         .team-card.my-team:hover {
-          border-color: rgba(66, 153, 225, 0.5);
+          border-color: rgba(139, 92, 246, 0.5);
+          box-shadow:
+            0 12px 32px rgba(139, 92, 246, 0.25),
+            0 0 50px rgba(139, 92, 246, 0.15);
         }
 
         /* Team Header */
         .team-header {
           display: flex;
           align-items: center;
-          gap: var(--space-2);
-          margin-bottom: var(--space-3);
+          gap: 0.5rem;
+          margin-bottom: 0.75rem;
         }
 
         .team-color-dot {
-          width: 16px;
-          height: 16px;
+          width: 18px;
+          height: 18px;
           border-radius: 50%;
           flex-shrink: 0;
-          box-shadow: 0 0 8px currentColor;
+          box-shadow: 0 0 12px currentColor;
         }
 
         .team-name {
           flex: 1;
-          font-size: 16px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1rem;
           font-weight: 700;
-          color: white;
+          color: var(--text-primary, #ffffff);
           margin: 0;
         }
 
@@ -185,93 +201,108 @@ export default function PlayerTeamView({ teams, players, currentPlayerUid }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          min-width: 24px;
-          height: 24px;
-          padding: 0 6px;
-          background: rgba(255, 255, 255, 0.15);
-          border-radius: 12px;
-          font-size: 12px;
-          font-weight: 700;
-          color: white;
+          min-width: 28px;
+          height: 28px;
+          padding: 0 0.5rem;
+          background: rgba(139, 92, 246, 0.25);
+          border-radius: 14px;
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 0.8125rem;
+          font-weight: 400;
+          color: var(--quiz-glow, #a78bfa);
         }
 
         /* Team Players */
         .team-players {
           display: flex;
           flex-direction: column;
-          gap: var(--space-2);
+          gap: 0.5rem;
           min-height: 60px;
         }
 
         .empty-text {
-          color: rgba(255, 255, 255, 0.5);
-          font-size: 14px;
+          color: var(--text-muted, rgba(255, 255, 255, 0.4));
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.875rem;
           font-style: italic;
           text-align: center;
-          padding: var(--space-2);
+          padding: 0.75rem;
         }
 
         .player-tag {
-          padding: 8px 12px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          color: white;
-          font-size: 14px;
+          padding: 0.625rem 0.875rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          color: var(--text-primary, #ffffff);
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.875rem;
           font-weight: 500;
           transition: all 0.2s ease;
         }
 
         .player-tag.me {
           font-weight: 700;
-          border: 2px solid rgba(255, 255, 255, 0.3);
-          box-shadow: 0 0 12px rgba(66, 153, 225, 0.4);
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+          border: 2px solid rgba(139, 92, 246, 0.4);
+          box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
         }
 
         /* Team Badge */
         .team-badge {
           position: absolute;
-          top: -12px;
+          top: -10px;
           right: 12px;
-          padding: 6px 12px;
+          padding: 0.375rem 0.75rem;
           border-radius: 20px;
           color: white;
-          font-size: 12px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.6875rem;
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.5px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          letter-spacing: 0.05em;
+          box-shadow:
+            0 4px 12px rgba(0, 0, 0, 0.4),
+            0 0 20px currentColor;
         }
 
         /* Warning Banner */
         .warning-banner {
           display: flex;
           align-items: center;
-          gap: var(--space-3);
-          padding: var(--space-4);
-          background: rgba(251, 191, 36, 0.15);
-          border: 2px solid rgba(251, 191, 36, 0.4);
-          border-radius: 12px;
-          color: white;
+          gap: 0.75rem;
+          padding: 1rem;
+          background: rgba(245, 158, 11, 0.1);
+          border: 2px solid rgba(245, 158, 11, 0.3);
+          border-radius: 14px;
+          color: var(--text-primary, #ffffff);
         }
 
         .warning-emoji {
-          font-size: 24px;
+          font-size: 1.5rem;
           flex-shrink: 0;
+          animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.1); opacity: 0.8; }
         }
 
         .warning-text {
-          font-size: 14px;
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.875rem;
           line-height: 1.5;
         }
 
         .warning-text strong {
           font-weight: 700;
-          color: #FCD34D;
+          color: var(--alibi-glow, #fbbf24);
         }
 
         .warning-sub {
-          font-size: 13px;
-          opacity: 0.8;
+          font-size: 0.8125rem;
+          color: var(--text-secondary, rgba(255, 255, 255, 0.6));
         }
 
         /* Mobile Responsive */
@@ -281,15 +312,19 @@ export default function PlayerTeamView({ teams, players, currentPlayerUid }) {
           }
 
           .my-team-banner {
-            padding: var(--space-3);
+            padding: 0.875rem;
           }
 
           .banner-text {
-            font-size: 14px;
+            font-size: 0.9375rem;
           }
 
           .team-card {
-            padding: var(--space-3);
+            padding: 0.875rem;
+          }
+
+          .team-card.my-team {
+            transform: scale(1);
           }
         }
       `}</style>

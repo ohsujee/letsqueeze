@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth,
@@ -8,20 +8,20 @@ import {
   ref,
   onValue,
   update,
+  remove,
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
-import Qr from "@/components/ui/Qr";
-import QrModal from "@/lib/components/QrModal";
-import BottomNav from "@/lib/components/BottomNav";
+import ShareModal from "@/lib/components/ShareModal";
 import TeamTabs from "@/lib/components/TeamTabs";
-import PlayerTeamView from "@/lib/components/PlayerTeamView";
 import PaywallModal from "@/components/ui/PaywallModal";
 import QuizSelectorModal from "@/components/ui/QuizSelectorModal";
+import ExitButton from "@/lib/components/ExitButton";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { motion } from "framer-motion";
+import { ChevronRight, Users, Zap, Eye } from "lucide-react";
 
 export default function Room() {
   const { code } = useParams();
@@ -36,12 +36,10 @@ export default function Room() {
   const [showPaywall, setShowPaywall] = useState(false);
   const [showQuizSelector, setShowQuizSelector] = useState(false);
   const [lockedQuizName, setLockedQuizName] = useState('');
-
-  // Calculer joinUrl seulement côté client et quand on a le code
   const [joinUrl, setJoinUrl] = useState("");
+  const roomWasValidRef = useRef(false);
 
-  // Get user profile for subscription check
-  const { user: currentUser, stats, subscription, loading: profileLoading } = useUserProfile();
+  const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
   useEffect(() => {
@@ -50,20 +48,13 @@ export default function Room() {
     }
   }, [code]);
 
-  // Charger le manifest des quiz
   useEffect(() => {
     fetch("/data/manifest.json")
       .then(r => r.json())
-      .then(data => {
-        setQuizOptions(data.quizzes || []);
-      })
-      .catch(err => {
-        console.error("Erreur chargement manifest:", err);
-        setQuizOptions([{ id: "general", title: "Général" }]);
-      });
+      .then(data => setQuizOptions(data.quizzes || []))
+      .catch(() => setQuizOptions([{ id: "general", title: "Général" }]));
   }, []);
 
-  // Auth
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -75,14 +66,30 @@ export default function Room() {
     return () => unsub();
   }, [meta?.hostUid]);
 
-  // DB listeners
   useEffect(() => {
     if (!code) return;
 
     const metaUnsub = onValue(ref(db, `rooms/${code}/meta`), (snap) => {
       const m = snap.val();
-      setMeta(m);
-      setTeams(m?.teams || {});
+      if (m) {
+        // Check if room was closed by host
+        if (m.closed) {
+          // Only show toast if not the host (host already knows they're leaving)
+          const currentUid = auth.currentUser?.uid;
+          if (currentUid !== m.hostUid) {
+            toast.warning("L'hôte a quitté la partie");
+          }
+          router.push('/home');
+          return;
+        }
+        setMeta(m);
+        setTeams(m?.teams || {});
+        roomWasValidRef.current = true;
+      } else if (roomWasValidRef.current) {
+        // Room was deleted (host left) - show toast only for non-hosts
+        toast.warning("L'hôte a quitté la partie");
+        router.push('/home');
+      }
     });
 
     const playersUnsub = onValue(ref(db, `rooms/${code}/players`), (snap) => {
@@ -90,11 +97,9 @@ export default function Room() {
       setPlayers(Object.values(p));
     });
 
-    // Écouter les changements d'état pour rediriger quand la partie commence
     const stateUnsub = onValue(ref(db, `rooms/${code}/state`), (snap) => {
       const state = snap.val();
       if (state?.phase === "playing") {
-        // Rediriger selon le rôle
         if (isHost) {
           router.push(`/game/${code}/host`);
         } else {
@@ -111,14 +116,12 @@ export default function Room() {
   }, [code, router, isHost]);
 
   const handleStartGame = async () => {
-    if (!isHost) return;
+    if (!isHost || !meta?.quizId) return;
 
     try {
-      // Check if user can access the selected quiz
-      const selectedQuizId = meta?.quizId || "general";
+      const selectedQuizId = meta.quizId;
       const quizIndex = quizOptions.findIndex(q => q.id === selectedQuizId);
 
-      // Check freemium access
       if (currentUser && !userIsPro && quizIndex >= 0) {
         const hasAccess = canAccessPack(
           { ...currentUser, subscription },
@@ -127,7 +130,6 @@ export default function Room() {
         );
 
         if (!hasAccess) {
-          // Show paywall
           const selectedQuiz = quizOptions.find(q => q.id === selectedQuizId);
           setLockedQuizName(selectedQuiz?.title || selectedQuizId);
           setShowPaywall(true);
@@ -135,41 +137,86 @@ export default function Room() {
         }
       }
 
-      await update(ref(db, `rooms/${code}/state`), {
-        phase: "playing",
-        currentIndex: 0,
-        revealed: false,
-        lockUid: null,
-        buzzBanner: "",
-        elapsedAcc: 0,
-        lastRevealAt: 0,
-        pausedAt: null,
-        lockedAt: null,
+      // Charger la base de données et sélectionner 20 questions aléatoires
+      const response = await fetch(`/data/${selectedQuizId}.json`);
+      const database = await response.json();
+
+      if (!database?.items?.length) {
+        toast.error('Erreur: Base de données vide');
+        return;
+      }
+
+      // Mélanger les questions avec Fisher-Yates
+      const shuffled = [...database.items];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      // Prendre 20 questions (ou moins si la base en contient moins)
+      const selectedQuestions = shuffled.slice(0, 20);
+
+      // Stocker les questions sélectionnées dans Firebase
+      await update(ref(db, `rooms/${code}`), {
+        'quiz': {
+          id: database.id,
+          title: database.title,
+          items: selectedQuestions
+        },
+        'state': {
+          phase: "playing",
+          currentIndex: 0,
+          revealed: false,
+          lockUid: null,
+          buzzBanner: "",
+          elapsedAcc: 0,
+          lastRevealAt: 0,
+          pausedAt: null,
+          lockedAt: null,
+        }
       });
 
       toast.success('Partie lancée !');
-      // La redirection se fera automatiquement via le listener d'état
     } catch (error) {
       console.error('Erreur lors du lancement de la partie:', error);
       toast.error('Erreur lors du lancement de la partie');
     }
   };
 
+  // Couleurs vibrantes style "jeu mobile" avec glow
+  const teamColors = [
+    "#FF2D55", // Rose-rouge vif (style gaming)
+    "#00D4FF", // Cyan électrique
+    "#32FF7E", // Vert néon
+    "#FFB800", // Or/Ambre lumineux
+    "#BF5AF2", // Violet vif
+    "#FF6B2C"  // Orange feu
+  ];
+
+  // Team names
+  const teamNames = ["Team Blaze", "Team Frost", "Team Venom", "Team Solar"];
+
+  const createTeamsForCount = (count) => {
+    const newTeams = {};
+    for (let i = 0; i < count; i++) {
+      newTeams[`team${i + 1}`] = {
+        name: teamNames[i],
+        color: teamColors[i],
+        score: 0
+      };
+    }
+    return newTeams;
+  };
+
   const handleModeToggle = async () => {
     if (!isHost) return;
     const newMode = meta?.mode === "équipes" ? "individuel" : "équipes";
 
-    // Si on passe en mode équipe, créer les équipes si elles n'existent pas
     if (newMode === "équipes" && (!teams || Object.keys(teams).length === 0)) {
-      const defaultTeams = {
-        team1: { name: "Équipe Rouge", color: teamColors[0], score: 0 },
-        team2: { name: "Équipe Bleue", color: teamColors[1], score: 0 },
-        team3: { name: "Équipe Verte", color: teamColors[2], score: 0 },
-        team4: { name: "Équipe Orange", color: teamColors[3], score: 0 }
-      };
-      await update(ref(db, `rooms/${code}/meta`), { mode: newMode, teams: defaultTeams });
+      const count = meta?.teamCount || 2;
+      const defaultTeams = createTeamsForCount(count);
+      await update(ref(db, `rooms/${code}/meta`), { mode: newMode, teams: defaultTeams, teamCount: count });
     } else if (newMode === "individuel") {
-      // Si on passe en mode individuel, retirer tous les joueurs des équipes
       const updates = {};
       players.forEach(p => {
         updates[`rooms/${code}/players/${p.uid}/teamId`] = "";
@@ -181,38 +228,34 @@ export default function Room() {
     }
   };
 
+  const handleTeamCountChange = async (count) => {
+    if (!isHost) return;
+
+    // Create new teams with the selected count
+    const newTeams = createTeamsForCount(count);
+
+    // Reset players team assignments for teams that no longer exist
+    const updates = {};
+    const validTeamIds = Object.keys(newTeams);
+
+    players.forEach(p => {
+      if (p.teamId && !validTeamIds.includes(p.teamId)) {
+        updates[`rooms/${code}/players/${p.uid}/teamId`] = "";
+      }
+    });
+
+    updates[`rooms/${code}/meta/teamCount`] = count;
+    updates[`rooms/${code}/meta/teams`] = newTeams;
+
+    await update(ref(db), updates);
+  };
+
   const handleQuizChange = async (quizId) => {
     if (!isHost) return;
     await update(ref(db, `rooms/${code}/meta`), { quizId });
     setShowQuizSelector(false);
   };
 
-  const handleQuit = () => {
-    router.push("/");
-  };
-
-  const copyLink = async () => {
-    if (typeof navigator !== "undefined" && navigator.clipboard && joinUrl) {
-      try {
-        await navigator.clipboard.writeText(joinUrl);
-        const btn = document.querySelector('.copy-btn');
-        if (btn) {
-          const original = btn.textContent;
-          btn.textContent = 'Copié !';
-          setTimeout(() => { btn.textContent = original; }, 2000);
-        }
-      } catch (err) {
-        console.error("Erreur copie:", err);
-      }
-    }
-  };
-
-  const teamColors = ["#EF4444", "#3B82F6", "#10B981", "#F59E0B", "#8B5CF6", "#06B6D4"];
-  const teamsSorted = Object.keys(teams).map(id => ({ id, ...teams[id] }));
-
-  const selectedQuizTitle = quizOptions.find(q => q.id === (meta?.quizId || "general"))?.title || "Général";
-
-  // Fonctions de gestion des équipes
   const handleAssignToTeam = async (playerUid, teamId) => {
     if (!isHost) return;
     await update(ref(db, `rooms/${code}/players/${playerUid}`), { teamId });
@@ -228,15 +271,13 @@ export default function Room() {
 
     const teamIds = Object.keys(teams);
     const updates = {};
-
-    // Mélanger aléatoirement les joueurs (algorithme Fisher-Yates)
     const shuffledPlayers = [...players];
+
     for (let i = shuffledPlayers.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledPlayers[i], shuffledPlayers[j]] = [shuffledPlayers[j], shuffledPlayers[i]];
     }
 
-    // Répartir les joueurs mélangés équitablement dans les équipes
     shuffledPlayers.forEach((player, index) => {
       const teamIndex = index % teamIds.length;
       updates[`rooms/${code}/players/${player.uid}/teamId`] = teamIds[teamIndex];
@@ -254,359 +295,339 @@ export default function Room() {
     await update(ref(db), updates);
   };
 
+  // Host exit handler - mark room as closed so all players are notified
+  const handleHostExit = async () => {
+    if (isHost) {
+      // Mark room as closed - triggers redirect for all players
+      await update(ref(db, `rooms/${code}/meta`), { closed: true });
+    }
+    router.push('/home');
+  };
+
+  const selectedQuiz = meta?.quizId ? quizOptions.find(q => q.id === meta.quizId) : null;
+  const selectedQuizTitle = selectedQuiz?.title || "Choisir un quiz";
+  const canStart = isHost && meta?.quizId;
+
+  // Loading state
   if (!meta) {
     return (
-      <div className="game-container">
-        <main className="game-content p-6 max-w-5xl mx-auto min-h-screen">
-          <div className="card text-center">
-            <h1 className="game-section-title mb-4">Chargement...</h1>
-          </div>
-        </main>
+      <div className="lobby-container">
+        <div className="lobby-loading">
+          <div className="loading-spinner" />
+          <p>Chargement...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="game-container">
-      {/* Paywall Modal */}
+    <div className="lobby-container">
+      {/* Modals */}
       <PaywallModal
         isOpen={showPaywall}
         onClose={() => setShowPaywall(false)}
         contentType="quiz"
         contentName={lockedQuizName}
       />
-
-      {/* Quiz Selector Modal */}
       <QuizSelectorModal
         isOpen={showQuizSelector}
         onClose={() => setShowQuizSelector(false)}
         quizOptions={quizOptions}
-        selectedQuizId={meta?.quizId || "general"}
+        selectedQuizId={meta?.quizId || null}
         onSelectQuiz={handleQuizChange}
         userIsPro={userIsPro}
       />
 
-      <main className="game-content p-4 md:p-6 max-w-5xl mx-auto space-y-4 md:space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
-      {/* Header - Glassmorphic Style */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col md:flex-row md:items-center md:justify-between gap-3"
-        style={{
-          background: 'rgba(255, 255, 255, 0.03)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          borderRadius: 'var(--radius-xl)',
-          padding: 'var(--space-6)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
-        }}
-      >
-        <div className="flex-1">
-          <motion.h1
-            className="game-page-title"
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 200 }}
-          >
-            🎮 Lobby
-          </motion.h1>
-          <div className="text-sm mt-1" style={{color: 'var(--text-secondary)'}}>
-            {selectedQuizTitle} • Code: <span className="font-bold text-base" style={{color: '#60A5FA'}}>{code}</span>
+      {/* Header */}
+      <header className="lobby-header">
+        <div className="header-left">
+          <ExitButton
+            variant="header"
+            onExit={isHost ? handleHostExit : undefined}
+            confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera fermée pour tous les joueurs." : undefined}
+          />
+          <div className="header-title-row">
+            <h1 className="lobby-title">Lobby</h1>
+            <span className="lobby-divider">•</span>
+            <span className="room-code">{code}</span>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="header-right">
           {!isHost && (
             <motion.button
-              className="btn btn-secondary"
+              className="spectator-btn"
               onClick={() => router.push(`/spectate/${code}`)}
-              title="Regarder la partie sans jouer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              title="Mode spectateur"
             >
-              👁️ Spectateur
+              <Eye size={18} />
             </motion.button>
           )}
-          {isHost && (
-            <motion.button
-              className="btn btn-danger self-start md:self-auto"
-              onClick={handleQuit}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Quitter
-            </motion.button>
-          )}
+          <ShareModal roomCode={code} joinUrl={joinUrl} />
         </div>
-      </motion.div>
+      </header>
 
-      <motion.div
-        className="card"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.5 }}
-      >
-        <div className="text-center space-y-4">
-          <h3 className="text-lg font-bold mb-2">📲 Invite des joueurs</h3>
-          <motion.div
-            className="text-sm opacity-80 mb-3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
-            transition={{ delay: 0.3 }}
-          >
-            {joinUrl || "Génération du lien..."}
-          </motion.div>
-
-          <div className="flex gap-2 justify-center flex-wrap">
-            <motion.button
-              className="btn copy-btn"
-              onClick={copyLink}
-              disabled={!joinUrl}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              📋 Copier le lien
-            </motion.button>
-            {joinUrl && <QrModal text={joinUrl} buttonText="📱 Voir QR Code" />}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Section des contrôles - visible seulement pour l'host - Mobile First */}
-      {isHost && (
-        <motion.div
-          className="space-y-4"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          {/* Primary Action - Always Visible */}
-          <motion.button
-            className="btn btn-primary w-full h-14 text-lg font-bold"
-            onClick={handleStartGame}
-            whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(99, 102, 241, 0.5)' }}
-            whileTap={{ scale: 0.98 }}
-            style={{
-              background: 'linear-gradient(135deg, #6366F1, #4F46E5)',
-              border: '2px solid rgba(99, 102, 241, 0.5)',
-              boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)'
-            }}
-          >
-            🚀 Démarrer la partie
-          </motion.button>
-
-          {/* Settings Grid - Mobile: Stack, Tablet+: 2 cols */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Quiz Selection - Encart cliquable */}
-            <motion.div
-              className="card"
-              onClick={() => setShowQuizSelector(true)}
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              style={{
-                cursor: 'pointer',
-                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(59, 130, 246, 0.1))',
-                border: '2px solid rgba(99, 102, 241, 0.3)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}
-            >
-              {/* Shine effect - static */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%)',
-                  pointerEvents: 'none'
-                }}
-              />
-
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <h3 className="font-bold text-base mb-3 flex items-center justify-between">
-                  <span>📚 Quiz Sélectionné</span>
-                  <span style={{ fontSize: '1.25rem', opacity: 0.6 }}>
-                    →
-                  </span>
-                </h3>
-
-                {/* Quiz actuel affiché */}
-                <div style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  borderRadius: 'var(--radius-lg)',
-                  padding: 'var(--space-4)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)'
-                }}>
-                  <div style={{ fontSize: 'var(--font-size-4xl)', textAlign: 'center', marginBottom: 'var(--space-2)' }}>
-                    {quizOptions.find(q => q.id === (meta?.quizId || "general"))?.emoji || '📝'}
+      {/* Main Content */}
+      <main className="lobby-main">
+        {isHost ? (
+          // HOST VIEW
+          <>
+            {/* Scrollable Content Area */}
+            <div className="lobby-content">
+              {/* Quiz Selector Card */}
+              <motion.div
+                className="lobby-card quiz-selector"
+                onClick={() => setShowQuizSelector(true)}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+              >
+                <div className="quiz-card-content">
+                  <div className="quiz-card-left">
+                    <span className="quiz-card-emoji">{selectedQuiz?.emoji || '🧠'}</span>
                   </div>
-                  <div style={{
-                    fontSize: 'var(--font-size-base)',
-                    fontWeight: 700,
-                    textAlign: 'center',
-                    marginBottom: 'var(--space-2)',
-                    color: 'white'
-                  }}>
-                    {selectedQuizTitle}
+                  <div className="quiz-card-center">
+                    <span className="quiz-card-label">Quiz</span>
+                    <h3 className="quiz-card-title">{selectedQuizTitle}</h3>
+                    <p className="quiz-card-meta">
+                      {selectedQuiz ? `${selectedQuiz.difficulty} • ${selectedQuiz.questionCount} questions` : 'Appuyer pour choisir'}
+                    </p>
                   </div>
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: 'var(--space-2)',
-                    fontSize: 'var(--font-size-xs)',
-                    color: 'rgba(255, 255, 255, 0.6)'
-                  }}>
-                    <span>
-                      {quizOptions.find(q => q.id === (meta?.quizId || "general"))?.difficulty || 'Normal'}
-                    </span>
-                    <span>•</span>
-                    <span>
-                      {quizOptions.find(q => q.id === (meta?.quizId || "general"))?.questionCount || 0} Questions
-                    </span>
+                  <div className="quiz-card-right">
+                    <span className="quiz-change-hint">{selectedQuiz ? 'Changer' : 'Choisir'}</span>
+                    <ChevronRight size={20} className="quiz-card-arrow" />
                   </div>
                 </div>
+              </motion.div>
 
-                <div style={{
-                  marginTop: 'var(--space-3)',
-                  textAlign: 'center',
-                  fontSize: 'var(--font-size-sm)',
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  fontWeight: 600
-                }}>
-                  Cliquez pour changer ✨
+              {/* Mode Selector Card */}
+              <div className="lobby-card mode-selector">
+                <div className="card-header">
+                  <span className="card-icon">👥</span>
+                  <span className="card-label">Mode de jeu</span>
+                </div>
+                <div className="mode-controls">
+                  <div className="mode-toggle">
+                    <motion.button
+                      className={`mode-btn ${meta.mode === "individuel" ? "active" : ""}`}
+                      onClick={handleModeToggle}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Zap size={18} />
+                      Solo
+                    </motion.button>
+                    <motion.button
+                      className={`mode-btn ${meta.mode === "équipes" ? "active" : ""}`}
+                      onClick={handleModeToggle}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Users size={18} />
+                      Équipes
+                    </motion.button>
+                  </div>
+
+                  {/* Team Count Selector - appears when team mode */}
+                  {meta.mode === "équipes" && (
+                    <motion.div
+                      className="team-count-selector"
+                      initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                      animate={{ opacity: 1, height: "auto", marginTop: 12 }}
+                      exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <span className="team-count-label">Nombre d'équipes</span>
+                      <div className="team-count-toggle">
+                        {[2, 3, 4].map(count => (
+                          <motion.button
+                            key={count}
+                            className={`count-btn ${(meta?.teamCount || 2) === count ? "active" : ""}`}
+                            onClick={() => handleTeamCountChange(count)}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            {count}
+                          </motion.button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
               </div>
-            </motion.div>
 
-            {/* Mode de jeu */}
-            <div className="card">
-              <h3 className="font-bold text-base mb-3">👥 Mode</h3>
-              <div className="grid grid-cols-2 gap-2">
-                <motion.button
-                  className={`btn ${meta.mode === "individuel" ? "btn-accent" : ""}`}
-                  onClick={handleModeToggle}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  🎯 Solo
-                </motion.button>
-                <motion.button
-                  className={`btn ${meta.mode === "équipes" ? "btn-accent" : ""}`}
-                  onClick={handleModeToggle}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  👥 Équipes
-                </motion.button>
-              </div>
+              {/* Teams Management (if team mode) */}
+              {meta.mode === "équipes" && (
+                <div className="lobby-card lobby-card-flex">
+                  <TeamTabs
+                    teams={teams}
+                    players={players}
+                    teamCount={meta?.teamCount || 2}
+                    onAssignToTeam={handleAssignToTeam}
+                    onRemoveFromTeam={handleRemoveFromTeam}
+                    onAutoBalance={handleAutoBalance}
+                    onResetTeams={handleResetTeams}
+                  />
+                </div>
+              )}
+
+              {/* Players Card (if solo mode) */}
+              {meta.mode !== "équipes" && (
+                <div className="lobby-card lobby-players lobby-card-flex">
+                  <div className="card-header">
+                    <span className="card-icon">🎮</span>
+                    <span className="card-label">Joueurs</span>
+                    <span className="player-count-badge">{players.length}</span>
+                  </div>
+                  {players.length === 0 ? (
+                    <div className="empty-state">
+                      <span className="empty-icon">👋</span>
+                      <p className="empty-text">En attente de joueurs...</p>
+                      <p className="empty-hint">Partagez le code pour inviter</p>
+                    </div>
+                  ) : (
+                    <div className="players-chips">
+                      {players.map((player, index) => (
+                        <motion.div
+                          key={player.uid}
+                          className="player-chip"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: index * 0.05 }}
+                        >
+                          <div className="chip-avatar">
+                            {player.name?.charAt(0)?.toUpperCase() || '?'}
+                          </div>
+                          <span className="chip-name">{player.name}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Fixed Start Button - Always at bottom */}
+            <div className="lobby-footer">
+              <motion.button
+                className="lobby-start-btn"
+                onClick={handleStartGame}
+                disabled={!canStart}
+                whileHover={canStart ? { scale: 1.02 } : {}}
+                whileTap={canStart ? { scale: 0.98 } : {}}
+              >
+                <span className="btn-icon">🚀</span>
+                <span className="btn-text">Démarrer la partie</span>
+              </motion.button>
+            </div>
+          </>
+        ) : (
+          // PLAYER VIEW - Compact centered layout
+          <div className="lobby-player-view">
+            {meta.mode === "équipes" ? (
+              // TEAM MODE - Show my team banner + all teams with players
+              <>
+                {/* My Team Banner */}
+                {players.find(p => p.uid === auth.currentUser?.uid)?.teamId ? (
+                  <div
+                    className="my-team-banner"
+                    style={{
+                      '--team-color': teams[players.find(p => p.uid === auth.currentUser?.uid)?.teamId]?.color
+                    }}
+                  >
+                    <div className="banner-glow" />
+                    <span className="banner-label">Ton équipe</span>
+                    <span className="banner-team-name">
+                      {teams[players.find(p => p.uid === auth.currentUser?.uid)?.teamId]?.name}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="pending-banner">
+                    <span className="pending-icon">⏳</span>
+                    <span className="pending-text">L'hôte va t'assigner à une équipe...</span>
+                  </div>
+                )}
+
+                {/* Teams Grid with Players */}
+                <div className={`teams-grid-player teams-${meta?.teamCount || 2}`}>
+                  {Object.entries(teams).slice(0, meta?.teamCount || 2).map(([id, team]) => {
+                    const teamPlayers = players.filter(p => p.teamId === id);
+                    const isMyTeam = players.find(p => p.uid === auth.currentUser?.uid)?.teamId === id;
+                    return (
+                      <div
+                        key={id}
+                        className={`team-card-player ${isMyTeam ? 'my-team' : ''}`}
+                        style={{ '--team-color': team.color }}
+                      >
+                        <div className="team-card-bar" style={{ backgroundColor: team.color }} />
+                        <div className="team-card-header">
+                          <span className="team-card-name">{team.name.replace('Équipe ', '')}</span>
+                          <span className="team-card-count">{teamPlayers.length}</span>
+                        </div>
+                        <div className="team-card-players">
+                          {teamPlayers.length === 0 ? (
+                            <span className="no-players-text">Vide</span>
+                          ) : (
+                            teamPlayers.slice(0, 4).map((player) => (
+                              <span
+                                key={player.uid}
+                                className={`player-tag ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
+                              >
+                                {player.uid === auth.currentUser?.uid && '👤 '}
+                                {player.name}
+                              </span>
+                            ))
+                          )}
+                          {teamPlayers.length > 4 && (
+                            <span className="player-tag more">+{teamPlayers.length - 4}</span>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            ) : (
+              // SOLO MODE - Show all players with full names
+              <>
+                {/* Players Header */}
+                <div className="players-header-card">
+                  <span className="players-icon">🎮</span>
+                  <span className="players-count">{players.length}</span>
+                  <span className="players-label">joueurs connectés</span>
+                </div>
+
+                {/* Players List with Full Names */}
+                <div className="players-list-player">
+                  {players.map((player, index) => (
+                    <motion.div
+                      key={player.uid}
+                      className={`player-chip-full ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.03 }}
+                    >
+                      <div className="chip-avatar-glow">
+                        {player.name?.charAt(0)?.toUpperCase() || '?'}
+                      </div>
+                      <span className="chip-name-full">
+                        {player.name}
+                        {player.uid === auth.currentUser?.uid && ' (toi)'}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Waiting Animation */}
+            <div className="waiting-compact">
+              <div className="waiting-pulse" />
+              <span className="waiting-label">En attente du lancement...</span>
             </div>
           </div>
-        </motion.div>
-      )}
-
-      {meta.mode === "équipes" && isHost && (
-        <motion.div
-          className="card"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <TeamTabs
-            teams={teams}
-            players={players}
-            onAssignToTeam={handleAssignToTeam}
-            onRemoveFromTeam={handleRemoveFromTeam}
-            onAutoBalance={handleAutoBalance}
-            onResetTeams={handleResetTeams}
-          />
-        </motion.div>
-      )}
-
-      {meta.mode === "équipes" && !isHost && (
-        <motion.div
-          className="card"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <PlayerTeamView
-            teams={teams}
-            players={players}
-            currentPlayerUid={auth.currentUser?.uid}
-          />
-        </motion.div>
-      )}
-
-      {/* Players List - Mobile Optimized */}
-      {meta.mode !== "équipes" && (
-        <motion.div
-          className="card"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-base">👥 Joueurs</h3>
-            <span
-              className="px-3 py-1 rounded-full text-sm font-bold"
-              style={{
-                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(59, 130, 246, 0.3))',
-                border: '1px solid rgba(99, 102, 241, 0.5)'
-              }}
-            >
-              {players.length}
-            </span>
-          </div>
-          {players.length === 0 ? (
-            <motion.div
-              className="text-center opacity-85 py-8 text-base"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.85 }}
-              transition={{ delay: 0.5 }}
-            >
-              En attente de joueurs...
-            </motion.div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {players.map((player, index) => (
-                <motion.div
-                  key={player.uid}
-                  className="card text-base font-medium px-5 py-3"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4 + index * 0.05, duration: 0.3 }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.08)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)'
-                  }}
-                >
-                  {player.name}
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </motion.div>
-      )}
-    </main>
-
-    <BottomNav />
-
-    <style jsx>{`
-      .game-container {
-        position: relative;
-        min-height: 100vh;
-        background: #000000;
-        overflow: hidden;
-      }
-
-      .game-content {
-        position: relative;
-        z-index: 1;
-      }
-    `}</style>
+        )}
+      </main>
     </div>
   );
 }

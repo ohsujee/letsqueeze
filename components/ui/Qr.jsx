@@ -27,26 +27,31 @@ export default function Qr({ text, size = 256, className = "" }) {
           display: flex;
           justify-content: center;
           align-items: center;
-          padding: 1rem;
-          background: #F8FAFC;
-          border-radius: var(--radius-lg);
-          border: 3px solid var(--retro-blue);
-          box-shadow: var(--shadow-medium);
-          transition: all 0.2s ease;
+          padding: 1.25rem;
+          background: linear-gradient(135deg, #FFFFFF, #F8F9FA);
+          border-radius: 16px;
+          border: 3px solid rgba(139, 92, 246, 0.3);
+          box-shadow:
+            0 8px 24px rgba(0, 0, 0, 0.15),
+            0 0 40px rgba(139, 92, 246, 0.1);
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        
+
         .qr-container:hover {
-          box-shadow: var(--shadow-large);
-          transform: translateY(-2px);
+          box-shadow:
+            0 12px 32px rgba(0, 0, 0, 0.2),
+            0 0 60px rgba(139, 92, 246, 0.15);
+          transform: translateY(-4px) scale(1.02);
+          border-color: rgba(139, 92, 246, 0.5);
         }
-        
+
         .qr-image {
           display: block;
         }
-        
+
         @media (max-width: 640px) {
           .qr-container {
-            padding: 0.75rem;
+            padding: 1rem;
           }
         }
       `}</style>

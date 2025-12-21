@@ -67,6 +67,9 @@
         },
         "flags": {
           ".write": "auth != null && auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val()"
+        },
+        "quiz": {
+          ".write": "auth != null && auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val()"
         }
       }
     },

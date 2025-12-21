@@ -364,17 +364,203 @@ export default function AlibiEnd() {
       <BottomNav />
 
       <style jsx>{`
+        /* ===== ALIBI END PAGE - Guide UI Compliant ===== */
+
+        /* Alibi Theme Variables */
+        .alibi-theme {
+          --alibi-primary: #f59e0b;
+          --alibi-glow: #fbbf24;
+          --alibi-dark: #b45309;
+          --bg-primary: #0a0a0f;
+          --bg-secondary: #12121a;
+          --bg-card: rgba(20, 20, 30, 0.8);
+          --text-primary: #ffffff;
+          --text-secondary: rgba(255, 255, 255, 0.7);
+          --text-muted: rgba(255, 255, 255, 0.5);
+          --success: #10b981;
+          --danger: #ef4444;
+        }
+
         .game-container {
           position: relative;
-          min-height: 100vh;
-          background: #000000;
+          min-height: 100dvh;
+          background: var(--bg-primary);
           overflow: hidden;
+        }
+
+        /* Animated Background - Alibi Theme Victory (Amber/Gold) */
+        .game-container::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background:
+            radial-gradient(ellipse at 50% 20%, rgba(245, 158, 11, 0.18) 0%, transparent 50%),
+            radial-gradient(ellipse at 20% 80%, rgba(251, 191, 36, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 80%, rgba(180, 83, 9, 0.10) 0%, transparent 50%),
+            var(--bg-primary);
+          pointer-events: none;
         }
 
         .game-content {
           position: relative;
           z-index: 1;
+          padding-top: 20px;
         }
+
+        /* Page Title - Guide Compliant (Bungee font with glow) */
+        .alibi-theme :global(.game-page-title) {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: clamp(1.5rem, 5vw, 2.25rem);
+          color: var(--text-primary);
+          text-shadow:
+            0 0 10px rgba(245, 158, 11, 0.5),
+            0 0 30px rgba(245, 158, 11, 0.3),
+            0 0 60px rgba(245, 158, 11, 0.2);
+          text-align: center;
+          margin-bottom: 1.5rem;
+        }
+
+        /* Cards - Glassmorphism Alibi */
+        .alibi-theme :global(.card) {
+          background: rgba(20, 20, 30, 0.8);
+          border-radius: 20px;
+          padding: 1.5rem;
+          border: 1px solid rgba(245, 158, 11, 0.15);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.03),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Buttons - Alibi Theme */
+        .alibi-theme :global(.btn) {
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 12px 24px;
+          color: var(--text-primary);
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .alibi-theme :global(.btn:hover) {
+          background: rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
+        }
+
+        .alibi-theme :global(.btn:active) {
+          transform: translateY(1px) scale(0.98);
+        }
+
+        .alibi-theme :global(.btn-primary) {
+          background: linear-gradient(135deg, var(--alibi-primary), var(--alibi-dark));
+          border: none;
+          color: white;
+          box-shadow:
+            0 4px 15px rgba(245, 158, 11, 0.4),
+            0 0 30px rgba(245, 158, 11, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .alibi-theme :global(.btn-primary:hover) {
+          box-shadow:
+            0 6px 20px rgba(245, 158, 11, 0.5),
+            0 0 40px rgba(245, 158, 11, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.25);
+          transform: translateY(-2px) scale(1.02);
+        }
+
+        .alibi-theme :global(.btn-accent) {
+          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+          border: none;
+          color: white;
+          box-shadow:
+            0 4px 15px rgba(59, 130, 246, 0.4),
+            0 0 30px rgba(59, 130, 246, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .alibi-theme :global(.btn-accent:hover) {
+          box-shadow:
+            0 6px 20px rgba(59, 130, 246, 0.5),
+            0 0 40px rgba(59, 130, 246, 0.3);
+          transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Score Display - Large and impactful */
+        .alibi-theme :global(.score-display) {
+          font-family: var(--font-title, 'Bungee'), cursive;
+        }
+
+        /* Loading state */
+        .alibi-theme :global(.loading-spinner) {
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        /* Animation pulsante pour les cartes */
+        @keyframes alibi-glow-pulse {
+          0%, 100% {
+            box-shadow:
+              0 8px 32px rgba(0, 0, 0, 0.4),
+              0 0 20px rgba(245, 158, 11, 0.2);
+          }
+          50% {
+            box-shadow:
+              0 8px 32px rgba(0, 0, 0, 0.4),
+              0 0 40px rgba(245, 158, 11, 0.4);
+          }
+        }
+
+        /* Success glow */
+        @keyframes success-glow {
+          0%, 100% {
+            box-shadow:
+              0 0 40px rgba(16, 185, 129, 0.3),
+              0 8px 32px rgba(0, 0, 0, 0.4);
+          }
+          50% {
+            box-shadow:
+              0 0 60px rgba(16, 185, 129, 0.5),
+              0 8px 32px rgba(0, 0, 0, 0.4);
+          }
+        }
+
+        /* Failure glow */
+        @keyframes danger-glow {
+          0%, 100% {
+            box-shadow:
+              0 0 40px rgba(239, 68, 68, 0.3),
+              0 8px 32px rgba(0, 0, 0, 0.4);
+          }
+          50% {
+            box-shadow:
+              0 0 60px rgba(239, 68, 68, 0.5),
+              0 8px 32px rgba(0, 0, 0, 0.4);
+          }
+        }
+
+        /* Animation de flottement */
+        @keyframes alibi-float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+
+        /* Confetti celebration styles would be handled by ParticleEffects component */
       `}</style>
       </div>
     </div>
