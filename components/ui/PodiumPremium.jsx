@@ -151,12 +151,12 @@ export const PodiumPremium = ({ topPlayers }) => {
             {/* Nom du joueur */}
             <div
               style={{
-                fontSize: '1.1rem',
+                fontSize: '1.5rem',
                 fontWeight: 700,
                 color: 'white',
                 textAlign: 'center',
                 marginBottom: '0.75rem',
-                maxWidth: '120px',
+                maxWidth: '140px',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap'
