@@ -3520,6 +3520,9 @@ textarea:focus-visible {
 /* Grid items */
 .home-content .grid-item {
   width: 100%;
+  /* GPU acceleration for smooth animations */
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 /* Upgrade Banner - Compact & Spaced */
@@ -4153,6 +4156,11 @@ textarea:focus-visible {
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.4),
     0 0 0 1px rgba(255, 255, 255, 0.1);
+  /* GPU acceleration for smooth animations */
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .game-card .card-bg {
@@ -4162,10 +4170,13 @@ textarea:focus-visible {
   background-position: center;
   z-index: 0;
   transition: transform 0.4s ease;
+  /* GPU acceleration */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .game-card:hover .card-bg {
-  transform: scale(1.1);
+  transform: scale(1.1) translateZ(0);
 }
 
 .game-card .card-illustration {

@@ -19,7 +19,10 @@
       "WebFetch(domain:www.svgrepo.com)",
       "WebFetch(domain:simpleicons.org)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(git push:*)"
     ]
   }
 }
