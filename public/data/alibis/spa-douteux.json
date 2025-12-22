@@ -1,20 +1,50 @@
 {
   "id": "spa-douteux",
-  "title": "Spa bien-etre douteux",
-  "context": "Une bouche d'egout a ete ouverte et des cones de chantier jetes dedans hier apres-midi. Des temoins vous ont vu dans le secteur. Vous contestez.",
-  "accused_document": "<p>Hier apres-midi, le groupe s'est rendu dans un spa pour une seance de detente. L'endroit etait cense etre relaxant mais en arrivant, ca sentait le chlore agressif melange a un parfum chimique ecoeurant. Le carrelage de l'entree etait mouille et glissant.</p><p>La receptionniste etait une femme seche qui parlait avec condescendance. Elle portait une tunique avec le logo du spa brode dessus. Elle a fait payer d'avance et a refuse d'expliquer les differentes options.</p><p>Les vestiaires etaient exigus et mal ventiles. Les casiers fermaient mal et les serviettes fournies etaient rapeuses et sentaient l'humidite. Le peignoir distribue avait une tache suspecte sur l'epaule.</p><p>Le jacuzzi etait tiede et l'eau avait une couleur verdatre inquietante. Des cheveux flottaient a la surface. Le sauna etait beaucoup trop chaud et la porte coinçait. Quelqu'un du groupe a failli s'evanouir a cause de la chaleur.</p><p>Un employe a fait une remarque desagreable sur le niveau de bruit du groupe. Le hammam etait en panne et personne n'avait prevenu. Le groupe est parti stresse au lieu d'etre detendu, en jurant de ne jamais remettre les pieds dans cet endroit.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi dans un spa pendant l'incident de la bouche d'egout.",
+  "title": "Spa bien-être douteux",
+  "context": "Une bouche d'égout a été ouverte et des cônes de chantier jetés dedans hier après-midi. Des témoins vous ont vu dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier après-midi, le groupe s'est rendu dans un spa pour une séance de détente. La séance coûtait 35 euros par personne. L'endroit était censé être relaxant mais en arrivant, ça sentait le chlore agressif mélangé à un parfum chimique écoeurant. Le carrelage beige de l'entrée était mouillé et glissant.</p><p>La réceptionniste était une femme sèche qui parlait avec condescendance. Elle portait une tunique blanche avec le logo du spa brodé en bleu dessus. Elle a fait payer d'avance et a soupiré 'Tout est indiqué sur le panneau' quand on lui a posé une question.</p><p>Les vestiaires étaient exigus et mal ventilés. Seulement 4 casiers sur 12 fermaient correctement et les serviettes fournies étaient râpeuses et sentaient l'humidité. Le peignoir distribué avait une tache marron suspecte sur l'épaule.</p><p>Le jacuzzi était tiède, à peine 30 degrés, et l'eau avait une couleur verdâtre inquiétante. Des cheveux flottaient à la surface. Le sauna était réglé à 90 degrés, beaucoup trop chaud, et la porte coinçait. Quelqu'un du groupe a failli s'évanouir après 5 minutes à cause de la chaleur.</p><p>Un employé a fait une remarque désagréable 'C'est pas une cour de récré ici' quand le groupe parlait. Le hammam était en panne et personne n'avait prévenu. Le groupe est parti vers 17h30 stressé au lieu d'être détendu, en jurant de ne jamais remettre les pieds dans cet endroit.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé l'après-midi dans un spa pendant l'incident de la bouche d'égout.",
   "inspector_questions": [
-    "Vous avez dit etre alles dans un spa — quel etait le nom exact de cet etablissement ?",
-    "Vous avez dit que la receptionniste portait une tunique avec un logo — decrivez ce logo exactement.",
-    "Vous avez dit que le peignoir avait une tache — de quelle couleur etait cette tache ?",
-    "Vous avez dit que l'eau du jacuzzi etait verdatre — a quelle temperature etait-elle environ ?",
-    "Vous avez dit que quelqu'un a failli s'evanouir — qui du groupe etait-ce ?",
-    "Vous avez dit qu'un employe a fait une remarque desagreable — qu'a-t-il dit exactement ?",
-    "Vous avez dit avoir paye d'avance — combien coutait la seance exactement ?",
-    "Vous avez dit que le hammam etait en panne — qui du groupe avait voulu l'essayer ?",
-    "Vous avez dit etre partis stresses — qui du groupe avait trouve ce spa ?",
-    "Vous avez dit jurer de ne jamais revenir — comment le groupe est-il rentre ?"
+    {
+      "text": "Quel était le nom du spa ?",
+      "hint": "Le groupe s'est rendu dans un spa pour une séance de détente."
+    },
+    {
+      "text": "Combien coûtait la séance par personne ?",
+      "hint": "La séance coûtait 35 euros par personne."
+    },
+    {
+      "text": "De quelle couleur était le logo brodé sur la tunique de la réceptionniste ?",
+      "hint": "Elle portait une tunique blanche avec le logo du spa brodé en bleu."
+    },
+    {
+      "text": "À quelle température était le jacuzzi ?",
+      "hint": "Le jacuzzi était tiède, à peine 30 degrés."
+    },
+    {
+      "text": "À quelle température était réglé le sauna ?",
+      "hint": "Le sauna était réglé à 90 degrés, beaucoup trop chaud."
+    },
+    {
+      "text": "Qui du groupe a failli s'évanouir dans le sauna ?",
+      "hint": "Quelqu'un du groupe a failli s'évanouir après 5 minutes."
+    },
+    {
+      "text": "Combien de casiers fonctionnaient dans les vestiaires ?",
+      "hint": "Seulement 4 casiers sur 12 fermaient correctement."
+    },
+    {
+      "text": "Qu'a dit l'employé au groupe ?",
+      "hint": "Un employé a fait une remarque 'C'est pas une cour de récré ici'."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 17h30 stressé."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Le groupe est parti stressé au lieu d'être détendu."
+    }
   ],
   "reading_time_seconds": 90
 }

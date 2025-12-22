@@ -1,20 +1,50 @@
 {
   "id": "tournage-clip",
   "title": "Tournage de clip amateur",
-  "context": "Des panneaux de signalisation ont ete arraches et empiles sur un rond-point hier apres-midi. Des temoins vous ont vu dans le secteur avec des outils. Vous contestez.",
-  "accused_document": "<p>Hier apres-midi, le groupe a participe au tournage d'un clip video amateur. Le lieu choisi etait un entrepot desaffecte qui sentait la moisissure et l'huile de machine. Le sol etait jonche de debris et il faisait un froid glacial a l'interieur.</p><p>Le realisateur etait un type stresse qui hurlait ses instructions. Il portait une casquette avec le nom de sa boite de production imprime dessus. Il n'arretait pas de changer d'avis et tout le monde etait perdu.</p><p>Le materiel etait amateur. La camera tremblait et le son etait capte par un micro qui gresillait. Les projecteurs surchauffaient et ont failli mettre le feu a un rideau. Quelqu'un du groupe a du les eteindre en urgence.</p><p>Les costumes fournis etaient ridicules et inconfortables. Ils grattaient et sentaient le renfermé comme s'ils n'avaient pas ete laves depuis des annees. Le maquillage fait sur place coulait a cause de la chaleur des projecteurs.</p><p>Le tournage a dure des heures pour un resultat mediocre. Le realisateur a fait une remarque desagreable sur le manque de professionnalisme du groupe. Tout le monde est parti epuise en doutant que ce clip sorte un jour.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi sur un tournage de clip pendant le vol des panneaux.",
+  "context": "Des panneaux de signalisation ont été arrachés et empilés sur un rond-point hier après-midi. Des témoins vous ont vu dans le secteur avec des outils. Vous contestez.",
+  "accused_document": "<p>Hier après-midi, le groupe a participé au tournage d'un clip vidéo amateur. Le lieu choisi était un entrepôt désaffecté qui sentait la moisissure et l'huile de machine. Le sol était jonché de débris et il faisait un froid glacial de 8 degrés à l'intérieur.</p><p>Le réalisateur était un type stressé qui hurlait ses instructions. Il portait une casquette noire avec l'inscription 'DIRECTOR' imprimée en blanc dessus. Il n'arrêtait pas de changer d'avis toutes les 5 minutes et tout le monde était perdu.</p><p>Le matériel était amateur. La caméra tremblait et le son était capté par un micro qui grésillait. Les 3 projecteurs surchauffaient dangereusement et ont failli mettre le feu à un rideau rouge. Quelqu'un du groupe a dû les éteindre en urgence.</p><p>Les costumes fournis étaient ridicules et inconfortables. Ils grattaient et sentaient le renfermé comme s'ils n'avaient pas été lavés depuis des années. Le maquillage fait sur place par une stagiaire coulait à cause de la chaleur des projecteurs.</p><p>Le tournage a duré 6 heures pour un résultat médiocre. Le réalisateur a fait une remarque désagréable : 'Même des mannequins en bois seraient plus expressifs'. Tout le monde est parti vers 19h épuisé en doutant que ce clip sorte un jour.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé l'après-midi sur un tournage de clip pendant le vol des panneaux.",
   "inspector_questions": [
-    "Vous avez dit avoir participe a un tournage — pour quel artiste ou projet etait ce clip ?",
-    "Vous avez dit que le realisateur portait une casquette avec un nom — ecrivez ce nom exactement.",
-    "Vous avez dit que le micro gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
-    "Vous avez dit que les projecteurs ont failli mettre le feu — qui du groupe les a eteints ?",
-    "Vous avez dit que les costumes etaient ridicules — decrivez le costume que le groupe devait porter.",
-    "Vous avez dit que le maquillage coulait — qui du groupe etait le plus affecte ?",
-    "Vous avez dit que le realisateur a fait une remarque desagreable — qu'a-t-il dit exactement ?",
-    "Vous avez dit que le tournage a dure des heures — combien de temps exactement ?",
-    "Vous avez dit douter que le clip sorte — qui du groupe avait trouve cette opportunite ?",
-    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
+    {
+      "text": "Pour quel artiste ou projet était ce clip ?",
+      "hint": "Le groupe a participé au tournage d'un clip vidéo amateur."
+    },
+    {
+      "text": "Qu'était-il écrit sur la casquette du réalisateur ?",
+      "hint": "Il portait une casquette noire avec l'inscription 'DIRECTOR' imprimée en blanc."
+    },
+    {
+      "text": "Quelle était la température dans l'entrepôt ?",
+      "hint": "Il faisait un froid glacial de 8 degrés à l'intérieur."
+    },
+    {
+      "text": "Combien de projecteurs y avait-il sur le tournage ?",
+      "hint": "Les 3 projecteurs surchauffaient dangereusement."
+    },
+    {
+      "text": "De quelle couleur était le rideau qui a failli prendre feu ?",
+      "hint": "Les projecteurs ont failli mettre le feu à un rideau rouge."
+    },
+    {
+      "text": "Qui du groupe a éteint les projecteurs en urgence ?",
+      "hint": "Quelqu'un du groupe a dû les éteindre en urgence."
+    },
+    {
+      "text": "Qu'a dit le réalisateur pour critiquer le groupe ?",
+      "hint": "Le réalisateur a dit 'Même des mannequins en bois seraient plus expressifs'."
+    },
+    {
+      "text": "Combien de temps a duré le tournage ?",
+      "hint": "Le tournage a duré 6 heures pour un résultat médiocre."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Tout le monde est parti vers 19h épuisé."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Tout le monde est parti épuisé en doutant que ce clip sorte un jour."
+    }
   ],
   "reading_time_seconds": 90
 }

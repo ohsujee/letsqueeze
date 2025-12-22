@@ -1,20 +1,50 @@
 {
   "id": "marche-producteurs",
-  "title": "Marche de producteurs glauque",
-  "context": "Un scooter a ete vole puis incendie dans une impasse hier matin. Des temoins affirment avoir vu un groupe correspondant a votre description quitter les lieux precipitamment. Vous contestez.",
-  "accused_document": "<p>Ce matin-la, le groupe est alle au marche local pour faire des courses. L'endroit etait bonde et ca sentait un melange de poisson pas frais et de legumes pourris laisses au soleil. Les alleés etaient etroites et les gens se bousculaient.</p><p>Le premier stand visite vendait des legumes avec des mouches qui tournaient autour. Le vendeur etait un vieux type grognon qui criait les prix. Il portait une casquette avec une inscription brodee dessus. Les tomates proposees etaient molles et tachees.</p><p>Au stand de fromages, l'odeur etait insupportable. Le fromager insistait pour faire gouter des trucs suspects. Un fromage en particulier avait une croute verdatre douteuse. Il y avait une ardoise avec les prix ecrits a la craie a moitie effacee.</p><p>Le stand de charcuterie avait des mouches collees sur le papier tue-mouches au-dessus. Le vendeur tranchait la viande avec un couteau qui avait l'air pas tres propre. Le sol autour du stand etait gras et glissant.</p><p>Quelqu'un du groupe a marche dans une flaque d'eau croupie pres des cagettes. Un autre s'est fait engueuler par un commercant pour avoir touche un fruit sans acheter. Le groupe est parti avec des sacs qui suintaient et une envie de prendre une douche.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la matinee au marche de producteurs pendant le vol du scooter.",
+  "title": "Marché de producteurs glauque",
+  "context": "Un scooter a été volé puis incendié dans une impasse hier matin. Des témoins affirment avoir vu un groupe correspondant à votre description quitter les lieux précipitamment. Vous contestez.",
+  "accused_document": "<p>Ce matin-là, le groupe est allé au marché local pour faire des courses, arrivant vers 9h15. L'endroit était bondé et ça sentait un mélange de poisson pas frais et de légumes pourris laissés au soleil. Les allées étaient étroites et les gens se bousculaient.</p><p>Le premier stand visité vendait des légumes avec des mouches qui tournaient autour. Le vendeur était un vieux type grognon qui criait les prix. Il portait une casquette verte avec 'Producteur Local' brodé dessus en jaune. Les tomates proposées étaient molles et tachées, vendues à 4,50 euros le kilo.</p><p>Au stand de fromages, l'odeur était insupportable. Le fromager insistait pour faire goûter des trucs suspects. Un Roquefort en particulier avait une croûte verdâtre douteuse. Il y avait une ardoise avec les prix écrits à la craie, le plus cher étant un Comté 24 mois à 32 euros le kilo.</p><p>Le stand de charcuterie avait un papier tue-mouches jaune au-dessus avec au moins 15 mouches collées dessus. Le vendeur tranchait la viande avec un couteau qui avait l'air pas très propre. Le sol autour du stand était gras et glissant.</p><p>Quelqu'un du groupe a marché dans une flaque d'eau croupie près des cagettes. Un autre s'est fait engueuler par un commerçant pour avoir touché une poire sans acheter. Le type a crié 'On touche avec les yeux ici !' Le groupe est parti vers 10h45 avec des sacs qui suintaient et une envie de prendre une douche.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la matinée au marché de producteurs pendant le vol du scooter.",
   "inspector_questions": [
-    "Vous avez dit etre alles au marche — quel etait le nom exact de ce marche ?",
-    "Vous avez dit que le vendeur de legumes portait une casquette — ecrivez l'inscription brodee dessus mot pour mot.",
-    "Vous avez dit qu'un fromage avait une croute verdatre — quel etait le nom de ce fromage selon le fromager ?",
-    "Vous avez dit qu'il y avait une ardoise avec les prix — quel etait le prix du fromage le plus cher affiche ?",
-    "Vous avez dit que quelqu'un a marche dans une flaque — qui du groupe etait-ce ?",
-    "Vous avez dit que quelqu'un s'est fait engueuler — qui du groupe etait-ce et quel fruit avait-il touche ?",
-    "Vous avez dit que le commercant a engueule — qu'a-t-il dit exactement ?",
-    "Vous avez dit que les sacs suintaient — qu'est-ce que le groupe avait achete au final ?",
-    "Vous avez dit etre partis — a quelle heure approximativement le groupe a-t-il quitte le marche ?",
-    "Vous avez dit avoir envie de prendre une douche — comment le groupe est-il rentre ?"
+    {
+      "text": "Vers quelle heure le groupe est-il arrivé au marché ?",
+      "hint": "Le groupe est allé au marché local pour faire des courses, arrivant vers 9h15."
+    },
+    {
+      "text": "Qu'était-il écrit sur la casquette du vendeur de légumes et de quelles couleurs ?",
+      "hint": "Il portait une casquette verte avec 'Producteur Local' brodé dessus en jaune."
+    },
+    {
+      "text": "Combien coûtaient les tomates au kilo ?",
+      "hint": "Les tomates proposées étaient molles et tachées, vendues à 4,50 euros le kilo."
+    },
+    {
+      "text": "Quel fromage avait une croûte verdâtre douteuse ?",
+      "hint": "Un Roquefort en particulier avait une croûte verdâtre douteuse."
+    },
+    {
+      "text": "Quel était le fromage le plus cher sur l'ardoise et à quel prix ?",
+      "hint": "Le plus cher étant un Comté 24 mois à 32 euros le kilo."
+    },
+    {
+      "text": "De quelle couleur était le papier tue-mouches et combien de mouches y étaient collées ?",
+      "hint": "Un papier tue-mouches jaune au-dessus avec au moins 15 mouches collées dessus."
+    },
+    {
+      "text": "Quel fruit la personne du groupe avait-elle touché ?",
+      "hint": "Un autre s'est fait engueuler par un commerçant pour avoir touché une poire sans acheter."
+    },
+    {
+      "text": "Qu'a crié le commerçant exactement ?",
+      "hint": "Le type a crié 'On touche avec les yeux ici !'"
+    },
+    {
+      "text": "Vers quelle heure le groupe a-t-il quitté le marché ?",
+      "hint": "Le groupe est parti vers 10h45 avec des sacs qui suintaient."
+    },
+    {
+      "text": "Qui du groupe a marché dans la flaque d'eau croupie ?",
+      "hint": "Quelqu'un du groupe a marché dans une flaque d'eau croupie près des cagettes."
+    }
   ],
   "reading_time_seconds": 90
 }

@@ -1,20 +1,50 @@
 {
   "id": "terrain-basket",
   "title": "Tournoi de basket chaotique",
-  "context": "Une moto a ete incendiee dans un parking souterrain hier apres-midi. Des cameras montrent un groupe correspondant a votre description quittant les lieux precipitamment. Vous contestez.",
-  "accused_document": "<p>Hier apres-midi, le groupe a participe a un tournoi de basket sur un terrain exterieur. L'endroit etait un terrain municipal en piteux etat. Le sol etait craquele et les lignes de jeu a peine visibles. Ca sentait le goudron chaud et les poubelles a cote.</p><p>L'organisation etait chaotique. L'arbitre etait un type qui connaissait pas les regles et sifflait n'importe quoi. Il portait un maillot avec le logo de la federation imprime dessus. Il a fait des appels scandaleux qui ont avantage l'equipe adverse.</p><p>Les paniers etaient deformes et les filets completement dechires. Le ballon fourni etait degonfle et rebondissait de travers. Quelqu'un du groupe s'est foule la cheville a cause d'un trou dans le terrain.</p><p>Pendant le match, un joueur adverse a fait une faute violente qui n'a pas ete sifflee. Ca a declenche une altercation. L'arbitre a menace d'expulser tout le monde. Le public autour huait et criait des insultes.</p><p>L'equipe du groupe a perdu lamentablement avec un score humiliant. A la fin, l'organisateur a annonce le classement sur un tableau blanc efface a moitie. Le groupe est parti epuise, degoute, avec des courbatures partout.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi sur un terrain de basket pour un tournoi pendant l'incendie de la moto.",
+  "context": "Une moto a été incendiée dans un parking souterrain hier après-midi. Des caméras montrent un groupe correspondant à votre description quittant les lieux précipitamment. Vous contestez.",
+  "accused_document": "<p>Hier après-midi, le groupe a participé à un tournoi de basket sur un terrain extérieur. L'inscription coûtait 10 euros par équipe. L'endroit était un terrain municipal en piteux état. Le sol était craquelé et les lignes de jeu jaunes à peine visibles. Ça sentait le goudron chaud et les poubelles à côté.</p><p>L'organisation était chaotique. L'arbitre était un type qui ne connaissait pas les règles et sifflait n'importe quoi. Il portait un maillot orange avec le logo de la fédération imprimé en noir dessus. Il a fait des appels scandaleux qui ont avantagé l'équipe adverse.</p><p>Les paniers étaient déformés et penchaient à 15 degrés. Les filets étaient complètement déchirés. Le ballon fourni était dégonflé et rebondissait de travers. Quelqu'un du groupe s'est foulé la cheville à cause d'un trou dans le terrain.</p><p>Pendant le match, un joueur adverse a fait une faute violente, un coup de coude au visage, qui n'a pas été sifflée. Ça a déclenché une altercation. L'arbitre a menacé 'Le prochain qui parle, je l'expulse'. Le public d'une vingtaine de personnes huait et criait des insultes.</p><p>L'équipe du groupe a perdu 47 à 12. À la fin, l'organisateur a annoncé le classement sur un tableau blanc effacé à moitié : le groupe était 8ème sur 8 équipes. Le groupe est parti vers 18h épuisé, dégoûté, avec des courbatures partout.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé l'après-midi sur un terrain de basket pour un tournoi pendant l'incendie de la moto.",
   "inspector_questions": [
-    "Vous avez dit avoir participe a un tournoi — quel etait le nom exact de ce tournoi ?",
-    "Vous avez dit que l'arbitre portait un maillot avec un logo — decrivez ce logo exactement.",
-    "Vous avez dit que le ballon etait degonfle — ecrivez l'onomatopee exacte du rebond de ce ballon.",
-    "Vous avez dit que quelqu'un s'est foule la cheville — qui du groupe etait-ce ?",
-    "Vous avez dit qu'un joueur adverse a fait une faute violente — quelle faute exactement ?",
-    "Vous avez dit qu'il y a eu une altercation — qu'a dit le joueur du groupe concerne ?",
-    "Vous avez dit que le public criait des insultes — quelle insulte avez-vous entendue ?",
-    "Vous avez dit avoir perdu avec un score humiliant — quel etait le score final ?",
-    "Vous avez dit etre partis degoutés — qui du groupe avait propose de participer a ce tournoi ?",
-    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
+    {
+      "text": "Quel était le nom du tournoi ?",
+      "hint": "Le groupe a participé à un tournoi de basket sur un terrain extérieur."
+    },
+    {
+      "text": "Combien coûtait l'inscription par équipe ?",
+      "hint": "L'inscription coûtait 10 euros par équipe."
+    },
+    {
+      "text": "De quelle couleur était le maillot de l'arbitre ?",
+      "hint": "Il portait un maillot orange avec le logo de la fédération imprimé en noir."
+    },
+    {
+      "text": "De combien de degrés les paniers penchaient-ils ?",
+      "hint": "Les paniers étaient déformés et penchaient à 15 degrés."
+    },
+    {
+      "text": "Qui du groupe s'est foulé la cheville ?",
+      "hint": "Quelqu'un du groupe s'est foulé la cheville à cause d'un trou dans le terrain."
+    },
+    {
+      "text": "Qu'a dit l'arbitre pour menacer les joueurs ?",
+      "hint": "L'arbitre a menacé 'Le prochain qui parle, je l'expulse'."
+    },
+    {
+      "text": "Quel était le score final du match ?",
+      "hint": "L'équipe du groupe a perdu 47 à 12."
+    },
+    {
+      "text": "À quelle place le groupe a-t-il terminé au classement ?",
+      "hint": "Le groupe était 8ème sur 8 équipes."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 18h épuisé."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Le groupe est parti épuisé, dégoûté, avec des courbatures partout."
+    }
   ],
   "reading_time_seconds": 90
 }

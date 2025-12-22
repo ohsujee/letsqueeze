@@ -15,6 +15,174 @@ import { motion, AnimatePresence } from 'framer-motion';
 import BottomNav from "@/lib/components/BottomNav";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { hueScenariosService } from "@/lib/hue-module";
+import { recordAlibiGame } from "@/lib/services/statsService";
+
+/**
+ * Icône Trophy animée pour la victoire
+ */
+function TrophyIcon({ size = 80 }) {
+  return (
+    <motion.div
+      initial={{ scale: 0, rotate: -20 }}
+      animate={{ scale: 1, rotate: 0 }}
+      transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.3 }}
+      style={{ position: 'relative', width: size, height: size }}
+    >
+      {/* Glow */}
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        style={{
+          position: 'absolute',
+          inset: -15,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, transparent 70%)',
+          filter: 'blur(10px)'
+        }}
+      />
+      <svg viewBox="0 0 24 24" fill="none" width={size} height={size}>
+        {/* Coupe du trophée */}
+        <motion.path
+          d="M6 4H18V9C18 12.5 15.5 14 12 14C8.5 14 6 12.5 6 9V4Z"
+          fill="url(#trophyGold)"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.4, type: "spring" }}
+        />
+        {/* Anse gauche */}
+        <motion.path
+          d="M6 5H4.5C4 5 3.5 5.5 3.5 6V7.5C3.5 8.5 4.5 9.5 5.5 9.5H6"
+          stroke="#fbbf24"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.4, delay: 0.7 }}
+        />
+        {/* Anse droite */}
+        <motion.path
+          d="M18 5H19.5C20 5 20.5 5.5 20.5 6V7.5C20.5 8.5 19.5 9.5 18.5 9.5H18"
+          stroke="#fbbf24"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.4, delay: 0.7 }}
+        />
+        {/* Tige - connectée directement à la coupe (y=14) */}
+        <motion.rect
+          x="10"
+          y="14"
+          width="4"
+          height="4"
+          fill="#f59e0b"
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 0.3, delay: 0.9 }}
+          style={{ transformOrigin: '12px 14px' }}
+        />
+        {/* Base du trophée - connectée à la tige (y=18) */}
+        <motion.path
+          d="M8 18H16V20C16 20.5 15.5 21 15 21H9C8.5 21 8 20.5 8 20V18Z"
+          fill="#d97706"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.3, delay: 1.1, type: "spring" }}
+        />
+        <defs>
+          <linearGradient id="trophyGold" x1="6" y1="4" x2="18" y2="14">
+            <stop stopColor="#fbbf24" />
+            <stop offset="1" stopColor="#f59e0b" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </motion.div>
+  );
+}
+
+/**
+ * Icône Skull animée pour la défaite
+ */
+function DefeatIcon({ size = 80 }) {
+  return (
+    <motion.div
+      initial={{ scale: 0, rotate: 10 }}
+      animate={{ scale: 1, rotate: 0 }}
+      transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.3 }}
+      style={{ position: 'relative', width: size, height: size }}
+    >
+      {/* Glow rouge */}
+      <motion.div
+        animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.6, 0.4] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+        style={{
+          position: 'absolute',
+          inset: -15,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(239, 68, 68, 0.5) 0%, transparent 70%)',
+          filter: 'blur(10px)'
+        }}
+      />
+      <svg viewBox="0 0 24 24" fill="none" width={size} height={size}>
+        {/* Tête */}
+        <motion.path
+          d="M12 2C7 2 4 6 4 10C4 13 5 15 7 16V19C7 20 8 21 9 21H15C16 21 17 20 17 19V16C19 15 20 13 20 10C20 6 17 2 12 2Z"
+          fill="url(#skullGrad)"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        />
+        {/* Yeux X */}
+        <motion.path
+          d="M8 9L10 11M10 9L8 11"
+          stroke="#1a1a2e"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.3, delay: 0.8 }}
+        />
+        <motion.path
+          d="M14 9L16 11M16 9L14 11"
+          stroke="#1a1a2e"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.3, delay: 0.9 }}
+        />
+        {/* Nez */}
+        <motion.path
+          d="M12 12V14"
+          stroke="#1a1a2e"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.2, delay: 1 }}
+        />
+        {/* Dents */}
+        <motion.path
+          d="M9 17V19M12 17V19M15 17V19"
+          stroke="#1a1a2e"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.3, delay: 1.1 }}
+        />
+        <defs>
+          <linearGradient id="skullGrad" x1="4" y1="2" x2="20" y2="21">
+            <stop stopColor="#f87171" />
+            <stop offset="1" stopColor="#ef4444" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </motion.div>
+  );
+}
 
 export default function AlibiEnd() {
   const { code } = useParams();
@@ -28,13 +196,16 @@ export default function AlibiEnd() {
   const [displayScore, setDisplayScore] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [firebaseUser, setFirebaseUser] = useState(null);
 
   // Refs pour éviter les re-renders qui relancent l'animation
   const animationStartedRef = useRef(false);
   const confettiTriggeredRef = useRef(false);
+  const statsRecordedRef = useRef(false);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
+      setFirebaseUser(user);
       if (user && code) {
         onValue(ref(db, `rooms_alibi/${code}/players/${user.uid}`), (snap) => {
           const player = snap.val();
@@ -107,6 +278,29 @@ export default function AlibiEnd() {
   const percentage = score ? Math.round((score.correct / score.total) * 100) : 0;
   const isSuccess = percentage >= 50;
 
+  // Record stats once when we have all data
+  useEffect(() => {
+    // Skip if already recorded or missing data
+    if (statsRecordedRef.current) return;
+    if (!firebaseUser || firebaseUser.isAnonymous) return;
+    if (!myTeam || score === null) return;
+
+    // Mark as recorded to prevent duplicates
+    statsRecordedRef.current = true;
+
+    // Determine if my team won
+    // Accused team wins if isSuccess (>= 50%), Detectives win if not
+    const accusedWon = percentage >= 50;
+    const myTeamWon = (myTeam === 'accused' && accusedWon) || (myTeam === 'detectives' && !accusedWon);
+
+    // Record the game with percentage
+    recordAlibiGame({
+      role: myTeam,
+      won: myTeamWon,
+      percentage: percentage
+    });
+  }, [firebaseUser, myTeam, score, percentage]);
+
   // Animated score counter + confetti (une seule fois)
   useEffect(() => {
     // Ne pas relancer si déjà démarré ou pas de score
@@ -165,403 +359,453 @@ export default function AlibiEnd() {
   }, [score, isSuccess]); // Plus de confettiTriggered dans les deps !
 
   const getMessage = () => {
-    if (percentage === 100) return "Parfait ! Alibi béton ! 🏆";
-    if (percentage >= 80) return "Excellent ! Très crédible ! 🌟";
-    if (percentage >= 60) return "Bien joué ! Plutôt convaincant ! 👍";
-    if (percentage >= 50) return "Passable... Quelques failles... 🤔";
-    if (percentage >= 30) return "Alibi fragile... Beaucoup d'incohérences ! ⚠️";
-    return "Alibi effondré ! Trop d'erreurs ! ❌";
+    if (percentage === 100) return "Parfait ! Alibi béton !";
+    if (percentage >= 80) return "Excellent ! Très crédible !";
+    if (percentage >= 60) return "Bien joué ! Plutôt convaincant !";
+    if (percentage >= 50) return "Passable... Quelques failles...";
+    if (percentage >= 30) return "Alibi fragile... Beaucoup d'incohérences !";
+    return "Alibi effondré ! Trop d'erreurs !";
   };
 
   // Écran de chargement pendant que le score charge
   if (!isLoaded || !score) {
     return (
-      <div className="alibi-theme">
-        <div className="game-container">
-          <main className="game-content p-6 max-w-4xl mx-auto min-h-screen flex items-center justify-center">
+      <div className="alibi-end-screen">
+        <div className="alibi-end-container">
+          <main className="alibi-end-content">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-center"
+              className="alibi-end-loading"
             >
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                className="text-6xl mb-4"
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                className="alibi-end-loading-icon"
               >
-                🕵️
+                <svg viewBox="0 0 24 24" width="60" height="60" fill="none">
+                  <motion.circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="#f59e0b"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeDasharray="40 20"
+                  />
+                </svg>
               </motion.div>
-              <p className="text-xl opacity-70">Calcul des résultats...</p>
+              <p className="alibi-end-loading-text">Calcul des résultats...</p>
             </motion.div>
           </main>
         </div>
+
+        <style jsx global>{`
+          .alibi-end-screen {
+            min-height: 100dvh !important;
+            background: #0a0a0f !important;
+          }
+          .alibi-end-container {
+            min-height: 100dvh !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+          }
+          .alibi-end-loading {
+            text-align: center !important;
+          }
+          .alibi-end-loading-icon {
+            margin-bottom: 1rem !important;
+            display: flex !important;
+            justify-content: center !important;
+          }
+          .alibi-end-loading-text {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 1.25rem !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+          }
+        `}</style>
       </div>
     );
   }
 
   return (
-    <div className="alibi-theme">
-      <div className="game-container">
-      <main className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
-        {/* Score principal - Version spectaculaire */}
-        <motion.div
-          className="card text-center space-y-6 relative overflow-hidden"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            boxShadow: isSuccess
-              ? ['0 0 40px rgba(16, 185, 129, 0.3)', '0 0 60px rgba(16, 185, 129, 0.5)', '0 0 40px rgba(16, 185, 129, 0.3)']
-              : ['0 0 40px rgba(239, 68, 68, 0.3)', '0 0 60px rgba(239, 68, 68, 0.5)', '0 0 40px rgba(239, 68, 68, 0.3)']
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 200,
-            damping: 20,
-            boxShadow: { duration: 2, repeat: Infinity }
-          }}
-          style={{
-            background: isSuccess
-              ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.1))'
-              : 'linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1))',
-            border: isSuccess ? '2px solid rgba(16, 185, 129, 0.4)' : '2px solid rgba(239, 68, 68, 0.4)'
-          }}
-        >
-          {/* Background effect */}
-          <div style={{
-            position: 'absolute',
-            top: '-50%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '200%',
-            height: '200%',
-            background: isSuccess
-              ? 'radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 50%)'
-              : 'radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 50%)',
-            pointerEvents: 'none',
-            zIndex: 0
-          }} />
+    <div className="alibi-end-screen">
+      <div className="alibi-end-container">
+        <main className="alibi-end-content">
+          {/* Carte principale avec score */}
+          <motion.div
+            className="alibi-end-card"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+            data-success={isSuccess}
+          >
+            {/* Background glow */}
+            <div className="alibi-end-glow" data-success={isSuccess} />
 
-          <div style={{ position: 'relative', zIndex: 1 }}>
+            {/* Icône animée */}
+            <div className="alibi-end-icon">
+              {isSuccess ? <TrophyIcon size={100} /> : <DefeatIcon size={100} />}
+            </div>
+
+            {/* Titre */}
             <motion.h1
-              className="game-page-title"
+              className="alibi-end-title"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              🕵️ Fin de l'interrogatoire
+              {isSuccess ? "Alibi Validé" : "Alibi Rejeté"}
             </motion.h1>
 
+            {/* Score animé */}
             <motion.div
-              className="space-y-4"
+              className="alibi-end-score-container"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
             >
-              <motion.p
-                className="font-black"
+              <motion.span
+                className="alibi-end-score"
+                data-success={isSuccess}
                 animate={{
-                  scale: displayScore === score.correct ? [1, 1.1, 1] : 1
+                  scale: displayScore === score.correct ? [1, 1.08, 1] : 1,
+                  textShadow: displayScore === score.correct
+                    ? isSuccess
+                      ? ['0 0 30px rgba(16, 185, 129, 0.6)', '0 0 60px rgba(16, 185, 129, 0.9)', '0 0 30px rgba(16, 185, 129, 0.6)']
+                      : ['0 0 30px rgba(239, 68, 68, 0.6)', '0 0 60px rgba(239, 68, 68, 0.9)', '0 0 30px rgba(239, 68, 68, 0.6)']
+                    : undefined
                 }}
-                transition={{
-                  scale: { duration: 0.5 }
-                }}
-                style={{
-                  fontSize: 'clamp(4rem, 12vw, 8rem)',
-                  color: isSuccess ? '#10B981' : '#EF4444',
-                  textShadow: isSuccess
-                    ? '0 0 40px rgba(16, 185, 129, 0.8)'
-                    : '0 0 40px rgba(239, 68, 68, 0.8)',
-                  lineHeight: 1
-                }}
+                transition={{ duration: 0.5, textShadow: { duration: 1.5, repeat: Infinity } }}
               >
-                {displayScore} / {score.total}
-              </motion.p>
-              <motion.p
-                className="text-3xl font-bold"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: displayScore === score.correct ? 1 : 0.5 }}
-                style={{
-                  color: isSuccess ? '#10B981' : '#EF4444'
-                }}
-              >
-                {Math.round((displayScore / score.total) * 100)}%
-              </motion.p>
+                {displayScore}
+              </motion.span>
+              <span className="alibi-end-score-separator">/</span>
+              <span className="alibi-end-score-total">{score.total}</span>
             </motion.div>
 
+            {/* Pourcentage */}
+            <motion.div
+              className="alibi-end-percentage"
+              data-success={isSuccess}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: displayScore === score.correct ? 1 : 0.5 }}
+            >
+              {Math.round((displayScore / score.total) * 100)}%
+            </motion.div>
+
+            {/* Message */}
             <AnimatePresence>
               {showMessage && (
                 <motion.div
-                  className="p-6 rounded-xl relative overflow-hidden"
+                  className="alibi-end-message"
+                  data-success={isSuccess}
                   initial={{ opacity: 0, y: 20, scale: 0.9 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  style={{
-                    background: isSuccess ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)',
-                    border: isSuccess ? '2px solid rgba(16, 185, 129, 0.4)' : '2px solid rgba(239, 68, 68, 0.4)'
-                  }}
                 >
                   <motion.p
-                    className="text-2xl font-bold"
-                    animate={{
-                      scale: [1, 1.05, 1]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity
-                    }}
+                    animate={{ scale: [1, 1.03, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
                   >
                     {getMessage()}
                   </motion.p>
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
-        </motion.div>
+          </motion.div>
 
-
-      {/* Bouton retour au lobby (Host seulement) */}
-      {isHost && (
-        <motion.div
-          className="card space-y-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          <button
-            className="btn btn-accent w-full h-14 text-xl"
-            onClick={handleReturnToLobby}
+          {/* Bouton retour au lobby */}
+          <motion.div
+            className="alibi-end-actions"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
           >
-            Retour au lobby
-          </button>
-          <p className="text-sm text-center opacity-70">
-            Vous pourrez choisir un nouvel alibi et relancer une partie
-          </p>
-        </motion.div>
-      )}
+            <button
+              className="alibi-end-btn"
+              onClick={isHost ? handleReturnToLobby : () => router.push(`/alibi/room/${code}`)}
+            >
+              Retour au lobby
+            </button>
+            <p className="alibi-end-hint">
+              {isHost
+                ? "Vous pourrez choisir un nouvel alibi et relancer une partie"
+                : "Retourne au lobby pour la prochaine partie"
+              }
+            </p>
+          </motion.div>
+        </main>
 
-      {/* Bouton retour au lobby pour les joueurs */}
-      {!isHost && (
-        <motion.div
-          className="card space-y-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          <button
-            className="btn btn-primary w-full h-14 text-xl"
-            onClick={() => router.push(`/alibi/room/${code}`)}
-          >
-            Retour au lobby
-          </button>
-          <p className="text-sm text-center opacity-70">
-            Retourne au lobby pour la prochaine partie
-          </p>
-        </motion.div>
-      )}
-      </main>
+        <BottomNav />
 
-      <BottomNav />
+        <style jsx global>{`
+          /* ===== ALIBI END SCREEN - Style Guide Compliant ===== */
 
-      <style jsx>{`
-        /* ===== ALIBI END PAGE - Guide UI Compliant ===== */
-
-        /* Alibi Theme Variables */
-        .alibi-theme {
-          --alibi-primary: #f59e0b;
-          --alibi-glow: #fbbf24;
-          --alibi-dark: #b45309;
-          --bg-primary: #0a0a0f;
-          --bg-secondary: #12121a;
-          --bg-card: rgba(20, 20, 30, 0.8);
-          --text-primary: #ffffff;
-          --text-secondary: rgba(255, 255, 255, 0.7);
-          --text-muted: rgba(255, 255, 255, 0.5);
-          --success: #10b981;
-          --danger: #ef4444;
-        }
-
-        .game-container {
-          position: relative;
-          min-height: 100dvh;
-          background: var(--bg-primary);
-          overflow: hidden;
-        }
-
-        /* Animated Background - Alibi Theme Victory (Amber/Gold) */
-        .game-container::before {
-          content: '';
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          background:
-            radial-gradient(ellipse at 50% 20%, rgba(245, 158, 11, 0.18) 0%, transparent 50%),
-            radial-gradient(ellipse at 20% 80%, rgba(251, 191, 36, 0.12) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 80%, rgba(180, 83, 9, 0.10) 0%, transparent 50%),
-            var(--bg-primary);
-          pointer-events: none;
-        }
-
-        .game-content {
-          position: relative;
-          z-index: 1;
-          padding-top: 20px;
-        }
-
-        /* Page Title - Guide Compliant (Bungee font with glow) */
-        .alibi-theme :global(.game-page-title) {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: clamp(1.5rem, 5vw, 2.25rem);
-          color: var(--text-primary);
-          text-shadow:
-            0 0 10px rgba(245, 158, 11, 0.5),
-            0 0 30px rgba(245, 158, 11, 0.3),
-            0 0 60px rgba(245, 158, 11, 0.2);
-          text-align: center;
-          margin-bottom: 1.5rem;
-        }
-
-        /* Cards - Glassmorphism Alibi */
-        .alibi-theme :global(.card) {
-          background: rgba(20, 20, 30, 0.8);
-          border-radius: 20px;
-          padding: 1.5rem;
-          border: 1px solid rgba(245, 158, 11, 0.15);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.4),
-            0 0 0 1px rgba(255, 255, 255, 0.03),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Buttons - Alibi Theme */
-        .alibi-theme :global(.btn) {
-          background: rgba(255, 255, 255, 0.05);
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          padding: 12px 24px;
-          color: var(--text-primary);
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .alibi-theme :global(.btn:hover) {
-          background: rgba(255, 255, 255, 0.1);
-          transform: translateY(-2px);
-        }
-
-        .alibi-theme :global(.btn:active) {
-          transform: translateY(1px) scale(0.98);
-        }
-
-        .alibi-theme :global(.btn-primary) {
-          background: linear-gradient(135deg, var(--alibi-primary), var(--alibi-dark));
-          border: none;
-          color: white;
-          box-shadow:
-            0 4px 15px rgba(245, 158, 11, 0.4),
-            0 0 30px rgba(245, 158, 11, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .alibi-theme :global(.btn-primary:hover) {
-          box-shadow:
-            0 6px 20px rgba(245, 158, 11, 0.5),
-            0 0 40px rgba(245, 158, 11, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.25);
-          transform: translateY(-2px) scale(1.02);
-        }
-
-        .alibi-theme :global(.btn-accent) {
-          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-          border: none;
-          color: white;
-          box-shadow:
-            0 4px 15px rgba(59, 130, 246, 0.4),
-            0 0 30px rgba(59, 130, 246, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .alibi-theme :global(.btn-accent:hover) {
-          box-shadow:
-            0 6px 20px rgba(59, 130, 246, 0.5),
-            0 0 40px rgba(59, 130, 246, 0.3);
-          transform: translateY(-2px) scale(1.02);
-        }
-
-        /* Score Display - Large and impactful */
-        .alibi-theme :global(.score-display) {
-          font-family: var(--font-title, 'Bungee'), cursive;
-        }
-
-        /* Loading state */
-        .alibi-theme :global(.loading-spinner) {
-          animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-
-        /* Animation pulsante pour les cartes */
-        @keyframes alibi-glow-pulse {
-          0%, 100% {
-            box-shadow:
-              0 8px 32px rgba(0, 0, 0, 0.4),
-              0 0 20px rgba(245, 158, 11, 0.2);
+          .alibi-end-screen {
+            min-height: 100dvh !important;
+            background: #0a0a0f !important;
+            position: relative !important;
+            overflow: hidden !important;
           }
-          50% {
-            box-shadow:
-              0 8px 32px rgba(0, 0, 0, 0.4),
-              0 0 40px rgba(245, 158, 11, 0.4);
-          }
-        }
 
-        /* Success glow */
-        @keyframes success-glow {
-          0%, 100% {
-            box-shadow:
-              0 0 40px rgba(16, 185, 129, 0.3),
-              0 8px 32px rgba(0, 0, 0, 0.4);
+          /* Animated background */
+          .alibi-end-screen::before {
+            content: '' !important;
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 0 !important;
+            background:
+              radial-gradient(ellipse at 50% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 20% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 60%, rgba(180, 83, 9, 0.08) 0%, transparent 50%),
+              #0a0a0f !important;
+            pointer-events: none !important;
           }
-          50% {
-            box-shadow:
-              0 0 60px rgba(16, 185, 129, 0.5),
-              0 8px 32px rgba(0, 0, 0, 0.4);
-          }
-        }
 
-        /* Failure glow */
-        @keyframes danger-glow {
-          0%, 100% {
-            box-shadow:
-              0 0 40px rgba(239, 68, 68, 0.3),
-              0 8px 32px rgba(0, 0, 0, 0.4);
+          .alibi-end-container {
+            position: relative !important;
+            z-index: 1 !important;
+            min-height: 100dvh !important;
+            padding-bottom: 100px !important;
           }
-          50% {
-            box-shadow:
-              0 0 60px rgba(239, 68, 68, 0.5),
-              0 8px 32px rgba(0, 0, 0, 0.4);
+
+          .alibi-end-content {
+            max-width: 500px !important;
+            margin: 0 auto !important;
+            padding: 2rem 1.5rem !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 1.5rem !important;
           }
-        }
 
-        /* Animation de flottement */
-        @keyframes alibi-float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
-        }
+          /* Main card */
+          .alibi-end-card {
+            position: relative !important;
+            background: rgba(20, 20, 30, 0.85) !important;
+            border-radius: 24px !important;
+            padding: 2rem !important;
+            text-align: center !important;
+            border: 1px solid rgba(245, 158, 11, 0.2) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            overflow: hidden !important;
+          }
 
-        /* Confetti celebration styles would be handled by ParticleEffects component */
-      `}</style>
+          .alibi-end-card[data-success="true"] {
+            border-color: rgba(16, 185, 129, 0.3) !important;
+            box-shadow:
+              0 0 40px rgba(16, 185, 129, 0.2),
+              0 8px 32px rgba(0, 0, 0, 0.4) !important;
+          }
+
+          .alibi-end-card[data-success="false"] {
+            border-color: rgba(239, 68, 68, 0.3) !important;
+            box-shadow:
+              0 0 40px rgba(239, 68, 68, 0.2),
+              0 8px 32px rgba(0, 0, 0, 0.4) !important;
+          }
+
+          /* Background glow effect */
+          .alibi-end-glow {
+            position: absolute !important;
+            top: -50% !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 200% !important;
+            height: 200% !important;
+            pointer-events: none !important;
+            z-index: 0 !important;
+          }
+
+          .alibi-end-glow[data-success="true"] {
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 50%) !important;
+          }
+
+          .alibi-end-glow[data-success="false"] {
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, transparent 50%) !important;
+          }
+
+          /* Icon container */
+          .alibi-end-icon {
+            position: relative !important;
+            z-index: 1 !important;
+            display: flex !important;
+            justify-content: center !important;
+            margin-bottom: 1rem !important;
+          }
+
+          /* Title - Bungee font */
+          .alibi-end-title {
+            position: relative !important;
+            z-index: 1 !important;
+            font-family: 'Bungee', cursive !important;
+            font-size: clamp(1.5rem, 6vw, 2.5rem) !important;
+            font-weight: 400 !important;
+            color: white !important;
+            margin: 0 0 1.5rem 0 !important;
+            text-transform: uppercase !important;
+            text-shadow:
+              0 0 20px rgba(245, 158, 11, 0.5),
+              0 0 40px rgba(245, 158, 11, 0.3) !important;
+          }
+
+          /* Score container */
+          .alibi-end-score-container {
+            position: relative !important;
+            z-index: 1 !important;
+            display: flex !important;
+            align-items: baseline !important;
+            justify-content: center !important;
+            gap: 0.25rem !important;
+            margin-bottom: 0.5rem !important;
+          }
+
+          /* Main score number - Bungee font */
+          .alibi-end-score {
+            font-family: 'Bungee', cursive !important;
+            font-size: clamp(5rem, 20vw, 8rem) !important;
+            font-weight: 400 !important;
+            line-height: 1 !important;
+          }
+
+          .alibi-end-score[data-success="true"] {
+            color: #10b981 !important;
+            text-shadow: 0 0 40px rgba(16, 185, 129, 0.6) !important;
+          }
+
+          .alibi-end-score[data-success="false"] {
+            color: #ef4444 !important;
+            text-shadow: 0 0 40px rgba(239, 68, 68, 0.6) !important;
+          }
+
+          .alibi-end-score-separator {
+            font-family: 'Bungee', cursive !important;
+            font-size: clamp(2rem, 8vw, 3rem) !important;
+            color: rgba(255, 255, 255, 0.5) !important;
+            margin: 0 0.25rem !important;
+          }
+
+          .alibi-end-score-total {
+            font-family: 'Bungee', cursive !important;
+            font-size: clamp(2.5rem, 10vw, 4rem) !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+          }
+
+          /* Percentage */
+          .alibi-end-percentage {
+            position: relative !important;
+            z-index: 1 !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: 2rem !important;
+            font-weight: 700 !important;
+            margin-bottom: 1.5rem !important;
+          }
+
+          .alibi-end-percentage[data-success="true"] {
+            color: #10b981 !important;
+          }
+
+          .alibi-end-percentage[data-success="false"] {
+            color: #ef4444 !important;
+          }
+
+          /* Message box */
+          .alibi-end-message {
+            position: relative !important;
+            z-index: 1 !important;
+            padding: 1.25rem 1.5rem !important;
+            border-radius: 16px !important;
+            margin-top: 0.5rem !important;
+          }
+
+          .alibi-end-message[data-success="true"] {
+            background: rgba(16, 185, 129, 0.15) !important;
+            border: 1px solid rgba(16, 185, 129, 0.3) !important;
+          }
+
+          .alibi-end-message[data-success="false"] {
+            background: rgba(239, 68, 68, 0.15) !important;
+            border: 1px solid rgba(239, 68, 68, 0.3) !important;
+          }
+
+          .alibi-end-message p {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 1.25rem !important;
+            font-weight: 600 !important;
+            color: white !important;
+            margin: 0 !important;
+          }
+
+          /* Actions section */
+          .alibi-end-actions {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 1rem !important;
+          }
+
+          /* Button - Space Grotesk font */
+          .alibi-end-btn {
+            width: 100% !important;
+            padding: 1rem 2rem !important;
+            background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+            border: none !important;
+            border-radius: 14px !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: 1.125rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+            color: white !important;
+            cursor: pointer !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            box-shadow:
+              0 4px 20px rgba(245, 158, 11, 0.4),
+              0 0 40px rgba(245, 158, 11, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+          }
+
+          .alibi-end-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow:
+              0 6px 30px rgba(245, 158, 11, 0.5),
+              0 0 50px rgba(245, 158, 11, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+          }
+
+          .alibi-end-btn:active {
+            transform: translateY(1px) scale(0.98) !important;
+          }
+
+          /* Hint text */
+          .alibi-end-hint {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.875rem !important;
+            color: rgba(255, 255, 255, 0.5) !important;
+            text-align: center !important;
+            margin: 0 !important;
+          }
+
+          /* Responsive */
+          @media (max-width: 480px) {
+            .alibi-end-content {
+              padding: 1.5rem 1rem !important;
+            }
+
+            .alibi-end-card {
+              padding: 1.5rem !important;
+            }
+
+            .alibi-end-title {
+              font-size: 1.5rem !important;
+            }
+
+            .alibi-end-message p {
+              font-size: 1rem !important;
+            }
+          }
+        `}</style>
       </div>
     </div>
   );

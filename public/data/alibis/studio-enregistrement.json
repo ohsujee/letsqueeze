@@ -1,20 +1,50 @@
 {
   "id": "studio-enregistrement",
   "title": "Studio d'enregistrement pourri",
-  "context": "Une enseigne lumineuse de magasin a ete arrachee et jetee sur la chaussee hier apres-midi. Des temoins vous ont vu dans le secteur. Vous contestez.",
-  "accused_document": "<p>Hier apres-midi, le groupe avait reserve un studio d'enregistrement pour travailler sur un projet musical. L'adresse etait dans un immeuble delabré. L'escalier pour y acceder sentait le renfermé et l'humidite. La porte du studio etait blindee avec de la mousse acoustique qui se decollait.</p><p>Le producteur etait un type pretentieux qui soupirait a chaque prise. Il portait un t-shirt avec le logo du studio imprime dessus. Il regardait le groupe comme s'il perdait son temps avec des amateurs.</p><p>Le materiel etait vetuste. Le micro principal gresillait et captait des bruits parasites. Les casques etaient inconfortables et laissaient des marques sur les oreilles. La cabine d'enregistrement sentait la transpiration des utilisateurs precedents.</p><p>Le producteur a fait recommencer la meme partie des dizaines de fois sans jamais etre satisfait. Il levait les yeux au ciel a chaque erreur. A un moment, il a fait une remarque cassante sur le manque de talent du groupe. L'ambiance est devenue tres tendue.</p><p>A la fin, le producteur a fait ecouter le resultat avec un air blase. C'etait mediocre. Il a facture le plein tarif malgre tous les problemes techniques. Le groupe est parti degoute en se demandant pourquoi il avait choisi ce studio.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi dans un studio d'enregistrement pendant le vol de l'enseigne.",
+  "context": "Une enseigne lumineuse de magasin a été arrachée et jetée sur la chaussée hier après-midi. Des témoins vous ont vu dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier après-midi, le groupe avait réservé un studio d'enregistrement pour travailler sur un projet musical. La séance de 3 heures coûtait 150 euros. L'adresse était dans un immeuble délabré. L'escalier pour y accéder sentait le renfermé et l'humidité. La porte du studio était blindée avec de la mousse acoustique orange qui se décollait.</p><p>Le producteur était un type prétentieux qui soupirait à chaque prise. Il portait un t-shirt noir avec le logo du studio imprimé en blanc dessus. Il regardait le groupe comme s'il perdait son temps avec des amateurs en marmonnant 'On recommence...'.</p><p>Le matériel était vétuste. Le micro principal grésillait et captait des bruits parasites. Les 4 casques disponibles étaient inconfortables et laissaient des marques sur les oreilles. La cabine d'enregistrement de 2 mètres carrés sentait la transpiration des utilisateurs précédents.</p><p>Le producteur a fait recommencer la même partie 23 fois sans jamais être satisfait. Il levait les yeux au ciel à chaque erreur. À un moment, il a dit 'J'ai vu des débutants faire mieux'. L'ambiance est devenue très tendue et quelqu'un du groupe a voulu partir.</p><p>À la fin vers 18h, le producteur a fait écouter le résultat avec un air blasé. C'était médiocre. Il a facturé le plein tarif malgré tous les problèmes techniques. Le groupe est parti dégoûté en se demandant pourquoi il avait choisi ce studio.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé l'après-midi dans un studio d'enregistrement pendant le vol de l'enseigne.",
   "inspector_questions": [
-    "Vous avez dit avoir reserve un studio — quel etait le nom exact de ce studio ?",
-    "Vous avez dit que le producteur portait un t-shirt avec un logo — decrivez ce logo exactement.",
-    "Vous avez dit que le micro gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
-    "Vous avez dit avoir travaille sur un projet — quel etait le titre du morceau ?",
-    "Vous avez dit avoir recommence des dizaines de fois — combien de prises exactement ?",
-    "Vous avez dit que le producteur a fait une remarque cassante — qu'a-t-il dit exactement ?",
-    "Vous avez dit que le resultat etait mediocre — quel style musical c'etait ?",
-    "Vous avez dit avoir paye le plein tarif — quel etait le montant exact ?",
-    "Vous avez dit etre partis degoutés — qui du groupe avait trouve ce studio ?",
-    "Vous avez dit avoir un projet musical — qui du groupe avait eu l'idee de ce projet ?"
+    {
+      "text": "Quel était le nom du studio d'enregistrement ?",
+      "hint": "Le groupe avait réservé un studio d'enregistrement pour travailler sur un projet musical."
+    },
+    {
+      "text": "Combien coûtait la séance de 3 heures ?",
+      "hint": "La séance de 3 heures coûtait 150 euros."
+    },
+    {
+      "text": "De quelle couleur était la mousse acoustique sur la porte ?",
+      "hint": "La porte était blindée avec de la mousse acoustique orange."
+    },
+    {
+      "text": "Combien de prises le producteur a-t-il fait faire ?",
+      "hint": "Le producteur a fait recommencer la même partie 23 fois."
+    },
+    {
+      "text": "Qu'a dit le producteur pour critiquer le groupe ?",
+      "hint": "Il a dit 'J'ai vu des débutants faire mieux'."
+    },
+    {
+      "text": "Combien de casques étaient disponibles dans le studio ?",
+      "hint": "Les 4 casques disponibles étaient inconfortables."
+    },
+    {
+      "text": "Qui du groupe a voulu partir pendant la séance ?",
+      "hint": "L'ambiance est devenue très tendue et quelqu'un du groupe a voulu partir."
+    },
+    {
+      "text": "Quel morceau le groupe enregistrait-il ?",
+      "hint": "Le groupe avait réservé un studio pour travailler sur un projet musical."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "À la fin vers 18h, le producteur a fait écouter le résultat."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Le groupe est parti dégoûté en se demandant pourquoi il avait choisi ce studio."
+    }
   ],
   "reading_time_seconds": 90
 }

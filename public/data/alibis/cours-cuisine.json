@@ -1,20 +1,50 @@
 {
   "id": "cours-cuisine",
   "title": "Cours de cuisine catastrophe",
-  "context": "Des vehicules ont ete rayes avec une cle dans un parking prive hier soir. Des cameras vous situent dans le secteur. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe a participe a un cours de cuisine collectif dans un atelier. L'endroit etait un local exigu qui sentait le graillon et les oignons brules. Les plans de travail etaient taches et les ustensiles avaient l'air d'avoir vecu.</p><p>Le chef qui animait le cours etait un type impatient qui levait les yeux au ciel a chaque question. Il portait une toque avec le logo de l'atelier brode dessus. Il donnait les instructions trop vite et soupirait quand quelqu'un ne suivait pas.</p><p>Les ingredients fournis etaient de qualite douteuse. Les legumes etaient mous et les herbes fletrées. Le four faisait un bruit inquietant et chauffait de maniere inegale. Un des bruleurs ne s'allumait plus.</p><p>Quelqu'un du groupe a fait bruler sa preparation. La fumee a envahi la piece et le detecteur de fumee s'est declenche. Le chef a hurle et fait une remarque humiliante devant tout le monde. Un autre participant a coupe quelqu'un avec un couteau mal affute.</p><p>Le resultat final etait immangeable. Le chef a goute et fait une grimace de degout sans rien dire. Le groupe est parti affame en ayant paye cher pour ne rien pouvoir manger.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree a un cours de cuisine pendant les rayures sur les voitures.",
+  "context": "Des véhicules ont été rayés avec une clé dans un parking privé hier soir. Des caméras vous situent dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe a participé à un cours de cuisine collectif dans un atelier. Le cours coûtait 45 euros par personne. L'endroit était un local exigu qui sentait le graillon et les oignons brûlés. Les plans de travail en inox étaient tachés et les ustensiles avaient l'air d'avoir vécu plusieurs guerres.</p><p>Le chef qui animait le cours était un type impatient qui levait les yeux au ciel à chaque question. Il portait une toque blanche avec le logo de l'atelier brodé en vert dessus. Il donnait les instructions trop vite et soupirait bruyamment quand quelqu'un ne suivait pas en marmonnant 'On n'est pas à la maternelle'.</p><p>Les ingrédients fournis étaient de qualité douteuse. Les légumes étaient mous et les herbes flétries depuis au moins 3 jours. Le four faisait un bruit de ferraille inquiétant et chauffait de manière inégale. Un des 4 brûleurs ne s'allumait plus du tout.</p><p>Quelqu'un du groupe a fait brûler sa préparation. La fumée a envahi la pièce et le détecteur de fumée s'est déclenché pendant 2 minutes. Le chef a hurlé 'C'est pas possible !' devant tout le monde. Un autre participant a coupé quelqu'un du groupe avec un couteau mal affûté.</p><p>Le résultat final était immangeable. Le chef a goûté et fait une grimace de dégoût sans rien dire avant de jeter l'assiette à la poubelle. Le groupe est parti affamé vers 22h en ayant payé cher pour ne rien pouvoir manger.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée à un cours de cuisine pendant les rayures sur les voitures.",
   "inspector_questions": [
-    "Vous avez dit avoir participe a un cours de cuisine — quel etait le nom exact de cet atelier ?",
-    "Vous avez dit que le chef portait une toque avec un logo — decrivez ce logo exactement.",
-    "Vous avez dit que les legumes etaient mous — quels legumes exactement ?",
-    "Vous avez dit que la fumee a envahi la piece — combien de temps a dure l'evacuation ?",
-    "Vous avez dit que quelqu'un a fait bruler sa preparation — qui du groupe etait-ce ?",
-    "Vous avez dit que le chef a fait une remarque humiliante — qu'a-t-il dit exactement ?",
-    "Vous avez dit que quelqu'un s'est fait couper — qui du groupe a coupe qui ?",
-    "Vous avez dit que le resultat etait immangeable — quel plat etiez-vous censes preparer ?",
-    "Vous avez dit avoir paye cher — combien coutait le cours exactement ?",
-    "Vous avez dit etre partis affames — qui du groupe avait reserve ce cours ?"
+    {
+      "text": "Quel était le nom de l'atelier de cuisine ?",
+      "hint": "Le groupe a participé à un cours de cuisine collectif dans un atelier."
+    },
+    {
+      "text": "Combien coûtait le cours par personne ?",
+      "hint": "Le cours coûtait 45 euros par personne."
+    },
+    {
+      "text": "De quelle couleur était le logo brodé sur la toque du chef ?",
+      "hint": "Il portait une toque blanche avec le logo de l'atelier brodé en vert dessus."
+    },
+    {
+      "text": "Qu'a crié le chef quand la fumée a envahi la pièce ?",
+      "hint": "Le chef a hurlé 'C'est pas possible !' devant tout le monde."
+    },
+    {
+      "text": "Qui du groupe a fait brûler sa préparation ?",
+      "hint": "Quelqu'un du groupe a fait brûler sa préparation."
+    },
+    {
+      "text": "Qui du groupe s'est fait couper avec le couteau ?",
+      "hint": "Un autre participant a coupé quelqu'un du groupe avec un couteau mal affûté."
+    },
+    {
+      "text": "Combien de brûleurs fonctionnaient sur la cuisinière ?",
+      "hint": "Un des 4 brûleurs ne s'allumait plus du tout."
+    },
+    {
+      "text": "Quel plat le groupe était-il censé préparer ?",
+      "hint": "Le résultat final était immangeable."
+    },
+    {
+      "text": "Que s'est-il passé juste après que le chef a goûté le plat ?",
+      "hint": "Le chef a goûté et fait une grimace de dégoût avant de jeter l'assiette à la poubelle."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti affamé vers 22h."
+    }
   ],
   "reading_time_seconds": 90
 }

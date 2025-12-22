@@ -7,3 +7,4 @@ export { default as QuizSelectorModal } from './QuizSelectorModal';
 export { default as Qr } from './Qr';
 export { default as PodiumPremium } from './PodiumPremium';
 export { default as PremiumLeaderboard } from './PremiumLeaderboard';
+export { default as GameLoader, FullScreenLoader } from './GameLoader';

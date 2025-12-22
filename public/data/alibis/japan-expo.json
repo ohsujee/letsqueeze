@@ -1,20 +1,50 @@
 {
   "id": "japan-expo",
   "title": "Convention geek chaotique",
-  "context": "Un feu d'artifice illegal a ete tire depuis un toit hier apres-midi, causant un depart de feu. Des temoins ont vu un groupe correspondant a votre description fuir les lieux. Vous contestez.",
-  "accused_document": "<p>Hier, le groupe a passe la journee dans une convention dediee a la culture japonaise. L'entree etait un chaos total avec des files d'attente interminables sous un soleil de plomb. Ca sentait la transpiration et le plastique chaud des cosplays.</p><p>Une fois a l'interieur, c'etait bonde a ne plus pouvoir respirer. Des gens en costumes enormes bousculaient tout le monde. Un cosplayeur a marche sur le pied de quelqu'un du groupe avec ses chaussures compensees. La climatisation etait en panne et l'air etait irrespirable.</p><p>Le groupe a fait la queue pendant une eternite pour voir un artiste qui faisait des dedicaces. Quand c'etait enfin le tour du groupe, l'artiste avait l'air epuise et a signe sans meme lever les yeux. Il y avait une banderole derriere lui avec une citation ecrite dessus.</p><p>A un stand de nourriture, le groupe a achete des takoyaki qui etaient froids et caoutchouteux. Le vendeur portait un bandana avec une inscription en japonais. Les prix etaient completement abusifs pour de la nourriture aussi mediocre.</p><p>En partant, quelqu'un du groupe s'est fait bousculer et a fait tomber ses achats. Un objet s'est casse dans le sac. Le groupe est sorti epuise, couvert de sueur, en se jurant de ne plus jamais revenir.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la journee dans une convention pendant le feu d'artifice illegal.",
+  "context": "Un feu d'artifice illégal a été tiré depuis un toit hier après-midi, causant un départ de feu. Des témoins ont vu un groupe correspondant à votre description fuir les lieux. Vous contestez.",
+  "accused_document": "<p>Hier, le groupe a passé la journée dans une convention dédiée à la culture japonaise. L'entrée coûtait 18 euros et c'était un chaos total avec des files d'attente interminables sous un soleil de plomb. Ça sentait la transpiration et le plastique chaud des cosplays. Le groupe est entré vers 11h30.</p><p>Une fois à l'intérieur, c'était bondé à ne plus pouvoir respirer. Des gens en costumes énormes bousculaient tout le monde. Un cosplayeur déguisé en Totoro gris a marché sur le pied de quelqu'un du groupe avec ses chaussures compensées. La climatisation était en panne et l'air était irrespirable.</p><p>Le groupe a fait la queue pendant 45 minutes pour voir un artiste qui faisait des dédicaces au stand B-12. Quand c'était enfin le tour du groupe, l'artiste avait l'air épuisé et a signé sans même lever les yeux. Il y avait une banderole derrière lui avec écrit '夢を信じて - Crois en tes rêves'.</p><p>À un stand de nourriture, le groupe a acheté une barquette de 6 takoyaki pour 9 euros. Ils étaient froids et caoutchouteux. Le vendeur portait un bandana bleu avec '祭り' écrit dessus en blanc. Les prix étaient complètement abusifs pour de la nourriture aussi médiocre.</p><p>En partant vers 17h, quelqu'un du groupe s'est fait bousculer et a fait tomber ses achats. Une figurine de 25 euros s'est cassée dans le sac. Le groupe est sorti épuisé, couvert de sueur, en se jurant de ne plus jamais revenir.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la journée dans une convention pendant le feu d'artifice illégal.",
   "inspector_questions": [
-    "Vous avez dit etre alles a une convention — quel etait le nom exact de cet evenement ?",
-    "Vous avez dit qu'un cosplayeur a marche sur le pied de quelqu'un — en quel personnage etait-il deguise ?",
-    "Vous avez dit avoir fait la queue pour un artiste — qui etait cet artiste exactement ?",
-    "Vous avez dit qu'il y avait une banderole avec une citation — ecrivez cette citation mot pour mot.",
-    "Vous avez dit que le vendeur portait un bandana avec une inscription — ecrivez cette inscription.",
-    "Vous avez dit avoir achete des takoyaki — combien en avez-vous achete et a quel prix ?",
-    "Vous avez dit que quelqu'un s'est fait bousculer — qui du groupe etait-ce ?",
-    "Vous avez dit qu'un objet s'est casse — quel objet exactement ?",
-    "Vous avez dit etre sortis epuises — a quelle heure approximativement le groupe est-il parti ?",
-    "Vous avez dit vous etre jure de ne plus revenir — qui du groupe avait propose d'y aller au depart ?"
+    {
+      "text": "Combien coûtait l'entrée de la convention ?",
+      "hint": "L'entrée coûtait 18 euros."
+    },
+    {
+      "text": "Vers quelle heure le groupe est-il entré dans la convention ?",
+      "hint": "Le groupe est entré vers 11h30."
+    },
+    {
+      "text": "En quel personnage était déguisé le cosplayeur qui a marché sur le pied de quelqu'un ?",
+      "hint": "Un cosplayeur déguisé en Totoro gris a marché sur le pied de quelqu'un du groupe."
+    },
+    {
+      "text": "Combien de temps le groupe a-t-il fait la queue pour les dédicaces ?",
+      "hint": "Le groupe a fait la queue pendant 45 minutes pour voir un artiste."
+    },
+    {
+      "text": "Quel était le numéro du stand de dédicaces ?",
+      "hint": "Un artiste qui faisait des dédicaces au stand B-12."
+    },
+    {
+      "text": "Que disait la banderole derrière l'artiste ?",
+      "hint": "Il y avait une banderole avec écrit '夢を信じて - Crois en tes rêves'."
+    },
+    {
+      "text": "Combien de takoyaki contenait la barquette et à quel prix ?",
+      "hint": "Le groupe a acheté une barquette de 6 takoyaki pour 9 euros."
+    },
+    {
+      "text": "De quelle couleur était le bandana du vendeur et qu'était-il écrit dessus ?",
+      "hint": "Le vendeur portait un bandana bleu avec '祭り' écrit dessus en blanc."
+    },
+    {
+      "text": "Combien valait la figurine qui s'est cassée ?",
+      "hint": "Une figurine de 25 euros s'est cassée dans le sac."
+    },
+    {
+      "text": "Vers quelle heure le groupe est-il parti ?",
+      "hint": "En partant vers 17h, quelqu'un du groupe s'est fait bousculer."
+    }
   ],
   "reading_time_seconds": 90
 }

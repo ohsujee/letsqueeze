@@ -1,20 +1,50 @@
 {
   "id": "match-equipe-locale",
   "title": "Match de foot lamentable",
-  "context": "Des mannequins de vitrine ont ete voles et retrouves disposes de facon obscene sur un rond-point hier apres-midi. Des cameras vous situent dans le secteur. Vous contestez.",
-  "accused_document": "<p>Hier apres-midi, le groupe etait au stade pour voir un match de foot d'une equipe locale. Les gradins etaient a moitie vides et sentaient la biere eventee et les merguez froides. Les sieges en plastique etaient fissures et inconfortables.</p><p>L'entree s'est faite par un tourniquet rouille qui coinçait. Le vigile a l'entree portait un gilet avec le logo du club brode dessus. Il a fouille les sacs avec un air suspicieux et a confisque une bouteille d'eau a quelqu'un du groupe.</p><p>Les supporters autour etaient une poignee de types qui hurlaient un chant ridicule a chaque action. L'un d'eux portait une echarpe avec un slogan imprime dessus. Le match etait d'un niveau catastrophique avec des joueurs qui se rataient constamment.</p><p>A la mi-temps, le groupe est alle chercher a manger au stand. Les hot-dogs etaient tiedes et le pain etait mou. Le vendeur a rendu la monnaie en soupirant. La sono du stade gresillait et crachait une musique insupportable.</p><p>L'equipe locale a perdu lamentablement. Un joueur s'est fait expulser pour une faute stupide. Les supporters ont hue et certains sont partis avant la fin. Le groupe est sorti degoute en se demandant pourquoi il avait paye pour voir ca.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi au stade pour un match de foot pendant le vol des mannequins.",
+  "context": "Des mannequins de vitrine ont été volés et retrouvés disposés de façon obscène sur un rond-point hier après-midi. Des caméras vous situent dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier après-midi, le groupe était au stade pour voir un match de foot d'une équipe locale. L'entrée coûtait 12 euros par personne. Les gradins étaient à moitié vides et sentaient la bière éventée et les merguez froides. Les sièges en plastique bleu étaient fissurés et inconfortables.</p><p>L'entrée s'est faite par un tourniquet rouillé qui coinçait. Le vigile à l'entrée portait un gilet jaune fluo avec le logo du club brodé dessus. Il a fouillé les sacs avec un air suspicieux et a confisqué une bouteille d'eau à quelqu'un du groupe en disant 'Règlement c'est règlement'.</p><p>Les supporters autour étaient une poignée de types qui hurlaient 'Allez les Bleus, en avant !' à chaque action. L'un d'eux portait une écharpe verte et blanche avec 'Fidèles depuis 1987' écrit dessus. Le match était d'un niveau catastrophique avec des joueurs qui se rataient constamment.</p><p>À la mi-temps, le groupe est allé chercher à manger au stand. Les hot-dogs coûtaient 5,50 euros et étaient tièdes avec un pain mou. Le vendeur a rendu la monnaie en soupirant. La sono du stade grésillait et crachait une musique insupportable.</p><p>L'équipe locale a perdu 3-1. Le numéro 8 s'est fait expulser à la 72ème minute pour un tacle par derrière. Les supporters ont hué et certains sont partis avant la fin. Le groupe est sorti vers 17h30, dégoûté, en se demandant pourquoi il avait payé pour voir ça.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé l'après-midi au stade pour un match de foot pendant le vol des mannequins.",
   "inspector_questions": [
-    "Vous avez dit etre alles voir un match — quelles equipes jouaient exactement ?",
-    "Vous avez dit que le vigile portait un gilet avec un logo — decrivez ce logo exactement.",
-    "Vous avez dit que les supporters hurlaient un chant — ecrivez les paroles de ce chant.",
-    "Vous avez dit qu'un supporter portait une echarpe avec un slogan — ecrivez ce slogan mot pour mot.",
-    "Vous avez dit que la sono gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
-    "Vous avez dit qu'un joueur s'est fait expulser — pour quelle faute exactement ?",
-    "Vous avez dit que l'equipe a perdu — quel etait le score final ?",
-    "Vous avez dit que le vigile a confisque une bouteille — a qui du groupe appartenait-elle ?",
-    "Vous avez dit etre sortis degoutés — qui du groupe avait propose d'aller voir ce match ?",
-    "Vous avez dit avoir paye — combien coutait l'entree par personne ?"
+    {
+      "text": "Combien coûtait l'entrée par personne ?",
+      "hint": "L'entrée coûtait 12 euros par personne."
+    },
+    {
+      "text": "De quelle couleur étaient les sièges du stade ?",
+      "hint": "Les sièges en plastique bleu étaient fissurés et inconfortables."
+    },
+    {
+      "text": "Qu'a dit le vigile en confisquant la bouteille ?",
+      "hint": "Il a confisqué une bouteille d'eau en disant 'Règlement c'est règlement'."
+    },
+    {
+      "text": "Quel chant hurlaient les supporters à chaque action ?",
+      "hint": "Les supporters hurlaient 'Allez les Bleus, en avant !' à chaque action."
+    },
+    {
+      "text": "Qu'était-il écrit sur l'écharpe d'un supporter et de quelles couleurs était-elle ?",
+      "hint": "Une écharpe verte et blanche avec 'Fidèles depuis 1987' écrit dessus."
+    },
+    {
+      "text": "Combien coûtaient les hot-dogs au stand ?",
+      "hint": "Les hot-dogs coûtaient 5,50 euros."
+    },
+    {
+      "text": "Quel était le score final du match ?",
+      "hint": "L'équipe locale a perdu 3-1."
+    },
+    {
+      "text": "Quel numéro portait le joueur expulsé et à quelle minute ?",
+      "hint": "Le numéro 8 s'est fait expulser à la 72ème minute."
+    },
+    {
+      "text": "Vers quelle heure le groupe est-il sorti du stade ?",
+      "hint": "Le groupe est sorti vers 17h30."
+    },
+    {
+      "text": "À qui du groupe le vigile a-t-il confisqué la bouteille d'eau ?",
+      "hint": "Il a confisqué une bouteille d'eau à quelqu'un du groupe."
+    }
   ],
   "reading_time_seconds": 90
 }

@@ -1,20 +1,50 @@
 {
   "id": "mini-golf",
-  "title": "Mini-golf delabré",
-  "context": "Une cabine de chantier a ete retournee hier apres-midi. Des ouvriers vous ont vu dans le secteur juste avant. Vous contestez.",
-  "accused_document": "<p>Hier apres-midi, le groupe est alle faire un mini-golf dans un complexe de loisirs. L'endroit etait vieillissant et mal entretenu. En arrivant, ca sentait l'herbe synthetique surchauffee et le caoutchouc. Le gazon artificiel etait decolore et troue par endroits.</p><p>Le type qui distribuait les clubs etait un ado qui scrollait sur son telephone. Il portait un polo delave avec le logo du mini-golf imprime dessus. Il a donne des clubs dont les manches etaient collants et des balles cabossees.</p><p>Le parcours etait dans un etat lamentable. Des obstacles etaient casses ou manquants. Un moulin ne tournait plus et bloquait le passage. Les trous etaient envahis de feuilles mortes et de debris. Certaines pistes avaient des flaques d'eau stagnante.</p><p>Quelqu'un du groupe a envoye sa balle dans un buisson impossible a atteindre. Un autre a casse son club en tapant trop fort. Le groupe d'apres poussait pour que ca aille plus vite et faisait des remarques desagreables.</p><p>A la fin, le score etait catastrophique parce que les pistes etaient injouables. Le type a refuse tout geste commercial malgré l'etat du parcours. Le groupe est parti enerve en ayant paye le plein tarif pour une experience nulle.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi au mini-golf pendant le renversement de la cabine.",
+  "title": "Mini-golf délabré",
+  "context": "Une cabine de chantier a été retournée hier après-midi. Des ouvriers vous ont vu dans le secteur juste avant. Vous contestez.",
+  "accused_document": "<p>Hier après-midi, le groupe est allé faire un mini-golf dans un complexe de loisirs. L'entrée coûtait 11 euros par personne. L'endroit était vieillissant et mal entretenu. En arrivant, ça sentait l'herbe synthétique surchauffée et le caoutchouc fondu. Le gazon artificiel vert était décoloré et troué par endroits.</p><p>Le type qui distribuait les clubs était un ado qui scrollait sur son téléphone. Il portait un polo orange délavé avec le logo du mini-golf imprimé dessus. Il a donné des clubs dont les manches étaient collants et des balles tellement cabossées qu'elles roulaient de travers.</p><p>Le parcours de 18 trous était dans un état lamentable. Des obstacles étaient cassés ou manquants. Le moulin du trou numéro 6 ne tournait plus et bloquait le passage. Les trous étaient envahis de feuilles mortes et de débris. Certaines pistes avaient des flaques d'eau stagnante.</p><p>Quelqu'un du groupe a envoyé sa balle dans un buisson impossible à atteindre. Un autre a cassé son club en tapant trop fort de frustration. Le groupe d'après, composé de 4 personnes, poussait pour que ça aille plus vite et a crié 'Dépêchez-vous les escargots !'.</p><p>À la fin, le score moyen était catastrophique parce que les pistes étaient injouables. Le type a refusé tout geste commercial malgré l'état du parcours. Le groupe est parti vers 17h énervé en ayant payé le plein tarif pour une expérience nulle.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé l'après-midi au mini-golf pendant le renversement de la cabine.",
   "inspector_questions": [
-    "Vous avez dit etre alles au mini-golf — quel etait le nom exact de ce complexe ?",
-    "Vous avez dit que l'employe portait un polo avec un logo — decrivez ce logo exactement.",
-    "Vous avez dit qu'un moulin ne tournait plus — a quel trou du parcours etait ce moulin ?",
-    "Vous avez dit que quelqu'un a envoye sa balle dans un buisson — qui du groupe etait-ce ?",
-    "Vous avez dit que quelqu'un a casse son club — qui du groupe etait-ce ?",
-    "Vous avez dit que le groupe d'apres faisait des remarques — qu'ont-ils dit exactement ?",
-    "Vous avez dit que le score etait catastrophique — quel etait le score final du groupe ?",
-    "Vous avez dit avoir paye le plein tarif — combien coutait l'entree exactement ?",
-    "Vous avez dit etre partis enerves — qui du groupe avait propose le mini-golf ?",
-    "Vous avez dit etre partis — a quelle heure approximativement ?"
+    {
+      "text": "Quel était le nom du complexe de mini-golf ?",
+      "hint": "Le groupe est allé faire un mini-golf dans un complexe de loisirs."
+    },
+    {
+      "text": "Combien coûtait l'entrée par personne ?",
+      "hint": "L'entrée coûtait 11 euros par personne."
+    },
+    {
+      "text": "De quelle couleur était le polo de l'employé ?",
+      "hint": "Il portait un polo orange délavé avec le logo du mini-golf."
+    },
+    {
+      "text": "Combien de trous comptait le parcours ?",
+      "hint": "Le parcours de 18 trous était dans un état lamentable."
+    },
+    {
+      "text": "À quel numéro de trou se trouvait le moulin bloqué ?",
+      "hint": "Le moulin du trou numéro 6 ne tournait plus."
+    },
+    {
+      "text": "Qui du groupe a envoyé sa balle dans le buisson ?",
+      "hint": "Quelqu'un du groupe a envoyé sa balle dans un buisson impossible à atteindre."
+    },
+    {
+      "text": "Qui du groupe a cassé son club ?",
+      "hint": "Un autre a cassé son club en tapant trop fort de frustration."
+    },
+    {
+      "text": "Qu'a crié le groupe d'après ?",
+      "hint": "Le groupe d'après a crié 'Dépêchez-vous les escargots !'."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 17h énervé."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Le groupe est parti énervé en ayant payé le plein tarif."
+    }
   ],
   "reading_time_seconds": 90
 }

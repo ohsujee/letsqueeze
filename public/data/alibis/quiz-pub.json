@@ -1,20 +1,50 @@
 {
   "id": "quiz-pub",
-  "title": "Soiree quiz pub nulle",
-  "context": "Une statue d'art moderne a ete renversee et cassee dans un parc hier soir. Des temoins affirment avoir vu un groupe correspondant a votre description s'enfuir en riant. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe a participe a une soiree quiz dans un pub. L'endroit etait un bar miteux avec une odeur de biere eventee et de cacahuetes rances. Les tables etaient collantes et les chaises branlantes.</p><p>L'animateur du quiz etait un type avec un micro qui gresillait. Il portait un t-shirt avec le slogan de la soiree imprime dessus. Il faisait des blagues qui ne faisaient rire que lui et lisait les questions d'un ton monocorde.</p><p>Les questions etaient soit beaucoup trop faciles soit completement impossibles. Certaines etaient mal formulees et n'avaient pas de bonne reponse. Le groupe a conteste une reponse mais l'animateur a refuse d'admettre son erreur et a fait une remarque cassante.</p><p>L'equipe d'a cote trichait ouvertement sur son telephone. Quand le groupe l'a signale, l'animateur n'a rien fait. Les enceintes crachotaient un jingle horrible entre chaque manche qui vrillait les tympans.</p><p>A la fin, le groupe a fini a une place humiliante au classement. Le lot du gagnant etait ridicule et l'animateur s'est moque des perdants. Tout le monde est parti degoute en jurant de ne plus jamais participer a ce quiz.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree a un quiz de pub pendant le vandalisme de la statue.",
+  "title": "Soirée quiz pub nulle",
+  "context": "Une statue d'art moderne a été renversée et cassée dans un parc hier soir. Des témoins affirment avoir vu un groupe correspondant à votre description s'enfuir en riant. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe a participé à une soirée quiz dans un pub. L'inscription coûtait 5 euros par équipe. L'endroit était un bar miteux avec une odeur de bière éventée et de cacahuètes rances. Les tables en bois étaient collantes et les chaises branlantes.</p><p>L'animateur du quiz était un type avec un micro qui grésillait. Il portait un t-shirt violet avec le slogan de la soirée imprimé en blanc dessus. Il faisait des blagues qui ne faisaient rire que lui et lisait les questions d'un ton monocorde en bâillant.</p><p>Les questions étaient soit beaucoup trop faciles soit complètement impossibles. Le quiz comptait 4 manches de 10 questions chacune. Certaines questions étaient mal formulées et n'avaient pas de bonne réponse. Le groupe a contesté une réponse mais l'animateur a répondu 'C'est moi qui décide' avec un sourire narquois.</p><p>L'équipe d'à côté, composée de 6 personnes, trichait ouvertement sur leurs téléphones. Quand quelqu'un du groupe l'a signalé, l'animateur n'a rien fait. Les enceintes crachotaient un jingle horrible entre chaque manche qui vrillait les tympans.</p><p>À la fin, le groupe a terminé 9ème sur 12 équipes. Le lot du gagnant était ridicule : un bon de réduction de 10% sur la prochaine consommation. L'animateur s'est moqué des perdants en disant 'Revenez quand vous saurez quelque chose'. Tout le monde est parti dégoûté vers 23h.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée à un quiz de pub pendant le vandalisme de la statue.",
   "inspector_questions": [
-    "Vous avez dit avoir participe a un quiz — dans quel pub exactement ?",
-    "Vous avez dit que l'animateur portait un t-shirt avec un slogan — ecrivez ce slogan mot pour mot.",
-    "Vous avez dit que l'equipe d'a cote trichait — combien de personnes etaient dans cette equipe ?",
-    "Vous avez dit avoir conteste une reponse — quelle question et quelle reponse etait fausse ?",
-    "Vous avez dit que l'animateur a fait une remarque cassante — qu'a-t-il dit exactement ?",
-    "Vous avez dit qu'il y avait plusieurs manches — combien de manches au total ?",
-    "Vous avez dit avoir fini a une place humiliante — quelle place exactement ?",
-    "Vous avez dit que le lot etait ridicule — c'etait quoi exactement ?",
-    "Vous avez dit etre partis degoutés — qui du groupe avait propose ce quiz ?",
-    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
+    {
+      "text": "Dans quel pub le quiz avait-il lieu ?",
+      "hint": "Le groupe a participé à une soirée quiz dans un pub."
+    },
+    {
+      "text": "Combien coûtait l'inscription par équipe ?",
+      "hint": "L'inscription coûtait 5 euros par équipe."
+    },
+    {
+      "text": "De quelle couleur était le t-shirt de l'animateur ?",
+      "hint": "Il portait un t-shirt violet avec le slogan de la soirée imprimé en blanc."
+    },
+    {
+      "text": "Combien de manches comportait le quiz ?",
+      "hint": "Le quiz comptait 4 manches de 10 questions chacune."
+    },
+    {
+      "text": "Qu'a répondu l'animateur quand le groupe a contesté une réponse ?",
+      "hint": "L'animateur a répondu 'C'est moi qui décide' avec un sourire narquois."
+    },
+    {
+      "text": "Qui du groupe a signalé les tricheurs ?",
+      "hint": "Quand quelqu'un du groupe l'a signalé, l'animateur n'a rien fait."
+    },
+    {
+      "text": "À quelle place le groupe a-t-il terminé ?",
+      "hint": "Le groupe a terminé 9ème sur 12 équipes."
+    },
+    {
+      "text": "Qu'a dit l'animateur pour se moquer des perdants ?",
+      "hint": "L'animateur s'est moqué des perdants en disant 'Revenez quand vous saurez quelque chose'."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Tout le monde est parti dégoûté vers 23h."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Tout le monde est parti dégoûté."
+    }
   ],
   "reading_time_seconds": 90
 }

@@ -1,20 +1,50 @@
 {
   "id": "restaurant-italien",
   "title": "Restaurant italien catastrophique",
-  "context": "Un abribus a ete defonce a coups de masse hier soir. Des debris de verre ont blesse un passant. Des temoins vous ont vu dans le secteur. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe avait reserve dans un restaurant italien cense etre bien note en ligne. En arrivant, la devanture etait miteuse et l'enseigne clignotait. A l'interieur, ca sentait la friture et le fromage rance. La nappe en plastique de la table etait collante.</p><p>Le serveur etait un type stresse qui transpirait et oubliait tout. Il portait un tablier tache avec le nom du restaurant brode dessus. Il a mis vingt minutes a prendre la commande et s'est trompe deux fois.</p><p>Les pizzas sont arrivees tiedes avec une pate molle et degoulinante d'huile. Le fromage avait une texture caoutchouteuse suspecte. Un plat de pates commande etait completement different de la description du menu. Le pain servi en accompagnement etait dur comme de la pierre.</p><p>A un moment, quelqu'un de la table d'a cote s'est plaint bruyamment au patron. Ca a cree un esclandre. Le patron a hausse le ton et l'ambiance est devenue tres genante. Le televiseur accroche au mur diffusait un match avec le son a fond qui gresillait.</p><p>L'addition comportait des erreurs avec des plats factures en double. Le serveur a soupire quand le groupe a demande de corriger. Le groupe est parti en laissant le pourboire minimum, ecœure par l'experience.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree dans un restaurant italien pendant la destruction de l'abribus.",
+  "context": "Un abribus a été défoncé à coups de masse hier soir. Des débris de verre ont blessé un passant. Des témoins vous ont vu dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe avait réservé dans un restaurant italien censé être bien noté en ligne. En arrivant vers 20h, la devanture était miteuse et l'enseigne rouge clignotait. À l'intérieur, ça sentait la friture et le fromage rance. La nappe en plastique à carreaux rouges et blancs de la table était collante.</p><p>Le serveur était un type stressé qui transpirait et oubliait tout. Il portait un tablier noir avec 'La Dolce Vita' brodé dessus en doré. Il a mis vingt minutes à prendre la commande et s'est trompé deux fois.</p><p>Les pizzas sont arrivées tièdes avec une pâte molle et dégoulinante d'huile. Le fromage avait une texture caoutchouteuse suspecte. Les pâtes carbonara commandées sont arrivées avec de la crème, ce qui est une hérésie. Le pain servi en accompagnement était dur comme de la pierre.</p><p>À un moment, quelqu'un de la table d'à côté s'est plaint bruyamment au patron en criant 'C'est immangeable votre truc !' Ça a créé un esclandre. Le patron a haussé le ton et l'ambiance est devenue très gênante. Le téléviseur accroché au mur diffusait un match avec le son à fond.</p><p>L'addition affichait 78 euros avec des erreurs, dont un dessert facturé en double. Le serveur a soupiré quand le groupe a demandé de corriger. Le groupe est parti vers 22h15 en laissant 2 euros de pourboire, écœuré par l'expérience.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée dans un restaurant italien pendant la destruction de l'abribus.",
   "inspector_questions": [
-    "Vous avez dit avoir reserve dans un restaurant italien — quel etait le nom exact de ce restaurant ?",
-    "Vous avez dit que le serveur portait un tablier avec un nom — ecrivez ce nom exactement.",
-    "Vous avez dit que le serveur s'est trompe — quelle erreur a-t-il faite exactement ?",
-    "Vous avez dit qu'un plat etait different de la description — quel plat et quelle etait la difference ?",
-    "Vous avez dit que le televiseur gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
-    "Vous avez dit que quelqu'un s'est plaint au patron — qu'a dit cette personne exactement ?",
-    "Vous avez dit que l'addition comportait des erreurs — quel etait le montant avant correction ?",
-    "Vous avez dit avoir laisse le pourboire minimum — combien exactement ?",
-    "Vous avez dit etre partis ecœures — qui du groupe a paye l'addition ?",
-    "Vous avez dit avoir reserve — qui du groupe avait choisi ce restaurant ?"
+    {
+      "text": "Vers quelle heure le groupe est-il arrivé au restaurant ?",
+      "hint": "En arrivant vers 20h, la devanture était miteuse."
+    },
+    {
+      "text": "De quelle couleur était l'enseigne du restaurant ?",
+      "hint": "L'enseigne rouge clignotait."
+    },
+    {
+      "text": "De quelles couleurs étaient les carreaux de la nappe ?",
+      "hint": "La nappe en plastique à carreaux rouges et blancs."
+    },
+    {
+      "text": "Qu'était-il écrit sur le tablier du serveur et en quelle couleur ?",
+      "hint": "Un tablier noir avec 'La Dolce Vita' brodé dessus en doré."
+    },
+    {
+      "text": "Quel était le problème avec les pâtes carbonara ?",
+      "hint": "Les pâtes carbonara commandées sont arrivées avec de la crème."
+    },
+    {
+      "text": "Qu'a crié le client mécontent de la table d'à côté ?",
+      "hint": "Quelqu'un s'est plaint en criant 'C'est immangeable votre truc !'"
+    },
+    {
+      "text": "Quel était le montant de l'addition avant correction ?",
+      "hint": "L'addition affichait 78 euros avec des erreurs."
+    },
+    {
+      "text": "Quel plat était facturé en double ?",
+      "hint": "Un dessert facturé en double."
+    },
+    {
+      "text": "Combien de pourboire le groupe a-t-il laissé ?",
+      "hint": "Le groupe est parti en laissant 2 euros de pourboire."
+    },
+    {
+      "text": "Vers quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 22h15."
+    }
   ],
   "reading_time_seconds": 90
 }

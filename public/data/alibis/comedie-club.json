@@ -1,20 +1,50 @@
 {
   "id": "comedie-club",
-  "title": "Comedie club penible",
-  "context": "Un distributeur automatique de billets a ete arrache d'un mur hier soir a l'aide d'une voiture-belier. Des temoins ont vu un groupe correspondant a votre description fuir la scene. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe est alle dans un club de comedie pour voir une soiree open mic. L'entree etait une porte de service dans une ruelle qui sentait les poubelles. A l'interieur, la salle etait minuscule et surchauffee. Les sieges etaient des tabourets de bar inconfortables.</p><p>Le presentateur de la soiree etait un type nerveux qui transpirait beaucoup sous les projecteurs. Il portait un t-shirt avec un slogan d'humoriste imprime dessus. Il a fait des blagues qui n'ont fait rire personne et l'ambiance etait genante.</p><p>Le premier comedien s'est completement plante. Ses blagues tombaient a plat et il y avait des blancs interminables. A un moment il a oublie son texte et est reste fige pendant plusieurs secondes. Le public toussait de malaise. Le micro faisait un larsen strident regulierement.</p><p>Entre les passages, un serveur bourru a pris les commandes. Les boissons etaient servies dans des verres ebrechés et la bierre etait tiede. Il y avait un menu plastifie graisseux avec les tarifs exorbitants.</p><p>Le dernier humoriste a fait une blague sur quelqu'un dans le public qui l'a tres mal pris. Ca a cree un moment de tension horrible. Le comedien a du s'excuser platement. Le groupe est parti avant la fin, soulage de quitter cet endroit.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree dans un club de comedie pendant le vol du distributeur.",
+  "title": "Comédie club pénible",
+  "context": "Un distributeur automatique de billets a été arraché d'un mur hier soir à l'aide d'une voiture-bélier. Des témoins ont vu un groupe correspondant à votre description fuir la scène. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe est allé dans un club de comédie pour voir une soirée open mic. L'entrée coûtait 8 euros et se faisait par une porte de service dans une ruelle qui sentait les poubelles. À l'intérieur, la salle était minuscule et surchauffée. Les sièges étaient des tabourets de bar noirs inconfortables, alignés sur 5 rangées.</p><p>Le présentateur de la soirée était un type nerveux qui transpirait beaucoup sous les projecteurs. Il portait un t-shirt violet avec écrit 'RIRE C'EST VIVRE' dessus. Il a fait des blagues qui n'ont fait rire personne et l'ambiance était gênante.</p><p>Le premier comédien s'est complètement planté. Ses blagues tombaient à plat et il y avait des blancs interminables. À un moment il a oublié son texte et est resté figé pendant plusieurs secondes en fixant le plafond. Le public toussait de malaise.</p><p>Entre les passages, un serveur bourru a pris les commandes. Les boissons étaient servies dans des verres ébréchés et la bière coûtait 7 euros. Quelqu'un du groupe a renversé son verre en gesticulant.</p><p>Le dernier humoriste a fait une blague sur quelqu'un dans le public qui l'a très mal pris. Le type s'est levé en criant 'C'est une honte !' et est parti. Le comédien a dû s'excuser platement. Le groupe est parti vers 23h15, soulagé de quitter cet endroit.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée dans un club de comédie pendant le vol du distributeur.",
   "inspector_questions": [
-    "Vous avez dit etre alles dans un club de comedie — quel etait le nom exact de ce club ?",
-    "Vous avez dit que le presentateur portait un t-shirt avec un slogan — ecrivez ce slogan mot pour mot.",
-    "Vous avez dit que le premier comedien s'est plante — sur quel theme etaient ses blagues ?",
-    "Vous avez dit que le micro faisait un larsen — ecrivez l'onomatopee exacte de ce larsen.",
-    "Vous avez dit que les boissons etaient servies dans des verres ebrechés — qu'a commande le groupe exactement ?",
-    "Vous avez dit qu'il y avait un menu plastifie — quel etait le prix d'une biere selon ce menu ?",
-    "Vous avez dit que le dernier humoriste a fait une blague sur quelqu'un — quelle etait cette blague ?",
-    "Vous avez dit que ca a cree un moment de tension — comment la personne visee a-t-elle reagi ?",
-    "Vous avez dit etre partis avant la fin — qui du groupe a propose de partir ?",
-    "Vous avez dit etre soulages de quitter — comment le groupe est-il rentre ?"
+    {
+      "text": "Quel était le nom du club de comédie ?",
+      "hint": "Le groupe est allé dans un club de comédie pour voir une soirée open mic."
+    },
+    {
+      "text": "Combien coûtait l'entrée ?",
+      "hint": "L'entrée coûtait 8 euros."
+    },
+    {
+      "text": "Qu'était-il écrit sur le t-shirt du présentateur ?",
+      "hint": "Il portait un t-shirt violet avec écrit 'RIRE C'EST VIVRE' dessus."
+    },
+    {
+      "text": "Combien de rangées de tabourets y avait-il ?",
+      "hint": "Les sièges étaient des tabourets de bar noirs alignés sur 5 rangées."
+    },
+    {
+      "text": "Combien coûtait une bière ?",
+      "hint": "La bière coûtait 7 euros."
+    },
+    {
+      "text": "Qui du groupe a renversé son verre ?",
+      "hint": "Quelqu'un du groupe a renversé son verre en gesticulant."
+    },
+    {
+      "text": "Qu'a crié le spectateur mécontent avant de partir ?",
+      "hint": "Le type s'est levé en criant 'C'est une honte !' et est parti."
+    },
+    {
+      "text": "Que s'est-il passé juste après le départ du spectateur mécontent ?",
+      "hint": "Le type est parti. Le comédien a dû s'excuser platement."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 23h15."
+    },
+    {
+      "text": "Comment le groupe est-il rentré ?",
+      "hint": "Le groupe est parti, soulagé de quitter cet endroit."
+    }
   ],
   "reading_time_seconds": 90
 }

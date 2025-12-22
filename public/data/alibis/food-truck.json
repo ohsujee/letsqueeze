@@ -1,20 +1,50 @@
 {
   "id": "food-truck",
-  "title": "Festival food truck degoutant",
-  "context": "Une fontaine decorative a ete remplie de peinture rouge hier apres-midi. Des temoins affirment avoir vu un groupe correspondant a votre description fuir les lieux. Vous contestez.",
-  "accused_document": "<p>Hier apres-midi, le groupe est alle a un festival de food trucks installe sur un parking. L'endroit etait bonde et ca sentait un melange ecoeurant de friture, de merguez et de graisse brulee. Le sol etait jonche de dechets et de serviettes grasses.</p><p>Les files d'attente devant chaque camion etaient interminables. Le premier food truck visite avait un cuistot qui transpirait au-dessus de la nourriture. Il portait un tablier crasseux avec le nom du camion imprime dessus. Les mouches tournaient autour du comptoir.</p><p>La commande a mis une eternite a arriver et etait completement fausse. Les tacos commandes etaient tiedes et degoulinaient d'une sauce orange suspecte. La viande avait une texture filandreuse bizarre. Quelqu'un du groupe a trouve un cheveu dans son plat.</p><p>Un autre food truck vendait des boissons dans des gobelets qui avaient l'air reutilises. Le vendeur rendait la monnaie avec des doigts graisseux. Il y avait une ardoise avec les prix mais certains etaient effaces et illisibles.</p><p>Quelqu'un du groupe a eu mal au ventre apres avoir mange. Un autre a renverse sa boisson sur ses vetements. Le groupe est parti ecœure avec l'impression d'avoir jete son argent et risque une intoxication alimentaire.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi a un festival food truck pendant l'incident de la fontaine.",
+  "title": "Festival food truck dégoûtant",
+  "context": "Une fontaine décorative a été remplie de peinture rouge hier après-midi. Des témoins affirment avoir vu un groupe correspondant à votre description fuir les lieux. Vous contestez.",
+  "accused_document": "<p>Hier après-midi, le groupe est allé à un festival de food trucks installé sur un parking. L'entrée coûtait 3 euros. L'endroit était bondé et ça sentait un mélange écoeurant de friture, de merguez et de graisse brûlée. Le sol était jonché de déchets et de serviettes grasses.</p><p>Les files d'attente devant chaque camion étaient interminables, au moins 20 minutes. Le premier food truck visité avait un cuistot qui transpirait au-dessus de la nourriture. Il portait un tablier blanc crasseux avec le nom du camion imprimé en rouge dessus. Les mouches tournaient autour du comptoir.</p><p>La commande a mis 35 minutes à arriver et était complètement fausse. Les tacos commandés étaient tièdes et dégoulinaient d'une sauce orange suspecte. La viande avait une texture filandreuse bizarre. Quelqu'un du groupe a trouvé un cheveu noir dans son plat et a failli vomir.</p><p>Un autre food truck vendait des boissons à 5 euros dans des gobelets qui avaient l'air réutilisés. Le vendeur rendait la monnaie avec des doigts graisseux. Il y avait une ardoise avec les prix mais certains étaient effacés et illisibles.</p><p>Quelqu'un du groupe a eu mal au ventre après avoir mangé. Un autre a renversé sa boisson sur ses vêtements. Le groupe est parti vers 16h, écœuré, avec l'impression d'avoir jeté son argent et risqué une intoxication alimentaire.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé l'après-midi à un festival food truck pendant l'incident de la fontaine.",
   "inspector_questions": [
-    "Vous avez dit etre alles a un festival food truck — quel etait le nom de cet evenement ?",
-    "Vous avez dit que le cuistot portait un tablier avec un nom — ecrivez ce nom exactement.",
-    "Vous avez dit avoir commande des tacos — de quel food truck exactement ?",
-    "Vous avez dit que quelqu'un a trouve un cheveu — qui du groupe etait-ce ?",
-    "Vous avez dit qu'il y avait une ardoise avec les prix — quel etait le prix d'une boisson ?",
-    "Vous avez dit que quelqu'un a eu mal au ventre — qui du groupe etait-ce ?",
-    "Vous avez dit que quelqu'un a renverse sa boisson — qui du groupe et sur quels vetements ?",
-    "Vous avez dit avoir l'impression de jeter son argent — combien le groupe a-t-il depense au total ?",
-    "Vous avez dit etre partis ecœures — qui du groupe avait propose d'y aller ?",
-    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
+    {
+      "text": "Quel était le nom du festival food truck ?",
+      "hint": "Le groupe est allé à un festival de food trucks installé sur un parking."
+    },
+    {
+      "text": "Combien coûtait l'entrée au festival ?",
+      "hint": "L'entrée coûtait 3 euros."
+    },
+    {
+      "text": "De quelle couleur était l'inscription sur le tablier du cuistot ?",
+      "hint": "Il portait un tablier blanc crasseux avec le nom du camion imprimé en rouge dessus."
+    },
+    {
+      "text": "Combien de temps a pris la commande pour arriver ?",
+      "hint": "La commande a mis 35 minutes à arriver."
+    },
+    {
+      "text": "Qui du groupe a trouvé un cheveu dans son plat ?",
+      "hint": "Quelqu'un du groupe a trouvé un cheveu noir dans son plat."
+    },
+    {
+      "text": "Combien coûtaient les boissons ?",
+      "hint": "Un autre food truck vendait des boissons à 5 euros."
+    },
+    {
+      "text": "Qui du groupe a eu mal au ventre ?",
+      "hint": "Quelqu'un du groupe a eu mal au ventre après avoir mangé."
+    },
+    {
+      "text": "Qui du groupe a renversé sa boisson sur ses vêtements ?",
+      "hint": "Un autre a renversé sa boisson sur ses vêtements."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 16h, écœuré."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Le groupe est parti écœuré avec l'impression d'avoir jeté son argent."
+    }
   ],
   "reading_time_seconds": 90
 }

@@ -1,20 +1,50 @@
 {
   "id": "laser-game",
-  "title": "Laser game defaillant",
-  "context": "Des poubelles ont ete renversees et leur contenu etale sur la chaussee hier soir. Des cameras vous situent dans le secteur au moment des faits. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe a participe a une session de laser game dans un complexe en peripherie. L'entree etait un couloir sombre qui sentait la transpiration et le plastique chaud. La moquette au sol etait usee et collante par endroits.</p><p>Le responsable etait un ado boutonneux qui expliquait les regles en marmonnant. Il portait un t-shirt avec le slogan du laser game imprime dessus. Il avait l'air de s'ennuyer profondement et repondait aux questions en soupirant.</p><p>Les gilets distribues etaient lourds et inconfortables. Les sangles etaient poisseuses et certaines ne se fermaient plus. Le pistolet laser attribue au groupe avait un probleme de visee et tirait de travers. Les capteurs ne detectaient pas tous les tirs.</p><p>L'arene etait minuscule et mal entretenue. Des panneaux lumineux ne fonctionnaient plus et certains obstacles etaient casses. Un joueur adverse a pousse quelqu'un du groupe qui est tombe. L'ambiance sonore faisait un bruit de fond strident en permanence.</p><p>A la fin, le tableau des scores etait completement buggé. Les points ne correspondaient a rien. Le groupe a reclame mais le responsable s'en fichait. Tout le monde est reparti frustre avec des courbatures a cause des gilets.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree dans un laser game pendant l'incident des poubelles.",
+  "title": "Laser game défaillant",
+  "context": "Des poubelles ont été renversées et leur contenu étalé sur la chaussée hier soir. Des caméras vous situent dans le secteur au moment des faits. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe a participé à une session de laser game dans un complexe en périphérie. L'entrée coûtait 14 euros par personne. Le couloir d'entrée était sombre et sentait la transpiration et le plastique chaud. La moquette violette au sol était usée et collante par endroits.</p><p>Le responsable était un ado boutonneux qui expliquait les règles en marmonnant. Il portait un t-shirt noir avec le slogan du laser game imprimé en jaune fluo dessus. Il avait l'air de s'ennuyer profondément et répondait aux questions en soupirant 'C'est écrit sur le panneau'.</p><p>Les gilets distribués étaient lourds et inconfortables, ils pesaient au moins 3 kilos chacun. Les sangles étaient poisseuses et certaines ne se fermaient plus. Le pistolet laser attribué à quelqu'un du groupe avait un problème de visée et tirait complètement de travers.</p><p>L'arène était minuscule, à peine 150 mètres carrés. Des panneaux lumineux ne fonctionnaient plus et certains obstacles étaient cassés. Un joueur adverse a poussé quelqu'un du groupe qui est tombé et s'est fait mal au coude. L'ambiance sonore faisait un bruit de fond strident en permanence.</p><p>À la fin de la session de 20 minutes, le tableau des scores était complètement buggé et affichait des scores négatifs. Le groupe a réclamé mais le responsable a haussé les épaules. Tout le monde est reparti frustré vers 21h30 avec des courbatures à cause des gilets.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée dans un laser game pendant l'incident des poubelles.",
   "inspector_questions": [
-    "Vous avez dit etre alles dans un laser game — quel etait le nom exact de ce complexe ?",
-    "Vous avez dit que le responsable portait un t-shirt avec un slogan — ecrivez ce slogan exactement.",
-    "Vous avez dit que le pistolet tirait de travers — de quel cote exactement ?",
-    "Vous avez dit que l'ambiance sonore faisait un bruit strident — ecrivez l'onomatopee exacte de ce bruit.",
-    "Vous avez dit qu'un joueur adverse a pousse quelqu'un — qui du groupe est tombe ?",
-    "Vous avez dit que le tableau des scores etait buggé — quel score affichait-il pour le groupe ?",
-    "Vous avez dit avoir reclame — qui du groupe a parle au responsable ?",
-    "Vous avez dit avoir des courbatures — combien de temps a dure la session ?",
-    "Vous avez dit etre repartis frustres — qui du groupe avait reserve cette session ?",
-    "Vous avez dit etre partis — a quelle heure approximativement ?"
+    {
+      "text": "Quel était le nom du complexe de laser game ?",
+      "hint": "Le groupe a participé à une session de laser game dans un complexe en périphérie."
+    },
+    {
+      "text": "Combien coûtait l'entrée par personne ?",
+      "hint": "L'entrée coûtait 14 euros par personne."
+    },
+    {
+      "text": "De quelle couleur était la moquette ?",
+      "hint": "La moquette violette au sol était usée et collante."
+    },
+    {
+      "text": "De quelle couleur était l'inscription sur le t-shirt du responsable ?",
+      "hint": "Il portait un t-shirt noir avec le slogan imprimé en jaune fluo dessus."
+    },
+    {
+      "text": "Qui du groupe avait le pistolet défectueux ?",
+      "hint": "Le pistolet laser attribué à quelqu'un du groupe avait un problème de visée."
+    },
+    {
+      "text": "Qui du groupe est tombé après avoir été poussé ?",
+      "hint": "Un joueur adverse a poussé quelqu'un du groupe qui est tombé."
+    },
+    {
+      "text": "Combien de temps durait la session ?",
+      "hint": "À la fin de la session de 20 minutes."
+    },
+    {
+      "text": "Qu'affichait le tableau des scores à la fin ?",
+      "hint": "Le tableau des scores était complètement buggé et affichait des scores négatifs."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Tout le monde est reparti frustré vers 21h30."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Tout le monde est reparti frustré avec des courbatures à cause des gilets."
+    }
   ],
   "reading_time_seconds": 90
 }

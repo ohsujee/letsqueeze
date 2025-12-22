@@ -12,7 +12,7 @@ import hueService from '@/lib/hue-module/services/hueService';
 import hueScenariosService, { COLORS } from '@/lib/hue-module/services/hueScenariosService';
 import { GAME_EVENTS } from '@/lib/hue-module/components/HueGameConfig';
 
-const ADMIN_EMAIL = 'yogarajah.sujeevan@gmail.com';
+// Feature now available to all connected users (not guests)
 
 // Couleurs prédéfinies pour le sélecteur
 const COLOR_PRESETS = [
@@ -70,7 +70,8 @@ export default function HueSettingsPage() {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
         router.push('/login');
-      } else if (currentUser.email !== ADMIN_EMAIL) {
+      } else if (currentUser.isAnonymous) {
+        // Guests can't configure connections - need real account
         router.push('/profile');
       } else {
         setUser(currentUser);
@@ -810,36 +811,42 @@ export default function HueSettingsPage() {
       <style jsx>{`
         .hue-page {
           min-height: 100dvh;
-          background: #000;
+          background: var(--bg-primary, #0a0a0f);
           color: white;
           position: relative;
         }
 
-        /* Background */
+        /* Background - Style Guide Section 7.1 */
         .hue-bg {
           position: fixed;
           inset: 0;
           pointer-events: none;
           overflow: hidden;
+          background:
+            radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 60%, rgba(59, 130, 246, 0.10) 0%, transparent 50%),
+            radial-gradient(ellipse at 40% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 50%);
         }
         .hue-bg-orb {
           position: absolute;
           border-radius: 50%;
           filter: blur(80px);
+          animation: float 8s ease-in-out infinite;
         }
         .hue-bg-orb-1 {
           top: -10%;
           left: 20%;
           width: 400px;
           height: 400px;
-          background: rgba(139, 92, 246, 0.15);
+          background: rgba(139, 92, 246, 0.12);
         }
         .hue-bg-orb-2 {
           bottom: 20%;
           right: 10%;
           width: 300px;
           height: 300px;
-          background: rgba(59, 130, 246, 0.12);
+          background: rgba(59, 130, 246, 0.10);
+          animation-delay: -3s;
         }
         .hue-bg-orb-3 {
           top: 50%;
@@ -847,6 +854,12 @@ export default function HueSettingsPage() {
           width: 250px;
           height: 250px;
           background: rgba(245, 158, 11, 0.08);
+          animation-delay: -5s;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-20px) scale(1.05); }
         }
 
         /* Header */
@@ -854,22 +867,23 @@ export default function HueSettingsPage() {
           position: sticky;
           top: 0;
           z-index: 100;
-          background: rgba(0, 0, 0, 0.8);
+          background: rgba(10, 10, 15, 0.9);
           backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(139, 92, 246, 0.2);
         }
         .hue-header-inner {
           max-width: 800px;
           margin: 0 auto;
-          padding: var(--space-4) var(--space-6);
+          padding: 16px 24px;
           display: flex;
           align-items: center;
-          gap: var(--space-4);
+          gap: 16px;
         }
         .hue-back-btn {
           width: 44px;
           height: 44px;
-          border-radius: var(--radius-lg);
+          border-radius: 12px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
           color: white;
@@ -880,30 +894,36 @@ export default function HueSettingsPage() {
           transition: all 0.2s;
         }
         .hue-back-btn:hover {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(139, 92, 246, 0.15);
+          border-color: rgba(139, 92, 246, 0.3);
         }
         .hue-header-title {
           flex: 1;
         }
         .hue-header-title h1 {
-          font-size: var(--font-size-xl);
-          font-weight: 700;
+          font-family: 'Bungee', cursive;
+          font-size: 1.25rem;
+          font-weight: 400;
           margin: 0;
+          text-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
         }
         .hue-header-title p {
-          font-size: var(--font-size-sm);
+          font-family: 'Inter', sans-serif;
+          font-size: 0.8125rem;
           color: rgba(255, 255, 255, 0.5);
           margin: 0;
         }
         .hue-status {
           display: flex;
           align-items: center;
-          gap: var(--space-2);
-          padding: var(--space-2) var(--space-3);
-          border-radius: var(--radius-full);
+          gap: 6px;
+          padding: 6px 12px;
+          border-radius: 20px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          font-size: var(--font-size-sm);
+          font-family: 'Inter', sans-serif;
+          font-size: 0.75rem;
+          font-weight: 500;
           color: rgba(255, 255, 255, 0.5);
         }
         .hue-status.connected {
@@ -918,37 +938,48 @@ export default function HueSettingsPage() {
           z-index: 1;
           max-width: 800px;
           margin: 0 auto;
-          padding: var(--space-6);
-          padding-bottom: var(--space-16);
+          padding: 24px;
+          padding-bottom: 80px;
         }
 
-        /* Hero */
+        /* Hero - Style Guide Glassmorphism */
         .hue-hero {
           display: flex;
-          gap: var(--space-5);
-          padding: var(--space-6);
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.1));
-          border: 1px solid rgba(139, 92, 246, 0.2);
-          border-radius: var(--radius-2xl);
-          margin-bottom: var(--space-6);
+          gap: 20px;
+          padding: 24px;
+          background: rgba(20, 20, 30, 0.8);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(139, 92, 246, 0.25);
+          border-radius: 20px;
+          margin-bottom: 24px;
+          box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
         .hue-hero-icon {
-          width: 80px;
-          height: 80px;
-          border-radius: var(--radius-xl);
+          width: 72px;
+          height: 72px;
+          border-radius: 16px;
           background: linear-gradient(135deg, #8B5CF6, #3B82F6);
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+          box-shadow:
+            0 8px 24px rgba(139, 92, 246, 0.4),
+            0 0 40px rgba(139, 92, 246, 0.2);
         }
         .hue-hero-content h2 {
-          font-size: var(--font-size-2xl);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1.375rem;
           font-weight: 700;
-          margin: 0 0 var(--space-2) 0;
+          margin: 0 0 8px 0;
+          color: #ffffff;
         }
         .hue-hero-content p {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.875rem;
           color: rgba(255, 255, 255, 0.6);
           margin: 0;
           line-height: 1.5;
@@ -957,24 +988,25 @@ export default function HueSettingsPage() {
         /* Tabs */
         .hue-tabs {
           display: flex;
-          gap: var(--space-2);
-          padding: var(--space-1);
+          gap: 6px;
+          padding: 4px;
           background: rgba(255, 255, 255, 0.05);
-          border-radius: var(--radius-xl);
-          margin-bottom: var(--space-6);
+          border-radius: 14px;
+          margin-bottom: 24px;
         }
         .hue-tab {
           flex: 1;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: var(--space-2);
-          padding: var(--space-3) var(--space-4);
-          border-radius: var(--radius-lg);
+          gap: 8px;
+          padding: 12px 16px;
+          border-radius: 10px;
           background: transparent;
           border: none;
           color: rgba(255, 255, 255, 0.5);
-          font-size: var(--font-size-sm);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.875rem;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.2s;
@@ -984,8 +1016,9 @@ export default function HueSettingsPage() {
           background: rgba(255, 255, 255, 0.05);
         }
         .hue-tab.active {
-          background: rgba(255, 255, 255, 0.1);
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(139, 92, 246, 0.15));
           color: white;
+          box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
         }
         .hue-tab.disabled {
           opacity: 0.3;
@@ -999,34 +1032,58 @@ export default function HueSettingsPage() {
         .hue-section {
           display: flex;
           flex-direction: column;
-          gap: var(--space-5);
+          gap: 20px;
         }
 
-        /* Buttons */
+        /* Buttons - Style Guide 3D Effect */
         .hue-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: var(--space-2);
-          padding: var(--space-3) var(--space-5);
-          border-radius: var(--radius-lg);
+          gap: 8px;
+          padding: 12px 20px;
+          border-radius: 12px;
           border: none;
-          font-size: var(--font-size-sm);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.875rem;
           font-weight: 600;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .hue-btn-primary {
-          background: linear-gradient(135deg, #8B5CF6, #6366F1);
+          background: linear-gradient(135deg, #8B5CF6, #7c3aed);
           color: white;
+          box-shadow:
+            0 4px 0 #6d28d9,
+            0 6px 20px rgba(139, 92, 246, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
         .hue-btn-primary:hover {
-          opacity: 0.9;
-          transform: translateY(-1px);
+          transform: translateY(-2px);
+          box-shadow:
+            0 6px 0 #6d28d9,
+            0 10px 30px rgba(139, 92, 246, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        .hue-btn-primary:active {
+          transform: translateY(2px);
+          box-shadow:
+            0 2px 0 #6d28d9,
+            0 4px 10px rgba(139, 92, 246, 0.3);
         }
         .hue-btn-success {
-          background: linear-gradient(135deg, #22C55E, #10B981);
+          background: linear-gradient(135deg, #22C55E, #16a34a);
           color: white;
+          box-shadow:
+            0 4px 0 #15803d,
+            0 6px 20px rgba(34, 197, 94, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        .hue-btn-success:hover {
+          transform: translateY(-2px);
+          box-shadow:
+            0 6px 0 #15803d,
+            0 10px 30px rgba(34, 197, 94, 0.5);
         }
         .hue-btn-danger {
           background: rgba(239, 68, 68, 0.15);
@@ -1035,41 +1092,53 @@ export default function HueSettingsPage() {
         }
         .hue-btn-danger:hover {
           background: rgba(239, 68, 68, 0.25);
+          border-color: rgba(239, 68, 68, 0.5);
         }
         .hue-btn-large {
           width: 100%;
-          padding: var(--space-4) var(--space-6);
-          font-size: var(--font-size-base);
+          padding: 16px 24px;
+          font-size: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
         .hue-btn-small {
-          padding: var(--space-2) var(--space-3);
-          font-size: var(--font-size-xs);
+          padding: 8px 12px;
+          font-size: 0.75rem;
           background: rgba(255, 255, 255, 0.1);
           color: white;
+          box-shadow: none;
         }
         .hue-btn-small:hover {
           background: rgba(255, 255, 255, 0.15);
+          transform: none;
         }
         .hue-btn-accent {
-          background: linear-gradient(135deg, #8B5CF6, #6366F1);
+          background: linear-gradient(135deg, #8B5CF6, #7c3aed);
+          box-shadow:
+            0 4px 0 #6d28d9,
+            0 6px 15px rgba(139, 92, 246, 0.3);
         }
         .hue-btn-test {
-          margin-top: var(--space-3);
+          margin-top: 12px;
         }
         .hue-btn:disabled {
           opacity: 0.5;
           cursor: not-allowed;
+          transform: none !important;
         }
 
         .hue-link-btn {
           background: none;
           border: none;
-          color: #8B5CF6;
-          font-size: var(--font-size-sm);
+          color: #a78bfa;
+          font-family: 'Inter', sans-serif;
+          font-size: 0.875rem;
           cursor: pointer;
-          padding: var(--space-2);
+          padding: 8px;
+          transition: color 0.2s;
         }
         .hue-link-btn:hover {
+          color: #8b5cf6;
           text-decoration: underline;
         }
 
@@ -1077,16 +1146,20 @@ export default function HueSettingsPage() {
         .hue-connected-card {
           display: flex;
           align-items: center;
-          gap: var(--space-4);
-          padding: var(--space-5);
-          background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(16, 185, 129, 0.1));
+          gap: 16px;
+          padding: 20px;
+          background: rgba(20, 20, 30, 0.8);
+          backdrop-filter: blur(20px);
           border: 1px solid rgba(34, 197, 94, 0.3);
-          border-radius: var(--radius-xl);
+          border-radius: 16px;
+          box-shadow:
+            0 0 30px rgba(34, 197, 94, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
         .hue-connected-icon {
           width: 56px;
           height: 56px;
-          border-radius: var(--radius-lg);
+          border-radius: 12px;
           background: rgba(34, 197, 94, 0.2);
           display: flex;
           align-items: center;
@@ -1097,51 +1170,56 @@ export default function HueSettingsPage() {
           flex: 1;
         }
         .hue-connected-info h3 {
-          font-size: var(--font-size-lg);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1.125rem;
           font-weight: 600;
           color: #22C55E;
           margin: 0;
         }
         .hue-connected-info p {
+          font-family: 'Inter', sans-serif;
           color: rgba(34, 197, 94, 0.7);
           margin: 0;
-          font-size: var(--font-size-sm);
+          font-size: 0.875rem;
         }
 
         /* Connection Flow */
         .hue-connection-flow {
           display: flex;
           flex-direction: column;
-          gap: var(--space-4);
+          gap: 16px;
         }
 
         /* Bridges List */
         .hue-bridges-list {
           display: flex;
           flex-direction: column;
-          gap: var(--space-3);
+          gap: 12px;
         }
         .hue-bridges-list h4 {
-          font-size: var(--font-size-sm);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.875rem;
           color: rgba(255, 255, 255, 0.5);
           margin: 0;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
         .hue-bridge-item {
           display: flex;
           align-items: center;
-          gap: var(--space-4);
-          padding: var(--space-4);
-          background: rgba(255, 255, 255, 0.05);
+          gap: 16px;
+          padding: 16px;
+          background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: var(--radius-lg);
+          border-radius: 12px;
           cursor: pointer;
           transition: all 0.2s;
           text-align: left;
           width: 100%;
         }
         .hue-bridge-item:hover {
-          background: rgba(255, 255, 255, 0.08);
-          border-color: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(139, 92, 246, 0.3);
         }
         .hue-bridge-item.selected {
           background: rgba(139, 92, 246, 0.15);
@@ -1150,14 +1228,15 @@ export default function HueSettingsPage() {
         .hue-bridge-icon {
           width: 48px;
           height: 48px;
-          border-radius: var(--radius-md);
+          border-radius: 10px;
           background: rgba(255, 255, 255, 0.1);
           display: flex;
           align-items: center;
           justify-content: center;
         }
         .hue-bridge-item.selected .hue-bridge-icon {
-          background: linear-gradient(135deg, #8B5CF6, #6366F1);
+          background: linear-gradient(135deg, #8B5CF6, #7c3aed);
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
         }
         .hue-bridge-info {
           flex: 1;
@@ -1165,39 +1244,46 @@ export default function HueSettingsPage() {
           flex-direction: column;
         }
         .hue-bridge-ip {
+          font-family: 'Space Grotesk', sans-serif;
           font-weight: 600;
           color: white;
         }
         .hue-bridge-id {
-          font-size: var(--font-size-xs);
+          font-family: 'Inter', sans-serif;
+          font-size: 0.75rem;
           color: rgba(255, 255, 255, 0.5);
         }
         .hue-bridge-check {
-          color: #8B5CF6;
+          color: #a78bfa;
         }
 
         /* Input */
         .hue-input-group {
           display: flex;
           flex-direction: column;
-          gap: var(--space-2);
+          gap: 8px;
         }
         .hue-input-group label {
-          font-size: var(--font-size-sm);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.875rem;
           color: rgba(255, 255, 255, 0.7);
         }
         .hue-input {
           width: 100%;
-          padding: var(--space-4);
+          padding: 16px;
           background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: var(--radius-lg);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
           color: white;
-          font-size: var(--font-size-base);
+          font-family: 'Inter', sans-serif;
+          font-size: 1rem;
+          transition: all 0.2s;
         }
         .hue-input:focus {
           outline: none;
           border-color: #8B5CF6;
+          background: rgba(139, 92, 246, 0.1);
+          box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
         }
         .hue-input::placeholder {
           color: rgba(255, 255, 255, 0.3);
@@ -1207,70 +1293,77 @@ export default function HueSettingsPage() {
         .hue-connect-section {
           display: flex;
           flex-direction: column;
-          gap: var(--space-4);
+          gap: 16px;
         }
         .hue-instruction-card {
           display: flex;
           align-items: flex-start;
-          gap: var(--space-3);
-          padding: var(--space-4);
+          gap: 12px;
+          padding: 16px;
           background: rgba(245, 158, 11, 0.1);
           border: 1px solid rgba(245, 158, 11, 0.3);
-          border-radius: var(--radius-lg);
+          border-radius: 12px;
         }
         .hue-instruction-icon {
-          font-size: var(--font-size-2xl);
+          font-size: 1.5rem;
         }
         .hue-instruction-card p {
+          font-family: 'Inter', sans-serif;
           margin: 0;
-          color: #F59E0B;
+          color: #fbbf24;
           line-height: 1.5;
+          font-size: 0.9375rem;
         }
 
         /* Error Card */
         .hue-error-card {
           display: flex;
           align-items: center;
-          gap: var(--space-3);
-          padding: var(--space-4);
+          gap: 12px;
+          padding: 16px;
           background: rgba(239, 68, 68, 0.1);
           border: 1px solid rgba(239, 68, 68, 0.3);
-          border-radius: var(--radius-lg);
+          border-radius: 12px;
           color: #EF4444;
         }
         .hue-error-card p {
+          font-family: 'Inter', sans-serif;
           margin: 0;
         }
 
         /* Room Selector */
         .hue-room-selector {
-          margin-bottom: var(--space-4);
+          margin-bottom: 16px;
         }
         .hue-room-selector label {
           display: block;
-          font-size: var(--font-size-sm);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.875rem;
           color: rgba(255, 255, 255, 0.6);
-          margin-bottom: var(--space-2);
+          margin-bottom: 8px;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
         .hue-room-buttons {
           display: flex;
           flex-wrap: wrap;
-          gap: var(--space-2);
+          gap: 8px;
         }
         .hue-room-btn {
-          padding: var(--space-2) var(--space-4);
-          border-radius: var(--radius-lg);
+          padding: 8px 16px;
+          border-radius: 10px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
           color: rgba(255, 255, 255, 0.6);
-          font-size: var(--font-size-sm);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.875rem;
           font-weight: 500;
           cursor: pointer;
           transition: all 0.2s;
         }
         .hue-room-btn:hover {
           background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.2);
+          border-color: rgba(139, 92, 246, 0.3);
         }
         .hue-room-btn.active {
           background: rgba(139, 92, 246, 0.2);
@@ -1283,30 +1376,33 @@ export default function HueSettingsPage() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: var(--space-4);
-          background: rgba(255, 255, 255, 0.03);
-          border-radius: var(--radius-lg);
+          padding: 16px;
+          background: rgba(20, 20, 30, 0.6);
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .hue-lights-count .count {
-          font-size: var(--font-size-2xl);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1.5rem;
           font-weight: 700;
-          color: #8B5CF6;
+          color: #a78bfa;
         }
         .hue-lights-count .label {
-          margin-left: var(--space-2);
+          font-family: 'Inter', sans-serif;
+          margin-left: 8px;
           color: rgba(255, 255, 255, 0.6);
         }
         .hue-lights-actions {
           display: flex;
-          gap: var(--space-2);
+          gap: 8px;
         }
         .hue-lights-loading {
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: var(--space-12);
-          gap: var(--space-4);
+          padding: 48px;
+          gap: 16px;
           color: rgba(255, 255, 255, 0.5);
         }
         .hue-loading-spinner {
@@ -1322,32 +1418,34 @@ export default function HueSettingsPage() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: var(--space-12);
-          gap: var(--space-3);
+          padding: 48px;
+          gap: 12px;
           color: rgba(255, 255, 255, 0.3);
           text-align: center;
         }
         .hue-lights-empty p {
-          font-size: var(--font-size-lg);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1.125rem;
           margin: 0;
         }
         .hue-lights-empty span {
-          font-size: var(--font-size-sm);
+          font-family: 'Inter', sans-serif;
+          font-size: 0.875rem;
         }
         .hue-lights-grid {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-          gap: var(--space-3);
+          gap: 12px;
         }
         .hue-light-card {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: var(--space-3);
-          padding: var(--space-5);
+          gap: 12px;
+          padding: 20px;
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: var(--radius-xl);
+          border-radius: 16px;
           cursor: pointer;
           transition: all 0.2s;
           position: relative;
@@ -1355,16 +1453,18 @@ export default function HueSettingsPage() {
         }
         .hue-light-card:hover {
           background: rgba(255, 255, 255, 0.06);
-          border-color: rgba(255, 255, 255, 0.2);
+          border-color: rgba(139, 92, 246, 0.3);
+          transform: translateY(-2px);
         }
         .hue-light-card.selected {
           background: rgba(139, 92, 246, 0.15);
-          border-color: rgba(139, 92, 246, 0.4);
+          border-color: rgba(139, 92, 246, 0.5);
+          box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
         }
         .hue-light-bulb {
           width: 56px;
           height: 56px;
-          border-radius: var(--radius-lg);
+          border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1380,96 +1480,105 @@ export default function HueSettingsPage() {
           box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
         }
         .hue-light-name {
+          font-family: 'Space Grotesk', sans-serif;
           font-weight: 600;
-          font-size: var(--font-size-sm);
+          font-size: 0.875rem;
         }
         .hue-light-state {
-          font-size: var(--font-size-xs);
+          font-family: 'Inter', sans-serif;
+          font-size: 0.75rem;
           color: rgba(255, 255, 255, 0.5);
         }
         .hue-light-check {
           position: absolute;
-          top: var(--space-3);
-          right: var(--space-3);
+          top: 12px;
+          right: 12px;
           width: 24px;
           height: 24px;
           border-radius: 50%;
-          background: #8B5CF6;
+          background: linear-gradient(135deg, #8B5CF6, #7c3aed);
           display: flex;
           align-items: center;
           justify-content: center;
           color: white;
+          box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
         }
 
         /* Config Section */
         .hue-config-section {
-          background: rgba(255, 255, 255, 0.03);
+          background: rgba(20, 20, 30, 0.8);
+          backdrop-filter: blur(20px);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: var(--radius-xl);
-          padding: var(--space-5);
+          border-radius: 16px;
+          padding: 20px;
         }
         .hue-config-section h3 {
           display: flex;
           align-items: center;
-          gap: var(--space-2);
-          font-size: var(--font-size-lg);
+          gap: 8px;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1.125rem;
           font-weight: 600;
-          margin: 0 0 var(--space-2) 0;
+          margin: 0 0 8px 0;
           color: white;
         }
         .hue-section-desc {
+          font-family: 'Inter', sans-serif;
           color: rgba(255, 255, 255, 0.5);
-          font-size: var(--font-size-sm);
-          margin: 0 0 var(--space-4) 0;
+          font-size: 0.875rem;
+          margin: 0 0 16px 0;
         }
 
         /* Color Grid */
         .hue-color-grid {
           display: grid;
           grid-template-columns: repeat(5, 1fr);
-          gap: var(--space-3);
+          gap: 12px;
         }
         .hue-color-btn {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: var(--space-2);
-          padding: var(--space-3);
+          gap: 8px;
+          padding: 12px;
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: var(--radius-lg);
+          border-radius: 12px;
           cursor: pointer;
           transition: all 0.2s;
         }
         .hue-color-btn:hover {
           transform: scale(1.05);
           border-color: var(--color);
+          box-shadow: 0 0 20px color-mix(in srgb, var(--color) 30%, transparent);
         }
         .hue-color-swatch {
           width: 40px;
           height: 40px;
-          border-radius: var(--radius-md);
+          border-radius: 10px;
           background: var(--color);
           box-shadow: 0 4px 12px color-mix(in srgb, var(--color) 40%, transparent);
         }
         .hue-color-btn span {
-          font-size: var(--font-size-xs);
+          font-family: 'Inter', sans-serif;
+          font-size: 0.75rem;
           color: rgba(255, 255, 255, 0.7);
         }
 
         /* Game Tabs */
         .hue-game-tabs {
           display: flex;
-          gap: var(--space-2);
-          margin-bottom: var(--space-4);
+          gap: 8px;
+          margin-bottom: 16px;
         }
         .hue-game-tab {
-          padding: var(--space-2) var(--space-4);
-          border-radius: var(--radius-md);
+          padding: 8px 16px;
+          border-radius: 8px;
           background: rgba(255, 255, 255, 0.05);
           border: none;
           color: rgba(255, 255, 255, 0.6);
-          font-size: var(--font-size-sm);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.875rem;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.2s;
@@ -1478,113 +1587,120 @@ export default function HueSettingsPage() {
           background: rgba(255, 255, 255, 0.1);
         }
         .hue-game-tab.active {
-          background: #8B5CF6;
+          background: linear-gradient(135deg, #8B5CF6, #7c3aed);
           color: white;
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
         }
 
         /* Events List */
         .hue-events-list {
           display: flex;
           flex-direction: column;
-          gap: var(--space-3);
+          gap: 12px;
         }
         .hue-event-card {
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: var(--radius-lg);
+          border-radius: 12px;
           overflow: hidden;
         }
         .hue-event-header {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: var(--space-4);
+          padding: 16px;
         }
         .hue-event-info h4 {
-          font-size: var(--font-size-base);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1rem;
           font-weight: 600;
           margin: 0;
         }
         .hue-event-info p {
-          font-size: var(--font-size-sm);
+          font-family: 'Inter', sans-serif;
+          font-size: 0.875rem;
           color: rgba(255, 255, 255, 0.5);
-          margin: var(--space-1) 0 0 0;
+          margin: 4px 0 0 0;
         }
 
-        /* Toggle */
+        /* Toggle - Style Guide */
         .hue-toggle {
           width: 52px;
           height: 28px;
           border-radius: 14px;
-          background: rgba(255, 255, 255, 0.15);
-          border: none;
+          background: rgba(255, 255, 255, 0.1);
+          border: 2px solid rgba(255, 255, 255, 0.1);
           cursor: pointer;
           position: relative;
-          transition: all 0.2s;
+          transition: all 0.3s ease;
           flex-shrink: 0;
         }
         .hue-toggle.active {
-          background: #8B5CF6;
+          background: linear-gradient(135deg, #8B5CF6, #7c3aed);
+          border-color: transparent;
+          box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
         }
         .hue-toggle-thumb {
           position: absolute;
           top: 2px;
           left: 2px;
-          width: 24px;
-          height: 24px;
+          width: 20px;
+          height: 20px;
           border-radius: 50%;
           background: white;
-          transition: all 0.2s;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
         .hue-toggle.active .hue-toggle-thumb {
-          left: 26px;
+          transform: translateX(24px);
         }
 
         /* Event Config */
         .hue-event-config {
-          padding: var(--space-4);
-          padding-top: var(--space-4);
+          padding: 16px;
           border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
         .hue-config-row {
-          margin-bottom: var(--space-4);
+          margin-bottom: 16px;
         }
         .hue-config-row-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: var(--space-2);
+          margin-bottom: 8px;
         }
         .hue-config-row-header label {
           margin-bottom: 0;
         }
         .hue-config-row-actions {
           display: flex;
-          gap: var(--space-2);
+          gap: 8px;
         }
         .hue-mini-btn {
-          padding: var(--space-1) var(--space-2);
-          font-size: var(--font-size-xs);
+          padding: 4px 8px;
+          font-family: 'Inter', sans-serif;
+          font-size: 0.75rem;
           background: rgba(255, 255, 255, 0.08);
           border: none;
-          border-radius: var(--radius-sm);
+          border-radius: 6px;
           color: rgba(255, 255, 255, 0.6);
           cursor: pointer;
           transition: all 0.2s;
         }
         .hue-mini-btn:hover {
-          background: rgba(255, 255, 255, 0.15);
-          color: white;
+          background: rgba(139, 92, 246, 0.2);
+          color: #a78bfa;
         }
         .hue-config-row label {
           display: block;
-          font-size: var(--font-size-sm);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.875rem;
           color: rgba(255, 255, 255, 0.6);
-          margin-bottom: var(--space-2);
+          margin-bottom: 8px;
         }
         .hue-no-lights {
-          font-size: var(--font-size-sm);
+          font-family: 'Inter', sans-serif;
+          font-size: 0.875rem;
           color: rgba(255, 255, 255, 0.4);
           font-style: italic;
           margin: 0;
@@ -1592,24 +1708,25 @@ export default function HueSettingsPage() {
         .hue-event-lights {
           display: flex;
           flex-wrap: wrap;
-          gap: var(--space-2);
+          gap: 8px;
         }
         .hue-event-light {
           display: inline-flex;
           align-items: center;
-          gap: var(--space-1);
-          padding: var(--space-2) var(--space-3);
+          gap: 4px;
+          padding: 8px 12px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: var(--radius-md);
+          border-radius: 8px;
           color: rgba(255, 255, 255, 0.6);
-          font-size: var(--font-size-xs);
+          font-family: 'Inter', sans-serif;
+          font-size: 0.75rem;
           cursor: pointer;
           transition: all 0.2s;
         }
         .hue-event-light:hover {
           background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.2);
+          border-color: rgba(139, 92, 246, 0.3);
         }
         .hue-event-light.selected {
           background: rgba(139, 92, 246, 0.2);
@@ -1621,13 +1738,13 @@ export default function HueSettingsPage() {
         }
         .hue-color-select {
           display: flex;
-          gap: var(--space-2);
+          gap: 8px;
           flex-wrap: wrap;
         }
         .hue-color-option {
           width: 36px;
           height: 36px;
-          border-radius: var(--radius-md);
+          border-radius: 8px;
           background: var(--color);
           border: 2px solid transparent;
           cursor: pointer;
@@ -1635,6 +1752,7 @@ export default function HueSettingsPage() {
         }
         .hue-color-option:hover {
           transform: scale(1.1);
+          box-shadow: 0 0 15px color-mix(in srgb, var(--color) 50%, transparent);
         }
         .hue-color-option.selected {
           border-color: white;
@@ -1642,16 +1760,17 @@ export default function HueSettingsPage() {
         }
         .hue-effect-select {
           display: flex;
-          gap: var(--space-2);
+          gap: 8px;
           flex-wrap: wrap;
         }
         .hue-effect-option {
-          padding: var(--space-2) var(--space-3);
-          border-radius: var(--radius-md);
+          padding: 8px 12px;
+          border-radius: 8px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
           color: rgba(255, 255, 255, 0.7);
-          font-size: var(--font-size-sm);
+          font-family: 'Inter', sans-serif;
+          font-size: 0.875rem;
           cursor: pointer;
           transition: all 0.2s;
         }

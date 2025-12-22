@@ -1,20 +1,50 @@
 {
   "id": "pub-karaoke",
-  "title": "Karaoke dans pub louche",
-  "context": "Plusieurs vitrines de magasins ont ete taguees avec des inscriptions obscenes hier soir dans le centre-ville. Des temoins vous ont vu dans le secteur avec des sacs suspects. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe s'est retrouve dans un pub irlandais pour une soiree karaoke. L'endroit avait l'air mieux sur les photos internet. En entrant, ca sentait la biere renversee et le vieux bois moisi. La moquette au sol etait poisseuse et faisait un bruit de ventouse a chaque pas.</p><p>Le groupe s'est installe a une table bancale pres de la scene. Les chaises etaient depareillees et une d'entre elles avait un pied plus court. Le barman, un type avec un tablier tache, a pris les commandes sans lever les yeux de son telephone. Il y avait une ardoise derriere lui avec les cocktails du jour ecrits a la craie.</p><p>Les premiers chanteurs etaient catastrophiques. Un type a hurle une chanson tellement faux que ca faisait mal aux oreilles. Le micro gresillait et l'animateur du karaoke portait un badge avec un slogan dessus. Quelqu'un du groupe a fini par monter sur scene et a chante quelque chose qui a fait reagir toute la salle.</p><p>Le systeme de son a plante en plein milieu d'une chanson. L'ecran avec les paroles affichait n'importe quoi. L'animateur a du tout redemarrer en tapant sur la machine qui faisait un bruit metallique etrange.</p><p>A la fin de la soiree, le barman a apporte une addition completement fausse avec des consommations en trop. Il a fallu raler pendant dix minutes pour faire corriger. Le groupe est parti en se demandant pourquoi il avait choisi cet endroit.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree dans un pub irlandais pour un karaoke pendant les tags.",
+  "title": "Karaoké dans pub louche",
+  "context": "Plusieurs vitrines de magasins ont été taguées avec des inscriptions obscènes hier soir dans le centre-ville. Des témoins vous ont vu dans le secteur avec des sacs suspects. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe s'est retrouvé dans un pub irlandais pour une soirée karaoké. L'endroit avait l'air mieux sur les photos internet. En entrant, ça sentait la bière renversée et le vieux bois moisi. La moquette au sol était poisseuse et faisait un bruit de ventouse à chaque pas.</p><p>Le groupe s'est installé à une table bancale près de la scène. Les chaises étaient dépareillées et une d'entre elles avait un pied plus court. Le barman, un type avec un tablier taché de sauce rouge, a pris les commandes sans lever les yeux de son téléphone. Il y avait une ardoise derrière lui avec le cocktail du jour écrit à la craie : 'Mojito Spécial 6€'.</p><p>Les premiers chanteurs étaient catastrophiques. Un type a hurlé du Johnny tellement faux que ça faisait mal aux oreilles. Le micro grésillait et l'animateur du karaoké portait un badge avec écrit 'DJ MUSIC MASTER'. Quelqu'un du groupe a fini par monter sur scène et a chanté une chanson qui a fait rire toute la salle.</p><p>Le système de son a planté en plein milieu. L'écran avec les paroles affichait n'importe quoi. L'animateur a dû tout redémarrer en tapant sur la machine qui faisait un bruit métallique étrange.</p><p>À la fin de la soirée, le barman a apporté une addition de 47 euros avec des consommations en trop. Quelqu'un du groupe a dû râler pendant dix minutes pour faire corriger. Le groupe est parti vers 23h30 en se demandant pourquoi il avait choisi cet endroit.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée dans un pub irlandais pour un karaoké pendant les tags.",
   "inspector_questions": [
-    "Vous avez dit etre alles dans un pub irlandais — quel etait le nom exact de ce pub ?",
-    "Vous avez dit qu'il y avait une ardoise avec les cocktails — quel etait le cocktail du jour ecrit dessus ?",
-    "Vous avez dit que l'animateur portait un badge avec un slogan — ecrivez ce slogan mot pour mot.",
-    "Vous avez dit que quelqu'un du groupe a chante — qui etait-ce et quelle chanson ?",
-    "Vous avez dit que le micro gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
-    "Vous avez dit que la machine faisait un bruit metallique — ecrivez l'onomatopee exacte de ce bruit.",
-    "Vous avez dit que l'addition etait fausse — quel montant etait affiche avant correction ?",
-    "Vous avez dit avoir du raler pour corriger — qui du groupe a reclame aupres du barman ?",
-    "Vous avez dit etre partis a la fin — a quelle heure approximativement le groupe est-il parti ?",
-    "Vous avez dit vous etre demande pourquoi cet endroit — qui du groupe avait propose ce pub au depart ?"
+    {
+      "text": "Quel était le nom du pub ?",
+      "hint": "Le groupe s'est retrouvé dans un pub irlandais pour une soirée karaoké."
+    },
+    {
+      "text": "Quel était le cocktail du jour affiché sur l'ardoise ?",
+      "hint": "Il y avait une ardoise avec le cocktail du jour écrit à la craie : 'Mojito Spécial 6€'."
+    },
+    {
+      "text": "Qu'était-il écrit sur le badge de l'animateur ?",
+      "hint": "L'animateur du karaoké portait un badge avec écrit 'DJ MUSIC MASTER'."
+    },
+    {
+      "text": "Qui du groupe est monté chanter sur scène ?",
+      "hint": "Quelqu'un du groupe a fini par monter sur scène et a chanté une chanson."
+    },
+    {
+      "text": "Quelle chanson a été chantée par cette personne ?",
+      "hint": "Quelqu'un du groupe a chanté une chanson qui a fait rire toute la salle."
+    },
+    {
+      "text": "Quel montant était affiché sur l'addition avant correction ?",
+      "hint": "Le barman a apporté une addition de 47 euros avec des consommations en trop."
+    },
+    {
+      "text": "Qui du groupe a réclamé auprès du barman pour l'addition ?",
+      "hint": "Quelqu'un du groupe a dû râler pendant dix minutes pour faire corriger."
+    },
+    {
+      "text": "De quelle couleur étaient les taches sur le tablier du barman ?",
+      "hint": "Le barman, un type avec un tablier taché de sauce rouge."
+    },
+    {
+      "text": "À quelle heure approximativement le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 23h30."
+    },
+    {
+      "text": "Qui du groupe avait proposé ce pub au départ ?",
+      "hint": "Le groupe est parti en se demandant pourquoi il avait choisi cet endroit."
+    }
   ],
   "reading_time_seconds": 90
 }

@@ -2,334 +2,325 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { onAuthStateChanged, auth } from '@/lib/firebase';
 import { storage } from '@/lib/utils/storage';
 import { Zap } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function SplashScreen() {
   const router = useRouter();
-  const [isChecking, setIsChecking] = useState(true);
+  const [loadingText, setLoadingText] = useState('Chargement');
 
   useEffect(() => {
-    // Check if user has seen onboarding
-    const hasSeenOnboarding = storage.get('hasSeenOnboarding');
+    // Animation du texte de chargement
+    const texts = ['Chargement', 'Chargement.', 'Chargement..', 'Chargement...'];
+    let index = 0;
+    const textInterval = setInterval(() => {
+      index = (index + 1) % texts.length;
+      setLoadingText(texts[index]);
+    }, 400);
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setTimeout(() => {
-        if (!hasSeenOnboarding) {
-          // First time user → onboarding
-          router.push('/onboarding');
-        } else if (!user) {
-          // Returning user but not logged in → login
-          router.push('/login');
-        } else {
-          // Logged in user → home
-          router.push('/home');
-        }
-      }, 2000); // 2s splash duration for dramatic effect
-    });
+    // Redirection après 2.5s
+    const redirectTimeout = setTimeout(() => {
+      const hasSeenOnboarding = storage.get('hasSeenOnboarding');
 
-    return () => unsubscribe();
+      if (!hasSeenOnboarding) {
+        window.location.href = '/onboarding';
+      } else {
+        window.location.href = '/login';
+      }
+    }, 1200);
+
+    return () => {
+      clearInterval(textInterval);
+      clearTimeout(redirectTimeout);
+    };
   }, [router]);
 
   return (
-    <div className="splash-screen">
-      {/* Animated Background Orbs */}
-      <div className="orb orb-1"></div>
-      <div className="orb orb-2"></div>
-      <div className="orb orb-3"></div>
+    <div style={{
+      minHeight: '100dvh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+      overflow: 'hidden',
+      background: '#0a0a0f'
+    }}>
+      {/* Background avec dégradés */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: `
+          radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+          radial-gradient(ellipse at 70% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+          radial-gradient(ellipse at 50% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 40%),
+          #0a0a0f
+        `,
+        zIndex: 0
+      }} />
 
+      {/* Grille subtile */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: `
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)
+        `,
+        backgroundSize: '60px 60px',
+        zIndex: 1,
+        opacity: 0.5
+      }} />
+
+      {/* Orbes flottantes */}
       <motion.div
-        className="splash-content"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        style={{
+          position: 'absolute',
+          width: 350,
+          height: 350,
+          borderRadius: '50%',
+          background: '#8b5cf6',
+          filter: 'blur(80px)',
+          top: '-15%',
+          right: '-10%',
+          opacity: 0.4,
+          zIndex: 2
+        }}
+        animate={{
+          x: [0, 30, -20, 0],
+          y: [0, -30, 20, 0],
+          scale: [1, 1.1, 0.9, 1]
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div
+        style={{
+          position: 'absolute',
+          width: 300,
+          height: 300,
+          borderRadius: '50%',
+          background: '#f59e0b',
+          filter: 'blur(80px)',
+          bottom: '-10%',
+          left: '-10%',
+          opacity: 0.35,
+          zIndex: 2
+        }}
+        animate={{
+          x: [0, -25, 15, 0],
+          y: [0, 25, -15, 0],
+          scale: [1, 0.95, 1.1, 1]
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      />
+
+      {/* Contenu principal */}
+      <motion.div
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          padding: '2rem'
+        }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
       >
-        {/* Logo with Pulsing Glow */}
-        <div className="splash-logo">
-          <div className="logo-ring"></div>
-          <div className="logo-icon">
-            <Zap size={64} strokeWidth={2.5} fill="currentColor" />
+        {/* Logo avec effet 3D */}
+        <motion.div
+          style={{
+            position: 'relative',
+            marginBottom: '2rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.2 }}
+        >
+          {/* Anneau externe pulsant */}
+          <motion.div
+            style={{
+              position: 'absolute',
+              width: 160,
+              height: 160,
+              borderRadius: '50%',
+              border: '2px solid #8b5cf6'
+            }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.3, 0, 0.3]
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
+          />
+          {/* Anneau interne */}
+          <motion.div
+            style={{
+              position: 'absolute',
+              width: 140,
+              height: 140,
+              borderRadius: '50%',
+              border: '2px solid #8b5cf6'
+            }}
+            animate={{
+              scale: [1, 1.15, 1],
+              opacity: [0.6, 0.3, 0.6]
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+          />
+          {/* Coeur du logo */}
+          <motion.div
+            style={{
+              width: 100,
+              height: 100,
+              background: 'linear-gradient(145deg, #8b5cf6, #7c3aed)',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              position: 'relative',
+              zIndex: 5,
+              border: '3px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: `
+                0 10px 40px rgba(139, 92, 246, 0.4),
+                0 0 60px rgba(139, 92, 246, 0.2),
+                inset 0 -4px 10px rgba(0, 0, 0, 0.3),
+                inset 0 4px 10px rgba(255, 255, 255, 0.2)
+              `
+            }}
+            animate={{
+              boxShadow: [
+                '0 10px 40px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.2), inset 0 -4px 10px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(255, 255, 255, 0.2)',
+                '0 10px 60px rgba(139, 92, 246, 0.6), 0 0 100px rgba(139, 92, 246, 0.4), inset 0 -4px 10px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(255, 255, 255, 0.2)',
+                '0 10px 40px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.2), inset 0 -4px 10px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(255, 255, 255, 0.2)'
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <Zap size={56} strokeWidth={2.5} fill="currentColor" />
+          </motion.div>
+        </motion.div>
+
+        {/* Titre */}
+        <motion.h1
+          style={{
+            fontFamily: "'Bungee', cursive",
+            fontSize: 'clamp(2.5rem, 12vw, 4rem)',
+            fontWeight: 400,
+            color: '#ffffff',
+            margin: '0 0 0.5rem 0',
+            textTransform: 'uppercase',
+            letterSpacing: '0.02em',
+            textShadow: `
+              0 0 20px rgba(139, 92, 246, 0.6),
+              0 0 40px rgba(139, 92, 246, 0.4),
+              0 0 80px rgba(139, 92, 246, 0.2),
+              0 4px 0 rgba(0, 0, 0, 0.3)
+            `
+          }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          LetsQueeze
+        </motion.h1>
+
+        {/* Sous-titre */}
+        <motion.p
+          style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: '1.125rem',
+            fontWeight: 600,
+            color: 'rgba(255, 255, 255, 0.7)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.2em',
+            margin: '0 0 3rem 0'
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+        >
+          Jeux de Soirée
+        </motion.p>
+
+        {/* Loader dots */}
+        <motion.div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '1rem'
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                style={{
+                  width: 12,
+                  height: 12,
+                  backgroundColor: '#8b5cf6',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 12px rgba(139, 92, 246, 0.4)'
+                }}
+                animate={{
+                  y: [0, -18, 0],
+                  opacity: [0.5, 1, 0.5],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{
+                  duration: 0.6,
+                  repeat: Infinity,
+                  delay: i * 0.15,
+                  ease: [0.4, 0, 0.2, 1]
+                }}
+              />
+            ))}
           </div>
-        </div>
-
-        {/* App Name with Gradient Animation */}
-        <h1 className="splash-title gradient-text">LetsQueeze</h1>
-        <p className="splash-subtitle">Jeux Multijoueur Entre Amis</p>
-
-        {/* Loading Bar */}
-        <div className="loading-container">
-          <div className="loading-bar"></div>
-        </div>
+          <motion.p
+            style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: '0.875rem',
+              color: 'rgba(255, 255, 255, 0.5)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.15em',
+              margin: 0,
+              minWidth: 120
+            }}
+            key={loadingText}
+            initial={{ opacity: 0.5 }}
+            animate={{ opacity: 1 }}
+          >
+            {loadingText}
+          </motion.p>
+        </motion.div>
       </motion.div>
 
-      <style jsx>{`
-        .splash-screen {
-          min-height: 100dvh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: var(--bg-primary, #0a0a0f);
-          position: relative;
-          overflow: hidden;
-        }
-
-        /* Animated Orbs - Floating Background - Guide Colors */
-        .orb {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(60px);
-          opacity: 0.6;
-          animation: float 8s ease-in-out infinite;
-        }
-
-        .orb-1 {
-          width: 300px;
-          height: 300px;
-          background: var(--quiz-primary, #8b5cf6);
-          top: -100px;
-          right: -100px;
-          animation-delay: 0s;
-        }
-
-        .orb-2 {
-          width: 250px;
-          height: 250px;
-          background: var(--alibi-primary, #f59e0b);
-          bottom: -80px;
-          left: -80px;
-          animation-delay: 2s;
-        }
-
-        .orb-3 {
-          width: 200px;
-          height: 200px;
-          background: var(--success, #22c55e);
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          animation-delay: 4s;
-        }
-
-        @keyframes float {
-          0%, 100% {
-            transform: translate(0, 0) scale(1);
-          }
-          25% {
-            transform: translate(30px, -30px) scale(1.1);
-          }
-          50% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          75% {
-            transform: translate(20px, 30px) scale(1.05);
-          }
-        }
-
-        .splash-content {
-          text-align: center;
-          z-index: 10;
-          animation: fadeIn 0.6s ease-in;
-        }
-
-        /* Logo with Pulsing Ring */
-        .splash-logo {
-          margin-bottom: 2rem;
-          position: relative;
-          display: inline-block;
-        }
-
-        .logo-ring {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 140px;
-          height: 140px;
-          border-radius: 50%;
-          border: 3px solid var(--quiz-primary, #8b5cf6);
-          animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @keyframes pulse-ring {
-          0%, 100% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-          }
-          50% {
-            transform: translate(-50%, -50%) scale(1.2);
-            opacity: 0.5;
-          }
-        }
-
-        .logo-icon {
-          width: 120px;
-          height: 120px;
-          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed));
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          box-shadow:
-            0 10px 40px rgba(0, 0, 0, 0.3),
-            0 0 60px rgba(139, 92, 246, 0.4);
-          animation: bounce 2s ease-in-out infinite;
-          position: relative;
-          z-index: 2;
-        }
-
-        @keyframes bounce {
-          0%, 100% {
-            transform: translateY(0) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-15px) rotate(5deg);
-          }
-        }
-
-        /* Title with Animated Gradient - Guide Compliant */
-        .splash-title {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: clamp(2.5rem, 10vw, 4rem);
-          font-weight: 400;
-          line-height: 1.2;
-          letter-spacing: 0.02em;
-          margin-bottom: 0.5rem;
-          color: var(--text-primary, #ffffff);
-          text-shadow:
-            0 0 10px rgba(139, 92, 246, 0.5),
-            0 0 30px rgba(139, 92, 246, 0.3),
-            0 0 60px rgba(139, 92, 246, 0.2);
-          animation: glow-pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes glow-pulse {
-          0%, 100% {
-            text-shadow:
-              0 0 10px rgba(139, 92, 246, 0.5),
-              0 0 30px rgba(139, 92, 246, 0.3),
-              0 0 60px rgba(139, 92, 246, 0.2);
-          }
-          50% {
-            text-shadow:
-              0 0 20px rgba(139, 92, 246, 0.7),
-              0 0 40px rgba(139, 92, 246, 0.5),
-              0 0 80px rgba(139, 92, 246, 0.3);
-          }
-        }
-
-        @keyframes gradient-shift {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        .splash-subtitle {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: var(--font-size-lg, 1.125rem);
-          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
-          font-weight: 600;
-          margin-bottom: 3rem;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          animation: fadeIn 0.8s ease-in 0.3s both;
-        }
-
-        /* Loading Bar with Gradient */
-        .loading-container {
-          width: 200px;
-          height: 4px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 9999px;
-          margin: 0 auto;
-          overflow: hidden;
-          animation: fadeIn 1s ease-in 0.5s both;
-        }
-
-        .loading-bar {
-          height: 100%;
-          background: linear-gradient(90deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed), var(--alibi-primary, #f59e0b));
-          border-radius: 9999px;
-          animation: loading 2s ease-in-out infinite;
-          box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-        }
-
-        @keyframes loading {
-          0% {
-            width: 0%;
-            margin-left: 0%;
-          }
-          50% {
-            width: 70%;
-            margin-left: 15%;
-          }
-          100% {
-            width: 0%;
-            margin-left: 100%;
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        /* Mobile adjustments */
-        @media (max-width: 640px) {
-          .orb {
-            filter: blur(40px);
-          }
-
-          .logo-icon {
-            width: 100px;
-            height: 100px;
-          }
-
-          .logo-icon :global(svg) {
-            width: 48px;
-            height: 48px;
-          }
-
-          .logo-ring {
-            width: 120px;
-            height: 120px;
-          }
-
-          .splash-subtitle {
-            font-size: var(--font-size-base);
-          }
-
-          .loading-container {
-            width: 160px;
-          }
-        }
-
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-          .orb,
-          .logo-ring,
-          .logo-icon,
-          .splash-title,
-          .loading-bar {
-            animation: none;
-          }
-
-          .splash-title {
-            background-position: 0% 50%;
-          }
-        }
-      `}</style>
+      {/* Version en bas */}
+      <motion.div
+        style={{
+          position: 'absolute',
+          bottom: 'calc(20px + env(safe-area-inset-bottom, 0px))',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '0.75rem',
+          color: 'rgba(255, 255, 255, 0.3)',
+          letterSpacing: '0.1em',
+          zIndex: 10
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        transition={{ delay: 1, duration: 0.5 }}
+      >
+        v2.0
+      </motion.div>
     </div>
   );
 }

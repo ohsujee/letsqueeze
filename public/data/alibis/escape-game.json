@@ -1,20 +1,50 @@
 {
   "id": "escape-game",
   "title": "Escape game miteux",
-  "context": "Une voiture a ete incendiee hier apres-midi sur le parking d'un supermarche. Les cameras montrent un groupe correspondant a votre description quittant les lieux en courant. Vous contestez.",
-  "accused_document": "<p>Hier apres-midi, le groupe a decide de tester un escape game trouve sur internet avec une promo douteuse. En arrivant, l'enseigne au-dessus de la porte etait a moitie decrochee et clignotait. L'accueil sentait le renferme melange a une odeur de vieux tapis humide.</p><p>Le game master etait un type bizarre qui marmonnait ses explications en fixant le mur. Il portait un t-shirt avec une inscription dessus. Il a lance le chrono et a enferme le groupe dans une salle au decor defrachi. La moquette etait collante sous les pieds et certains accessoires etaient casses ou scotches grossierement.</p><p>Le groupe a commence a chercher des indices mais un des cadenas etait bloque. Impossible de l'ouvrir meme avec le bon code. Il a fallu appeler a l'aide via un interphone qui gresillait. Le game master a mis plusieurs minutes a repondre et a fini par venir debloquer le truc en soupirant bruyamment.</p><p>Une des enigmes necessitait d'appuyer sur un bouton qui faisait un bruit particulier a chaque pression. Le groupe a echoue lamentablement et le chrono a sonne avant que quiconque puisse finir. Le game master est revenu avec un air blase et a marmonne un commentaire desagreable sur la performance du groupe.</p><p>En sortant, le panneau d'affichage des scores dans l'entree montrait que le groupe etait classe dernier. Quelqu'un a quand meme voulu prendre une photo devant le decor pitoyable avant de partir.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi enfermes dans un escape game pendant l'incendie.",
+  "context": "Une voiture a été incendiée hier après-midi sur le parking d'un supermarché. Les caméras montrent un groupe correspondant à votre description quittant les lieux en courant. Vous contestez.",
+  "accused_document": "<p>Hier après-midi, le groupe a décidé de tester un escape game trouvé sur internet avec une promo douteuse à 12 euros par personne. En arrivant, l'enseigne au-dessus de la porte était à moitié décrochée et clignotait en rouge. L'accueil sentait le renfermé mélangé à une odeur de vieux tapis humide.</p><p>Le game master était un type bizarre qui marmonnait ses explications en fixant le mur. Il portait un t-shirt jaune fluo avec une inscription dessus. Il a lancé le chrono de 45 minutes et a enfermé le groupe dans une salle au décor défraîchi. La moquette orange était collante sous les pieds et certains accessoires étaient cassés ou scotchés grossièrement.</p><p>Le groupe a commencé à chercher des indices mais un des cadenas était bloqué. Impossible de l'ouvrir même avec le bon code. Il a fallu appeler à l'aide via un interphone accroché près de la porte. Le game master a mis plusieurs minutes à répondre et a fini par venir débloquer le truc en soupirant 'Encore des amateurs'.</p><p>Une des énigmes nécessitait d'appuyer sur un bouton rouge qui faisait un bruit à chaque pression. Le groupe a échoué lamentablement et le chrono a sonné avant que quiconque puisse finir. Le game master est revenu avec un air blasé.</p><p>En sortant, le panneau d'affichage des scores dans l'entrée montrait que le groupe était classé dernier sur 847 équipes. Quelqu'un du groupe a quand même voulu prendre une photo devant le décor pitoyable avant de partir.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé l'après-midi enfermés dans un escape game pendant l'incendie.",
   "inspector_questions": [
-    "Vous avez dit avoir trouve cet escape game en ligne — quel etait le nom exact de l'etablissement ?",
-    "Vous avez dit que le game master portait un t-shirt avec une inscription — ecrivez cette inscription mot pour mot.",
-    "Vous avez dit que la salle avait un theme — quel etait ce theme exactement ?",
-    "Vous avez dit qu'un cadenas etait bloque — quel etait le code que le groupe avait trouve ?",
-    "Vous avez dit que l'interphone gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
-    "Vous avez dit qu'un bouton faisait un bruit particulier — ecrivez l'onomatopee exacte de ce bruit.",
-    "Vous avez dit que le game master a fait un commentaire desagreable — qu'a-t-il dit exactement ?",
-    "Vous avez dit que le groupe etait classe dernier — quel etait le temps final affiche ?",
-    "Vous avez dit avoir pris une photo — qui du groupe a pris cette photo ?",
-    "Vous avez dit etre partis apres — comment le groupe est-il rentre ?"
+    {
+      "text": "Quel était le nom de l'escape game ?",
+      "hint": "Le groupe a décidé de tester un escape game trouvé sur internet avec une promo douteuse."
+    },
+    {
+      "text": "De quelle couleur était la moquette de la salle ?",
+      "hint": "La moquette orange était collante sous les pieds."
+    },
+    {
+      "text": "Combien coûtait l'entrée par personne ?",
+      "hint": "Une promo douteuse à 12 euros par personne."
+    },
+    {
+      "text": "Quel était le thème de la salle d'escape game ?",
+      "hint": "Il a enfermé le groupe dans une salle au décor défraîchi."
+    },
+    {
+      "text": "Qu'a dit exactement le game master en venant débloquer le cadenas ?",
+      "hint": "Le game master a fini par venir débloquer le truc en soupirant 'Encore des amateurs'."
+    },
+    {
+      "text": "Combien de temps durait la session au chrono ?",
+      "hint": "Il a lancé le chrono de 45 minutes."
+    },
+    {
+      "text": "Que s'est-il passé juste après que le chrono a sonné ?",
+      "hint": "Le chrono a sonné avant que quiconque puisse finir. Le game master est revenu avec un air blasé."
+    },
+    {
+      "text": "Sur combien d'équipes le groupe était-il classé dernier ?",
+      "hint": "Le panneau d'affichage des scores montrait que le groupe était classé dernier sur 847 équipes."
+    },
+    {
+      "text": "Qui du groupe a voulu prendre une photo à la fin ?",
+      "hint": "Quelqu'un du groupe a quand même voulu prendre une photo devant le décor pitoyable."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Le groupe est parti après la photo."
+    }
   ],
   "reading_time_seconds": 90
 }

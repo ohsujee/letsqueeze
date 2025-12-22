@@ -1,9 +1,20 @@
 "use client";
-import confetti from 'canvas-confetti';
+
+// Dynamic import - canvas-confetti is only loaded when actually used
+let confettiModule = null;
+
+async function getConfetti() {
+  if (!confettiModule) {
+    confettiModule = (await import('canvas-confetti')).default;
+  }
+  return confettiModule;
+}
 
 export const ParticleEffects = {
   // Explosion de confettis (bonne réponse)
-  celebrate: (intensity = 'high') => {
+  celebrate: async (intensity = 'high') => {
+    const confetti = await getConfetti();
+
     const configs = {
       low: { particleCount: 50, spread: 60 },
       medium: { particleCount: 100, spread: 80 },
@@ -40,7 +51,9 @@ export const ParticleEffects = {
   },
 
   // Pluie d'étoiles (podium) - Version subtile
-  starRain: () => {
+  starRain: async () => {
+    const confetti = await getConfetti();
+
     const duration = 2000;
     const end = Date.now() + duration;
     let lastTime = 0;
@@ -71,7 +84,9 @@ export const ParticleEffects = {
   },
 
   // Feu d'artifice (fin de partie) - Version élégante
-  fireworks: () => {
+  fireworks: async () => {
+    const confetti = await getConfetti();
+
     const duration = 3000;
     const end = Date.now() + duration;
 
@@ -101,7 +116,9 @@ export const ParticleEffects = {
   },
 
   // Erreur (nuage rouge)
-  wrongAnswer: () => {
+  wrongAnswer: async () => {
+    const confetti = await getConfetti();
+
     confetti({
       particleCount: 30,
       spread: 100,
@@ -115,7 +132,9 @@ export const ParticleEffects = {
   },
 
   // Buzz anticipé (éclair bleu)
-  anticipatedBuzz: () => {
+  anticipatedBuzz: async () => {
+    const confetti = await getConfetti();
+
     confetti({
       particleCount: 50,
       spread: 60,

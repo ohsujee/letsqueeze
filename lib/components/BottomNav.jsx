@@ -1,10 +1,10 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { Home, User, Link2 } from 'lucide-react';
 
 export default function BottomNav() {
-  const router = useRouter();
   const pathname = usePathname();
 
   const tabs = [
@@ -35,18 +35,15 @@ export default function BottomNav() {
         const TabIcon = tab.Icon;
 
         return (
-          <button
+          <Link
             key={tab.id}
+            href={tab.path}
             className={`nav-tab ${isActive ? 'active' : ''}`}
-            onClick={() => {
-              if (tab.path) {
-                router.push(tab.path);
-              }
-            }}
+            prefetch={true}
           >
             <TabIcon className="tab-icon" size={24} strokeWidth={2} />
             <span className="tab-label">{tab.label}</span>
-          </button>
+          </Link>
         );
       })}
     </nav>

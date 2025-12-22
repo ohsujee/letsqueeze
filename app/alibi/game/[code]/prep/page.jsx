@@ -12,10 +12,18 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion } from 'framer-motion';
-import DOMPurify from 'dompurify';
 import { Pause, Play, SkipForward } from 'lucide-react';
+
+// Dynamic import for DOMPurify - only loaded when needed
+let DOMPurifyModule = null;
+async function getDOMPurify() {
+  if (!DOMPurifyModule) {
+    DOMPurifyModule = (await import('dompurify')).default;
+  }
+  return DOMPurifyModule;
+}
 import ExitButton from "@/lib/components/ExitButton";
-import { PhaseTransition } from "@/components/transitions/PhaseTransition";
+import { AlibiPhaseTransition } from "@/components/alibi/AlibiPhaseTransition";
 
 export default function AlibiPrep() {
   const { code } = useParams();
@@ -25,6 +33,7 @@ export default function AlibiPrep() {
   const [myTeam, setMyTeam] = useState(null);
   const [isHost, setIsHost] = useState(false);
   const [alibi, setAlibi] = useState(null);
+  const [sanitizedDoc, setSanitizedDoc] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [customQuestions, setCustomQuestions] = useState(["", "", ""]);
   const [showCountdown, setShowCountdown] = useState(false);
@@ -196,15 +205,28 @@ export default function AlibiPrep() {
     });
   };
 
-  const renderHTML = (html) => {
-    if (!html) return null;
-    const sanitizedHTML = DOMPurify.sanitize(html, {
-      ALLOWED_TAGS: ['strong', 'em', 'b', 'i', 'u', 'br', 'p', 'span', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4'],
-      ALLOWED_ATTR: ['class', 'style']
-    });
+  // Sanitize HTML when alibi changes (async DOMPurify)
+  useEffect(() => {
+    if (!alibi?.accused_document) {
+      setSanitizedDoc(null);
+      return;
+    }
+
+    (async () => {
+      const DOMPurify = await getDOMPurify();
+      const sanitized = DOMPurify.sanitize(alibi.accused_document, {
+        ALLOWED_TAGS: ['strong', 'em', 'b', 'i', 'u', 'br', 'p', 'span', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4'],
+        ALLOWED_ATTR: ['class', 'style']
+      });
+      setSanitizedDoc(sanitized);
+    })();
+  }, [alibi?.accused_document]);
+
+  const renderHTML = () => {
+    if (!sanitizedDoc) return null;
     return (
       <div
-        dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
+        dangerouslySetInnerHTML={{ __html: sanitizedDoc }}
         className="alibi-prose"
       />
     );
@@ -321,7 +343,7 @@ export default function AlibiPrep() {
 
                   {/* Document de l'accusé */}
                   <div className="document-box">
-                    {renderHTML(alibi.accused_document)}
+                    {renderHTML()}
                   </div>
                 </div>
               ) : (
@@ -458,12 +480,11 @@ export default function AlibiPrep() {
       </main>
 
 
-      <PhaseTransition
+      <AlibiPhaseTransition
         isVisible={showCountdown}
-        title="Interrogatoire"
+        title="L'enquête commence"
         subtitle="Les inspecteurs vont vous questionner..."
-        icon="🕵️"
-        theme="interrogation"
+        type="interrogation"
         onComplete={handleCountdownComplete}
         duration={3500}
       />

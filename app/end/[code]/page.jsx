@@ -1,12 +1,13 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { db, ref, onValue, update } from "@/lib/firebase";
+import { db, ref, onValue, update, auth, onAuthStateChanged } from "@/lib/firebase";
 import { PodiumPremium } from "@/components/ui/PodiumPremium";
 import Leaderboard from "@/components/game/Leaderboard";
 import { motion } from "framer-motion";
 import { useToast } from "@/lib/hooks/useToast";
 import { hueScenariosService } from "@/lib/hue-module";
+import { recordQuizGame } from "@/lib/services/statsService";
 
 function rankWithTies(items, scoreKey = "score") {
   const sorted = items.slice().sort((a,b)=> (b[scoreKey]||0) - (a[scoreKey]||0));
@@ -29,12 +30,22 @@ export default function EndPage(){
   const [meta,setMeta]=useState(null);
   const [quizTitle, setQuizTitle] = useState("");
   const [myUid, setMyUid] = useState(null);
+  const [firebaseUser, setFirebaseUser] = useState(null);
+  const statsRecordedRef = useRef(false);
 
   // Récupérer l'uid de l'utilisateur depuis le localStorage
   useEffect(() => {
     const uid = localStorage.getItem(`lq_uid_${code}`);
     setMyUid(uid);
   }, [code]);
+
+  // Get Firebase auth user for stats
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setFirebaseUser(user);
+    });
+    return () => unsub();
+  }, []);
 
   const [state, setState] = useState(null);
 
@@ -78,6 +89,28 @@ export default function EndPage(){
   useEffect(() => {
     hueScenariosService.trigger('letsqueeze', 'victory');
   }, []);
+
+  // Record stats once when we have all data
+  useEffect(() => {
+    // Skip if already recorded or missing data
+    if (statsRecordedRef.current) return;
+    if (!firebaseUser || firebaseUser.isAnonymous) return;
+    if (!myUid || rankedPlayers.length === 0) return;
+
+    // Find my position in ranked players
+    const myPlayer = rankedPlayers.find(p => p.uid === myUid);
+    if (!myPlayer) return;
+
+    // Mark as recorded to prevent duplicates
+    statsRecordedRef.current = true;
+
+    // Record the game with score
+    recordQuizGame({
+      won: myPlayer.rank === 1,
+      score: myPlayer.score || 0,
+      position: myPlayer.rank
+    });
+  }, [firebaseUser, myUid, rankedPlayers]);
 
   const modeEquipes = meta?.mode === "équipes";
 

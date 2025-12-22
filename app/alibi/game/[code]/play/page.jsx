@@ -13,10 +13,10 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
+import { Send, Clock, CheckCircle, XCircle, Users, AlertTriangle } from 'lucide-react';
 import ExitButton from "@/lib/components/ExitButton";
-import { CountdownOverlay } from "@/components/shared/CountdownOverlay";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
-import { PhaseTransition } from "@/components/transitions/PhaseTransition";
+import { AlibiPhaseTransition } from "@/components/alibi/AlibiPhaseTransition";
 import { VerdictTransition } from "@/components/alibi/VerdictTransition";
 import { hueScenariosService } from "@/lib/hue-module";
 
@@ -30,21 +30,21 @@ export default function AlibiInterrogation() {
   const [suspects, setSuspects] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [questionState, setQuestionState] = useState("waiting"); // waiting | answering | verdict
+  const [questionState, setQuestionState] = useState("waiting");
   const [timeLeft, setTimeLeft] = useState(30);
   const [allAnswered, setAllAnswered] = useState(false);
   const [myAnswer, setMyAnswer] = useState("");
   const [showCountdown, setShowCountdown] = useState(false);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [responses, setResponses] = useState({});
-  const [verdict, setVerdict] = useState(null); // null | "correct" | "incorrect" | "timeout"
+  const [verdict, setVerdict] = useState(null);
   const timerRef = useRef(null);
-  const timeoutTriggeredRef = useRef(false);
+  const timeoutTriggeredRef = useRef(null);
 
   // Fonction pour quitter et retourner au lobby
   async function exitGame() {
     if (isHost && code) {
-      // Si c'est l'hôte, ramener tout le monde au lobby
+      if (timerRef.current) clearInterval(timerRef.current);
       await update(ref(db, `rooms_alibi/${code}`), {
         state: {
           phase: "lobby",
@@ -61,7 +61,6 @@ export default function AlibiInterrogation() {
     router.push(`/alibi/room/${code}`);
   }
 
-  // Fonction appelée quand le countdown est terminé
   const handleCountdownComplete = () => {
     router.push(`/alibi/game/${code}/end`);
   };
@@ -76,7 +75,6 @@ export default function AlibiInterrogation() {
             const player = snap.val();
             if (player) setMyTeam(player.team);
           });
-          // Vérifier si c'est l'hôte
           onValue(ref(db, `rooms_alibi/${code}/meta/hostUid`), (snap) => {
             setIsHost(snap.val() === user.uid);
           });
@@ -107,7 +105,7 @@ export default function AlibiInterrogation() {
     return () => questionsUnsub();
   }, [code]);
 
-  // Écouter l'état de la phase interrogation
+  // Écouter l'état de l'interrogation
   useEffect(() => {
     if (!code) return;
 
@@ -116,8 +114,6 @@ export default function AlibiInterrogation() {
       setCurrentQuestion(data.currentQuestion || 0);
       setQuestionState(data.state || "waiting");
 
-      // L'hôte ne doit PAS écouter les mises à jour du timer pendant answering
-      // pour éviter la boucle : hôte écrit -> Firebase notifie -> hôte met à jour -> double décompte
       const shouldListenToTimer = !isHost || data.state !== "answering";
       if (shouldListenToTimer) {
         setTimeLeft(data.timeLeft || 30);
@@ -132,7 +128,6 @@ export default function AlibiInterrogation() {
       if (state?.phase === "end" && !showCountdown) {
         setShowCountdown(true);
       }
-      // Redirection vers le lobby si l'hôte quitte
       if (state?.phase === "lobby") {
         router.push(`/alibi/room/${code}`);
       }
@@ -142,11 +137,10 @@ export default function AlibiInterrogation() {
       interroUnsub();
       stateUnsub();
     };
-  }, [code, router, isHost]);
+  }, [code, router, isHost, showCountdown]);
 
-  // Démarrer/arrêter le timer selon l'état
+  // Timer (host only)
   useEffect(() => {
-    // Conditions pour arrêter le timer
     if (!isHost || questionState !== "answering" || allAnswered) {
       if (timerRef.current) {
         clearInterval(timerRef.current);
@@ -155,7 +149,6 @@ export default function AlibiInterrogation() {
       return;
     }
 
-    // Démarrer le timer seulement s'il n'existe pas déjà
     if (!timerRef.current) {
       timerRef.current = setInterval(() => {
         setTimeLeft(prevTime => {
@@ -168,7 +161,6 @@ export default function AlibiInterrogation() {
       }, 1000);
     }
 
-    // Cleanup : arrêter le timer quand l'effet se nettoie
     return () => {
       if (timerRef.current) {
         clearInterval(timerRef.current);
@@ -177,43 +169,26 @@ export default function AlibiInterrogation() {
     };
   }, [questionState, isHost, allAnswered, code]);
 
-  // Détecter le timeout (séparé du timer)
+  // Timeout detection
   useEffect(() => {
     if (!isHost || questionState !== "answering") {
       timeoutTriggeredRef.current = false;
       return;
     }
 
-    // Si le timer atteint 0 et que tous n'ont pas répondu
     if (timeLeft <= 0 && !allAnswered && !timeoutTriggeredRef.current) {
       timeoutTriggeredRef.current = true;
 
-      // Arrêter le timer immédiatement
       if (timerRef.current) {
         clearInterval(timerRef.current);
         timerRef.current = null;
       }
 
-      // Déclencher le timeout
+      // Timeout = verdict, les inspecteurs doivent cliquer pour continuer
       update(ref(db, `rooms_alibi/${code}/interrogation`), {
         state: "verdict",
         verdict: "timeout"
       });
-
-      // Attendre 4 secondes puis passer à la question suivante ou fin
-      setTimeout(async () => {
-        if (currentQuestion >= 9) {
-          await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
-        } else {
-          await update(ref(db, `rooms_alibi/${code}/interrogation`), {
-            currentQuestion: currentQuestion + 1,
-            state: "waiting",
-            timeLeft: 30,
-            responses: {},
-            verdict: null
-          });
-        }
-      }, 4000);
     }
   }, [timeLeft, allAnswered, questionState, isHost, code, currentQuestion]);
 
@@ -221,10 +196,8 @@ export default function AlibiInterrogation() {
   const startQuestion = async () => {
     if (myTeam !== "inspectors") return;
 
-    // Trigger Hue pour début d'interrogatoire
     hueScenariosService.trigger('alibi', 'roundStart');
 
-    // Réinitialiser l'état de la question
     await set(ref(db, `rooms_alibi/${code}/interrogation`), {
       currentQuestion,
       state: "answering",
@@ -233,7 +206,6 @@ export default function AlibiInterrogation() {
       verdict: null
     });
 
-    // Réinitialiser l'état local (l'hôte doit initialiser son timer à 30)
     setTimeLeft(30);
     setHasAnswered(false);
     setMyAnswer("");
@@ -242,13 +214,11 @@ export default function AlibiInterrogation() {
   const judgeAnswers = async (isCorrect) => {
     if (myTeam !== "inspectors") return;
 
-    // Enregistrer le verdict
     await update(ref(db, `rooms_alibi/${code}/interrogation`), {
       state: "verdict",
       verdict: isCorrect ? "correct" : "incorrect"
     });
 
-    // Mettre à jour le score si correct
     if (isCorrect) {
       const scoreRef = ref(db, `rooms_alibi/${code}/score/correct`);
       onValue(scoreRef, (snap) => {
@@ -258,15 +228,12 @@ export default function AlibiInterrogation() {
     }
   };
 
-  // Fonction pour passer à la question suivante (appelée par le bouton dans le modal)
   const handleNextQuestion = async () => {
     if (myTeam !== "inspectors") return;
 
     if (currentQuestion >= 9) {
-      // Dernière question, aller à la page de fin
       await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
     } else {
-      // Question suivante
       await update(ref(db, `rooms_alibi/${code}/interrogation`), {
         currentQuestion: currentQuestion + 1,
         state: "waiting",
@@ -277,19 +244,18 @@ export default function AlibiInterrogation() {
     }
   };
 
-  // Réinitialiser l'état local quand on change de question
+  // Reset local state on question change
   useEffect(() => {
     if (questionState === "waiting") {
       setHasAnswered(false);
       setMyAnswer("");
       setAllAnswered(false);
       timeoutTriggeredRef.current = false;
-      // Réinitialiser le timer à 30 secondes
       setTimeLeft(30);
     }
   }, [currentQuestion, questionState]);
 
-  // Détecter quand tous les suspects ont répondu
+  // Detect when all suspects answered
   useEffect(() => {
     if (questionState === "answering" && suspects.length > 0) {
       const allHaveAnswered = suspects.every(s => responses[s.uid]);
@@ -297,7 +263,7 @@ export default function AlibiInterrogation() {
     }
   }, [questionState, suspects, responses]);
 
-  // Déclencher les effets visuels et Hue selon le verdict
+  // Visual effects on verdict
   useEffect(() => {
     if (verdict === "correct") {
       ParticleEffects.celebrate('high');
@@ -306,13 +272,12 @@ export default function AlibiInterrogation() {
       ParticleEffects.wrongAnswer();
       hueScenariosService.trigger('alibi', 'badAnswer');
     } else if (verdict === "timeout") {
-      // Effet subtil pour timeout
       ParticleEffects.wrongAnswer();
       hueScenariosService.trigger('alibi', 'timeUp');
     }
   }, [verdict]);
 
-  // Ambiance Hue au chargement + cleanup
+  // Hue ambiance
   useEffect(() => {
     hueScenariosService.trigger('alibi', 'ambiance');
     return () => {
@@ -333,476 +298,347 @@ export default function AlibiInterrogation() {
     setHasAnswered(true);
   };
 
-  const formatTime = (seconds) => {
-    return `${seconds}s`;
-  };
+  const formatTime = (seconds) => `${seconds}s`;
 
   const currentQuestionData = questions[currentQuestion];
+  const progressPercent = ((currentQuestion + 1) / 10) * 100;
+  const isUrgent = timeLeft <= 10;
+  const isCritical = timeLeft <= 5;
 
   return (
-    <div className="alibi-theme">
-      {/* Header Fixe */}
-      <header className="player-game-header">
-        <div className="player-game-header-content">
-          <div className="player-game-title">Question {currentQuestion + 1} / 10</div>
-          <div className="player-progress-center">
-            <div className="w-32 bg-gray-700 rounded-full h-2">
-              <div
-                className="bg-accent h-2 rounded-full transition-all"
-                style={{ width: `${((currentQuestion + 1) / 10) * 100}%` }}
-              />
-            </div>
-          </div>
-          <div className="player-header-exit">
-            <ExitButton
-              variant="header"
-              confirmMessage="Voulez-vous vraiment quitter ? Tout le monde retournera au lobby."
-              onExit={exitGame}
-            />
-          </div>
+    <div className="interro-screen">
+      {/* Animated Background */}
+      <div className="interro-bg" />
+
+      {/* Header */}
+      <header className="interro-header">
+        <div className="interro-header-content">
+          <div className="interro-header-title">Question {currentQuestion + 1}/10</div>
+
+          <ExitButton
+            variant="header"
+            confirmMessage="Voulez-vous vraiment quitter ? Tout le monde retournera au lobby."
+            onExit={exitGame}
+          />
+        </div>
+
+        {/* Progress Bar */}
+        <div className="interro-progress">
+          <motion.div
+            className="interro-progress-fill"
+            initial={{ width: 0 }}
+            animate={{ width: `${progressPercent}%` }}
+            transition={{ duration: 0.3 }}
+          />
         </div>
       </header>
 
-      {/* Contenu avec padding-top */}
-      <main className="player-game-content">
-        <div className="game-container">
-          <div className="game-content p-6 max-w-4xl mx-auto space-y-6 min-h-screen" style={{paddingBottom: '100px'}}>
+      {/* Main Content */}
+      <main className="interro-content">
+        <div className="interro-wrapper">
 
-      {/* État: WAITING - Inspecteurs lancent la question */}
-      {questionState === "waiting" && myTeam === "inspectors" && (
-        <motion.div
-          className="card space-y-4 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-        >
-          <h2 className="game-section-title">Question {currentQuestion + 1}</h2>
-          <p className="text-lg">{currentQuestionData?.text}</p>
-          <button
-            className="btn btn-accent w-full h-16 text-xl"
-            onClick={startQuestion}
-          >
-            ⏱️ Lancer le timer (30s)
-          </button>
-        </motion.div>
-      )}
-
-      {questionState === "waiting" && myTeam === "suspects" && (
-        <motion.div
-          className="card text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-        >
-          <p className="text-lg opacity-70">
-            En attente que les inspecteurs lancent la question...
-          </p>
-        </motion.div>
-      )}
-
-      {/* État: ANSWERING - Suspects répondent - Version AAA */}
-      {questionState === "answering" && myTeam === "suspects" && (
-        <motion.div
-          className="card space-y-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            boxShadow: timeLeft <= 5
-              ? ['0 0 0 rgba(239, 68, 68, 0)', '0 0 40px rgba(239, 68, 68, 0.8)', '0 0 0 rgba(239, 68, 68, 0)']
-              : timeLeft <= 10
-              ? '0 0 20px rgba(251, 191, 36, 0.5)'
-              : '0 4px 12px rgba(0, 0, 0, 0.2)'
-          }}
-          transition={{
-            delay: 0.1,
-            duration: 0.5,
-            boxShadow: timeLeft <= 5 ? { duration: 1, repeat: Infinity } : {}
-          }}
-          style={{
-            background: timeLeft <= 5
-              ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.15))'
-              : timeLeft <= 10
-              ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.1))'
-              : undefined,
-            border: timeLeft <= 5
-              ? '2px solid rgba(239, 68, 68, 0.5)'
-              : timeLeft <= 10
-              ? '2px solid rgba(251, 191, 36, 0.3)'
-              : undefined
-          }}
-        >
-          <div className="text-center">
-            <motion.h2
-              className="text-3xl font-black mb-2"
-              animate={timeLeft <= 5 ? {
-                scale: [1, 1.1, 1],
-                color: ['#EF4444', '#FCA5A5', '#EF4444']
-              } : timeLeft <= 10 ? {
-                scale: [1, 1.05, 1]
-              } : {}}
-              transition={timeLeft <= 5 ? {
-                duration: 0.8,
-                repeat: Infinity
-              } : timeLeft <= 10 ? {
-                duration: 1,
-                repeat: Infinity
-              } : {}}
-              style={{
-                color: timeLeft <= 5 ? '#EF4444' : timeLeft <= 10 ? '#F59E0B' : 'white',
-                textShadow: timeLeft <= 5
-                  ? '0 0 20px rgba(239, 68, 68, 0.8)'
-                  : timeLeft <= 10
-                  ? '0 0 15px rgba(245, 158, 11, 0.6)'
-                  : 'none'
-              }}
-            >
-              {timeLeft <= 5 ? "🚨" : timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
-            </motion.h2>
-            {timeLeft <= 10 && (
-              <motion.p
-                className="font-bold"
-                animate={{
-                  opacity: [0.7, 1, 0.7],
-                  scale: timeLeft <= 5 ? [1, 1.05, 1] : [1, 1.02, 1]
-                }}
-                transition={{ duration: timeLeft <= 5 ? 0.5 : 1, repeat: Infinity }}
-                style={{
-                  color: timeLeft <= 5 ? '#EF4444' : '#F59E0B',
-                  fontSize: timeLeft <= 5 ? '1.1rem' : '1rem'
-                }}
-              >
-                {timeLeft <= 5 ? '⚡ DÉPÊCHE-TOI ! ⚡' : 'Dépêche-toi !'}
-              </motion.p>
-            )}
-          </div>
-
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              boxShadow: [
-                '0 0 40px rgba(255, 109, 0, 0.4)',
-                '0 0 60px rgba(255, 109, 0, 0.6)',
-                '0 0 40px rgba(255, 109, 0, 0.4)'
-              ]
-            }}
-            transition={{
-              scale: { duration: 0.3 },
-              boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-            }}
-            style={{
-              background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.15), rgba(245, 158, 11, 0.1))',
-              border: '2px solid rgba(255, 109, 0, 0.4)',
-              borderRadius: 'var(--radius-xl)',
-              padding: 'var(--space-8)',
-              position: 'relative',
-              overflow: 'hidden'
-            }}
-          >
-            {/* Spotlight effect */}
-            <div style={{
-              position: 'absolute',
-              top: '-50%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '200%',
-              height: '200%',
-              background: 'radial-gradient(circle, rgba(255, 109, 0, 0.15) 0%, transparent 50%)',
-              pointerEvents: 'none',
-              zIndex: 0
-            }} />
-
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <motion.div
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                style={{
-                  display: 'inline-block',
-                  background: 'rgba(255, 109, 0, 0.3)',
-                  padding: 'var(--space-2) var(--space-4)',
-                  borderRadius: 'var(--radius-md)',
-                  marginBottom: 'var(--space-4)',
-                  fontSize: 'var(--font-size-sm)',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: 'var(--letter-spacing-wide)'
-                }}
-              >
-                🎯 Question {currentQuestion + 1} / 10
-              </motion.div>
-              <motion.p
-                className="text-2xl font-bold leading-relaxed"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                style={{
-                  color: 'white',
-                  textShadow: '0 2px 20px rgba(255, 109, 0, 0.5)',
-                  lineHeight: 'var(--line-height-relaxed)'
-                }}
-              >
-                {currentQuestionData?.text}
-              </motion.p>
-            </div>
-          </motion.div>
-
-          {!hasAnswered ? (
-            <div className="space-y-3">
-              <textarea
-                className="game-textarea game-textarea-accent"
-                placeholder="Ta réponse..."
-                value={myAnswer}
-                onChange={(e) => setMyAnswer(e.target.value)}
-                maxLength={500}
-                autoComplete="off"
-              />
-              <button
-                className="btn btn-primary w-full h-14 text-xl"
-                onClick={submitAnswer}
-                disabled={!myAnswer.trim()}
-              >
-                Valider ma réponse
-              </button>
-            </div>
-          ) : (
-            <div className="bg-green-500/20 border border-green-500 rounded-lg text-center" style={{ padding: 'var(--space-4)' }}>
-              <div className="text-green-400 text-5xl" style={{ marginBottom: 'var(--space-4)' }}>✓</div>
-              <p className="text-xl font-bold text-green-400">Réponse envoyée !</p>
-              <p className="text-lg opacity-70" style={{ marginTop: 'var(--space-2)' }}>En attente du jugement des inspecteurs...</p>
-            </div>
-          )}
-        </motion.div>
-      )}
-
-      {questionState === "answering" && myTeam === "inspectors" && (
-        <div className="space-y-6">
-          {/* Timer et question - Version AAA avec stress progressif */}
-          <motion.div
-            className="card text-center space-y-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              boxShadow: timeLeft <= 5
-                ? ['0 0 0 rgba(239, 68, 68, 0)', '0 0 40px rgba(239, 68, 68, 0.8)', '0 0 0 rgba(239, 68, 68, 0)']
-                : timeLeft <= 10
-                ? '0 0 20px rgba(251, 191, 36, 0.5)'
-                : '0 4px 12px rgba(0, 0, 0, 0.2)'
-            }}
-            transition={{
-              delay: 0.1,
-              duration: 0.5,
-              boxShadow: timeLeft <= 5 ? { duration: 1, repeat: Infinity } : {}
-            }}
-            style={{
-              background: timeLeft <= 5
-                ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.15))'
-                : timeLeft <= 10
-                ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.1))'
-                : undefined,
-              border: timeLeft <= 5
-                ? '2px solid rgba(239, 68, 68, 0.5)'
-                : timeLeft <= 10
-                ? '2px solid rgba(251, 191, 36, 0.3)'
-                : undefined
-            }}
-          >
-            <motion.h2
-              className="text-3xl font-black"
-              animate={timeLeft <= 5 ? {
-                scale: [1, 1.1, 1],
-                color: ['#EF4444', '#FCA5A5', '#EF4444']
-              } : timeLeft <= 10 ? {
-                scale: [1, 1.05, 1]
-              } : {}}
-              transition={timeLeft <= 5 ? {
-                duration: 0.8,
-                repeat: Infinity
-              } : timeLeft <= 10 ? {
-                duration: 1,
-                repeat: Infinity
-              } : {}}
-              style={{
-                color: timeLeft <= 5 ? '#EF4444' : timeLeft <= 10 ? '#F59E0B' : 'white',
-                textShadow: timeLeft <= 5
-                  ? '0 0 20px rgba(239, 68, 68, 0.8)'
-                  : timeLeft <= 10
-                  ? '0 0 15px rgba(245, 158, 11, 0.6)'
-                  : 'none'
-              }}
-            >
-              {timeLeft <= 5 ? "🚨" : timeLeft > 10 ? "⏱️" : "⚠️"} {formatTime(timeLeft)}
-            </motion.h2>
-            {timeLeft <= 10 && !allAnswered && (
-              <motion.p
-                className="font-bold"
-                animate={{
-                  opacity: [0.7, 1, 0.7],
-                  scale: timeLeft <= 5 ? [1, 1.05, 1] : [1, 1.02, 1]
-                }}
-                transition={{ duration: timeLeft <= 5 ? 0.5 : 1, repeat: Infinity }}
-                style={{
-                  color: timeLeft <= 5 ? '#EF4444' : '#F59E0B',
-                  fontSize: timeLeft <= 5 ? '1.1rem' : '1rem'
-                }}
-              >
-                {timeLeft <= 5 ? '⚡ DÉPÊCHEZ-VOUS ! ⚡' : 'Temps presque écoulé !'}
-              </motion.p>
-            )}
-            {allAnswered && (
-              <p className="text-green-400 font-bold animate-pulse">✓ Toutes les réponses reçues !</p>
-            )}
-          </motion.div>
-
-          {/* Question Spotlight - Inspecteurs */}
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              boxShadow: [
-                '0 0 40px rgba(255, 109, 0, 0.4)',
-                '0 0 60px rgba(255, 109, 0, 0.6)',
-                '0 0 40px rgba(255, 109, 0, 0.4)'
-              ]
-            }}
-            transition={{
-              scale: { duration: 0.3 },
-              boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-            }}
-            style={{
-              background: 'linear-gradient(135deg, rgba(255, 109, 0, 0.15), rgba(245, 158, 11, 0.1))',
-              border: '2px solid rgba(255, 109, 0, 0.4)',
-              borderRadius: 'var(--radius-xl)',
-              padding: 'var(--space-8)',
-              position: 'relative',
-              overflow: 'hidden'
-            }}
-          >
-            {/* Spotlight effect */}
-            <div style={{
-              position: 'absolute',
-              top: '-50%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '200%',
-              height: '200%',
-              background: 'radial-gradient(circle, rgba(255, 109, 0, 0.15) 0%, transparent 50%)',
-              pointerEvents: 'none',
-              zIndex: 0
-            }} />
-
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <motion.div
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                style={{
-                  display: 'inline-block',
-                  background: 'rgba(255, 109, 0, 0.3)',
-                  padding: 'var(--space-2) var(--space-4)',
-                  borderRadius: 'var(--radius-md)',
-                  marginBottom: 'var(--space-4)',
-                  fontSize: 'var(--font-size-sm)',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: 'var(--letter-spacing-wide)'
-                }}
-              >
-                🎯 Question {currentQuestion + 1} / 10
-              </motion.div>
-              <motion.p
-                className="text-2xl font-bold leading-relaxed"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                style={{
-                  color: 'white',
-                  textShadow: '0 2px 20px rgba(255, 109, 0, 0.5)',
-                  lineHeight: 'var(--line-height-relaxed)'
-                }}
-              >
-                {currentQuestionData?.text}
-              </motion.p>
-            </div>
-          </motion.div>
-
-          {/* Compteur de réponses */}
-          <motion.div
-            className="card text-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            <p className="text-sm opacity-70">
-              {Object.keys(responses).length} / {suspects.length} suspect(s) ont répondu
-            </p>
-          </motion.div>
-
-          {/* Réponses en temps réel */}
-          <motion.div
-            className="card space-y-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <h2 className="text-xl font-bold">Réponses des suspects :</h2>
-            <div className="space-y-3">
-              {suspects.map(suspect => {
-                const response = responses[suspect.uid];
-                return (
-                  <div
-                    key={suspect.uid}
-                    className={`p-4 rounded-lg transition-all ${
-                      response
-                        ? "bg-green-500/20 border-2 border-green-500"
-                        : "bg-slate-700/50 border-2 border-slate-600 opacity-50"
-                    }`}
-                  >
-                    <p className="font-bold text-primary mb-2">
-                      🎭 {suspect.name}
-                      {response && <span className="text-green-400 ml-2">✓</span>}
-                    </p>
-                    {response ? (
-                      <p className="text-lg">{response.answer}</p>
-                    ) : (
-                      <p className="text-sm italic opacity-50">En attente de réponse...</p>
-                    )}
+          {/* ========== WAITING STATE ========== */}
+          {questionState === "waiting" && (
+            <>
+              {/* INSPECTORS - Waiting */}
+              {myTeam === "inspectors" && (
+                <motion.div
+                  className="interro-waiting"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <div className="interro-phase-header">
+                    <h1 className="interro-title">Interrogatoire</h1>
+                    <p className="interro-subtitle">Posez cette question aux suspects</p>
                   </div>
-                );
-              })}
-            </div>
 
-            {/* Boutons de jugement - Affichés seulement quand toutes les réponses sont reçues */}
-            {allAnswered && (
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t-2 border-accent/50 mt-6">
-                <button
-                  className="btn btn-danger h-20 text-xl"
-                  onClick={() => judgeAnswers(false)}
+                  {/* Hint for inspector - reference passage */}
+                  {currentQuestionData?.hint && (
+                    <motion.div
+                      className="interro-hint-card"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.05 }}
+                    >
+                      <div className="interro-hint-label">📖 Passage de référence</div>
+                      <p className="interro-hint-text">{currentQuestionData.hint}</p>
+                    </motion.div>
+                  )}
+
+                  <motion.div
+                    className="interro-question-card spotlight"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <div className="interro-card-glow" />
+                    <div className="interro-question-badge">Question {currentQuestion + 1}</div>
+                    <p className="interro-question-text">{currentQuestionData?.text}</p>
+                  </motion.div>
+
+                  <motion.button
+                    className="interro-btn-start"
+                    onClick={startQuestion}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <Clock size={20} />
+                    <span>Lancer le timer (30s)</span>
+                  </motion.button>
+                </motion.div>
+              )}
+
+              {/* SUSPECTS - Waiting */}
+              {myTeam === "suspects" && (
+                <motion.div
+                  className="interro-waiting"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                 >
-                  ❌ Refuser
-                </button>
-                <button
-                  className="btn btn-success h-20 text-xl"
-                  onClick={() => judgeAnswers(true)}
+                  <div className="interro-phase-header">
+                    <h1 className="interro-title">En attente...</h1>
+                    <p className="interro-subtitle">Les inspecteurs préparent la question</p>
+                  </div>
+
+                  <motion.div
+                    className="interro-waiting-card"
+                    animate={{
+                      boxShadow: [
+                        '0 0 20px rgba(245, 158, 11, 0.2)',
+                        '0 0 40px rgba(245, 158, 11, 0.4)',
+                        '0 0 20px rgba(245, 158, 11, 0.2)'
+                      ]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <div className="interro-card-glow" />
+                    <motion.div
+                      className="interro-waiting-icon"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Clock size={48} />
+                    </motion.div>
+                    <p className="interro-waiting-text">Préparez-vous à répondre...</p>
+                  </motion.div>
+                </motion.div>
+              )}
+            </>
+          )}
+
+          {/* ========== ANSWERING STATE ========== */}
+          {questionState === "answering" && (
+            <>
+              {/* SUSPECTS - Answering */}
+              {myTeam === "suspects" && (
+                <motion.div
+                  className="interro-answering"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                 >
-                  ✅ Valider
-                </button>
-              </div>
-            )}
-          </motion.div>
-        </div>
-      )}
+                  {/* Timer prominent */}
+                  <motion.div
+                    className={`interro-timer-card ${isCritical ? 'critical' : isUrgent ? 'urgent' : ''}`}
+                    animate={isCritical ? {
+                      scale: [1, 1.02, 1],
+                      boxShadow: [
+                        '0 0 20px rgba(239, 68, 68, 0.4)',
+                        '0 0 40px rgba(239, 68, 68, 0.7)',
+                        '0 0 20px rgba(239, 68, 68, 0.4)'
+                      ]
+                    } : {}}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                  >
+                    <span className="interro-timer-big">{formatTime(timeLeft)}</span>
+                    {isCritical && <span className="interro-timer-warning">DÉPÊCHE-TOI !</span>}
+                  </motion.div>
 
-          </div>
-        </div>
+                  {/* Question */}
+                  <motion.div
+                    className="interro-question-card"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <div className="interro-card-glow" />
+                    <div className="interro-question-badge">Question {currentQuestion + 1}</div>
+                    <p className="interro-question-text">{currentQuestionData?.text}</p>
+                  </motion.div>
 
-      {/* Transition de verdict fullscreen spectaculaire */}
+                  {/* Answer input or confirmation */}
+                  {!hasAnswered ? (
+                    <motion.div
+                      className="interro-answer-section"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <textarea
+                        className="interro-textarea"
+                        placeholder="Ta réponse..."
+                        value={myAnswer}
+                        onChange={(e) => setMyAnswer(e.target.value)}
+                        maxLength={500}
+                        autoComplete="off"
+                        autoFocus
+                      />
+                      <motion.button
+                        className="interro-btn-submit"
+                        onClick={submitAnswer}
+                        disabled={!myAnswer.trim()}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Send size={20} />
+                        <span>Valider ma réponse</span>
+                      </motion.button>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      className="interro-answered-card"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                    >
+                      <CheckCircle size={48} />
+                      <p className="interro-answered-title">Réponse envoyée !</p>
+                      <p className="interro-answered-subtitle">En attente du jugement...</p>
+                    </motion.div>
+                  )}
+                </motion.div>
+              )}
+
+              {/* INSPECTORS - Answering */}
+              {myTeam === "inspectors" && (
+                <motion.div
+                  className="interro-answering"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  {/* Timer */}
+                  <motion.div
+                    className={`interro-timer-card ${isCritical ? 'critical' : isUrgent ? 'urgent' : ''}`}
+                    animate={isCritical ? { scale: [1, 1.02, 1] } : {}}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                  >
+                    <span className="interro-timer-big">{formatTime(timeLeft)}</span>
+                    {allAnswered && <span className="interro-timer-success">Toutes les réponses reçues !</span>}
+                  </motion.div>
+
+                  {/* Hint for inspector - reference passage */}
+                  {currentQuestionData?.hint && (
+                    <motion.div
+                      className="interro-hint-card compact"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
+                      <div className="interro-hint-label">📖 Référence</div>
+                      <p className="interro-hint-text">{currentQuestionData.hint}</p>
+                    </motion.div>
+                  )}
+
+                  {/* Question reminder */}
+                  <motion.div
+                    className="interro-question-card compact"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    <div className="interro-card-glow" />
+                    <div className="interro-question-badge">Question {currentQuestion + 1}</div>
+                    <p className="interro-question-text">{currentQuestionData?.text}</p>
+                  </motion.div>
+
+                  {/* Responses counter */}
+                  <div className="interro-responses-counter">
+                    <Users size={16} />
+                    <span>{Object.keys(responses).length} / {suspects.length} réponses</span>
+                  </div>
+
+                  {/* Responses list */}
+                  <div className="interro-responses-list">
+                    {suspects.map((suspect, index) => {
+                      const response = responses[suspect.uid];
+                      return (
+                        <motion.div
+                          key={suspect.uid}
+                          className={`interro-response-card ${response ? 'answered' : 'waiting'}`}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                        >
+                          <div className="interro-response-header">
+                            <span className="interro-response-name">{suspect.name}</span>
+                            {response ? (
+                              <CheckCircle size={18} className="status-success" />
+                            ) : (
+                              <Clock size={18} className="status-waiting" />
+                            )}
+                          </div>
+                          {response ? (
+                            <p className="interro-response-text">{response.answer}</p>
+                          ) : (
+                            <p className="interro-response-pending">En attente de réponse...</p>
+                          )}
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Judgment buttons */}
+                  <AnimatePresence>
+                    {allAnswered && (
+                      <motion.div
+                        className="interro-judgment"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                      >
+                        <p className="interro-judgment-label">Les réponses sont-elles cohérentes ?</p>
+                        <div className="interro-judgment-buttons">
+                          <motion.button
+                            className="interro-btn-judge reject"
+                            onClick={() => judgeAnswers(false)}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <XCircle size={24} />
+                            <span>Refuser</span>
+                          </motion.button>
+                          <motion.button
+                            className="interro-btn-judge accept"
+                            onClick={() => judgeAnswers(true)}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <CheckCircle size={24} />
+                            <span>Valider</span>
+                          </motion.button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              )}
+            </>
+          )}
+
+          {/* No team */}
+          {!myTeam && (
+            <motion.div
+              className="interro-no-team"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <AlertTriangle size={48} />
+              <p>Tu n'es assigné à aucune équipe...</p>
+            </motion.div>
+          )}
+        </div>
+      </main>
+
+      {/* Verdict Transition */}
       <VerdictTransition
         isVisible={questionState === "verdict" && verdict !== null}
         verdict={verdict}
@@ -810,46 +646,42 @@ export default function AlibiInterrogation() {
         onButtonClick={handleNextQuestion}
         duration={3500}
       />
-      </main>
 
-      <PhaseTransition
+      {/* Phase Transition to End */}
+      <AlibiPhaseTransition
         isVisible={showCountdown}
         title="Enquête Terminée"
         subtitle="Découvrez les résultats..."
-        icon="📊"
-        theme="end"
+        type="end"
         onComplete={handleCountdownComplete}
         duration={3500}
       />
 
-      <style jsx>{`
-        /* ===== ALIBI PLAY PAGE - Guide UI Compliant ===== */
+      <style jsx global>{`
+        html, body {
+          overflow: hidden !important;
+          height: 100% !important;
+          max-height: 100% !important;
+        }
+      `}</style>
+      <style jsx global>{`
+        /* ===== INTERROGATION SCREEN ===== */
 
-        /* Alibi Theme Variables */
-        .alibi-theme {
-          --alibi-primary: #f59e0b;
-          --alibi-glow: #fbbf24;
-          --alibi-dark: #b45309;
-          --bg-primary: #0a0a0f;
-          --bg-secondary: #12121a;
-          --bg-card: rgba(20, 20, 30, 0.8);
-          --text-primary: #ffffff;
-          --text-secondary: rgba(255, 255, 255, 0.7);
-          --text-muted: rgba(255, 255, 255, 0.5);
-          --success: #22c55e;
-          --danger: #ef4444;
+        .interro-screen {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          background: #0a0a0f !important;
+          overflow: hidden !important;
+          padding: 0 !important;
+          margin: 0 !important;
         }
 
-        .game-container {
-          position: relative;
-          min-height: 100dvh;
-          background: var(--bg-primary);
-          overflow: hidden;
-        }
-
-        /* Animated Background - Alibi Theme (Amber/Gold) */
-        .game-container::before {
-          content: '';
+        .interro-bg {
           position: fixed;
           inset: 0;
           z-index: 0;
@@ -857,277 +689,592 @@ export default function AlibiInterrogation() {
             radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
             radial-gradient(ellipse at 80% 20%, rgba(251, 191, 36, 0.10) 0%, transparent 50%),
             radial-gradient(ellipse at 50% 50%, rgba(180, 83, 9, 0.08) 0%, transparent 60%),
-            var(--bg-primary);
+            #0a0a0f;
           pointer-events: none;
         }
 
-        .game-content {
+        /* ===== HEADER ===== */
+        .interro-header {
+          flex-shrink: 0;
           position: relative;
-          z-index: 1;
-        }
-
-        /* Header - Guide Compliant */
-        .player-game-header {
-          position: sticky;
-          top: 0;
-          z-index: 100;
-          background: rgba(10, 10, 15, 0.9);
+          z-index: 10;
+          background: rgba(10, 10, 15, 0.95);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(245, 158, 11, 0.15);
-          padding: 12px 16px;
+          border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+          padding-top: env(safe-area-inset-top);
         }
 
-        .player-game-header-content {
+        .interro-header-content {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          max-width: 800px;
-          margin: 0 auto;
+          gap: 12px;
+          padding: 10px 16px;
         }
 
-        .player-game-title {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.875rem;
-          font-weight: 700;
-          color: var(--text-secondary);
+        .interro-header-title {
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 0.875rem !important;
+          font-weight: 700 !important;
+          color: rgba(255, 255, 255, 0.7) !important;
           text-transform: uppercase;
           letter-spacing: 0.05em;
         }
 
-        .player-progress-center {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .player-progress-center :global(.bg-gray-700) {
+        .interro-progress {
+          height: 4px;
           background: rgba(255, 255, 255, 0.1);
-        }
-
-        .player-progress-center :global(.bg-accent) {
-          background: linear-gradient(90deg, var(--alibi-primary), var(--alibi-glow));
-          box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
-        }
-
-        .player-header-exit {
-          opacity: 0.7;
-          transition: opacity 0.2s;
-        }
-
-        .player-header-exit:hover {
-          opacity: 1;
-        }
-
-        /* Main Content */
-        .player-game-content {
-          position: relative;
-          z-index: 1;
-          padding-top: 60px;
-        }
-
-        /* Cards - Glassmorphism Alibi */
-        .alibi-theme :global(.card) {
-          background: rgba(20, 20, 30, 0.8);
-          border-radius: 16px;
-          padding: 1.25rem;
-          border: 1px solid rgba(245, 158, 11, 0.15);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          box-shadow:
-            0 4px 20px rgba(0, 0, 0, 0.4),
-            0 0 0 1px rgba(255, 255, 255, 0.03),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Section Titles - Guide Compliant */
-        .alibi-theme :global(.game-section-title) {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.125rem;
-          font-weight: 700;
-          color: var(--alibi-glow);
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
-        }
-
-        /* Buttons - Alibi Theme */
-        .alibi-theme :global(.btn) {
-          background: rgba(255, 255, 255, 0.05);
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          padding: 12px 24px;
-          color: var(--text-primary);
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
           overflow: hidden;
         }
 
-        .alibi-theme :global(.btn:hover) {
-          background: rgba(255, 255, 255, 0.1);
-          transform: translateY(-2px);
+        .interro-progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #f59e0b, #fbbf24);
+          position: relative;
+          border-radius: 0 2px 2px 0;
         }
 
-        .alibi-theme :global(.btn:active) {
-          transform: translateY(1px) scale(0.98);
+        .interro-progress-fill::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+          animation: interro-shimmer 2s infinite;
         }
 
-        .alibi-theme :global(.btn-primary) {
-          background: linear-gradient(135deg, var(--alibi-primary), var(--alibi-dark));
-          border: none;
-          color: white;
+        /* ===== MAIN CONTENT ===== */
+        .interro-content {
+          flex: 1;
+          position: relative;
+          z-index: 1;
+          padding: 16px;
+          padding-bottom: calc(16px + env(safe-area-inset-bottom));
+          overflow-y: auto;
+          overflow-x: hidden;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .interro-wrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          max-width: 600px;
+          margin: 0 auto;
+          min-height: 100%;
+        }
+
+        /* ===== PHASE HEADER ===== */
+        .interro-phase-header {
+          text-align: center;
+          flex-shrink: 0;
+        }
+
+        .interro-title {
+          font-family: 'Bungee', cursive !important;
+          font-size: clamp(1.25rem, 5vw, 1.75rem) !important;
+          color: #ffffff !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.02em !important;
+          text-shadow:
+            0 0 10px rgba(251, 191, 36, 0.5),
+            0 0 20px rgba(251, 191, 36, 0.3),
+            0 0 40px rgba(245, 158, 11, 0.2) !important;
+          margin: 0 0 4px 0 !important;
+          line-height: 1.2 !important;
+        }
+
+        .interro-subtitle {
+          font-family: 'Inter', sans-serif !important;
+          font-size: 0.875rem !important;
+          color: rgba(255, 255, 255, 0.6) !important;
+          margin: 0 !important;
+        }
+
+        /* ===== CARDS ===== */
+        .interro-question-card,
+        .interro-waiting-card,
+        .interro-timer-card,
+        .interro-answered-card,
+        .interro-response-card,
+        .interro-no-team {
+          position: relative;
+          background: rgba(20, 20, 30, 0.8) !important;
+          border-radius: 16px !important;
+          padding: 20px !important;
+          border: 1px solid rgba(245, 158, 11, 0.25) !important;
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          overflow: hidden;
           box-shadow:
-            0 4px 15px rgba(245, 158, 11, 0.4),
+            0 4px 20px rgba(0, 0, 0, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+          margin: 0 !important;
+        }
+
+        .interro-card-glow {
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 50%);
+          animation: interro-glow-pulse 4s ease-in-out infinite;
+          pointer-events: none;
+        }
+
+        /* Hint Card */
+        .interro-hint-card {
+          position: relative;
+          background: rgba(30, 30, 45, 0.6) !important;
+          border-radius: 12px !important;
+          padding: 14px 16px !important;
+          border: 1px solid rgba(99, 102, 241, 0.3) !important;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+        }
+
+        .interro-hint-card.compact {
+          padding: 10px 14px !important;
+        }
+
+        .interro-hint-label {
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 0.7rem !important;
+          font-weight: 600 !important;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: rgba(165, 180, 252, 0.8) !important;
+          margin-bottom: 8px;
+        }
+
+        .interro-hint-card.compact .interro-hint-label {
+          margin-bottom: 4px;
+        }
+
+        .interro-hint-text {
+          font-family: 'Inter', sans-serif !important;
+          font-size: 0.875rem !important;
+          font-style: italic;
+          line-height: 1.5 !important;
+          color: rgba(255, 255, 255, 0.7) !important;
+          margin: 0 !important;
+        }
+
+        .interro-hint-card.compact .interro-hint-text {
+          font-size: 0.8125rem !important;
+        }
+
+        /* Question Card */
+        .interro-question-card.spotlight {
+          border-color: rgba(245, 158, 11, 0.4) !important;
+          box-shadow:
             0 0 30px rgba(245, 158, 11, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            0 4px 20px rgba(0, 0, 0, 0.3) !important;
         }
 
-        .alibi-theme :global(.btn-primary:hover) {
-          box-shadow:
-            0 6px 20px rgba(245, 158, 11, 0.5),
-            0 0 40px rgba(245, 158, 11, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.25);
-          transform: translateY(-2px) scale(1.02);
+        .interro-question-card.compact {
+          padding: 14px 18px !important;
         }
 
-        .alibi-theme :global(.btn-primary:disabled) {
-          opacity: 0.5;
-          cursor: not-allowed;
-          transform: none;
+        .interro-question-card.compact .interro-question-text {
+          font-size: 1rem !important;
         }
 
-        .alibi-theme :global(.btn-accent) {
-          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-          border: none;
-          color: white;
-          box-shadow:
-            0 4px 15px rgba(59, 130, 246, 0.4),
-            0 0 30px rgba(59, 130, 246, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        .interro-question-badge {
+          display: inline-block;
+          background: rgba(245, 158, 11, 0.25);
+          padding: 6px 14px;
+          border-radius: 8px;
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 0.75rem !important;
+          font-weight: 700 !important;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: #fbbf24 !important;
+          margin-bottom: 12px;
+          position: relative;
+          z-index: 1;
         }
 
-        .alibi-theme :global(.btn-accent:hover) {
-          box-shadow:
-            0 6px 20px rgba(59, 130, 246, 0.5),
-            0 0 40px rgba(59, 130, 246, 0.3);
-          transform: translateY(-2px) scale(1.02);
+        .interro-question-text {
+          font-family: 'Inter', sans-serif !important;
+          font-size: 1.25rem !important;
+          line-height: 1.6 !important;
+          color: #ffffff !important;
+          margin: 0 !important;
+          position: relative;
+          z-index: 1;
         }
 
-        .alibi-theme :global(.btn-success) {
-          background: linear-gradient(135deg, #22c55e, #16a34a);
-          border: none;
-          color: white;
-          box-shadow:
-            0 4px 15px rgba(34, 197, 94, 0.4),
-            0 0 30px rgba(34, 197, 94, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        /* Timer Card */
+        .interro-timer-card {
+          text-align: center;
+          padding: 16px !important;
+          border-color: rgba(245, 158, 11, 0.3) !important;
         }
 
-        .alibi-theme :global(.btn-success:hover) {
-          box-shadow:
-            0 6px 20px rgba(34, 197, 94, 0.5),
-            0 0 40px rgba(34, 197, 94, 0.3);
-          transform: translateY(-2px) scale(1.02);
+        .interro-timer-card.urgent {
+          border-color: rgba(245, 158, 11, 0.5) !important;
+          background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(20, 20, 30, 0.8)) !important;
         }
 
-        .alibi-theme :global(.btn-danger) {
-          background: linear-gradient(135deg, #ef4444, #dc2626);
-          border: none;
-          color: white;
-          box-shadow:
-            0 4px 15px rgba(239, 68, 68, 0.4),
-            0 0 30px rgba(239, 68, 68, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        .interro-timer-card.critical {
+          border-color: rgba(239, 68, 68, 0.5) !important;
+          background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(20, 20, 30, 0.8)) !important;
         }
 
-        .alibi-theme :global(.btn-danger:hover) {
-          box-shadow:
-            0 6px 20px rgba(239, 68, 68, 0.5),
-            0 0 40px rgba(239, 68, 68, 0.3);
-          transform: translateY(-2px) scale(1.02);
+        .interro-timer-big {
+          font-family: 'Roboto Mono', monospace !important;
+          font-size: 2.5rem !important;
+          font-weight: 700 !important;
+          color: #fbbf24 !important;
+          text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+          display: block;
+          margin: 0 !important;
         }
 
-        /* Textarea - Alibi Theme */
-        .alibi-theme :global(.game-textarea) {
+        .interro-timer-card.urgent .interro-timer-big {
+          color: #f59e0b !important;
+        }
+
+        .interro-timer-card.critical .interro-timer-big {
+          color: #ef4444 !important;
+          text-shadow: 0 0 25px rgba(239, 68, 68, 0.6);
+        }
+
+        .interro-timer-warning {
+          display: block;
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 0.875rem !important;
+          font-weight: 700 !important;
+          color: #ef4444 !important;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          margin: 4px 0 0 0 !important;
+          animation: interro-pulse-text 0.5s ease-in-out infinite;
+        }
+
+        .interro-timer-success {
+          display: block;
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 0.875rem !important;
+          font-weight: 600 !important;
+          color: #22c55e !important;
+          margin: 4px 0 0 0 !important;
+        }
+
+        /* Waiting */
+        .interro-waiting {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          flex: 1;
+          justify-content: center;
+        }
+
+        .interro-waiting-card {
+          text-align: center;
+          padding: 40px 20px !important;
+        }
+
+        .interro-waiting-icon {
+          color: #fbbf24;
+          margin-bottom: 16px;
+          opacity: 0.8;
+          display: flex;
+          justify-content: center;
+        }
+
+        .interro-waiting-text {
+          font-family: 'Inter', sans-serif !important;
+          font-size: 1rem !important;
+          color: rgba(255, 255, 255, 0.6) !important;
+          margin: 0 !important;
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Answering */
+        .interro-answering {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .interro-answer-section {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .interro-textarea {
           width: 100%;
           min-height: 120px;
-          padding: 16px 18px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          color: var(--text-primary);
-          font-family: 'Inter', sans-serif;
-          font-size: 1rem;
+          padding: 16px;
+          background: rgba(255, 255, 255, 0.05) !important;
+          border: 2px solid rgba(245, 158, 11, 0.2) !important;
+          border-radius: 12px !important;
+          color: #ffffff !important;
+          font-family: 'Inter', sans-serif !important;
+          font-size: 1rem !important;
           line-height: 1.6;
-          resize: vertical;
+          resize: none;
           transition: all 0.3s ease;
         }
 
-        .alibi-theme :global(.game-textarea:focus) {
+        .interro-textarea:focus {
           outline: none;
-          border-color: var(--alibi-primary);
-          background: rgba(245, 158, 11, 0.08);
+          border-color: #f59e0b !important;
+          background: rgba(245, 158, 11, 0.08) !important;
           box-shadow:
             0 0 0 4px rgba(245, 158, 11, 0.15),
             0 0 20px rgba(245, 158, 11, 0.1);
         }
 
-        .alibi-theme :global(.game-textarea::placeholder) {
-          color: var(--text-muted);
+        .interro-textarea::placeholder {
+          color: rgba(255, 255, 255, 0.4);
         }
 
-        .alibi-theme :global(.game-textarea-accent) {
-          border-color: rgba(245, 158, 11, 0.2);
+        /* Buttons */
+        .interro-btn-start,
+        .interro-btn-submit {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 10px !important;
+          padding: 16px 28px !important;
+          background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+          border: none !important;
+          border-radius: 12px !important;
+          color: white !important;
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 1rem !important;
+          font-weight: 600 !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.05em !important;
+          cursor: pointer;
+          box-shadow:
+            0 4px 15px rgba(245, 158, 11, 0.4),
+            0 0 30px rgba(245, 158, 11, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Response cards */
-        .alibi-theme :global(.text-primary) {
-          color: var(--alibi-glow) !important;
+        .interro-btn-submit:disabled {
+          opacity: 0.5 !important;
+          cursor: not-allowed;
         }
 
-        /* Animation pulsante pour les alertes */
-        @keyframes alibi-pulse {
-          0%, 100% {
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
-          }
-          50% {
-            box-shadow: 0 0 40px rgba(245, 158, 11, 0.5);
-          }
+        /* Answered Card */
+        .interro-answered-card {
+          text-align: center;
+          padding: 32px 20px !important;
+          border-color: rgba(34, 197, 94, 0.4) !important;
+          background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(20, 20, 30, 0.8)) !important;
+          color: #22c55e !important;
         }
 
-        /* Animation de flottement */
-        @keyframes alibi-float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
+        .interro-answered-title {
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 1.25rem !important;
+          font-weight: 700 !important;
+          color: #22c55e !important;
+          margin: 12px 0 4px 0 !important;
         }
 
-        /* Urgence animation */
-        .alibi-theme :global(.animate-pulse) {
-          animation: alibi-pulse 2s ease-in-out infinite;
+        .interro-answered-subtitle {
+          font-family: 'Inter', sans-serif !important;
+          font-size: 0.875rem !important;
+          color: rgba(255, 255, 255, 0.6) !important;
+          margin: 0 !important;
         }
 
-        /* Grid layout for judgment buttons */
-        .alibi-theme :global(.grid) {
+        /* Responses */
+        .interro-responses-counter {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          font-family: 'Inter', sans-serif !important;
+          font-size: 0.875rem !important;
+          color: rgba(255, 255, 255, 0.6) !important;
+        }
+
+        .interro-responses-list {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .interro-response-card {
+          padding: 14px 16px !important;
+        }
+
+        .interro-response-card.waiting {
+          opacity: 0.6;
+          border-style: dashed !important;
+        }
+
+        .interro-response-card.answered {
+          border-color: rgba(34, 197, 94, 0.4) !important;
+        }
+
+        .interro-response-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 8px;
+        }
+
+        .interro-response-name {
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 0.875rem !important;
+          font-weight: 600 !important;
+          color: #fbbf24 !important;
+        }
+
+        .interro-response-text {
+          font-family: 'Inter', sans-serif !important;
+          font-size: 0.9375rem !important;
+          line-height: 1.5 !important;
+          color: rgba(255, 255, 255, 0.9) !important;
+          margin: 0 !important;
+        }
+
+        .interro-response-pending {
+          font-family: 'Inter', sans-serif !important;
+          font-size: 0.875rem !important;
+          font-style: italic;
+          color: rgba(255, 255, 255, 0.4) !important;
+          margin: 0 !important;
+        }
+
+        /* Judgment */
+        .interro-judgment {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          padding-top: 16px;
+          border-top: 1px solid rgba(245, 158, 11, 0.2);
+          margin-top: 8px;
+        }
+
+        .interro-judgment-label {
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 0.875rem !important;
+          font-weight: 600 !important;
+          color: rgba(255, 255, 255, 0.7) !important;
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin: 0 !important;
+        }
+
+        .interro-judgment-buttons {
           display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
         }
 
-        .alibi-theme :global(.grid-cols-2) {
-          grid-template-columns: repeat(2, 1fr);
+        .interro-btn-judge {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 8px !important;
+          padding: 18px 16px !important;
+          border: none !important;
+          border-radius: 12px !important;
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 1rem !important;
+          font-weight: 600 !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.05em !important;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .alibi-theme :global(.gap-4) {
-          gap: 1rem;
+        .interro-btn-judge.reject {
+          background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+          color: white !important;
+          box-shadow:
+            0 4px 15px rgba(239, 68, 68, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
         }
 
-        /* Border accent */
-        .alibi-theme :global(.border-accent\\/50) {
-          border-color: rgba(245, 158, 11, 0.5);
+        .interro-btn-judge.accept {
+          background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+          color: white !important;
+          box-shadow:
+            0 4px 15px rgba(34, 197, 94, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+        }
+
+        /* No Team */
+        .interro-no-team {
+          text-align: center;
+          padding: 40px 20px !important;
+          color: rgba(255, 255, 255, 0.4) !important;
+        }
+
+        .interro-no-team p {
+          font-family: 'Inter', sans-serif !important;
+          font-size: 1rem !important;
+          color: rgba(255, 255, 255, 0.5) !important;
+          margin: 12px 0 0 0 !important;
+        }
+
+        /* Icons status */
+        .interro-screen .status-success {
+          color: #22c55e !important;
+        }
+
+        .interro-screen .status-waiting {
+          color: rgba(255, 255, 255, 0.4) !important;
+          animation: interro-pulse-icon 1.5s ease-in-out infinite;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes interro-shimmer {
+          100% { left: 100%; }
+        }
+
+        @keyframes interro-glow-pulse {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        @keyframes interro-pulse-text {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.8; transform: scale(1.02); }
+        }
+
+        @keyframes interro-pulse-icon {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+          .interro-title {
+            font-size: 1.25rem !important;
+          }
+
+          .interro-question-text {
+            font-size: 1.1rem !important;
+          }
+
+          .interro-timer-big {
+            font-size: 2rem !important;
+          }
+
+          .interro-btn-judge {
+            padding: 14px 12px !important;
+            font-size: 0.875rem !important;
+          }
         }
       `}</style>
     </div>

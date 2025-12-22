@@ -1,20 +1,50 @@
 {
   "id": "concert-local",
   "title": "Concert local inaudible",
-  "context": "Un panneau d'affichage municipal a ete recouvert de colle et de plumes hier soir. Des temoins affirment avoir vu un groupe correspondant a votre description fuir en riant. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe est alle voir un concert dans une petite salle locale. L'endroit etait un sous-sol humide qui sentait la biere renversee et la transpiration. Les murs suintaient et le plafond etait bas.</p><p>A l'entree, le vigile a fouille les sacs avec une agressivite inutile. Il portait un t-shirt noir avec le nom de la salle imprime dans le dos. Il a confisque une bouteille d'eau a quelqu'un du groupe sans raison.</p><p>La salle etait bondee et il faisait une chaleur suffocante. Impossible de voir la scene a cause des gens devant. Le son etait beaucoup trop fort et completement sature. Les basses faisaient vibrer les organes et donnaient la nausee.</p><p>Le groupe qui jouait etait catastrophique. Le chanteur n'arretait pas de se tromper dans les paroles. La guitare etait desaccordee et faisait un bruit strident. L'eclairage stroboscopique donnait mal a la tete a tout le monde.</p><p>Quelqu'un a renverse une biere sur quelqu'un du groupe. Un autre s'est fait marcher sur le pied par un type bourre. Le groupe est parti avant la fin du concert avec les oreilles qui sifflaient et les vetements qui puaient.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree a un concert local pendant l'incident du panneau.",
+  "context": "Un panneau d'affichage municipal a été recouvert de colle et de plumes hier soir. Des témoins affirment avoir vu un groupe correspondant à votre description fuir en riant. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe est allé voir un concert dans une petite salle locale. L'entrée coûtait 8 euros et l'endroit était un sous-sol humide qui sentait la bière renversée et la transpiration. Les murs suintaient et le plafond était tellement bas qu'il fallait se baisser par endroits.</p><p>À l'entrée, le vigile a fouillé les sacs avec une agressivité inutile. Il portait un t-shirt noir avec le nom de la salle imprimé en rouge dans le dos. Il a confisqué une bouteille d'eau à quelqu'un du groupe en grognant 'Pas de liquides'.</p><p>La salle était bondée et il faisait une chaleur suffocante. Impossible de voir la scène à cause des gens devant. Le son était beaucoup trop fort et complètement saturé. Les basses faisaient vibrer les organes et donnaient la nausée à tout le monde.</p><p>Le groupe qui jouait était catastrophique. Le chanteur n'arrêtait pas de se tromper dans les paroles et a même oublié le titre d'une chanson. La guitare était désaccordée et faisait un bruit strident. L'éclairage stroboscopique clignotait toutes les 3 secondes et donnait mal à la tête.</p><p>Un type bourré a renversé une bière sur quelqu'un du groupe. Un autre membre s'est fait marcher sur le pied par un danseur déchaîné qui ne s'est même pas excusé. Le groupe est parti vers 23h30 avant la fin du concert, avec les oreilles qui sifflaient et les vêtements qui puaient la transpiration.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée à un concert local pendant l'incident du panneau.",
   "inspector_questions": [
-    "Vous avez dit etre alles voir un concert — quel etait le nom exact de cette salle ?",
-    "Vous avez dit que le vigile portait un t-shirt avec un nom — ecrivez ce nom exactement.",
-    "Vous avez dit que le vigile a confisque une bouteille — a qui du groupe appartenait-elle ?",
-    "Vous avez dit que la guitare faisait un bruit strident — ecrivez l'onomatopee exacte de ce bruit.",
-    "Vous avez dit avoir vu un groupe jouer — quel etait le nom de ce groupe ?",
-    "Vous avez dit que quelqu'un a renverse une biere — sur qui du groupe ?",
-    "Vous avez dit que quelqu'un s'est fait marcher sur le pied — qui du groupe etait-ce ?",
-    "Vous avez dit etre partis avec les oreilles qui sifflent — ecrivez l'onomatopee de ce sifflement.",
-    "Vous avez dit etre partis avant la fin — qui du groupe a propose de partir ?",
-    "Vous avez dit etre partis — combien avait coute l'entree ?"
+    {
+      "text": "Quel était le nom de la salle de concert ?",
+      "hint": "Le groupe est allé voir un concert dans une petite salle locale."
+    },
+    {
+      "text": "Combien coûtait l'entrée ?",
+      "hint": "L'entrée coûtait 8 euros."
+    },
+    {
+      "text": "De quelle couleur était l'inscription sur le t-shirt du vigile ?",
+      "hint": "Il portait un t-shirt noir avec le nom de la salle imprimé en rouge dans le dos."
+    },
+    {
+      "text": "À qui du groupe le vigile a-t-il confisqué la bouteille d'eau ?",
+      "hint": "Il a confisqué une bouteille d'eau à quelqu'un du groupe."
+    },
+    {
+      "text": "Quel était le nom du groupe qui jouait ?",
+      "hint": "Le groupe qui jouait était catastrophique."
+    },
+    {
+      "text": "Sur qui du groupe la bière a-t-elle été renversée ?",
+      "hint": "Un type bourré a renversé une bière sur quelqu'un du groupe."
+    },
+    {
+      "text": "Qui du groupe s'est fait marcher sur le pied ?",
+      "hint": "Un autre membre s'est fait marcher sur le pied par un danseur déchaîné."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 23h30 avant la fin du concert."
+    },
+    {
+      "text": "Que s'est-il passé juste après que la bière a été renversée ?",
+      "hint": "Un autre membre s'est fait marcher sur le pied par un danseur déchaîné."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après le concert ?",
+      "hint": "Le groupe est parti avec les oreilles qui sifflaient et les vêtements qui puaient."
+    }
   ],
   "reading_time_seconds": 90
 }

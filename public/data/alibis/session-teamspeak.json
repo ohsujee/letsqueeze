@@ -1,20 +1,50 @@
 {
   "id": "session-teamspeak",
-  "title": "Session gaming desastreuse",
-  "context": "Des feux de poubelles ont ete allumes dans plusieurs rues hier soir. Des cameras montrent un groupe correspondant a votre description dans le secteur. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe etait cense se connecter pour une session gaming en ligne. Tout a mal commence quand le serveur vocal lag comme jamais. La connexion faisait un bruit de robot a chaque phrase prononcee.</p><p>Le serveur appartenait a quelqu'un qui avait choisi un nom ridicule pour le channel. Il y avait un message d'accueil automatique qui se repetait a chaque connexion avec un son strident. La qualite audio etait catastrophique et tout le monde se coupait la parole.</p><p>Le premier jeu lance a plante au bout de cinq minutes. Erreur serveur. Il a fallu relancer trois fois avant que ca marche. Quelqu'un du groupe avait des problemes de micro qui faisait un echo insupportable a chaque mot.</p><p>Pendant les parties, le groupe perdait constamment. Une serie de defaites humiliantes. Quelqu'un a rage quit apres s'etre fait eliminer d'une facon ridicule. Un autre a insulte un coequipier pour une mauvaise action qui a coute la partie.</p><p>Vers la fin, le serveur a completement plante et tout le monde a ete deconnecte. Impossible de se reconnecter pendant vingt minutes. La soiree s'est terminee dans la frustration totale avec des gens qui sont partis sans dire au revoir.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree en session gaming en ligne pendant les feux de poubelles.",
+  "title": "Session gaming désastreuse",
+  "context": "Des feux de poubelles ont été allumés dans plusieurs rues hier soir. Des caméras montrent un groupe correspondant à votre description dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe était censé se connecter pour une session gaming en ligne. La connexion était prévue pour 21h. Tout a mal commencé quand le serveur vocal laggait comme jamais. La connexion faisait un bruit de robot à chaque phrase prononcée.</p><p>Le serveur appartenait à quelqu'un du groupe qui avait choisi un nom ridicule pour le channel. Il y avait un message d'accueil automatique 'Bienvenue les noobs !' qui se répétait à chaque connexion avec un son strident. La qualité audio était catastrophique et tout le monde se coupait la parole.</p><p>Le premier jeu lancé a planté au bout de 5 minutes avec une erreur serveur. Il a fallu relancer 3 fois avant que ça marche. Quelqu'un du groupe avait des problèmes de micro qui faisait un écho insupportable à chaque mot.</p><p>Pendant les parties, le groupe perdait constamment. Une série de 7 défaites humiliantes d'affilée. Quelqu'un a rage quit après s'être fait éliminer d'une façon ridicule. Un autre a insulté un coéquipier en criant 'T'es vraiment nul !' pour une mauvaise action qui a coûté la partie.</p><p>Vers 23h30, le serveur a complètement planté et tout le monde a été déconnecté. Impossible de se reconnecter pendant 20 minutes. La soirée s'est terminée dans la frustration totale avec des gens qui sont partis sans dire au revoir.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée en session gaming en ligne pendant les feux de poubelles.",
   "inspector_questions": [
-    "Vous avez dit vous etre connectes sur un serveur — quel etait le nom exact de ce serveur ?",
-    "Vous avez dit qu'il y avait un message d'accueil automatique — ecrivez ce message mot pour mot.",
-    "Vous avez dit que la connexion faisait un bruit de robot — ecrivez l'onomatopee exacte de ce bruit.",
-    "Vous avez dit que quelqu'un avait un micro avec echo — qui du groupe etait-ce ?",
-    "Vous avez dit avoir joue a un jeu — quel etait le nom exact de ce jeu ?",
-    "Vous avez dit que quelqu'un a rage quit — qui du groupe etait-ce et comment s'est-il fait eliminer ?",
-    "Vous avez dit que quelqu'un a insulte un coequipier — qui a insulte qui et qu'a-t-il dit ?",
-    "Vous avez dit avoir eu une serie de defaites — combien de parties avez-vous perdues d'affilée ?",
-    "Vous avez dit que des gens sont partis sans dire au revoir — qui du groupe est parti en premier ?",
-    "Vous avez dit que le serveur appartenait a quelqu'un — qui du groupe hebergeait ce serveur ?"
+    {
+      "text": "Quel était le nom du serveur vocal ?",
+      "hint": "Le serveur appartenait à quelqu'un du groupe qui avait choisi un nom ridicule."
+    },
+    {
+      "text": "À quelle heure la connexion était-elle prévue ?",
+      "hint": "La connexion était prévue pour 21h."
+    },
+    {
+      "text": "Quel était le message d'accueil automatique du serveur ?",
+      "hint": "Il y avait un message d'accueil automatique 'Bienvenue les noobs !'."
+    },
+    {
+      "text": "À quel jeu le groupe jouait-il ?",
+      "hint": "Le premier jeu lancé a planté au bout de 5 minutes."
+    },
+    {
+      "text": "Qui du groupe avait des problèmes de micro avec écho ?",
+      "hint": "Quelqu'un du groupe avait des problèmes de micro qui faisait un écho insupportable."
+    },
+    {
+      "text": "Combien de parties le groupe a-t-il perdues d'affilée ?",
+      "hint": "Une série de 7 défaites humiliantes d'affilée."
+    },
+    {
+      "text": "Qui du groupe a rage quit ?",
+      "hint": "Quelqu'un a rage quit après s'être fait éliminer d'une façon ridicule."
+    },
+    {
+      "text": "Qu'a crié quelqu'un pour insulter un coéquipier ?",
+      "hint": "Un autre a insulté un coéquipier en criant 'T'es vraiment nul !'."
+    },
+    {
+      "text": "À quelle heure le serveur a-t-il complètement planté ?",
+      "hint": "Vers 23h30, le serveur a complètement planté."
+    },
+    {
+      "text": "Qui du groupe hébergeait le serveur vocal ?",
+      "hint": "Le serveur appartenait à quelqu'un du groupe."
+    }
   ],
   "reading_time_seconds": 90
 }

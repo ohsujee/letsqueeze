@@ -1,20 +1,50 @@
 {
   "id": "degustation-vins",
-  "title": "Degustation de vins douteuse",
-  "context": "Une statue historique a ete renversee et vandalisee hier soir sur la place principale. Des cameras de surveillance montrent un groupe correspondant a votre description quittant les lieux. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe a participe a une degustation de vins organisee dans une cave voutee. L'endroit etait sense etre prestigieux mais en arrivant, ca sentait le moisi et l'humidite. Les murs suintaient par endroits et il faisait un froid glacial.</p><p>Le sommelier etait un type pretentieux qui parlait avec un accent exagere. Il portait un tablier avec le logo de l'etablissement brode dessus. Il regardait le groupe de haut comme s'il doutait de leurs capacites a apprecier le vin.</p><p>Les verres etaient ternes et avaient des traces de calcaire. Le premier vin servi avait un gout bizarre, comme du vinaigre. Le sommelier a insiste pour dire que c'etait normal et que le groupe ne comprenait pas. Le pain qui accompagnait etait rassis et le fromage avait une odeur suspecte.</p><p>Un des participants a la table d'a cote a fait tomber sa carafe qui s'est brisee en mille morceaux. Le sommelier a pousse un soupir theatral et a marmonne quelque chose de desagreable. Le bruit de verre casse a resonne dans toute la cave.</p><p>A la fin, le sommelier a tente de vendre des bouteilles hors de prix en faisant culpabiliser le groupe. L'addition etait scandaleuse pour la qualite. Quelqu'un du groupe a laisse un avis negatif sur son telephone avant meme de sortir.</p>",
-  "inspector_summary": "Les accuses affirment avoir participe a une degustation de vins pendant le vandalisme de la statue.",
+  "title": "Dégustation de vins douteuse",
+  "context": "Une statue historique a été renversée et vandalisée hier soir sur la place principale. Des caméras de surveillance montrent un groupe correspondant à votre description quittant les lieux. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe a participé à une dégustation de vins organisée dans une cave voûtée. L'endroit était censé être prestigieux mais en arrivant, ça sentait le moisi et l'humidité. Les murs suintaient par endroits et il faisait un froid glacial. L'entrée coûtait 35 euros par personne.</p><p>Le sommelier était un type prétentieux qui parlait avec un accent exagéré. Il portait un tablier bordeaux avec le logo de l'établissement brodé dessus. Il regardait le groupe de haut comme s'il doutait de leurs capacités à apprécier le vin. Ses explications commençaient toujours par 'En tant que professionnel certifié...'.</p><p>Les verres étaient ternes et avaient des traces de calcaire. Le premier vin servi, un Côtes-du-Rhône 2019, avait un goût bizarre, comme du vinaigre. Le sommelier a insisté pour dire que c'était normal et que le groupe ne comprenait pas. Le pain qui accompagnait était rassis et le fromage Époisses avait une odeur suspecte.</p><p>Un des participants à la table d'à côté a fait tomber sa carafe qui s'est brisée en mille morceaux. Le sommelier a poussé un soupir théâtral et a marmonné 'Pourquoi j'accepte encore les groupes...' Le bruit de verre cassé a résonné dans toute la cave.</p><p>À la fin, vers 22h45, le sommelier a tenté de vendre des bouteilles hors de prix en faisant culpabiliser le groupe. L'addition finale affichait 187 euros. Quelqu'un du groupe a laissé un avis d'une étoile sur son téléphone avant même de sortir.</p>",
+  "inspector_summary": "Les accusés affirment avoir participé à une dégustation de vins pendant le vandalisme de la statue.",
   "inspector_questions": [
-    "Vous avez dit avoir participe a une degustation — quel etait le nom exact de l'etablissement ?",
-    "Vous avez dit que le sommelier portait un tablier avec un logo — decrivez ce logo exactement.",
-    "Vous avez dit que le premier vin avait un gout bizarre — quel etait le nom de ce vin selon le sommelier ?",
-    "Vous avez dit que le fromage avait une odeur suspecte — quel type de fromage etait-ce ?",
-    "Vous avez dit qu'une carafe s'est brisee — ecrivez l'onomatopee exacte du bruit de verre casse.",
-    "Vous avez dit que le sommelier a marmonne quelque chose — qu'a-t-il dit exactement ?",
-    "Vous avez dit que l'addition etait scandaleuse — quel etait le montant total ?",
-    "Vous avez dit que quelqu'un a laisse un avis negatif — qui du groupe a ecrit cet avis ?",
-    "Vous avez dit etre partis apres — qui du groupe a paye l'addition ?",
-    "Vous avez dit avoir quitte l'etablissement — comment le groupe est-il rentre ?"
+    {
+      "text": "Quel était le nom de l'établissement où a eu lieu la dégustation ?",
+      "hint": "Le groupe a participé à une dégustation de vins organisée dans une cave voûtée."
+    },
+    {
+      "text": "Combien coûtait l'entrée par personne ?",
+      "hint": "L'entrée coûtait 35 euros par personne."
+    },
+    {
+      "text": "De quelle couleur était le tablier du sommelier ?",
+      "hint": "Il portait un tablier bordeaux avec le logo de l'établissement brodé dessus."
+    },
+    {
+      "text": "Par quelle phrase le sommelier commençait-il toujours ses explications ?",
+      "hint": "Ses explications commençaient toujours par 'En tant que professionnel certifié...'."
+    },
+    {
+      "text": "Quel vin a été servi en premier et de quelle année était-il ?",
+      "hint": "Le premier vin servi, un Côtes-du-Rhône 2019, avait un goût bizarre."
+    },
+    {
+      "text": "Quel type de fromage accompagnait la dégustation ?",
+      "hint": "Le pain qui accompagnait était rassis et le fromage Époisses avait une odeur suspecte."
+    },
+    {
+      "text": "Qu'a marmonné le sommelier quand la carafe s'est brisée ?",
+      "hint": "Le sommelier a poussé un soupir théâtral et a marmonné 'Pourquoi j'accepte encore les groupes...'"
+    },
+    {
+      "text": "Quel était le montant total de l'addition ?",
+      "hint": "L'addition finale affichait 187 euros."
+    },
+    {
+      "text": "Combien d'étoiles l'avis laissé contenait-il ?",
+      "hint": "Quelqu'un du groupe a laissé un avis d'une étoile sur son téléphone."
+    },
+    {
+      "text": "Vers quelle heure le groupe est-il parti ?",
+      "hint": "À la fin, vers 22h45, le sommelier a tenté de vendre des bouteilles."
+    }
   ],
   "reading_time_seconds": 90
 }

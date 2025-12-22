@@ -1,4 +1,12 @@
-import confetti from 'canvas-confetti';
+// Dynamic import - canvas-confetti is only loaded when actually used
+let confettiModule = null;
+
+async function getConfetti() {
+  if (!confettiModule) {
+    confettiModule = (await import('canvas-confetti')).default;
+  }
+  return confettiModule;
+}
 
 /**
  * Helper pour déclencher des animations de confetti
@@ -6,7 +14,9 @@ import confetti from 'canvas-confetti';
  * @param {string} customColor - Couleur personnalisée (hex) pour type 'team'
  * @param {object} origin - Position d'origine {x: 0-1, y: 0-1} (optionnel)
  */
-export function triggerConfetti(type = 'success', customColor = null, origin = { x: 0.5, y: 0.5 }) {
+export async function triggerConfetti(type = 'success', customColor = null, origin = { x: 0.5, y: 0.5 }) {
+  const confetti = await getConfetti();
+
   const configs = {
     // Confetti rapide pour validation d'action
     success: {
@@ -71,7 +81,10 @@ export function triggerConfetti(type = 'success', customColor = null, origin = {
 /**
  * Confetti en rafale (plusieurs explosions successives)
  */
-export function triggerConfettiBurst(count = 3, delay = 150) {
+export async function triggerConfettiBurst(count = 3, delay = 150) {
+  // Pre-load confetti before starting interval
+  await getConfetti();
+
   let fired = 0;
   const interval = setInterval(() => {
     triggerConfetti('success', null, {
@@ -88,7 +101,9 @@ export function triggerConfettiBurst(count = 3, delay = 150) {
 /**
  * Confetti latéral (des deux côtés)
  */
-export function triggerConfettiSides() {
+export async function triggerConfettiSides() {
+  const confetti = await getConfetti();
+
   // Côté gauche
   confetti({
     particleCount: 50,
@@ -111,7 +126,9 @@ export function triggerConfettiSides() {
 /**
  * Confetti depuis le bas (comme une fontaine)
  */
-export function triggerConfettiFountain(color = null) {
+export async function triggerConfettiFountain(color = null) {
+  const confetti = await getConfetti();
+
   confetti({
     particleCount: 80,
     angle: 90,

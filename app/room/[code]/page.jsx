@@ -20,6 +20,7 @@ import ExitButton from "@/lib/components/ExitButton";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
+import { getQuizManifest } from "@/lib/utils/manifestCache";
 import { motion } from "framer-motion";
 import { ChevronRight, Users, Zap, Eye } from "lucide-react";
 
@@ -49,9 +50,8 @@ export default function Room() {
   }, [code]);
 
   useEffect(() => {
-    fetch("/data/manifest.json")
-      .then(r => r.json())
-      .then(data => setQuizOptions(data.quizzes || []))
+    getQuizManifest()
+      .then(quizzes => setQuizOptions(quizzes))
       .catch(() => setQuizOptions([{ id: "general", title: "Général" }]));
   }, []);
 

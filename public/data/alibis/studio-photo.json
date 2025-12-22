@@ -1,20 +1,50 @@
 {
   "id": "studio-photo",
   "title": "Shooting photo amateur",
-  "context": "Un banc public a ete arrache et jete dans une vitrine hier apres-midi. Des temoins affirment avoir vu un groupe correspondant a votre description fuir les lieux. Vous contestez.",
-  "accused_document": "<p>Hier apres-midi, le groupe avait rendez-vous dans un studio photo pour un shooting. L'endroit etait dans un local commercial miteux. En entrant, ca sentait la poussiere et les vieux tissus. Le sol etait jonche de cables mal ranges.</p><p>Le photographe etait un type bizarre qui faisait des commentaires genants sur les poses. Il portait un gilet avec le nom de son studio brode dessus. Il insistait pour que le groupe prenne des positions ridicules et soupirait quand ca ne lui convenait pas.</p><p>Le materiel avait l'air datė. Le flash faisait un bruit sourd a chaque declenchement et aveuglait completement. Les fonds proposes etaient froisses et taches. Une des lumieres ne fonctionnait pas et le photographe a du bricoler avec du scotch.</p><p>A un moment, le photographe a montre les premieres photos sur son ecran. C'etait horrible. Tout le monde avait l'air deforme et les couleurs etaient bizarres. Il a blame le groupe pour ne pas savoir poser.</p><p>La seance a dure beaucoup plus longtemps que prevu parce que rien n'etait satisfaisant. Le photographe a fini par abandonner en disant qu'il ferait de son mieux en retouche. Le groupe est parti sans aucune confiance dans le resultat final.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe l'apres-midi dans un studio photo pendant la destruction du banc.",
+  "context": "Un banc public a été arraché et jeté dans une vitrine hier après-midi. Des témoins affirment avoir vu un groupe correspondant à votre description fuir les lieux. Vous contestez.",
+  "accused_document": "<p>Hier après-midi, le groupe avait rendez-vous à 14h dans un studio photo pour un shooting. La séance coûtait 80 euros pour le groupe. L'endroit était dans un local commercial miteux. En entrant, ça sentait la poussière et les vieux tissus. Le sol gris était jonché de câbles mal rangés.</p><p>Le photographe était un type bizarre qui faisait des commentaires gênants sur les poses. Il portait un gilet beige avec le nom de son studio brodé en noir dessus. Il insistait pour que le groupe prenne des positions ridicules et soupirait 'Non, non, non...' quand ça ne lui convenait pas.</p><p>Le matériel avait l'air daté, au moins 10 ans. Le flash faisait un bruit sourd à chaque déclenchement et aveuglait complètement pendant 3 secondes. Les fonds proposés étaient froissés et tachés. Une des 3 lumières ne fonctionnait pas et le photographe a dû bricoler avec du scotch marron.</p><p>À un moment, le photographe a montré les 15 premières photos sur son écran. C'était horrible. Tout le monde avait l'air déformé et les couleurs étaient bizarres. Il a blâmé le groupe en disant 'Vous ne savez vraiment pas poser'.</p><p>La séance a duré 2h30, beaucoup plus longtemps que prévu, parce que rien n'était satisfaisant. Le photographe a fini par abandonner en disant qu'il ferait de son mieux en retouche. Le groupe est parti vers 16h30 sans aucune confiance dans le résultat final.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé l'après-midi dans un studio photo pendant la destruction du banc.",
   "inspector_questions": [
-    "Vous avez dit avoir rendez-vous dans un studio photo — quel etait le nom exact de ce studio ?",
-    "Vous avez dit que le photographe portait un gilet avec un nom — ecrivez ce nom exactement.",
-    "Vous avez dit que le flash faisait un bruit sourd — ecrivez l'onomatopee exacte de ce bruit.",
-    "Vous avez dit que le photographe faisait des commentaires genants — qu'a-t-il dit exactement ?",
-    "Vous avez dit qu'il insistait pour des positions ridicules — quelle pose a-t-il demandee ?",
-    "Vous avez dit qu'une lumiere ne fonctionnait pas — de quel cote du studio etait-elle ?",
-    "Vous avez dit que le photographe a blame le groupe — qu'a-t-il dit exactement ?",
-    "Vous avez dit que la seance a dure longtemps — combien de temps au total ?",
-    "Vous avez dit etre partis sans confiance — qui du groupe avait reserve ce shooting ?",
-    "Vous avez dit avoir un rendez-vous — a quelle heure le groupe etait-il arrive ?"
+    {
+      "text": "Quel était le nom du studio photo ?",
+      "hint": "Le photographe portait un gilet avec le nom de son studio brodé dessus."
+    },
+    {
+      "text": "Combien coûtait la séance pour le groupe ?",
+      "hint": "La séance coûtait 80 euros pour le groupe."
+    },
+    {
+      "text": "À quelle heure le groupe avait-il rendez-vous ?",
+      "hint": "Le groupe avait rendez-vous à 14h dans un studio photo."
+    },
+    {
+      "text": "De quelle couleur était le gilet du photographe ?",
+      "hint": "Il portait un gilet beige avec le nom de son studio brodé en noir."
+    },
+    {
+      "text": "Combien de lumières y avait-il dans le studio ?",
+      "hint": "Une des 3 lumières ne fonctionnait pas."
+    },
+    {
+      "text": "Combien de photos le photographe a-t-il montré sur son écran ?",
+      "hint": "Le photographe a montré les 15 premières photos sur son écran."
+    },
+    {
+      "text": "Qu'a dit le photographe pour blâmer le groupe ?",
+      "hint": "Il a blâmé le groupe en disant 'Vous ne savez vraiment pas poser'."
+    },
+    {
+      "text": "Combien de temps a duré la séance au total ?",
+      "hint": "La séance a duré 2h30, beaucoup plus longtemps que prévu."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 16h30 sans aucune confiance."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Le groupe est parti sans aucune confiance dans le résultat final."
+    }
   ],
   "reading_time_seconds": 90
 }

@@ -4,12 +4,30 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, auth, signOutUser } from '@/lib/firebase';
 import { useSubscription } from '@/lib/hooks/useSubscription';
-import { useTheme } from '@/lib/contexts/ThemeContext';
 import { storage } from '@/lib/utils/storage';
 import BottomNav from '@/lib/components/BottomNav';
-import { ChevronRight, Lightbulb } from 'lucide-react';
+import { ChevronRight, Wifi, WifiOff, BarChart3, Sparkles } from 'lucide-react';
 import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// Brand Logos
+const HueLogo = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+    <path d="M20.672 9.6c-2.043 0-3.505 1.386-3.682 3.416h-.664c-.247 0-.395.144-.395.384 0 .24.148.384.395.384h.661c.152 2.09 1.652 3.423 3.915 3.423.944 0 1.685-.144 2.332-.453.158-.075.337-.217.292-.471a.334.334 0 0 0-.15-.242c-.104-.065-.25-.072-.422-.02a7.93 7.93 0 0 0-.352.12c-.414.146-.771.273-1.599.273-1.75 0-2.908-1.023-2.952-2.605v-.025h5.444c.313 0 .492-.164.505-.463v-.058C23.994 9.865 21.452 9.6 20.672 9.6zm2.376 3.416h-5l.004-.035c.121-1.58 1.161-2.601 2.649-2.601 1.134 0 2.347.685 2.347 2.606zM9.542 10.221c0-.335-.195-.534-.52-.534s-.52.2-.52.534v2.795h1.04zm4.29 3.817c0 1.324-.948 2.361-2.16 2.361-1.433 0-2.13-.763-2.13-2.333v-.282h-1.04v.34c0 2.046.965 3.083 2.868 3.083 1.12 0 1.943-.486 2.443-1.445l.02-.036v.861c0 .334.193.534.519.534.325 0 .52-.2.52-.534v-2.803h-1.04zm.52-4.351c-.326 0-.52.2-.52.534v2.795h1.04v-2.795c0-.335-.195-.534-.52-.534zM3.645 9.6c-1.66 0-2.31 1.072-2.471 1.4l-.135.278V7.355c0-.347-.199-.562-.52-.562-.32 0-.519.215-.519.562v5.661h1.039v-.015c0-1.249.72-2.592 2.304-2.592 1.29 0 2.001.828 2.001 2.332v.275h1.04v-.246c0-2.044-.973-3.17-2.739-3.17zM0 16.558c0 .347.199.563.52.563.32 0 .519-.216.519-.563v-2.774H0zm5.344 0c0 .347.2.563.52.563s.52-.216.52-.563v-2.774h-1.04z"/>
+  </svg>
+);
+
+const SpotifyLogo = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+  </svg>
+);
+
+const DeezerLogo = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+    <path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.189V8.38h-5.19zm12.54 0v3.027H24V8.38h-5.19zM6.27 12.594v3.027h5.189v-3.027h-5.19zm6.271 0v3.027h5.19v-3.027h-5.19zm6.27 0v3.027H24v-3.027h-5.19zM0 16.81v3.029h5.19v-3.03H0zm6.27 0v3.029h5.189v-3.03h-5.19zm6.271 0v3.029h5.19v-3.03h-5.19zm6.27 0v3.029H24v-3.03h-5.19z"/>
+  </svg>
+);
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -19,8 +37,7 @@ export default function ProfilePage() {
   const [notifications, setNotifications] = useState(true);
   const [hueEffectsEnabled, setHueEffectsEnabled] = useState(true);
   const [hueConnected, setHueConnected] = useState(false);
-  const { theme, toggleTheme } = useTheme();
-  const { isPro, isAdmin, tier, adminStatus } = useSubscription(user);
+  const { isPro, isAdmin } = useSubscription(user);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -54,10 +71,6 @@ export default function ProfilePage() {
     } catch (error) {
       console.error('Sign out error:', error);
     }
-  };
-
-  const handleToggleDarkMode = () => {
-    toggleTheme();
   };
 
   const handleToggleSound = () => {
@@ -132,6 +145,13 @@ export default function ProfilePage() {
             <div className="avatar-placeholder">
               {getInitials(user?.displayName)}
             </div>
+            {/* Badge Pro sous l'avatar */}
+            {isPro && (
+              <div className="pro-badge-pill">
+                <Sparkles size={12} />
+                <span>PRO</span>
+              </div>
+            )}
           </div>
 
           {/* User Info */}
@@ -141,16 +161,6 @@ export default function ProfilePage() {
             </h1>
             {user?.email && (
               <p className="user-email">{user.email}</p>
-            )}
-          </div>
-
-          {/* Badges */}
-          <div className="badges">
-            {isAdmin && (
-              <span className="badge admin">{adminStatus}</span>
-            )}
-            {isPro && (
-              <span className="badge pro">⭐ PRO</span>
             )}
           </div>
         </section>
@@ -210,37 +220,6 @@ export default function ProfilePage() {
           )}
         </section>
 
-        {/* Stats Section */}
-        <section className="card stats-card">
-          <h2 className="card-title">
-            <span className="card-icon">📊</span>
-            Statistiques
-          </h2>
-          <div className="stats-grid">
-            <div className="stat-item">
-              <div className="stat-icon">🎯</div>
-              <div className="stat-info">
-                <div className="stat-label">Quiz Buzzer</div>
-                <div className="stat-value">12 victoires</div>
-              </div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-icon">🕵️</div>
-              <div className="stat-info">
-                <div className="stat-label">Alibi</div>
-                <div className="stat-value">8 victoires</div>
-              </div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-icon">⚡</div>
-              <div className="stat-info">
-                <div className="stat-label">Total parties</div>
-                <div className="stat-value">45 jouées</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Settings Section */}
         <section className="card settings-card">
           <h2 className="card-title">
@@ -248,6 +227,25 @@ export default function ProfilePage() {
             Paramètres
           </h2>
           <div className="settings-list">
+            {/* Stats Button */}
+            <button
+              className="setting-item clickable"
+              onClick={() => user?.isAnonymous ? null : router.push('/profile/stats')}
+              disabled={user?.isAnonymous}
+            >
+              <div className="setting-info">
+                <span className="setting-icon-wrap stats">
+                  <BarChart3 size={18} />
+                </span>
+                <span className="setting-label">Mes statistiques</span>
+              </div>
+              {user?.isAnonymous ? (
+                <span className="setting-badge">Connecte-toi</span>
+              ) : (
+                <ChevronRight size={18} className="setting-chevron" />
+              )}
+            </button>
+
             <div className="setting-item">
               <div className="setting-info">
                 <span className="setting-icon">🔔</span>
@@ -256,19 +254,6 @@ export default function ProfilePage() {
               <button
                 className={`toggle ${notifications ? 'active' : ''}`}
                 onClick={handleToggleNotifications}
-              >
-                <div className="toggle-thumb"></div>
-              </button>
-            </div>
-
-            <div className="setting-item">
-              <div className="setting-info">
-                <span className="setting-icon">🌙</span>
-                <span className="setting-label">Mode Sombre</span>
-              </div>
-              <button
-                className={`toggle ${theme === 'dark' ? 'active' : ''}`}
-                onClick={handleToggleDarkMode}
               >
                 <div className="toggle-thumb"></div>
               </button>
@@ -312,24 +297,80 @@ export default function ProfilePage() {
           </div>
         </section>
 
-        {/* Philips Hue Link - Admin only */}
-        {user?.email === 'yogarajah.sujeevan@gmail.com' && (
-          <button
-            onClick={() => router.push('/profile/hue')}
-            className="hue-card"
-          >
-            <div className="hue-card-content">
-              <div className="hue-icon">
-                <Lightbulb size={24} />
-              </div>
-              <div className="hue-info">
-                <span className="hue-title">Philips Hue</span>
-                <span className="hue-subtitle">Effets lumineux immersifs</span>
-              </div>
-              <ChevronRight size={20} className="hue-chevron" />
+        {/* Connexions Section */}
+        <section className="card connections-card">
+          <h2 className="card-title">
+            <span className="card-icon">🔗</span>
+            Connexions
+          </h2>
+
+          {/* Guest users need to connect first */}
+          {user?.isAnonymous ? (
+            <div className="guest-notice">
+              <p>Connecte-toi avec Google pour synchroniser tes paramètres et débloquer les intégrations.</p>
+              <button
+                className="btn-connect-google"
+                onClick={() => router.push('/login')}
+              >
+                Se connecter
+              </button>
             </div>
-          </button>
-        )}
+          ) : (
+            <div className="connections-list">
+              {/* Philips Hue */}
+              <button
+                onClick={() => router.push('/profile/hue')}
+                className="connection-item"
+              >
+                <div className="connection-icon hue">
+                  <HueLogo />
+                </div>
+                <div className="connection-info">
+                  <span className="connection-name">Philips Hue</span>
+                  <span className="connection-desc">Effets lumineux immersifs</span>
+                </div>
+                <div className="connection-status-wrap">
+                  {hueConnected ? (
+                    <span className="connection-status connected">
+                      <Wifi size={14} />
+                      Connecté
+                    </span>
+                  ) : (
+                    <span className="connection-status">
+                      <WifiOff size={14} />
+                      Non connecté
+                    </span>
+                  )}
+                  <ChevronRight size={18} className="connection-chevron" />
+                </div>
+              </button>
+
+              {/* Spotify - Coming Soon */}
+              <div className="connection-item disabled">
+                <div className="connection-icon spotify">
+                  <SpotifyLogo />
+                </div>
+                <div className="connection-info">
+                  <span className="connection-name">Spotify</span>
+                  <span className="connection-desc">Musique d'ambiance</span>
+                </div>
+                <span className="connection-badge">Bientôt</span>
+              </div>
+
+              {/* Deezer - Coming Soon */}
+              <div className="connection-item disabled">
+                <div className="connection-icon deezer">
+                  <DeezerLogo />
+                </div>
+                <div className="connection-info">
+                  <span className="connection-name">Deezer</span>
+                  <span className="connection-desc">Musique d'ambiance</span>
+                </div>
+                <span className="connection-badge">Bientôt</span>
+              </div>
+            </div>
+          )}
+        </section>
 
         {/* Sign Out Button */}
         <button className="btn-signout" onClick={handleSignOut}>
@@ -403,7 +444,7 @@ export default function ProfilePage() {
         }
 
         .avatar-container {
-          margin-bottom: 1.25rem;
+          margin-bottom: 1.5rem;
           position: relative;
           display: inline-block;
         }
@@ -456,38 +497,30 @@ export default function ProfilePage() {
           margin-bottom: 1rem;
         }
 
-        .badges {
+        .pro-badge-pill {
+          position: absolute;
+          bottom: -8px;
+          left: 50%;
+          transform: translateX(-50%);
           display: flex;
-          justify-content: center;
-          gap: 0.5rem;
-          flex-wrap: wrap;
-        }
-
-        .badge {
-          padding: 0.5rem 1rem;
-          border-radius: 20px;
+          align-items: center;
+          gap: 4px;
+          padding: 5px 12px;
+          border-radius: 999px;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.75rem;
+          font-size: 0.65rem;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.05em;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .badge.admin {
-          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #ec4899);
-          color: white;
-          box-shadow:
-            0 4px 12px rgba(139, 92, 246, 0.4),
-            0 0 20px rgba(139, 92, 246, 0.2);
-        }
-
-        .badge.pro {
-          background: linear-gradient(135deg, #fbbf24, #f59e0b);
+          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
           color: #1a1a2e;
+          border: 2px solid rgba(255, 255, 255, 0.3);
           box-shadow:
-            0 4px 12px rgba(245, 158, 11, 0.4),
-            0 0 20px rgba(245, 158, 11, 0.2);
+            0 2px 0 #b45309,
+            0 4px 12px rgba(251, 191, 36, 0.5),
+            0 0 20px rgba(251, 191, 36, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4);
+          z-index: 10;
         }
 
         /* Guide: Glassmorphism Card */
@@ -709,6 +742,13 @@ export default function ProfilePage() {
           color: var(--text-primary, #ffffff);
         }
 
+        .stat-sublabel {
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.75rem;
+          color: var(--text-tertiary, rgba(255, 255, 255, 0.4));
+          margin-top: 0.125rem;
+        }
+
         /* Settings Card */
         .settings-list {
           display: flex;
@@ -751,6 +791,60 @@ export default function ProfilePage() {
           font-family: var(--font-body, 'Inter'), sans-serif;
           font-size: 0.875rem;
           color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+        }
+
+        /* Clickable Setting Item (Stats button) */
+        .setting-item.clickable {
+          cursor: pointer;
+          border: 1px solid transparent;
+          transition: all 0.2s ease;
+        }
+
+        .setting-item.clickable:not(:disabled):hover {
+          background: rgba(139, 92, 246, 0.1);
+          border-color: rgba(139, 92, 246, 0.2);
+        }
+
+        .setting-item.clickable:disabled {
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+
+        .setting-icon-wrap {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+
+        .setting-icon-wrap.stats {
+          background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+          box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+        }
+
+        .setting-chevron {
+          color: var(--text-tertiary, rgba(255, 255, 255, 0.4));
+          transition: transform 0.2s ease;
+        }
+
+        .setting-item.clickable:hover .setting-chevron {
+          transform: translateX(2px);
+          color: rgba(139, 92, 246, 0.8);
+        }
+
+        .setting-badge {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.625rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: rgba(255, 255, 255, 0.5);
+          padding: 0.25rem 0.5rem;
+          background: rgba(255, 255, 255, 0.08);
+          border-radius: 6px;
         }
 
         /* Guide: Toggle Switch */
@@ -855,73 +949,167 @@ export default function ProfilePage() {
           height: 96px;
         }
 
-        /* Guide: Hue Card - Special Gradient */
-        .hue-card {
-          width: 100%;
-          padding: 0;
-          margin-bottom: 1rem;
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.1));
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(139, 92, 246, 0.3);
-          border-radius: 16px;
+        /* Connections Card */
+        .guest-notice {
+          text-align: center;
+          padding: 1.5rem 1rem;
+        }
+
+        .guest-notice p {
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.875rem;
+          color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+          margin: 0 0 1rem 0;
+          line-height: 1.5;
+        }
+
+        .btn-connect-google {
+          padding: 0.75rem 1.5rem;
+          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed));
+          color: white;
+          border: none;
+          border-radius: 10px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.875rem;
+          font-weight: 600;
           cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-          overflow: hidden;
-        }
-
-        .hue-card:hover {
-          transform: translateY(-3px);
-          border-color: rgba(139, 92, 246, 0.5);
+          transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
           box-shadow:
-            0 12px 32px rgba(139, 92, 246, 0.3),
-            0 0 40px rgba(139, 92, 246, 0.15);
+            0 4px 0 #6d28d9,
+            0 6px 15px rgba(139, 92, 246, 0.3);
         }
 
-        .hue-card-content {
+        .btn-connect-google:hover {
+          transform: translateY(-2px);
+          box-shadow:
+            0 6px 0 #6d28d9,
+            0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-connect-google:active {
+          transform: translateY(2px);
+          box-shadow:
+            0 2px 0 #6d28d9,
+            0 4px 10px rgba(139, 92, 246, 0.3);
+        }
+
+        .connections-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+
+        .connection-item {
           display: flex;
           align-items: center;
-          gap: 1rem;
-          padding: 1rem;
+          gap: 0.875rem;
+          padding: 0.875rem;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          width: 100%;
+          text-align: left;
         }
 
-        .hue-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
-          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #3b82f6);
+        .connection-item:hover:not(.disabled) {
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(139, 92, 246, 0.3);
+          transform: translateY(-1px);
+        }
+
+        .connection-item.disabled {
+          cursor: default;
+          opacity: 0.6;
+        }
+
+        .connection-icon {
+          width: 44px;
+          height: 44px;
+          border-radius: 10px;
           display: flex;
           align-items: center;
           justify-content: center;
           color: white;
           flex-shrink: 0;
-          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
         }
 
-        .hue-info {
+        .connection-icon.hue {
+          background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+          box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .connection-icon.spotify {
+          background: linear-gradient(135deg, #1DB954, #1ed760);
+          box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+        }
+
+        .connection-icon.deezer {
+          background: linear-gradient(135deg, #ff0092, #a238ff);
+          box-shadow: 0 4px 12px rgba(255, 0, 146, 0.3);
+        }
+
+        .connection-info {
           flex: 1;
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
-          text-align: left;
+          gap: 0.125rem;
+          min-width: 0;
         }
 
-        .hue-title {
+        .connection-name {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1rem;
-          font-weight: 700;
+          font-size: 0.9375rem;
+          font-weight: 600;
           color: var(--text-primary, #ffffff);
         }
 
-        .hue-subtitle {
+        .connection-desc {
           font-family: var(--font-body, 'Inter'), sans-serif;
-          font-size: 0.8125rem;
-          color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+          font-size: 0.75rem;
+          color: var(--text-secondary, rgba(255, 255, 255, 0.5));
         }
 
-        .hue-chevron {
-          color: var(--text-tertiary, rgba(255, 255, 255, 0.4));
+        .connection-status-wrap {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
           flex-shrink: 0;
+        }
+
+        .connection-status {
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.6875rem;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 0.4);
+          padding: 0.25rem 0.5rem;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 6px;
+        }
+
+        .connection-status.connected {
+          color: #22c55e;
+          background: rgba(34, 197, 94, 0.15);
+        }
+
+        .connection-chevron {
+          color: var(--text-tertiary, rgba(255, 255, 255, 0.3));
+        }
+
+        .connection-badge {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.625rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: rgba(255, 255, 255, 0.4);
+          padding: 0.25rem 0.625rem;
+          background: rgba(255, 255, 255, 0.08);
+          border-radius: 6px;
         }
 
         /* Responsive */

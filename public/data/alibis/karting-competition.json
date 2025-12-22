@@ -1,20 +1,50 @@
 {
   "id": "karting-competition",
-  "title": "Karting low-cost desastreux",
-  "context": "Une fontaine publique a ete remplie de liquide vaisselle hier soir, creant une montagne de mousse qui a bloque la circulation. Des temoins vous ont vu dans le secteur. Vous contestez.",
-  "accused_document": "<p>Hier en fin de journee, le groupe s'est rendu sur un circuit de karting pour une session censee etre competitive. Le parking etait un champ de terre avec des flaques de boue. En entrant, ca sentait l'essence et le caoutchouc brule.</p><p>Le responsable etait un type blasé qui machait un chewing-gum bruyamment. Il portait une combinaison avec le logo du circuit imprime dans le dos. Les casques distribues sentaient la transpiration des utilisateurs precedents et les jugulaires etaient poisseuses.</p><p>Les karts etaient dans un etat lamentable. Celui attribue au groupe avait un siege dechire avec de la mousse jaunie qui depassait. Le volant etait collant et le moteur faisait un bruit de ferraille inquietant a chaque acceleration.</p><p>Pendant la course, un des karts est tombe en panne en plein milieu du circuit. Il a fallu le pousser sur le cote. Un autre participant s'est pris le mur dans un virage et a hurle des insultes. Le responsable a marmonne dans son talkie-walkie qui gresillait.</p><p>A la fin, le classement affiche sur l'ecran etait completement faux. Le groupe a reclame mais le responsable s'en fichait totalement. Les temps au tour etaient ecrits sur un tableau blanc efface a moitie.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree sur un circuit de karting pendant l'incident de la fontaine.",
+  "title": "Karting low-cost désastreux",
+  "context": "Une fontaine publique a été remplie de liquide vaisselle hier soir, créant une montagne de mousse qui a bloqué la circulation. Des témoins vous ont vu dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier en fin de journée, le groupe s'est rendu sur un circuit de karting pour une session censée être compétitive. La session de 20 minutes coûtait 28 euros par personne. Le parking était un champ de terre avec des flaques de boue. En entrant, ça sentait l'essence et le caoutchouc brûlé.</p><p>Le responsable était un type blasé qui mâchait un chewing-gum bruyamment. Il portait une combinaison orange avec le logo du circuit imprimé dans le dos. Les casques distribués, numérotés de 1 à 15, sentaient la transpiration des utilisateurs précédents et les jugulaires étaient poisseuses.</p><p>Les karts étaient dans un état lamentable. Celui attribué au groupe portait le numéro 7 et avait un siège déchiré avec de la mousse jaunie qui dépassait. Le volant était collant et le moteur faisait un bruit de ferraille inquiétant à chaque accélération.</p><p>Pendant la course, le kart numéro 3 est tombé en panne en plein milieu du circuit. Il a fallu le pousser sur le côté. Un autre participant s'est pris le mur dans le virage 4 et a hurlé 'C'est une arnaque ce circuit !' Le responsable a marmonné dans son talkie-walkie qui grésillait.</p><p>À la fin, vers 19h30, le classement affiché sur l'écran était complètement faux. Le groupe était classé 8ème sur 12. Le meilleur temps au tour, 47 secondes 3, était écrit sur un tableau blanc à moitié effacé. Le groupe a réclamé mais le responsable s'en fichait totalement.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée sur un circuit de karting pendant l'incident de la fontaine.",
   "inspector_questions": [
-    "Vous avez dit etre alles sur un circuit de karting — quel etait le nom exact de ce circuit ?",
-    "Vous avez dit que le responsable portait une combinaison avec un logo — decrivez ce logo exactement.",
-    "Vous avez dit que le moteur faisait un bruit de ferraille — ecrivez l'onomatopee exacte de ce bruit.",
-    "Vous avez dit que le talkie-walkie gresillait — ecrivez l'onomatopee exacte de ce gresillement.",
-    "Vous avez dit qu'un participant a hurle des insultes — qu'a-t-il crie exactement ?",
-    "Vous avez dit que le classement etait faux — a quelle position le groupe etait-il affiche ?",
-    "Vous avez dit que les temps etaient sur un tableau blanc — quel etait le meilleur temps affiche ?",
-    "Vous avez dit avoir reclame — qui du groupe a parle au responsable ?",
-    "Vous avez dit etre partis apres — qui du groupe a conduit pour rentrer ?",
-    "Vous avez dit que le parking etait un champ de boue — qui du groupe a sali ses chaussures ?"
+    {
+      "text": "Combien coûtait la session de karting et combien de temps durait-elle ?",
+      "hint": "La session de 20 minutes coûtait 28 euros par personne."
+    },
+    {
+      "text": "De quelle couleur était la combinaison du responsable ?",
+      "hint": "Il portait une combinaison orange avec le logo du circuit imprimé dans le dos."
+    },
+    {
+      "text": "Quel était le numéro du kart attribué au groupe ?",
+      "hint": "Celui attribué au groupe portait le numéro 7."
+    },
+    {
+      "text": "Quel numéro de kart est tombé en panne pendant la course ?",
+      "hint": "Le kart numéro 3 est tombé en panne en plein milieu du circuit."
+    },
+    {
+      "text": "Dans quel virage le participant s'est-il pris le mur ?",
+      "hint": "Un autre participant s'est pris le mur dans le virage 4."
+    },
+    {
+      "text": "Qu'a crié le participant après s'être pris le mur ?",
+      "hint": "Il a hurlé 'C'est une arnaque ce circuit !'"
+    },
+    {
+      "text": "À quelle position le groupe était-il classé et sur combien de participants ?",
+      "hint": "Le groupe était classé 8ème sur 12."
+    },
+    {
+      "text": "Quel était le meilleur temps au tour affiché ?",
+      "hint": "Le meilleur temps au tour, 47 secondes 3, était écrit sur un tableau blanc."
+    },
+    {
+      "text": "Vers quelle heure la session s'est-elle terminée ?",
+      "hint": "À la fin, vers 19h30, le classement affiché sur l'écran était complètement faux."
+    },
+    {
+      "text": "Qui du groupe a réclamé auprès du responsable ?",
+      "hint": "Le groupe a réclamé mais le responsable s'en fichait totalement."
+    }
   ],
   "reading_time_seconds": 90
 }

@@ -48,7 +48,7 @@ export default function HomePage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [favorites, setFavorites] = useState([]);
-  const { isPro, isAdmin, tier } = useSubscription(user);
+  const { isPro } = useSubscription(user);
 
   useEffect(() => {
     // Load favorites from storage
@@ -77,7 +77,7 @@ export default function HomePage() {
     storage.set('favorites', newFavorites);
   };
 
-  const handleGameClick = async (game) => {
+  const handleGameClick = (game) => {
     // Redirect to coming soon page for unreleased games
     if (game.comingSoon) {
       router.push(`/coming-soon/${game.id}`);
@@ -88,53 +88,62 @@ export default function HomePage() {
     const now = Date.now();
 
     if (game.id === 'quiz') {
-      // Créer une room Quiz
-      await set(ref(db, `rooms/${c}/meta`), {
-        code: c,
-        createdAt: now,
-        hostUid: auth.currentUser.uid,
-        expiresAt: now + 12 * 60 * 60 * 1000,
-        mode: "individuel",
-        teamCount: 0,
-        quizId: "general",
-        teams: {}
-      });
-      await set(ref(db, `rooms/${c}/state`), {
-        phase: "lobby",
-        currentIndex: 0,
-        revealed: false,
-        lockUid: null,
-        buzzBanner: "",
-        lastRevealAt: 0
-      });
-      await set(ref(db, `rooms/${c}/__health__`), { aliveAt: now });
+      // Navigate FIRST (optimistic)
       router.push(`/room/${c}`);
+
+      // Create room in background (no await)
+      Promise.all([
+        set(ref(db, `rooms/${c}/meta`), {
+          code: c,
+          createdAt: now,
+          hostUid: auth.currentUser.uid,
+          expiresAt: now + 12 * 60 * 60 * 1000,
+          mode: "individuel",
+          teamCount: 0,
+          quizId: "general",
+          teams: {}
+        }),
+        set(ref(db, `rooms/${c}/state`), {
+          phase: "lobby",
+          currentIndex: 0,
+          revealed: false,
+          lockUid: null,
+          buzzBanner: "",
+          lastRevealAt: 0
+        }),
+        set(ref(db, `rooms/${c}/__health__`), { aliveAt: now })
+      ]).catch(err => console.error('Room creation error:', err));
+
     } else if (game.id === 'alibi') {
-      // Créer une room Alibi
-      await set(ref(db, `rooms_alibi/${c}/meta`), {
-        code: c,
-        createdAt: now,
-        hostUid: auth.currentUser.uid,
-        expiresAt: now + 12 * 60 * 60 * 1000,
-        alibiId: null,
-        gameType: "alibi"
-      });
-      await set(ref(db, `rooms_alibi/${c}/teams`), {
-        inspectors: [],
-        suspects: []
-      });
-      await set(ref(db, `rooms_alibi/${c}/state`), {
-        phase: "lobby",
-        currentQuestion: 0,
-        prepTimeLeft: 90,
-        questionTimeLeft: 30,
-        allAnswered: false
-      });
-      await set(ref(db, `rooms_alibi/${c}/score`), {
-        correct: 0,
-        total: 10
-      });
+      // Navigate FIRST (optimistic)
       router.push(`/alibi/room/${c}`);
+
+      // Create room in background (no await)
+      Promise.all([
+        set(ref(db, `rooms_alibi/${c}/meta`), {
+          code: c,
+          createdAt: now,
+          hostUid: auth.currentUser.uid,
+          expiresAt: now + 12 * 60 * 60 * 1000,
+          alibiId: null,
+          gameType: "alibi"
+        }),
+        set(ref(db, `rooms_alibi/${c}/teams`), {
+          inspectors: [],
+          suspects: []
+        }),
+        set(ref(db, `rooms_alibi/${c}/state`), {
+          phase: "lobby",
+          currentQuestion: 0,
+          prepTimeLeft: 90,
+          questionTimeLeft: 30,
+          allAnswered: false
+        }),
+        set(ref(db, `rooms_alibi/${c}/score`), {
+          correct: 0,
+          total: 10
+        })
+      ]).catch(err => console.error('Alibi room creation error:', err));
     }
   };
 
@@ -161,12 +170,7 @@ export default function HomePage() {
           </div>
 
           <div className="header-actions">
-            {isAdmin ? (
-              <div className="admin-badge-modern">
-                <span>👑</span>
-                <span>ADMIN</span>
-              </div>
-            ) : isPro ? (
+            {isPro ? (
               <div className="pro-badge-modern">
                 <Sparkles size={14} />
                 <span>PRO</span>

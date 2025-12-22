@@ -1,20 +1,50 @@
 {
   "id": "cours-danse",
   "title": "Cours de danse humiliant",
-  "context": "Une statue de cire a ete volee dans un musee prive hier soir. Des temoins affirment avoir vu un groupe correspondant a votre description transporter quelque chose de lourd. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe a participe a un cours de danse collectif dans une salle de quartier. L'endroit etait un sous-sol qui sentait le renferme et la sueur sechee. Le parquet etait use et certaines lattes etaient descellees.</p><p>Le professeur etait une femme severe qui regardait tout le monde avec mepris. Elle portait un justaucorps avec le nom de son ecole brode dessus. Elle soupirait bruyamment a chaque erreur et levait les yeux au ciel.</p><p>La musique sortait d'une enceinte qui gresillait et saturait dans les aigus. Le miroir du fond de salle etait fele et deformait les reflets. Il faisait une chaleur etouffante parce que la ventilation etait en panne.</p><p>Le professeur a designe quelqu'un du groupe pour faire une demonstration devant tout le monde. Ca a ete catastrophique et humiliant. Elle a fait un commentaire cassant qui a fait rire nerveusement les autres participants.</p><p>Quelqu'un du groupe s'est emmele les pieds et s'est etale de tout son long. Un autre a marche sur les pieds de son partenaire plusieurs fois. Le groupe est parti avant la fin, rouge de honte, en se jurant de ne jamais revenir.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree dans un cours de danse pendant le vol de la statue.",
+  "context": "Une statue de cire a été volée dans un musée privé hier soir. Des témoins affirment avoir vu un groupe correspondant à votre description transporter quelque chose de lourd. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe a participé à un cours de danse collectif dans une salle de quartier. L'inscription coûtait 15 euros par personne. L'endroit était un sous-sol qui sentait le renfermé et la sueur séchée. Le parquet était usé et certaines lattes étaient descellées, créant des bosses dangereuses.</p><p>Le professeur était une femme sévère d'une cinquantaine d'années qui regardait tout le monde avec mépris. Elle portait un justaucorps rose avec le nom de son école brodé en noir sur le dos. Elle soupirait bruyamment à chaque erreur en disant 'Mon Dieu, quel désastre'.</p><p>La musique sortait d'une enceinte orange qui grésillait et saturait dans les aigus. Le miroir du fond de salle était fêlé en diagonale et déformait les reflets. Il faisait une chaleur étouffante parce que la ventilation était en panne depuis 2 semaines selon une affiche scotchée au mur.</p><p>Le professeur a désigné quelqu'un du groupe pour faire une démonstration devant tout le monde. Ça a été catastrophique et humiliant. Elle a lancé 'Même un éléphant danserait mieux' ce qui a fait rire nerveusement les 12 autres participants.</p><p>Quelqu'un du groupe s'est emmêlé les pieds et s'est étalé de tout son long sur le parquet. Un autre a marché sur les pieds de son partenaire au moins 5 fois. Le groupe est parti vers 21h avant la fin, rouge de honte, en se jurant de ne jamais revenir.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée dans un cours de danse pendant le vol de la statue.",
   "inspector_questions": [
-    "Vous avez dit avoir participe a un cours de danse — quel etait le nom exact de cette ecole ?",
-    "Vous avez dit que le professeur portait un justaucorps avec un nom — ecrivez ce nom exactement.",
-    "Vous avez dit que le miroir etait fele — ou etait-il fele exactement ?",
-    "Vous avez dit que quelqu'un a ete designe pour une demonstration — qui du groupe etait-ce ?",
-    "Vous avez dit que le professeur a fait un commentaire cassant — qu'a-t-elle dit exactement ?",
-    "Vous avez dit que quelqu'un s'est etale — qui du groupe etait-ce ?",
-    "Vous avez dit que quelqu'un a marche sur les pieds — qui du groupe et sur les pieds de qui ?",
-    "Vous avez dit que c'etait quel type de danse — quel style exactement ?",
-    "Vous avez dit etre partis avant la fin — qui du groupe a propose de partir ?",
-    "Vous avez dit vous etre jures de ne jamais revenir — qui du groupe avait trouve ce cours ?"
+    {
+      "text": "Quel était le nom de l'école de danse ?",
+      "hint": "Elle portait un justaucorps rose avec le nom de son école brodé en noir sur le dos."
+    },
+    {
+      "text": "Combien coûtait l'inscription au cours ?",
+      "hint": "L'inscription coûtait 15 euros par personne."
+    },
+    {
+      "text": "De quelle couleur était le justaucorps du professeur ?",
+      "hint": "Elle portait un justaucorps rose avec le nom de son école brodé en noir."
+    },
+    {
+      "text": "Qu'a dit le professeur après la démonstration ratée ?",
+      "hint": "Elle a lancé 'Même un éléphant danserait mieux'."
+    },
+    {
+      "text": "De quelle couleur était l'enceinte ?",
+      "hint": "La musique sortait d'une enceinte orange qui grésillait."
+    },
+    {
+      "text": "Qui du groupe a été désigné pour la démonstration ?",
+      "hint": "Le professeur a désigné quelqu'un du groupe pour faire une démonstration."
+    },
+    {
+      "text": "Qui du groupe s'est étalé sur le parquet ?",
+      "hint": "Quelqu'un du groupe s'est emmêlé les pieds et s'est étalé de tout son long."
+    },
+    {
+      "text": "Combien y avait-il d'autres participants dans le cours ?",
+      "hint": "Ce qui a fait rire nerveusement les 12 autres participants."
+    },
+    {
+      "text": "Quel type de danse était enseigné ?",
+      "hint": "Le groupe a participé à un cours de danse collectif."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 21h avant la fin."
+    }
   ],
   "reading_time_seconds": 90
 }

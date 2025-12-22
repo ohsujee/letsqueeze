@@ -21,6 +21,7 @@ import AlibiSelectorModal from "@/components/alibi/AlibiSelectorModal";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
+import { getAlibiManifest } from "@/lib/utils/manifestCache";
 import { ChevronRight, Eye, Shuffle, RotateCcw, X, UserPlus } from "lucide-react";
 
 export default function AlibiLobby() {
@@ -53,13 +54,10 @@ export default function AlibiLobby() {
     }
   }, [code]);
 
-  // Load alibi manifest
+  // Load alibi manifest (cached)
   useEffect(() => {
-    fetch("/data/alibis/manifest.json")
-      .then(r => r.json())
-      .then(data => {
-        setAlibiOptions(data.alibis || []);
-      })
+    getAlibiManifest()
+      .then(alibis => setAlibiOptions(alibis))
       .catch(err => {
         console.error("Erreur chargement manifest alibis:", err);
         setAlibiOptions([]);
@@ -203,9 +201,11 @@ export default function AlibiLobby() {
 
       let questions;
       if (isNewFormat) {
+        // Support both string format and object format { text, hint }
         questions = alibiData.inspector_questions.map((q, i) => ({
           id: i,
-          text: q,
+          text: typeof q === 'string' ? q : q.text,
+          hint: typeof q === 'object' ? q.hint : null,
           custom: false
         }));
       } else {

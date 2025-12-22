@@ -1,20 +1,50 @@
 {
   "id": "seance-cinema",
-  "title": "Seance de cinema ratee",
-  "context": "Un animal a ete libere de son enclos au zoo municipal hier soir. Des temoins affirment avoir vu un groupe correspondant a votre description s'enfuir des lieux. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe est alle au cinema pour voir un film tres attendu. La salle etait dans un vieux complexe qui sentait le pop-corn brule et la moquette humide. L'escalator pour monter aux salles etait en panne.</p><p>A la caisse, l'employe etait d'une lenteur exasperante. Il portait un badge avec un slogan du cinema imprime dessus. Il a fait payer le plein tarif alors que le groupe pensait avoir droit a une reduction.</p><p>Les sieges attribues etaient tout devant, avec la nuque cassee pour voir l'ecran. Un groupe de jeunes derriere n'arretait pas de parler et de ricaner. L'un d'eux faisait un bruit agaçant avec son telephone a repetition. Le son du film etait beaucoup trop fort et saturait.</p><p>A un moment, la projection s'est arretee a cause d'un probleme technique. L'ecran est devenu noir et les lumieres se sont rallumees. Il a fallu attendre quinze minutes avant que ca reparte. Les gens ralaient et quelqu'un a crie une insulte.</p><p>Le film etait une deception totale, beaucoup moins bien que la bande-annonce. Une scene cle etait tellement mauvaise que des gens ont ri nerveusement. Le groupe est sorti frustre en regrettant d'avoir depense de l'argent pour ca.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree au cinema pendant la liberation de l'animal.",
+  "title": "Séance de cinéma ratée",
+  "context": "Un animal a été libéré de son enclos au zoo municipal hier soir. Des témoins affirment avoir vu un groupe correspondant à votre description s'enfuir des lieux. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe est allé au cinéma pour voir un film très attendu. La séance de 20h30 coûtait 13,50 euros par personne. La salle était dans un vieux complexe qui sentait le pop-corn brûlé et la moquette humide. L'escalator pour monter aux salles était en panne depuis 2 semaines d'après une affiche.</p><p>À la caisse, l'employé était d'une lenteur exaspérante. Il portait un badge rouge avec l'inscription 'Le cinéma c'est la vie' dessus. Il a fait payer le plein tarif alors que le groupe pensait avoir droit à une réduction.</p><p>Les sièges attribués étaient en rang B, tout devant, avec la nuque cassée pour voir l'écran. Un groupe de 5 jeunes derrière n'arrêtait pas de parler et de ricaner. L'un d'eux consultait son téléphone toutes les 30 secondes avec l'écran au maximum de luminosité.</p><p>À un moment, la projection s'est arrêtée à cause d'un problème technique. L'écran est devenu noir et les lumières se sont rallumées. Il a fallu attendre 15 minutes avant que ça reparte. Les gens râlaient et quelqu'un a crié 'C'est une honte !'.</p><p>Le film était une déception totale, beaucoup moins bien que la bande-annonce. La scène finale était tellement mauvaise que des gens ont ri nerveusement. Le groupe est sorti frustré vers 23h en regrettant d'avoir dépensé de l'argent pour ça.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée au cinéma pendant la libération de l'animal.",
   "inspector_questions": [
-    "Vous avez dit etre alles au cinema — quel etait le nom exact de ce cinema ?",
-    "Vous avez dit que l'employe portait un badge avec un slogan — ecrivez ce slogan mot pour mot.",
-    "Vous avez dit avoir vu un film — quel etait le titre exact de ce film ?",
-    "Vous avez dit qu'un jeune faisait un bruit avec son telephone — ecrivez l'onomatopee exacte de ce bruit.",
-    "Vous avez dit que le son saturait — ecrivez l'onomatopee exacte de cette saturation.",
-    "Vous avez dit que quelqu'un a crie une insulte — qu'a crie cette personne exactement ?",
-    "Vous avez dit qu'une scene etait tellement mauvaise — quelle scene exactement ?",
-    "Vous avez dit avoir paye le plein tarif — combien coutait la place exactement ?",
-    "Vous avez dit etre sortis frustres — qui du groupe avait propose d'aller voir ce film ?",
-    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
+    {
+      "text": "Quel était le nom du cinéma ?",
+      "hint": "Le groupe est allé au cinéma pour voir un film très attendu."
+    },
+    {
+      "text": "Combien coûtait la place de cinéma ?",
+      "hint": "La séance coûtait 13,50 euros par personne."
+    },
+    {
+      "text": "À quelle heure était la séance ?",
+      "hint": "La séance de 20h30."
+    },
+    {
+      "text": "Qu'était-il écrit sur le badge de l'employé ?",
+      "hint": "Il portait un badge rouge avec l'inscription 'Le cinéma c'est la vie'."
+    },
+    {
+      "text": "Quel film le groupe est-il allé voir ?",
+      "hint": "Le groupe est allé au cinéma pour voir un film très attendu."
+    },
+    {
+      "text": "À quel rang étaient les sièges du groupe ?",
+      "hint": "Les sièges attribués étaient en rang B, tout devant."
+    },
+    {
+      "text": "Combien de temps a duré la panne technique ?",
+      "hint": "Il a fallu attendre 15 minutes avant que ça reparte."
+    },
+    {
+      "text": "Qu'a crié quelqu'un pendant la panne ?",
+      "hint": "Quelqu'un a crié 'C'est une honte !'."
+    },
+    {
+      "text": "À quelle heure le groupe est-il sorti du cinéma ?",
+      "hint": "Le groupe est sorti frustré vers 23h."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Le groupe est sorti frustré en regrettant d'avoir dépensé de l'argent."
+    }
   ],
   "reading_time_seconds": 90
 }

@@ -1,20 +1,50 @@
 {
   "id": "bowling-miteux",
-  "title": "Soiree bowling catastrophique",
-  "context": "Une borne de velos en libre-service a ete sabotee hier soir, rendant tous les velos inutilisables. Des cameras vous situent dans le secteur. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe est alle dans un bowling pour passer la soiree. L'endroit etait dans une zone commerciale moche et le parking puait l'huile de vidange. En entrant, ca sentait le desinfectant bon marche melange a l'odeur de vieilles chaussures.</p><p>Le type au comptoir etait un adolescent blase qui machait bruyamment son chewing-gum. Il portait un polo avec le logo du bowling brode dessus. Il a donne des chaussures de location qui etaient humides a l'interieur et sentaient la transpiration.</p><p>La piste attribuee au groupe avait un probleme. La machine qui renvoie les boules faisait un bruit de ferraille horrible a chaque fois. L'ecran d'affichage des scores buguait et melangeait les points. Les boules disponibles etaient ebrechees et les trous etaient poisseux.</p><p>Quelqu'un du groupe a fait tomber sa boule sur le pied d'un autre. Ca a cree une scene avec des cris de douleur. Un autre a lance sa boule dans la gouttiere a chaque essai et s'est fait moquer par le groupe d'a cote.</p><p>Le snack du bowling servait des nachos froids avec un fromage orange fluo suspect. Les prix etaient exorbitants pour la qualite. Le groupe est parti avant la fin des parties prevu, degoute par l'experience.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree dans un bowling pendant le sabotage des velos.",
+  "title": "Soirée bowling catastrophique",
+  "context": "Une borne de vélos en libre-service a été sabotée hier soir, rendant tous les vélos inutilisables. Des caméras vous situent dans le secteur. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe est allé dans un bowling pour passer la soirée. L'endroit était dans une zone commerciale moche et le parking puait l'huile de vidange. En entrant, ça sentait le désinfectant bon marché mélangé à l'odeur de vieilles chaussures. L'entrée coûtait 9 euros par personne.</p><p>Le type au comptoir était un adolescent blasé qui mâchait bruyamment son chewing-gum. Il portait un polo bleu marine avec le logo du bowling brodé dessus. Il a donné des chaussures de location pointure 42 qui étaient humides à l'intérieur et sentaient la transpiration.</p><p>La piste numéro 7 attribuée au groupe avait un problème. La machine qui renvoie les boules faisait un bruit de ferraille horrible à chaque fois. L'écran d'affichage des scores buguait et mélangeait les points. Les boules disponibles étaient ébréchées et les trous étaient poisseux.</p><p>Quelqu'un du groupe a fait tomber sa boule sur le pied d'un autre. Ça a créé une scène avec des cris de douleur. Un autre lançait sa boule dans la gouttière à chaque essai et s'est fait moquer par le groupe de la piste 8 qui a crié 'Retournez au mini-golf !'.</p><p>Le snack du bowling servait des nachos froids à 6,50 euros avec un fromage orange fluo suspect. Le groupe est parti vers 22h, dégoûté par l'expérience.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée dans un bowling pendant le sabotage des vélos.",
   "inspector_questions": [
-    "Vous avez dit etre alles dans un bowling — quel etait le nom exact de ce bowling ?",
-    "Vous avez dit que l'employe portait un polo avec un logo — decrivez ce logo exactement.",
-    "Vous avez dit que la machine faisait un bruit de ferraille — ecrivez l'onomatopee exacte de ce bruit.",
-    "Vous avez dit que quelqu'un a fait tomber une boule sur un pied — qui du groupe a fait tomber et sur qui ?",
-    "Vous avez dit que quelqu'un lancait dans la gouttiere — qui du groupe etait-ce ?",
-    "Vous avez dit que le groupe d'a cote s'est moque — qu'ont-ils dit exactement ?",
-    "Vous avez dit que les nachos etaient froids — combien coutaient-ils exactement ?",
-    "Vous avez dit etre partis avant la fin — a quel score le groupe en etait-il ?",
-    "Vous avez dit etre degoutés — qui du groupe avait propose cette sortie bowling ?",
-    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
+    {
+      "text": "Quel était le nom du bowling ?",
+      "hint": "Le groupe est allé dans un bowling pour passer la soirée."
+    },
+    {
+      "text": "Combien coûtait l'entrée par personne ?",
+      "hint": "L'entrée coûtait 9 euros par personne."
+    },
+    {
+      "text": "Quel numéro de piste était attribué au groupe ?",
+      "hint": "La piste numéro 7 attribuée au groupe avait un problème."
+    },
+    {
+      "text": "Quelle pointure de chaussures a été donnée au groupe ?",
+      "hint": "Il a donné des chaussures de location pointure 42."
+    },
+    {
+      "text": "Qui du groupe a fait tomber une boule sur le pied d'un autre ?",
+      "hint": "Quelqu'un du groupe a fait tomber sa boule sur le pied d'un autre."
+    },
+    {
+      "text": "Sur le pied de qui la boule est-elle tombée ?",
+      "hint": "Quelqu'un du groupe a fait tomber sa boule sur le pied d'un autre."
+    },
+    {
+      "text": "Qu'ont crié les gens de la piste d'à côté ?",
+      "hint": "Le groupe de la piste 8 a crié 'Retournez au mini-golf !'."
+    },
+    {
+      "text": "Combien coûtaient les nachos au snack ?",
+      "hint": "Le snack servait des nachos froids à 6,50 euros."
+    },
+    {
+      "text": "À quelle heure le groupe est-il parti ?",
+      "hint": "Le groupe est parti vers 22h."
+    },
+    {
+      "text": "Qui du groupe avait proposé cette sortie bowling ?",
+      "hint": "Le groupe est parti, dégoûté par l'expérience."
+    }
   ],
   "reading_time_seconds": 90
 }

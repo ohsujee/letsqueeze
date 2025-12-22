@@ -1,20 +1,50 @@
 {
   "id": "bar-cocktails",
-  "title": "Bar a cocktails arnaque",
-  "context": "Une vitrine de bijouterie a ete brisee a coups de pavé hier soir. Des temoins affirment avoir vu un groupe correspondant a votre description fuir les lieux. Vous contestez.",
-  "accused_document": "<p>Hier soir, le groupe est alle dans un bar a cocktails qui avait l'air classe sur internet. En arrivant, la realite etait bien differente. L'entree sentait le desodorisant chimique qui masquait mal une odeur de cave humide. Les banquettes en similicuir etaient craquelees et collantes.</p><p>Le barman etait un type pretentieux avec une moustache ciree. Il portait un gilet avec le nom du bar brode dessus. Il soupirait ostensiblement quand on lui posait des questions sur les cocktails et levait les yeux au ciel.</p><p>La carte des cocktails promettait des merveilles mais la realite etait decevante. Le premier cocktail commande avait un gout de sirop pour la toux. Les glaçons avaient une odeur suspecte de refrigerateur mal entretenu. Les verres avaient des traces de rouge a levres mal lavees.</p><p>Les prix etaient exorbitants pour des doses ridicules. Le barman a fait un commentaire condescendant quand quelqu'un du groupe a demande ce qu'il y avait dans un cocktail. La musique de fond etait trop forte et rendait la conversation impossible.</p><p>A la fin, l'addition etait astronomique avec des supplements incomprehensibles. Le groupe a du payer par carte parce que le cash n'etait mysterieusement plus accepte. Tout le monde est parti en se sentant arnaque.</p>",
-  "inspector_summary": "Les accuses affirment avoir passe la soiree dans un bar a cocktails pendant le bris de la vitrine.",
+  "title": "Bar à cocktails arnaque",
+  "context": "Une vitrine de bijouterie a été brisée à coups de pavé hier soir. Des témoins affirment avoir vu un groupe correspondant à votre description fuir les lieux. Vous contestez.",
+  "accused_document": "<p>Hier soir, le groupe est allé dans un bar à cocktails qui avait l'air classe sur internet. En arrivant vers 21h, la réalité était bien différente. L'entrée sentait le désodorisant chimique qui masquait mal une odeur de cave humide. Les banquettes en similicuir violet étaient craquelées et collantes par endroits.</p><p>Le barman était un type prétentieux avec une moustache cirée. Il portait un gilet noir avec le nom du bar brodé en doré sur la poche. Il soupirait ostensiblement quand on lui posait des questions sur les cocktails et levait les yeux au ciel en marmonnant 'Des amateurs...'.</p><p>La carte des cocktails promettait des merveilles mais la réalité était décevante. Le premier cocktail commandé avait un goût de sirop pour la toux. Les glaçons avaient une odeur suspecte de réfrigérateur mal entretenu. Les verres avaient des traces de rouge à lèvres mal lavées sur le bord.</p><p>Les prix étaient exorbitants : 16 euros pour des doses ridicules servies dans des verres minuscules. Quelqu'un du groupe a demandé ce qu'il y avait dans un cocktail et le barman a répondu sèchement 'Secret de la maison'. La musique de fond était trop forte et rendait la conversation impossible.</p><p>À la fin, l'addition affichait 127 euros avec des suppléments incompréhensibles. Le groupe a dû payer par carte parce que le cash n'était mystérieusement plus accepté. Tout le monde est parti en se sentant arnaqué, jurant de ne jamais y remettre les pieds.</p>",
+  "inspector_summary": "Les accusés affirment avoir passé la soirée dans un bar à cocktails pendant le bris de la vitrine.",
   "inspector_questions": [
-    "Vous avez dit etre alles dans un bar a cocktails — quel etait le nom exact de ce bar ?",
-    "Vous avez dit que le barman portait un gilet avec un nom — ecrivez ce nom exactement.",
-    "Vous avez dit que le barman a fait un commentaire condescendant — qu'a-t-il dit exactement ?",
-    "Vous avez dit avoir commande un cocktail au gout de sirop — quel etait le nom de ce cocktail ?",
-    "Vous avez dit que les verres avaient des traces de rouge a levres — de quelle couleur etait ce rouge a levres ?",
-    "Vous avez dit que l'addition avait des supplements — quel etait le montant total ?",
-    "Vous avez dit que le cash n'etait plus accepte — combien le groupe comptait-il payer en liquide ?",
-    "Vous avez dit vous sentir arnaques — qui du groupe avait trouve ce bar ?",
-    "Vous avez dit etre partis — qui du groupe a paye par carte ?",
-    "Vous avez dit etre partis — comment le groupe est-il rentre ?"
+    {
+      "text": "Quel était le nom exact du bar ?",
+      "hint": "Le groupe est allé dans un bar à cocktails qui avait l'air classe sur internet."
+    },
+    {
+      "text": "De quelle couleur étaient les banquettes ?",
+      "hint": "Les banquettes en similicuir violet étaient craquelées et collantes."
+    },
+    {
+      "text": "Combien coûtait un cocktail ?",
+      "hint": "Les prix étaient exorbitants : 16 euros pour des doses ridicules."
+    },
+    {
+      "text": "Qu'a répondu le barman quand on lui a demandé la composition d'un cocktail ?",
+      "hint": "Le barman a répondu sèchement 'Secret de la maison'."
+    },
+    {
+      "text": "Quel était le montant total de l'addition ?",
+      "hint": "L'addition affichait 127 euros avec des suppléments incompréhensibles."
+    },
+    {
+      "text": "À quelle heure environ le groupe est-il arrivé ?",
+      "hint": "En arrivant vers 21h, la réalité était bien différente."
+    },
+    {
+      "text": "Qui du groupe a demandé la composition du cocktail au barman ?",
+      "hint": "Quelqu'un du groupe a demandé ce qu'il y avait dans un cocktail."
+    },
+    {
+      "text": "Qui du groupe a payé l'addition par carte ?",
+      "hint": "Le groupe a dû payer par carte parce que le cash n'était plus accepté."
+    },
+    {
+      "text": "Quel cocktail le groupe avait-il commandé en premier ?",
+      "hint": "Le premier cocktail commandé avait un goût de sirop pour la toux."
+    },
+    {
+      "text": "Comment le groupe est-il rentré après ?",
+      "hint": "Tout le monde est parti en se sentant arnaqué."
+    }
   ],
   "reading_time_seconds": 90
 }
