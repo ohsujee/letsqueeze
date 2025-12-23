@@ -5,9 +5,11 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { onAuthStateChanged, auth, db, ref, set } from '@/lib/firebase';
 import { useSubscription } from '@/lib/hooks/useSubscription';
+import { useGameLimits } from '@/lib/hooks/useGameLimits';
 import { storage } from '@/lib/utils/storage';
 import GameCard from '@/lib/components/GameCard';
 import BottomNav from '@/lib/components/BottomNav';
+import WatchAdModal from '@/components/ui/WatchAdModal';
 import { Target, UserSearch, Gamepad2, Heart, Sparkles, Music, Brain } from 'lucide-react';
 import { genCode } from '@/lib/utils';
 
@@ -48,7 +50,12 @@ export default function HomePage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const [showAdModal, setShowAdModal] = useState(false);
+  const [pendingGame, setPendingGame] = useState(null);
+
   const { isPro } = useSubscription(user);
+  const quizLimits = useGameLimits('quiz', isPro);
+  const alibiLimits = useGameLimits('alibi', isPro);
 
   useEffect(() => {
     // Load favorites from storage
@@ -77,10 +84,11 @@ export default function HomePage() {
     storage.set('favorites', newFavorites);
   };
 
-  const handleGameClick = (game) => {
-    // Redirect to coming soon page for unreleased games
-    if (game.comingSoon) {
-      router.push(`/coming-soon/${game.id}`);
+  // Create room and navigate (optimistic approach)
+  const createRoomAndNavigate = (game, wasRewarded = false) => {
+    // Check if user is authenticated
+    if (!auth.currentUser) {
+      router.push('/login');
       return;
     }
 
@@ -90,6 +98,9 @@ export default function HomePage() {
     if (game.id === 'quiz') {
       // Navigate FIRST (optimistic)
       router.push(`/room/${c}`);
+
+      // Record game played
+      if (!isPro) quizLimits.recordGamePlayed(wasRewarded);
 
       // Create room in background (no await)
       Promise.all([
@@ -118,6 +129,9 @@ export default function HomePage() {
       // Navigate FIRST (optimistic)
       router.push(`/alibi/room/${c}`);
 
+      // Record game played
+      if (!isPro) alibiLimits.recordGamePlayed(wasRewarded);
+
       // Create room in background (no await)
       Promise.all([
         set(ref(db, `rooms_alibi/${c}/meta`), {
@@ -145,6 +159,55 @@ export default function HomePage() {
         })
       ]).catch(err => console.error('Alibi room creation error:', err));
     }
+  };
+
+  const handleGameClick = (game) => {
+    // Redirect to coming soon page for unreleased games
+    if (game.comingSoon) {
+      router.push(`/coming-soon/${game.id}`);
+      return;
+    }
+
+    // Pro users have unlimited access
+    if (isPro) {
+      createRoomAndNavigate(game);
+      return;
+    }
+
+    // Get limits for this game type
+    const limits = game.id === 'quiz' ? quizLimits : alibiLimits;
+
+    // Still loading limits - allow play (optimistic)
+    if (limits.isLoading) {
+      createRoomAndNavigate(game);
+      return;
+    }
+
+    // Can play free - create room
+    if (limits.canPlayFree) {
+      createRoomAndNavigate(game);
+      return;
+    }
+
+    // Need to watch ad or upgrade - show modal
+    setPendingGame(game);
+    setShowAdModal(true);
+  };
+
+  // Handle watching ad for extra game
+  const handleWatchAd = async () => {
+    if (!pendingGame) return false;
+
+    const limits = pendingGame.id === 'quiz' ? quizLimits : alibiLimits;
+    const success = await limits.watchAdForExtraGame();
+
+    if (success) {
+      setShowAdModal(false);
+      createRoomAndNavigate(pendingGame, true);
+      setPendingGame(null);
+      return true;
+    }
+    return false;
   };
 
   const favoriteGames = GAMES.filter(game => favorites.includes(game.id));
@@ -305,6 +368,26 @@ export default function HomePage() {
 
       {/* Bottom Navigation */}
       <BottomNav />
+
+      {/* Watch Ad Modal */}
+      <WatchAdModal
+        isOpen={showAdModal}
+        onClose={() => {
+          setShowAdModal(false);
+          setPendingGame(null);
+        }}
+        onWatchAd={handleWatchAd}
+        onUpgrade={() => {
+          setShowAdModal(false);
+          router.push('/subscribe');
+        }}
+        rewardedGamesRemaining={
+          pendingGame?.id === 'quiz'
+            ? quizLimits.rewardedGamesRemaining
+            : alibiLimits.rewardedGamesRemaining
+        }
+        gameType={pendingGame?.id || 'quiz'}
+      />
     </div>
   );
 }

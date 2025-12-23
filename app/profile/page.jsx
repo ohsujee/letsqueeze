@@ -6,7 +6,8 @@ import { onAuthStateChanged, auth, signOutUser } from '@/lib/firebase';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { storage } from '@/lib/utils/storage';
 import BottomNav from '@/lib/components/BottomNav';
-import { ChevronRight, Wifi, WifiOff, BarChart3, Sparkles } from 'lucide-react';
+import { ChevronRight, Wifi, WifiOff, BarChart3, Sparkles, Crown, Infinity, Ban, Package, Lock, Zap, ExternalLink } from 'lucide-react';
+import { openManageSubscriptions } from '@/lib/revenuecat';
 import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -166,56 +167,86 @@ export default function ProfilePage() {
         </section>
 
         {/* Subscription Section */}
-        <section className="card subscription-card">
-          <h2 className="card-title">
-            <span className="card-icon">💳</span>
-            Abonnement
-          </h2>
-
+        <section className="subscription-section">
           {isPro ? (
             <>
-              {/* Pro users see their benefits */}
-              <div className="benefits-grid">
-                <div className="benefit-card unlocked">
-                  <div className="benefit-icon">♾️</div>
-                  <div className="benefit-text">Illimité</div>
+              {/* Pro Status Card */}
+              <div className="pro-status-card">
+                <div className="pro-status-header">
+                  <div className="pro-crown-icon">
+                    <Crown size={24} />
+                  </div>
+                  <div className="pro-status-info">
+                    <h2 className="pro-status-title">Gigglz Pro</h2>
+                    <p className="pro-status-desc">Tous les avantages débloqués</p>
+                  </div>
                 </div>
-                <div className="benefit-card unlocked">
-                  <div className="benefit-icon">🚫</div>
-                  <div className="benefit-text">Sans pub</div>
-                </div>
-                <div className="benefit-card unlocked">
-                  <div className="benefit-icon">📦</div>
-                  <div className="benefit-text">Tous packs</div>
+
+                <div className="pro-benefits-row">
+                  <div className="pro-benefit-item">
+                    <Infinity size={18} />
+                    <span>Illimité</span>
+                  </div>
+                  <div className="pro-benefit-item">
+                    <Ban size={18} />
+                    <span>Sans pub</span>
+                  </div>
+                  <div className="pro-benefit-item">
+                    <Package size={18} />
+                    <span>Tous packs</span>
+                  </div>
                 </div>
               </div>
-              {!isAdmin && (
-                <button className="btn-manage" onClick={() => router.push('/subscribe')}>
-                  Gérer l'abonnement
-                </button>
-              )}
+
+              <button className="btn-manage-sub" onClick={openManageSubscriptions}>
+                <span>Gérer l'abonnement</span>
+                <ExternalLink size={16} />
+              </button>
             </>
           ) : (
             <>
-              {/* Free users see what they're missing */}
-              <div className="benefits-grid">
-                <div className="benefit-card locked">
-                  <div className="benefit-icon">🔒</div>
-                  <div className="benefit-text">Illimité</div>
-                </div>
-                <div className="benefit-card locked">
-                  <div className="benefit-icon">🔒</div>
-                  <div className="benefit-text">Sans pub</div>
-                </div>
-                <div className="benefit-card locked">
-                  <div className="benefit-icon">🔒</div>
-                  <div className="benefit-text">Tous packs</div>
+              {/* Upgrade CTA Card */}
+              <div className="upgrade-cta-card">
+                <div className="upgrade-cta-glow" />
+
+                <div className="upgrade-cta-content">
+                  <div className="upgrade-cta-header">
+                    <div className="upgrade-crown-icon">
+                      <Crown size={28} />
+                    </div>
+                    <div className="upgrade-cta-text">
+                      <h2 className="upgrade-cta-title">Passe à Pro</h2>
+                      <p className="upgrade-cta-desc">Débloque tout le potentiel</p>
+                    </div>
+                  </div>
+
+                  <div className="upgrade-benefits-list">
+                    <div className="upgrade-benefit">
+                      <div className="upgrade-benefit-icon">
+                        <Infinity size={16} />
+                      </div>
+                      <span>Parties illimitées</span>
+                    </div>
+                    <div className="upgrade-benefit">
+                      <div className="upgrade-benefit-icon">
+                        <Ban size={16} />
+                      </div>
+                      <span>Aucune publicité</span>
+                    </div>
+                    <div className="upgrade-benefit">
+                      <div className="upgrade-benefit-icon">
+                        <Package size={16} />
+                      </div>
+                      <span>Tous les packs de jeux</span>
+                    </div>
+                  </div>
+
+                  <button className="upgrade-cta-btn" onClick={() => router.push('/subscribe')}>
+                    <Zap size={18} />
+                    <span>Débloquer Pro</span>
+                  </button>
                 </div>
               </div>
-              <button className="btn-upgrade" onClick={() => router.push('/subscribe')}>
-                <span className="btn-icon">⭐</span>
-                Débloquer Pro
-              </button>
             </>
           )}
         </section>
@@ -554,90 +585,212 @@ export default function ProfilePage() {
           font-size: 1.25rem;
         }
 
-        /* Subscription Card - Game Style */
-        .subscription-card .benefits-grid {
+        /* ===== SUBSCRIPTION SECTION ===== */
+        .subscription-section {
           margin-bottom: 1rem;
         }
 
-        /* Benefits Grid - Achievement Style */
-        .benefits-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 0.5rem;
+        /* Pro Status Card - For subscribed users */
+        .pro-status-card {
+          background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+          border: 1px solid rgba(251, 191, 36, 0.3);
+          border-radius: 16px;
+          padding: 1.25rem;
+          margin-bottom: 0.75rem;
         }
 
-        .benefit-card {
-          position: relative;
+        .pro-status-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .pro-crown-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, #fbbf24, #f59e0b);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #1a1a2e;
+          box-shadow:
+            0 4px 12px rgba(251, 191, 36, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .pro-status-title {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.125rem;
+          font-weight: 400;
+          color: #fbbf24;
+          margin: 0;
+          text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+        }
+
+        .pro-status-desc {
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.8125rem;
+          color: rgba(255, 255, 255, 0.6);
+          margin: 0.25rem 0 0 0;
+        }
+
+        .pro-benefits-row {
+          display: flex;
+          justify-content: space-around;
+          padding-top: 0.75rem;
+          border-top: 1px solid rgba(251, 191, 36, 0.15);
+        }
+
+        .pro-benefit-item {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
-          padding: 1rem 0.5rem;
-          border-radius: 12px;
-          overflow: hidden;
-          transition: all 0.3s ease;
+          gap: 0.375rem;
+          color: rgba(251, 191, 36, 0.9);
         }
 
-        /* Unlocked state - Green glow */
-        .benefit-card.unlocked {
-          background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05));
-          border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-
-        .benefit-card.unlocked:hover {
-          transform: translateY(-2px);
-          border-color: rgba(34, 197, 94, 0.5);
-          box-shadow: 0 8px 20px rgba(34, 197, 94, 0.2);
-        }
-
-        .benefit-card.unlocked .benefit-icon {
-          filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.5));
-        }
-
-        .benefit-card.unlocked .benefit-text {
-          color: var(--success, #22c55e);
-        }
-
-        /* Locked state - Grayed out */
-        .benefit-card.locked {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .benefit-card.locked .benefit-icon {
-          opacity: 0.5;
-          filter: grayscale(100%);
-        }
-
-        .benefit-card.locked .benefit-text {
-          color: var(--text-muted, rgba(255, 255, 255, 0.4));
-        }
-
-        .benefit-icon {
-          font-size: 1.5rem;
-          margin-bottom: 0.375rem;
-          transition: all 0.3s ease;
-        }
-
-        .benefit-text {
+        .pro-benefit-item span {
           font-family: var(--font-body, 'Inter'), sans-serif;
           font-size: 0.6875rem;
           font-weight: 600;
-          text-align: center;
           text-transform: uppercase;
           letter-spacing: 0.03em;
-          transition: color 0.3s ease;
+          color: rgba(255, 255, 255, 0.7);
         }
 
-        .btn-icon {
-          margin-right: 0.5rem;
-        }
-
-        /* Guide: 3D Button - Upgrade */
-        .btn-upgrade {
+        .btn-manage-sub {
           width: 100%;
+          padding: 0.875rem;
+          background: rgba(255, 255, 255, 0.05);
+          color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.8125rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+
+        .btn-manage-sub:hover {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Upgrade CTA Card - For free users */
+        .upgrade-cta-card {
+          position: relative;
+          background: rgba(20, 20, 30, 0.8);
+          border: 1px solid rgba(139, 92, 246, 0.3);
+          border-radius: 20px;
+          overflow: hidden;
+        }
+
+        .upgrade-cta-glow {
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+          pointer-events: none;
+          animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .upgrade-cta-content {
+          position: relative;
+          z-index: 1;
+          padding: 1.5rem;
+        }
+
+        .upgrade-cta-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.25rem;
+        }
+
+        .upgrade-crown-icon {
+          width: 56px;
+          height: 56px;
+          border-radius: 14px;
+          background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          box-shadow:
+            0 4px 0 #6d28d9,
+            0 8px 20px rgba(139, 92, 246, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .upgrade-cta-title {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.25rem;
+          font-weight: 400;
+          color: white;
+          margin: 0;
+          text-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .upgrade-cta-desc {
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.875rem;
+          color: rgba(255, 255, 255, 0.6);
+          margin: 0.25rem 0 0 0;
+        }
+
+        .upgrade-benefits-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          margin-bottom: 1.25rem;
+        }
+
+        .upgrade-benefit {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
+        .upgrade-benefit-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          background: rgba(139, 92, 246, 0.2);
+          border: 1px solid rgba(139, 92, 246, 0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #a78bfa;
+        }
+
+        .upgrade-benefit span {
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.9375rem;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .upgrade-cta-btn {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
           padding: 1rem;
-          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed));
+          background: linear-gradient(135deg, #8b5cf6, #7c3aed);
           color: white;
           border: none;
           border-radius: 12px;
@@ -650,48 +803,24 @@ export default function ProfilePage() {
           transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
           box-shadow:
             0 4px 0 #6d28d9,
-            0 6px 20px rgba(139, 92, 246, 0.4),
+            0 8px 24px rgba(139, 92, 246, 0.4),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        .btn-upgrade:hover {
+        .upgrade-cta-btn:hover {
           transform: translateY(-2px);
           box-shadow:
             0 6px 0 #6d28d9,
-            0 10px 30px rgba(139, 92, 246, 0.5),
+            0 12px 32px rgba(139, 92, 246, 0.5),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        .btn-upgrade:active {
+        .upgrade-cta-btn:active {
           transform: translateY(2px);
           box-shadow:
             0 2px 0 #6d28d9,
-            0 4px 10px rgba(139, 92, 246, 0.3),
+            0 4px 12px rgba(139, 92, 246, 0.3),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-manage {
-          width: 100%;
-          padding: 1rem;
-          background: rgba(255, 255, 255, 0.05);
-          color: var(--text-secondary, rgba(255, 255, 255, 0.6));
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.875rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .btn-manage:disabled {
-          cursor: not-allowed;
-          opacity: 0.5;
-        }
-
-        .btn-manage:not(:disabled):hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Stats Card */

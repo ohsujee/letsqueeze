@@ -89,7 +89,7 @@ export default function HostGame(){
 
   // Ambiance Hue au chargement de la page host
   useEffect(() => {
-    hueScenariosService.trigger('letsqueeze', 'ambiance');
+    hueScenariosService.trigger('gigglz', 'ambiance');
   }, []);
 
   const isHost = meta?.hostUid === auth.currentUser?.uid;
@@ -141,7 +141,7 @@ export default function HostGame(){
   useEffect(() => {
     if (state?.revealed && ratioRemain <= 0 && !timeUpTriggered.current && !state?.lockUid) {
       timeUpTriggered.current = true;
-      hueScenariosService.trigger('letsqueeze', 'timeUp');
+      hueScenariosService.trigger('gigglz', 'timeUp');
     }
   }, [state?.revealed, ratioRemain, state?.lockUid]);
 
@@ -160,7 +160,7 @@ export default function HostGame(){
       }).catch(()=>{});
 
       playBuzz();
-      hueScenariosService.trigger('letsqueeze', 'buzz');
+      hueScenariosService.trigger('gigglz', 'buzz');
     }
     prevLock.current = cur;
   },[isHost, state?.lockUid, code, players, playBuzz]);
@@ -177,7 +177,7 @@ export default function HostGame(){
 
     if (!state?.revealed) {
       // Trigger Hue pour nouvelle question
-      hueScenariosService.trigger('letsqueeze', 'roundStart');
+      hueScenariosService.trigger('gigglz', 'roundStart');
 
       // IMPORTANT: Ne JAMAIS toucher aux champs du buzz ici !
       // On utilise update() pour modifier UNIQUEMENT les champs de révélation
@@ -205,7 +205,7 @@ export default function HostGame(){
     if(!isHost || !q || !state?.lockUid || !conf) return;
 
     // Trigger Hue bonne réponse
-    hueScenariosService.trigger('letsqueeze', 'goodAnswer');
+    hueScenariosService.trigger('gigglz', 'goodAnswer');
 
     const uid = state.lockUid;
     const pts = pointsEnJeu;
@@ -248,7 +248,7 @@ export default function HostGame(){
     if(!isHost || !state?.lockUid || !conf) return;
 
     // Trigger Hue mauvaise réponse
-    hueScenariosService.trigger('letsqueeze', 'badAnswer');
+    hueScenariosService.trigger('gigglz', 'badAnswer');
 
     const ms = conf.lockoutMs || 8000;
     const uid = state.lockUid;

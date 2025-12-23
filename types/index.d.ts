@@ -1,4 +1,4 @@
-// Types globaux pour LetsQueeze
+// Types globaux pour Gigglz
 
 // Firebase Room Types
 export interface RoomMeta {

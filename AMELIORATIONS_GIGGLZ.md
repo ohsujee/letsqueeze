@@ -1,4 +1,4 @@
-# 🎮 LetsQueeze - Plan d'Améliorations
+# 🎮 Gigglz - Plan d'Améliorations
 
 ## 📊 État des Lieux
 
@@ -188,12 +188,12 @@
 **Solution** :
 
 **Splash Screen** (2 secondes) :
-- Logo animé LetsQueeze
+- Logo animé Gigglz
 - Tagline : "Joue en temps réel avec tes amis"
 - Loading bar
 
 **Onboarding** (3 slides) :
-- Slide 1 : "Bienvenue sur LetsQueeze"
+- Slide 1 : "Bienvenue sur Gigglz"
   - Illustration : Groupe d'amis avec smartphones
   - Texte : "Crée des parties multijoueur instantanées"
 - Slide 2 : "Mode Quiz Buzzer"
@@ -228,7 +228,7 @@
 **Solution** :
 
 **Deep Links** :
-- Format : `letsqueeze.app/join?code=ABC123`
+- Format : `gigglz.app/join?code=ABC123`
 - Auto-remplir le code quand on arrive par ce lien
 - Bouton "Copier le lien" dans lobby
 
@@ -237,7 +237,7 @@
   - "Partager sur Twitter"
   - "Partager sur WhatsApp"
   - "Copier le score"
-- Template : "Je viens de faire 450 points sur LetsQueeze ! 🔥 Bats mon score 👉 [lien]"
+- Template : "Je viens de faire 450 points sur Gigglz ! 🔥 Bats mon score 👉 [lien]"
 - Image générée automatiquement (OpenGraph)
 
 **Invitations** :
@@ -608,5 +608,5 @@ Si on doit commencer par quelque chose aujourd'hui :
 ---
 
 **Document préparé le** : 11 Novembre 2025
-**Projet** : LetsQueeze
+**Projet** : Gigglz
 **Version** : Next.js 15 + React 19

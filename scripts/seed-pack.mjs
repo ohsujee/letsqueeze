@@ -38,7 +38,7 @@ const FIREBASE = {
 };
 
 // App meta
-const APP_NAME = "letsqueeeze"; // folder-safe
+const APP_NAME = "gigglz"; // folder-safe
 const PKG_NAME = "quiz-v2";
 const NODE_VERSION = ">=18";
 
@@ -207,7 +207,7 @@ html,body { background: var(--bg); color: var(--fg); }
 `;
 
 const APP_LAYOUT = `import "./globals.css";
-export const metadata = { title: "Let’sQueeeze", description: "Quiz buzzer temps réel" };
+export const metadata = { title: "Gigglz", description: "Quiz buzzer temps réel" };
 export default function RootLayout({ children }) {
   return (<html lang="fr"><body className="min-h-screen">{children}</body></html>);
 }
@@ -218,7 +218,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="p-6 max-w-xl mx-auto space-y-6">
-      <h1 className="text-4xl font-black">Let’sQueeeze</h1>
+      <h1 className="text-4xl font-black">Gigglz</h1>
       <div className="grid gap-4">
         <Link className="btn btn-primary text-center" href="/host">Je suis l’animateur</Link>
         <Link className="btn btn-accent text-center" href="/join">Je suis un joueur</Link>
@@ -775,7 +775,7 @@ function installDeps() {
 // ------------------------------- MAIN ---------------------------------------
 async function main() {
   console.log("");
-  console.log("Let’sQueeeze — one-shot bootstrap");
+  console.log("Gigglz — one-shot bootstrap");
   console.log("---------------------------------");
 
   writeScaffold();

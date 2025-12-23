@@ -22,7 +22,17 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git config:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(xargs cat:*)",
+      "Bash(npm install:*)",
+      "Bash(npx cap sync:*)",
+      "Bash(taskkill:*)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(timeout:*)",
+      "Bash(npx next build)",
+      "Bash(ls:*)",
+      "Bash(git diff:*)"
     ]
   }
 }

@@ -1,4 +1,4 @@
-# 📱 LetsQueeze Mobile - Guide Capacitor
+# 📱 Gigglz Mobile - Guide Capacitor
 
 ## 🚀 Configuration
 
@@ -108,7 +108,7 @@ L'app mobile charge le contenu depuis votre serveur web :
 
 **Important :**
 - L'app nécessite une connexion internet
-- Parfait pour LetsQueeze (jeu multijoueur temps réel)
+- Parfait pour Gigglz (jeu multijoueur temps réel)
 
 ---
 

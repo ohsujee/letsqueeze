@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">LetsQueeze</string>
-    <string name="title_activity_main">LetsQueeze</string>
-    <string name="package_name">com.letsqueeze.app</string>
-    <string name="custom_url_scheme">com.letsqueeze.app</string>
+    <string name="app_name">Gigglz</string>
+    <string name="title_activity_main">Gigglz</string>
+    <string name="package_name">com.gigglz.app</string>
+    <string name="custom_url_scheme">com.gigglz.app</string>
 </resources>

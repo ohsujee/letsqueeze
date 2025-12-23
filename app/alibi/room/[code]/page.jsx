@@ -22,7 +22,8 @@ import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { getAlibiManifest } from "@/lib/utils/manifestCache";
-import { ChevronRight, Eye, Shuffle, RotateCcw, X, UserPlus } from "lucide-react";
+import { ChevronRight, Eye, Shuffle, RotateCcw, X, UserPlus, HelpCircle } from "lucide-react";
+import HowToPlayModal from "@/components/ui/HowToPlayModal";
 
 export default function AlibiLobby() {
   const { code } = useParams();
@@ -42,6 +43,7 @@ export default function AlibiLobby() {
   const [lockedAlibiName, setLockedAlibiName] = useState('');
   const [expandedRole, setExpandedRole] = useState(null);
   const [hostRole, setHostRole] = useState('inspectors'); // Default: host is inspector
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
   const roomWasValidRef = useRef(false);
 
   // Get user profile for subscription check
@@ -315,6 +317,11 @@ export default function AlibiLobby() {
         onSelectAlibi={handleSelectAlibi}
         userIsPro={userIsPro}
       />
+      <HowToPlayModal
+        isOpen={showHowToPlay}
+        onClose={() => setShowHowToPlay(false)}
+        gameType="alibi"
+      />
 
       {/* Header */}
       <header className="alibi-lobby-header">
@@ -331,6 +338,15 @@ export default function AlibiLobby() {
           </div>
         </div>
         <div className="header-right">
+          <motion.button
+            className="help-btn alibi-accent"
+            onClick={() => setShowHowToPlay(true)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            title="Comment jouer"
+          >
+            <HelpCircle size={18} />
+          </motion.button>
           {!isHost && (
             <motion.button
               className="spectator-btn alibi-accent"

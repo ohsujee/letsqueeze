@@ -227,7 +227,7 @@ export default function SplashScreen() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          LetsQueeze
+          Gigglz
         </motion.h1>
 
         {/* Sous-titre */}

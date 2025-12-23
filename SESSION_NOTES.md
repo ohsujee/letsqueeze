@@ -1,4 +1,4 @@
-# Notes de Session - Améliorations UX LetsQueeze
+# Notes de Session - Améliorations UX Gigglz
 
 ## Session du 9 janvier 2025 : Fixes critiques et buzzer neumorphic
 

@@ -87,7 +87,7 @@ export default function EndPage(){
 
   // Hue victory effect on page load
   useEffect(() => {
-    hueScenariosService.trigger('letsqueeze', 'victory');
+    hueScenariosService.trigger('gigglz', 'victory');
   }, []);
 
   // Record stats once when we have all data
@@ -136,10 +136,10 @@ export default function EndPage(){
 
   const handleShare = () => {
     const winner = rankedPlayers[0];
-    const text = `🎮 Partie LetsQueeze terminée !\n\n🏆 Gagnant : ${winner?.name} (${winner?.score} pts)\n📊 Score moyen : ${stats?.avgScore} pts\n👥 ${players.length} joueurs\n\nJouez avec nous : ${typeof window !== 'undefined' ? window.location.origin : ''}`;
+    const text = `🎮 Partie Gigglz terminée !\n\n🏆 Gagnant : ${winner?.name} (${winner?.score} pts)\n📊 Score moyen : ${stats?.avgScore} pts\n👥 ${players.length} joueurs\n\nJouez avec nous : ${typeof window !== 'undefined' ? window.location.origin : ''}`;
 
     if (navigator.share) {
-      navigator.share({ title: 'LetsQueeze - Résultats', text })
+      navigator.share({ title: 'Gigglz - Résultats', text })
         .then(() => toast.success('Résultats partagés !'))
         .catch(() => {});
     } else if (navigator.clipboard) {

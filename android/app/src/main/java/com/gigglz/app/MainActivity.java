@@ -1,4 +1,4 @@
-package com.letsqueeze.app;
+package com.gigglz.app;
 
 import com.getcapacitor.BridgeActivity;
 

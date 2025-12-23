@@ -106,7 +106,7 @@ export default function LoginPage() {
       >
         {/* Logo/Title */}
         <div className="login-header">
-          <h1 className="app-title">LetsQueeze</h1>
+          <h1 className="app-title">Gigglz</h1>
           <p className="app-subtitle">Jeux de Buzzer Multijoueur</p>
         </div>
 

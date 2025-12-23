@@ -1,4 +1,4 @@
-# 🎮 LETSQUEEZE - STRATÉGIE PRODUIT & TRANSFORMATION
+# 🎮 GIGGLZ - STRATÉGIE PRODUIT & TRANSFORMATION
 ## De MVP Web à Plateforme Mobile de Party Games
 
 ---
@@ -149,7 +149,7 @@ users/
 ```
 1. Splash Screen (logo animé) - 2s
 2. Welcome Screen
-   - "Bienvenue sur LetsQueeze"
+   - "Bienvenue sur Gigglz"
    - "La plateforme de party games"
    - CTA "Commencer"
 3. Auth Screen
@@ -1035,7 +1035,7 @@ APP
 
 ### **Vision : De Web App à Plateforme**
 
-LetsQueeze a une **base solide** (temps réel, 2 jeux, UX fonctionnelle) mais manque **tout ce qui fait une vraie plateforme mobile** moderne :
+Gigglz a une **base solide** (temps réel, 2 jeux, UX fonctionnelle) mais manque **tout ce qui fait une vraie plateforme mobile** moderne :
 
 ✅ **On a :** Gameplay, Firebase, Design moderne
 ❌ **Il manque :** Comptes, Progression, Monétisation, Rétention, Gamification

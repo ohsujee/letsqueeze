@@ -23,8 +23,8 @@ const GAME_EVENTS = {
       { id: 'defeat', name: 'Fin - Mauvais score', description: 'À la fin si mauvais score' }
     ]
   },
-  letsqueeze: {
-    name: "Let's Queeeze",
+  gigglz: {
+    name: "Gigglz Quiz",
     events: [
       { id: 'ambiance', name: 'Ambiance globale', description: 'Ambiance de fond pendant le quiz' },
       { id: 'roundStart', name: 'Nouvelle question', description: 'Quand une question est révélée' },

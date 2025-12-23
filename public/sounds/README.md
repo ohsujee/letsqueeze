@@ -1,4 +1,4 @@
-# 🎵 Sons pour LetsQueeze
+# 🎵 Sons pour Gigglz
 
 Cette appli utilise des sons pour créer une expérience immersive de type game show TV. Voici comment configurer les fichiers audio.
 

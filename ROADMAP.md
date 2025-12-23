@@ -499,7 +499,7 @@ async function shareScore() {
   const dataUrl = canvas.toDataURL('image/png');
 
   const link = document.createElement('a');
-  link.download = 'letsqueeze-score.png';
+  link.download = 'gigglz-score.png';
   link.href = dataUrl;
   link.click();
 }
@@ -1365,5 +1365,5 @@ Pour chaque bloc, on mesure :
 ---
 
 **Maintenu par** : Claude Code
-**Repository** : https://github.com/ohsujee/letsqueeze
+**Repository** : https://github.com/ohsujee/gigglz
 **Version** : 0.1.0 → 1.0.0 (target)

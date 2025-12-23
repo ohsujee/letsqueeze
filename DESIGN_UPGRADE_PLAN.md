@@ -1,8 +1,8 @@
-# 🎮 LetsQueeze - Plan de Design Premium "AAA Game Show"
+# 🎮 Gigglz - Plan de Design Premium "AAA Game Show"
 
 ## 🎯 Vision
 
-Transformer LetsQueeze en une expérience visuelle digne de **Buzz! The Ultimate Music Quiz**, **Brain Show** ou **Jackbox Games**, avec un niveau de polish professionnel qui fait que les utilisateurs se disent "Wow, ce truc a été fait par des pros".
+Transformer Gigglz en une expérience visuelle digne de **Buzz! The Ultimate Music Quiz**, **Brain Show** ou **Jackbox Games**, avec un niveau de polish professionnel qui fait que les utilisateurs se disent "Wow, ce truc a été fait par des pros".
 
 ---
 
@@ -1436,6 +1436,6 @@ L'application sera "premium" quand :
 
 ---
 
-**Prêt à transformer LetsQueeze en blockbuster ?** 🚀
+**Prêt à transformer Gigglz en blockbuster ?** 🚀
 
 Dis-moi par quelle phase tu veux commencer et on s'y met !

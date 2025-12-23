@@ -1,4 +1,4 @@
-# 🎮 STRATEGY DE REFONTE UI/UX 2025 - LETSQUEEZE
+# 🎮 STRATEGY DE REFONTE UI/UX 2025 - GIGGLZ
 
 ## 📊 Analyse Problèmes Actuels
 

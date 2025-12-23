@@ -1,5 +1,4 @@
 "use client";
-import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Check, Lock } from 'lucide-react';
@@ -48,81 +47,66 @@ export default function QuizSelectorModal({
     onClose();
   };
 
+  if (!isOpen) return null;
+
   const modalContent = (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="quiz-modal-wrapper">
-          {/* Backdrop */}
-          <motion.div
-            className="quiz-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-          />
+    <div className="quiz-modal-wrapper open">
+      {/* Backdrop - CSS animation */}
+      <div
+        className="quiz-modal-backdrop"
+        onClick={onClose}
+      />
 
-          {/* Modal */}
-          <motion.div
-            className="quiz-modal"
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          >
-            {/* Handle */}
-            <div className="quiz-modal-handle" />
+      {/* Modal - CSS animation */}
+      <div className="quiz-modal">
+        {/* Handle */}
+        <div className="quiz-modal-handle" />
 
-            {/* Header */}
-            <div className="quiz-modal-header">
-              <h2 className="quiz-modal-title">Choisir un Quiz</h2>
-              <button className="quiz-modal-close" onClick={onClose}>
-                <X size={20} />
-              </button>
-            </div>
-
-            {/* Quiz List */}
-            <div className="quiz-modal-list">
-              {quizOptions.map((quiz, index) => {
-                const isSelected = selectedQuizId === quiz.id;
-                const isLocked = !userIsPro && index >= 3;
-
-                return (
-                  <motion.button
-                    key={quiz.id}
-                    className={`quiz-item ${isSelected ? 'selected' : ''} ${isLocked ? 'locked' : ''}`}
-                    onClick={() => handleSelect(quiz.id, isLocked)}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.03 }}
-                    whileTap={!isLocked ? { scale: 0.98 } : {}}
-                  >
-                    <span className="quiz-item-emoji">{quiz.emoji || '📝'}</span>
-                    <div className="quiz-item-info">
-                      <span className="quiz-item-title">{quiz.title}</span>
-                      <span className="quiz-item-meta">
-                        {quiz.description || quiz.category} • {quiz.questionCount} questions
-                      </span>
-                    </div>
-                    <div className="quiz-item-status">
-                      {isLocked ? (
-                        <span className="quiz-item-lock">
-                          <Lock size={14} />
-                          PRO
-                        </span>
-                      ) : isSelected ? (
-                        <span className="quiz-item-check">
-                          <Check size={18} />
-                        </span>
-                      ) : null}
-                    </div>
-                  </motion.button>
-                );
-              })}
-            </div>
-          </motion.div>
+        {/* Header */}
+        <div className="quiz-modal-header">
+          <h2 className="quiz-modal-title">Choisir un Quiz</h2>
+          <button className="quiz-modal-close" onClick={onClose}>
+            <X size={20} />
+          </button>
         </div>
-      )}
-    </AnimatePresence>
+
+        {/* Quiz List - No individual animations */}
+        <div className="quiz-modal-list">
+          {quizOptions.map((quiz, index) => {
+            const isSelected = selectedQuizId === quiz.id;
+            const isLocked = !userIsPro && index >= 3;
+
+            return (
+              <button
+                key={quiz.id}
+                className={`quiz-item ${isSelected ? 'selected' : ''} ${isLocked ? 'locked' : ''}`}
+                onClick={() => handleSelect(quiz.id, isLocked)}
+              >
+                <span className="quiz-item-emoji">{quiz.emoji || '📝'}</span>
+                <div className="quiz-item-info">
+                  <span className="quiz-item-title">{quiz.title}</span>
+                  <span className="quiz-item-meta">
+                    {quiz.description || quiz.category} • {quiz.questionCount} questions
+                  </span>
+                </div>
+                <div className="quiz-item-status">
+                  {isLocked ? (
+                    <span className="quiz-item-lock">
+                      <Lock size={14} />
+                      PRO
+                    </span>
+                  ) : isSelected ? (
+                    <span className="quiz-item-check">
+                      <Check size={18} />
+                    </span>
+                  ) : null}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 
   return createPortal(modalContent, document.body);

@@ -20,7 +20,7 @@ Ce guide explique comment activer Google Sign-In dans Firebase pour que tu puiss
 ### **1. Accéder à Firebase Console**
 
 1. Va sur [Firebase Console](https://console.firebase.google.com/)
-2. Sélectionne ton projet **"letsqueeze"**
+2. Sélectionne ton projet **"gigglz"**
 
 ---
 
@@ -38,7 +38,7 @@ Ce guide explique comment activer Google Sign-In dans Firebase pour que tu puiss
 
 6. Configure les informations :
    - **Project support email** : yogarajah.sujeevan@gmail.com
-   - **Project public-facing name** : LetsQueeze
+   - **Project public-facing name** : Gigglz
 
 7. Clique sur **"Save"** (Enregistrer)
 
@@ -219,7 +219,7 @@ await signInWithGoogleRedirect();
 
 ## 🎨 Personnalisation de la Page Login
 
-La page `/login` est déjà stylée avec le design LetsQueeze. Tu peux la personnaliser dans :
+La page `/login` est déjà stylée avec le design Gigglz. Tu peux la personnaliser dans :
 
 ```
 app/login/page.jsx

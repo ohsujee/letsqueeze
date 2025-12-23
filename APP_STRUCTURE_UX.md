@@ -1,4 +1,4 @@
-# 📱 LetsQueeze - Structure UX/UI Mobile App
+# 📱 Gigglz - Structure UX/UI Mobile App
 
 Basé sur les meilleures pratiques 2025 et l'analyse de Plato + apps de jeux multijoueurs
 
@@ -36,7 +36,7 @@ Basé sur les meilleures pratiques 2025 et l'analyse de Plato + apps de jeux mul
 ┌─────────────────┐
 │                 │
 │                 │
-│   LetsQueeze    │
+│   Gigglz    │
 │      🎮         │
 │                 │
 │   Loading...    │
@@ -61,7 +61,7 @@ Basé sur les meilleures pratiques 2025 et l'analyse de Plato + apps de jeux mul
 ┌─────────────────┐
 │   🎮 🎯 🎲      │
 │                 │
-│  LetsQueeze     │
+│  Gigglz     │
 │                 │
 │  Jeux Multijoueur│
 │  Entre Amis     │
@@ -114,7 +114,7 @@ Basé sur les meilleures pratiques 2025 et l'analyse de Plato + apps de jeux mul
 **Option A - Recommandée: Connexion Optionnelle**
 ```
 ┌─────────────────┐
-│  LetsQueeze     │
+│  Gigglz     │
 │                 │
 │  Connectez-vous │
 │  pour sauvegarder│
@@ -132,7 +132,7 @@ Basé sur les meilleures pratiques 2025 et l'analyse de Plato + apps de jeux mul
 **Option B - Actuelle: Connexion Obligatoire**
 ```
 ┌─────────────────┐
-│  LetsQueeze     │
+│  Gigglz     │
 │                 │
 │  [Google 🔵]    │
 │                 │
