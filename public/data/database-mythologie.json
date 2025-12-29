@@ -1,0 +1,19 @@
+{
+  "id": "database-mythologie",
+  "title": "Mythologie",
+  "lang": "fr",
+  "items": [
+    {"id": "cg-myth001", "question": "Roi des dieux de l'Olympe dans la mythologie grecque, il règne sur le ciel et la foudre. Frère de Poséidon et Hadès, il est célèbre pour ses nombreuses aventures amoureuses. Qui est-ce ?", "answer": "Zeus", "difficulty": "normal", "category": "Mythologie"},
+    {"id": "cg-myth002", "question": "Demi-dieu grec célèbre pour ses douze travaux, il tue le lion de Némée et l'hydre de Lerne. Fils de Zeus et d'Alcmène, il devient immortel après sa mort. Qui est-ce ?", "answer": "Héraclès (Hercule)", "difficulty": "normal", "category": "Mythologie"},
+    {"id": "cg-myth003", "question": "Dieu grec des mers et des océans, il brandit un trident et déclenche tempêtes et tremblements de terre. Frère de Zeus, il rivalise avec Athéna pour le patronage d'Athènes. Qui est-ce ?", "answer": "Poséidon", "difficulty": "normal", "category": "Mythologie"},
+    {"id": "cg-myth004", "question": "Dieu nordique du tonnerre armé du marteau Mjolnir, il protège Asgard des géants. Fils d'Odin, il est popularisé par les films Marvel. Qui est-ce ?", "answer": "Thor", "difficulty": "normal", "category": "Mythologie"},
+    {"id": "cg-myth005", "question": "Gorgone à la chevelure de serpents dont le regard pétrifiait quiconque la regardait, elle est décapitée par Persée grâce à son bouclier miroir. De son sang naît Pégase. Qui est-ce ?", "answer": "Méduse", "difficulty": "normal", "category": "Mythologie"},
+    {"id": "cg-myth006", "question": "Dieu égyptien à tête de chacal, il préside à la momification et guide les âmes vers l'au-delà. Il pèse le cœur des défunts contre la plume de Maât. Qui est-ce ?", "answer": "Anubis", "difficulty": "normal", "category": "Mythologie"},
+    {"id": "cg-myth007", "question": "Dieu nordique de la malice et de la ruse, il peut changer de forme à volonté. Père du loup Fenrir et du serpent Jörmungandr, il causera le Ragnarök. Qui est-ce ?", "answer": "Loki", "difficulty": "normal", "category": "Mythologie"},
+    {"id": "cg-myth008", "question": "Titan grec condamné par Zeus à porter la voûte céleste sur ses épaules pour l'éternité. Son nom désigne aujourd'hui un recueil de cartes géographiques. Qui est-ce ?", "answer": "Atlas", "difficulty": "normal", "category": "Mythologie"},
+    {"id": "cg-myth009", "question": "Roi de Corinthe condamné aux Enfers à pousser éternellement un rocher qui retombe toujours avant le sommet. Albert Camus en fait le symbole de l'absurde. Qui est-ce ?", "answer": "Sisyphe", "difficulty": "difficile", "category": "Mythologie"},
+    {"id": "cg-myth010", "question": "Arbre cosmique de la mythologie nordique, il relie les neuf mondes dont Asgard et Midgard. Trois racines le maintiennent, et le dragon Nídhögg ronge ses racines. Quel est son nom ?", "answer": "Yggdrasil", "difficulty": "difficile", "category": "Mythologie"},
+    {"id": "cg-myth011", "question": "Dieu hindou à tête d'éléphant, fils de Shiva et Parvati, il est le dieu de la sagesse et celui qui lève les obstacles. On l'invoque au début de toute entreprise. Qui est-ce ?", "answer": "Ganesh", "difficulty": "normal", "category": "Mythologie"},
+    {"id": "cg-myth012", "question": "Cheval ailé né du sang de Méduse, il devient la monture de Bellérophon puis rejoint les écuries de Zeus. Symbole d'inspiration poétique, il est associé aux Muses. Qui est-ce ?", "answer": "Pégase", "difficulty": "normal", "category": "Mythologie"}
+  ]
+}

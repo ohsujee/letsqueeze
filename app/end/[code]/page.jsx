@@ -8,6 +8,10 @@ import { motion } from "framer-motion";
 import { useToast } from "@/lib/hooks/useToast";
 import { hueScenariosService } from "@/lib/hue-module";
 import { recordQuizGame } from "@/lib/services/statsService";
+import { storage } from "@/lib/utils/storage";
+import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { isPro } from "@/lib/subscription";
+import { showInterstitialAd, initAdMob } from "@/lib/admob";
 
 function rankWithTies(items, scoreKey = "score") {
   const sorted = items.slice().sort((a,b)=> (b[scoreKey]||0) - (a[scoreKey]||0));
@@ -32,12 +36,34 @@ export default function EndPage(){
   const [myUid, setMyUid] = useState(null);
   const [firebaseUser, setFirebaseUser] = useState(null);
   const statsRecordedRef = useRef(false);
+  const adShownRef = useRef(false);
+
+  // Get user profile for Pro check
+  const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
+  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
   // Récupérer l'uid de l'utilisateur depuis le localStorage
   useEffect(() => {
     const uid = localStorage.getItem(`lq_uid_${code}`);
     setMyUid(uid);
+
+    // Mark that user completed a game (for guest prompt on home)
+    storage.set('returnedFromGame', true);
   }, [code]);
+
+  // Show interstitial ad before showing results (for non-Pro users)
+  useEffect(() => {
+    if (adShownRef.current || profileLoading) return;
+
+    if (currentUser !== null && !userIsPro) {
+      adShownRef.current = true;
+      initAdMob().then(() => {
+        showInterstitialAd().catch(err => {
+          console.log('[EndPage] Interstitial ad error:', err);
+        });
+      });
+    }
+  }, [currentUser, userIsPro, profileLoading]);
 
   // Get Firebase auth user for stats
   useEffect(() => {

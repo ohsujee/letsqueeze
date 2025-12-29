@@ -16,6 +16,10 @@ import BottomNav from "@/lib/components/BottomNav";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { hueScenariosService } from "@/lib/hue-module";
 import { recordAlibiGame } from "@/lib/services/statsService";
+import { storage } from "@/lib/utils/storage";
+import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { isPro } from "@/lib/subscription";
+import { showInterstitialAd, initAdMob } from "@/lib/admob";
 
 /**
  * Icône Trophy animée pour la victoire
@@ -202,6 +206,30 @@ export default function AlibiEnd() {
   const animationStartedRef = useRef(false);
   const confettiTriggeredRef = useRef(false);
   const statsRecordedRef = useRef(false);
+  const adShownRef = useRef(false);
+
+  // Get user profile for Pro check
+  const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
+  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+
+  // Mark that user completed a game (for guest prompt on home)
+  useEffect(() => {
+    storage.set('returnedFromGame', true);
+  }, []);
+
+  // Show interstitial ad before showing results (for non-Pro users)
+  useEffect(() => {
+    if (adShownRef.current || profileLoading) return;
+
+    if (currentUser !== null && !userIsPro) {
+      adShownRef.current = true;
+      initAdMob().then(() => {
+        showInterstitialAd().catch(err => {
+          console.log('[AlibiEnd] Interstitial ad error:', err);
+        });
+      });
+    }
+  }, [currentUser, userIsPro, profileLoading]);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {

@@ -186,24 +186,25 @@ Avant de valider une question :
 
 ---
 
-## 6. ÉQUILIBRER LA DIFFICULTÉ
+## 6. OBJECTIFS ET ÉQUILIBRE
 
-### Distribution pour 20 questions
+### Nombre de questions par thème
+
+| Objectif | Quantité | Statut |
+|----------|----------|--------|
+| **Minimum requis** | 100 questions | Obligatoire pour publier |
+| **Idéal** | 150-200 questions | Excellente rejouabilité |
+
+> Un thème avec moins de 100 questions = trop de répétitions après quelques parties.
+
+### Distribution pour 100 questions
 
 | Niveau | Quantité | Rôle |
 |--------|----------|------|
-| **Échauffement** | 3-4 questions | Mettre en confiance |
-| **Normal** | 10-12 questions | Cœur du quiz |
-| **Difficile** | 4-6 questions | Départager les experts |
+| **Normal** | 70-75 questions | Cœur du quiz, accessibles |
+| **Difficile** | 25-30 questions | Départager les experts |
 
-### Progression narrative
-
-```
-Questions 1-4   → Échauffement (accessibles)
-Questions 5-12  → Normal (montée en puissance)
-Questions 13-16 → Mix Normal/Difficile
-Questions 17-20 → Climax (les plus challenging)
-```
+> Les questions sont mélangées aléatoirement lors d'une partie, donc pas besoin de progression narrative dans le fichier.
 
 ---
 
@@ -285,8 +286,25 @@ Questions 17-20 → Climax (les plus challenging)
 
 ## 8. CHECKLIST FINALE
 
+### ÉTAPE 0 : Vérifier les questions existantes (OBLIGATOIRE)
+
+**Avant de créer de nouvelles questions, TOUJOURS lire le fichier JSON existant pour éviter :**
+
+| Problème | Exemple | Conséquence |
+|----------|---------|-------------|
+| **Question similaire** | 2 questions sur "le père de Naruto" | Répétition ennuyeuse |
+| **Réponse similaire** | "Minato" et "Minato Namikaze" | Confusion pour les joueurs |
+| **Réponse identique** | 2 questions différentes → même réponse | Interdit ! Max 1 question par réponse |
+
+**Processus :**
+1. Lire intégralement le fichier `database-[theme].json`
+2. Lister toutes les réponses existantes
+3. Ne JAMAIS créer une question dont la réponse existe déjà
+4. Varier les angles d'approche sur un même sujet
+
 ### Avant de valider chaque question
 
+- [ ] **Questions existantes vérifiées** : Pas de doublon de réponse
 - [ ] **Phrases complètes** : Pas de style fragmenté/télégraphique
 - [ ] **Pyramidalité** : Du plus obscur au plus évident
 - [ ] **Zéro spoiler** : La réponse n'est PAS dans la question

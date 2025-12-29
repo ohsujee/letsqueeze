@@ -1,0 +1,17 @@
+{
+  "id": "database-technologie",
+  "title": "Technologie",
+  "lang": "fr",
+  "items": [
+    {"id": "cg-tech001", "question": "Entreprise américaine fondée par Steve Jobs, Steve Wozniak et Ron Wayne en 1976, elle révolutionne l'informatique avec le Macintosh puis les smartphones avec l'iPhone. Basée à Cupertino. Quelle est cette entreprise ?", "answer": "Apple", "difficulty": "normal", "category": "Technologie"},
+    {"id": "cg-tech002", "question": "Moteur de recherche dominant avec plus de 90% des parts de marché mondial, il est créé par Larry Page et Sergey Brin en 1998. Devenu Alphabet en 2015, il possède YouTube et Android. Quelle est cette entreprise ?", "answer": "Google", "difficulty": "normal", "category": "Technologie"},
+    {"id": "cg-tech003", "question": "Réseau social fondé par Mark Zuckerberg en 2004 à Harvard, il compte aujourd'hui 3 milliards d'utilisateurs. Renommé Meta en 2021, il possède Instagram et WhatsApp. Quel était son nom original ?", "answer": "Facebook", "difficulty": "normal", "category": "Technologie"},
+    {"id": "cg-tech004", "question": "Entrepreneur sud-africain à la tête de Tesla et SpaceX, il a racheté Twitter (devenu X) en 2022. Neuralink et The Boring Company font aussi partie de ses projets. Qui est-ce ?", "answer": "Elon Musk", "difficulty": "normal", "category": "Technologie"},
+    {"id": "cg-tech005", "question": "Cryptomonnaie décentralisée créée en 2009 par le mystérieux Satoshi Nakamoto, elle repose sur la technologie blockchain. Son symbole est ₿ et son cours a atteint des sommets historiques. Quelle est cette monnaie ?", "answer": "Le Bitcoin", "difficulty": "normal", "category": "Technologie"},
+    {"id": "cg-tech006", "question": "Application de messagerie instantanée créée en 2009 et rachetée par Facebook en 2014 pour 19 milliards de dollars. La double coche bleue indique que le message a été lu. Quelle est cette application ?", "answer": "WhatsApp", "difficulty": "normal", "category": "Technologie"},
+    {"id": "cg-tech007", "question": "Intelligence artificielle conversationnelle lancée par OpenAI en novembre 2022, elle utilise le modèle GPT. Capable de rédiger, coder et converser, elle a atteint 100 millions d'utilisateurs en 2 mois. Quel est son nom ?", "answer": "ChatGPT", "difficulty": "normal", "category": "Technologie"},
+    {"id": "cg-tech008", "question": "Plateforme de vidéos courtes chinoise au logo en forme de note de musique, elle compte plus d'un milliard d'utilisateurs. Son algorithme addictif et ses danses virales ont conquis les jeunes. Quelle est cette application ?", "answer": "TikTok", "difficulty": "normal", "category": "Technologie"},
+    {"id": "cg-tech009", "question": "Console de jeux vidéo japonaise créée par Sony en 1994, elle a révolutionné le gaming avec ses manettes DualShock. La PS5 est la dernière génération. Quelle est cette console ?", "answer": "PlayStation", "difficulty": "normal", "category": "Technologie"},
+    {"id": "cg-tech010", "question": "Système d'exploitation mobile développé par Google et lancé en 2008, il équipe 70% des smartphones mondiaux. Son logo est un petit robot vert. Quel est ce système ?", "answer": "Android", "difficulty": "normal", "category": "Technologie"}
+  ]
+}

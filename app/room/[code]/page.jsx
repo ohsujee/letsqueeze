@@ -23,6 +23,8 @@ import { useToast } from "@/lib/hooks/useToast";
 import { getQuizManifest } from "@/lib/utils/manifestCache";
 import { motion } from "framer-motion";
 import { ChevronRight, Users, Zap, Eye } from "lucide-react";
+import { showInterstitialAd, initAdMob } from "@/lib/admob";
+import { storage } from "@/lib/utils/storage";
 
 export default function Room() {
   const { code } = useParams();
@@ -33,15 +35,41 @@ export default function Room() {
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState({});
   const [isHost, setIsHost] = useState(false);
-  const [quizOptions, setQuizOptions] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [showPaywall, setShowPaywall] = useState(false);
   const [showQuizSelector, setShowQuizSelector] = useState(false);
   const [lockedQuizName, setLockedQuizName] = useState('');
   const [joinUrl, setJoinUrl] = useState("");
   const roomWasValidRef = useRef(false);
+  const adShownRef = useRef(false);
 
   const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+
+  // Show interstitial ad on first lobby entry (not when returning from game end)
+  useEffect(() => {
+    // Skip if already shown, or user is Pro, or still loading
+    if (adShownRef.current || profileLoading) return;
+
+    // Check if returning from game end (don't show ad in that case)
+    const returnedFromGame = storage.get('returnedFromGame');
+    if (returnedFromGame) {
+      // Don't show ad, but keep the flag for home page prompt
+      adShownRef.current = true;
+      return;
+    }
+
+    // Wait for profile to load to check Pro status
+    if (currentUser !== null && !userIsPro) {
+      adShownRef.current = true;
+      // Init AdMob and show interstitial
+      initAdMob().then(() => {
+        showInterstitialAd().catch(err => {
+          console.log('[Room] Interstitial ad error:', err);
+        });
+      });
+    }
+  }, [currentUser, userIsPro, profileLoading]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {
@@ -51,8 +79,8 @@ export default function Room() {
 
   useEffect(() => {
     getQuizManifest()
-      .then(quizzes => setQuizOptions(quizzes))
-      .catch(() => setQuizOptions([{ id: "general", title: "Général" }]));
+      .then(cats => setCategories(cats))
+      .catch(() => setCategories([]));
   }, []);
 
   useEffect(() => {
@@ -116,38 +144,32 @@ export default function Room() {
   }, [code, router, isHost]);
 
   const handleStartGame = async () => {
-    if (!isHost || !meta?.quizId) return;
+    if (!isHost || !meta?.quizSelection?.themeIds?.length) return;
 
     try {
-      const selectedQuizId = meta.quizId;
-      const quizIndex = quizOptions.findIndex(q => q.id === selectedQuizId);
+      const { themeIds, categoryName } = meta.quizSelection;
 
-      if (currentUser && !userIsPro && quizIndex >= 0) {
-        const hasAccess = canAccessPack(
-          { ...currentUser, subscription },
-          'quiz',
-          quizIndex
-        );
-
-        if (!hasAccess) {
-          const selectedQuiz = quizOptions.find(q => q.id === selectedQuizId);
-          setLockedQuizName(selectedQuiz?.title || selectedQuizId);
-          setShowPaywall(true);
-          return;
+      // Charger toutes les bases de données sélectionnées
+      const allQuestions = [];
+      for (const themeId of themeIds) {
+        try {
+          const response = await fetch(`/data/${themeId}.json`);
+          const database = await response.json();
+          if (database?.items?.length) {
+            allQuestions.push(...database.items);
+          }
+        } catch (err) {
+          console.warn(`Failed to load ${themeId}:`, err);
         }
       }
 
-      // Charger la base de données et sélectionner 20 questions aléatoires
-      const response = await fetch(`/data/${selectedQuizId}.json`);
-      const database = await response.json();
-
-      if (!database?.items?.length) {
-        toast.error('Erreur: Base de données vide');
+      if (allQuestions.length === 0) {
+        toast.error('Erreur: Aucune question disponible');
         return;
       }
 
       // Mélanger les questions avec Fisher-Yates
-      const shuffled = [...database.items];
+      const shuffled = [...allQuestions];
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
@@ -159,8 +181,8 @@ export default function Room() {
       // Stocker les questions sélectionnées dans Firebase
       await update(ref(db, `rooms/${code}`), {
         'quiz': {
-          id: database.id,
-          title: database.title,
+          id: themeIds.join('+'),
+          title: categoryName,
           items: selectedQuestions
         },
         'state': {
@@ -250,9 +272,9 @@ export default function Room() {
     await update(ref(db), updates);
   };
 
-  const handleQuizChange = async (quizId) => {
+  const handleQuizChange = async (selection) => {
     if (!isHost) return;
-    await update(ref(db, `rooms/${code}/meta`), { quizId });
+    await update(ref(db, `rooms/${code}/meta`), { quizSelection: selection });
     setShowQuizSelector(false);
   };
 
@@ -304,9 +326,11 @@ export default function Room() {
     router.push('/home');
   };
 
-  const selectedQuiz = meta?.quizId ? quizOptions.find(q => q.id === meta.quizId) : null;
-  const selectedQuizTitle = selectedQuiz?.title || "Choisir un quiz";
-  const canStart = isHost && meta?.quizId;
+  const quizSelection = meta?.quizSelection;
+  const hasSelection = quizSelection?.themeIds?.length > 0;
+  const selectedThemeNames = quizSelection?.themes?.map(t => t.title).join(', ') || '';
+  const totalQuestions = quizSelection?.themes?.reduce((sum, t) => sum + t.questionCount, 0) || 0;
+  const canStart = isHost && hasSelection;
 
   // Loading state
   if (!meta) {
@@ -332,8 +356,8 @@ export default function Room() {
       <QuizSelectorModal
         isOpen={showQuizSelector}
         onClose={() => setShowQuizSelector(false)}
-        quizOptions={quizOptions}
-        selectedQuizId={meta?.quizId || null}
+        categories={categories}
+        currentSelection={meta?.quizSelection || null}
         onSelectQuiz={handleQuizChange}
         userIsPro={userIsPro}
       />
@@ -384,17 +408,17 @@ export default function Room() {
               >
                 <div className="quiz-card-content">
                   <div className="quiz-card-left">
-                    <span className="quiz-card-emoji">{selectedQuiz?.emoji || '🧠'}</span>
+                    <span className="quiz-card-emoji">{quizSelection?.categoryEmoji || '🧠'}</span>
                   </div>
                   <div className="quiz-card-center">
                     <span className="quiz-card-label">Quiz</span>
-                    <h3 className="quiz-card-title">{selectedQuizTitle}</h3>
+                    <h3 className="quiz-card-title">{quizSelection?.categoryName || 'Choisir un quiz'}</h3>
                     <p className="quiz-card-meta">
-                      {selectedQuiz ? `${selectedQuiz.difficulty} • ${selectedQuiz.questionCount} questions` : 'Appuyer pour choisir'}
+                      {hasSelection ? `${selectedThemeNames} • ${totalQuestions} questions` : 'Appuyer pour choisir'}
                     </p>
                   </div>
                   <div className="quiz-card-right">
-                    <span className="quiz-change-hint">{selectedQuiz ? 'Changer' : 'Choisir'}</span>
+                    <span className="quiz-change-hint">{hasSelection ? 'Changer' : 'Choisir'}</span>
                     <ChevronRight size={20} className="quiz-card-arrow" />
                   </div>
                 </div>

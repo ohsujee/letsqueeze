@@ -222,7 +222,7 @@
     },
     {
       "id": "op032",
-      "question": "Royaume désertique d'Alabasta manipulé par un Corsaire qui voulait s'emparer de son arme antique, il a été sauvé par l'équipage au chapeau de paille. La princesse Vivi en est l'héritière. Quel est ce pays ?",
+      "question": "Royaume désertique manipulé par Crocodile qui voulait s'emparer de son arme antique Pluton, il a été sauvé par l'équipage au chapeau de paille. La princesse Vivi en est l'héritière. Quel est ce pays ?",
       "answer": "Alabasta",
       "difficulty": "normal",
       "category": "Lieux"
@@ -250,7 +250,7 @@
     },
     {
       "id": "op036",
-      "question": "Royaume sous-marin situé à 10000 mètres de profondeur, il est peuplé de sirènes et d'hommes-poissons. Protégé par une bulle géante, il était sous la protection de Barbe Blanche. Quel est ce lieu ?",
+      "question": "Royaume sous-marin situé à 10000 mètres de profondeur, protégé par une bulle géante et peuplé de créatures aquatiques mi-humaines. Il était sous la protection de Barbe Blanche avant sa mort. Quel est ce lieu ?",
       "answer": "L'Île des Hommes-Poissons (Fishman Island)",
       "difficulty": "normal",
       "category": "Lieux"
@@ -425,7 +425,7 @@
     },
     {
       "id": "op061",
-      "question": "Arc narratif où l'équipage a libéré Nami de l'emprise d'Arlong, c'est la première grande victoire du capitaine et le moment où Nami rejoint officiellement l'équipe. Quel est cet arc ?",
+      "question": "Arc narratif où l'équipage a libéré Nami de l'emprise d'un pirate homme-poisson à la mâchoire redoutable, c'est la première grande victoire du capitaine en East Blue. Quel est cet arc ?",
       "answer": "Arc Arlong Park",
       "difficulty": "normal",
       "category": "Arcs"
@@ -747,8 +747,8 @@
     },
     {
       "id": "op107",
-      "question": "Organisation criminelle dirigée par Jigen puis Kaido cherchant à créer des armes de destruction massive, elle possède le Karma et a créé Kawaki. Kara est son nom dans Boruto. Quelle est cette organisation ?",
-      "answer": "L'organisation Kara (dans Boruto) / Beast Pirates (dans One Piece)",
+      "question": "Équipage de Kaido composé de centaines de pirates ayant mangé des fruits du démon de type Zoan artificiels (SMILE), ils occupaient Wano. Les Calamités en étaient les commandants. Quelle est cette organisation ?",
+      "answer": "Les Beast Pirates (équipage des Cent Bêtes)",
       "difficulty": "difficile",
       "category": "Organisations"
     },

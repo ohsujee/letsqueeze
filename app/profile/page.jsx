@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { onAuthStateChanged, auth, signOutUser } from '@/lib/firebase';
+import { onAuthStateChanged, auth, signOutUser, signInWithGoogle, signInWithApple } from '@/lib/firebase';
+import { initializeUserProfile, updateUserPseudo, validatePseudo } from '@/lib/userProfile';
 import { useSubscription } from '@/lib/hooks/useSubscription';
+import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { storage } from '@/lib/utils/storage';
 import BottomNav from '@/lib/components/BottomNav';
-import { ChevronRight, Wifi, WifiOff, BarChart3, Sparkles, Crown, Infinity, Ban, Package, Lock, Zap, ExternalLink } from 'lucide-react';
+import { ChevronRight, Wifi, WifiOff, BarChart3, Sparkles, Crown, Infinity, Ban, Package, UserPlus, Zap, ExternalLink, Save, Trophy, Pencil, Check, X } from 'lucide-react';
 import { openManageSubscriptions } from '@/lib/revenuecat';
 import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -39,6 +41,16 @@ export default function ProfilePage() {
   const [hueEffectsEnabled, setHueEffectsEnabled] = useState(true);
   const [hueConnected, setHueConnected] = useState(false);
   const { isPro, isAdmin } = useSubscription(user);
+  const { profile } = useUserProfile();
+  const [connectingGoogle, setConnectingGoogle] = useState(false);
+  const [connectingApple, setConnectingApple] = useState(false);
+  const [connectError, setConnectError] = useState(null);
+
+  // Pseudo editing state
+  const [isEditingPseudo, setIsEditingPseudo] = useState(false);
+  const [newPseudo, setNewPseudo] = useState('');
+  const [pseudoError, setPseudoError] = useState('');
+  const [savingPseudo, setSavingPseudo] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -92,6 +104,48 @@ export default function ProfilePage() {
     hueService.setEffectsEnabled(newValue);
   };
 
+  // Handle Google connection for guests
+  const handleGoogleConnect = async () => {
+    try {
+      setConnectingGoogle(true);
+      setConnectError(null);
+      const result = await signInWithGoogle();
+      if (result?.user) {
+        await initializeUserProfile(result.user);
+        // Clear guest tracking
+        storage.remove('guestGamesPlayed');
+        storage.remove('guestPromptDismissedAt');
+        // User state will update via onAuthStateChanged
+      }
+    } catch (err) {
+      console.error('Google connection error:', err);
+      setConnectError('Erreur de connexion Google');
+      setConnectingGoogle(false);
+    }
+  };
+
+  // Handle Apple connection for guests
+  const handleAppleConnect = async () => {
+    try {
+      setConnectingApple(true);
+      setConnectError(null);
+      const result = await signInWithApple();
+      if (result?.user) {
+        await initializeUserProfile(result.user);
+        storage.remove('guestGamesPlayed');
+        storage.remove('guestPromptDismissedAt');
+      }
+    } catch (err) {
+      console.error('Apple connection error:', err);
+      if (err.code === 'auth/operation-not-allowed') {
+        setConnectError('Connexion Apple bientôt disponible !');
+      } else {
+        setConnectError('Erreur de connexion Apple');
+      }
+      setConnectingApple(false);
+    }
+  };
+
   const getInitials = (name) => {
     if (!name) return '?';
     return name
@@ -100,6 +154,42 @@ export default function ProfilePage() {
       .join('')
       .toUpperCase()
       .slice(0, 2);
+  };
+
+  // Start editing pseudo
+  const handleStartEditPseudo = () => {
+    setNewPseudo(profile?.pseudo || user?.displayName?.split(' ')[0] || '');
+    setPseudoError('');
+    setIsEditingPseudo(true);
+  };
+
+  // Cancel editing pseudo
+  const handleCancelEditPseudo = () => {
+    setIsEditingPseudo(false);
+    setNewPseudo('');
+    setPseudoError('');
+  };
+
+  // Save new pseudo
+  const handleSavePseudo = async () => {
+    const validation = validatePseudo(newPseudo.trim());
+    if (!validation.valid) {
+      setPseudoError(validation.error);
+      return;
+    }
+
+    try {
+      setSavingPseudo(true);
+      await updateUserPseudo(user.uid, newPseudo.trim());
+      setIsEditingPseudo(false);
+      setNewPseudo('');
+      setPseudoError('');
+    } catch (err) {
+      console.error('Error saving pseudo:', err);
+      setPseudoError('Erreur lors de la sauvegarde');
+    } finally {
+      setSavingPseudo(false);
+    }
   };
 
   if (loading) {
@@ -155,11 +245,75 @@ export default function ProfilePage() {
             )}
           </div>
 
-          {/* User Info */}
+          {/* User Info - Pseudo as main name, editable for everyone */}
           <div className="user-info">
-            <h1 className="user-name">
-              {user?.displayName || 'Joueur'}
-            </h1>
+            <AnimatePresence mode="wait">
+              {isEditingPseudo ? (
+                <motion.div
+                  className="pseudo-edit-card"
+                  key="editing"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <input
+                    type="text"
+                    className="pseudo-input-large"
+                    value={newPseudo}
+                    onChange={(e) => {
+                      setNewPseudo(e.target.value);
+                      setPseudoError('');
+                    }}
+                    placeholder="Ton pseudo"
+                    maxLength={16}
+                    autoFocus
+                  />
+                  {pseudoError && (
+                    <p className="pseudo-error-inline">{pseudoError}</p>
+                  )}
+                  <div className="pseudo-edit-actions">
+                    <motion.button
+                      className="pseudo-save-btn"
+                      onClick={handleSavePseudo}
+                      disabled={savingPseudo}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Check size={18} />
+                      <span>Enregistrer</span>
+                    </motion.button>
+                    <motion.button
+                      className="pseudo-cancel-btn"
+                      onClick={handleCancelEditPseudo}
+                      disabled={savingPseudo}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Annuler
+                    </motion.button>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.h1
+                  className="user-name-editable"
+                  key="display"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {profile?.pseudo || user?.displayName?.split(' ')[0] || 'Joueur'}
+                  <button
+                    className="edit-name-btn"
+                    onClick={handleStartEditPseudo}
+                    title="Modifier ton pseudo"
+                  >
+                    <Pencil size={14} />
+                  </button>
+                </motion.h1>
+              )}
+            </AnimatePresence>
+
             {user?.email && (
               <p className="user-email">{user.email}</p>
             )}
@@ -202,6 +356,68 @@ export default function ProfilePage() {
                 <span>Gérer l'abonnement</span>
                 <ExternalLink size={16} />
               </button>
+            </>
+          ) : user?.isAnonymous ? (
+            <>
+              {/* Guest Connect Card - Style Guide Compliant */}
+              <div className="guest-connect-card">
+                <div className="guest-connect-glow" />
+
+                <div className="guest-connect-content">
+                  <div className="guest-connect-icon">
+                    <UserPlus size={26} />
+                  </div>
+
+                  <h2 className="guest-connect-title">Connecte-toi</h2>
+                  <p className="guest-connect-desc">Première étape pour profiter de tout</p>
+
+                  <div className="guest-connect-benefits">
+                    <div className="guest-benefit">
+                      <Save size={15} />
+                      <span>Sauvegarde ta progression</span>
+                    </div>
+                    <div className="guest-benefit">
+                      <Trophy size={15} />
+                      <span>Accède à tes statistiques</span>
+                    </div>
+                    <div className="guest-benefit">
+                      <Sparkles size={15} />
+                      <span>Débloque Pro et plus</span>
+                    </div>
+                  </div>
+
+                  {connectError && (
+                    <div className="connect-error">{connectError}</div>
+                  )}
+
+                  <div className="guest-connect-buttons">
+                    <button
+                      className="btn-auth btn-google"
+                      onClick={handleGoogleConnect}
+                      disabled={connectingGoogle || connectingApple}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                      </svg>
+                      {connectingGoogle ? 'Connexion...' : 'Continuer avec Google'}
+                    </button>
+
+                    <button
+                      className="btn-auth btn-apple"
+                      onClick={handleAppleConnect}
+                      disabled={connectingGoogle || connectingApple}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                      </svg>
+                      {connectingApple ? 'Connexion...' : 'Continuer avec Apple'}
+                    </button>
+                  </div>
+                </div>
+              </div>
             </>
           ) : (
             <>
@@ -328,25 +544,14 @@ export default function ProfilePage() {
           </div>
         </section>
 
-        {/* Connexions Section */}
-        <section className="card connections-card">
-          <h2 className="card-title">
-            <span className="card-icon">🔗</span>
-            Connexions
-          </h2>
+        {/* Connexions Section - Only show for connected users */}
+        {!user?.isAnonymous && (
+          <section className="card connections-card">
+            <h2 className="card-title">
+              <span className="card-icon">🔗</span>
+              Connexions
+            </h2>
 
-          {/* Guest users need to connect first */}
-          {user?.isAnonymous ? (
-            <div className="guest-notice">
-              <p>Connecte-toi avec Google pour synchroniser tes paramètres et débloquer les intégrations.</p>
-              <button
-                className="btn-connect-google"
-                onClick={() => router.push('/login')}
-              >
-                Se connecter
-              </button>
-            </div>
-          ) : (
             <div className="connections-list">
               {/* Philips Hue */}
               <button
@@ -400,8 +605,8 @@ export default function ProfilePage() {
                 <span className="connection-badge">Bientôt</span>
               </div>
             </div>
-          )}
-        </section>
+          </section>
+        )}
 
         {/* Sign Out Button */}
         <button className="btn-signout" onClick={handleSignOut}>
@@ -681,6 +886,166 @@ export default function ProfilePage() {
         .btn-manage-sub:hover {
           background: rgba(255, 255, 255, 0.08);
           border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Guest Connect Card - Style Guide: Glassmorphism + Glow */
+        .guest-connect-card {
+          position: relative;
+          background: rgba(20, 20, 30, 0.8);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(34, 197, 94, 0.3);
+          border-radius: 20px;
+          overflow: hidden;
+        }
+
+        .guest-connect-glow {
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle at center, rgba(34, 197, 94, 0.15) 0%, transparent 50%);
+          pointer-events: none;
+          animation: connect-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes connect-glow {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .guest-connect-content {
+          position: relative;
+          z-index: 1;
+          padding: 1.25rem;
+          text-align: center;
+        }
+
+        .guest-connect-icon {
+          width: 56px;
+          height: 56px;
+          margin: 0 auto 0.75rem;
+          border-radius: 14px;
+          background: linear-gradient(135deg, #22c55e, #16a34a);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          box-shadow:
+            0 4px 0 #15803d,
+            0 6px 20px rgba(34, 197, 94, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .guest-connect-title {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.25rem;
+          font-weight: 400;
+          color: #4ade80;
+          margin: 0 0 0.25rem 0;
+          text-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+        }
+
+        .guest-connect-desc {
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.8125rem;
+          color: rgba(255, 255, 255, 0.6);
+          margin: 0 0 1rem 0;
+        }
+
+        .guest-connect-benefits {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          margin-bottom: 1rem;
+        }
+
+        .guest-benefit {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          color: #4ade80;
+        }
+
+        .guest-benefit span {
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.8125rem;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .guest-connect-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        /* Auth Buttons - Style Guide: 3D with shadows */
+        .btn-auth {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          width: 100%;
+          padding: 0.875rem 1rem;
+          border-radius: 12px;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.875rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.15s ease;
+        }
+
+        .btn-auth:disabled {
+          opacity: 0.6;
+          cursor: wait;
+        }
+
+        .btn-auth.btn-google {
+          background: #ffffff;
+          color: #1f1f1f;
+          border: none;
+          box-shadow:
+            0 3px 0 #e5e5e5,
+            0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-auth.btn-google:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow:
+            0 5px 0 #e5e5e5,
+            0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-auth.btn-google:active:not(:disabled) {
+          transform: translateY(2px);
+          box-shadow:
+            0 1px 0 #e5e5e5,
+            0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-auth.btn-apple {
+          background: #000000;
+          color: #ffffff;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          box-shadow:
+            0 3px 0 #1a1a1a,
+            0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-auth.btn-apple:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow:
+            0 5px 0 #1a1a1a,
+            0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-auth.btn-apple:active:not(:disabled) {
+          transform: translateY(2px);
+          box-shadow:
+            0 1px 0 #1a1a1a,
+            0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
         /* Upgrade CTA Card - For free users */
@@ -1092,34 +1457,77 @@ export default function ProfilePage() {
           line-height: 1.5;
         }
 
-        .btn-connect-google {
-          padding: 0.75rem 1.5rem;
-          background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed));
-          color: white;
-          border: none;
+        .connect-error {
+          background: rgba(239, 68, 68, 0.15);
+          border: 1px solid rgba(239, 68, 68, 0.3);
+          border-radius: 10px;
+          padding: 10px 14px;
+          margin-bottom: 1rem;
+          font-family: var(--font-body, 'Inter'), sans-serif;
+          font-size: 0.8125rem;
+          color: #ef4444;
+          text-align: center;
+        }
+
+        .connect-buttons {
+          display: flex;
+          gap: 12px;
+          justify-content: center;
+        }
+
+        .btn-connect {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 12px 20px;
           border-radius: 10px;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-size: 0.875rem;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-          box-shadow:
-            0 4px 0 #6d28d9,
-            0 6px 15px rgba(139, 92, 246, 0.3);
+          width: 100%;
         }
 
-        .btn-connect-google:hover {
+        .btn-connect:disabled {
+          opacity: 0.6;
+          cursor: wait;
+        }
+
+        .btn-connect.btn-google {
+          background: #ffffff;
+          color: #1f1f1f;
+          border: none;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-connect.btn-google:hover:not(:disabled) {
           transform: translateY(-2px);
-          box-shadow:
-            0 6px 0 #6d28d9,
-            0 10px 25px rgba(139, 92, 246, 0.4);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-connect-google:active {
-          transform: translateY(2px);
-          box-shadow:
-            0 2px 0 #6d28d9,
-            0 4px 10px rgba(139, 92, 246, 0.3);
+        .btn-connect.btn-google:active:not(:disabled) {
+          transform: translateY(1px);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-connect.btn-apple {
+          background: #000000;
+          color: #ffffff;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-connect.btn-apple:hover:not(:disabled) {
+          transform: translateY(-2px);
+          border-color: rgba(255, 255, 255, 0.3);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-connect.btn-apple:active:not(:disabled) {
+          transform: translateY(1px);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .connections-list {

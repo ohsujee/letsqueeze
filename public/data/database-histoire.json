@@ -1,0 +1,707 @@
+{
+  "id": "database-histoire",
+  "title": "Histoire",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "cg-hist001",
+      "question": "Navigateur génois au service de la Couronne d'Espagne, il atteint les Bahamas le 12 octobre 1492 à bord de la Santa María, accompagné de la Pinta et la Niña. Persuadé d'avoir atteint l'Asie, il ouvre la voie à la colonisation des Amériques. Qui est-ce ?",
+      "answer": "Christophe Colomb",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist002",
+      "question": "Général corse devenu empereur des Français en 1804, il a dominé l'Europe pendant une décennie avant sa défaite finale à Waterloo en 1815. Exilé à Sainte-Hélène, il y meurt en 1821. Qui est-ce ?",
+      "answer": "Napoléon Bonaparte",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist003",
+      "question": "Survenu le 14 juillet 1789, cet événement marque le début symbolique de la Révolution française. Une foule parisienne prend d'assaut une prison royale pour s'emparer de ses armes et libérer les prisonniers. Quel est cet événement ?",
+      "answer": "La prise de la Bastille",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist004",
+      "question": "Tombé dans la nuit du 9 novembre 1989, ce mur de béton de 155 kilomètres divisait une capitale européenne en deux depuis 1961. Sa chute symbolise la fin de la Guerre Froide. De quel mur s'agit-il ?",
+      "answer": "Le mur de Berlin",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist005",
+      "question": "Premier homme dans l'espace le 12 avril 1961, ce cosmonaute soviétique effectue une orbite complète de la Terre à bord de Vostok 1 en 108 minutes. Son 'Poyekhali!' (C'est parti!) est resté célèbre. Qui est-ce ?",
+      "answer": "Youri Gagarine",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist006",
+      "question": "Commandant de la mission Apollo 11, cet astronaute américain devient le premier homme à marcher sur la Lune le 20 juillet 1969. Sa phrase 'Un petit pas pour l'homme, un bond de géant pour l'humanité' est restée légendaire. Qui est-ce ?",
+      "answer": "Neil Armstrong",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist007",
+      "question": "Roi de France guillotiné le 21 janvier 1793 place de la Révolution à Paris, il était l'époux de Marie-Antoinette. Son procès devant la Convention l'a condamné pour haute trahison. Qui est-ce ?",
+      "answer": "Louis XVI",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist008",
+      "question": "Surnommé le Roi-Soleil, ce monarque absolu règne sur la France pendant 72 ans, de 1643 à 1715. Il fait construire le château de Versailles et aurait prononcé 'L'État, c'est moi'. Qui est-ce ?",
+      "answer": "Louis XIV",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist009",
+      "question": "16e président des États-Unis, ce républicain né dans une cabane du Kentucky abolit l'esclavage en 1865. Assassiné par John Wilkes Booth au théâtre Ford, il est considéré comme l'un des plus grands présidents américains. Qui est-ce ?",
+      "answer": "Abraham Lincoln",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist010",
+      "question": "Découvert en 1922 par l'archéologue Howard Carter dans la Vallée des Rois, ce pharaon égyptien mort à 19 ans est célèbre pour son masque funéraire en or massif. Son tombeau est le plus intact jamais découvert. Qui est-ce ?",
+      "answer": "Toutânkhamon",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist011",
+      "question": "Conflit mondial de 1914 à 1918, surnommé 'la Der des Ders', cette guerre fait 18 millions de morts et se termine par l'armistice du 11 novembre. Le traité de Versailles en 1919 impose de lourdes réparations à l'Allemagne. De quel conflit s'agit-il ?",
+      "answer": "La Première Guerre mondiale",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist012",
+      "question": "Reine du Royaume-Uni de 1952 à 2022, elle détient le record du plus long règne britannique avec 70 ans sur le trône. Décédée au château de Balmoral en Écosse, elle est remplacée par son fils Charles III. Qui est-ce ?",
+      "answer": "Élisabeth II",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist013",
+      "question": "Le 11 septembre 2001, deux avions détournés par Al-Qaïda frappent les tours jumelles du World Trade Center à New York. Cet attentat fait près de 3000 victimes et déclenche la guerre contre le terrorisme. Quelle est cette date tragique en abrégé ?",
+      "answer": "Le 11 septembre (ou 9/11)",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist014",
+      "question": "Avocat indien formé à Londres, ce leader pacifiste mène l'Inde vers l'indépendance en 1947 grâce à la désobéissance civile non-violente. Surnommé le Mahatma, il est assassiné en 1948. Qui est-ce ?",
+      "answer": "Gandhi (Mohandas Karamchand Gandhi)",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "cg-hist015",
+      "question": "Le 26 avril 1986, le réacteur n°4 de cette centrale nucléaire soviétique explose, provoquant la pire catastrophe nucléaire de l'histoire. Une zone d'exclusion de 30 km existe toujours autour du site. De quelle catastrophe s'agit-il ?",
+      "answer": "Tchernobyl",
+      "difficulty": "difficile",
+      "category": "Histoire"
+    },
+    {
+      "id": "hist-016",
+      "question": "Dictateur romain assassiné aux ides de mars, cet homme politique fut poignardé de 23 coups par un groupe de sénateurs menés par Brutus et Cassius dans la curie de Pompée. En 44 av. J.-C., ses dernières paroles auraient été 'Toi aussi, mon fils'. Qui est-ce ?",
+      "answer": "Jules César",
+      "difficulty": "normal",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-017",
+      "question": "Roi de Macédoine dès l'âge de 20 ans, ce conquérant forma l'un des plus grands empires de l'Antiquité, s'étendant de la Grèce jusqu'à l'Inde. Mort à Babylone en 323 av. J.-C. à seulement 32 ans, probablement de maladie, il était l'élève d'Aristote. Qui est-ce ?",
+      "answer": "Alexandre le Grand",
+      "difficulty": "normal",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-018",
+      "question": "Dernière reine de la dynastie des Ptolémées, cette souveraine d'Égypte s'allia successivement à Jules César puis à Marc Antoine. Après la défaite d'Actium face à Octave en 31 av. J.-C., elle se serait suicidée en se faisant mordre par un cobra en 30 av. J.-C. Qui est-ce ?",
+      "answer": "Cléopâtre VII",
+      "difficulty": "normal",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-019",
+      "question": "Ancien gladiateur originaire de Thrace, cet esclave mena la plus grande révolte servile de l'histoire romaine entre 73 et 71 av. J.-C. Vaincu par Crassus, ses 6000 partisans survivants furent crucifiés le long de la Via Appia. Qui est-ce ?",
+      "answer": "Spartacus",
+      "difficulty": "normal",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-020",
+      "question": "En octobre 79 après J.-C., cette ville romaine de Campanie fut ensevelie sous les cendres lors d'une violente éruption volcanique. Découverte au XVIIIe siècle, elle offre un témoignage unique sur la vie quotidienne à l'époque romaine. Quelle est cette cité ?",
+      "answer": "Pompéi",
+      "difficulty": "normal",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-021",
+      "question": "Chef arverne ayant unifié les tribus gauloises contre Rome, il remporta la bataille de Gergovie en 52 av. J.-C. avant d'être assiégé et vaincu à Alésia. Emprisonné six ans à Rome, il fut étranglé après le triomphe de César. Qui est-ce ?",
+      "answer": "Vercingétorix",
+      "difficulty": "normal",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-022",
+      "question": "Pharaon de la XIXe dynastie égyptienne, il affronta les Hittites lors de la bataille de Qadesh en 1274 av. J.-C. Ce long règne de 66 ans fut marqué par la construction des temples d'Abou Simbel et la signature du premier traité de paix connu de l'histoire. Qui est-ce ?",
+      "answer": "Ramsès II",
+      "difficulty": "difficile",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-023",
+      "question": "Général carthaginois ayant traversé les Alpes avec ses éléphants en 218 av. J.-C., il infligea aux Romains de cuisantes défaites à la Trébie, au lac Trasimène et à Cannes. Finalement vaincu par Scipion à Zama, il s'exila et se suicida en 183 av. J.-C. Qui est-ce ?",
+      "answer": "Hannibal Barca",
+      "difficulty": "normal",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-024",
+      "question": "Surnommé le 'Fléau de Dieu', ce roi des Huns mena ses armées à travers l'Europe au Ve siècle. Arrêté aux Champs Catalauniques en 451 par une coalition romano-wisigothe, il mourut mystérieusement lors de sa nuit de noces en 453. Qui est-ce ?",
+      "answer": "Attila",
+      "difficulty": "normal",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-025",
+      "question": "Empereur romain sous le règne duquel éclata le grand incendie de 64 après J.-C. qui ravagea les deux tiers de la ville, il accusa les chrétiens et déclencha leur première persécution. Renversé par le Sénat, il se suicida en 68. Qui est-ce ?",
+      "answer": "Néron",
+      "difficulty": "normal",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-026",
+      "question": "Le 25 décembre 800, ce roi des Francs fut couronné empereur par le pape Léon III dans la basilique Saint-Pierre de Rome. Créateur de l'Empire carolingien et promoteur de la renaissance culturelle, il mourut à Aix-la-Chapelle en 814. Qui est-ce ?",
+      "answer": "Charlemagne",
+      "difficulty": "normal",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-027",
+      "question": "Duc de Normandie surnommé 'le Bâtard', il traversa la Manche en 1066 pour revendiquer le trône d'Angleterre. Sa victoire à Hastings le 14 octobre, où Harold II fut tué d'une flèche dans l'œil, lui permit d'être couronné roi à Noël. Qui est-ce ?",
+      "answer": "Guillaume le Conquérant",
+      "difficulty": "normal",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-028",
+      "question": "Jeune paysanne lorraine guidée par des voix célestes, elle délivra Orléans des Anglais en mai 1429 et fit sacrer le dauphin à Reims. Capturée à Compiègne, elle fut brûlée vive à Rouen en 1431 pour hérésie. Qui est-ce ?",
+      "answer": "Jeanne d'Arc",
+      "difficulty": "normal",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-029",
+      "question": "Marchand vénitien parti en 1271 pour la Chine avec son père et son oncle, il servit l'empereur Kubilai Khan pendant 17 ans. Son récit de voyage, dicté en prison, fut longtemps considéré comme fabuleux. Qui est-ce ?",
+      "answer": "Marco Polo",
+      "difficulty": "normal",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-030",
+      "question": "Né Temüjin en Mongolie, ce guerrier unifia les tribus nomades et fonda en 1206 le plus vaste empire contigu de l'histoire, s'étendant de la Chine à l'Europe de l'Est. Il mourut en 1227 lors d'une campagne contre les Tangouts. Qui est-ce ?",
+      "answer": "Gengis Khan",
+      "difficulty": "normal",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-031",
+      "question": "Chef de la première croisade lancée par le pape Urbain II, ce duc de Basse-Lotharingie prit Jérusalem en 1099. Refusant le titre de roi par humilité, il devint 'avoué du Saint-Sépulcre' et mourut l'année suivante. Qui est-ce ?",
+      "answer": "Godefroy de Bouillon",
+      "difficulty": "difficile",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-032",
+      "question": "Pandémie de peste bubonique qui ravagea l'Europe entre 1347 et 1352, cette épidémie venue d'Asie centrale tua entre 30 et 60% de la population européenne, soit environ 25 millions de personnes. Quel est le nom de cette catastrophe ?",
+      "answer": "La Peste noire",
+      "difficulty": "normal",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-033",
+      "question": "Navigateur portugais au service de l'Espagne, il découvrit en 1520 le détroit qui porte son nom à la pointe de l'Amérique du Sud. Tué aux Philippines en 1521, seuls 18 de ses hommes achevèrent le premier tour du monde en 1522. Qui est-ce ?",
+      "answer": "Fernand de Magellan",
+      "difficulty": "normal",
+      "category": "Renaissance"
+    },
+    {
+      "id": "hist-034",
+      "question": "Né à Vinci en Toscane en 1452, ce peintre de la Renaissance italienne réalisa La Joconde et La Cène. Également inventeur, anatomiste et ingénieur, il incarne le génie universel de son époque et mourut à Amboise en 1519. Qui est-ce ?",
+      "answer": "Léonard de Vinci",
+      "difficulty": "normal",
+      "category": "Renaissance"
+    },
+    {
+      "id": "hist-035",
+      "question": "Moine augustin et professeur de théologie à Wittenberg, il placarda 95 thèses contre la vente des indulgences le 31 octobre 1517. Excommunié par le pape Léon X, il fonda le protestantisme. Qui est-ce ?",
+      "answer": "Martin Luther",
+      "difficulty": "normal",
+      "category": "Renaissance"
+    },
+    {
+      "id": "hist-036",
+      "question": "Archiduchesse d'Autriche mariée à Louis XVI en 1770, cette reine impopulaire fut surnommée 'Madame Déficit'. Emprisonnée à la Conciergerie, elle fut guillotinée le 16 octobre 1793, neuf mois après son époux. Qui est-ce ?",
+      "answer": "Marie-Antoinette",
+      "difficulty": "normal",
+      "category": "Révolution française"
+    },
+    {
+      "id": "hist-037",
+      "question": "Adoptée le 26 août 1789 par l'Assemblée constituante, ce texte fondamental de la Révolution française proclame que 'les hommes naissent et demeurent libres et égaux en droits'. Inscrit au patrimoine de l'UNESCO, il reste une référence mondiale. De quel texte s'agit-il ?",
+      "answer": "La Déclaration des droits de l'homme et du citoyen",
+      "difficulty": "normal",
+      "category": "Révolution française"
+    },
+    {
+      "id": "hist-038",
+      "question": "Planteur virginien et commandant en chef de l'armée continentale pendant la guerre d'indépendance, il devint en 1789 le premier président des États-Unis. La capitale fédérale porte son nom depuis 1791. Qui est-ce ?",
+      "answer": "George Washington",
+      "difficulty": "normal",
+      "category": "Révolution américaine"
+    },
+    {
+      "id": "hist-039",
+      "question": "Signé à Versailles le 28 juin 1919 dans la Galerie des Glaces, ce texte mit fin à la Première Guerre mondiale en imposant de lourdes réparations à l'Allemagne. Qualifié de 'diktat', il contribua à la montée du nazisme. De quel traité s'agit-il ?",
+      "answer": "Le traité de Versailles",
+      "difficulty": "normal",
+      "category": "Première Guerre mondiale"
+    },
+    {
+      "id": "hist-040",
+      "question": "Le 28 juin 1914, l'héritier du trône d'Autriche-Hongrie fut assassiné à Sarajevo par Gavrilo Princip, un nationaliste serbe. Cet attentat déclencha par le jeu des alliances la Première Guerre mondiale. Qui était cette victime ?",
+      "answer": "L'archiduc François-Ferdinand",
+      "difficulty": "normal",
+      "category": "Première Guerre mondiale"
+    },
+    {
+      "id": "hist-041",
+      "question": "Première offensive franco-britannique conjointe de la Grande Guerre, cette bataille de 1916 dura plus de quatre mois et fit plus d'un million de victimes. Le 1er juillet reste le jour le plus meurtrier de l'histoire militaire britannique. De quelle bataille s'agit-il ?",
+      "answer": "La bataille de la Somme",
+      "difficulty": "normal",
+      "category": "Première Guerre mondiale"
+    },
+    {
+      "id": "hist-042",
+      "question": "Bataille emblématique de 1916 où le général Pétain organisa la défense française, ce siège de dix mois fit plus de 700 000 victimes. Le slogan 'Ils ne passeront pas' et la Voie sacrée restent associés à ce combat. De quelle bataille s'agit-il ?",
+      "answer": "La bataille de Verdun",
+      "difficulty": "normal",
+      "category": "Première Guerre mondiale"
+    },
+    {
+      "id": "hist-043",
+      "question": "Le 30 janvier 1933, le président Hindenburg nomma le chef du NSDAP à la tête du gouvernement allemand. En un an, il instaura une dictature totalitaire et se fit appeler Führer après la mort d'Hindenburg. Qui est-ce ?",
+      "answer": "Adolf Hitler",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-044",
+      "question": "Nom de code Overlord, cette opération militaire du 6 juin 1944 mobilisa une armada de plus de 4000 navires. Les forces alliées débarquèrent sur cinq plages normandes : Utah, Omaha, Gold, Juno et Sword. De quel événement s'agit-il ?",
+      "answer": "Le débarquement de Normandie (ou D-Day)",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-045",
+      "question": "Le 6 août 1945, le bombardier Enola Gay largua sur cette ville japonaise la première bombe atomique, surnommée 'Little Boy'. L'explosion fit plus de 70 000 morts instantanément et précipita la capitulation du Japon. Quelle était cette ville ?",
+      "answer": "Hiroshima",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-046",
+      "question": "Premier ministre britannique le 10 mai 1940, il promit aux Communes 'du sang, du labeur, des larmes et de la sueur'. Prix Nobel de littérature en 1953, il symbolisa la résistance britannique face au nazisme. Qui est-ce ?",
+      "answer": "Winston Churchill",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-047",
+      "question": "Jeune fille juive allemande réfugiée à Amsterdam, elle se cacha deux ans dans l'Annexe avant d'être déportée. Son journal intime, publié en 1947 par son père Otto, seul survivant de la famille, devint un symbole de la Shoah. Qui est-ce ?",
+      "answer": "Anne Frank",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-048",
+      "question": "Le 18 juin 1940, ce général français lança depuis Londres un appel sur la BBC appelant à poursuivre le combat contre l'Allemagne nazie. Fondateur de la France libre, il devint le premier président de la Ve République. Qui est-ce ?",
+      "answer": "Charles de Gaulle",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-049",
+      "question": "Plus grande bataille de la Seconde Guerre mondiale, ce siège de six mois opposa l'armée allemande aux Soviétiques entre août 1942 et février 1943. La capitulation du maréchal Paulus marqua un tournant décisif du conflit. De quelle bataille s'agit-il ?",
+      "answer": "La bataille de Stalingrad",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-050",
+      "question": "Le 7 décembre 1941, l'aviation japonaise attaqua par surprise la base navale américaine de Hawaii, coulant plusieurs cuirassés dont l'USS Arizona. Roosevelt déclara ce jour 'une date qui restera marquée par l'infamie'. Quel est le nom de cette attaque ?",
+      "answer": "L'attaque de Pearl Harbor",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-051",
+      "question": "Plus grand camp d'extermination nazi, ce complexe situé en Pologne occupée vit mourir plus d'un million de personnes, principalement des Juifs. Libéré par l'Armée rouge le 27 janvier 1945, il est aujourd'hui un musée et site UNESCO. Quel est ce lieu ?",
+      "answer": "Auschwitz (ou Auschwitz-Birkenau)",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-052",
+      "question": "Leader anti-apartheid sud-africain, il passa 27 ans en prison, dont 18 sur l'île de Robben Island. Libéré le 11 février 1990, il partagea le prix Nobel de la paix avec F.W. de Klerk et devint président de son pays en 1994. Qui est-ce ?",
+      "answer": "Nelson Mandela",
+      "difficulty": "normal",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-053",
+      "question": "Pasteur baptiste américain, il prononça son célèbre discours 'I Have a Dream' le 28 août 1963 devant 250 000 personnes à Washington. Prix Nobel de la paix en 1964, il fut assassiné à Memphis en 1968. Qui est-ce ?",
+      "answer": "Martin Luther King",
+      "difficulty": "normal",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-054",
+      "question": "35e président des États-Unis et plus jeune élu à ce poste, il affronta la crise des missiles de Cuba en 1962. Assassiné à Dallas le 22 novembre 1963 par Lee Harvey Oswald, son meurtre reste entouré de théories du complot. Qui est-ce ?",
+      "answer": "John Fitzgerald Kennedy (JFK)",
+      "difficulty": "normal",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-055",
+      "question": "En octobre 1962, la découverte de missiles soviétiques à Cuba par des avions espions américains déclencha la plus grave crise de la Guerre froide. Kennedy et Khrouchtchev évitèrent de justesse un conflit nucléaire. Comment s'appelle cet événement ?",
+      "answer": "La crise des missiles de Cuba",
+      "difficulty": "normal",
+      "category": "Guerre froide"
+    },
+    {
+      "id": "hist-056",
+      "question": "Le 25 décembre 1991, ce dirigeant soviétique démissionna et remit les codes nucléaires à Boris Eltsine. Initiateur de la perestroïka et de la glasnost, il reçut le prix Nobel de la paix en 1990. Qui est-ce ?",
+      "answer": "Mikhaïl Gorbatchev",
+      "difficulty": "normal",
+      "category": "Guerre froide"
+    },
+    {
+      "id": "hist-057",
+      "question": "Le 12 mars 1930, cet avocat indien entama une marche de 387 km vers Dandi pour protester contre le monopole britannique sur le sel. Cette action de désobéissance civile non-violente marqua un tournant vers l'indépendance de l'Inde. De quel événement s'agit-il ?",
+      "answer": "La Marche du sel",
+      "difficulty": "difficile",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-058",
+      "question": "Le 25 octobre 1917 (7 novembre grégorien), ce révolutionnaire prit le pouvoir en Russie à la tête des bolcheviks. Fondateur de l'URSS, il imposa le communisme avant de mourir en 1924. Qui est-ce ?",
+      "answer": "Lénine (Vladimir Ilitch Oulianov)",
+      "difficulty": "normal",
+      "category": "Révolution russe"
+    },
+    {
+      "id": "hist-059",
+      "question": "Le 1er décembre 1955, cette couturière afro-américaine refusa de céder sa place à un Blanc dans un bus de Montgomery. Son geste déclencha un boycott de 381 jours et devint un symbole du mouvement des droits civiques. Qui est-ce ?",
+      "answer": "Rosa Parks",
+      "difficulty": "normal",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-060",
+      "question": "Conflit de la Guerre froide ayant opposé de 1950 à 1953 le Nord communiste soutenu par la Chine au Sud pro-américain, cette guerre se termina par un armistice sans traité de paix. La frontière resta fixée au 38e parallèle. De quel conflit s'agit-il ?",
+      "answer": "La Guerre de Corée",
+      "difficulty": "normal",
+      "category": "Guerre froide"
+    },
+    {
+      "id": "hist-061",
+      "question": "Conflit majeur de la Guerre froide, cette guerre opposa le Vietnam du Nord communiste au Sud soutenu par les États-Unis de 1955 à 1975. La chute de Saïgon le 30 avril 1975 marqua la première défaite militaire américaine. De quel conflit s'agit-il ?",
+      "answer": "La Guerre du Vietnam",
+      "difficulty": "normal",
+      "category": "Guerre froide"
+    },
+    {
+      "id": "hist-062",
+      "question": "Ingénieur écossais du XVIIIe siècle, il améliora considérablement la machine à vapeur en inventant le condenseur séparé en 1769. Ses innovations furent le moteur de la Révolution industrielle et l'unité de puissance porte son nom. Qui est-ce ?",
+      "answer": "James Watt",
+      "difficulty": "difficile",
+      "category": "Révolution industrielle"
+    },
+    {
+      "id": "hist-063",
+      "question": "Homme politique français né en 1804, il présida la commission qui rédigea le décret du 27 avril 1848 abolissant définitivement l'esclavage dans les colonies françaises. Ses cendres furent transférées au Panthéon en 1949. Qui est-ce ?",
+      "answer": "Victor Schœlcher",
+      "difficulty": "difficile",
+      "category": "XIXe siècle"
+    },
+    {
+      "id": "hist-064",
+      "question": "Empereur romain d'Orient de 527 à 565, il reconquit une partie de l'ancien Empire romain d'Occident et fit compiler le droit romain dans un code qui porte son nom. La basilique Sainte-Sophie de Constantinople fut construite sous son règne. Qui est-ce ?",
+      "answer": "Justinien Ier",
+      "difficulty": "difficile",
+      "category": "Antiquité tardive"
+    },
+    {
+      "id": "hist-065",
+      "question": "Philosophe des Lumières né à Genève en 1712, il écrivit 'Du contrat social' et 'Émile'. Ses idées sur la souveraineté populaire inspirèrent les révolutionnaires français. Il repose au Panthéon depuis 1794. Qui est-ce ?",
+      "answer": "Jean-Jacques Rousseau",
+      "difficulty": "normal",
+      "category": "Lumières"
+    },
+    {
+      "id": "hist-066",
+      "question": "Écrivain et philosophe français du XVIIIe siècle, il combattit l'intolérance religieuse dans l'affaire Calas et écrivit 'Candide'. Symbole des Lumières, il correspondit avec Frédéric II de Prusse et Catherine II de Russie. Qui est-ce ?",
+      "answer": "Voltaire",
+      "difficulty": "normal",
+      "category": "Lumières"
+    },
+    {
+      "id": "hist-067",
+      "question": "Roi de France ayant régné de 987 à 996, il fonda la dynastie capétienne qui régna sur la France pendant huit siècles. Élu par les grands du royaume à Senlis, il fit sacrer son fils de son vivant. Qui est-ce ?",
+      "answer": "Hugues Capet",
+      "difficulty": "difficile",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-068",
+      "question": "Roi d'Angleterre surnommé 'Cœur de Lion', il participa à la troisième croisade et affronta Saladin. Capturé en Autriche à son retour, il dut payer une énorme rançon. Il mourut en 1199 en assiégeant un château en France. Qui est-ce ?",
+      "answer": "Richard Ier d'Angleterre (Richard Cœur de Lion)",
+      "difficulty": "normal",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-069",
+      "question": "Sultan d'Égypte et de Syrie au XIIe siècle, il reprit Jérusalem aux croisés en 1187 après la bataille de Hattin. Respecté même par ses ennemis pour sa chevalerie, il affronta Richard Cœur de Lion lors de la troisième croisade. Qui est-ce ?",
+      "answer": "Saladin",
+      "difficulty": "difficile",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-070",
+      "question": "Impératrice de Russie de 1762 à 1796, elle modernisa son empire et correspondit avec les philosophes des Lumières. D'origine allemande, elle prit le pouvoir par un coup d'État contre son époux Pierre III. Qui est-ce ?",
+      "answer": "Catherine II de Russie (Catherine la Grande)",
+      "difficulty": "normal",
+      "category": "XVIIIe siècle"
+    },
+    {
+      "id": "hist-071",
+      "question": "Roi de Prusse de 1740 à 1786, il transforma son royaume en grande puissance européenne. Surnommé 'le Grand', ce monarque éclairé protégeait Voltaire et jouait de la flûte. Qui est-ce ?",
+      "answer": "Frédéric II de Prusse (Frédéric le Grand)",
+      "difficulty": "difficile",
+      "category": "XVIIIe siècle"
+    },
+    {
+      "id": "hist-072",
+      "question": "Premier empereur du Saint-Empire romain germanique en 962, il reconstitua l'empire de Charlemagne en Europe centrale. Roi de Germanie puis d'Italie, il établit sa capitale à Magdebourg. Qui est-ce ?",
+      "answer": "Otton Ier",
+      "difficulty": "difficile",
+      "category": "Moyen Âge"
+    },
+    {
+      "id": "hist-073",
+      "question": "Médecin français, il proposa en 1789 l'usage d'une machine à décapiter censée être plus humaine. Ironiquement, il mourut de causes naturelles en 1814 et non par l'instrument qui porte son nom. Qui est-ce ?",
+      "answer": "Joseph-Ignace Guillotin",
+      "difficulty": "difficile",
+      "category": "Révolution française"
+    },
+    {
+      "id": "hist-074",
+      "question": "Avocat d'Arras surnommé 'l'Incorruptible', il domina le Comité de salut public pendant la Terreur. Renversé le 9 thermidor an II (27 juillet 1794), il fut guillotiné le lendemain avec ses partisans. Qui est-ce ?",
+      "answer": "Maximilien de Robespierre",
+      "difficulty": "normal",
+      "category": "Révolution française"
+    },
+    {
+      "id": "hist-075",
+      "question": "Général sudiste commandant l'armée de Virginie du Nord pendant la guerre de Sécession, il capitula à Appomattox le 9 avril 1865. Considéré comme un brillant tacticien, il refusa de prolonger une guérilla après la défaite. Qui est-ce ?",
+      "answer": "Robert E. Lee",
+      "difficulty": "difficile",
+      "category": "Guerre de Sécession"
+    },
+    {
+      "id": "hist-076",
+      "question": "Libérateur de l'Amérique du Sud, ce général vénézuélien contribua à l'indépendance de six pays : Venezuela, Colombie, Équateur, Pérou, Bolivie et Panama. Un pays entier fut nommé en son honneur. Qui est-ce ?",
+      "answer": "Simón Bolívar",
+      "difficulty": "difficile",
+      "category": "XIXe siècle"
+    },
+    {
+      "id": "hist-077",
+      "question": "Chancelier de Prusse puis de l'Empire allemand de 1871 à 1890, il unifia l'Allemagne par 'le fer et le sang'. Surnommé le 'chancelier de fer', il fut congédié par le jeune empereur Guillaume II. Qui est-ce ?",
+      "answer": "Otto von Bismarck",
+      "difficulty": "normal",
+      "category": "XIXe siècle"
+    },
+    {
+      "id": "hist-078",
+      "question": "Patriote italien du XIXe siècle, il combattit pour l'unification de l'Italie avec ses 'chemises rouges'. Il conquit la Sicile et Naples en 1860, les offrant au roi Victor-Emmanuel II. Qui est-ce ?",
+      "answer": "Giuseppe Garibaldi",
+      "difficulty": "difficile",
+      "category": "XIXe siècle"
+    },
+    {
+      "id": "hist-079",
+      "question": "Dernier tsar de Russie, il abdiqua en mars 1917 après la révolution de Février. Emprisonné avec sa famille, il fut exécuté par les bolcheviks à Iekaterinbourg en juillet 1918. Qui est-ce ?",
+      "answer": "Nicolas II",
+      "difficulty": "normal",
+      "category": "Révolution russe"
+    },
+    {
+      "id": "hist-080",
+      "question": "Fondateur de la République de Turquie en 1923, ce général abolit le califat et modernisa son pays sur le modèle occidental. Surnommé 'Père des Turcs', il imposa l'alphabet latin et le droit de vote des femmes. Qui est-ce ?",
+      "answer": "Mustafa Kemal Atatürk",
+      "difficulty": "difficile",
+      "category": "XXe siècle"
+    },
+    {
+      "id": "hist-081",
+      "question": "Premier ministre indien de 1947 à 1964, il fut l'artisan de l'indépendance aux côtés de Gandhi. Fondateur du mouvement des non-alignés avec Nasser et Tito, il modernisa l'économie indienne. Qui est-ce ?",
+      "answer": "Jawaharlal Nehru",
+      "difficulty": "difficile",
+      "category": "XXe siècle"
+    },
+    {
+      "id": "hist-082",
+      "question": "Président égyptien de 1956 à 1970, il nationalisa le canal de Suez en 1956 et fut une figure majeure du panarabisme. Il subit une lourde défaite face à Israël lors de la guerre des Six Jours en 1967. Qui est-ce ?",
+      "answer": "Gamal Abdel Nasser",
+      "difficulty": "difficile",
+      "category": "XXe siècle"
+    },
+    {
+      "id": "hist-083",
+      "question": "Dictateur espagnol de 1939 à 1975, il prit le pouvoir après la guerre civile grâce au soutien de Hitler et Mussolini. Surnommé 'le Caudillo', il maintint l'Espagne en dehors de la Seconde Guerre mondiale. Qui est-ce ?",
+      "answer": "Francisco Franco",
+      "difficulty": "normal",
+      "category": "XXe siècle"
+    },
+    {
+      "id": "hist-084",
+      "question": "Dirigeant communiste chinois, il proclama la République populaire de Chine le 1er octobre 1949. Responsable du Grand Bond en avant et de la Révolution culturelle, il régna jusqu'à sa mort en 1976. Qui est-ce ?",
+      "answer": "Mao Zedong (Mao Tsé-toung)",
+      "difficulty": "normal",
+      "category": "XXe siècle"
+    },
+    {
+      "id": "hist-085",
+      "question": "Dirigeant soviétique de 1953 à 1964, il dénonça les crimes de Staline lors du XXe Congrès du Parti en 1956. Il affronta Kennedy pendant la crise des missiles de Cuba et fit construire le mur de Berlin. Qui est-ce ?",
+      "answer": "Nikita Khrouchtchev",
+      "difficulty": "normal",
+      "category": "Guerre froide"
+    },
+    {
+      "id": "hist-086",
+      "question": "Président américain de 1981 à 1989, cet ancien acteur hollywoodien accéléra la fin de la Guerre froide par sa politique de fermeté envers l'URSS. Il survécut à une tentative d'assassinat en 1981. Qui est-ce ?",
+      "answer": "Ronald Reagan",
+      "difficulty": "normal",
+      "category": "Guerre froide"
+    },
+    {
+      "id": "hist-087",
+      "question": "Leader syndicaliste polonais, il fonda le syndicat Solidarnosc en 1980 aux chantiers navals de Gdansk. Prix Nobel de la paix 1983, il devint le premier président démocratiquement élu de Pologne en 1990. Qui est-ce ?",
+      "answer": "Lech Walesa",
+      "difficulty": "difficile",
+      "category": "Guerre froide"
+    },
+    {
+      "id": "hist-088",
+      "question": "Le 11 mars 2011, un séisme de magnitude 9 déclencha un tsunami qui provoqua une catastrophe nucléaire majeure au Japon. La centrale touchée dut être évacuée et des milliers de personnes furent déplacées. Quelle était cette centrale ?",
+      "answer": "Fukushima Daiichi (ou Fukushima)",
+      "difficulty": "normal",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-089",
+      "question": "En 1989, un mouvement pro-démocratie fut écrasé par l'armée chinoise sur cette place de Pékin. L'image d'un homme seul face aux chars devint un symbole mondial de résistance. Quelle est cette place ?",
+      "answer": "La place Tiananmen",
+      "difficulty": "normal",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-090",
+      "question": "Première ministre britannique de 1979 à 1990, elle mena une politique libérale radicale et affronta victorieusement l'Argentine lors de la guerre des Malouines. Surnommée 'la Dame de fer', elle transforma l'économie britannique. Qui est-ce ?",
+      "answer": "Margaret Thatcher",
+      "difficulty": "normal",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-091",
+      "question": "Premier pape polonais de l'histoire, élu en 1978, il contribua à la chute du communisme en soutenant le syndicat Solidarnosc. Il effectua plus de 100 voyages apostoliques et survécut à un attentat en 1981. Qui est-ce ?",
+      "answer": "Jean-Paul II",
+      "difficulty": "normal",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-092",
+      "question": "Reine d'Égypte de la XVIIIe dynastie, elle régna comme pharaon vers 1479-1458 av. J.-C. Son temple funéraire à Deir el-Bahari est l'un des plus beaux monuments de l'Égypte antique. Qui est-ce ?",
+      "answer": "Hatchepsout",
+      "difficulty": "difficile",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-093",
+      "question": "Roi de Babylone au XVIIIe siècle av. J.-C., il est célèbre pour le code de lois gravé sur une stèle conservée au Louvre. Ce texte de 282 articles est l'un des plus anciens codes juridiques écrits. Qui est-ce ?",
+      "answer": "Hammurabi",
+      "difficulty": "difficile",
+      "category": "Antiquité"
+    },
+    {
+      "id": "hist-094",
+      "question": "Le 9 août 1945, trois jours après Hiroshima, cette ville japonaise fut frappée par la seconde bombe atomique, surnommée 'Fat Man'. La cible initiale était Kokura, mais la couverture nuageuse imposa ce choix. Quelle était cette ville ?",
+      "answer": "Nagasaki",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-095",
+      "question": "Dictateur italien au pouvoir de 1922 à 1943, il fonda le fascisme et s'allia à Hitler dans l'Axe. Surnommé 'le Duce', il fut capturé et exécuté par des partisans italiens en avril 1945. Qui est-ce ?",
+      "answer": "Benito Mussolini",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-096",
+      "question": "Maréchal soviétique, il défendit Stalingrad et dirigea l'assaut final sur Berlin en 1945. Quatre fois Héros de l'Union soviétique, il prit la reddition de l'Allemagne nazie le 8 mai 1945. Qui est-ce ?",
+      "answer": "Gueorgui Joukov",
+      "difficulty": "difficile",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-097",
+      "question": "Président américain de 1933 à 1945, il lança le New Deal pour lutter contre la crise de 1929. Seul président élu quatre fois, il mourut en avril 1945, quelques semaines avant la victoire en Europe. Qui est-ce ?",
+      "answer": "Franklin D. Roosevelt",
+      "difficulty": "normal",
+      "category": "Seconde Guerre mondiale"
+    },
+    {
+      "id": "hist-098",
+      "question": "Leader palestinien et chef de l'OLP, il signa les accords d'Oslo en 1993 avec Yitzhak Rabin. Prix Nobel de la paix 1994, il devint président de l'Autorité palestinienne et mourut à Paris en 2004. Qui est-ce ?",
+      "answer": "Yasser Arafat",
+      "difficulty": "normal",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-099",
+      "question": "Premier homme à avoir marché sur la Lune le 20 juillet 1969, ce commandant de la mission Apollo 11 prononça la célèbre phrase 'Un petit pas pour l'homme, un bond de géant pour l'humanité'. Qui est-ce ?",
+      "answer": "Neil Armstrong",
+      "difficulty": "normal",
+      "category": "Histoire contemporaine"
+    },
+    {
+      "id": "hist-100",
+      "question": "Homme d'État israélien, premier ministre assassiné le 4 novembre 1995 par un extrémiste israélien opposé aux accords d'Oslo. Il avait partagé le prix Nobel de la paix 1994 avec Arafat et Peres. Qui est-ce ?",
+      "answer": "Yitzhak Rabin",
+      "difficulty": "difficile",
+      "category": "Histoire contemporaine"
+    }
+  ]
+}

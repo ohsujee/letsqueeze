@@ -212,6 +212,496 @@
       "answer": "Rajah",
       "difficulty": "normal",
       "category": "Aladdin"
+    },
+    {
+      "id": "dis031",
+      "question": "Animée par Ward Kimball après que ses scènes de Blanche-Neige aient été coupées, cette créature verte aux quatre membres chante 'When You Wish Upon a Star' dans le film de 1940. Nommée 'conscience officielle' par la Fée Bleue, elle accompagne un pantin de bois. Qui est-ce ?",
+      "answer": "Jiminy Cricket",
+      "difficulty": "normal",
+      "category": "Pinocchio"
+    },
+    {
+      "id": "dis032",
+      "question": "Dans ce segment de Fantasia sorti en 1940, un apprenti coiffé d'un chapeau étoilé enchante des balais pour porter de l'eau, mais perd le contrôle de la situation. La musique est composée par Paul Dukas. Quel personnage Disney iconique joue cet apprenti sorcier ?",
+      "answer": "Mickey Mouse",
+      "difficulty": "normal",
+      "category": "Fantasia"
+    },
+    {
+      "id": "dis033",
+      "question": "Ours paresseux devenu joyeux compagnon de Mowgli dans la version Disney de 1967, il chante 'Il en faut peu pour être heureux'. Phil Harris lui prête sa voix dans la version originale, lui donnant une personnalité de grand bouffon. Qui est-ce ?",
+      "answer": "Baloo",
+      "difficulty": "normal",
+      "category": "Le Livre de la Jungle"
+    },
+    {
+      "id": "dis034",
+      "question": "Tigre du Bengale boiteux nommé 'Lungri' dans le roman original de Rudyard Kipling, ce félin est le principal antagoniste du Livre de la Jungle. Il craint le feu et considère Mowgli comme sa proie légitime. Qui est-ce ?",
+      "answer": "Shere Khan",
+      "difficulty": "normal",
+      "category": "Le Livre de la Jungle"
+    },
+    {
+      "id": "dis035",
+      "question": "Panthère noire sage et sérieuse qui sauve Mowgli de Shere Khan dans Le Livre de la Jungle, elle offre un taureau fraîchement tué pour faire accepter l'enfant par la meute de loups. Comment s'appelle-t-elle ?",
+      "answer": "Bagheera",
+      "difficulty": "normal",
+      "category": "Le Livre de la Jungle"
+    },
+    {
+      "id": "dis036",
+      "question": "Dans le film Disney de 1942 adapté de Felix Salten, ce faon apprend que son père est 'le Grand Prince de la Forêt'. Sa mère est tuée par un chasseur dans l'une des scènes les plus émouvantes du cinéma d'animation. Qui est ce faon ?",
+      "answer": "Bambi",
+      "difficulty": "normal",
+      "category": "Bambi"
+    },
+    {
+      "id": "dis037",
+      "question": "Chat à rayures roses et mauves du film de 1951, il peut disparaître en ne laissant que son sourire flotter dans les airs. Il guide Alice vers la maison du Chapelier Fou avec des paroles énigmatiques. Quel est ce personnage ?",
+      "answer": "Le Chat du Cheshire",
+      "difficulty": "normal",
+      "category": "Alice au Pays des Merveilles"
+    },
+    {
+      "id": "dis038",
+      "question": "Personnage du film Alice au Pays des Merveilles de 1951, il fête des 'non-anniversaires' avec le Lièvre de Mars. L'étiquette '10/6' sur son couvre-chef indique un prix en shillings et pences. Ed Wynn lui prête sa voix. Qui est-ce ?",
+      "answer": "Le Chapelier Fou",
+      "difficulty": "normal",
+      "category": "Alice au Pays des Merveilles"
+    },
+    {
+      "id": "dis039",
+      "question": "Cruella kidnape 99 chiots de cette race pour en faire un manteau de fourrure dans le film de 1961. Pongo et Perdita sont les parents de 15 d'entre eux. Quelle est cette race de chiens ?",
+      "answer": "Les Dalmatiens",
+      "difficulty": "normal",
+      "category": "Les 101 Dalmatiens"
+    },
+    {
+      "id": "dis040",
+      "question": "Dalmatien mâle et narrateur du film de 1961, il décide de trouver une compagne pour lui et son maître Roger. Il tombe amoureux de Perdita en la voyant depuis la fenêtre de leur appartement londonien. Comment s'appelle-t-il ?",
+      "answer": "Pongo",
+      "difficulty": "normal",
+      "category": "Les 101 Dalmatiens"
+    },
+    {
+      "id": "dis041",
+      "question": "Méchante du film Les 101 Dalmatiens, cette femme excentrique aux cheveux bicolores noir et blanc veut confectionner un manteau de fourrure avec des chiots. Son nom évoque à la fois la cruauté et le diable. Qui est-ce ?",
+      "answer": "Cruella d'Enfer",
+      "difficulty": "normal",
+      "category": "Les 101 Dalmatiens"
+    },
+    {
+      "id": "dis042",
+      "question": "Chatte blanche de type Angora turc dans le film de 1970, elle vit à Paris avec ses trois chatons et appartient à une riche héritière. Elle tombe amoureuse d'un chat de gouttière nommé Thomas O'Malley. Qui est-ce ?",
+      "answer": "Duchesse",
+      "difficulty": "normal",
+      "category": "Les Aristochats"
+    },
+    {
+      "id": "dis043",
+      "question": "Chat de gouttière orange dont le nom complet est Abraham de Lacy Giuseppe Casey Thomas O'Malley, il aide une famille de chats aristocrates perdus dans la campagne française à rentrer à Paris. Phil Harris lui prête sa voix. Qui est-ce ?",
+      "answer": "Thomas O'Malley",
+      "difficulty": "difficile",
+      "category": "Les Aristochats"
+    },
+    {
+      "id": "dis044",
+      "question": "Éléphanteau aux grandes oreilles né dans un cirque en 1941, il apprend à voler grâce à une 'plume magique'. Rejeté à cause de son physique, il devient la star du spectacle. Comment s'appelle-t-il ?",
+      "answer": "Dumbo",
+      "difficulty": "normal",
+      "category": "Dumbo"
+    },
+    {
+      "id": "dis045",
+      "question": "Cocker anglaise offerte comme cadeau de Noël dans un carton à chapeau, elle vit une histoire d'amour avec un chien errant dans un restaurant italien. La scène des spaghettis est devenue iconique. Qui est cette chienne ?",
+      "answer": "Lady",
+      "difficulty": "normal",
+      "category": "La Belle et le Clochard"
+    },
+    {
+      "id": "dis046",
+      "question": "Chien errant au charme désinvolte dans le film de 1955, il partage un plat de spaghettis avec Lady chez Tony sur la chanson 'Bella Notte'. Il finit par être adopté par la famille Darling. Comment s'appelle ce vagabond ?",
+      "answer": "Clochard",
+      "difficulty": "normal",
+      "category": "La Belle et le Clochard"
+    },
+    {
+      "id": "dis047",
+      "question": "Sirène rousse de 16 ans, plus jeune des sept filles du Roi Triton, elle collecte des objets humains dans une grotte secrète. Jodi Benson lui prête sa voix dans le film qui lança la Renaissance Disney en 1989. Qui est-ce ?",
+      "answer": "Ariel",
+      "difficulty": "normal",
+      "category": "La Petite Sirène"
+    },
+    {
+      "id": "dis048",
+      "question": "Crabe rouge jamaïcain conseiller du Roi Triton, il est chargé de surveiller Ariel mais finit par l'aider. Il chante 'Sous l'Océan' dans La Petite Sirène, chanson récompensée d'un Oscar. Comment s'appelle-t-il ?",
+      "answer": "Sébastien",
+      "difficulty": "normal",
+      "category": "La Petite Sirène"
+    },
+    {
+      "id": "dis049",
+      "question": "Petit poisson jaune et bleu facilement effrayé, il est le meilleur ami d'Ariel dans La Petite Sirène. Malgré sa couardise, il vient toujours aider la sirène quand elle est en danger. Quel est son nom ?",
+      "answer": "Polochon",
+      "difficulty": "normal",
+      "category": "La Petite Sirène"
+    },
+    {
+      "id": "dis050",
+      "question": "Serviteur transformé en chandelier à trois branches dans le château de la Bête, ce majordome français séducteur garde espoir de retrouver forme humaine. Il rivalise avec Big Ben le majordome. Comment s'appelle-t-il ?",
+      "answer": "Lumière",
+      "difficulty": "normal",
+      "category": "La Belle et la Bête"
+    },
+    {
+      "id": "dis051",
+      "question": "Petite théière en porcelaine blanche et bleue servant de mère à Zip dans le château de la Bête, elle prépare du thé pour Belle dès son arrivée. Angela Lansbury lui prête sa voix et chante la chanson-titre. Qui est-ce ?",
+      "answer": "Madame Samovar",
+      "difficulty": "normal",
+      "category": "La Belle et la Bête"
+    },
+    {
+      "id": "dis052",
+      "question": "Pendule sévère transformée en horloge dans La Belle et la Bête, il essaie constamment de maintenir l'ordre au château. Son nom évoque le célèbre beffroi londonien. Comment s'appelle-t-il ?",
+      "answer": "Big Ben",
+      "difficulty": "normal",
+      "category": "La Belle et la Bête"
+    },
+    {
+      "id": "dis053",
+      "question": "Prétendant vaniteux de Belle dans le village de La Belle et la Bête, ce chasseur musclé aux cheveux noirs utilise des œufs pour développer ses muscles. Il finit par tomber du château. Qui est ce méchant ?",
+      "answer": "Gaston",
+      "difficulty": "normal",
+      "category": "La Belle et la Bête"
+    },
+    {
+      "id": "dis054",
+      "question": "Singe malicieux et fidèle compagnon d'Aladdin dans les rues d'Agrabah, il porte un petit fez rouge et l'aide à voler de la nourriture. Son nom signifie 'père' en arabe. Qui est-ce ?",
+      "answer": "Abu",
+      "difficulty": "normal",
+      "category": "Aladdin"
+    },
+    {
+      "id": "dis055",
+      "question": "Vizir royal d'Agrabah au serpent sur son sceptre, il cherche la lampe magique pour devenir le plus puissant sorcier du monde. Son perroquet Iago l'accompagne partout. Qui est ce méchant d'Aladdin ?",
+      "answer": "Jafar",
+      "difficulty": "normal",
+      "category": "Aladdin"
+    },
+    {
+      "id": "dis056",
+      "question": "Perroquet rouge sournois et complice de Jafar dans Aladdin, il imite les voix et se plaint constamment. Gilbert Gottfried lui prête sa voix stridente dans la version originale. Comment s'appelle-t-il ?",
+      "answer": "Iago",
+      "difficulty": "normal",
+      "category": "Aladdin"
+    },
+    {
+      "id": "dis057",
+      "question": "Tapis volant magique aux motifs violets et dorés dans Aladdin, il ne parle pas mais exprime ses émotions par ses mouvements. Il emmène Aladdin et Jasmine faire le tour du monde. Comment est-il appelé ?",
+      "answer": "Le Tapis Volant",
+      "difficulty": "normal",
+      "category": "Aladdin"
+    },
+    {
+      "id": "dis058",
+      "question": "Phacochère joyeux qui élève Simba avec Timon dans Le Roi Lion, il souffre de flatulences et chante 'Hakuna Matata'. Son nom signifie 'simplet' en swahili. Qui est-ce ?",
+      "answer": "Pumbaa",
+      "difficulty": "normal",
+      "category": "Le Roi Lion"
+    },
+    {
+      "id": "dis059",
+      "question": "Suricate malin qui recueille Simba avec Pumbaa dans Le Roi Lion, il lui enseigne la philosophie 'Hakuna Matata'. Nathan Lane lui prête sa voix dans la version originale. Comment s'appelle-t-il ?",
+      "answer": "Timon",
+      "difficulty": "normal",
+      "category": "Le Roi Lion"
+    },
+    {
+      "id": "dis060",
+      "question": "Lionne d'enfance de Simba qui le retrouve adulte dans la jungle, elle le convainc de retourner affronter Scar. Ils chantent ensemble 'L'Amour brille sous les étoiles'. Qui est-ce ?",
+      "answer": "Nala",
+      "difficulty": "normal",
+      "category": "Le Roi Lion"
+    },
+    {
+      "id": "dis061",
+      "question": "Mandrill chamane aux fesses colorées dans Le Roi Lion, il présente Simba nouveau-né au royaume depuis le Rocher des Lions. Il utilise un bâton orné de fruits. Comment s'appelle ce sage ?",
+      "answer": "Rafiki",
+      "difficulty": "normal",
+      "category": "Le Roi Lion"
+    },
+    {
+      "id": "dis062",
+      "question": "Majordome calao à bec rouge chargé d'enseigner à Simba dans Le Roi Lion, il est capturé par les hyènes au cimetière des éléphants. Rowan Atkinson lui prête sa voix britannique. Qui est-ce ?",
+      "answer": "Zazu",
+      "difficulty": "normal",
+      "category": "Le Roi Lion"
+    },
+    {
+      "id": "dis063",
+      "question": "Demi-dieu fils de Zeus et Héra dans le film de 1997, il est enlevé bébé par les serviteurs d'Hadès et devient mortel. Il doit prouver qu'il est un vrai héros pour rejoindre l'Olympe. Qui est-ce ?",
+      "answer": "Hercule",
+      "difficulty": "normal",
+      "category": "Hercule"
+    },
+    {
+      "id": "dis064",
+      "question": "Dieu des Enfers aux flammes bleues sur la tête dans Hercule, il complote pour renverser Zeus avec l'aide des Titans. James Woods lui prête sa voix sarcastique. Qui est ce méchant ?",
+      "answer": "Hadès",
+      "difficulty": "normal",
+      "category": "Hercule"
+    },
+    {
+      "id": "dis065",
+      "question": "Femme aux cheveux violets qui travaille pour Hadès dans Hercule, elle doit séduire le héros mais finit par tomber amoureuse de lui. Elle vend son âme pour sauver son ancien amant. Qui est-ce ?",
+      "answer": "Mégara",
+      "difficulty": "normal",
+      "category": "Hercule"
+    },
+    {
+      "id": "dis066",
+      "question": "Cheval ailé blanc et fidèle compagnon d'Hercule, il est créé par Zeus à partir de nuages. Il retrouve Hercule adulte et l'aide dans ses combats. Comment s'appelle cette monture céleste ?",
+      "answer": "Pégase",
+      "difficulty": "normal",
+      "category": "Hercule"
+    },
+    {
+      "id": "dis067",
+      "question": "Homme-singe élevé par des gorilles dans la jungle africaine, il découvre son humanité en rencontrant Jane Porter dans le film de 1999. Phil Collins a composé toutes les chansons. Qui est ce personnage ?",
+      "answer": "Tarzan",
+      "difficulty": "normal",
+      "category": "Tarzan"
+    },
+    {
+      "id": "dis068",
+      "question": "Gorille femelle qui adopte et élève Tarzan comme son fils après la mort de son propre bébé, elle affronte son compagnon Kerchak pour le protéger. Comment s'appelle cette mère adoptive ?",
+      "answer": "Kala",
+      "difficulty": "difficile",
+      "category": "Tarzan"
+    },
+    {
+      "id": "dis069",
+      "question": "Cowboy de tissu et bourré de coton qui craint d'être remplacé par un nouveau jouet, il est le jouet préféré d'Andy avant l'arrivée de Buzz l'Éclair. Tom Hanks lui prête sa voix. Qui est-ce ?",
+      "answer": "Woody",
+      "difficulty": "normal",
+      "category": "Toy Story"
+    },
+    {
+      "id": "dis070",
+      "question": "Ranger de l'espace en plastique qui ignore qu'il est un jouet dans le premier Toy Story, son nom rend hommage à l'astronaute Buzz Aldrin. Sa réplique célèbre est 'Vers l'infini et au-delà !'. Qui est-ce ?",
+      "answer": "Buzz l'Éclair",
+      "difficulty": "normal",
+      "category": "Toy Story"
+    },
+    {
+      "id": "dis071",
+      "question": "Cowgirl rousse abandonnée dans une boîte de dons par sa propriétaire Emily dans Toy Story 2, elle rejoint finalement la bande d'Andy. Joan Cusack lui prête sa voix. Qui est-ce ?",
+      "answer": "Jessie",
+      "difficulty": "normal",
+      "category": "Toy Story"
+    },
+    {
+      "id": "dis072",
+      "question": "Poisson-clown surprotecteur parti traverser l'océan pour retrouver son fils capturé par un plongeur, il souffre d'avoir perdu sa femme Corail et 399 de leurs œufs. Albert Brooks lui prête sa voix. Qui est-ce ?",
+      "answer": "Marin",
+      "difficulty": "normal",
+      "category": "Le Monde de Nemo"
+    },
+    {
+      "id": "dis073",
+      "question": "Poisson-chirurgien bleu souffrant de pertes de mémoire à court terme dans Le Monde de Nemo, elle parle le langage des baleines et aide Marin. Ellen DeGeneres lui prête sa voix. Comment s'appelle-t-elle ?",
+      "answer": "Dory",
+      "difficulty": "normal",
+      "category": "Le Monde de Nemo"
+    },
+    {
+      "id": "dis074",
+      "question": "Requin blanc végétarien qui répète 'Les poissons sont nos amis, pas notre bouquet garni' dans Le Monde de Nemo, il rechute en sentant une goutte de sang. Comment s'appelle-t-il ?",
+      "answer": "Bruce",
+      "difficulty": "normal",
+      "category": "Le Monde de Nemo"
+    },
+    {
+      "id": "dis075",
+      "question": "Monstre bleu et violet à la fourrure tachetée dans Monstres et Cie, c'est la meilleure 'Terreur' de l'usine à cris. Il s'attache à une petite fille humaine nommée Bouh. Qui est-ce ?",
+      "answer": "Sulli",
+      "difficulty": "normal",
+      "category": "Monstres et Cie"
+    },
+    {
+      "id": "dis076",
+      "question": "Monstre cyclope vert sphérique et meilleur ami de Sulli dans Monstres et Cie, il travaille comme assistant et sort avec Celia. Billy Crystal lui prête sa voix. Comment s'appelle-t-il ?",
+      "answer": "Bob Razowski",
+      "difficulty": "normal",
+      "category": "Monstres et Cie"
+    },
+    {
+      "id": "dis077",
+      "question": "Super-héros à la force surhumaine qui vit caché en banlieue avec sa famille dans le film Pixar de 2004, il travaille dans une compagnie d'assurances. Craig T. Nelson lui prête sa voix. Quel est son nom de super-héros ?",
+      "answer": "Mr. Indestructible",
+      "difficulty": "normal",
+      "category": "Les Indestructibles"
+    },
+    {
+      "id": "dis078",
+      "question": "Styliste de super-héros de petite taille aux lunettes rondes dans Les Indestructibles, elle refuse catégoriquement d'ajouter des capes aux costumes. Brad Bird lui prête sa voix. Qui est-ce ?",
+      "answer": "Edna Mode",
+      "difficulty": "normal",
+      "category": "Les Indestructibles"
+    },
+    {
+      "id": "dis079",
+      "question": "Super-héros noir aux pouvoirs de glace et meilleur ami de Bob Parr, il était témoin à son mariage. Samuel L. Jackson lui prête sa voix dans Les Indestructibles. Quel est son nom de super-héros ?",
+      "answer": "Frozone",
+      "difficulty": "normal",
+      "category": "Les Indestructibles"
+    },
+    {
+      "id": "dis080",
+      "question": "Rat gris à l'odorat surdéveloppé rêvant de devenir chef cuisinier à Paris, il contrôle un garçon de cuisine en tirant sur ses cheveux. Son idole est le chef Gusteau. Comment s'appelle ce rongeur de Ratatouille ?",
+      "answer": "Rémy",
+      "difficulty": "normal",
+      "category": "Ratatouille"
+    },
+    {
+      "id": "dis081",
+      "question": "Chef cuisinier français dont le motto est 'Tout le monde peut cuisiner' dans Ratatouille, il est décédé après avoir perdu une étoile suite à une critique d'Anton Ego. Son fantôme guide Rémy. Qui est-ce ?",
+      "answer": "Auguste Gusteau",
+      "difficulty": "difficile",
+      "category": "Ratatouille"
+    },
+    {
+      "id": "dis082",
+      "question": "Garçon de cuisine maladroit et fils secret de Gusteau dans Ratatouille, il est contrôlé par un rat caché sous sa toque. Lou Romano lui prête sa voix. Comment s'appelle-t-il ?",
+      "answer": "Alfredo Linguini",
+      "difficulty": "difficile",
+      "category": "Ratatouille"
+    },
+    {
+      "id": "dis083",
+      "question": "Robot compacteur de déchets seul sur Terre depuis 700 ans dans le film Pixar de 2008, il tombe amoureux d'une sonde blanche nommée EVE. Son nom est un acronyme. Comment s'appelle-t-il ?",
+      "answer": "WALL-E",
+      "difficulty": "normal",
+      "category": "WALL-E"
+    },
+    {
+      "id": "dis084",
+      "question": "Sonde futuriste blanche armée d'un canon à ions envoyée sur Terre pour chercher de la végétation dans WALL-E, son nom signifie 'Extraterrestrial Vegetation Evaluator'. Comment s'appelle-t-elle ?",
+      "answer": "EVE",
+      "difficulty": "normal",
+      "category": "WALL-E"
+    },
+    {
+      "id": "dis085",
+      "question": "Vendeur de ballons veuf de 78 ans qui fait s'envoler sa maison vers l'Amérique du Sud grâce à des milliers de ballons gonflables, il veut réaliser le rêve de sa défunte femme Ellie. Ed Asner lui prête sa voix. Qui est-ce ?",
+      "answer": "Carl Fredricksen",
+      "difficulty": "normal",
+      "category": "Là-Haut"
+    },
+    {
+      "id": "dis086",
+      "question": "Jeune scout asiatique-américain de 9 ans qui accompagne accidentellement Carl vers les Chutes du Paradis dans Là-Haut, il cherche à obtenir son badge d'aide aux personnes âgées. Comment s'appelle-t-il ?",
+      "answer": "Russell",
+      "difficulty": "normal",
+      "category": "Là-Haut"
+    },
+    {
+      "id": "dis087",
+      "question": "Émotion jaune rayonnante qui dirige le quartier général dans Vice-Versa, elle veut que Riley soit toujours heureuse. Amy Poehler lui prête sa voix. Comment s'appelle-t-elle ?",
+      "answer": "Joie",
+      "difficulty": "normal",
+      "category": "Vice-Versa"
+    },
+    {
+      "id": "dis088",
+      "question": "Émotion bleue aux lunettes rondes dans Vice-Versa, elle comprend finalement que son rôle est de créer de l'empathie. Phyllis Smith lui prête sa voix. Comment s'appelle-t-elle ?",
+      "answer": "Tristesse",
+      "difficulty": "normal",
+      "category": "Vice-Versa"
+    },
+    {
+      "id": "dis089",
+      "question": "Ami imaginaire rose mi-éléphant mi-dauphin mi-chat dans Vice-Versa, il pleurait des bonbons et propulsait son wagon à la force de la chanson. Il se sacrifie pour sauver Joie. Comment s'appelle-t-il ?",
+      "answer": "Bing Bong",
+      "difficulty": "difficile",
+      "category": "Vice-Versa"
+    },
+    {
+      "id": "dis090",
+      "question": "Professeur de musique au collège et pianiste de jazz âgé de 46 ans dans Soul, il tombe dans une bouche d'égout le jour de sa grande chance. Jamie Foxx lui prête sa voix. Qui est-ce ?",
+      "answer": "Joe Gardner",
+      "difficulty": "normal",
+      "category": "Soul"
+    },
+    {
+      "id": "dis091",
+      "question": "Âme cynique au Grand Avant dans Soul, elle porte le numéro 22 et n'a jamais trouvé d'étincelle malgré des mentors comme Abraham Lincoln. Tina Fey lui prête sa voix. Comment est-elle appelée ?",
+      "answer": "22",
+      "difficulty": "difficile",
+      "category": "Soul"
+    },
+    {
+      "id": "dis092",
+      "question": "Princesse aux cheveux magiques longs de 21 mètres enfermée dans une tour par Mère Gothel dans le 50e classique Disney, elle rêve de voir les lanternes flottantes. Mandy Moore lui prête sa voix. Qui est-ce ?",
+      "answer": "Raiponce",
+      "difficulty": "normal",
+      "category": "Raiponce"
+    },
+    {
+      "id": "dis093",
+      "question": "Voleur charmeur au vrai nom Eugene Fitzherbert dans Raiponce, il abandonne son pseudo inspiré d'un livre d'aventures. Zachary Levi lui prête sa voix. Comment est-il connu ?",
+      "answer": "Flynn Rider",
+      "difficulty": "normal",
+      "category": "Raiponce"
+    },
+    {
+      "id": "dis094",
+      "question": "Vieille femme vaniteuse qui kidnappe Raiponce bébé pour utiliser le pouvoir de guérison de ses cheveux et rester jeune éternellement, elle se désintègre quand les cheveux sont coupés. Qui est-ce ?",
+      "answer": "Mère Gothel",
+      "difficulty": "normal",
+      "category": "Raiponce"
+    },
+    {
+      "id": "dis095",
+      "question": "Princesse écossaise aux cheveux roux frisés dans le film Pixar de 2012, elle transforme accidentellement sa mère en ours avec un gâteau ensorcelé. Elle refuse de se marier. Qui est-ce ?",
+      "answer": "Mérida",
+      "difficulty": "normal",
+      "category": "Rebelle"
+    },
+    {
+      "id": "dis096",
+      "question": "Seule Madrigal sans don magique dans Encanto, cette Colombienne de 15 ans aux lunettes vertes découvre que la maison miraculeuse se fissure. Ses lunettes font référence à son oncle Bruno. Qui est-ce ?",
+      "answer": "Mirabel",
+      "difficulty": "normal",
+      "category": "Encanto"
+    },
+    {
+      "id": "dis097",
+      "question": "Oncle ostracisé de la famille Madrigal qui peut voir l'avenir dans Encanto, il vit caché dans les murs de la maison depuis 10 ans. La chanson à son sujet a atteint le numéro 1 aux USA. Qui est-ce ?",
+      "answer": "Bruno",
+      "difficulty": "normal",
+      "category": "Encanto"
+    },
+    {
+      "id": "dis098",
+      "question": "Cousine de Mirabel dotée d'une super-force dans Encanto, elle porte la maison sur ses épaules au sens propre comme au figuré. Son nom signifie 'petite Louise'. Qui est-ce ?",
+      "answer": "Luisa",
+      "difficulty": "difficile",
+      "category": "Encanto"
+    },
+    {
+      "id": "dis099",
+      "question": "Sœur aînée de Mirabel capable de faire fleurir les plantes dans Encanto, elle est considérée comme parfaite mais cache une grande pression. Son nom évoque la beauté d'une fleur. Qui est-ce ?",
+      "answer": "Isabela",
+      "difficulty": "difficile",
+      "category": "Encanto"
+    },
+    {
+      "id": "dis100",
+      "question": "Jeune fille qui fait un vœu sur une étoile filante dans le 62e film d'animation Disney sorti en 2023, son royaume de Rosas est dirigé par un roi qui collecte les vœux. Ariana DeBose lui prête sa voix. Qui est-ce ?",
+      "answer": "Asha",
+      "difficulty": "difficile",
+      "category": "Wish"
     }
   ]
 }

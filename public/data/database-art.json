@@ -1,0 +1,17 @@
+{
+  "id": "database-art",
+  "title": "Art",
+  "lang": "fr",
+  "items": [
+    {"id": "cg-art001", "question": "Peintre, sculpteur et architecte italien de la Renaissance, il a peint le plafond de la Chapelle Sixtine et sculpté le David de Florence. Rival de Léonard de Vinci, il incarne le génie universel. Qui est-ce ?", "answer": "Michel-Ange", "difficulty": "normal", "category": "Art"},
+    {"id": "cg-art002", "question": "Polymathe italien de la Renaissance, il a peint La Joconde et La Cène. Inventeur visionnaire, ses carnets contiennent des croquis d'hélicoptères et de sous-marins. Son sourire énigmatique est au Louvre. Qui est-ce ?", "answer": "Léonard de Vinci", "difficulty": "normal", "category": "Art"},
+    {"id": "cg-art003", "question": "Peintre post-impressionniste néerlandais, il se coupe l'oreille en 1888 et meurt à 37 ans. La Nuit étoilée et Les Tournesols sont parmi ses œuvres les plus célèbres. Qui est-ce ?", "answer": "Vincent van Gogh", "difficulty": "normal", "category": "Art"},
+    {"id": "cg-art004", "question": "Peintre espagnol cofondateur du cubisme avec Georges Braque, il réalise Guernica en réponse au bombardement de la ville basque. L'artiste le plus prolifique du XXe siècle selon le Guinness. Qui est-ce ?", "answer": "Pablo Picasso", "difficulty": "normal", "category": "Art"},
+    {"id": "cg-art005", "question": "Chef de file de l'impressionnisme français, il peint Les Nymphéas dans son jardin de Giverny et la série des Cathédrales de Rouen. Son tableau 'Impression, soleil levant' donne son nom au mouvement. Qui est-ce ?", "answer": "Claude Monet", "difficulty": "normal", "category": "Art"},
+    {"id": "cg-art006", "question": "Peintre surréaliste espagnol à la moustache extravagante, il est célèbre pour ses montres molles dans La Persistance de la mémoire. Excentrique assumé, il vit à Figueras et Port Lligat. Qui est-ce ?", "answer": "Salvador Dalí", "difficulty": "normal", "category": "Art"},
+    {"id": "cg-art007", "question": "Figure du Pop Art américain, il réalise des sérigraphies de Marilyn Monroe et des boîtes de soupe Campbell's. Sa Factory à New York devient le lieu emblématique de l'avant-garde des années 60. Qui est-ce ?", "answer": "Andy Warhol", "difficulty": "normal", "category": "Art"},
+    {"id": "cg-art008", "question": "Sculpteur français du XIXe siècle, il crée Le Penseur et Le Baiser. Sa Porte de l'Enfer reste inachevée. Le musée qui porte son nom est à Paris dans l'hôtel Biron. Qui est-ce ?", "answer": "Auguste Rodin", "difficulty": "normal", "category": "Art"},
+    {"id": "cg-art009", "question": "Peintre mexicaine aux sourcils joints et aux autoportraits douloureux, elle épouse le muraliste Diego Rivera. Ses œuvres expriment sa souffrance physique après un grave accident. Qui est-ce ?", "answer": "Frida Kahlo", "difficulty": "normal", "category": "Art"},
+    {"id": "cg-art010", "question": "Architecte catalan visionnaire, il conçoit la Sagrada Familia de Barcelone, toujours inachevée plus de 100 ans après sa mort. Le parc Güell et la Casa Batlló sont aussi de lui. Qui est-ce ?", "answer": "Antoni Gaudí", "difficulty": "normal", "category": "Art"}
+  ]
+}

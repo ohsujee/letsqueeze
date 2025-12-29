@@ -1,0 +1,19 @@
+{
+  "id": "database-musique",
+  "title": "Musique",
+  "lang": "fr",
+  "items": [
+    {"id": "cg-mus001", "question": "Groupe britannique formé à Liverpool en 1960, il compte John Lennon, Paul McCartney, George Harrison et Ringo Starr. Avec plus de 600 millions d'albums vendus, c'est le groupe le plus influent de l'histoire. Quel est ce groupe ?", "answer": "The Beatles", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus002", "question": "Surnommé le 'Roi de la Pop', ce chanteur américain a révolutionné le clip vidéo avec Thriller et Bad. Son moonwalk et son gant pailleté sont légendaires. Décédé en 2009 à Los Angeles. Qui est-ce ?", "answer": "Michael Jackson", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus003", "question": "Groupe britannique mené par Freddie Mercury, il a produit Bohemian Rhapsody, un opéra rock de 6 minutes devenu hymne mondial. Le concert de Live Aid en 1985 reste mythique. Quel est ce groupe ?", "answer": "Queen", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus004", "question": "Compositeur allemand devenu sourd à 26 ans, il continue malgré tout à composer ses plus grandes œuvres dont la 9e Symphonie et l'Hymne à la Joie. Mort à Vienne en 1827. Qui est-ce ?", "answer": "Ludwig van Beethoven", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus005", "question": "Chanteuse originaire de la Barbade, elle est connue pour ses tubes Umbrella et Diamonds. Fondatrice de Fenty Beauty et Savage X Fenty, elle est aussi milliardaire. Qui est-ce ?", "answer": "Rihanna", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus006", "question": "Duo électro français formé par Thomas Bangalter et Guy-Manuel de Homem-Christo, ils sont reconnaissables à leurs casques de robots. Get Lucky et Around the World sont parmi leurs tubes. Quel est ce duo ?", "answer": "Daft Punk", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus007", "question": "Chanteur français d'origine arménienne décédé en 2018, il a interprété plus de 1200 chansons dont La Bohème et Emmenez-moi. Figure emblématique de la chanson française pendant 60 ans. Qui est-ce ?", "answer": "Charles Aznavour", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus008", "question": "Rappeur américain assassiné à Las Vegas en 1996, il est considéré comme l'un des plus grands de l'histoire du hip-hop. Changes et California Love restent des classiques. Qui est-ce ?", "answer": "Tupac (2Pac)", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus009", "question": "Chanteuse québécoise à la voix puissante, elle interprète My Heart Will Go On, thème du film Titanic. Résidente à Las Vegas pendant des années, elle a vendu plus de 200 millions d'albums. Qui est-ce ?", "answer": "Céline Dion", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus010", "question": "Prodige autrichien mort à 35 ans en 1791, il compose La Flûte enchantée, Don Giovanni et le Requiem inachevé. Enfant prodige, il compose dès l'âge de 5 ans. Qui est-ce ?", "answer": "Wolfgang Amadeus Mozart", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus011", "question": "Groupe de rock irlandais formé à Dublin en 1976, il est mené par le chanteur Bono. With or Without You et One figurent parmi leurs tubes. Engagés pour l'humanitaire, ils ont vendu 170 millions d'albums. Quel est ce groupe ?", "answer": "U2", "difficulty": "normal", "category": "Musique"},
+    {"id": "cg-mus012", "question": "Chanteuse britannique aux albums titrés par des nombres (19, 21, 25, 30), elle a remporté 16 Grammy Awards. Hello et Rolling in the Deep sont des tubes planétaires. Qui est-ce ?", "answer": "Adele", "difficulty": "normal", "category": "Musique"}
+  ]
+}

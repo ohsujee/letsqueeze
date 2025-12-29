@@ -4,12 +4,17 @@ import { useRouter } from "next/navigation";
 import { auth, db, ref, set, signInAnonymously, onAuthStateChanged } from "@/lib/firebase";
 import { motion } from "framer-motion";
 import BottomNav from "@/lib/components/BottomNav";
+import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { User } from "lucide-react";
 
 export default function JoinClient({ initialCode = "" }) {
   const router = useRouter();
-  const [pseudo, setPseudo] = useState("");
   const [code, setCode] = useState((initialCode || "").toUpperCase());
   const [user, setUser] = useState(null);
+  const { profile, loading: profileLoading } = useUserProfile();
+
+  // Get pseudo from profile or fallback to displayName
+  const pseudo = profile?.pseudo || user?.displayName?.split(' ')[0] || 'Joueur';
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
@@ -82,24 +87,19 @@ export default function JoinClient({ initialCode = "" }) {
             />
           </div>
 
-          <div className="input-group">
-            <label className="input-label">Ton pseudo</label>
-            <input
-              className="input-field"
-              placeholder="Ton nom de joueur"
-              value={pseudo}
-              onChange={e=>setPseudo(e.target.value)}
-              maxLength={20}
-              autoComplete="name"
-            />
+          {/* Show current pseudo from profile */}
+          <div className="pseudo-preview">
+            <User size={16} className="pseudo-icon" />
+            <span className="pseudo-label">Tu joues en tant que</span>
+            <span className="pseudo-name">{pseudo}</span>
           </div>
 
           <button
             className="btn-join"
             onClick={join}
-            disabled={!pseudo || !code || !user}
+            disabled={!code || !user || profileLoading}
           >
-            {!user ? "Connexion..." : "Rejoindre la partie"}
+            {!user || profileLoading ? "Connexion..." : "Rejoindre la partie"}
           </button>
         </div>
 

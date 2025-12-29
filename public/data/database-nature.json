@@ -1,0 +1,17 @@
+{
+  "id": "database-nature",
+  "title": "Nature",
+  "lang": "fr",
+  "items": [
+    {"id": "cg-nat001", "question": "Plus grand mammifère marin pesant jusqu'à 200 tonnes pour 30 mètres de long, ce cétacé se nourrit de krill. Son chant peut parcourir des milliers de kilomètres sous l'eau. Quel est cet animal ?", "answer": "La baleine bleue", "difficulty": "normal", "category": "Nature"},
+    {"id": "cg-nat002", "question": "Félin le plus rapide du monde pouvant atteindre 120 km/h en quelques secondes, il chasse dans les savanes africaines. Son pelage tacheté et ses larmes noires le distinguent du léopard. Quel est cet animal ?", "answer": "Le guépard", "difficulty": "normal", "category": "Nature"},
+    {"id": "cg-nat003", "question": "Primate d'Afrique centrale partageant 98% de notre ADN, il utilise des outils et vit en groupes sociaux complexes. Menacé par la déforestation et le braconnage. Quel est cet animal ?", "answer": "Le chimpanzé", "difficulty": "normal", "category": "Nature"},
+    {"id": "cg-nat004", "question": "Insecte pollinisateur essentiel à l'écosystème, il produit du miel et de la cire. Organisé en colonies avec une reine, des ouvrières et des faux-bourdons, il est menacé par les pesticides. Quel est cet insecte ?", "answer": "L'abeille", "difficulty": "normal", "category": "Nature"},
+    {"id": "cg-nat005", "question": "Seul mammifère capable de voler véritablement grâce à ses ailes membraneuses, il utilise l'écholocation pour chasser la nuit. Certaines espèces pollinisent les fleurs. Quel est cet animal ?", "answer": "La chauve-souris", "difficulty": "normal", "category": "Nature"},
+    {"id": "cg-nat006", "question": "Mollusque à huit bras doté de trois cœurs et d'un sang bleu, il est considéré comme l'invertébré le plus intelligent. Capable de changer de couleur et de s'échapper de son aquarium. Quel est cet animal ?", "answer": "La pieuvre (ou poulpe)", "difficulty": "normal", "category": "Nature"},
+    {"id": "cg-nat007", "question": "Amphibien mexicain à l'étonnant sourire permanent, il possède la capacité de régénérer ses membres, son cœur et même son cerveau. En danger critique d'extinction dans la nature. Quel est cet animal ?", "answer": "L'axolotl", "difficulty": "difficile", "category": "Nature"},
+    {"id": "cg-nat008", "question": "Phénomène lumineux visible près des pôles, il se forme quand les particules solaires entrent en collision avec l'atmosphère. Vertes, rouges ou violettes, ces lumières dansent dans le ciel nocturne. Quel est ce phénomène ?", "answer": "Les aurores boréales (ou australes)", "difficulty": "normal", "category": "Nature"},
+    {"id": "cg-nat009", "question": "Plus petit oiseau du monde avec 5 cm et 2 grammes, il peut battre des ailes jusqu'à 80 fois par seconde et voler en marche arrière. Son bec fin lui permet de boire le nectar des fleurs. Quel est cet oiseau ?", "answer": "Le colibri", "difficulty": "normal", "category": "Nature"},
+    {"id": "cg-nat010", "question": "Plus grand poisson du monde pouvant atteindre 18 mètres, ce requin se nourrit uniquement de plancton et de petits poissons. Malgré sa taille, il est totalement inoffensif pour l'homme. Quel est cet animal ?", "answer": "Le requin-baleine", "difficulty": "normal", "category": "Nature"}
+  ]
+}

@@ -1,16 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { onAuthStateChanged, auth, db, ref, set } from '@/lib/firebase';
+import { onAuthStateChanged, auth, db, ref, set, signInWithGoogle, signInWithApple } from '@/lib/firebase';
+import { initializeUserProfile } from '@/lib/userProfile';
 import { useSubscription } from '@/lib/hooks/useSubscription';
+import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { useGameLimits } from '@/lib/hooks/useGameLimits';
 import { storage } from '@/lib/utils/storage';
 import GameCard from '@/lib/components/GameCard';
 import BottomNav from '@/lib/components/BottomNav';
-import WatchAdModal from '@/components/ui/WatchAdModal';
-import { Target, UserSearch, Gamepad2, Heart, Sparkles, Music, Brain } from 'lucide-react';
+import GuestAccountPromptModal from '@/components/ui/GuestAccountPromptModal';
+import GuestWarningModal from '@/components/ui/GuestWarningModal';
+import GameLimitModal from '@/components/ui/GameLimitModal';
+import { Target, UserSearch, Gamepad2, Heart, Sparkles, Music, Brain, ChevronsUp, Crown } from 'lucide-react';
 import { genCode } from '@/lib/utils';
 
 const GAMES = [
@@ -20,6 +24,7 @@ const GAMES = [
     Icon: Target,
     packLimit: 3,
     image: '/images/quiz-buzzer.png',
+    minPlayers: 2,
   },
   {
     id: 'alibi',
@@ -27,6 +32,7 @@ const GAMES = [
     Icon: UserSearch,
     packLimit: 3,
     image: '/images/alibi.png',
+    minPlayers: 3,
   },
   {
     id: 'blindtest',
@@ -34,6 +40,7 @@ const GAMES = [
     Icon: Music,
     packLimit: 3,
     image: '/images/blind-test.png',
+    minPlayers: 2,
     comingSoon: true,
   },
   {
@@ -42,6 +49,7 @@ const GAMES = [
     Icon: Brain,
     packLimit: 3,
     image: '/images/memory.png',
+    minPlayers: 2,
     comingSoon: true,
   },
 ];
@@ -50,12 +58,23 @@ export default function HomePage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [favorites, setFavorites] = useState([]);
-  const [showAdModal, setShowAdModal] = useState(false);
+  const [showGuestPrompt, setShowGuestPrompt] = useState(false);
+  const [showGuestWarning, setShowGuestWarning] = useState(false);
+  const [showGameLimit, setShowGameLimit] = useState(false);
   const [pendingGame, setPendingGame] = useState(null);
-
   const { isPro } = useSubscription(user);
-  const quizLimits = useGameLimits('quiz', isPro);
-  const alibiLimits = useGameLimits('alibi', isPro);
+  const { profile } = useUserProfile();
+
+  // Game limits for quiz (most common game type)
+  const {
+    canPlayFree,
+    canWatchAdForGame,
+    isBlocked,
+    rewardedGamesRemaining,
+    isWatchingAd,
+    watchAdForExtraGame,
+    recordGamePlayed,
+  } = useGameLimits('quiz', isPro);
 
   useEffect(() => {
     // Load favorites from storage
@@ -69,11 +88,43 @@ export default function HomePage() {
         router.push('/login');
       } else {
         setUser(currentUser);
+
+        // Check if we should show guest account prompt
+        if (currentUser.isAnonymous) {
+          checkGuestPrompt();
+        }
       }
     });
 
     return () => unsubscribe();
   }, [router]);
+
+  // Check if we should show the guest account prompt
+  const checkGuestPrompt = () => {
+    // Check if user just returned from a game
+    const returnedFromGame = storage.get('returnedFromGame');
+    if (!returnedFromGame) return;
+
+    // Clear the flag
+    storage.remove('returnedFromGame');
+
+    // Increment games played counter
+    const gamesPlayed = (storage.get('guestGamesPlayed') || 0) + 1;
+    storage.set('guestGamesPlayed', gamesPlayed);
+
+    // Check cooldown (24h since last dismiss)
+    const dismissedAt = storage.get('guestPromptDismissedAt');
+    if (dismissedAt) {
+      const hoursSinceDismiss = (Date.now() - dismissedAt) / (1000 * 60 * 60);
+      if (hoursSinceDismiss < 24) return; // Still in cooldown
+    }
+
+    // Show prompt after 3 games
+    if (gamesPlayed >= 3) {
+      // Small delay so page loads first
+      setTimeout(() => setShowGuestPrompt(true), 500);
+    }
+  };
 
   const handleToggleFavorite = (gameId) => {
     const newFavorites = favorites.includes(gameId)
@@ -84,25 +135,16 @@ export default function HomePage() {
     storage.set('favorites', newFavorites);
   };
 
-  // Create room and navigate (optimistic approach)
-  const createRoomAndNavigate = (game, wasRewarded = false) => {
-    // Check if user is authenticated
-    if (!auth.currentUser) {
-      router.push('/login');
-      return;
-    }
-
+  // Actually create the game room and navigate
+  const createAndNavigateToGame = (game) => {
     const c = genCode();
     const now = Date.now();
 
+    // Record game played (for limits tracking)
+    recordGamePlayed();
+
     if (game.id === 'quiz') {
-      // Navigate FIRST (optimistic)
       router.push(`/room/${c}`);
-
-      // Record game played
-      if (!isPro) quizLimits.recordGamePlayed(wasRewarded);
-
-      // Create room in background (no await)
       Promise.all([
         set(ref(db, `rooms/${c}/meta`), {
           code: c,
@@ -126,13 +168,7 @@ export default function HomePage() {
       ]).catch(err => console.error('Room creation error:', err));
 
     } else if (game.id === 'alibi') {
-      // Navigate FIRST (optimistic)
       router.push(`/alibi/room/${c}`);
-
-      // Record game played
-      if (!isPro) alibiLimits.recordGamePlayed(wasRewarded);
-
-      // Create room in background (no await)
       Promise.all([
         set(ref(db, `rooms_alibi/${c}/meta`), {
           code: c,
@@ -168,46 +204,78 @@ export default function HomePage() {
       return;
     }
 
-    // Pro users have unlimited access
-    if (isPro) {
-      createRoomAndNavigate(game);
+    // Block guests from creating games - they can only join
+    if (user?.isAnonymous) {
+      setShowGuestWarning(true);
       return;
     }
 
-    // Get limits for this game type
-    const limits = game.id === 'quiz' ? quizLimits : alibiLimits;
+    // Check game limits for non-Pro users
+    if (!isPro) {
+      if (isBlocked) {
+        // No free games and no rewarded games left
+        setPendingGame(game);
+        setShowGameLimit(true);
+        return;
+      }
 
-    // Still loading limits - allow play (optimistic)
-    if (limits.isLoading) {
-      createRoomAndNavigate(game);
-      return;
+      if (!canPlayFree && canWatchAdForGame) {
+        // Out of free games but can watch ad
+        setPendingGame(game);
+        setShowGameLimit(true);
+        return;
+      }
     }
 
-    // Can play free - create room
-    if (limits.canPlayFree) {
-      createRoomAndNavigate(game);
-      return;
-    }
-
-    // Need to watch ad or upgrade - show modal
-    setPendingGame(game);
-    setShowAdModal(true);
+    // Can play - create game
+    createAndNavigateToGame(game);
   };
 
   // Handle watching ad for extra game
-  const handleWatchAd = async () => {
-    if (!pendingGame) return false;
-
-    const limits = pendingGame.id === 'quiz' ? quizLimits : alibiLimits;
-    const success = await limits.watchAdForExtraGame();
-
-    if (success) {
-      setShowAdModal(false);
-      createRoomAndNavigate(pendingGame, true);
+  const handleWatchAdForGame = async () => {
+    const success = await watchAdForExtraGame();
+    if (success && pendingGame) {
+      setShowGameLimit(false);
+      createAndNavigateToGame(pendingGame);
       setPendingGame(null);
-      return true;
     }
-    return false;
+  };
+
+  // Handle upgrade to Pro
+  const handleUpgradeToPro = () => {
+    setShowGameLimit(false);
+    setPendingGame(null);
+    router.push('/subscribe');
+  };
+
+  // Handlers for guest warning modal sign-in
+  const handleGuestWarningGoogle = async () => {
+    try {
+      const result = await signInWithGoogle();
+      if (result?.user) {
+        await initializeUserProfile(result.user);
+        storage.remove('guestGamesPlayed');
+        storage.remove('guestPromptDismissedAt');
+        setShowGuestWarning(false);
+        // User state updates via onAuthStateChanged
+      }
+    } catch (err) {
+      console.error('Google sign-in error:', err);
+    }
+  };
+
+  const handleGuestWarningApple = async () => {
+    try {
+      const result = await signInWithApple();
+      if (result?.user) {
+        await initializeUserProfile(result.user);
+        storage.remove('guestGamesPlayed');
+        storage.remove('guestPromptDismissedAt');
+        setShowGuestWarning(false);
+      }
+    } catch (err) {
+      console.error('Apple sign-in error:', err);
+    }
   };
 
   const favoriteGames = GAMES.filter(game => favorites.includes(game.id));
@@ -218,35 +286,34 @@ export default function HomePage() {
       <main className="home-content">
         {/* Modern Header 2025 */}
         <header className="home-header-modern">
-          <div className="profile-section">
-            <div className="avatar-container">
-              <div className="avatar-placeholder">
-                {(user?.displayName?.[0] || 'J').toUpperCase()}
-              </div>
-              <div className="avatar-status"></div>
+          <div className="avatar-container">
+            <div className="avatar-placeholder">
+              {(profile?.pseudo?.[0] || user?.displayName?.[0] || 'J').toUpperCase()}
             </div>
-
-            <div className="user-info">
-              <p className="greeting-text">Bienvenue</p>
-              <h1 className="user-name">{user?.displayName?.split(' ')[0] || 'Joueur'}</h1>
-            </div>
+            <div className="avatar-status"></div>
           </div>
+
+          <h1 className="user-name">{profile?.pseudo || user?.displayName?.split(' ')[0] || 'Joueur'}</h1>
 
           <div className="header-actions">
             {isPro ? (
-              <div className="pro-badge-modern">
-                <Sparkles size={14} />
-                <span>PRO</span>
-              </div>
+              <motion.div
+                className="pro-badge-circle"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                title="Membre Pro"
+              >
+                <Crown size={20} strokeWidth={2.5} />
+              </motion.div>
             ) : (
               <motion.button
-                className="upgrade-btn-header"
-                onClick={() => router.push('/profile')}
-                whileHover={{ scale: 1.05 }}
+                className="upgrade-btn-circle"
+                onClick={() => router.push('/subscribe')}
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
+                title="Passer Pro"
               >
-                <Sparkles size={14} />
-                <span>Mise à niveau</span>
+                <ChevronsUp size={20} strokeWidth={2.5} />
               </motion.button>
             )}
           </div>
@@ -293,11 +360,9 @@ export default function HomePage() {
                 >
                   <GameCard
                     game={game}
-                    isLocked={!isPro && !game.isFree}
                     isFavorite={true}
                     onToggleFavorite={handleToggleFavorite}
                     onClick={handleGameClick}
-                    user={user}
                   />
                 </motion.div>
               ))}
@@ -350,11 +415,9 @@ export default function HomePage() {
               >
                 <GameCard
                   game={game}
-                  isLocked={!isPro && !game.isFree}
                   isFavorite={favorites.includes(game.id)}
                   onToggleFavorite={handleToggleFavorite}
                   onClick={handleGameClick}
-                  user={user}
                 />
               </motion.div>
             ))}
@@ -369,24 +432,37 @@ export default function HomePage() {
       {/* Bottom Navigation */}
       <BottomNav />
 
-      {/* Watch Ad Modal */}
-      <WatchAdModal
-        isOpen={showAdModal}
+      {/* Guest Account Prompt Modal */}
+      <GuestAccountPromptModal
+        isOpen={showGuestPrompt}
+        onClose={() => setShowGuestPrompt(false)}
+        onConnected={() => {
+          // Refresh user state after connection
+          setUser(auth.currentUser);
+        }}
+      />
+
+      {/* Guest Warning Modal - Blocks game creation for guests */}
+      <GuestWarningModal
+        isOpen={showGuestWarning}
+        onClose={() => setShowGuestWarning(false)}
+        onSignInGoogle={handleGuestWarningGoogle}
+        onSignInApple={handleGuestWarningApple}
+        context="home"
+      />
+
+      {/* Game Limit Modal - Shows when free games exhausted */}
+      <GameLimitModal
+        isOpen={showGameLimit}
         onClose={() => {
-          setShowAdModal(false);
+          setShowGameLimit(false);
           setPendingGame(null);
         }}
-        onWatchAd={handleWatchAd}
-        onUpgrade={() => {
-          setShowAdModal(false);
-          router.push('/subscribe');
-        }}
-        rewardedGamesRemaining={
-          pendingGame?.id === 'quiz'
-            ? quizLimits.rewardedGamesRemaining
-            : alibiLimits.rewardedGamesRemaining
-        }
-        gameType={pendingGame?.id || 'quiz'}
+        onWatchAd={handleWatchAdForGame}
+        onUpgrade={handleUpgradeToPro}
+        rewardedGamesRemaining={rewardedGamesRemaining}
+        isWatchingAd={isWatchingAd}
+        isBlocked={isBlocked}
       />
     </div>
   );

@@ -61,7 +61,7 @@
     },
     {
       "id": "cg-sci009",
-      "question": "Célèbre pour ses anneaux spectaculaires composés de glace et de roche, cette géante gazeuse est la sixième planète du système solaire. Son satellite Titan possède une atmosphère dense. Quelle est cette planète ?",
+      "question": "Célèbre pour ses anneaux spectaculaires composés de glace et de roche, cette géante gazeuse est la sixième planète du système solaire. Son plus grand satellite, Titan, est le seul du système solaire à posséder une atmosphère dense. Quelle est cette planète ?",
       "answer": "Saturne",
       "difficulty": "normal",
       "category": "Sciences"
@@ -180,7 +180,7 @@
     },
     {
       "id": "cg-hist011",
-      "question": "Conflitm mondial de 1914 à 1918, surnommé 'la Der des Ders', cette guerre fait 18 millions de morts et se termine par l'armistice du 11 novembre. Le traité de Versailles en 1919 impose de lourdes réparations à l'Allemagne. De quel conflit s'agit-il ?",
+      "question": "Conflit mondial de 1914 à 1918, surnommé 'la Der des Ders', cette guerre fait 18 millions de morts et se termine par l'armistice du 11 novembre. Le traité de Versailles en 1919 impose de lourdes réparations à l'Allemagne. De quel conflit s'agit-il ?",
       "answer": "La Première Guerre mondiale",
       "difficulty": "normal",
       "category": "Histoire"
@@ -222,7 +222,7 @@
     },
     {
       "id": "cg-geo002",
-      "question": "Culminant à 8849 mètres d'altitude dans l'Himalaya, ce sommet situé à la frontière entre le Népal et le Tibet est le point le plus élevé de la Terre. Son nom signifie 'Front du ciel' en tibétain. Quel est ce sommet ?",
+      "question": "Culminant à 8849 mètres d'altitude dans l'Himalaya, ce sommet situé à la frontière entre le Népal et le Tibet est le point le plus élevé de la Terre. Son nom népalais Sagarmatha signifie 'Front du ciel'. Quel est ce sommet ?",
       "answer": "L'Everest",
       "difficulty": "normal",
       "category": "Géographie"
@@ -369,7 +369,7 @@
     },
     {
       "id": "cg-sport008",
-      "question": "Pilote britannique de Formule 1, il a égalé les 7 titres mondiaux de Michael Schumacher avant de remporter un 8e potentiellement contesté en 2021. Chevalier par la Reine, il défend activement les droits civiques. Qui est-ce ?",
+      "question": "Pilote britannique de Formule 1, il détient 7 titres mondiaux égalant le record de Michael Schumacher et 103 victoires en Grand Prix, un record absolu. Fait chevalier en 2021, il défend activement les droits civiques. Qui est-ce ?",
       "answer": "Lewis Hamilton",
       "difficulty": "normal",
       "category": "Sport"

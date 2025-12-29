@@ -3,7 +3,7 @@
 /**
  * HowToPlayModal
  * Modal "Comment jouer" accessible depuis le header des rooms
- * Suit le guide-style-ui.md
+ * Fixed: Removed styled-jsx with dynamic variables (caused infinite compilation)
  */
 
 import { motion, AnimatePresence } from 'framer-motion';
@@ -50,11 +50,145 @@ export default function HowToPlayModal({
   const game = GAME_RULES[gameType] || GAME_RULES.quiz;
   const GameIcon = game.icon;
 
+  // Inline styles to avoid styled-jsx compilation issues
+  const styles = {
+    overlay: {
+      position: 'fixed',
+      inset: 0,
+      zIndex: 1000,
+      background: 'rgba(0, 0, 0, 0.85)',
+      backdropFilter: 'blur(8px)',
+      WebkitBackdropFilter: 'blur(8px)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px',
+    },
+    content: {
+      position: 'relative',
+      width: '100%',
+      maxWidth: '380px',
+      background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98) 0%, rgba(16, 16, 26, 0.99) 100%)',
+      border: `1px solid ${game.accentColor}40`,
+      borderRadius: '24px',
+      padding: '28px 24px',
+      boxShadow: `0 20px 50px rgba(0, 0, 0, 0.5), 0 0 60px ${game.glowColor}, inset 0 1px 0 rgba(255, 255, 255, 0.05)`,
+    },
+    closeBtn: {
+      position: 'absolute',
+      top: '12px',
+      right: '12px',
+      width: '36px',
+      height: '36px',
+      borderRadius: '10px',
+      background: 'rgba(255, 255, 255, 0.05)',
+      border: '1px solid rgba(255, 255, 255, 0.1)',
+      color: 'rgba(255, 255, 255, 0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease',
+    },
+    header: {
+      textAlign: 'center',
+      marginBottom: '24px',
+    },
+    iconBox: {
+      width: '64px',
+      height: '64px',
+      margin: '0 auto 16px',
+      borderRadius: '18px',
+      background: `linear-gradient(135deg, ${game.accentColor}, ${game.accentColor}cc)`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'white',
+      boxShadow: `0 4px 20px ${game.glowColor}`,
+    },
+    title: {
+      fontFamily: "'Bungee', cursive",
+      fontSize: '1.5rem',
+      color: 'white',
+      margin: '0 0 6px 0',
+      textTransform: 'uppercase',
+      letterSpacing: '0.02em',
+      textShadow: `0 0 20px ${game.glowColor}`,
+    },
+    subtitle: {
+      fontFamily: "'Inter', sans-serif",
+      fontSize: '0.9375rem',
+      color: 'rgba(255, 255, 255, 0.6)',
+      margin: 0,
+    },
+    rulesContainer: {
+      background: 'rgba(255, 255, 255, 0.03)',
+      border: '1px solid rgba(255, 255, 255, 0.05)',
+      borderRadius: '16px',
+      padding: '20px',
+      marginBottom: '20px',
+    },
+    rulesTitle: {
+      fontFamily: "'Space Grotesk', sans-serif",
+      fontSize: '0.875rem',
+      fontWeight: 700,
+      color: game.accentColor,
+      textTransform: 'uppercase',
+      letterSpacing: '0.1em',
+      margin: '0 0 16px 0',
+    },
+    rulesList: {
+      listStyle: 'none',
+      padding: 0,
+      margin: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '12px',
+    },
+    ruleItem: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      fontFamily: "'Inter', sans-serif",
+      fontSize: '0.9375rem',
+      color: 'rgba(255, 255, 255, 0.85)',
+      lineHeight: 1.4,
+    },
+    ruleIcon: {
+      flexShrink: 0,
+      width: '32px',
+      height: '32px',
+      borderRadius: '8px',
+      background: `${game.accentColor}20`,
+      border: `1px solid ${game.accentColor}30`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: game.accentColor,
+    },
+    btnGotIt: {
+      width: '100%',
+      padding: '16px',
+      background: `linear-gradient(135deg, ${game.accentColor}, ${game.accentColor}cc)`,
+      color: gameType === 'alibi' ? '#000' : '#fff',
+      border: 'none',
+      borderRadius: '14px',
+      fontFamily: "'Space Grotesk', sans-serif",
+      fontSize: '1rem',
+      fontWeight: 700,
+      textTransform: 'uppercase',
+      letterSpacing: '0.03em',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease',
+      boxShadow: `0 4px 15px ${game.glowColor}, inset 0 1px 0 rgba(255, 255, 255, 0.2)`,
+    },
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="modal-overlay"
+          style={styles.overlay}
           onClick={onClose}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -62,7 +196,7 @@ export default function HowToPlayModal({
           transition={{ duration: 0.2 }}
         >
           <motion.div
-            className="modal-content"
+            style={styles.content}
             onClick={e => e.stopPropagation()}
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -70,34 +204,34 @@ export default function HowToPlayModal({
             transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
           >
             {/* Close button */}
-            <button className="modal-close" onClick={onClose}>
+            <button style={styles.closeBtn} onClick={onClose}>
               <X size={20} />
             </button>
 
             {/* Header */}
-            <div className="modal-header">
-              <div className="modal-icon">
+            <div style={styles.header}>
+              <div style={styles.iconBox}>
                 <GameIcon size={28} />
               </div>
-              <h2 className="modal-title">{game.title}</h2>
-              <p className="modal-subtitle">{game.subtitle}</p>
+              <h2 style={styles.title}>{game.title}</h2>
+              <p style={styles.subtitle}>{game.subtitle}</p>
             </div>
 
             {/* Rules */}
-            <div className="rules-container">
-              <h3 className="rules-title">Comment jouer ?</h3>
-              <ul className="rules-list">
+            <div style={styles.rulesContainer}>
+              <h3 style={styles.rulesTitle}>Comment jouer ?</h3>
+              <ul style={styles.rulesList}>
                 {game.rules.map((rule, index) => {
                   const RuleIcon = rule.icon;
                   return (
                     <motion.li
                       key={index}
-                      className="rule-item"
+                      style={styles.ruleItem}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + index * 0.05 }}
                     >
-                      <div className="rule-icon">
+                      <div style={styles.ruleIcon}>
                         <RuleIcon size={16} />
                       </div>
                       <span>{rule.text}</span>
@@ -109,7 +243,7 @@ export default function HowToPlayModal({
 
             {/* Got it button */}
             <motion.button
-              className="btn-got-it"
+              style={styles.btnGotIt}
               onClick={onClose}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -117,167 +251,6 @@ export default function HowToPlayModal({
               C'est compris !
             </motion.button>
           </motion.div>
-
-          <style jsx>{`
-            .modal-overlay {
-              position: fixed;
-              inset: 0;
-              z-index: 1000;
-              background: rgba(0, 0, 0, 0.85);
-              backdrop-filter: blur(8px);
-              -webkit-backdrop-filter: blur(8px);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              padding: 20px;
-            }
-
-            .modal-content {
-              position: relative;
-              width: 100%;
-              max-width: 380px;
-              background: linear-gradient(135deg, rgba(20, 20, 30, 0.98) 0%, rgba(16, 16, 26, 0.99) 100%);
-              border: 1px solid ${game.accentColor}40;
-              border-radius: 24px;
-              padding: 28px 24px;
-              box-shadow:
-                0 20px 50px rgba(0, 0, 0, 0.5),
-                0 0 60px ${game.glowColor},
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            }
-
-            .modal-close {
-              position: absolute;
-              top: 12px;
-              right: 12px;
-              width: 36px;
-              height: 36px;
-              border-radius: 10px;
-              background: rgba(255, 255, 255, 0.05);
-              border: 1px solid rgba(255, 255, 255, 0.1);
-              color: rgba(255, 255, 255, 0.5);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              cursor: pointer;
-              transition: all 0.2s ease;
-            }
-
-            .modal-close:hover {
-              background: rgba(255, 255, 255, 0.1);
-              color: white;
-            }
-
-            .modal-header {
-              text-align: center;
-              margin-bottom: 24px;
-            }
-
-            .modal-icon {
-              width: 64px;
-              height: 64px;
-              margin: 0 auto 16px;
-              border-radius: 18px;
-              background: linear-gradient(135deg, ${game.accentColor}, ${game.accentColor}cc);
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              color: white;
-              box-shadow: 0 4px 20px ${game.glowColor};
-            }
-
-            .modal-title {
-              font-family: 'Bungee', cursive;
-              font-size: 1.5rem;
-              color: white;
-              margin: 0 0 6px 0;
-              text-transform: uppercase;
-              letter-spacing: 0.02em;
-              text-shadow: 0 0 20px ${game.glowColor};
-            }
-
-            .modal-subtitle {
-              font-family: 'Inter', sans-serif;
-              font-size: 0.9375rem;
-              color: rgba(255, 255, 255, 0.6);
-              margin: 0;
-            }
-
-            .rules-container {
-              background: rgba(255, 255, 255, 0.03);
-              border: 1px solid rgba(255, 255, 255, 0.05);
-              border-radius: 16px;
-              padding: 20px;
-              margin-bottom: 20px;
-            }
-
-            .rules-title {
-              font-family: 'Space Grotesk', sans-serif;
-              font-size: 0.875rem;
-              font-weight: 700;
-              color: ${game.accentColor};
-              text-transform: uppercase;
-              letter-spacing: 0.1em;
-              margin: 0 0 16px 0;
-            }
-
-            .rules-list {
-              list-style: none;
-              padding: 0;
-              margin: 0;
-              display: flex;
-              flex-direction: column;
-              gap: 12px;
-            }
-
-            .rule-item {
-              display: flex;
-              align-items: center;
-              gap: 12px;
-              font-family: 'Inter', sans-serif;
-              font-size: 0.9375rem;
-              color: rgba(255, 255, 255, 0.85);
-              line-height: 1.4;
-            }
-
-            .rule-icon {
-              flex-shrink: 0;
-              width: 32px;
-              height: 32px;
-              border-radius: 8px;
-              background: ${game.accentColor}20;
-              border: 1px solid ${game.accentColor}30;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              color: ${game.accentColor};
-            }
-
-            .btn-got-it {
-              width: 100%;
-              padding: 16px;
-              background: linear-gradient(135deg, ${game.accentColor}, ${game.accentColor}cc);
-              color: ${gameType === 'alibi' ? '#000' : '#fff'};
-              border: none;
-              border-radius: 14px;
-              font-family: 'Space Grotesk', sans-serif;
-              font-size: 1rem;
-              font-weight: 700;
-              text-transform: uppercase;
-              letter-spacing: 0.03em;
-              cursor: pointer;
-              transition: all 0.2s ease;
-              box-shadow:
-                0 4px 15px ${game.glowColor},
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            }
-
-            .btn-got-it:hover {
-              box-shadow:
-                0 6px 20px ${game.glowColor},
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            }
-          `}</style>
         </motion.div>
       )}
     </AnimatePresence>

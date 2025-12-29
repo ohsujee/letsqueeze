@@ -33,7 +33,7 @@
     },
     {
       "id": "kol005",
-      "question": "Premier film indien à dépasser les 100 crores au box-office, ce film de 2010 réalisé par Shankar met en scène un robot humanoïde nommé Chitti qui tombe amoureux et sème le chaos. Quel est ce film ?",
+      "question": "Premier film tamoul avec un budget dépassant les 100 crores et l'un des films indiens les plus chers de son époque, ce film de 2010 réalisé par Shankar met en scène un robot humanoïde nommé Chitti qui tombe amoureux et sème le chaos. Quel est ce film ?",
       "answer": "Enthiran (Robot)",
       "difficulty": "normal",
       "category": "Films cultes"
@@ -82,7 +82,7 @@
     },
     {
       "id": "kol012",
-      "question": "Fils d'un producteur ayant débuté dans les années 90, cet acteur a été surnommé 'Thalapathy' (Commandant) par Mani Ratnam. Il est l'une des plus grandes stars actuelles avec des films comme Master et Leo. Qui est-ce ?",
+      "question": "Fils du réalisateur S.A. Chandrasekhar, cet acteur est surnommé 'Thalapathy' (Commandant) depuis son film Rasigan (1994). Il est l'une des plus grandes stars actuelles avec des films comme Master et Leo. Qui est-ce ?",
       "answer": "Vijay",
       "difficulty": "normal",
       "category": "Acteurs"
@@ -138,7 +138,7 @@
     },
     {
       "id": "kol020",
-      "question": "Film de 2003 mettant en vedette Suriya en policier luttant contre le terrorisme, il a lancé une nouvelle vague de thrillers urbains stylisés. Réalisé par Gautham Menon. Quel est ce film ?",
+      "question": "Film de 2003 mettant en vedette Suriya en policier luttant contre le crime organisé à Chennai, il a lancé une nouvelle vague de thrillers urbains stylisés. Réalisé par Gautham Menon. Quel est ce film ?",
       "answer": "Kaakha Kaakha",
       "difficulty": "normal",
       "category": "Policier"
@@ -173,21 +173,21 @@
     },
     {
       "id": "kol025",
-      "question": "Film de 2019 de Lokesh Kanagaraj avec Karthi en prisonnier évadé, il ne contient aucune chanson et est de l'action pure pendant une nuit. Il fait partie du Lokesh Cinematic Universe. Quel est ce film ?",
+      "question": "Film de 2019 de Lokesh Kanagaraj avec Karthi en prisonnier récemment libéré voulant retrouver sa fille, il ne contient aucune chanson et est de l'action pure pendant une nuit. Il fait partie du Lokesh Cinematic Universe. Quel est ce film ?",
       "answer": "Kaithi",
       "difficulty": "normal",
       "category": "Action"
     },
     {
       "id": "kol026",
-      "question": "Film de 2022 où Kamal Haasan joue un ancien agent noir luttant contre un trafic d'armes, avec des cameos de Suriya et Fahadh Faasil. Il a lancé le Lokesh Cinematic Universe (LCU). Quel est ce film ?",
+      "question": "Film de 2022 où Kamal Haasan joue un ancien agent noir luttant contre un cartel de drogue, avec Vijay Sethupathi et Fahadh Faasil en rôles principaux et un cameo de Suriya en 'Rolex'. Deuxième film du Lokesh Cinematic Universe. Quel est ce film ?",
       "answer": "Vikram",
       "difficulty": "normal",
       "category": "Univers connecté"
     },
     {
       "id": "kol027",
-      "question": "Film de 2023 où Rajinikanth joue un gardien de prison retraité dont la fille est kidnappée. Contenant de nombreux cameos de stars, c'est l'un des plus grands succès de sa carrière récente. Quel est ce film ?",
+      "question": "Film de 2023 où Rajinikanth joue un gardien de prison retraité dont le fils policier est kidnappé par un trafiquant d'antiquités. Contenant de nombreux cameos de stars, c'est l'un des plus grands succès de sa carrière récente. Quel est ce film ?",
       "answer": "Jailer",
       "difficulty": "normal",
       "category": "Action"
@@ -236,14 +236,14 @@
     },
     {
       "id": "kol034",
-      "question": "Acteur-politicien des années 60-70 devenu Chief Minister du Tamil Nadu pendant plusieurs décennies, il est surnommé 'Makkal Thilagam' (Bien-aimé du peuple). Ses schemes sociaux restent populaires. Qui est-ce ?",
+      "question": "Acteur-politicien des années 60-70 devenu Chief Minister du Tamil Nadu de 1977 à 1987, il est surnommé 'Makkal Thilagam' (Bien-aimé du peuple). Premier acteur indien à devenir CM, ses programmes sociaux restent populaires. Qui est-ce ?",
       "answer": "M.G. Ramachandran (MGR)",
       "difficulty": "normal",
       "category": "Légendes"
     },
     {
       "id": "kol035",
-      "question": "Premier acteur tamoul à recevoir le Padma Bhushan, cette légende des années 50-60 était comparé à Shakespeare pour ses performances théâtrales. Il a aussi été fait Chevalier des Arts en France. Qui est-ce ?",
+      "question": "Surnommé 'Nadigar Thilagam' (Fierté des acteurs) et comparé au Marlon Brando indien, cette légende des années 50-60 a reçu le Padma Bhushan et le Dadasaheb Phalke Award. Premier acteur indien fait Chevalier des Arts et Lettres en France. Qui est-ce ?",
       "answer": "Sivaji Ganesan",
       "difficulty": "normal",
       "category": "Légendes"
@@ -257,7 +257,7 @@
     },
     {
       "id": "kol037",
-      "question": "Jeune compositeur ayant débuté avec 'Kolaveri Di', il est devenu l'un des compositeurs les plus demandés. Fils du producteur Ravi Raghavendra, il compose pour les plus grandes stars. Qui est-ce ?",
+      "question": "Jeune compositeur ayant débuté avec 'Why This Kolaveri Di' en 2011, il est devenu l'un des compositeurs les plus demandés. Fils de l'acteur Ravi Raghavendra et neveu de Rajinikanth, il compose pour Vikram, Leo et Jawan. Qui est-ce ?",
       "answer": "Anirudh Ravichander",
       "difficulty": "normal",
       "category": "Musique"
@@ -271,7 +271,7 @@
     },
     {
       "id": "kol039",
-      "question": "Réalisateur connu pour ses thrillers cérébraux comme Dhuruvangal Pathinaaru (D16) et Kaithi, il fait partie du cercle de Lokesh Kanagaraj. Ses films sont connus pour leurs twists. Qui est-ce ?",
+      "question": "Réalisateur ayant fait ses débuts à 22 ans avec le thriller cérébral Dhuruvangal Pathinaaru (D16) en 2016, il a aussi réalisé Naragasooran. Ses films sont connus pour leurs twists et leurs récits non-linéaires. Qui est-ce ?",
       "answer": "Karthick Naren",
       "difficulty": "difficile",
       "category": "Réalisateurs"
@@ -285,7 +285,7 @@
     },
     {
       "id": "kol041",
-      "question": "Réalisateur et ancien assistant de Mani Ratnam connu pour ses thrillers urbains romantiques comme Kaakha Kaakha et Vaaranam Aayiram. Son style visuel est très reconnaissable. Qui est-ce ?",
+      "question": "Réalisateur connu pour ses thrillers urbains romantiques comme Kaakha Kaakha et Vaaranam Aayiram avec Suriya. Son style visuel mélancolie et musique de Harris Jayaraj sont très reconnaissables. Qui est-ce ?",
       "answer": "Gautham Menon",
       "difficulty": "normal",
       "category": "Réalisateurs"
@@ -306,14 +306,14 @@
     },
     {
       "id": "kol044",
-      "question": "Film de 1996 où Kamal Haasan joue le nain Appu, utilisant des effets spéciaux révolutionnaires pour l'époque. Oscar manqué pour les meilleurs effets visuels. Quel est ce film ?",
-      "answer": "Indian",
+      "question": "Film de 1989 où Kamal Haasan joue le nain Appu cherchant à venger son père, utilisant des effets spéciaux révolutionnaires pour l'époque. Ce film est devenu le plus gros succès tamoul jusqu'à Baashha. Quel est ce film ?",
+      "answer": "Apoorva Sagodharargal (Appu Raja en Hindi)",
       "difficulty": "normal",
       "category": "Technique"
     },
     {
       "id": "kol045",
-      "question": "Film de 1992 de Mani Ratnam sur fond de terrorisme et d'amour entre un espion et une femme du Cachemire. La musique de A.R. Rahman a révolutionné l'industrie. Quel est ce film ?",
+      "question": "Film de 1992 de Mani Ratnam sur fond de terrorisme au Cachemire. Une jeune Tamoule se bat pour libérer son mari cryptologue kidnappé par des militants. Premier film d'A.R. Rahman dont la musique a révolutionné l'industrie. Quel est ce film ?",
       "answer": "Roja",
       "difficulty": "normal",
       "category": "Classiques"
@@ -327,21 +327,21 @@
     },
     {
       "id": "kol047",
-      "question": "Acteur ayant débuté avec le film Attakathi de Pa. Ranjith, il est devenu une star avec des films comme Jigarthanda et Thupparivaalan. Connu pour ses rôles variés et intenses. Qui est-ce ?",
+      "question": "Acteur d'origine kéralaise ayant débuté en 2005 dans Arindhum Ariyamalum, il a joué le boxeur Kabilan dans Sarpatta Parambarai de Pa. Ranjith et dans Jigarthanda. Connu pour ses rôles variés et intenses. Qui est-ce ?",
       "answer": "Arya",
       "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "kol048",
-      "question": "Record du film indien projeté le plus longtemps en salle, Padayappa de Rajinikanth a tourné pendant plus de 175 jours consécutifs. La chanson 'Vetri Nichayam' y est culte. En quelle année est sorti ce film ?",
+      "question": "Film de Rajinikanth devenu le plus gros succès tamoul de l'époque, c'était le premier film tamoul distribué mondialement avec 210 copies. Les chansons 'Minsara Kanna' et 'Vetri Kodi Kattu' sont cultes. En quelle année est sorti Padayappa ?",
       "answer": "1999",
       "difficulty": "difficile",
       "category": "Records"
     },
     {
       "id": "kol049",
-      "question": "Film de 2018 où Sivakarthikeyan joue un jeune homme cherchant à devenir médecin. Le réalisateur Nelson Dilipkumar y fait ses débuts. C'est devenu un hit surprise. Quel est ce film ?",
+      "question": "Film de 2018 où Nayanthara joue une femme qui se lance dans le trafic de drogue pour payer le traitement du cancer de sa mère. Premier film du réalisateur Nelson Dilipkumar, c'est devenu un hit surprise. Quel est ce film ?",
       "answer": "Kolamaavu Kokila (CoCo)",
       "difficulty": "normal",
       "category": "Comédie"
@@ -355,7 +355,7 @@
     },
     {
       "id": "kol051",
-      "question": "Film de 2005 avec Ajith en joueur de poker et braqueur, marquant sa transformation vers des rôles d'anti-héros gris. Réalisé par Venkat Prabhu. Quel est ce film ?",
+      "question": "Film de 2011 avec Ajith en joueur de poker et braqueur, marquant sa transformation vers des rôles d'anti-héros gris. C'était son 50ème film en tant qu'acteur principal. Réalisé par Venkat Prabhu. Quel est ce film ?",
       "answer": "Mankatha",
       "difficulty": "normal",
       "category": "Action"
@@ -369,14 +369,14 @@
     },
     {
       "id": "kol053",
-      "question": "Film de 1994 où Kamal Haasan joue le double rôle d'un homme bon et de son jumeau maléfique. Les scènes d'affrontement entre les deux personnages sont iconiques. Quel est ce film ?",
+      "question": "Film de 1994 inspiré des Misérables où Kamal Haasan joue un homme escroqué qui perd ses enfants. Sa fille Kaveri est vendue à un bordel, son fils Bharani finit artiste de rue. Il les retrouve après 3 ans de prison. Quel est ce film ?",
       "answer": "Mahanadi",
       "difficulty": "difficile",
       "category": "Performance"
     },
     {
       "id": "kol054",
-      "question": "Film de 2017 avec Suriya en physicien quantique qui découvre le voyage dans le temps. Réalisé par Ravikumar, c'est un des rares films de science-fiction tamouls. Quel est ce film ?",
+      "question": "Film de 2016 de Vikram Kumar où Suriya joue un triple rôle : un scientifique créateur d'une montre de voyage temporel, son jumeau maléfique, et le fils du scientifique. C'est un des rares films de science-fiction tamouls. Quel est ce film ?",
       "answer": "24",
       "difficulty": "normal",
       "category": "Science-fiction"
@@ -404,7 +404,7 @@
     },
     {
       "id": "kol058",
-      "question": "Film de 2010 avec Suriya en patient amnésique cherchant à venger sa petite amie tuée. Remake de Memento adapté par A.R. Murugadoss, le twist final est mémorable. Quel est ce film ?",
+      "question": "Film de 2005 avec Suriya en patient amnésique cherchant à venger sa petite amie tuée. Inspiré de Memento et réalisé par A.R. Murugadoss, il a été remakéen Hindi avec Aamir Khan en 2008. Quel est ce film ?",
       "answer": "Ghajini",
       "difficulty": "normal",
       "category": "Thriller"
@@ -467,14 +467,14 @@
     },
     {
       "id": "kol067",
-      "question": "Film de 2000 adapté d'un roman de Sujatha où un groupe d'amis tente un braquage parfait. Réalisé par Shankar, il mélange comédie et thriller. Quel est ce film ?",
-      "answer": "Mudhalvan (ou Gentleman 1993 pour le braquage)",
+      "question": "Film de 1999 réalisé par Shankar où un journaliste ambitieux défie le Chief Minister en interview et se retrouve nommé CM pour un jour. Il fait un si bon travail que le peuple l'élit vraiment. Quel est ce film ?",
+      "answer": "Mudhalvan",
       "difficulty": "difficile",
       "category": "Thriller"
     },
     {
       "id": "kol068",
-      "question": "Film de 2021 avec Dhanush en assassin en mission de vengeance aux États-Unis. Réalisé par les frères Russo et distribué par Netflix. C'est une production internationale. Quel est ce film ?",
+      "question": "Film de 2022 des frères Russo où Dhanush joue Avik San, surnommé 'The Lone Wolf', un assassin d'élite envoyé traquer le protagoniste. Ce rôle a été écrit spécialement pour lui. Quel est ce film ?",
       "answer": "The Gray Man",
       "difficulty": "difficile",
       "category": "International"
@@ -488,8 +488,8 @@
     },
     {
       "id": "kol070",
-      "question": "Film de 2019 avec Karthi jouant deux rôles, un médecin et un gangster, liés par le destin. Les scènes parallèles sont visuellement innovantes. Réalisé par P.S. Mithran. Quel est ce film ?",
-      "answer": "Kaithi ou Irumbu Thirai",
+      "question": "Film de 2018 de P.S. Mithran où Vishal joue un officier militaire qui découvre une conspiration cyber-criminelle impliquant Aadhaar et la biométrie. C'est un techno-thriller politique. Quel est ce film ?",
+      "answer": "Irumbu Thirai",
       "difficulty": "difficile",
       "category": "Action"
     },
@@ -509,7 +509,7 @@
     },
     {
       "id": "kol073",
-      "question": "Film de 2017 où Sivakarthikeyan joue un alien déguisé en terrestre, c'est une comédie de science-fiction familiale. Réalisé par Ravikumar. Quel est ce film ?",
+      "question": "Film de 2016 où Sivakarthikeyan se déguise en infirmière nommée 'Remo' pour séduire une docteure (Keerthy Suresh). Première réalisation de Bakkiyaraj Kannan, c'est une comédie romantique. Quel est ce film ?",
       "answer": "Remo",
       "difficulty": "normal",
       "category": "Comédie"
@@ -523,15 +523,15 @@
     },
     {
       "id": "kol075",
-      "question": "Film de 2016 avec Vikram en tueur en série traquant d'autres tueurs, réalisé par Shankar. Le personnage principal souffre de trouble dissociatif de l'identité. Quel est ce film ?",
+      "question": "Film de 2005 où Vikram joue un homme souffrant de trouble dissociatif de l'identité avec trois personnalités : Ambi le gentil, Remo le séducteur, et Anniyan le justicier. Réalisé par Shankar. Quel est ce film ?",
       "answer": "Anniyan (Aparichit en Hindi)",
       "difficulty": "normal",
       "category": "Thriller"
     },
     {
       "id": "kol076",
-      "question": "Film de 2008 avec Suriya en braqueur gentleman, remake de l'italien The Italian Job. La scène de braquage avec des Minis est célèbre. Quel est ce film ?",
-      "answer": "Vaaranam Aayiram ou Ayan",
+      "question": "Film de 2009 de K.V. Anand avec Suriya en contrebandier travaillant pour un parrain. Tourné en Namibie, Malaisie et Afrique du Sud, il est devenu le seul blockbuster tamoul de l'année. Quel est ce film ?",
+      "answer": "Ayan",
       "difficulty": "difficile",
       "category": "Action"
     },
@@ -586,7 +586,7 @@
     },
     {
       "id": "kol084",
-      "question": "Réalisateur controversé connu pour ses films brutaux comme Sethu et Nandha, il est le frère de Suriya. Son style montre la violence sans filtre. Qui est-ce ?",
+      "question": "Réalisateur controversé connu pour ses films brutaux comme Sethu et Nandha, il a lancé la carrière de Suriya au cinéma sérieux. Son style montre la violence sans filtre. Qui est-ce ?",
       "answer": "Bala",
       "difficulty": "normal",
       "category": "Réalisateurs"
@@ -628,8 +628,8 @@
     },
     {
       "id": "kol090",
-      "question": "Film de 2007 où Vijay joue un jeune homme utilisant la technologie pour résoudre des crimes. Réalisé par A.R. Murugadoss, c'est un des premiers films tech-thriller tamouls. Quel est ce film ?",
-      "answer": "Pokkiri ou Ghilli",
+      "question": "Film de 2007 où Vijay joue un gangster infiltré par la police pour démanteler un réseau criminel. Remake du film télougou Pokiri, avec des séquences d'action intenses. Réalisé par Prabhu Deva. Quel est ce film ?",
+      "answer": "Pokkiri",
       "difficulty": "normal",
       "category": "Action"
     },
@@ -663,7 +663,7 @@
     },
     {
       "id": "kol095",
-      "question": "Compositeur qui a fait ses débuts à 23 ans et est devenu l'un des plus demandés, fils du producteur Ravi Raghavendra. 'Why This Kolaveri Di' l'a rendu célèbre. Qui est-ce ?",
+      "question": "Compositeur qui a fait ses débuts à 23 ans et est devenu l'un des plus demandés, fils de l'acteur Ravi Raghavendra et neveu de Rajinikanth. 'Why This Kolaveri Di' l'a rendu célèbre. Qui est-ce ?",
       "answer": "Anirudh Ravichander",
       "difficulty": "normal",
       "category": "Musique"

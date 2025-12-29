@@ -3128,6 +3128,55 @@ textarea:focus-visible {
   flex-shrink: 0;
 }
 
+/* Apple Sign-In Button */
+.btn-apple {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 16px 24px;
+  background: #000000;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.btn-apple:hover {
+  background: #1a1a1a;
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.btn-apple:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-apple:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-apple svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
 .login-divider {
   position: relative;
   margin: 1.5rem 0;
@@ -3288,13 +3337,14 @@ textarea:focus-visible {
 
 /* Modern Header */
 .home-header-modern {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
   align-items: center;
+  gap: 0.5rem;
   margin-bottom: 2rem;
-  padding: 1.25rem;
+  padding: 0.875rem 1rem;
   background: rgba(20, 20, 30, 0.6);
-  border-radius: 20px;
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -3303,29 +3353,23 @@ textarea:focus-visible {
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.profile-section {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
 .avatar-container {
   position: relative;
 }
 
 .avatar-placeholder {
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 3px solid var(--quiz-primary, #8b5cf6);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  border: 2px solid var(--quiz-primary, #8b5cf6);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed));
   color: white;
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 800;
 }
 
@@ -3333,18 +3377,20 @@ textarea:focus-visible {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   background: var(--success, #22c55e);
   border-radius: 50%;
-  border: 3px solid var(--bg-primary, #0a0a0f);
-  box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+  border: 2px solid var(--bg-primary, #0a0a0f);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0; /* Permet de rétrécir */
+  overflow: hidden;
 }
 
 .greeting-text {
@@ -3358,18 +3404,23 @@ textarea:focus-visible {
 
 .home-header-modern .user-name {
   font-family: var(--font-title, 'Bungee'), cursive;
-  font-size: 1.25rem;
+  font-size: clamp(0.875rem, 4vw, 1.1rem);
   font-weight: 400;
   color: var(--text-primary, #ffffff);
-  line-height: 1.2;
+  line-height: 1;
   margin: 0;
   text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-actions {
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  flex-shrink: 0; /* Ne jamais rétrécir - le bouton reste toujours visible */
 }
 
 .pro-badge-modern {
@@ -3419,6 +3470,111 @@ textarea:focus-visible {
     0 6px 20px rgba(139, 92, 246, 0.5),
     0 0 25px rgba(139, 92, 246, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Circular Upgrade Button (Level Up style) */
+.upgrade-btn-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  border: none;
+  color: white;
+  cursor: pointer;
+  box-shadow:
+    0 3px 0 #6d28d9,
+    0 4px 15px rgba(139, 92, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: upgrade-breathe 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.upgrade-btn-circle:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 3px 0 #6d28d9,
+    0 8px 25px rgba(139, 92, 246, 0.6),
+    0 0 30px rgba(139, 92, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: none;
+  transition: all 0.2s ease;
+}
+
+@keyframes upgrade-breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 3px 0 #6d28d9,
+      0 4px 15px rgba(139, 92, 246, 0.4),
+      0 0 0 rgba(139, 92, 246, 0),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow:
+      0 3px 0 #6d28d9,
+      0 6px 25px rgba(139, 92, 246, 0.7),
+      0 0 35px rgba(139, 92, 246, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Pro Badge Circle (Gold Medal - Cartoon Style) */
+.pro-badge-circle {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    145deg,
+    #fff9e6 0%,
+    #ffec4a 20%,
+    #ffd700 50%,
+    #ffbc00 80%,
+    #f5a623 100%
+  );
+  border: 2px solid #ffc400;
+  color: #a67c00;
+  cursor: default;
+  overflow: hidden;
+  box-shadow:
+    0 3px 0 #d4a000,
+    0 4px 15px rgba(255, 215, 0, 0.6),
+    inset 0 2px 6px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 4px rgba(245, 166, 35, 0.4);
+}
+
+.pro-badge-circle::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 80%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: gold-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes gold-shimmer {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 200%;
+  }
 }
 
 /* Section Titles */
@@ -3698,6 +3854,37 @@ textarea:focus-visible {
   font-weight: 700;
   text-align: center;
   letter-spacing: 0.15em;
+}
+
+/* Pseudo preview - shows current pseudo from profile */
+.pseudo-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1rem;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: 12px;
+  margin-top: 0.5rem;
+}
+
+.pseudo-preview .pseudo-icon {
+  color: rgba(139, 92, 246, 0.6);
+  flex-shrink: 0;
+}
+
+.pseudo-preview .pseudo-label {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+}
+
+.pseudo-preview .pseudo-name {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #a78bfa;
+  margin-left: auto;
 }
 
 .join-card .btn-join {
@@ -6579,6 +6766,297 @@ textarea:focus-visible {
 }
 
 /* ===========================================
+   QUIZ SELECTOR - Categories & Themes (New)
+   =========================================== */
+
+/* Back button */
+.quiz-modal-back {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text-primary, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 0.75rem;
+}
+
+.quiz-modal-back:hover {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+/* Modal content area */
+.quiz-modal-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Categories Grid */
+.quiz-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.quiz-category-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.25rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quiz-category-card:hover {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.quiz-category-card.selected {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: var(--quiz-primary, #8b5cf6);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.category-emoji {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3));
+}
+
+.category-name {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary, #ffffff);
+  text-align: center;
+}
+
+.category-count {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+}
+
+.category-selected-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--quiz-primary, #8b5cf6);
+  border-radius: 50%;
+  color: white;
+}
+
+/* Themes Container */
+.quiz-themes-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.quiz-themes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.quiz-themes-subtitle {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.875rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  margin: 0;
+}
+
+.quiz-select-all-btn {
+  padding: 0.375rem 0.75rem;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 8px;
+  color: var(--quiz-primary, #8b5cf6);
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quiz-select-all-btn:hover {
+  background: rgba(139, 92, 246, 0.25);
+}
+
+/* Themes List */
+.quiz-themes-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quiz-theme-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.quiz-theme-item:hover:not(.disabled) {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.quiz-theme-item.selected {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.08));
+  border-color: var(--quiz-primary, #8b5cf6);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+}
+
+.quiz-theme-item.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Theme Checkbox */
+.theme-checkbox {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.theme-checkbox.checked {
+  background: var(--quiz-primary, #8b5cf6);
+  border-color: var(--quiz-primary, #8b5cf6);
+  color: white;
+}
+
+.theme-emoji {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.theme-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.theme-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary, #ffffff);
+}
+
+.theme-meta {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+}
+
+.theme-lock-badge {
+  padding: 0.25rem 0.5rem;
+  background: linear-gradient(135deg, #FFD700, #FF6D00);
+  border-radius: 6px;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+}
+
+/* Themes Footer / Validate Button */
+.quiz-themes-footer {
+  padding: 0.75rem 1rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.quiz-validate-btn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #7c3aed);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.quiz-validate-btn:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+}
+
+.quiz-validate-btn.disabled {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.validate-text {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.quiz-validate-btn.disabled .validate-text {
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+}
+
+.validate-meta {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.quiz-validate-btn.disabled .validate-meta {
+  display: none;
+}
+
+/* ===========================================
    EXIT BUTTON STYLES
    =========================================== */
 
@@ -6994,6 +7472,38 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* Host Pseudo Preview - Shows pseudo from profile */
+.host-pseudo-preview {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 0.375rem 0.75rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 10px;
+}
+
+.host-pseudo-preview .pseudo-label {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.625rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.host-pseudo-preview .pseudo-name {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #fbbf24;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .host-join-input-compact {
@@ -7978,4 +8488,163 @@ textarea:focus-visible {
   color: white;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+/* ============================================
+   PROFILE - Pseudo Edit Styles
+   ============================================ */
+
+/* User name with inline edit button */
+.user-name-editable {
+  font-family: 'Bungee', cursive;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 400;
+  color: var(--text-primary, #ffffff);
+  margin-bottom: 0.25rem;
+  text-shadow:
+    0 0 10px rgba(139, 92, 246, 0.4),
+    0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.edit-name-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 8px;
+  color: #a78bfa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-name-btn:hover {
+  background: rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: #c4b5fd;
+  transform: scale(1.1);
+}
+
+/* Pseudo Edit Card - Compact */
+.pseudo-edit-card {
+  position: relative;
+  background: var(--bg-card, rgba(20, 20, 30, 0.95));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Input - Fond clair pour lisibilité */
+.pseudo-input-large {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  border-radius: 10px;
+  color: #1a1a2e;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 0.02em;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  /* Force la couleur sombre même quand le clavier iOS change le fond */
+  -webkit-text-fill-color: #1a1a2e;
+}
+
+.pseudo-input-large:focus {
+  border-color: var(--quiz-primary, #8b5cf6);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.pseudo-input-large::placeholder {
+  color: #9ca3af;
+  -webkit-text-fill-color: #9ca3af;
+}
+
+.pseudo-error-inline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #ef4444;
+  text-align: center;
+  margin: 0.5rem 0 0 0;
+}
+
+/* Boutons compacts */
+.pseudo-edit-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* Bouton Enregistrer - Compact */
+.pseudo-save-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+  transition: all 0.2s ease;
+}
+
+.pseudo-save-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.pseudo-save-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.pseudo-save-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* Bouton Annuler - Lien discret */
+.pseudo-cancel-btn {
+  width: 100%;
+  padding: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.pseudo-cancel-btn:hover:not(:disabled) {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pseudo-cancel-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
 }

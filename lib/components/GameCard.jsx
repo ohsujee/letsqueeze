@@ -6,12 +6,9 @@ import { motion } from 'framer-motion';
 
 export default function GameCard({
   game,
-  isLocked = false,
   isFavorite = false,
   onToggleFavorite,
-  onClick,
-  user,
-  comingSoon = false
+  onClick
 }) {
   const router = useRouter();
   const [showHeart, setShowHeart] = useState(false);
@@ -77,14 +74,6 @@ export default function GameCard({
         </div>
       )}
 
-      {/* Lock Badge */}
-      {isLocked && !game.comingSoon && (
-        <div className="lock-badge">
-          <span>🔒</span>
-          <span>Pro</span>
-        </div>
-      )}
-
       {/* Favorite Button */}
       <motion.button
         className={`favorite-btn ${isFavorite ? 'active' : ''}`}
@@ -113,9 +102,11 @@ export default function GameCard({
       </div>
 
       {/* Players Pill - Bottom Right */}
-      <div className="players-pill">
-        Jusqu'à 20
-      </div>
+      {game.minPlayers && (
+        <div className="players-pill">
+          {game.minPlayers}+ joueurs
+        </div>
+      )}
     </motion.div>
   );
 }

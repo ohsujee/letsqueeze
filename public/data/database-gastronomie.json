@@ -1,0 +1,15 @@
+{
+  "id": "database-gastronomie",
+  "title": "Gastronomie",
+  "lang": "fr",
+  "items": [
+    {"id": "cg-food001", "question": "Plat national espagnol originaire de Valence, il se compose de riz, safran, fruits de mer ou viande, cuit dans une large poêle du même nom. Traditionnellement préparé au feu de bois. Quel est ce plat ?", "answer": "La paella", "difficulty": "normal", "category": "Gastronomie"},
+    {"id": "cg-food002", "question": "Symbole de la boulangerie française, ce pain de 65 cm environ est inscrit au patrimoine immatériel de l'UNESCO depuis 2022. Croustillante à l'extérieur, moelleuse à l'intérieur. Quel est ce pain ?", "answer": "La baguette", "difficulty": "normal", "category": "Gastronomie"},
+    {"id": "cg-food003", "question": "Vin effervescent produit exclusivement dans la région française du même nom, il ne peut porter cette appellation que s'il respecte des règles strictes. Dom Pérignon et Veuve Clicquot sont des maisons célèbres. Quel est ce vin ?", "answer": "Le champagne", "difficulty": "normal", "category": "Gastronomie"},
+    {"id": "cg-food004", "question": "Plat japonais composé de riz vinaigré surmonté de poisson cru, de fruits de mer ou d'omelette. Le wasabi et le gingembre l'accompagnent. À ne pas confondre avec les makis roulés. Quel est ce plat ?", "answer": "Les sushis (nigiri)", "difficulty": "normal", "category": "Gastronomie"},
+    {"id": "cg-food005", "question": "Chef français de Lyon triplement étoilé pendant 55 ans consécutifs, il est surnommé 'le pape de la gastronomie'. Son restaurant porte son nom et les Bocuse d'Or lui rendent hommage. Qui est-ce ?", "answer": "Paul Bocuse", "difficulty": "difficile", "category": "Gastronomie"},
+    {"id": "cg-food006", "question": "Condiment coréen à base de chou fermenté et pimenté, il accompagne presque tous les repas en Corée. Riche en probiotiques, il est inscrit au patrimoine de l'UNESCO. Quel est ce condiment ?", "answer": "Le kimchi", "difficulty": "normal", "category": "Gastronomie"},
+    {"id": "cg-food007", "question": "Plat péruvien de poisson cru mariné dans du jus de citron vert avec oignons et coriandre. Le 'tigre de lait' désigne le jus de la marinade, bu comme digestif. Quel est ce plat ?", "answer": "Le ceviche", "difficulty": "normal", "category": "Gastronomie"},
+    {"id": "cg-food008", "question": "Champignon souterrain à l'arôme puissant, recherché par des cochons ou des chiens. La variété noire du Périgord et la blanche d'Alba sont les plus prisées. On l'appelle aussi 'diamant noir'. Quel est ce champignon ?", "answer": "La truffe", "difficulty": "difficile", "category": "Gastronomie"}
+  ]
+}
