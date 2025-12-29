@@ -12,6 +12,7 @@ import styles from './Buzzer.module.css';
  */
 export default function Buzzer({
   roomCode,
+  roomPrefix = 'rooms', // 'rooms' for quiz, 'rooms_blindtest' for blind test, 'rooms_alibi' for alibi
   playerUid,
   playerName,
   blockedUntil = 0,
@@ -30,11 +31,11 @@ export default function Buzzer({
   useEffect(() => {
     if (!roomCode) return;
     const code = String(roomCode).toUpperCase();
-    const unsub = onValue(ref(db, `rooms/${code}/state`), (snap) => {
+    const unsub = onValue(ref(db, `${roomPrefix}/${code}/state`), (snap) => {
       setState(snap.val() || {});
     });
     return () => unsub();
-  }, [roomCode]);
+  }, [roomCode, roomPrefix]);
 
   // Calculer l'état du buzzer
   const buzzerState = useMemo(() => {
@@ -68,7 +69,7 @@ export default function Buzzer({
       navigator?.vibrate?.([100, 50, 200]);
 
       // Transaction atomique
-      const stateRef = ref(db, `rooms/${code}/state`);
+      const stateRef = ref(db, `${roomPrefix}/${code}/state`);
       const result = await runTransaction(stateRef, (currentState) => {
         if (!currentState) return undefined;
         if (currentState.lockUid) return; // Already locked

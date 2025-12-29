@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { auth, db, ref, set, signInAnonymously, onAuthStateChanged } from "@/lib/firebase";
 import { motion } from "framer-motion";
-import BottomNav from "@/lib/components/BottomNav";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { User } from "lucide-react";
 
@@ -21,7 +20,7 @@ export default function JoinClient({ initialCode = "" }) {
       if(u){
         setUser(u);
       } else {
-        signInAnonymously(auth).catch(()=>{});
+        signInAnonymously(auth).catch(() => {});
       }
     });
     return () => unsub();
@@ -31,87 +30,54 @@ export default function JoinClient({ initialCode = "" }) {
     if (!code || !pseudo || !auth.currentUser) return;
     const uid = auth.currentUser.uid;
 
-    // Détecter le type de jeu en checkant quelle room existe
-    const { get } = await import("@/lib/firebase");
+    // Créer le joueur dans la room Blind Test
+    await set(ref(db, `rooms_blindtest/${code}/players/${uid}`), {
+      uid,
+      name: pseudo,
+      score: 0,
+      teamId: "",
+      blockedUntil: 0,
+      joinedAt: Date.now()
+    });
 
-    // Check si c'est une room Blind Test
-    const blindtestMetaSnapshot = await get(ref(db, `rooms_blindtest/${code}/meta`));
-    if (blindtestMetaSnapshot.exists()) {
-      // C'est une room Blind Test
-      await set(ref(db, `rooms_blindtest/${code}/players/${uid}`), {
-        uid,
-        name: pseudo,
-        score: 0,
-        teamId: "",
-        blockedUntil: 0,
-        joinedAt: Date.now()
-      });
-      router.push("/blindtest/room/" + code);
-      return;
-    }
-
-    // Check si c'est une room Alibi
-    const alibiMetaSnapshot = await get(ref(db, `rooms_alibi/${code}/meta`));
-    if (alibiMetaSnapshot.exists()) {
-      // C'est une room Alibi
-      await set(ref(db, `rooms_alibi/${code}/players/${uid}`), {
-        uid,
-        name: pseudo,
-        team: null,
-        joinedAt: Date.now()
-      });
-      router.push("/alibi/room/" + code);
-      return;
-    }
-
-    // Sinon c'est une room Quiz normale
-    const quizMetaSnapshot = await get(ref(db, `rooms/${code}/meta`));
-    if (quizMetaSnapshot.exists()) {
-      await set(ref(db, `rooms/${code}/players/${uid}`), {
-        uid, name: pseudo, score: 0, teamId: "", blockedUntil: 0, joinedAt: Date.now()
-      });
-      router.push("/room/" + code);
-      return;
-    }
-
-    // Aucune room trouvée avec ce code
-    alert("❌ Code invalide ! Aucune partie trouvée avec ce code.");
+    router.push("/blindtest/room/" + code);
   }
 
   return (
-    <div className="join-container">
+    <div className="blindtest-join-container">
       <motion.main
-        className="join-content"
+        className="blindtest-join-content"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <div className="join-header">
-          <h1 className="page-title">Rejoindre</h1>
+        <div className="blindtest-join-header">
+          <h1 className="page-title">BLIND TEST</h1>
+          <p className="subtitle">Rejoindre une partie</p>
         </div>
 
-        <div className="join-card">
+        <div className="blindtest-join-card">
           <div className="input-group">
             <label className="input-label">Code de la room</label>
             <input
               className="input-field input-code"
               placeholder="ABCDEF"
               value={code}
-              onChange={e=>setCode(e.target.value.toUpperCase())}
+              onChange={e => setCode(e.target.value.toUpperCase())}
               maxLength={6}
               autoComplete="off"
             />
           </div>
 
           {/* Show current pseudo from profile */}
-          <div className="pseudo-preview">
+          <div className="pseudo-preview blindtest">
             <User size={16} className="pseudo-icon" />
             <span className="pseudo-label">Tu joues en tant que</span>
             <span className="pseudo-name">{pseudo}</span>
           </div>
 
           <button
-            className="btn-join"
+            className="btn-join blindtest"
             onClick={join}
             disabled={!code || !user || profileLoading}
           >
@@ -119,15 +85,22 @@ export default function JoinClient({ initialCode = "" }) {
           </button>
         </div>
 
+        <div className="blindtest-join-footer">
+          <button
+            className="btn-back"
+            onClick={() => router.push("/home")}
+          >
+            ← Retour à l'accueil
+          </button>
+        </div>
+
         {initialCode && (
-          <div className="join-detected-code">
+          <div className="blindtest-detected-code">
             <div className="label">Code détecté automatiquement</div>
             <div className="code">{initialCode}</div>
           </div>
         )}
       </motion.main>
-
-      <BottomNav />
     </div>
   );
 }

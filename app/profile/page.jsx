@@ -581,17 +581,22 @@ export default function ProfilePage() {
                 </div>
               </button>
 
-              {/* Spotify - Coming Soon */}
-              <div className="connection-item disabled">
+              {/* Spotify */}
+              <button
+                onClick={() => router.push('/profile/spotify')}
+                className="connection-item"
+              >
                 <div className="connection-icon spotify">
                   <SpotifyLogo />
                 </div>
                 <div className="connection-info">
                   <span className="connection-name">Spotify</span>
-                  <span className="connection-desc">Musique d'ambiance</span>
+                  <span className="connection-desc">Blind Test musical</span>
                 </div>
-                <span className="connection-badge">Bientôt</span>
-              </div>
+                <div className="connection-status-wrap">
+                  <ChevronRight size={18} className="connection-chevron" />
+                </div>
+              </button>
 
               {/* Deezer - Coming Soon */}
               <div className="connection-item disabled">

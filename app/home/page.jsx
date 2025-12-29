@@ -41,7 +41,6 @@ const GAMES = [
     packLimit: 3,
     image: '/images/blind-test.png',
     minPlayers: 2,
-    comingSoon: true,
   },
   {
     id: 'memory',
@@ -194,6 +193,36 @@ export default function HomePage() {
           total: 10
         })
       ]).catch(err => console.error('Alibi room creation error:', err));
+
+    } else if (game.id === 'blindtest') {
+      router.push(`/blindtest/room/${c}`);
+      Promise.all([
+        set(ref(db, `rooms_blindtest/${c}/meta`), {
+          code: c,
+          createdAt: now,
+          hostUid: auth.currentUser.uid,
+          expiresAt: now + 12 * 60 * 60 * 1000,
+          mode: "individuel",
+          teamCount: 0,
+          teams: {},
+          spotifyConnected: false,
+          playlist: null,
+          playlistsUsed: 0,
+          gameType: "blindtest"
+        }),
+        set(ref(db, `rooms_blindtest/${c}/state`), {
+          phase: "lobby",
+          currentIndex: 0,
+          revealed: false,
+          snippetLevel: 0,
+          lockUid: null,
+          buzzBanner: "",
+          lastRevealAt: 0,
+          elapsedAcc: 0,
+          pausedAt: null,
+          lockedAt: null
+        })
+      ]).catch(err => console.error('Blindtest room creation error:', err));
     }
   };
 
