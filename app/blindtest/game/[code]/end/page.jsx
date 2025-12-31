@@ -32,7 +32,6 @@ export default function BlindTestEndPage() {
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
   const [myUid, setMyUid] = useState(null);
-  const [firebaseUser, setFirebaseUser] = useState(null);
   const adShownRef = useRef(false);
 
   // Get user profile for Pro check
@@ -42,10 +41,8 @@ export default function BlindTestEndPage() {
   // Get current user UID
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      setFirebaseUser(user);
       setMyUid(user?.uid || null);
     });
-    // Mark that user completed a game
     storage.set('returnedFromGame', true);
     return () => unsub();
   }, [code]);
@@ -88,17 +85,6 @@ export default function BlindTestEndPage() {
   const rankedPlayers = useMemo(() => rankWithTies(players, "score"), [players]);
   const rankedTeams = useMemo(() => rankWithTies(teamsArray, "score"), [teamsArray]);
 
-  // Global stats
-  const stats = useMemo(() => {
-    if (players.length === 0) return null;
-
-    const totalScore = players.reduce((sum, p) => sum + (p.score || 0), 0);
-    const avgScore = Math.round(totalScore / players.length);
-    const maxScore = Math.max(...players.map(p => p.score || 0));
-
-    return { totalScore, avgScore, maxScore };
-  }, [players]);
-
   // Redirect if host returns to lobby
   useEffect(() => {
     if (myUid === null || meta === null) return;
@@ -108,21 +94,6 @@ export default function BlindTestEndPage() {
       router.push(`/blindtest/room/${code}`);
     }
   }, [state?.phase, myUid, meta, router, code]);
-
-  const handleShare = () => {
-    const winner = rankedPlayers[0];
-    const text = `🎵 Blind Test terminé !\n\n🏆 Gagnant : ${winner?.name} (${winner?.score} pts)\n📊 Playlist : ${playlistName}\n👥 ${players.length} joueurs\n\nJouez avec nous !`;
-
-    if (navigator.share) {
-      navigator.share({ title: 'Blind Test - Résultats', text })
-        .then(() => toast.success('Résultats partagés !'))
-        .catch(() => {});
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(text)
-        .then(() => toast.success('Résultats copiés !'))
-        .catch(() => toast.error('Impossible de copier'));
-    }
-  };
 
   const handleBackToLobby = async () => {
     try {
@@ -161,224 +132,126 @@ export default function BlindTestEndPage() {
     }
   };
 
-  const handleHome = () => {
-    router.push('/home');
-  };
-
   return (
-    <div className="blindtest-end-page">
-      {/* Header */}
-      <header className="end-header blindtest">
-        <div className="end-header-content">
-          <div className="end-header-left">
-            <span className="end-header-icon">🎵</span>
-            <h1 className="end-header-title">Blind Test Terminé</h1>
-          </div>
-        </div>
-      </header>
-
+    <div className="end-page">
       {/* Main Content */}
       <main className="end-content">
-        {/* Playlist info */}
-        <div className="playlist-info-card blindtest">
-          <span className="playlist-label">Playlist</span>
-          <span className="playlist-name">{playlistName}</span>
+        {/* Header */}
+        <div className="end-header">
+          <span className="trophy-icon">🎵</span>
+          <span className="title-text">{playlistName}</span>
         </div>
 
         {/* Podium */}
-        {modeEquipes ? (
-          <PodiumPremium players={rankedTeams} mode="teams" themeColor="cyan" />
-        ) : (
-          <PodiumPremium players={rankedPlayers} mode="solo" themeColor="cyan" />
-        )}
-
-        {/* Stats */}
-        {stats && (
-          <div className="stats-row blindtest">
-            <div className="stat-item">
-              <span className="stat-value">{players.length}</span>
-              <span className="stat-label">joueurs</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-value">{stats.avgScore}</span>
-              <span className="stat-label">moy. pts</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-value">{stats.maxScore}</span>
-              <span className="stat-label">max pts</span>
-            </div>
+        {rankedPlayers.length >= 1 && (
+          <div className="podium-section">
+            {modeEquipes ? (
+              <PodiumPremium topPlayers={rankedTeams.slice(0, 3)} />
+            ) : (
+              <PodiumPremium topPlayers={rankedPlayers.slice(0, 3)} />
+            )}
           </div>
         )}
 
-        {/* Full Leaderboard */}
-        <div className="leaderboard-section">
-          <Leaderboard players={rankedPlayers} currentPlayerUid={myUid} showRank />
+        {/* Leaderboard */}
+        <div className="leaderboard-wrapper">
+          <Leaderboard players={rankedPlayers} currentPlayerUid={myUid} />
         </div>
       </main>
 
-      {/* Footer Actions */}
-      <footer className="end-footer blindtest">
-        <div className="end-actions">
-          <motion.button
-            className="end-btn share-btn"
-            onClick={handleShare}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Partager
-          </motion.button>
-
-          {isHost ? (
-            <motion.button
-              className="end-btn primary-btn blindtest"
-              onClick={handleBackToLobby}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Nouvelle partie
-            </motion.button>
-          ) : (
-            <motion.button
-              className="end-btn primary-btn blindtest"
-              onClick={handleHome}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Accueil
-            </motion.button>
-          )}
-        </div>
+      {/* Footer */}
+      <footer className="end-footer">
+        <button
+          className="action-btn"
+          onClick={isHost ? handleBackToLobby : () => router.push(`/blindtest/room/${code}`)}
+        >
+          {isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+        </button>
       </footer>
 
       <style jsx>{`
-        .blindtest-end-page {
-          min-height: 100dvh;
+        /* ===== LAYOUT ===== */
+        .end-page {
+          height: 100dvh;
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
+          overflow: hidden;
         }
 
-        .blindtest-end-page::before {
+        .end-page::before {
           content: '';
           position: fixed;
           inset: 0;
           z-index: 0;
           background:
-            radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
             var(--bg-primary, #0a0a0f);
           pointer-events: none;
         }
 
-        /* Header */
-        .end-header.blindtest {
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(16, 185, 129, 0.2);
-          padding: 16px;
-          padding-top: calc(16px + env(safe-area-inset-top));
-        }
-
-        .end-header-content {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          max-width: 600px;
-          margin: 0 auto;
-        }
-
-        .end-header-left {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-
-        .end-header-icon {
-          font-size: 1.5rem;
-        }
-
-        .end-header-title {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.2rem;
-          color: #34d399;
-          text-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
-        }
-
-        /* Content */
+        /* ===== MAIN CONTENT ===== */
         .end-content {
           flex: 1;
+          display: flex;
+          flex-direction: column;
           position: relative;
           z-index: 1;
           padding: 16px;
-          overflow-y: auto;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 16px;
-        }
-
-        /* Playlist info */
-        .playlist-info-card.blindtest {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 4px;
-          padding: 12px 24px;
-          background: rgba(16, 185, 129, 0.1);
-          border: 1px solid rgba(16, 185, 129, 0.3);
-          border-radius: 16px;
-        }
-
-        .playlist-label {
-          font-size: 0.7rem;
-          text-transform: uppercase;
-          color: rgba(255, 255, 255, 0.5);
-        }
-
-        .playlist-name {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-weight: 700;
-          color: #34d399;
-        }
-
-        /* Stats */
-        .stats-row.blindtest {
-          display: flex;
-          gap: 20px;
-          padding: 12px 24px;
-          background: rgba(255, 255, 255, 0.03);
-          border-radius: 12px;
-        }
-
-        .stat-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 2px;
-        }
-
-        .stat-value {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.2rem;
-          color: #34d399;
-        }
-
-        .stat-label {
-          font-size: 0.7rem;
-          color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Leaderboard */
-        .leaderboard-section {
-          width: 100%;
+          padding-top: calc(16px + env(safe-area-inset-top));
           max-width: 500px;
+          margin: 0 auto;
+          width: 100%;
+          min-height: 0;
+          overflow: hidden;
         }
 
-        /* Footer */
-        .end-footer.blindtest {
+        /* ===== HEADER ===== */
+        .end-header {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 8px 0;
+          flex-shrink: 0;
+          position: relative;
+          z-index: 1;
+        }
+
+        .trophy-icon {
+          font-size: 1.5rem;
+        }
+
+        .title-text {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: clamp(1rem, 4vw, 1.3rem);
+          color: #34d399;
+          text-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+        }
+
+        /* ===== PODIUM ===== */
+        .podium-section {
+          flex-shrink: 0;
+          position: relative;
+          z-index: 2;
+          transform: scale(0.5);
+          transform-origin: center top;
+          margin: 0 0 -200px 0;
+        }
+
+        /* ===== LEADERBOARD ===== */
+        .leaderboard-wrapper {
+          flex: 1;
+          min-height: 150px;
+          display: flex;
+          overflow: hidden;
+          position: relative;
+          z-index: 3;
+        }
+
+        /* ===== FOOTER ===== */
+        .end-footer {
           flex-shrink: 0;
           position: relative;
           z-index: 10;
@@ -386,46 +259,51 @@ export default function BlindTestEndPage() {
           padding-bottom: calc(16px + env(safe-area-inset-bottom));
           background: rgba(10, 10, 15, 0.95);
           backdrop-filter: blur(20px);
-          border-top: 1px solid rgba(16, 185, 129, 0.2);
+          border-top: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-        .end-actions {
-          display: flex;
-          gap: 12px;
-          max-width: 500px;
+        .action-btn {
+          display: block;
+          width: 100%;
+          max-width: 400px;
           margin: 0 auto;
-        }
-
-        .end-btn {
-          flex: 1;
-          padding: 14px 24px;
-          border-radius: 14px;
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-weight: 700;
-          font-size: 0.95rem;
-          cursor: pointer;
-          transition: all 0.2s ease;
+          padding: 18px 32px;
           border: none;
-        }
+          border-radius: 14px;
+          cursor: pointer;
 
-        .share-btn {
-          background: rgba(255, 255, 255, 0.1);
-          color: var(--text-primary);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .share-btn:hover {
-          background: rgba(255, 255, 255, 0.15);
-        }
-
-        .primary-btn.blindtest {
-          background: linear-gradient(135deg, #10b981, #059669);
+          /* Typography */
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1.1rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
           color: white;
-          box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+
+          /* Emerald gradient + 3D depth */
+          background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
+          box-shadow:
+            0 5px 0 #047857,
+            0 8px 15px rgba(16, 185, 129, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+          transition: all 0.15s ease;
         }
 
-        .primary-btn.blindtest:hover {
-          box-shadow: 0 6px 30px rgba(16, 185, 129, 0.6);
+        .action-btn:hover {
+          transform: translateY(-2px);
+          box-shadow:
+            0 7px 0 #047857,
+            0 10px 20px rgba(16, 185, 129, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .action-btn:active {
+          transform: translateY(3px);
+          box-shadow:
+            0 2px 0 #047857,
+            0 4px 8px rgba(16, 185, 129, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
       `}</style>
     </div>

@@ -65,7 +65,7 @@ export default function Buzzer({
         buzzBanner: `🔔 ${playerName} a buzzé !`
       });
 
-      playSound('buzz');
+      // Le son est joué par la page parente quand lockUid change (évite les doublons)
       navigator?.vibrate?.([100, 50, 200]);
 
       // Transaction atomique

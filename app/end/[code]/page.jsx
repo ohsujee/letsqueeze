@@ -90,6 +90,17 @@ export default function EndPage(){
     return ()=>{u1();u2();u3();};
   },[code]);
 
+  // Memos must be defined before useEffects that use them
+  const modeEquipes = meta?.mode === "équipes";
+
+  const teamsArray = useMemo(()=>{
+    const t = meta?.teams || {};
+    return Object.keys(t).map(k=>({ id:k, ...t[k]}));
+  }, [meta?.teams]);
+
+  const rankedPlayers = useMemo(()=> rankWithTies(players, "score"), [players]);
+  const rankedTeams   = useMemo(()=> rankWithTies(teamsArray, "score"), [teamsArray]);
+
   // Rediriger automatiquement si l'hôte retourne au lobby (joueurs seulement)
   useEffect(() => {
     // Attendre que les données soient chargées
@@ -137,16 +148,6 @@ export default function EndPage(){
       position: myPlayer.rank
     });
   }, [firebaseUser, myUid, rankedPlayers]);
-
-  const modeEquipes = meta?.mode === "équipes";
-
-  const teamsArray = useMemo(()=>{
-    const t = meta?.teams || {};
-    return Object.keys(t).map(k=>({ id:k, ...t[k]}));
-  }, [meta?.teams]);
-
-  const rankedPlayers = useMemo(()=> rankWithTies(players, "score"), [players]);
-  const rankedTeams   = useMemo(()=> rankWithTies(teamsArray, "score"), [teamsArray]);
 
   // Statistiques globales
   const stats = useMemo(() => {

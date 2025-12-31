@@ -5,7 +5,7 @@
  * Échange le code contre les tokens et redirige vers le lobby
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { exchangeCodeForTokens, verifyState } from '@/lib/spotify/auth';
 
@@ -15,8 +15,17 @@ export default function SpotifyCallbackPage() {
   const [status, setStatus] = useState('Connexion à Spotify...');
   const [error, setError] = useState(null);
 
+  // Prevent double execution in React 18 StrictMode
+  const hasProcessed = useRef(false);
+
   useEffect(() => {
     const handleCallback = async () => {
+      // Prevent double processing (React 18 StrictMode)
+      if (hasProcessed.current) {
+        console.log('[Spotify Callback] Already processed, skipping');
+        return;
+      }
+      hasProcessed.current = true;
       const code = searchParams.get('code');
       const state = searchParams.get('state');
       const errorParam = searchParams.get('spotify_error');

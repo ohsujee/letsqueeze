@@ -48,6 +48,13 @@
   --brand-red: #ef4444;
   --brand-purple: #8b5cf6;
   --brand-cyan: #06b6d4;
+  --brand-lime: #84cc16;
+
+  /* MIME Game Colors */
+  --mime-primary: #84cc16;
+  --mime-secondary: #22c55e;
+  --mime-accent: #fbbf24;
+  --mime-glow: rgba(132, 204, 22, 0.5);
 
   /* Glow Colors */
   --glow-blue: rgba(59, 130, 246, 0.5);

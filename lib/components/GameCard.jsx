@@ -36,6 +36,7 @@ export default function GameCard({
       case 'alibi': return 'linear-gradient(135deg, #f59e0b, #d97706)';
       case 'blindtest': return 'linear-gradient(135deg, #10b981, #059669)';
       case 'memory': return 'linear-gradient(135deg, #ec4899, #db2777)';
+      case 'mime': return 'linear-gradient(135deg, #84cc16, #65a30d)';
       default: return 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
     }
   };

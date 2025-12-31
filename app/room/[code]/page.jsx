@@ -18,6 +18,7 @@ import PaywallModal from "@/components/ui/PaywallModal";
 import QuizSelectorModal from "@/components/ui/QuizSelectorModal";
 import ExitButton from "@/lib/components/ExitButton";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { getQuizManifest } from "@/lib/utils/manifestCache";
@@ -42,6 +43,7 @@ export default function Room() {
   const [joinUrl, setJoinUrl] = useState("");
   const roomWasValidRef = useRef(false);
   const adShownRef = useRef(false);
+  const [myUid, setMyUid] = useState(null);
 
   const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
@@ -86,6 +88,7 @@ export default function Room() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
+        setMyUid(user.uid);
         setIsHost(meta?.hostUid === user.uid);
       } else {
         signInAnonymously(auth).catch(() => {});
@@ -93,6 +96,14 @@ export default function Room() {
     });
     return () => unsub();
   }, [meta?.hostUid]);
+
+  // Player cleanup hook - handles disconnect during lobby
+  const { leaveRoom } = usePlayerCleanup({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    playerUid: myUid,
+    phase: 'lobby'
+  });
 
   useEffect(() => {
     if (!code) return;
@@ -326,6 +337,12 @@ export default function Room() {
     router.push('/home');
   };
 
+  // Player exit handler (non-host)
+  const handlePlayerExit = async () => {
+    await leaveRoom();
+    router.push('/home');
+  };
+
   const quizSelection = meta?.quizSelection;
   const hasSelection = quizSelection?.themeIds?.length > 0;
   const selectedThemeNames = quizSelection?.themes?.map(t => t.title).join(', ') || '';
@@ -367,8 +384,8 @@ export default function Room() {
         <div className="header-left">
           <ExitButton
             variant="header"
-            onExit={isHost ? handleHostExit : undefined}
-            confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera fermée pour tous les joueurs." : undefined}
+            onExit={isHost ? handleHostExit : handlePlayerExit}
+            confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera fermée pour tous les joueurs." : "Voulez-vous vraiment quitter le lobby ?"}
           />
           <div className="header-title-row">
             <h1 className="lobby-title">Lobby</h1>

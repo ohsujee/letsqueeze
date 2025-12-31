@@ -16,7 +16,7 @@ function useSound(url){
     aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null;
     if(aRef.current){
       aRef.current.preload="auto";
-      aRef.current.volume = 0.5; // Volume par défaut
+      aRef.current.volume = 0.6; // Volume par défaut
     }
   },[url]);
   return useCallback(()=>{

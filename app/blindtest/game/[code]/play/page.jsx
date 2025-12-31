@@ -9,7 +9,8 @@ import Leaderboard from "@/components/game/Leaderboard";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import ExitButton from "@/lib/components/ExitButton";
-import { Music } from "lucide-react";
+import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
+import { storage } from "@/lib/utils/storage";
 
 // Scoring config for blind test
 const SNIPPET_LEVELS = [
@@ -25,7 +26,7 @@ function useSound(url) {
     aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null;
     if (aRef.current) {
       aRef.current.preload = "auto";
-      aRef.current.volume = 0.5;
+      aRef.current.volume = 0.6;
     }
   }, [url]);
   return useCallback(() => {
@@ -45,6 +46,7 @@ export default function BlindTestPlayerGame() {
   const [players, setPlayers] = useState([]);
   const [me, setMe] = useState(null);
   const [playlist, setPlaylist] = useState(null);
+  const [myUid, setMyUid] = useState(null);
 
   // Server time sync
   const [localNow, setLocalNow] = useState(Date.now());
@@ -65,12 +67,28 @@ export default function BlindTestPlayerGame() {
   // Auth
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      if (!user) {
+      if (user) {
+        setMyUid(user.uid);
+        // Store last game info for rejoin
+        storage.set('lq_last_game', JSON.stringify({
+          roomCode: code,
+          roomPrefix: 'rooms_blindtest',
+          joinedAt: Date.now()
+        }));
+      } else {
         signInAnonymously(auth).catch(() => {});
       }
     });
     return () => unsub();
-  }, []);
+  }, [code]);
+
+  // Player cleanup hook - preserves score on disconnect
+  const { leaveRoom } = usePlayerCleanup({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
+    playerUid: myUid,
+    phase: 'playing'
+  });
 
   // DB listeners
   useEffect(() => {
@@ -92,6 +110,7 @@ export default function BlindTestPlayerGame() {
 
   const revealed = !!state?.revealed;
   const snippetLevel = state?.snippetLevel || 0;
+  const highestSnippetLevel = state?.highestSnippetLevel ?? -1;
   const currentLevelConfig = SNIPPET_LEVELS[snippetLevel];
 
   const total = playlist?.tracks?.length || 0;
@@ -103,11 +122,12 @@ export default function BlindTestPlayerGame() {
   const blockedMs = Math.max(0, (me?.blockedUntil || 0) - serverNow);
   const blocked = blockedMs > 0;
 
-  // Points based on snippet level
-  const pointsEnJeu = currentLevelConfig?.start || 0;
+  // Points based on HIGHEST snippet level reached (not current)
+  const scoringLevel = highestSnippetLevel >= 0 ? highestSnippetLevel : 0;
+  const pointsEnJeu = SNIPPET_LEVELS[scoringLevel]?.start || 0;
 
   // Sounds
-  const playBuzz = useSound("/sounds/buzz.mp3");
+  const playBuzz = useSound("/sounds/quiz-buzzer.wav");
   const prevLock = useRef(null);
 
   useEffect(() => {
@@ -168,8 +188,11 @@ export default function BlindTestPlayerGame() {
             </div>
             <ExitButton
               variant="header"
-              confirmMessage="Voulez-vous vraiment quitter ?"
-              onExit={() => router.push('/home')}
+              confirmMessage="Voulez-vous vraiment quitter ? Votre score sera conservé."
+              onExit={async () => {
+                await leaveRoom();
+                router.push('/home');
+              }}
             />
           </div>
         </div>
@@ -199,62 +222,15 @@ export default function BlindTestPlayerGame() {
 
       {/* Main Content */}
       <main className="game-content blindtest">
-        {/* Music Card */}
-        <div className="music-card">
-          {/* Points */}
-          <div className="points-badge blindtest">
+        {/* Points & Level Card */}
+        <div className="points-card">
+          <div className="points-main">
             <span className="points-value">{pointsEnJeu}</span>
             <span className="points-label">points</span>
           </div>
-
-          {/* Music visualization area */}
-          <div className="music-content">
-            {revealed ? (
-              <motion.div
-                className="audio-visualizer"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
-                {/* Audio bars animation */}
-                <div className="audio-bars">
-                  {[...Array(5)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="audio-bar"
-                      animate={{
-                        height: ['20%', '100%', '40%', '80%', '20%'],
-                      }}
-                      transition={{
-                        duration: 0.8,
-                        repeat: Infinity,
-                        delay: i * 0.1,
-                        ease: "easeInOut"
-                      }}
-                    />
-                  ))}
-                </div>
-                <span className="listening-label">Écoute bien...</span>
-
-                {/* Snippet level indicator */}
-                <div className="snippet-indicator">
-                  <span className="snippet-level">{currentLevelConfig?.label}</span>
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                className="waiting-state"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
-                <div className="music-icon-wrapper">
-                  <Music size={48} />
-                </div>
-                <div className="waiting-dots">
-                  <span></span><span></span><span></span>
-                </div>
-                <span className="waiting-label">En attente...</span>
-              </motion.div>
-            )}
+          <div className="level-indicator">
+            <span className="level-label">Palier</span>
+            <span className="level-value">{currentLevelConfig?.label || '—'}</span>
           </div>
         </div>
 
@@ -439,133 +415,67 @@ export default function BlindTestPlayerGame() {
           min-height: 0;
         }
 
-        /* Music card */
-        .music-card {
+        /* Points card */
+        .points-card {
           width: 100%;
           max-width: 500px;
-          height: 220px;
           flex-shrink: 0;
           background: rgba(20, 20, 30, 0.8);
-          border: 1px solid rgba(6, 182, 212, 0.2);
-          border-radius: 20px;
-          padding: 16px;
-          text-align: center;
+          border: 1px solid rgba(16, 185, 129, 0.25);
+          border-radius: 16px;
+          padding: 20px 24px;
           display: flex;
-          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
         }
 
-        .points-badge.blindtest {
+        .points-main {
           display: flex;
           align-items: baseline;
-          justify-content: center;
-          gap: 5px;
-          margin-bottom: 10px;
-          flex-shrink: 0;
+          gap: 8px;
         }
 
-        .points-badge.blindtest .points-value {
+        .points-value {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.3rem;
+          font-size: 2.5rem;
           color: #34d399;
-          text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+          text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+          line-height: 1;
         }
 
         .points-label {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.7rem;
+          font-size: 0.9rem;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.5);
           text-transform: uppercase;
         }
 
-        .music-content {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        /* Audio visualizer */
-        .audio-visualizer {
+        .level-indicator {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 16px;
+          gap: 4px;
+          padding: 12px 20px;
+          background: rgba(16, 185, 129, 0.1);
+          border: 1px solid rgba(16, 185, 129, 0.3);
+          border-radius: 12px;
         }
 
-        .audio-bars {
-          display: flex;
-          align-items: flex-end;
-          gap: 6px;
-          height: 60px;
-        }
-
-        .audio-bar {
-          width: 12px;
-          background: linear-gradient(to top, #10b981, #34d399);
-          border-radius: 4px;
-          box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
-        }
-
-        .listening-label {
+        .level-label {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1rem;
+          font-size: 0.65rem;
           font-weight: 600;
-          color: var(--text-primary);
+          color: rgba(255, 255, 255, 0.5);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
 
-        .snippet-indicator {
-          background: rgba(6, 182, 212, 0.2);
-          border: 1px solid rgba(6, 182, 212, 0.4);
-          border-radius: 20px;
-          padding: 4px 16px;
-        }
-
-        .snippet-level {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.8rem;
-          font-weight: 700;
+        .level-value {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.1rem;
           color: #34d399;
-        }
-
-        /* Waiting state */
-        .waiting-state {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 12px;
-        }
-
-        .music-icon-wrapper {
-          color: rgba(6, 182, 212, 0.4);
-        }
-
-        .waiting-dots {
-          display: flex;
-          justify-content: center;
-          gap: 8px;
-        }
-
-        .waiting-dots span {
-          width: 10px;
-          height: 10px;
-          background: #10b981;
-          border-radius: 50%;
-          animation: dot-bounce 1.4s ease-in-out infinite;
-        }
-
-        .waiting-dots span:nth-child(1) { animation-delay: 0s; }
-        .waiting-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .waiting-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes dot-bounce {
-          0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-          40% { transform: scale(1.2); opacity: 1; }
-        }
-
-        .waiting-label {
-          color: var(--text-muted);
-          font-size: 0.85rem;
         }
 
         /* Buzzer footer */

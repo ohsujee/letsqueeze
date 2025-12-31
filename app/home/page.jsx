@@ -14,7 +14,9 @@ import BottomNav from '@/lib/components/BottomNav';
 import GuestAccountPromptModal from '@/components/ui/GuestAccountPromptModal';
 import GuestWarningModal from '@/components/ui/GuestWarningModal';
 import GameLimitModal from '@/components/ui/GameLimitModal';
-import { Target, UserSearch, Gamepad2, Heart, Sparkles, Music, Brain, ChevronsUp, Crown } from 'lucide-react';
+import RejoinBanner from '@/components/ui/RejoinBanner';
+import { useActiveGameCheck } from '@/lib/hooks/usePlayerCleanup';
+import { Target, UserSearch, Gamepad2, Heart, Sparkles, Music, Brain, ChevronsUp, Crown, Theater } from 'lucide-react';
 import { genCode } from '@/lib/utils';
 
 const GAMES = [
@@ -51,6 +53,15 @@ const GAMES = [
     minPlayers: 2,
     comingSoon: true,
   },
+  {
+    id: 'mime',
+    name: 'Mime',
+    Icon: Theater,
+    packLimit: null,
+    image: '/images/mime-game.png',
+    minPlayers: 2,
+    local: true, // Jeu local, pas de room Firebase
+  },
 ];
 
 export default function HomePage() {
@@ -63,6 +74,10 @@ export default function HomePage() {
   const [pendingGame, setPendingGame] = useState(null);
   const { isPro } = useSubscription(user);
   const { profile } = useUserProfile();
+  const [showRejoinBanner, setShowRejoinBanner] = useState(true);
+
+  // Check for active game the player can rejoin
+  const activeGame = useActiveGameCheck(user?.uid);
 
   // Game limits for quiz (most common game type)
   const {
@@ -223,6 +238,10 @@ export default function HomePage() {
           lockedAt: null
         })
       ]).catch(err => console.error('Blindtest room creation error:', err));
+    } else if (game.id === 'mime') {
+      // Jeu local - pas de Firebase, navigation directe
+      router.push('/mime');
+      return; // Pas besoin de recordGamePlayed pour un jeu local
     }
   };
 
@@ -230,6 +249,12 @@ export default function HomePage() {
     // Redirect to coming soon page for unreleased games
     if (game.comingSoon) {
       router.push(`/coming-soon/${game.id}`);
+      return;
+    }
+
+    // Local games (like Mime) - no restrictions, direct navigation
+    if (game.local) {
+      createAndNavigateToGame(game);
       return;
     }
 
@@ -347,6 +372,17 @@ export default function HomePage() {
             )}
           </div>
         </header>
+
+        {/* Rejoin Banner - Show when player has an active game */}
+        {activeGame && showRejoinBanner && (
+          <RejoinBanner
+            activeGame={activeGame}
+            onDismiss={() => {
+              setShowRejoinBanner(false);
+              storage.remove('lq_last_game');
+            }}
+          />
+        )}
 
         {/* Favorites Section */}
         {favoriteGames.length > 0 && (

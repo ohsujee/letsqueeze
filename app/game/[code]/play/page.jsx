@@ -9,6 +9,8 @@ import Leaderboard from "@/components/game/Leaderboard";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import ExitButton from "@/lib/components/ExitButton";
+import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
+import { storage } from "@/lib/utils/storage";
 
 function useSound(url){
   const aRef = useRef(null);
@@ -16,7 +18,7 @@ function useSound(url){
     aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null;
     if(aRef.current){
       aRef.current.preload="auto";
-      aRef.current.volume = 0.5; // Volume par défaut
+      aRef.current.volume = 0.6; // Volume par défaut
     }
   },[url]);
   return useCallback(()=>{
@@ -44,6 +46,7 @@ export default function PlayerGame(){
   const [me,setMe]=useState(null);
   const [quiz,setQuiz]=useState(null);
   const [conf,setConf]=useState(null);
+  const [myUid, setMyUid] = useState(null);
 
   // Tick + offset serveur
   const [localNow, setLocalNow] = useState(Date.now());
@@ -56,12 +59,28 @@ export default function PlayerGame(){
   // Auth
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      if (!user) {
+      if (user) {
+        setMyUid(user.uid);
+        // Store last game info for rejoin
+        storage.set('lq_last_game', JSON.stringify({
+          roomCode: code,
+          roomPrefix: 'rooms',
+          joinedAt: Date.now()
+        }));
+      } else {
         signInAnonymously(auth).catch(() => {});
       }
     });
     return () => unsub();
-  }, []);
+  }, [code]);
+
+  // Player cleanup hook - preserves score on disconnect
+  const { leaveRoom } = usePlayerCleanup({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    playerUid: myUid,
+    phase: 'playing'
+  });
 
   // Config scoring
   useEffect(()=>{
@@ -210,8 +229,11 @@ export default function PlayerGame(){
             </div>
             <ExitButton
               variant="header"
-              confirmMessage="Voulez-vous vraiment quitter ?"
-              onExit={() => router.push('/home')}
+              confirmMessage="Voulez-vous vraiment quitter ? Votre score sera conservé."
+              onExit={async () => {
+                await leaveRoom();
+                router.push('/home');
+              }}
             />
           </div>
         </div>

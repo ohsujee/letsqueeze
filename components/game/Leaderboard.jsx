@@ -41,11 +41,19 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
       </div>
 
       <style jsx>{`
+        .leaderboard-card,
+        .leaderboard-card *,
+        .leaderboard-card *::before,
+        .leaderboard-card *::after {
+          box-sizing: border-box;
+        }
+
         .leaderboard-card {
           width: 100%;
           max-width: 500px;
           flex: 1;
           min-height: 0;
+          min-width: 0;
           display: flex;
           flex-direction: column;
           background: rgba(20, 20, 30, 0.8);
@@ -54,6 +62,8 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           padding: 14px;
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
+          box-sizing: border-box;
+          overflow: hidden;
         }
 
         .leaderboard-header {
@@ -86,10 +96,12 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
 
         .leaderboard-list {
           flex: 1;
+          min-width: 0;
           display: flex;
           flex-direction: column;
           gap: 6px;
           overflow-y: auto;
+          overflow-x: hidden;
           padding-right: 4px;
         }
 
@@ -106,6 +118,9 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           border-radius: 10px;
           border: 1px solid rgba(255, 255, 255, 0.08);
           flex-shrink: 0;
+          min-width: 0;
+          max-width: 100%;
+          box-sizing: border-box;
           transition: all 0.2s ease;
         }
 
@@ -155,21 +170,22 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
 
         .player-name {
           flex: 1;
+          min-width: 0;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-size: 0.85rem;
           font-weight: 600;
           color: var(--text-primary, #ffffff);
-          display: flex;
-          align-items: center;
-          gap: 6px;
+          display: block;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
 
         .you-badge {
+          display: inline;
           font-size: 0.55rem;
           padding: 2px 6px;
+          margin-left: 6px;
           background: var(--quiz-primary, #8b5cf6);
           border-radius: 4px;
           text-transform: uppercase;
