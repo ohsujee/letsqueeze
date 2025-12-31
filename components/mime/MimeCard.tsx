@@ -7,24 +7,17 @@ interface MimeCardProps {
   word: string;
 }
 
+// Neon Green CLAIR et BRILLANT
+const NEON = '#00ff66';
+const NEON_RGB = '0, 255, 102';
+
 export default function MimeCard({ word }: MimeCardProps) {
   const y = useMotionValue(0);
   const controls = useAnimation();
-
-  // Max drag distance (60% reveal)
   const maxDrag = -180;
 
-  // Transform for cover card
-  const coverY = useTransform(y, [maxDrag, 0], [maxDrag * 0.65, 0]);
-  const coverOpacity = useTransform(y, [maxDrag, 0], [0.6, 1]);
-  const coverRotateX = useTransform(y, [maxDrag, 0], [-4, 0]);
-  const coverScale = useTransform(y, [maxDrag, 0], [0.97, 1]);
+  const coverY = useTransform(y, [maxDrag, 0], [maxDrag, 0]);
 
-  // Word card reveal effect
-  const wordOpacity = useTransform(y, [maxDrag, -80, 0], [1, 0.7, 0.4]);
-  const wordScale = useTransform(y, [maxDrag, 0], [1, 0.96]);
-
-  // Handle drag end - spring back
   const handleDragEnd = () => {
     controls.start({
       y: 0,
@@ -32,143 +25,137 @@ export default function MimeCard({ word }: MimeCardProps) {
     });
   };
 
-  // Reset when word changes
   useEffect(() => {
     y.set(0);
   }, [word, y]);
 
   return (
-    <div className="mime-card-container">
-      {/* Word Card (Behind) */}
-      <motion.div
-        className="mime-card word-card"
-        style={{ opacity: wordOpacity, scale: wordScale }}
-      >
-        <span className="mime-word">{word}</span>
-      </motion.div>
+    <div style={{
+      position: 'relative',
+      width: 300,
+      height: 320,
+    }}>
 
-      {/* Cover Card (On top - draggable) */}
+      {/* === CARTE DU MOT (derrière) === */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 1,
+        borderRadius: 24,
+        display: 'flex',
+        alignItems: 'flex-end', // Aligné en BAS pour être visible quand cover monte
+        justifyContent: 'center',
+        paddingBottom: 50, // Centré dans la zone visible (180px / 2 - marge)
+        background: 'linear-gradient(180deg, #0a0a0f 0%, #050508 100%)',
+        border: `3px solid ${NEON}`,
+        boxShadow: `0 0 50px rgba(${NEON_RGB}, 0.6), 0 0 100px rgba(${NEON_RGB}, 0.3), inset 0 0 50px rgba(${NEON_RGB}, 0.15)`,
+      }}>
+        <span style={{
+          fontFamily: "'Bungee', cursive",
+          fontSize: 'clamp(1.75rem, 8vw, 2.75rem)',
+          color: '#ffffff',
+          textAlign: 'center',
+          padding: 24,
+          textShadow: `0 0 10px rgba(${NEON_RGB}, 1), 0 0 25px rgba(${NEON_RGB}, 0.9), 0 0 50px rgba(${NEON_RGB}, 0.6)`,
+          lineHeight: 1.2,
+        }}>
+          {word}
+        </span>
+      </div>
+
+      {/* === CARTE COVER (devant, superposée, draggable) === */}
       <motion.div
-        className="mime-card cover-card"
         style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 10,
+          borderRadius: 24,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'linear-gradient(180deg, #111118 0%, #0a0a0f 100%)',
+          border: `3px solid rgba(${NEON_RGB}, 0.7)`,
+          boxShadow: `0 8px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(${NEON_RGB}, 0.3)`,
+          cursor: 'grab',
+          touchAction: 'none',
           y: coverY,
-          opacity: coverOpacity,
-          rotateX: coverRotateX,
-          scale: coverScale,
         }}
         drag="y"
         dragConstraints={{ top: maxDrag, bottom: 0 }}
-        dragElastic={0.1}
+        dragElastic={0.05}
         onDragEnd={handleDragEnd}
         animate={controls}
+        whileDrag={{ cursor: 'grabbing' }}
       >
-        <div className="cover-content">
-          <div className="cover-icon">🎭</div>
-          <span className="cover-title">Ton mot</span>
-          <span className="cover-instruction">Glisse vers le haut pour voir</span>
-          <motion.div
-            className="swipe-hint"
-            animate={{ y: [-4, 4, -4] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 12,
+          padding: 20,
+        }}>
+          {/* Emoji */}
+          <motion.span
+            style={{ fontSize: 52, filter: `drop-shadow(0 0 20px rgba(${NEON_RGB}, 0.8))` }}
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            <span className="swipe-arrow">↑</span>
+            🎭
+          </motion.span>
+
+          {/* Titre */}
+          <span style={{
+            fontFamily: "'Bungee', cursive",
+            fontSize: 24,
+            color: '#ffffff',
+            textShadow: `0 0 12px rgba(${NEON_RGB}, 1), 0 0 25px rgba(${NEON_RGB}, 0.6)`,
+          }}>
+            Ton mot
+          </span>
+
+          {/* Instruction */}
+          <span style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 13,
+            fontWeight: 600,
+            color: 'rgba(255, 255, 255, 0.6)',
+          }}>
+            Glisse vers le haut pour voir
+          </span>
+
+          {/* Flèche */}
+          <motion.div
+            style={{
+              width: 38,
+              height: 38,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: `rgba(${NEON_RGB}, 0.2)`,
+              border: `2px solid rgba(${NEON_RGB}, 0.7)`,
+              borderRadius: '50%',
+              marginTop: 4,
+            }}
+            animate={{ y: [-5, 5, -5] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <span style={{
+              fontSize: 18,
+              fontWeight: 'bold',
+              color: NEON,
+              textShadow: `0 0 8px rgba(${NEON_RGB}, 1)`,
+            }}>
+              ↑
+            </span>
           </motion.div>
         </div>
       </motion.div>
-
-      <style jsx>{`
-        .mime-card-container {
-          position: relative;
-          width: 100%;
-          max-width: 320px;
-          height: 340px;
-          perspective: 1000px;
-        }
-
-        .mime-card {
-          position: absolute;
-          inset: 0;
-          border-radius: 24px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          user-select: none;
-          -webkit-user-select: none;
-        }
-
-        /* Word Card - Behind */
-        .word-card {
-          background: linear-gradient(180deg, rgba(132, 204, 22, 0.12) 0%, rgba(34, 197, 94, 0.08) 100%);
-          border: 2px solid rgba(132, 204, 22, 0.3);
-          box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .mime-word {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: clamp(1.75rem, 7vw, 2.5rem);
-          color: var(--mime-primary, #84cc16);
-          text-align: center;
-          padding: 1.5rem;
-          text-shadow: 0 0 30px rgba(132, 204, 22, 0.5);
-          line-height: 1.2;
-        }
-
-        /* Cover Card - On top */
-        .cover-card {
-          background: linear-gradient(180deg, rgba(26, 26, 36, 1) 0%, rgba(18, 18, 26, 1) 100%);
-          border: 2px solid rgba(132, 204, 22, 0.35);
-          box-shadow:
-            0 12px 40px rgba(0, 0, 0, 0.5),
-            0 0 0 1px rgba(255, 255, 255, 0.05),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
-          cursor: grab;
-          touch-action: none;
-        }
-
-        .cover-card:active {
-          cursor: grabbing;
-        }
-
-        .cover-content {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 1rem;
-          padding: 1.5rem;
-        }
-
-        .cover-icon {
-          font-size: 4rem;
-          filter: drop-shadow(0 4px 16px rgba(132, 204, 22, 0.5));
-        }
-
-        .cover-title {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.5rem;
-          color: var(--mime-primary, #84cc16);
-          text-shadow: 0 0 20px rgba(132, 204, 22, 0.5);
-        }
-
-        .cover-instruction {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.875rem;
-          font-weight: 500;
-          color: var(--text-muted, rgba(255, 255, 255, 0.5));
-          text-align: center;
-        }
-
-        .swipe-hint {
-          margin-top: 0.5rem;
-        }
-
-        .swipe-arrow {
-          font-size: 1.25rem;
-          color: var(--mime-primary, #84cc16);
-          text-shadow: 0 0 12px rgba(132, 204, 22, 0.5);
-        }
-      `}</style>
     </div>
   );
 }

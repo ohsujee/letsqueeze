@@ -50,11 +50,12 @@
   --brand-cyan: #06b6d4;
   --brand-lime: #84cc16;
 
-  /* MIME Game Colors */
-  --mime-primary: #84cc16;
-  --mime-secondary: #22c55e;
+  /* MIME Game Colors - Neon Green Brillant */
+  --mime-primary: #00ff66;
+  --mime-secondary: #00cc52;
   --mime-accent: #fbbf24;
-  --mime-glow: rgba(132, 204, 22, 0.5);
+  --mime-glow: rgba(0, 255, 102, 0.6);
+  --mime-glow-strong: rgba(0, 255, 102, 0.8);
 
   /* Glow Colors */
   --glow-blue: rgba(59, 130, 246, 0.5);
