@@ -45,15 +45,6 @@ const GAMES = [
     minPlayers: 2,
   },
   {
-    id: 'memory',
-    name: 'Memory',
-    Icon: Brain,
-    packLimit: 3,
-    image: '/images/memory.png',
-    minPlayers: 2,
-    comingSoon: true,
-  },
-  {
     id: 'mime',
     name: 'Mime',
     Icon: Theater,
@@ -61,6 +52,15 @@ const GAMES = [
     image: '/images/mime-game.png',
     minPlayers: 2,
     local: true, // Jeu local, pas de room Firebase
+  },
+  {
+    id: 'memory',
+    name: 'Memory',
+    Icon: Brain,
+    packLimit: 3,
+    image: '/images/memory.png',
+    minPlayers: 2,
+    comingSoon: true,
   },
 ];
 

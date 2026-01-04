@@ -10,6 +10,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import ExitButton from "@/lib/components/ExitButton";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
+import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { storage } from "@/lib/utils/storage";
 
 function useSound(url){
@@ -42,11 +44,12 @@ export default function PlayerGame(){
 
   const [state,setState]=useState(null);
   const [meta,setMeta]=useState(null);
-  const [players,setPlayers]=useState([]);
-  const [me,setMe]=useState(null);
   const [quiz,setQuiz]=useState(null);
   const [conf,setConf]=useState(null);
   const [myUid, setMyUid] = useState(null);
+
+  // Centralized players hook
+  const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
 
   // Tick + offset serveur
   const [localNow, setLocalNow] = useState(Date.now());
@@ -75,11 +78,26 @@ export default function PlayerGame(){
   }, [code]);
 
   // Player cleanup hook - preserves score on disconnect
-  const { leaveRoom } = usePlayerCleanup({
+  const { leaveRoom, markActive } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms',
     playerUid: myUid,
     phase: 'playing'
+  });
+
+  // Mark player as active on reconnection
+  useEffect(() => {
+    if (myUid && code) {
+      markActive();
+    }
+  }, [myUid, code, markActive]);
+
+  // Room guard - détecte kick et fermeture room
+  const { markVoluntaryLeave } = useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    playerUid: myUid,
+    isHost: false
   });
 
   // Config scoring
@@ -100,12 +118,8 @@ export default function PlayerGame(){
     const u2 = onValue(ref(db,`rooms/${code}/meta`), s=>{
       const m = s.val(); setMeta(m);
     });
-    const u3 = onValue(ref(db,`rooms/${code}/players`), s=>{
-      const v = s.val()||{}; const arr = Object.values(v);
-      setPlayers(arr); setMe(arr.find(p=>p.uid===auth.currentUser?.uid)||null);
-    });
-    const u4 = onValue(ref(db,`rooms/${code}/quiz`), s=>setQuiz(s.val()));
-    return ()=>{u1();u2();u3();u4();};
+    const u3 = onValue(ref(db,`rooms/${code}/quiz`), s=>setQuiz(s.val()));
+    return ()=>{u1();u2();u3();};
   },[code, router]);
 
   const revealed = !!state?.revealed;
@@ -377,7 +391,7 @@ export default function PlayerGame(){
           backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(139, 92, 246, 0.2);
           padding: 12px 16px;
-          padding-top: calc(12px + env(safe-area-inset-top));
+          padding-top: 12px;
         }
 
         .game-header-content {

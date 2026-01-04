@@ -17,8 +17,11 @@ import TeamTabs from "@/lib/components/TeamTabs";
 import PaywallModal from "@/components/ui/PaywallModal";
 import QuizSelectorModal from "@/components/ui/QuizSelectorModal";
 import ExitButton from "@/lib/components/ExitButton";
+import PlayerManager from "@/components/game/PlayerManager";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
+import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { getQuizManifest } from "@/lib/utils/manifestCache";
@@ -33,7 +36,6 @@ export default function Room() {
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
-  const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState({});
   const [isHost, setIsHost] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -47,6 +49,9 @@ export default function Room() {
 
   const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+
+  // Centralized players hook
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
 
   // Show interstitial ad on first lobby entry (not when returning from game end)
   useEffect(() => {
@@ -105,21 +110,23 @@ export default function Room() {
     phase: 'lobby'
   });
 
+  // Room guard - détecte kick et fermeture room (pour joueurs non-hôte)
+  useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    playerUid: myUid,
+    isHost
+  });
+
   useEffect(() => {
     if (!code) return;
 
     const metaUnsub = onValue(ref(db, `rooms/${code}/meta`), (snap) => {
       const m = snap.val();
       if (m) {
-        // Check if room was closed by host
+        // Check if room was closed by host (legacy - now handled by useRoomGuard too)
         if (m.closed) {
-          // Only show toast if not the host (host already knows they're leaving)
-          const currentUid = auth.currentUser?.uid;
-          if (currentUid !== m.hostUid) {
-            toast.warning("L'hôte a quitté la partie");
-          }
-          router.push('/home');
-          return;
+          return; // useRoomGuard handles this
         }
         setMeta(m);
         setTeams(m?.teams || {});
@@ -129,11 +136,6 @@ export default function Room() {
         toast.warning("L'hôte a quitté la partie");
         router.push('/home');
       }
-    });
-
-    const playersUnsub = onValue(ref(db, `rooms/${code}/players`), (snap) => {
-      const p = snap.val() || {};
-      setPlayers(Object.values(p));
     });
 
     const stateUnsub = onValue(ref(db, `rooms/${code}/state`), (snap) => {
@@ -149,7 +151,6 @@ export default function Room() {
 
     return () => {
       metaUnsub();
-      playersUnsub();
       stateUnsub();
     };
   }, [code, router, isHost]);
@@ -209,7 +210,7 @@ export default function Room() {
         }
       });
 
-      toast.success('Partie lancée !');
+      // Partie lancée - pas besoin de toast, redirection automatique
     } catch (error) {
       console.error('Erreur lors du lancement de la partie:', error);
       toast.error('Erreur lors du lancement de la partie');
@@ -394,6 +395,16 @@ export default function Room() {
           </div>
         </div>
         <div className="header-right">
+          {isHost && (
+            <PlayerManager
+              players={players}
+              roomCode={code}
+              roomPrefix="rooms"
+              hostUid={meta?.hostUid}
+              variant="quiz"
+              phase="lobby"
+            />
+          )}
           {!isHost && (
             <motion.button
               className="spectator-btn"

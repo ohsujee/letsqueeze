@@ -32,7 +32,8 @@
       "Bash(timeout:*)",
       "Bash(npx next build)",
       "Bash(ls:*)",
-      "Bash(git diff:*)"
+      "Bash(git diff:*)",
+      "Bash(ngrok http:*)"
     ]
   }
 }

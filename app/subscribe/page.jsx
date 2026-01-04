@@ -552,7 +552,7 @@ const styles = `
     align-items: center;
     gap: 16px;
     padding: 16px 20px;
-    padding-top: calc(16px + env(safe-area-inset-top));
+    padding-top: 16px;
     background: rgba(10, 10, 15, 0.9);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);

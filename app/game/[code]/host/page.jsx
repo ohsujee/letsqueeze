@@ -7,6 +7,8 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import ExitButton from "@/lib/components/ExitButton";
 import Leaderboard from "@/components/game/Leaderboard";
+import PlayerManager from "@/components/game/PlayerManager";
+import { usePlayers } from "@/lib/hooks/usePlayers";
 import { hueScenariosService } from "@/lib/hue-module";
 
 // Quiz est maintenant chargé depuis Firebase (stocké au démarrage de la partie)
@@ -49,9 +51,11 @@ export default function HostGame(){
 
   const [meta,setMeta]=useState(null);
   const [state,setState]=useState(null);
-  const [players,setPlayers]=useState([]);
   const [quiz,setQuiz]=useState(null);
   const [conf,setConf]=useState(null);
+
+  // Centralized players hook
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
 
   // Tick + offset serveur
   const [localNow, setLocalNow] = useState(Date.now());
@@ -74,11 +78,8 @@ export default function HostGame(){
   useEffect(()=>{
     const u1 = onValue(ref(db,`rooms/${code}/meta`), s=>setMeta(s.val()));
     const u2 = onValue(ref(db,`rooms/${code}/state`), s=>setState(s.val()));
-    const u3 = onValue(ref(db,`rooms/${code}/players`), s=>{
-      const v = s.val()||{}; setPlayers(Object.values(v));
-    });
-    const u4 = onValue(ref(db,`rooms/${code}/quiz`), s=>setQuiz(s.val()));
-    return ()=>{u1();u2();u3();u4();};
+    const u3 = onValue(ref(db,`rooms/${code}/quiz`), s=>setQuiz(s.val()));
+    return ()=>{u1();u2();u3();};
   },[code]);
 
   // Redirige host quand phase=ended ou phase=lobby
@@ -355,8 +356,16 @@ export default function HostGame(){
             <div className="game-header-title">{title}</div>
           </div>
 
-          {/* Exit */}
+          {/* Player Manager + Exit */}
           <div className="game-header-right">
+            <PlayerManager
+              players={players}
+              roomCode={code}
+              roomPrefix="rooms"
+              hostUid={meta?.hostUid}
+              variant="quiz"
+              phase="playing"
+            />
             <ExitButton
               variant="header"
               confirmMessage="Voulez-vous vraiment quitter ? La partie sera abandonnée pour tous les joueurs."
@@ -562,7 +571,7 @@ export default function HostGame(){
           -webkit-backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(139, 92, 246, 0.2);
           padding: 12px 16px;
-          padding-top: calc(12px + env(safe-area-inset-top));
+          padding-top: 12px;
         }
 
         .game-header-content {

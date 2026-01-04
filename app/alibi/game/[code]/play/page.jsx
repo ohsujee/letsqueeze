@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth,
@@ -15,6 +15,9 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Clock, CheckCircle, XCircle, Users, AlertTriangle } from 'lucide-react';
 import ExitButton from "@/lib/components/ExitButton";
+import PlayerManager from "@/components/game/PlayerManager";
+import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { AlibiPhaseTransition } from "@/components/alibi/AlibiPhaseTransition";
 import { VerdictTransition } from "@/components/alibi/VerdictTransition";
@@ -27,8 +30,24 @@ export default function AlibiInterrogation() {
   const [myUid, setMyUid] = useState(null);
   const [myTeam, setMyTeam] = useState(null);
   const [isHost, setIsHost] = useState(false);
-  const [suspects, setSuspects] = useState([]);
+  const [hostUid, setHostUid] = useState(null);
   const [questions, setQuestions] = useState([]);
+
+  // Centralized players hook
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
+
+  // Room guard - détecte kick et fermeture room
+  const { markVoluntaryLeave } = useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
+    playerUid: myUid,
+    isHost
+  });
+
+  // Derive suspects from players
+  const suspects = useMemo(() => {
+    return players.filter(p => p.team === "suspects");
+  }, [players]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questionState, setQuestionState] = useState("waiting");
   const [timeLeft, setTimeLeft] = useState(30);
@@ -76,7 +95,9 @@ export default function AlibiInterrogation() {
             if (player) setMyTeam(player.team);
           });
           onValue(ref(db, `rooms_alibi/${code}/meta/hostUid`), (snap) => {
-            setIsHost(snap.val() === user.uid);
+            const hUid = snap.val();
+            setHostUid(hUid);
+            setIsHost(hUid === user.uid);
           });
         }
       } else {
@@ -84,16 +105,6 @@ export default function AlibiInterrogation() {
       }
     });
     return () => unsub();
-  }, [code]);
-
-  // Écouter les suspects
-  useEffect(() => {
-    if (!code) return;
-    const playersUnsub = onValue(ref(db, `rooms_alibi/${code}/players`), (snap) => {
-      const players = snap.val() || {};
-      setSuspects(Object.values(players).filter(p => p.team === "suspects"));
-    });
-    return () => playersUnsub();
   }, [code]);
 
   // Écouter les questions
@@ -315,11 +326,23 @@ export default function AlibiInterrogation() {
         <div className="interro-header-content">
           <div className="interro-header-title">Question {currentQuestion + 1}/10</div>
 
-          <ExitButton
-            variant="header"
-            confirmMessage="Voulez-vous vraiment quitter ? Tout le monde retournera au lobby."
-            onExit={exitGame}
-          />
+          <div className="interro-header-actions">
+            {isHost && (
+              <PlayerManager
+                players={players}
+                roomCode={code}
+                roomPrefix="rooms_alibi"
+                hostUid={hostUid}
+                variant="alibi"
+                phase="playing"
+              />
+            )}
+            <ExitButton
+              variant="header"
+              confirmMessage="Voulez-vous vraiment quitter ? Tout le monde retournera au lobby."
+              onExit={exitGame}
+            />
+          </div>
         </div>
 
         {/* Progress Bar */}
@@ -702,7 +725,7 @@ export default function AlibiInterrogation() {
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(245, 158, 11, 0.2);
-          padding-top: env(safe-area-inset-top);
+          padding-top: 0;
         }
 
         .interro-header-content {
@@ -711,6 +734,12 @@ export default function AlibiInterrogation() {
           justify-content: space-between;
           gap: 12px;
           padding: 10px 16px;
+        }
+
+        .interro-header-actions {
+          display: flex;
+          align-items: center;
+          gap: 8px;
         }
 
         .interro-header-title {

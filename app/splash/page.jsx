@@ -39,10 +39,12 @@ export default function SplashScreen() {
   return (
     <div style={{
       minHeight: '100dvh',
+      maxHeight: '100dvh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      position: 'relative',
+      position: 'fixed',
+      inset: 0,
       overflow: 'hidden',
       background: '#0a0a0f'
     }}>

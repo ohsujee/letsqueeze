@@ -90,6 +90,21 @@
   --state-disabled: rgba(255, 255, 255, 0.3);
 }
 
+/* ===== SAFE AREAS (iOS/Android notch & camera) ===== */
+:root {
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+
+  /* Minimum padding when no notch (fallback) */
+  --safe-padding-top: max(1rem, var(--safe-area-top));
+  --safe-padding-bottom: max(0px, var(--safe-area-bottom));
+
+  /* Available app height (viewport minus safe areas) */
+  --app-height: calc(100dvh - env(safe-area-inset-top, 0px));
+}
+
 /* ===== SPACING (8pt Grid) ===== */
 :root {
   --space-1: 0.25rem;  /* 4px */

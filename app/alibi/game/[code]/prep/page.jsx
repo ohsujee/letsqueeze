@@ -535,7 +535,7 @@ export default function AlibiPrep() {
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(245, 158, 11, 0.2);
-          padding-top: env(safe-area-inset-top);
+          padding-top: 0;
         }
 
         .header-content {

@@ -14,10 +14,13 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import ShareModal from "@/lib/components/ShareModal";
 import ExitButton from "@/lib/components/ExitButton";
+import PlayerManager from "@/components/game/PlayerManager";
 import PaywallModal from "@/components/ui/PaywallModal";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
+import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { ChevronRight, Eye, HelpCircle, Music, Search, LogIn, Check, X, Users, Zap } from "lucide-react";
@@ -35,7 +38,6 @@ export default function BlindTestLobby() {
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
-  const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState({});
   const [isHost, setIsHost] = useState(false);
   const [joinUrl, setJoinUrl] = useState("");
@@ -61,6 +63,9 @@ export default function BlindTestLobby() {
   // Get user profile for subscription check
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+
+  // Centralized players hook
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
 
   // Check if can use more playlists
   const canUseMorePlaylists = userIsPro || playlistsUsed < MAX_PLAYLISTS_FREE;
@@ -141,6 +146,14 @@ export default function BlindTestLobby() {
     phase: 'lobby'
   });
 
+  // Room guard - détecte kick et fermeture room
+  useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
+    playerUid: myUid,
+    isHost
+  });
+
   // DB listeners
   useEffect(() => {
     if (!code) return;
@@ -149,12 +162,7 @@ export default function BlindTestLobby() {
       const m = snap.val();
       if (m) {
         if (m.closed) {
-          const currentUid = auth.currentUser?.uid;
-          if (currentUid !== m.hostUid) {
-            toast.warning("L'hôte a quitté la partie");
-          }
-          router.push('/home');
-          return;
+          return; // useRoomGuard handles this
         }
         setMeta(m);
         setTeams(m?.teams || {});
@@ -165,11 +173,6 @@ export default function BlindTestLobby() {
         toast.warning("L'hôte a quitté la partie");
         router.push('/home');
       }
-    });
-
-    const playersUnsub = onValue(ref(db, `rooms_blindtest/${code}/players`), (snap) => {
-      const p = snap.val() || {};
-      setPlayers(Object.values(p));
     });
 
     const stateUnsub = onValue(ref(db, `rooms_blindtest/${code}/state`), (snap) => {
@@ -185,7 +188,6 @@ export default function BlindTestLobby() {
 
     return () => {
       metaUnsub();
-      playersUnsub();
       stateUnsub();
     };
   }, [code, router, isHost]);
@@ -281,7 +283,7 @@ export default function BlindTestLobby() {
       setSearchQuery("");
       setSearchResults([]);
       setShowPlaylistSelector(false);
-      toast.success(`Playlist "${playlist.name}" sélectionnée !`);
+      // Playlist sélectionnée - pas besoin de toast, l'UI se met à jour
     } catch (error) {
       console.error("Error selecting playlist:", error);
       toast.error("Erreur lors de la sélection");
@@ -336,7 +338,7 @@ export default function BlindTestLobby() {
         }
       });
 
-      toast.success('Partie lancée !');
+      // Partie lancée - pas besoin de toast, redirection automatique
     } catch (error) {
       console.error('Erreur lors du lancement:', error);
       toast.error('Erreur lors du lancement de la partie');
@@ -541,6 +543,16 @@ export default function BlindTestLobby() {
           >
             <HelpCircle size={18} />
           </motion.button>
+          {isHost && (
+            <PlayerManager
+              players={players}
+              roomCode={code}
+              roomPrefix="rooms_blindtest"
+              hostUid={meta?.hostUid}
+              variant="blindtest"
+              phase="lobby"
+            />
+          )}
           {!isHost && (
             <motion.button
               className="spectator-btn blindtest"

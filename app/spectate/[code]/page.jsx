@@ -3,16 +3,19 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { db, ref, onValue } from "@/lib/firebase";
+import { usePlayers } from "@/lib/hooks/usePlayers";
 import Qr from "@/components/ui/Qr";
 import QrModal from "@/lib/components/QrModal";
 
 export default function SpectatorView() {
   const { code } = useParams();
-  
+
   const [meta, setMeta] = useState(null);
-  const [players, setPlayers] = useState([]);
   const [state, setState] = useState(null);
   const [quiz, setQuiz] = useState(null);
+
+  // Centralized players hook
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
 
   // DB listeners
   useEffect(() => {
@@ -20,11 +23,6 @@ export default function SpectatorView() {
 
     const metaUnsub = onValue(ref(db, `rooms/${code}/meta`), (snap) => {
       setMeta(snap.val());
-    });
-
-    const playersUnsub = onValue(ref(db, `rooms/${code}/players`), (snap) => {
-      const p = snap.val() || {};
-      setPlayers(Object.values(p));
     });
 
     const stateUnsub = onValue(ref(db, `rooms/${code}/state`), (snap) => {
@@ -37,7 +35,6 @@ export default function SpectatorView() {
 
     return () => {
       metaUnsub();
-      playersUnsub();
       stateUnsub();
       quizUnsub();
     };

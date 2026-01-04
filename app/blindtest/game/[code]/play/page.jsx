@@ -10,15 +10,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import ExitButton from "@/lib/components/ExitButton";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
+import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { storage } from "@/lib/utils/storage";
-
-// Scoring config for blind test
-const SNIPPET_LEVELS = [
-  { duration: 1000, label: "1s", start: 200, floor: 150 },
-  { duration: 3000, label: "3s", start: 150, floor: 100 },
-  { duration: 10000, label: "10s", start: 100, floor: 75 },
-  { duration: null, label: "Full", start: 50, floor: 25 }
-];
+import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
 
 function useSound(url) {
   const aRef = useRef(null);
@@ -43,10 +38,11 @@ export default function BlindTestPlayerGame() {
 
   const [state, setState] = useState(null);
   const [meta, setMeta] = useState(null);
-  const [players, setPlayers] = useState([]);
-  const [me, setMe] = useState(null);
   const [playlist, setPlaylist] = useState(null);
   const [myUid, setMyUid] = useState(null);
+
+  // Centralized players hook
+  const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
 
   // Server time sync
   const [localNow, setLocalNow] = useState(Date.now());
@@ -83,11 +79,26 @@ export default function BlindTestPlayerGame() {
   }, [code]);
 
   // Player cleanup hook - preserves score on disconnect
-  const { leaveRoom } = usePlayerCleanup({
+  const { leaveRoom, markActive } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
     playerUid: myUid,
     phase: 'playing'
+  });
+
+  // Mark player as active when joining/rejoining
+  useEffect(() => {
+    if (myUid && code) {
+      markActive();
+    }
+  }, [myUid, code, markActive]);
+
+  // Room guard - détecte kick et fermeture room
+  const { markVoluntaryLeave } = useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
+    playerUid: myUid,
+    isHost: false
   });
 
   // DB listeners
@@ -100,17 +111,17 @@ export default function BlindTestPlayerGame() {
     const u2 = onValue(ref(db, `rooms_blindtest/${code}/meta`), s => {
       const m = s.val(); setMeta(m);
     });
-    const u3 = onValue(ref(db, `rooms_blindtest/${code}/players`), s => {
-      const v = s.val() || {}; const arr = Object.values(v);
-      setPlayers(arr); setMe(arr.find(p => p.uid === auth.currentUser?.uid) || null);
-    });
-    const u4 = onValue(ref(db, `rooms_blindtest/${code}/meta/playlist`), s => setPlaylist(s.val()));
-    return () => { u1(); u2(); u3(); u4(); };
+    const u3 = onValue(ref(db, `rooms_blindtest/${code}/meta/playlist`), s => setPlaylist(s.val()));
+    return () => { u1(); u2(); u3(); };
   }, [code, router]);
 
   const revealed = !!state?.revealed;
-  const snippetLevel = state?.snippetLevel || 0;
-  const highestSnippetLevel = state?.highestSnippetLevel ?? -1;
+
+  // Validation des niveaux avec fallback sécurisé
+  const rawSnippetLevel = state?.snippetLevel || 0;
+  const snippetLevel = isValidLevel(rawSnippetLevel) ? rawSnippetLevel : 0;
+  const rawHighestLevel = state?.highestSnippetLevel ?? -1;
+  const highestSnippetLevel = rawHighestLevel >= 0 && isValidLevel(rawHighestLevel) ? rawHighestLevel : -1;
   const currentLevelConfig = SNIPPET_LEVELS[snippetLevel];
 
   const total = playlist?.tracks?.length || 0;
@@ -124,7 +135,7 @@ export default function BlindTestPlayerGame() {
 
   // Points based on HIGHEST snippet level reached (not current)
   const scoringLevel = highestSnippetLevel >= 0 ? highestSnippetLevel : 0;
-  const pointsEnJeu = SNIPPET_LEVELS[scoringLevel]?.start || 0;
+  const pointsEnJeu = getPointsForLevel(scoringLevel);
 
   // Sounds
   const playBuzz = useSound("/sounds/quiz-buzzer.wav");
@@ -154,6 +165,10 @@ export default function BlindTestPlayerGame() {
 
   const isMyTurn = state?.lockUid === me?.uid;
 
+  // Calcul de la latence (affichée si > 500ms)
+  const latencyMs = Math.abs(offset);
+  const showLatencyWarning = latencyMs > 500;
+
   return (
     <div className={`blindtest-player-page ${isMyTurn ? 'my-turn' : ''}`}>
       {/* Glow when it's my turn */}
@@ -180,6 +195,12 @@ export default function BlindTestPlayerGame() {
           <div className="game-header-left">
             <div className="game-header-progress blindtest">{progressLabel}</div>
             <div className="game-header-title">{playlist?.name || 'Blind Test'}</div>
+            {showLatencyWarning && (
+              <div className="latency-indicator" title={`Décalage: ${latencyMs}ms`}>
+                <span className="latency-dot"></span>
+                <span className="latency-text">{latencyMs}ms</span>
+              </div>
+            )}
           </div>
           <div className="game-header-right">
             <div className="my-score-badge blindtest">
@@ -280,7 +301,7 @@ export default function BlindTestPlayerGame() {
           backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(6, 182, 212, 0.2);
           padding: 12px 16px;
-          padding-top: calc(12px + env(safe-area-inset-top));
+          padding-top: 12px;
         }
 
         .game-header-content {
@@ -316,6 +337,37 @@ export default function BlindTestPlayerGame() {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+        }
+
+        .latency-indicator {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          padding: 3px 8px;
+          background: rgba(251, 191, 36, 0.15);
+          border: 1px solid rgba(251, 191, 36, 0.3);
+          border-radius: 12px;
+          flex-shrink: 0;
+        }
+
+        .latency-dot {
+          width: 6px;
+          height: 6px;
+          background: #fbbf24;
+          border-radius: 50%;
+          animation: latency-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes latency-pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .latency-text {
+          font-family: var(--font-mono, 'Roboto Mono'), monospace;
+          font-size: 0.6rem;
+          font-weight: 600;
+          color: #fbbf24;
         }
 
         .game-header-right {

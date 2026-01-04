@@ -7,19 +7,11 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import ExitButton from "@/lib/components/ExitButton";
 import Leaderboard from "@/components/game/Leaderboard";
+import PlayerManager from "@/components/game/PlayerManager";
 import { initializePlayer, playSnippet, pause, resume, isPlayerReady, disconnect, preloadTrack } from "@/lib/spotify/player";
 import { Play, Pause, SkipForward, X, Check, RotateCcw, Music, Zap, Clock, Timer, Disc, Bell } from "lucide-react";
-
-// Scoring config for blind test
-const SNIPPET_LEVELS = [
-  { duration: 1500, label: "1.5s", start: 200, floor: 150 },
-  { duration: 3000, label: "3s", start: 150, floor: 100 },
-  { duration: 10000, label: "10s", start: 100, floor: 75 },
-  { duration: null, label: "Full", start: 50, floor: 25 }
-];
-
-const LOCKOUT_MS = 8000;
-const WRONG_PENALTY = 25;
+import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel } from "@/lib/constants/blindtest";
+import { usePlayers } from "@/lib/hooks/usePlayers";
 
 function useSound(url) {
   const aRef = useRef(null);
@@ -44,8 +36,10 @@ export default function BlindTestHostGame() {
 
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
-  const [players, setPlayers] = useState([]);
   const [playlist, setPlaylist] = useState(null);
+
+  // Centralized players hook
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
 
   // Spotify player state
   const [playerReady, setPlayerReady] = useState(false);
@@ -55,6 +49,7 @@ export default function BlindTestHostGame() {
 
   // Track highest unlocked level (0 = first level always unlocked)
   const [unlockedLevel, setUnlockedLevel] = useState(0);
+  const unlockTimeoutRef = useRef(null);
 
   // Track highest level that was actually played (for scoring)
   const [highestLevelPlayed, setHighestLevelPlayed] = useState(null);
@@ -108,11 +103,8 @@ export default function BlindTestHostGame() {
   useEffect(() => {
     const u1 = onValue(ref(db, `rooms_blindtest/${code}/meta`), s => setMeta(s.val()));
     const u2 = onValue(ref(db, `rooms_blindtest/${code}/state`), s => setState(s.val()));
-    const u3 = onValue(ref(db, `rooms_blindtest/${code}/players`), s => {
-      const v = s.val() || {}; setPlayers(Object.values(v));
-    });
-    const u4 = onValue(ref(db, `rooms_blindtest/${code}/meta/playlist`), s => setPlaylist(s.val()));
-    return () => { u1(); u2(); u3(); u4(); };
+    const u3 = onValue(ref(db, `rooms_blindtest/${code}/meta/playlist`), s => setPlaylist(s.val()));
+    return () => { u1(); u2(); u3(); };
   }, [code]);
 
   // Redirect when phase changes
@@ -170,9 +162,14 @@ export default function BlindTestHostGame() {
     if (!isHost || !playerReady || !currentTrack?.spotifyUri) return;
 
     // Small delay to avoid preloading during rapid transitions
-    const timer = setTimeout(() => {
+    const timer = setTimeout(async () => {
       console.log("[BlindTest Host] Preloading track silently:", currentTrack.spotifyUri);
-      preloadTrack(currentTrack.spotifyUri);
+
+      const preloadResult = await preloadTrack(currentTrack.spotifyUri);
+
+      if (!preloadResult.success && preloadResult.error && preloadResult.error !== 'Session cancelled' && preloadResult.error !== 'Aborted') {
+        console.warn("[BlindTest Host] Preload warning:", preloadResult.error);
+      }
     }, 300);
 
     return () => clearTimeout(timer);
@@ -211,7 +208,11 @@ export default function BlindTestHostGame() {
     const config = SNIPPET_LEVELS[level];
     const trackUri = currentTrack.spotifyUri;
 
-    console.log("[BlindTest Host] Playing:", { trackUri, duration: config.duration, label: config.label });
+    console.log("[BlindTest Host] Playing:", {
+      trackUri,
+      duration: config.duration,
+      label: config.label
+    });
 
     try {
       const snippet = await playSnippet(trackUri, config.duration);
@@ -223,9 +224,20 @@ export default function BlindTestHostGame() {
       // Track highest level played for scoring
       setHighestLevelPlayed(prev => Math.max(prev ?? -1, level));
 
-      // Unlock next level when this one is played
-      if (level >= unlockedLevel) {
-        setUnlockedLevel(Math.min(level + 1, SNIPPET_LEVELS.length - 1));
+      // Cancel any pending unlock timeout
+      if (unlockTimeoutRef.current) {
+        clearTimeout(unlockTimeoutRef.current);
+        unlockTimeoutRef.current = null;
+      }
+
+      // Unlock next level after 90% of duration (except for Full which has no duration)
+      const isLastLevel = level === SNIPPET_LEVELS.length - 1;
+      if (!isLastLevel && config.duration && level >= unlockedLevel) {
+        const unlockDelay = Math.floor(config.duration * 0.9);
+        unlockTimeoutRef.current = setTimeout(() => {
+          setUnlockedLevel(prev => Math.max(prev, level + 1));
+          console.log("[BlindTest Host] Unlocked level", level + 1, "after 90% playback");
+        }, unlockDelay);
       }
 
       // Update state - also track highest level for scoring
@@ -257,6 +269,11 @@ export default function BlindTestHostGame() {
   // Full stop - resets everything for new question
   const stopMusic = async () => {
     console.log("[BlindTest Host] stopMusic called - full reset");
+    // Cancel pending unlock timeout
+    if (unlockTimeoutRef.current) {
+      clearTimeout(unlockTimeoutRef.current);
+      unlockTimeoutRef.current = null;
+    }
     if (snippetStopRef.current) {
       await snippetStopRef.current.stop();
       snippetStopRef.current = null;
@@ -307,6 +324,9 @@ export default function BlindTestHostGame() {
 
     await runTransaction(ref(db, `rooms_blindtest/${code}/players/${uid}/score`), (cur) => (cur || 0) + pts);
 
+    // Track correct answer count for stats
+    await runTransaction(ref(db, `rooms_blindtest/${code}/players/${uid}/correctAnswers`), (cur) => (cur || 0) + 1);
+
     if (meta?.mode === "équipes") {
       const player = players.find(p => p.uid === uid);
       const teamId = player?.teamId;
@@ -330,6 +350,9 @@ export default function BlindTestHostGame() {
 
     // Subtract penalty
     await runTransaction(ref(db, `rooms_blindtest/${code}/players/${uid}/score`), (cur) => Math.max(0, (cur || 0) - WRONG_PENALTY));
+
+    // Track wrong answer count for stats
+    await runTransaction(ref(db, `rooms_blindtest/${code}/players/${uid}/wrongAnswers`), (cur) => (cur || 0) + 1);
 
     if (meta?.mode === "équipes") {
       const player = players.find(p => p.uid === uid);
@@ -412,6 +435,14 @@ export default function BlindTestHostGame() {
             <div className="game-header-title">{playlist?.name || 'Blind Test'}</div>
           </div>
           <div className="game-header-right">
+            <PlayerManager
+              players={players}
+              roomCode={code}
+              roomPrefix="rooms_blindtest"
+              hostUid={meta?.hostUid}
+              variant="blindtest"
+              phase="playing"
+            />
             <ExitButton
               variant="header"
               confirmMessage="Voulez-vous vraiment quitter ? La partie sera abandonnée pour tous les joueurs."
@@ -551,9 +582,14 @@ export default function BlindTestHostGame() {
                   if (isPlaying) {
                     pauseMusic();
                   } else if (currentSnippet === null) {
+                    // Pas encore joué → premier palier
                     playLevel(0);
-                  } else {
+                  } else if (currentSnippet === SNIPPET_LEVELS.length - 1) {
+                    // Dernier palier (Full) → resume sans limite
                     resumeMusic();
+                  } else {
+                    // Rejouer le même palier avec sa durée
+                    playLevel(currentSnippet);
                   }
                 }}
                 whileHover={{ scale: 1.05 }}
@@ -573,63 +609,125 @@ export default function BlindTestHostGame() {
               <div className="snippet-grid">
                 {SNIPPET_LEVELS.map((level, idx) => {
                   const isLocked = idx > unlockedLevel;
-                  const wasPassed = idx < unlockedLevel;
+                  const isCurrent = currentSnippet === idx;
+                  const isNext = idx === unlockedLevel && !isCurrent && idx > 0;
+                  const wasPassed = currentSnippet !== null && idx < currentSnippet;
+
+                  // Styles pour chaque état
+                  const getCardStyle = () => {
+                    if (isLocked) {
+                      return {
+                        background: 'transparent',
+                        borderStyle: 'solid',
+                        borderWidth: '2px',
+                        borderColor: 'rgba(80, 80, 90, 0.2)',
+                        borderRadius: '20px',
+                        boxShadow: 'none',
+                        pointerEvents: 'none',
+                        cursor: 'not-allowed'
+                      };
+                    }
+                    if (isCurrent) {
+                      return {
+                        background: 'linear-gradient(180deg, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0.15) 100%)',
+                        borderStyle: 'solid',
+                        borderWidth: '3px',
+                        borderColor: '#34d399',
+                        borderRadius: '20px',
+                        boxShadow: '0 0 0 4px rgba(16, 185, 129, 0.15), 0 0 25px rgba(16, 185, 129, 0.4)'
+                      };
+                    }
+                    if (isNext) {
+                      return {
+                        background: 'linear-gradient(180deg, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0.08) 100%)',
+                        borderStyle: 'solid',
+                        borderWidth: '2px',
+                        borderColor: 'rgba(251, 191, 36, 0.6)',
+                        borderRadius: '20px',
+                        boxShadow: '0 0 15px rgba(251, 191, 36, 0.25)',
+                        animation: 'next-pulse 2s ease-in-out infinite'
+                      };
+                    }
+                    if (wasPassed) {
+                      return {
+                        background: 'linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.02) 100%)',
+                        borderStyle: 'solid',
+                        borderWidth: '2px',
+                        borderColor: 'rgba(16, 185, 129, 0.2)',
+                        borderRadius: '20px',
+                        boxShadow: 'none',
+                        opacity: 0.7
+                      };
+                    }
+                    // État par défaut (prêt mais pas encore joué)
+                    return {
+                      borderStyle: 'solid',
+                      borderWidth: '2px',
+                      borderColor: 'rgba(16, 185, 129, 0.3)',
+                      borderRadius: '20px'
+                    };
+                  };
+
+                  const getIconStyle = () => {
+                    if (isLocked) return { background: 'rgba(60, 60, 70, 0.4)', color: 'rgba(100, 100, 110, 0.5)' };
+                    if (isCurrent) return { background: 'rgba(16, 185, 129, 0.3)', boxShadow: '0 0 15px rgba(16, 185, 129, 0.5)' };
+                    if (isNext) return { background: 'rgba(251, 191, 36, 0.2)', color: '#fbbf24' };
+                    return {};
+                  };
+
+                  const getDurationStyle = () => {
+                    if (isLocked) return { color: 'rgba(100, 100, 110, 0.5)', textShadow: 'none' };
+                    if (isCurrent) return { textShadow: '0 0 15px rgba(16, 185, 129, 0.8)' };
+                    if (isNext) return { color: '#fbbf24', textShadow: '0 0 10px rgba(251, 191, 36, 0.5)' };
+                    return {};
+                  };
+
+                  const getPillStyle = () => {
+                    if (isLocked) return { background: 'rgba(40, 40, 50, 0.5)' };
+                    return {};
+                  };
+
+                  const getPillTextStyle = () => {
+                    if (isLocked) return { color: 'rgba(100, 100, 110, 0.5)' };
+                    return {};
+                  };
 
                   return (
                     <React.Fragment key={idx}>
                       <motion.button
-                        className={`snippet-card ${snippetLevel === idx ? 'active' : ''} ${currentSnippet === idx ? 'current' : ''}`}
-                        style={isLocked ? {
-                          background: 'transparent',
-                          borderColor: 'rgba(60, 60, 70, 0.3)',
-                          boxShadow: 'none',
-                          pointerEvents: 'none',
-                          cursor: 'not-allowed'
-                        } : {}}
+                        className={`snippet-card ${isCurrent ? 'current' : ''} ${isNext ? 'next' : ''}`}
+                        style={getCardStyle()}
                         onClick={() => playLevel(idx)}
-                        whileHover={!isLocked ? { scale: 1.02 } : {}}
-                        whileTap={!isLocked ? { scale: 0.98 } : {}}
+                        whileHover={!isLocked ? { scale: 1.03 } : {}}
+                        whileTap={!isLocked ? { scale: 0.97 } : {}}
                         disabled={!playerReady || isLocked}
+                        animate={isCurrent ? {
+                          scale: 1.08,
+                          transition: { duration: 0.2 }
+                        } : {
+                          scale: 1,
+                          transition: { duration: 0.2 }
+                        }}
                       >
                         <div className="snippet-card-inner">
-                          <div
-                            className="snippet-icon"
-                            style={isLocked ? {
-                              background: 'rgba(60, 60, 70, 0.4)',
-                              color: 'rgba(100, 100, 110, 0.6)'
-                            } : {}}
-                          >
+                          <div className="snippet-icon" style={getIconStyle()}>
                             {idx === 0 && <Zap size={20} />}
                             {idx === 1 && <Clock size={20} />}
                             {idx === 2 && <Timer size={20} />}
                             {idx === 3 && <Disc size={20} />}
                           </div>
-                          <span
-                            className="snippet-duration"
-                            style={isLocked ? {
-                              color: 'rgba(100, 100, 110, 0.6)',
-                              textShadow: 'none'
-                            } : {}}
-                          >
+                          <span className="snippet-duration" style={getDurationStyle()}>
                             {level.label}
                           </span>
-                          <div
-                            className="snippet-points-pill"
-                            style={isLocked ? {
-                              background: 'rgba(40, 40, 50, 0.5)'
-                            } : {}}
-                          >
-                            <span style={isLocked ? { color: 'rgba(100, 100, 110, 0.6)' } : {}}>{level.start}</span>
-                            <small style={isLocked ? { color: 'rgba(100, 100, 110, 0.5)' } : {}}>pts</small>
+                          <div className="snippet-points-pill" style={getPillStyle()}>
+                            <span style={getPillTextStyle()}>{level.start}</span>
+                            <small style={getPillTextStyle()}>pts</small>
                           </div>
                         </div>
-                        {currentSnippet === idx && (
-                          <div className="snippet-active-bar"></div>
-                        )}
                       </motion.button>
                       {/* Connector line to next button */}
                       {idx < SNIPPET_LEVELS.length - 1 && (
-                        <div className={`snippet-connector ${wasPassed ? 'filling' : ''} ${idx < unlockedLevel ? 'filled' : ''}`}>
+                        <div className={`snippet-connector ${idx < unlockedLevel ? 'filled' : ''}`}>
                           <div className="connector-line">
                             <div className="connector-fill" />
                           </div>
@@ -737,7 +835,7 @@ export default function BlindTestHostGame() {
           -webkit-backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(16, 185, 129, 0.2);
           padding: 12px 16px;
-          padding-top: calc(12px + env(safe-area-inset-top));
+          padding-top: 12px;
           width: 100%;
           max-width: 100%;
           overflow: hidden;
@@ -1006,7 +1104,8 @@ export default function BlindTestHostGame() {
           margin-bottom: 16px;
           width: 100%;
           min-width: 0;
-          overflow: hidden;
+          overflow: visible;
+          padding: 8px 4px;
         }
 
         .snippet-section-label {
@@ -1028,6 +1127,7 @@ export default function BlindTestHostGame() {
           gap: 0;
           width: 100%;
           min-width: 0;
+          overflow: visible;
         }
 
         /* Connector between buttons */
@@ -1077,38 +1177,123 @@ export default function BlindTestHostGame() {
           position: relative;
           flex: 1 1 0;
           min-width: 0;
-          background: linear-gradient(180deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
-          border: 2px solid rgba(16, 185, 129, 0.4);
-          border-radius: 14px;
+          background: linear-gradient(180deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.04) 100%);
+          border: 2px solid rgba(16, 185, 129, 0.3);
+          border-radius: 20px;
           padding: 0;
           cursor: pointer;
-          overflow: hidden;
-          transition: all 0.2s ease;
-          box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+          overflow: visible;
+          transition: all 0.25s ease;
+          box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
         }
 
         .snippet-card:hover:not(:disabled):not(.locked) {
-          background: linear-gradient(180deg, rgba(16, 185, 129, 0.22) 0%, rgba(16, 185, 129, 0.1) 100%);
-          border-color: rgba(16, 185, 129, 0.6);
-          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+          background: linear-gradient(180deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.08) 100%);
+          border-color: rgba(16, 185, 129, 0.5);
+          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
         }
 
         .snippet-card:active:not(:disabled):not(.locked) {
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .snippet-card.active {
-          background: linear-gradient(180deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.1) 100%);
-          border-color: #34d399;
-        }
-
-        .snippet-card.current {
-          border-color: #34d399;
-          box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2), 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-
         .snippet-card:disabled {
           cursor: not-allowed;
+        }
+
+        /* Current playing level - highlighted and scaled */
+        .snippet-card.current {
+          background: linear-gradient(180deg, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0.15) 100%);
+          border-color: #34d399;
+          border-width: 3px;
+          box-shadow:
+            0 0 0 4px rgba(16, 185, 129, 0.15),
+            0 0 25px rgba(16, 185, 129, 0.4),
+            0 8px 20px rgba(16, 185, 129, 0.25);
+        }
+
+        .snippet-card.current .snippet-icon {
+          background: rgba(16, 185, 129, 0.3);
+          box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+        }
+
+        .snippet-card.current .snippet-duration {
+          text-shadow: 0 0 15px rgba(16, 185, 129, 0.8);
+        }
+
+        /* Next available level - ready to use, pulsing */
+        .snippet-card.next {
+          background: linear-gradient(180deg, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0.08) 100%);
+          border-color: rgba(251, 191, 36, 0.6);
+          box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+          animation: next-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes next-pulse {
+          0%, 100% {
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+            border-color: rgba(251, 191, 36, 0.5);
+          }
+          50% {
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.35);
+            border-color: rgba(251, 191, 36, 0.8);
+          }
+        }
+
+        .snippet-card.next .snippet-icon {
+          background: rgba(251, 191, 36, 0.2);
+          color: #fbbf24;
+        }
+
+        .snippet-card.next .snippet-duration {
+          color: #fbbf24;
+          text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+
+        /* Passed levels - slightly dimmed */
+        .snippet-card.passed {
+          background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.02) 100%);
+          border-color: rgba(16, 185, 129, 0.25);
+          box-shadow: none;
+        }
+
+        .snippet-card.passed .snippet-icon {
+          opacity: 0.7;
+        }
+
+        .snippet-card.passed .snippet-duration {
+          opacity: 0.7;
+        }
+
+        /* Locked levels - greyed out */
+        .snippet-card.locked {
+          background: transparent;
+          border-color: rgba(60, 60, 70, 0.3);
+          box-shadow: none;
+          pointer-events: none;
+          cursor: not-allowed;
+        }
+
+        .snippet-card.locked .snippet-icon {
+          background: rgba(60, 60, 70, 0.4);
+          color: rgba(100, 100, 110, 0.6);
+        }
+
+        .snippet-card.locked .snippet-duration {
+          color: rgba(100, 100, 110, 0.6);
+          text-shadow: none;
+        }
+
+        .snippet-card.locked .snippet-points-pill {
+          background: rgba(40, 40, 50, 0.5);
+        }
+
+        .snippet-card.locked .snippet-points-pill span {
+          color: rgba(100, 100, 110, 0.6);
+        }
+
+        .snippet-card.locked .snippet-points-pill small {
+          color: rgba(100, 100, 110, 0.5);
         }
 
         .snippet-card-inner {
@@ -1117,6 +1302,7 @@ export default function BlindTestHostGame() {
           align-items: center;
           gap: 8px;
           padding: 16px 10px;
+          border-radius: inherit;
         }
 
         .snippet-icon {
@@ -1176,6 +1362,7 @@ export default function BlindTestHostGame() {
           height: 4px;
           background: linear-gradient(90deg, #10b981, #34d399);
           animation: snippet-progress 0.5s ease-out;
+          border-radius: 0 0 18px 18px;
         }
 
         @keyframes snippet-progress {

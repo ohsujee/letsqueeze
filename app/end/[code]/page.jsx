@@ -10,6 +10,8 @@ import { hueScenariosService } from "@/lib/hue-module";
 import { recordQuizGame } from "@/lib/services/statsService";
 import { storage } from "@/lib/utils/storage";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 
@@ -30,7 +32,6 @@ export default function EndPage(){
   const router = useRouter();
   const toast = useToast();
 
-  const [players,setPlayers]=useState([]);
   const [meta,setMeta]=useState(null);
   const [quizTitle, setQuizTitle] = useState("");
   const [myUid, setMyUid] = useState(null);
@@ -41,6 +42,17 @@ export default function EndPage(){
   // Get user profile for Pro check
   const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+
+  // Centralized players hook
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
+
+  // Room guard - détecte fermeture room par l'hôte
+  useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    playerUid: myUid,
+    isHost: false
+  });
 
   // Récupérer l'uid de l'utilisateur depuis le localStorage
   useEffect(() => {
@@ -79,15 +91,9 @@ export default function EndPage(){
   const isHost = myUid && meta?.hostUid === myUid;
 
   useEffect(()=>{
-    const u1 = onValue(ref(db,`rooms/${code}/players`), s=>{
-      const v=s.val()||{};
-      // Inclure l'uid depuis les clés Firebase
-      const playersWithUid = Object.entries(v).map(([uid, data]) => ({ uid, ...data }));
-      setPlayers(playersWithUid);
-    });
-    const u2 = onValue(ref(db,`rooms/${code}/meta`), s=> setMeta(s.val()));
-    const u3 = onValue(ref(db,`rooms/${code}/state`), s=> setState(s.val()));
-    return ()=>{u1();u2();u3();};
+    const u1 = onValue(ref(db,`rooms/${code}/meta`), s=> setMeta(s.val()));
+    const u2 = onValue(ref(db,`rooms/${code}/state`), s=> setState(s.val()));
+    return ()=>{u1();u2();};
   },[code]);
 
   // Memos must be defined before useEffects that use them
@@ -286,7 +292,7 @@ export default function EndPage(){
           position: relative;
           z-index: 1;
           padding: 16px;
-          padding-top: calc(16px + env(safe-area-inset-top));
+          padding-top: 16px;
           max-width: 500px;
           margin: 0 auto;
           width: 100%;

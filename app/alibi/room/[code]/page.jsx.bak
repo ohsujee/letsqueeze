@@ -16,19 +16,14 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import ShareModal from "@/lib/components/ShareModal";
 import ExitButton from "@/lib/components/ExitButton";
-import PlayerManager from "@/components/game/PlayerManager";
 import PaywallModal from "@/components/ui/PaywallModal";
 import AlibiSelectorModal from "@/components/alibi/AlibiSelectorModal";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { canAccessPack, isPro } from "@/lib/subscription";
-import { usePlayers } from "@/lib/hooks/usePlayers";
-import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useToast } from "@/lib/hooks/useToast";
 import { getAlibiManifest } from "@/lib/utils/manifestCache";
 import { ChevronRight, Eye, Shuffle, RotateCcw, X, UserPlus, HelpCircle } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
-import { showInterstitialAd, initAdMob } from "@/lib/admob";
-import { storage } from "@/lib/utils/storage";
 
 export default function AlibiLobby() {
   const { code } = useParams();
@@ -36,14 +31,12 @@ export default function AlibiLobby() {
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
+  const [players, setPlayers] = useState([]);
   const [isHost, setIsHost] = useState(false);
-  const [myUid, setMyUid] = useState(null);
-
-  // Centralized players hook
-  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
   const [alibiOptions, setAlibiOptions] = useState([]);
   const [selectedAlibiId, setSelectedAlibiId] = useState(null);
   const [joinUrl, setJoinUrl] = useState("");
+  const [hostPseudo, setHostPseudo] = useState("");
   const [hostJoined, setHostJoined] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
   const [showAlibiSelector, setShowAlibiSelector] = useState(false);
@@ -52,37 +45,10 @@ export default function AlibiLobby() {
   const [hostRole, setHostRole] = useState('inspectors'); // Default: host is inspector
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const roomWasValidRef = useRef(false);
-  const adShownRef = useRef(false);
 
-  // Get user profile for subscription check and pseudo
-  const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
+  // Get user profile for subscription check
+  const { user: currentUser, subscription } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
-
-  // Get pseudo from profile or fallback
-  const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Hôte';
-
-  // Show interstitial ad on first lobby entry (not when returning from game end)
-  useEffect(() => {
-    // Skip if already shown, or still loading
-    if (adShownRef.current || profileLoading) return;
-
-    // Check if returning from game end (don't show ad in that case)
-    const returnedFromGame = storage.get('returnedFromGame');
-    if (returnedFromGame) {
-      adShownRef.current = true;
-      return;
-    }
-
-    // Wait for profile to load to check Pro status
-    if (currentUser !== null && !userIsPro) {
-      adShownRef.current = true;
-      initAdMob().then(() => {
-        showInterstitialAd().catch(err => {
-          console.log('[AlibiLobby] Interstitial ad error:', err);
-        });
-      });
-    }
-  }, [currentUser, userIsPro, profileLoading]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {
@@ -104,7 +70,6 @@ export default function AlibiLobby() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setMyUid(user.uid);
         setIsHost(meta?.hostUid === user.uid);
         setHostJoined(players.some(p => p.uid === user.uid));
       } else {
@@ -114,14 +79,6 @@ export default function AlibiLobby() {
     return () => unsub();
   }, [meta?.hostUid, players]);
 
-  // Room guard - détecte kick et fermeture room
-  useRoomGuard({
-    roomCode: code,
-    roomPrefix: 'rooms_alibi',
-    playerUid: myUid,
-    isHost
-  });
-
   // DB listeners
   useEffect(() => {
     if (!code) return;
@@ -129,14 +86,29 @@ export default function AlibiLobby() {
     const metaUnsub = onValue(ref(db, `rooms_alibi/${code}/meta`), (snap) => {
       const m = snap.val();
       if (m) {
+        // Check if room was closed by host
         if (m.closed) {
-          return; // useRoomGuard handles this
+          // Only show toast if not the host (host already knows they're leaving)
+          const currentUid = auth.currentUser?.uid;
+          if (currentUid !== m.hostUid) {
+            toast.warning("L'hôte a quitté la partie");
+          }
+          router.push('/home');
+          return;
         }
         setMeta(m);
         setSelectedAlibiId(m?.alibiId || null);
         roomWasValidRef.current = true;
+      } else if (roomWasValidRef.current) {
+        // Room was deleted (host left) - show toast only for non-hosts
+        toast.warning("L'hôte a quitté la partie");
+        router.push('/home');
       }
-      // Room deletion is now handled by useRoomGuard
+    });
+
+    const playersUnsub = onValue(ref(db, `rooms_alibi/${code}/players`), (snap) => {
+      const p = snap.val() || {};
+      setPlayers(Object.values(p));
     });
 
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
@@ -148,20 +120,21 @@ export default function AlibiLobby() {
 
     return () => {
       metaUnsub();
+      playersUnsub();
       stateUnsub();
     };
   }, [code, router]);
 
   const handleHostJoin = async () => {
-    if (!isHost || !userPseudo || !auth.currentUser) return;
+    if (!isHost || !hostPseudo || !auth.currentUser) return;
     const uid = auth.currentUser.uid;
     await set(ref(db, `rooms_alibi/${code}/players/${uid}`), {
       uid,
-      name: userPseudo,
+      name: hostPseudo,
       team: hostRole,
       joinedAt: Date.now()
     });
-    // Pas besoin de toast, l'UI se met à jour
+    toast.success(`Tu as rejoint en tant qu'${hostRole === 'inspectors' ? 'inspecteur' : 'suspect'} !`);
   };
 
   const handleSelectAlibi = async (alibiId) => {
@@ -191,7 +164,7 @@ export default function AlibiLobby() {
     });
 
     await update(ref(db), updates);
-    // Pas besoin de toast, l'UI se met à jour
+    toast.success('Rôles assignés !');
   };
 
   // Reset all teams
@@ -270,7 +243,7 @@ export default function AlibiLobby() {
         }
       });
 
-      // Partie lancée - pas besoin de toast, redirection automatique
+      toast.success('Partie lancée !');
     } catch (error) {
       console.error('Erreur lors du lancement:', error);
       toast.error('Erreur lors du lancement de la partie');
@@ -374,16 +347,6 @@ export default function AlibiLobby() {
           >
             <HelpCircle size={18} />
           </motion.button>
-          {isHost && (
-            <PlayerManager
-              players={players}
-              roomCode={code}
-              roomPrefix="rooms_alibi"
-              hostUid={meta?.hostUid}
-              variant="alibi"
-              phase="lobby"
-            />
-          )}
           {!isHost && (
             <motion.button
               className="spectator-btn alibi-accent"
@@ -434,14 +397,19 @@ export default function AlibiLobby() {
                 </div>
               </motion.div>
 
-              {/* Host Join Card - Compact with profile pseudo */}
+              {/* Host Join Card - Compact */}
               {!hostJoined && (
                 <div className="host-join-compact">
                   <div className="host-join-row">
-                    <div className="host-pseudo-preview">
-                      <span className="pseudo-label">Tu joues en tant que</span>
-                      <span className="pseudo-name">{userPseudo}</span>
-                    </div>
+                    <input
+                      className="host-join-input-compact"
+                      placeholder="Ton pseudo"
+                      value={hostPseudo}
+                      onChange={(e) => setHostPseudo(e.target.value)}
+                      maxLength={20}
+                      autoComplete="name"
+                      onKeyDown={(e) => e.key === 'Enter' && hostPseudo && handleHostJoin()}
+                    />
                     <div className="host-role-toggle">
                       <button
                         className={`role-toggle-btn ${hostRole === 'inspectors' ? 'active' : ''}`}
@@ -461,11 +429,11 @@ export default function AlibiLobby() {
                     <motion.button
                       className="host-join-btn-compact"
                       onClick={handleHostJoin}
-                      disabled={!userPseudo || profileLoading}
-                      whileHover={userPseudo && !profileLoading ? { scale: 1.05 } : {}}
-                      whileTap={userPseudo && !profileLoading ? { scale: 0.95 } : {}}
+                      disabled={!hostPseudo}
+                      whileHover={hostPseudo ? { scale: 1.05 } : {}}
+                      whileTap={hostPseudo ? { scale: 0.95 } : {}}
                     >
-                      {profileLoading ? '...' : 'Rejoindre'}
+                      Rejoindre
                     </motion.button>
                   </div>
                 </div>

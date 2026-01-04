@@ -19,6 +19,7 @@ import { recordAlibiGame } from "@/lib/services/statsService";
 import { storage } from "@/lib/utils/storage";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { isPro } from "@/lib/subscription";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 
 /**
@@ -196,7 +197,6 @@ export default function AlibiEnd() {
   const [myTeam, setMyTeam] = useState(null);
   const [isHost, setIsHost] = useState(false);
   const [meta, setMeta] = useState(null);
-  const [players, setPlayers] = useState({});
   const [displayScore, setDisplayScore] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -211,6 +211,14 @@ export default function AlibiEnd() {
   // Get user profile for Pro check
   const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+
+  // Room guard - détecte fermeture room par l'hôte
+  useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
+    playerUid: firebaseUser?.uid,
+    isHost
+  });
 
   // Mark that user completed a game (for guest prompt on home)
   useEffect(() => {
@@ -261,10 +269,6 @@ export default function AlibiEnd() {
       setTimeout(() => setIsLoaded(true), 100);
     });
 
-    const playersUnsub = onValue(ref(db, `rooms_alibi/${code}/players`), (snap) => {
-      setPlayers(snap.val() || {});
-    });
-
     // Redirection automatique quand l'hôte retourne au lobby
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
       const state = snap.val();
@@ -275,7 +279,6 @@ export default function AlibiEnd() {
 
     return () => {
       scoreUnsub();
-      playersUnsub();
       stateUnsub();
     };
   }, [code, router]);

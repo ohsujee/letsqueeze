@@ -1,28 +1,47 @@
 'use client';
 
+import { useMemo } from 'react';
+import { WifiOff } from 'lucide-react';
+
 /**
  * Leaderboard - Composant de classement réutilisable
  * Utilisé côté host et player pour afficher le classement des joueurs
+ * Grise les joueurs déconnectés (status: 'disconnected' ou 'left')
  */
 export default function Leaderboard({ players = [], currentPlayerUid = null }) {
-  // Trier par score décroissant
-  const sorted = [...players].sort((a, b) => (b.score || 0) - (a.score || 0));
+  // Trier par score décroissant (mémorisé pour éviter les recalculs inutiles)
+  const sorted = useMemo(() =>
+    [...players].sort((a, b) => (b.score || 0) - (a.score || 0)),
+    [players]
+  );
+
+  // Compter les joueurs actifs
+  const activeCount = useMemo(() =>
+    players.filter(p => !p.status || p.status === 'active').length,
+    [players]
+  );
 
   return (
     <div className="leaderboard-card">
       <div className="leaderboard-header">
         <span className="leaderboard-title">Classement</span>
-        <span className="leaderboard-count">{players.length} joueurs</span>
+        <span className="leaderboard-count">
+          {activeCount === players.length
+            ? `${players.length} joueurs`
+            : `${activeCount}/${players.length} actifs`
+          }
+        </span>
       </div>
       <div className="leaderboard-list">
         {sorted.map((p, i) => {
           const isMe = currentPlayerUid && p.uid === currentPlayerUid;
+          const isDisconnected = p.status === 'disconnected' || p.status === 'left';
           const rankClass = i === 0 ? 'first' : i === 1 ? 'second' : i === 2 ? 'third' : '';
 
           return (
             <div
               key={p.uid}
-              className={`player-row ${rankClass} ${isMe ? 'is-me' : ''}`}
+              className={`player-row ${rankClass} ${isMe ? 'is-me' : ''} ${isDisconnected ? 'disconnected' : ''}`}
             >
               <span className="player-rank">
                 {i < 3 ? ['🥇', '🥈', '🥉'][i] : <span className="rank-number">{i + 1}</span>}
@@ -30,6 +49,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
               <span className="player-name">
                 {p.name}
                 {isMe && <span className="you-badge">vous</span>}
+                {isDisconnected && <WifiOff size={12} className="disconnected-icon" />}
               </span>
               <span className="player-score">{p.score || 0}</span>
             </div>
@@ -102,7 +122,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           gap: 6px;
           overflow-y: auto;
           overflow-x: hidden;
-          padding-right: 4px;
+          padding: 2px 4px 2px 2px;
         }
 
         .leaderboard-list::-webkit-scrollbar { width: 4px; }
@@ -142,6 +162,29 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
         .player-row.is-me {
           background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(139, 92, 246, 0.15)) !important;
           border-color: rgba(139, 92, 246, 0.7) !important;
+        }
+
+        .player-row.disconnected {
+          opacity: 0.45;
+          filter: grayscale(0.6);
+        }
+
+        .player-row.disconnected .player-name {
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        .player-row.disconnected .player-score {
+          color: rgba(255, 255, 255, 0.4);
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.1);
+          text-shadow: none;
+        }
+
+        .disconnected-icon {
+          display: inline-block;
+          margin-left: 6px;
+          color: rgba(239, 68, 68, 0.7);
+          vertical-align: middle;
         }
 
         .player-rank {

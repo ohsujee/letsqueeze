@@ -182,16 +182,27 @@ export default function WatchAdModal({
   gameType = 'quiz'
 }) {
   const [isWatching, setIsWatching] = useState(false);
+  const [error, setError] = useState(null);
 
   if (!isOpen) return null;
 
   const handleWatchAd = async () => {
     setIsWatching(true);
-    const success = await onWatchAd();
-    setIsWatching(false);
+    setError(null);
 
-    if (success) {
-      onClose();
+    try {
+      const success = await onWatchAd();
+      setIsWatching(false);
+
+      if (success) {
+        onClose();
+      } else {
+        setError('La publicité n\'a pas pu être chargée. Réessaie dans quelques instants.');
+      }
+    } catch (err) {
+      console.error('[WatchAdModal] Error:', err);
+      setIsWatching(false);
+      setError('Une erreur est survenue. Réessaie plus tard.');
     }
   };
 
@@ -258,6 +269,25 @@ export default function WatchAdModal({
                   {rewardedGamesRemaining} partie{rewardedGamesRemaining > 1 ? 's' : ''} bonus disponible{rewardedGamesRemaining > 1 ? 's' : ''}
                 </span>
               </motion.div>
+            )}
+
+            {/* Error message */}
+            {error && (
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={{
+                  color: '#f87171',
+                  fontSize: '0.875rem',
+                  marginBottom: '16px',
+                  padding: '12px',
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  border: '1px solid rgba(239, 68, 68, 0.2)',
+                  borderRadius: '10px',
+                }}
+              >
+                {error}
+              </motion.p>
             )}
 
             {/* Actions */}

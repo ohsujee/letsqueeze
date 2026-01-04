@@ -8,6 +8,8 @@ import { motion } from "framer-motion";
 import { useToast } from "@/lib/hooks/useToast";
 import { storage } from "@/lib/utils/storage";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 
@@ -28,7 +30,6 @@ export default function BlindTestEndPage() {
   const router = useRouter();
   const toast = useToast();
 
-  const [players, setPlayers] = useState([]);
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
   const [myUid, setMyUid] = useState(null);
@@ -37,6 +38,17 @@ export default function BlindTestEndPage() {
   // Get user profile for Pro check
   const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+
+  // Centralized players hook
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
+
+  // Room guard - détecte fermeture room par l'hôte
+  useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
+    playerUid: myUid,
+    isHost: false
+  });
 
   // Get current user UID
   useEffect(() => {
@@ -63,14 +75,9 @@ export default function BlindTestEndPage() {
 
   // Firebase listeners
   useEffect(() => {
-    const u1 = onValue(ref(db, `rooms_blindtest/${code}/players`), s => {
-      const v = s.val() || {};
-      const playersWithUid = Object.entries(v).map(([uid, data]) => ({ uid, ...data }));
-      setPlayers(playersWithUid);
-    });
-    const u2 = onValue(ref(db, `rooms_blindtest/${code}/meta`), s => setMeta(s.val()));
-    const u3 = onValue(ref(db, `rooms_blindtest/${code}/state`), s => setState(s.val()));
-    return () => { u1(); u2(); u3(); };
+    const u1 = onValue(ref(db, `rooms_blindtest/${code}/meta`), s => setMeta(s.val()));
+    const u2 = onValue(ref(db, `rooms_blindtest/${code}/state`), s => setState(s.val()));
+    return () => { u1(); u2(); };
   }, [code]);
 
   const isHost = myUid && meta?.hostUid === myUid;
@@ -84,6 +91,19 @@ export default function BlindTestEndPage() {
 
   const rankedPlayers = useMemo(() => rankWithTies(players, "score"), [players]);
   const rankedTeams = useMemo(() => rankWithTies(teamsArray, "score"), [teamsArray]);
+
+  // Stats du joueur actuel
+  const myStats = useMemo(() => {
+    const me = players.find(p => p.uid === myUid);
+    if (!me) return null;
+    const totalTracks = meta?.playlist?.tracks?.length || 0;
+    return {
+      correctAnswers: me.correctAnswers || 0,
+      wrongAnswers: me.wrongAnswers || 0,
+      totalTracks,
+      score: me.score || 0
+    };
+  }, [players, myUid, meta?.playlist?.tracks?.length]);
 
   // Redirect if host returns to lobby
   useEffect(() => {
@@ -99,11 +119,13 @@ export default function BlindTestEndPage() {
     try {
       const updates = {};
 
-      // Reset player scores
+      // Reset player scores and stats
       players.forEach(player => {
         if (player.uid) {
           updates[`rooms_blindtest/${code}/players/${player.uid}/score`] = 0;
           updates[`rooms_blindtest/${code}/players/${player.uid}/blockedUntil`] = 0;
+          updates[`rooms_blindtest/${code}/players/${player.uid}/correctAnswers`] = 0;
+          updates[`rooms_blindtest/${code}/players/${player.uid}/wrongAnswers`] = 0;
         }
       });
 
@@ -153,6 +175,27 @@ export default function BlindTestEndPage() {
           </div>
         )}
 
+        {/* Stats personnelles */}
+        {myStats && (
+          <div className="my-stats-card">
+            <div className="stats-title">Ton récap</div>
+            <div className="stats-row">
+              <div className="stat-item correct">
+                <span className="stat-value">{myStats.correctAnswers}</span>
+                <span className="stat-label">Bonnes réponses</span>
+              </div>
+              <div className="stat-item wrong">
+                <span className="stat-value">{myStats.wrongAnswers}</span>
+                <span className="stat-label">Erreurs</span>
+              </div>
+              <div className="stat-item total">
+                <span className="stat-value">{myStats.score}</span>
+                <span className="stat-label">Points</span>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Leaderboard */}
         <div className="leaderboard-wrapper">
           <Leaderboard players={rankedPlayers} currentPlayerUid={myUid} />
@@ -199,7 +242,7 @@ export default function BlindTestEndPage() {
           position: relative;
           z-index: 1;
           padding: 16px;
-          padding-top: calc(16px + env(safe-area-inset-top));
+          padding-top: 16px;
           max-width: 500px;
           margin: 0 auto;
           width: 100%;
@@ -238,6 +281,89 @@ export default function BlindTestEndPage() {
           transform: scale(0.5);
           transform-origin: center top;
           margin: 0 0 -200px 0;
+        }
+
+        /* ===== STATS CARD ===== */
+        .my-stats-card {
+          flex-shrink: 0;
+          background: rgba(20, 20, 30, 0.8);
+          border: 1px solid rgba(16, 185, 129, 0.25);
+          border-radius: 14px;
+          padding: 14px 16px;
+          margin-bottom: 12px;
+          position: relative;
+          z-index: 3;
+        }
+
+        .stats-title {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.6);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 12px;
+          text-align: center;
+        }
+
+        .stats-row {
+          display: flex;
+          justify-content: space-around;
+          gap: 8px;
+        }
+
+        .stat-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+          padding: 10px 16px;
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+          flex: 1;
+        }
+
+        .stat-item.correct {
+          border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .stat-item.wrong {
+          border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .stat-item.total {
+          border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .stat-value {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.4rem;
+          line-height: 1;
+        }
+
+        .stat-item.correct .stat-value {
+          color: #22c55e;
+          text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+        }
+
+        .stat-item.wrong .stat-value {
+          color: #f87171;
+          text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+        }
+
+        .stat-item.total .stat-value {
+          color: #34d399;
+          text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .stat-label {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.6rem;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.5);
+          text-transform: uppercase;
+          letter-spacing: 0.3px;
+          text-align: center;
         }
 
         /* ===== LEADERBOARD ===== */
