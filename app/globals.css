@@ -862,7 +862,7 @@ main {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  background: var(--bg-card);
+  background: var(--bg-card, rgba(20, 20, 30, 0.8));
   backdrop-filter: blur(10px);
   aspect-ratio: 4/3;
   cursor: pointer;
@@ -5547,6 +5547,459 @@ textarea:focus-visible {
 }
 
 /* ===========================================
+   🎵 DEEZER THEME OVERRIDES (deeztest)
+   Uses Deezer purple (#A238FF) and pink (#FF0092)
+   =========================================== */
+
+.lobby-container.deeztest::before {
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(162, 56, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255, 0, 146, 0.1) 0%, transparent 50%),
+    var(--bg-primary, #0a0a0f);
+}
+
+.lobby-header.deeztest .lobby-title.deeztest {
+  text-shadow:
+    0 0 10px rgba(162, 56, 255, 0.5),
+    0 0 20px rgba(162, 56, 255, 0.3),
+    0 0 40px rgba(162, 56, 255, 0.2);
+}
+
+.lobby-header.deeztest .room-code.deeztest {
+  color: #C574FF;
+  text-shadow: 0 0 15px rgba(162, 56, 255, 0.5);
+}
+
+.loading-spinner.deeztest {
+  border-color: rgba(162, 56, 255, 0.2);
+  border-top-color: #C574FF;
+}
+
+.help-btn.deeztest,
+.spectator-btn.deeztest {
+  background: rgba(162, 56, 255, 0.15);
+  border: 2px solid rgba(162, 56, 255, 0.3);
+  color: #C574FF;
+}
+
+.help-btn.deeztest:hover,
+.spectator-btn.deeztest:hover {
+  background: rgba(162, 56, 255, 0.25);
+  border-color: rgba(162, 56, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(162, 56, 255, 0.3);
+}
+
+/* Lobby card deeztest theme */
+.lobby-card.deeztest::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(162, 56, 255, 0.4),
+    rgba(255, 0, 146, 0.6),
+    rgba(162, 56, 255, 0.4),
+    transparent
+  );
+}
+
+/* Quiz selector card for deeztest */
+.lobby-card.quiz-selector.deeztest {
+  cursor: pointer;
+  border-color: rgba(162, 56, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.lobby-card.quiz-selector.deeztest:hover {
+  border-color: rgba(162, 56, 255, 0.4);
+  box-shadow: 0 0 20px rgba(162, 56, 255, 0.15);
+}
+
+/* Deezer status bar in playlist card */
+.deezer-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.deezer-connected-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: #A238FF;
+}
+
+/* Mode toggle deeztest theme */
+.mode-toggle.deeztest {
+  background: rgba(162, 56, 255, 0.1);
+  border-color: rgba(162, 56, 255, 0.2);
+}
+
+.mode-btn.deeztest.active {
+  background: linear-gradient(135deg, #A238FF, #FF0092);
+  color: white;
+  box-shadow: 0 4px 15px rgba(162, 56, 255, 0.4);
+}
+
+/* Player count badge deeztest */
+.player-count-badge.deeztest {
+  background: linear-gradient(135deg, rgba(162, 56, 255, 0.3), rgba(162, 56, 255, 0.15));
+  color: #C574FF;
+  border-color: rgba(162, 56, 255, 0.4);
+}
+
+/* Player chip deeztest */
+.player-chip.deeztest {
+  background: rgba(162, 56, 255, 0.1);
+  border-color: rgba(162, 56, 255, 0.2);
+}
+
+.player-chip.deeztest .chip-avatar.deeztest {
+  background: linear-gradient(135deg, rgba(162, 56, 255, 0.3), rgba(162, 56, 255, 0.15));
+  color: #C574FF;
+  border-color: rgba(162, 56, 255, 0.4);
+}
+
+/* Start button deeztest */
+.lobby-start-btn.deeztest {
+  background: linear-gradient(135deg, #A238FF, #FF0092);
+  box-shadow:
+    0 6px 0 #7B1FA2,
+    0 8px 25px rgba(162, 56, 255, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+}
+
+.lobby-start-btn.deeztest:hover:not(:disabled) {
+  box-shadow:
+    0 8px 0 #7B1FA2,
+    0 12px 35px rgba(162, 56, 255, 0.6),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+}
+
+.lobby-start-btn.deeztest:active:not(:disabled) {
+  box-shadow:
+    0 3px 0 #7B1FA2,
+    0 5px 15px rgba(162, 56, 255, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+}
+
+.start-hint.deeztest {
+  color: rgba(162, 56, 255, 0.7);
+}
+
+/* Player view deeztest */
+.lobby-player-view.deeztest {
+  /* Inherits base styles */
+}
+
+.player-info-card.deeztest {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(162, 56, 255, 0.1);
+  border: 1px solid rgba(162, 56, 255, 0.25);
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.player-info-placeholder.deeztest {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  background: rgba(162, 56, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C574FF;
+}
+
+.players-header-card.deeztest {
+  background: rgba(162, 56, 255, 0.1);
+  border-color: rgba(162, 56, 255, 0.2);
+}
+
+.players-header-card.deeztest .players-count {
+  color: #C574FF;
+  text-shadow: 0 0 15px rgba(162, 56, 255, 0.5);
+}
+
+.player-chip-full.deeztest.is-me {
+  background: rgba(162, 56, 255, 0.15);
+  border-color: rgba(162, 56, 255, 0.4);
+}
+
+.chip-avatar-glow.deeztest {
+  background: linear-gradient(135deg, rgba(162, 56, 255, 0.3), rgba(162, 56, 255, 0.15));
+  box-shadow: 0 0 15px rgba(162, 56, 255, 0.3);
+}
+
+.waiting-compact.deeztest {
+  color: rgba(162, 56, 255, 0.7);
+}
+
+.waiting-pulse.deeztest {
+  background: #C574FF;
+  box-shadow: 0 0 20px rgba(162, 56, 255, 0.5);
+}
+
+/* Playlist modal deeztest theme */
+.playlist-modal.deeztest {
+  width: 100%;
+  max-width: 500px;
+  height: 85vh;
+  min-height: 500px;
+  background: rgba(15, 15, 25, 0.98);
+  border-radius: 24px 24px 0 0;
+  border: 1px solid rgba(162, 56, 255, 0.2);
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.playlist-option.deeztest:hover {
+  background: rgba(162, 56, 255, 0.1);
+}
+
+.playlist-option-placeholder.deeztest {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  background: rgba(162, 56, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C574FF;
+}
+
+/* Deeztest join page styles */
+.deeztest-join-container {
+  min-height: 100dvh;
+  background: var(--bg-primary, #0a0a0f);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.deeztest-join-container::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(162, 56, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 60%, rgba(255, 0, 146, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 80%, rgba(162, 56, 255, 0.08) 0%, transparent 50%);
+}
+
+.deeztest-join-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.deeztest-join-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.deeztest-join-header .page-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: clamp(2rem, 6vw, 2.5rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #C574FF, #A238FF, #FF0092);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 8px 0;
+}
+
+.deeztest-join-header .subtitle {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.deeztest-join-card {
+  background: var(--bg-card, rgba(20, 20, 30, 0.8));
+  border: 1px solid rgba(162, 56, 255, 0.2);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.deeztest-join-card .input-field {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(162, 56, 255, 0.2);
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.deeztest-join-card .input-field:focus {
+  border-color: #A238FF;
+  box-shadow: 0 0 20px rgba(162, 56, 255, 0.2);
+}
+
+.deeztest-join-card .input-code {
+  font-family: var(--font-mono, 'JetBrains Mono'), monospace;
+  font-size: 1.75rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+
+.pseudo-preview.deeztest {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(162, 56, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.pseudo-preview.deeztest .pseudo-icon {
+  color: #A238FF;
+}
+
+.pseudo-preview.deeztest .pseudo-name {
+  color: #C574FF;
+  font-weight: 600;
+}
+
+.btn-join.deeztest {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #A238FF, #FF0092);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px rgba(162, 56, 255, 0.3);
+}
+
+.btn-join.deeztest:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(162, 56, 255, 0.4);
+}
+
+.btn-join.deeztest:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.deeztest-join-footer {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.deeztest-detected-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(162, 56, 255, 0.1);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+}
+
+.deeztest-detected-code .code {
+  font-family: var(--font-mono, 'JetBrains Mono'), monospace;
+  color: #C574FF;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+/* Playlist search wrapper deeztest */
+.playlist-search-wrapper.deeztest .search-icon {
+  color: #A238FF;
+}
+
+.playlist-search-wrapper.deeztest .playlist-search-input:focus {
+  border-color: #A238FF;
+  box-shadow: 0 0 15px rgba(162, 56, 255, 0.2);
+}
+
+/* Search spinner deeztest */
+.search-spinner.deeztest {
+  border-color: rgba(162, 56, 255, 0.2);
+  border-top-color: #C574FF;
+}
+
+/* Playlist section label deeztest */
+.playlist-section-label.deeztest {
+  color: #A238FF;
+}
+
+/* Players list deeztest */
+.players-list-player.deeztest {
+  border-color: rgba(162, 56, 255, 0.2);
+}
+
+.players-list-player.deeztest::-webkit-scrollbar-thumb {
+  background: rgba(162, 56, 255, 0.3);
+}
+
+/* Deezer badge */
+.deezer-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #A238FF;
+  padding: 4px 10px;
+  background: rgba(162, 56, 255, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(162, 56, 255, 0.2);
+}
+
+.deezer-badge svg {
+  color: #A238FF;
+}
+
+/* Playlist limit notice */
+.playlist-limit-notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: rgba(255, 191, 36, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+  color: #fbbf24;
+}
+
+/* Mode selector card deeztest */
+.lobby-card.mode-selector.deeztest {
+  border-color: rgba(162, 56, 255, 0.2);
+}
+
+.lobby-card.mode-selector.deeztest:hover {
+  border-color: rgba(162, 56, 255, 0.3);
+}
+
+/* ===========================================
    🎵 SPOTIFY SETTINGS PAGE STYLES
    =========================================== */
 
@@ -6403,7 +6856,16 @@ textarea:focus-visible {
     0 0 60px var(--alibi-primary, #f59e0b);
 }
 
-/* Blind Test specific glow - Emerald */
+/* Blind Test Deezer specific glow - Purple/Pink */
+.game-card[data-game="deeztest"] .game-name {
+  text-shadow:
+    0 0 10px #A238FF,
+    0 0 20px #A238FF,
+    0 0 40px #FF0092,
+    0 0 60px #FF0092;
+}
+
+/* Blind Test Spotify specific glow - Emerald */
 .game-card[data-game="blindtest"] .game-name {
   text-shadow:
     0 0 10px #34d399,
@@ -6439,6 +6901,35 @@ textarea:focus-visible {
   color: rgba(255, 255, 255, 0.9);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+/* Powered By Pill - Bottom Left */
+.game-card .powered-pill {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.game-card .powered-deezer {
+  background: linear-gradient(135deg, #A238FF, #FF0092);
+  color: white;
+  border: none;
+}
+
+.game-card .powered-spotify {
+  background: #1DB954;
+  color: white;
+  border: none;
 }
 
 /* Players Pill - Bottom Right, Discrete */

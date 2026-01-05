@@ -1,16 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { auth, db, ref, set, signInAnonymously, onAuthStateChanged } from "@/lib/firebase";
+import { auth, db, ref, set, get, signInAnonymously, onAuthStateChanged } from "@/lib/firebase";
 import { motion } from "framer-motion";
 import BottomNav from "@/lib/components/BottomNav";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { User } from "lucide-react";
+import { ROOM_TYPES } from "@/lib/config/rooms";
 
 export default function JoinClient({ initialCode = "" }) {
   const router = useRouter();
   const [code, setCode] = useState((initialCode || "").toUpperCase());
   const [user, setUser] = useState(null);
+  const [joining, setJoining] = useState(false);
   const { profile, loading: profileLoading } = useUserProfile();
 
   // Get pseudo from profile or fallback to displayName
@@ -28,54 +30,34 @@ export default function JoinClient({ initialCode = "" }) {
   }, []);
 
   async function join() {
-    if (!code || !pseudo || !auth.currentUser) return;
+    if (!code || !pseudo || !auth.currentUser || joining) return;
+
+    setJoining(true);
     const uid = auth.currentUser.uid;
+    const roomCode = code.trim().toUpperCase();
 
-    // Détecter le type de jeu en checkant quelle room existe
-    const { get } = await import("@/lib/firebase");
+    try {
+      // Check all room types to find the matching one
+      for (const roomType of ROOM_TYPES) {
+        const metaSnapshot = await get(ref(db, `${roomType.prefix}/${roomCode}/meta`));
 
-    // Check si c'est une room Blind Test
-    const blindtestMetaSnapshot = await get(ref(db, `rooms_blindtest/${code}/meta`));
-    if (blindtestMetaSnapshot.exists()) {
-      // C'est une room Blind Test
-      await set(ref(db, `rooms_blindtest/${code}/players/${uid}`), {
-        uid,
-        name: pseudo,
-        score: 0,
-        teamId: "",
-        blockedUntil: 0,
-        joinedAt: Date.now()
-      });
-      router.push("/blindtest/room/" + code);
-      return;
+        if (metaSnapshot.exists()) {
+          // Found the room! Add player and redirect
+          const playerData = roomType.playerSchema(uid, pseudo);
+          await set(ref(db, `${roomType.prefix}/${roomCode}/players/${uid}`), playerData);
+          router.push(`${roomType.path}/${roomCode}`);
+          return;
+        }
+      }
+
+      // No room found with this code in any game type
+      alert("❌ Code invalide ! Aucune partie trouvée avec ce code.");
+    } catch (error) {
+      console.error("Join error:", error);
+      alert("❌ Erreur lors de la connexion à la partie.");
+    } finally {
+      setJoining(false);
     }
-
-    // Check si c'est une room Alibi
-    const alibiMetaSnapshot = await get(ref(db, `rooms_alibi/${code}/meta`));
-    if (alibiMetaSnapshot.exists()) {
-      // C'est une room Alibi
-      await set(ref(db, `rooms_alibi/${code}/players/${uid}`), {
-        uid,
-        name: pseudo,
-        team: null,
-        joinedAt: Date.now()
-      });
-      router.push("/alibi/room/" + code);
-      return;
-    }
-
-    // Sinon c'est une room Quiz normale
-    const quizMetaSnapshot = await get(ref(db, `rooms/${code}/meta`));
-    if (quizMetaSnapshot.exists()) {
-      await set(ref(db, `rooms/${code}/players/${uid}`), {
-        uid, name: pseudo, score: 0, teamId: "", blockedUntil: 0, joinedAt: Date.now()
-      });
-      router.push("/room/" + code);
-      return;
-    }
-
-    // Aucune room trouvée avec ce code
-    alert("❌ Code invalide ! Aucune partie trouvée avec ce code.");
   }
 
   return (
@@ -113,9 +95,9 @@ export default function JoinClient({ initialCode = "" }) {
           <button
             className="btn-join"
             onClick={join}
-            disabled={!code || !user || profileLoading}
+            disabled={!code || !user || profileLoading || joining}
           >
-            {!user || profileLoading ? "Connexion..." : "Rejoindre la partie"}
+            {!user || profileLoading ? "Connexion..." : joining ? "Connexion..." : "Rejoindre la partie"}
           </button>
         </div>
 

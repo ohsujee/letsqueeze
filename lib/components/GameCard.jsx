@@ -34,6 +34,7 @@ export default function GameCard({
     switch (game.id) {
       case 'quiz': return 'linear-gradient(135deg, #8b5cf6, #7c3aed)';
       case 'alibi': return 'linear-gradient(135deg, #f59e0b, #d97706)';
+      case 'deeztest': return 'linear-gradient(135deg, #A238FF, #FF0092)'; // Deezer purple/pink
       case 'blindtest': return 'linear-gradient(135deg, #10b981, #059669)';
       case 'memory': return 'linear-gradient(135deg, #ec4899, #db2777)';
       case 'mime': return 'linear-gradient(135deg, #84cc16, #65a30d)';
@@ -101,6 +102,14 @@ export default function GameCard({
       <div className="game-title">
         <h3 className="game-name">{game.name}</h3>
       </div>
+
+      {/* Powered By Pill - Bottom Left */}
+      {game.poweredBy && (
+        <div className={`powered-pill powered-${game.poweredBy}`}>
+          {game.poweredBy === 'deezer' ? 'Deezer' :
+           game.poweredBy === 'spotify' ? 'Spotify' : game.poweredBy}
+        </div>
+      )}
 
       {/* Players Pill - Bottom Right */}
       {game.minPlayers && (

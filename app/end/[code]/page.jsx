@@ -140,6 +140,13 @@ export default function EndPage(){
     if (!firebaseUser || firebaseUser.isAnonymous) return;
     if (!myUid || rankedPlayers.length === 0) return;
 
+    // Don't record stats for the host (they don't play, they just manage)
+    const isHostUser = myUid && meta?.hostUid === myUid;
+    if (isHostUser) {
+      statsRecordedRef.current = true; // Mark as "handled" to prevent future attempts
+      return;
+    }
+
     // Find my position in ranked players
     const myPlayer = rankedPlayers.find(p => p.uid === myUid);
     if (!myPlayer) return;
@@ -153,7 +160,7 @@ export default function EndPage(){
       score: myPlayer.score || 0,
       position: myPlayer.rank
     });
-  }, [firebaseUser, myUid, rankedPlayers]);
+  }, [firebaseUser, myUid, rankedPlayers, meta?.hostUid]);
 
   // Statistiques globales
   const stats = useMemo(() => {

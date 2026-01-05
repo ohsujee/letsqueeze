@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, auth } from '@/lib/firebase';
 import { getUserStats, formatStats } from '@/lib/services/statsService';
 import { ArrowLeft, Trophy, Target, Flame, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { getVisibleGames } from '@/lib/config/games';
+import admin from '@/lib/admin';
 
 export default function StatsPage() {
   const router = useRouter();
@@ -29,6 +31,41 @@ export default function StatsPage() {
 
     return () => unsubscribe();
   }, [router]);
+
+  // Get visible games based on founder status (must be before any early return)
+  const userIsFounder = admin.isFounder(user);
+  const visibleGames = getVisibleGames(userIsFounder);
+
+  // Map stats to each visible game (must be before any early return)
+  const games = useMemo(() => {
+    const statsMap = {
+      quiz: [
+        { label: 'Parties', value: stats?.quiz?.gamesPlayed || 0, icon: Target },
+        { label: 'Victoires', value: stats?.quiz?.wins || 0, icon: Trophy },
+        { label: 'Meilleur', value: stats?.quiz?.bestScore || 0, icon: Flame }
+      ],
+      alibi: [
+        { label: 'Parties', value: stats?.alibi?.gamesPlayed || 0, icon: Target },
+        { label: 'Victoires', value: stats?.alibi?.totalWins || 0, icon: Trophy },
+        { label: 'Meilleur', value: stats?.alibi?.bestScore || 0, icon: Flame }
+      ],
+      blindtest: [
+        { label: 'Parties', value: stats?.blindtest?.gamesPlayed || 0, icon: Target },
+        { label: 'Victoires', value: stats?.blindtest?.wins || 0, icon: Trophy },
+        { label: 'Meilleur', value: stats?.blindtest?.bestScore || 0, icon: Flame }
+      ],
+      mime: [], // Local game, no online stats
+      memory: []
+    };
+
+    return visibleGames.map(game => ({
+      id: game.id,
+      title: game.name,
+      image: game.image,
+      available: game.available && !game.comingSoon,
+      stats: statsMap[game.id] || []
+    }));
+  }, [visibleGames, stats]);
 
   if (loading) {
     return (
@@ -59,45 +96,6 @@ export default function StatsPage() {
       </div>
     );
   }
-
-  const games = [
-    {
-      id: 'quiz',
-      title: 'Quiz Buzzer',
-      image: '/images/quiz-buzzer.png',
-      available: true,
-      stats: [
-        { label: 'Parties', value: stats?.quiz?.gamesPlayed || 0, icon: Target },
-        { label: 'Victoires', value: stats?.quiz?.wins || 0, icon: Trophy },
-        { label: 'Meilleur', value: stats?.quiz?.bestScore || 0, icon: Flame }
-      ]
-    },
-    {
-      id: 'alibi',
-      title: 'Alibi',
-      image: '/images/alibi.png',
-      available: true,
-      stats: [
-        { label: 'Parties', value: stats?.alibi?.gamesPlayed || 0, icon: Target },
-        { label: 'Victoires', value: stats?.alibi?.totalWins || 0, icon: Trophy },
-        { label: 'Meilleur', value: `${stats?.alibi?.bestPercentage || 0}%`, icon: Flame }
-      ]
-    },
-    {
-      id: 'blindtest',
-      title: 'Blind Test',
-      image: '/images/blind-test.png',
-      available: false,
-      stats: []
-    },
-    {
-      id: 'memory',
-      title: 'Memory',
-      image: '/images/memory.png',
-      available: false,
-      stats: []
-    }
-  ];
 
   return (
     <div className="stats-page">

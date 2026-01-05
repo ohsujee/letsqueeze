@@ -33,7 +33,15 @@
       "Bash(npx next build)",
       "Bash(ls:*)",
       "Bash(git diff:*)",
-      "Bash(ngrok http:*)"
+      "Bash(ngrok http:*)",
+      "WebFetch(domain:developer.spotify.com)",
+      "WebFetch(domain:developers.google.com)",
+      "Bash(npm audit:*)",
+      "WebFetch(domain:api.deezer.com)",
+      "Bash(cd:*)",
+      "Bash(firebase deploy:*)",
+      "Bash(wc:*)",
+      "Bash(stat:*)"
     ]
   }
 }

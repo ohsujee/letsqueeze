@@ -324,11 +324,11 @@ export default function AlibiEnd() {
     const accusedWon = percentage >= 50;
     const myTeamWon = (myTeam === 'accused' && accusedWon) || (myTeam === 'detectives' && !accusedWon);
 
-    // Record the game with percentage
+    // Record the game with score (correct answers)
     recordAlibiGame({
       role: myTeam,
       won: myTeamWon,
-      percentage: percentage
+      score: score?.correct || 0
     });
   }, [firebaseUser, myTeam, score, percentage]);
 

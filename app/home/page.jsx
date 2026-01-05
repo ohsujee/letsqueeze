@@ -16,53 +16,10 @@ import GuestWarningModal from '@/components/ui/GuestWarningModal';
 import GameLimitModal from '@/components/ui/GameLimitModal';
 import RejoinBanner from '@/components/ui/RejoinBanner';
 import { useActiveGameCheck } from '@/lib/hooks/usePlayerCleanup';
-import { Target, UserSearch, Gamepad2, Heart, Sparkles, Music, Brain, ChevronsUp, Crown, Theater } from 'lucide-react';
-import { genCode } from '@/lib/utils';
-
-const GAMES = [
-  {
-    id: 'quiz',
-    name: 'Quiz Buzzer',
-    Icon: Target,
-    packLimit: 3,
-    image: '/images/quiz-buzzer.png',
-    minPlayers: 2,
-  },
-  {
-    id: 'alibi',
-    name: 'Alibi',
-    Icon: UserSearch,
-    packLimit: 3,
-    image: '/images/alibi.png',
-    minPlayers: 3,
-  },
-  {
-    id: 'blindtest',
-    name: 'Blind Test',
-    Icon: Music,
-    packLimit: 3,
-    image: '/images/blind-test.png',
-    minPlayers: 2,
-  },
-  {
-    id: 'mime',
-    name: 'Mime',
-    Icon: Theater,
-    packLimit: null,
-    image: '/images/mime-game.png',
-    minPlayers: 2,
-    local: true, // Jeu local, pas de room Firebase
-  },
-  {
-    id: 'memory',
-    name: 'Memory',
-    Icon: Brain,
-    packLimit: 3,
-    image: '/images/memory.png',
-    minPlayers: 2,
-    comingSoon: true,
-  },
-];
+import { Gamepad2, Heart, ChevronsUp, Crown } from 'lucide-react';
+import { genUniqueCode } from '@/lib/utils';
+import { isFounder } from '@/lib/admin';
+import { GAMES, getVisibleGames } from '@/lib/config/games';
 
 export default function HomePage() {
   const router = useRouter();
@@ -150,8 +107,8 @@ export default function HomePage() {
   };
 
   // Actually create the game room and navigate
-  const createAndNavigateToGame = (game) => {
-    const c = genCode();
+  const createAndNavigateToGame = async (game) => {
+    const c = await genUniqueCode();
     const now = Date.now();
 
     // Record game played (for limits tracking)
@@ -238,6 +195,37 @@ export default function HomePage() {
           lockedAt: null
         })
       ]).catch(err => console.error('Blindtest room creation error:', err));
+    } else if (game.id === 'deeztest') {
+      Promise.all([
+        set(ref(db, `rooms_deeztest/${c}/meta`), {
+          code: c,
+          createdAt: now,
+          hostUid: auth.currentUser.uid,
+          expiresAt: now + 12 * 60 * 60 * 1000,
+          mode: "individuel",
+          teamCount: 0,
+          teams: {},
+          playlist: null,
+          playlistsUsed: 0,
+          gameType: "deeztest"
+        }),
+        set(ref(db, `rooms_deeztest/${c}/state`), {
+          phase: "lobby",
+          currentIndex: 0,
+          revealed: false,
+          snippetLevel: 0,
+          lockUid: null,
+          buzzBanner: "",
+          lastRevealAt: 0,
+          elapsedAcc: 0,
+          pausedAt: null,
+          lockedAt: null
+        })
+      ]).then(() => {
+        router.push(`/deeztest/room/${c}`);
+      }).catch(err => {
+        console.error('Deeztest room creation error:', err);
+      });
     } else if (game.id === 'mime') {
       // Jeu local - pas de Firebase, navigation directe
       router.push('/mime');
@@ -332,8 +320,12 @@ export default function HomePage() {
     }
   };
 
-  const favoriteGames = GAMES.filter(game => favorites.includes(game.id));
-  const allGames = GAMES;
+  // Filter out founders-only games for non-founders
+  const userIsFounder = isFounder(user);
+  const visibleGames = getVisibleGames(userIsFounder);
+
+  const favoriteGames = visibleGames.filter(game => favorites.includes(game.id));
+  const allGames = visibleGames;
 
   return (
     <div className="home-container">
@@ -398,30 +390,16 @@ export default function HomePage() {
             </h2>
             <motion.div
               className="favorites-grid"
-              initial="hidden"
+              initial="visible"
               animate="visible"
-              variants={{
-                visible: {
-                  transition: {
-                    staggerChildren: 0.1
-                  }
-                }
-              }}
             >
-              {favoriteGames.map((game, index) => (
+              {favoriteGames.map((game) => (
                 <motion.div
                   key={game.id}
                   className="grid-item"
-                  variants={{
-                    hidden: { opacity: 0, y: 20, scale: 0.9 },
-                    visible: { opacity: 1, y: 0, scale: 1 }
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 18,
-                    mass: 0.5
-                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
                 >
                   <GameCard
                     game={game}
@@ -448,35 +426,16 @@ export default function HomePage() {
           </h2>
           <motion.div
             className="games-grid"
-            initial="hidden"
+            initial="visible"
             animate="visible"
-            variants={{
-              visible: {
-                transition: {
-                  staggerChildren: 0.1,
-                  delayChildren: 0.1
-                }
-              }
-            }}
           >
-            {allGames.map((game, index) => (
+            {allGames.map((game) => (
               <motion.div
                 key={game.id}
                 className="grid-item"
-                variants={{
-                  hidden: { opacity: 0, y: 30, scale: 0.8 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                  }
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 18,
-                  mass: 0.5
-                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
               >
                 <GameCard
                   game={game}

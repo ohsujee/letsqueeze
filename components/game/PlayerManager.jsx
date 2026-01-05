@@ -25,7 +25,8 @@ export default function PlayerManager({
   roomPrefix = 'rooms',
   hostUid,
   variant = 'quiz',
-  phase = 'lobby'
+  phase = 'lobby',
+  hideCount = false
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmKick, setConfirmKick] = useState(null);
@@ -72,7 +73,7 @@ export default function PlayerManager({
       >
         <Users size={20} strokeWidth={2} />
         {hasDisconnected && <span className="disconnect-badge" />}
-        <span className="player-count">{activeCount}</span>
+        {!hideCount && <span className="player-count">{activeCount}</span>}
       </button>
 
       {/* Modal - Portal wraps AnimatePresence for correct behavior */}
