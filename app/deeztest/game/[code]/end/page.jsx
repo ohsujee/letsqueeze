@@ -38,6 +38,7 @@ export default function DeezTestEndPage() {
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
   const [myUid, setMyUid] = useState(null);
+  const [roomExists, setRoomExists] = useState(true);
   const adShownRef = useRef(false);
 
   // Get user profile for Pro check
@@ -80,12 +81,20 @@ export default function DeezTestEndPage() {
 
   // Firebase listeners
   useEffect(() => {
-    const u1 = onValue(ref(db, `rooms_deeztest/${code}/meta`), s => setMeta(s.val()));
+    const u1 = onValue(ref(db, `rooms_deeztest/${code}/meta`), s => {
+      const data = s.val();
+      setMeta(data);
+      // Room is gone or closed by host
+      if (!data || data.closed) {
+        setRoomExists(false);
+      }
+    });
     const u2 = onValue(ref(db, `rooms_deeztest/${code}/state`), s => setState(s.val()));
     return () => { u1(); u2(); };
   }, [code]);
 
   const isHost = myUid && meta?.hostUid === myUid;
+  const hostPresent = roomExists && meta && !meta.closed;
   const modeEquipes = meta?.mode === "équipes";
   const playlistName = meta?.playlist?.name || "Deez Test";
 
@@ -110,15 +119,15 @@ export default function DeezTestEndPage() {
     };
   }, [players, myUid, meta?.playlist?.tracks?.length]);
 
-  // Redirect if host returns to lobby
+  // Redirect if host returns to lobby (only if host is still present)
   useEffect(() => {
     if (myUid === null || meta === null) return;
 
     const hostCheck = myUid && meta?.hostUid === myUid;
-    if (state?.phase === "lobby" && !hostCheck) {
+    if (state?.phase === "lobby" && !hostCheck && hostPresent) {
       router.push(`/deeztest/room/${code}`);
     }
-  }, [state?.phase, myUid, meta, router, code]);
+  }, [state?.phase, myUid, meta, router, code, hostPresent]);
 
   const handleBackToLobby = async () => {
     try {
@@ -212,9 +221,20 @@ export default function DeezTestEndPage() {
       <footer className="end-footer">
         <button
           className="action-btn"
-          onClick={isHost ? handleBackToLobby : () => router.push(`/deeztest/room/${code}`)}
+          onClick={() => {
+            if (!hostPresent) {
+              // Host left - everyone goes home
+              router.push('/home');
+            } else if (isHost) {
+              // Host starts new game
+              handleBackToLobby();
+            } else {
+              // Player returns to lobby
+              router.push(`/deeztest/room/${code}`);
+            }
+          }}
         >
-          {isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+          {!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
         </button>
       </footer>
 

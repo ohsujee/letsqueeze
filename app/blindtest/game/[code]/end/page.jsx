@@ -33,6 +33,7 @@ export default function BlindTestEndPage() {
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
   const [myUid, setMyUid] = useState(null);
+  const [roomExists, setRoomExists] = useState(true);
   const adShownRef = useRef(false);
 
   // Get user profile for Pro check
@@ -75,12 +76,19 @@ export default function BlindTestEndPage() {
 
   // Firebase listeners
   useEffect(() => {
-    const u1 = onValue(ref(db, `rooms_blindtest/${code}/meta`), s => setMeta(s.val()));
+    const u1 = onValue(ref(db, `rooms_blindtest/${code}/meta`), s => {
+      const data = s.val();
+      setMeta(data);
+      if (!data || data.closed) {
+        setRoomExists(false);
+      }
+    });
     const u2 = onValue(ref(db, `rooms_blindtest/${code}/state`), s => setState(s.val()));
     return () => { u1(); u2(); };
   }, [code]);
 
   const isHost = myUid && meta?.hostUid === myUid;
+  const hostPresent = roomExists && meta && !meta.closed;
   const modeEquipes = meta?.mode === "équipes";
   const playlistName = meta?.playlist?.name || "Blind Test";
 
@@ -105,15 +113,15 @@ export default function BlindTestEndPage() {
     };
   }, [players, myUid, meta?.playlist?.tracks?.length]);
 
-  // Redirect if host returns to lobby
+  // Redirect if host returns to lobby (only if host is still present)
   useEffect(() => {
     if (myUid === null || meta === null) return;
 
     const hostCheck = myUid && meta?.hostUid === myUid;
-    if (state?.phase === "lobby" && !hostCheck) {
+    if (state?.phase === "lobby" && !hostCheck && hostPresent) {
       router.push(`/blindtest/room/${code}`);
     }
-  }, [state?.phase, myUid, meta, router, code]);
+  }, [state?.phase, myUid, meta, router, code, hostPresent]);
 
   const handleBackToLobby = async () => {
     try {
@@ -206,9 +214,17 @@ export default function BlindTestEndPage() {
       <footer className="end-footer">
         <button
           className="action-btn"
-          onClick={isHost ? handleBackToLobby : () => router.push(`/blindtest/room/${code}`)}
+          onClick={() => {
+            if (!hostPresent) {
+              router.push('/home');
+            } else if (isHost) {
+              handleBackToLobby();
+            } else {
+              router.push(`/blindtest/room/${code}`);
+            }
+          }}
         >
-          {isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+          {!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
         </button>
       </footer>
 

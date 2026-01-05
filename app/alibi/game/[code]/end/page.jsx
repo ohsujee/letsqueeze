@@ -197,6 +197,7 @@ export default function AlibiEnd() {
   const [myTeam, setMyTeam] = useState(null);
   const [isHost, setIsHost] = useState(false);
   const [meta, setMeta] = useState(null);
+  const [roomExists, setRoomExists] = useState(true);
   const [displayScore, setDisplayScore] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -251,6 +252,10 @@ export default function AlibiEnd() {
           const m = snap.val();
           setMeta(m);
           setIsHost(m?.hostUid === user.uid);
+          // Track room existence
+          if (!m || m.closed) {
+            setRoomExists(false);
+          }
         });
       } else if (!user) {
         signInAnonymously(auth).catch(() => {});
@@ -258,6 +263,9 @@ export default function AlibiEnd() {
     });
     return () => unsub();
   }, [code]);
+
+  // Computed: is host still present?
+  const hostPresent = roomExists && meta && !meta.closed;
 
   useEffect(() => {
     if (!code) return;
@@ -269,10 +277,10 @@ export default function AlibiEnd() {
       setTimeout(() => setIsLoaded(true), 100);
     });
 
-    // Redirection automatique quand l'hôte retourne au lobby
+    // Redirection automatique quand l'hôte retourne au lobby (seulement si l'hôte est présent)
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
       const state = snap.val();
-      if (state?.phase === "lobby") {
+      if (state?.phase === "lobby" && hostPresent) {
         router.push(`/alibi/room/${code}`);
       }
     });
@@ -281,7 +289,7 @@ export default function AlibiEnd() {
       scoreUnsub();
       stateUnsub();
     };
-  }, [code, router]);
+  }, [code, router, hostPresent]);
 
 
   const handleReturnToLobby = async () => {
@@ -556,14 +564,24 @@ export default function AlibiEnd() {
           >
             <button
               className="alibi-end-btn"
-              onClick={isHost ? handleReturnToLobby : () => router.push(`/alibi/room/${code}`)}
+              onClick={() => {
+                if (!hostPresent) {
+                  router.push('/home');
+                } else if (isHost) {
+                  handleReturnToLobby();
+                } else {
+                  router.push(`/alibi/room/${code}`);
+                }
+              }}
             >
-              Retour au lobby
+              {!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
             </button>
             <p className="alibi-end-hint">
-              {isHost
-                ? "Vous pourrez choisir un nouvel alibi et relancer une partie"
-                : "Retourne au lobby pour la prochaine partie"
+              {!hostPresent
+                ? "L'hôte a quitté la partie"
+                : isHost
+                  ? "Vous pourrez choisir un nouvel alibi et relancer une partie"
+                  : "Retourne au lobby pour la prochaine partie"
               }
             </p>
           </motion.div>

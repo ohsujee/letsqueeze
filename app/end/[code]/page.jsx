@@ -36,6 +36,7 @@ export default function EndPage(){
   const [quizTitle, setQuizTitle] = useState("");
   const [myUid, setMyUid] = useState(null);
   const [firebaseUser, setFirebaseUser] = useState(null);
+  const [roomExists, setRoomExists] = useState(true);
   const statsRecordedRef = useRef(false);
   const adShownRef = useRef(false);
 
@@ -89,9 +90,16 @@ export default function EndPage(){
 
   // Calculer isHost après avoir les données nécessaires
   const isHost = myUid && meta?.hostUid === myUid;
+  const hostPresent = roomExists && meta && !meta.closed;
 
   useEffect(()=>{
-    const u1 = onValue(ref(db,`rooms/${code}/meta`), s=> setMeta(s.val()));
+    const u1 = onValue(ref(db,`rooms/${code}/meta`), s=> {
+      const data = s.val();
+      setMeta(data);
+      if (!data || data.closed) {
+        setRoomExists(false);
+      }
+    });
     const u2 = onValue(ref(db,`rooms/${code}/state`), s=> setState(s.val()));
     return ()=>{u1();u2();};
   },[code]);
@@ -107,17 +115,17 @@ export default function EndPage(){
   const rankedPlayers = useMemo(()=> rankWithTies(players, "score"), [players]);
   const rankedTeams   = useMemo(()=> rankWithTies(teamsArray, "score"), [teamsArray]);
 
-  // Rediriger automatiquement si l'hôte retourne au lobby (joueurs seulement)
+  // Rediriger automatiquement si l'hôte retourne au lobby (joueurs seulement, et seulement si l'hôte est présent)
   useEffect(() => {
     // Attendre que les données soient chargées
     if (myUid === null || meta === null) return;
 
     const hostCheck = myUid && meta?.hostUid === myUid;
-    if (state?.phase === "lobby" && !hostCheck) {
+    if (state?.phase === "lobby" && !hostCheck && hostPresent) {
       console.log('🔄 L\'hôte est retourné au lobby, redirection automatique...');
       router.push(`/room/${code}`);
     }
-  }, [state?.phase, myUid, meta, router, code]);
+  }, [state?.phase, myUid, meta, router, code, hostPresent]);
 
   useEffect(()=>{
     if (meta?.quizId) {
@@ -266,9 +274,17 @@ export default function EndPage(){
       <footer className="end-footer">
         <button
           className="action-btn"
-          onClick={isHost ? handleBackToLobby : () => router.push(`/room/${code}`)}
+          onClick={() => {
+            if (!hostPresent) {
+              router.push('/home');
+            } else if (isHost) {
+              handleBackToLobby();
+            } else {
+              router.push(`/room/${code}`);
+            }
+          }}
         >
-          {isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+          {!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
         </button>
       </footer>
 
