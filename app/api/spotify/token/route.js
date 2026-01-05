@@ -19,9 +19,9 @@ const COOKIE_OPTIONS = {
   path: '/',
 };
 
-// Access token expires in 1 hour, but we set cookie to 1 day (refresh handles expiry)
-const ACCESS_TOKEN_MAX_AGE = 60 * 60; // 1 hour
-const REFRESH_TOKEN_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
+// Cookie expiration times
+const ACCESS_TOKEN_MAX_AGE = 60 * 60 * 24; // 24 hours (we check expiry via timestamp, not cookie expiry)
+const REFRESH_TOKEN_MAX_AGE = 60 * 60 * 24 * 365; // 1 year (Spotify refresh tokens don't expire unless revoked)
 
 /**
  * POST - Exchange authorization code for tokens
@@ -149,12 +149,21 @@ export async function GET() {
       });
 
       if (!response.ok) {
-        console.error('[Spotify Token API] Refresh failed, clearing tokens');
-        // Clear invalid tokens
-        cookieStore.delete('spotify_access_token');
-        cookieStore.delete('spotify_refresh_token');
-        cookieStore.delete('spotify_token_expires_at');
-        return NextResponse.json({ connected: false, error: 'Token refresh failed' });
+        const errorData = await response.json().catch(() => ({}));
+        console.error('[Spotify Token API] Refresh failed:', errorData);
+
+        // Only clear tokens if refresh token is actually invalid/revoked
+        // Don't clear on temporary errors (network, rate limit, etc.)
+        if (errorData.error === 'invalid_grant') {
+          console.error('[Spotify Token API] Refresh token revoked, clearing all tokens');
+          cookieStore.delete('spotify_access_token');
+          cookieStore.delete('spotify_refresh_token');
+          cookieStore.delete('spotify_token_expires_at');
+          return NextResponse.json({ connected: false, error: 'Session expired, please reconnect' });
+        }
+
+        // Temporary error - don't delete tokens, let user retry
+        return NextResponse.json({ connected: false, error: 'Temporary error, please retry' });
       }
 
       const tokens = await response.json();
@@ -171,13 +180,13 @@ export async function GET() {
         maxAge: ACCESS_TOKEN_MAX_AGE,
       });
 
-      // Update refresh token if provided
-      if (tokens.refresh_token) {
-        cookieStore.set('spotify_refresh_token', tokens.refresh_token, {
-          ...COOKIE_OPTIONS,
-          maxAge: REFRESH_TOKEN_MAX_AGE,
-        });
-      }
+      // Update refresh token if provided (Spotify may rotate it)
+      // Also extend the cookie expiry on every successful refresh (sliding expiration)
+      const newRefreshToken = tokens.refresh_token || refreshToken;
+      cookieStore.set('spotify_refresh_token', newRefreshToken, {
+        ...COOKIE_OPTIONS,
+        maxAge: REFRESH_TOKEN_MAX_AGE,
+      });
 
       accessToken = tokens.access_token;
       console.log('[Spotify Token API] Token refreshed successfully');
