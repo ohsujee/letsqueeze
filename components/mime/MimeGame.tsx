@@ -7,9 +7,13 @@ import MimeCard from './MimeCard';
 import { MimeTheme, createWordPool } from '@/data/mime-words';
 import ExitButton from '@/lib/components/ExitButton';
 
-// Neon Green - même couleur que MimeCard
-const NEON = '#00ff66';
-const NEON_RGB = '0, 255, 102';
+// Couleurs MIME - alignées sur theme.css (--mime-primary, --mime-secondary)
+const MIME_COLORS = {
+  primary: '#00ff66',
+  primaryRgb: '0, 255, 102',
+  secondary: '#00cc52',
+  dark: '#00802f',
+};
 
 interface MimeGameProps {
   selectedThemes: MimeTheme[];
@@ -64,8 +68,8 @@ export default function MimeGame({ selectedThemes, onBackToLobby }: MimeGameProp
         inset: 0,
         zIndex: 0,
         background: `
-          radial-gradient(ellipse at 30% 20%, rgba(${NEON_RGB}, 0.1) 0%, transparent 50%),
-          radial-gradient(ellipse at 70% 80%, rgba(${NEON_RGB}, 0.08) 0%, transparent 50%)
+          radial-gradient(ellipse at 30% 20%, rgba(${MIME_COLORS.primaryRgb}, 0.1) 0%, transparent 50%),
+          radial-gradient(ellipse at 70% 80%, rgba(${MIME_COLORS.primaryRgb}, 0.08) 0%, transparent 50%)
         `,
         pointerEvents: 'none',
       }} />
@@ -81,7 +85,7 @@ export default function MimeGame({ selectedThemes, onBackToLobby }: MimeGameProp
         paddingTop: 'calc(14px + env(safe-area-inset-top))',
         background: 'linear-gradient(180deg, rgba(12, 12, 18, 0.95) 0%, rgba(10, 10, 15, 0.9) 100%)',
         backdropFilter: 'blur(20px)',
-        borderBottom: `1px solid rgba(${NEON_RGB}, 0.25)`,
+        borderBottom: `1px solid rgba(${MIME_COLORS.primaryRgb}, 0.25)`,
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
       }}>
         <ExitButton
@@ -90,12 +94,12 @@ export default function MimeGame({ selectedThemes, onBackToLobby }: MimeGameProp
           confirmMessage="Voulez-vous vraiment quitter la partie ?"
         />
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 28, filter: `drop-shadow(0 0 15px rgba(${NEON_RGB}, 0.6))` }}>🎭</span>
+          <span style={{ fontSize: 28, filter: `drop-shadow(0 0 15px rgba(${MIME_COLORS.primaryRgb}, 0.6))` }}>🎭</span>
           <h1 style={{
             fontFamily: "'Bungee', cursive",
             fontSize: 'clamp(1.25rem, 4vw, 1.5rem)',
             color: '#ffffff',
-            textShadow: `0 0 12px rgba(${NEON_RGB}, 1), 0 0 25px rgba(${NEON_RGB}, 0.6)`,
+            textShadow: `0 0 12px rgba(${MIME_COLORS.primaryRgb}, 1), 0 0 25px rgba(${MIME_COLORS.primaryRgb}, 0.6)`,
             margin: 0,
             lineHeight: 1,
           }}>
@@ -107,16 +111,16 @@ export default function MimeGame({ selectedThemes, onBackToLobby }: MimeGameProp
           alignItems: 'baseline',
           gap: 6,
           padding: '8px 14px',
-          background: `linear-gradient(135deg, rgba(${NEON_RGB}, 0.2), rgba(${NEON_RGB}, 0.08))`,
-          border: `2px solid rgba(${NEON_RGB}, 0.5)`,
+          background: `linear-gradient(135deg, rgba(${MIME_COLORS.primaryRgb}, 0.2), rgba(${MIME_COLORS.primaryRgb}, 0.08))`,
+          border: `2px solid rgba(${MIME_COLORS.primaryRgb}, 0.5)`,
           borderRadius: 9999,
-          boxShadow: `0 0 15px rgba(${NEON_RGB}, 0.3)`,
+          boxShadow: `0 0 15px rgba(${MIME_COLORS.primaryRgb}, 0.3)`,
         }}>
           <span style={{
             fontFamily: "'Bungee', cursive",
             fontSize: 20,
-            color: NEON,
-            textShadow: `0 0 10px rgba(${NEON_RGB}, 0.8)`,
+            color: MIME_COLORS.primary,
+            textShadow: `0 0 10px rgba(${MIME_COLORS.primaryRgb}, 0.8)`,
           }}>
             {wordsRemaining}
           </span>
@@ -172,7 +176,7 @@ export default function MimeGame({ selectedThemes, onBackToLobby }: MimeGameProp
         paddingBottom: 'calc(20px + env(safe-area-inset-bottom))',
         background: 'linear-gradient(180deg, rgba(10, 10, 15, 0.9) 0%, rgba(12, 12, 18, 0.95) 100%)',
         backdropFilter: 'blur(20px)',
-        borderTop: `1px solid rgba(${NEON_RGB}, 0.25)`,
+        borderTop: `1px solid rgba(${MIME_COLORS.primaryRgb}, 0.25)`,
         boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.3)',
       }}>
         {/* Bouton PRÉCÉDENT - Gris/Disabled style quand pas dispo */}
@@ -191,8 +195,11 @@ export default function MimeGame({ selectedThemes, onBackToLobby }: MimeGameProp
             border: 'none',
             borderRadius: 16,
             cursor: currentIndex > 0 ? 'pointer' : 'not-allowed',
-            fontFamily: "'Bungee', cursive",
-            fontSize: 18,
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: 700,
+            fontSize: 16,
+            textTransform: 'uppercase' as const,
+            letterSpacing: '0.03em',
             color: currentIndex > 0 ? '#0a0a0f' : 'rgba(255, 255, 255, 0.4)',
             background: currentIndex > 0
               ? 'linear-gradient(180deg, #94a3b8 0%, #64748b 100%)'
@@ -223,14 +230,17 @@ export default function MimeGame({ selectedThemes, onBackToLobby }: MimeGameProp
             border: 'none',
             borderRadius: 16,
             cursor: 'pointer',
-            fontFamily: "'Bungee', cursive",
-            fontSize: 18,
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: 700,
+            fontSize: 16,
+            textTransform: 'uppercase' as const,
+            letterSpacing: '0.03em',
             color: '#0a0a0f',
-            background: `linear-gradient(180deg, ${NEON} 0%, #00cc52 100%)`,
+            background: `linear-gradient(180deg, ${MIME_COLORS.primary} 0%, ${MIME_COLORS.secondary} 100%)`,
             boxShadow: `
-              0 5px 0 #00802f,
-              0 8px 25px rgba(${NEON_RGB}, 0.5),
-              0 0 40px rgba(${NEON_RGB}, 0.2),
+              0 5px 0 ${MIME_COLORS.dark},
+              0 8px 25px rgba(${MIME_COLORS.primaryRgb}, 0.5),
+              0 0 40px rgba(${MIME_COLORS.primaryRgb}, 0.2),
               inset 0 2px 0 rgba(255, 255, 255, 0.3)
             `,
             transition: 'box-shadow 0.15s ease',

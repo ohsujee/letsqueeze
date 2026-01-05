@@ -7,7 +7,7 @@
  */
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Users, Clock, CheckCircle, Target, UserSearch, Zap } from 'lucide-react';
+import { X, Users, Clock, CheckCircle, Target, UserSearch, Zap, Drama, Eye, ArrowRight } from 'lucide-react';
 
 const GAME_RULES = {
   quiz: {
@@ -36,6 +36,34 @@ const GAME_RULES = {
       { icon: Target, text: "Phase interrogatoire : 10 questions" },
       { icon: Zap, text: "30 secondes par reponse" },
       { icon: CheckCircle, text: "Les inspecteurs valident ou refusent" }
+    ]
+  },
+  mime: {
+    title: 'Mime',
+    subtitle: 'Fais deviner sans parler !',
+    icon: Drama,
+    accentColor: '#00ff66',
+    glowColor: 'rgba(0, 255, 102, 0.4)',
+    rules: [
+      { icon: Users, text: "2 joueurs ou plus, en local" },
+      { icon: Eye, text: "Un joueur regarde secretement le mot" },
+      { icon: Drama, text: "Il mime le mot aux autres joueurs" },
+      { icon: ArrowRight, text: "Celui qui trouve devient le mimeur" },
+      { icon: CheckCircle, text: "Amusez-vous, pas de score !" }
+    ]
+  },
+  blindtest: {
+    title: 'Blind Test',
+    subtitle: 'Reconnais la musique !',
+    icon: Zap,
+    accentColor: '#10b981',
+    glowColor: 'rgba(16, 185, 129, 0.4)',
+    rules: [
+      { icon: Users, text: "2 a 10 joueurs" },
+      { icon: Zap, text: "L'hote lance un extrait musical" },
+      { icon: Target, text: "Les joueurs buzzent pour repondre" },
+      { icon: CheckCircle, text: "Bonne reponse = +1 point" },
+      { icon: Clock, text: "Le joueur avec le plus de points gagne !" }
     ]
   }
 };
@@ -170,7 +198,7 @@ export default function HowToPlayModal({
       width: '100%',
       padding: '16px',
       background: `linear-gradient(135deg, ${game.accentColor}, ${game.accentColor}cc)`,
-      color: gameType === 'alibi' ? '#000' : '#fff',
+      color: (gameType === 'alibi' || gameType === 'mime') ? '#000' : '#fff',
       border: 'none',
       borderRadius: '14px',
       fontFamily: "'Space Grotesk', sans-serif",

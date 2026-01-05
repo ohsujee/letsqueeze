@@ -1,6 +1,5 @@
 {
   "rules": {
-    ".read": "auth != null",
     "users": {
       "$uid": {
         ".read": "auth != null && (auth.uid == $uid || root.child('admins').child(auth.uid).exists())",
@@ -15,7 +14,7 @@
         },
         "subscription": {
           ".read": "auth != null && (auth.uid == $uid || root.child('admins').child(auth.uid).exists())",
-          ".write": "auth != null && (auth.uid == $uid || root.child('admins').child(auth.uid).exists())"
+          ".write": false
         },
         "settings": {
           ".read": "auth != null && (auth.uid == $uid || root.child('admins').child(auth.uid).exists())",
@@ -24,7 +23,7 @@
       }
     },
     "admins": {
-      ".read": "auth != null",
+      ".read": "root.child('admins').child(auth.uid).exists()",
       ".write": false
     },
     "rooms": {
@@ -44,7 +43,7 @@
           },
           "buzz": {
             ".write": "auth != null && ( auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val() || ( ( !root.child('rooms/'+$code+'/state/lockUid').exists() || root.child('rooms/'+$code+'/state/lockUid').val() == auth.uid ) && newData.hasChildren(['uid','at']) && newData.child('uid').val() == auth.uid ) )",
-            ".validate": "newData.hasChildren(['uid','at']) && (!newData.hasChild('anticipated') || newData.child('anticipated').isBoolean())"
+            ".validate": "newData.hasChildren(['uid','at']) && newData.child('uid').val() == auth.uid && (!newData.hasChild('anticipated') || newData.child('anticipated').isBoolean())"
           },
           "pausedAt": {
             ".write": "auth != null && auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val()"
@@ -110,7 +109,12 @@
         },
         "answers": {
           ".read": "auth != null",
-          ".write": "auth != null"
+          "$visibleTo": {
+            "$visibleFrom": {
+              ".write": "auth != null && (auth.uid == $visibleFrom || auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val())",
+              ".validate": "newData.isString() && newData.val().length <= 500"
+            }
+          }
         },
         "players": {
           "$uid": {
@@ -137,7 +141,7 @@
           },
           "buzz": {
             ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( ( !root.child('rooms_blindtest/'+$code+'/state/lockUid').exists() || root.child('rooms_blindtest/'+$code+'/state/lockUid').val() == auth.uid ) && newData.hasChildren(['uid','at']) && newData.child('uid').val() == auth.uid ) )",
-            ".validate": "newData.hasChildren(['uid','at'])"
+            ".validate": "newData.hasChildren(['uid','at']) && newData.child('uid').val() == auth.uid"
           }
         },
         "players": {

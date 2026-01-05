@@ -10878,13 +10878,15 @@ textarea:focus-visible {
 }
 
 /* Help button for MIME - neon style */
-.help-btn.mime-accent {
+.help-btn.mime-accent,
+.help-btn.mime {
   background: rgba(0, 255, 102, 0.12);
   border: 2px solid rgba(0, 255, 102, 0.35);
   color: #00ff66;
 }
 
-.help-btn.mime-accent:hover {
+.help-btn.mime-accent:hover,
+.help-btn.mime:hover {
   background: rgba(0, 255, 102, 0.2);
   border-color: rgba(0, 255, 102, 0.6);
   box-shadow:

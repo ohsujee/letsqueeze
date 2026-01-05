@@ -44,7 +44,7 @@ export default function SpotifySettingsPage() {
   }, [router]);
 
   const checkSpotifyConnection = async () => {
-    const connected = isSpotifyConnected();
+    const connected = await isSpotifyConnected();
     setSpotifyConnected(connected);
 
     if (connected) {

@@ -100,7 +100,7 @@ export default function BlindTestLobby() {
   // Check Spotify connection on mount
   useEffect(() => {
     const checkSpotify = async () => {
-      if (isSpotifyConnected()) {
+      if (await isSpotifyConnected()) {
         setSpotifyConnected(true);
         try {
           const user = await getCurrentUser();

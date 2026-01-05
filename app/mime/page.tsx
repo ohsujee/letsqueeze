@@ -3,10 +3,11 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check, HelpCircle } from 'lucide-react';
 import MimeGame from '@/components/mime/MimeGame';
 import { MimeTheme, themeInfos } from '@/data/mime-words';
 import ExitButton from '@/lib/components/ExitButton';
+import HowToPlayModal from '@/components/ui/HowToPlayModal';
 
 type GamePhase = 'lobby' | 'playing';
 
@@ -14,6 +15,7 @@ export default function MimePage() {
   const router = useRouter();
   const [phase, setPhase] = useState<GamePhase>('lobby');
   const [selectedThemes, setSelectedThemes] = useState<MimeTheme[]>([]);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
 
   const handleToggleTheme = useCallback((theme: MimeTheme) => {
     setSelectedThemes(prev =>
@@ -54,6 +56,13 @@ export default function MimePage() {
 
   return (
     <div className="lobby-container mime">
+      {/* Modal How To Play */}
+      <HowToPlayModal
+        isOpen={showHowToPlay}
+        onClose={() => setShowHowToPlay(false)}
+        gameType="mime"
+      />
+
       {/* Header */}
       <header className="lobby-header mime">
         <div className="header-left">
@@ -67,7 +76,17 @@ export default function MimePage() {
             <h1 className="lobby-title">Mime</h1>
           </div>
         </div>
-        <div className="header-right" />
+        <div className="header-right">
+          <motion.button
+            className="help-btn mime"
+            onClick={() => setShowHowToPlay(true)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            title="Comment jouer"
+          >
+            <HelpCircle size={18} />
+          </motion.button>
+        </div>
       </header>
 
       {/* Main Content */}

@@ -7,9 +7,11 @@ interface MimeCardProps {
   word: string;
 }
 
-// Neon Green CLAIR et BRILLANT
-const NEON = '#00ff66';
-const NEON_RGB = '0, 255, 102';
+// Couleurs MIME - alignées sur theme.css (--mime-primary, --mime-secondary)
+const MIME_COLORS = {
+  primary: '#00ff66',
+  primaryRgb: '0, 255, 102',
+};
 
 export default function MimeCard({ word }: MimeCardProps) {
   const y = useMotionValue(0);
@@ -50,8 +52,8 @@ export default function MimeCard({ word }: MimeCardProps) {
         justifyContent: 'center',
         paddingBottom: 50, // Centré dans la zone visible (180px / 2 - marge)
         background: 'linear-gradient(180deg, #0a0a0f 0%, #050508 100%)',
-        border: `3px solid ${NEON}`,
-        boxShadow: `0 0 50px rgba(${NEON_RGB}, 0.6), 0 0 100px rgba(${NEON_RGB}, 0.3), inset 0 0 50px rgba(${NEON_RGB}, 0.15)`,
+        border: `3px solid ${MIME_COLORS.primary}`,
+        boxShadow: `0 0 50px rgba(${MIME_COLORS.primaryRgb}, 0.6), 0 0 100px rgba(${MIME_COLORS.primaryRgb}, 0.3), inset 0 0 50px rgba(${MIME_COLORS.primaryRgb}, 0.15)`,
       }}>
         <span style={{
           fontFamily: "'Bungee', cursive",
@@ -59,7 +61,7 @@ export default function MimeCard({ word }: MimeCardProps) {
           color: '#ffffff',
           textAlign: 'center',
           padding: 24,
-          textShadow: `0 0 10px rgba(${NEON_RGB}, 1), 0 0 25px rgba(${NEON_RGB}, 0.9), 0 0 50px rgba(${NEON_RGB}, 0.6)`,
+          textShadow: `0 0 10px rgba(${MIME_COLORS.primaryRgb}, 1), 0 0 25px rgba(${MIME_COLORS.primaryRgb}, 0.9), 0 0 50px rgba(${MIME_COLORS.primaryRgb}, 0.6)`,
           lineHeight: 1.2,
         }}>
           {word}
@@ -80,8 +82,8 @@ export default function MimeCard({ word }: MimeCardProps) {
           alignItems: 'center',
           justifyContent: 'center',
           background: 'linear-gradient(180deg, #111118 0%, #0a0a0f 100%)',
-          border: `3px solid rgba(${NEON_RGB}, 0.7)`,
-          boxShadow: `0 8px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(${NEON_RGB}, 0.3)`,
+          border: `3px solid rgba(${MIME_COLORS.primaryRgb}, 0.7)`,
+          boxShadow: `0 8px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(${MIME_COLORS.primaryRgb}, 0.3)`,
           cursor: 'grab',
           touchAction: 'none',
           y: coverY,
@@ -102,7 +104,7 @@ export default function MimeCard({ word }: MimeCardProps) {
         }}>
           {/* Emoji */}
           <motion.span
-            style={{ fontSize: 52, filter: `drop-shadow(0 0 20px rgba(${NEON_RGB}, 0.8))` }}
+            style={{ fontSize: 52, filter: `drop-shadow(0 0 20px rgba(${MIME_COLORS.primaryRgb}, 0.8))` }}
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
@@ -114,7 +116,7 @@ export default function MimeCard({ word }: MimeCardProps) {
             fontFamily: "'Bungee', cursive",
             fontSize: 24,
             color: '#ffffff',
-            textShadow: `0 0 12px rgba(${NEON_RGB}, 1), 0 0 25px rgba(${NEON_RGB}, 0.6)`,
+            textShadow: `0 0 12px rgba(${MIME_COLORS.primaryRgb}, 1), 0 0 25px rgba(${MIME_COLORS.primaryRgb}, 0.6)`,
           }}>
             Ton mot
           </span>
@@ -137,8 +139,8 @@ export default function MimeCard({ word }: MimeCardProps) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: `rgba(${NEON_RGB}, 0.2)`,
-              border: `2px solid rgba(${NEON_RGB}, 0.7)`,
+              background: `rgba(${MIME_COLORS.primaryRgb}, 0.2)`,
+              border: `2px solid rgba(${MIME_COLORS.primaryRgb}, 0.7)`,
               borderRadius: '50%',
               marginTop: 4,
             }}
@@ -148,8 +150,8 @@ export default function MimeCard({ word }: MimeCardProps) {
             <span style={{
               fontSize: 18,
               fontWeight: 'bold',
-              color: NEON,
-              textShadow: `0 0 8px rgba(${NEON_RGB}, 1)`,
+              color: MIME_COLORS.primary,
+              textShadow: `0 0 8px rgba(${MIME_COLORS.primaryRgb}, 1)`,
             }}>
               ↑
             </span>

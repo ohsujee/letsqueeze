@@ -13,7 +13,6 @@ import {
   openManageSubscriptions
 } from '@/lib/revenuecat';
 import { Capacitor } from '@capacitor/core';
-import { db, ref, update } from '@/lib/firebase';
 import {
   ArrowLeft,
   Crown,
@@ -77,24 +76,6 @@ export default function SubscribePage() {
     }).catch(console.error);
   }, []);
 
-  // Sync Pro status with Firebase
-  const syncProStatusToFirebase = async (expiresAt) => {
-    if (!user?.uid) return;
-
-    try {
-      await update(ref(db, `users/${user.uid}`), {
-        subscription: {
-          tier: 'pro',
-          provider: 'revenuecat',
-          expiresAt: expiresAt ? new Date(expiresAt).getTime() : Date.now() + 365 * 24 * 60 * 60 * 1000
-        }
-      });
-      console.log('[Subscribe] Firebase synced');
-    } catch (error) {
-      console.error('[Subscribe] Firebase sync error:', error);
-    }
-  };
-
   const handleSubscribe = async () => {
     setErrorMessage('');
     setIsProcessing(true);
@@ -112,8 +93,7 @@ export default function SubscribePage() {
     setIsProcessing(false);
 
     if (result.success) {
-      // Sync with Firebase
-      await syncProStatusToFirebase(result.expiresAt);
+      // Pro status is now updated via RevenueCat webhook (server-side)
       // Refresh the page to show Pro status
       router.refresh();
     } else if (result.error === 'cancelled') {
@@ -132,8 +112,7 @@ export default function SubscribePage() {
     setIsRestoring(false);
 
     if (result.success && result.isPro) {
-      // Sync with Firebase
-      await syncProStatusToFirebase(result.expiresAt);
+      // Pro status is now updated via RevenueCat webhook (server-side)
       router.refresh();
     } else if (result.success && !result.isPro) {
       setErrorMessage('Aucun abonnement actif trouvé');
