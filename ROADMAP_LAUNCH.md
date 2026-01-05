@@ -1,7 +1,7 @@
 # ROADMAP LANCEMENT - LetsQueeze
 
 > **Date**: 2026-01-05
-> **Status**: Pre-launch audit
+> **Status**: Pre-launch - En attente Apple/Google Developer
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Probleme | Impact | Action | Status |
 |----------|--------|--------|--------|
-| RevenueCat API Keys placeholder | Paiements impossibles | Remplacer `appl_XXX` / `goog_XXX` dans `lib/revenuecat.js` | [ ] |
-| AdMob IDs manquants | Pas de revenus pub | Creer ads interstitielles dans AdMob Console | [ ] |
-| PaywallModal = alert() | Bouton "Pro" fait rien | Connecter a RevenueCat | [ ] |
-| Webhook RevenueCat sans secret = continue | Faille critique | Rendre le secret obligatoire | [ ] |
-| Firebase `/admins` lisible par tous | Info leak | Changer `.read: false` | [ ] |
+| RevenueCat API Keys placeholder | Paiements impossibles | Remplacer `appl_XXX` / `goog_XXX` dans `lib/revenuecat.js` | [ ] En attente comptes dev |
+| AdMob IDs manquants | Pas de revenus pub | Creer ads interstitielles dans AdMob Console | [ ] En attente |
+| PaywallModal = alert() | Bouton "Pro" fait rien | Connecter a RevenueCat | [ ] En attente |
+| ~~Webhook RevenueCat sans secret~~ | ~~Faille critique~~ | ~~Rendre le secret obligatoire~~ | [x] FAIT |
+| ~~Firebase `/admins` lisible~~ | ~~Info leak~~ | ~~Changer `.read: false`~~ | [x] FAIT |
 
 ---
 
@@ -21,24 +21,57 @@
 
 | Probleme | Impact | Status |
 |----------|--------|--------|
-| Console.log debug (44 fichiers) | Mauvais UX, logs pollues | [ ] |
-| URLs Ngrok dans .env.local | Breaks apres 8h | [ ] |
-| Game history retourne `[]` | Feature cassee | [ ] |
-| Pas de timeout sur fetch | UI peut geler | [ ] |
-| Validation timestamps RevenueCat | Dates invalides possibles | [ ] |
+| ~~Console.log debug (44 fichiers)~~ | ~~Mauvais UX~~ | [x] Logger conditionnel cree |
+| URLs Ngrok dans .env.local | Breaks apres 8h | [ ] User: Mettre URLs prod sur Vercel |
+| ~~Game history retourne `[]`~~ | ~~Feature cassee~~ | [x] Feature future (pas utilisee) |
+| ~~Pas de timeout sur fetch~~ | ~~UI peut geler~~ | [x] fetchWithTimeout implemente |
+| Validation timestamps RevenueCat | Dates invalides possibles | [ ] A verifier |
 
 ---
 
 ## OK - Deja fait
 
+### Securite
 - [x] Security headers (CSP, HSTS, X-Frame-Options, etc.)
 - [x] Rate limiting Upstash Redis
 - [x] Spotify tokens httpOnly cookies
 - [x] Firebase rules subscription bloques (write: false)
-- [x] Account linking (invite -> Google/Apple)
+- [x] Firebase `/admins` bloques en lecture (`.read: false`)
+- [x] RevenueCat webhook STRICT (rejette si pas de secret)
+- [x] Firebase Admin SDK configure
+
+### Production Readiness
+- [x] Logger conditionnel (`lib/logger.js`) - logs en dev seulement
+- [x] Timeouts sur fetch critiques (`lib/fetchWithTimeout.js`)
+- [x] Account linking (invite -> Google/Apple) preserve les stats
 - [x] Founders/Admins en variables d'environnement
 - [x] RevenueCat webhook endpoint cree
-- [x] Firebase Admin SDK configure
+- [x] `.npmrc` avec `legacy-peer-deps=true` pour Vercel
+
+### Spotify
+- [x] Spotify keep-alive ameliore (15s au lieu de 30s)
+- [x] Auto-reconnexion si state null
+- [x] Retry automatique sur echec connexion
+
+---
+
+## A FAIRE PAR L'UTILISATEUR
+
+### Vercel / Production
+- [ ] Configurer `NEXT_PUBLIC_APP_URL` avec URL production
+- [ ] Configurer `NEXT_PUBLIC_SPOTIFY_REDIRECT_URI` avec URL production
+- [ ] Verifier toutes les variables d'environnement sur Vercel
+
+### Spotify Dashboard
+- [ ] Ajouter URI de redirect production dans Spotify Developer Dashboard
+
+### Variables d'environnement a configurer sur Vercel
+```env
+NEXT_PUBLIC_APP_URL=https://votre-domaine.com
+NEXT_PUBLIC_SPOTIFY_REDIRECT_URI=https://votre-domaine.com/games/blind-test/callback
+NEXT_PUBLIC_FOUNDER_UIDS=uid1,uid2
+NEXT_PUBLIC_FOUNDER_EMAILS=email1@test.com,email2@test.com
+```
 
 ---
 
@@ -112,41 +145,41 @@ REVENUECAT_ANDROID_KEY=goog_XXXXXXXX
 
 ---
 
-## Gestion des erreurs - Ameliorations futures
+## Gestion des erreurs - Status
 
-| Fichier | Probleme | Priorite |
-|---------|----------|----------|
-| `/api/webhooks/revenuecat` | admin.database() sans check init | HIGH |
-| `/lib/spotify/player.js` | SDK loading sans timeout | MEDIUM |
-| `/lib/spotify/auth.js` | fetch sans timeout | MEDIUM |
-| `/lib/hooks/useQuiz.js` | Pas de fallback si fetch fail | LOW |
-| `/lib/hooks/useGameRoom.js` | Pas de retry sur erreur Firebase | LOW |
+| Fichier | Probleme | Status |
+|---------|----------|--------|
+| `/api/webhooks/revenuecat` | admin.database() sans check init | [x] OK - Firebase Admin init au demarrage |
+| `/lib/spotify/player.js` | SDK loading sans timeout | [x] Keep-alive + auto-reconnect |
+| `/lib/spotify/auth.js` | fetch sans timeout | [x] fetchWithTimeout implemente |
+| `/lib/hooks/useQuiz.js` | Pas de fallback si fetch fail | LOW - A faire si besoin |
+| `/lib/hooks/useGameRoom.js` | Pas de retry sur erreur Firebase | LOW - A faire si besoin |
 
 ---
 
 ## Checklist Pre-Deploy Production
 
 ### Code
-- [ ] Pas de secrets hardcodes
-- [ ] Console.log supprimes
+- [x] Pas de secrets hardcodes (founders en env vars)
+- [x] Console.log conditionnel (logger.js)
 - [ ] TODO/FIXME resolus
 - [ ] npm audit sans vulnerabilites critiques
 
 ### Configuration
 - [ ] Variables d'environnement production sur Vercel
 - [ ] URLs production (pas Ngrok)
-- [ ] REVENUECAT_WEBHOOK_SECRET obligatoire
-- [ ] Firebase Admin credentials configures
+- [x] REVENUECAT_WEBHOOK_SECRET obligatoire (503 si absent)
+- [x] Firebase Admin credentials configures
 
 ### Firebase
-- [ ] Rules deployees
-- [ ] `/admins` non lisible
+- [x] Rules deployees
+- [x] `/admins` non lisible publiquement
 - [ ] Teste avec Emulator
 
 ### Tests
 - [ ] Acces sans auth -> 401
-- [ ] Rate limiting -> 429
-- [ ] Webhook RevenueCat avec mauvais secret -> 401
+- [x] Rate limiting -> 429
+- [x] Webhook RevenueCat avec mauvais secret -> 401
 - [ ] Verifier headers (securityheaders.com)
 
 ---
