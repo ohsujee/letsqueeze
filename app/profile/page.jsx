@@ -622,9 +622,11 @@ export default function ProfilePage() {
         <div className="profile-footer">
           <p className="footer-text">Version 1.0.0</p>
           <div className="footer-links">
-            <a href="#" className="footer-link">Conditions</a>
+            <a href="/terms" className="footer-link">CGU</a>
             <span className="footer-separator">•</span>
-            <a href="#" className="footer-link">Confidentialité</a>
+            <a href="/privacy" className="footer-link">Confidentialité</a>
+            <span className="footer-separator">•</span>
+            <a href="/legal" className="footer-link">Mentions légales</a>
           </div>
         </div>
 
