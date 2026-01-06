@@ -166,7 +166,7 @@ export default function DeezTestJoinPage() {
 
       <style jsx>{`
         .join-page {
-          min-height: 100dvh;
+          flex: 1; min-height: 0;
           background: #0a0a0f;
           display: flex;
           align-items: center;

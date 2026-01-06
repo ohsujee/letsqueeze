@@ -13,7 +13,7 @@ html {
 }
 
 html, body {
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   background: var(--bg-primary, #0a0a0f);
   color: var(--text-primary, white);
   font-family: var(--font-primary);

@@ -21,6 +21,7 @@ import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { isPro } from "@/lib/subscription";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
+import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 
 /**
  * Icône Trophy animée pour la victoire
@@ -220,6 +221,9 @@ export default function AlibiEnd() {
     playerUid: firebaseUser?.uid,
     isHost
   });
+
+  // Record game completion (for daily limits)
+  useGameCompletion({ gameType: 'alibi', roomCode: code });
 
   // Mark that user completed a game (for guest prompt on home)
   useEffect(() => {
@@ -441,11 +445,15 @@ export default function AlibiEnd() {
 
         <style jsx global>{`
           .alibi-end-screen {
-            min-height: 100dvh !important;
+            flex: 1 !important;
+            min-height: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
             background: #0a0a0f !important;
           }
           .alibi-end-container {
-            min-height: 100dvh !important;
+            flex: 1 !important;
+            min-height: 0 !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
@@ -593,10 +601,12 @@ export default function AlibiEnd() {
           /* ===== ALIBI END SCREEN - Style Guide Compliant ===== */
 
           .alibi-end-screen {
-            min-height: 100dvh !important;
+            flex: 1 !important;
+            min-height: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
             background: #0a0a0f !important;
             position: relative !important;
-            overflow: hidden !important;
           }
 
           /* Animated background */
@@ -614,10 +624,12 @@ export default function AlibiEnd() {
           }
 
           .alibi-end-container {
+            flex: 1 !important;
+            min-height: 0 !important;
             position: relative !important;
             z-index: 1 !important;
-            min-height: 100dvh !important;
             padding-bottom: 100px !important;
+            overflow-y: auto !important;
           }
 
           .alibi-end-content {

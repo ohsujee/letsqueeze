@@ -352,11 +352,11 @@ export default function PlayerGame(){
       <style jsx>{`
         /* ===== LAYOUT PRINCIPAL - Sans scroll, comme l'host ===== */
         .player-game-page {
-          min-height: 100dvh;
+          flex: 1;
+          min-height: 0;
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
-          overflow: hidden;
         }
 
         .player-game-page::before {

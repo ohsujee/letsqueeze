@@ -75,7 +75,7 @@ export default function StatsPage() {
         </div>
         <style jsx>{`
           .stats-page {
-            min-height: 100dvh;
+            flex: 1; min-height: 0;
             background: #0a0a0f;
             display: flex;
             align-items: center;
@@ -179,7 +179,7 @@ export default function StatsPage() {
 
       <style jsx global>{`
         .stats-page {
-          min-height: 100dvh;
+          flex: 1; min-height: 0;
           background: #0a0a0f;
           position: relative;
         }

@@ -278,11 +278,11 @@ export default function DeezTestPlayerGame() {
 
       <style jsx>{`
         .deeztest-player-page {
-          min-height: 100dvh;
+          flex: 1;
+          min-height: 0;
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
-          overflow: hidden;
         }
 
         .deeztest-player-page::before {

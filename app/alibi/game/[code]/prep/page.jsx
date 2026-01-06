@@ -489,28 +489,14 @@ export default function AlibiPrep() {
         duration={3500}
       />
 
-      <style jsx global>{`
-        /* Override body scroll for this page */
-        html, body {
-          overflow: hidden !important;
-          height: 100% !important;
-          max-height: 100% !important;
-        }
-      `}</style>
       <style jsx>{`
         /* ===== GAME SCREEN LAYOUT (Style Guide Section 6.1) ===== */
         .game-screen {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          flex: 1;
+          min-height: 0;
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
-          overflow: hidden;
-          margin: 0;
-          padding: 0;
         }
 
         /* Animated Background (Style Guide Section 7.1) */

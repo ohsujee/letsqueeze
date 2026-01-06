@@ -27,8 +27,8 @@ import { useToast } from "@/lib/hooks/useToast";
 import { getAlibiManifest } from "@/lib/utils/manifestCache";
 import { ChevronRight, Eye, Shuffle, RotateCcw, X, UserPlus, HelpCircle } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
-import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { storage } from "@/lib/utils/storage";
+import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 
 export default function AlibiLobby() {
   const { code } = useParams();
@@ -52,7 +52,6 @@ export default function AlibiLobby() {
   const [hostRole, setHostRole] = useState('inspectors'); // Default: host is inspector
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const roomWasValidRef = useRef(false);
-  const adShownRef = useRef(false);
 
   // Get user profile for subscription check and pseudo
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
@@ -61,28 +60,8 @@ export default function AlibiLobby() {
   // Get pseudo from profile or fallback
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Hôte';
 
-  // Show interstitial ad on first lobby entry (not when returning from game end)
-  useEffect(() => {
-    // Skip if already shown, or still loading
-    if (adShownRef.current || profileLoading) return;
-
-    // Check if returning from game end (don't show ad in that case)
-    const returnedFromGame = storage.get('returnedFromGame');
-    if (returnedFromGame) {
-      adShownRef.current = true;
-      return;
-    }
-
-    // Wait for profile to load to check Pro status
-    if (currentUser !== null && !userIsPro) {
-      adShownRef.current = true;
-      initAdMob().then(() => {
-        showInterstitialAd().catch(err => {
-          console.log('[AlibiLobby] Interstitial ad error:', err);
-        });
-      });
-    }
-  }, [currentUser, userIsPro, profileLoading]);
+  // Interstitial ad (unified hook)
+  useInterstitialAd({ context: 'Alibi' });
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {

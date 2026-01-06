@@ -24,8 +24,8 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { ChevronRight, Eye, HelpCircle, Music, Search, LogIn, Check, X, Users, Zap } from "lucide-react";
-import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { storage } from "@/lib/utils/storage";
+import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { isSpotifyConnected, startSpotifyAuth, clearTokens } from "@/lib/spotify/auth";
 import { getCurrentUser, isPremiumUser, searchPlaylists, getUserPlaylists, getRandomTracksFromPlaylist } from "@/lib/spotify/api";
 
@@ -45,7 +45,6 @@ export default function BlindTestLobby() {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showPlaylistSelector, setShowPlaylistSelector] = useState(false);
   const roomWasValidRef = useRef(false);
-  const adShownRef = useRef(false);
   const [myUid, setMyUid] = useState(null);
 
   // Spotify state
@@ -70,25 +69,8 @@ export default function BlindTestLobby() {
   // Check if can use more playlists
   const canUseMorePlaylists = userIsPro || playlistsUsed < MAX_PLAYLISTS_FREE;
 
-  // Show interstitial ad on first lobby entry
-  useEffect(() => {
-    if (adShownRef.current || profileLoading) return;
-
-    const returnedFromGame = storage.get('returnedFromGame');
-    if (returnedFromGame) {
-      adShownRef.current = true;
-      return;
-    }
-
-    if (currentUser !== null && !userIsPro) {
-      adShownRef.current = true;
-      initAdMob().then(() => {
-        showInterstitialAd().catch(err => {
-          console.log('[BlindTestLobby] Interstitial ad error:', err);
-        });
-      });
-    }
-  }, [currentUser, userIsPro, profileLoading]);
+  // Interstitial ad (unified hook)
+  useInterstitialAd({ context: 'BlindTest' });
 
   // Set join URL
   useEffect(() => {

@@ -111,8 +111,8 @@ export default function HomePage() {
     const c = await genUniqueCode();
     const now = Date.now();
 
-    // Record game played (for limits tracking)
-    recordGamePlayed();
+    // NOTE: recordGamePlayed() is now called on END pages, not here
+    // This ensures a game is only counted when actually completed
 
     if (game.id === 'quiz') {
       router.push(`/room/${c}`);

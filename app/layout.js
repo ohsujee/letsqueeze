@@ -15,7 +15,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fr" suppressHydrationWarning data-theme="dark">
-      <body className="min-h-screen">
+      <body>
         <ClientProviders>
           {children}
         </ClientProviders>

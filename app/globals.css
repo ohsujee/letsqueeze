@@ -12,6 +12,11 @@
    🎯 BASE & RESET
    =========================================== */
 
+:root {
+  /* App height - Updated by JS for real viewport height on mobile */
+  --app-height: 100dvh;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -29,7 +34,9 @@ html {
 }
 
 html, body {
-  min-height: 100dvh;
+  height: var(--app-height);
+  max-height: var(--app-height);
+  overflow: hidden;
   background: var(--bg-primary, #0a0a0f);
   color: var(--text-primary, white);
   font-family: var(--font-body, 'Inter', sans-serif);
@@ -40,14 +47,61 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
-body {
-  /* Safe area for notch/camera on iOS & Android */
-  padding-top: env(safe-area-inset-top, 0px);
-}
 
 body > * {
   position: relative;
   z-index: var(--z-base);
+}
+
+/* ===========================================
+   📱 APP SHELL - Global viewport constraint
+   ===========================================
+
+   L'AppShell gère automatiquement :
+   - Hauteur viewport (fix Android/iOS barre d'adresse via --app-height en JS)
+   - Safe area top (notch/caméra)
+   - Overflow hidden au niveau global
+
+   RÈGLES POUR LES PAGES :
+
+   1. Pages de JEU (sans scroll de page) :
+      .ma-page {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      → Le footer reste en bas, le contenu central prend l'espace restant
+
+   2. Pages avec SCROLL (home, profile, legal) :
+      .ma-page {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+      }
+      → La page peut scroller verticalement
+
+   3. NE PAS utiliser dans les pages :
+      - height: 100vh ou 100dvh (géré par AppShell)
+      - padding-top: env(safe-area-inset-top) (géré par AppShell)
+      - overflow: hidden sur html/body (géré globalement)
+
+   =========================================== */
+
+.app-shell {
+  height: var(--app-height, 100dvh);
+  max-height: var(--app-height, 100dvh);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Enfants directs de app-shell remplissent l'espace */
+.app-shell > * {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
 }
 
 /* ===========================================
@@ -816,7 +870,7 @@ main {
 /* HOME - Gradient vif */
 [data-theme="home"] {
   background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   font-family: var(--font-display);
   display: flex;
   align-items: center;
@@ -951,7 +1005,7 @@ main {
 [data-theme="quiz"] {
   background: var(--bg-primary, #0a0a0f);
   position: relative;
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   color: var(--text-primary, white);
 }
 
@@ -1029,7 +1083,7 @@ main {
 [data-theme="alibi"] {
   background: linear-gradient(135deg, #FFF3E0 0%, #F5F7FA 100%);
   position: relative;
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   color: #1a202c;
 }
 
@@ -2510,7 +2564,7 @@ textarea:focus-visible {
 
 /* ===== GAME SCREEN LAYOUT (No scroll!) ===== */
 .game-screen {
-  height: calc(100dvh - env(safe-area-inset-top, 0px));
+  flex: 1; min-height: 0;
   display: flex;
   flex-direction: column;
   padding: 16px;
@@ -2976,7 +3030,7 @@ textarea:focus-visible {
    =========================================== */
 
 .login-container {
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3250,7 +3304,7 @@ textarea:focus-visible {
 
 /* Loading State */
 .login-loading {
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3278,7 +3332,7 @@ textarea:focus-visible {
    =========================================== */
 
 .loading-screen {
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3299,10 +3353,12 @@ textarea:focus-visible {
    =========================================== */
 
 .home-container {
-  min-height: 100dvh;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: var(--bg-primary, #0a0a0f);
   position: relative;
-  overflow-x: hidden;
 }
 
 .home-container::before {
@@ -3742,7 +3798,7 @@ textarea:focus-visible {
 
 .join-container {
   position: relative;
-  height: calc(100dvh - env(safe-area-inset-top, 0px));
+  flex: 1; min-height: 0;
   background: var(--bg-primary, #0a0a0f);
   overflow: hidden;
 }
@@ -3765,7 +3821,7 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: calc(100dvh - 72px);
+  flex: 1; min-height: 0;
   padding: 1.5rem;
   padding-bottom: calc(1.5rem + 72px);
   max-width: 24rem;
@@ -3959,7 +4015,7 @@ textarea:focus-visible {
 
 .alibi-join-container {
   position: relative;
-  height: calc(100dvh - env(safe-area-inset-top, 0px));
+  flex: 1; min-height: 0;
   background: var(--bg-primary, #0a0a0f);
   overflow: hidden;
 }
@@ -3982,7 +4038,7 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   padding: 1.5rem;
   max-width: 24rem;
   margin: 0 auto;
@@ -4156,7 +4212,7 @@ textarea:focus-visible {
 /* ===== BLIND TEST LOBBY ===== */
 .blindtest-lobby-container {
   position: relative;
-  height: calc(100dvh - env(safe-area-inset-top, 0px));
+  flex: 1; min-height: 0;
   display: flex;
   flex-direction: column;
   background: var(--bg-primary, #0a0a0f);
@@ -4911,7 +4967,7 @@ textarea:focus-visible {
 /* ===== BLIND TEST JOIN PAGE ===== */
 .blindtest-join-container {
   position: relative;
-  height: calc(100dvh - env(safe-area-inset-top, 0px));
+  flex: 1; min-height: 0;
   background: var(--bg-primary, #0a0a0f);
   overflow: hidden;
 }
@@ -4934,7 +4990,7 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   padding: 1.5rem;
   max-width: 24rem;
   margin: 0 auto;
@@ -5777,7 +5833,7 @@ textarea:focus-visible {
 
 /* Deeztest join page styles */
 .deeztest-join-container {
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   background: var(--bg-primary, #0a0a0f);
   display: flex;
   flex-direction: column;
@@ -6004,7 +6060,7 @@ textarea:focus-visible {
    =========================================== */
 
 .settings-page {
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   background: var(--bg-primary, #0a0a0f);
   color: white;
   position: relative;
@@ -6550,7 +6606,7 @@ textarea:focus-visible {
 
 /* Page Loading */
 .page-loading {
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   background: var(--bg-primary, #0a0a0f);
   display: flex;
   align-items: center;
@@ -6957,7 +7013,7 @@ textarea:focus-visible {
 
 .coming-soon-container {
   position: relative;
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   background: var(--bg-primary, #0a0a0f);
   overflow: hidden;
 }
@@ -6981,7 +7037,7 @@ textarea:focus-visible {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100dvh;
+  flex: 1; min-height: 0;
   padding: 2rem;
   text-align: center;
   gap: 1.5rem;
@@ -7089,7 +7145,7 @@ textarea:focus-visible {
 
 .lobby-container {
   position: relative;
-  height: calc(100dvh - env(safe-area-inset-top, 0px));
+  flex: 1; min-height: 0;
   background: var(--bg-primary, #0a0a0f);
   overflow: hidden;
   display: flex;
@@ -9690,7 +9746,7 @@ textarea:focus-visible {
 /* Container - Full viewport, no scroll */
 .alibi-lobby-container {
   position: relative;
-  height: calc(100dvh - env(safe-area-inset-top, 0px));
+  flex: 1; min-height: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -11390,4 +11446,139 @@ textarea:focus-visible {
   border: 3px solid rgba(0, 255, 102, 0.15);
   border-top-color: #00ff66;
   box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+}
+
+/* ===========================================
+   JOIN LOADING SCREEN - Shows while ad plays
+   =========================================== */
+
+.join-loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary, #0a0a0f);
+  padding: 24px;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.join-loading-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.join-loading-bg .glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.4;
+}
+
+.join-loading-bg .glow-1 {
+  width: 300px;
+  height: 300px;
+  background: var(--brand-electric, #6366f1);
+  top: -100px;
+  left: -50px;
+}
+
+.join-loading-bg .glow-2 {
+  width: 250px;
+  height: 250px;
+  background: var(--brand-magenta, #ec4899);
+  bottom: -80px;
+  right: -50px;
+}
+
+.join-loading-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  max-width: 280px;
+  width: 100%;
+}
+
+/* Game Card */
+.join-game-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.game-card-image-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 80px rgba(99, 102, 241, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.game-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-card-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.game-card-title {
+  font-family: var(--font-display, 'Bungee', sans-serif);
+  font-size: 1.5rem;
+  color: var(--text-primary, white);
+  text-align: center;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Loading indicator */
+.join-loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.loading-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brand-electric, #6366f1);
+  box-shadow: 0 0 10px var(--brand-electric, #6366f1);
+}
+
+.loading-text {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.95rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  text-align: center;
 }

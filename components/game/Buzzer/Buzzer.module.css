@@ -190,7 +190,8 @@
 
 /* Spacer pour éviter que le contenu passe sous le buzzer */
 .spacer {
-  height: 120px;
+  height: 100px;
+  flex-shrink: 0;
 }
 
 /* ===== Responsive ===== */
@@ -202,6 +203,10 @@
   .button {
     width: 160px;
     height: 160px;
+  }
+
+  .spacer {
+    height: 90px;
   }
 
   .mainLabel {
@@ -224,6 +229,10 @@
     height: 140px;
   }
 
+  .spacer {
+    height: 80px;
+  }
+
   .mainLabel {
     font-size: 1.5rem;
   }
@@ -231,6 +240,27 @@
   .crossOverlay {
     width: 50px;
     height: 50px;
+  }
+}
+
+/* Très petits écrans */
+@media (max-width: 320px) {
+  .button {
+    width: 120px;
+    height: 120px;
+  }
+
+  .spacer {
+    height: 70px;
+  }
+
+  .mainLabel {
+    font-size: 1.25rem;
+  }
+
+  .crossOverlay {
+    width: 40px;
+    height: 40px;
   }
 }
 

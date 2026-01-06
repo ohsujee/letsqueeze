@@ -12,6 +12,7 @@ import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
+import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 
 function rankWithTies(items, scoreKey = "score") {
   const sorted = items.slice().sort((a, b) => (b[scoreKey] || 0) - (a[scoreKey] || 0));
@@ -50,6 +51,9 @@ export default function BlindTestEndPage() {
     playerUid: myUid,
     isHost: false
   });
+
+  // Record game completion (for daily limits)
+  useGameCompletion({ gameType: 'blindtest', roomCode: code });
 
   // Get current user UID
   useEffect(() => {
@@ -231,11 +235,11 @@ export default function BlindTestEndPage() {
       <style jsx>{`
         /* ===== LAYOUT ===== */
         .end-page {
-          height: 100dvh;
+          flex: 1;
+          min-height: 0;
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
-          overflow: hidden;
         }
 
         .end-page::before {
@@ -398,7 +402,6 @@ export default function BlindTestEndPage() {
           position: relative;
           z-index: 10;
           padding: 16px;
-          padding-bottom: calc(16px + env(safe-area-inset-bottom));
           background: rgba(10, 10, 15, 0.95);
           backdrop-filter: blur(20px);
           border-top: 1px solid rgba(16, 185, 129, 0.3);

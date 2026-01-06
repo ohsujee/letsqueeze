@@ -27,8 +27,8 @@ import { useToast } from "@/lib/hooks/useToast";
 import { getQuizManifest } from "@/lib/utils/manifestCache";
 import { motion } from "framer-motion";
 import { ChevronRight, Users, Zap, Eye } from "lucide-react";
-import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { storage } from "@/lib/utils/storage";
+import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 
 export default function Room() {
   const { code } = useParams();
@@ -44,7 +44,6 @@ export default function Room() {
   const [lockedQuizName, setLockedQuizName] = useState('');
   const [joinUrl, setJoinUrl] = useState("");
   const roomWasValidRef = useRef(false);
-  const adShownRef = useRef(false);
   const [myUid, setMyUid] = useState(null);
 
   const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
@@ -53,30 +52,8 @@ export default function Room() {
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
 
-  // Show interstitial ad on first lobby entry (not when returning from game end)
-  useEffect(() => {
-    // Skip if already shown, or user is Pro, or still loading
-    if (adShownRef.current || profileLoading) return;
-
-    // Check if returning from game end (don't show ad in that case)
-    const returnedFromGame = storage.get('returnedFromGame');
-    if (returnedFromGame) {
-      // Don't show ad, but keep the flag for home page prompt
-      adShownRef.current = true;
-      return;
-    }
-
-    // Wait for profile to load to check Pro status
-    if (currentUser !== null && !userIsPro) {
-      adShownRef.current = true;
-      // Init AdMob and show interstitial
-      initAdMob().then(() => {
-        showInterstitialAd().catch(err => {
-          console.log('[Room] Interstitial ad error:', err);
-        });
-      });
-    }
-  }, [currentUser, userIsPro, profileLoading]);
+  // Interstitial ad (unified hook)
+  useInterstitialAd({ context: 'QuizRoom' });
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {

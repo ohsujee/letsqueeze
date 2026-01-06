@@ -24,8 +24,8 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { ChevronRight, Eye, HelpCircle, Music, Search, Check, X, Users, Zap } from "lucide-react";
-import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { storage } from "@/lib/utils/storage";
+import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import {
   searchPlaylists,
   getFeaturedPlaylists,
@@ -49,7 +49,6 @@ export default function DeezTestLobby() {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showPlaylistSelector, setShowPlaylistSelector] = useState(false);
   const roomWasValidRef = useRef(false);
-  const adShownRef = useRef(false);
   const [myUid, setMyUid] = useState(null);
 
   // Deezer state (no auth needed!)
@@ -72,25 +71,8 @@ export default function DeezTestLobby() {
   // Check if can use more playlists
   const canUseMorePlaylists = userIsPro || playlistsUsed < MAX_PLAYLISTS_FREE;
 
-  // Show interstitial ad on first lobby entry
-  useEffect(() => {
-    if (adShownRef.current || profileLoading) return;
-
-    const returnedFromGame = storage.get('returnedFromGame');
-    if (returnedFromGame) {
-      adShownRef.current = true;
-      return;
-    }
-
-    if (currentUser !== null && !userIsPro) {
-      adShownRef.current = true;
-      initAdMob().then(() => {
-        showInterstitialAd().catch(err => {
-          console.log('[DeezTestLobby] Interstitial ad error:', err);
-        });
-      });
-    }
-  }, [currentUser, userIsPro, profileLoading]);
+  // Interstitial ad (unified hook)
+  useInterstitialAd({ context: 'DeezTest' });
 
   // Set join URL
   useEffect(() => {

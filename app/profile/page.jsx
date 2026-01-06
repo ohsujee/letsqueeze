@@ -198,7 +198,7 @@ export default function ProfilePage() {
         <div className="loading-spinner"></div>
         <style jsx>{`
           .loading-screen {
-            min-height: 100dvh;
+            flex: 1; min-height: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -639,7 +639,7 @@ export default function ProfilePage() {
 
       <style jsx>{`
         .profile-container {
-          min-height: 100dvh;
+          flex: 1; min-height: 0;
           background: var(--bg-primary, #0a0a0f);
           position: relative;
           padding: 0 16px;

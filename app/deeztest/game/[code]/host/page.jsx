@@ -956,16 +956,13 @@ export default function DeezTestHostGame() {
       `}</style>
       <style jsx>{`
         .deeztest-host-page {
-          min-height: 100dvh;
+          flex: 1;
+          min-height: 0;
           width: 100%;
           max-width: 100%;
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
-          overflow-x: hidden;
-          overflow-y: hidden;
-          position: fixed;
-          inset: 0;
         }
 
         .deeztest-host-page::before {
@@ -1533,7 +1530,6 @@ export default function DeezTestHostGame() {
           position: relative;
           z-index: 10;
           padding: 12px 16px;
-          padding-bottom: calc(16px + env(safe-area-inset-bottom));
           background: rgba(10, 10, 15, 0.95);
           backdrop-filter: blur(20px);
           border-top: 1px solid rgba(162, 56, 255, 0.2);

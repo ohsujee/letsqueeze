@@ -12,6 +12,7 @@ import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
+import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 
 // Deezer brand colors
 const DEEZER_PURPLE = '#A238FF';
@@ -55,6 +56,9 @@ export default function DeezTestEndPage() {
     playerUid: myUid,
     isHost: false
   });
+
+  // Record game completion (for daily limits)
+  useGameCompletion({ gameType: 'deeztest', roomCode: code });
 
   // Get current user UID
   useEffect(() => {
@@ -241,11 +245,11 @@ export default function DeezTestEndPage() {
       <style jsx>{`
         /* ===== LAYOUT ===== */
         .end-page {
-          height: 100dvh;
+          flex: 1;
+          min-height: 0;
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
-          overflow: hidden;
         }
 
         .end-page::before {
@@ -408,7 +412,6 @@ export default function DeezTestEndPage() {
           position: relative;
           z-index: 10;
           padding: 16px;
-          padding-bottom: calc(16px + env(safe-area-inset-bottom));
           background: rgba(10, 10, 15, 0.95);
           backdrop-filter: blur(20px);
           border-top: 1px solid rgba(162, 56, 255, 0.3);

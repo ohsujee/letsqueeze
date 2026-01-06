@@ -540,11 +540,11 @@ export default function HostGame(){
       <style jsx>{`
         /* ===== LAYOUT PRINCIPAL - Style Guide Compliant ===== */
         .host-game-page {
-          min-height: 100dvh;
+          flex: 1;
+          min-height: 0;
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
-          overflow: hidden; /* PAS DE SCROLL ! */
           position: relative;
         }
 
@@ -616,7 +616,7 @@ export default function HostGame(){
           flex-shrink: 0;
         }
 
-        /* ===== CONTENT (Flex: 1, aligné en haut) ===== */
+        /* ===== CONTENT (Flex: 1, remplit l'espace entre header et footer) ===== */
         .game-content {
           flex: 1;
           position: relative;
@@ -625,15 +625,26 @@ export default function HostGame(){
           flex-direction: column;
           align-items: center;
           padding: 16px;
-          gap: 16px;
+          gap: 12px;
           overflow: hidden;
-          min-height: 0; /* Important pour que flex enfant puisse scroller */
+          min-height: 0;
+        }
+
+        /* Leaderboard prend l'espace restant et s'étend */
+        .game-content > :global(.leaderboard-card) {
+          flex: 1;
+          min-height: 0;
+          width: 100%;
+          max-width: 500px;
+          align-self: stretch;
+          margin: 0 auto;
         }
 
         /* ===== QUESTION CARD ===== */
         .question-card {
           width: 100%;
           max-width: 500px;
+          flex-shrink: 0;
           background: rgba(20, 20, 30, 0.8);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 20px;
@@ -746,7 +757,6 @@ export default function HostGame(){
           position: relative;
           z-index: 10;
           padding: 12px 16px;
-          padding-bottom: calc(16px + env(safe-area-inset-bottom));
           background: rgba(10, 10, 15, 0.95);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);

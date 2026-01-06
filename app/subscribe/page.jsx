@@ -133,7 +133,7 @@ export default function SubscribePage() {
         </div>
         <style jsx>{`
           .subscribe-page {
-            min-height: 100dvh;
+            flex: 1; min-height: 0;
             background: #0a0a0f;
             display: flex;
             align-items: center;
@@ -488,7 +488,7 @@ export default function SubscribePage() {
 
 const styles = `
   .subscribe-page {
-    min-height: 100dvh;
+    flex: 1; min-height: 0;
     background: #0a0a0f;
     position: relative;
     overflow-x: hidden;

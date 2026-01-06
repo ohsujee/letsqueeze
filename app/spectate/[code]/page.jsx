@@ -166,12 +166,12 @@ export default function SpectatorView() {
       <style jsx>{`
         /* ===== Base Layout ===== */
         .spectator-view {
+          flex: 1;
+          min-height: 0;
           position: relative;
-          width: 100vw;
-          height: 100dvh;
+          width: 100%;
           display: flex;
           flex-direction: column;
-          overflow: hidden;
           color: var(--text-primary, #ffffff);
           background: var(--bg-primary, #0a0a0f);
         }
