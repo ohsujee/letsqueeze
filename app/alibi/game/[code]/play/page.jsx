@@ -17,6 +17,7 @@ import { Send, Clock, CheckCircle, XCircle, Users, AlertTriangle } from 'lucide-
 import ExitButton from "@/lib/components/ExitButton";
 import PlayerManager from "@/components/game/PlayerManager";
 import { usePlayers } from "@/lib/hooks/usePlayers";
+import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { AlibiPhaseTransition } from "@/components/alibi/AlibiPhaseTransition";
@@ -42,6 +43,15 @@ export default function AlibiInterrogation() {
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
     isHost
+  });
+
+  // Player cleanup - gère déconnexion pendant le jeu
+  usePlayerCleanup({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
+    playerUid: myUid,
+    isHost,
+    phase: 'playing'
   });
 
   // Derive suspects from players
