@@ -9,7 +9,7 @@ import ExitButton from "@/lib/components/ExitButton";
 import Leaderboard from "@/components/game/Leaderboard";
 import PlayerManager from "@/components/game/PlayerManager";
 import { initializePlayer, playSnippet, pause, resume, isPlayerReady, disconnect, preloadPreview } from "@/lib/deezer/player";
-import { Play, Pause, SkipForward, X, Check, RotateCcw, Music, Zap, Clock, Timer, Disc, Bell, RefreshCw } from "lucide-react";
+import { SkipForward, X, Check, RotateCcw, Music, Zap, Clock, Timer, Disc, Bell, RefreshCw } from "lucide-react";
 import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel } from "@/lib/constants/blindtest";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { getPlaylistTracks, formatTracksForGame } from "@/lib/deezer/api";
@@ -717,32 +717,6 @@ export default function DeezTestHostGame() {
               </div>
             </div>
 
-            {/* Main Play Button */}
-            <div className="main-play-section">
-              <motion.button
-                className={`main-play-btn ${isPlaying ? 'playing' : ''}`}
-                onClick={() => {
-                  if (isPlaying) {
-                    pauseMusic();
-                  } else if (currentSnippet === null) {
-                    playLevel(0);
-                  } else if (currentSnippet === SNIPPET_LEVELS.length - 1) {
-                    resumeMusic();
-                  } else {
-                    playLevel(currentSnippet);
-                  }
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                disabled={!playerReady}
-              >
-                {isPlaying ? <Pause size={32} /> : <Play size={32} style={{ marginLeft: 4 }} />}
-              </motion.button>
-              <span className="play-hint">
-                {!playerReady ? 'Connexion...' : isPlaying ? 'En lecture' : 'Lancer la musique'}
-              </span>
-            </div>
-
             {/* Snippet Level Buttons */}
             <div className="snippet-section">
               <span className="snippet-section-label">Durée de l'extrait</span>
@@ -900,12 +874,6 @@ export default function DeezTestHostGame() {
                 {isRefreshing && <div className="status-spinner small"></div>}
               </div>
             )}
-            {playerReady && !playerError && !isPlaying && currentSnippet === null && (
-              <div className="player-status ready">
-                <Check size={16} />
-                <span>Prêt à jouer</span>
-              </div>
-            )}
           </motion.div>
         ) : (
           <div className="track-card track-empty">
@@ -1044,7 +1012,7 @@ export default function DeezTestHostGame() {
           flex-direction: column;
           align-items: center;
           padding: 16px;
-          gap: 16px;
+          gap: 10px;
           overflow-y: auto;
           overflow-x: hidden;
           min-height: 0;
@@ -1077,8 +1045,8 @@ export default function DeezTestHostGame() {
           display: flex;
           align-items: center;
           gap: 16px;
-          margin-bottom: 24px;
-          padding-bottom: 20px;
+          margin-bottom: 12px;
+          padding-bottom: 12px;
           border-bottom: 1px solid rgba(162, 56, 255, 0.1);
           min-width: 0;
           width: 100%;
@@ -1191,63 +1159,12 @@ export default function DeezTestHostGame() {
           font-weight: 600;
         }
 
-        /* Main Play Section */
-        .main-play-section {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 24px;
-          width: 100%;
-        }
-
-        .main-play-btn {
-          position: relative;
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          border: none;
-          cursor: pointer;
-          background: linear-gradient(135deg, ${DEEZER_PURPLE}, ${DEEZER_PINK});
-          padding: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          box-shadow: 0 4px 20px rgba(162, 56, 255, 0.4);
-          transition: all 0.2s ease;
-        }
-
-        .main-play-btn:hover:not(:disabled) {
-          transform: scale(1.05);
-          box-shadow: 0 6px 25px rgba(162, 56, 255, 0.5);
-        }
-
-        .main-play-btn:disabled {
-          opacity: 0.4;
-          cursor: not-allowed;
-          box-shadow: none;
-        }
-
-        .main-play-btn.playing {
-          box-shadow: 0 4px 20px rgba(162, 56, 255, 0.5), 0 0 30px rgba(162, 56, 255, 0.3);
-        }
-
-        .play-hint {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.75rem;
-          font-weight: 600;
-          color: var(--text-muted);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
         /* Snippet Section */
         .snippet-section {
-          margin-bottom: 16px;
+          margin-bottom: 8px;
           width: 100%;
           overflow: visible;
-          padding: 8px 4px;
+          padding: 0 4px;
         }
 
         .snippet-section-label {
@@ -1468,12 +1385,6 @@ export default function DeezTestHostGame() {
           background: rgba(251, 191, 36, 0.1);
           border: 1px solid rgba(251, 191, 36, 0.2);
           color: #fbbf24;
-        }
-
-        .player-status.ready {
-          background: rgba(162, 56, 255, 0.1);
-          border: 1px solid rgba(162, 56, 255, 0.2);
-          color: ${DEEZER_LIGHT};
         }
 
         .player-status.error {

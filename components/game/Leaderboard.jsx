@@ -68,6 +68,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           box-sizing: border-box;
         }
 
+        /* ===== LEADERBOARD - Fills remaining 42% of content ===== */
         .leaderboard-card {
           width: 100%;
           max-width: 500px;
@@ -78,11 +79,10 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           flex-direction: column;
           background: rgba(20, 20, 30, 0.8);
           border: 1px solid rgba(139, 92, 246, 0.25);
-          border-radius: 16px;
-          padding: 14px;
+          border-radius: 2vh;
+          padding: 1.5vh 16px;
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
-          box-sizing: border-box;
           overflow: hidden;
         }
 
@@ -90,57 +90,58 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 10px;
-          padding-bottom: 10px;
+          margin-bottom: 1vh;
+          padding-bottom: 1vh;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           flex-shrink: 0;
         }
 
         .leaderboard-title {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 0.9rem;
+          font-size: 1.8vh;
           color: var(--quiz-glow, #a78bfa);
           text-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
         }
 
         .leaderboard-count {
           font-family: var(--font-mono, 'Roboto Mono'), monospace;
-          font-size: 0.7rem;
+          font-size: 1.3vh;
           font-weight: 600;
           color: var(--quiz-glow, #a78bfa);
           background: rgba(139, 92, 246, 0.15);
           border: 1px solid rgba(139, 92, 246, 0.3);
-          padding: 4px 10px;
-          border-radius: 12px;
+          padding: 0.5vh 1vh;
+          border-radius: 1vh;
         }
 
+        /* Internal scroll for player list */
         .leaderboard-list {
           flex: 1;
           min-width: 0;
+          min-height: 0;
           display: flex;
           flex-direction: column;
-          gap: 6px;
+          gap: 0.8vh;
           overflow-y: auto;
           overflow-x: hidden;
-          padding: 2px 4px 2px 2px;
+          padding-right: 0.5vw;
         }
 
-        .leaderboard-list::-webkit-scrollbar { width: 4px; }
+        .leaderboard-list::-webkit-scrollbar { width: 0.4vh; }
         .leaderboard-list::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 2px; }
         .leaderboard-list::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.4); border-radius: 2px; }
 
         .player-row {
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 8px 12px;
+          gap: 1.5vw;
+          padding: 1vh 2vw;
           background: rgba(20, 20, 30, 0.6);
-          border-radius: 10px;
+          border-radius: 1.2vh;
           border: 1px solid rgba(255, 255, 255, 0.08);
           flex-shrink: 0;
           min-width: 0;
           max-width: 100%;
-          box-sizing: border-box;
           transition: all 0.2s ease;
         }
 
@@ -182,30 +183,30 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
 
         .disconnected-icon {
           display: inline-block;
-          margin-left: 6px;
+          margin-left: 1vw;
           color: rgba(239, 68, 68, 0.7);
           vertical-align: middle;
         }
 
         .player-rank {
-          width: 24px;
-          height: 24px;
+          width: 2.5vh;
+          height: 2.5vh;
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          font-size: 1rem;
+          font-size: 2vh;
         }
 
         .rank-number {
           font-family: var(--font-mono, 'Roboto Mono'), monospace;
-          font-size: 0.75rem;
+          font-size: 1.3vh;
           font-weight: 700;
           color: var(--text-muted, rgba(255, 255, 255, 0.5));
           background: rgba(255, 255, 255, 0.08);
-          width: 22px;
-          height: 22px;
-          border-radius: 6px;
+          width: 2.5vh;
+          height: 2.5vh;
+          border-radius: 0.6vh;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -215,7 +216,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           flex: 1;
           min-width: 0;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.85rem;
+          font-size: 1.6vh;
           font-weight: 600;
           color: var(--text-primary, #ffffff);
           display: block;
@@ -226,11 +227,11 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
 
         .you-badge {
           display: inline;
-          font-size: 0.55rem;
-          padding: 2px 6px;
-          margin-left: 6px;
+          font-size: 1vh;
+          padding: 0.3vh 0.6vh;
+          margin-left: 1vw;
           background: var(--quiz-primary, #8b5cf6);
-          border-radius: 4px;
+          border-radius: 0.4vh;
           text-transform: uppercase;
           font-weight: 700;
           letter-spacing: 0.05em;
@@ -238,22 +239,22 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
 
         .player-score {
           font-family: var(--font-mono, 'Roboto Mono'), monospace;
-          font-size: 0.85rem;
+          font-size: 1.5vh;
           font-weight: 700;
           color: var(--success, #22c55e);
           text-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
           margin-left: auto;
           background: rgba(34, 197, 94, 0.12);
-          padding: 4px 10px;
-          border-radius: 6px;
+          padding: 0.5vh 1vh;
+          border-radius: 0.8vh;
           border: 1px solid rgba(34, 197, 94, 0.3);
         }
 
         .no-players {
           text-align: center;
-          font-size: 0.8rem;
+          font-size: 1.6vh;
           color: var(--text-muted, rgba(255, 255, 255, 0.5));
-          padding: 16px;
+          padding: 2vh;
         }
       `}</style>
     </div>
