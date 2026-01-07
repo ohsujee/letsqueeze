@@ -9,9 +9,11 @@ import Leaderboard from "@/components/game/Leaderboard";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import ExitButton from "@/lib/components/ExitButton";
+import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { storage } from "@/lib/utils/storage";
 import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
 
@@ -84,6 +86,14 @@ export default function BlindTestPlayerGame() {
     roomPrefix: 'rooms_blindtest',
     playerUid: myUid,
     phase: 'playing'
+  });
+
+  // Inactivity detection
+  useInactivityDetection({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
+    playerUid: myUid,
+    inactivityTimeout: 30000
   });
 
   // Mark player as active when joining/rejoining
@@ -271,6 +281,14 @@ export default function BlindTestPlayerGame() {
         />
       </footer>
 
+      {/* Disconnect Alert */}
+      <DisconnectAlert
+        roomCode={code}
+        roomPrefix="rooms_blindtest"
+        playerUid={myUid}
+        onReconnect={markActive}
+      />
+
       <style jsx>{`
         .blindtest-player-page {
           flex: 1;
@@ -278,6 +296,7 @@ export default function BlindTestPlayerGame() {
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
+          overflow: hidden;
         }
 
         .blindtest-player-page::before {
@@ -292,46 +311,49 @@ export default function BlindTestPlayerGame() {
           pointer-events: none;
         }
 
-        /* Header */
+        /* Header - 7vh */
         .game-header.blindtest {
           flex-shrink: 0;
           position: relative;
           z-index: 10;
+          height: 7vh;
+          min-height: 7vh;
+          max-height: 7vh;
           background: rgba(10, 10, 15, 0.95);
           backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(6, 182, 212, 0.2);
-          padding: 12px 16px;
-          padding-top: 12px;
+          padding: 0 3vw;
         }
 
         .game-header-content {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          max-width: 600px;
+          height: 100%;
+          max-width: 500px;
           margin: 0 auto;
-          gap: 12px;
+          gap: 2vw;
         }
 
         .game-header-left {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 2vw;
           flex: 1;
           min-width: 0;
         }
 
         .game-header-progress.blindtest {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1rem;
+          font-size: 2vh;
           color: #34d399;
-          text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+          text-shadow: 0 0 1.5vh rgba(6, 182, 212, 0.6);
           flex-shrink: 0;
         }
 
         .game-header-title {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.8rem;
+          font-size: 1.5vh;
           font-weight: 600;
           color: var(--text-secondary);
           white-space: nowrap;
@@ -342,17 +364,17 @@ export default function BlindTestPlayerGame() {
         .latency-indicator {
           display: flex;
           align-items: center;
-          gap: 4px;
-          padding: 3px 8px;
+          gap: 0.5vw;
+          padding: 0.4vh 1.5vw;
           background: rgba(251, 191, 36, 0.15);
           border: 1px solid rgba(251, 191, 36, 0.3);
-          border-radius: 12px;
+          border-radius: 1.5vh;
           flex-shrink: 0;
         }
 
         .latency-dot {
-          width: 6px;
-          height: 6px;
+          width: 0.8vh;
+          height: 0.8vh;
           background: #fbbf24;
           border-radius: 50%;
           animation: latency-pulse 1s ease-in-out infinite;
@@ -365,7 +387,7 @@ export default function BlindTestPlayerGame() {
 
         .latency-text {
           font-family: var(--font-mono, 'Roboto Mono'), monospace;
-          font-size: 0.6rem;
+          font-size: 1.1vh;
           font-weight: 600;
           color: #fbbf24;
         }
@@ -373,37 +395,37 @@ export default function BlindTestPlayerGame() {
         .game-header-right {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 2vw;
           flex-shrink: 0;
         }
 
         .my-score-badge.blindtest {
           display: flex;
           align-items: baseline;
-          gap: 4px;
+          gap: 0.8vw;
           background: rgba(6, 182, 212, 0.15);
           border: 1px solid rgba(6, 182, 212, 0.3);
-          border-radius: 20px;
-          padding: 6px 12px;
+          border-radius: 2.5vh;
+          padding: 0.8vh 2vw;
         }
 
         .my-score-value {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1rem;
+          font-size: 2vh;
           color: #34d399;
         }
 
         .my-score-label {
-          font-size: 0.7rem;
+          font-size: 1.3vh;
           color: rgba(255, 255, 255, 0.5);
         }
 
         /* Buzz notification */
         .buzz-notification-wrapper {
           position: fixed;
-          top: calc(70px + env(safe-area-inset-top));
-          left: 16px;
-          right: 16px;
+          top: calc(8vh + env(safe-area-inset-top));
+          left: 3vw;
+          right: 3vw;
           z-index: 100;
           display: flex;
           justify-content: center;
@@ -414,17 +436,17 @@ export default function BlindTestPlayerGame() {
           pointer-events: auto;
           display: flex;
           align-items: center;
-          gap: 12px;
-          padding: 12px 20px;
+          gap: 2vw;
+          padding: 1.5vh 3vw;
           background: rgba(20, 20, 30, 0.95);
           backdrop-filter: blur(20px);
-          border: 2px solid #10b981;
-          border-radius: 16px;
-          box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
+          border: 0.25vh solid #10b981;
+          border-radius: 2vh;
+          box-shadow: 0 0 4vh rgba(6, 182, 212, 0.4);
         }
 
         .buzz-notification-icon {
-          font-size: 1.5rem;
+          font-size: 2.5vh;
           animation: buzz-icon-pulse 1s ease-in-out infinite;
         }
 
@@ -436,12 +458,12 @@ export default function BlindTestPlayerGame() {
         .buzz-notification-content {
           display: flex;
           flex-direction: column;
-          gap: 2px;
+          gap: 0.3vh;
         }
 
         .buzz-notification-label {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.7rem;
+          font-size: 1.3vh;
           font-weight: 600;
           text-transform: uppercase;
           color: #34d399;
@@ -449,11 +471,11 @@ export default function BlindTestPlayerGame() {
 
         .buzz-notification-name {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.1rem;
+          font-size: 2vh;
           color: var(--text-primary);
         }
 
-        /* Main content */
+        /* Main content - fills remaining space */
         .game-content.blindtest {
           flex: 1;
           position: relative;
@@ -461,44 +483,44 @@ export default function BlindTestPlayerGame() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 16px;
-          gap: 12px;
+          padding: 1.5vh 3vw;
+          gap: 1.5vh;
           overflow: hidden;
           min-height: 0;
         }
 
-        /* Points card */
+        /* Points card - flex-shrink for fit */
         .points-card {
           width: 100%;
           max-width: 500px;
           flex-shrink: 0;
           background: rgba(20, 20, 30, 0.8);
           border: 1px solid rgba(16, 185, 129, 0.25);
-          border-radius: 16px;
-          padding: 20px 24px;
+          border-radius: 2vh;
+          padding: 2vh 3vw;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 16px;
+          gap: 3vw;
         }
 
         .points-main {
           display: flex;
           align-items: baseline;
-          gap: 8px;
+          gap: 1.5vw;
         }
 
         .points-value {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 2.5rem;
+          font-size: 5vh;
           color: #34d399;
-          text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+          text-shadow: 0 0 2.5vh rgba(16, 185, 129, 0.5);
           line-height: 1;
         }
 
         .points-label {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.9rem;
+          font-size: 1.6vh;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.5);
           text-transform: uppercase;
@@ -508,16 +530,16 @@ export default function BlindTestPlayerGame() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 4px;
-          padding: 12px 20px;
+          gap: 0.5vh;
+          padding: 1.5vh 3vw;
           background: rgba(16, 185, 129, 0.1);
           border: 1px solid rgba(16, 185, 129, 0.3);
-          border-radius: 12px;
+          border-radius: 1.5vh;
         }
 
         .level-label {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.65rem;
+          font-size: 1.2vh;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.5);
           text-transform: uppercase;
@@ -526,20 +548,24 @@ export default function BlindTestPlayerGame() {
 
         .level-value {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.1rem;
+          font-size: 2vh;
           color: #34d399;
         }
 
-        /* Buzzer footer */
+        /* Buzzer footer - 12vh */
         .buzzer-footer.blindtest {
           flex-shrink: 0;
           position: relative;
           z-index: 10;
+          height: 12vh;
           width: 100%;
           max-width: 500px;
           margin: 0 auto;
-          padding: 0 16px;
-          padding-bottom: env(safe-area-inset-bottom);
+          padding: 0 3vw;
+          padding-bottom: var(--safe-area-bottom);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       `}</style>
     </div>

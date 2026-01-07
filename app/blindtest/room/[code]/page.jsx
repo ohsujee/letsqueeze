@@ -12,9 +12,7 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
-import ShareModal from "@/lib/components/ShareModal";
-import ExitButton from "@/lib/components/ExitButton";
-import PlayerManager from "@/components/game/PlayerManager";
+import LobbyHeader from "@/components/game/LobbyHeader";
 import PaywallModal from "@/components/ui/PaywallModal";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
@@ -23,7 +21,7 @@ import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
-import { ChevronRight, Eye, HelpCircle, Music, Search, LogIn, Check, X, Users, Zap } from "lucide-react";
+import { ChevronRight, Music, Search, LogIn, Check, X, Users, Zap } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { isSpotifyConnected, startSpotifyAuth, clearTokens } from "@/lib/spotify/auth";
@@ -502,53 +500,17 @@ export default function BlindTestLobby() {
       </AnimatePresence>
 
       {/* Header */}
-      <header className="lobby-header blindtest">
-        <div className="header-left">
-          <ExitButton
-            variant="header"
-            onExit={isHost ? handleHostExit : handlePlayerExit}
-            confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera fermée pour tous les joueurs." : "Voulez-vous vraiment quitter le lobby ?"}
-          />
-          <div className="header-title-row">
-            <h1 className="lobby-title blindtest">Lobby</h1>
-            <span className="lobby-divider">•</span>
-            <span className="room-code blindtest">{code}</span>
-          </div>
-        </div>
-        <div className="header-right">
-          <motion.button
-            className="help-btn blindtest"
-            onClick={() => setShowHowToPlay(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            title="Comment jouer"
-          >
-            <HelpCircle size={18} />
-          </motion.button>
-          {isHost && (
-            <PlayerManager
-              players={players}
-              roomCode={code}
-              roomPrefix="rooms_blindtest"
-              hostUid={meta?.hostUid}
-              variant="blindtest"
-              phase="lobby"
-            />
-          )}
-          {!isHost && (
-            <motion.button
-              className="spectator-btn blindtest"
-              onClick={() => router.push(`/blindtest/spectate/${code}`)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              title="Mode spectateur"
-            >
-              <Eye size={18} />
-            </motion.button>
-          )}
-          <ShareModal roomCode={code} joinUrl={joinUrl} gameType="blindtest" />
-        </div>
-      </header>
+      <LobbyHeader
+        variant="blindtest"
+        code={code}
+        isHost={isHost}
+        players={players}
+        hostUid={meta?.hostUid}
+        onHostExit={handleHostExit}
+        onPlayerExit={handlePlayerExit}
+        onShowHowToPlay={() => setShowHowToPlay(true)}
+        joinUrl={joinUrl}
+      />
 
       {/* Main Content */}
       <main className="lobby-main">

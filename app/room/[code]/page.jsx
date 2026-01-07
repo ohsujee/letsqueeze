@@ -12,12 +12,11 @@ import {
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
-import ShareModal from "@/lib/components/ShareModal";
 import TeamTabs from "@/lib/components/TeamTabs";
 import PaywallModal from "@/components/ui/PaywallModal";
 import QuizSelectorModal from "@/components/ui/QuizSelectorModal";
-import ExitButton from "@/lib/components/ExitButton";
-import PlayerManager from "@/components/game/PlayerManager";
+import LobbyHeader from "@/components/game/LobbyHeader";
+import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
@@ -26,7 +25,7 @@ import { canAccessPack, isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { getQuizManifest } from "@/lib/utils/manifestCache";
 import { motion } from "framer-motion";
-import { ChevronRight, Users, Zap, Eye } from "lucide-react";
+import { ChevronRight, Users, Zap } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 
@@ -41,6 +40,7 @@ export default function Room() {
   const [categories, setCategories] = useState([]);
   const [showPaywall, setShowPaywall] = useState(false);
   const [showQuizSelector, setShowQuizSelector] = useState(false);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [lockedQuizName, setLockedQuizName] = useState('');
   const [joinUrl, setJoinUrl] = useState("");
   const roomWasValidRef = useRef(false);
@@ -356,46 +356,24 @@ export default function Room() {
         onSelectQuiz={handleQuizChange}
         userIsPro={userIsPro}
       />
+      <HowToPlayModal
+        isOpen={showHowToPlay}
+        onClose={() => setShowHowToPlay(false)}
+        gameType="quiz"
+      />
 
       {/* Header */}
-      <header className="lobby-header">
-        <div className="header-left">
-          <ExitButton
-            variant="header"
-            onExit={isHost ? handleHostExit : handlePlayerExit}
-            confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera fermée pour tous les joueurs." : "Voulez-vous vraiment quitter le lobby ?"}
-          />
-          <div className="header-title-row">
-            <h1 className="lobby-title">Lobby</h1>
-            <span className="lobby-divider">•</span>
-            <span className="room-code">{code}</span>
-          </div>
-        </div>
-        <div className="header-right">
-          {isHost && (
-            <PlayerManager
-              players={players}
-              roomCode={code}
-              roomPrefix="rooms"
-              hostUid={meta?.hostUid}
-              variant="quiz"
-              phase="lobby"
-            />
-          )}
-          {!isHost && (
-            <motion.button
-              className="spectator-btn"
-              onClick={() => router.push(`/spectate/${code}`)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              title="Mode spectateur"
-            >
-              <Eye size={18} />
-            </motion.button>
-          )}
-          <ShareModal roomCode={code} joinUrl={joinUrl} />
-        </div>
-      </header>
+      <LobbyHeader
+        variant="quiz"
+        code={code}
+        isHost={isHost}
+        players={players}
+        hostUid={meta?.hostUid}
+        onHostExit={handleHostExit}
+        onPlayerExit={handlePlayerExit}
+        onShowHowToPlay={() => setShowHowToPlay(true)}
+        joinUrl={joinUrl}
+      />
 
       {/* Main Content */}
       <main className="lobby-main">

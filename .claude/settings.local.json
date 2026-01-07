@@ -41,7 +41,16 @@
       "Bash(cd:*)",
       "Bash(firebase deploy:*)",
       "Bash(wc:*)",
-      "Bash(stat:*)"
+      "Bash(stat:*)",
+      "WebFetch(domain:thetvdb.com)",
+      "WebFetch(domain:apps.apple.com)",
+      "WebFetch(domain:www.topito.com)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:www.animyjob.com)",
+      "Bash(grep:*)",
+      "Bash(git show:*)",
+      "Bash(git checkout:*)",
+      "Bash(find:*)"
     ]
   }
 }

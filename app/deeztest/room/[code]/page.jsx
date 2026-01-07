@@ -12,9 +12,7 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
-import ShareModal from "@/lib/components/ShareModal";
-import ExitButton from "@/lib/components/ExitButton";
-import PlayerManager from "@/components/game/PlayerManager";
+import LobbyHeader from "@/components/game/LobbyHeader";
 import PaywallModal from "@/components/ui/PaywallModal";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
@@ -23,7 +21,7 @@ import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
-import { ChevronRight, Eye, HelpCircle, Music, Search, Check, X, Users, Zap } from "lucide-react";
+import { ChevronRight, Music, Search, Check, X, Users, Zap } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import {
@@ -495,54 +493,17 @@ export default function DeezTestLobby() {
       </AnimatePresence>
 
       {/* Header */}
-      <header className="lobby-header deeztest">
-        <div className="header-left">
-          <ExitButton
-            variant="header"
-            onExit={isHost ? handleHostExit : handlePlayerExit}
-            confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera fermée pour tous les joueurs." : "Voulez-vous vraiment quitter le lobby ?"}
-          />
-          <div className="header-title-row">
-            <h1 className="lobby-title deeztest">Lobby</h1>
-            <span className="lobby-divider">•</span>
-            <span className="room-code deeztest">{code}</span>
-          </div>
-        </div>
-        <div className="header-right">
-          <motion.button
-            className="help-btn deeztest"
-            onClick={() => setShowHowToPlay(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            title="Comment jouer"
-          >
-            <HelpCircle size={18} />
-          </motion.button>
-          {isHost && (
-            <PlayerManager
-              players={players}
-              roomCode={code}
-              roomPrefix="rooms_deeztest"
-              hostUid={meta?.hostUid}
-              variant="deeztest"
-              phase="lobby"
-              hideCount
-            />
-          )}
-          {!isHost && (
-            <motion.button
-              className="spectator-btn deeztest"
-              onClick={() => router.push(`/deeztest/spectate/${code}`)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              title="Mode spectateur"
-            >
-              <Eye size={18} />
-            </motion.button>
-          )}
-          <ShareModal roomCode={code} joinUrl={joinUrl} gameType="deeztest" />
-        </div>
-      </header>
+      <LobbyHeader
+        variant="deeztest"
+        code={code}
+        isHost={isHost}
+        players={players}
+        hostUid={meta?.hostUid}
+        onHostExit={handleHostExit}
+        onPlayerExit={handlePlayerExit}
+        onShowHowToPlay={() => setShowHowToPlay(true)}
+        joinUrl={joinUrl}
+      />
 
       {/* Main Content */}
       <main className="lobby-main">

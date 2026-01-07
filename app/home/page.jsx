@@ -230,6 +230,35 @@ export default function HomePage() {
       // Jeu local - pas de Firebase, navigation directe
       router.push('/mime');
       return; // Pas besoin de recordGamePlayed pour un jeu local
+    } else if (game.id === 'trouveregle') {
+      Promise.all([
+        set(ref(db, `rooms_trouveregle/${c}/meta`), {
+          code: c,
+          createdAt: now,
+          hostUid: auth.currentUser.uid,
+          expiresAt: now + 12 * 60 * 60 * 1000,
+          gameType: "trouveregle",
+          mode: "classic",
+          timerDuration: 300,
+          investigatorCount: 1
+        }),
+        set(ref(db, `rooms_trouveregle/${c}/state`), {
+          phase: "lobby",
+          investigatorUids: [],
+          currentRule: null,
+          ruleOptions: [],
+          votes: {},
+          rerollsUsed: 0,
+          guessAttempts: 0,
+          guesses: [],
+          roundNumber: 1,
+          playedRuleIds: []
+        })
+      ]).then(() => {
+        router.push(`/trouveregle/room/${c}`);
+      }).catch(err => {
+        console.error('TrouveRegle room creation error:', err);
+      });
     }
   };
 

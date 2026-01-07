@@ -9,9 +9,11 @@ import Leaderboard from "@/components/game/Leaderboard";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import ExitButton from "@/lib/components/ExitButton";
+import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { storage } from "@/lib/utils/storage";
 
 function useSound(url){
@@ -83,6 +85,14 @@ export default function PlayerGame(){
     roomPrefix: 'rooms',
     playerUid: myUid,
     phase: 'playing'
+  });
+
+  // Inactivity detection
+  useInactivityDetection({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    playerUid: myUid,
+    inactivityTimeout: 30000
   });
 
   // Mark player as active on reconnection
@@ -348,6 +358,14 @@ export default function PlayerGame(){
           serverNow={serverNow}
         />
       </footer>
+
+      {/* Disconnect Alert */}
+      <DisconnectAlert
+        roomCode={code}
+        roomPrefix="rooms"
+        playerUid={myUid}
+        onReconnect={markActive}
+      />
 
       <style jsx>{`
         /* ===== LAYOUT PRINCIPAL - Sans scroll, comme l'host ===== */

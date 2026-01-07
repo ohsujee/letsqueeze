@@ -16,9 +16,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Clock, CheckCircle, XCircle, Users, AlertTriangle } from 'lucide-react';
 import ExitButton from "@/lib/components/ExitButton";
 import PlayerManager from "@/components/game/PlayerManager";
+import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { AlibiPhaseTransition } from "@/components/alibi/AlibiPhaseTransition";
 import { VerdictTransition } from "@/components/alibi/VerdictTransition";
@@ -46,12 +48,20 @@ export default function AlibiInterrogation() {
   });
 
   // Player cleanup - gère déconnexion pendant le jeu
-  usePlayerCleanup({
+  const { markActive } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
     isHost,
     phase: 'playing'
+  });
+
+  // Inactivity detection - marque le joueur inactif après 30s
+  useInactivityDetection({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
+    playerUid: myUid,
+    inactivityTimeout: 30000
   });
 
   // Derive suspects from players
@@ -474,8 +484,8 @@ export default function AlibiInterrogation() {
                 >
                   {/* Timer prominent */}
                   <motion.div
-                    className={`interro-timer-card ${isCritical ? 'critical' : isUrgent ? 'urgent' : ''}`}
-                    animate={isCritical ? {
+                    className={`interro-timer-card ${allAnswered ? 'all-answered' : isCritical ? 'critical' : isUrgent ? 'urgent' : ''}`}
+                    animate={!allAnswered && isCritical ? {
                       scale: [1, 1.02, 1],
                       boxShadow: [
                         '0 0 20px rgba(239, 68, 68, 0.4)',
@@ -485,8 +495,17 @@ export default function AlibiInterrogation() {
                     } : {}}
                     transition={{ duration: 0.5, repeat: Infinity }}
                   >
-                    <span className="interro-timer-big">{formatTime(timeLeft)}</span>
-                    {isCritical && <span className="interro-timer-warning">DÉPÊCHE-TOI !</span>}
+                    {allAnswered ? (
+                      <>
+                        <CheckCircle size={32} className="timer-check-icon" />
+                        <span className="interro-timer-success">Toutes les réponses envoyées !</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="interro-timer-big">{formatTime(timeLeft)}</span>
+                        {isCritical && <span className="interro-timer-warning">DÉPÊCHE-TOI !</span>}
+                      </>
+                    )}
                   </motion.div>
 
                   {/* Question */}
@@ -537,7 +556,9 @@ export default function AlibiInterrogation() {
                     >
                       <CheckCircle size={48} />
                       <p className="interro-answered-title">Réponse envoyée !</p>
-                      <p className="interro-answered-subtitle">En attente du jugement...</p>
+                      <p className="interro-answered-subtitle">
+                        {allAnswered ? "En attente du verdict des inspecteurs..." : "En attente des autres suspects..."}
+                      </p>
                     </motion.div>
                   )}
                 </motion.div>
@@ -552,12 +573,18 @@ export default function AlibiInterrogation() {
                 >
                   {/* Timer */}
                   <motion.div
-                    className={`interro-timer-card ${isCritical ? 'critical' : isUrgent ? 'urgent' : ''}`}
-                    animate={isCritical ? { scale: [1, 1.02, 1] } : {}}
+                    className={`interro-timer-card ${allAnswered ? 'all-answered' : isCritical ? 'critical' : isUrgent ? 'urgent' : ''}`}
+                    animate={!allAnswered && isCritical ? { scale: [1, 1.02, 1] } : {}}
                     transition={{ duration: 0.5, repeat: Infinity }}
                   >
-                    <span className="interro-timer-big">{formatTime(timeLeft)}</span>
-                    {allAnswered && <span className="interro-timer-success">Toutes les réponses reçues !</span>}
+                    {allAnswered ? (
+                      <>
+                        <CheckCircle size={32} className="timer-check-icon" />
+                        <span className="interro-timer-success">Toutes les réponses reçues !</span>
+                      </>
+                    ) : (
+                      <span className="interro-timer-big">{formatTime(timeLeft)}</span>
+                    )}
                   </motion.div>
 
                   {/* Hint for inspector - reference passage */}
@@ -670,6 +697,14 @@ export default function AlibiInterrogation() {
           )}
         </div>
       </main>
+
+      {/* Disconnect Alert */}
+      <DisconnectAlert
+        roomCode={code}
+        roomPrefix="rooms_alibi"
+        playerUid={myUid}
+        onReconnect={markActive}
+      />
 
       {/* Verdict Transition */}
       <VerdictTransition
@@ -966,6 +1001,26 @@ export default function AlibiInterrogation() {
           background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(20, 20, 30, 0.8)) !important;
         }
 
+        .interro-timer-card.all-answered {
+          border-color: rgba(34, 197, 94, 0.4) !important;
+          background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(20, 20, 30, 0.8)) !important;
+          animation: none !important;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+
+        .timer-check-icon {
+          color: #22c55e !important;
+        }
+
+        .interro-timer-card.all-answered .interro-timer-success {
+          margin: 0 !important;
+          text-align: center;
+        }
+
         .interro-timer-big {
           font-family: 'Roboto Mono', monospace !important;
           font-size: 2.5rem !important;
@@ -1110,6 +1165,10 @@ export default function AlibiInterrogation() {
 
         /* Answered Card */
         .interro-answered-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
           text-align: center;
           padding: 32px 20px !important;
           border-color: rgba(34, 197, 94, 0.4) !important;
@@ -1122,7 +1181,7 @@ export default function AlibiInterrogation() {
           font-size: 1.25rem !important;
           font-weight: 700 !important;
           color: #22c55e !important;
-          margin: 12px 0 4px 0 !important;
+          margin: 8px 0 4px 0 !important;
         }
 
         .interro-answered-subtitle {
@@ -1130,6 +1189,7 @@ export default function AlibiInterrogation() {
           font-size: 0.875rem !important;
           color: rgba(255, 255, 255, 0.6) !important;
           margin: 0 !important;
+          text-align: center;
         }
 
         /* Responses */

@@ -38,6 +38,7 @@ export default function GameCard({
       case 'blindtest': return 'linear-gradient(135deg, #10b981, #059669)';
       case 'memory': return 'linear-gradient(135deg, #ec4899, #db2777)';
       case 'mime': return 'linear-gradient(135deg, #84cc16, #65a30d)';
+      case 'trouveregle': return 'linear-gradient(135deg, #06b6d4, #0891b2)'; // Cyan
       default: return 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
     }
   };

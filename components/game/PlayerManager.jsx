@@ -67,7 +67,7 @@ export default function PlayerManager({
     <>
       {/* Bouton dans le header */}
       <button
-        className="player-manager-btn"
+        className={`player-manager-btn ${hideCount ? 'icon-only' : ''}`}
         onClick={() => setIsOpen(true)}
         aria-label="Gérer les joueurs"
       >
@@ -187,10 +187,11 @@ export default function PlayerManager({
           position: relative;
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 6px;
           padding: 8px 12px;
           background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.12);
+          border: 2px solid rgba(255, 255, 255, 0.12);
           border-radius: 10px;
           color: rgba(255, 255, 255, 0.8);
           font-family: var(--font-mono, 'Roboto Mono'), monospace;
@@ -198,6 +199,12 @@ export default function PlayerManager({
           font-weight: 600;
           cursor: pointer;
           transition: all 0.2s ease;
+        }
+
+        .player-manager-btn.icon-only {
+          width: 40px;
+          height: 40px;
+          padding: 0;
         }
 
         .player-manager-btn:hover {

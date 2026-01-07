@@ -7,7 +7,7 @@
  */
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Users, Clock, CheckCircle, Target, UserSearch, Zap, Drama, Eye, ArrowRight } from 'lucide-react';
+import { X, Users, Clock, CheckCircle, Target, UserSearch, Zap, Drama, Eye, ArrowRight, Search, MessageCircle, HelpCircle } from 'lucide-react';
 
 const GAME_RULES = {
   quiz: {
@@ -65,6 +65,20 @@ const GAME_RULES = {
       { icon: CheckCircle, text: "Bonne reponse = +1 point" },
       { icon: Clock, text: "Le joueur avec le plus de points gagne !" }
     ]
+  },
+  trouveregle: {
+    title: 'Trouve la Règle',
+    subtitle: 'Devenez détective !',
+    icon: Search,
+    accentColor: '#06b6d4',
+    glowColor: 'rgba(6, 182, 212, 0.4)',
+    rules: [
+      { icon: Users, text: "3+ joueurs : enquêteurs vs joueurs" },
+      { icon: Eye, text: "Les enquêteurs sortent de la pièce" },
+      { icon: Target, text: "Les joueurs choisissent une règle secrète" },
+      { icon: MessageCircle, text: "Discussion libre pour trouver la règle" },
+      { icon: HelpCircle, text: "3 tentatives max pour deviner !" }
+    ]
   }
 };
 
@@ -83,7 +97,7 @@ export default function HowToPlayModal({
     overlay: {
       position: 'fixed',
       inset: 0,
-      zIndex: 1000,
+      zIndex: 9999,
       background: 'rgba(0, 0, 0, 0.85)',
       backdropFilter: 'blur(8px)',
       WebkitBackdropFilter: 'blur(8px)',
@@ -95,10 +109,12 @@ export default function HowToPlayModal({
     content: {
       position: 'relative',
       width: '100%',
-      maxWidth: '380px',
+      maxWidth: '360px',
+      maxHeight: '70vh',
+      overflowY: 'auto',
       background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.98) 0%, rgba(16, 16, 26, 0.99) 100%)',
       border: `1px solid ${game.accentColor}40`,
-      borderRadius: '24px',
+      borderRadius: '20px',
       padding: '28px 24px',
       boxShadow: `0 20px 50px rgba(0, 0, 0, 0.5), 0 0 60px ${game.glowColor}, inset 0 1px 0 rgba(255, 255, 255, 0.05)`,
     },
@@ -198,7 +214,7 @@ export default function HowToPlayModal({
       width: '100%',
       padding: '16px',
       background: `linear-gradient(135deg, ${game.accentColor}, ${game.accentColor}cc)`,
-      color: (gameType === 'alibi' || gameType === 'mime') ? '#000' : '#fff',
+      color: (gameType === 'alibi' || gameType === 'mime' || gameType === 'trouveregle') ? '#000' : '#fff',
       border: 'none',
       borderRadius: '14px',
       fontFamily: "'Space Grotesk', sans-serif",

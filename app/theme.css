@@ -218,3 +218,68 @@
   --z-popover: 600;
   --z-tooltip: 700;
 }
+
+/* ===== FLUID RESPONSIVE SYSTEM =====
+   Variables that scale PURELY based on viewport
+   NO minimum values - everything scales proportionally
+
+   Usage: Use these in game pages to fit all content without scroll
+   ===================================== */
+:root {
+  /* ===== FONT SIZES - Pure vh scaling ===== */
+  --fluid-text-2xs: 1vh;                    /* ~6-8px */
+  --fluid-text-xs: 1.4vh;                   /* ~9-11px */
+  --fluid-text-sm: 1.7vh;                   /* ~11-14px */
+  --fluid-text-base: 2vh;                   /* ~13-16px */
+  --fluid-text-lg: 2.3vh;                   /* ~15-18px */
+  --fluid-text-xl: 2.6vh;                   /* ~17-21px */
+  --fluid-text-2xl: 3vh;                    /* ~20-24px */
+  --fluid-text-3xl: 3.5vh;                  /* ~23-28px */
+  --fluid-text-4xl: 4.5vh;                  /* ~30-36px */
+
+  /* ===== SPACING - Pure vh scaling ===== */
+  --fluid-space-1: 0.5vh;                   /* ~3-4px */
+  --fluid-space-2: 1vh;                     /* ~6-8px */
+  --fluid-space-3: 1.5vh;                   /* ~10-12px */
+  --fluid-space-4: 2vh;                     /* ~13-16px */
+  --fluid-space-5: 2.5vh;                   /* ~16-20px */
+  --fluid-space-6: 3vh;                     /* ~20-24px */
+  --fluid-space-8: 4vh;                     /* ~26-32px */
+
+  /* ===== ELEMENT SIZES - Pure vh scaling ===== */
+  /* Icons */
+  --fluid-icon-xs: 2vh;                     /* ~13-16px */
+  --fluid-icon-sm: 2.5vh;                   /* ~16-20px */
+  --fluid-icon-md: 3vh;                     /* ~20-24px */
+  --fluid-icon-lg: 4vh;                     /* ~26-32px */
+  --fluid-icon-xl: 5vh;                     /* ~33-40px */
+
+  /* Buttons */
+  --fluid-btn-sm: 5vh;                      /* ~33-40px */
+  --fluid-btn-md: 7vh;                      /* ~46-56px */
+  --fluid-btn-lg: 9vh;                      /* ~60-72px */
+  --fluid-btn-xl: 11vh;                     /* ~73-88px */
+
+  /* Covers / Thumbnails */
+  --fluid-cover-sm: 7vh;                    /* ~46-56px */
+  --fluid-cover-md: 9vh;                    /* ~60-72px */
+  --fluid-cover-lg: 11vh;                   /* ~73-88px */
+
+  /* ===== BORDER RADIUS - Pure vh scaling ===== */
+  --fluid-radius-xs: 0.8vh;                 /* ~5-6px */
+  --fluid-radius-sm: 1vh;                   /* ~6-8px */
+  --fluid-radius-md: 1.5vh;                 /* ~10-12px */
+  --fluid-radius-lg: 2vh;                   /* ~13-16px */
+  --fluid-radius-xl: 2.5vh;                 /* ~16-20px */
+  --fluid-radius-full: 50%;
+
+  /* ===== LAYOUT PERCENTAGES ===== */
+  /* Vertical distribution */
+  --layout-header: 7%;                      /* Header height */
+  --layout-footer: 12%;                     /* Footer height */
+  --layout-content: 81%;                    /* Content area */
+
+  /* Content internal distribution (HOST page) */
+  --content-track-card: 58%;                /* Track card portion */
+  --content-leaderboard: 42%;               /* Leaderboard portion */
+}

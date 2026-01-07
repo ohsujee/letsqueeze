@@ -14,18 +14,17 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
-import ShareModal from "@/lib/components/ShareModal";
-import ExitButton from "@/lib/components/ExitButton";
-import PlayerManager from "@/components/game/PlayerManager";
+import LobbyHeader from "@/components/game/LobbyHeader";
 import PaywallModal from "@/components/ui/PaywallModal";
 import AlibiSelectorModal from "@/components/alibi/AlibiSelectorModal";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { usePlayers } from "@/lib/hooks/usePlayers";
+import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useToast } from "@/lib/hooks/useToast";
 import { getAlibiManifest } from "@/lib/utils/manifestCache";
-import { ChevronRight, Eye, Shuffle, RotateCcw, X, UserPlus, HelpCircle } from "lucide-react";
+import { ChevronRight, Shuffle, RotateCcw, X, UserPlus } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
@@ -49,7 +48,6 @@ export default function AlibiLobby() {
   const [showAlibiSelector, setShowAlibiSelector] = useState(false);
   const [lockedAlibiName, setLockedAlibiName] = useState('');
   const [expandedRole, setExpandedRole] = useState(null);
-  const [hostRole, setHostRole] = useState('inspectors'); // Default: host is inspector
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const roomWasValidRef = useRef(false);
 
@@ -93,6 +91,27 @@ export default function AlibiLobby() {
     return () => unsub();
   }, [meta?.hostUid, players]);
 
+  // Auto-join host as inspector
+  useEffect(() => {
+    if (isHost && !hostJoined && userPseudo && !profileLoading && auth.currentUser) {
+      const uid = auth.currentUser.uid;
+      set(ref(db, `rooms_alibi/${code}/players/${uid}`), {
+        uid,
+        name: userPseudo,
+        team: 'inspectors',
+        joinedAt: Date.now()
+      });
+    }
+  }, [isHost, hostJoined, userPseudo, profileLoading, code]);
+
+  // Player cleanup hook - handles disconnect during lobby
+  const { leaveRoom } = usePlayerCleanup({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
+    playerUid: myUid,
+    phase: 'lobby'
+  });
+
   // Room guard - détecte kick et fermeture room
   useRoomGuard({
     roomCode: code,
@@ -130,18 +149,6 @@ export default function AlibiLobby() {
       stateUnsub();
     };
   }, [code, router]);
-
-  const handleHostJoin = async () => {
-    if (!isHost || !userPseudo || !auth.currentUser) return;
-    const uid = auth.currentUser.uid;
-    await set(ref(db, `rooms_alibi/${code}/players/${uid}`), {
-      uid,
-      name: userPseudo,
-      team: hostRole,
-      joinedAt: Date.now()
-    });
-    // Pas besoin de toast, l'UI se met à jour
-  };
 
   const handleSelectAlibi = async (alibiId) => {
     if (!isHost) return;
@@ -265,6 +272,12 @@ export default function AlibiLobby() {
     router.push('/home');
   };
 
+  // Player exit handler (non-host)
+  const handlePlayerExit = async () => {
+    await leaveRoom();
+    router.push('/home');
+  };
+
   const inspectors = players.filter(p => p.team === "inspectors");
   const suspects = players.filter(p => p.team === "suspects");
   const unassigned = players.filter(p => !p.team);
@@ -330,53 +343,17 @@ export default function AlibiLobby() {
       />
 
       {/* Header */}
-      <header className="alibi-lobby-header">
-        <div className="header-left">
-          <ExitButton
-            variant="header"
-            onExit={isHost ? handleHostExit : undefined}
-            confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera fermée pour tous les joueurs." : undefined}
-          />
-          <div className="header-title-row">
-            <h1 className="alibi-lobby-title">Lobby</h1>
-            <span className="lobby-divider">•</span>
-            <span className="alibi-room-code">{code}</span>
-          </div>
-        </div>
-        <div className="header-right">
-          <motion.button
-            className="help-btn alibi-accent"
-            onClick={() => setShowHowToPlay(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            title="Comment jouer"
-          >
-            <HelpCircle size={18} />
-          </motion.button>
-          {isHost && (
-            <PlayerManager
-              players={players}
-              roomCode={code}
-              roomPrefix="rooms_alibi"
-              hostUid={meta?.hostUid}
-              variant="alibi"
-              phase="lobby"
-            />
-          )}
-          {!isHost && (
-            <motion.button
-              className="spectator-btn alibi-accent"
-              onClick={() => router.push(`/spectate/${code}`)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              title="Mode spectateur"
-            >
-              <Eye size={18} />
-            </motion.button>
-          )}
-          <ShareModal roomCode={code} joinUrl={joinUrl} />
-        </div>
-      </header>
+      <LobbyHeader
+        variant="alibi"
+        code={code}
+        isHost={isHost}
+        players={players}
+        hostUid={meta?.hostUid}
+        onHostExit={handleHostExit}
+        onPlayerExit={handlePlayerExit}
+        onShowHowToPlay={() => setShowHowToPlay(true)}
+        joinUrl={joinUrl}
+      />
 
       {/* Main Content */}
       <main className="alibi-lobby-main">
@@ -412,43 +389,6 @@ export default function AlibiLobby() {
                   </div>
                 </div>
               </motion.div>
-
-              {/* Host Join Card - Compact with profile pseudo */}
-              {!hostJoined && (
-                <div className="host-join-compact">
-                  <div className="host-join-row">
-                    <div className="host-pseudo-preview">
-                      <span className="pseudo-label">Tu joues en tant que</span>
-                      <span className="pseudo-name">{userPseudo}</span>
-                    </div>
-                    <div className="host-role-toggle">
-                      <button
-                        className={`role-toggle-btn ${hostRole === 'inspectors' ? 'active' : ''}`}
-                        onClick={() => setHostRole('inspectors')}
-                        type="button"
-                      >
-                        🕵️
-                      </button>
-                      <button
-                        className={`role-toggle-btn ${hostRole === 'suspects' ? 'active' : ''}`}
-                        onClick={() => setHostRole('suspects')}
-                        type="button"
-                      >
-                        🎭
-                      </button>
-                    </div>
-                    <motion.button
-                      className="host-join-btn-compact"
-                      onClick={handleHostJoin}
-                      disabled={!userPseudo || profileLoading}
-                      whileHover={userPseudo && !profileLoading ? { scale: 1.05 } : {}}
-                      whileTap={userPseudo && !profileLoading ? { scale: 0.95 } : {}}
-                    >
-                      {profileLoading ? '...' : 'Rejoindre'}
-                    </motion.button>
-                  </div>
-                </div>
-              )}
 
               {/* Roles Management Card */}
               <div className="alibi-lobby-card alibi-roles-card">
@@ -638,26 +578,31 @@ export default function AlibiLobby() {
                   </div>
                 )}
 
-                {/* Warning if can't start */}
-                {!canStart && (
-                  <div className="alibi-warning">
-                    ⚠️ Sélectionne un alibi et assigne au moins 1 inspecteur et 1 suspect
-                  </div>
-                )}
               </div>
             </div>
 
             {/* Fixed Start Button */}
             <div className="alibi-lobby-footer">
               <motion.button
-                className="alibi-start-btn"
+                className={`alibi-start-btn ${!canStart ? 'disabled' : ''}`}
                 onClick={handleStartGame}
                 disabled={!canStart}
                 whileHover={canStart ? { scale: 1.02 } : {}}
                 whileTap={canStart ? { scale: 0.98 } : {}}
               >
-                <span className="btn-icon">🚀</span>
-                <span className="btn-text">Démarrer l'interrogatoire</span>
+                <span className="btn-text">
+                  {canStart ? (
+                    "Démarrer l'interrogatoire"
+                  ) : (
+                    <>
+                      <span className={selectedAlibiId ? 'check-done' : ''}>Alibi</span>
+                      {' • '}
+                      <span className={inspectors.length > 0 ? 'check-done' : ''}>Inspecteur</span>
+                      {' • '}
+                      <span className={suspects.length > 0 ? 'check-done' : ''}>Suspect</span>
+                    </>
+                  )}
+                </span>
               </motion.button>
             </div>
           </>

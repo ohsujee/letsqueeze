@@ -240,6 +240,7 @@ export default function BlindTestEndPage() {
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
+          overflow: hidden;
         }
 
         .end-page::before {
@@ -261,8 +262,7 @@ export default function BlindTestEndPage() {
           flex-direction: column;
           position: relative;
           z-index: 1;
-          padding: 16px;
-          padding-top: 16px;
+          padding: 1.5vh 3vw;
           max-width: 500px;
           margin: 0 auto;
           width: 100%;
@@ -270,37 +270,40 @@ export default function BlindTestEndPage() {
           overflow: hidden;
         }
 
-        /* ===== HEADER ===== */
+        /* ===== HEADER - 5vh ===== */
         .end-header {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 10px;
-          padding: 8px 0;
+          gap: 2vw;
+          height: 5vh;
           flex-shrink: 0;
           position: relative;
           z-index: 1;
         }
 
         .trophy-icon {
-          font-size: 1.5rem;
+          font-size: 3vh;
         }
 
         .title-text {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: clamp(1rem, 4vw, 1.3rem);
+          font-size: 2.5vh;
           color: #34d399;
-          text-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+          text-shadow: 0 0 1.5vh rgba(16, 185, 129, 0.5);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
-        /* ===== PODIUM ===== */
+        /* ===== PODIUM - scaled to fit ===== */
         .podium-section {
           flex-shrink: 0;
           position: relative;
           z-index: 2;
-          transform: scale(0.5);
+          transform: scale(0.45);
           transform-origin: center top;
-          margin: 0 0 -200px 0;
+          margin: 0 0 -22vh 0;
         }
 
         /* ===== STATS CARD ===== */
@@ -308,38 +311,38 @@ export default function BlindTestEndPage() {
           flex-shrink: 0;
           background: rgba(20, 20, 30, 0.8);
           border: 1px solid rgba(16, 185, 129, 0.25);
-          border-radius: 14px;
-          padding: 14px 16px;
-          margin-bottom: 12px;
+          border-radius: 1.8vh;
+          padding: 1.5vh 2vw;
+          margin-bottom: 1.5vh;
           position: relative;
           z-index: 3;
         }
 
         .stats-title {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.75rem;
+          font-size: 1.4vh;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.6);
           text-transform: uppercase;
           letter-spacing: 0.5px;
-          margin-bottom: 12px;
+          margin-bottom: 1.2vh;
           text-align: center;
         }
 
         .stats-row {
           display: flex;
           justify-content: space-around;
-          gap: 8px;
+          gap: 1.5vw;
         }
 
         .stat-item {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 4px;
-          padding: 10px 16px;
+          gap: 0.5vh;
+          padding: 1.2vh 2.5vw;
           background: rgba(0, 0, 0, 0.3);
-          border-radius: 10px;
+          border-radius: 1.2vh;
           flex: 1;
         }
 
@@ -357,28 +360,28 @@ export default function BlindTestEndPage() {
 
         .stat-value {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.4rem;
+          font-size: 2.5vh;
           line-height: 1;
         }
 
         .stat-item.correct .stat-value {
           color: #22c55e;
-          text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+          text-shadow: 0 0 1vh rgba(34, 197, 94, 0.5);
         }
 
         .stat-item.wrong .stat-value {
           color: #f87171;
-          text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+          text-shadow: 0 0 1vh rgba(239, 68, 68, 0.5);
         }
 
         .stat-item.total .stat-value {
           color: #34d399;
-          text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+          text-shadow: 0 0 1vh rgba(16, 185, 129, 0.5);
         }
 
         .stat-label {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.6rem;
+          font-size: 1.1vh;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.5);
           text-transform: uppercase;
@@ -389,37 +392,44 @@ export default function BlindTestEndPage() {
         /* ===== LEADERBOARD ===== */
         .leaderboard-wrapper {
           flex: 1;
-          min-height: 150px;
+          min-height: 15vh;
           display: flex;
           overflow: hidden;
           position: relative;
           z-index: 3;
         }
 
-        /* ===== FOOTER ===== */
+        /* ===== FOOTER - 10vh ===== */
         .end-footer {
           flex-shrink: 0;
           position: relative;
           z-index: 10;
-          padding: 16px;
+          height: 10vh;
+          padding: 1.5vh 3vw;
+          padding-bottom: calc(1.5vh + var(--safe-area-bottom));
           background: rgba(10, 10, 15, 0.95);
           backdrop-filter: blur(20px);
           border-top: 1px solid rgba(16, 185, 129, 0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .action-btn {
-          display: block;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           width: 100%;
           max-width: 400px;
-          margin: 0 auto;
-          padding: 18px 32px;
+          height: 7vh;
+          padding: 0 4vw;
           border: none;
-          border-radius: 14px;
+          border-radius: 1.8vh;
           cursor: pointer;
 
           /* Typography */
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.1rem;
+          font-size: 2vh;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.08em;
@@ -428,26 +438,26 @@ export default function BlindTestEndPage() {
           /* Emerald gradient + 3D depth */
           background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
           box-shadow:
-            0 5px 0 #047857,
-            0 8px 15px rgba(16, 185, 129, 0.4),
+            0 0.6vh 0 #047857,
+            0 1vh 2vh rgba(16, 185, 129, 0.4),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
 
           transition: all 0.15s ease;
         }
 
         .action-btn:hover {
-          transform: translateY(-2px);
+          transform: translateY(-0.3vh);
           box-shadow:
-            0 7px 0 #047857,
-            0 10px 20px rgba(16, 185, 129, 0.5),
+            0 0.9vh 0 #047857,
+            0 1.3vh 2.5vh rgba(16, 185, 129, 0.5),
             inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
 
         .action-btn:active {
-          transform: translateY(3px);
+          transform: translateY(0.4vh);
           box-shadow:
-            0 2px 0 #047857,
-            0 4px 8px rgba(16, 185, 129, 0.3),
+            0 0.25vh 0 #047857,
+            0 0.5vh 1vh rgba(16, 185, 129, 0.3),
             inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
       `}</style>

@@ -494,7 +494,7 @@ export default function BlindTestHostGame() {
               >
                 <div className="buzz-header">
                   <div className="buzz-icon">
-                    <Bell size={28} />
+                    <Bell />
                   </div>
                   <div className="buzz-info">
                     <span className="buzz-name">{lockedName}</span>
@@ -519,11 +519,11 @@ export default function BlindTestHostGame() {
 
                 <div className="buzz-actions">
                   <button className="buzz-btn buzz-btn-wrong" onClick={wrong}>
-                    <X size={22} />
+                    <X />
                     Faux
                   </button>
                   <button className="buzz-btn buzz-btn-correct" onClick={validate}>
-                    <Check size={22} />
+                    <Check />
                     Correct
                   </button>
                 </div>
@@ -555,7 +555,7 @@ export default function BlindTestHostGame() {
                   <img src={currentTrack.albumArt} alt="Album" className="track-cover" />
                 ) : (
                   <div className="track-cover-placeholder">
-                    <Music size={32} />
+                    <Music />
                   </div>
                 )}
                 {isPlaying && (
@@ -596,7 +596,7 @@ export default function BlindTestHostGame() {
                 whileTap={{ scale: 0.95 }}
                 disabled={!playerReady}
               >
-                {isPlaying ? <Pause size={32} /> : <Play size={32} style={{ marginLeft: 4 }} />}
+                {isPlaying ? <Pause /> : <Play style={{ marginLeft: '0.5vh' }} />}
               </motion.button>
               <span className="play-hint">
                 {!playerReady ? 'Connexion...' : isPlaying ? 'En lecture' : 'Lancer la musique'}
@@ -613,7 +613,7 @@ export default function BlindTestHostGame() {
                   const isNext = idx === unlockedLevel && !isCurrent && idx > 0;
                   const wasPassed = currentSnippet !== null && idx < currentSnippet;
 
-                  // Styles pour chaque état
+                  // Styles dynamiques pour chaque état (valeurs originales)
                   const getCardStyle = () => {
                     if (isLocked) {
                       return {
@@ -698,23 +698,15 @@ export default function BlindTestHostGame() {
                         className={`snippet-card ${isCurrent ? 'current' : ''} ${isNext ? 'next' : ''}`}
                         style={getCardStyle()}
                         onClick={() => playLevel(idx)}
-                        whileHover={!isLocked ? { scale: 1.03 } : {}}
-                        whileTap={!isLocked ? { scale: 0.97 } : {}}
+                        whileTap={!isLocked ? { scale: 0.95 } : {}}
                         disabled={!playerReady || isLocked}
-                        animate={isCurrent ? {
-                          scale: 1.08,
-                          transition: { duration: 0.2 }
-                        } : {
-                          scale: 1,
-                          transition: { duration: 0.2 }
-                        }}
                       >
                         <div className="snippet-card-inner">
                           <div className="snippet-icon" style={getIconStyle()}>
-                            {idx === 0 && <Zap size={20} />}
-                            {idx === 1 && <Clock size={20} />}
-                            {idx === 2 && <Timer size={20} />}
-                            {idx === 3 && <Disc size={20} />}
+                            {idx === 0 && <Zap />}
+                            {idx === 1 && <Clock />}
+                            {idx === 2 && <Timer />}
+                            {idx === 3 && <Disc />}
                           </div>
                           <span className="snippet-duration" style={getDurationStyle()}>
                             {level.label}
@@ -748,7 +740,7 @@ export default function BlindTestHostGame() {
             )}
             {playerReady && !isPlaying && currentSnippet === null && (
               <div className="player-status ready">
-                <Check size={16} />
+                <Check />
                 <span>Prêt à jouer</span>
               </div>
             )}
@@ -772,15 +764,15 @@ export default function BlindTestHostGame() {
       <footer className="game-footer blindtest">
         <div className="host-actions">
           <button className="action-btn action-reset blindtest" onClick={resetBuzzers}>
-            <RotateCcw size={20} />
+            <RotateCcw />
             <span>Reset</span>
           </button>
           <button className="action-btn action-skip blindtest" onClick={skip}>
-            <SkipForward size={20} />
+            <SkipForward />
             <span>Passer</span>
           </button>
           <button className="action-btn action-end blindtest" onClick={end}>
-            <X size={20} />
+            <X />
             <span>Fin</span>
           </button>
         </div>
@@ -800,6 +792,7 @@ export default function BlindTestHostGame() {
         }
       `}</style>
       <style jsx>{`
+        /* ===== PAGE LAYOUT - Proportional ===== */
         .blindtest-host-page {
           flex: 1;
           min-height: 0;
@@ -808,6 +801,7 @@ export default function BlindTestHostGame() {
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
+          overflow: hidden;
         }
 
         .blindtest-host-page::before {
@@ -822,8 +816,11 @@ export default function BlindTestHostGame() {
           pointer-events: none;
         }
 
-        /* Header */
+        /* ===== HEADER - 7% of screen ===== */
         .game-header.blindtest {
+          height: 7vh;
+          min-height: 7vh;
+          max-height: 7vh;
           flex-shrink: 0;
           position: relative;
           z-index: 10;
@@ -831,11 +828,10 @@ export default function BlindTestHostGame() {
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(16, 185, 129, 0.2);
-          padding: 12px 16px;
-          padding-top: 12px;
+          padding: 0 2vw;
           width: 100%;
-          max-width: 100%;
-          overflow: hidden;
+          display: flex;
+          align-items: center;
         }
 
         .game-header-content {
@@ -843,15 +839,14 @@ export default function BlindTestHostGame() {
           align-items: center;
           justify-content: space-between;
           width: 100%;
-          max-width: 100%;
-          gap: 16px;
+          gap: 2vw;
           min-width: 0;
         }
 
         .game-header-left {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 2vw;
           flex: 1;
           min-width: 0;
           overflow: hidden;
@@ -859,7 +854,7 @@ export default function BlindTestHostGame() {
 
         .game-header-progress.blindtest {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.1rem;
+          font-size: 2.2vh;
           color: #34d399;
           text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
           flex-shrink: 0;
@@ -867,72 +862,74 @@ export default function BlindTestHostGame() {
 
         .game-header-title {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.85rem;
+          font-size: 1.6vh;
           font-weight: 600;
           color: var(--text-secondary);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          flex: 1;
+          min-width: 0;
         }
 
         .game-header-right {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 1.5vw;
           flex-shrink: 0;
         }
 
-        /* Content */
+        /* ===== CONTENT - 81% of screen (fills between header & footer) ===== */
         .game-content.blindtest {
           flex: 1;
+          min-height: 0;
           min-width: 0;
           position: relative;
           z-index: 1;
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 16px;
-          gap: 16px;
-          overflow-y: auto;
-          overflow-x: hidden;
-          min-height: 0;
+          padding: 1.5vh 3vw;
+          gap: 1.5vh;
+          overflow: hidden;
           width: 100%;
-          max-width: 100%;
-          -webkit-overflow-scrolling: touch;
         }
 
-        /* Track Card - Style Guide Compliant */
+        /* ===== TRACK CARD - 58% of content area ===== */
         .track-card {
           width: 100%;
           max-width: 500px;
-          min-width: 0;
+          flex: 0 0 58%;
+          min-height: 0;
           background: rgba(20, 20, 30, 0.7);
           border: 1px solid rgba(16, 185, 129, 0.15);
-          border-radius: 16px;
-          padding: 20px;
+          border-radius: 2vh;
+          padding: 1.5vh 2vw;
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
-          flex-shrink: 0;
+          display: flex;
+          flex-direction: column;
           overflow: hidden;
         }
 
         .track-empty {
           text-align: center;
           color: var(--text-muted);
-          padding: 40px 20px;
+          padding: 3vh 2vw;
+          font-size: 1.8vh;
         }
 
         /* Track Header */
         .track-header {
           display: flex;
           align-items: center;
-          gap: 16px;
-          margin-bottom: 24px;
-          padding-bottom: 20px;
+          gap: 2vw;
+          padding-bottom: 1vh;
+          margin-bottom: 1vh;
           border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+          flex-shrink: 0;
           min-width: 0;
           width: 100%;
-          overflow: hidden;
         }
 
         .track-cover-wrapper {
@@ -941,17 +938,17 @@ export default function BlindTestHostGame() {
         }
 
         .track-cover {
-          width: 80px;
-          height: 80px;
-          border-radius: 12px;
+          width: 8vh;
+          height: 8vh;
+          border-radius: 1.2vh;
           object-fit: cover;
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
         .track-cover-placeholder {
-          width: 80px;
-          height: 80px;
-          border-radius: 12px;
+          width: 8vh;
+          height: 8vh;
+          border-radius: 1.2vh;
           background: rgba(16, 185, 129, 0.1);
           border: 1px solid rgba(16, 185, 129, 0.2);
           display: flex;
@@ -960,30 +957,35 @@ export default function BlindTestHostGame() {
           color: #34d399;
         }
 
+        .track-cover-placeholder svg {
+          width: 3vh;
+          height: 3vh;
+        }
+
         .track-playing-indicator {
           position: absolute;
-          bottom: -8px;
+          bottom: -0.8vh;
           left: 50%;
           transform: translateX(-50%);
           display: flex;
           align-items: flex-end;
-          gap: 3px;
-          height: 16px;
-          padding: 4px 8px;
+          gap: 0.3vh;
+          height: 2vh;
+          padding: 0.4vh 0.8vh;
           background: rgba(16, 185, 129, 0.9);
-          border-radius: 8px;
+          border-radius: 0.8vh;
         }
 
         .track-playing-indicator span {
-          width: 3px;
+          width: 0.3vh;
           background: white;
-          border-radius: 2px;
+          border-radius: 1px;
           animation: equalizer 0.8s ease-in-out infinite;
         }
 
-        .track-playing-indicator span:nth-child(1) { height: 8px; animation-delay: 0s; }
-        .track-playing-indicator span:nth-child(2) { height: 12px; animation-delay: 0.2s; }
-        .track-playing-indicator span:nth-child(3) { height: 6px; animation-delay: 0.4s; }
+        .track-playing-indicator span:nth-child(1) { height: 0.8vh; animation-delay: 0s; }
+        .track-playing-indicator span:nth-child(2) { height: 1.2vh; animation-delay: 0.2s; }
+        .track-playing-indicator span:nth-child(3) { height: 0.6vh; animation-delay: 0.4s; }
 
         @keyframes equalizer {
           0%, 100% { transform: scaleY(1); }
@@ -1000,64 +1002,63 @@ export default function BlindTestHostGame() {
           display: block;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-weight: 700;
-          font-size: 1rem;
+          font-size: 2vh;
           color: var(--text-primary);
-          margin-bottom: 4px;
+          margin-bottom: 0.3vh;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          max-width: 100%;
         }
 
         .track-artist-host {
           display: block;
-          font-size: 0.85rem;
+          font-size: 1.6vh;
           color: var(--text-secondary);
-          margin-bottom: 8px;
+          margin-bottom: 0.8vh;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          max-width: 100%;
         }
 
         .track-points-badge {
           display: inline-flex;
           align-items: baseline;
-          gap: 4px;
-          padding: 6px 12px;
+          gap: 0.5vh;
+          padding: 0.6vh 1.2vh;
           background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
           border: 1px solid rgba(16, 185, 129, 0.3);
-          border-radius: 20px;
+          border-radius: 2vh;
         }
 
         .track-points-badge .points-value {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.1rem;
+          font-size: 2vh;
           color: #34d399;
           text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
         }
 
         .track-points-badge .points-label {
-          font-size: 0.7rem;
+          font-size: 1.2vh;
           color: rgba(52, 211, 153, 0.7);
           font-weight: 600;
         }
 
-        /* Main Play Section */
+        /* ===== MAIN PLAY SECTION ===== */
         .main-play-section {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 12px;
-          margin-bottom: 24px;
+          gap: 0.8vh;
+          flex: 1;
+          justify-content: center;
           width: 100%;
-          min-width: 0;
+          min-height: 0;
         }
 
         .main-play-btn {
           position: relative;
-          width: 80px;
-          height: 80px;
+          width: 9vh;
+          height: 9vh;
           border-radius: 50%;
           border: none;
           cursor: pointer;
@@ -1069,6 +1070,11 @@ export default function BlindTestHostGame() {
           color: white;
           box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
           transition: all 0.2s ease;
+        }
+
+        .main-play-btn svg {
+          width: 4vh;
+          height: 4vh;
         }
 
         .main-play-btn:hover:not(:disabled) {
@@ -1089,42 +1095,41 @@ export default function BlindTestHostGame() {
 
         .play-hint {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.75rem;
+          font-size: 1.3vh;
           font-weight: 600;
           color: var(--text-muted);
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
 
-        /* Snippet Section */
+        /* ===== SNIPPET SECTION - Duration buttons ===== */
         .snippet-section {
-          margin-bottom: 16px;
           width: 100%;
-          min-width: 0;
-          overflow: visible;
-          padding: 8px 4px;
+          flex-shrink: 0;
+          padding: 0.5vh 0;
+          overflow: hidden;
         }
 
         .snippet-section-label {
           display: block;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.7rem;
+          font-size: 1.3vh;
           font-weight: 600;
           color: var(--text-muted);
           text-transform: uppercase;
           letter-spacing: 0.5px;
-          margin-bottom: 12px;
+          margin-bottom: 1vh;
           text-align: center;
         }
 
         .snippet-grid {
           display: flex;
           align-items: center;
-          justify-content: stretch;
+          justify-content: space-between;
           gap: 0;
           width: 100%;
-          min-width: 0;
-          overflow: visible;
+          overflow: hidden;
+          padding: 0 0.5vw;
         }
 
         /* Connector between buttons */
@@ -1132,15 +1137,15 @@ export default function BlindTestHostGame() {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 12px;
-          flex-shrink: 0;
+          flex: 0 1 2vw;
+          min-width: 0;
         }
 
         .connector-line {
           width: 100%;
-          height: 3px;
+          height: 0.25vh;
           background: rgba(100, 100, 100, 0.3);
-          border-radius: 2px;
+          border-radius: 1px;
           position: relative;
           overflow: hidden;
         }
@@ -1152,7 +1157,7 @@ export default function BlindTestHostGame() {
           height: 100%;
           width: 0%;
           background: linear-gradient(90deg, #10b981, #34d399);
-          border-radius: 2px;
+          border-radius: 1px;
           transition: width 0.4s ease-out;
         }
 
@@ -1172,67 +1177,67 @@ export default function BlindTestHostGame() {
 
         .snippet-card {
           position: relative;
-          flex: 1 1 0;
+          flex: 1 1 20%;
           min-width: 0;
+          max-width: 24%;
           background: linear-gradient(180deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.04) 100%);
-          border: 2px solid rgba(16, 185, 129, 0.3);
-          border-radius: 20px;
+          border: 0.2vh solid rgba(16, 185, 129, 0.3);
+          border-radius: 1.2vh;
           padding: 0;
           cursor: pointer;
-          overflow: visible;
-          transition: all 0.25s ease;
-          box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
+          overflow: hidden;
+          transition: all 0.2s ease;
+          box-shadow: 0 0.2vh 0.8vh rgba(16, 185, 129, 0.1);
         }
 
         .snippet-card:hover:not(:disabled):not(.locked) {
           background: linear-gradient(180deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.08) 100%);
           border-color: rgba(16, 185, 129, 0.5);
-          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+          box-shadow: 0 0.5vh 1.5vh rgba(16, 185, 129, 0.2);
         }
 
         .snippet-card:active:not(:disabled):not(.locked) {
-          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0.2vh 0.5vh rgba(0, 0, 0, 0.3);
         }
 
         .snippet-card:disabled {
           cursor: not-allowed;
         }
 
-        /* Current playing level - highlighted and scaled */
+        /* Current playing level - highlighted */
         .snippet-card.current {
           background: linear-gradient(180deg, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0.15) 100%);
           border-color: #34d399;
-          border-width: 3px;
+          border-width: 0.35vh;
           box-shadow:
-            0 0 0 4px rgba(16, 185, 129, 0.15),
-            0 0 25px rgba(16, 185, 129, 0.4),
-            0 8px 20px rgba(16, 185, 129, 0.25);
+            0 0 0 0.4vh rgba(16, 185, 129, 0.15),
+            0 0 2vh rgba(16, 185, 129, 0.4);
         }
 
         .snippet-card.current .snippet-icon {
           background: rgba(16, 185, 129, 0.3);
-          box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+          box-shadow: 0 0 1.5vh rgba(16, 185, 129, 0.5);
         }
 
         .snippet-card.current .snippet-duration {
-          text-shadow: 0 0 15px rgba(16, 185, 129, 0.8);
+          text-shadow: 0 0 1.5vh rgba(16, 185, 129, 0.8);
         }
 
         /* Next available level - ready to use, pulsing */
         .snippet-card.next {
           background: linear-gradient(180deg, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0.08) 100%);
           border-color: rgba(251, 191, 36, 0.6);
-          box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+          box-shadow: 0 0 1.5vh rgba(251, 191, 36, 0.2);
           animation: next-pulse 2s ease-in-out infinite;
         }
 
         @keyframes next-pulse {
           0%, 100% {
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+            box-shadow: 0 0 1.5vh rgba(251, 191, 36, 0.2);
             border-color: rgba(251, 191, 36, 0.5);
           }
           50% {
-            box-shadow: 0 0 25px rgba(251, 191, 36, 0.35);
+            box-shadow: 0 0 2.5vh rgba(251, 191, 36, 0.35);
             border-color: rgba(251, 191, 36, 0.8);
           }
         }
@@ -1244,7 +1249,7 @@ export default function BlindTestHostGame() {
 
         .snippet-card.next .snippet-duration {
           color: #fbbf24;
-          text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+          text-shadow: 0 0 1vh rgba(251, 191, 36, 0.5);
         }
 
         /* Passed levels - slightly dimmed */
@@ -1297,25 +1302,28 @@ export default function BlindTestHostGame() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 8px;
-          padding: 16px 10px;
+          gap: 0.5vh;
+          padding: 1vh 0.3vw;
           border-radius: inherit;
+          min-width: 0;
+          width: 100%;
         }
 
         .snippet-icon {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 42px;
-          height: 42px;
+          width: 3.5vh;
+          height: 3.5vh;
           background: rgba(16, 185, 129, 0.15);
-          border-radius: 12px;
+          border-radius: 1vh;
           color: #34d399;
+          flex-shrink: 0;
         }
 
         .snippet-icon svg {
-          width: 22px;
-          height: 22px;
+          width: 1.8vh;
+          height: 1.8vh;
         }
 
         .snippet-card:hover:not(:disabled):not(.locked) .snippet-icon {
@@ -1324,29 +1332,33 @@ export default function BlindTestHostGame() {
 
         .snippet-duration {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.1rem;
+          font-size: 1.5vh;
           color: #34d399;
-          text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+          text-shadow: 0 0 0.8vh rgba(16, 185, 129, 0.4);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
         }
 
         .snippet-points-pill {
           display: flex;
           align-items: baseline;
-          gap: 3px;
-          padding: 5px 10px;
+          gap: 0.2vh;
+          padding: 0.3vh 0.6vh;
           background: rgba(0, 0, 0, 0.3);
-          border-radius: 16px;
+          border-radius: 0.8vh;
         }
 
         .snippet-points-pill span {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.85rem;
+          font-size: 1.1vh;
           font-weight: 700;
           color: #ffffff;
         }
 
         .snippet-points-pill small {
-          font-size: 0.65rem;
+          font-size: 0.9vh;
           color: rgba(255, 255, 255, 0.6);
           font-weight: 600;
         }
@@ -1367,16 +1379,21 @@ export default function BlindTestHostGame() {
           to { transform: scaleX(1); }
         }
 
-        /* Player Status */
+        /* Player Status - Pure vh */
         .player-status {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          padding: 10px 16px;
-          border-radius: 10px;
-          font-size: 0.8rem;
+          gap: 1vh;
+          padding: 1vh 2vw;
+          border-radius: 1.2vh;
+          font-size: 1.4vh;
           font-weight: 500;
+        }
+
+        .player-status svg {
+          width: 2vh;
+          height: 2vh;
         }
 
         .player-status.warning {
@@ -1392,9 +1409,9 @@ export default function BlindTestHostGame() {
         }
 
         .status-spinner {
-          width: 16px;
-          height: 16px;
-          border: 2px solid rgba(251, 191, 36, 0.3);
+          width: 2vh;
+          height: 2vh;
+          border: 0.25vh solid rgba(251, 191, 36, 0.3);
           border-top-color: #fbbf24;
           border-radius: 50%;
           animation: spin 0.8s linear infinite;
@@ -1404,27 +1421,31 @@ export default function BlindTestHostGame() {
           to { transform: rotate(360deg); }
         }
 
-        /* Footer */
+        /* ===== FOOTER - 12% of screen ===== */
         .game-footer.blindtest {
+          height: 12vh;
+          min-height: 12vh;
+          max-height: 12vh;
           flex-shrink: 0;
           position: relative;
           z-index: 10;
-          padding: 12px 16px;
+          padding: 1.5vh 3vw;
           background: rgba(10, 10, 15, 0.95);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border-top: 1px solid rgba(16, 185, 129, 0.2);
           width: 100%;
-          max-width: 100%;
-          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .host-actions {
           display: flex;
-          gap: 10px;
+          gap: 2vw;
           justify-content: center;
-          min-width: 0;
           width: 100%;
+          max-width: 500px;
         }
 
         .action-btn {
@@ -1434,19 +1455,24 @@ export default function BlindTestHostGame() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 4px;
-          padding: 10px 16px;
+          gap: 0.5vh;
+          padding: 1.5vh 2vw;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
+          border-radius: 1.5vh;
           color: var(--text-primary);
           cursor: pointer;
           transition: all 0.2s ease;
         }
 
+        .action-btn svg {
+          width: 3vh;
+          height: 3vh;
+        }
+
         .action-btn span {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.65rem;
+          font-size: 1.3vh;
           font-weight: 600;
           text-transform: uppercase;
         }
@@ -1488,7 +1514,7 @@ export default function BlindTestHostGame() {
           border-color: rgba(239, 68, 68, 0.4);
         }
 
-        /* Buzz Modal */
+        /* Buzz Modal - Pure vh */
         .buzz-overlay {
           position: fixed;
           inset: 0;
@@ -1504,39 +1530,44 @@ export default function BlindTestHostGame() {
           justify-content: center;
           align-items: center;
           z-index: 9999;
-          padding: 20px;
+          padding: 3vw;
         }
 
         .buzz-card.blindtest {
           width: 100%;
-          max-width: 400px;
+          max-width: 500px;
           background-color: #1a1625 !important;
-          border: 2px solid #34d399;
-          border-radius: 20px;
-          padding: 24px;
-          box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2), 0 8px 32px rgba(0, 0, 0, 0.9);
+          border: 0.3vh solid #34d399;
+          border-radius: 2.5vh;
+          padding: 3vh 4vw;
+          box-shadow: 0 0 0 0.5vh rgba(16, 185, 129, 0.2), 0 1vh 4vh rgba(0, 0, 0, 0.9);
         }
 
         .buzz-header {
           display: flex;
           align-items: center;
-          gap: 14px;
-          margin-bottom: 20px;
-          padding-bottom: 16px;
+          gap: 3vw;
+          margin-bottom: 2.5vh;
+          padding-bottom: 2vh;
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .buzz-icon {
-          width: 48px;
-          height: 48px;
+          width: 6vh;
+          height: 6vh;
           display: flex;
           align-items: center;
           justify-content: center;
           background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
           border: 1px solid rgba(16, 185, 129, 0.3);
-          border-radius: 12px;
+          border-radius: 1.5vh;
           color: #34d399;
           animation: buzz-ring 0.5s ease-out;
+        }
+
+        .buzz-icon svg {
+          width: 3.5vh;
+          height: 3.5vh;
         }
 
         @keyframes buzz-ring {
@@ -1550,50 +1581,50 @@ export default function BlindTestHostGame() {
           flex: 1;
           display: flex;
           flex-direction: column;
-          gap: 2px;
+          gap: 0.3vh;
         }
 
         .buzz-name {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.3rem;
+          font-size: 2.5vh;
           color: #ffffff;
-          text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+          text-shadow: 0 0 1.2vh rgba(16, 185, 129, 0.3);
         }
 
         .buzz-label {
-          font-size: 0.8rem;
+          font-size: 1.5vh;
           color: rgba(255, 255, 255, 0.5);
         }
 
         .buzz-points.blindtest {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.2rem;
+          font-size: 2.2vh;
           color: #34d399;
           background: rgba(16, 185, 129, 0.12);
           border: 1px solid rgba(16, 185, 129, 0.25);
-          border-radius: 10px;
-          padding: 8px 12px;
-          text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+          border-radius: 1.2vh;
+          padding: 1vh 1.5vh;
+          text-shadow: 0 0 1vh rgba(16, 185, 129, 0.4);
         }
 
         .buzz-answer.blindtest {
           background: rgba(16, 185, 129, 0.08);
           border: 1px solid rgba(16, 185, 129, 0.2);
-          border-radius: 12px;
-          padding: 14px 16px;
-          margin-bottom: 20px;
+          border-radius: 1.5vh;
+          padding: 1.8vh 3vw;
+          margin-bottom: 2.5vh;
         }
 
         .track-reveal {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 3vw;
         }
 
         .track-album-art {
-          width: 56px;
-          height: 56px;
-          border-radius: 8px;
+          width: 7vh;
+          height: 7vh;
+          border-radius: 1vh;
           object-fit: cover;
         }
 
@@ -1606,7 +1637,7 @@ export default function BlindTestHostGame() {
           display: block;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-weight: 700;
-          font-size: 1rem;
+          font-size: 1.8vh;
           color: var(--text-primary);
           white-space: nowrap;
           overflow: hidden;
@@ -1615,7 +1646,7 @@ export default function BlindTestHostGame() {
 
         .track-artist {
           display: block;
-          font-size: 0.85rem;
+          font-size: 1.5vh;
           color: var(--text-secondary);
           white-space: nowrap;
           overflow: hidden;
@@ -1624,8 +1655,8 @@ export default function BlindTestHostGame() {
 
         .buzz-actions {
           display: flex;
-          gap: 12px;
-          margin-bottom: 12px;
+          gap: 2vw;
+          margin-bottom: 1.5vh;
           min-width: 0;
           width: 100%;
         }
@@ -1636,15 +1667,20 @@ export default function BlindTestHostGame() {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          padding: 14px 16px;
-          border-radius: 12px;
+          gap: 1.5vw;
+          padding: 1.8vh 3vw;
+          border-radius: 1.5vh;
           border: 1px solid;
           cursor: pointer;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.9rem;
+          font-size: 1.8vh;
           font-weight: 700;
           transition: all 0.2s ease;
+        }
+
+        .buzz-btn svg {
+          width: 2.5vh;
+          height: 2.5vh;
         }
 
         .buzz-btn-wrong {
@@ -1656,7 +1692,7 @@ export default function BlindTestHostGame() {
         .buzz-btn-wrong:hover {
           background: rgba(239, 68, 68, 0.22);
           border-color: rgba(239, 68, 68, 0.5);
-          transform: translateY(-2px);
+          transform: translateY(-0.3vh);
         }
 
         .buzz-btn-correct {
@@ -1668,17 +1704,17 @@ export default function BlindTestHostGame() {
         .buzz-btn-correct:hover {
           background: rgba(34, 197, 94, 0.22);
           border-color: rgba(34, 197, 94, 0.5);
-          transform: translateY(-2px);
+          transform: translateY(-0.3vh);
         }
 
         .buzz-cancel {
           width: 100%;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.8rem;
+          font-size: 1.5vh;
           color: rgba(255, 255, 255, 0.4);
           background: transparent;
           border: none;
-          padding: 10px;
+          padding: 1.2vh;
           cursor: pointer;
           transition: color 0.2s ease;
         }
@@ -1690,13 +1726,13 @@ export default function BlindTestHostGame() {
         .loading-dots {
           display: flex;
           justify-content: center;
-          gap: 8px;
-          margin-bottom: 16px;
+          gap: 1vh;
+          margin-bottom: 2vh;
         }
 
         .loading-dots span {
-          width: 10px;
-          height: 10px;
+          width: 1.2vh;
+          height: 1.2vh;
           background: #34d399;
           border-radius: 50%;
           animation: dot-bounce 1.4s ease-in-out infinite;

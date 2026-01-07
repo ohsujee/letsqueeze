@@ -9,9 +9,11 @@ import Leaderboard from "@/components/game/Leaderboard";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import ExitButton from "@/lib/components/ExitButton";
+import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { storage } from "@/lib/utils/storage";
 import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
 
@@ -89,6 +91,14 @@ export default function DeezTestPlayerGame() {
     roomPrefix: 'rooms_deeztest',
     playerUid: myUid,
     phase: 'playing'
+  });
+
+  // Inactivity detection
+  useInactivityDetection({
+    roomCode: code,
+    roomPrefix: 'rooms_deeztest',
+    playerUid: myUid,
+    inactivityTimeout: 30000
   });
 
   // Mark player as active when joining/rejoining
@@ -275,6 +285,14 @@ export default function DeezTestPlayerGame() {
           serverNow={serverNow}
         />
       </footer>
+
+      {/* Disconnect Alert */}
+      <DisconnectAlert
+        roomCode={code}
+        roomPrefix="rooms_deeztest"
+        playerUid={myUid}
+        onReconnect={markActive}
+      />
 
       <style jsx>{`
         .deeztest-player-page {

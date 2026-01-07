@@ -11,6 +11,7 @@
 | **DeezTest** (Deezer) | `/deeztest/room/[code]` | `rooms_deeztest/` | Complet |
 | **Alibi** | `/alibi/room/[code]` | `rooms_alibi/` | Complet |
 | **Mime** | `/mime` | Local (pas de room) | Complet |
+| **Trouve la Règle** | `/trouveregle/room/[code]` | `rooms_trouveregle/` | En cours |
 
 ---
 
@@ -23,6 +24,7 @@
 | `useInterstitialAd` | Room pages | Pub au chargement du lobby |
 | `usePlayers` | Room + Play + End | Liste des joueurs |
 | `usePlayerCleanup` | Play pages | Nettoyage déconnexion |
+| `useInactivityDetection` | Play pages | Détection inactivité (30s) |
 | `useRoomGuard` | Play + End pages | Détection fermeture room |
 | `useGameCompletion` | End pages | Comptage parties terminées |
 
@@ -30,24 +32,30 @@
 
 ```
 Quiz:
-  ✓ Room: useInterstitialAd, usePlayers
-  ✓ Play: usePlayers, usePlayerCleanup, useRoomGuard
+  ✓ Room: useInterstitialAd, usePlayers, usePlayerCleanup
+  ✓ Play: usePlayers, usePlayerCleanup, useInactivityDetection, useRoomGuard, DisconnectAlert
   ✓ End: useGameCompletion, usePlayers
 
 BlindTest:
-  ✓ Room: useInterstitialAd, usePlayers
-  ✓ Play: usePlayers, usePlayerCleanup, useRoomGuard
+  ✓ Room: useInterstitialAd, usePlayers, usePlayerCleanup
+  ✓ Play: usePlayers, usePlayerCleanup, useInactivityDetection, useRoomGuard, DisconnectAlert
   ✓ End: useGameCompletion, usePlayers
 
 DeezTest:
-  ✓ Room: useInterstitialAd, usePlayers
-  ✓ Play: usePlayers, usePlayerCleanup, useRoomGuard
+  ✓ Room: useInterstitialAd, usePlayers, usePlayerCleanup
+  ✓ Play: usePlayers, usePlayerCleanup, useInactivityDetection, useRoomGuard, DisconnectAlert
   ✓ End: useGameCompletion, usePlayers
 
 Alibi:
-  ✓ Room: useInterstitialAd, usePlayers
-  ✓ Play: usePlayers, usePlayerCleanup, useRoomGuard
+  ✓ Room: useInterstitialAd, usePlayers, usePlayerCleanup
+  ✓ Play: usePlayers, usePlayerCleanup, useInactivityDetection, useRoomGuard, DisconnectAlert
   ✓ End: useGameCompletion, usePlayers
+
+TrouveRegle:
+  ○ Room: useInterstitialAd, usePlayers, usePlayerCleanup, useRoomGuard
+  ○ Play: usePlayers, usePlayerCleanup, useInactivityDetection, useRoomGuard, DisconnectAlert
+  ○ Investigate: usePlayers, useRoomGuard
+  ○ End: useGameCompletion, usePlayers, useRoomGuard
 
 Mime:
   ✓ Lobby: useInterstitialAd, useGameLimits
@@ -84,6 +92,211 @@ User épuise 3 parties/jour
   → watchAdForExtraGame() dans useGameLimits
   → sessionStorage.setItem('rewardedAdWatched', 'true')
   → Prochaine room: skip interstitial
+```
+
+---
+
+## Système de Status Joueurs
+
+### Vue d'ensemble
+
+Le système gère 3 types de status pour chaque joueur:
+
+| Status | Champ Firebase | Déclencheur | Icône |
+|--------|----------------|-------------|-------|
+| **Actif** | `status: 'active'` | Connexion normale | - |
+| **Déconnecté** | `status: 'disconnected'` | Perte connexion WebSocket | WifiOff (rouge) |
+| **Inactif** | `activityStatus: 'inactive'` | 30s sans interaction | Moon (orange) |
+| **Parti** | `status: 'left'` | Quitte volontairement en jeu | WifiOff (rouge) |
+
+### Structure Firebase Player
+
+```
+players/{uid}/
+├── uid, name, score, teamId
+├── status: "active" | "disconnected" | "left"
+├── activityStatus: "active" | "inactive"
+├── disconnectedAt: timestamp (si déconnecté)
+├── lastActivityAt: timestamp
+└── joinedAt: timestamp
+```
+
+---
+
+### Hook: `usePlayerCleanup`
+
+**Fichier:** `lib/hooks/usePlayerCleanup.js`
+
+Gère la déconnexion selon la phase de jeu:
+
+| Phase | Comportement à la déconnexion |
+|-------|-------------------------------|
+| `lobby` | Joueur **supprimé** de la room |
+| `playing` | Joueur **marqué** `status: 'disconnected'` (score préservé) |
+| `ended` | Aucun cleanup |
+
+**Usage:**
+```jsx
+const { leaveRoom, markActive } = usePlayerCleanup({
+  roomCode: code,
+  roomPrefix: 'rooms_mygame',
+  playerUid: myUid,
+  phase: 'playing'  // 'lobby' | 'playing' | 'ended'
+});
+
+// leaveRoom() - Quitter proprement (bouton exit)
+// markActive() - Remettre status à 'active' (reconnexion)
+```
+
+**Détection automatique:**
+- Utilise `onDisconnect()` de Firebase (WebSocket)
+- `markActive()` appelé automatiquement au mount et visibility change
+
+---
+
+### Hook: `useInactivityDetection`
+
+**Fichier:** `lib/hooks/useInactivityDetection.js`
+
+Détecte l'inactivité utilisateur (pas d'interaction UI).
+
+**Événements surveillés:**
+- `mousedown`, `mousemove`, `click`
+- `touchstart`, `touchmove`
+- `keydown`, `scroll`
+- `visibilitychange`
+
+**Usage:**
+```jsx
+useInactivityDetection({
+  roomCode: code,
+  roomPrefix: 'rooms_mygame',
+  playerUid: myUid,
+  inactivityTimeout: 30000  // 30 secondes
+});
+```
+
+**Comportement:**
+1. Timer reset à chaque interaction
+2. Après 30s sans interaction → `activityStatus: 'inactive'`
+3. Dès interaction → `activityStatus: 'active'`
+
+---
+
+### Composant: `DisconnectAlert`
+
+**Fichier:** `components/game/DisconnectAlert.jsx`
+
+Overlay plein écran quand le joueur est marqué déconnecté.
+
+**Props:**
+```jsx
+<DisconnectAlert
+  roomCode={code}
+  roomPrefix="rooms_mygame"
+  playerUid={myUid}
+  onReconnect={markActive}  // Fonction du hook usePlayerCleanup
+/>
+```
+
+**Affichage:**
+- Écoute `players/{uid}/status` en temps réel
+- S'affiche si `status === 'disconnected'` ou `status === 'left'`
+- Bouton "Revenir dans la partie" → appelle `markActive()`
+
+**Ajouté aux pages:**
+- `/game/[code]/play` (Quiz)
+- `/blindtest/game/[code]/play`
+- `/deeztest/game/[code]/play`
+- `/alibi/game/[code]/play`
+- `/trouveregle/game/[code]/play`
+
+---
+
+### Composant: `LobbySettings`
+
+**Fichier:** `components/game/LobbySettings.jsx`
+
+Modal settings dans le header (bouton roue crantée).
+
+**Affichage des status:**
+| Status joueur | Apparence |
+|---------------|-----------|
+| Actif | Normal |
+| Inactif | Opacité 0.7, icône Moon orange |
+| Déconnecté | Opacité 0.5, icône WifiOff rouge |
+
+**Badge sur le bouton:**
+- Point rouge si au moins 1 joueur déconnecté/inactif
+
+---
+
+### Composant: `RejoinBanner`
+
+**Fichier:** `components/ui/RejoinBanner.jsx`
+
+Banner sur la page `/home` pour rejoindre une partie en cours.
+
+**Flux:**
+1. `lq_last_game` stocké en localStorage au join
+2. `useActiveGameCheck` vérifie si partie existe et joueur dedans
+3. Si oui → Banner vert "Partie en cours - Rejoindre"
+
+**Hook associé:** `useActiveGameCheck` (dans `usePlayerCleanup.js`)
+
+---
+
+### Tableau récapitulatif des déclencheurs
+
+| Événement | Status | Visible pour l'hôte | Action joueur |
+|-----------|--------|---------------------|---------------|
+| Perte WiFi/réseau | `disconnected` | WifiOff rouge | DisconnectAlert → "Revenir" |
+| Fermeture onglet | `disconnected` | WifiOff rouge | RejoinBanner sur /home |
+| 30s sans interaction | `inactive` | Moon orange | Juste indicateur |
+| Clic bouton Exit en jeu | `left` | WifiOff rouge | Retour home |
+
+---
+
+### Implémentation dans une page Play
+
+```jsx
+import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
+import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
+import DisconnectAlert from "@/components/game/DisconnectAlert";
+
+export default function PlayPage() {
+  // ... autres hooks
+
+  // Cleanup déconnexion
+  const { markActive } = usePlayerCleanup({
+    roomCode: code,
+    roomPrefix: 'rooms_mygame',
+    playerUid: myUid,
+    phase: 'playing'
+  });
+
+  // Détection inactivité
+  useInactivityDetection({
+    roomCode: code,
+    roomPrefix: 'rooms_mygame',
+    playerUid: myUid,
+    inactivityTimeout: 30000
+  });
+
+  return (
+    <div>
+      {/* ... contenu du jeu */}
+
+      {/* Alert de déconnexion */}
+      <DisconnectAlert
+        roomCode={code}
+        roomPrefix="rooms_mygame"
+        playerUid={myUid}
+        onReconnect={markActive}
+      />
+    </div>
+  );
+}
 ```
 
 ---
@@ -436,7 +649,7 @@ export default function MyGamePage() {
 #### Hooks par page
 ```
 Room:  useInterstitialAd, usePlayers, usePlayerCleanup(lobby), useRoomGuard
-Play:  usePlayers, usePlayerCleanup(playing), useRoomGuard
+Play:  usePlayers, usePlayerCleanup(playing), useInactivityDetection, useRoomGuard, DisconnectAlert
 Host:  usePlayers, useRoomGuard
 End:   usePlayers, useGameCompletion, useRoomGuard
 ```
@@ -486,7 +699,16 @@ lib/hooks/useInterstitialAd.js
 lib/hooks/useGameCompletion.js
 lib/hooks/usePlayers.js
 lib/hooks/usePlayerCleanup.js
+lib/hooks/useInactivityDetection.js
 lib/hooks/useRoomGuard.js
+```
+
+### Composants à vérifier
+```
+components/game/DisconnectAlert.jsx
+components/game/LobbySettings.jsx
+components/game/LobbyHeader.jsx
+components/ui/RejoinBanner.jsx
 ```
 
 ---
@@ -520,5 +742,5 @@ npx cap open android
 
 ## Dernière mise à jour
 
-**Date:** 2025-01-06
-**Contexte:** Ajout guide complet création nouveau jeu (lobby-based + local)
+**Date:** 2026-01-07
+**Contexte:** Système complet de status joueurs (déconnexion, inactivité, rejoin)

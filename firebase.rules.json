@@ -193,6 +193,34 @@
           ".write": "auth != null && auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val()"
         }
       }
+    },
+    "rooms_trouveregle": {
+      "$code": {
+        ".read": "auth != null",
+        "meta": {
+          ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )"
+        },
+        "state": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_trouveregle/'+$code+'/meta/hostUid').val()",
+          "votes": {
+            "$uid": {
+              ".write": "auth != null && auth.uid == $uid"
+            }
+          },
+          "guessVotes": {
+            "$uid": {
+              ".write": "auth != null && auth.uid == $uid"
+            }
+          }
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_trouveregle/'+$code+'/meta/hostUid').val() )"
+          },
+          ".read": "auth != null"
+        }
+      }
     }
   }
 }
