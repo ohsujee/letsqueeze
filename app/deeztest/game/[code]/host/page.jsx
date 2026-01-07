@@ -860,8 +860,7 @@ export default function DeezTestHostGame() {
                             {level.label}
                           </span>
                           <div className="snippet-points-pill" style={getPillStyle()}>
-                            <span style={getPillTextStyle()}>{level.start}</span>
-                            <small style={getPillTextStyle()}>pts</small>
+                            <span style={getPillTextStyle()}>+{level.start}</span>
                           </div>
                         </div>
                       </motion.button>
@@ -1304,7 +1303,7 @@ export default function DeezTestHostGame() {
           width: 100%;
         }
 
-        .snippet-card {
+        :global(.snippet-card) {
           position: relative;
           flex: 1 1 0;
           min-width: 0;
@@ -1314,21 +1313,21 @@ export default function DeezTestHostGame() {
           padding: 0;
           cursor: pointer;
           overflow: visible;
-          transition: all 0.25s ease;
+          transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
           box-shadow: 0 2px 8px rgba(162, 56, 255, 0.1);
         }
 
-        .snippet-card:hover:not(:disabled):not(.locked) {
+        :global(.snippet-card:hover:not(:disabled):not(.locked)) {
           background: linear-gradient(180deg, rgba(162, 56, 255, 0.2) 0%, rgba(162, 56, 255, 0.08) 100%);
           border-color: rgba(162, 56, 255, 0.5);
           box-shadow: 0 4px 12px rgba(162, 56, 255, 0.2);
         }
 
-        .snippet-card:disabled {
+        :global(.snippet-card:disabled) {
           cursor: not-allowed;
         }
 
-        .snippet-card.current {
+        :global(.snippet-card.current) {
           background: linear-gradient(180deg, rgba(162, 56, 255, 0.35) 0%, rgba(162, 56, 255, 0.15) 100%);
           border-color: ${DEEZER_LIGHT};
           border-width: 3px;
@@ -1336,7 +1335,7 @@ export default function DeezTestHostGame() {
           transform: scale(1.08);
         }
 
-        .snippet-card.next {
+        :global(.snippet-card.next) {
           background: linear-gradient(180deg, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0.08) 100%);
           border-color: rgba(251, 191, 36, 0.6);
           box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
@@ -1354,58 +1353,58 @@ export default function DeezTestHostGame() {
           }
         }
 
-        .snippet-card.passed {
+        :global(.snippet-card.passed) {
           background: linear-gradient(180deg, rgba(162, 56, 255, 0.08) 0%, rgba(162, 56, 255, 0.02) 100%);
           border-color: rgba(162, 56, 255, 0.25);
           opacity: 0.7;
         }
 
-        .snippet-card.locked {
+        :global(.snippet-card.locked) {
           background: transparent;
           border-color: rgba(60, 60, 70, 0.3);
           box-shadow: none;
           pointer-events: none;
         }
 
-        .snippet-card.locked .snippet-icon {
+        :global(.snippet-card.locked .snippet-icon) {
           background: rgba(60, 60, 70, 0.4);
           color: rgba(100, 100, 110, 0.6);
         }
 
-        .snippet-card.locked .snippet-duration {
+        :global(.snippet-card.locked .snippet-duration) {
           color: rgba(100, 100, 110, 0.6);
           text-shadow: none;
         }
 
-        .snippet-card.locked .snippet-points-pill {
+        :global(.snippet-card.locked .snippet-points-pill) {
           background: rgba(40, 40, 50, 0.5);
         }
 
-        .snippet-card.locked .snippet-points-pill span,
-        .snippet-card.locked .snippet-points-pill small {
+        :global(.snippet-card.locked .snippet-points-pill span),
+        :global(.snippet-card.locked .snippet-points-pill small) {
           color: rgba(100, 100, 110, 0.6);
         }
 
-        .snippet-card.current .snippet-icon {
+        :global(.snippet-card.current .snippet-icon) {
           background: rgba(162, 56, 255, 0.3);
           box-shadow: 0 0 15px rgba(162, 56, 255, 0.5);
         }
 
-        .snippet-card.current .snippet-duration {
+        :global(.snippet-card.current .snippet-duration) {
           text-shadow: 0 0 15px rgba(162, 56, 255, 0.8);
         }
 
-        .snippet-card.next .snippet-icon {
+        :global(.snippet-card.next .snippet-icon) {
           background: rgba(251, 191, 36, 0.2);
           color: #fbbf24;
         }
 
-        .snippet-card.next .snippet-duration {
+        :global(.snippet-card.next .snippet-duration) {
           color: #fbbf24;
           text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
         }
 
-        .snippet-card-inner {
+        :global(.snippet-card-inner) {
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -1413,7 +1412,7 @@ export default function DeezTestHostGame() {
           padding: 16px 10px;
         }
 
-        .snippet-icon {
+        :global(.snippet-icon) {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1424,30 +1423,30 @@ export default function DeezTestHostGame() {
           color: ${DEEZER_LIGHT};
         }
 
-        .snippet-duration {
+        :global(.snippet-duration) {
           font-family: var(--font-title, 'Bungee'), cursive;
           font-size: 1.1rem;
           color: ${DEEZER_LIGHT};
           text-shadow: 0 0 8px rgba(162, 56, 255, 0.4);
         }
 
-        .snippet-points-pill {
+        :global(.snippet-points-pill) {
           display: flex;
-          align-items: baseline;
-          gap: 3px;
+          align-items: center;
+          justify-content: center;
           padding: 5px 10px;
           background: rgba(0, 0, 0, 0.3);
           border-radius: 16px;
         }
 
-        .snippet-points-pill span {
+        :global(.snippet-points-pill span) {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-size: 0.85rem;
           font-weight: 700;
           color: #ffffff;
         }
 
-        .snippet-points-pill small {
+        :global(.snippet-points-pill small) {
           font-size: 0.65rem;
           color: rgba(255, 255, 255, 0.6);
           font-weight: 600;
