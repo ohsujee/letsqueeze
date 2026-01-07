@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 const TOAST_ICONS = {
   success: '✅',
-  error: '❌',
+  error: '🚫',
   warning: '⚠️',
   info: 'ℹ️'
 };

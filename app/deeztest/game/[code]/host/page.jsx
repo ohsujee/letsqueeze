@@ -331,6 +331,7 @@ export default function DeezTestHostGame() {
     if (code) {
       await stopMusic();
       await update(ref(db, `rooms_deeztest/${code}/state`), { phase: "ended" });
+      await update(ref(db, `rooms_deeztest/${code}/meta`), { closed: true });
     }
     router.push('/home');
   }

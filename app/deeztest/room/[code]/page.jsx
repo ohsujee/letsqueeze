@@ -119,7 +119,7 @@ export default function DeezTestLobby() {
   });
 
   // Room guard
-  useRoomGuard({
+  const { markVoluntaryLeave } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_deeztest',
     playerUid: myUid,
@@ -335,6 +335,7 @@ export default function DeezTestLobby() {
 
   // Player exit handler (non-host)
   const handlePlayerExit = async () => {
+    markVoluntaryLeave();
     await leaveRoom();
     router.push('/home');
   };

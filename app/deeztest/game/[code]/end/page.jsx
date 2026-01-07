@@ -9,7 +9,6 @@ import { useToast } from "@/lib/hooks/useToast";
 import { storage } from "@/lib/utils/storage";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayers } from "@/lib/hooks/usePlayers";
-import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
@@ -49,13 +48,9 @@ export default function DeezTestEndPage() {
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_deeztest' });
 
-  // Room guard - détecte fermeture room par l'hôte
-  useRoomGuard({
-    roomCode: code,
-    roomPrefix: 'rooms_deeztest',
-    playerUid: myUid,
-    isHost: false
-  });
+  // Note: useRoomGuard désactivé sur la page de fin car on veut
+  // que les joueurs voient les résultats même si l'hôte a quitté.
+  // Le bouton affiche "Retour à l'accueil" si hostPresent est false.
 
   // Record game completion (for daily limits)
   useGameCompletion({ gameType: 'deeztest', roomCode: code });
@@ -109,19 +104,6 @@ export default function DeezTestEndPage() {
 
   const rankedPlayers = useMemo(() => rankWithTies(players, "score"), [players]);
   const rankedTeams = useMemo(() => rankWithTies(teamsArray, "score"), [teamsArray]);
-
-  // Stats du joueur actuel
-  const myStats = useMemo(() => {
-    const me = players.find(p => p.uid === myUid);
-    if (!me) return null;
-    const totalTracks = meta?.playlist?.tracks?.length || 0;
-    return {
-      correctAnswers: me.correctAnswers || 0,
-      wrongAnswers: me.wrongAnswers || 0,
-      totalTracks,
-      score: me.score || 0
-    };
-  }, [players, myUid, meta?.playlist?.tracks?.length]);
 
   // Redirect if host returns to lobby (only if host is still present)
   useEffect(() => {
@@ -191,27 +173,6 @@ export default function DeezTestEndPage() {
             ) : (
               <PodiumPremium topPlayers={rankedPlayers.slice(0, 3)} />
             )}
-          </div>
-        )}
-
-        {/* Stats personnelles */}
-        {myStats && (
-          <div className="my-stats-card">
-            <div className="stats-title">Ton récap</div>
-            <div className="stats-row">
-              <div className="stat-item correct">
-                <span className="stat-value">{myStats.correctAnswers}</span>
-                <span className="stat-label">Bonnes réponses</span>
-              </div>
-              <div className="stat-item wrong">
-                <span className="stat-value">{myStats.wrongAnswers}</span>
-                <span className="stat-label">Erreurs</span>
-              </div>
-              <div className="stat-item total">
-                <span className="stat-value">{myStats.score}</span>
-                <span className="stat-label">Points</span>
-              </div>
-            </div>
           </div>
         )}
 
@@ -311,89 +272,6 @@ export default function DeezTestEndPage() {
           transform: scale(0.5);
           transform-origin: center top;
           margin: 0 0 -200px 0;
-        }
-
-        /* ===== STATS CARD ===== */
-        .my-stats-card {
-          flex-shrink: 0;
-          background: rgba(20, 20, 30, 0.8);
-          border: 1px solid rgba(162, 56, 255, 0.25);
-          border-radius: 14px;
-          padding: 14px 16px;
-          margin-bottom: 12px;
-          position: relative;
-          z-index: 3;
-        }
-
-        .stats-title {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.75rem;
-          font-weight: 600;
-          color: rgba(255, 255, 255, 0.6);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          margin-bottom: 12px;
-          text-align: center;
-        }
-
-        .stats-row {
-          display: flex;
-          justify-content: space-around;
-          gap: 8px;
-        }
-
-        .stat-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 4px;
-          padding: 10px 16px;
-          background: rgba(0, 0, 0, 0.3);
-          border-radius: 10px;
-          flex: 1;
-        }
-
-        .stat-item.correct {
-          border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-
-        .stat-item.wrong {
-          border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .stat-item.total {
-          border: 1px solid rgba(162, 56, 255, 0.3);
-        }
-
-        .stat-value {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.4rem;
-          line-height: 1;
-        }
-
-        .stat-item.correct .stat-value {
-          color: #22c55e;
-          text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
-        }
-
-        .stat-item.wrong .stat-value {
-          color: #f87171;
-          text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-        }
-
-        .stat-item.total .stat-value {
-          color: ${DEEZER_PURPLE};
-          text-shadow: 0 0 10px rgba(162, 56, 255, 0.5);
-        }
-
-        .stat-label {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.6rem;
-          font-weight: 600;
-          color: rgba(255, 255, 255, 0.5);
-          text-transform: uppercase;
-          letter-spacing: 0.3px;
-          text-align: center;
         }
 
         /* ===== LEADERBOARD ===== */

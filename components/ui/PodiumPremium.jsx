@@ -8,14 +8,12 @@ export const PodiumPremium = ({ topPlayers }) => {
   const audio = useGameAudio();
 
   useEffect(() => {
-    // Musique de victoire
-    audio.playMusic('victory/end-celebration', 0.4);
+    // Son de victoire (joue une seule fois)
+    audio.play('victory/end-celebration', { volume: 0.4 });
 
     // Feu d'artifice
     ParticleEffects.starRain();
     setTimeout(() => ParticleEffects.fireworks(), 2000);
-
-    return () => audio.stopMusic();
   }, [audio]);
 
   // Ordre podium: 2nd, 1st, 3rd
