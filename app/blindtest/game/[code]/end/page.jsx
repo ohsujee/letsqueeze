@@ -167,7 +167,7 @@ export default function BlindTestEndPage() {
   };
 
   return (
-    <div className="end-page">
+    <div className="end-page game-page">
       {/* Main Content */}
       <main className="end-content">
         {/* Header */}

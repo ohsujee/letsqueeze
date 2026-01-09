@@ -9,6 +9,7 @@ import { useToast } from "@/lib/hooks/useToast";
 import { storage } from "@/lib/utils/storage";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
@@ -48,9 +49,13 @@ export default function DeezTestEndPage() {
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_deeztest' });
 
-  // Note: useRoomGuard désactivé sur la page de fin car on veut
-  // que les joueurs voient les résultats même si l'hôte a quitté.
-  // Le bouton affiche "Retour à l'accueil" si hostPresent est false.
+  // Room guard - détecte fermeture room par l'hôte
+  useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms_deeztest',
+    playerUid: myUid,
+    isHost: false
+  });
 
   // Record game completion (for daily limits)
   useGameCompletion({ gameType: 'deeztest', roomCode: code });
@@ -156,7 +161,7 @@ export default function DeezTestEndPage() {
   };
 
   return (
-    <div className="end-page">
+    <div className="end-page game-page">
       {/* Main Content */}
       <main className="end-content">
         {/* Header */}

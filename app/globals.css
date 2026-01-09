@@ -105,6 +105,41 @@ body > * {
 }
 
 /* ===========================================
+   🎮 GAME PAGE - Mobile-optimized interaction
+   ===========================================
+
+   Désactive la sélection de texte sur les pages de jeu
+   pour une expérience plus "app-like" :
+   - Pas de sélection accidentelle en jouant
+   - Pas de loupe iOS au long-press
+   - Anti-triche light (empêche copier-coller facile)
+
+   Utiliser .selectable sur les éléments qui doivent
+   rester sélectionnables (codes de room, inputs)
+   =========================================== */
+
+.game-page {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Re-enable selection on specific elements */
+.game-page .selectable,
+.game-page input,
+.game-page textarea {
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
+}
+
+/* Disable context menu on game content (optional, can be removed if too restrictive) */
+.game-page .no-context {
+  -webkit-touch-callout: none;
+}
+
+/* ===========================================
    📝 TYPOGRAPHY
    =========================================== */
 
@@ -2846,20 +2881,6 @@ textarea:focus-visible {
     transform: translateY(100vh) rotate(720deg);
     opacity: 0;
   }
-}
-
-/* ===== MISSING KEYFRAMES ===== */
-
-/* Fade in */
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Spin for loaders */
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 /* Old bottom nav removed - see section 🧭 BOTTOM NAVIGATION STYLES */
@@ -7246,10 +7267,6 @@ textarea:focus-visible {
   animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
 /* ===== LOBBY HEADER ===== */
 .lobby-header {
   position: relative;
@@ -9858,6 +9875,37 @@ textarea:focus-visible {
   background: rgba(245, 158, 11, 0.25);
   border-color: rgba(245, 158, 11, 0.5);
   box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+}
+
+/* Header - Trouve la Règle variant */
+.lobby-header.trouveregle {
+  border-bottom-color: rgba(6, 182, 212, 0.15);
+}
+
+.lobby-header.trouveregle .lobby-title {
+  text-shadow:
+    0 0 10px rgba(6, 182, 212, 0.5),
+    0 0 20px rgba(6, 182, 212, 0.3),
+    0 0 40px rgba(6, 182, 212, 0.2);
+}
+
+.lobby-header.trouveregle .room-code {
+  color: #22d3ee;
+  text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+.lobby-header.trouveregle .help-btn,
+.lobby-header.trouveregle .spectator-btn {
+  background: rgba(6, 182, 212, 0.15);
+  border: 2px solid rgba(6, 182, 212, 0.3);
+  color: #22d3ee;
+}
+
+.lobby-header.trouveregle .help-btn:hover,
+.lobby-header.trouveregle .spectator-btn:hover {
+  background: rgba(6, 182, 212, 0.25);
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
 }
 
 /* Main Content Area */

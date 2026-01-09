@@ -129,16 +129,7 @@
   transition: box-shadow 0.2s ease-in-out;
 }
 
-/* Spin animation */
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* Spin animation - uses @keyframes spin from globals.css */
 .spin {
   animation: spin 1s linear infinite;
 }

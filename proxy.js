@@ -1,5 +1,5 @@
 /**
- * Next.js Middleware - Rate Limiting & Security
+ * Next.js Proxy - Rate Limiting & Security
  *
  * Applique le rate limiting sur les routes API et protège contre le spam.
  */
@@ -27,7 +27,7 @@ const EXCLUDED_ROUTES = [
   '/icon.svg',
 ];
 
-export async function middleware(request) {
+export async function proxy(request) {
   const { pathname } = request.nextUrl;
 
   // Skip excluded routes
@@ -64,8 +64,8 @@ export async function middleware(request) {
 }
 
 /**
- * Configuration du middleware
- * Matcher pour les routes où le middleware s'applique
+ * Configuration du proxy
+ * Matcher pour les routes où le proxy s'applique
  */
 export const config = {
   matcher: [

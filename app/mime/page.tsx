@@ -80,7 +80,7 @@ export default function MimePage() {
   }
 
   return (
-    <div className="lobby-container mime">
+    <div className="lobby-container mime game-page">
       {/* Modal How To Play */}
       <HowToPlayModal
         isOpen={showHowToPlay}

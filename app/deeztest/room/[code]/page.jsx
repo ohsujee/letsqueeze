@@ -8,6 +8,7 @@ import {
   ref,
   onValue,
   update,
+  set,
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
@@ -108,12 +109,25 @@ export default function DeezTestLobby() {
     return () => unsub();
   }, [meta?.hostUid]);
 
-  // Player cleanup hook
+  const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
+
+  // Player cleanup with auto-rejoin for hard refresh
   const { leaveRoom } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_deeztest',
     playerUid: myUid,
-    phase: 'lobby'
+    phase: 'lobby',
+    playerName: userPseudo,
+    isHost,
+    getPlayerData: (uid, name) => ({
+      uid,
+      name,
+      score: 0,
+      teamId: "",
+      blockedUntil: 0,
+      joinedAt: Date.now()
+    }),
+    onRejoinFailed: () => router.push('/home')
   });
 
   // Room guard
@@ -343,7 +357,7 @@ export default function DeezTestLobby() {
   // Loading state
   if (!meta) {
     return (
-      <div className="lobby-container deeztest">
+      <div className="lobby-container deeztest game-page">
         <div className="lobby-loading">
           <div className="loading-spinner deeztest" />
           <p>Chargement...</p>
@@ -353,7 +367,7 @@ export default function DeezTestLobby() {
   }
 
   return (
-    <div className="lobby-container deeztest">
+    <div className="lobby-container deeztest game-page">
       {/* Modals */}
       <PaywallModal
         isOpen={showPaywall}

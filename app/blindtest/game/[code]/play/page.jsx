@@ -180,7 +180,7 @@ export default function BlindTestPlayerGame() {
   const showLatencyWarning = latencyMs > 500;
 
   return (
-    <div className={`blindtest-player-page ${isMyTurn ? 'my-turn' : ''}`}>
+    <div className={`blindtest-player-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
       {/* Glow when it's my turn */}
       <AnimatePresence>
         {isMyTurn && (
@@ -278,6 +278,7 @@ export default function BlindTestPlayerGame() {
           playerName={me?.name}
           blockedUntil={me?.blockedUntil || 0}
           serverNow={serverNow}
+          serverOffset={offset}
         />
       </footer>
 

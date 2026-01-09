@@ -22,6 +22,7 @@ import { isPro } from "@/lib/subscription";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
+import { usePlayers } from "@/lib/hooks/usePlayers";
 
 /**
  * Icône Trophy animée pour la victoire
@@ -214,6 +215,9 @@ export default function AlibiEnd() {
   const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
+  // Centralized players hook
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
+
   // Room guard - détecte fermeture room par l'hôte
   useRoomGuard({
     roomCode: code,
@@ -244,29 +248,47 @@ export default function AlibiEnd() {
     }
   }, [currentUser, userIsPro, profileLoading]);
 
+  // Auth - only set firebaseUser
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setFirebaseUser(user);
-      if (user && code) {
-        onValue(ref(db, `rooms_alibi/${code}/players/${user.uid}`), (snap) => {
-          const player = snap.val();
-          if (player) setMyTeam(player.team);
-        });
-        onValue(ref(db, `rooms_alibi/${code}/meta`), (snap) => {
-          const m = snap.val();
-          setMeta(m);
-          setIsHost(m?.hostUid === user.uid);
-          // Track room existence
-          if (!m || m.closed) {
-            setRoomExists(false);
-          }
-        });
-      } else if (!user) {
+      if (!user) {
         signInAnonymously(auth).catch(() => {});
       }
     });
     return () => unsub();
-  }, [code]);
+  }, []);
+
+  // Listen to player team - separate effect with proper cleanup
+  useEffect(() => {
+    if (!code || !firebaseUser?.uid) return;
+
+    const playerRef = ref(db, `rooms_alibi/${code}/players/${firebaseUser.uid}`);
+    const unsub = onValue(playerRef, (snap) => {
+      const player = snap.val();
+      if (player) setMyTeam(player.team);
+    });
+
+    return () => unsub();
+  }, [code, firebaseUser?.uid]);
+
+  // Listen to meta - separate effect with proper cleanup
+  useEffect(() => {
+    if (!code || !firebaseUser?.uid) return;
+
+    const metaRef = ref(db, `rooms_alibi/${code}/meta`);
+    const unsub = onValue(metaRef, (snap) => {
+      const m = snap.val();
+      setMeta(m);
+      setIsHost(m?.hostUid === firebaseUser.uid);
+      // Track room existence
+      if (!m || m.closed) {
+        setRoomExists(false);
+      }
+    });
+
+    return () => unsub();
+  }, [code, firebaseUser?.uid]);
 
   // Computed: is host still present?
   const hostPresent = roomExists && meta && !meta.closed;
@@ -413,7 +435,7 @@ export default function AlibiEnd() {
   // Écran de chargement pendant que le score charge
   if (!isLoaded || !score) {
     return (
-      <div className="alibi-end-screen">
+      <div className="alibi-end-screen game-page">
         <div className="alibi-end-container">
           <main className="alibi-end-content">
             <motion.div
@@ -477,7 +499,7 @@ export default function AlibiEnd() {
   }
 
   return (
-    <div className="alibi-end-screen">
+    <div className="alibi-end-screen game-page">
       <div className="alibi-end-container">
         <main className="alibi-end-content">
           {/* Carte principale avec score */}

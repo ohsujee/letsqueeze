@@ -14,18 +14,16 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
-import ShareModal from "@/lib/components/ShareModal";
-import ExitButton from "@/lib/components/ExitButton";
-import PlayerManager from "@/components/game/PlayerManager";
+import LobbyHeader from "@/components/game/LobbyHeader";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useToast } from "@/lib/hooks/useToast";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
-import { HelpCircle, Search, Users, Clock, Shuffle, Check } from "lucide-react";
+import { Search, Users, Clock, Shuffle, Check } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
-import { TROUVE_COLORS } from "@/data/trouveregle-rules";
+import { TROUVE_COLORS, getRandomRulesForVoting } from "@/data/trouveregle-rules";
 
 // Cyan theme colors
 const CYAN_PRIMARY = TROUVE_COLORS.primary;
@@ -89,13 +87,22 @@ export default function TrouveRegleLobby() {
     isHost
   });
 
-  // Player cleanup
-  usePlayerCleanup({
+  // Player cleanup with auto-rejoin for hard refresh
+  const { leaveRoom, markVoluntaryLeave } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_trouveregle',
     playerUid: myUid,
     isHost,
-    phase: 'lobby'
+    phase: 'lobby',
+    playerName: userPseudo,
+    getPlayerData: (uid, name) => ({
+      uid,
+      name,
+      score: 0,
+      role: 'player',
+      joinedAt: Date.now()
+    }),
+    onRejoinFailed: () => router.push('/home')
   });
 
   // DB listeners
@@ -133,17 +140,29 @@ export default function TrouveRegleLobby() {
     };
   }, [code, router, players, myUid]);
 
-  const handleHostJoin = async () => {
-    if (!isHost || !userPseudo || !auth.currentUser) return;
+  // Auto-join host when page loads
+  useEffect(() => {
+    if (!isHost || !userPseudo || !auth.currentUser || hostJoined || profileLoading) return;
     const uid = auth.currentUser.uid;
-    await set(ref(db, `rooms_trouveregle/${code}/players/${uid}`), {
+    set(ref(db, `rooms_trouveregle/${code}/players/${uid}`), {
       uid,
       name: userPseudo,
       score: 0,
       role: 'player',
       joinedAt: Date.now()
     });
-  };
+  }, [isHost, userPseudo, hostJoined, code, profileLoading]);
+
+  // Auto-adjust nbInvestigators when players leave
+  useEffect(() => {
+    if (players.length > 1) {
+      const maxInv = players.length - 1;
+      if (nbInvestigators > maxInv) {
+        setNbInvestigators(maxInv);
+        setSelectedInvestigators(prev => prev.slice(0, maxInv));
+      }
+    }
+  }, [players.length, nbInvestigators]);
 
   const toggleInvestigator = (uid) => {
     setSelectedInvestigators(prev => {
@@ -179,12 +198,18 @@ export default function TrouveRegleLobby() {
       updates[`rooms_trouveregle/${code}/meta/mode`] = mode;
       updates[`rooms_trouveregle/${code}/meta/timerMinutes`] = timerMinutes;
 
+      // Generate rule options for voting
+      const ruleOptions = getRandomRulesForVoting({
+        onlineOnly: mode === 'a_distance',
+        excludeIds: []
+      });
+
       // Initialize state
       updates[`rooms_trouveregle/${code}/state`] = {
         phase: 'choosing',
         investigatorUids: selectedInvestigators,
         currentRule: null,
-        ruleOptions: [],
+        ruleOptions: ruleOptions.map(r => ({ id: r.id, text: r.text, category: r.category, difficulty: r.difficulty })),
         votes: {},
         rerollsUsed: 0,
         guessAttempts: 0,
@@ -206,14 +231,35 @@ export default function TrouveRegleLobby() {
     router.push('/home');
   };
 
-  const canStart = isHost && players.length >= 3 && selectedInvestigators.length > 0;
+  const handlePlayerExit = async () => {
+    markVoluntaryLeave?.();
+    await leaveRoom?.();
+    router.push('/home');
+  };
+
+  // Sync settings to Firebase in real-time
+  const handleModeChange = (newMode) => {
+    setMode(newMode);
+    if (isHost && code) {
+      update(ref(db, `rooms_trouveregle/${code}/meta`), { mode: newMode });
+    }
+  };
+
+  const handleTimerChange = (newTimer) => {
+    setTimerMinutes(newTimer);
+    if (isHost && code) {
+      update(ref(db, `rooms_trouveregle/${code}/meta`), { timerMinutes: newTimer });
+    }
+  };
+
+  const canStart = isHost && players.length >= 2 && selectedInvestigators.length > 0;
   const investigators = players.filter(p => selectedInvestigators.includes(p.uid));
   const otherPlayers = players.filter(p => !selectedInvestigators.includes(p.uid));
 
   // Loading state
   if (!meta) {
     return (
-      <div className="trouveregle-lobby">
+      <div className="trouveregle-lobby game-page">
         <div className="lobby-loading">
           <div className="loading-spinner" />
           <p>Chargement...</p>
@@ -224,7 +270,7 @@ export default function TrouveRegleLobby() {
   }
 
   return (
-    <div className="trouveregle-lobby">
+    <div className="trouveregle-lobby game-page">
       {/* How To Play Modal */}
       <HowToPlayModal
         isOpen={showHowToPlay}
@@ -233,131 +279,80 @@ export default function TrouveRegleLobby() {
       />
 
       {/* Header */}
-      <header className="lobby-header">
-        <div className="header-left">
-          <ExitButton
-            variant="header"
-            onExit={isHost ? handleHostExit : undefined}
-            confirmMessage={isHost ? "Voulez-vous vraiment quitter ? La partie sera fermée pour tous les joueurs." : undefined}
-          />
-          <div className="header-title-row">
-            <span className="game-icon">🔍</span>
-            <h1 className="lobby-title">Trouve la Règle</h1>
-          </div>
-        </div>
-        <div className="header-right">
-          <motion.button
-            className="help-btn"
-            onClick={() => setShowHowToPlay(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            title="Comment jouer"
-          >
-            <HelpCircle size={18} />
-          </motion.button>
-          {isHost && (
-            <PlayerManager
-              players={players}
-              roomCode={code}
-              roomPrefix="rooms_trouveregle"
-              hostUid={meta?.hostUid}
-              variant="trouveregle"
-              phase="lobby"
-              hideCount
-            />
-          )}
-          <ShareModal roomCode={code} joinUrl={joinUrl} />
-        </div>
-      </header>
+      <LobbyHeader
+        variant="trouveregle"
+        code={code}
+        isHost={isHost}
+        players={players}
+        hostUid={meta?.hostUid}
+        onHostExit={handleHostExit}
+        onPlayerExit={handlePlayerExit}
+        onShowHowToPlay={() => setShowHowToPlay(true)}
+        joinUrl={joinUrl}
+      />
 
       {/* Main Content */}
       <main className="lobby-main">
         {isHost ? (
           // HOST VIEW
           <div className="lobby-content">
-            {/* Host Join Card */}
-            {!hostJoined && (
-              <div className="host-join-card">
-                <div className="host-join-row">
-                  <div className="host-pseudo">
-                    <span className="pseudo-label">Tu joues en tant que</span>
-                    <span className="pseudo-name">{userPseudo}</span>
-                  </div>
-                  <motion.button
-                    className="host-join-btn"
-                    onClick={handleHostJoin}
-                    disabled={!userPseudo || profileLoading}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {profileLoading ? '...' : 'Rejoindre'}
-                  </motion.button>
-                </div>
-              </div>
-            )}
-
-            {/* Settings Card */}
-            <div className="settings-card">
-              <div className="settings-header">
-                <span className="settings-icon">⚙️</span>
-                <span className="settings-title">Paramètres</span>
-              </div>
-
-              {/* Mode Selection */}
-              <div className="setting-row">
-                <span className="setting-label">Mode</span>
+            {/* Settings Row - Compact */}
+            <div className="settings-row-compact">
+              <div className="setting-group">
+                <span className="setting-label-small">Mode</span>
                 <div className="mode-toggle">
                   <button
-                    className={`mode-btn ${mode === 'meme_piece' ? 'active' : ''}`}
-                    onClick={() => setMode('meme_piece')}
+                    className={`setting-btn ${mode === 'meme_piece' ? 'active' : ''}`}
+                    onClick={() => handleModeChange('meme_piece')}
                   >
                     🏠 Même pièce
                   </button>
                   <button
-                    className={`mode-btn ${mode === 'a_distance' ? 'active' : ''}`}
-                    onClick={() => setMode('a_distance')}
+                    className={`setting-btn ${mode === 'a_distance' ? 'active' : ''}`}
+                    onClick={() => handleModeChange('a_distance')}
                   >
                     🌐 À distance
                   </button>
                 </div>
               </div>
-
-              {/* Timer */}
-              <div className="setting-row">
-                <span className="setting-label">
-                  <Clock size={16} /> Timer
-                </span>
+              <div className="setting-group">
+                <span className="setting-label-small"><Clock size={14} /> Timer</span>
                 <div className="timer-select">
                   {[3, 5, 7, 10].map(mins => (
                     <button
                       key={mins}
-                      className={`timer-btn ${timerMinutes === mins ? 'active' : ''}`}
-                      onClick={() => setTimerMinutes(mins)}
+                      className={`setting-btn ${timerMinutes === mins ? 'active' : ''}`}
+                      onClick={() => handleTimerChange(mins)}
                     >
-                      {mins} min
+                      {mins}m
                     </button>
                   ))}
                 </div>
               </div>
-
-              {/* Number of Investigators */}
-              <div className="setting-row">
-                <span className="setting-label">
-                  <Search size={16} /> Enquêteurs
-                </span>
-                <div className="investigator-select">
-                  {[1, 2].map(n => (
-                    <button
-                      key={n}
-                      className={`inv-btn ${nbInvestigators === n ? 'active' : ''}`}
-                      onClick={() => {
-                        setNbInvestigators(n);
-                        setSelectedInvestigators(prev => prev.slice(0, n));
-                      }}
-                    >
-                      {n}
-                    </button>
-                  ))}
+              <div className="setting-group">
+                <span className="setting-label-small"><Search size={14} /> Enquêteurs</span>
+                <div className="counter-control">
+                  <button
+                    type="button"
+                    className="counter-btn"
+                    onClick={() => {
+                      const newVal = Math.max(1, nbInvestigators - 1);
+                      setNbInvestigators(newVal);
+                      setSelectedInvestigators(prev => prev.slice(0, newVal));
+                    }}
+                    disabled={nbInvestigators <= 1}
+                  >
+                    −
+                  </button>
+                  <span className="counter-value">{nbInvestigators}</span>
+                  <button
+                    type="button"
+                    className="counter-btn"
+                    onClick={() => setNbInvestigators(prev => prev + 1)}
+                    disabled={players.length <= 1 || nbInvestigators >= players.length - 1}
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             </div>
@@ -374,7 +369,7 @@ export default function TrouveRegleLobby() {
                   onClick={handleRandomInvestigators}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  disabled={players.length < 3}
+                  disabled={players.length < 2}
                 >
                   <Shuffle size={14} />
                   Aléatoire
@@ -408,53 +403,51 @@ export default function TrouveRegleLobby() {
                 })}
               </div>
 
-              {players.length < 3 && (
+              {players.length < 2 && (
                 <div className="warning-message">
-                  ⚠️ Il faut au moins 3 joueurs pour commencer
+                  ⚠️ Il faut au moins 2 joueurs pour commencer
                 </div>
               )}
 
-              {players.length >= 3 && selectedInvestigators.length === 0 && (
+              {players.length >= 2 && selectedInvestigators.length === 0 && (
                 <div className="warning-message">
                   👆 Sélectionne au moins un enquêteur
                 </div>
               )}
             </div>
 
-            {/* Role Preview */}
-            {selectedInvestigators.length > 0 && (
-              <div className="role-preview">
-                <div className="role-group investigators">
-                  <span className="role-label">🔍 Enquêteurs</span>
-                  <div className="role-names">
-                    {investigators.map(p => p.name).join(', ')}
-                  </div>
-                </div>
-                <div className="role-group players">
-                  <span className="role-label">🎭 Joueurs</span>
-                  <div className="role-names">
-                    {otherPlayers.map(p => p.name).join(', ') || 'Aucun'}
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         ) : (
           // PLAYER VIEW
           <div className="player-view">
-            <div className="waiting-card">
-              <div className="waiting-icon">⏳</div>
-              <h2 className="waiting-title">En attente de l'hôte</h2>
-              <p className="waiting-text">
-                L'hôte va bientôt lancer la partie...
-              </p>
+            {/* Game Settings Info */}
+            <div className="player-info-card">
+              <div className="info-row">
+                <span className="info-icon">{mode === 'meme_piece' ? '🏠' : '📱'}</span>
+                <div className="info-text">
+                  <span className="info-label">Mode</span>
+                  <span className="info-value">{mode === 'meme_piece' ? 'Même pièce' : 'À distance'}</span>
+                </div>
+              </div>
+              <div className="info-divider" />
+              <div className="info-row">
+                <span className="info-icon">⏱️</span>
+                <div className="info-text">
+                  <span className="info-label">Durée</span>
+                  <span className="info-value">{timerMinutes} min</span>
+                </div>
+              </div>
             </div>
 
+            {/* Players Header */}
+            <div className="players-header-card">
+              <span className="players-icon">🎮</span>
+              <span className="players-count">{players.length}</span>
+              <span className="players-label">joueurs connectés</span>
+            </div>
+
+            {/* Players List */}
             <div className="players-list-card">
-              <div className="players-list-header">
-                <Users size={18} />
-                <span>Joueurs connectés ({players.length})</span>
-              </div>
               <div className="players-list">
                 {players.map(p => (
                   <div key={p.uid} className={`player-item ${p.uid === myUid ? 'is-me' : ''}`}>
@@ -535,224 +528,149 @@ const styles = `
     to { transform: rotate(360deg); }
   }
 
-  /* Header */
-  .lobby-header {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    background: rgba(10, 10, 15, 0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(6, 182, 212, 0.2);
-  }
-
-  .header-left, .header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .header-title-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .game-icon {
-    font-size: 1.3rem;
-  }
-
-  .lobby-title {
-    font-family: var(--font-title, 'Bungee'), cursive;
-    font-size: 1.1rem;
-    color: #ffffff;
-    text-shadow:
-      0 0 10px rgba(6, 182, 212, 0.8),
-      0 0 20px rgba(6, 182, 212, 0.5);
-  }
-
-  .help-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 10px;
-    background: rgba(6, 182, 212, 0.15);
-    color: ${CYAN_LIGHT};
-    cursor: pointer;
-  }
-
   /* Main Content */
   .lobby-main {
     flex: 1;
-    overflow-y: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     padding: 16px;
     position: relative;
     z-index: 1;
   }
 
   .lobby-content, .player-view {
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 16px;
     max-width: 500px;
     margin: 0 auto;
     width: 100%;
+    overflow-y: auto;
+    padding-bottom: 8px;
   }
 
-  /* Host Join Card */
-  .host-join-card {
+  /* Settings Row */
+  .settings-row-compact {
+    flex-shrink: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    padding: 12px;
     background: rgba(20, 20, 30, 0.8);
     border: 1px solid rgba(6, 182, 212, 0.25);
-    border-radius: 14px;
-    padding: 14px 16px;
+    border-radius: 12px;
   }
 
-  .host-join-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .host-pseudo {
+  .setting-group {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    gap: 6px;
   }
 
-  .pseudo-label {
+  .setting-label-small {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-  }
-
-  .pseudo-name {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: ${CYAN_LIGHT};
-  }
-
-  .host-join-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(135deg, ${CYAN_LIGHT}, ${CYAN_PRIMARY});
-    color: #0a0a0f;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .host-join-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  /* Settings Card */
-  .settings-card {
-    background: rgba(20, 20, 30, 0.8);
-    border: 1px solid rgba(6, 182, 212, 0.25);
-    border-radius: 14px;
-    padding: 16px;
-  }
-
-  .settings-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  .settings-icon {
-    font-size: 1.2rem;
-  }
-
-  .settings-title {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
-  }
-
-  .setting-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .setting-row:last-child {
-    border-bottom: none;
-  }
-
-  .setting-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .mode-toggle {
-    display: flex;
-    gap: 8px;
-  }
-
-  .mode-btn {
-    padding: 8px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.3);
     color: rgba(255, 255, 255, 0.6);
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition: all 0.2s;
+    font-weight: 600;
   }
 
-  .mode-btn.active {
-    background: rgba(6, 182, 212, 0.2);
-    border-color: ${CYAN_PRIMARY};
-    color: ${CYAN_LIGHT};
-  }
-
-  .timer-select, .investigator-select {
+  .mode-toggle, .timer-select {
     display: flex;
     gap: 6px;
   }
 
-  .timer-btn, .inv-btn {
-    padding: 6px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    background: rgba(0, 0, 0, 0.3);
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.2s;
+  .counter-control {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
   }
 
-  .timer-btn.active, .inv-btn.active {
-    background: rgba(6, 182, 212, 0.2);
-    border-color: ${CYAN_PRIMARY};
+  .counter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(6, 182, 212, 0.15);
     color: ${CYAN_LIGHT};
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .counter-btn:hover:not(:disabled) {
+    background: rgba(6, 182, 212, 0.35);
+  }
+
+  .counter-btn:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  .counter-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .counter-value {
+    min-width: 28px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .setting-btn {
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .setting-btn:active {
+    transform: scale(0.95);
+  }
+
+  .setting-btn.active {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.4), rgba(6, 182, 212, 0.2));
+    border-color: ${CYAN_PRIMARY};
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
   }
 
   /* Players Card */
   .players-card {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
     background: rgba(20, 20, 30, 0.8);
     border: 1px solid rgba(6, 182, 212, 0.25);
     border-radius: 14px;
     padding: 16px;
+    overflow: hidden;
   }
 
   .players-header {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -791,15 +709,21 @@ const styles = `
   }
 
   .players-instruction {
+    flex-shrink: 0;
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.5);
     margin-bottom: 12px;
   }
 
   .players-grid {
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
     gap: 8px;
+    overflow-y: auto;
+    padding: 8px 0 4px 8px;
   }
 
   .player-chip {
@@ -846,6 +770,7 @@ const styles = `
   }
 
   .warning-message {
+    flex-shrink: 0;
     margin-top: 12px;
     padding: 10px;
     background: rgba(251, 191, 36, 0.1);
@@ -858,6 +783,7 @@ const styles = `
 
   /* Role Preview */
   .role-preview {
+    flex-shrink: 0;
     display: flex;
     gap: 12px;
   }
@@ -892,53 +818,85 @@ const styles = `
   }
 
   /* Player View */
-  .waiting-card {
+  .player-info-card {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 32px;
+    justify-content: center;
+    gap: 20px;
+    padding: 16px 24px;
     background: rgba(20, 20, 30, 0.8);
     border: 1px solid rgba(6, 182, 212, 0.25);
     border-radius: 14px;
-    text-align: center;
   }
 
-  .waiting-icon {
-    font-size: 2.5rem;
-    animation: pulse 2s ease-in-out infinite;
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.8; }
+  .info-icon {
+    font-size: 1.4rem;
   }
 
-  .waiting-title {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.2rem;
-    color: #ffffff;
+  .info-text {
+    display: flex;
+    flex-direction: column;
   }
 
-  .waiting-text {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.6);
+  .info-label {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .info-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: ${CYAN_LIGHT};
+  }
+
+  .info-divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .players-header-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: 10px;
+  }
+
+  .players-icon {
+    font-size: 1.1rem;
+  }
+
+  .players-count {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: ${CYAN_LIGHT};
+  }
+
+  .players-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
   }
 
   .players-list-card {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
     background: rgba(20, 20, 30, 0.8);
     border: 1px solid rgba(6, 182, 212, 0.25);
     border-radius: 14px;
-    padding: 16px;
-  }
-
-  .players-list-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-    color: #ffffff;
-    font-weight: 600;
+    padding: 12px;
   }
 
   .players-list {

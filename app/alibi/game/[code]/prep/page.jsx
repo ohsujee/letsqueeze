@@ -24,11 +24,17 @@ async function getDOMPurify() {
 }
 import ExitButton from "@/lib/components/ExitButton";
 import { AlibiPhaseTransition } from "@/components/alibi/AlibiPhaseTransition";
+import DisconnectAlert from "@/components/game/DisconnectAlert";
+import { usePlayers } from "@/lib/hooks/usePlayers";
+import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 
 export default function AlibiPrep() {
   const { code } = useParams();
   const router = useRouter();
 
+  const [myUid, setMyUid] = useState(null);
   const [timeLeft, setTimeLeft] = useState(90);
   const [myTeam, setMyTeam] = useState(null);
   const [isHost, setIsHost] = useState(false);
@@ -39,6 +45,34 @@ export default function AlibiPrep() {
   const [showCountdown, setShowCountdown] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef(null);
+
+  // Centralized players hook
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
+
+  // Room guard - détecte kick et fermeture room
+  useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
+    playerUid: myUid,
+    isHost
+  });
+
+  // Player cleanup - gère déconnexion pendant la prep (traité comme playing pour préserver le score)
+  const { markActive } = usePlayerCleanup({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
+    playerUid: myUid,
+    isHost,
+    phase: 'playing'
+  });
+
+  // Inactivity detection - marque le joueur inactif après 30s
+  useInactivityDetection({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
+    playerUid: myUid,
+    inactivityTimeout: 30000
+  });
 
   // Fonction pour quitter et retourner au lobby
   async function exitGame() {
@@ -64,23 +98,43 @@ export default function AlibiPrep() {
     router.push(`/alibi/game/${code}/play`);
   };
 
-  // Auth et récupération de l'équipe du joueur
+  // Auth - only set myUid
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      if (user && code) {
-        onValue(ref(db, `rooms_alibi/${code}/players/${user.uid}`), (snap) => {
-          const player = snap.val();
-          if (player) setMyTeam(player.team);
-        });
-        onValue(ref(db, `rooms_alibi/${code}/meta/hostUid`), (snap) => {
-          setIsHost(snap.val() === user.uid);
-        });
-      } else if (!user) {
+      if (user) {
+        setMyUid(user.uid);
+      } else {
         signInAnonymously(auth).catch(() => {});
       }
     });
     return () => unsub();
-  }, [code]);
+  }, []);
+
+  // Listen to player team - separate effect with proper cleanup
+  useEffect(() => {
+    if (!code || !myUid) return;
+
+    const playerRef = ref(db, `rooms_alibi/${code}/players/${myUid}`);
+    const unsub = onValue(playerRef, (snap) => {
+      const player = snap.val();
+      if (player) setMyTeam(player.team);
+    });
+
+    return () => unsub();
+  }, [code, myUid]);
+
+  // Listen to host - separate effect with proper cleanup
+  useEffect(() => {
+    if (!code || !myUid) return;
+
+    const hostRef = ref(db, `rooms_alibi/${code}/meta/hostUid`);
+    const unsub = onValue(hostRef, (snap) => {
+      const hUid = snap.val();
+      setIsHost(hUid === myUid);
+    });
+
+    return () => unsub();
+  }, [code, myUid]);
 
   // Écouter les données de la room
   useEffect(() => {
@@ -237,7 +291,7 @@ export default function AlibiPrep() {
   const isUrgent = timeLeft <= 15;
 
   return (
-    <div className="game-screen">
+    <div className="game-screen game-page">
       {/* Animated Background */}
       <div className="animated-background" />
 
@@ -479,6 +533,13 @@ export default function AlibiPrep() {
         </div>
       </main>
 
+      {/* Disconnect Alert */}
+      <DisconnectAlert
+        roomCode={code}
+        roomPrefix="rooms_alibi"
+        playerUid={myUid}
+        onReconnect={markActive}
+      />
 
       <AlibiPhaseTransition
         isVisible={showCountdown}

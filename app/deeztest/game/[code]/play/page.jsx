@@ -185,7 +185,7 @@ export default function DeezTestPlayerGame() {
   const showLatencyWarning = latencyMs > 500;
 
   return (
-    <div className={`deeztest-player-page ${isMyTurn ? 'my-turn' : ''}`}>
+    <div className={`deeztest-player-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
       {/* Glow when it's my turn */}
       <AnimatePresence>
         {isMyTurn && (
@@ -283,6 +283,7 @@ export default function DeezTestPlayerGame() {
           playerName={me?.name}
           blockedUntil={me?.blockedUntil || 0}
           serverNow={serverNow}
+          serverOffset={offset}
         />
       </footer>
 

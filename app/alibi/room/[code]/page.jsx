@@ -104,16 +104,25 @@ export default function AlibiLobby() {
     }
   }, [isHost, hostJoined, userPseudo, profileLoading, code]);
 
-  // Player cleanup hook - handles disconnect during lobby
+  // Player cleanup with auto-rejoin for hard refresh
   const { leaveRoom } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
-    phase: 'lobby'
+    phase: 'lobby',
+    playerName: userPseudo,
+    isHost,
+    getPlayerData: (uid, name) => ({
+      uid,
+      name,
+      team: null,
+      joinedAt: Date.now()
+    }),
+    onRejoinFailed: () => router.push('/home')
   });
 
   // Room guard - détecte kick et fermeture room
-  useRoomGuard({
+  const { markVoluntaryLeave } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
@@ -274,6 +283,7 @@ export default function AlibiLobby() {
 
   // Player exit handler (non-host)
   const handlePlayerExit = async () => {
+    markVoluntaryLeave(); // Évite le toast "expulsé par l'hôte"
     await leaveRoom();
     router.push('/home');
   };
@@ -310,7 +320,7 @@ export default function AlibiLobby() {
   // Loading state
   if (!meta) {
     return (
-      <div className="alibi-lobby-container">
+      <div className="alibi-lobby-container game-page">
         <div className="lobby-loading">
           <div className="loading-spinner" />
           <p>Chargement...</p>
@@ -320,7 +330,7 @@ export default function AlibiLobby() {
   }
 
   return (
-    <div className="alibi-lobby-container">
+    <div className="alibi-lobby-container game-page">
       {/* Modals */}
       <PaywallModal
         isOpen={showPaywall}

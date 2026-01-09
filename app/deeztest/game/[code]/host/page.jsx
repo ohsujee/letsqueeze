@@ -12,6 +12,8 @@ import { initializePlayer, playSnippet, pause, resume, isPlayerReady, disconnect
 import { SkipForward, X, Check, RotateCcw, Music, Zap, Clock, Timer, Disc, Bell, RefreshCw } from "lucide-react";
 import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel } from "@/lib/constants/blindtest";
 import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { getPlaylistTracks, formatTracksForGame } from "@/lib/deezer/api";
 
 const DEEZER_PURPLE = '#A238FF';
@@ -164,6 +166,24 @@ export default function DeezTestHostGame() {
   }, [state?.phase, router, code]);
 
   const isHost = meta?.hostUid === auth.currentUser?.uid;
+  const myUid = auth.currentUser?.uid;
+
+  // Room guard - détecte fermeture room (host is always host here)
+  useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms_deeztest',
+    playerUid: myUid,
+    isHost: true
+  });
+
+  // Inactivity detection for host
+  useInactivityDetection({
+    roomCode: code,
+    roomPrefix: 'rooms_deeztest',
+    playerUid: myUid,
+    inactivityTimeout: 30000
+  });
+
   const total = playlist?.tracks?.length || 0;
   const qIndex = state?.currentIndex || 0;
   const currentTrack = playlist?.tracks?.[qIndex];
@@ -184,25 +204,99 @@ export default function DeezTestHostGame() {
   const playWrong = useSound("/sounds/quiz-bad-answer.wav");
   const prevLock = useRef(null);
 
-  // Host reacts to new lock
+  // Fenêtre de tolérance pour la résolution des buzzes (en ms)
+  const BUZZ_WINDOW_MS = 150;
+  const buzzWindowTimeout = useRef(null);
+  const isResolvingBuzz = useRef(false);
+
+  // *** NOUVEAU SYSTÈME: HOST ÉCOUTE LES PENDING BUZZES ET RÉSOUT APRÈS 150ms ***
+  useEffect(() => {
+    if (!isHost) return;
+
+    // Si déjà un lockUid, pas besoin de résoudre
+    if (state?.lockUid) return;
+
+    const pendingBuzzes = state?.pendingBuzzes;
+    if (!pendingBuzzes || Object.keys(pendingBuzzes).length === 0) return;
+
+    // Si déjà en train de résoudre, ne pas redémarrer le timer
+    if (isResolvingBuzz.current) return;
+
+    // Démarrer la fenêtre de tolérance
+    isResolvingBuzz.current = true;
+    console.log('🔔 [DeezTest Buzz Window] Premier buzz détecté, démarrage fenêtre de', BUZZ_WINDOW_MS, 'ms');
+
+    buzzWindowTimeout.current = setTimeout(async () => {
+      try {
+        // Relire les pendingBuzzes pour avoir tous ceux arrivés pendant la fenêtre
+        const snapshot = await import('firebase/database').then(m =>
+          m.get(m.ref(db, `rooms_deeztest/${code}/state/pendingBuzzes`))
+        );
+        const allBuzzes = snapshot.val();
+
+        if (!allBuzzes || Object.keys(allBuzzes).length === 0) {
+          isResolvingBuzz.current = false;
+          return;
+        }
+
+        // Trouver le buzz avec le plus petit adjustedTime (le vrai premier)
+        const buzzArray = Object.values(allBuzzes);
+        buzzArray.sort((a, b) => a.adjustedTime - b.adjustedTime);
+        const winner = buzzArray[0];
+
+        console.log('🏆 [DeezTest Buzz Window] Résolution - Gagnant:', winner.name, 'avec adjustedTime:', winner.adjustedTime);
+        console.log('📊 [DeezTest Buzz Window] Tous les buzzes:', buzzArray.map(b => ({ name: b.name, adjustedTime: b.adjustedTime })));
+
+        // Pause la musique
+        pauseMusic();
+
+        // Mettre à jour Firebase avec le gagnant
+        await update(ref(db, `rooms_deeztest/${code}/state`), {
+          lockUid: winner.uid,
+          buzz: { uid: winner.uid, at: winner.localTime },
+          buzzBanner: `🔔 ${winner.name} a buzzé !`,
+          pausedAt: serverTimestamp(),
+          lockedAt: serverTimestamp()
+        });
+        // Supprimer les buzzes en attente séparément
+        await import('firebase/database').then(m =>
+          m.remove(m.ref(db, `rooms_deeztest/${code}/state/pendingBuzzes`))
+        ).catch(() => {});
+
+        playBuzz();
+
+      } catch (error) {
+        console.error('Erreur résolution buzz:', error);
+      } finally {
+        isResolvingBuzz.current = false;
+      }
+    }, BUZZ_WINDOW_MS);
+
+    return () => {
+      if (buzzWindowTimeout.current) {
+        clearTimeout(buzzWindowTimeout.current);
+      }
+    };
+  }, [isHost, state?.pendingBuzzes, state?.lockUid, code, playBuzz]);
+
+  // Cleanup du timeout à la fermeture
+  useEffect(() => {
+    return () => {
+      if (buzzWindowTimeout.current) {
+        clearTimeout(buzzWindowTimeout.current);
+      }
+    };
+  }, []);
+
+  // Host reacts to new lock (backup pour tracking)
   useEffect(() => {
     if (!isHost) return;
     const cur = state?.lockUid || null;
     if (cur && cur !== prevLock.current) {
-      const name = players.find(p => p.uid === cur)?.name || "Un joueur";
-
-      pauseMusic();
-
-      update(ref(db, `rooms_deeztest/${code}/state`), {
-        pausedAt: serverTimestamp(),
-        lockedAt: serverTimestamp(),
-        buzzBanner: `🔔 ${name} a buzzé !`
-      }).catch(() => {});
-
-      playBuzz();
+      prevLock.current = cur;
     }
     prevLock.current = cur;
-  }, [isHost, state?.lockUid, code, players, playBuzz]);
+  }, [isHost, state?.lockUid, code, players]);
 
   // Preload track silently when changing to a new question
   useEffect(() => {
@@ -339,6 +433,12 @@ export default function DeezTestHostGame() {
   // Reset buzzers
   async function resetBuzzers() {
     if (!isHost) return;
+    // Reset le flag de résolution
+    isResolvingBuzz.current = false;
+    if (buzzWindowTimeout.current) {
+      clearTimeout(buzzWindowTimeout.current);
+      buzzWindowTimeout.current = null;
+    }
     await update(ref(db, `rooms_deeztest/${code}/state`), {
       lockUid: null,
       buzzBanner: "",
@@ -346,6 +446,10 @@ export default function DeezTestHostGame() {
       pausedAt: null,
       lockedAt: null
     });
+    // Supprimer les buzzes en attente séparément
+    await import('firebase/database').then(m =>
+      m.remove(m.ref(db, `rooms_deeztest/${code}/state/pendingBuzzes`))
+    ).catch(() => {});
     if (currentSnippet !== null && currentTrack) {
       await playLevel(currentSnippet);
     }
@@ -403,7 +507,14 @@ export default function DeezTestHostGame() {
     updates[`rooms_deeztest/${code}/state/pausedAt`] = null;
     updates[`rooms_deeztest/${code}/state/lockedAt`] = null;
 
+    // Reset le flag de résolution
+    isResolvingBuzz.current = false;
+
     await update(ref(db), updates);
+    // Supprimer les buzzes en attente séparément
+    await import('firebase/database').then(m =>
+      m.remove(m.ref(db, `rooms_deeztest/${code}/state/pendingBuzzes`))
+    ).catch(() => {});
 
     if (levelToReplay !== null && currentTrack) {
       await playLevel(levelToReplay);
@@ -436,7 +547,14 @@ export default function DeezTestHostGame() {
     updates[`rooms_deeztest/${code}/state/buzzBanner`] = "";
     updates[`rooms_deeztest/${code}/state/buzz`] = null;
 
+    // Reset le flag de résolution
+    isResolvingBuzz.current = false;
+
     await update(ref(db), updates);
+    // Supprimer les buzzes en attente séparément
+    await import('firebase/database').then(m =>
+      m.remove(m.ref(db, `rooms_deeztest/${code}/state/pendingBuzzes`))
+    ).catch(() => {});
     setCurrentSnippet(null);
     setUnlockedLevel(0);
     setHighestLevelPlayed(null);
@@ -458,7 +576,7 @@ export default function DeezTestHostGame() {
   const lockedName = state?.lockUid ? (players.find(p => p.uid === state.lockUid)?.name || state.lockUid) : "—";
 
   return (
-    <div className="deeztest-host-page">
+    <div className="deeztest-host-page game-page">
       {/* Header */}
       <header className="game-header deeztest">
         <div className="game-header-content">

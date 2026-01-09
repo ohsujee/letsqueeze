@@ -11,7 +11,7 @@
 | **DeezTest** (Deezer) | `/deeztest/room/[code]` | `rooms_deeztest/` | Complet |
 | **Alibi** | `/alibi/room/[code]` | `rooms_alibi/` | Complet |
 | **Mime** | `/mime` | Local (pas de room) | Complet |
-| **Trouve la Règle** | `/trouveregle/room/[code]` | `rooms_trouveregle/` | En cours |
+| **Trouve la Règle** | `/trouveregle/room/[code]` | `rooms_trouveregle/` | Complet |
 
 ---
 
@@ -52,10 +52,10 @@ Alibi:
   ✓ End: useGameCompletion, usePlayers
 
 TrouveRegle:
-  ○ Room: useInterstitialAd, usePlayers, usePlayerCleanup, useRoomGuard
-  ○ Play: usePlayers, usePlayerCleanup, useInactivityDetection, useRoomGuard, DisconnectAlert
-  ○ Investigate: usePlayers, useRoomGuard
-  ○ End: useGameCompletion, usePlayers, useRoomGuard
+  ✓ Room: useInterstitialAd, usePlayers, usePlayerCleanup, useRoomGuard
+  ✓ Play: usePlayers, usePlayerCleanup, useInactivityDetection, useRoomGuard, DisconnectAlert
+  ✓ Investigate: usePlayers, useRoomGuard, usePlayerCleanup, useInactivityDetection, DisconnectAlert
+  ✓ End: useGameCompletion, usePlayers, useRoomGuard
 
 Mime:
   ✓ Lobby: useInterstitialAd, useGameLimits
@@ -740,7 +740,968 @@ npx cap open android
 
 ---
 
+---
+
+# DOCUMENTATION DÉTAILLÉE PAR JEU
+
+---
+
+## Quiz (Buzzer) - Détails Techniques
+
+### Structure des fichiers
+```
+app/room/[code]/page.jsx          (682 lignes) - Lobby
+app/game/[code]/play/page.jsx     (652 lignes) - Vue joueur
+app/game/[code]/host/page.jsx     (1190 lignes) - Vue host
+app/end/[code]/page.jsx           (432 lignes) - Résultats
+```
+
+### Firebase Structure Complète
+```
+rooms/{code}/
+├── meta/
+│   ├── hostUid, code, createdAt, closed
+│   ├── mode: "individuel" | "équipes"
+│   ├── teamCount: 2-4
+│   ├── teams/{teamId}: { name, color, score }
+│   └── quizSelection: { themeIds[], categoryName, categoryEmoji, themes[] }
+├── state/
+│   ├── phase, currentIndex, revealed
+│   ├── lockUid (qui a buzzé)
+│   ├── pausedAt, lockedAt, elapsedAcc, lastRevealAt
+│   ├── buzzBanner (notification)
+│   ├── buzz: { uid, at }
+│   └── pendingBuzzes/{uid}: { uid, name, localTime, adjustedTime, receivedAt }
+├── quiz: { id, title, items[] }
+└── players/{uid}/
+    ├── uid, name, score, teamId
+    ├── status, activityStatus
+    ├── blockedUntil (penalty timer)
+    └── joinedAt, disconnectedAt, lastActivityAt
+```
+
+### Système de Buzz (150ms Window)
+Le host résout les buzzes dans une fenêtre de 150ms pour compenser la latence réseau:
+
+1. Joueur clique buzz → écrit dans `pendingBuzzes[uid]` avec `adjustedTime`
+2. Host attend 150ms (collecte tous les buzzes)
+3. Host sélectionne le buzz avec le plus petit `adjustedTime`
+4. `lockUid` est défini, `pendingBuzzes` supprimées
+
+**Calcul latence:** `adjustedTime = localTime + serverOffset` (via `.info/serverTimeOffset`)
+
+**Note Firebase `.info/serverTimeOffset`:**
+- Valeur estimée par Firebase pour compenser la différence entre l'horloge client et serveur
+- Accès via `ref(db, '.info/serverTimeOffset')` avec `onValue`
+- Utilisé dans: Quiz buzzer, BlindTest/DeezTest pour timing précis
+
+### Scoring Config (`public/config/scoring.json`)
+```json
+{
+  "normal": { "start": 100, "floor": 50, "durationMs": 20000 },
+  "difficile": { "start": 200, "floor": 100, "durationMs": 20000 },
+  "lockoutMs": 8000,
+  "wrongAnswerPenalty": 25
+}
+```
+
+**Formule points:**
+```javascript
+ratio = 1 - (elapsedTime / durationMs)
+points = floor(start + (start - floor) × ratio)
+```
+
+### États du Buzzer
+| État | Couleur | Condition |
+|------|---------|-----------|
+| `active` | Rouge | Peut buzzer |
+| `pending` | Jaune | Buzz envoyé, attente résolution |
+| `success` | Vert | A gagné le buzz |
+| `blocked` | Gris | Quelqu'un d'autre a buzzé |
+| `penalty` | Orange | Cooldown 8s après mauvaise réponse |
+
+### Hue Scénarios
+| Événement | Scénario |
+|-----------|----------|
+| Fin de partie | `victory` |
+| Question révélée | `roundStart` |
+| Buzz détecté | `buzz` |
+| Temps écoulé | `timeUp` |
+| Bonne réponse | `goodAnswer` |
+| Mauvaise réponse | `badAnswer` |
+
+### Auto-Rejoin (Lobby)
+Si un joueur refresh pendant le lobby et `onDisconnect` se déclenche:
+1. Détecte joueur absent de la liste
+2. Tente auto-rejoin (1 seule fois via `rejoinAttemptedRef`)
+3. Si erreur "permission denied" → joueur a été kick
+
+---
+
+## BlindTest (Spotify) - Détails Techniques
+
+### Structure des fichiers
+```
+app/blindtest/room/[code]/page.jsx
+app/blindtest/game/[code]/play/page.jsx
+app/blindtest/game/[code]/host/page.jsx
+app/blindtest/game/[code]/end/page.jsx
+app/blindtest/spotify-callback/page.jsx
+lib/spotify/auth.js
+lib/spotify/api.js
+lib/spotify/player.js
+lib/constants/blindtest.js
+```
+
+### Intégration Spotify
+
+**Authentification PKCE:**
+1. Génère `code_verifier` + `code_challenge` (SHA-256)
+2. Stocke dans sessionStorage
+3. Redirect vers `accounts.spotify.com/authorize`
+4. Callback échange code contre token
+
+**Scopes requis:**
+- `streaming` - Web Playback SDK
+- `user-read-playback-state`, `user-modify-playback-state`
+- `playlist-read-private`, `playlist-read-collaborative`
+- `user-read-private`, `user-read-email`
+
+**Tokens:** Stockés en cookies httpOnly (sécurisé, anti-XSS)
+
+### Firebase Structure
+```
+rooms_blindtest/{code}/
+├── meta/
+│   ├── hostUid, code, createdAt, closed
+│   ├── mode: "individuel" | "équipes"
+│   ├── playlist: { id, name, imageUrl, trackCount }
+│   └── playlistsUsed: number (compteur pour limite free users)
+├── state/
+│   ├── phase: "lobby" | "playing" | "ended"
+│   ├── currentIndex, snippetLevel
+│   └── revealed, playing, paused
+└── players/{uid}/
+    └── uid, name, score, teamId, status, activityStatus
+```
+
+### Niveaux de Snippets (`lib/constants/blindtest.js`)
+| Level | Durée | Points (start) | Points (floor) |
+|-------|-------|----------------|----------------|
+| 0 | 1.5s | 200 | 150 |
+| 1 | 3s | 150 | 100 |
+| 2 | 10s | 100 | 75 |
+| 3 | Full | 50 | 25 |
+
+**Scoring:** Basé sur `highestSnippetLevel` atteint, pas le niveau actuel.
+
+### Spotify Player (`lib/spotify/player.js`)
+```javascript
+initializePlayer({ onReady, onStateChange, onError })
+playSnippet(trackUri, durationMs)  // Auto-pause après durée
+playTrack(trackUri, positionMs)
+preloadTrack(trackUri)             // Précharge silencieux
+pause() / resume() / seek() / setVolume()
+```
+
+**Keep-alive:** Ping toutes les 15s pour éviter timeout device.
+
+### Limites Free Users
+- Max 3 playlists par session
+- Compté dans `meta.playlistsUsed`
+- Pro users: illimité
+
+---
+
+## DeezTest (Deezer) - Détails Techniques
+
+### Structure des fichiers
+```
+app/deeztest/room/[code]/page.jsx
+app/deeztest/game/[code]/play/page.jsx
+app/deeztest/game/[code]/host/page.jsx
+app/deeztest/game/[code]/end/page.jsx
+lib/deezer/api.js
+lib/deezer/player.js
+```
+
+### Firebase Structure
+```
+rooms_deeztest/{code}/
+├── meta/
+│   ├── hostUid, code, createdAt, closed
+│   ├── mode: "individuel" | "équipes"
+│   ├── playlist: { id, name, imageUrl, trackCount }
+│   └── playlistsUsed: number (compteur pour limite free users)
+├── state/
+│   ├── phase: "lobby" | "playing" | "ended"
+│   ├── currentIndex, snippetLevel
+│   └── revealed, playing, paused
+├── tracks: [{ id, title, artist, album, albumArt, previewUrl }]
+└── players/{uid}/
+    └── uid, name, score, teamId, status, activityStatus
+```
+
+### Différences vs BlindTest
+| Feature | DeezTest | BlindTest |
+|---------|----------|-----------|
+| Source | Deezer public API | Spotify Web API |
+| Auth | Aucune (public) | OAuth requis |
+| Audio | HTML5 `<audio>` | Spotify Web Playback SDK |
+| Durée | 30s preview | Track complet |
+| Start offset | 5s skip | Aucun |
+| Preview URL | Expire ~24h | Persistant |
+
+### Deezer API (`lib/deezer/api.js`)
+Toutes les fonctions passent par `/api/deezer` proxy (CORS).
+
+```javascript
+searchPlaylists(query, limit)
+getFeaturedPlaylists(limit)
+getPlaylistTracks(playlistId, limit)
+getRandomTracksFromPlaylist(playlistId, count)
+formatTracksForGame(tracks)
+```
+
+**Track Object:**
+```javascript
+{ id, title, artist, album, albumArt, previewUrl, duration }
+```
+
+### Deezer Player (`lib/deezer/player.js`)
+```javascript
+initializePlayer({ onReady, onStateChange, onError, onEnded })
+loadPreview(url)
+playSnippet(url, durationMs)  // Auto-stop
+pause() / resume() / seek() / setVolume()
+preloadPreview(url)           // Browser cache
+```
+
+**PREVIEW_START_OFFSET_SEC = 5** (skip intro)
+
+### Refresh URLs
+Les preview URLs Deezer expirent après ~24h. Le host:
+1. Détecte erreur de lecture
+2. Appelle `refreshTrackUrls()`
+3. Fetche nouvelles URLs depuis Deezer
+4. Met à jour Firebase atomiquement
+
+---
+
+## Alibi - Détails Techniques
+
+### Structure des fichiers
+```
+app/alibi/room/[code]/page.jsx        (742 lignes) - Lobby + rôles
+app/alibi/game/[code]/prep/page.jsx   (1086 lignes) - Préparation
+app/alibi/game/[code]/play/page.jsx   (1380 lignes) - Interrogatoire
+app/alibi/game/[code]/end/page.jsx    (873 lignes) - Résultats
+components/alibi/AlibiSelectorModal.jsx
+components/alibi/AlibiPhaseTransition.jsx
+components/alibi/VerdictTransition.jsx
+```
+
+### Phases du Jeu
+```
+LOBBY → PREP (90s) → INTERROGATION (10 questions) → END
+```
+
+### Firebase Structure
+```
+rooms_alibi/{code}/
+├── meta/
+│   ├── hostUid, code, createdAt, closed
+│   └── alibiId
+├── state/
+│   ├── phase: "lobby" | "prep" | "interrogation" | "end"
+│   ├── currentQuestion: 0-9
+│   ├── prepTimeLeft, prepPaused
+│   ├── questionTimeLeft, allAnswered
+│   └── [...]
+├── players/{uid}/
+│   └── team: "inspectors" | "suspects" | null
+├── alibi/
+│   ├── title, context, accused_document (HTML)
+│   ├── inspector_summary, inspector_questions[]
+│   └── isNewFormat: boolean
+├── questions[] (10 questions avec hints)
+├── interrogation/
+│   ├── currentQuestion, state, timeLeft
+│   ├── responses/{suspect_uid}: { answer, uid, name }
+│   └── verdict: null | "correct" | "incorrect" | "timeout"
+└── score/
+    ├── correct: 0-10
+    └── total: 10
+```
+
+### Deux Formats d'Alibi
+**OLD FORMAT:**
+```json
+{
+  "title": "...",
+  "scenario": "Markdown avec **bold**",
+  "predefinedQuestions": [7 questions]
+  // + 3 questions custom par inspecteurs
+}
+```
+
+**NEW FORMAT:**
+```json
+{
+  "title": "...",
+  "context": "Accusation",
+  "accused_document": "<p>HTML sanitisé</p>",
+  "inspector_summary": "Faits clés",
+  "inspector_questions": [
+    { "text": "Question?", "hint": "Indice pour vérifier" }
+  ] // 10 questions, pas de custom
+}
+```
+
+### Scoring
+- **Suspects gagnent** si >= 50% cohérent
+- **Inspecteurs gagnent** si < 50%
+- Points par tentative: 10 (1ère), 7 (2ème), 4 (3ème)
+- Wrong answer penalty: -25 pts
+
+### Composants Spéciaux
+- **AlibiPhaseTransition:** Overlay 3.5s entre phases
+- **VerdictTransition:** Affichage verdict (correct/incorrect/timeout)
+- **DOMPurify:** Sanitisation HTML pour `accused_document`
+
+---
+
+## Mime - Détails Techniques
+
+### Structure des fichiers
+```
+app/mime/page.tsx                     (201 lignes)
+components/mime/MimeGame.tsx          (255 lignes)
+components/mime/MimeCard.tsx          (163 lignes)
+data/mime-words.ts                    (212 lignes)
+```
+
+### Caractéristiques
+- **Pas de Firebase** - Tout en state local
+- **Pas de room code** - Jeu solo/local
+- **Pas de timer** - Jeu libre
+- **Pas d'équipes** - Organisation naturelle des joueurs
+
+### Thèmes de Mots
+| Thème | Emoji | Mots |
+|-------|-------|------|
+| Général | 🎯 | 139 |
+| Disney | 🏰 | 66 |
+| Métiers | 👷 | 92 |
+| Animaux | 🦁 | 128 |
+| Objets | 📦 | 75 |
+
+### MimeCard - Drag to Reveal
+```javascript
+const y = useMotionValue(0);
+dragConstraints={{ top: -180, bottom: 0 }}
+dragElastic={0.05}
+// Spring back: stiffness 400, damping 30
+```
+
+Le joueur glisse la carte vers le haut pour révéler le mot.
+
+### Couleurs Mime
+```javascript
+MIME_COLORS = {
+  primary: '#00ff66',     // Neon green
+  secondary: '#00cc52',
+  dark: '#00802f',
+}
+```
+
+### Hooks Utilisés
+- `useInterstitialAd` - Pub au chargement
+- `useGameLimits` - 3 parties gratuites/jour
+- `useSubscription` - Vérification Pro
+
+---
+
+## Trouve la Règle - Détails Techniques
+
+### Structure des fichiers
+```
+app/trouveregle/room/[code]/page.jsx       (1046 lignes)
+app/trouveregle/game/[code]/play/page.jsx  (1113 lignes)
+app/trouveregle/game/[code]/investigate/page.jsx (872 lignes)
+app/trouveregle/game/[code]/end/page.jsx   (485 lignes)
+data/trouveregle-rules.ts                  (309 lignes)
+```
+
+### Phases du Jeu
+```
+LOBBY → CHOOSING → PLAYING → GUESSING → REVEAL → ENDED
+```
+
+### Firebase Structure
+```
+rooms_trouveregle/{code}/
+├── meta/
+│   ├── hostUid, code, createdAt, closed
+│   ├── mode: "meme_piece" | "a_distance"
+│   └── timerMinutes: 3 | 5 | 7 | 10
+├── state/
+│   ├── phase
+│   ├── currentRule: { id, text, category, difficulty }
+│   ├── ruleOptions: [3 règles]
+│   ├── investigatorUids: []
+│   ├── votes: { uid: ruleId }
+│   ├── guesses: []
+│   ├── guessAttempts: number
+│   ├── guessVotes: { uid: boolean }
+│   ├── rerollsUsed: number
+│   ├── foundByInvestigators: boolean
+│   ├── timerEndAt
+│   └── playedRuleIds: []
+└── players/{uid}/
+    └── role: "player" | "investigator"
+```
+
+### Base de Règles (201 règles)
+**Catégories:**
+- Physical (26) - Gestes, postures
+- Visual (9) - Regard, position
+- Conversational (45) - Mots, phrases
+- Relational (9) - Interactions
+- Troll (20) - Décalées/chaos
+
+**Difficultés:** Easy ⭐, Medium ⭐⭐, Hard ⭐⭐⭐, Expert ⭐⭐⭐⭐
+
+**Mode "À distance":** Filtre `onlineCompatible: true`
+
+### Scoring
+```
+Enquêteurs trouvent:
+  - 1ère tentative: +10 pts
+  - 2ème tentative: +7 pts
+  - 3ème tentative: +4 pts
+
+Enquêteurs échouent (3 wrong):
+  - Joueurs: +5 pts chacun
+```
+
+### Status Implementation ✅
+```
+Room:       ✅ useInterstitialAd, usePlayers, usePlayerCleanup, useRoomGuard
+Play:       ✅ usePlayers, usePlayerCleanup, useInactivityDetection, useRoomGuard, DisconnectAlert
+Investigate: ✅ usePlayers, useRoomGuard, usePlayerCleanup, useInactivityDetection, DisconnectAlert
+End:        ✅ usePlayers, useRoomGuard, useGameCompletion
+```
+
+---
+
+---
+
+# COMPOSANTS UI PARTAGÉS
+
+---
+
+## Boutons Interactifs (`components/ui/InteractiveButton.jsx`)
+
+| Composant | Effet |
+|-----------|-------|
+| `RippleButton` | Ripple Material Design au clic |
+| `ShineButton` | Shine gradient au hover |
+| `GlowButton` | Pulsing glow animation |
+| `InteractiveCard` | Lift + shadow au hover |
+| `FlipButton` | Rotation 3D au hover |
+| `BounceBadge` | Spring bounce au mount |
+| `AnimatedInput` | Focus glow ring |
+| `AnimatedCheckbox` | Checkmark animé |
+
+## JuicyButton (`components/ui/JuicyButton.jsx`)
+- Particules au clic (8 particules)
+- Sons: `button-click`, `button-hover`
+- Vibration haptique
+- Animations hover/tap
+
+## Modals
+
+### SelectorModal
+- Grid de sélection (quiz, alibi)
+- Lock Pro au-delà de `freeLimit`
+- Variants: `'quiz'` (purple), `'alibi'` (orange)
+
+### PaywallModal
+- Two-stage: Guest → Connected
+- Pricing: Monthly vs Annual
+- Benefits list
+
+### GameLimitModal
+- 3 parties gratuites épuisées
+- Watch ad / Upgrade / Later
+
+### GuestAccountPromptModal
+- Apparaît après 3 parties pour guests
+- Cooldown 24h ou 3 parties
+
+### GuestWarningModal
+- Bloque création room pour guests
+- Sign-in Google/Apple
+
+## Loaders (`components/ui/GameLoader.jsx`)
+
+| Variant | Animation |
+|---------|-----------|
+| `dots` | 3 dots bouncing |
+| `pulse` | Pulsing circle |
+| `spinner` | Rotating ring |
+| `bars` | 5-bar equalizer |
+
+## PodiumPremium (`components/ui/PodiumPremium.jsx`)
+- Layout 3D perspective
+- Médailles animées (🥇🥈🥉)
+- Particle effects (stars, fireworks)
+- Sons de victoire
+
+## Toast System (`components/shared/Toast.jsx`)
+- Types: success, error, warning, info
+- Portal-based (top center)
+- Auto-dismiss
+- Backdrop blur
+
+## Confetti (`components/shared/Confetti.jsx`)
+```javascript
+triggerConfetti('success')   // 100 particles, green
+triggerConfetti('reward')    // 150 particles, rainbow
+triggerConfetti('victory')   // 200 particles, explosive
+triggerConfetti('team', teamColor)
+triggerConfettiBurst(count, delay)
+```
+
+---
+
+---
+
+# HOOKS ET UTILITAIRES
+
+---
+
+## Hooks de Jeu
+
+### usePlayers
+```javascript
+const { players, me, activePlayers, playersMap, isLoading } = usePlayers({
+  roomCode,
+  roomPrefix: 'rooms',
+  sort: 'score' | 'joinedAt' | null
+});
+```
+
+### usePlayerCleanup
+```javascript
+const { leaveRoom, markActive } = usePlayerCleanup({
+  roomCode,
+  roomPrefix,
+  playerUid,
+  phase: 'lobby' | 'playing' | 'ended'
+});
+// lobby → supprime joueur
+// playing → marque disconnected (préserve score)
+// ended → rien
+```
+
+### useInactivityDetection
+```javascript
+useInactivityDetection({
+  roomCode,
+  roomPrefix,
+  playerUid,
+  inactivityTimeout: 30000,
+  enabled: true
+});
+// Events: mousedown, mousemove, click, touchstart, touchmove, keydown, scroll, visibilitychange
+// Throttle: 1 update/sec max
+```
+
+### useRoomGuard
+```javascript
+const { markVoluntaryLeave, closeRoom } = useRoomGuard({
+  roomCode,
+  roomPrefix,
+  playerUid,
+  isHost
+});
+// Détecte: kick, host exit, room closure
+```
+
+### useGameCompletion
+```javascript
+const { recorded } = useGameCompletion({
+  gameType: 'quiz',
+  roomCode
+});
+// Appelé sur page END, 1 seule fois
+```
+
+### useGameLimits
+```javascript
+const {
+  gamesPlayed, freeGamesRemaining, totalGamesRemaining,
+  canPlayFree, canWatchAdForGame, isBlocked,
+  recordGamePlayed, watchAdForExtraGame, checkCanPlay
+} = useGameLimits(gameType, isPro);
+// Free: 3 games/day
+// Rewarded: unlimited via ads
+```
+
+## Hooks Audio
+
+### useSound
+```javascript
+const play = useSound('/sounds/buzz.mp3', { volume: 0.6 });
+play();
+```
+
+### useBuzzerAudio
+```javascript
+const { playSound } = useBuzzerAudio();
+playSound('buzz');    // quiz-buzzer.wav
+playSound('success'); // quiz-good answer.wav
+playSound('error');   // quiz-bad-answer.wav
+```
+
+### useGameAudio
+```javascript
+const { play, playSequence, playMusic, stopMusic } = useGameAudio();
+play('correct');
+playSequence(['buzz', 'correct'], 500);
+playMusic('lobby', { loop: true });
+```
+
+## Hooks User
+
+### useSubscription
+```javascript
+const { isLoading, isPro, isAdmin, tier } = useSubscription(user);
+```
+
+### useUserProfile
+```javascript
+const {
+  user, profile, stats, subscription, settings,
+  isLoggedIn, isPro, level, xp, displayName
+} = useUserProfile();
+```
+
+## Hooks UI
+
+### useFitText
+```javascript
+const { containerRef, textRef, fontSize } = useFitText({
+  minFontSize: 12,
+  maxFontSize: 32,
+  step: 1,
+  text: 'Hello'
+});
+```
+
+### useToast
+```javascript
+const { addToast, removeToast } = useToast();
+addToast({ type: 'success', message: 'Done!' });
+```
+
+## Hooks Data
+
+### useGameRoom
+```javascript
+const {
+  state, meta, players, loading, error,
+  playerCount, teams, teamCount, isTeamMode
+} = useGameRoom(roomCode, { roomType: 'rooms' });
+```
+
+### useRoomSubscription
+```javascript
+const { meta, players, isHost, handleHostExit, loading } = useRoomSubscription(
+  code,
+  'rooms',
+  { onMetaUpdate, onPlayersUpdate, onStateUpdate }
+);
+```
+
+---
+
+## Utilitaires
+
+### Storage (`lib/utils/storage.js`)
+```javascript
+storage.set('key', value)      // Préfixe 'lq_'
+storage.get('key')
+storage.remove('key')
+storage.has('key')
+storage.getOrDefault('key', default)
+```
+
+### Code Generation (`lib/utils.js`)
+```javascript
+genCode(len = 6)               // A-Z, 2-9 (no O/I/0/1)
+isCodeUsed(code)               // Check all room types
+genUniqueCode(len, maxAttempts)
+sleep(ms)
+```
+
+### Rate Limiting (`lib/rate-limit.js`)
+```javascript
+RATE_LIMIT_CONFIGS = {
+  api: { requests: 100, window: '1m' },
+  createRoom: { requests: 10, window: '1h' },
+  joinRoom: { requests: 20, window: '1m' },
+  buzz: { requests: 5, window: '1s' },
+  auth: { requests: 10, window: '15m' }
+}
+checkRateLimit(identifier, action)
+```
+
+---
+
+---
+
+# SYSTÈME DE PUBS (AdMob)
+
+---
+
+## Configuration (`lib/admob.js`)
+
+```javascript
+AD_UNIT_IDS = {
+  ios: { interstitial: '...', rewarded: '5594671010' },
+  android: { interstitial: '...', rewarded: '6397628551' }
+}
+
+APP_IDS = {
+  ios: 'ca-app-pub-1140758415112389~9949860754',
+  android: 'ca-app-pub-1140758415112389~6606152744'
+}
+```
+
+## Fonctions
+```javascript
+initAdMob()              // Init Capacitor AdMob
+showInterstitialAd()     // Affiche interstitial
+showRewardedAd()         // Retourne { success, reward }
+isAdsAvailable()         // true si native platform
+```
+
+## Web Simulation
+- Interstitials: Skip (success simulé)
+- Rewarded: Success avec reward simulé
+
+---
+
+---
+
+# SYSTÈME D'ABONNEMENT
+
+---
+
+## Tiers (`lib/subscription.js`)
+
+```javascript
+SUBSCRIPTION_TIERS = { FREE: 'free', PRO: 'pro' }
+
+FREE_LIMITS = {
+  quiz: { packs: 3, maxGamesPerDay: 10 },
+  alibi: { scenarios: 3, maxGamesPerDay: 5 },
+  buzzer: { unlimited: true }
+}
+
+PRO_PRICING = {
+  monthly: { price: 3.99, currency: 'EUR' },
+  annual: { price: 29.99, currency: 'EUR', savings: 37 }
+}
+```
+
+## Fonctions
+```javascript
+isPro(user)
+canAccessPack(user, gameType, packIndex)
+canPlayGame(user, gameType, gamesPlayedToday)
+getUserTier(user)
+getRemainingGames(user, gameType, gamesPlayedToday)
+```
+
+## Founders/Admins
+- Configuré via env: `NEXT_PUBLIC_FOUNDER_UIDS`, `NEXT_PUBLIC_FOUNDER_EMAILS`
+- Accès Pro permanent sans paiement
+
+---
+
+---
+
+# SYSTÈME DE PROFIL UTILISATEUR
+
+---
+
+## Schema Firebase (`lib/userProfile.js`)
+
+```
+users/{uid}/
+├── profile/
+│   ├── displayName, email, photoURL, pseudo
+│   └── createdAt, lastLoginAt
+├── stats/
+│   ├── gamesPlayed, wins, totalScore
+│   ├── quizGamesPlayed, alibiGamesPlayed
+│   └── level (1-50), xp
+├── subscription/
+│   ├── tier ('free'|'pro')
+│   ├── expiresAt, subscriptionId
+└── settings/
+    ├── theme ('light'|'dark')
+    ├── soundEnabled, vibrationEnabled
+```
+
+## Levels (XP)
+```
+Level 1: 0 XP
+Level 2: 100 XP
+Level 3: 250 XP
+Level 4: 450 XP
+Level 5: 700 XP
+Level 6-50: 1000 + (level-5)*200 XP
+```
+
+---
+
+---
+
+# ANALYTICS (`lib/analytics.js`)
+
+---
+
+```javascript
+initAnalytics()
+logEvent(eventName, eventParams)
+trackSignup(method, uid)      // 'google' | 'apple' | 'anonymous'
+trackLogin(method, uid)
+trackRoomCreated(mode, code, uid)
+trackRoomJoined(mode, code, uid, role)
+trackGameStarted(mode, code, playerCount, contentId)
+trackGameCompleted(mode, code, duration, score, winnerId, completed)
+trackPaywallShown(contentType, contentName, uid)
+trackPaywallConversion(contentType, uid, pricingTier)
+trackSubscriptionPurchase(uid, tier, price, currency)
+trackFeatureUsage(featureName, params)
+trackPageView(pagePath, pageTitle)
+trackError(errorType, errorMessage, location)
+```
+
+---
+
+---
+
+# IN-APP PURCHASES (RevenueCat)
+
+---
+
+## Configuration (`lib/revenuecat.js`)
+
+```javascript
+PRODUCT_IDS = {
+  MONTHLY: 'gigglz_pro_monthly',
+  ANNUAL: 'gigglz_pro_annual'
+}
+ENTITLEMENT_ID = 'pro'
+```
+
+## Fonctions
+```javascript
+initRevenueCat(userId)
+checkProStatus()
+getOfferings()
+purchaseSubscription('monthly' | 'annual')
+restorePurchases()
+getCustomerInfo()
+openManageSubscriptions()
+```
+
+---
+
+---
+
+# INTÉGRATION HUE
+
+---
+
+## Fichiers (`lib/hue-module/`)
+- `HueConnection` - Connexion au bridge
+- `HueGameConfig` - Config par jeu
+- `HueLightSelector` - Sélection lampes
+- `HueSettingsSection` - UI settings
+- `hueScenariosService` - Déclenchement scénarios
+- `hueService` - API Hue
+
+## Scénarios Disponibles
+```javascript
+'victory', 'defeat', 'roundStart', 'buzz',
+'timeUp', 'goodAnswer', 'badAnswer'
+```
+
+---
+
+---
+
+# DESIGN SYSTEM
+
+---
+
+## Variables CSS (`app/theme.css`)
+
+### Couleurs par Jeu
+```css
+--quiz-primary: #8b5cf6;      /* Purple */
+--alibi-primary: #f59e0b;     /* Orange */
+--blindtest-primary: #10b981; /* Green */
+--deeztest-primary: #A238FF;  /* Magenta */
+--mime-primary: #00ff66;      /* Neon Green */
+--trouveregle-primary: #06b6d4; /* Cyan */
+```
+
+### Couleurs Sémantiques
+```css
+--success: #22c55e;
+--danger: #ef4444;
+--warning: #f59e0b;
+--info: #3b82f6;
+```
+
+### Fonts
+```css
+--font-title: 'Bungee';       /* Gros titres */
+--font-display: 'Space Grotesk'; /* UI labels */
+--font-body: 'Inter';         /* Body text */
+--font-mono: 'Roboto Mono';   /* Codes, nombres */
+```
+
+## Classes Button
+```css
+.btn              /* Base glassmorphism */
+.btn-primary      /* Purple gradient */
+.btn-accent       /* Orange gradient */
+.btn-success      /* Green gradient */
+.btn-danger       /* Red gradient */
+.btn-purple       /* Purple variant */
+.btn-outline      /* White + border */
+.btn-sm, .btn-lg  /* Sizes */
+```
+
+## Z-Index Layers
+```css
+z-9999: Toast, DisconnectAlert, Modals
+z-9998: Backdrops
+z-1: Base content
+```
+
+---
+
 ## Dernière mise à jour
 
-**Date:** 2026-01-07
-**Contexte:** Système complet de status joueurs (déconnexion, inactivité, rejoin)
+**Date:** 2026-01-09
+**Contexte:** Documentation complète multi-agent (Quiz, BlindTest, DeezTest, Alibi, Mime, TrouveRegle, UI, Hooks)

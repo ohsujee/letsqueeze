@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { useGameAudio } from '@/hooks/useGameAudio';
+import { useGameAudio } from '@/lib/hooks/useGameAudio';
 
 export const GameStartCountdown = ({ onComplete }) => {
   const [count, setCount] = useState(3);

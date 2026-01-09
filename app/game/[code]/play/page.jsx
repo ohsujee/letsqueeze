@@ -15,6 +15,7 @@ import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { storage } from "@/lib/utils/storage";
+import { FitText } from "@/lib/hooks/useFitText";
 
 function useSound(url){
   const aRef = useRef(null);
@@ -218,7 +219,7 @@ export default function PlayerGame(){
   const isMyTurn = state?.lockUid === me?.uid;
 
   return (
-    <div className={`player-game-page ${isMyTurn ? 'my-turn' : ''}`}>
+    <div className={`player-game-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
       {/* Glow vert quand c'est mon tour */}
       <AnimatePresence>
         {isMyTurn && (
@@ -308,13 +309,12 @@ export default function PlayerGame(){
                     exit={{ opacity: 0 }}
                     style={{
                       width: '100%',
-                      height: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
+                      height: '100%'
                     }}
                   >
-                    <span className="question-text">{q.question}</span>
+                    <FitText minFontSize={12} maxFontSize={24} className="question-text">
+                      {q.question}
+                    </FitText>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -356,6 +356,7 @@ export default function PlayerGame(){
           playerName={me?.name}
           blockedUntil={me?.blockedUntil || 0}
           serverNow={serverNow}
+          serverOffset={offset}
         />
       </footer>
 
@@ -601,14 +602,8 @@ export default function PlayerGame(){
 
         .question-text {
           font-family: var(--font-body, 'Inter'), sans-serif;
-          font-size: 0.9rem;
           font-weight: 500;
           color: var(--text-primary, #ffffff);
-          line-height: 1.45;
-          text-align: center;
-          max-height: 100%;
-          overflow-y: auto;
-          padding: 4px;
         }
 
         .waiting-label {

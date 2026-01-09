@@ -9,6 +9,7 @@ import {
   onValue,
   update,
   remove,
+  set,
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
@@ -46,7 +47,7 @@ export default function Room() {
   const roomWasValidRef = useRef(false);
   const [myUid, setMyUid] = useState(null);
 
-  const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
+  const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
   // Centralized players hook
@@ -79,16 +80,29 @@ export default function Room() {
     return () => unsub();
   }, [meta?.hostUid]);
 
-  // Player cleanup hook - handles disconnect during lobby
+  const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
+
+  // Player cleanup hook with auto-rejoin for hard refresh
   const { leaveRoom } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms',
     playerUid: myUid,
-    phase: 'lobby'
+    phase: 'lobby',
+    playerName: userPseudo,
+    isHost,
+    getPlayerData: (uid, name) => ({
+      uid,
+      name,
+      score: 0,
+      teamId: "",
+      blockedUntil: 0,
+      joinedAt: Date.now()
+    }),
+    onRejoinFailed: () => router.push('/home')
   });
 
   // Room guard - détecte kick et fermeture room (pour joueurs non-hôte)
-  useRoomGuard({
+  const { markVoluntaryLeave } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms',
     playerUid: myUid,
@@ -317,6 +331,7 @@ export default function Room() {
 
   // Player exit handler (non-host)
   const handlePlayerExit = async () => {
+    markVoluntaryLeave(); // Évite le toast "expulsé par l'hôte"
     await leaveRoom();
     router.push('/home');
   };
@@ -330,7 +345,7 @@ export default function Room() {
   // Loading state
   if (!meta) {
     return (
-      <div className="lobby-container">
+      <div className="lobby-container game-page">
         <div className="lobby-loading">
           <div className="loading-spinner" />
           <p>Chargement...</p>
@@ -340,7 +355,7 @@ export default function Room() {
   }
 
   return (
-    <div className="lobby-container">
+    <div className="lobby-container game-page">
       {/* Modals */}
       <PaywallModal
         isOpen={showPaywall}

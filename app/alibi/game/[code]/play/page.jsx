@@ -104,28 +104,44 @@ export default function AlibiInterrogation() {
     router.push(`/alibi/game/${code}/end`);
   };
 
-  // Auth
+  // Auth - only set myUid
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setMyUid(user.uid);
-        if (code) {
-          onValue(ref(db, `rooms_alibi/${code}/players/${user.uid}`), (snap) => {
-            const player = snap.val();
-            if (player) setMyTeam(player.team);
-          });
-          onValue(ref(db, `rooms_alibi/${code}/meta/hostUid`), (snap) => {
-            const hUid = snap.val();
-            setHostUid(hUid);
-            setIsHost(hUid === user.uid);
-          });
-        }
       } else {
         signInAnonymously(auth).catch(() => {});
       }
     });
     return () => unsub();
-  }, [code]);
+  }, []);
+
+  // Listen to player team - separate effect with proper cleanup
+  useEffect(() => {
+    if (!code || !myUid) return;
+
+    const playerRef = ref(db, `rooms_alibi/${code}/players/${myUid}`);
+    const unsub = onValue(playerRef, (snap) => {
+      const player = snap.val();
+      if (player) setMyTeam(player.team);
+    });
+
+    return () => unsub();
+  }, [code, myUid]);
+
+  // Listen to host - separate effect with proper cleanup
+  useEffect(() => {
+    if (!code || !myUid) return;
+
+    const hostRef = ref(db, `rooms_alibi/${code}/meta/hostUid`);
+    const unsub = onValue(hostRef, (snap) => {
+      const hUid = snap.val();
+      setHostUid(hUid);
+      setIsHost(hUid === myUid);
+    });
+
+    return () => unsub();
+  }, [code, myUid]);
 
   // Écouter les questions
   useEffect(() => {
@@ -337,7 +353,7 @@ export default function AlibiInterrogation() {
   const isCritical = timeLeft <= 5;
 
   return (
-    <div className="interro-screen">
+    <div className="interro-screen game-page">
       {/* Animated Background */}
       <div className="interro-bg" />
 

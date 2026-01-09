@@ -10,6 +10,7 @@ import Leaderboard from "@/components/game/Leaderboard";
 import PlayerManager from "@/components/game/PlayerManager";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { hueScenariosService } from "@/lib/hue-module";
+import { FitText } from "@/lib/hooks/useFitText";
 
 // Quiz est maintenant chargé depuis Firebase (stocké au démarrage de la partie)
 function useSound(url){
@@ -131,6 +132,11 @@ export default function HostGame(){
   const prevLock = useRef(null);
   const timeUpTriggered = useRef(false);
 
+  // Fenêtre de tolérance pour la résolution des buzzes (en ms)
+  const BUZZ_WINDOW_MS = 150;
+  const buzzWindowTimeout = useRef(null);
+  const isResolvingBuzz = useRef(false);
+
   useEffect(()=>{
     if(state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current){
       playReveal(); prevRevealAt.current = state.lastRevealAt;
@@ -146,25 +152,94 @@ export default function HostGame(){
     }
   }, [state?.revealed, ratioRemain, state?.lockUid]);
 
-  // *** HOST RÉAGIT AU NOUVEAU LOCK → FIGE TIMER AUTOMATIQUEMENT ***
+  // *** NOUVEAU SYSTÈME: HOST ÉCOUTE LES PENDING BUZZES ET RÉSOUT APRÈS 150ms ***
+  useEffect(() => {
+    if (!isHost) return;
+
+    // Si déjà un lockUid, pas besoin de résoudre
+    if (state?.lockUid) return;
+
+    const pendingBuzzes = state?.pendingBuzzes;
+    if (!pendingBuzzes || Object.keys(pendingBuzzes).length === 0) return;
+
+    // Si déjà en train de résoudre, ne pas redémarrer le timer
+    if (isResolvingBuzz.current) return;
+
+    // Démarrer la fenêtre de tolérance
+    isResolvingBuzz.current = true;
+    console.log('🔔 [Buzz Window] Premier buzz détecté, démarrage fenêtre de', BUZZ_WINDOW_MS, 'ms');
+
+    buzzWindowTimeout.current = setTimeout(async () => {
+      try {
+        // Relire les pendingBuzzes pour avoir tous ceux arrivés pendant la fenêtre
+        const snapshot = await import('firebase/database').then(m =>
+          m.get(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
+        );
+        const allBuzzes = snapshot.val();
+
+        if (!allBuzzes || Object.keys(allBuzzes).length === 0) {
+          isResolvingBuzz.current = false;
+          return;
+        }
+
+        // Trouver le buzz avec le plus petit adjustedTime (le vrai premier)
+        const buzzArray = Object.values(allBuzzes);
+        buzzArray.sort((a, b) => a.adjustedTime - b.adjustedTime);
+        const winner = buzzArray[0];
+
+        console.log('🏆 [Buzz Window] Résolution - Gagnant:', winner.name, 'avec adjustedTime:', winner.adjustedTime);
+        console.log('📊 [Buzz Window] Tous les buzzes:', buzzArray.map(b => ({ name: b.name, adjustedTime: b.adjustedTime })));
+
+        // Mettre à jour Firebase avec le gagnant
+        await update(ref(db, `rooms/${code}/state`), {
+          lockUid: winner.uid,
+          buzz: { uid: winner.uid, at: winner.localTime },
+          buzzBanner: `🔔 ${winner.name} a buzzé !`,
+          pausedAt: serverTimestamp(),
+          lockedAt: serverTimestamp()
+        });
+        // Supprimer les buzzes en attente séparément
+        await import('firebase/database').then(m =>
+          m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
+        ).catch(() => {});
+
+        playBuzz();
+        hueScenariosService.trigger('gigglz', 'buzz');
+
+      } catch (error) {
+        console.error('Erreur résolution buzz:', error);
+      } finally {
+        isResolvingBuzz.current = false;
+      }
+    }, BUZZ_WINDOW_MS);
+
+    return () => {
+      if (buzzWindowTimeout.current) {
+        clearTimeout(buzzWindowTimeout.current);
+      }
+    };
+  }, [isHost, state?.pendingBuzzes, state?.lockUid, code, playBuzz]);
+
+  // Cleanup du timeout à la fermeture
+  useEffect(() => {
+    return () => {
+      if (buzzWindowTimeout.current) {
+        clearTimeout(buzzWindowTimeout.current);
+      }
+    };
+  }, []);
+
+  // *** HOST RÉAGIT AU NOUVEAU LOCK → Pour jouer le son et Hue (backup si pas déjà fait) ***
   useEffect(()=>{
     if (!isHost) return;
     const cur = state?.lockUid || null;
     if (cur && cur !== prevLock.current) {
-      const name = players.find(p=>p.uid===cur)?.name || "Un joueur";
-
-      // Figer automatiquement le timer et mettre à jour la bannière
-      update(ref(db,`rooms/${code}/state`), {
-        pausedAt: serverTimestamp(),
-        lockedAt: serverTimestamp(),
-        buzzBanner: `🔔 ${name} a buzzé !`
-      }).catch(()=>{});
-
-      playBuzz();
-      hueScenariosService.trigger('gigglz', 'buzz');
+      // Le son et Hue sont maintenant joués dans la résolution ci-dessus
+      // Ce useEffect sert de backup et pour tracking
+      prevLock.current = cur;
     }
     prevLock.current = cur;
-  },[isHost, state?.lockUid, code, players, playBuzz]);
+  },[isHost, state?.lockUid, code, players]);
 
   function computeResumeFields(){
     const already = (state?.elapsedAcc || 0)
@@ -197,9 +272,24 @@ export default function HostGame(){
   async function resetBuzzers(){
     console.log('🔄 resetBuzzers called, isHost:', isHost);
     if(!isHost) return;
+    // Reset le flag de résolution
+    isResolvingBuzz.current = false;
+    if (buzzWindowTimeout.current) {
+      clearTimeout(buzzWindowTimeout.current);
+      buzzWindowTimeout.current = null;
+    }
     const resume = computeResumeFields();
     console.log('📊 Resume fields:', resume);
-    await update(ref(db,`rooms/${code}/state`), { lockUid: null, buzzBanner: "", buzz: null, ...resume });
+    await update(ref(db,`rooms/${code}/state`), {
+      lockUid: null,
+      buzzBanner: "",
+      buzz: null,
+      ...resume
+    });
+    // Supprimer les buzzes en attente séparément
+    await import('firebase/database').then(m =>
+      m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
+    ).catch(() => {});
     console.log('✅ Buzzers reset!');
   }
   async function validate(){
@@ -243,7 +333,14 @@ export default function HostGame(){
     updates[`rooms/${code}/state/buzzBanner`] = "";
     updates[`rooms/${code}/state/buzz`] = null;
 
+    // Reset le flag de résolution
+    isResolvingBuzz.current = false;
+
     await update(ref(db), updates);
+    // Supprimer les buzzes en attente séparément
+    await import('firebase/database').then(m =>
+      m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
+    ).catch(() => {});
   }
   async function wrong(){
     if(!isHost || !state?.lockUid || !conf) return;
@@ -298,7 +395,14 @@ export default function HostGame(){
     updates[`rooms/${code}/state/pausedAt`] = resume.pausedAt;
     updates[`rooms/${code}/state/lockedAt`] = resume.lockedAt;
 
+    // Reset le flag de résolution
+    isResolvingBuzz.current = false;
+
     await update(ref(db), updates);
+    // Supprimer les buzzes en attente séparément
+    await import('firebase/database').then(m =>
+      m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
+    ).catch(() => {});
   }
   async function skip(){
     console.log('⏭ skip called, isHost:', isHost, 'total:', total);
@@ -327,8 +431,15 @@ export default function HostGame(){
     updates[`rooms/${code}/state/buzzBanner`] = "";
     updates[`rooms/${code}/state/buzz`] = null;
 
+    // Reset le flag de résolution
+    isResolvingBuzz.current = false;
+
     console.log('📤 Sending updates:', updates);
     await update(ref(db), updates);
+    // Supprimer les buzzes en attente séparément
+    await import('firebase/database').then(m =>
+      m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
+    ).catch(() => {});
     console.log('✅ Question skipped!');
   }
   async function end(){
@@ -346,7 +457,7 @@ export default function HostGame(){
   }, [meta?.teams]);
 
   return (
-    <div className="host-game-page">
+    <div className="host-game-page game-page">
       {/* Header fixe */}
       <header className="game-header">
         <div className="game-header-content">
@@ -476,8 +587,10 @@ export default function HostGame(){
             </div>
 
             {/* Question */}
-            <div className="question-text">
-              {q.question}
+            <div className="question-container">
+              <FitText minFontSize={14} maxFontSize={28} className="question-text">
+                {q.question}
+              </FitText>
             </div>
 
             {/* Réponse pour l'animateur */}
@@ -645,6 +758,8 @@ export default function HostGame(){
           width: 100%;
           max-width: 500px;
           flex-shrink: 0;
+          display: flex;
+          flex-direction: column;
           background: rgba(20, 20, 30, 0.8);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 20px;
@@ -685,17 +800,18 @@ export default function HostGame(){
           text-transform: uppercase;
         }
 
+        /* Question container */
+        .question-container {
+          height: 160px;
+          width: 100%;
+          margin: 16px 0;
+        }
+
         /* Question text */
         .question-text {
           font-family: var(--font-body, 'Inter'), sans-serif;
-          font-size: 1.1rem;
           font-weight: 500;
           color: var(--text-primary, #ffffff);
-          line-height: 1.5;
-          text-align: center;
-          padding: 12px 0;
-          max-height: 200px;
-          overflow-y: auto;
         }
 
         /* Answer box */

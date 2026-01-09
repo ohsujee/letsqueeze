@@ -8,6 +8,7 @@ import {
   ref,
   onValue,
   update,
+  set,
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
@@ -118,16 +119,29 @@ export default function BlindTestLobby() {
     return () => unsub();
   }, [meta?.hostUid]);
 
-  // Player cleanup hook - handles disconnect during lobby
+  const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
+
+  // Player cleanup hook with auto-rejoin for hard refresh
   const { leaveRoom } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
     playerUid: myUid,
-    phase: 'lobby'
+    phase: 'lobby',
+    playerName: userPseudo,
+    isHost,
+    getPlayerData: (uid, name) => ({
+      uid,
+      name,
+      score: 0,
+      teamId: "",
+      blockedUntil: 0,
+      joinedAt: Date.now()
+    }),
+    onRejoinFailed: () => router.push('/home')
   });
 
   // Room guard - détecte kick et fermeture room
-  useRoomGuard({
+  const { markVoluntaryLeave } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
     playerUid: myUid,
@@ -335,6 +349,7 @@ export default function BlindTestLobby() {
 
   // Player exit handler (non-host)
   const handlePlayerExit = async () => {
+    markVoluntaryLeave(); // Évite le toast "expulsé par l'hôte"
     await leaveRoom();
     router.push('/home');
   };
@@ -355,7 +370,7 @@ export default function BlindTestLobby() {
   // Loading state
   if (!meta) {
     return (
-      <div className="lobby-container blindtest">
+      <div className="lobby-container blindtest game-page">
         <div className="lobby-loading">
           <div className="loading-spinner blindtest" />
           <p>Chargement...</p>
@@ -365,7 +380,7 @@ export default function BlindTestLobby() {
   }
 
   return (
-    <div className="lobby-container blindtest">
+    <div className="lobby-container blindtest game-page">
       {/* Modals */}
       <PaywallModal
         isOpen={showPaywall}

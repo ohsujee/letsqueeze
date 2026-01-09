@@ -70,8 +70,8 @@ export default function ShareModal({ roomCode, joinUrl }) {
 
             {/* Share Info */}
             <div className="share-info">
-              <p className="share-url">{joinUrl}</p>
-              <p className="share-code">{roomCode}</p>
+              <p className="share-url selectable">{joinUrl}</p>
+              <p className="share-code selectable">{roomCode}</p>
             </div>
 
             {/* Actions */}

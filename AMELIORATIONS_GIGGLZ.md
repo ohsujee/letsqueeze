@@ -1,4 +1,4 @@
-# 🎮 Gigglz - Plan d'Améliorations
+/# 🎮 Gigglz - Plan d'Améliorations
 
 ## 📊 État des Lieux
 

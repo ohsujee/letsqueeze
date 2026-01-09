@@ -132,13 +132,13 @@ export default function EndPage(){
   }, [state?.phase, myUid, meta, router, code, hostPresent]);
 
   useEffect(()=>{
-    if (meta?.quizId) {
-      fetch(`/data/${meta.quizId}.json`)
-        .then(r=>r.json())
-        .then(j=> setQuizTitle(j?.title || meta.quizId.replace(/-/g," ")))
-        .catch(()=> setQuizTitle(meta.quizId?.replace(/-/g," ") || "Partie"));
+    // Utiliser quizSelection.categoryName (nouveau système) ou quizId (legacy)
+    if (meta?.quizSelection?.categoryName) {
+      setQuizTitle(meta.quizSelection.categoryName);
+    } else if (meta?.quizId) {
+      setQuizTitle(meta.quizId.replace(/-/g, " "));
     }
-  }, [meta?.quizId]);
+  }, [meta?.quizSelection?.categoryName, meta?.quizId]);
 
   // Hue victory effect on page load
   useEffect(() => {
@@ -252,7 +252,7 @@ export default function EndPage(){
   };
 
   return (
-    <div className="end-page">
+    <div className="end-page game-page">
       {/* Main Content - Tout sur une page */}
       <main className="end-content">
         {/* Titre du quiz */}

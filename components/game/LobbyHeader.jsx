@@ -11,7 +11,7 @@ import ShareModal from '@/lib/components/ShareModal';
  * LobbyHeader - Header unifié pour tous les lobbys de jeux
  *
  * @param {Object} props
- * @param {'quiz'|'blindtest'|'deeztest'|'alibi'} props.variant - Thème couleur
+ * @param {'quiz'|'blindtest'|'deeztest'|'alibi'|'trouveregle'} props.variant - Thème couleur
  * @param {string} props.code - Code de la room
  * @param {boolean} props.isHost - Si l'utilisateur est l'hôte
  * @param {Array} props.players - Liste des joueurs
@@ -51,6 +51,10 @@ export default function LobbyHeader({
     alibi: {
       roomPrefix: 'rooms_alibi',
       spectatePath: `/spectate/${code}`,
+    },
+    trouveregle: {
+      roomPrefix: 'rooms_trouveregle',
+      spectatePath: `/trouveregle/spectate/${code}`,
     }
   };
 
@@ -71,7 +75,7 @@ export default function LobbyHeader({
         <div className="header-title-row">
           <h1 className="lobby-title">Lobby</h1>
           <span className="lobby-divider">•</span>
-          <span className="room-code">{code}</span>
+          <span className="room-code selectable">{code}</span>
         </div>
       </div>
       <div className="header-right">

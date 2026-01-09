@@ -16,7 +16,7 @@ import { db } from '@/lib/firebase';
  * @param {string} props.roomCode - Code de la room
  * @param {string} props.roomPrefix - Préfixe Firebase
  * @param {string} props.hostUid - UID de l'hôte
- * @param {'quiz'|'blindtest'|'deeztest'|'alibi'} props.variant - Thème couleur
+ * @param {'quiz'|'blindtest'|'deeztest'|'alibi'|'trouveregle'} props.variant - Thème couleur
  * @param {function} props.onShowHowToPlay - Callback pour ouvrir le modal Comment jouer
  */
 export default function LobbySettings({
@@ -35,7 +35,8 @@ export default function LobbySettings({
     quiz: { primary: '#8b5cf6', glow: 'rgba(139, 92, 246, 0.5)' },
     blindtest: { primary: '#10b981', glow: 'rgba(16, 185, 129, 0.5)' },
     deeztest: { primary: '#A238FF', glow: 'rgba(162, 56, 255, 0.5)' },
-    alibi: { primary: '#f59e0b', glow: 'rgba(245, 158, 11, 0.5)' }
+    alibi: { primary: '#f59e0b', glow: 'rgba(245, 158, 11, 0.5)' },
+    trouveregle: { primary: '#06b6d4', glow: 'rgba(6, 182, 212, 0.5)' }
   };
   const color = colors[variant] || colors.quiz;
 

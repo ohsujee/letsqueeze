@@ -1,7 +1,7 @@
 "use client";
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { useGameAudio } from '@/hooks/useGameAudio';
+import { useGameAudio } from '@/lib/hooks/useGameAudio';
 
 export const JuicyButton = ({ children, onClick, className = "", disabled = false, ...props }) => {
   const [particles, setParticles] = useState([]);
