@@ -620,7 +620,7 @@ textarea {
   font-size: var(--text-lg);
   font-family: inherit;
   font-weight: var(--font-medium);
-  line-height: var(--leading-normal);
+  line-height: var(--line-height-normal);
   transition: all var(--transition-base);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
@@ -985,57 +985,6 @@ main {
   opacity: 0.8;
 }
 
-.home-btn {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: var(--text-lg);
-  padding: var(--space-4) var(--space-8);
-  border-radius: var(--radius-md);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  min-height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.home-btn-primary {
-  background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), var(--quiz-secondary, #7c3aed));
-  color: white;
-  box-shadow:
-    0 4px 15px rgba(139, 92, 246, 0.4),
-    0 0 30px rgba(139, 92, 246, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.home-btn-primary:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow:
-    0 6px 20px rgba(139, 92, 246, 0.5),
-    0 0 40px rgba(139, 92, 246, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.home-btn-outline {
-  background: transparent;
-  color: var(--quiz-primary, #8b5cf6);
-  border: 2px solid var(--quiz-primary, #8b5cf6);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
-}
-
-.home-btn-outline:hover {
-  background: var(--quiz-primary, #8b5cf6);
-  color: white;
-  transform: translateY(-2px) scale(1.02);
-  box-shadow:
-    0 6px 20px rgba(139, 92, 246, 0.5),
-    0 0 40px rgba(139, 92, 246, 0.3);
-}
-
 /* QUIZ Theme - Dark mode with animated background */
 [data-theme="quiz"] {
   background: var(--bg-primary, #0a0a0f);
@@ -1267,7 +1216,7 @@ main {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 5vw, 2.5rem);
   font-weight: var(--font-bold);
-  line-height: var(--leading-tight);
+  line-height: var(--line-height-tight);
   color: var(--text-primary);
 }
 

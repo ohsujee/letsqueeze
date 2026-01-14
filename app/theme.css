@@ -50,6 +50,15 @@
   --brand-cyan: #06b6d4;
   --brand-lime: #84cc16;
 
+  /* Brand Electric (accent color for links, focus states) */
+  --brand-electric: #6366f1;
+  --brand-electric-light: #818cf8;
+
+  /* Legacy Color Aliases (for backwards compatibility) */
+  --color-blue: var(--brand-blue);
+  --color-orange: #ff6d00;
+  --color-orange-hover: #e56200;
+
   /* MIME Game Colors - Neon Green Brillant */
   --mime-primary: #00ff66;
   --mime-secondary: #00cc52;
@@ -210,6 +219,7 @@
 :root {
   --z-background: -1;
   --z-base: 0;
+  --z-elevated: 10;
   --z-dropdown: 100;
   --z-sticky: 200;
   --z-fixed: 300;

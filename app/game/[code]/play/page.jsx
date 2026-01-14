@@ -556,8 +556,9 @@ export default function PlayerGame(){
         .question-card {
           width: 100%;
           max-width: 500px;
-          height: 200px;
-          flex-shrink: 0;
+          min-height: 160px;
+          max-height: 45vh;
+          flex: 0 1 auto;
           background: rgba(20, 20, 30, 0.8);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 20px;
@@ -565,6 +566,22 @@ export default function PlayerGame(){
           text-align: center;
           display: flex;
           flex-direction: column;
+        }
+
+        /* Responsive: plus de place pour la question sur grands écrans */
+        @media (min-height: 700px) {
+          .question-card {
+            min-height: 180px;
+            max-height: 35vh;
+          }
+        }
+
+        @media (max-height: 600px) {
+          .question-card {
+            min-height: 120px;
+            max-height: 40vh;
+            padding: 10px 14px;
+          }
         }
 
         .points-badge {
@@ -593,11 +610,16 @@ export default function PlayerGame(){
 
         .question-content {
           flex: 1;
-          min-height: 0;
+          min-height: 60px;
           display: flex;
           align-items: center;
           justify-content: center;
           overflow: hidden;
+        }
+
+        /* Cacher la scrollbar webkit pour FitText scroll */
+        .question-content ::-webkit-scrollbar {
+          display: none;
         }
 
         .question-text {

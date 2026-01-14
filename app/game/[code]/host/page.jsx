@@ -136,11 +136,15 @@ export default function HostGame(){
   const BUZZ_WINDOW_MS = 150;
   const buzzWindowTimeout = useRef(null);
   const isResolvingBuzz = useRef(false);
+  const lastResolvedAt = useRef(0); // Pour éviter les doubles résolutions
 
   useEffect(()=>{
     if(state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current){
       playReveal(); prevRevealAt.current = state.lastRevealAt;
       timeUpTriggered.current = false; // Reset timeUp flag pour nouvelle question
+      // Reset aussi le flag de résolution pour la nouvelle question
+      isResolvingBuzz.current = false;
+      lastResolvedAt.current = 0;
     }
   },[state?.revealed, state?.lastRevealAt, playReveal]);
 
@@ -152,45 +156,51 @@ export default function HostGame(){
     }
   }, [state?.revealed, ratioRemain, state?.lockUid]);
 
-  // *** NOUVEAU SYSTÈME: HOST ÉCOUTE LES PENDING BUZZES ET RÉSOUT APRÈS 150ms ***
+  // *** SYSTÈME DE BUZZ: LISTENER DÉDIÉ POUR PENDING BUZZES ***
+  // Utilise un listener Firebase séparé pour éviter les race conditions
   useEffect(() => {
-    if (!isHost) return;
+    if (!isHost || !code) return;
 
-    // Si déjà un lockUid, pas besoin de résoudre
-    if (state?.lockUid) return;
+    const pendingBuzzesRef = ref(db, `rooms/${code}/state/pendingBuzzes`);
 
-    const pendingBuzzes = state?.pendingBuzzes;
-    if (!pendingBuzzes || Object.keys(pendingBuzzes).length === 0) return;
+    const resolveBuzzes = async () => {
+      // Éviter les doubles résolutions
+      const now = Date.now();
+      if (now - lastResolvedAt.current < 500) {
+        console.log('🔄 [Buzz] Résolution ignorée - trop récente');
+        return;
+      }
 
-    // Si déjà en train de résoudre, ne pas redémarrer le timer
-    if (isResolvingBuzz.current) return;
-
-    // Démarrer la fenêtre de tolérance
-    isResolvingBuzz.current = true;
-    console.log('🔔 [Buzz Window] Premier buzz détecté, démarrage fenêtre de', BUZZ_WINDOW_MS, 'ms');
-
-    buzzWindowTimeout.current = setTimeout(async () => {
       try {
-        // Relire les pendingBuzzes pour avoir tous ceux arrivés pendant la fenêtre
-        const snapshot = await import('firebase/database').then(m =>
-          m.get(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
-        );
-        const allBuzzes = snapshot.val();
-
-        if (!allBuzzes || Object.keys(allBuzzes).length === 0) {
+        // Vérifier si lockUid est déjà défini
+        const { get: fbGet, ref: fbRef } = await import('firebase/database');
+        const lockSnap = await fbGet(fbRef(db, `rooms/${code}/state/lockUid`));
+        if (lockSnap.val()) {
+          console.log('🔒 [Buzz] lockUid déjà défini, skip résolution');
           isResolvingBuzz.current = false;
           return;
         }
 
-        // Trouver le buzz avec le plus petit adjustedTime (le vrai premier)
+        // Relire les pendingBuzzes
+        const snapshot = await fbGet(pendingBuzzesRef);
+        const allBuzzes = snapshot.val();
+
+        if (!allBuzzes || Object.keys(allBuzzes).length === 0) {
+          console.log('📭 [Buzz] Pas de buzzes à résoudre');
+          isResolvingBuzz.current = false;
+          return;
+        }
+
+        // Trouver le buzz avec le plus petit adjustedTime
         const buzzArray = Object.values(allBuzzes);
         buzzArray.sort((a, b) => a.adjustedTime - b.adjustedTime);
         const winner = buzzArray[0];
 
-        console.log('🏆 [Buzz Window] Résolution - Gagnant:', winner.name, 'avec adjustedTime:', winner.adjustedTime);
-        console.log('📊 [Buzz Window] Tous les buzzes:', buzzArray.map(b => ({ name: b.name, adjustedTime: b.adjustedTime })));
+        console.log('🏆 [Buzz] Résolution - Gagnant:', winner.name);
+        console.log('📊 [Buzz] Tous les buzzes:', buzzArray.map(b => ({ name: b.name, time: b.adjustedTime })));
 
         // Mettre à jour Firebase avec le gagnant
+        lastResolvedAt.current = Date.now();
         await update(ref(db, `rooms/${code}/state`), {
           lockUid: winner.uid,
           buzz: { uid: winner.uid, at: winner.localTime },
@@ -198,36 +208,59 @@ export default function HostGame(){
           pausedAt: serverTimestamp(),
           lockedAt: serverTimestamp()
         });
-        // Supprimer les buzzes en attente séparément
-        await import('firebase/database').then(m =>
-          m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
-        ).catch(() => {});
+
+        // Supprimer les buzzes en attente
+        const { remove: fbRemove } = await import('firebase/database');
+        await fbRemove(pendingBuzzesRef).catch(() => {});
 
         playBuzz();
         hueScenariosService.trigger('gigglz', 'buzz');
 
       } catch (error) {
-        console.error('Erreur résolution buzz:', error);
+        console.error('❌ [Buzz] Erreur résolution:', error);
       } finally {
         isResolvingBuzz.current = false;
       }
-    }, BUZZ_WINDOW_MS);
+    };
 
-    return () => {
+    // Listener dédié pour pendingBuzzes
+    const unsubscribe = onValue(pendingBuzzesRef, (snapshot) => {
+      const pendingBuzzes = snapshot.val();
+
+      // Pas de buzzes en attente
+      if (!pendingBuzzes || Object.keys(pendingBuzzes).length === 0) {
+        return;
+      }
+
+      // Si déjà en train de résoudre, ignorer
+      if (isResolvingBuzz.current) {
+        console.log('⏳ [Buzz] Résolution déjà en cours...');
+        return;
+      }
+
+      // Démarrer la résolution
+      isResolvingBuzz.current = true;
+      console.log('🔔 [Buzz] Nouveau buzz détecté, fenêtre de', BUZZ_WINDOW_MS, 'ms');
+
+      // Nettoyer le timeout précédent si existant
       if (buzzWindowTimeout.current) {
         clearTimeout(buzzWindowTimeout.current);
       }
-    };
-  }, [isHost, state?.pendingBuzzes, state?.lockUid, code, playBuzz]);
 
-  // Cleanup du timeout à la fermeture
-  useEffect(() => {
+      // Attendre la fenêtre de tolérance avant de résoudre
+      buzzWindowTimeout.current = setTimeout(resolveBuzzes, BUZZ_WINDOW_MS);
+    });
+
     return () => {
+      unsubscribe();
       if (buzzWindowTimeout.current) {
         clearTimeout(buzzWindowTimeout.current);
+        buzzWindowTimeout.current = null;
       }
+      // Reset le flag au cleanup pour éviter les blocages
+      isResolvingBuzz.current = false;
     };
-  }, []);
+  }, [isHost, code, playBuzz]);
 
   // *** HOST RÉAGIT AU NOUVEAU LOCK → Pour jouer le son et Hue (backup si pas déjà fait) ***
   useEffect(()=>{
@@ -802,9 +835,32 @@ export default function HostGame(){
 
         /* Question container */
         .question-container {
-          height: 160px;
+          min-height: 100px;
+          max-height: 200px;
           width: 100%;
-          margin: 16px 0;
+          margin: 12px 0;
+          flex: 1 1 auto;
+        }
+
+        /* Responsive: plus de place sur grands écrans */
+        @media (min-height: 800px) {
+          .question-container {
+            min-height: 140px;
+            max-height: 250px;
+          }
+        }
+
+        @media (max-height: 650px) {
+          .question-container {
+            min-height: 80px;
+            max-height: 150px;
+            margin: 8px 0;
+          }
+        }
+
+        /* Cacher la scrollbar webkit pour FitText scroll */
+        .question-container ::-webkit-scrollbar {
+          display: none;
         }
 
         /* Question text */
