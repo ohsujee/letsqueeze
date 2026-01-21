@@ -8,12 +8,14 @@ import Buzzer from "@/components/game/Buzzer";
 import Leaderboard from "@/components/game/Leaderboard";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
-import ExitButton from "@/lib/components/ExitButton";
+import GamePlayHeader from "@/components/game/GamePlayHeader";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
+import { useServerTime } from "@/lib/hooks/useServerTime";
+import { useSound } from "@/lib/hooks/useSound";
 import { storage } from "@/lib/utils/storage";
 import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
 
@@ -21,23 +23,6 @@ import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants
 const DEEZER_PURPLE = '#A238FF';
 const DEEZER_PINK = '#FF0092';
 const DEEZER_LIGHT = '#C574FF';
-
-function useSound(url) {
-  const aRef = useRef(null);
-  useEffect(() => {
-    aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null;
-    if (aRef.current) {
-      aRef.current.preload = "auto";
-      aRef.current.volume = 0.6;
-    }
-  }, [url]);
-  return useCallback(() => {
-    if (aRef.current) {
-      aRef.current.currentTime = 0;
-      aRef.current.play().catch(() => {});
-    }
-  }, []);
-}
 
 export default function DeezTestPlayerGame() {
   const { code } = useParams();
@@ -51,21 +36,8 @@ export default function DeezTestPlayerGame() {
   // Centralized players hook
   const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms_deeztest' });
 
-  // Server time sync
-  const [localNow, setLocalNow] = useState(Date.now());
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    const id = setInterval(() => setLocalNow(Date.now()), 200);
-    return () => clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    const u = onValue(ref(db, ".info/serverTimeOffset"), s => setOffset(Number(s.val()) || 0));
-    return () => u();
-  }, []);
-
-  const serverNow = localNow + offset;
+  // Server time sync (300ms tick for score updates)
+  const { serverNow } = useServerTime(300);
 
   // Auth
   useEffect(() => {
@@ -73,11 +45,11 @@ export default function DeezTestPlayerGame() {
       if (user) {
         setMyUid(user.uid);
         // Store last game info for rejoin
-        storage.set('lq_last_game', JSON.stringify({
+        storage.set('last_game', {
           roomCode: code,
           roomPrefix: 'rooms_deeztest',
           joinedAt: Date.now()
-        }));
+        });
       } else {
         signInAnonymously(auth).catch(() => {});
       }
@@ -205,34 +177,24 @@ export default function DeezTestPlayerGame() {
       </AnimatePresence>
 
       {/* Header */}
-      <header className="game-header deeztest">
-        <div className="game-header-content">
-          <div className="game-header-left">
-            <div className="game-header-progress deeztest">{progressLabel}</div>
-            <div className="game-header-title">{playlist?.name || 'Deez Test'}</div>
-            {showLatencyWarning && (
-              <div className="latency-indicator" title={`Décalage: ${latencyMs}ms`}>
-                <span className="latency-dot"></span>
-                <span className="latency-text">{latencyMs}ms</span>
-              </div>
-            )}
+      <GamePlayHeader
+        game="deeztest"
+        progress={progressLabel}
+        title={playlist?.name || 'Deez Test'}
+        score={me?.score || 0}
+        onExit={async () => {
+          await leaveRoom();
+          router.push('/home');
+        }}
+        exitMessage="Voulez-vous vraiment quitter ? Votre score sera conservé."
+      >
+        {showLatencyWarning && (
+          <div className="latency-indicator" title={`Décalage: ${latencyMs}ms`}>
+            <span className="latency-dot"></span>
+            <span className="latency-text">{latencyMs}ms</span>
           </div>
-          <div className="game-header-right">
-            <div className="my-score-badge deeztest">
-              <span className="my-score-value">{me?.score || 0}</span>
-              <span className="my-score-label">pts</span>
-            </div>
-            <ExitButton
-              variant="header"
-              confirmMessage="Voulez-vous vraiment quitter ? Votre score sera conservé."
-              onExit={async () => {
-                await leaveRoom();
-                router.push('/home');
-              }}
-            />
-          </div>
-        </div>
-      </header>
+        )}
+      </GamePlayHeader>
 
       {/* Buzz notification */}
       <AnimatePresence>
@@ -316,53 +278,7 @@ export default function DeezTestPlayerGame() {
           pointer-events: none;
         }
 
-        /* Header */
-        .game-header.deeztest {
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(162, 56, 255, 0.2);
-          padding: 12px 16px;
-          padding-top: 12px;
-        }
-
-        .game-header-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          max-width: 600px;
-          margin: 0 auto;
-          gap: 12px;
-        }
-
-        .game-header-left {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          flex: 1;
-          min-width: 0;
-        }
-
-        .game-header-progress.deeztest {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1rem;
-          color: ${DEEZER_PURPLE};
-          text-shadow: 0 0 15px rgba(162, 56, 255, 0.6);
-          flex-shrink: 0;
-        }
-
-        .game-header-title {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.8rem;
-          font-weight: 600;
-          color: var(--text-secondary);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
+        /* Latency indicator (passed as children to GamePlayHeader) */
         .latency-indicator {
           display: flex;
           align-items: center;
@@ -392,34 +308,6 @@ export default function DeezTestPlayerGame() {
           font-size: 0.6rem;
           font-weight: 600;
           color: #fbbf24;
-        }
-
-        .game-header-right {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          flex-shrink: 0;
-        }
-
-        .my-score-badge.deeztest {
-          display: flex;
-          align-items: baseline;
-          gap: 4px;
-          background: rgba(162, 56, 255, 0.15);
-          border: 1px solid rgba(162, 56, 255, 0.3);
-          border-radius: 20px;
-          padding: 6px 12px;
-        }
-
-        .my-score-value {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1rem;
-          color: ${DEEZER_PURPLE};
-        }
-
-        .my-score-label {
-          font-size: 0.7rem;
-          color: rgba(255, 255, 255, 0.5);
         }
 
         /* Buzz notification */

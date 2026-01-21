@@ -63,7 +63,7 @@ export default function AlibiLobby() {
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {
-      setJoinUrl(`${window.location.origin}/alibi/join?code=${code}`);
+      setJoinUrl(`${window.location.origin}/join?code=${code}`);
     }
   }, [code]);
 

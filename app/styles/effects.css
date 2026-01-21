@@ -1,0 +1,399 @@
+/**
+ * Effects
+ *
+ * Centralized visual effects: hover states, transforms, glassmorphism,
+ * shadows, and text effects.
+ *
+ * Usage: <button className="hover-lift shadow-glow-quiz">...</button>
+ */
+
+/* ============================================
+   HOVER TRANSFORMS
+   ============================================ */
+
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+.hover-lift-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift-scale:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.hover-grow {
+  transition: transform 0.2s ease;
+}
+
+.hover-grow:hover {
+  transform: scale(1.05);
+}
+
+.hover-shrink {
+  transition: transform 0.2s ease;
+}
+
+.hover-shrink:hover {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   ACTIVE STATES
+   ============================================ */
+
+.active-shrink:active {
+  transform: scale(0.98);
+}
+
+.active-push:active {
+  transform: translateY(2px);
+}
+
+.active-dim:active {
+  opacity: 0.8;
+}
+
+/* ============================================
+   GLASSMORPHISM
+   ============================================ */
+
+.glass {
+  background: rgba(20, 20, 30, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-colored-quiz {
+  background: rgba(139, 92, 246, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.glass-colored-alibi {
+  background: rgba(245, 158, 11, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.glass-colored-deeztest {
+  background: rgba(162, 56, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(162, 56, 255, 0.2);
+}
+
+/* ============================================
+   TEXT GLOW
+   ============================================ */
+
+.text-glow-quiz {
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+}
+
+.text-glow-alibi {
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+}
+
+.text-glow-blindtest {
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+}
+
+.text-glow-deeztest {
+  text-shadow: 0 0 20px rgba(162, 56, 255, 0.6);
+}
+
+.text-glow-trouveregle {
+  text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+}
+
+.text-glow-mime {
+  text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
+}
+
+.text-glow-success {
+  text-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+}
+
+.text-glow-danger {
+  text-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+}
+
+.text-glow-warning {
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+}
+
+.text-glow-white {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* ============================================
+   BOX SHADOWS - Glow
+   ============================================ */
+
+.shadow-glow-quiz {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.shadow-glow-alibi {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4), 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.shadow-glow-blindtest {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.shadow-glow-deeztest {
+  box-shadow: 0 0 20px rgba(162, 56, 255, 0.4), 0 4px 15px rgba(162, 56, 255, 0.3);
+}
+
+.shadow-glow-trouveregle {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4), 0 4px 15px rgba(6, 182, 212, 0.3);
+}
+
+.shadow-glow-mime {
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.4), 0 4px 15px rgba(0, 255, 102, 0.3);
+}
+
+.shadow-glow-success {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.4), 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+.shadow-glow-danger {
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* ============================================
+   3D BUTTON SHADOWS
+   ============================================ */
+
+.shadow-3d-quiz {
+  box-shadow:
+    0 4px 0 #6d28d9,
+    0 8px 15px rgba(139, 92, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.shadow-3d-quiz:active {
+  box-shadow:
+    0 2px 0 #6d28d9,
+    0 4px 10px rgba(139, 92, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(2px);
+}
+
+.shadow-3d-alibi {
+  box-shadow:
+    0 4px 0 #b45309,
+    0 8px 15px rgba(245, 158, 11, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.shadow-3d-alibi:active {
+  box-shadow:
+    0 2px 0 #b45309,
+    0 4px 10px rgba(245, 158, 11, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(2px);
+}
+
+.shadow-3d-success {
+  box-shadow:
+    0 4px 0 #16a34a,
+    0 8px 15px rgba(34, 197, 94, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.shadow-3d-success:active {
+  box-shadow:
+    0 2px 0 #16a34a,
+    0 4px 10px rgba(34, 197, 94, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(2px);
+}
+
+.shadow-3d-danger {
+  box-shadow:
+    0 4px 0 #dc2626,
+    0 8px 15px rgba(239, 68, 68, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.shadow-3d-danger:active {
+  box-shadow:
+    0 2px 0 #dc2626,
+    0 4px 10px rgba(239, 68, 68, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(2px);
+}
+
+/* ============================================
+   INSET SHADOWS
+   ============================================ */
+
+.shadow-inset {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.shadow-inset-lg {
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   FOCUS STATES
+   ============================================ */
+
+.focus-ring-quiz:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5);
+}
+
+.focus-ring-alibi:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.5);
+}
+
+.focus-ring-white:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   DISABLED STATES
+   ============================================ */
+
+.disabled-fade {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.disabled-grayscale {
+  filter: grayscale(100%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ============================================
+   OVERLAY EFFECTS
+   ============================================ */
+
+.overlay-dark {
+  position: relative;
+}
+
+.overlay-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.overlay-gradient {
+  position: relative;
+}
+
+.overlay-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ============================================
+   SHIMMER EFFECT
+   ============================================ */
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.shimmer-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ============================================
+   MISC EFFECTS
+   ============================================ */
+
+/* Noise texture overlay */
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Vignette effect */
+.vignette {
+  position: relative;
+}
+
+.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+}

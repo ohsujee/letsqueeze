@@ -53,7 +53,22 @@
       "Bash(find:*)",
       "Bash(ren:*)",
       "Bash(.tsx \")",
-      "Bash(npm outdated:*)"
+      "Bash(npm outdated:*)",
+      "Skill(frontend-design)",
+      "Bash(powershell -Command:*)",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__click",
+      "mcp__chrome-devtools__list_console_messages",
+      "mcp__chrome-devtools__list_network_requests",
+      "mcp__chrome-devtools__resize_page",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__fill",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__select_page",
+      "mcp__chrome-devtools__press_key"
     ]
   }
 }

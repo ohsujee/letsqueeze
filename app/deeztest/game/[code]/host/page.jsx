@@ -14,28 +14,13 @@ import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel } from "@/
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
+import { useServerTime } from "@/lib/hooks/useServerTime";
+import { useSound } from "@/lib/hooks/useSound";
 import { getPlaylistTracks, formatTracksForGame } from "@/lib/deezer/api";
 
 const DEEZER_PURPLE = '#A238FF';
 const DEEZER_PINK = '#FF0092';
 const DEEZER_LIGHT = '#C574FF';
-
-function useSound(url) {
-  const aRef = useRef(null);
-  useEffect(() => {
-    aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null;
-    if (aRef.current) {
-      aRef.current.preload = "auto";
-      aRef.current.volume = 0.6;
-    }
-  }, [url]);
-  return useCallback(() => {
-    if (aRef.current) {
-      aRef.current.currentTime = 0;
-      aRef.current.play().catch(() => {});
-    }
-  }, []);
-}
 
 export default function DeezTestHostGame() {
   const { code } = useParams();
@@ -61,16 +46,8 @@ export default function DeezTestHostGame() {
   // Track highest level that was actually played (for scoring)
   const [highestLevelPlayed, setHighestLevelPlayed] = useState(null);
 
-  // Server time sync
-  const [localNow, setLocalNow] = useState(Date.now());
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    const off = onValue(ref(db, ".info/serverTimeOffset"), s => setOffset(Number(s.val()) || 0));
-    const id = setInterval(() => setLocalNow(Date.now()), 200);
-    return () => { clearInterval(id); off(); };
-  }, []);
-  const serverNow = localNow + offset;
+  // Server time sync (300ms tick for score updates)
+  const { serverNow } = useServerTime(300);
 
   // Player error state
   const [playerError, setPlayerError] = useState(null);
@@ -85,7 +62,6 @@ export default function DeezTestHostGame() {
 
     setIsRefreshing(true);
     setPlayerError("Rafraîchissement des URLs...");
-    console.log("[DeezTest Host] Refreshing track URLs...");
 
     try {
       const freshTracks = await getPlaylistTracks(playlist.id, 100);
@@ -107,7 +83,6 @@ export default function DeezTestHostGame() {
       // Update Firebase with fresh URLs using set() for the tracks array
       await set(ref(db, `rooms_deeztest/${code}/meta/playlist/tracks`), refreshedTracks);
 
-      console.log("[DeezTest Host] Track URLs refreshed!");
       setPlayerError(null);
       setIsRefreshing(false);
       return true;
@@ -122,11 +97,9 @@ export default function DeezTestHostGame() {
   // Initialize Deezer Player
   useEffect(() => {
     const init = async () => {
-      console.log("[DeezTest Host] Initializing Deezer player...");
       try {
         await initializePlayer({
           onReady: () => {
-            console.log("[DeezTest Host] Player ready!");
             setPlayerReady(true);
             setPlayerError(null);
           },
@@ -224,7 +197,6 @@ export default function DeezTestHostGame() {
 
     // Démarrer la fenêtre de tolérance
     isResolvingBuzz.current = true;
-    console.log('🔔 [DeezTest Buzz Window] Premier buzz détecté, démarrage fenêtre de', BUZZ_WINDOW_MS, 'ms');
 
     buzzWindowTimeout.current = setTimeout(async () => {
       try {
@@ -243,9 +215,6 @@ export default function DeezTestHostGame() {
         const buzzArray = Object.values(allBuzzes);
         buzzArray.sort((a, b) => a.adjustedTime - b.adjustedTime);
         const winner = buzzArray[0];
-
-        console.log('🏆 [DeezTest Buzz Window] Résolution - Gagnant:', winner.name, 'avec adjustedTime:', winner.adjustedTime);
-        console.log('📊 [DeezTest Buzz Window] Tous les buzzes:', buzzArray.map(b => ({ name: b.name, adjustedTime: b.adjustedTime })));
 
         // Pause la musique
         pauseMusic();
@@ -321,16 +290,6 @@ export default function DeezTestHostGame() {
     const config = SNIPPET_LEVELS[level];
     const previewUrl = currentTrack.previewUrl;
 
-    // Debug: Log the URL we're trying to play
-    console.log("[DeezTest Host] Playing track:", {
-      title: currentTrack.title,
-      previewUrl: previewUrl,
-      urlLength: previewUrl?.length,
-      hasMP3: previewUrl?.includes('.mp3'),
-      level: level,
-      duration: config.duration
-    });
-
     if (!previewUrl) {
       console.error("[DeezTest Host] No preview URL for track:", currentTrack);
       setPlayerError("Cette piste n'a pas d'extrait disponible");
@@ -379,7 +338,6 @@ export default function DeezTestHostGame() {
       // If we haven't tried refreshing yet, do it now and retry
       if (!hasTriedRefresh.current) {
         hasTriedRefresh.current = true;
-        console.log("[DeezTest Host] Attempting to refresh URLs and retry...");
         const refreshed = await refreshTrackUrls();
         if (refreshed) {
           // Wait a bit for Firebase to update, then playLevel will be called again by user

@@ -1,35 +1,21 @@
 "use client";
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { db, ref, onValue, update, auth, onAuthStateChanged } from "@/lib/firebase";
+import { db, ref, onValue, update } from "@/lib/firebase";
 import { PodiumPremium } from "@/components/ui/PodiumPremium";
 import Leaderboard from "@/components/game/Leaderboard";
 import { motion } from "framer-motion";
 import { useToast } from "@/lib/hooks/useToast";
-import { storage } from "@/lib/utils/storage";
-import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
-import { isPro } from "@/lib/subscription";
-import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
+import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
+import { rankWithTies } from "@/lib/utils/ranking";
 
 // Deezer brand colors
 const DEEZER_PURPLE = '#A238FF';
 const DEEZER_PINK = '#FF0092';
 const DEEZER_LIGHT = '#C574FF';
-
-function rankWithTies(items, scoreKey = "score") {
-  const sorted = items.slice().sort((a, b) => (b[scoreKey] || 0) - (a[scoreKey] || 0));
-  let lastScore = null, lastRank = 0, seen = 0;
-  return sorted.map((it) => {
-    seen += 1;
-    const sc = it[scoreKey] || 0;
-    const rank = (lastScore === sc) ? lastRank : seen;
-    lastScore = sc; lastRank = rank;
-    return { ...it, rank };
-  });
-}
 
 export default function DeezTestEndPage() {
   const { code } = useParams();
@@ -38,13 +24,10 @@ export default function DeezTestEndPage() {
 
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
-  const [myUid, setMyUid] = useState(null);
   const [roomExists, setRoomExists] = useState(true);
-  const adShownRef = useRef(false);
 
-  // Get user profile for Pro check
-  const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
-  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+  // End page ad + auth (handles interstitial + returnedFromGame + myUid)
+  const { myUid } = useEndPageAd();
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_deeztest' });
@@ -59,29 +42,6 @@ export default function DeezTestEndPage() {
 
   // Record game completion (for daily limits)
   useGameCompletion({ gameType: 'deeztest', roomCode: code });
-
-  // Get current user UID
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      setMyUid(user?.uid || null);
-    });
-    storage.set('returnedFromGame', true);
-    return () => unsub();
-  }, [code]);
-
-  // Show interstitial ad before showing results (for non-Pro users)
-  useEffect(() => {
-    if (adShownRef.current || profileLoading) return;
-
-    if (currentUser !== null && !userIsPro) {
-      adShownRef.current = true;
-      initAdMob().then(() => {
-        showInterstitialAd().catch(err => {
-          console.log('[DeezTestEndPage] Interstitial ad error:', err);
-        });
-      });
-    }
-  }, [currentUser, userIsPro, profileLoading]);
 
   // Firebase listeners
   useEffect(() => {

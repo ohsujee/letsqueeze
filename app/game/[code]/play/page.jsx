@@ -8,38 +8,16 @@ import Buzzer from "@/components/game/Buzzer";
 import Leaderboard from "@/components/game/Leaderboard";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
-import ExitButton from "@/lib/components/ExitButton";
+import GamePlayHeader from "@/components/game/GamePlayHeader";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
+import { useServerTime } from "@/lib/hooks/useServerTime";
+import { useSound } from "@/lib/hooks/useSound";
 import { storage } from "@/lib/utils/storage";
 import { FitText } from "@/lib/hooks/useFitText";
-
-function useSound(url){
-  const aRef = useRef(null);
-  useEffect(()=>{
-    aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null;
-    if(aRef.current){
-      aRef.current.preload="auto";
-      aRef.current.volume = 0.6; // Volume par défaut
-    }
-  },[url]);
-  return useCallback(()=>{
-    if(aRef.current){
-      aRef.current.currentTime=0;
-      // Play avec gestion silencieuse des erreurs d'autoplay
-      const playPromise = aRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          // Autoplay bloqué par le navigateur - pas grave, on ignore silencieusement
-          console.debug('Audio autoplay prevented (normal behavior):', error.message);
-        });
-      }
-    }
-  },[]);
-}
 
 export default function PlayerGame(){
   const { code } = useParams();
@@ -54,13 +32,8 @@ export default function PlayerGame(){
   // Centralized players hook
   const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
 
-  // Tick + offset serveur
-  const [localNow, setLocalNow] = useState(Date.now());
-  const [offset, setOffset] = useState(0);
-  // Polling pour mise à jour des points (200ms = bon compromis fluidité/CPU)
-  useEffect(()=>{ const id = setInterval(()=>setLocalNow(Date.now()), 200); return ()=>clearInterval(id); },[]);
-  useEffect(()=>{ const u = onValue(ref(db, ".info/serverTimeOffset"), s=> setOffset(Number(s.val())||0)); return ()=>u(); },[]);
-  const serverNow = localNow + offset;
+  // Server time sync (300ms tick for score updates)
+  const { serverNow, offset } = useServerTime(300);
 
   // Auth
   useEffect(() => {
@@ -68,11 +41,11 @@ export default function PlayerGame(){
       if (user) {
         setMyUid(user.uid);
         // Store last game info for rejoin
-        storage.set('lq_last_game', JSON.stringify({
+        storage.set('last_game', {
           roomCode: code,
           roomPrefix: 'rooms',
           joinedAt: Date.now()
-        }));
+        });
       } else {
         signInAnonymously(auth).catch(() => {});
       }
@@ -240,29 +213,17 @@ export default function PlayerGame(){
       </AnimatePresence>
 
       {/* Header */}
-      <header className="game-header">
-        <div className="game-header-content">
-          <div className="game-header-left">
-            <div className="game-header-progress">{progressLabel}</div>
-            <div className="game-header-title">{title}</div>
-          </div>
-          <div className="game-header-right">
-            {/* Mon score dans le header */}
-            <div className="my-score-badge">
-              <span className="my-score-value">{me?.score || 0}</span>
-              <span className="my-score-label">pts</span>
-            </div>
-            <ExitButton
-              variant="header"
-              confirmMessage="Voulez-vous vraiment quitter ? Votre score sera conservé."
-              onExit={async () => {
-                await leaveRoom();
-                router.push('/home');
-              }}
-            />
-          </div>
-        </div>
-      </header>
+      <GamePlayHeader
+        game="quiz"
+        progress={progressLabel}
+        title={title}
+        score={me?.score || 0}
+        onExit={async () => {
+          await leaveRoom();
+          router.push('/home');
+        }}
+        exitMessage="Voulez-vous vraiment quitter ? Votre score sera conservé."
+      />
 
       {/* Notification buzz */}
       <AnimatePresence>
@@ -399,81 +360,6 @@ export default function PlayerGame(){
           box-shadow: inset 0 0 80px 20px rgba(34, 197, 94, 0.4);
           border: 3px solid rgba(34, 197, 94, 0.6);
           border-radius: 0;
-        }
-
-        /* ===== HEADER ===== */
-        .game-header {
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-          padding: 12px 16px;
-          padding-top: 12px;
-        }
-
-        .game-header-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          max-width: 600px;
-          margin: 0 auto;
-          gap: 12px;
-        }
-
-        .game-header-left {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          flex: 1;
-          min-width: 0;
-        }
-
-        .game-header-progress {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1rem;
-          color: var(--quiz-glow, #a78bfa);
-          text-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
-          flex-shrink: 0;
-        }
-
-        .game-header-title {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.8rem;
-          font-weight: 600;
-          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .game-header-right {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          flex-shrink: 0;
-        }
-
-        .my-score-badge {
-          display: flex;
-          align-items: baseline;
-          gap: 4px;
-          background: rgba(139, 92, 246, 0.15);
-          border: 1px solid rgba(139, 92, 246, 0.3);
-          border-radius: 20px;
-          padding: 6px 12px;
-        }
-
-        .my-score-value {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1rem;
-          color: var(--quiz-glow, #a78bfa);
-        }
-
-        .my-score-label {
-          font-size: 0.7rem;
-          color: rgba(255, 255, 255, 0.5);
         }
 
         /* ===== BUZZ NOTIFICATION ===== */

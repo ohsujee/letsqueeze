@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { onAuthStateChanged, auth } from '@/lib/firebase';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { PRO_PRICING, FREE_LIMITS } from '@/lib/subscription';
 import {
@@ -28,11 +27,13 @@ import {
   Palette,
   RotateCcw
 } from 'lucide-react';
+import { useAuthProtect } from '@/lib/hooks/useAuthProtect';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 
 export default function SubscribePage() {
   const router = useRouter();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // Allow guests to view subscribe page
+  const { user, loading } = useAuthProtect({ allowGuests: true });
   const [selectedPlan, setSelectedPlan] = useState('annual');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isRestoring, setIsRestoring] = useState(false);
@@ -40,19 +41,6 @@ export default function SubscribePage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [isNative, setIsNative] = useState(false);
   const { isPro } = useSubscription(user);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
-        router.push('/login');
-      } else {
-        setUser(currentUser);
-        setLoading(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [router]);
 
   // Initialize RevenueCat when user is loaded
   useEffect(() => {
@@ -126,33 +114,7 @@ export default function SubscribePage() {
   };
 
   if (loading) {
-    return (
-      <div className="subscribe-page">
-        <div className="loading-container">
-          <div className="loading-spinner" />
-        </div>
-        <style jsx>{`
-          .subscribe-page {
-            flex: 1; min-height: 0;
-            background: #0a0a0f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-          .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(139, 92, 246, 0.2);
-            border-top-color: #8b5cf6;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-          }
-          @keyframes spin {
-            to { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-    );
+    return <LoadingScreen game="quiz" />;
   }
 
   // Already Pro - show management

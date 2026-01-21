@@ -8,25 +8,11 @@ import { motion } from "framer-motion";
 import { useToast } from "@/lib/hooks/useToast";
 import { hueScenariosService } from "@/lib/hue-module";
 import { recordQuizGame } from "@/lib/services/statsService";
-import { storage } from "@/lib/utils/storage";
-import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
-import { isPro } from "@/lib/subscription";
-import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
-
-function rankWithTies(items, scoreKey = "score") {
-  const sorted = items.slice().sort((a,b)=> (b[scoreKey]||0) - (a[scoreKey]||0));
-  let lastScore = null, lastRank = 0, seen = 0;
-  return sorted.map((it) => {
-    seen += 1;
-    const sc = it[scoreKey] || 0;
-    const rank = (lastScore === sc) ? lastRank : seen;
-    lastScore = sc; lastRank = rank;
-    return { ...it, rank };
-  });
-}
+import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
+import { rankWithTies } from "@/lib/utils/ranking";
 
 export default function EndPage(){
   const { code } = useParams();
@@ -35,15 +21,12 @@ export default function EndPage(){
 
   const [meta,setMeta]=useState(null);
   const [quizTitle, setQuizTitle] = useState("");
-  const [myUid, setMyUid] = useState(null);
   const [firebaseUser, setFirebaseUser] = useState(null);
   const [roomExists, setRoomExists] = useState(true);
   const statsRecordedRef = useRef(false);
-  const adShownRef = useRef(false);
 
-  // Get user profile for Pro check
-  const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
-  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+  // End page ad + auth (handles interstitial + returnedFromGame + myUid)
+  const { myUid, userIsPro, currentUser } = useEndPageAd();
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
@@ -58,29 +41,6 @@ export default function EndPage(){
 
   // Record game completion (for daily limits)
   useGameCompletion({ gameType: 'quiz', roomCode: code });
-
-  // Récupérer l'uid de l'utilisateur depuis le localStorage
-  useEffect(() => {
-    const uid = localStorage.getItem(`lq_uid_${code}`);
-    setMyUid(uid);
-
-    // Mark that user completed a game (for guest prompt on home)
-    storage.set('returnedFromGame', true);
-  }, [code]);
-
-  // Show interstitial ad before showing results (for non-Pro users)
-  useEffect(() => {
-    if (adShownRef.current || profileLoading) return;
-
-    if (currentUser !== null && !userIsPro) {
-      adShownRef.current = true;
-      initAdMob().then(() => {
-        showInterstitialAd().catch(err => {
-          console.log('[EndPage] Interstitial ad error:', err);
-        });
-      });
-    }
-  }, [currentUser, userIsPro, profileLoading]);
 
   // Get Firebase auth user for stats
   useEffect(() => {

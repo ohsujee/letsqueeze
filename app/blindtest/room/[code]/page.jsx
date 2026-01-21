@@ -74,7 +74,7 @@ export default function BlindTestLobby() {
   // Set join URL
   useEffect(() => {
     if (typeof window !== "undefined" && code) {
-      setJoinUrl(`${window.location.origin}/blindtest/join?code=${code}`);
+      setJoinUrl(`${window.location.origin}/join?code=${code}`);
     }
   }, [code]);
 

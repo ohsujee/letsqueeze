@@ -14,23 +14,8 @@ import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel } from "@/
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
-
-function useSound(url) {
-  const aRef = useRef(null);
-  useEffect(() => {
-    aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null;
-    if (aRef.current) {
-      aRef.current.preload = "auto";
-      aRef.current.volume = 0.6;
-    }
-  }, [url]);
-  return useCallback(() => {
-    if (aRef.current) {
-      aRef.current.currentTime = 0;
-      aRef.current.play().catch(() => {});
-    }
-  }, []);
-}
+import { useServerTime } from "@/lib/hooks/useServerTime";
+import { useSound } from "@/lib/hooks/useSound";
 
 export default function BlindTestHostGame() {
   const { code } = useParams();
@@ -56,16 +41,8 @@ export default function BlindTestHostGame() {
   // Track highest level that was actually played (for scoring)
   const [highestLevelPlayed, setHighestLevelPlayed] = useState(null);
 
-  // Server time sync
-  const [localNow, setLocalNow] = useState(Date.now());
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    const off = onValue(ref(db, ".info/serverTimeOffset"), s => setOffset(Number(s.val()) || 0));
-    const id = setInterval(() => setLocalNow(Date.now()), 200);
-    return () => { clearInterval(id); off(); };
-  }, []);
-  const serverNow = localNow + offset;
+  // Server time sync (300ms tick for score updates)
+  const { serverNow } = useServerTime(300);
 
   // Player error state
   const [playerError, setPlayerError] = useState(null);
@@ -73,16 +50,13 @@ export default function BlindTestHostGame() {
   // Initialize Spotify Player
   useEffect(() => {
     const init = async () => {
-      console.log("[BlindTest Host] Initializing Spotify player...");
       try {
         await initializePlayer({
           onReady: (deviceId) => {
-            console.log("[BlindTest Host] Player ready! Device ID:", deviceId);
             setPlayerReady(true);
             setPlayerError(null);
           },
           onStateChange: (playerState) => {
-            console.log("[BlindTest Host] Player state changed:", playerState?.paused ? "paused" : "playing");
             setIsPlaying(!playerState?.paused);
           },
           onError: (error) => {
@@ -176,7 +150,6 @@ export default function BlindTestHostGame() {
 
     // Démarrer la fenêtre de tolérance
     isResolvingBuzz.current = true;
-    console.log('🔔 [BlindTest Buzz Window] Premier buzz détecté, démarrage fenêtre de', BUZZ_WINDOW_MS, 'ms');
 
     buzzWindowTimeout.current = setTimeout(async () => {
       try {
@@ -195,8 +168,6 @@ export default function BlindTestHostGame() {
         const buzzArray = Object.values(allBuzzes);
         buzzArray.sort((a, b) => a.adjustedTime - b.adjustedTime);
         const winner = buzzArray[0];
-
-        console.log('🏆 [BlindTest Buzz Window] Résolution - Gagnant:', winner.name, 'avec adjustedTime:', winner.adjustedTime);
 
         // Pause la musique
         pauseMusic();
@@ -255,13 +226,7 @@ export default function BlindTestHostGame() {
 
     // Small delay to avoid preloading during rapid transitions
     const timer = setTimeout(async () => {
-      console.log("[BlindTest Host] Preloading track silently:", currentTrack.spotifyUri);
-
-      const preloadResult = await preloadTrack(currentTrack.spotifyUri);
-
-      if (!preloadResult.success && preloadResult.error && preloadResult.error !== 'Session cancelled' && preloadResult.error !== 'Aborted') {
-        console.warn("[BlindTest Host] Preload warning:", preloadResult.error);
-      }
+      await preloadTrack(currentTrack.spotifyUri);
     }, 300);
 
     return () => clearTimeout(timer);
@@ -269,46 +234,23 @@ export default function BlindTestHostGame() {
 
   // Play snippet at specific level
   const playLevel = async (level) => {
-    console.log("[BlindTest Host] playLevel called:", {
-      level,
-      isHost,
-      hasTrack: !!currentTrack,
-      playerReady,
-      trackUri: currentTrack?.spotifyUri
-    });
-
-    if (!isHost) {
-      console.warn("[BlindTest Host] Not host, cannot play");
-      return;
-    }
-    if (!currentTrack) {
-      console.warn("[BlindTest Host] No current track");
-      return;
-    }
+    if (!isHost) return;
+    if (!currentTrack) return;
     if (!playerReady) {
-      console.warn("[BlindTest Host] Player not ready");
       setPlayerError("Le lecteur Spotify n'est pas prêt");
       return;
     }
 
     // Stop previous snippet if playing
     if (snippetStopRef.current) {
-      console.log("[BlindTest Host] Stopping previous snippet");
       await snippetStopRef.current.stop();
     }
 
     const config = SNIPPET_LEVELS[level];
     const trackUri = currentTrack.spotifyUri;
 
-    console.log("[BlindTest Host] Playing:", {
-      trackUri,
-      duration: config.duration,
-      label: config.label
-    });
-
     try {
       const snippet = await playSnippet(trackUri, config.duration);
-      console.log("[BlindTest Host] Snippet started successfully");
       snippetStopRef.current = snippet;
       setIsPlaying(true);
       setCurrentSnippet(level);
@@ -328,7 +270,6 @@ export default function BlindTestHostGame() {
         const unlockDelay = Math.floor(config.duration * 0.9);
         unlockTimeoutRef.current = setTimeout(() => {
           setUnlockedLevel(prev => Math.max(prev, level + 1));
-          console.log("[BlindTest Host] Unlocked level", level + 1, "after 90% playback");
         }, unlockDelay);
       }
 
@@ -349,7 +290,6 @@ export default function BlindTestHostGame() {
   };
 
   const pauseMusic = async () => {
-    console.log("[BlindTest Host] pauseMusic called");
     if (snippetStopRef.current) {
       await snippetStopRef.current.stop();
       snippetStopRef.current = null;
@@ -360,7 +300,6 @@ export default function BlindTestHostGame() {
 
   // Full stop - resets everything for new question
   const stopMusic = async () => {
-    console.log("[BlindTest Host] stopMusic called - full reset");
     // Cancel pending unlock timeout
     if (unlockTimeoutRef.current) {
       clearTimeout(unlockTimeoutRef.current);

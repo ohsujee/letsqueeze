@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@500;600;700;800&family=Roboto+Mono:wght@400;700&display=swap');
 @import "tailwindcss";
 @import "./theme.css";
+@import "./styles/animations-games.css";
+@import "./styles/gradients.css";
+@import "./styles/effects.css";
 
 /* ===========================================
    🎮 GIGGLZ - VIBRANT GAME UI

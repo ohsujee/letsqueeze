@@ -1,25 +1,96 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { WifiOff } from 'lucide-react';
 
 /**
- * Leaderboard - Composant de classement réutilisable
- * Utilisé côté host et player pour afficher le classement des joueurs
- * Grise les joueurs déconnectés (status: 'disconnected' ou 'left')
+ * Leaderboard - Composant de classement réutilisable avec animations
+ * - Score animé (compte progressivement)
+ * - Triangle vert ▲ / rouge ▼ pour les changements de position
+ * - Animation de glissement quand les positions changent
+ * - Largeur fixe pour les scores (4 digits max)
  */
 export default function Leaderboard({ players = [], currentPlayerUid = null }) {
-  // Trier par score décroissant (mémorisé pour éviter les recalculs inutiles)
+  const prevPositionsRef = useRef({});
+  const prevScoresRef = useRef({});
+  const [displayScores, setDisplayScores] = useState({});
+  const [positionChanges, setPositionChanges] = useState({});
+
+  // Sort by score descending
   const sorted = useMemo(() =>
     [...players].sort((a, b) => (b.score || 0) - (a.score || 0)),
     [players]
   );
 
-  // Compter les joueurs actifs
+  // Count active players
   const activeCount = useMemo(() =>
     players.filter(p => !p.status || p.status === 'active').length,
     [players]
   );
+
+  // Track position changes
+  useEffect(() => {
+    const newPositions = {};
+    const newChanges = {};
+
+    sorted.forEach((p, i) => {
+      const currentPos = i + 1;
+      const prevPos = prevPositionsRef.current[p.uid];
+      newPositions[p.uid] = currentPos;
+
+      // Only show triangle if position actually changed
+      if (prevPos !== undefined && prevPos !== currentPos) {
+        newChanges[p.uid] = prevPos > currentPos ? 'up' : 'down';
+        // Clear the indicator after 3s (longer visibility)
+        setTimeout(() => {
+          setPositionChanges(prev => {
+            const updated = { ...prev };
+            delete updated[p.uid];
+            return updated;
+          });
+        }, 3000);
+      }
+    });
+
+    setPositionChanges(prev => ({ ...prev, ...newChanges }));
+    prevPositionsRef.current = newPositions;
+  }, [sorted]);
+
+  // Animate scores
+  useEffect(() => {
+    const newScores = {};
+    players.forEach(p => {
+      newScores[p.uid] = p.score || 0;
+    });
+
+    Object.keys(newScores).forEach(uid => {
+      const target = newScores[uid];
+      const current = displayScores[uid] ?? prevScoresRef.current[uid] ?? target;
+
+      if (current !== target) {
+        const diff = target - current;
+        const steps = 15; // More steps for smoother animation
+        const stepValue = diff / steps;
+        let step = 0;
+
+        const interval = setInterval(() => {
+          step++;
+          if (step >= steps) {
+            setDisplayScores(prev => ({ ...prev, [uid]: target }));
+            clearInterval(interval);
+          } else {
+            setDisplayScores(prev => ({
+              ...prev,
+              [uid]: Math.round(current + stepValue * step)
+            }));
+          }
+        }, 40);
+      }
+    });
+
+    prevScoresRef.current = newScores;
+  }, [players]);
 
   return (
     <div className="leaderboard-card">
@@ -33,28 +104,53 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
         </span>
       </div>
       <div className="leaderboard-list">
-        {sorted.map((p, i) => {
-          const isMe = currentPlayerUid && p.uid === currentPlayerUid;
-          const isDisconnected = p.status === 'disconnected' || p.status === 'left';
-          const rankClass = i === 0 ? 'first' : i === 1 ? 'second' : i === 2 ? 'third' : '';
+        <AnimatePresence>
+          {sorted.map((p, i) => {
+            const isMe = currentPlayerUid && p.uid === currentPlayerUid;
+            const isDisconnected = p.status === 'disconnected' || p.status === 'left';
+            const rankClass = i === 0 ? 'first' : i === 1 ? 'second' : i === 2 ? 'third' : '';
+            const posChange = positionChanges[p.uid];
+            const animatedScore = displayScores[p.uid] ?? p.score ?? 0;
 
-          return (
-            <div
-              key={p.uid}
-              className={`player-row ${rankClass} ${isMe ? 'is-me' : ''} ${isDisconnected ? 'disconnected' : ''}`}
-            >
-              <span className="player-rank">
-                {i < 3 ? ['🥇', '🥈', '🥉'][i] : <span className="rank-number">{i + 1}</span>}
-              </span>
-              <span className="player-name">
-                {p.name}
-                {isMe && <span className="you-badge">vous</span>}
-                {isDisconnected && <WifiOff size={12} className="disconnected-icon" />}
-              </span>
-              <span className="player-score">{p.score || 0}</span>
-            </div>
-          );
-        })}
+            return (
+              <motion.div
+                key={p.uid}
+                layout
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{
+                  layout: { duration: 0.5, ease: "easeInOut" },
+                  opacity: { duration: 0.3 }
+                }}
+                className={`player-row ${rankClass} ${isMe ? 'is-me' : ''} ${isDisconnected ? 'disconnected' : ''} ${posChange ? `moved-${posChange}` : ''}`}
+              >
+                <span className="player-rank">
+                  {i < 3 ? ['🥇', '🥈', '🥉'][i] : <span className="rank-number">{i + 1}</span>}
+                </span>
+                <span className="player-name">
+                  {p.name}
+                  {isMe && <span className="you-badge">vous</span>}
+                  {isDisconnected && <WifiOff size={12} className="disconnected-icon" />}
+                </span>
+                <div className="score-area">
+                  {posChange && (
+                    <motion.span
+                      className={`pos-triangle ${posChange}`}
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {posChange === 'up' ? '▲' : '▼'}
+                    </motion.span>
+                  )}
+                  <span className="player-score">{animatedScore}</span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
         {players.length === 0 && (
           <div className="no-players">Aucun joueur</div>
         )}
@@ -68,7 +164,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           box-sizing: border-box;
         }
 
-        /* ===== LEADERBOARD - Fills remaining 42% of content ===== */
         .leaderboard-card {
           width: 100%;
           max-width: 500px;
@@ -114,7 +209,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           border-radius: 1vh;
         }
 
-        /* Internal scroll for player list */
         .leaderboard-list {
           flex: 1;
           min-width: 0;
@@ -131,7 +225,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
         .leaderboard-list::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 2px; }
         .leaderboard-list::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.4); border-radius: 2px; }
 
-        .player-row {
+        .leaderboard-card :global(.player-row) {
           display: flex;
           align-items: center;
           gap: 1.5vw;
@@ -142,39 +236,65 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           flex-shrink: 0;
           min-width: 0;
           max-width: 100%;
-          transition: all 0.2s ease;
         }
 
-        .player-row.first {
+        .leaderboard-card :global(.player-row.moved-up) {
+          animation: flash-up 0.8s ease;
+        }
+
+        .leaderboard-card :global(.player-row.moved-down) {
+          animation: flash-down 0.8s ease;
+        }
+
+        @keyframes flash-up {
+          0% { background: rgba(34, 197, 94, 0.5); }
+          100% { background: rgba(20, 20, 30, 0.6); }
+        }
+
+        @keyframes flash-down {
+          0% { background: rgba(239, 68, 68, 0.4); }
+          100% { background: rgba(20, 20, 30, 0.6); }
+        }
+
+        .leaderboard-card :global(.player-row.first) {
           background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.1));
           border-color: rgba(255, 215, 0, 0.6);
         }
 
-        .player-row.second {
+        .leaderboard-card :global(.player-row.first.moved-up) {
+          animation: flash-up-gold 0.8s ease;
+        }
+
+        @keyframes flash-up-gold {
+          0% { background: rgba(34, 197, 94, 0.6); }
+          100% { background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.1)); }
+        }
+
+        .leaderboard-card :global(.player-row.second) {
           background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.08));
           border-color: rgba(192, 192, 192, 0.5);
         }
 
-        .player-row.third {
+        .leaderboard-card :global(.player-row.third) {
           background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.08));
           border-color: rgba(205, 127, 50, 0.5);
         }
 
-        .player-row.is-me {
+        .leaderboard-card :global(.player-row.is-me) {
           background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(139, 92, 246, 0.15)) !important;
           border-color: rgba(139, 92, 246, 0.7) !important;
         }
 
-        .player-row.disconnected {
+        .leaderboard-card :global(.player-row.disconnected) {
           opacity: 0.45;
           filter: grayscale(0.6);
         }
 
-        .player-row.disconnected .player-name {
+        .leaderboard-card :global(.player-row.disconnected) .player-name {
           color: rgba(255, 255, 255, 0.5);
         }
 
-        .player-row.disconnected .player-score {
+        .leaderboard-card :global(.player-row.disconnected) .player-score {
           color: rgba(255, 255, 255, 0.4);
           background: rgba(255, 255, 255, 0.05);
           border-color: rgba(255, 255, 255, 0.1);
@@ -219,7 +339,8 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           font-size: 1.6vh;
           font-weight: 600;
           color: var(--text-primary, #ffffff);
-          display: block;
+          display: flex;
+          align-items: center;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -235,6 +356,39 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           text-transform: uppercase;
           font-weight: 700;
           letter-spacing: 0.05em;
+          flex-shrink: 0;
+        }
+
+        .score-area {
+          display: flex;
+          align-items: center;
+          gap: 0.8vh;
+          margin-left: auto;
+          flex-shrink: 0;
+        }
+
+        .leaderboard-card :global(.pos-triangle) {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.2vh;
+          height: 2.2vh;
+          border-radius: 0.5vh;
+          font-size: 1.1vh;
+          font-weight: 700;
+          line-height: 1;
+        }
+
+        .leaderboard-card :global(.pos-triangle.up) {
+          color: #fff;
+          background: linear-gradient(135deg, #22c55e, #16a34a);
+          box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        }
+
+        .leaderboard-card :global(.pos-triangle.down) {
+          color: #fff;
+          background: linear-gradient(135deg, #ef4444, #dc2626);
+          box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
         }
 
         .player-score {
@@ -243,11 +397,12 @@ export default function Leaderboard({ players = [], currentPlayerUid = null }) {
           font-weight: 700;
           color: var(--success, #22c55e);
           text-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
-          margin-left: auto;
           background: rgba(34, 197, 94, 0.12);
           padding: 0.5vh 1vh;
           border-radius: 0.8vh;
           border: 1px solid rgba(34, 197, 94, 0.3);
+          width: 6vh;
+          text-align: center;
         }
 
         .no-players {

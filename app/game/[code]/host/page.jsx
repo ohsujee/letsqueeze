@@ -9,33 +9,10 @@ import ExitButton from "@/lib/components/ExitButton";
 import Leaderboard from "@/components/game/Leaderboard";
 import PlayerManager from "@/components/game/PlayerManager";
 import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useServerTime } from "@/lib/hooks/useServerTime";
+import { useSound } from "@/lib/hooks/useSound";
 import { hueScenariosService } from "@/lib/hue-module";
 import { FitText } from "@/lib/hooks/useFitText";
-
-// Quiz est maintenant chargé depuis Firebase (stocké au démarrage de la partie)
-function useSound(url){
-  const aRef = useRef(null);
-  useEffect(()=>{
-    aRef.current = typeof Audio !== "undefined" ? new Audio(url) : null;
-    if(aRef.current){
-      aRef.current.preload="auto";
-      aRef.current.volume = 0.6; // Volume par défaut
-    }
-  },[url]);
-  return useCallback(()=>{
-    if(aRef.current){
-      aRef.current.currentTime=0;
-      // Play avec gestion silencieuse des erreurs d'autoplay
-      const playPromise = aRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          // Autoplay bloqué par le navigateur - pas grave, on ignore silencieusement
-          console.debug('Audio autoplay prevented (normal behavior):', error.message);
-        });
-      }
-    }
-  },[]);
-}
 
 export default function HostGame(){
   const { code } = useParams();
@@ -58,22 +35,16 @@ export default function HostGame(){
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
 
-  // Tick + offset serveur
-  const [localNow, setLocalNow] = useState(Date.now());
-  const [offset, setOffset] = useState(0);
+  // Server time sync (300ms tick for score updates)
+  const { serverNow } = useServerTime(300);
+
+  // Load scoring config
   useEffect(()=>{
     fetch(`/config/scoring.json?t=${Date.now()}`)
       .then(r=>r.json())
       .then(setConf)
       .catch(err => console.error('Erreur chargement config:', err));
   },[]);
-  useEffect(()=>{
-    const off = onValue(ref(db, ".info/serverTimeOffset"), s=> setOffset(Number(s.val())||0));
-    // Polling pour mise à jour des points (200ms = bon compromis fluidité/CPU)
-    const id=setInterval(()=>setLocalNow(Date.now()), 200);
-    return ()=>{ clearInterval(id); off(); };
-  },[]);
-  const serverNow = localNow + offset;
 
   // DB listeners
   useEffect(()=>{
@@ -167,7 +138,6 @@ export default function HostGame(){
       // Éviter les doubles résolutions
       const now = Date.now();
       if (now - lastResolvedAt.current < 500) {
-        console.log('🔄 [Buzz] Résolution ignorée - trop récente');
         return;
       }
 
@@ -176,7 +146,6 @@ export default function HostGame(){
         const { get: fbGet, ref: fbRef } = await import('firebase/database');
         const lockSnap = await fbGet(fbRef(db, `rooms/${code}/state/lockUid`));
         if (lockSnap.val()) {
-          console.log('🔒 [Buzz] lockUid déjà défini, skip résolution');
           isResolvingBuzz.current = false;
           return;
         }
@@ -186,7 +155,6 @@ export default function HostGame(){
         const allBuzzes = snapshot.val();
 
         if (!allBuzzes || Object.keys(allBuzzes).length === 0) {
-          console.log('📭 [Buzz] Pas de buzzes à résoudre');
           isResolvingBuzz.current = false;
           return;
         }
@@ -195,9 +163,6 @@ export default function HostGame(){
         const buzzArray = Object.values(allBuzzes);
         buzzArray.sort((a, b) => a.adjustedTime - b.adjustedTime);
         const winner = buzzArray[0];
-
-        console.log('🏆 [Buzz] Résolution - Gagnant:', winner.name);
-        console.log('📊 [Buzz] Tous les buzzes:', buzzArray.map(b => ({ name: b.name, time: b.adjustedTime })));
 
         // Mettre à jour Firebase avec le gagnant
         lastResolvedAt.current = Date.now();
@@ -234,13 +199,11 @@ export default function HostGame(){
 
       // Si déjà en train de résoudre, ignorer
       if (isResolvingBuzz.current) {
-        console.log('⏳ [Buzz] Résolution déjà en cours...');
         return;
       }
 
       // Démarrer la résolution
       isResolvingBuzz.current = true;
-      console.log('🔔 [Buzz] Nouveau buzz détecté, fenêtre de', BUZZ_WINDOW_MS, 'ms');
 
       // Nettoyer le timeout précédent si existant
       if (buzzWindowTimeout.current) {
@@ -303,7 +266,6 @@ export default function HostGame(){
     }
   }
   async function resetBuzzers(){
-    console.log('🔄 resetBuzzers called, isHost:', isHost);
     if(!isHost) return;
     // Reset le flag de résolution
     isResolvingBuzz.current = false;
@@ -312,7 +274,6 @@ export default function HostGame(){
       buzzWindowTimeout.current = null;
     }
     const resume = computeResumeFields();
-    console.log('📊 Resume fields:', resume);
     await update(ref(db,`rooms/${code}/state`), {
       lockUid: null,
       buzzBanner: "",
@@ -323,7 +284,6 @@ export default function HostGame(){
     await import('firebase/database').then(m =>
       m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
     ).catch(() => {});
-    console.log('✅ Buzzers reset!');
   }
   async function validate(){
     if(!isHost || !q || !state?.lockUid || !conf) return;
@@ -438,12 +398,9 @@ export default function HostGame(){
     ).catch(() => {});
   }
   async function skip(){
-    console.log('⏭ skip called, isHost:', isHost, 'total:', total);
     if(!isHost || total===0) return;
     const next = (state?.currentIndex||0)+1;
-    console.log('📍 Next question index:', next, 'Total:', total);
     if (next >= total) {
-      console.log('🏁 Last question, ending game');
       await update(ref(db,`rooms/${code}/state`), { phase:"ended" });
       router.replace(`/end/${code}`);
       return;
@@ -467,19 +424,15 @@ export default function HostGame(){
     // Reset le flag de résolution
     isResolvingBuzz.current = false;
 
-    console.log('📤 Sending updates:', updates);
     await update(ref(db), updates);
     // Supprimer les buzzes en attente séparément
     await import('firebase/database').then(m =>
       m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
     ).catch(() => {});
-    console.log('✅ Question skipped!');
   }
   async function end(){
-    console.log('🏁 end called, isHost:', isHost);
     if(isHost){
       await update(ref(db,`rooms/${code}/state`), { phase:"ended" });
-      console.log('✅ Game ended, redirecting...');
       router.replace(`/end/${code}`);
     }
   }

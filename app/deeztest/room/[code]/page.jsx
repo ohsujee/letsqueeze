@@ -76,7 +76,7 @@ export default function DeezTestLobby() {
   // Set join URL
   useEffect(() => {
     if (typeof window !== "undefined" && code) {
-      setJoinUrl(`${window.location.origin}/deeztest/join?code=${code}`);
+      setJoinUrl(`${window.location.origin}/join?code=${code}`);
     }
   }, [code]);
 

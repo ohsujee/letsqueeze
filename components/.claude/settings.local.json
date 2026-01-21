@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(frontend-design)",
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(grep:*)",
+      "Bash(for file in \"E:\\\\LetsQueeze\\\\components\\\\game\\\\AnimatedLeaderboard.jsx\" \"E:\\\\LetsQueeze\\\\components\\\\game\\\\PointsRing.jsx\" \"E:\\\\LetsQueeze\\\\components\\\\game\\\\QuestionReveal.jsx\")",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(done)"
+    ]
+  }
+}

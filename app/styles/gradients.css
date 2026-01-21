@@ -1,0 +1,252 @@
+/**
+ * Gradients
+ *
+ * Centralized gradient classes for consistent styling across games.
+ * Use these instead of inline gradient definitions.
+ *
+ * Usage: <div className="gradient-quiz">...</div>
+ */
+
+/* ============================================
+   GAME GRADIENTS - Primary
+   ============================================ */
+
+.gradient-quiz {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.gradient-alibi {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.gradient-blindtest {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.gradient-deeztest {
+  background: linear-gradient(135deg, #A238FF, #FF0092);
+}
+
+.gradient-trouveregle {
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+}
+
+.gradient-mime {
+  background: linear-gradient(135deg, #00ff66, #00cc52);
+}
+
+/* ============================================
+   GAME GRADIENTS - Subtle (for backgrounds)
+   ============================================ */
+
+.gradient-quiz-subtle {
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+}
+
+.gradient-alibi-subtle {
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.15) 0%, transparent 50%);
+}
+
+.gradient-blindtest-subtle {
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
+}
+
+.gradient-deeztest-subtle {
+  background: linear-gradient(180deg, rgba(162, 56, 255, 0.15) 0%, transparent 50%);
+}
+
+.gradient-trouveregle-subtle {
+  background: linear-gradient(180deg, rgba(6, 182, 212, 0.15) 0%, transparent 50%);
+}
+
+.gradient-mime-subtle {
+  background: linear-gradient(180deg, rgba(0, 255, 102, 0.15) 0%, transparent 50%);
+}
+
+/* ============================================
+   SEMANTIC GRADIENTS
+   ============================================ */
+
+.gradient-success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.gradient-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.gradient-warning {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.gradient-info {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+/* ============================================
+   RADIAL BACKGROUNDS
+   ============================================ */
+
+.bg-radial-quiz {
+  background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.2) 0%, transparent 50%);
+}
+
+.bg-radial-alibi {
+  background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.2) 0%, transparent 50%);
+}
+
+.bg-radial-blindtest {
+  background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
+}
+
+.bg-radial-deeztest {
+  background: radial-gradient(circle at 50% 0%, rgba(162, 56, 255, 0.2) 0%, transparent 50%);
+}
+
+.bg-radial-trouveregle {
+  background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.2) 0%, transparent 50%);
+}
+
+.bg-radial-mime {
+  background: radial-gradient(circle at 50% 0%, rgba(0, 255, 102, 0.2) 0%, transparent 50%);
+}
+
+.bg-radial-success {
+  background: radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.15) 0%, transparent 70%);
+}
+
+.bg-radial-danger {
+  background: radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.15) 0%, transparent 70%);
+}
+
+/* ============================================
+   MEDAL GRADIENTS
+   ============================================ */
+
+.gradient-gold {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+
+.gradient-silver {
+  background: linear-gradient(135deg, #C0C0C0, #A8A8A8);
+}
+
+.gradient-bronze {
+  background: linear-gradient(135deg, #CD7F32, #8B4513);
+}
+
+/* ============================================
+   TEXT GRADIENTS
+   ============================================ */
+
+.text-gradient-quiz {
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-alibi {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-blindtest {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-deeztest {
+  background: linear-gradient(135deg, #A238FF, #C574FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-trouveregle {
+  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   BORDER GRADIENTS (using pseudo-elements)
+   ============================================ */
+
+.border-gradient-quiz {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+}
+
+.border-gradient-quiz::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.border-gradient-deeztest {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+}
+
+.border-gradient-deeztest::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #A238FF, #FF0092);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ============================================
+   ANIMATED GRADIENTS
+   ============================================ */
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-animated-quiz {
+  background: linear-gradient(270deg, #8b5cf6, #7c3aed, #a78bfa, #8b5cf6);
+  background-size: 300% 300%;
+  animation: gradient-shift 5s ease infinite;
+}
+
+.gradient-animated-deeztest {
+  background: linear-gradient(270deg, #A238FF, #FF0092, #C574FF, #A238FF);
+  background-size: 300% 300%;
+  animation: gradient-shift 5s ease infinite;
+}
