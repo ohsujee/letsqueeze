@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef, useState, useEffect, useCallback } from 'react';
+import { useMemo, useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { WifiOff, ChevronDown, ChevronUp } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -31,18 +31,31 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
   const isTeamModeRoom = mode === 'équipes';
   const hasTeams = teams && Object.keys(teams).length > 0;
   const canToggle = isTeamModeRoom || hasTeams;
-  // Default to teams view when teams exist (user preference: équipes by default)
-  const [viewMode, setViewMode] = useState('players');
+  // Track if user has manually toggled (to not override their choice)
+  const userHasToggledRef = useRef(false);
+  // Track if animation should be skipped (for initial auto-switch)
+  const skipAnimationRef = useRef(true);
+  // Initialize directly to 'teams' if teams exist to avoid flash
+  const [viewMode, setViewMode] = useState(() => hasTeams ? 'teams' : 'players');
   const [slideDirection, setSlideDirection] = useState(0); // -1 = left, 1 = right
-  const hasInitializedViewMode = useRef(false);
 
-  // Initialize view mode to 'teams' when teams become available (only once)
-  useEffect(() => {
-    if (!hasInitializedViewMode.current && hasTeams) {
+  // Auto-switch to teams view when teams data arrives (if user hasn't manually toggled)
+  // useLayoutEffect runs synchronously before paint, preventing flash
+  useLayoutEffect(() => {
+    if (hasTeams && viewMode === 'players' && !userHasToggledRef.current) {
+      skipAnimationRef.current = true; // Skip animation for auto-switch
       setViewMode('teams');
-      hasInitializedViewMode.current = true;
     }
-  }, [hasTeams]);
+  }, [hasTeams, viewMode]);
+
+  // Enable animations after initial render
+  useEffect(() => {
+    // Small delay to ensure first render is complete
+    const timer = setTimeout(() => {
+      skipAnimationRef.current = false;
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Toggle handlers with slide direction
   // Direction based on toggle position: [équipes] [joueurs]
@@ -50,6 +63,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
   // joueurs→équipes = going left = content moves RIGHT (direction = 1)
   const switchToTeams = useCallback(() => {
     if (viewMode !== 'teams') {
+      userHasToggledRef.current = true;
       setSlideDirection(1); // Going left: content moves right
       setViewMode('teams');
     }
@@ -57,6 +71,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
 
   const switchToPlayers = useCallback(() => {
     if (viewMode !== 'players') {
+      userHasToggledRef.current = true;
       setSlideDirection(-1); // Going right: content moves left
       setViewMode('players');
     }
@@ -71,19 +86,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
     rotation: 84,
     opacity: 100
   };
-
-  // Load Lottie animations
-  useEffect(() => {
-    fetch('/animations/fire-blaze.json')
-      .then(res => res.json())
-      .then(data => setFireAnimation(data))
-      .catch(err => console.error('Failed to load fire animation:', err));
-
-    fetch('/lottie/smoke.json')
-      .then(res => res.json())
-      .then(data => setSmokeAnimation(data))
-      .catch(err => console.error('Failed to load smoke animation:', err));
-  }, []);
 
   // Check if showing teams view (controlled by toggle)
   const isTeamMode = viewMode === 'teams' && hasTeams;
@@ -107,6 +109,32 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
     const max = Math.max(...teamsArray.map(t => t.score || 0));
     return max > 0 ? max : 100;
   }, [teamsArray]);
+
+  // Determine if we need Lottie animations (only for specific leader themes)
+  const leaderTheme = useMemo(() => {
+    if (teamsArray.length === 0) return null;
+    const leader = teamsArray[0];
+    return (leader?.name || '').toLowerCase().replace('équipe ', '').replace('team ', '');
+  }, [teamsArray]);
+
+  // Lazy load Lottie animations only when needed
+  useEffect(() => {
+    if (leaderTheme === 'blaze' && !fireAnimation) {
+      fetch('/animations/fire-blaze.json')
+        .then(res => res.json())
+        .then(data => setFireAnimation(data))
+        .catch(err => console.error('Failed to load fire animation:', err));
+    }
+  }, [leaderTheme, fireAnimation]);
+
+  useEffect(() => {
+    if (leaderTheme === 'venom' && !smokeAnimation) {
+      fetch('/lottie/smoke.json')
+        .then(res => res.json())
+        .then(data => setSmokeAnimation(data))
+        .catch(err => console.error('Failed to load smoke animation:', err));
+    }
+  }, [leaderTheme, smokeAnimation]);
 
   // Sort by score descending (for individual mode)
   const sorted = useMemo(() =>
@@ -199,7 +227,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
 
       if (current !== target) {
         const diff = target - current;
-        const steps = 15;
+        const steps = 8; // Fewer steps for smoother performance
         const stepValue = diff / steps;
         let step = 0;
 
@@ -214,7 +242,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
               [key]: Math.round(current + stepValue * step)
             }));
           }
-        }, 40);
+        }, 80); // 80ms intervals (~12fps) - sufficient for number counters
         intervals.push(interval);
       }
     });
@@ -308,8 +336,12 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
           {/* True carousel: single container with both views that slides */}
           <motion.div
             className="carousel-track"
+            initial={false}
             animate={{ x: viewMode === 'teams' ? '0%' : '-50%' }}
-            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+            transition={{
+              duration: skipAnimationRef.current ? 0 : 0.35,
+              ease: [0.4, 0, 0.2, 1]
+            }}
           >
             {/* Teams view */}
             <div className={`carousel-slide ${isTeamMode ? 'team-mode' : ''} ${viewMode === 'teams' ? 'active' : ''} teams-count-${teamsArray.length}`} ref={viewMode === 'teams' ? listRef : null}>
@@ -341,18 +373,15 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                     )}
                     {showFrostCracks && (
                       <div className="frost-hexagons">
-                        <div className="hex hex-lg hex-1"></div><div className="hex hex-lg hex-2"></div><div className="hex hex-lg hex-3"></div>
-                        <div className="hex hex-lg hex-4"></div><div className="hex hex-lg hex-5"></div><div className="hex hex-lg hex-6"></div>
-                        <div className="hex hex-md hex-7"></div><div className="hex hex-md hex-8"></div><div className="hex hex-md hex-9"></div>
-                        <div className="hex hex-md hex-10"></div><div className="hex hex-md hex-11"></div><div className="hex hex-md hex-12"></div>
-                        <div className="hex hex-md hex-13"></div><div className="hex hex-md hex-14"></div><div className="hex hex-md hex-15"></div>
-                        <div className="hex hex-md hex-16"></div><div className="hex hex-sm hex-17"></div><div className="hex hex-sm hex-18"></div>
-                        <div className="hex hex-sm hex-19"></div><div className="hex hex-sm hex-20"></div><div className="hex hex-sm hex-21"></div>
-                        <div className="hex hex-sm hex-22"></div><div className="hex hex-sm hex-23"></div><div className="hex hex-sm hex-24"></div>
-                        <div className="hex hex-sm hex-25"></div><div className="hex hex-sm hex-26"></div><div className="hex hex-sm hex-27"></div>
-                        <div className="hex hex-sm hex-28"></div><div className="hex hex-xs hex-29"></div><div className="hex hex-xs hex-30"></div>
-                        <div className="hex hex-xs hex-31"></div><div className="hex hex-xs hex-32"></div><div className="hex hex-xs hex-33"></div>
-                        <div className="hex hex-xs hex-34"></div><div className="hex hex-xs hex-35"></div><div className="hex hex-xs hex-36"></div>
+                        {/* Reduced to 16 hexagons for better performance */}
+                        <div className="hex hex-lg hex-1"></div><div className="hex hex-lg hex-2"></div>
+                        <div className="hex hex-lg hex-3"></div><div className="hex hex-lg hex-4"></div>
+                        <div className="hex hex-md hex-5"></div><div className="hex hex-md hex-6"></div>
+                        <div className="hex hex-md hex-7"></div><div className="hex hex-md hex-8"></div>
+                        <div className="hex hex-sm hex-9"></div><div className="hex hex-sm hex-10"></div>
+                        <div className="hex hex-sm hex-11"></div><div className="hex hex-sm hex-12"></div>
+                        <div className="hex hex-xs hex-13"></div><div className="hex hex-xs hex-14"></div>
+                        <div className="hex hex-xs hex-15"></div><div className="hex hex-xs hex-16"></div>
                       </div>
                     )}
                     <div className="team-rank"><span className="rank-num">{i + 1}</span></div>
@@ -1198,55 +1227,35 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
           clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
         }
 
-        /* Size variants - extreme variation */
+        /* Size variants - optimized for 16 hexagons */
         .leaderboard-card :global(.hex-lg) { width: 42px; height: 46px; animation: hex-float-lg 3s ease-in-out infinite; }
         .leaderboard-card :global(.hex-md) { width: 24px; height: 26px; animation: hex-float-md 3.5s ease-in-out infinite; }
         .leaderboard-card :global(.hex-sm) { width: 12px; height: 14px; animation: hex-float-sm 4s ease-in-out infinite; }
         .leaderboard-card :global(.hex-xs) { width: 6px; height: 7px; animation: hex-sparkle 2s ease-in-out infinite; }
 
-        /* Large hexagons - full spread */
+        /* Large hexagons (4) - corners */
         .leaderboard-card :global(.hex-1) { left: -3%; top: -12%; animation-delay: 0s; }
-        .leaderboard-card :global(.hex-2) { left: 8%; bottom: -15%; animation-delay: 0.4s; }
-        .leaderboard-card :global(.hex-3) { right: 20%; top: -8%; animation-delay: 0.8s; }
-        .leaderboard-card :global(.hex-4) { right: 5%; bottom: -10%; animation-delay: 1.2s; }
-        .leaderboard-card :global(.hex-5) { left: 30%; top: 35%; animation-delay: 0.2s; }
-        .leaderboard-card :global(.hex-6) { right: 12%; top: 50%; animation-delay: 0.6s; }
+        .leaderboard-card :global(.hex-2) { right: 5%; top: -8%; animation-delay: 0.5s; }
+        .leaderboard-card :global(.hex-3) { left: 8%; bottom: -15%; animation-delay: 1s; }
+        .leaderboard-card :global(.hex-4) { right: 10%; bottom: -10%; animation-delay: 1.5s; }
 
-        /* Medium hexagons - all over vertically */
-        .leaderboard-card :global(.hex-7) { left: 5%; top: 8%; animation-delay: 0.1s; }
-        .leaderboard-card :global(.hex-8) { left: 25%; bottom: -5%; animation-delay: 0.5s; }
-        .leaderboard-card :global(.hex-9) { right: 30%; top: 70%; animation-delay: 0.9s; }
-        .leaderboard-card :global(.hex-10) { right: 5%; bottom: 40%; animation-delay: 1.3s; }
-        .leaderboard-card :global(.hex-11) { left: -2%; top: 60%; animation-delay: 0.3s; }
-        .leaderboard-card :global(.hex-12) { left: 50%; bottom: -8%; animation-delay: 0.7s; }
-        .leaderboard-card :global(.hex-13) { right: 15%; top: 15%; animation-delay: 1.1s; }
-        .leaderboard-card :global(.hex-14) { left: 18%; top: 75%; animation-delay: 1.5s; }
-        .leaderboard-card :global(.hex-15) { left: 60%; top: 25%; animation-delay: 0.15s; }
-        .leaderboard-card :global(.hex-16) { right: 35%; bottom: 60%; animation-delay: 0.55s; }
+        /* Medium hexagons (4) - edges */
+        .leaderboard-card :global(.hex-5) { left: 5%; top: 40%; animation-delay: 0.2s; }
+        .leaderboard-card :global(.hex-6) { right: 8%; top: 50%; animation-delay: 0.7s; }
+        .leaderboard-card :global(.hex-7) { left: 40%; top: -5%; animation-delay: 1.2s; }
+        .leaderboard-card :global(.hex-8) { left: 55%; bottom: -5%; animation-delay: 1.7s; }
 
-        /* Small hexagons - random vertical spread */
-        .leaderboard-card :global(.hex-17) { left: 10%; top: 30%; animation-delay: 0.2s; }
-        .leaderboard-card :global(.hex-18) { left: 40%; bottom: 70%; animation-delay: 0.6s; }
-        .leaderboard-card :global(.hex-19) { right: 8%; top: 80%; animation-delay: 1s; }
-        .leaderboard-card :global(.hex-20) { right: 42%; bottom: 15%; animation-delay: 1.4s; }
-        .leaderboard-card :global(.hex-21) { left: 3%; top: 85%; animation-delay: 0.25s; }
-        .leaderboard-card :global(.hex-22) { left: 35%; top: 10%; animation-delay: 0.65s; }
-        .leaderboard-card :global(.hex-23) { right: 22%; top: 92%; animation-delay: 1.05s; }
-        .leaderboard-card :global(.hex-24) { left: 55%; top: 60%; animation-delay: 1.45s; }
-        .leaderboard-card :global(.hex-25) { left: 15%; bottom: 85%; animation-delay: 0.35s; }
-        .leaderboard-card :global(.hex-26) { right: 10%; bottom: 75%; animation-delay: 0.75s; }
-        .leaderboard-card :global(.hex-27) { left: 45%; top: 45%; animation-delay: 1.15s; }
-        .leaderboard-card :global(.hex-28) { left: 6%; bottom: 30%; animation-delay: 1.55s; }
+        /* Small hexagons (4) - scattered */
+        .leaderboard-card :global(.hex-9) { left: 25%; top: 20%; animation-delay: 0.3s; }
+        .leaderboard-card :global(.hex-10) { right: 25%; top: 70%; animation-delay: 0.8s; }
+        .leaderboard-card :global(.hex-11) { left: 15%; bottom: 25%; animation-delay: 1.3s; }
+        .leaderboard-card :global(.hex-12) { right: 20%; bottom: 30%; animation-delay: 1.8s; }
 
-        /* Tiny sparkle hexagons - full vertical range */
-        .leaderboard-card :global(.hex-29) { left: 20%; top: 5%; animation-delay: 0s; }
-        .leaderboard-card :global(.hex-30) { right: 48%; bottom: 50%; animation-delay: 0.3s; }
-        .leaderboard-card :global(.hex-31) { right: 6%; top: 65%; animation-delay: 0.6s; }
-        .leaderboard-card :global(.hex-32) { left: 38%; bottom: 20%; animation-delay: 0.9s; }
-        .leaderboard-card :global(.hex-33) { left: 12%; top: 55%; animation-delay: 0.15s; }
-        .leaderboard-card :global(.hex-34) { right: 28%; top: 38%; animation-delay: 0.45s; }
-        .leaderboard-card :global(.hex-35) { left: 58%; top: 78%; animation-delay: 0.75s; }
-        .leaderboard-card :global(.hex-36) { right: 18%; bottom: 5%; animation-delay: 1.05s; }
+        /* Tiny sparkle hexagons (4) - accents */
+        .leaderboard-card :global(.hex-13) { left: 35%; top: 50%; animation-delay: 0.4s; }
+        .leaderboard-card :global(.hex-14) { right: 35%; top: 35%; animation-delay: 0.9s; }
+        .leaderboard-card :global(.hex-15) { left: 60%; top: 65%; animation-delay: 1.4s; }
+        .leaderboard-card :global(.hex-16) { right: 45%; bottom: 45%; animation-delay: 1.9s; }
 
         @keyframes hex-float-lg {
           0%, 100% {

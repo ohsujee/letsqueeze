@@ -1,6 +1,73 @@
-# Reprise de Session - Système de Présence Joueurs
+# Reprise de Session - LetsQueeze
 
-**Date:** 2026-01-22
+---
+
+## Session 2026-01-23 : Optimisation Animations & Performance
+
+**Statut:** ✅ COMPLÉTÉ
+
+### Contexte
+
+Saccades/jank observées sur l'écran de fin (podium, leaderboard) et au lancement de partie (countdown). Analyse code complète effectuée pour identifier les causes.
+
+### Causes identifiées
+
+| Cause | Impact | Fichier |
+|-------|--------|---------|
+| requestAnimationFrame loops multiples (particles) | Élevé | ParticleEffects.jsx |
+| setInterval 40ms pour animation scores | Élevé | Leaderboard.jsx |
+| 6 animations infinies Framer Motion simultanées | Moyen-Élevé | PodiumPremium.jsx |
+| 36 animations CSS hexagones Frost | Moyen | Leaderboard.jsx |
+| Import dynamique canvas-confetti au mount | Moyen | ParticleEffects.jsx |
+| Fetch Lottie JSON au mount (toujours) | Moyen | Leaderboard.jsx |
+| 14 Audio preloads simultanés | Moyen | useGameAudio.js |
+| Flash joueurs→équipes au chargement | Visible | Leaderboard.jsx |
+
+### Optimisations appliquées
+
+#### 1. PodiumPremium.jsx
+- [x] Particles différés de 800ms (au lieu de 0ms)
+- [x] Fireworks différés de 3s (au lieu de 2s)
+- [x] Stagger delays augmentés : 0/0.5/1.0s (au lieu de 0/0.3/0.6s)
+- [x] useEffect avec `[]` au lieu de `[audio]` (évite appels multiples)
+- [x] Prop `disableAnimations` ajoutée (pour usage futur)
+
+#### 2. Leaderboard.jsx
+- [x] Score animation : 80ms/8 steps (au lieu de 40ms/15 steps) → ~60% moins de re-renders
+- [x] Lottie lazy loaded seulement quand team Blaze/Venom est leader
+- [x] Hexagones Frost : 16 éléments (au lieu de 36) → ~55% moins d'animations CSS
+- [x] Fix flash joueurs→équipes :
+  - useState initialisé avec la bonne valeur selon `hasTeams`
+  - useLayoutEffect pour switch synchrone avant paint
+  - skipAnimationRef pour désactiver animation au switch auto
+  - userHasToggledRef pour ne pas override choix manuel utilisateur
+
+#### 3. useGameAudio.js
+- [x] Retour stabilisé avec useMemo (objet stable entre renders)
+
+#### 4. GameLaunchCountdown.jsx
+- [x] 8 particules par step (au lieu de 12) → ~33% moins de motion.div
+
+### Bug fix
+- [x] `ReferenceError: Cannot access 'teamsArray' before initialization` - réorganisation des useMemo
+
+### Fichiers modifiés
+```
+components/ui/PodiumPremium.jsx
+components/game/Leaderboard.jsx
+components/transitions/GameLaunchCountdown.jsx
+lib/hooks/useGameAudio.js
+```
+
+### Notes
+- Les optimisations s'appliquent à Quiz, BlindTest et DeezTest (composants partagés)
+- L'écran de fin utilise `env(safe-area-inset-bottom)` pour iOS/Android
+- `viewportFit: 'cover'` configuré dans layout.js
+
+---
+
+## Session 2026-01-22 : Système de Présence Joueurs
+
 **Statut:** ✅ COMPLÉTÉ (Phases 1-5)
 
 ---

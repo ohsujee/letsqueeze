@@ -154,13 +154,13 @@ function CountdownParticles({ color, step }) {
   useEffect(() => {
     if (step < 0) return; // Pas de particules avant le countdown
 
-    // Génère de nouvelles particules à chaque changement de step
-    const newParticles = [...Array(12)].map((_, i) => ({
+    // Génère de nouvelles particules à chaque changement de step (reduced for performance)
+    const newParticles = [...Array(8)].map((_, i) => ({
       id: `${step}-${i}`,
-      angle: (i / 12) * Math.PI * 2,
-      distance: 150 + Math.random() * 100,
-      size: 4 + Math.random() * 6,
-      duration: 0.4 + Math.random() * 0.2,
+      angle: (i / 8) * Math.PI * 2,
+      distance: 120 + Math.random() * 80,
+      size: 5 + Math.random() * 5,
+      duration: 0.35 + Math.random() * 0.15,
     }));
     setParticles(newParticles);
   }, [step]);

@@ -4,17 +4,31 @@ import { useEffect } from 'react';
 import { useGameAudio } from '@/lib/hooks/useGameAudio';
 import { ParticleEffects } from '@/components/shared/ParticleEffects';
 
-export const PodiumPremium = ({ topPlayers }) => {
+export const PodiumPremium = ({ topPlayers, disableAnimations = false }) => {
   const audio = useGameAudio();
 
   useEffect(() => {
     // Son de victoire (joue une seule fois)
     audio.play('victory/end-celebration', { volume: 0.4 });
 
-    // Feu d'artifice
-    ParticleEffects.starRain();
-    setTimeout(() => ParticleEffects.fireworks(), 2000);
-  }, [audio]);
+    // Skip particles if animations disabled, or defer them
+    if (disableAnimations) return;
+
+    // Defer particle effects to avoid competing with initial animations
+    const particleTimer = setTimeout(() => {
+      ParticleEffects.starRain();
+    }, 800); // Wait for podium animations to settle
+
+    const fireworksTimer = setTimeout(() => {
+      ParticleEffects.fireworks();
+    }, 3000); // Start fireworks after starRain
+
+    return () => {
+      clearTimeout(particleTimer);
+      clearTimeout(fireworksTimer);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty deps - run once on mount only
 
   // Ordre podium: 2nd, 1st, 3rd
   const podiumOrder = [
@@ -76,11 +90,11 @@ export const PodiumPremium = ({ topPlayers }) => {
               zIndex: isWinner ? 10 : 5,
               position: 'relative'
             }}
-            initial={{ y: 100, opacity: 0 }}
+            initial={disableAnimations ? false : { y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{
-              delay: ranks[i] === 1 ? 0.3 : ranks[i] === 2 ? 0 : 0.6,
-              duration: 0.5,
+            transition={disableAnimations ? { duration: 0 } : {
+              delay: ranks[i] === 1 ? 0.5 : ranks[i] === 2 ? 0 : 1.0,
+              duration: 0.6,
               ease: "easeOut"
             }}
           >
@@ -220,11 +234,11 @@ export const PodiumPremium = ({ topPlayers }) => {
                 position: 'relative',
                 overflow: 'hidden'
               }}
-              initial={{ height: 0 }}
+              initial={disableAnimations ? false : { height: 0 }}
               animate={{ height: podiumHeights[i] }}
-              transition={{
-                delay: ranks[i] === 1 ? 0.5 : ranks[i] === 2 ? 0.2 : 0.8,
-                duration: 1,
+              transition={disableAnimations ? { duration: 0 } : {
+                delay: ranks[i] === 1 ? 0.7 : ranks[i] === 2 ? 0.2 : 1.2,
+                duration: 0.8,
                 ease: "easeOut"
               }}
             >
