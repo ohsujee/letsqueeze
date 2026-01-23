@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { db, ref, onValue, update, auth, onAuthStateChanged } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
+import { EndScreenFooter } from "@/components/transitions";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useToast } from "@/lib/hooks/useToast";
@@ -459,40 +460,25 @@ export default function TrouveRegleEndPage() {
             </motion.div>
           )}
 
-          {/* Action Button */}
-          {showResult && (
-            <motion.div
-              className="action-section"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-            >
-              <button
-                className="action-btn"
-                onClick={() => {
-                  if (!hostPresent) {
-                    router.push('/home');
-                  } else if (isHost) {
-                    handleBackToLobby();
-                  } else {
-                    router.push(`/trouveregle/room/${code}`);
-                  }
-                }}
-              >
-                {!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
-              </button>
-              <p className="action-hint">
-                {!hostPresent
-                  ? "L'hôte a quitté la partie"
-                  : isHost
-                    ? "Retourne au lobby pour relancer une partie"
-                    : "Retourne au lobby en attendant la prochaine partie"
-                }
-              </p>
-            </motion.div>
-          )}
         </main>
       </div>
+
+      {/* Footer */}
+      {showResult && (
+        <EndScreenFooter
+          gameColor="#06b6d4"
+          label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+          onNewGame={() => {
+            if (!hostPresent) {
+              router.push('/home');
+            } else if (isHost) {
+              handleBackToLobby();
+            } else {
+              router.push(`/trouveregle/room/${code}`);
+            }
+          }}
+        />
+      )}
 
       <style jsx>{`
         .end-page {
@@ -703,58 +689,6 @@ export default function TrouveRegleEndPage() {
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.08);
           color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* Action Section */
-        .action-section {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          margin-top: 0.5rem;
-        }
-
-        .action-btn {
-          width: 100%;
-          padding: 18px 32px;
-          border: none;
-          border-radius: 14px;
-          cursor: pointer;
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.1rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: #0a0a0f;
-          background: linear-gradient(135deg, ${CYAN_LIGHT} 0%, ${CYAN_PRIMARY} 50%, ${CYAN_DARK} 100%);
-          box-shadow:
-            0 5px 0 #0e7490,
-            0 8px 20px rgba(6, 182, 212, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-          transition: all 0.15s ease;
-        }
-
-        .action-btn:hover {
-          transform: translateY(-2px);
-          box-shadow:
-            0 7px 0 #0e7490,
-            0 10px 25px rgba(6, 182, 212, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.25);
-        }
-
-        .action-btn:active {
-          transform: translateY(3px);
-          box-shadow:
-            0 2px 0 #0e7490,
-            0 4px 10px rgba(6, 182, 212, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        }
-
-        .action-hint {
-          font-family: var(--font-body, 'Inter'), sans-serif;
-          font-size: 0.85rem;
-          color: rgba(255, 255, 255, 0.45);
-          text-align: center;
-          margin: 8px 0 0 0;
         }
 
         /* Responsive */

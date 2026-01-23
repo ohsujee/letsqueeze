@@ -13,6 +13,7 @@ import {
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
 import BottomNav from "@/lib/components/BottomNav";
+import { EndScreenFooter } from "@/components/transitions";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { hueScenariosService } from "@/lib/hue-module";
 import { recordAlibiGame } from "@/lib/services/statsService";
@@ -585,36 +586,26 @@ export default function AlibiEnd() {
             </AnimatePresence>
           </motion.div>
 
-          {/* Bouton retour au lobby */}
-          <motion.div
-            className="alibi-end-actions"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-          >
-            <button
-              className="alibi-end-btn"
-              onClick={() => {
-                if (!hostPresent) {
-                  router.push('/home');
-                } else if (isHost) {
-                  handleReturnToLobby();
-                } else {
-                  router.push(`/alibi/room/${code}`);
-                }
-              }}
-            >
-              {!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
-            </button>
-            <p className="alibi-end-hint">
-              {!hostPresent
-                ? "L'hôte a quitté la partie"
-                : isHost
-                  ? "Vous pourrez choisir un nouvel alibi et relancer une partie"
-                  : "Retourne au lobby pour la prochaine partie"
+          {/* End Screen Footer */}
+          <EndScreenFooter
+            gameColor="#f59e0b"
+            label={!hostPresent
+              ? "L'hote a quitte la partie"
+              : isHost
+                ? "Vous pourrez choisir un nouvel alibi"
+                : "Retourne au lobby pour la prochaine partie"
+            }
+            onNewGame={() => {
+              if (!hostPresent) {
+                router.push('/home');
+              } else if (isHost) {
+                handleReturnToLobby();
+              } else {
+                router.push(`/alibi/room/${code}`);
               }
-            </p>
-          </motion.div>
+            }}
+            buttonText={!hostPresent ? "Retour a l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+          />
         </main>
 
         <BottomNav />
@@ -818,55 +809,6 @@ export default function AlibiEnd() {
             font-size: 1.25rem !important;
             font-weight: 600 !important;
             color: white !important;
-            margin: 0 !important;
-          }
-
-          /* Actions section */
-          .alibi-end-actions {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 1rem !important;
-          }
-
-          /* Button - Space Grotesk font */
-          .alibi-end-btn {
-            width: 100% !important;
-            padding: 1rem 2rem !important;
-            background: linear-gradient(135deg, #f59e0b, #d97706) !important;
-            border: none !important;
-            border-radius: 14px !important;
-            font-family: 'Space Grotesk', sans-serif !important;
-            font-size: 1.125rem !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.05em !important;
-            color: white !important;
-            cursor: pointer !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            box-shadow:
-              0 4px 20px rgba(245, 158, 11, 0.4),
-              0 0 40px rgba(245, 158, 11, 0.2),
-              inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-          }
-
-          .alibi-end-btn:hover {
-            transform: translateY(-2px) !important;
-            box-shadow:
-              0 6px 30px rgba(245, 158, 11, 0.5),
-              0 0 50px rgba(245, 158, 11, 0.3),
-              inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
-          }
-
-          .alibi-end-btn:active {
-            transform: translateY(1px) scale(0.98) !important;
-          }
-
-          /* Hint text */
-          .alibi-end-hint {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 0.875rem !important;
-            color: rgba(255, 255, 255, 0.5) !important;
-            text-align: center !important;
             margin: 0 !important;
           }
 

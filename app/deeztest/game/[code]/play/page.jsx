@@ -7,6 +7,7 @@ import {
 import Buzzer from "@/components/game/Buzzer";
 import Leaderboard from "@/components/game/Leaderboard";
 import { motion, AnimatePresence } from "framer-motion";
+import { GameEndTransition } from "@/components/transitions";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import GamePlayHeader from "@/components/game/GamePlayHeader";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
@@ -32,12 +33,14 @@ export default function DeezTestPlayerGame() {
   const [meta, setMeta] = useState(null);
   const [playlist, setPlaylist] = useState(null);
   const [myUid, setMyUid] = useState(null);
+  const [showEndTransition, setShowEndTransition] = useState(false);
+  const endTransitionTriggeredRef = useRef(false);
 
   // Centralized players hook
   const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms_deeztest' });
 
   // Server time sync (300ms tick for score updates)
-  const { serverNow } = useServerTime(300);
+  const { serverNow, offset } = useServerTime(300);
 
   // Auth
   useEffect(() => {
@@ -92,7 +95,10 @@ export default function DeezTestPlayerGame() {
   useEffect(() => {
     const u1 = onValue(ref(db, `rooms_deeztest/${code}/state`), s => {
       const v = s.val(); setState(v);
-      if (v?.phase === "ended") router.replace(`/deeztest/game/${code}/end`);
+      if (v?.phase === "ended" && !endTransitionTriggeredRef.current) {
+        endTransitionTriggeredRef.current = true;
+        setShowEndTransition(true);
+      }
       if (v?.phase === "lobby") router.replace(`/deeztest/room/${code}`);
     });
     const u2 = onValue(ref(db, `rooms_deeztest/${code}/meta`), s => {
@@ -158,6 +164,16 @@ export default function DeezTestPlayerGame() {
 
   return (
     <div className={`deeztest-player-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
+      {/* Game End Transition (pas si room fermée - useRoomGuard gère la redirection) */}
+      <AnimatePresence>
+        {showEndTransition && !meta?.closed && (
+          <GameEndTransition
+            variant="deeztest"
+            onComplete={() => router.replace(`/deeztest/game/${code}/end`)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Glow when it's my turn */}
       <AnimatePresence>
         {isMyTurn && (
@@ -233,7 +249,7 @@ export default function DeezTestPlayerGame() {
         </div>
 
         {/* Leaderboard */}
-        <Leaderboard players={players} currentPlayerUid={me?.uid} />
+        <Leaderboard players={players} currentPlayerUid={me?.uid} mode={meta?.mode} teams={meta?.teams} />
       </main>
 
       {/* Buzzer */}

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, X, UserX, WifiOff, Crown } from 'lucide-react';
-import { ref, remove, update } from 'firebase/database';
+import { ref, remove, update, set } from 'firebase/database';
 import { db } from '@/lib/firebase';
 
 /**
@@ -48,14 +48,20 @@ export default function PlayerManager({
 
     const code = String(roomCode).toUpperCase();
     const playerPath = `${roomPrefix}/${code}/players/${player.uid}`;
+    const kickedPath = `${roomPrefix}/${code}/kickedPlayers/${player.uid}`;
+    const presencePath = `${roomPrefix}/${code}/presence/${player.uid}`;
 
-    if (phase === 'lobby') {
-      // En lobby : supprimer complètement le joueur
-      await remove(ref(db, playerPath));
-    } else {
-      // En jeu : marquer comme kicked (supprimé définitivement)
-      await remove(ref(db, playerPath));
-    }
+    // 1. Marquer comme kicked AVANT de supprimer (permet au client de distinguer kick vs déconnexion)
+    await set(ref(db, kickedPath), {
+      at: Date.now(),
+      by: hostUid
+    });
+
+    // 2. Supprimer le joueur
+    await remove(ref(db, playerPath));
+
+    // 3. Supprimer la présence
+    await remove(ref(db, presencePath)).catch(() => {});
 
     setConfirmKick(null);
   };

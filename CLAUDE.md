@@ -20,11 +20,11 @@
 
 **Après TOUT changement UI/CSS (styles, layout, composants visuels):**
 
-1. **Vérifier** le rendu avec MCP Chrome DevTools (`take_screenshot` ou `take_snapshot`)
-2. **Comparer** le résultat visuel avec l'intention
-3. **Corriger** immédiatement si le rendu ne correspond pas
+1. **NE PAS** prendre de screenshots pour auto-vérifier
+2. **Laisser l'utilisateur** vérifier le rendu et donner son feedback
+3. **Attendre** les instructions de l'utilisateur avant de corriger
 
-**Pourquoi:** Le CSS peut ne pas s'appliquer comme prévu (styled-jsx, conflits, hot reload). Toujours valider visuellement.
+**Pourquoi:** L'analyse automatique des screenshots n'est pas fiable et crée des problèmes supplémentaires. L'utilisateur voit le rendu en temps réel et peut donner un feedback précis.
 
 ---
 

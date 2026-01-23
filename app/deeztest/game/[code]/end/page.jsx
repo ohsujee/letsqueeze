@@ -5,6 +5,7 @@ import { db, ref, onValue, update } from "@/lib/firebase";
 import { PodiumPremium } from "@/components/ui/PodiumPremium";
 import Leaderboard from "@/components/game/Leaderboard";
 import { motion } from "framer-motion";
+import { EndScreenFooter } from "@/components/transitions";
 import { useToast } from "@/lib/hooks/useToast";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
@@ -143,30 +144,24 @@ export default function DeezTestEndPage() {
 
         {/* Leaderboard */}
         <div className="leaderboard-wrapper">
-          <Leaderboard players={rankedPlayers} currentPlayerUid={myUid} />
+          <Leaderboard players={rankedPlayers} currentPlayerUid={myUid} teams={meta?.teams} />
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="end-footer">
-        <button
-          className="action-btn"
-          onClick={() => {
-            if (!hostPresent) {
-              // Host left - everyone goes home
-              router.push('/home');
-            } else if (isHost) {
-              // Host starts new game
-              handleBackToLobby();
-            } else {
-              // Player returns to lobby
-              router.push(`/deeztest/room/${code}`);
-            }
-          }}
-        >
-          {!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
-        </button>
-      </footer>
+      <EndScreenFooter
+        gameColor="#A238FF"
+        label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+        onNewGame={() => {
+          if (!hostPresent) {
+            router.push('/home');
+          } else if (isHost) {
+            handleBackToLobby();
+          } else {
+            router.push(`/deeztest/room/${code}`);
+          }
+        }}
+      />
 
       <style jsx>{`
         /* ===== LAYOUT ===== */
@@ -247,61 +242,6 @@ export default function DeezTestEndPage() {
           overflow: hidden;
           position: relative;
           z-index: 3;
-        }
-
-        /* ===== FOOTER ===== */
-        .end-footer {
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
-          padding: 16px;
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          border-top: 1px solid rgba(162, 56, 255, 0.3);
-        }
-
-        .action-btn {
-          display: block;
-          width: 100%;
-          max-width: 400px;
-          margin: 0 auto;
-          padding: 18px 32px;
-          border: none;
-          border-radius: 14px;
-          cursor: pointer;
-
-          /* Typography */
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.1rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: white;
-
-          /* Deezer gradient + 3D depth */
-          background: linear-gradient(135deg, ${DEEZER_LIGHT} 0%, ${DEEZER_PURPLE} 50%, ${DEEZER_PINK} 100%);
-          box-shadow:
-            0 5px 0 #7B2BD9,
-            0 8px 15px rgba(162, 56, 255, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-
-          transition: all 0.15s ease;
-        }
-
-        .action-btn:hover {
-          transform: translateY(-2px);
-          box-shadow:
-            0 7px 0 #7B2BD9,
-            0 10px 20px rgba(162, 56, 255, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.25);
-        }
-
-        .action-btn:active {
-          transform: translateY(3px);
-          box-shadow:
-            0 2px 0 #7B2BD9,
-            0 4px 8px rgba(162, 56, 255, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
       `}</style>
     </div>

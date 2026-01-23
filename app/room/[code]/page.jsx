@@ -22,13 +22,17 @@ import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { usePresence } from "@/lib/hooks/usePresence";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
+import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { getQuizManifest } from "@/lib/utils/manifestCache";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Users, Zap } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
+import { GameLaunchCountdown } from "@/components/transitions";
 
 export default function Room() {
   const { code } = useParams();
@@ -46,6 +50,10 @@ export default function Room() {
   const [joinUrl, setJoinUrl] = useState("");
   const roomWasValidRef = useRef(false);
   const [myUid, setMyUid] = useState(null);
+  const [showCountdown, setShowCountdown] = useState(false);
+  const countdownTriggeredRef = useRef(false);
+  const [isPlayerMissing, setIsPlayerMissing] = useState(false);
+  const [rejoinError, setRejoinError] = useState(null);
 
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
@@ -82,8 +90,17 @@ export default function Room() {
 
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
 
+  // Presence hook - real-time connection tracking
+  const { isConnected, forceReconnect } = usePresence({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    playerUid: myUid,
+    heartbeatInterval: 15000,
+    enabled: !isHost && !!myUid
+  });
+
   // Player cleanup hook with auto-rejoin for hard refresh
-  const { leaveRoom } = usePlayerCleanup({
+  const { leaveRoom, attemptRejoin, isRejoining } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms',
     playerUid: myUid,
@@ -98,7 +115,16 @@ export default function Room() {
       blockedUntil: 0,
       joinedAt: Date.now()
     }),
-    onRejoinFailed: () => router.push('/home')
+    onPlayerRemoved: () => {
+      if (!isHost) setIsPlayerMissing(true);
+    },
+    onRejoinSuccess: () => {
+      setIsPlayerMissing(false);
+      setRejoinError(null);
+    },
+    onRejoinFailed: (err) => {
+      setRejoinError(err?.message || 'Impossible de rejoindre');
+    }
   });
 
   // Room guard - détecte kick et fermeture room (pour joueurs non-hôte)
@@ -106,6 +132,14 @@ export default function Room() {
     roomCode: code,
     roomPrefix: 'rooms',
     playerUid: myUid,
+    isHost,
+    skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  const { closeRoom } = useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms',
     isHost
   });
 
@@ -131,12 +165,10 @@ export default function Room() {
 
     const stateUnsub = onValue(ref(db, `rooms/${code}/state`), (snap) => {
       const state = snap.val();
-      if (state?.phase === "playing") {
-        if (isHost) {
-          router.push(`/game/${code}/host`);
-        } else {
-          router.push(`/game/${code}/play`);
-        }
+      if (state?.phase === "playing" && !countdownTriggeredRef.current) {
+        // Afficher le countdown avant de redirect
+        countdownTriggeredRef.current = true;
+        setShowCountdown(true);
       }
     });
 
@@ -376,6 +408,32 @@ export default function Room() {
         onClose={() => setShowHowToPlay(false)}
         gameType="quiz"
       />
+
+      {/* Lobby Disconnect Alert */}
+      <LobbyDisconnectAlert
+        isVisible={isPlayerMissing && !isHost}
+        isRejoining={isRejoining}
+        onRejoin={attemptRejoin}
+        onGoHome={() => router.push('/home')}
+        error={rejoinError}
+        gameColor="#8b5cf6"
+      />
+
+      {/* Countdown de lancement */}
+      <AnimatePresence>
+        {showCountdown && (
+          <GameLaunchCountdown
+            gameColor="#8b5cf6"
+            onComplete={() => {
+              if (isHost) {
+                router.push(`/game/${code}/host`);
+              } else {
+                router.push(`/game/${code}/play`);
+              }
+            }}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Header */}
       <LobbyHeader

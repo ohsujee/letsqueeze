@@ -10,9 +10,11 @@ import {
   update,
   onAuthStateChanged,
 } from "@/lib/firebase";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { GameEndTransition } from "@/components/transitions";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useToast } from "@/lib/hooks/useToast";
@@ -33,9 +35,11 @@ export default function TrouveRegleInvestigatePage() {
   const [state, setState] = useState(null);
   const [myUid, setMyUid] = useState(null);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [showEndTransition, setShowEndTransition] = useState(false);
 
   // Ref to prevent multiple auto-confirm triggers
   const autoConfirmTriggeredRef = useRef(false);
+  const endTransitionTriggeredRef = useRef(false);
 
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_trouveregle' });
 
@@ -56,6 +60,13 @@ export default function TrouveRegleInvestigatePage() {
     roomPrefix: 'rooms_trouveregle',
     playerUid: myUid,
     isHost: false
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms_trouveregle',
+    isHost
   });
 
   // Player cleanup (phase: 'playing' to preserve score if disconnect)
@@ -92,8 +103,9 @@ export default function TrouveRegleInvestigatePage() {
       // Redirect on phase changes
       if (s?.phase === 'lobby') {
         router.push(`/trouveregle/room/${code}`);
-      } else if (s?.phase === 'ended') {
-        router.push(`/trouveregle/game/${code}/end`);
+      } else if (s?.phase === 'ended' && !endTransitionTriggeredRef.current) {
+        endTransitionTriggeredRef.current = true;
+        setShowEndTransition(true);
       }
     });
 
@@ -382,6 +394,16 @@ export default function TrouveRegleInvestigatePage() {
 
   return (
     <div className="trouve-investigate game-page">
+      {/* End Transition */}
+      <AnimatePresence>
+        {showEndTransition && (
+          <GameEndTransition
+            variant="trouveregle"
+            onComplete={() => router.replace(`/trouveregle/game/${code}/end`)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <header className="investigate-header">
         <div className="header-left">

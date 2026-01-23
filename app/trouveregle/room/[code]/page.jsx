@@ -14,11 +14,15 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
+import { GameLaunchCountdown } from "@/components/transitions";
 import LobbyHeader from "@/components/game/LobbyHeader";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
+import { usePresence } from "@/lib/hooks/usePresence";
+import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { Search, Users, Clock, Shuffle, Check } from "lucide-react";
@@ -42,7 +46,11 @@ export default function TrouveRegleLobby() {
   const [hostJoined, setHostJoined] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [selectedInvestigators, setSelectedInvestigators] = useState([]);
+  const [showCountdown, setShowCountdown] = useState(false);
   const roomWasValidRef = useRef(false);
+  const countdownTriggeredRef = useRef(false);
+  const [isPlayerMissing, setIsPlayerMissing] = useState(false);
+  const [rejoinError, setRejoinError] = useState(null);
 
   // Settings
   const [mode, setMode] = useState('meme_piece'); // 'meme_piece' | 'a_distance'
@@ -84,11 +92,28 @@ export default function TrouveRegleLobby() {
     roomCode: code,
     roomPrefix: 'rooms_trouveregle',
     playerUid: myUid,
+    isHost,
+    skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms_trouveregle',
     isHost
   });
 
+  // Presence hook - real-time connection tracking
+  const { isConnected, forceReconnect } = usePresence({
+    roomCode: code,
+    roomPrefix: 'rooms_trouveregle',
+    playerUid: myUid,
+    heartbeatInterval: 15000,
+    enabled: !isHost && !!myUid
+  });
+
   // Player cleanup with auto-rejoin for hard refresh
-  const { leaveRoom, markVoluntaryLeave } = usePlayerCleanup({
+  const { leaveRoom, markVoluntaryLeave, attemptRejoin, isRejoining } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_trouveregle',
     playerUid: myUid,
@@ -102,7 +127,16 @@ export default function TrouveRegleLobby() {
       role: 'player',
       joinedAt: Date.now()
     }),
-    onRejoinFailed: () => router.push('/home')
+    onPlayerRemoved: () => {
+      if (!isHost) setIsPlayerMissing(true);
+    },
+    onRejoinSuccess: () => {
+      setIsPlayerMissing(false);
+      setRejoinError(null);
+    },
+    onRejoinFailed: (err) => {
+      setRejoinError(err?.message || 'Impossible de rejoindre');
+    }
   });
 
   // DB listeners
@@ -123,14 +157,9 @@ export default function TrouveRegleLobby() {
 
     const stateUnsub = onValue(ref(db, `rooms_trouveregle/${code}/state`), (snap) => {
       const state = snap.val();
-      if (state?.phase === "choosing") {
-        // Redirect based on role
-        const myPlayer = players.find(p => p.uid === myUid);
-        if (myPlayer?.role === 'investigator') {
-          router.push(`/trouveregle/game/${code}/investigate`);
-        } else {
-          router.push(`/trouveregle/game/${code}/play`);
-        }
+      if (state?.phase === "choosing" && !countdownTriggeredRef.current) {
+        countdownTriggeredRef.current = true;
+        setShowCountdown(true);
       }
     });
 
@@ -271,11 +300,38 @@ export default function TrouveRegleLobby() {
 
   return (
     <div className="trouveregle-lobby game-page">
+      {/* Launch Countdown */}
+      <AnimatePresence>
+        {showCountdown && (
+          <GameLaunchCountdown
+            gameColor="#06b6d4"
+            onComplete={() => {
+              const myPlayer = players.find(p => p.uid === myUid);
+              if (myPlayer?.role === 'investigator') {
+                router.push(`/trouveregle/game/${code}/investigate`);
+              } else {
+                router.push(`/trouveregle/game/${code}/play`);
+              }
+            }}
+          />
+        )}
+      </AnimatePresence>
+
       {/* How To Play Modal */}
       <HowToPlayModal
         isOpen={showHowToPlay}
         onClose={() => setShowHowToPlay(false)}
         gameType="trouveregle"
+      />
+
+      {/* Lobby Disconnect Alert */}
+      <LobbyDisconnectAlert
+        isVisible={isPlayerMissing && !isHost}
+        isRejoining={isRejoining}
+        onRejoin={attemptRejoin}
+        onGoHome={() => router.push('/home')}
+        error={rejoinError}
+        gameColor="#06b6d4"
       />
 
       {/* Header */}

@@ -20,10 +20,11 @@ import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
-import { AlibiPhaseTransition } from "@/components/alibi/AlibiPhaseTransition";
 import { VerdictTransition } from "@/components/alibi/VerdictTransition";
+import { GameEndTransition } from "@/components/transitions";
 import { hueScenariosService } from "@/lib/hue-module";
 
 export default function AlibiInterrogation() {
@@ -44,6 +45,13 @@ export default function AlibiInterrogation() {
     roomCode: code,
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
+    isHost
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
     isHost
   });
 
@@ -73,12 +81,13 @@ export default function AlibiInterrogation() {
   const [timeLeft, setTimeLeft] = useState(30);
   const [allAnswered, setAllAnswered] = useState(false);
   const [myAnswer, setMyAnswer] = useState("");
-  const [showCountdown, setShowCountdown] = useState(false);
+  const [showEndTransition, setShowEndTransition] = useState(false);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [responses, setResponses] = useState({});
   const [verdict, setVerdict] = useState(null);
   const timerRef = useRef(null);
   const timeoutTriggeredRef = useRef(null);
+  const endTransitionTriggeredRef = useRef(false);
 
   // Fonction pour quitter et retourner au lobby
   async function exitGame() {
@@ -100,8 +109,8 @@ export default function AlibiInterrogation() {
     router.push(`/alibi/room/${code}`);
   }
 
-  const handleCountdownComplete = () => {
-    router.push(`/alibi/game/${code}/end`);
+  const handleEndTransitionComplete = () => {
+    router.replace(`/alibi/game/${code}/end`);
   };
 
   // Auth - only set myUid
@@ -172,8 +181,9 @@ export default function AlibiInterrogation() {
 
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
       const state = snap.val();
-      if (state?.phase === "end" && !showCountdown) {
-        setShowCountdown(true);
+      if (state?.phase === "end" && !endTransitionTriggeredRef.current) {
+        endTransitionTriggeredRef.current = true;
+        setShowEndTransition(true);
       }
       if (state?.phase === "lobby") {
         router.push(`/alibi/room/${code}`);
@@ -184,7 +194,7 @@ export default function AlibiInterrogation() {
       interroUnsub();
       stateUnsub();
     };
-  }, [code, router, isHost, showCountdown]);
+  }, [code, router, isHost]);
 
   // Timer (host only)
   useEffect(() => {
@@ -731,15 +741,15 @@ export default function AlibiInterrogation() {
         duration={3500}
       />
 
-      {/* Phase Transition to End */}
-      <AlibiPhaseTransition
-        isVisible={showCountdown}
-        title="Enquête Terminée"
-        subtitle="Découvrez les résultats..."
-        type="end"
-        onComplete={handleCountdownComplete}
-        duration={3500}
-      />
+      {/* End Transition */}
+      <AnimatePresence>
+        {showEndTransition && (
+          <GameEndTransition
+            variant="alibi"
+            onComplete={handleEndTransitionComplete}
+          />
+        )}
+      </AnimatePresence>
 
       <style jsx global>{`
         html, body {

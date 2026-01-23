@@ -22,12 +22,16 @@ import { canAccessPack, isPro } from "@/lib/subscription";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { usePresence } from "@/lib/hooks/usePresence";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
+import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { getAlibiManifest } from "@/lib/utils/manifestCache";
 import { ChevronRight, Shuffle, RotateCcw, X, UserPlus } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
+import { GameLaunchCountdown } from "@/components/transitions";
 
 export default function AlibiLobby() {
   const { code } = useParams();
@@ -49,7 +53,11 @@ export default function AlibiLobby() {
   const [lockedAlibiName, setLockedAlibiName] = useState('');
   const [expandedRole, setExpandedRole] = useState(null);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [showCountdown, setShowCountdown] = useState(false);
   const roomWasValidRef = useRef(false);
+  const countdownTriggeredRef = useRef(false);
+  const [isPlayerMissing, setIsPlayerMissing] = useState(false);
+  const [rejoinError, setRejoinError] = useState(null);
 
   // Get user profile for subscription check and pseudo
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
@@ -104,8 +112,17 @@ export default function AlibiLobby() {
     }
   }, [isHost, hostJoined, userPseudo, profileLoading, code]);
 
+  // Presence hook - real-time connection tracking
+  const { isConnected, forceReconnect } = usePresence({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
+    playerUid: myUid,
+    heartbeatInterval: 15000,
+    enabled: !isHost && !!myUid
+  });
+
   // Player cleanup with auto-rejoin for hard refresh
-  const { leaveRoom } = usePlayerCleanup({
+  const { leaveRoom, attemptRejoin, isRejoining } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
@@ -118,7 +135,16 @@ export default function AlibiLobby() {
       team: null,
       joinedAt: Date.now()
     }),
-    onRejoinFailed: () => router.push('/home')
+    onPlayerRemoved: () => {
+      if (!isHost) setIsPlayerMissing(true);
+    },
+    onRejoinSuccess: () => {
+      setIsPlayerMissing(false);
+      setRejoinError(null);
+    },
+    onRejoinFailed: (err) => {
+      setRejoinError(err?.message || 'Impossible de rejoindre');
+    }
   });
 
   // Room guard - détecte kick et fermeture room
@@ -126,6 +152,14 @@ export default function AlibiLobby() {
     roomCode: code,
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
+    isHost,
+    skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
     isHost
   });
 
@@ -148,8 +182,9 @@ export default function AlibiLobby() {
 
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
       const state = snap.val();
-      if (state?.phase === "prep") {
-        router.push(`/alibi/game/${code}/prep`);
+      if (state?.phase === "prep" && !countdownTriggeredRef.current) {
+        countdownTriggeredRef.current = true;
+        setShowCountdown(true);
       }
     });
 
@@ -350,6 +385,16 @@ export default function AlibiLobby() {
         isOpen={showHowToPlay}
         onClose={() => setShowHowToPlay(false)}
         gameType="alibi"
+      />
+
+      {/* Lobby Disconnect Alert */}
+      <LobbyDisconnectAlert
+        isVisible={isPlayerMissing && !isHost}
+        isRejoining={isRejoining}
+        onRejoin={attemptRejoin}
+        onGoHome={() => router.push('/home')}
+        error={rejoinError}
+        gameColor="#f59e0b"
       />
 
       {/* Header */}
@@ -709,6 +754,16 @@ export default function AlibiLobby() {
           </div>
         )}
       </main>
+
+      {/* Game Launch Countdown Transition */}
+      <AnimatePresence>
+        {showCountdown && (
+          <GameLaunchCountdown
+            gameColor="#f59e0b"
+            onComplete={() => router.push(`/alibi/game/${code}/prep`)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

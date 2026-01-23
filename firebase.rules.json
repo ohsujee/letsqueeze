@@ -64,6 +64,18 @@
           },
           ".read": "auth != null"
         },
+        "presence": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        "kickedPlayers": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val()"
+          }
+        },
         "history": {
           ".write": "auth != null && auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val()"
         },
@@ -127,6 +139,18 @@
             ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val() )"
           },
           ".read": "auth != null"
+        },
+        "presence": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        "kickedPlayers": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()"
+          }
         }
       }
     },
@@ -167,6 +191,18 @@
             ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() )"
           },
           ".read": "auth != null"
+        },
+        "presence": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        "kickedPlayers": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val()"
+          }
         },
         "tracks": {
           ".read": "auth != null",
@@ -215,6 +251,18 @@
           },
           ".read": "auth != null"
         },
+        "presence": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        "kickedPlayers": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val()"
+          }
+        },
         "tracks": {
           ".read": "auth != null",
           ".write": "auth != null && auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val()"
@@ -249,6 +297,18 @@
             ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_trouveregle/'+$code+'/meta/hostUid').val() )"
           },
           ".read": "auth != null"
+        },
+        "presence": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        "kickedPlayers": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == root.child('rooms_trouveregle/'+$code+'/meta/hostUid').val()"
+          }
         }
       }
     }

@@ -20,13 +20,21 @@ import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { usePresence } from "@/lib/hooks/usePresence";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
+import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
-import { ChevronRight, Music, Search, LogIn, Check, X, Users, Zap } from "lucide-react";
+import { ChevronRight, Music, Search, LogIn, Check, X } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
+import { useTeamMode } from "@/lib/hooks/useTeamMode";
 import { isSpotifyConnected, startSpotifyAuth, clearTokens } from "@/lib/spotify/auth";
 import { getCurrentUser, isPremiumUser, searchPlaylists, getUserPlaylists, getRandomTracksFromPlaylist } from "@/lib/spotify/api";
+import { GameLaunchCountdown } from "@/components/transitions";
+import TeamModeSelector from "@/components/game/TeamModeSelector";
+import TeamPlayerView from "@/components/game/TeamPlayerView";
+import TeamTabs from "@/lib/components/TeamTabs";
 
 // Nombre max de playlists pour non-Pro
 const MAX_PLAYLISTS_FREE = 3;
@@ -45,6 +53,10 @@ export default function BlindTestLobby() {
   const [showPlaylistSelector, setShowPlaylistSelector] = useState(false);
   const roomWasValidRef = useRef(false);
   const [myUid, setMyUid] = useState(null);
+  const [showCountdown, setShowCountdown] = useState(false);
+  const countdownTriggeredRef = useRef(false);
+  const [isPlayerMissing, setIsPlayerMissing] = useState(false);
+  const [rejoinError, setRejoinError] = useState(null);
 
   // Spotify state
   const [spotifyConnected, setSpotifyConnected] = useState(false);
@@ -64,6 +76,26 @@ export default function BlindTestLobby() {
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
+
+  // Centralized team mode hook
+  const {
+    mode,
+    isTeamMode,
+    teams: teamModeTeams,
+    teamCount,
+    handleModeToggle,
+    handleTeamCountChange,
+    handleAssignToTeam,
+    handleRemoveFromTeam,
+    handleAutoBalance,
+    handleResetTeams
+  } = useTeamMode({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
+    meta,
+    players,
+    isHost
+  });
 
   // Check if can use more playlists
   const canUseMorePlaylists = userIsPro || playlistsUsed < MAX_PLAYLISTS_FREE;
@@ -121,8 +153,17 @@ export default function BlindTestLobby() {
 
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
 
+  // Presence hook - real-time connection tracking
+  const { isConnected, forceReconnect } = usePresence({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
+    playerUid: myUid,
+    heartbeatInterval: 15000,
+    enabled: !isHost && !!myUid
+  });
+
   // Player cleanup hook with auto-rejoin for hard refresh
-  const { leaveRoom } = usePlayerCleanup({
+  const { leaveRoom, attemptRejoin, isRejoining } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
     playerUid: myUid,
@@ -137,7 +178,16 @@ export default function BlindTestLobby() {
       blockedUntil: 0,
       joinedAt: Date.now()
     }),
-    onRejoinFailed: () => router.push('/home')
+    onPlayerRemoved: () => {
+      if (!isHost) setIsPlayerMissing(true);
+    },
+    onRejoinSuccess: () => {
+      setIsPlayerMissing(false);
+      setRejoinError(null);
+    },
+    onRejoinFailed: (err) => {
+      setRejoinError(err?.message || 'Impossible de rejoindre');
+    }
   });
 
   // Room guard - détecte kick et fermeture room
@@ -145,6 +195,14 @@ export default function BlindTestLobby() {
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
     playerUid: myUid,
+    isHost,
+    skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
     isHost
   });
 
@@ -171,12 +229,10 @@ export default function BlindTestLobby() {
 
     const stateUnsub = onValue(ref(db, `rooms_blindtest/${code}/state`), (snap) => {
       const state = snap.val();
-      if (state?.phase === "playing") {
-        if (isHost) {
-          router.push(`/blindtest/game/${code}/host`);
-        } else {
-          router.push(`/blindtest/game/${code}/play`);
-        }
+      if (state?.phase === "playing" && !countdownTriggeredRef.current) {
+        // Afficher le countdown avant de redirect
+        countdownTriggeredRef.current = true;
+        setShowCountdown(true);
       }
     });
 
@@ -284,29 +340,6 @@ export default function BlindTestLobby() {
     }
   };
 
-  // Mode toggle
-  const handleModeToggle = async () => {
-    if (!isHost) return;
-    const newMode = meta?.mode === "équipes" ? "individuel" : "équipes";
-
-    if (newMode === "équipes" && (!teams || Object.keys(teams).length === 0)) {
-      const defaultTeams = {
-        team1: { name: "Team Blaze", color: "#FF2D55", score: 0 },
-        team2: { name: "Team Frost", color: "#00D4FF", score: 0 }
-      };
-      await update(ref(db, `rooms_blindtest/${code}/meta`), { mode: newMode, teams: defaultTeams, teamCount: 2 });
-    } else if (newMode === "individuel") {
-      const updates = {};
-      players.forEach(p => {
-        updates[`rooms_blindtest/${code}/players/${p.uid}/teamId`] = "";
-      });
-      updates[`rooms_blindtest/${code}/meta/mode`] = newMode;
-      await update(ref(db), updates);
-    } else {
-      await update(ref(db, `rooms_blindtest/${code}/meta`), { mode: newMode });
-    }
-  };
-
   // Start game
   const handleStartGame = async () => {
     if (!isHost || !selectedPlaylist) return;
@@ -393,6 +426,32 @@ export default function BlindTestLobby() {
         onClose={() => setShowHowToPlay(false)}
         gameType="blindtest"
       />
+
+      {/* Lobby Disconnect Alert */}
+      <LobbyDisconnectAlert
+        isVisible={isPlayerMissing && !isHost}
+        isRejoining={isRejoining}
+        onRejoin={attemptRejoin}
+        onGoHome={() => router.push('/home')}
+        error={rejoinError}
+        gameColor="#10b981"
+      />
+
+      {/* Countdown de lancement */}
+      <AnimatePresence>
+        {showCountdown && (
+          <GameLaunchCountdown
+            gameColor="#10b981"
+            onComplete={() => {
+              if (isHost) {
+                router.push(`/blindtest/game/${code}/host`);
+              } else {
+                router.push(`/blindtest/game/${code}/play`);
+              }
+            }}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Playlist Selector Modal */}
       <AnimatePresence>
@@ -601,68 +660,65 @@ export default function BlindTestLobby() {
                 )}
               </motion.div>
 
-              {/* Mode Selector Card */}
-              <div className="lobby-card mode-selector blindtest">
-                <div className="card-header">
-                  <span className="card-icon">👥</span>
-                  <span className="card-label">Mode de jeu</span>
-                </div>
-                <div className="mode-controls">
-                  <div className="mode-toggle blindtest">
-                    <motion.button
-                      className={`mode-btn blindtest ${meta.mode === "individuel" ? "active" : ""}`}
-                      onClick={handleModeToggle}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Zap size={18} />
-                      Solo
-                    </motion.button>
-                    <motion.button
-                      className={`mode-btn blindtest ${meta.mode === "équipes" ? "active" : ""}`}
-                      onClick={handleModeToggle}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Users size={18} />
-                      Équipes
-                    </motion.button>
-                  </div>
-                </div>
-              </div>
+              {/* Mode Selector - Centralized Component */}
+              <TeamModeSelector
+                mode={mode}
+                teamCount={teamCount}
+                onModeToggle={handleModeToggle}
+                onTeamCountChange={handleTeamCountChange}
+                disabled={false}
+                gameColor="#10b981"
+              />
 
-              {/* Players Card */}
-              <div className="lobby-card lobby-players lobby-card-flex blindtest">
-                <div className="card-header">
-                  <span className="card-icon">🎮</span>
-                  <span className="card-label">Joueurs</span>
-                  <span className="player-count-badge blindtest">{players.length}</span>
+              {/* Team Tabs - Only in team mode */}
+              {isTeamMode && teamModeTeams && Object.keys(teamModeTeams).length > 0 && (
+                <div className="lobby-card teams-card blindtest">
+                  <TeamTabs
+                    teams={teamModeTeams}
+                    players={players}
+                    onAssignToTeam={handleAssignToTeam}
+                    onRemoveFromTeam={handleRemoveFromTeam}
+                    onAutoBalance={handleAutoBalance}
+                    onResetTeams={handleResetTeams}
+                    teamCount={teamCount}
+                  />
                 </div>
-                {players.length === 0 ? (
-                  <div className="empty-state">
-                    <span className="empty-icon">👋</span>
-                    <p className="empty-text">En attente de joueurs...</p>
-                    <p className="empty-hint">Partagez le code pour inviter</p>
+              )}
+
+              {/* Players Card - Show only in solo mode */}
+              {!isTeamMode && (
+                <div className="lobby-card lobby-players lobby-card-flex blindtest">
+                  <div className="card-header">
+                    <span className="card-icon">🎮</span>
+                    <span className="card-label">Joueurs</span>
+                    <span className="player-count-badge blindtest">{players.length}</span>
                   </div>
-                ) : (
-                  <div className="players-chips">
-                    {players.map((player, index) => (
-                      <motion.div
-                        key={player.uid}
-                        className="player-chip blindtest"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: index * 0.05 }}
-                      >
-                        <div className="chip-avatar blindtest">
-                          {player.name?.charAt(0)?.toUpperCase() || '?'}
-                        </div>
-                        <span className="chip-name">{player.name}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                  {players.length === 0 ? (
+                    <div className="empty-state">
+                      <span className="empty-icon">👋</span>
+                      <p className="empty-text">En attente de joueurs...</p>
+                      <p className="empty-hint">Partagez le code pour inviter</p>
+                    </div>
+                  ) : (
+                    <div className="players-chips">
+                      {players.map((player, index) => (
+                        <motion.div
+                          key={player.uid}
+                          className="player-chip blindtest"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: index * 0.05 }}
+                        >
+                          <div className="chip-avatar blindtest">
+                            {player.name?.charAt(0)?.toUpperCase() || '?'}
+                          </div>
+                          <span className="chip-name">{player.name}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Fixed Start Button */}
@@ -708,33 +764,45 @@ export default function BlindTestLobby() {
               </div>
             )}
 
-            {/* Players Header */}
-            <div className="players-header-card blindtest">
-              <span className="players-icon">🎮</span>
-              <span className="players-count">{players.length}</span>
-              <span className="players-label">joueurs connectés</span>
-            </div>
+            {/* Team Mode Player View */}
+            {isTeamMode ? (
+              <TeamPlayerView
+                teams={teamModeTeams}
+                players={players}
+                teamCount={teamCount}
+                currentPlayerUid={myUid}
+              />
+            ) : (
+              <>
+                {/* Players Header */}
+                <div className="players-header-card blindtest">
+                  <span className="players-icon">🎮</span>
+                  <span className="players-count">{players.length}</span>
+                  <span className="players-label">joueurs connectés</span>
+                </div>
 
-            {/* Players List */}
-            <div className="players-list-player blindtest">
-              {players.map((player, index) => (
-                <motion.div
-                  key={player.uid}
-                  className={`player-chip-full blindtest ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.03 }}
-                >
-                  <div className="chip-avatar-glow blindtest">
-                    {player.name?.charAt(0)?.toUpperCase() || '?'}
-                  </div>
-                  <span className="chip-name-full">
-                    {player.name}
-                    {player.uid === auth.currentUser?.uid && ' (toi)'}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
+                {/* Players List */}
+                <div className="players-list-player blindtest">
+                  {players.map((player, index) => (
+                    <motion.div
+                      key={player.uid}
+                      className={`player-chip-full blindtest ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.03 }}
+                    >
+                      <div className="chip-avatar-glow blindtest">
+                        {player.name?.charAt(0)?.toUpperCase() || '?'}
+                      </div>
+                      <span className="chip-name-full">
+                        {player.name}
+                        {player.uid === auth.currentUser?.uid && ' (toi)'}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </>
+            )}
 
             {/* Waiting Animation */}
             <div className="waiting-compact blindtest">

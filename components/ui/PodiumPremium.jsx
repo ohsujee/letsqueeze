@@ -25,12 +25,22 @@ export const PodiumPremium = ({ topPlayers }) => {
 
   const podiumHeights = [140, 200, 100];
   const medals = ['🥈', '🥇', '🥉'];
-  const colors = [
+  const defaultColors = [
     { primary: '#C0C0C0', secondary: '#E8E8E8', glow: 'rgba(192, 192, 192, 0.3)' },
     { primary: '#FFD700', secondary: '#FFA500', glow: 'rgba(255, 215, 0, 0.4)' },
     { primary: '#CD7F32', secondary: '#8B4513', glow: 'rgba(205, 127, 50, 0.3)' }
   ];
   const ranks = [2, 1, 3];
+
+  // Helper to create color variants from a base team color
+  const getTeamColorVariants = (baseColor) => {
+    // Parse the color to create lighter/darker variants
+    return {
+      primary: baseColor,
+      secondary: baseColor,
+      glow: `${baseColor}66` // 40% opacity
+    };
+  };
 
   return (
     <div style={{
@@ -44,14 +54,21 @@ export const PodiumPremium = ({ topPlayers }) => {
     }}>
 
       {podiumOrder.map((player, i) => {
-        if (!player) return null;
+        if (!player) return <span key={`empty-${i}`} />;
 
         const isWinner = ranks[i] === 1;
-        const color = colors[i];
+        // Use team color if available (team mode), otherwise use medal colors
+        const isTeam = !!player.color;
+        const color = isTeam ? getTeamColorVariants(player.color) : defaultColors[i];
+        // For teams, extract the team name without prefix for display
+        const displayName = isTeam
+          ? (player.name || '').replace(/^(Équipe |Team )/i, '') || 'Équipe'
+          : player.name || 'Joueur';
+        const initial = displayName.charAt(0).toUpperCase();
 
         return (
           <motion.div
-            key={player.uid}
+            key={player.uid || player.id}
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -128,7 +145,7 @@ export const PodiumPremium = ({ topPlayers }) => {
                   position: 'relative',
                   zIndex: 1
                 }}>
-                  {(player.name || 'J').charAt(0).toUpperCase()}
+                  {initial}
                 </span>
               </motion.div>
 
@@ -146,21 +163,22 @@ export const PodiumPremium = ({ topPlayers }) => {
               </div>
             </motion.div>
 
-            {/* Nom du joueur */}
+            {/* Nom du joueur ou de l'équipe */}
             <div
               style={{
                 fontSize: '1.5rem',
                 fontWeight: 700,
-                color: 'white',
+                color: isTeam ? color.primary : 'white',
                 textAlign: 'center',
                 marginBottom: '0.75rem',
                 maxWidth: '140px',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                textShadow: isTeam ? `0 0 10px ${color.glow}` : 'none'
               }}
             >
-              {player.name || 'Joueur'}
+              {isTeam ? `Team ${displayName}` : displayName}
             </div>
 
             {/* Score */}
@@ -188,7 +206,9 @@ export const PodiumPremium = ({ topPlayers }) => {
                 width: isWinner ? '140px' : '120px',
                 background: `linear-gradient(180deg, ${color.primary}40, ${color.secondary}20)`,
                 borderRadius: '1rem 1rem 0 0',
-                border: `2px solid ${color.primary}60`,
+                borderTop: `2px solid ${color.primary}60`,
+                borderLeft: `2px solid ${color.primary}60`,
+                borderRight: `2px solid ${color.primary}60`,
                 borderBottom: 'none',
                 boxShadow: `0 -4px 15px ${color.glow}, inset 0 1px 5px rgba(255,255,255,0.1)`,
                 backdropFilter: 'blur(20px)',

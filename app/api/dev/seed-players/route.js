@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import admin from 'firebase-admin';
 
 // Fake player names for seeding
-const FAKE_NAMES = ['Alice', 'Bob', 'Charlie', 'Diana', 'Émile', 'Fatou', 'Gaston', 'Hélène'];
+const FAKE_NAMES = ['Alice', 'Bob', 'Charlie', 'Diana', 'Emile', 'Fatou', 'Gaston', 'Helene'];
 
 // ============================================
 // FIREBASE ADMIN INITIALIZATION
@@ -68,9 +68,11 @@ function isDevelopment(request) {
  * Actions disponibles:
  * - seed: Ajouter des faux joueurs
  * - updateScore: Modifier le score d'un joueur
- * - disconnect: Marquer un joueur comme déconnecté
+ * - disconnect: Marquer un joueur comme déconnecté (status: 'disconnected')
  * - reconnect: Remettre un joueur en actif
  * - inactive: Marquer un joueur comme inactif
+ * - kick: Exclusion par host (écrit kickedPlayers puis supprime) → redirect home sans rejoin
+ * - remove: Simulation déconnexion réseau (supprime sans kickedPlayers) → LobbyDisconnectAlert avec rejoin
  * - clear: Supprimer tous les faux joueurs
  * - list: Lister les joueurs
  */
@@ -143,6 +145,20 @@ export async function POST(request) {
         return NextResponse.json({ success: true, action: 'updateScore', playerUid, score });
       }
 
+      case 'updateTeamScores': {
+        // Update team scores for testing team leaderboard
+        const { teamScores } = body;
+        if (!teamScores || typeof teamScores !== 'object') {
+          return NextResponse.json({ error: 'teamScores object required (e.g., {"team1": 100, "team2": 50})' }, { status: 400 });
+        }
+        const updates = {};
+        Object.entries(teamScores).forEach(([teamId, teamScore]) => {
+          updates[`${prefix}/${roomCode}/meta/teams/${teamId}/score`] = teamScore;
+        });
+        await db.ref().update(updates);
+        return NextResponse.json({ success: true, action: 'updateTeamScores', teamScores });
+      }
+
       case 'disconnect': {
         if (!playerUid) {
           return NextResponse.json({ error: 'playerUid required' }, { status: 400 });
@@ -165,6 +181,34 @@ export async function POST(request) {
         }
         await db.ref(`${prefix}/${roomCode}/players/${playerUid}/activityStatus`).set('inactive');
         return NextResponse.json({ success: true, action: 'inactive', playerUid });
+      }
+
+      case 'kick': {
+        // Simulate host kick (writes to kickedPlayers first, then removes)
+        // Player will be redirected to home WITHOUT rejoin option
+        if (!playerUid) {
+          return NextResponse.json({ error: 'playerUid required' }, { status: 400 });
+        }
+        // 1. Write to kickedPlayers (same as PlayerManager)
+        await db.ref(`${prefix}/${roomCode}/kickedPlayers/${playerUid}`).set({
+          at: Date.now(),
+          by: 'dev-api'
+        });
+        // 2. Remove player
+        await db.ref(`${prefix}/${roomCode}/players/${playerUid}`).remove();
+        await db.ref(`${prefix}/${roomCode}/presence/${playerUid}`).remove();
+        return NextResponse.json({ success: true, action: 'kick', playerUid });
+      }
+
+      case 'remove': {
+        // Simulate network disconnect in lobby (just removes player, no kickedPlayers)
+        // Player will see LobbyDisconnectAlert with rejoin option
+        if (!playerUid) {
+          return NextResponse.json({ error: 'playerUid required' }, { status: 400 });
+        }
+        await db.ref(`${prefix}/${roomCode}/players/${playerUid}`).remove();
+        await db.ref(`${prefix}/${roomCode}/presence/${playerUid}`).remove();
+        return NextResponse.json({ success: true, action: 'remove', playerUid });
       }
 
       case 'clear': {
@@ -199,6 +243,81 @@ export async function POST(request) {
         });
       }
 
+      case 'listTeams': {
+        const teamsSnapshot = await db.ref(`${prefix}/${roomCode}/meta/teams`).get();
+        const teamsData = teamsSnapshot.exists() ? teamsSnapshot.val() : {};
+        return NextResponse.json({
+          success: true,
+          teams: Object.entries(teamsData).map(([id, t]) => ({
+            id,
+            name: t.name,
+            score: t.score || 0,
+            color: t.color
+          }))
+        });
+      }
+
+      case 'closeRoom': {
+        // Ferme une room (met meta.closed = true)
+        // Tous les joueurs seront redirigés vers /home
+        await db.ref(`${prefix}/${roomCode}/meta/closed`).set(true);
+        return NextResponse.json({
+          success: true,
+          action: 'closeRoom',
+          roomCode,
+          message: 'Room closed - all players will be redirected'
+        });
+      }
+
+      case 'simulateBuzzes': {
+        // Simule plusieurs buzzes quasi-simultanés pour tester le système de résolution
+        // Les buzzes sont écrits avec des timestamps très proches (0-50ms d'écart)
+        const snapshot = await playersRef.get();
+        if (!snapshot.exists()) {
+          return NextResponse.json({ error: 'No players in room' }, { status: 400 });
+        }
+
+        const playersData = snapshot.val();
+        const fakePlayers = Object.values(playersData).filter(p => p.isFake);
+
+        if (fakePlayers.length < 2) {
+          return NextResponse.json({ error: 'Need at least 2 fake players to simulate buzzes' }, { status: 400 });
+        }
+
+        // Prendre les 2-3 premiers fake players
+        const buzzers = fakePlayers.slice(0, Math.min(3, fakePlayers.length));
+        const baseTime = Date.now();
+
+        const pendingBuzzes = {};
+        buzzers.forEach((player, index) => {
+          // Écart de 10-30ms entre chaque buzz pour simuler quasi-simultanéité
+          const offset = index * (10 + Math.random() * 20);
+          const localTime = baseTime + offset;
+          const adjustedTime = localTime; // En dev, pas d'offset serveur
+
+          pendingBuzzes[player.uid] = {
+            uid: player.uid,
+            name: player.name,
+            localTime,
+            adjustedTime,
+            receivedAt: Date.now()
+          };
+        });
+
+        // Écrire tous les buzzes d'un coup
+        await db.ref(`${prefix}/${roomCode}/state/pendingBuzzes`).set(pendingBuzzes);
+
+        return NextResponse.json({
+          success: true,
+          action: 'simulateBuzzes',
+          buzzes: Object.values(pendingBuzzes).map(b => ({
+            name: b.name,
+            adjustedTime: b.adjustedTime
+          })),
+          message: `Simulated ${buzzers.length} simultaneous buzzes`
+        });
+      }
+
       default:
         return NextResponse.json({ error: `Unknown action: ${action}` }, { status: 400 });
     }
@@ -222,7 +341,7 @@ export async function GET(request) {
   if (!roomCode) {
     return NextResponse.json({
       info: 'DEV API for seeding fake players',
-      actions: ['seed', 'updateScore', 'disconnect', 'reconnect', 'inactive', 'clear', 'list'],
+      actions: ['seed', 'updateScore', 'disconnect', 'reconnect', 'inactive', 'kick', 'remove', 'clear', 'list'],
       usage: 'POST with { roomCode, prefix, action, ... }'
     });
   }

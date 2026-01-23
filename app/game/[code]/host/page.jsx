@@ -9,10 +9,13 @@ import ExitButton from "@/lib/components/ExitButton";
 import Leaderboard from "@/components/game/Leaderboard";
 import PlayerManager from "@/components/game/PlayerManager";
 import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { hueScenariosService } from "@/lib/hue-module";
 import { FitText } from "@/lib/hooks/useFitText";
+import { GameEndTransition } from "@/components/transitions";
 
 export default function HostGame(){
   const { code } = useParams();
@@ -21,8 +24,8 @@ export default function HostGame(){
   // Fonction pour quitter et terminer la partie pour tout le monde
   async function exitAndEndGame() {
     if (code) {
-      // Mettre la partie en phase "ended" pour rediriger tous les joueurs
-      await update(ref(db, `rooms/${code}/state`), { phase: "ended" });
+      // Fermer la room proprement - les joueurs seront redirigés via useRoomGuard
+      await update(ref(db, `rooms/${code}/meta`), { closed: true });
     }
     router.push('/home');
   }
@@ -31,6 +34,8 @@ export default function HostGame(){
   const [state,setState]=useState(null);
   const [quiz,setQuiz]=useState(null);
   const [conf,setConf]=useState(null);
+  const [showEndTransition, setShowEndTransition] = useState(false);
+  const endTransitionTriggeredRef = useRef(false);
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
@@ -56,7 +61,11 @@ export default function HostGame(){
 
   // Redirige host quand phase=ended ou phase=lobby
   useEffect(()=>{
-    if(state?.phase === "ended") router.replace(`/end/${code}`);
+    if(state?.phase === "ended" && !endTransitionTriggeredRef.current) {
+      // Afficher la transition de fin avant de redirect
+      endTransitionTriggeredRef.current = true;
+      setShowEndTransition(true);
+    }
     if(state?.phase === "lobby") router.replace(`/room/${code}`);
   }, [state?.phase, router, code]);
 
@@ -66,6 +75,22 @@ export default function HostGame(){
   }, []);
 
   const isHost = meta?.hostUid === auth.currentUser?.uid;
+  const myUid = auth.currentUser?.uid;
+
+  // Room guard - détecte fermeture room (host is always host here)
+  useRoomGuard({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    playerUid: myUid,
+    isHost: true
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    isHost: true
+  });
   const total = quiz?.items?.length || 0;
   const qIndex = state?.currentIndex || 0;
   const q = quiz?.items?.[qIndex];
@@ -98,24 +123,29 @@ export default function HostGame(){
 
   // Sons
   const playReveal = useSound("/sounds/reveal.mp3");
-  const playBuzz   = useSound("/sounds/buzz.mp3");
+  const playBuzz   = useSound("/sounds/quiz-buzzer.wav");
   const prevRevealAt = useRef(0);
   const prevLock = useRef(null);
   const timeUpTriggered = useRef(false);
 
-  // Fenêtre de tolérance pour la résolution des buzzes (en ms)
+  // *** SYSTÈME DE BUZZ ROBUSTE ***
+  // Fenêtre de tolérance pour capturer tous les buzzes (compense les latences réseau)
   const BUZZ_WINDOW_MS = 150;
   const buzzWindowTimeout = useRef(null);
-  const isResolvingBuzz = useRef(false);
-  const lastResolvedAt = useRef(0); // Pour éviter les doubles résolutions
+  const buzzCache = useRef({}); // Cache local - JAMAIS ignoré
+  const isResolving = useRef(false);
 
   useEffect(()=>{
     if(state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current){
       playReveal(); prevRevealAt.current = state.lastRevealAt;
       timeUpTriggered.current = false; // Reset timeUp flag pour nouvelle question
-      // Reset aussi le flag de résolution pour la nouvelle question
-      isResolvingBuzz.current = false;
-      lastResolvedAt.current = 0;
+      // Reset le système de buzz pour la nouvelle question
+      buzzCache.current = {};
+      isResolving.current = false;
+      if (buzzWindowTimeout.current) {
+        clearTimeout(buzzWindowTimeout.current);
+        buzzWindowTimeout.current = null;
+      }
     }
   },[state?.revealed, state?.lastRevealAt, playReveal]);
 
@@ -127,90 +157,113 @@ export default function HostGame(){
     }
   }, [state?.revealed, ratioRemain, state?.lockUid]);
 
-  // *** SYSTÈME DE BUZZ: LISTENER DÉDIÉ POUR PENDING BUZZES ***
-  // Utilise un listener Firebase séparé pour éviter les race conditions
+  // *** SYSTÈME DE BUZZ ROBUSTE: LISTENER + CACHE LOCAL ***
   useEffect(() => {
     if (!isHost || !code) return;
 
     const pendingBuzzesRef = ref(db, `rooms/${code}/state/pendingBuzzes`);
 
+    // Fonction de résolution - utilise le cache local
     const resolveBuzzes = async () => {
-      // Éviter les doubles résolutions
-      const now = Date.now();
-      if (now - lastResolvedAt.current < 500) {
-        return;
-      }
+      // Marquer comme en cours de résolution
+      isResolving.current = true;
+      buzzWindowTimeout.current = null;
 
       try {
-        // Vérifier si lockUid est déjà défini
-        const { get: fbGet, ref: fbRef } = await import('firebase/database');
-        const lockSnap = await fbGet(fbRef(db, `rooms/${code}/state/lockUid`));
+        // Copier le cache actuel (snapshot des buzzes reçus)
+        const buzzesToResolve = { ...buzzCache.current };
+        const buzzCount = Object.keys(buzzesToResolve).length;
+
+        if (buzzCount === 0) {
+          console.log('[Buzz] Aucun buzz à résoudre');
+          return;
+        }
+
+        console.log(`[Buzz] Résolution de ${buzzCount} buzz(es)...`);
+
+        // Vérifier que lockUid n'est pas déjà défini
+        const { get: fbGet } = await import('firebase/database');
+        const lockSnap = await fbGet(ref(db, `rooms/${code}/state/lockUid`));
         if (lockSnap.val()) {
-          isResolvingBuzz.current = false;
+          console.log('[Buzz] lockUid déjà défini, abandon');
           return;
         }
 
-        // Relire les pendingBuzzes
-        const snapshot = await fbGet(pendingBuzzesRef);
-        const allBuzzes = snapshot.val();
-
-        if (!allBuzzes || Object.keys(allBuzzes).length === 0) {
-          isResolvingBuzz.current = false;
-          return;
-        }
-
-        // Trouver le buzz avec le plus petit adjustedTime
-        const buzzArray = Object.values(allBuzzes);
+        // Trouver le gagnant (plus petit adjustedTime = premier à avoir buzzé)
+        const buzzArray = Object.values(buzzesToResolve);
         buzzArray.sort((a, b) => a.adjustedTime - b.adjustedTime);
         const winner = buzzArray[0];
 
-        // Mettre à jour Firebase avec le gagnant
-        lastResolvedAt.current = Date.now();
+        console.log(`[Buzz] Gagnant: ${winner.name} (adjustedTime: ${winner.adjustedTime})`);
+
+        // Utiliser une transaction pour garantir l'atomicité
+        const { runTransaction: fbTransaction } = await import('firebase/database');
+        const lockResult = await fbTransaction(ref(db, `rooms/${code}/state/lockUid`), (currentLock) => {
+          // Si déjà défini par quelqu'un d'autre, on abandonne
+          if (currentLock) return currentLock;
+          // Sinon on écrit le gagnant
+          return winner.uid;
+        });
+
+        // Vérifier si on a gagné la transaction
+        if (lockResult.snapshot.val() !== winner.uid) {
+          console.log('[Buzz] Transaction perdue, quelqu\'un d\'autre a écrit lockUid');
+          return;
+        }
+
+        // Transaction réussie - mettre à jour les autres champs
         await update(ref(db, `rooms/${code}/state`), {
-          lockUid: winner.uid,
           buzz: { uid: winner.uid, at: winner.localTime },
           buzzBanner: `🔔 ${winner.name} a buzzé !`,
           pausedAt: serverTimestamp(),
           lockedAt: serverTimestamp()
         });
 
-        // Supprimer les buzzes en attente
+        // Supprimer les pendingBuzzes
         const { remove: fbRemove } = await import('firebase/database');
         await fbRemove(pendingBuzzesRef).catch(() => {});
 
+        // Son et effets
         playBuzz();
         hueScenariosService.trigger('gigglz', 'buzz');
 
+        console.log('[Buzz] ✅ Résolution terminée');
+
       } catch (error) {
-        console.error('❌ [Buzz] Erreur résolution:', error);
+        console.error('[Buzz] ❌ Erreur résolution:', error);
       } finally {
-        isResolvingBuzz.current = false;
+        isResolving.current = false;
+        // Vider le cache après résolution
+        buzzCache.current = {};
       }
     };
 
-    // Listener dédié pour pendingBuzzes
+    // Listener qui met TOUJOURS à jour le cache (jamais ignoré)
     const unsubscribe = onValue(pendingBuzzesRef, (snapshot) => {
-      const pendingBuzzes = snapshot.val();
+      const pendingBuzzes = snapshot.val() || {};
+      const buzzCount = Object.keys(pendingBuzzes).length;
 
-      // Pas de buzzes en attente
-      if (!pendingBuzzes || Object.keys(pendingBuzzes).length === 0) {
-        return;
-      }
+      // Toujours mettre à jour le cache
+      buzzCache.current = pendingBuzzes;
 
-      // Si déjà en train de résoudre, ignorer
-      if (isResolvingBuzz.current) {
-        return;
-      }
+      // Si pas de buzzes, rien à faire
+      if (buzzCount === 0) return;
 
-      // Démarrer la résolution
-      isResolvingBuzz.current = true;
-
-      // Nettoyer le timeout précédent si existant
+      // Si un timeout est déjà programmé, les nouveaux buzzes seront
+      // capturés via le cache quand la résolution s'exécutera
       if (buzzWindowTimeout.current) {
-        clearTimeout(buzzWindowTimeout.current);
+        console.log(`[Buzz] +1 buzz ajouté au cache (total: ${buzzCount})`);
+        return;
       }
 
-      // Attendre la fenêtre de tolérance avant de résoudre
+      // Si résolution en cours, le cache sera traité au prochain cycle si nécessaire
+      if (isResolving.current) {
+        console.log('[Buzz] Résolution en cours, buzz ajouté au cache');
+        return;
+      }
+
+      // Premier buzz détecté - démarrer la fenêtre de 150ms
+      console.log(`[Buzz] Premier buzz détecté, démarrage fenêtre ${BUZZ_WINDOW_MS}ms`);
       buzzWindowTimeout.current = setTimeout(resolveBuzzes, BUZZ_WINDOW_MS);
     });
 
@@ -220,8 +273,8 @@ export default function HostGame(){
         clearTimeout(buzzWindowTimeout.current);
         buzzWindowTimeout.current = null;
       }
-      // Reset le flag au cleanup pour éviter les blocages
-      isResolvingBuzz.current = false;
+      buzzCache.current = {};
+      isResolving.current = false;
     };
   }, [isHost, code, playBuzz]);
 
@@ -268,7 +321,7 @@ export default function HostGame(){
   async function resetBuzzers(){
     if(!isHost) return;
     // Reset le flag de résolution
-    isResolvingBuzz.current = false;
+    isResolving.current = false;
     if (buzzWindowTimeout.current) {
       clearTimeout(buzzWindowTimeout.current);
       buzzWindowTimeout.current = null;
@@ -306,8 +359,8 @@ export default function HostGame(){
 
     const next = (state.currentIndex||0)+1;
     if (next >= total) {
+      // La transition de fin sera gérée par le useEffect qui détecte phase="ended"
       await update(ref(db,`rooms/${code}/state`), { phase:"ended" });
-      router.replace(`/end/${code}`);
       return;
     }
 
@@ -327,7 +380,7 @@ export default function HostGame(){
     updates[`rooms/${code}/state/buzz`] = null;
 
     // Reset le flag de résolution
-    isResolvingBuzz.current = false;
+    isResolving.current = false;
 
     await update(ref(db), updates);
     // Supprimer les buzzes en attente séparément
@@ -389,7 +442,7 @@ export default function HostGame(){
     updates[`rooms/${code}/state/lockedAt`] = resume.lockedAt;
 
     // Reset le flag de résolution
-    isResolvingBuzz.current = false;
+    isResolving.current = false;
 
     await update(ref(db), updates);
     // Supprimer les buzzes en attente séparément
@@ -401,8 +454,8 @@ export default function HostGame(){
     if(!isHost || total===0) return;
     const next = (state?.currentIndex||0)+1;
     if (next >= total) {
+      // La transition de fin sera gérée par le useEffect qui détecte phase="ended"
       await update(ref(db,`rooms/${code}/state`), { phase:"ended" });
-      router.replace(`/end/${code}`);
       return;
     }
 
@@ -422,7 +475,7 @@ export default function HostGame(){
     updates[`rooms/${code}/state/buzz`] = null;
 
     // Reset le flag de résolution
-    isResolvingBuzz.current = false;
+    isResolving.current = false;
 
     await update(ref(db), updates);
     // Supprimer les buzzes en attente séparément
@@ -432,8 +485,8 @@ export default function HostGame(){
   }
   async function end(){
     if(isHost){
+      // La transition de fin sera gérée par le useEffect qui détecte phase="ended"
       await update(ref(db,`rooms/${code}/state`), { phase:"ended" });
-      router.replace(`/end/${code}`);
     }
   }
 
@@ -444,6 +497,16 @@ export default function HostGame(){
 
   return (
     <div className="host-game-page game-page">
+      {/* Transition de fin de partie */}
+      <AnimatePresence>
+        {showEndTransition && (
+          <GameEndTransition
+            variant="quiz"
+            onComplete={() => router.replace(`/end/${code}`)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Header fixe */}
       <header className="game-header">
         <div className="game-header-content">
@@ -477,53 +540,44 @@ export default function HostGame(){
         {state?.lockUid && (
           <>
             <motion.div
+              className="buzz-overlay"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              style={{
-                position: 'fixed',
-                inset: 0,
-                background: 'rgba(0, 0, 0, 0.92)',
-                zIndex: 9998
-              }}
             />
-            <div style={{
-              position: 'fixed',
-              inset: 0,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              zIndex: 9999,
-              padding: '20px'
-            }}>
+            <div className="buzz-modal-container">
               <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                className="buzz-card"
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                transition={{ duration: 0.2 }}
-                style={{
-                  width: '100%',
-                  maxWidth: '400px',
-                  background: '#12101c',
-                  border: '1px solid rgba(139, 92, 246, 0.4)',
-                  borderRadius: '20px',
-                  padding: '24px',
-                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), 0 0 60px rgba(139, 92, 246, 0.2)'
-                }}
+                exit={{ opacity: 0, scale: 0.9, y: 30 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
               >
-                {/* Qui a buzzé */}
-                <div className="buzz-header">
-                  <span className="buzz-icon">🔔</span>
-                  <div className="buzz-info">
-                    <span className="buzz-name">{lockedName}</span>
-                    <span className="buzz-label">a buzzé</span>
+                {/* Icône cloche qui dépasse en haut */}
+                <div className="buzz-icon-wrapper">
+                  <div className="buzz-icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" className="buzz-bell-icon">
+                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
-                  <span className="buzz-points">{pointsEnJeu} pts</span>
                 </div>
 
-                {/* Réponse */}
+                {/* Badge points qui dépasse en haut à droite */}
+                <div className="buzz-points-badge">
+                  <span className="buzz-points-value">{pointsEnJeu}</span>
+                  <span className="buzz-points-label">pts</span>
+                </div>
+
+                {/* Nom du joueur centré */}
+                <div className="buzz-player-section">
+                  <span className="buzz-player-name">{lockedName}</span>
+                  <span className="buzz-player-action">a buzzé</span>
+                </div>
+
+                {/* Réponse sur 2 lignes */}
                 {q && (
-                  <div className="buzz-answer">
+                  <div className="buzz-answer-section">
                     <span className="buzz-answer-label">Réponse attendue</span>
                     <span className="buzz-answer-value">{q.answer}</span>
                   </div>
@@ -545,7 +599,7 @@ export default function HostGame(){
                   </button>
                 </div>
 
-                {/* Reset */}
+                {/* Annuler - plus visible */}
                 <button className="buzz-cancel" onClick={resetBuzzers}>
                   Annuler
                 </button>
@@ -574,7 +628,7 @@ export default function HostGame(){
 
             {/* Question */}
             <div className="question-container">
-              <FitText minFontSize={14} maxFontSize={28} className="question-text">
+              <FitText minFontSize={14} maxFontSize={20} className="question-text">
                 {q.question}
               </FitText>
             </div>
@@ -597,7 +651,7 @@ export default function HostGame(){
         )}
 
         {/* Classement */}
-        <Leaderboard players={players} />
+        <Leaderboard players={players} mode={meta?.mode} teams={meta?.teams} />
       </main>
 
       {/* Footer avec actions */}
@@ -729,27 +783,28 @@ export default function HostGame(){
           min-height: 0;
         }
 
-        /* Leaderboard prend l'espace restant et s'étend */
+        /* Leaderboard - 50% de l'espace disponible */
         .game-content > :global(.leaderboard-card) {
           flex: 1;
           min-height: 0;
           width: 100%;
           max-width: 500px;
-          align-self: stretch;
           margin: 0 auto;
         }
 
-        /* ===== QUESTION CARD ===== */
-        .question-card {
+        /* ===== QUESTION CARD - 50% de l'espace disponible ===== */
+        :global(.question-card) {
           width: 100%;
           max-width: 500px;
-          flex-shrink: 0;
-          display: flex;
-          flex-direction: column;
+          flex: 1;
+          min-height: 0;
+          display: grid;
+          grid-template-rows: auto 1fr auto;
+          gap: 8px;
           background: rgba(20, 20, 30, 0.8);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 20px;
-          padding: 20px;
+          border-radius: 16px;
+          padding: 12px 16px;
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           box-shadow:
@@ -757,59 +812,42 @@ export default function HostGame(){
             inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
-        .question-empty {
+        :global(.question-empty) {
           text-align: center;
           color: var(--text-muted, rgba(255, 255, 255, 0.5));
         }
 
-        /* Points badge */
+        /* Points badge - pas de margin, le grid gap gère l'espacement */
         .points-badge {
           display: flex;
           align-items: baseline;
           justify-content: center;
           gap: 6px;
-          margin-bottom: 16px;
         }
 
         .points-value {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 2rem;
+          font-size: 1.3rem;
           color: var(--quiz-glow, #a78bfa);
-          text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+          text-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
         }
 
         .points-label {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.9rem;
+          font-size: 0.7rem;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.5);
           text-transform: uppercase;
         }
 
-        /* Question container */
+        /* Question container - scroll si texte trop long */
         .question-container {
-          min-height: 100px;
-          max-height: 200px;
           width: 100%;
-          margin: 12px 0;
-          flex: 1 1 auto;
+          flex: 1;
+          min-height: 0;
+          overflow: auto;
         }
 
-        /* Responsive: plus de place sur grands écrans */
-        @media (min-height: 800px) {
-          .question-container {
-            min-height: 140px;
-            max-height: 250px;
-          }
-        }
-
-        @media (max-height: 650px) {
-          .question-container {
-            min-height: 80px;
-            max-height: 150px;
-            margin: 8px 0;
-          }
-        }
 
         /* Cacher la scrollbar webkit pour FitText scroll */
         .question-container ::-webkit-scrollbar {
@@ -994,16 +1032,16 @@ export default function HostGame(){
           box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
         }
 
-        /* ===== BUZZ MODAL - Même style que le reste de la page ===== */
+        /* ===== BUZZ MODAL - Design revisité ===== */
 
-        .buzz-overlay {
+        :global(.buzz-overlay) {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.9);
+          background: rgba(0, 0, 0, 0.92);
           z-index: 9998;
         }
 
-        .buzz-modal {
+        .buzz-modal-container {
           position: fixed;
           inset: 0;
           display: flex;
@@ -1013,106 +1051,156 @@ export default function HostGame(){
           padding: 20px;
         }
 
-        /* Card identique à question-card - fond 100% opaque */
-        .buzz-card {
+        /* Card avec espace pour l'icône qui dépasse */
+        :global(.buzz-card) {
+          position: relative;
           width: 100%;
-          max-width: 400px;
-          background: rgb(18, 16, 28);
+          max-width: 340px;
+          background: linear-gradient(180deg, rgb(22, 18, 35) 0%, rgb(14, 12, 22) 100%);
           border: 1px solid rgba(139, 92, 246, 0.4);
-          border-radius: 20px;
-          padding: 24px;
+          border-radius: 24px;
+          padding: 50px 24px 24px 24px;
+          margin-top: 30px;
           box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.6),
-            0 0 60px rgba(139, 92, 246, 0.2),
+            0 12px 40px rgba(0, 0, 0, 0.7),
+            0 0 80px rgba(139, 92, 246, 0.15),
             inset 0 1px 0 rgba(255, 255, 255, 0.08);
         }
 
-        /* Header horizontal : icône + info + points */
-        .buzz-header {
+        /* Icône cloche qui dépasse en haut - centré */
+        .buzz-icon-wrapper {
+          position: absolute;
+          top: -30px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 10;
+        }
+
+        .buzz-icon-circle {
+          width: 60px;
+          height: 60px;
+          background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+          border: 3px solid rgba(139, 92, 246, 0.6);
+          border-radius: 50%;
           display: flex;
           align-items: center;
-          gap: 14px;
+          justify-content: center;
+          box-shadow:
+            0 4px 20px rgba(139, 92, 246, 0.5),
+            0 0 30px rgba(139, 92, 246, 0.3);
+          animation: bell-entrance 0.5s ease-out;
+        }
+
+        :global(.buzz-bell-icon) {
+          width: 28px;
+          height: 28px;
+          color: white;
+          filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+        }
+
+        @keyframes bell-entrance {
+          0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+          50% { transform: scale(1.1) rotate(10deg); }
+          70% { transform: scale(0.95) rotate(-5deg); }
+          100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* Badge points - dépasse en haut à droite comme un post-it */
+        .buzz-points-badge {
+          position: absolute;
+          top: -15px;
+          right: -8px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-width: 55px;
+          padding: 8px 12px;
+          background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-radius: 12px;
+          box-shadow:
+            0 4px 15px rgba(34, 197, 94, 0.5),
+            0 0 20px rgba(34, 197, 94, 0.3);
+          transform: rotate(8deg);
+          z-index: 10;
+        }
+
+        .buzz-points-value {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.3rem;
+          color: white;
+          line-height: 1;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .buzz-points-label {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.6rem;
+          font-weight: 700;
+          color: rgba(255, 255, 255, 0.85);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        /* Section joueur - centré */
+        .buzz-player-section {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
           margin-bottom: 20px;
           padding-bottom: 16px;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .buzz-icon {
-          font-size: 2rem;
-          animation: bell-ring 0.5s ease-out;
-        }
-
-        @keyframes bell-ring {
-          0%, 100% { transform: rotate(0deg); }
-          20% { transform: rotate(-15deg); }
-          40% { transform: rotate(15deg); }
-          60% { transform: rotate(-10deg); }
-          80% { transform: rotate(10deg); }
-        }
-
-        .buzz-info {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-        }
-
-        .buzz-name {
+        .buzz-player-name {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.4rem;
+          font-size: 1.6rem;
           color: #ffffff;
-          text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+          text-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+          text-align: center;
+          word-break: break-word;
         }
 
-        .buzz-label {
+        .buzz-player-action {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.8rem;
+          font-size: 0.9rem;
           font-weight: 500;
           color: rgba(255, 255, 255, 0.5);
         }
 
-        .buzz-points {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.3rem;
-          color: var(--quiz-glow, #a78bfa);
-          text-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
-          background: rgba(139, 92, 246, 0.15);
-          border: 1px solid rgba(139, 92, 246, 0.3);
-          border-radius: 12px;
-          padding: 8px 14px;
-        }
-
-        /* Box réponse - identique à answer-box */
-        .buzz-answer {
+        /* Section réponse - 2 lignes empilées */
+        .buzz-answer-section {
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          background: rgba(34, 197, 94, 0.15);
+          gap: 8px;
+          background: rgba(34, 197, 94, 0.12);
           border: 1px solid rgba(34, 197, 94, 0.3);
-          border-radius: 12px;
-          padding: 14px 16px;
+          border-radius: 14px;
+          padding: 14px 18px;
           margin-bottom: 20px;
         }
 
-        .buzz-answer-label {
+        .buzz-answer-section .buzz-answer-label {
           font-size: 0.7rem;
           font-weight: 600;
           color: var(--text-muted, rgba(255, 255, 255, 0.5));
           text-transform: uppercase;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.12em;
         }
 
-        .buzz-answer-value {
+        .buzz-answer-section .buzz-answer-value {
           font-weight: 700;
-          font-size: 1rem;
+          font-size: 1.1rem;
           color: var(--success, #22c55e);
-          text-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
-          text-align: right;
-          flex: 1;
+          text-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+          text-align: center;
+          line-height: 1.3;
         }
 
-        /* Boutons - même style que host-actions */
+        /* Boutons - même style, même taille */
         .buzz-actions {
           display: flex;
           gap: 12px;
@@ -1176,22 +1264,25 @@ export default function HostGame(){
           transform: translateY(0);
         }
 
-        /* Bouton annuler - discret */
+        /* Bouton annuler - un peu plus visible */
         .buzz-cancel {
           width: 100%;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.8rem;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.4);
-          background: transparent;
-          border: none;
-          padding: 10px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.45);
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          padding: 10px 16px;
           cursor: pointer;
-          transition: color 0.2s;
+          transition: all 0.2s ease;
         }
 
         .buzz-cancel:hover {
-          color: rgba(255, 255, 255, 0.7);
+          color: rgba(255, 255, 255, 0.8);
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.2);
         }
       `}</style>
     </div>

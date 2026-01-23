@@ -13,6 +13,7 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
 import { rankWithTies } from "@/lib/utils/ranking";
+import { EndScreenFooter } from "@/components/transitions";
 
 export default function EndPage(){
   const { code } = useParams();
@@ -32,7 +33,7 @@ export default function EndPage(){
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
 
   // Room guard - détecte fermeture room par l'hôte
-  useRoomGuard({
+  const { isValidating } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms',
     playerUid: myUid,
@@ -57,6 +58,9 @@ export default function EndPage(){
   const hostPresent = roomExists && meta && !meta.closed;
 
   useEffect(()=>{
+    // Ne pas démarrer les listeners tant que la room n'est pas validée
+    if (isValidating) return;
+
     const u1 = onValue(ref(db,`rooms/${code}/meta`), s=> {
       const data = s.val();
       setMeta(data);
@@ -66,7 +70,7 @@ export default function EndPage(){
     });
     const u2 = onValue(ref(db,`rooms/${code}/state`), s=> setState(s.val()));
     return ()=>{u1();u2();};
-  },[code]);
+  },[code, isValidating]);
 
   // Memos must be defined before useEffects that use them
   const modeEquipes = meta?.mode === "équipes";
@@ -211,6 +215,19 @@ export default function EndPage(){
     }
   };
 
+  // Affiche un loader pendant la validation de la room
+  if (isValidating) {
+    return (
+      <div className="end-page game-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.6)' }}>
+          <div style={{ width: 40, height: 40, border: '3px solid rgba(139,92,246,0.2)', borderTopColor: '#8b5cf6', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }} />
+          <p>Chargement...</p>
+        </div>
+        <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+  }
+
   return (
     <div className="end-page game-page">
       {/* Main Content - Tout sur une page */}
@@ -224,33 +241,34 @@ export default function EndPage(){
         {/* Podium animé */}
         {rankedPlayers.length >= 1 && (
           <div className="podium-section">
-            <PodiumPremium topPlayers={rankedPlayers.slice(0, 3)} />
+            {modeEquipes ? (
+              <PodiumPremium topPlayers={rankedTeams.slice(0, 3)} />
+            ) : (
+              <PodiumPremium topPlayers={rankedPlayers.slice(0, 3)} />
+            )}
           </div>
         )}
 
         {/* Classement */}
         <div className="leaderboard-wrapper">
-          <Leaderboard players={players} currentPlayerUid={myUid} />
+          <Leaderboard players={players} currentPlayerUid={myUid} teams={meta?.teams} />
         </div>
       </main>
 
       {/* Footer fixe */}
-      <footer className="end-footer">
-        <button
-          className="action-btn"
-          onClick={() => {
-            if (!hostPresent) {
-              router.push('/home');
-            } else if (isHost) {
-              handleBackToLobby();
-            } else {
-              router.push(`/room/${code}`);
-            }
-          }}
-        >
-          {!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
-        </button>
-      </footer>
+      <EndScreenFooter
+        gameColor="#8b5cf6"
+        label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+        onNewGame={() => {
+          if (!hostPresent) {
+            router.push('/home');
+          } else if (isHost) {
+            handleBackToLobby();
+          } else {
+            router.push(`/room/${code}`);
+          }
+        }}
+      />
 
       <style jsx>{`
         /* ===== LAYOUT - Une seule page ===== */
@@ -330,61 +348,6 @@ export default function EndPage(){
           z-index: 3;
         }
 
-        /* ===== FOOTER FIXE ===== */
-        .end-footer {
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
-          padding: 16px;
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          border-top: 1px solid rgba(139, 92, 246, 0.3);
-        }
-
-        .action-btn {
-          display: block;
-          width: 100%;
-          max-width: 400px;
-          margin: 0 auto;
-          padding: 18px 32px;
-          border: none;
-          border-radius: 14px;
-          cursor: pointer;
-
-          /* Typographie style guide */
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.1rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: white;
-
-          /* Fond gradient + profondeur 3D */
-          background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
-          box-shadow:
-            0 5px 0 #5b21b6,
-            0 8px 15px rgba(139, 92, 246, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-
-          transition: all 0.15s ease;
-        }
-
-
-        .action-btn:hover {
-          transform: translateY(-2px);
-          box-shadow:
-            0 7px 0 #5b21b6,
-            0 10px 20px rgba(139, 92, 246, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.25);
-        }
-
-        .action-btn:active {
-          transform: translateY(3px);
-          box-shadow:
-            0 2px 0 #5b21b6,
-            0 4px 8px rgba(139, 92, 246, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        }
       `}</style>
     </div>
   );

@@ -68,7 +68,26 @@
       "mcp__chrome-devtools__fill",
       "mcp__chrome-devtools__new_page",
       "mcp__chrome-devtools__select_page",
-      "mcp__chrome-devtools__press_key"
+      "mcp__chrome-devtools__press_key",
+      "mcp__chrome-devtools__wait_for",
+      "WebFetch(domain:firebase.google.com)",
+      "WebFetch(domain:rnfirebase.io)",
+      "WebFetch(domain:firebase.blog)",
+      "WebFetch(domain:livinglifetechway.com)",
+      "Bash(firebase database:remove:*)",
+      "WebFetch(domain:codepen.io)",
+      "WebFetch(domain:blog.stackfindover.com)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:lottiefiles.com)",
+      "mcp__chrome-devtools__close_page",
+      "WebFetch(domain:iconscout.com)",
+      "WebFetch(domain:thebookofshaders.com)",
+      "WebFetch(domain:25scripts.com)",
+      "WebFetch(domain:pomax.github.io)",
+      "WebFetch(domain:graphics.berkeley.edu)",
+      "mcp__chrome-devtools__get_console_message",
+      "Bash(git -C \"E:\\\\LetsQueeze\" status)",
+      "Bash(git -C \"E:\\\\LetsQueeze\" log --oneline -5)"
     ]
   }
 }

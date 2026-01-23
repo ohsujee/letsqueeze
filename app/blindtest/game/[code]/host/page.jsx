@@ -13,9 +13,11 @@ import { Play, Pause, SkipForward, X, Check, RotateCcw, Music, Zap, Clock, Timer
 import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel } from "@/lib/constants/blindtest";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
+import { GameEndTransition } from "@/components/transitions";
 
 export default function BlindTestHostGame() {
   const { code } = useParams();
@@ -24,6 +26,8 @@ export default function BlindTestHostGame() {
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
   const [playlist, setPlaylist] = useState(null);
+  const [showEndTransition, setShowEndTransition] = useState(false);
+  const endTransitionTriggeredRef = useRef(false);
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
@@ -85,7 +89,10 @@ export default function BlindTestHostGame() {
 
   // Redirect when phase changes
   useEffect(() => {
-    if (state?.phase === "ended") router.replace(`/blindtest/game/${code}/end`);
+    if (state?.phase === "ended" && !endTransitionTriggeredRef.current) {
+      endTransitionTriggeredRef.current = true;
+      setShowEndTransition(true);
+    }
     if (state?.phase === "lobby") router.replace(`/blindtest/room/${code}`);
   }, [state?.phase, router, code]);
 
@@ -97,6 +104,13 @@ export default function BlindTestHostGame() {
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
     playerUid: myUid,
+    isHost: true
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
     isHost: true
   });
 
@@ -126,89 +140,139 @@ export default function BlindTestHostGame() {
 
   // Sounds
   const playBuzz = useSound("/sounds/quiz-buzzer.wav");
-  const playCorrect = useSound("/sounds/quiz-good answer.wav");
+  const playCorrect = useSound("/sounds/quiz-good-answer.wav");
   const playWrong = useSound("/sounds/quiz-bad-answer.wav");
   const prevLock = useRef(null);
 
-  // Fenêtre de tolérance pour la résolution des buzzes (en ms)
+  // *** SYSTÈME DE BUZZ ROBUSTE ***
+  // Fenêtre de tolérance pour capturer tous les buzzes (compense les latences réseau)
   const BUZZ_WINDOW_MS = 150;
   const buzzWindowTimeout = useRef(null);
-  const isResolvingBuzz = useRef(false);
+  const buzzCache = useRef({}); // Cache local - JAMAIS ignoré
+  const isResolving = useRef(false);
 
-  // *** NOUVEAU SYSTÈME: HOST ÉCOUTE LES PENDING BUZZES ET RÉSOUT APRÈS 150ms ***
+  // *** SYSTÈME DE BUZZ ROBUSTE: LISTENER DÉDIÉ + CACHE LOCAL ***
   useEffect(() => {
-    if (!isHost) return;
+    if (!isHost || !code) return;
 
-    // Si déjà un lockUid, pas besoin de résoudre
-    if (state?.lockUid) return;
+    const pendingBuzzesRef = ref(db, `rooms_blindtest/${code}/state/pendingBuzzes`);
 
-    const pendingBuzzes = state?.pendingBuzzes;
-    if (!pendingBuzzes || Object.keys(pendingBuzzes).length === 0) return;
+    // Fonction de résolution - utilise le cache local
+    const resolveBuzzes = async () => {
+      // Marquer comme en cours de résolution
+      isResolving.current = true;
+      buzzWindowTimeout.current = null;
 
-    // Si déjà en train de résoudre, ne pas redémarrer le timer
-    if (isResolvingBuzz.current) return;
-
-    // Démarrer la fenêtre de tolérance
-    isResolvingBuzz.current = true;
-
-    buzzWindowTimeout.current = setTimeout(async () => {
       try {
-        // Relire les pendingBuzzes pour avoir tous ceux arrivés pendant la fenêtre
-        const snapshot = await import('firebase/database').then(m =>
-          m.get(m.ref(db, `rooms_blindtest/${code}/state/pendingBuzzes`))
-        );
-        const allBuzzes = snapshot.val();
+        // Copier le cache actuel (snapshot des buzzes reçus)
+        const buzzesToResolve = { ...buzzCache.current };
+        const buzzCount = Object.keys(buzzesToResolve).length;
 
-        if (!allBuzzes || Object.keys(allBuzzes).length === 0) {
-          isResolvingBuzz.current = false;
+        if (buzzCount === 0) {
+          console.log('[Buzz] Aucun buzz à résoudre');
           return;
         }
 
-        // Trouver le buzz avec le plus petit adjustedTime (le vrai premier)
-        const buzzArray = Object.values(allBuzzes);
+        console.log(`[Buzz] Résolution de ${buzzCount} buzz(es)...`);
+
+        // Vérifier que lockUid n'est pas déjà défini
+        const { get: fbGet } = await import('firebase/database');
+        const lockSnap = await fbGet(ref(db, `rooms_blindtest/${code}/state/lockUid`));
+        if (lockSnap.val()) {
+          console.log('[Buzz] lockUid déjà défini, abandon');
+          return;
+        }
+
+        // Trouver le gagnant (plus petit adjustedTime = premier à avoir buzzé)
+        const buzzArray = Object.values(buzzesToResolve);
         buzzArray.sort((a, b) => a.adjustedTime - b.adjustedTime);
         const winner = buzzArray[0];
+
+        console.log(`[Buzz] Gagnant: ${winner.name} (adjustedTime: ${winner.adjustedTime})`);
+
+        // Utiliser une transaction pour garantir l'atomicité
+        const { runTransaction: fbTransaction } = await import('firebase/database');
+        const lockResult = await fbTransaction(ref(db, `rooms_blindtest/${code}/state/lockUid`), (currentLock) => {
+          // Si déjà défini par quelqu'un d'autre, on abandonne
+          if (currentLock) return currentLock;
+          // Sinon on écrit le gagnant
+          return winner.uid;
+        });
+
+        // Vérifier si on a gagné la transaction
+        if (lockResult.snapshot.val() !== winner.uid) {
+          console.log('[Buzz] Transaction perdue, quelqu\'un d\'autre a écrit lockUid');
+          return;
+        }
 
         // Pause la musique
         pauseMusic();
 
-        // Mettre à jour Firebase avec le gagnant
+        // Transaction réussie - mettre à jour les autres champs
         await update(ref(db, `rooms_blindtest/${code}/state`), {
-          lockUid: winner.uid,
           buzz: { uid: winner.uid, at: winner.localTime },
           buzzBanner: `🔔 ${winner.name} a buzzé !`,
           pausedAt: serverTimestamp(),
           lockedAt: serverTimestamp()
         });
-        // Supprimer les buzzes en attente séparément
-        await import('firebase/database').then(m =>
-          m.remove(m.ref(db, `rooms_blindtest/${code}/state/pendingBuzzes`))
-        ).catch(() => {});
 
+        // Supprimer les pendingBuzzes
+        const { remove: fbRemove } = await import('firebase/database');
+        await fbRemove(pendingBuzzesRef).catch(() => {});
+
+        // Son
         playBuzz();
 
+        console.log('[Buzz] ✅ Résolution terminée');
+
       } catch (error) {
-        console.error('Erreur résolution buzz:', error);
+        console.error('[Buzz] ❌ Erreur résolution:', error);
       } finally {
-        isResolvingBuzz.current = false;
-      }
-    }, BUZZ_WINDOW_MS);
-
-    return () => {
-      if (buzzWindowTimeout.current) {
-        clearTimeout(buzzWindowTimeout.current);
+        isResolving.current = false;
+        // Vider le cache après résolution
+        buzzCache.current = {};
       }
     };
-  }, [isHost, state?.pendingBuzzes, state?.lockUid, code, playBuzz]);
 
-  // Cleanup du timeout à la fermeture
-  useEffect(() => {
+    // Listener DÉDIÉ qui met TOUJOURS à jour le cache (jamais ignoré)
+    const unsubscribe = onValue(pendingBuzzesRef, (snapshot) => {
+      const pendingBuzzes = snapshot.val() || {};
+      const buzzCount = Object.keys(pendingBuzzes).length;
+
+      // Toujours mettre à jour le cache
+      buzzCache.current = pendingBuzzes;
+
+      // Si pas de buzzes, rien à faire
+      if (buzzCount === 0) return;
+
+      // Si un timeout est déjà programmé, les nouveaux buzzes seront
+      // capturés via le cache quand la résolution s'exécutera
+      if (buzzWindowTimeout.current) {
+        console.log(`[Buzz] +1 buzz ajouté au cache (total: ${buzzCount})`);
+        return;
+      }
+
+      // Si résolution en cours, le cache sera traité au prochain cycle si nécessaire
+      if (isResolving.current) {
+        console.log('[Buzz] Résolution en cours, buzz ajouté au cache');
+        return;
+      }
+
+      // Premier buzz détecté - démarrer la fenêtre de 150ms
+      console.log(`[Buzz] Premier buzz détecté, démarrage fenêtre ${BUZZ_WINDOW_MS}ms`);
+      buzzWindowTimeout.current = setTimeout(resolveBuzzes, BUZZ_WINDOW_MS);
+    });
+
     return () => {
+      unsubscribe();
       if (buzzWindowTimeout.current) {
         clearTimeout(buzzWindowTimeout.current);
+        buzzWindowTimeout.current = null;
       }
+      buzzCache.current = {};
+      isResolving.current = false;
     };
-  }, []);
+  }, [isHost, code, playBuzz, pauseMusic]);
 
   // Host reacts to new lock (backup pour tracking)
   useEffect(() => {
@@ -323,7 +387,8 @@ export default function BlindTestHostGame() {
   async function exitAndEndGame() {
     if (code) {
       await stopMusic();
-      await update(ref(db, `rooms_blindtest/${code}/state`), { phase: "ended" });
+      // Fermer la room proprement - les joueurs seront redirigés via useRoomGuard
+      await update(ref(db, `rooms_blindtest/${code}/meta`), { closed: true });
     }
     router.push('/home');
   }
@@ -332,7 +397,7 @@ export default function BlindTestHostGame() {
   async function resetBuzzers() {
     if (!isHost) return;
     // Reset le flag de résolution
-    isResolvingBuzz.current = false;
+    isResolving.current = false;
     if (buzzWindowTimeout.current) {
       clearTimeout(buzzWindowTimeout.current);
       buzzWindowTimeout.current = null;
@@ -404,7 +469,24 @@ export default function BlindTestHostGame() {
     }
 
     const updates = {};
-    updates[`rooms_blindtest/${code}/players/${uid}/blockedUntil`] = until;
+
+    // Appliquer la pénalité de temps
+    if (meta?.mode === "équipes") {
+      // Mode équipes : bloquer toute l'équipe
+      const player = players.find(p => p.uid === uid);
+      const teamId = player?.teamId;
+      if (teamId) {
+        players.filter(p => p.teamId === teamId).forEach(p => {
+          updates[`rooms_blindtest/${code}/players/${p.uid}/blockedUntil`] = until;
+        });
+      } else {
+        // Fallback si pas d'équipe trouvée
+        updates[`rooms_blindtest/${code}/players/${uid}/blockedUntil`] = until;
+      }
+    } else {
+      // Mode individuel : bloquer seulement le joueur
+      updates[`rooms_blindtest/${code}/players/${uid}/blockedUntil`] = until;
+    }
     updates[`rooms_blindtest/${code}/state/lockUid`] = null;
     updates[`rooms_blindtest/${code}/state/buzzBanner`] = "";
     updates[`rooms_blindtest/${code}/state/buzz`] = null;
@@ -412,7 +494,7 @@ export default function BlindTestHostGame() {
     updates[`rooms_blindtest/${code}/state/lockedAt`] = null;
 
     // Reset le flag de résolution
-    isResolvingBuzz.current = false;
+    isResolving.current = false;
 
     await update(ref(db), updates);
     // Supprimer les buzzes en attente séparément
@@ -453,7 +535,7 @@ export default function BlindTestHostGame() {
     updates[`rooms_blindtest/${code}/state/buzz`] = null;
 
     // Reset le flag de résolution
-    isResolvingBuzz.current = false;
+    isResolving.current = false;
 
     await update(ref(db), updates);
     // Supprimer les buzzes en attente séparément
@@ -482,6 +564,16 @@ export default function BlindTestHostGame() {
 
   return (
     <div className="blindtest-host-page game-page">
+      {/* Transition de fin de partie */}
+      <AnimatePresence>
+        {showEndTransition && (
+          <GameEndTransition
+            variant="blindtest"
+            onComplete={() => router.replace(`/blindtest/game/${code}/end`)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <header className="game-header blindtest">
         <div className="game-header-content">
@@ -812,7 +904,7 @@ export default function BlindTestHostGame() {
         )}
 
         {/* Leaderboard */}
-        <Leaderboard players={players} />
+        <Leaderboard players={players} mode={meta?.mode} teams={meta?.teams} />
       </main>
 
       {/* Footer Actions */}

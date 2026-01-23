@@ -28,6 +28,7 @@ import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 
 export default function AlibiPrep() {
@@ -54,6 +55,13 @@ export default function AlibiPrep() {
     roomCode: code,
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
+    isHost
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms_alibi',
     isHost
   });
 

@@ -11,6 +11,7 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
 import { rankWithTies } from "@/lib/utils/ranking";
+import { EndScreenFooter } from "@/components/transitions";
 
 export default function BlindTestEndPage() {
   const { code } = useParams();
@@ -170,27 +171,24 @@ export default function BlindTestEndPage() {
 
         {/* Leaderboard */}
         <div className="leaderboard-wrapper">
-          <Leaderboard players={rankedPlayers} currentPlayerUid={myUid} />
+          <Leaderboard players={rankedPlayers} currentPlayerUid={myUid} teams={meta?.teams} />
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="end-footer">
-        <button
-          className="action-btn"
-          onClick={() => {
-            if (!hostPresent) {
-              router.push('/home');
-            } else if (isHost) {
-              handleBackToLobby();
-            } else {
-              router.push(`/blindtest/room/${code}`);
-            }
-          }}
-        >
-          {!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
-        </button>
-      </footer>
+      <EndScreenFooter
+        gameColor="#10b981"
+        label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+        onNewGame={() => {
+          if (!hostPresent) {
+            router.push('/home');
+          } else if (isHost) {
+            handleBackToLobby();
+          } else {
+            router.push(`/blindtest/room/${code}`);
+          }
+        }}
+      />
 
       <style jsx>{`
         /* ===== LAYOUT ===== */
@@ -359,67 +357,6 @@ export default function BlindTestEndPage() {
           z-index: 3;
         }
 
-        /* ===== FOOTER - 10vh ===== */
-        .end-footer {
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
-          height: 10vh;
-          padding: 1.5vh 3vw;
-          padding-bottom: calc(1.5vh + var(--safe-area-bottom));
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          border-top: 1px solid rgba(16, 185, 129, 0.3);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .action-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          max-width: 400px;
-          height: 7vh;
-          padding: 0 4vw;
-          border: none;
-          border-radius: 1.8vh;
-          cursor: pointer;
-
-          /* Typography */
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 2vh;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: white;
-
-          /* Emerald gradient + 3D depth */
-          background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
-          box-shadow:
-            0 0.6vh 0 #047857,
-            0 1vh 2vh rgba(16, 185, 129, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-
-          transition: all 0.15s ease;
-        }
-
-        .action-btn:hover {
-          transform: translateY(-0.3vh);
-          box-shadow:
-            0 0.9vh 0 #047857,
-            0 1.3vh 2.5vh rgba(16, 185, 129, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.25);
-        }
-
-        .action-btn:active {
-          transform: translateY(0.4vh);
-          box-shadow:
-            0 0.25vh 0 #047857,
-            0 0.5vh 1vh rgba(16, 185, 129, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        }
       `}</style>
     </div>
   );

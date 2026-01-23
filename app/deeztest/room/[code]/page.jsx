@@ -13,6 +13,7 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
+import { GameLaunchCountdown } from "@/components/transitions";
 import LobbyHeader from "@/components/game/LobbyHeader";
 import PaywallModal from "@/components/ui/PaywallModal";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
@@ -20,17 +21,24 @@ import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { usePresence } from "@/lib/hooks/usePresence";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
+import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
-import { ChevronRight, Music, Search, Check, X, Users, Zap } from "lucide-react";
+import { ChevronRight, Music, Search, Check, X } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
+import { useTeamMode } from "@/lib/hooks/useTeamMode";
 import {
   searchPlaylists,
   getFeaturedPlaylists,
   getRandomTracksFromPlaylist,
   formatTracksForGame
 } from "@/lib/deezer/api";
+import TeamModeSelector from "@/components/game/TeamModeSelector";
+import TeamPlayerView from "@/components/game/TeamPlayerView";
+import TeamTabs from "@/lib/components/TeamTabs";
 
 // Nombre max de playlists pour non-Pro
 const MAX_PLAYLISTS_FREE = 3;
@@ -47,8 +55,12 @@ export default function DeezTestLobby() {
   const [showPaywall, setShowPaywall] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showPlaylistSelector, setShowPlaylistSelector] = useState(false);
+  const [showCountdown, setShowCountdown] = useState(false);
+  const countdownTriggeredRef = useRef(false);
   const roomWasValidRef = useRef(false);
   const [myUid, setMyUid] = useState(null);
+  const [isPlayerMissing, setIsPlayerMissing] = useState(false);
+  const [rejoinError, setRejoinError] = useState(null);
 
   // Deezer state (no auth needed!)
   const [searchQuery, setSearchQuery] = useState("");
@@ -66,6 +78,26 @@ export default function DeezTestLobby() {
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_deeztest' });
+
+  // Centralized team mode hook
+  const {
+    mode,
+    isTeamMode,
+    teams: teamModeTeams,
+    teamCount,
+    handleModeToggle,
+    handleTeamCountChange,
+    handleAssignToTeam,
+    handleRemoveFromTeam,
+    handleAutoBalance,
+    handleResetTeams
+  } = useTeamMode({
+    roomCode: code,
+    roomPrefix: 'rooms_deeztest',
+    meta,
+    players,
+    isHost
+  });
 
   // Check if can use more playlists
   const canUseMorePlaylists = userIsPro || playlistsUsed < MAX_PLAYLISTS_FREE;
@@ -111,8 +143,17 @@ export default function DeezTestLobby() {
 
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
 
+  // Presence hook - real-time connection tracking
+  const { isConnected, forceReconnect } = usePresence({
+    roomCode: code,
+    roomPrefix: 'rooms_deeztest',
+    playerUid: myUid,
+    heartbeatInterval: 15000,
+    enabled: !isHost && !!myUid
+  });
+
   // Player cleanup with auto-rejoin for hard refresh
-  const { leaveRoom } = usePlayerCleanup({
+  const { leaveRoom, attemptRejoin, isRejoining } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_deeztest',
     playerUid: myUid,
@@ -127,7 +168,16 @@ export default function DeezTestLobby() {
       blockedUntil: 0,
       joinedAt: Date.now()
     }),
-    onRejoinFailed: () => router.push('/home')
+    onPlayerRemoved: () => {
+      if (!isHost) setIsPlayerMissing(true);
+    },
+    onRejoinSuccess: () => {
+      setIsPlayerMissing(false);
+      setRejoinError(null);
+    },
+    onRejoinFailed: (err) => {
+      setRejoinError(err?.message || 'Impossible de rejoindre');
+    }
   });
 
   // Room guard
@@ -135,6 +185,14 @@ export default function DeezTestLobby() {
     roomCode: code,
     roomPrefix: 'rooms_deeztest',
     playerUid: myUid,
+    isHost,
+    skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms_deeztest',
     isHost
   });
 
@@ -161,12 +219,9 @@ export default function DeezTestLobby() {
 
     const stateUnsub = onValue(ref(db, `rooms_deeztest/${code}/state`), (snap) => {
       const state = snap.val();
-      if (state?.phase === "playing") {
-        if (isHost) {
-          router.push(`/deeztest/game/${code}/host`);
-        } else {
-          router.push(`/deeztest/game/${code}/play`);
-        }
+      if (state?.phase === "playing" && !countdownTriggeredRef.current) {
+        countdownTriggeredRef.current = true;
+        setShowCountdown(true);
       }
     });
 
@@ -259,29 +314,6 @@ export default function DeezTestLobby() {
     }
   };
 
-  // Mode toggle
-  const handleModeToggle = async () => {
-    if (!isHost) return;
-    const newMode = meta?.mode === "équipes" ? "individuel" : "équipes";
-
-    if (newMode === "équipes" && (!teams || Object.keys(teams).length === 0)) {
-      const defaultTeams = {
-        team1: { name: "Team Blaze", color: "#FF2D55", score: 0 },
-        team2: { name: "Team Frost", color: "#00D4FF", score: 0 }
-      };
-      await update(ref(db, `rooms_deeztest/${code}/meta`), { mode: newMode, teams: defaultTeams, teamCount: 2 });
-    } else if (newMode === "individuel") {
-      const updates = {};
-      players.forEach(p => {
-        updates[`rooms_deeztest/${code}/players/${p.uid}/teamId`] = "";
-      });
-      updates[`rooms_deeztest/${code}/meta/mode`] = newMode;
-      await update(ref(db), updates);
-    } else {
-      await update(ref(db, `rooms_deeztest/${code}/meta`), { mode: newMode });
-    }
-  };
-
   // Start game - refresh track URLs before starting (they expire after ~24h)
   const [isStarting, setIsStarting] = useState(false);
 
@@ -368,6 +400,22 @@ export default function DeezTestLobby() {
 
   return (
     <div className="lobby-container deeztest game-page">
+      {/* Game Launch Countdown */}
+      <AnimatePresence>
+        {showCountdown && (
+          <GameLaunchCountdown
+            gameColor="#A238FF"
+            onComplete={() => {
+              if (isHost) {
+                router.push(`/deeztest/game/${code}/host`);
+              } else {
+                router.push(`/deeztest/game/${code}/play`);
+              }
+            }}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Modals */}
       <PaywallModal
         isOpen={showPaywall}
@@ -379,6 +427,16 @@ export default function DeezTestLobby() {
         isOpen={showHowToPlay}
         onClose={() => setShowHowToPlay(false)}
         gameType="blindtest"
+      />
+
+      {/* Lobby Disconnect Alert */}
+      <LobbyDisconnectAlert
+        isVisible={isPlayerMissing && !isHost}
+        isRejoining={isRejoining}
+        onRejoin={attemptRejoin}
+        onGoHome={() => router.push('/home')}
+        error={rejoinError}
+        gameColor="#A238FF"
       />
 
       {/* Playlist Selector Modal */}
@@ -581,68 +639,65 @@ export default function DeezTestLobby() {
                 </div>
               </motion.div>
 
-              {/* Mode Selector Card */}
-              <div className="lobby-card mode-selector deeztest">
-                <div className="card-header">
-                  <span className="card-icon">👥</span>
-                  <span className="card-label">Mode de jeu</span>
-                </div>
-                <div className="mode-controls">
-                  <div className="mode-toggle deeztest">
-                    <motion.button
-                      className={`mode-btn deeztest ${meta.mode === "individuel" ? "active" : ""}`}
-                      onClick={handleModeToggle}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Zap size={18} />
-                      Solo
-                    </motion.button>
-                    <motion.button
-                      className={`mode-btn deeztest ${meta.mode === "équipes" ? "active" : ""}`}
-                      onClick={handleModeToggle}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Users size={18} />
-                      Équipes
-                    </motion.button>
-                  </div>
-                </div>
-              </div>
+              {/* Mode Selector - Centralized Component */}
+              <TeamModeSelector
+                mode={mode}
+                teamCount={teamCount}
+                onModeToggle={handleModeToggle}
+                onTeamCountChange={handleTeamCountChange}
+                disabled={false}
+                gameColor="#A238FF"
+              />
 
-              {/* Players Card */}
-              <div className="lobby-card lobby-players lobby-card-flex deeztest">
-                <div className="card-header">
-                  <span className="card-icon">🎮</span>
-                  <span className="card-label">Joueurs</span>
-                  <span className="player-count-badge deeztest">{players.length}</span>
+              {/* Team Tabs - Only in team mode */}
+              {isTeamMode && teamModeTeams && Object.keys(teamModeTeams).length > 0 && (
+                <div className="lobby-card teams-card deeztest">
+                  <TeamTabs
+                    teams={teamModeTeams}
+                    players={players}
+                    onAssignToTeam={handleAssignToTeam}
+                    onRemoveFromTeam={handleRemoveFromTeam}
+                    onAutoBalance={handleAutoBalance}
+                    onResetTeams={handleResetTeams}
+                    teamCount={teamCount}
+                  />
                 </div>
-                {players.length === 0 ? (
-                  <div className="empty-state">
-                    <span className="empty-icon">👋</span>
-                    <p className="empty-text">En attente de joueurs...</p>
-                    <p className="empty-hint">Partagez le code pour inviter</p>
+              )}
+
+              {/* Players Card - Show only in solo mode */}
+              {!isTeamMode && (
+                <div className="lobby-card lobby-players lobby-card-flex deeztest">
+                  <div className="card-header">
+                    <span className="card-icon">🎮</span>
+                    <span className="card-label">Joueurs</span>
+                    <span className="player-count-badge deeztest">{players.length}</span>
                   </div>
-                ) : (
-                  <div className="players-chips">
-                    {players.map((player, index) => (
-                      <motion.div
-                        key={player.uid}
-                        className="player-chip deeztest"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: index * 0.05 }}
-                      >
-                        <div className="chip-avatar deeztest">
-                          {player.name?.charAt(0)?.toUpperCase() || '?'}
-                        </div>
-                        <span className="chip-name">{player.name}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                  {players.length === 0 ? (
+                    <div className="empty-state">
+                      <span className="empty-icon">👋</span>
+                      <p className="empty-text">En attente de joueurs...</p>
+                      <p className="empty-hint">Partagez le code pour inviter</p>
+                    </div>
+                  ) : (
+                    <div className="players-chips">
+                      {players.map((player, index) => (
+                        <motion.div
+                          key={player.uid}
+                          className="player-chip deeztest"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: index * 0.05 }}
+                        >
+                          <div className="chip-avatar deeztest">
+                            {player.name?.charAt(0)?.toUpperCase() || '?'}
+                          </div>
+                          <span className="chip-name">{player.name}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Fixed Start Button */}
@@ -706,33 +761,45 @@ export default function DeezTestLobby() {
               </div>
             )}
 
-            {/* Players Header */}
-            <div className="players-header-card deeztest">
-              <span className="players-icon">🎮</span>
-              <span className="players-count">{players.length}</span>
-              <span className="players-label">joueurs connectés</span>
-            </div>
+            {/* Team Mode Player View */}
+            {isTeamMode ? (
+              <TeamPlayerView
+                teams={teamModeTeams}
+                players={players}
+                teamCount={teamCount}
+                currentPlayerUid={myUid}
+              />
+            ) : (
+              <>
+                {/* Players Header */}
+                <div className="players-header-card deeztest">
+                  <span className="players-icon">🎮</span>
+                  <span className="players-count">{players.length}</span>
+                  <span className="players-label">joueurs connectés</span>
+                </div>
 
-            {/* Players List */}
-            <div className="players-list-player deeztest">
-              {players.map((player, index) => (
-                <motion.div
-                  key={player.uid}
-                  className={`player-chip-full deeztest ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.03 }}
-                >
-                  <div className="chip-avatar-glow deeztest">
-                    {player.name?.charAt(0)?.toUpperCase() || '?'}
-                  </div>
-                  <span className="chip-name-full">
-                    {player.name}
-                    {player.uid === auth.currentUser?.uid && ' (toi)'}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
+                {/* Players List */}
+                <div className="players-list-player deeztest">
+                  {players.map((player, index) => (
+                    <motion.div
+                      key={player.uid}
+                      className={`player-chip-full deeztest ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.03 }}
+                    >
+                      <div className="chip-avatar-glow deeztest">
+                        {player.name?.charAt(0)?.toUpperCase() || '?'}
+                      </div>
+                      <span className="chip-name-full">
+                        {player.name}
+                        {player.uid === auth.currentUser?.uid && ' (toi)'}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </>
+            )}
 
             {/* Waiting Animation */}
             <div className="waiting-compact deeztest">

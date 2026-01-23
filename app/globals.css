@@ -8483,6 +8483,12 @@ textarea:focus-visible {
   color: var(--text-muted, rgba(255, 255, 255, 0.5));
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  max-width: 100%;
+  padding: 0 1rem;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ===== SHARE MODAL ===== */
@@ -9329,16 +9335,20 @@ textarea:focus-visible {
 /* Modal content area */
 .quiz-modal-content {
   flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
+  min-height: 0; /* Permet le shrink dans flex */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Categories Grid */
+/* Categories Grid - scrollable */
 .quiz-categories-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
   padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .quiz-category-card {
@@ -9404,10 +9414,12 @@ textarea:focus-visible {
 .quiz-themes-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
+  min-height: 0; /* Permet le shrink dans flex */
 }
 
 .quiz-themes-header {
+  flex-shrink: 0; /* Ne jamais shrink */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9439,9 +9451,10 @@ textarea:focus-visible {
   background: rgba(139, 92, 246, 0.25);
 }
 
-/* Themes List */
+/* Themes List - scrollable, footer stays visible */
 .quiz-themes-list {
   flex: 1;
+  min-height: 0; /* Permet le shrink pour que le footer reste visible */
   overflow-y: auto;
   padding: 0.75rem;
   display: flex;
@@ -9537,10 +9550,14 @@ textarea:focus-visible {
   text-transform: uppercase;
 }
 
-/* Themes Footer / Validate Button */
+/* Themes Footer / Validate Button - toujours visible en bas */
 .quiz-themes-footer {
+  flex-shrink: 0; /* Ne jamais shrink */
   padding: 0.75rem 1rem 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(20, 20, 30, 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .quiz-validate-btn {

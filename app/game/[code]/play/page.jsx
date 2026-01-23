@@ -18,6 +18,7 @@ import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { storage } from "@/lib/utils/storage";
 import { FitText } from "@/lib/hooks/useFitText";
+import { GameEndTransition } from "@/components/transitions";
 
 export default function PlayerGame(){
   const { code } = useParams();
@@ -28,6 +29,8 @@ export default function PlayerGame(){
   const [quiz,setQuiz]=useState(null);
   const [conf,setConf]=useState(null);
   const [myUid, setMyUid] = useState(null);
+  const [showEndTransition, setShowEndTransition] = useState(false);
+  const endTransitionTriggeredRef = useRef(false);
 
   // Centralized players hook
   const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
@@ -77,7 +80,7 @@ export default function PlayerGame(){
   }, [myUid, code, markActive]);
 
   // Room guard - détecte kick et fermeture room
-  const { markVoluntaryLeave } = useRoomGuard({
+  const { markVoluntaryLeave, isValidating } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms',
     playerUid: myUid,
@@ -92,11 +95,18 @@ export default function PlayerGame(){
       .catch(err => console.error('Erreur chargement config:', err));
   },[]);
 
-  // DB listeners
+  // DB listeners - seulement après validation de la room
   useEffect(()=>{
+    // Ne pas démarrer les listeners tant que la room n'est pas validée
+    if (isValidating) return;
+
     const u1 = onValue(ref(db,`rooms/${code}/state`), s=>{
       const v=s.val(); setState(v);
-      if(v?.phase==="ended") router.replace("/end/"+code);
+      if(v?.phase==="ended" && !endTransitionTriggeredRef.current) {
+        // Afficher la transition de fin avant de redirect
+        endTransitionTriggeredRef.current = true;
+        setShowEndTransition(true);
+      }
       if(v?.phase==="lobby") router.replace("/room/"+code);
     });
     const u2 = onValue(ref(db,`rooms/${code}/meta`), s=>{
@@ -104,7 +114,7 @@ export default function PlayerGame(){
     });
     const u3 = onValue(ref(db,`rooms/${code}/quiz`), s=>setQuiz(s.val()));
     return ()=>{u1();u2();u3();};
-  },[code, router]);
+  },[code, router, isValidating]);
 
   const revealed = !!state?.revealed;
   const locked = !!state?.lockUid;
@@ -146,7 +156,7 @@ export default function PlayerGame(){
 
   // Sons: reveal & buzz (déclenchés par changements d'état)
   const playReveal = useSound("/sounds/reveal.mp3");
-  const playBuzz   = useSound("/sounds/buzz.mp3");
+  const playBuzz   = useSound("/sounds/quiz-buzzer.wav");
   const prevRevealAt = useRef(0);
   const prevLock = useRef(null);
   useEffect(()=>{
@@ -191,8 +201,31 @@ export default function PlayerGame(){
 
   const isMyTurn = state?.lockUid === me?.uid;
 
+  // Affiche un loader pendant la validation de la room
+  if (isValidating) {
+    return (
+      <div className="player-game-page game-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.6)' }}>
+          <div className="loading-spinner" style={{ width: 40, height: 40, border: '3px solid rgba(139,92,246,0.2)', borderTopColor: '#8b5cf6', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }} />
+          <p>Chargement...</p>
+        </div>
+        <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+  }
+
   return (
     <div className={`player-game-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
+      {/* Transition de fin de partie (pas si room fermée - useRoomGuard gère la redirection) */}
+      <AnimatePresence>
+        {showEndTransition && !meta?.closed && (
+          <GameEndTransition
+            variant="quiz"
+            onComplete={() => router.replace(`/end/${code}`)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Glow vert quand c'est mon tour */}
       <AnimatePresence>
         {isMyTurn && (
@@ -295,7 +328,7 @@ export default function PlayerGame(){
                     <div className="waiting-dots">
                       <span></span><span></span><span></span>
                     </div>
-                    <div className="waiting-label">En attente...</div>
+                    <div className="waiting-label">{meta?.hostName || 'L\'animateur'} lit la question...</div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -306,7 +339,7 @@ export default function PlayerGame(){
         </div>
 
         {/* Classement */}
-        <Leaderboard players={players} currentPlayerUid={me?.uid} />
+        <Leaderboard players={players} currentPlayerUid={me?.uid} mode={meta?.mode} teams={meta?.teams} />
       </main>
 
       {/* Buzzer en footer */}

@@ -18,6 +18,7 @@ import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { storage } from "@/lib/utils/storage";
 import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
+import { GameEndTransition } from "@/components/transitions";
 
 export default function BlindTestPlayerGame() {
   const { code } = useParams();
@@ -27,6 +28,8 @@ export default function BlindTestPlayerGame() {
   const [meta, setMeta] = useState(null);
   const [playlist, setPlaylist] = useState(null);
   const [myUid, setMyUid] = useState(null);
+  const [showEndTransition, setShowEndTransition] = useState(false);
+  const endTransitionTriggeredRef = useRef(false);
 
   // Centralized players hook
   const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
@@ -87,7 +90,10 @@ export default function BlindTestPlayerGame() {
   useEffect(() => {
     const u1 = onValue(ref(db, `rooms_blindtest/${code}/state`), s => {
       const v = s.val(); setState(v);
-      if (v?.phase === "ended") router.replace(`/blindtest/game/${code}/end`);
+      if (v?.phase === "ended" && !endTransitionTriggeredRef.current) {
+        endTransitionTriggeredRef.current = true;
+        setShowEndTransition(true);
+      }
       if (v?.phase === "lobby") router.replace(`/blindtest/room/${code}`);
     });
     const u2 = onValue(ref(db, `rooms_blindtest/${code}/meta`), s => {
@@ -153,6 +159,16 @@ export default function BlindTestPlayerGame() {
 
   return (
     <div className={`blindtest-player-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
+      {/* Transition de fin de partie (pas si room fermée - useRoomGuard gère la redirection) */}
+      <AnimatePresence>
+        {showEndTransition && !meta?.closed && (
+          <GameEndTransition
+            variant="blindtest"
+            onComplete={() => router.replace(`/blindtest/game/${code}/end`)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Glow when it's my turn */}
       <AnimatePresence>
         {isMyTurn && (
@@ -228,7 +244,7 @@ export default function BlindTestPlayerGame() {
         </div>
 
         {/* Leaderboard */}
-        <Leaderboard players={players} currentPlayerUid={me?.uid} />
+        <Leaderboard players={players} currentPlayerUid={me?.uid} mode={meta?.mode} teams={meta?.teams} />
       </main>
 
       {/* Buzzer */}

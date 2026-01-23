@@ -16,6 +16,7 @@ import GuestWarningModal from '@/components/ui/GuestWarningModal';
 import GameLimitModal from '@/components/ui/GameLimitModal';
 import RejoinBanner from '@/components/ui/RejoinBanner';
 import { useActiveGameCheck } from '@/lib/hooks/usePlayerCleanup';
+import { useToast } from '@/lib/hooks/useToast';
 import { Gamepad2, Heart, ChevronsUp, Crown } from 'lucide-react';
 import { genUniqueCode } from '@/lib/utils';
 import { isFounder } from '@/lib/admin';
@@ -36,6 +37,9 @@ function HomePageContent() {
   // Check for active game the player can rejoin
   const activeGame = useActiveGameCheck(user?.uid);
 
+  // Toast notifications
+  const toast = useToast();
+
   // Game limits for quiz (most common game type)
   const {
     canPlayFree,
@@ -49,6 +53,18 @@ function HomePageContent() {
 
   // Dev auth bypass - allows ?devAuth=UID to auto-login (localhost only)
   const { isDevAuth, loading: devAuthLoading, error: devAuthError } = useDevAuth();
+
+  // Check if player was kicked from a room (show notification)
+  useEffect(() => {
+    const wasKicked = sessionStorage.getItem('lq_wasKicked');
+    if (wasKicked) {
+      sessionStorage.removeItem('lq_wasKicked');
+      // Small delay to ensure toast provider is ready
+      setTimeout(() => {
+        toast.error('Tu as été exclu de la partie par l\'hôte');
+      }, 100);
+    }
+  }, [toast]);
 
   useEffect(() => {
     // Load favorites from storage
@@ -124,6 +140,7 @@ function HomePageContent() {
           code: c,
           createdAt: now,
           hostUid: auth.currentUser.uid,
+          hostName: profile?.pseudo || user?.displayName?.split(' ')[0] || 'Animateur',
           expiresAt: now + 12 * 60 * 60 * 1000,
           mode: "individuel",
           teamCount: 0,
