@@ -634,7 +634,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
           border: 1px solid rgba(255, 255, 255, 0.08);
           flex-shrink: 0;
           min-width: 0;
-          max-width: 100%;
+          width: 100%;
         }
 
         .leaderboard-card :global(.player-row.moved-up) {

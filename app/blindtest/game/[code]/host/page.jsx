@@ -51,6 +51,16 @@ export default function BlindTestHostGame() {
   // Player error state
   const [playerError, setPlayerError] = useState(null);
 
+  // Pause music - défini tôt car utilisé dans le système de buzz
+  const pauseMusic = useCallback(async () => {
+    if (snippetStopRef.current) {
+      await snippetStopRef.current.stop();
+      snippetStopRef.current = null;
+    }
+    await pause();
+    setIsPlaying(false);
+  }, []);
+
   // Initialize Spotify Player
   useEffect(() => {
     const init = async () => {
@@ -351,15 +361,6 @@ export default function BlindTestHostGame() {
       console.error("[BlindTest Host] Error playing snippet:", error);
       setPlayerError(error.message || "Erreur de lecture");
     }
-  };
-
-  const pauseMusic = async () => {
-    if (snippetStopRef.current) {
-      await snippetStopRef.current.stop();
-      snippetStopRef.current = null;
-    }
-    await pause();
-    setIsPlaying(false);
   };
 
   // Full stop - resets everything for new question

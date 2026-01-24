@@ -60,6 +60,16 @@ export default function DeezTestHostGame() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const hasTriedRefresh = useRef(false);
 
+  // Pause music - défini tôt car utilisé dans le système de buzz
+  const pauseMusic = useCallback(async () => {
+    if (snippetStopRef.current) {
+      await snippetStopRef.current.stop();
+      snippetStopRef.current = null;
+    }
+    await pause();
+    setIsPlaying(false);
+  }, []);
+
   // Function to refresh all track URLs from Deezer
   const refreshTrackUrls = useCallback(async () => {
     if (!playlist?.id || isRefreshing) return false;
@@ -411,15 +421,6 @@ export default function DeezTestHostGame() {
         setPlayerError(error.message || "Erreur de lecture");
       }
     }
-  };
-
-  const pauseMusic = async () => {
-    if (snippetStopRef.current) {
-      await snippetStopRef.current.stop();
-      snippetStopRef.current = null;
-    }
-    await pause();
-    setIsPlaying(false);
   };
 
   // Full stop - resets everything for new question
