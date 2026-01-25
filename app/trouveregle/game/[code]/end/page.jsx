@@ -121,8 +121,16 @@ export default function TrouveRegleEndPage() {
   const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
-  // Centralized players hook
-  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_trouveregle' });
+  // Centralized players hook (live data)
+  const { players: livePlayers } = usePlayers({ roomCode: code, roomPrefix: 'rooms_trouveregle' });
+
+  // Snapshot players on first load for stable end screen
+  // This prevents the leaderboard from changing when players leave
+  const playersSnapshotRef = useRef(null);
+  if (livePlayers.length > 0 && playersSnapshotRef.current === null) {
+    playersSnapshotRef.current = [...livePlayers];
+  }
+  const players = playersSnapshotRef.current || livePlayers;
 
   // Room guard
   useRoomGuard({

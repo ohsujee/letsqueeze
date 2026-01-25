@@ -13,6 +13,8 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { hueScenariosService } from "@/lib/hue-module";
 import { FitText } from "@/lib/hooks/useFitText";
 import { GameEndTransition } from "@/components/transitions";
@@ -91,6 +93,9 @@ export default function HostGame(){
     roomPrefix: 'rooms',
     isHost: true
   });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
   const total = quiz?.items?.length || 0;
   const qIndex = state?.currentIndex || 0;
   const q = quiz?.items?.[qIndex];
@@ -689,6 +694,13 @@ export default function HostGame(){
           </button>
         </div>
       </footer>
+
+      {/* Game Status Banners - for connection lost indicator */}
+      <GameStatusBanners
+        isHost={true}
+        isHostTemporarilyDisconnected={false}
+        hostDisconnectedAt={null}
+      />
 
       <style jsx>{`
         /* ===== LAYOUT PRINCIPAL - Style Guide Compliant ===== */

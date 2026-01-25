@@ -38,6 +38,22 @@
 
 ---
 
+**TOUJOURS centraliser les fonctionnalités réutilisables:**
+
+- Si plusieurs jeux utilisent (ou pourraient utiliser) une fonctionnalité → **en faire un composant/hook partagé**
+- Placer les hooks partagés dans `lib/hooks/`
+- Placer les composants partagés dans `components/game/`
+- Éviter la duplication de logique entre les jeux
+
+**Exemples:**
+- Système de buzz → hooks partagés (`usePlayers`, `useRoomGuard`, etc.)
+- Banners de connexion → `GameStatusBanners` (wrapper réutilisable)
+- Gestion des joueurs → `PlayerManager`, `Leaderboard`
+
+**Pourquoi:** Maintenance simplifiée, comportement cohérent entre les jeux, moins de bugs.
+
+---
+
 ## 1. ARCHITECTURE RAPIDE
 
 ### Jeux & Routes
@@ -86,15 +102,18 @@ app/{game}/
 
 ### Matrice par Page
 
-| Hook | Room | Play | Host | End |
-|------|:----:|:----:|:----:|:---:|
+| Hook/Composant | Room | Play | Host | End |
+|----------------|:----:|:----:|:----:|:---:|
 | `useInterstitialAd` | ✓ | | | |
 | `usePlayers` | ✓ | ✓ | ✓ | ✓ |
 | `usePlayerCleanup` | ✓ (lobby) | ✓ (playing) | | |
-| `useInactivityDetection` | | ✓ | | |
+| `useInactivityDetection` | | ✓ | ✓ | |
 | `useRoomGuard` | ✓ | ✓ | ✓ | ✓ |
+| `useHostDisconnect` | | | ✓ | |
+| `useWakeLock` | ✓ | ✓ | ✓ | |
 | `useGameCompletion` | | | | ✓ |
 | `DisconnectAlert` | | ✓ | | |
+| `GameStatusBanners` | | ✓ | ✓ | |
 
 ### Signatures
 
@@ -117,10 +136,13 @@ useInactivityDetection({
   inactivityTimeout: 30000
 });
 
-// Détection kick/fermeture room
-const { markVoluntaryLeave, closeRoom } = useRoomGuard({
+// Détection kick/fermeture room + grace period hôte
+const { markVoluntaryLeave, closeRoom, isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
   roomCode, roomPrefix, playerUid, isHost
 });
+
+// Empêcher l'écran de se verrouiller (lobby, play, host)
+useWakeLock({ enabled: true });
 
 // Comptage parties (page END uniquement)
 useGameCompletion({ gameType: 'quiz', roomCode });
@@ -132,12 +154,27 @@ useInterstitialAd({ context: 'Quiz' });
 ### Composant DisconnectAlert
 
 ```jsx
-// Ajouter dans toutes les pages Play
+// Ajouter dans toutes les pages Play (pour les joueurs)
 <DisconnectAlert
   roomCode={code}
   roomPrefix="rooms_mygame"
   playerUid={myUid}
   onReconnect={markActive}  // du hook usePlayerCleanup
+/>
+```
+
+### Composant GameStatusBanners
+
+```jsx
+// Ajouter dans toutes les pages Host et Play
+import GameStatusBanners from '@/components/game/GameStatusBanners';
+
+const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({...});
+
+<GameStatusBanners
+  isHost={isHost}
+  isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
+  hostDisconnectedAt={hostDisconnectedAt}
 />
 ```
 
@@ -156,17 +193,30 @@ useInterstitialAd({ context: 'Quiz' });
 
 ### Comportement par Phase
 
-| Phase | Déconnexion | Score |
-|-------|-------------|-------|
-| `lobby` | Joueur **supprimé** | - |
-| `playing` | Joueur **marqué disconnected** | Préservé |
-| `ended` | Aucun cleanup | - |
+| Phase | Déconnexion | Score | TeamId |
+|-------|-------------|-------|--------|
+| `lobby` | Joueur **marqué disconnected** | - | Préservé |
+| `playing` | Joueur **marqué disconnected** | Préservé | Préservé |
+| `ended` | Aucun cleanup | - | - |
+
+### Grace Period Hôte
+
+L'hôte bénéficie d'une **grace period de 2 minutes** avant que la room soit considérée fermée :
+
+- Déconnexion hôte → `hostDisconnectedAt` écrit (pas `closed = true`)
+- Hôte revient (visibilitychange/reconnexion) → `hostDisconnectedAt` supprimé
+- Si hôte absent > 2 min → room considérée fermée
+
+**Permet:** Switch d'app, changement réseau WiFi→5G, micro-coupures sans fermer la partie.
 
 ### Composants Associés
 
 - `LobbySettings` - Affiche status dans modal settings (badge rouge si problème)
 - `RejoinBanner` - Banner sur `/home` pour rejoindre partie en cours
 - `DisconnectAlert` - Overlay plein écran pour se reconnecter
+- `GameStatusBanners` - Wrapper pour les banners de connexion (host + players)
+- `ConnectionLostBanner` - Banner rouge quand connexion Firebase perdue
+- `HostDisconnectedBanner` - Banner orange pour joueurs quand hôte temporairement absent
 
 ---
 
@@ -537,4 +587,4 @@ onValue(ref(db, '.info/serverTimeOffset'), snap => {
 
 ---
 
-*Dernière mise à jour: 2026-01-20*
+*Dernière mise à jour: 2026-01-25*

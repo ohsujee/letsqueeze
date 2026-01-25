@@ -16,6 +16,8 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { storage } from "@/lib/utils/storage";
 import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
 import { GameEndTransition } from "@/components/transitions";
@@ -35,7 +37,7 @@ export default function BlindTestPlayerGame() {
   const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
 
   // Server time sync (300ms tick for score updates)
-  const { serverNow } = useServerTime(300);
+  const { serverNow, offset } = useServerTime(300);
 
   // Auth
   useEffect(() => {
@@ -79,12 +81,15 @@ export default function BlindTestPlayerGame() {
   }, [myUid, code, markActive]);
 
   // Room guard - détecte kick et fermeture room
-  const { markVoluntaryLeave } = useRoomGuard({
+  const { markVoluntaryLeave, isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
     playerUid: myUid,
     isHost: false
   });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   // DB listeners
   useEffect(() => {
@@ -266,6 +271,13 @@ export default function BlindTestPlayerGame() {
         roomPrefix="rooms_blindtest"
         playerUid={myUid}
         onReconnect={markActive}
+      />
+
+      {/* Game Status Banners */}
+      <GameStatusBanners
+        isHost={false}
+        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
+        hostDisconnectedAt={hostDisconnectedAt}
       />
 
       <style jsx>{`

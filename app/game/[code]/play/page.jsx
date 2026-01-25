@@ -16,6 +16,8 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { storage } from "@/lib/utils/storage";
 import { FitText } from "@/lib/hooks/useFitText";
 import { GameEndTransition } from "@/components/transitions";
@@ -80,12 +82,15 @@ export default function PlayerGame(){
   }, [myUid, code, markActive]);
 
   // Room guard - détecte kick et fermeture room
-  const { markVoluntaryLeave, isValidating } = useRoomGuard({
+  const { markVoluntaryLeave, isValidating, isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms',
     playerUid: myUid,
     isHost: false
   });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   // Config scoring
   useEffect(()=>{
@@ -360,6 +365,13 @@ export default function PlayerGame(){
         roomPrefix="rooms"
         playerUid={myUid}
         onReconnect={markActive}
+      />
+
+      {/* Game Status Banners */}
+      <GameStatusBanners
+        isHost={false}
+        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
+        hostDisconnectedAt={hostDisconnectedAt}
       />
 
       <style jsx>{`

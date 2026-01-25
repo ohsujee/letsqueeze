@@ -28,6 +28,7 @@ import { useToast } from "@/lib/hooks/useToast";
 import { ChevronRight, Music, Search, LogIn, Check, X } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useTeamMode } from "@/lib/hooks/useTeamMode";
 import { isSpotifyConnected, startSpotifyAuth, clearTokens } from "@/lib/spotify/auth";
 import { getCurrentUser, isPremiumUser, searchPlaylists, getUserPlaylists, getRandomTracksFromPlaylist } from "@/lib/spotify/api";
@@ -102,6 +103,9 @@ export default function BlindTestLobby() {
 
   // Interstitial ad (unified hook)
   useInterstitialAd({ context: 'BlindTest' });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   // Set join URL
   useEffect(() => {

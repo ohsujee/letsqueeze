@@ -30,6 +30,8 @@ import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import GameStatusBanners from "@/components/game/GameStatusBanners";
 
 export default function AlibiPrep() {
   const { code } = useParams();
@@ -51,12 +53,15 @@ export default function AlibiPrep() {
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
 
   // Room guard - détecte kick et fermeture room
-  useRoomGuard({
+  const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
     isHost
   });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   // Host disconnect - ferme la room si l'hôte perd sa connexion
   useHostDisconnect({
@@ -547,6 +552,13 @@ export default function AlibiPrep() {
         roomPrefix="rooms_alibi"
         playerUid={myUid}
         onReconnect={markActive}
+      />
+
+      {/* Game Status Banners */}
+      <GameStatusBanners
+        isHost={isHost}
+        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
+        hostDisconnectedAt={hostDisconnectedAt}
       />
 
       <AlibiPhaseTransition

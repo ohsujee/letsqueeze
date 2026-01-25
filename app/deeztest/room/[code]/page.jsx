@@ -29,6 +29,7 @@ import { useToast } from "@/lib/hooks/useToast";
 import { ChevronRight, Music, Search, Check, X } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useTeamMode } from "@/lib/hooks/useTeamMode";
 import {
   searchPlaylists,
@@ -104,6 +105,9 @@ export default function DeezTestLobby() {
 
   // Interstitial ad (unified hook)
   useInterstitialAd({ context: 'DeezTest' });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   // Set join URL
   useEffect(() => {
@@ -639,12 +643,10 @@ export default function DeezTestLobby() {
                 </div>
               </motion.div>
 
-              {/* Mode Selector - Centralized Component */}
+              {/* Mode Selector - Compact Toggle */}
               <TeamModeSelector
                 mode={mode}
-                teamCount={teamCount}
                 onModeToggle={handleModeToggle}
-                onTeamCountChange={handleTeamCountChange}
                 disabled={false}
                 gameColor="#A238FF"
               />
@@ -660,6 +662,8 @@ export default function DeezTestLobby() {
                     onAutoBalance={handleAutoBalance}
                     onResetTeams={handleResetTeams}
                     teamCount={teamCount}
+                    onTeamCountChange={handleTeamCountChange}
+                    gameColor="#A238FF"
                   />
                 </div>
               )}

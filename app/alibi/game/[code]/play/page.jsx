@@ -22,6 +22,8 @@ import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { VerdictTransition } from "@/components/alibi/VerdictTransition";
 import { GameEndTransition } from "@/components/transitions";
@@ -41,12 +43,15 @@ export default function AlibiInterrogation() {
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
 
   // Room guard - détecte kick et fermeture room
-  const { markVoluntaryLeave } = useRoomGuard({
+  const { markVoluntaryLeave, isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
     isHost
   });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   // Host disconnect - ferme la room si l'hôte perd sa connexion
   useHostDisconnect({
@@ -730,6 +735,13 @@ export default function AlibiInterrogation() {
         roomPrefix="rooms_alibi"
         playerUid={myUid}
         onReconnect={markActive}
+      />
+
+      {/* Game Status Banners */}
+      <GameStatusBanners
+        isHost={isHost}
+        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
+        hostDisconnectedAt={hostDisconnectedAt}
       />
 
       {/* Verdict Transition */}

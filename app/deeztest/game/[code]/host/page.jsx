@@ -9,6 +9,7 @@ import { GameEndTransition } from "@/components/transitions";
 import ExitButton from "@/lib/components/ExitButton";
 import Leaderboard from "@/components/game/Leaderboard";
 import PlayerManager from "@/components/game/PlayerManager";
+import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { initializePlayer, playSnippet, pause, resume, isPlayerReady, disconnect, preloadPreview } from "@/lib/deezer/player";
 import { SkipForward, X, Check, RotateCcw, Music, Zap, Clock, Timer, Disc, Bell, RefreshCw } from "lucide-react";
 import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel } from "@/lib/constants/blindtest";
@@ -18,6 +19,7 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { getPlaylistTracks, formatTracksForGame } from "@/lib/deezer/api";
 
 const DEEZER_PURPLE = '#A238FF';
@@ -159,7 +161,7 @@ export default function DeezTestHostGame() {
   const myUid = auth.currentUser?.uid;
 
   // Room guard - détecte fermeture room (host is always host here)
-  useRoomGuard({
+  const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_deeztest',
     playerUid: myUid,
@@ -180,6 +182,9 @@ export default function DeezTestHostGame() {
     playerUid: myUid,
     inactivityTimeout: 30000
   });
+
+  // Empêcher l'écran de se verrouiller
+  useWakeLock({ enabled: true });
 
   const total = playlist?.tracks?.length || 0;
   const qIndex = state?.currentIndex || 0;
@@ -626,6 +631,13 @@ export default function DeezTestHostGame() {
           />
         )}
       </AnimatePresence>
+
+      {/* Connection Status Banners */}
+      <GameStatusBanners
+        isHost={true}
+        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
+        hostDisconnectedAt={hostDisconnectedAt}
+      />
 
       {/* Header */}
       <header className="game-header deeztest">
@@ -1089,6 +1101,10 @@ export default function DeezTestHostGame() {
           box-sizing: border-box !important;
           max-width: 100%;
         }
+        /* Exception for carousel-track which needs 200% width */
+        .deeztest-host-page .carousel-track {
+          max-width: none;
+        }
       `}</style>
       <style jsx>{`
         .deeztest-host-page {
@@ -1510,8 +1526,9 @@ export default function DeezTestHostGame() {
         }
 
         :global(.snippet-duration) {
-          font-family: var(--font-title, 'Bungee'), cursive;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-size: 1.1rem;
+          font-weight: 700;
           color: ${DEEZER_LIGHT};
           text-shadow: 0 0 8px rgba(162, 56, 255, 0.4);
         }

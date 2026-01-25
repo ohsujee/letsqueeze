@@ -1,7 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { auth } from '@/lib/firebase';
+import { X } from 'lucide-react';
 
 /**
  * TeamPlayerView - Vue joueur du mode équipe en lobby
@@ -19,10 +21,13 @@ export default function TeamPlayerView({
   teamCount = 2,
   currentPlayerUid
 }) {
+  const [expandedTeam, setExpandedTeam] = useState(null);
   const myUid = currentPlayerUid || auth.currentUser?.uid;
   const myPlayer = players.find(p => p.uid === myUid);
   const myTeamId = myPlayer?.teamId;
   const myTeam = myTeamId ? teams[myTeamId] : null;
+
+  const getTeamPlayers = (teamId) => players.filter(p => p.teamId === teamId);
 
   return (
     <>
@@ -43,11 +48,20 @@ export default function TeamPlayerView({
         </div>
       )}
 
-      {/* Teams Grid with Players */}
+      {/* Teams Grid with Players - Player's team first */}
       <div className={`teams-grid-player teams-${teamCount}`}>
-        {Object.entries(teams).slice(0, teamCount).map(([id, team]) => {
+        {Object.entries(teams)
+          .slice(0, teamCount)
+          .sort(([idA], [idB]) => {
+            // Player's team always first
+            if (idA === myTeamId) return -1;
+            if (idB === myTeamId) return 1;
+            return 0;
+          })
+          .map(([id, team]) => {
           const teamPlayers = players.filter(p => p.teamId === id);
           const isMyTeam = myTeamId === id;
+          const hasMore = teamPlayers.length > 4;
 
           return (
             <div
@@ -74,14 +88,71 @@ export default function TeamPlayerView({
                     </span>
                   ))
                 )}
-                {teamPlayers.length > 4 && (
-                  <span className="player-tag more">+{teamPlayers.length - 4}</span>
+                {hasMore && (
+                  <button
+                    className="player-tag more clickable"
+                    onClick={() => setExpandedTeam(id)}
+                  >
+                    +{teamPlayers.length - 4}
+                  </button>
                 )}
               </div>
             </div>
           );
         })}
       </div>
+
+      {/* Team Detail Modal */}
+      <AnimatePresence>
+        {expandedTeam && teams[expandedTeam] && (
+          <motion.div
+            className="team-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setExpandedTeam(null)}
+          >
+            <motion.div
+              className="team-modal-content"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              style={{ '--team-color': teams[expandedTeam].color }}
+            >
+              <div className="team-modal-header">
+                <div
+                  className="team-modal-color"
+                  style={{ backgroundColor: teams[expandedTeam].color }}
+                />
+                <h3 className="team-modal-name">{teams[expandedTeam].name}</h3>
+                <button className="team-modal-close" onClick={() => setExpandedTeam(null)}>
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="team-modal-players">
+                {getTeamPlayers(expandedTeam).map((player) => (
+                  <div
+                    key={player.uid}
+                    className={`team-modal-player ${player.uid === myUid ? 'is-me' : ''}`}
+                  >
+                    <div
+                      className="player-avatar"
+                      style={{ backgroundColor: teams[expandedTeam].color }}
+                    >
+                      {player.name?.charAt(0)?.toUpperCase()}
+                    </div>
+                    <span className="player-name">
+                      {player.name}
+                      {player.uid === myUid && ' (toi)'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

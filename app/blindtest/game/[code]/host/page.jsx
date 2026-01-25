@@ -17,6 +17,8 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { GameEndTransition } from "@/components/transitions";
 
 export default function BlindTestHostGame() {
@@ -123,6 +125,9 @@ export default function BlindTestHostGame() {
     roomPrefix: 'rooms_blindtest',
     isHost: true
   });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   // Inactivity detection for host
   useInactivityDetection({
@@ -926,6 +931,13 @@ export default function BlindTestHostGame() {
         </div>
       </footer>
 
+      {/* Game Status Banners - for connection lost indicator */}
+      <GameStatusBanners
+        isHost={true}
+        isHostTemporarilyDisconnected={false}
+        hostDisconnectedAt={null}
+      />
+
       <style jsx global>{`
         html, body {
           overflow-x: hidden !important;
@@ -937,6 +949,10 @@ export default function BlindTestHostGame() {
         .blindtest-host-page *::after {
           box-sizing: border-box !important;
           max-width: 100%;
+        }
+        /* Exception for carousel-track which needs 200% width */
+        .blindtest-host-page .carousel-track {
+          max-width: none;
         }
       `}</style>
       <style jsx>{`

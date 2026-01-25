@@ -11,7 +11,9 @@ export default function TeamTabs({
   onRemoveFromTeam,
   onAutoBalance,
   onResetTeams,
-  teamCount = 4
+  teamCount = 4,
+  onTeamCountChange,
+  gameColor
 }) {
   const teamsSorted = Object.keys(teams).map(id => ({ id, ...teams[id] }));
   const unassignedPlayers = players.filter(p => !p.teamId || p.teamId === "");
@@ -22,9 +24,27 @@ export default function TeamTabs({
 
   return (
     <div className="teams-compact">
-      {/* Header with Quick Actions */}
+      {/* Header with Team Count + Quick Actions */}
       <div className="teams-header">
-        <span className="teams-label">Équipes</span>
+        <div className="teams-header-left">
+          <span className="teams-label">Équipes</span>
+          {onTeamCountChange && (
+            <div className="team-count-inline">
+              {[2, 3, 4].map(count => (
+                <motion.button
+                  key={count}
+                  className={`count-btn-inline ${teamCount === count ? "active" : ""}`}
+                  onClick={() => onTeamCountChange(count)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={teamCount === count && gameColor ? { '--count-active-color': gameColor } : {}}
+                >
+                  {count}
+                </motion.button>
+              ))}
+            </div>
+          )}
+        </div>
         <div className="teams-actions">
           <motion.button
             className="action-chip"
@@ -75,7 +95,7 @@ export default function TeamTabs({
               {/* Player Names Preview */}
               <div className="team-players-preview">
                 {teamPlayers.length === 0 ? (
-                  <span className="no-players">Vide</span>
+                  <span className="no-players">+ Ajouter</span>
                 ) : (
                   <>
                     {teamPlayers.slice(0, 3).map((player) => (

@@ -32,6 +32,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Users, Zap } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { GameLaunchCountdown } from "@/components/transitions";
 
 export default function Room() {
@@ -63,6 +64,9 @@ export default function Room() {
 
   // Interstitial ad (unified hook)
   useInterstitialAd({ context: 'QuizRoom' });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {

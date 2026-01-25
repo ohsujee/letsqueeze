@@ -2,11 +2,7 @@
 
 import { useMemo, useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { WifiOff, ChevronDown, ChevronUp } from 'lucide-react';
-import dynamic from 'next/dynamic';
-
-// Dynamic import Lottie to avoid SSR issues
-const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
+import { WifiOff, ChevronDown, ChevronUp, User } from 'lucide-react';
 
 /**
  * Leaderboard - Composant de classement réutilisable avec animations
@@ -24,8 +20,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
   const [positionChanges, setPositionChanges] = useState({});
   const [canScrollUp, setCanScrollUp] = useState(false);
   const [canScrollDown, setCanScrollDown] = useState(false);
-  const [fireAnimation, setFireAnimation] = useState(null);
-  const [smokeAnimation, setSmokeAnimation] = useState(null);
 
   // View toggle for team mode (teams vs individual players)
   const isTeamModeRoom = mode === 'équipes';
@@ -77,16 +71,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
     }
   }, [viewMode]);
 
-  // Smoke animation final values (hardcoded after dev testing)
-  const smokeControls = {
-    scaleX: 860,
-    scaleY: 466,
-    left: 4,
-    top: -4,
-    rotation: 84,
-    opacity: 100
-  };
-
   // Check if showing teams view (controlled by toggle)
   const isTeamMode = viewMode === 'teams' && hasTeams;
 
@@ -109,32 +93,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
     const max = Math.max(...teamsArray.map(t => t.score || 0));
     return max > 0 ? max : 100;
   }, [teamsArray]);
-
-  // Determine if we need Lottie animations (only for specific leader themes)
-  const leaderTheme = useMemo(() => {
-    if (teamsArray.length === 0) return null;
-    const leader = teamsArray[0];
-    return (leader?.name || '').toLowerCase().replace('équipe ', '').replace('team ', '');
-  }, [teamsArray]);
-
-  // Lazy load Lottie animations only when needed
-  useEffect(() => {
-    if (leaderTheme === 'blaze' && !fireAnimation) {
-      fetch('/animations/fire-blaze.json')
-        .then(res => res.json())
-        .then(data => setFireAnimation(data))
-        .catch(err => console.error('Failed to load fire animation:', err));
-    }
-  }, [leaderTheme, fireAnimation]);
-
-  useEffect(() => {
-    if (leaderTheme === 'venom' && !smokeAnimation) {
-      fetch('/lottie/smoke.json')
-        .then(res => res.json())
-        .then(data => setSmokeAnimation(data))
-        .catch(err => console.error('Failed to load smoke animation:', err));
-    }
-  }, [leaderTheme, smokeAnimation]);
 
   // Sort by score descending (for individual mode)
   const sorted = useMemo(() =>
@@ -260,6 +218,17 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
     const list = listRef.current;
     if (!list) return;
 
+    // Check if overflow actually allows scrolling
+    const computedStyle = window.getComputedStyle(list);
+    const overflowY = computedStyle.overflowY;
+    const canActuallyScroll = overflowY === 'auto' || overflowY === 'scroll';
+
+    if (!canActuallyScroll) {
+      setCanScrollUp(false);
+      setCanScrollDown(false);
+      return;
+    }
+
     const { scrollTop, scrollHeight, clientHeight } = list;
     const threshold = 5; // Small threshold for rounding errors
 
@@ -272,8 +241,8 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
     const list = listRef.current;
     if (!list) return;
 
-    // Initial check
-    checkScroll();
+    // Initial check (with small delay to ensure styles are applied)
+    const initialCheck = setTimeout(checkScroll, 50);
 
     // Listen to scroll events
     list.addEventListener('scroll', checkScroll);
@@ -283,10 +252,11 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
     resizeObserver.observe(list);
 
     return () => {
+      clearTimeout(initialCheck);
       list.removeEventListener('scroll', checkScroll);
       resizeObserver.disconnect();
     };
-  }, [checkScroll, players.length]);
+  }, [checkScroll, players.length, viewMode]);
 
   return (
     <div className="leaderboard-card">
@@ -352,41 +322,29 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                 const animatedScore = displayScores[`team_${team.id}`] ?? team.score ?? 0;
                 const progressPercent = maxTeamScore > 0 ? (animatedScore / maxTeamScore) * 100 : 0;
                 const teamTheme = (team.name || '').toLowerCase().replace('équipe ', '').replace('team ', '');
-                const showBlazeFlames = isLeader && teamTheme === 'blaze';
-                const showFrostCracks = isLeader && teamTheme === 'frost';
+
+                // Map team themes to PNG images (all teams, not just leader)
+                const teamBgImage = ['blaze', 'frost', 'venom', 'solar'].includes(teamTheme)
+                  ? `/images/${teamTheme}.png`
+                  : null;
 
                 return (
                   <div
                     key={`team_${team.id}`}
-                    className={`team-race-row ${isLeader ? 'leader' : ''} ${isMyTeam ? 'my-team' : ''} ${posChange ? `moved-${posChange}` : ''} ${isLeader ? `leader-${teamTheme}` : ''}`}
-                    style={{ '--team-color': team.color }}
+                    className={`team-race-row ${isLeader ? 'leader' : ''} ${isMyTeam ? 'my-team' : ''} ${posChange ? `moved-${posChange}` : ''} ${teamBgImage ? `team-${teamTheme}` : ''}`}
+                    style={{
+                      '--team-color': team.color,
+                      '--team-bg-image': teamBgImage ? `url(${teamBgImage})` : 'none'
+                    }}
                   >
-                    {showBlazeFlames && fireAnimation && (
-                      <div className="blaze-fire-lottie">
-                        <Lottie animationData={fireAnimation} loop={true} className="fire-lottie" rendererSettings={{ preserveAspectRatio: 'xMidYMax slice' }} />
-                      </div>
-                    )}
-                    {isLeader && teamTheme === 'venom' && smokeAnimation && (
-                      <div className="venom-smoke-lottie">
-                        <Lottie animationData={smokeAnimation} loop={true} className="smoke-lottie" style={{ left: `${smokeControls.left}%`, top: `${smokeControls.top}%`, transform: `scaleX(${smokeControls.scaleX / 100}) scaleY(${smokeControls.scaleY / 100}) rotate(${smokeControls.rotation}deg)`, opacity: smokeControls.opacity / 100 }} />
-                      </div>
-                    )}
-                    {showFrostCracks && (
-                      <div className="frost-hexagons">
-                        {/* Reduced to 16 hexagons for better performance */}
-                        <div className="hex hex-lg hex-1"></div><div className="hex hex-lg hex-2"></div>
-                        <div className="hex hex-lg hex-3"></div><div className="hex hex-lg hex-4"></div>
-                        <div className="hex hex-md hex-5"></div><div className="hex hex-md hex-6"></div>
-                        <div className="hex hex-md hex-7"></div><div className="hex hex-md hex-8"></div>
-                        <div className="hex hex-sm hex-9"></div><div className="hex hex-sm hex-10"></div>
-                        <div className="hex hex-sm hex-11"></div><div className="hex hex-sm hex-12"></div>
-                        <div className="hex hex-xs hex-13"></div><div className="hex hex-xs hex-14"></div>
-                        <div className="hex hex-xs hex-15"></div><div className="hex hex-xs hex-16"></div>
+                    {isMyTeam && (
+                      <div className="my-team-indicator">
+                        <User size={12} />
                       </div>
                     )}
                     <div className="team-rank"><span className="rank-num">{i + 1}</span></div>
                     <div className="team-content">
-                      <span className="team-name-text">{team.name}{isMyTeam && <span className="my-team-star">⭐</span>}</span>
+                      <span className="team-name-text">{team.name}</span>
                       <div className="progress-track">
                         <motion.div className="progress-fill" initial={false} animate={{ width: `${progressPercent}%` }} transition={{ duration: 0.5, ease: "easeOut" }} style={{ background: `linear-gradient(90deg, ${team.color}dd, ${team.color})` }} />
                       </div>
@@ -880,9 +838,41 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
           box-shadow: 0 0 8px var(--team-color);
         }
 
-        /* My team highlight */
+        /* My team highlight - thicker border for emphasis */
         .leaderboard-card :global(.team-race-row.my-team) {
-          border-color: color-mix(in srgb, var(--team-color) 60%, transparent);
+          border-width: 3px !important;
+          border-color: var(--team-color) !important;
+          box-shadow: 0 0 12px color-mix(in srgb, var(--team-color) 40%, transparent),
+                      inset 0 0 20px color-mix(in srgb, var(--team-color) 10%, transparent);
+        }
+
+        /* Post-it style indicator for player's team */
+        .my-team-indicator {
+          position: absolute;
+          top: -1px;
+          right: -1px;
+          width: 24px;
+          height: 24px;
+          background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+          border-radius: 0 8px 0 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #1a1a1a;
+          box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3),
+                      0 0 8px rgba(251, 191, 36, 0.5);
+          z-index: 10;
+        }
+
+        .my-team-indicator::before {
+          content: '';
+          position: absolute;
+          bottom: -3px;
+          left: 0;
+          width: 0;
+          height: 0;
+          border-left: 6px solid transparent;
+          border-top: 6px solid #d97706;
         }
 
         /* ===== 2-3 TEAMS: LARGER TEXT ===== */
@@ -906,9 +896,9 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
         }
 
         .leaderboard-card :global(.teams-count-2 .team-race-row) {
-          padding-top: 26px !important;
-          padding-bottom: 26px !important;
-          min-height: 100px;
+          padding-top: 2vh !important;
+          padding-bottom: 2vh !important;
+          /* No min-height - let flex handle sizing */
         }
 
         .leaderboard-card :global(.teams-count-2) .team-score-box {
@@ -994,22 +984,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
           gap: 6px;
         }
 
-        .my-team-star {
-          font-size: 0.65rem;
-          animation: star-pulse 1.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
-        }
-
-        .my-team-badge {
-          font-size: 0.65rem;
-          color: var(--team-color);
-          animation: star-pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes star-pulse {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.2); opacity: 0.8; }
-        }
 
         .team-member-count {
           margin-left: auto;
@@ -1041,26 +1015,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
           );
           border-radius: 3px;
           min-width: 3px;
-        }
-
-        /* Leader glow effect on progress bar */
-        .leader-glow {
-          position: absolute;
-          right: 0;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 14px;
-          height: 14px;
-          background: var(--team-color);
-          border-radius: 50%;
-          filter: blur(6px);
-          opacity: 0.6;
-          animation: glow-pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes glow-pulse {
-          0%, 100% { opacity: 0.6; transform: translateY(-50%) scale(1); }
-          50% { opacity: 0.9; transform: translateY(-50%) scale(1.2); }
         }
 
         /* Score box */
@@ -1101,620 +1055,117 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
           text-shadow: 0 0 10px color-mix(in srgb, var(--team-color) 60%, transparent);
         }
 
-        /* ===== TEAM-SPECIFIC LEADER EFFECTS ===== */
+        /* ===== TEAM-SPECIFIC EFFECTS (PNG backgrounds) ===== */
 
-        /* 🔥 BLAZE - Fire effect with Lottie flames */
-        .leaderboard-card :global(.team-race-row.leader-blaze) {
-          background: rgba(20, 10, 5, 0.95);
-          border: 2px solid rgba(255, 120, 40, 0.8) !important;
-          box-shadow: inset 0 0 15px rgba(255, 100, 30, 0.2);
-        }
-
-        /* Text styling for Blaze - ensure readability over flames */
-        .leaderboard-card :global(.team-race-row.leader-blaze) .team-rank,
-        .leaderboard-card :global(.team-race-row.leader-blaze) .team-content,
-        .leaderboard-card :global(.team-race-row.leader-blaze) .team-score-box {
+        /* Common styles for all teams with PNG backgrounds */
+        .leaderboard-card :global(.team-race-row.team-blaze),
+        .leaderboard-card :global(.team-race-row.team-frost),
+        .leaderboard-card :global(.team-race-row.team-venom),
+        .leaderboard-card :global(.team-race-row.team-solar) {
+          background-image: var(--team-bg-image);
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          border-width: 2px !important;
           position: relative;
-          z-index: 5;
         }
 
-        /* Left border accent above fire */
-        .leaderboard-card :global(.team-race-row.leader-blaze)::before {
-          z-index: 2;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-blaze) .team-name-text {
-          text-shadow: 0 0 10px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.7), 0 2px 4px rgba(0, 0, 0, 1);
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-blaze) .team-score-value {
-          text-shadow: 0 0 10px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.7);
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-blaze) .team-member-count {
-          text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
-        }
-
-        /* Lottie Fire Effect - Fixed height with gradient fade at top */
-        .leaderboard-card :global(.blaze-fire-lottie) {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 1;
-          overflow: hidden;
-          border-radius: inherit;
-          /* Gradient mask to fade flames at top */
-          -webkit-mask-image: linear-gradient(to top, black 0%, black 60%, transparent 100%);
-          mask-image: linear-gradient(to top, black 0%, black 60%, transparent 100%);
-        }
-
-        .leaderboard-card :global(.fire-lottie) {
-          position: absolute;
-          bottom: -20%;
-          left: 0;
-          width: 100%;
-          height: 120%;
-          opacity: 0.55;
-        }
-
-        .leaderboard-card :global(.fire-lottie svg) {
-          width: 100% !important;
-          height: 100% !important;
-        }
-
-        /* ❄️ FROST - Spectacular frozen ice effect with animated variable-width cracks */
-        .leaderboard-card :global(.team-race-row.leader-frost) {
-          background:
-            /* Frost crystallization texture */
-            repeating-linear-gradient(
-              60deg,
-              rgba(255, 255, 255, 0.03) 0px,
-              transparent 1px,
-              transparent 4px
-            ),
-            repeating-linear-gradient(
-              -60deg,
-              rgba(255, 255, 255, 0.03) 0px,
-              transparent 1px,
-              transparent 4px
-            ),
-            /* Ice crystal gradient base */
-            linear-gradient(135deg,
-              rgba(0, 50, 90, 0.97) 0%,
-              rgba(0, 70, 110, 0.95) 25%,
-              rgba(10, 90, 130, 0.9) 50%,
-              rgba(0, 70, 110, 0.95) 75%,
-              rgba(0, 50, 90, 0.97) 100%
-            );
-          border: 2px solid rgba(180, 240, 255, 0.8) !important;
-          box-shadow:
-            inset 0 0 20px rgba(0, 150, 200, 0.3),
-            inset 0 2px 0 rgba(255, 255, 255, 0.5),
-            inset 0 -2px 0 rgba(0, 100, 150, 0.4);
-          overflow: visible !important;
-        }
-
-        /* Frost Hexagons Container */
-        .leaderboard-card :global(.frost-hexagons) {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 3;
-          border-radius: inherit;
-          overflow: hidden;
-        }
-
-        /* Base hexagon style */
-        .leaderboard-card :global(.hex) {
-          position: absolute;
-          background: linear-gradient(135deg,
-            rgba(200, 240, 255, 0.5) 0%,
-            rgba(150, 220, 255, 0.3) 50%,
-            rgba(200, 240, 255, 0.4) 100%
-          );
-          clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-          box-shadow: 0 0 4px rgba(150, 220, 255, 0.5);
-        }
-
-        .leaderboard-card :global(.hex)::before {
-          content: '';
-          position: absolute;
-          inset: 1px;
-          background: linear-gradient(135deg,
-            rgba(255, 255, 255, 0.4) 0%,
-            rgba(200, 240, 255, 0.15) 100%
-          );
-          clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        }
-
-        /* Size variants - optimized for 16 hexagons */
-        .leaderboard-card :global(.hex-lg) { width: 42px; height: 46px; animation: hex-float-lg 3s ease-in-out infinite; }
-        .leaderboard-card :global(.hex-md) { width: 24px; height: 26px; animation: hex-float-md 3.5s ease-in-out infinite; }
-        .leaderboard-card :global(.hex-sm) { width: 12px; height: 14px; animation: hex-float-sm 4s ease-in-out infinite; }
-        .leaderboard-card :global(.hex-xs) { width: 6px; height: 7px; animation: hex-sparkle 2s ease-in-out infinite; }
-
-        /* Large hexagons (4) - corners */
-        .leaderboard-card :global(.hex-1) { left: -3%; top: -12%; animation-delay: 0s; }
-        .leaderboard-card :global(.hex-2) { right: 5%; top: -8%; animation-delay: 0.5s; }
-        .leaderboard-card :global(.hex-3) { left: 8%; bottom: -15%; animation-delay: 1s; }
-        .leaderboard-card :global(.hex-4) { right: 10%; bottom: -10%; animation-delay: 1.5s; }
-
-        /* Medium hexagons (4) - edges */
-        .leaderboard-card :global(.hex-5) { left: 5%; top: 40%; animation-delay: 0.2s; }
-        .leaderboard-card :global(.hex-6) { right: 8%; top: 50%; animation-delay: 0.7s; }
-        .leaderboard-card :global(.hex-7) { left: 40%; top: -5%; animation-delay: 1.2s; }
-        .leaderboard-card :global(.hex-8) { left: 55%; bottom: -5%; animation-delay: 1.7s; }
-
-        /* Small hexagons (4) - scattered */
-        .leaderboard-card :global(.hex-9) { left: 25%; top: 20%; animation-delay: 0.3s; }
-        .leaderboard-card :global(.hex-10) { right: 25%; top: 70%; animation-delay: 0.8s; }
-        .leaderboard-card :global(.hex-11) { left: 15%; bottom: 25%; animation-delay: 1.3s; }
-        .leaderboard-card :global(.hex-12) { right: 20%; bottom: 30%; animation-delay: 1.8s; }
-
-        /* Tiny sparkle hexagons (4) - accents */
-        .leaderboard-card :global(.hex-13) { left: 35%; top: 50%; animation-delay: 0.4s; }
-        .leaderboard-card :global(.hex-14) { right: 35%; top: 35%; animation-delay: 0.9s; }
-        .leaderboard-card :global(.hex-15) { left: 60%; top: 65%; animation-delay: 1.4s; }
-        .leaderboard-card :global(.hex-16) { right: 45%; bottom: 45%; animation-delay: 1.9s; }
-
-        @keyframes hex-float-lg {
-          0%, 100% {
-            opacity: 0.7;
-            transform: translateY(0) scale(1) rotate(0deg);
-          }
-          50% {
-            opacity: 1;
-            transform: translateY(-3px) scale(1.1) rotate(5deg);
-          }
-        }
-
-        @keyframes hex-float-md {
-          0%, 100% {
-            opacity: 0.6;
-            transform: translateY(0) scale(1) rotate(0deg);
-          }
-          50% {
-            opacity: 0.95;
-            transform: translateY(-2px) scale(1.08) rotate(-3deg);
-          }
-        }
-
-        @keyframes hex-float-sm {
-          0%, 100% {
-            opacity: 0.5;
-            transform: translateY(0) scale(1);
-          }
-          50% {
-            opacity: 0.85;
-            transform: translateY(-2px) scale(1.15);
-          }
-        }
-
-        @keyframes hex-sparkle {
-          0%, 100% {
-            opacity: 0.3;
-            transform: scale(0.8);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(1.3);
-            box-shadow: 0 0 8px rgba(200, 240, 255, 0.8);
-          }
-        }
-
-        /* Frost/ice edge effect - gelure spreading from borders */
-        .leaderboard-card :global(.team-race-row.leader-frost)::after {
+        /* Dark overlay for readability */
+        .leaderboard-card :global(.team-race-row.team-blaze)::after,
+        .leaderboard-card :global(.team-race-row.team-frost)::after,
+        .leaderboard-card :global(.team-race-row.team-venom)::after,
+        .leaderboard-card :global(.team-race-row.team-solar)::after {
           content: '';
           position: absolute;
           inset: 0;
-          background:
-            /* Frost creeping from edges - top */
-            radial-gradient(ellipse 80% 25% at 50% 0%, rgba(200, 245, 255, 0.5) 0%, rgba(150, 230, 255, 0.2) 40%, transparent 70%),
-            /* Frost creeping from edges - bottom */
-            radial-gradient(ellipse 80% 25% at 50% 100%, rgba(180, 240, 255, 0.4) 0%, rgba(150, 230, 255, 0.15) 40%, transparent 70%),
-            /* Frost creeping from edges - left */
-            radial-gradient(ellipse 30% 80% at 0% 50%, rgba(200, 245, 255, 0.5) 0%, rgba(150, 230, 255, 0.2) 50%, transparent 80%),
-            /* Frost creeping from edges - right */
-            radial-gradient(ellipse 25% 80% at 100% 50%, rgba(180, 240, 255, 0.4) 0%, rgba(150, 230, 255, 0.15) 50%, transparent 80%),
-            /* Corner frost accumulation */
-            radial-gradient(ellipse 35% 35% at 0% 0%, rgba(220, 250, 255, 0.6) 0%, transparent 70%),
-            radial-gradient(ellipse 30% 30% at 100% 0%, rgba(200, 245, 255, 0.5) 0%, transparent 70%),
-            radial-gradient(ellipse 30% 35% at 0% 100%, rgba(200, 245, 255, 0.45) 0%, transparent 70%),
-            radial-gradient(ellipse 25% 30% at 100% 100%, rgba(180, 240, 255, 0.4) 0%, transparent 70%),
-            /* Ice crystal sparkles */
-            radial-gradient(2px 2px at 8% 15%, rgba(255, 255, 255, 1) 0%, transparent 100%),
-            radial-gradient(2px 2px at 92% 20%, rgba(255, 255, 255, 0.95) 0%, transparent 100%),
-            radial-gradient(3px 3px at 5% 85%, rgba(220, 250, 255, 1) 0%, transparent 100%),
-            radial-gradient(2px 2px at 95% 80%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
-            radial-gradient(2px 2px at 15% 50%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
-            radial-gradient(1.5px 1.5px at 88% 45%, rgba(220, 250, 255, 0.9) 0%, transparent 100%),
-            radial-gradient(2px 2px at 25% 8%, rgba(255, 255, 255, 0.95) 0%, transparent 100%),
-            radial-gradient(1.5px 1.5px at 75% 92%, rgba(255, 255, 255, 0.85) 0%, transparent 100%);
-          animation: frost-edge-breathe 3s ease-in-out infinite;
-          pointer-events: none;
-          z-index: 2;
+          background: rgba(0, 0, 0, 0.45);
           border-radius: inherit;
-        }
-
-        @keyframes frost-edge-breathe {
-          0%, 100% {
-            opacity: 0.85;
-            filter: blur(0px);
-          }
-          50% {
-            opacity: 1;
-            filter: blur(0.5px);
-          }
-        }
-
-        /* Ice border with crystals */
-        .leaderboard-card :global(.team-race-row.leader-frost)::before {
-          background: linear-gradient(180deg,
-            rgba(200, 245, 255, 1) 0%,
-            rgba(100, 220, 255, 1) 25%,
-            rgba(0, 200, 255, 1) 50%,
-            rgba(100, 220, 255, 1) 75%,
-            rgba(200, 245, 255, 1) 100%
-          );
-          width: 5px;
-          box-shadow: 5px 0 15px rgba(0, 200, 255, 0.4);
-        }
-
-        /* Frost text - frozen icy glow */
-        .leaderboard-card :global(.team-race-row.leader-frost) .team-name-text {
-          color: rgba(220, 250, 255, 1) !important;
-          text-shadow:
-            0 0 8px rgba(0, 220, 255, 1),
-            0 0 16px rgba(100, 220, 255, 0.8),
-            0 0 24px rgba(0, 180, 255, 0.5),
-            0 1px 2px rgba(0, 0, 0, 0.5);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-frost) .rank-num {
-          color: rgba(220, 250, 255, 1) !important;
-          text-shadow: 0 0 10px rgba(0, 200, 255, 0.9);
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-frost) .team-rank {
-          background: rgba(0, 100, 150, 0.5);
-          border-color: rgba(100, 220, 255, 0.6);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-frost) .team-score-value {
-          color: rgba(220, 250, 255, 1) !important;
-          text-shadow:
-            0 0 8px rgba(0, 200, 255, 0.9),
-            0 0 16px rgba(100, 220, 255, 0.6);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-frost) .team-member-count {
-          color: rgba(200, 240, 255, 0.95);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-frost) .team-content {
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-frost) .team-score-box {
-          position: relative;
-          z-index: 5;
-        }
-
-        /* Frozen progress bar */
-        .leaderboard-card :global(.team-race-row.leader-frost) .progress-track {
-          background: rgba(0, 80, 120, 0.6);
-          border: 1px solid rgba(100, 200, 255, 0.3);
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-frost) :global(.progress-fill) {
-          background: linear-gradient(90deg,
-            rgba(0, 150, 200, 0.9),
-            rgba(0, 200, 255, 1),
-            rgba(150, 230, 255, 1)
-          );
-          box-shadow: 0 0 10px rgba(0, 200, 255, 0.6);
-        }
-
-        /* ☠️ VENOM - Smoke Lottie Effect */
-        .leaderboard-card :global(.venom-smoke-lottie) {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 4;
-          overflow: hidden;
-          border-radius: inherit;
-        }
-
-        .leaderboard-card :global(.smoke-lottie) {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          filter: hue-rotate(80deg) saturate(1.5) brightness(1.1);
-        }
-
-        /* ☠️ VENOM - Toxic Poison Gas effect */
-        .leaderboard-card :global(.team-race-row.leader-venom) {
-          background:
-            /* Toxic gas wisps */
-            radial-gradient(ellipse 40% 30% at 15% 20%, rgba(80, 200, 50, 0.2) 0%, transparent 70%),
-            radial-gradient(ellipse 35% 40% at 75% 70%, rgba(100, 220, 60, 0.15) 0%, transparent 70%),
-            radial-gradient(ellipse 50% 25% at 50% 85%, rgba(60, 180, 40, 0.18) 0%, transparent 70%),
-            radial-gradient(ellipse 30% 35% at 85% 25%, rgba(120, 230, 80, 0.12) 0%, transparent 70%),
-            /* Poison bubbles */
-            radial-gradient(circle at 10% 60%, rgba(100, 255, 100, 0.25) 0%, rgba(50, 200, 50, 0.1) 30%, transparent 50%),
-            radial-gradient(circle at 30% 30%, rgba(80, 220, 80, 0.2) 0%, rgba(40, 180, 40, 0.08) 25%, transparent 45%),
-            radial-gradient(circle at 70% 50%, rgba(100, 240, 100, 0.18) 0%, rgba(60, 200, 60, 0.06) 30%, transparent 50%),
-            /* Dark toxic base */
-            linear-gradient(135deg,
-              rgba(10, 30, 10, 0.98) 0%,
-              rgba(15, 40, 15, 0.96) 25%,
-              rgba(20, 50, 20, 0.94) 50%,
-              rgba(15, 40, 15, 0.96) 75%,
-              rgba(10, 30, 10, 0.98) 100%
-            );
-          border: 2px solid rgba(100, 220, 80, 0.7) !important;
-          box-shadow: inset 0 0 20px rgba(80, 200, 60, 0.15);
-          overflow: visible !important;
-        }
-
-        /* Toxic gas/smoke overlay with rising bubbles */
-        .leaderboard-card :global(.team-race-row.leader-venom)::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background:
-            /* Rising poison bubbles */
-            radial-gradient(circle 8px at 8% 70%, rgba(100, 255, 100, 0.6) 0%, rgba(80, 220, 80, 0.3) 40%, transparent 70%),
-            radial-gradient(circle 5px at 20% 85%, rgba(120, 255, 120, 0.5) 0%, rgba(100, 230, 100, 0.2) 50%, transparent 80%),
-            radial-gradient(circle 6px at 35% 60%, rgba(80, 240, 80, 0.55) 0%, rgba(60, 200, 60, 0.25) 45%, transparent 75%),
-            radial-gradient(circle 4px at 50% 75%, rgba(100, 255, 100, 0.5) 0%, rgba(80, 220, 80, 0.2) 50%, transparent 80%),
-            radial-gradient(circle 7px at 65% 80%, rgba(120, 250, 120, 0.45) 0%, rgba(100, 220, 100, 0.2) 40%, transparent 70%),
-            radial-gradient(circle 5px at 80% 65%, rgba(80, 230, 80, 0.5) 0%, rgba(60, 200, 60, 0.2) 50%, transparent 80%),
-            radial-gradient(circle 6px at 90% 78%, rgba(100, 240, 100, 0.4) 0%, rgba(80, 210, 80, 0.15) 45%, transparent 75%),
-            /* Gas haze */
-            linear-gradient(0deg,
-              rgba(80, 200, 60, 0.25) 0%,
-              rgba(60, 180, 40, 0.1) 30%,
-              transparent 60%
-            );
-          animation: venom-bubbles 3s ease-in-out infinite;
-          pointer-events: none;
-          border-radius: inherit;
-          z-index: 2;
-        }
-
-        @keyframes venom-bubbles {
-          0%, 100% {
-            opacity: 0.7;
-            transform: translateY(0);
-          }
-          50% {
-            opacity: 1;
-            transform: translateY(-3px);
-          }
-        }
-
-        /* Toxic border */
-        .leaderboard-card :global(.team-race-row.leader-venom)::before {
-          background: linear-gradient(180deg,
-            rgba(150, 255, 150, 1) 0%,
-            rgba(100, 230, 100, 1) 25%,
-            rgba(80, 200, 60, 1) 50%,
-            rgba(100, 230, 100, 1) 75%,
-            rgba(150, 255, 150, 1) 100%
-          );
-          width: 5px;
-          box-shadow: 5px 0 15px rgba(100, 220, 80, 0.4);
-          z-index: 5;
-        }
-
-        /* Venom text styling */
-        .leaderboard-card :global(.team-race-row.leader-venom) .team-name-text {
-          color: rgba(180, 255, 180, 1) !important;
-          text-shadow:
-            0 0 8px rgba(100, 230, 80, 1),
-            0 0 16px rgba(80, 200, 60, 0.8),
-            0 0 24px rgba(60, 180, 40, 0.5),
-            0 1px 2px rgba(0, 0, 0, 0.7);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-venom) .rank-num {
-          color: rgba(180, 255, 180, 1) !important;
-          text-shadow: 0 0 10px rgba(100, 230, 80, 0.9);
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-venom) .team-rank {
-          background: rgba(20, 60, 20, 0.6);
-          border-color: rgba(100, 220, 80, 0.6);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-venom) .team-score-value {
-          color: rgba(180, 255, 180, 1) !important;
-          text-shadow:
-            0 0 8px rgba(100, 230, 80, 0.9),
-            0 0 16px rgba(80, 200, 60, 0.6);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-venom) .team-member-count {
-          color: rgba(160, 240, 160, 0.95);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-venom) .team-content {
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-venom) .team-score-box {
-          position: relative;
-          z-index: 5;
-        }
-
-        /* Toxic progress bar */
-        .leaderboard-card :global(.team-race-row.leader-venom) .progress-track {
-          background: rgba(20, 50, 20, 0.6);
-          border: 1px solid rgba(100, 200, 80, 0.3);
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-venom) :global(.progress-fill) {
-          background: linear-gradient(90deg,
-            rgba(40, 150, 40, 0.9),
-            rgba(80, 200, 60, 1),
-            rgba(120, 240, 100, 1)
-          );
-          box-shadow: 0 0 10px rgba(100, 220, 80, 0.6);
-        }
-
-        /* 🌟 SOLAR - Radiant Sun effect */
-        .leaderboard-card :global(.team-race-row.leader-solar) {
-          background:
-            /* Light particles - white hot */
-            radial-gradient(3px 3px at 8% 25%, rgba(255, 255, 255, 1) 0%, transparent 100%),
-            radial-gradient(4px 4px at 92% 35%, rgba(255, 255, 255, 1) 0%, transparent 100%),
-            radial-gradient(3px 3px at 20% 75%, rgba(255, 255, 255, 0.95) 0%, transparent 100%),
-            radial-gradient(3.5px 3.5px at 78% 85%, rgba(255, 255, 200, 1) 0%, transparent 100%),
-            radial-gradient(4px 4px at 45% 20%, rgba(255, 255, 255, 1) 0%, transparent 100%),
-            /* Sun glow - bright yellow/orange */
-            radial-gradient(ellipse 80% 100% at 0% 50%, rgba(255, 230, 0, 0.6) 0%, transparent 50%),
-            radial-gradient(ellipse 60% 80% at 15% 50%, rgba(255, 150, 0, 0.4) 0%, transparent 50%),
-            /* White-hot core */
-            radial-gradient(ellipse 40% 60% at 0% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 50%),
-            /* Bright orange base - NOT dark */
-            linear-gradient(135deg,
-              rgba(180, 80, 0, 0.95) 0%,
-              rgba(200, 100, 0, 0.93) 25%,
-              rgba(220, 120, 20, 0.9) 50%,
-              rgba(200, 100, 0, 0.93) 75%,
-              rgba(180, 80, 0, 0.95) 100%
-            );
-          border: 2px solid rgba(255, 200, 0, 0.9) !important;
-          box-shadow: inset 0 0 20px rgba(255, 255, 150, 0.2);
-          overflow: hidden !important;
-        }
-
-
-        /* Rotating sun rays - bright yellow */
-        .leaderboard-card :global(.team-race-row.leader-solar)::after {
-          content: '';
-          position: absolute;
-          /* Square element for equal ray lengths in all directions */
-          width: 1000px;
-          height: 1000px;
-          top: calc(50% - 500px);
-          left: -500px;
-          background: repeating-conic-gradient(
-            from 0deg at 50% 50%,
-            rgba(255, 230, 0, 0.3) 0deg 6deg,
-            transparent 6deg 18deg
-          );
-          /* Rotate around center of square */
-          transform-origin: center center;
-          animation: solar-rays-rotate 25s linear infinite;
           pointer-events: none;
           z-index: 1;
         }
 
-        @keyframes solar-rays-rotate {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        /* Solar border - bright sun glow */
-        .leaderboard-card :global(.team-race-row.leader-solar)::before {
-          background: linear-gradient(180deg,
-            rgba(255, 255, 255, 1) 0%,
-            rgba(255, 230, 0, 1) 25%,
-            rgba(255, 160, 0, 1) 50%,
-            rgba(255, 230, 0, 1) 75%,
-            rgba(255, 255, 255, 1) 100%
-          );
-          width: 5px;
-          box-shadow: 5px 0 15px rgba(255, 200, 0, 0.4);
+        /* Ensure text is readable over PNG backgrounds */
+        .leaderboard-card :global(.team-race-row.team-blaze) .team-rank,
+        .leaderboard-card :global(.team-race-row.team-blaze) .team-content,
+        .leaderboard-card :global(.team-race-row.team-blaze) .team-score-box,
+        .leaderboard-card :global(.team-race-row.team-frost) .team-rank,
+        .leaderboard-card :global(.team-race-row.team-frost) .team-content,
+        .leaderboard-card :global(.team-race-row.team-frost) .team-score-box,
+        .leaderboard-card :global(.team-race-row.team-venom) .team-rank,
+        .leaderboard-card :global(.team-race-row.team-venom) .team-content,
+        .leaderboard-card :global(.team-race-row.team-venom) .team-score-box,
+        .leaderboard-card :global(.team-race-row.team-solar) .team-rank,
+        .leaderboard-card :global(.team-race-row.team-solar) .team-content,
+        .leaderboard-card :global(.team-race-row.team-solar) .team-score-box {
+          position: relative;
           z-index: 5;
         }
 
-        /* Solar text styling - bright yellow/white */
-        .leaderboard-card :global(.team-race-row.leader-solar) .team-name-text {
+        /* 🔥 BLAZE */
+        .leaderboard-card :global(.team-race-row.team-blaze) {
+          border-color: rgba(255, 120, 40, 0.8) !important;
+        }
+
+        .leaderboard-card :global(.team-race-row.team-blaze) .team-name-text,
+        .leaderboard-card :global(.team-race-row.team-blaze) .team-score-value {
+          text-shadow: 0 0 10px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 1);
+        }
+
+        /* ❄️ FROST */
+        .leaderboard-card :global(.team-race-row.team-frost) {
+          border-color: rgba(180, 240, 255, 0.8) !important;
+        }
+
+        .leaderboard-card :global(.team-race-row.team-frost) .team-name-text {
+          color: rgba(220, 250, 255, 1) !important;
+          text-shadow: 0 0 8px rgba(0, 220, 255, 1), 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .leaderboard-card :global(.team-race-row.team-frost) .rank-num {
+          color: rgba(220, 250, 255, 1) !important;
+        }
+
+        .leaderboard-card :global(.team-race-row.team-frost) .team-score-value {
+          color: rgba(220, 250, 255, 1) !important;
+          text-shadow: 0 0 8px rgba(0, 200, 255, 0.9);
+        }
+
+        /* ☠️ VENOM */
+        .leaderboard-card :global(.team-race-row.team-venom) {
+          border-color: rgba(100, 220, 80, 0.7) !important;
+        }
+
+        .leaderboard-card :global(.team-race-row.team-venom) .team-name-text {
+          color: rgba(180, 255, 180, 1) !important;
+          text-shadow: 0 0 8px rgba(100, 230, 80, 1), 0 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .leaderboard-card :global(.team-race-row.team-venom) .rank-num {
+          color: rgba(180, 255, 180, 1) !important;
+        }
+
+        .leaderboard-card :global(.team-race-row.team-venom) .team-score-value {
+          color: rgba(180, 255, 180, 1) !important;
+          text-shadow: 0 0 8px rgba(100, 230, 80, 0.9);
+        }
+
+        /* ☀️ SOLAR */
+        .leaderboard-card :global(.team-race-row.team-solar) {
+          border-color: rgba(255, 200, 0, 0.9) !important;
+        }
+
+        .leaderboard-card :global(.team-race-row.team-solar) .team-name-text {
           color: rgba(255, 255, 255, 1) !important;
-          text-shadow:
-            0 0 8px rgba(255, 240, 0, 1),
-            0 0 16px rgba(255, 180, 0, 0.8),
-            0 0 24px rgba(255, 120, 0, 0.5),
-            0 1px 2px rgba(0, 0, 0, 0.5);
-          position: relative;
-          z-index: 5;
+          text-shadow: 0 0 8px rgba(255, 240, 0, 1), 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
-        .leaderboard-card :global(.team-race-row.leader-solar) .rank-num {
+        .leaderboard-card :global(.team-race-row.team-solar) .rank-num {
           color: rgba(255, 255, 255, 1) !important;
-          text-shadow: 0 0 10px rgba(255, 230, 0, 0.9);
         }
 
-        .leaderboard-card :global(.team-race-row.leader-solar) .team-rank {
-          background: rgba(180, 90, 0, 0.6);
-          border-color: rgba(255, 230, 0, 0.6);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-solar) .team-score-value {
+        .leaderboard-card :global(.team-race-row.team-solar) .team-score-value {
           color: rgba(255, 255, 255, 1) !important;
-          text-shadow:
-            0 0 8px rgba(255, 230, 0, 0.9),
-            0 0 16px rgba(255, 150, 0, 0.6);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-solar) .team-member-count {
-          color: rgba(255, 255, 240, 0.95);
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-solar) .team-content {
-          position: relative;
-          z-index: 5;
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-solar) .team-score-box {
-          position: relative;
-          z-index: 5;
-        }
-
-        /* Solar progress bar - bright sun */
-        .leaderboard-card :global(.team-race-row.leader-solar) .progress-track {
-          background: rgba(150, 70, 0, 0.6);
-          border: 1px solid rgba(255, 220, 0, 0.3);
-        }
-
-        .leaderboard-card :global(.team-race-row.leader-solar) :global(.progress-fill) {
-          background: linear-gradient(90deg,
-            rgba(255, 130, 0, 0.9),
-            rgba(255, 220, 0, 1),
-            rgba(255, 255, 150, 1)
-          );
-          box-shadow: 0 0 10px rgba(255, 230, 0, 0.6);
+          text-shadow: 0 0 8px rgba(255, 230, 0, 0.9);
         }
 
         .no-players {

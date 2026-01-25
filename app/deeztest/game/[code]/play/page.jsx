@@ -17,6 +17,8 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { storage } from "@/lib/utils/storage";
 import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
 
@@ -84,12 +86,15 @@ export default function DeezTestPlayerGame() {
   }, [myUid, code, markActive]);
 
   // Room guard - détecte kick et fermeture room
-  const { markVoluntaryLeave } = useRoomGuard({
+  const { markVoluntaryLeave, isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_deeztest',
     playerUid: myUid,
     isHost: false
   });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   // DB listeners
   useEffect(() => {
@@ -273,6 +278,13 @@ export default function DeezTestPlayerGame() {
         onReconnect={markActive}
       />
 
+      {/* Game Status Banners */}
+      <GameStatusBanners
+        isHost={false}
+        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
+        hostDisconnectedAt={hostDisconnectedAt}
+      />
+
       <style jsx>{`
         .deeztest-player-page {
           flex: 1;
@@ -453,8 +465,9 @@ export default function DeezTestPlayerGame() {
         }
 
         .level-value {
-          font-family: var(--font-title, 'Bungee'), cursive;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           font-size: 1.1rem;
+          font-weight: 700;
           color: ${DEEZER_PURPLE};
         }
 

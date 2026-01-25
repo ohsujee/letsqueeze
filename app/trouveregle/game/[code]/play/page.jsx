@@ -18,6 +18,8 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import GameStatusBanners from "@/components/game/GameStatusBanners";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { Clock, RefreshCw, Check, X, ThumbsUp, ThumbsDown, Pause, Play } from "lucide-react";
@@ -76,12 +78,15 @@ export default function TrouveReglePlayPage() {
   const myPlayer = players.find(p => p.uid === myUid);
 
   // Room guard
-  useRoomGuard({
+  const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_trouveregle',
     playerUid: myUid,
     isHost: false
   });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   // Host disconnect - ferme la room si l'hôte perd sa connexion
   useHostDisconnect({
@@ -884,6 +889,13 @@ export default function TrouveReglePlayPage() {
         roomPrefix="rooms_trouveregle"
         playerUid={myUid}
         onReconnect={markActive}
+      />
+
+      {/* Game Status Banners */}
+      <GameStatusBanners
+        isHost={false}
+        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
+        hostDisconnectedAt={hostDisconnectedAt}
       />
 
       <style jsx>{styles}</style>

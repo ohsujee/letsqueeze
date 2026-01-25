@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { db, ref, onValue, update } from "@/lib/firebase";
 import { PodiumPremium } from "@/components/ui/PodiumPremium";
@@ -30,8 +30,16 @@ export default function DeezTestEndPage() {
   // End page ad + auth (handles interstitial + returnedFromGame + myUid)
   const { myUid } = useEndPageAd();
 
-  // Centralized players hook
-  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_deeztest' });
+  // Centralized players hook (live data)
+  const { players: livePlayers } = usePlayers({ roomCode: code, roomPrefix: 'rooms_deeztest' });
+
+  // Snapshot players on first load for stable end screen
+  // This prevents the leaderboard from changing when players leave
+  const playersSnapshotRef = useRef(null);
+  if (livePlayers.length > 0 && playersSnapshotRef.current === null) {
+    playersSnapshotRef.current = [...livePlayers];
+  }
+  const players = playersSnapshotRef.current || livePlayers;
 
   // Room guard - détecte fermeture room par l'hôte
   useRoomGuard({

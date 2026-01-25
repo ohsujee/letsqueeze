@@ -5737,15 +5737,13 @@ textarea:focus-visible {
   /* Inherits base styles */
 }
 
+/* DeezTest specific colors */
 .player-info-card.deeztest {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
+  border-color: rgba(162, 56, 255, 0.25);
+}
+
+.player-info-card.deeztest::before {
   background: rgba(162, 56, 255, 0.1);
-  border: 1px solid rgba(162, 56, 255, 0.25);
-  border-radius: 16px;
-  margin-bottom: 16px;
 }
 
 .player-info-placeholder.deeztest {
@@ -7855,6 +7853,94 @@ textarea:focus-visible {
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+/* ===== COMPACT MODE TOGGLE ===== */
+.mode-toggle-compact {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.mode-btn-compact {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-btn-compact:hover:not(.active) {
+  color: var(--text-primary, rgba(255, 255, 255, 0.8));
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mode-btn-compact.active {
+  background: linear-gradient(135deg,
+    rgba(var(--mode-active-color, 139, 92, 246), 0.3),
+    rgba(var(--mode-active-color, 139, 92, 246), 0.15)
+  );
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary, #fff);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== INLINE TEAM COUNT (in TeamTabs header) ===== */
+.teams-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.team-count-inline {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.15rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.count-btn-inline {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.count-btn-inline:hover:not(.active) {
+  color: var(--text-primary, rgba(255, 255, 255, 0.8));
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.count-btn-inline.active {
+  background: var(--count-active-color, #8b5cf6);
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
 /* ===== PLAYERS LIST ===== */
 .lobby-players {
   flex: 1;
@@ -8087,12 +8173,47 @@ textarea:focus-visible {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 1.5vh;
+  gap: 1vh;
   padding: 1vh 0;
-  padding-bottom: calc(1.5vh + var(--safe-area-bottom));
+  padding-bottom: calc(14vh + var(--safe-area-bottom));
   width: 100%;
-  overflow: hidden;
+  overflow-y: auto;
   min-height: 0;
+}
+
+/* Waiting animation fixed at bottom */
+.lobby-player-view .waiting-compact {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2vh 0 calc(1.5vh + var(--safe-area-bottom, 0px));
+  background: linear-gradient(to top, var(--bg-primary, #0a0a0f) 70%, transparent);
+  z-index: 10;
+}
+
+/* ===== STICKY PLAYER INFO CARD (all games) ===== */
+.lobby-player-view .player-info-card {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg-primary, #0a0a0f);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.lobby-player-view .player-info-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
 }
 
 /* ===== MY TEAM BANNER (Team Mode) ===== */
@@ -8111,8 +8232,43 @@ textarea:focus-visible {
   overflow: hidden;
   flex-shrink: 0;
   box-shadow:
-    0 0 4vh rgba(var(--team-color-rgb, 139, 92, 246), 0.3),
+    inset 0 0 3vh rgba(var(--team-color-rgb, 139, 92, 246), 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Sticky banner in player view with fade effect */
+.lobby-player-view .my-team-banner,
+.lobby-player-view .pending-banner {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  margin-bottom: 12px;
+}
+
+/* For games with playlist card, banner stacks below */
+.lobby-player-view .player-info-card + .my-team-banner,
+.lobby-player-view .player-info-card + .pending-banner,
+.lobby-player-view .player-info-card ~ .my-team-banner,
+.lobby-player-view .player-info-card ~ .pending-banner {
+  top: 68px;
+}
+
+/* Background behind sticky banner to hide scrolling content */
+.lobby-player-view .my-team-banner::before,
+.lobby-player-view .pending-banner::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -16px;
+  right: -16px;
+  bottom: -16px;
+  background: linear-gradient(to bottom,
+    var(--bg-primary, #0a0a0f) 0%,
+    var(--bg-primary, #0a0a0f) 85%,
+    transparent 100%
+  );
+  z-index: -1;
+  pointer-events: none;
 }
 
 .my-team-banner .banner-glow {
@@ -8317,6 +8473,131 @@ textarea:focus-visible {
   background: rgba(255, 255, 255, 0.08);
   font-size: 0.6875rem;
   color: var(--text-muted, rgba(255, 255, 255, 0.5));
+}
+
+.team-card-players .player-tag.more.clickable {
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.team-card-players .player-tag.more.clickable:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-primary, #fff);
+}
+
+/* ===== TEAM DETAIL MODAL (Player View) ===== */
+.team-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.team-modal-content {
+  width: 100%;
+  max-width: 320px;
+  background: rgba(20, 20, 30, 0.98);
+  border: 1px solid var(--team-color, rgba(255, 255, 255, 0.2));
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.team-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.team-modal-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.team-modal-name {
+  flex: 1;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.1rem;
+  color: var(--text-primary, #fff);
+  margin: 0;
+}
+
+.team-modal-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.team-modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-primary, #fff);
+}
+
+.team-modal-players {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.team-modal-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.team-modal-player.is-me {
+  background: rgba(var(--team-color-rgb, 139, 92, 246), 0.15);
+  border: 1px solid var(--team-color, rgba(139, 92, 246, 0.3));
+}
+
+.team-modal-player .player-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.team-modal-player .player-name {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary, #fff);
+}
+
+.team-modal-player.is-me .player-name {
+  font-weight: 600;
 }
 
 /* ===== SOLO MODE - PLAYERS LIST ===== */
@@ -9070,7 +9351,8 @@ textarea:focus-visible {
   flex-wrap: nowrap;
   gap: 0.375rem;
   flex: 1;
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .unassigned-chip {

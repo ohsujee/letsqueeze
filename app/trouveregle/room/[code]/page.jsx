@@ -25,6 +25,7 @@ import { usePresence } from "@/lib/hooks/usePresence";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { Search, Users, Clock, Shuffle, Check } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import { TROUVE_COLORS, getRandomRulesForVoting } from "@/data/trouveregle-rules";
@@ -66,6 +67,9 @@ export default function TrouveRegleLobby() {
 
   // Interstitial ad
   useInterstitialAd({ context: 'TrouveRegle' });
+
+  // Keep screen awake during game
+  useWakeLock({ enabled: true });
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {
