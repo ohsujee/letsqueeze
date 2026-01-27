@@ -14,13 +14,16 @@ import GameCard from '@/lib/components/GameCard';
 import GuestAccountPromptModal from '@/components/ui/GuestAccountPromptModal';
 import GuestWarningModal from '@/components/ui/GuestWarningModal';
 import GameLimitModal from '@/components/ui/GameLimitModal';
+import GameModeSelector from '@/components/ui/GameModeSelector';
 import RejoinBanner from '@/components/ui/RejoinBanner';
 import { useActiveGameCheck } from '@/lib/hooks/usePlayerCleanup';
 import { useToast } from '@/lib/hooks/useToast';
-import { Gamepad2, Heart, ChevronsUp, Crown } from 'lucide-react';
+import { Gamepad2, Heart, ChevronsUp, Crown, Search, Users, X, Minus, Plus, ArrowUpDown, TrendingUp, Clock, SortAsc } from 'lucide-react';
 import { genUniqueCode } from '@/lib/utils';
 import { isFounder } from '@/lib/admin';
-import { GAMES, getVisibleGames } from '@/lib/config/games';
+import { GAMES, getVisibleGames, filterByPlayerCount, sortGames, searchGames } from '@/lib/config/games';
+import { useGlobalPlayCounts } from '@/lib/hooks/useGlobalPlayCounts';
+import { ROOM_TYPES } from '@/lib/config/rooms';
 
 function HomePageContent() {
   const router = useRouter();
@@ -29,10 +32,48 @@ function HomePageContent() {
   const [showGuestPrompt, setShowGuestPrompt] = useState(false);
   const [showGuestWarning, setShowGuestWarning] = useState(false);
   const [showGameLimit, setShowGameLimit] = useState(false);
+  const [showModeSelector, setShowModeSelector] = useState(false);
   const [pendingGame, setPendingGame] = useState(null);
   const { isPro } = useSubscription(user);
   const { profile } = useUserProfile();
   const [showRejoinBanner, setShowRejoinBanner] = useState(true);
+
+  // Search & Filter state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [playerCountFilter, setPlayerCountFilter] = useState(null);
+  const [sortBy, setSortBy] = useState('default'); // 'default', 'popular', 'newest', 'alphabetical'
+  const [showPlayerModal, setShowPlayerModal] = useState(false);
+  const [showSortModal, setShowSortModal] = useState(false);
+  const playerModalRef = useRef(null);
+  const sortModalRef = useRef(null);
+
+  // Global play counts for "popular" sort
+  const { playCounts } = useGlobalPlayCounts();
+
+  // Close modals when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (playerModalRef.current && !playerModalRef.current.contains(e.target) && !e.target.closest('.player-filter-btn')) {
+        setShowPlayerModal(false);
+      }
+      if (sortModalRef.current && !sortModalRef.current.contains(e.target) && !e.target.closest('.sort-filter-btn')) {
+        setShowSortModal(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Sort options with icons
+  const sortOptions = [
+    { value: 'default', label: 'Par défaut', icon: ArrowUpDown },
+    { value: 'popular', label: 'Les plus joués', icon: TrendingUp },
+    { value: 'newest', label: 'Nouveautés', icon: Clock },
+    { value: 'alphabetical', label: 'A-Z', icon: SortAsc },
+  ];
+
+  const currentSortOption = sortOptions.find(o => o.value === sortBy) || sortOptions[0];
+  const SortIcon = currentSortOption.icon;
 
   // Check for active game the player can rejoin
   const activeGame = useActiveGameCheck(user?.uid);
@@ -126,7 +167,7 @@ function HomePageContent() {
   };
 
   // Actually create the game room and navigate
-  const createAndNavigateToGame = async (game) => {
+  const createAndNavigateToGame = async (game, gameMasterMode = 'gamemaster') => {
     const c = await genUniqueCode();
     const now = Date.now();
 
@@ -145,7 +186,8 @@ function HomePageContent() {
           mode: "individuel",
           teamCount: 0,
           quizId: "general",
-          teams: {}
+          teams: {},
+          gameMasterMode // 'gamemaster' ou 'party'
         }),
         set(ref(db, `rooms/${c}/state`), {
           phase: "lobby",
@@ -193,6 +235,7 @@ function HomePageContent() {
           code: c,
           createdAt: now,
           hostUid: auth.currentUser.uid,
+          hostName: profile?.pseudo || user?.displayName?.split(' ')[0] || 'Animateur',
           expiresAt: now + 12 * 60 * 60 * 1000,
           mode: "individuel",
           teamCount: 0,
@@ -200,7 +243,8 @@ function HomePageContent() {
           spotifyConnected: false,
           playlist: null,
           playlistsUsed: 0,
-          gameType: "blindtest"
+          gameType: "blindtest",
+          gameMasterMode // 'gamemaster' ou 'party'
         }),
         set(ref(db, `rooms_blindtest/${c}/state`), {
           phase: "lobby",
@@ -221,13 +265,15 @@ function HomePageContent() {
           code: c,
           createdAt: now,
           hostUid: auth.currentUser.uid,
+          hostName: profile?.pseudo || user?.displayName?.split(' ')[0] || 'Animateur',
           expiresAt: now + 12 * 60 * 60 * 1000,
           mode: "individuel",
           teamCount: 0,
           teams: {},
           playlist: null,
           playlistsUsed: 0,
-          gameType: "deeztest"
+          gameType: "deeztest",
+          gameMasterMode // 'gamemaster' ou 'party'
         }),
         set(ref(db, `rooms_deeztest/${c}/state`), {
           phase: "lobby",
@@ -318,8 +364,24 @@ function HomePageContent() {
       }
     }
 
-    // Can play - create game
+    // Check if game supports Party Mode - show selector
+    const roomType = ROOM_TYPES.find(rt => rt.id === game.id);
+    if (roomType?.supportsPartyMode) {
+      setPendingGame(game);
+      setShowModeSelector(true);
+      return;
+    }
+
+    // Can play - create game (default gamemaster mode)
     createAndNavigateToGame(game);
+  };
+
+  // Handle mode selection from GameModeSelector
+  const handleModeSelect = (mode) => {
+    if (pendingGame) {
+      createAndNavigateToGame(pendingGame, mode);
+      setPendingGame(null);
+    }
   };
 
   // Handle watching ad for extra game
@@ -374,7 +436,40 @@ function HomePageContent() {
   const visibleGames = getVisibleGames(userIsFounder);
 
   const favoriteGames = visibleGames.filter(game => favorites.includes(game.id));
-  const allGames = visibleGames;
+
+  // Apply search, filter, and sort to games
+  let filteredGames = visibleGames;
+  filteredGames = searchGames(filteredGames, searchQuery);
+  filteredGames = filterByPlayerCount(filteredGames, playerCountFilter);
+  filteredGames = sortGames(filteredGames, sortBy, playCounts);
+  const allGames = filteredGames;
+
+  // Check if any filters are active
+  const hasActiveFilters = searchQuery || playerCountFilter || sortBy !== 'default';
+
+  // Clear all filters
+  const clearFilters = () => {
+    setSearchQuery('');
+    setPlayerCountFilter(null);
+    setSortBy('default');
+  };
+
+  // Player count stepper handlers
+  const incrementPlayerCount = () => {
+    if (playerCountFilter === null) {
+      setPlayerCountFilter(2);
+    } else if (playerCountFilter < 20) {
+      setPlayerCountFilter(playerCountFilter + 1);
+    }
+  };
+
+  const decrementPlayerCount = () => {
+    if (playerCountFilter !== null && playerCountFilter > 2) {
+      setPlayerCountFilter(playerCountFilter - 1);
+    } else {
+      setPlayerCountFilter(null);
+    }
+  };
 
   return (
     <div className="home-container">
@@ -425,6 +520,154 @@ function HomePageContent() {
           />
         )}
 
+        {/* Search & Filter Bar - Gaming Style */}
+        <div className="game-filter-bar">
+          {/* Search Input with Glow */}
+          <div className="game-search-wrapper">
+            <Search className="game-search-icon" size={20} />
+            <input
+              type="text"
+              className="game-search-input"
+              placeholder="Rechercher..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {searchQuery && (
+              <button
+                className="game-search-clear"
+                onClick={() => setSearchQuery('')}
+              >
+                <X size={16} />
+              </button>
+            )}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="game-filter-actions">
+            {/* Player Count Button */}
+            <div className="player-filter-wrapper">
+              <motion.button
+                className={`player-filter-btn ${playerCountFilter ? 'active' : ''}`}
+                onClick={() => {
+                  setShowPlayerModal(!showPlayerModal);
+                  setShowSortModal(false);
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Users size={18} />
+                {playerCountFilter && <span className="player-count-badge">{playerCountFilter}</span>}
+              </motion.button>
+
+              {/* Player Count Mini-Modal */}
+              {showPlayerModal && (
+                <motion.div
+                  ref={playerModalRef}
+                  className="player-modal"
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <div className="player-modal-header">Nombre de joueurs</div>
+                  <div className="player-stepper">
+                    <motion.button
+                      className="stepper-btn minus"
+                      onClick={decrementPlayerCount}
+                      whileTap={{ scale: 0.9 }}
+                      disabled={playerCountFilter === null}
+                    >
+                      <Minus size={18} />
+                    </motion.button>
+                    <div className="stepper-value">
+                      {playerCountFilter !== null ? (
+                        <span className="value-number">{playerCountFilter}</span>
+                      ) : (
+                        <span className="value-all">Tous</span>
+                      )}
+                    </div>
+                    <motion.button
+                      className="stepper-btn plus"
+                      onClick={incrementPlayerCount}
+                      whileTap={{ scale: 0.9 }}
+                      disabled={playerCountFilter === 20}
+                    >
+                      <Plus size={18} />
+                    </motion.button>
+                  </div>
+                  {playerCountFilter && (
+                    <button
+                      className="player-modal-reset"
+                      onClick={() => {
+                        setPlayerCountFilter(null);
+                        setShowPlayerModal(false);
+                      }}
+                    >
+                      Réinitialiser
+                    </button>
+                  )}
+                </motion.div>
+              )}
+            </div>
+
+            {/* Sort Button with Modal */}
+            <div className="sort-filter-wrapper">
+              <motion.button
+                className={`sort-filter-btn ${sortBy !== 'default' ? 'active' : ''}`}
+                onClick={() => {
+                  setShowSortModal(!showSortModal);
+                  setShowPlayerModal(false);
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <SortIcon size={18} />
+              </motion.button>
+
+              {/* Sort Modal */}
+              {showSortModal && (
+                <motion.div
+                  ref={sortModalRef}
+                  className="sort-modal"
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <div className="sort-modal-header">Trier par</div>
+                  <div className="sort-options">
+                    {sortOptions.map((option) => {
+                      const OptionIcon = option.icon;
+                      return (
+                        <button
+                          key={option.value}
+                          className={`sort-option ${sortBy === option.value ? 'active' : ''}`}
+                          onClick={() => {
+                            setSortBy(option.value);
+                            setShowSortModal(false);
+                          }}
+                        >
+                          <OptionIcon size={16} />
+                          <span>{option.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {sortBy !== 'default' && (
+                    <button
+                      className="sort-modal-reset"
+                      onClick={() => {
+                        setSortBy('default');
+                        setShowSortModal(false);
+                      }}
+                    >
+                      Réinitialiser
+                    </button>
+                  )}
+                </motion.div>
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* Favorites Section */}
         {favoriteGames.length > 0 && (
           <motion.section
@@ -437,18 +680,13 @@ function HomePageContent() {
               <Heart className="title-icon" size={24} fill="var(--brand-rose)" stroke="var(--brand-rose)" />
               Favoris
             </h2>
-            <motion.div
-              className="favorites-grid"
-              initial="visible"
-              animate="visible"
-            >
+            <div className="favorites-grid">
               {favoriteGames.map((game) => (
                 <motion.div
                   key={game.id}
                   className="grid-item"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
+                  layout
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
                 >
                   <GameCard
                     game={game}
@@ -458,7 +696,7 @@ function HomePageContent() {
                   />
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           </motion.section>
         )}
 
@@ -473,18 +711,13 @@ function HomePageContent() {
             <Gamepad2 className="title-icon" size={24} strokeWidth={2.5} />
             Tous les Jeux
           </h2>
-          <motion.div
-            className="games-grid"
-            initial="visible"
-            animate="visible"
-          >
+          <div className="games-grid">
             {allGames.map((game) => (
               <motion.div
                 key={game.id}
                 className="grid-item"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
+                layout
+                transition={{ type: "spring", stiffness: 350, damping: 30 }}
               >
                 <GameCard
                   game={game}
@@ -494,7 +727,7 @@ function HomePageContent() {
                 />
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </motion.section>
 
 
@@ -534,6 +767,17 @@ function HomePageContent() {
         rewardedGamesRemaining={rewardedGamesRemaining}
         isWatchingAd={isWatchingAd}
         isBlocked={isBlocked}
+      />
+
+      {/* Game Mode Selector - Choose between Game Master and Party Mode */}
+      <GameModeSelector
+        isOpen={showModeSelector}
+        onClose={() => {
+          setShowModeSelector(false);
+          setPendingGame(null);
+        }}
+        onSelectMode={handleModeSelect}
+        game={pendingGame}
       />
     </div>
   );

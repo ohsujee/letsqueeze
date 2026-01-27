@@ -24,23 +24,30 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
   // View toggle for team mode (teams vs individual players)
   const isTeamModeRoom = mode === 'équipes';
   const hasTeams = teams && Object.keys(teams).length > 0;
-  const canToggle = isTeamModeRoom || hasTeams;
+  // Only allow toggle if we're in team mode AND have teams data
+  const canToggle = isTeamModeRoom && hasTeams;
   // Track if user has manually toggled (to not override their choice)
   const userHasToggledRef = useRef(false);
   // Track if animation should be skipped (for initial auto-switch)
   const skipAnimationRef = useRef(true);
-  // Initialize directly to 'teams' if teams exist to avoid flash
-  const [viewMode, setViewMode] = useState(() => hasTeams ? 'teams' : 'players');
+  // Initialize to 'teams' only if in team mode AND teams exist
+  const [viewMode, setViewMode] = useState(() => (isTeamModeRoom && hasTeams) ? 'teams' : 'players');
   const [slideDirection, setSlideDirection] = useState(0); // -1 = left, 1 = right
 
   // Auto-switch to teams view when teams data arrives (if user hasn't manually toggled)
+  // Only do this if we're actually in team mode
   // useLayoutEffect runs synchronously before paint, preventing flash
   useLayoutEffect(() => {
-    if (hasTeams && viewMode === 'players' && !userHasToggledRef.current) {
+    if (isTeamModeRoom && hasTeams && viewMode === 'players' && !userHasToggledRef.current) {
       skipAnimationRef.current = true; // Skip animation for auto-switch
       setViewMode('teams');
     }
-  }, [hasTeams, viewMode]);
+    // If mode switches to individual, reset to players view
+    if (!isTeamModeRoom && viewMode === 'teams') {
+      skipAnimationRef.current = true;
+      setViewMode('players');
+    }
+  }, [isTeamModeRoom, hasTeams, viewMode]);
 
   // Enable animations after initial render
   useEffect(() => {
@@ -323,8 +330,8 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                 const progressPercent = maxTeamScore > 0 ? (animatedScore / maxTeamScore) * 100 : 0;
                 const teamTheme = (team.name || '').toLowerCase().replace('équipe ', '').replace('team ', '');
 
-                // Map team themes to PNG images (all teams, not just leader)
-                const teamBgImage = ['blaze', 'frost', 'venom', 'solar'].includes(teamTheme)
+                // Map team themes to PNG images (leader only)
+                const teamBgImage = isLeader && ['blaze', 'frost', 'venom', 'solar'].includes(teamTheme)
                   ? `/images/${teamTheme}.png`
                   : null;
 
@@ -974,7 +981,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
 
         .team-name-text {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 0.7rem;
+          font-size: 0.9rem;
           color: var(--team-color);
           text-shadow: 0 0 8px color-mix(in srgb, var(--team-color) 40%, transparent);
           letter-spacing: 0.02em;

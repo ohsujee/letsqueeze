@@ -16,7 +16,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import LobbyHeader from "@/components/game/LobbyHeader";
 import PaywallModal from "@/components/ui/PaywallModal";
-import AlibiSelectorModal from "@/components/alibi/AlibiSelectorModal";
+import AlibiSelectorModal from "@/components/game-alibi/AlibiSelectorModal";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { usePlayers } from "@/lib/hooks/usePlayers";

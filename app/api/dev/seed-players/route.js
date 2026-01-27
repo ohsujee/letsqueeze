@@ -257,6 +257,26 @@ export async function POST(request) {
         });
       }
 
+      case 'addTeamPoints': {
+        // Add points to all teams (for testing)
+        const { points = 1000 } = body;
+        const teamsSnapshot = await db.ref(`${prefix}/${roomCode}/meta/teams`).get();
+        if (!teamsSnapshot.exists()) {
+          return NextResponse.json({ error: 'No teams found' }, { status: 400 });
+        }
+        const teamsData = teamsSnapshot.val();
+        const updates = {};
+        const results = [];
+        Object.entries(teamsData).forEach(([teamId, team]) => {
+          const currentScore = team.score || 0;
+          const newScore = currentScore + points;
+          updates[`${prefix}/${roomCode}/meta/teams/${teamId}/score`] = newScore;
+          results.push({ id: teamId, name: team.name, oldScore: currentScore, newScore });
+        });
+        await db.ref().update(updates);
+        return NextResponse.json({ success: true, action: 'addTeamPoints', points, teams: results });
+      }
+
       case 'closeRoom': {
         // Ferme une room (met meta.closed = true)
         // Tous les joueurs seront redirigés vers /home

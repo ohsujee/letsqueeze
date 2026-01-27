@@ -1,8 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+
+// Helper to format countdown with days, hours, minutes, seconds
+function formatCountdown(targetDate) {
+  const now = new Date();
+  const target = new Date(targetDate);
+  const diff = target - now;
+
+  if (diff <= 0) return null; // Released!
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  return { days, hours, minutes, seconds };
+}
 
 export default function GameCard({
   game,
@@ -12,7 +28,23 @@ export default function GameCard({
 }) {
   const router = useRouter();
   const [showHeart, setShowHeart] = useState(false);
+  const [countdown, setCountdown] = useState(null);
   const { Illustration, image } = game;
+
+  // Countdown timer for games with releaseDate (updates every second)
+  useEffect(() => {
+    if (!game.releaseDate) return;
+
+    const updateCountdown = () => {
+      const formatted = formatCountdown(game.releaseDate);
+      setCountdown(formatted);
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000); // Update every second
+
+    return () => clearInterval(interval);
+  }, [game.releaseDate]);
 
   const handleCardClick = () => {
     if (onClick) {
@@ -45,10 +77,10 @@ export default function GameCard({
 
   return (
     <motion.div
-      className="game-card"
+      className={`game-card ${game.comingSoon ? 'coming-soon' : ''}`}
       data-game={game.id}
       onClick={handleCardClick}
-      whileHover={{ y: -8, scale: 1.02 }}
+      whileHover={game.comingSoon ? { y: -4, scale: 1.01 } : { y: -8, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       style={{ background: image ? undefined : getGradient() }}
     >
@@ -77,15 +109,17 @@ export default function GameCard({
         </div>
       )}
 
-      {/* Favorite Button */}
-      <motion.button
-        className={`favorite-btn ${isFavorite ? 'active' : ''}`}
-        onClick={handleFavoriteClick}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        {isFavorite ? '❤️' : '🤍'}
-      </motion.button>
+      {/* Favorite Button - Hidden for coming soon games */}
+      {!game.comingSoon && (
+        <motion.button
+          className={`favorite-btn ${isFavorite ? 'active' : ''}`}
+          onClick={handleFavoriteClick}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          {isFavorite ? '❤️' : '🤍'}
+        </motion.button>
+      )}
 
       {/* Heart Animation */}
       {showHeart && (
@@ -97,6 +131,31 @@ export default function GameCard({
         >
           ❤️
         </motion.div>
+      )}
+
+      {/* Countdown - Above title for coming soon games with releaseDate */}
+      {game.comingSoon && countdown && (
+        <div className="countdown-badge">
+          <span className="countdown-label">Disponible dans</span>
+          <div className="countdown-values">
+            <div className="countdown-unit">
+              <span className="countdown-number">{countdown.days}</span>
+              <span className="countdown-suffix">j</span>
+            </div>
+            <div className="countdown-unit">
+              <span className="countdown-number">{String(countdown.hours).padStart(2, '0')}</span>
+              <span className="countdown-suffix">h</span>
+            </div>
+            <div className="countdown-unit">
+              <span className="countdown-number">{String(countdown.minutes).padStart(2, '0')}</span>
+              <span className="countdown-suffix">m</span>
+            </div>
+            <div className="countdown-unit">
+              <span className="countdown-number">{String(countdown.seconds).padStart(2, '0')}</span>
+              <span className="countdown-suffix">s</span>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Game Title - Centered */}
@@ -112,8 +171,8 @@ export default function GameCard({
         </div>
       )}
 
-      {/* Players Pill - Bottom Right */}
-      {game.minPlayers && (
+      {/* Players Pill - Bottom Right (hidden for coming soon) */}
+      {game.minPlayers && !game.comingSoon && (
         <div className="players-pill">
           {game.minPlayers}+ joueurs
         </div>

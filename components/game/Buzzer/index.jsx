@@ -22,7 +22,8 @@ export default function Buzzer({
   playerName,
   blockedUntil = 0,
   serverNow = Date.now(),
-  serverOffset = 0 // Offset entre client et serveur Firebase
+  serverOffset = 0, // Offset entre client et serveur Firebase
+  disabled = false // Party Mode: désactivé si je suis le asker ou dans l'équipe qui pose
 }) {
   const [state, setState] = useState({});
   const [pendingBuzzes, setPendingBuzzes] = useState({});
@@ -71,6 +72,9 @@ export default function Buzzer({
     const hasPendingBuzz = pendingBuzzes && pendingBuzzes[playerUid];
     const anyPendingBuzz = pendingBuzzes && Object.keys(pendingBuzzes).length > 0;
 
+    // Party Mode: désactivé si je suis le asker ou dans l'équipe qui pose
+    if (disabled) return { type: 'blocked', label: '', sublabel: '', disabled: true };
+
     // Priorité des états
     if (isBlocked) return { type: 'penalty', label: `${blockedSeconds}s`, sublabel: 'PÉNALITÉ', disabled: true };
     if (isMyBuzz) return { type: 'success', label: 'A TOI !', sublabel: '', disabled: true };
@@ -83,7 +87,7 @@ export default function Buzzer({
     if (anyPendingBuzz) return { type: 'blocked', label: '', sublabel: '', disabled: true };
 
     return { type: 'active', label: 'BUZZ', sublabel: '', disabled: false };
-  }, [state, pendingBuzzes, blockedUntil, serverNow, playerUid, myPendingBuzz]);
+  }, [state, pendingBuzzes, blockedUntil, serverNow, playerUid, myPendingBuzz, disabled]);
 
   // Fonction de buzz - écrit dans pendingBuzzes au lieu de lockUid directement
   const handleBuzz = async () => {

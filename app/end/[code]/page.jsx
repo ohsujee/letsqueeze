@@ -91,17 +91,13 @@ export default function EndPage(){
   const rankedPlayers = useMemo(()=> rankWithTies(players, "score"), [players]);
   const rankedTeams   = useMemo(()=> rankWithTies(teamsArray, "score"), [teamsArray]);
 
-  // Rediriger automatiquement si l'hôte retourne au lobby (joueurs seulement, et seulement si l'hôte est présent)
+  // Marquer le joueur comme étant sur l'écran de fin
   useEffect(() => {
-    // Attendre que les données soient chargées
-    if (myUid === null || meta === null) return;
-
-    const hostCheck = myUid && meta?.hostUid === myUid;
-    if (state?.phase === "lobby" && !hostCheck && hostPresent) {
-      console.log('🔄 L\'hôte est retourné au lobby, redirection automatique...');
-      router.push(`/room/${code}`);
-    }
-  }, [state?.phase, myUid, meta, router, code, hostPresent]);
+    if (!myUid || !code) return;
+    update(ref(db), {
+      [`rooms/${code}/players/${myUid}/location`]: 'end'
+    });
+  }, [myUid, code]);
 
   useEffect(()=>{
     // Utiliser quizSelection.categoryName (nouveau système) ou quizId (legacy)
@@ -267,12 +263,16 @@ export default function EndPage(){
       <EndScreenFooter
         gameColor="#8b5cf6"
         label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
-        onNewGame={() => {
+        onNewGame={async () => {
           if (!hostPresent) {
             router.push('/home');
           } else if (isHost) {
             handleBackToLobby();
           } else {
+            // Marquer le joueur comme étant dans le lobby avant de naviguer
+            await update(ref(db), {
+              [`rooms/${code}/players/${myUid}/location`]: 'lobby'
+            });
             router.push(`/room/${code}`);
           }
         }}

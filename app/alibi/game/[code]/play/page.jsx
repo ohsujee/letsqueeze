@@ -25,7 +25,7 @@ import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
-import { VerdictTransition } from "@/components/alibi/VerdictTransition";
+import { VerdictTransition } from "@/components/game-alibi/VerdictTransition";
 import { GameEndTransition } from "@/components/transitions";
 import { hueScenariosService } from "@/lib/hue-module";
 

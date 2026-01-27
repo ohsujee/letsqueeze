@@ -616,6 +616,8 @@ export default function ProfilePage() {
           position: relative;
           padding: 0 16px;
           box-sizing: border-box;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
         }
 
         /* Guide: Animated Background with Radial Gradients */

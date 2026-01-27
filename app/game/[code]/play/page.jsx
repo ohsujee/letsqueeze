@@ -1,11 +1,13 @@
 "use client";
-import { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
 import Buzzer from "@/components/game/Buzzer";
 import Leaderboard from "@/components/game/Leaderboard";
+import AskerTransition from "@/components/game/AskerTransition";
+import QuizHostView from "@/components/game/QuizHostView";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import GamePlayHeader from "@/components/game/GamePlayHeader";
@@ -13,29 +15,52 @@ import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import { useAskerRotation } from "@/lib/hooks/useAskerRotation";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { storage } from "@/lib/utils/storage";
 import { FitText } from "@/lib/hooks/useFitText";
 import { GameEndTransition } from "@/components/transitions";
 
-export default function PlayerGame(){
+export default function PlayerGame() {
   const { code } = useParams();
   const router = useRouter();
 
-  const [state,setState]=useState(null);
-  const [meta,setMeta]=useState(null);
-  const [quiz,setQuiz]=useState(null);
-  const [conf,setConf]=useState(null);
+  const [state, setState] = useState(null);
+  const [meta, setMeta] = useState(null);
+  const [quiz, setQuiz] = useState(null);
+  const [conf, setConf] = useState(null);
   const [myUid, setMyUid] = useState(null);
   const [showEndTransition, setShowEndTransition] = useState(false);
+  const [showAskerTransition, setShowAskerTransition] = useState(false);
   const endTransitionTriggeredRef = useRef(false);
+  const prevAskerUidRef = useRef(null);
 
   // Centralized players hook
   const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
+
+  // Party Mode: Asker rotation hook
+  const {
+    isPartyMode,
+    currentAsker,
+    currentAskerUid,
+    isCurrentAsker,
+    canBuzz,
+    advanceToNextAsker
+  } = useAskerRotation({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    meta,
+    state,
+    players
+  });
+
+  // Am I the current asker in party mode?
+  const amIAsker = isPartyMode && isCurrentAsker(myUid);
 
   // Server time sync (300ms tick for score updates)
   const { serverNow, offset } = useServerTime(300);
@@ -45,7 +70,6 @@ export default function PlayerGame(){
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setMyUid(user.uid);
-        // Store last game info for rejoin
         storage.set('last_game', {
           roomCode: code,
           roomPrefix: 'rooms',
@@ -58,7 +82,7 @@ export default function PlayerGame(){
     return () => unsub();
   }, [code]);
 
-  // Player cleanup hook - preserves score on disconnect
+  // Player cleanup hook
   const { leaveRoom, markActive } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms',
@@ -81,62 +105,69 @@ export default function PlayerGame(){
     }
   }, [myUid, code, markActive]);
 
-  // Room guard - détecte kick et fermeture room
+  // Am I the actual host (room creator)?
+  const isActualHost = meta?.hostUid === myUid;
+
+  // Room guard
   const { markVoluntaryLeave, isValidating, isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms',
     playerUid: myUid,
-    isHost: false
+    isHost: isActualHost
   });
 
-  // Keep screen awake during game
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    isHost: isActualHost && !amIAsker // Only if host is on player view (not asker view which has its own)
+  });
+
+  // Keep screen awake
   useWakeLock({ enabled: true });
 
   // Config scoring
-  useEffect(()=>{
+  useEffect(() => {
     fetch(`/config/scoring.json?t=${Date.now()}`)
-      .then(r=>r.json())
+      .then(r => r.json())
       .then(setConf)
       .catch(err => console.error('Erreur chargement config:', err));
-  },[]);
+  }, []);
 
-  // DB listeners - seulement après validation de la room
-  useEffect(()=>{
-    // Ne pas démarrer les listeners tant que la room n'est pas validée
+  // DB listeners
+  useEffect(() => {
     if (isValidating) return;
 
-    const u1 = onValue(ref(db,`rooms/${code}/state`), s=>{
-      const v=s.val(); setState(v);
-      if(v?.phase==="ended" && !endTransitionTriggeredRef.current) {
-        // Afficher la transition de fin avant de redirect
+    const u1 = onValue(ref(db, `rooms/${code}/state`), s => {
+      const v = s.val();
+      setState(v);
+      if (v?.phase === "ended" && !endTransitionTriggeredRef.current) {
         endTransitionTriggeredRef.current = true;
         setShowEndTransition(true);
       }
-      if(v?.phase==="lobby") router.replace("/room/"+code);
+      if (v?.phase === "lobby") router.replace("/room/" + code);
     });
-    const u2 = onValue(ref(db,`rooms/${code}/meta`), s=>{
-      const m = s.val(); setMeta(m);
+    const u2 = onValue(ref(db, `rooms/${code}/meta`), s => {
+      const m = s.val();
+      setMeta(m);
     });
-    const u3 = onValue(ref(db,`rooms/${code}/quiz`), s=>setQuiz(s.val()));
-    return ()=>{u1();u2();u3();};
-  },[code, router, isValidating]);
+    const u3 = onValue(ref(db, `rooms/${code}/quiz`), s => setQuiz(s.val()));
+    return () => { u1(); u2(); u3(); };
+  }, [code, router, isValidating]);
 
   const revealed = !!state?.revealed;
-  const locked = !!state?.lockUid;
-  const paused = !!state?.pausedAt || !!state?.lockedAt;
-
   const total = quiz?.items?.length || 0;
   const qIndex = state?.currentIndex || 0;
   const q = quiz?.items?.[qIndex];
-  const progressLabel = total ? `Q${Math.min(qIndex+1,total)} / ${total}` : "";
+  const progressLabel = total ? `Q${Math.min(qIndex + 1, total)} / ${total}` : "";
   const title = (quiz?.title || (meta?.quizId ? meta.quizId.replace(/-/g, " ") : "Partie"));
 
-  // Pénalité serveur
+  // Penalty server
   const blockedMs = Math.max(0, (me?.blockedUntil || 0) - serverNow);
   const blocked = blockedMs > 0;
 
-  // Points synchro (stop sur pausedAt ou lockedAt)
-  const elapsedEffective = useMemo(()=>{
+  // Points sync
+  const elapsedEffective = useMemo(() => {
     if (!revealed || !state?.lastRevealAt) return 0;
     const acc = state?.elapsedAcc || 0;
     const hardStop = state?.pausedAt ?? state?.lockedAt ?? null;
@@ -144,69 +175,63 @@ export default function PlayerGame(){
     return acc + Math.max(0, end - state.lastRevealAt);
   }, [revealed, state?.lastRevealAt, state?.elapsedAcc, state?.pausedAt, state?.lockedAt, serverNow]);
 
-  const { pointsEnJeu, ratioRemain, cfg } = useMemo(()=>{
-    if(!conf || !q) return { pointsEnJeu: 0, ratioRemain: 1, cfg: null };
+  const { pointsEnJeu } = useMemo(() => {
+    if (!conf || !q) return { pointsEnJeu: 0 };
     const diff = q.difficulty === "difficile" ? "difficile" : "normal";
     const c = conf[diff];
-
-    // Ratio de temps restant (1 = début, 0 = fin des 20s)
     const ratio = Math.max(0, 1 - (elapsedEffective / c.durationMs));
-
-    // Points = floor + (start - floor) × ratio
-    // Ainsi les points descendent de start à floor sur toute la durée
     const pts = Math.round(c.floor + (c.start - c.floor) * ratio);
-
-    return { pointsEnJeu: pts, ratioRemain: ratio, cfg: c };
+    return { pointsEnJeu: pts };
   }, [conf, q, elapsedEffective]);
 
-  // Sons: reveal & buzz (déclenchés par changements d'état)
+  // Sounds
   const playReveal = useSound("/sounds/reveal.mp3");
-  const playBuzz   = useSound("/sounds/quiz-buzzer.wav");
+  const playBuzz = useSound("/sounds/quiz-buzzer.wav");
   const prevRevealAt = useRef(0);
   const prevLock = useRef(null);
-  useEffect(()=>{
-    if(state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current){
-      playReveal(); prevRevealAt.current = state.lastRevealAt;
-    }
-  },[state?.revealed, state?.lastRevealAt, playReveal]);
-  useEffect(()=>{
-    const cur = state?.lockUid || null;
-    if(cur && cur !== prevLock.current) playBuzz();
-    prevLock.current = cur;
-  },[state?.lockUid, playBuzz]);
 
-  // Confettis pour bonne réponse (quand la question change et que j'étais locké)
+  useEffect(() => {
+    if (state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current) {
+      playReveal();
+      prevRevealAt.current = state.lastRevealAt;
+    }
+  }, [state?.revealed, state?.lastRevealAt, playReveal]);
+
+  useEffect(() => {
+    const cur = state?.lockUid || null;
+    if (cur && cur !== prevLock.current) playBuzz();
+    prevLock.current = cur;
+  }, [state?.lockUid, playBuzz]);
+
+  // Confetti for correct answer
   const prevQuestionIndex = useRef(-1);
   const wasLockedByMe = useRef(false);
   useEffect(() => {
     const currentIndex = state?.currentIndex || 0;
     const isLockedByMe = state?.lockUid === auth.currentUser?.uid;
 
-    // Si la question change et que j'étais locké = bonne réponse validée !
     if (currentIndex !== prevQuestionIndex.current && prevQuestionIndex.current >= 0 && wasLockedByMe.current) {
-      // Déclencher les confettis multicolores
       triggerConfetti('reward');
-      // Double rafale pour plus d'effet
       setTimeout(() => triggerConfetti('reward'), 100);
     }
 
-    // Mettre à jour les refs
     prevQuestionIndex.current = currentIndex;
     wasLockedByMe.current = isLockedByMe;
   }, [state?.currentIndex, state?.lockUid]);
 
-  const myTeam = (meta?.mode === "équipes" && me?.teamId) ? meta?.teams?.[me.teamId] : null;
-
-  const teamsSorted = useMemo(()=>{
-    if (meta?.mode !== "équipes") return [];
-    const t = meta?.teams || {};
-    return Object.keys(t).map(k=>({ id:k, ...t[k]}))
-      .sort((a,b)=> (b.score||0)-(a.score||0));
-  }, [meta?.teams, meta?.mode]);
-
   const isMyTurn = state?.lockUid === me?.uid;
 
-  // Affiche un loader pendant la validation de la room
+  // Party Mode: Show transition when asker changes
+  useEffect(() => {
+    if (!isPartyMode || !currentAskerUid) return;
+
+    if (prevAskerUidRef.current !== null && prevAskerUidRef.current !== currentAskerUid) {
+      setShowAskerTransition(true);
+    }
+    prevAskerUidRef.current = currentAskerUid;
+  }, [isPartyMode, currentAskerUid]);
+
+  // Loading state
   if (isValidating) {
     return (
       <div className="player-game-page game-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -219,9 +244,30 @@ export default function PlayerGame(){
     );
   }
 
+  // ===== PARTY MODE: ASKER VIEW - Use shared QuizHostView component =====
+  if (amIAsker) {
+    return (
+      <>
+        <AskerTransition
+          show={showAskerTransition}
+          asker={currentAsker}
+          isMe={true}
+          onComplete={() => setShowAskerTransition(false)}
+          duration={2500}
+        />
+        <QuizHostView
+          code={code}
+          isActualHost={false}
+          onAdvanceAsker={advanceToNextAsker}
+        />
+      </>
+    );
+  }
+
+  // ===== PLAYER VIEW (Buzzer) =====
   return (
     <div className={`player-game-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
-      {/* Transition de fin de partie (pas si room fermée - useRoomGuard gère la redirection) */}
+      {/* End transition */}
       <AnimatePresence>
         {showEndTransition && !meta?.closed && (
           <GameEndTransition
@@ -231,7 +277,16 @@ export default function PlayerGame(){
         )}
       </AnimatePresence>
 
-      {/* Glow vert quand c'est mon tour */}
+      {/* Party Mode: Transition when asker changes */}
+      <AskerTransition
+        show={showAskerTransition}
+        asker={currentAsker}
+        isMe={false}
+        onComplete={() => setShowAskerTransition(false)}
+        duration={2500}
+      />
+
+      {/* Green glow when it's my turn */}
       <AnimatePresence>
         {isMyTurn && (
           <motion.div
@@ -256,14 +311,25 @@ export default function PlayerGame(){
         progress={progressLabel}
         title={title}
         score={me?.score || 0}
+        showScore={true}
         onExit={async () => {
-          await leaveRoom();
+          if (isActualHost) {
+            // Host quitte -> fermer la room
+            const { update, ref: dbRef } = await import('@/lib/firebase');
+            await update(dbRef(db, `rooms/${code}/state`), { phase: 'ended' });
+            await update(dbRef(db, `rooms/${code}/meta`), { closed: true });
+          } else {
+            await leaveRoom();
+          }
           router.push('/home');
         }}
-        exitMessage="Voulez-vous vraiment quitter ? Votre score sera conservé."
+        exitMessage={isActualHost
+          ? "Voulez-vous vraiment quitter ? La partie sera terminée pour tous."
+          : "Voulez-vous vraiment quitter ? Votre score sera conservé."
+        }
       />
 
-      {/* Notification buzz */}
+      {/* Buzz notification */}
       <AnimatePresence>
         {state?.buzzBanner && state?.lockUid !== me?.uid && (
           <div className="buzz-notification-wrapper">
@@ -276,7 +342,7 @@ export default function PlayerGame(){
             >
               <div className="buzz-notification-icon">🔔</div>
               <div className="buzz-notification-content">
-                <span className="buzz-notification-label">Quelqu'un a buzzé !</span>
+                <span className="buzz-notification-label">Quelqu'un a buzze !</span>
                 <span className="buzz-notification-name">
                   {players.find(p => p.uid === state.lockUid)?.name || 'Joueur'}
                 </span>
@@ -286,17 +352,15 @@ export default function PlayerGame(){
         )}
       </AnimatePresence>
 
-      {/* Main Content - Sans scroll */}
+      {/* Main Content */}
       <main className="game-content">
         {/* Question Card */}
         <div className="question-card">
-          {/* Points en jeu */}
           <div className="points-badge">
             <span className="points-value">{pointsEnJeu}</span>
             <span className="points-label">points</span>
           </div>
 
-          {/* Zone de question - hauteur fixe */}
           <div className="question-content">
             {q ? (
               <AnimatePresence mode="wait">
@@ -306,10 +370,7 @@ export default function PlayerGame(){
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    style={{
-                      width: '100%',
-                      height: '100%'
-                    }}
+                    style={{ width: '100%', height: '100%' }}
                   >
                     <FitText minFontSize={12} maxFontSize={24} className="question-text">
                       {q.question}
@@ -333,7 +394,12 @@ export default function PlayerGame(){
                     <div className="waiting-dots">
                       <span></span><span></span><span></span>
                     </div>
-                    <div className="waiting-label">{meta?.hostName || 'L\'animateur'} lit la question...</div>
+                    <div className="waiting-label">
+                      {isPartyMode && currentAsker
+                        ? `${currentAsker.name} lit la question...`
+                        : `${meta?.hostName || 'L\'animateur'} lit la question...`
+                      }
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -343,11 +409,11 @@ export default function PlayerGame(){
           </div>
         </div>
 
-        {/* Classement */}
+        {/* Leaderboard */}
         <Leaderboard players={players} currentPlayerUid={me?.uid} mode={meta?.mode} teams={meta?.teams} />
       </main>
 
-      {/* Buzzer en footer */}
+      {/* Buzzer footer */}
       <footer className="buzzer-footer">
         <Buzzer
           roomCode={code}
@@ -356,6 +422,7 @@ export default function PlayerGame(){
           blockedUntil={me?.blockedUntil || 0}
           serverNow={serverNow}
           serverOffset={offset}
+          disabled={isPartyMode && !canBuzz(myUid, me?.teamId)}
         />
       </footer>
 
@@ -375,7 +442,6 @@ export default function PlayerGame(){
       />
 
       <style jsx>{`
-        /* ===== LAYOUT PRINCIPAL - Sans scroll, comme l'host ===== */
         .player-game-page {
           flex: 1;
           min-height: 0;
@@ -396,18 +462,6 @@ export default function PlayerGame(){
           pointer-events: none;
         }
 
-        /* ===== GLOW VERT - C'est mon tour ===== */
-        .my-turn-glow {
-          position: fixed;
-          inset: 0;
-          z-index: 50;
-          pointer-events: none;
-          box-shadow: inset 0 0 80px 20px rgba(34, 197, 94, 0.4);
-          border: 3px solid rgba(34, 197, 94, 0.6);
-          border-radius: 0;
-        }
-
-        /* ===== BUZZ NOTIFICATION ===== */
         .buzz-notification-wrapper {
           position: fixed;
           top: calc(10px + env(safe-area-inset-top));
@@ -469,7 +523,6 @@ export default function PlayerGame(){
           text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
         }
 
-        /* ===== MAIN CONTENT ===== */
         .game-content {
           flex: 1;
           position: relative;
@@ -483,7 +536,6 @@ export default function PlayerGame(){
           min-height: 0;
         }
 
-        /* ===== QUESTION CARD ===== */
         .question-card {
           width: 100%;
           max-width: 500px;
@@ -499,7 +551,6 @@ export default function PlayerGame(){
           flex-direction: column;
         }
 
-        /* Responsive: plus de place pour la question sur grands écrans */
         @media (min-height: 700px) {
           .question-card {
             min-height: 180px;
@@ -548,7 +599,6 @@ export default function PlayerGame(){
           overflow: hidden;
         }
 
-        /* Cacher la scrollbar webkit pour FitText scroll */
         .question-content ::-webkit-scrollbar {
           display: none;
         }
@@ -588,7 +638,6 @@ export default function PlayerGame(){
           40% { transform: scale(1.2); opacity: 1; }
         }
 
-        /* ===== BUZZER FOOTER ===== */
         .buzzer-footer {
           flex-shrink: 0;
           position: relative;

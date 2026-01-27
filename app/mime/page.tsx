@@ -4,7 +4,7 @@ import { useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, HelpCircle } from 'lucide-react';
-import MimeGame from '@/components/mime/MimeGame';
+import MimeGame from '@/components/game-mime/MimeGame';
 import { MimeTheme, themeInfos } from '@/data/mime-words';
 import ExitButton from '@/lib/components/ExitButton';
 import HowToPlayModal from '@/components/ui/HowToPlayModal';

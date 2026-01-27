@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { auth, db, ref, set, get, signInAnonymously, onAuthStateChanged } from "@/lib/firebase";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
-import { User, Pencil, Check, X, AlertCircle } from "lucide-react";
+import { User, Pencil, Check, X, AlertCircle, PlayCircle, SearchX } from "lucide-react";
 import { ROOM_TYPES } from "@/lib/config/rooms";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { isPro } from "@/lib/subscription";
@@ -295,21 +295,6 @@ export default function JoinClient({ initialCode = "" }) {
             </AnimatePresence>
           </div>
 
-          {/* Error message */}
-          <AnimatePresence>
-            {error && (
-              <motion.div
-                className="join-error"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-              >
-                <AlertCircle size={16} />
-                <span>{error}</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
           <button
             className="btn-join"
             onClick={join}
@@ -317,6 +302,57 @@ export default function JoinClient({ initialCode = "" }) {
           >
             {!user || profileLoading ? "Connexion..." : joining ? "Connexion..." : "Rejoindre la partie"}
           </button>
+
+          {/* Error message (below button) */}
+          <AnimatePresence>
+            {error && (
+              error.includes("déjà commencé") ? (
+                <motion.div
+                  className="error-card warning"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                >
+                  <div className="error-card-icon warning">
+                    <PlayCircle size={22} />
+                  </div>
+                  <div className="error-card-content">
+                    <span className="error-card-title warning">Partie en cours</span>
+                    <span className="error-card-text">
+                      Cette partie a déjà commencé, tu ne peux plus la rejoindre.
+                    </span>
+                  </div>
+                </motion.div>
+              ) : error.includes("Code invalide") ? (
+                <motion.div
+                  className="error-card danger"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                >
+                  <div className="error-card-icon danger">
+                    <SearchX size={22} />
+                  </div>
+                  <div className="error-card-content">
+                    <span className="error-card-title danger">Code introuvable</span>
+                    <span className="error-card-text">
+                      Aucune partie ne correspond à ce code. Vérifie et réessaye.
+                    </span>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  className="join-error"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                >
+                  <AlertCircle size={16} />
+                  <span>{error}</span>
+                </motion.div>
+              )
+            )}
+          </AnimatePresence>
         </div>
 
         {initialCode && (
@@ -383,7 +419,7 @@ export default function JoinClient({ initialCode = "" }) {
         }
 
         .pseudo-section {
-          margin-bottom: 16px;
+          margin-bottom: 12px;
         }
 
         .pseudo-preview {
@@ -518,7 +554,77 @@ export default function JoinClient({ initialCode = "" }) {
           border-radius: 12px;
           color: #f87171;
           font-size: 0.9rem;
-          margin-bottom: 16px;
+          margin-top: 16px;
+        }
+
+        :global(.error-card) {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          gap: 10px;
+          padding: 20px 16px;
+          border-radius: 14px;
+          margin-top: 12px;
+        }
+
+        :global(.error-card.warning) {
+          background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(245, 158, 11, 0.08) 100%);
+          border: 2px solid rgba(251, 191, 36, 0.35);
+        }
+
+        :global(.error-card.danger) {
+          background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(220, 38, 38, 0.08) 100%);
+          border: 2px solid rgba(239, 68, 68, 0.35);
+        }
+
+        :global(.error-card-icon) {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          margin: 0 auto;
+        }
+
+        :global(.error-card-icon.warning) {
+          background: rgba(251, 191, 36, 0.2);
+          color: #fbbf24;
+        }
+
+        :global(.error-card-icon.danger) {
+          background: rgba(239, 68, 68, 0.2);
+          color: #f87171;
+        }
+
+        :global(.error-card-content) {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+        }
+
+        :global(.error-card-title) {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1rem;
+        }
+
+        :global(.error-card-title.warning) {
+          color: #fbbf24;
+        }
+
+        :global(.error-card-title.danger) {
+          color: #f87171;
+        }
+
+        :global(.error-card-text) {
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.6);
+          line-height: 1.4;
+          max-width: 240px;
         }
       `}</style>
     </div>

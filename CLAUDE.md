@@ -336,7 +336,220 @@ Variables env: `NEXT_PUBLIC_FOUNDER_UIDS`, `NEXT_PUBLIC_FOUNDER_EMAILS` → Pro 
 
 ---
 
-## 7. COMPOSANTS PARTAGÉS
+## 7. SYSTÈME PARTY MODE / GAME MASTER MODE
+
+Système universel permettant deux modes de jeu pour les jeux multijoueurs avec buzzer.
+
+### Modes Disponibles
+
+| Mode | Description | Qui pose les questions |
+|------|-------------|------------------------|
+| `gamemaster` | Mode classique | L'hôte anime, ne joue pas |
+| `party` | Tout le monde joue | Rotation entre joueurs |
+
+### Configuration
+
+**`lib/config/rooms.js`** - Activer pour un jeu:
+```javascript
+{
+  id: 'mygame',
+  prefix: 'rooms_mygame',
+  supportsPartyMode: true,  // Active le choix du mode à la création
+  // ...
+}
+```
+
+**Firebase `meta/`**:
+```javascript
+gameMasterMode: 'gamemaster' | 'party'
+hostName: 'Pseudo'  // Nom de l'hôte (affiché dans "X lit la question...")
+```
+
+**Firebase `state/`** (Party Mode uniquement):
+```javascript
+currentAskerUid: 'uid123'      // Qui pose la question actuellement
+currentAskerTeamId: 'team1'    // En mode équipes: quelle équipe pose
+askerRotation: [...]           // Ordre pré-calculé (UIDs ou teamIds)
+askerIndex: 0                  // Position dans la rotation
+```
+
+### Éléments Réutilisables
+
+| Élément | Fichier | Usage |
+|---------|---------|-------|
+| `GameModeSelector` | `components/ui/GameModeSelector.jsx` | Modal choix mode à la création |
+| `useAskerRotation` | `lib/hooks/useAskerRotation.js` | Hook logique rotation |
+| `AskerTransition` | `components/game/AskerTransition.jsx` | Animation changement d'asker |
+| `*HostView` | `components/game/QuizHostView.jsx`, etc. | Vue partagée host/asker |
+
+### Hook `useAskerRotation`
+
+```javascript
+const {
+  isPartyMode,           // true si gameMasterMode === 'party'
+  currentAsker,          // { uid, name, teamId } du joueur qui pose
+  currentAskerUid,       // UID du joueur qui pose
+  isCurrentAsker,        // (uid) => boolean - suis-je l'asker ?
+  canBuzz,               // (uid, teamId) => boolean - puis-je buzzer ?
+  advanceToNextAsker     // async () => avance au prochain asker
+} = useAskerRotation({
+  roomCode, roomPrefix, meta, state, players
+});
+```
+
+### Pattern Composant `*HostView`
+
+Créer un composant partagé contenant TOUTE la logique host:
+
+```jsx
+// components/game/MyGameHostView.jsx
+export default function MyGameHostView({ code, isActualHost = true, onAdvanceAsker }) {
+  // canControl = true si actual host OU si Party Mode asker
+  const canControl = isActualHost || (meta?.gameMasterMode === 'party' && state?.currentAskerUid === myUid);
+
+  // ... toute la logique host (buzz resolution, actions, UI)
+
+  // Après validate/skip, avancer au prochain asker:
+  if (onAdvanceAsker) {
+    await onAdvanceAsker();
+  }
+}
+```
+
+**Page host simplifiée:**
+```jsx
+// app/mygame/game/[code]/host/page.jsx
+export default function HostPage() {
+  const { code } = useParams();
+  return <MyGameHostView code={code} isActualHost={true} />;
+}
+```
+
+**Page play avec rendu conditionnel:**
+```jsx
+// app/mygame/game/[code]/play/page.jsx
+const amIAsker = isPartyMode && isCurrentAsker(myUid);
+
+if (amIAsker) {
+  return (
+    <>
+      <AskerTransition show={showTransition} asker={currentAsker} isMe={true} />
+      <MyGameHostView code={code} isActualHost={false} onAdvanceAsker={advanceToNextAsker} />
+    </>
+  );
+}
+// Sinon: vue player avec buzzer
+```
+
+### Checklist Ajouter Party Mode à un Nouveau Jeu
+
+1. **Config**
+   - [ ] `lib/config/rooms.js` → `supportsPartyMode: true`
+
+2. **Création Room** (`app/(main)/home/page.jsx`)
+   - [ ] Ajouter `gameMasterMode` dans les meta
+   - [ ] Ajouter `hostName` dans les meta
+
+3. **Lobby** (`room/[code]/page.jsx`)
+   - [ ] Badge Party Mode: `{meta?.gameMasterMode === 'party' && <div className="game-mode-badge party">...`
+   - [ ] `handleStartGame`: initialiser `askerRotation`, `currentAskerUid`, etc.
+   - [ ] Countdown: rediriger tout le monde vers `/play` en Party Mode
+
+4. **Composant HostView**
+   - [ ] Créer `components/game/MyGameHostView.jsx`
+   - [ ] Props: `code`, `isActualHost`, `onAdvanceAsker`
+   - [ ] `canControl` = isActualHost OU currentAskerUid === myUid
+
+5. **Pages**
+   - [ ] `host/page.jsx`: utiliser `<MyGameHostView isActualHost={true} />`
+   - [ ] `play/page.jsx`: utiliser `useAskerRotation` + rendu conditionnel
+
+6. **Firebase Rules**
+   - [ ] Permettre au `currentAskerUid` de modifier `state`, `lockUid`, etc.
+
+### Firebase Rules Pattern
+
+```json
+"state": {
+  ".write": "auth.uid == root.child('rooms_mygame/'+$code+'/meta/hostUid').val() ||
+             (root.child('rooms_mygame/'+$code+'/meta/gameMasterMode').val() == 'party' &&
+              auth.uid == root.child('rooms_mygame/'+$code+'/state/currentAskerUid').val())"
+}
+```
+
+### Jeux Supportant Party Mode
+
+| Jeu | Supporté | Composant HostView |
+|-----|:--------:|-------------------|
+| Quiz | ✓ | `QuizHostView.jsx` |
+| BlindTest | ✓ | À créer |
+| DeezTest | ✓ | `DeezTestHostView.jsx` |
+
+---
+
+## 8. SYSTÈME "À VENIR" (Coming Soon)
+
+### Configuration dans `lib/config/games.js`
+
+Pour marquer un jeu comme "à venir":
+
+```javascript
+{
+  id: 'nouveaujeu',
+  name: 'Nouveau Jeu',
+  // ... autres propriétés
+  comingSoon: true,           // OBLIGATOIRE - Active le mode "à venir"
+  available: false,           // OBLIGATOIRE - Empêche l'accès au jeu
+  releaseDate: '2025-02-12T00:00:00+01:00',  // OPTIONNEL - Active le countdown
+  themeColor: '#06b6d4',      // OPTIONNEL - Couleur pour le futur
+}
+```
+
+### Format de Date
+
+Le `releaseDate` doit être en **ISO 8601 avec timezone**:
+- `2025-02-12T00:00:00+01:00` → 12 février 2025 à minuit heure française
+- `2025-03-15T18:00:00+01:00` → 15 mars 2025 à 18h heure française
+
+### Comportement Visuel (`GameCard.jsx` + `globals.css`)
+
+| Élément | Comportement |
+|---------|--------------|
+| Carte | Grisée (grayscale 60%, brightness 70%, opacity 80%) |
+| Hover | Légèrement moins grisé |
+| Badge "À VENIR" | Centré sous le titre, plus grand et visible |
+| Countdown | Affiché au-dessus du titre si `releaseDate` défini |
+| Bouton favori | Masqué |
+| Click | Pas de navigation (card non cliquable) |
+
+### Countdown Automatique
+
+Si `releaseDate` est défini et dans le futur:
+- Affiche "Disponible dans Xj Xh" ou "Xh Xmin" ou "Xmin"
+- Se met à jour toutes les minutes
+- Disparaît automatiquement quand la date est passée
+
+### Fichiers Impliqués
+
+```
+lib/config/games.js       # Configuration des jeux (comingSoon, releaseDate)
+lib/components/GameCard.jsx   # Logique countdown + affichage conditionnel
+app/globals.css           # Styles .coming-soon, .countdown-badge
+```
+
+### Checklist Lancement d'un Jeu
+
+Quand un jeu passe de "à venir" à "disponible":
+
+1. [ ] Retirer `comingSoon: true` dans `games.js`
+2. [ ] Mettre `available: true` dans `games.js`
+3. [ ] Retirer `releaseDate` (optionnel, ignoré si pas comingSoon)
+4. [ ] Vérifier que les routes du jeu sont prêtes
+5. [ ] Tester le parcours complet (création room → fin de partie)
+
+---
+
+## 9. COMPOSANTS PARTAGÉS
 
 ### Headers Lobby
 
@@ -376,7 +589,7 @@ Variables env: `NEXT_PUBLIC_FOUNDER_UIDS`, `NEXT_PUBLIC_FOUNDER_EMAILS` → Pro 
 
 ---
 
-## 8. UTILITAIRES
+## 10. UTILITAIRES
 
 ### Storage
 
@@ -405,7 +618,7 @@ playSound('error');    // quiz-bad-answer.wav
 
 ---
 
-## 9. DESIGN SYSTEM
+## 11. DESIGN SYSTEM
 
 ### Couleurs par Jeu
 
@@ -432,7 +645,7 @@ playSound('error');    // quiz-bad-answer.wav
 
 ---
 
-## 10. CHECKLISTS
+## 12. CHECKLISTS
 
 ### Modification Transversale
 
@@ -476,7 +689,7 @@ Composants:   components/game/{DisconnectAlert,LobbySettings,LobbyHeader}.jsx
 
 ---
 
-## 11. COMMANDES
+## 13. COMMANDES
 
 ```bash
 npm run dev          # Dev server
@@ -488,7 +701,7 @@ npx cap open android # Android Studio
 
 ---
 
-## 12. OUTILS DE DÉVELOPPEMENT (MCP)
+## 14. OUTILS DE DÉVELOPPEMENT (MCP)
 
 ### Authentification Dev
 
@@ -561,7 +774,7 @@ Cette page:
 
 ---
 
-## 13. RÈGLES IMPORTANTES
+## 15. RÈGLES IMPORTANTES
 
 ### AppShell & Viewport
 
@@ -587,4 +800,4 @@ onValue(ref(db, '.info/serverTimeOffset'), snap => {
 
 ---
 
-*Dernière mise à jour: 2026-01-25*
+*Dernière mise à jour: 2026-01-27*

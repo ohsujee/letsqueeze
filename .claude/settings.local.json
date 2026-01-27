@@ -87,7 +87,10 @@
       "WebFetch(domain:graphics.berkeley.edu)",
       "mcp__chrome-devtools__get_console_message",
       "Bash(git -C \"E:\\\\LetsQueeze\" status)",
-      "Bash(git -C \"E:\\\\LetsQueeze\" log --oneline -5)"
+      "Bash(git -C \"E:\\\\LetsQueeze\" log --oneline -5)",
+      "Bash(git fetch:*)",
+      "Bash(npx next build:*)",
+      "Bash(npx firebase deploy:*)"
     ]
   }
 }

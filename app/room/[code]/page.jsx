@@ -147,6 +147,14 @@ export default function Room() {
     isHost
   });
 
+  // Marquer le joueur comme étant dans le lobby
+  useEffect(() => {
+    if (!myUid || !code) return;
+    update(ref(db), {
+      [`rooms/${code}/players/${myUid}/location`]: 'lobby'
+    });
+  }, [myUid, code]);
+
   useEffect(() => {
     if (!code) return;
 
@@ -187,6 +195,23 @@ export default function Room() {
 
     try {
       const { themeIds, categoryName } = meta.quizSelection;
+      const isPartyMode = meta?.gameMasterMode === 'party';
+
+      // Party Mode: Add host as player if not already
+      if (isPartyMode && myUid) {
+        const hostAsPlayer = players.find(p => p.uid === myUid);
+        if (!hostAsPlayer) {
+          await set(ref(db, `rooms/${code}/players/${myUid}`), {
+            uid: myUid,
+            name: meta?.hostName || userPseudo,
+            score: 0,
+            teamId: "",
+            blockedUntil: 0,
+            joinedAt: Date.now(),
+            status: 'active'
+          });
+        }
+      }
 
       // Charger toutes les bases de données sélectionnées
       const allQuestions = [];
@@ -217,6 +242,62 @@ export default function Room() {
       // Prendre 20 questions (ou moins si la base en contient moins)
       const selectedQuestions = shuffled.slice(0, 20);
 
+      // Party Mode: Calculate asker rotation
+      let askerRotationFields = {};
+      if (isPartyMode) {
+        // Get active players (including host who was just added)
+        const activePlayers = [...players.filter(p => p.status !== 'disconnected' && p.status !== 'left')];
+
+        // Add host if not in players list yet (just added above)
+        if (myUid && !activePlayers.find(p => p.uid === myUid)) {
+          activePlayers.push({
+            uid: myUid,
+            name: meta?.hostName || userPseudo,
+            teamId: ""
+          });
+        }
+
+        if (meta?.mode === 'équipes') {
+          // Team mode: rotation by team
+          const teamIds = Object.keys(meta?.teams || {}).filter(teamId => {
+            const teamPlayers = activePlayers.filter(p => p.teamId === teamId);
+            return teamPlayers.length > 0;
+          });
+
+          // Shuffle teams
+          for (let i = teamIds.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [teamIds[i], teamIds[j]] = [teamIds[j], teamIds[i]];
+          }
+
+          // Pick first asker from first team
+          const firstTeamPlayers = activePlayers.filter(p => p.teamId === teamIds[0]);
+          const firstAsker = firstTeamPlayers[Math.floor(Math.random() * firstTeamPlayers.length)];
+
+          askerRotationFields = {
+            askerRotation: teamIds,
+            askerIndex: 0,
+            currentAskerUid: firstAsker?.uid || null,
+            currentAskerTeamId: teamIds[0] || null
+          };
+        } else {
+          // Individual mode: rotation by player
+          const shuffledPlayers = [...activePlayers];
+          for (let i = shuffledPlayers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledPlayers[i], shuffledPlayers[j]] = [shuffledPlayers[j], shuffledPlayers[i]];
+          }
+          const rotation = shuffledPlayers.map(p => p.uid);
+
+          askerRotationFields = {
+            askerRotation: rotation,
+            askerIndex: 0,
+            currentAskerUid: rotation[0] || null,
+            currentAskerTeamId: null
+          };
+        }
+      }
+
       // Stocker les questions sélectionnées dans Firebase
       await update(ref(db, `rooms/${code}`), {
         'quiz': {
@@ -234,6 +315,7 @@ export default function Room() {
           lastRevealAt: 0,
           pausedAt: null,
           lockedAt: null,
+          ...askerRotationFields
         }
       });
 
@@ -283,6 +365,8 @@ export default function Room() {
         updates[`rooms/${code}/players/${p.uid}/teamId`] = "";
       });
       updates[`rooms/${code}/meta/mode`] = newMode;
+      updates[`rooms/${code}/meta/teams`] = {};
+      updates[`rooms/${code}/meta/teamCount`] = 0;
       await update(ref(db), updates);
     } else {
       await update(ref(db, `rooms/${code}/meta`), { mode: newMode });
@@ -429,7 +513,10 @@ export default function Room() {
           <GameLaunchCountdown
             gameColor="#8b5cf6"
             onComplete={() => {
-              if (isHost) {
+              // Party Mode: everyone goes to play (no separate host view)
+              if (meta?.gameMasterMode === 'party') {
+                router.push(`/game/${code}/play`);
+              } else if (isHost) {
                 router.push(`/game/${code}/host`);
               } else {
                 router.push(`/game/${code}/play`);
@@ -451,6 +538,14 @@ export default function Room() {
         onShowHowToPlay={() => setShowHowToPlay(true)}
         joinUrl={joinUrl}
       />
+
+      {/* Game Mode Badge - Party Mode indicator */}
+      {meta?.gameMasterMode === 'party' && (
+        <div className="game-mode-badge party">
+          <span className="game-mode-icon">🎉</span>
+          <span className="game-mode-text">Party Mode - Tout le monde joue !</span>
+        </div>
+      )}
 
       {/* Main Content */}
       <main className="lobby-main">
@@ -571,20 +666,24 @@ export default function Room() {
                     </div>
                   ) : (
                     <div className="players-chips">
-                      {players.map((player, index) => (
-                        <motion.div
-                          key={player.uid}
-                          className="player-chip"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: index * 0.05 }}
-                        >
-                          <div className="chip-avatar">
-                            {player.name?.charAt(0)?.toUpperCase() || '?'}
-                          </div>
-                          <span className="chip-name">{player.name}</span>
-                        </motion.div>
-                      ))}
+                      {players.map((player, index) => {
+                        const isOnEndScreen = player.location === 'end';
+                        return (
+                          <motion.div
+                            key={player.uid}
+                            className={`player-chip ${isOnEndScreen ? 'on-end-screen' : ''}`}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: index * 0.05 }}
+                          >
+                            <div className="chip-avatar">
+                              {player.name?.charAt(0)?.toUpperCase() || '?'}
+                            </div>
+                            <span className="chip-name">{player.name}</span>
+                            {isOnEndScreen && <span className="chip-status">📊</span>}
+                          </motion.div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -683,23 +782,27 @@ export default function Room() {
 
                 {/* Players List with Full Names */}
                 <div className="players-list-player">
-                  {players.map((player, index) => (
-                    <motion.div
-                      key={player.uid}
-                      className={`player-chip-full ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.03 }}
-                    >
-                      <div className="chip-avatar-glow">
-                        {player.name?.charAt(0)?.toUpperCase() || '?'}
-                      </div>
-                      <span className="chip-name-full">
-                        {player.name}
-                        {player.uid === auth.currentUser?.uid && ' (toi)'}
-                      </span>
-                    </motion.div>
-                  ))}
+                  {players.map((player, index) => {
+                    const isOnEndScreen = player.location === 'end';
+                    return (
+                      <motion.div
+                        key={player.uid}
+                        className={`player-chip-full ${player.uid === auth.currentUser?.uid ? 'is-me' : ''} ${isOnEndScreen ? 'on-end-screen' : ''}`}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.03 }}
+                      >
+                        <div className="chip-avatar-glow">
+                          {player.name?.charAt(0)?.toUpperCase() || '?'}
+                        </div>
+                        <span className="chip-name-full">
+                          {player.name}
+                          {player.uid === auth.currentUser?.uid && ' (toi)'}
+                        </span>
+                        {isOnEndScreen && <span className="chip-status">📊</span>}
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </>
             )}

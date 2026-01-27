@@ -1,11 +1,13 @@
 "use client";
-import { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
 import Buzzer from "@/components/game/Buzzer";
 import Leaderboard from "@/components/game/Leaderboard";
+import DeezTestHostView from "@/components/game/DeezTestHostView";
+import AskerTransition from "@/components/game/AskerTransition";
 import { motion, AnimatePresence } from "framer-motion";
 import { GameEndTransition } from "@/components/transitions";
 import { triggerConfetti } from "@/components/shared/Confetti";
@@ -14,18 +16,18 @@ import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import { useAskerRotation } from "@/lib/hooks/useAskerRotation";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { storage } from "@/lib/utils/storage";
 import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
 
 // Deezer brand colors
 const DEEZER_PURPLE = '#A238FF';
-const DEEZER_PINK = '#FF0092';
-const DEEZER_LIGHT = '#C574FF';
 
 export default function DeezTestPlayerGame() {
   const { code } = useParams();
@@ -36,33 +38,47 @@ export default function DeezTestPlayerGame() {
   const [playlist, setPlaylist] = useState(null);
   const [myUid, setMyUid] = useState(null);
   const [showEndTransition, setShowEndTransition] = useState(false);
+  const [showAskerTransition, setShowAskerTransition] = useState(false);
   const endTransitionTriggeredRef = useRef(false);
+  const prevAskerUidRef = useRef(null);
 
   // Centralized players hook
   const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms_deeztest' });
+
+  // Party Mode: Asker rotation hook
+  const {
+    isPartyMode,
+    currentAsker,
+    currentAskerUid,
+    isCurrentAsker,
+    canBuzz,
+    advanceToNextAsker
+  } = useAskerRotation({
+    roomCode: code,
+    roomPrefix: 'rooms_deeztest',
+    meta,
+    state,
+    players
+  });
+
+  // Am I the current asker in party mode?
+  const amIAsker = isPartyMode && isCurrentAsker(myUid);
 
   // Server time sync (300ms tick for score updates)
   const { serverNow, offset } = useServerTime(300);
 
   // Auth
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setMyUid(user.uid);
-        // Store last game info for rejoin
-        storage.set('last_game', {
-          roomCode: code,
-          roomPrefix: 'rooms_deeztest',
-          joinedAt: Date.now()
-        });
-      } else {
-        signInAnonymously(auth).catch(() => {});
+    const unsub = onAuthStateChanged(auth, async u => {
+      if (u) setMyUid(u.uid);
+      else {
+        await signInAnonymously(auth);
       }
     });
-    return () => unsub();
-  }, [code]);
+    return unsub;
+  }, []);
 
-  // Player cleanup hook - preserves score on disconnect
+  // Player cleanup (mark disconnected on leave)
   const { leaveRoom, markActive } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_deeztest',
@@ -85,12 +101,22 @@ export default function DeezTestPlayerGame() {
     }
   }, [myUid, code, markActive]);
 
+  // Am I the actual host (room creator)?
+  const isActualHost = meta?.hostUid === myUid;
+
   // Room guard - détecte kick et fermeture room
   const { markVoluntaryLeave, isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_deeztest',
     playerUid: myUid,
-    isHost: false
+    isHost: isActualHost
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms_deeztest',
+    isHost: isActualHost && !amIAsker // Only if host is on player view (not asker view which has its own)
   });
 
   // Keep screen awake during game
@@ -163,10 +189,47 @@ export default function DeezTestPlayerGame() {
 
   const isMyTurn = state?.lockUid === me?.uid;
 
+  // Party Mode: Show transition when asker changes
+  useEffect(() => {
+    if (!isPartyMode || !currentAskerUid) return;
+
+    if (prevAskerUidRef.current !== null && prevAskerUidRef.current !== currentAskerUid) {
+      setShowAskerTransition(true);
+    }
+    prevAskerUidRef.current = currentAskerUid;
+  }, [isPartyMode, currentAskerUid]);
+
+  // Can I buzz? (Party Mode check)
+  const canIBuzz = !amIAsker && canBuzz(myUid, me?.teamId);
+
   // Calcul de la latence (affichée si > 500ms)
   const latencyMs = Math.abs(offset);
   const showLatencyWarning = latencyMs > 500;
 
+  // ========== PARTY MODE: ASKER VIEW ==========
+  if (amIAsker) {
+    return (
+      <>
+        {/* Asker Transition */}
+        <AskerTransition
+          show={showAskerTransition}
+          asker={currentAsker}
+          isTeamMode={meta?.mode === 'équipes'}
+          onComplete={() => setShowAskerTransition(false)}
+          themeColor={DEEZER_PURPLE}
+        />
+
+        {/* Use the shared host view component */}
+        <DeezTestHostView
+          code={code}
+          isActualHost={false}
+          onAdvanceAsker={advanceToNextAsker}
+        />
+      </>
+    );
+  }
+
+  // ========== PLAYER VIEW ==========
   return (
     <div className={`deeztest-player-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
       {/* Game End Transition (pas si room fermée - useRoomGuard gère la redirection) */}
@@ -178,6 +241,15 @@ export default function DeezTestPlayerGame() {
           />
         )}
       </AnimatePresence>
+
+      {/* Asker Transition (Party Mode) */}
+      <AskerTransition
+        show={showAskerTransition}
+        asker={currentAsker}
+        isTeamMode={meta?.mode === 'équipes'}
+        onComplete={() => setShowAskerTransition(false)}
+        themeColor={DEEZER_PURPLE}
+      />
 
       {/* Glow when it's my turn */}
       <AnimatePresence>
@@ -204,10 +276,20 @@ export default function DeezTestPlayerGame() {
         title={playlist?.name || 'Deez Test'}
         score={me?.score || 0}
         onExit={async () => {
-          await leaveRoom();
+          if (isActualHost) {
+            // Host quitte -> fermer la room
+            const { update, ref: dbRef } = await import('@/lib/firebase');
+            await update(dbRef(db, `rooms_deeztest/${code}/state`), { phase: 'ended' });
+            await update(dbRef(db, `rooms_deeztest/${code}/meta`), { closed: true });
+          } else {
+            await leaveRoom();
+          }
           router.push('/home');
         }}
-        exitMessage="Voulez-vous vraiment quitter ? Votre score sera conservé."
+        exitMessage={isActualHost
+          ? "Voulez-vous vraiment quitter ? La partie sera terminée pour tous."
+          : "Voulez-vous vraiment quitter ? Votre score sera conservé."
+        }
       >
         {showLatencyWarning && (
           <div className="latency-indicator" title={`Décalage: ${latencyMs}ms`}>
@@ -267,6 +349,7 @@ export default function DeezTestPlayerGame() {
           blockedUntil={me?.blockedUntil || 0}
           serverNow={serverNow}
           serverOffset={offset}
+          disabled={!canIBuzz}
         />
       </footer>
 

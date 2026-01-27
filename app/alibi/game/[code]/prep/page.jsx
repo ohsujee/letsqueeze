@@ -23,7 +23,7 @@ async function getDOMPurify() {
   return DOMPurifyModule;
 }
 import ExitButton from "@/lib/components/ExitButton";
-import { AlibiPhaseTransition } from "@/components/alibi/AlibiPhaseTransition";
+import { AlibiPhaseTransition } from "@/components/game-alibi/AlibiPhaseTransition";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";

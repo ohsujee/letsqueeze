@@ -326,6 +326,24 @@ export default function DeezTestLobby() {
 
     setIsStarting(true);
     try {
+      const isPartyMode = meta?.gameMasterMode === 'party';
+
+      // Party Mode: Add host as player if not already
+      if (isPartyMode && myUid) {
+        const hostAsPlayer = players.find(p => p.uid === myUid);
+        if (!hostAsPlayer) {
+          await set(ref(db, `rooms_deeztest/${code}/players/${myUid}`), {
+            uid: myUid,
+            name: meta?.hostName || userPseudo,
+            score: 0,
+            teamId: "",
+            blockedUntil: 0,
+            joinedAt: Date.now(),
+            status: 'active'
+          });
+        }
+      }
+
       // Refresh tracks to get fresh preview URLs (they expire!)
       console.log("[DeezTest] Refreshing tracks before game start...");
       const freshTracks = await getRandomTracksFromPlaylist(
@@ -349,6 +367,62 @@ export default function DeezTestLobby() {
 
       console.log("[DeezTest] Tracks refreshed, starting game...");
 
+      // Party Mode: Calculate asker rotation
+      let askerRotationFields = {};
+      if (isPartyMode) {
+        // Get active players (including host who was just added)
+        const activePlayers = [...players.filter(p => p.status !== 'disconnected' && p.status !== 'left')];
+
+        // Add host if not in players list yet (just added above)
+        if (myUid && !activePlayers.find(p => p.uid === myUid)) {
+          activePlayers.push({
+            uid: myUid,
+            name: meta?.hostName || userPseudo,
+            teamId: ""
+          });
+        }
+
+        if (meta?.mode === 'équipes') {
+          // Team mode: rotation by team
+          const teamIds = Object.keys(meta?.teams || {}).filter(teamId => {
+            const teamPlayers = activePlayers.filter(p => p.teamId === teamId);
+            return teamPlayers.length > 0;
+          });
+
+          // Shuffle teams
+          for (let i = teamIds.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [teamIds[i], teamIds[j]] = [teamIds[j], teamIds[i]];
+          }
+
+          // Pick first asker from first team
+          const firstTeamPlayers = activePlayers.filter(p => p.teamId === teamIds[0]);
+          const firstAsker = firstTeamPlayers[Math.floor(Math.random() * firstTeamPlayers.length)];
+
+          askerRotationFields = {
+            askerRotation: teamIds,
+            askerIndex: 0,
+            currentAskerUid: firstAsker?.uid || null,
+            currentAskerTeamId: teamIds[0] || null
+          };
+        } else {
+          // Individual mode: rotation by player
+          const shuffledPlayers = [...activePlayers];
+          for (let i = shuffledPlayers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledPlayers[i], shuffledPlayers[j]] = [shuffledPlayers[j], shuffledPlayers[i]];
+          }
+          const rotation = shuffledPlayers.map(p => p.uid);
+
+          askerRotationFields = {
+            askerRotation: rotation,
+            askerIndex: 0,
+            currentAskerUid: rotation[0] || null,
+            currentAskerTeamId: null
+          };
+        }
+      }
+
       // Update playlist and start game atomically
       await update(ref(db, `rooms_deeztest/${code}`), {
         'meta/playlist': refreshedPlaylist,
@@ -364,6 +438,7 @@ export default function DeezTestLobby() {
           lastRevealAt: 0,
           pausedAt: null,
           lockedAt: null,
+          ...askerRotationFields
         }
       });
     } catch (error) {
@@ -410,7 +485,10 @@ export default function DeezTestLobby() {
           <GameLaunchCountdown
             gameColor="#A238FF"
             onComplete={() => {
-              if (isHost) {
+              // Party Mode: everyone goes to play (no separate host view)
+              if (meta?.gameMasterMode === 'party') {
+                router.push(`/deeztest/game/${code}/play`);
+              } else if (isHost) {
                 router.push(`/deeztest/game/${code}/host`);
               } else {
                 router.push(`/deeztest/game/${code}/play`);
@@ -580,6 +658,14 @@ export default function DeezTestLobby() {
         onShowHowToPlay={() => setShowHowToPlay(true)}
         joinUrl={joinUrl}
       />
+
+      {/* Game Mode Badge - Party Mode indicator */}
+      {meta?.gameMasterMode === 'party' && (
+        <div className="game-mode-badge party deeztest">
+          <span className="game-mode-icon">🎉</span>
+          <span className="game-mode-text">Party Mode - Tout le monde joue !</span>
+        </div>
+      )}
 
       {/* Main Content */}
       <main className="lobby-main">
