@@ -7,7 +7,7 @@ import { initializeUserProfile, updateUserPseudo, validatePseudo } from '@/lib/u
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { storage } from '@/lib/utils/storage';
-import { ChevronRight, Wifi, WifiOff, BarChart3, Sparkles, Crown, Infinity, Ban, Package, UserPlus, Zap, ExternalLink, Save, Trophy, Pencil, Check, X } from 'lucide-react';
+import { ChevronRight, Wifi, WifiOff, BarChart3, Sparkles, Crown, Infinity, Ban, Package, UserPlus, Zap, ExternalLink, Save, Trophy, Pencil, Check, X, Bell, Volume2, Lightbulb, Globe, Settings, Link2 } from 'lucide-react';
 import { openManageSubscriptions } from '@/lib/revenuecat';
 import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -41,7 +41,7 @@ export default function ProfilePage() {
   const [hueEffectsEnabled, setHueEffectsEnabled] = useState(true);
   const [hueConnected, setHueConnected] = useState(false);
   const { isPro, isAdmin } = useSubscription(user);
-  const { profile } = useUserProfile();
+  const { profile, cachedPseudo } = useUserProfile();
   const [connectingGoogle, setConnectingGoogle] = useState(false);
   const [connectingApple, setConnectingApple] = useState(false);
   const [connectError, setConnectError] = useState(null);
@@ -158,7 +158,7 @@ export default function ProfilePage() {
 
   // Start editing pseudo
   const handleStartEditPseudo = () => {
-    setNewPseudo(profile?.pseudo || user?.displayName?.split(' ')[0] || '');
+    setNewPseudo(profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || '');
     setPseudoError('');
     setIsEditingPseudo(true);
   };
@@ -277,7 +277,7 @@ export default function ProfilePage() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  {profile?.pseudo || user?.displayName?.split(' ')[0] || 'Joueur'}
+                  {profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Joueur'}
                   <button
                     className="edit-name-btn"
                     onClick={handleStartEditPseudo}
@@ -445,7 +445,7 @@ export default function ProfilePage() {
         {/* Settings Section */}
         <section className="card settings-card">
           <h2 className="card-title">
-            <span className="card-icon">⚙️</span>
+            <Settings size={20} className="card-icon-svg" />
             Paramètres
           </h2>
           <div className="settings-list">
@@ -470,7 +470,9 @@ export default function ProfilePage() {
 
             <div className="setting-item">
               <div className="setting-info">
-                <span className="setting-icon">🔔</span>
+                <span className="setting-icon-wrap notifications">
+                  <Bell size={18} />
+                </span>
                 <span className="setting-label">Notifications</span>
               </div>
               <button
@@ -483,7 +485,9 @@ export default function ProfilePage() {
 
             <div className="setting-item">
               <div className="setting-info">
-                <span className="setting-icon">🔊</span>
+                <span className="setting-icon-wrap sound">
+                  <Volume2 size={18} />
+                </span>
                 <span className="setting-label">Effets Sonores</span>
               </div>
               <button
@@ -497,7 +501,9 @@ export default function ProfilePage() {
             {(hueConnected || user?.email === 'yogarajah.sujeevan@gmail.com') && (
               <div className="setting-item">
                 <div className="setting-info">
-                  <span className="setting-icon">💡</span>
+                  <span className="setting-icon-wrap hue">
+                    <Lightbulb size={18} />
+                  </span>
                   <span className="setting-label">Effets Philips Hue</span>
                 </div>
                 <button
@@ -511,7 +517,9 @@ export default function ProfilePage() {
 
             <div className="setting-item">
               <div className="setting-info">
-                <span className="setting-icon">🗣️</span>
+                <span className="setting-icon-wrap language">
+                  <Globe size={18} />
+                </span>
                 <span className="setting-label">Langue</span>
               </div>
               <span className="setting-value">Français</span>
@@ -523,7 +531,7 @@ export default function ProfilePage() {
         {!user?.isAnonymous && (
           <section className="card connections-card">
             <h2 className="card-title">
-              <span className="card-icon">🔗</span>
+              <Link2 size={20} className="card-icon-svg" />
               Connexions
             </h2>
 
@@ -542,15 +550,9 @@ export default function ProfilePage() {
                 </div>
                 <div className="connection-status-wrap">
                   {hueConnected ? (
-                    <span className="connection-status connected">
-                      <Wifi size={14} />
-                      Connecté
-                    </span>
+                    <Wifi size={18} className="connection-wifi connected" />
                   ) : (
-                    <span className="connection-status">
-                      <WifiOff size={14} />
-                      Non connecté
-                    </span>
+                    <WifiOff size={18} className="connection-wifi" />
                   )}
                   <ChevronRight size={18} className="connection-chevron" />
                 </div>
@@ -769,6 +771,11 @@ export default function ProfilePage() {
 
         .card-icon {
           font-size: 1.25rem;
+        }
+
+        .card-title :global(.card-icon-svg) {
+          color: var(--quiz-primary, #8b5cf6);
+          flex-shrink: 0;
         }
 
         /* ===== SUBSCRIPTION SECTION ===== */
@@ -1300,6 +1307,26 @@ export default function ProfilePage() {
           box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
         }
 
+        .setting-icon-wrap.notifications {
+          background: linear-gradient(135deg, #f59e0b, #d97706);
+          box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .setting-icon-wrap.sound {
+          background: linear-gradient(135deg, #22c55e, #16a34a);
+          box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        }
+
+        .setting-icon-wrap.hue {
+          background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+          box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+
+        .setting-icon-wrap.language {
+          background: linear-gradient(135deg, #06b6d4, #0891b2);
+          box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+        }
+
         .setting-chevron {
           color: var(--text-tertiary, rgba(255, 255, 255, 0.4));
           transition: transform 0.2s ease;
@@ -1612,6 +1639,14 @@ export default function ProfilePage() {
         .connection-status.connected {
           color: #22c55e;
           background: rgba(34, 197, 94, 0.15);
+        }
+
+        .connection-status-wrap :global(.connection-wifi) {
+          color: rgba(255, 255, 255, 0.3);
+        }
+
+        .connection-status-wrap :global(.connection-wifi.connected) {
+          color: #22c55e;
         }
 
         .connection-chevron {

@@ -103,7 +103,7 @@
     },
     {
       "id": "dis015",
-      "question": "Première lapine officier de police dans la métropole de Zootopie, elle fait équipe avec le renard escroc Nick Wilde pour résoudre une affaire de disparitions. Originaire de Bunnyburrow. Qui est-ce ?",
+      "question": "Première lapine officier de police dans la métropole de Zootopie, elle fait équipe avec le renard escroc Nick Wilde pour résoudre une affaire de disparitions. Originaire de Lapinville. Qui est-ce ?",
       "answer": "Judy Hopps",
       "difficulty": "normal",
       "category": "Zootopie"
@@ -670,7 +670,7 @@
     },
     {
       "id": "dis096",
-      "question": "Seule Madrigal sans don magique dans Encanto, cette Colombienne de 15 ans aux lunettes vertes découvre que la maison miraculeuse se fissure. Ses lunettes font référence à son oncle Bruno. Qui est-ce ?",
+      "question": "Seule Madrigal sans don magique dans Encanto, cette Colombienne de 15 ans aux lunettes vertes découvre que la maison miraculeuse se fissure. C'est la seule de sa famille à ne pas avoir reçu de don magique lors de sa cérémonie. Qui est-ce ?",
       "answer": "Mirabel",
       "difficulty": "normal",
       "category": "Encanto"
@@ -684,7 +684,7 @@
     },
     {
       "id": "dis098",
-      "question": "Cousine de Mirabel dotée d'une super-force dans Encanto, elle porte la maison sur ses épaules au sens propre comme au figuré. Son nom signifie 'petite Louise'. Qui est-ce ?",
+      "question": "Cousine de Mirabel dotée d'une super-force dans Encanto, elle porte la maison sur ses épaules au sens propre comme au figuré. Elle chante 'Sous les apparences' et passe son temps à soulever des ânes et des ponts. Qui est-ce ?",
       "answer": "Luisa",
       "difficulty": "difficile",
       "category": "Encanto"

@@ -271,10 +271,10 @@
     },
     {
       "id": "op039",
-      "question": "Ancien membre de l'équipage de Barbe Blanche ayant tué un commandant pour voler son fruit, ce pirate possède deux pouvoirs impossibles. Il est devenu Empereur après la guerre. Qui est-ce ?",
-      "answer": "Marshall D. Teach (Barbe Noire)",
-      "difficulty": "difficile",
-      "category": "Empereurs"
+      "question": "Surnommé le Seigneur des Ténèbres, ce vieil homme était le second de Gol D. Roger. Maître du Haki, il a entraîné Luffy pendant l'ellipse sur l'île de Rusukaina. Qui est-ce ?",
+      "answer": "Silvers Rayleigh",
+      "difficulty": "normal",
+      "category": "Légendes"
     },
     {
       "id": "op040",
@@ -285,10 +285,10 @@
     },
     {
       "id": "op041",
-      "question": "Vérité sur le fruit du héros cachée par le Gouvernement depuis 800 ans, son vrai nom est le Hito Hito no Mi modèle Nika, un Zoan mythique divin. Cette révélation a choqué le monde. Quelle est cette identité ?",
-      "answer": "Le fruit de Nika (Dieu du Soleil)",
+      "question": "Chanson pirate légendaire qui remonte le moral des équipages, elle était l'hymne des Rumbar Pirates. Brook la joue au violon et au piano. Quel est le titre de cette chanson ?",
+      "answer": "Binks no Sake (Le Bon Rhum de Binks)",
       "difficulty": "normal",
-      "category": "Révélations"
+      "category": "Musique"
     },
     {
       "id": "op042",
@@ -376,17 +376,17 @@
     },
     {
       "id": "op054",
-      "question": "Empereur des mers surnommé la créature la plus forte du monde, ce géant aux cornes a essayé de se suicider plus de 40 fois. Il régnait sur Wano avec une armée de Zoans. Qui était-ce ?",
-      "answer": "Kaido",
-      "difficulty": "normal",
-      "category": "Empereurs"
+      "question": "Bras droit de Kaido et dernier survivant de la race des Lunarias, il peut créer du feu et possède des ailes noires. Zoro l'a vaincu en découvrant son secret. Qui est-ce ?",
+      "answer": "King (L'Incendie)",
+      "difficulty": "difficile",
+      "category": "Antagonistes"
     },
     {
       "id": "op055",
-      "question": "Impératrice pirate régnant sur Totto Land, cette géante cannibale obsédée par les mariages peut voler les années de vie avec son fruit. Elle a 85 enfants. Qui est-ce ?",
-      "answer": "Big Mom (Charlotte Linlin)",
+      "question": "Second fils de Big Mom et commandant le plus puissant des Sweet Commanders, il possède un Haki de l'observation permettant de voir le futur. Son combat contre Luffy est légendaire. Qui est-ce ?",
+      "answer": "Charlotte Katakuri",
       "difficulty": "normal",
-      "category": "Empereurs"
+      "category": "Antagonistes"
     },
     {
       "id": "op056",
@@ -621,10 +621,10 @@
     },
     {
       "id": "op089",
-      "question": "Père biologique d'Ace et ancien Roi des Pirates, ce légendaire pirate à la moustache a découvert le One Piece et déclenché l'Ère de la Piraterie par ses derniers mots. Qui était-ce ?",
-      "answer": "Gol D. Roger",
+      "question": "Amiral de la Marine possédant le fruit de la lumière (Pika Pika no Mi), il se déplace à la vitesse de la lumière mais parle très lentement. Il a décimé les Supernovas à Sabaody. Qui est-ce ?",
+      "answer": "Kizaru (Borsalino)",
       "difficulty": "normal",
-      "category": "Légendes"
+      "category": "Marine"
     },
     {
       "id": "op090",
@@ -642,8 +642,8 @@
     },
     {
       "id": "op092",
-      "question": "Pierres indestructibles gravées dans une langue ancienne contenant l'histoire interdite et les localisations des armes antiques, seuls les archéologues d'Ohara savaient les lire. Que sont ces pierres ?",
-      "answer": "Les Ponéglyphes",
+      "question": "Boussole spéciale indispensable pour naviguer sur Grand Line, elle enregistre le champ magnétique de l'île suivante. Sans elle, il est impossible de s'orienter. Quel est cet objet ?",
+      "answer": "Le Log Pose",
       "difficulty": "normal",
       "category": "Objets"
     },
@@ -775,8 +775,8 @@
     },
     {
       "id": "op111",
-      "question": "Agent du CP9 au physique félin ayant failli tuer Robin, c'est le plus puissant assassin du Gouvernement avant son arrestation. Il revient dans le CP0. Qui est-ce ?",
-      "answer": "Rob Lucci",
+      "question": "Chef incompétent et cruel du CP9, il a déclenché le Buster Call sur Enies Lobby par erreur. Il possède une épée qui a mangé un fruit du démon éléphant. Qui est-ce ?",
+      "answer": "Spandam",
       "difficulty": "normal",
       "category": "Antagonistes"
     },

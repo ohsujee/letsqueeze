@@ -334,10 +334,10 @@
     },
     {
       "id": "kol048",
-      "question": "Film de Rajinikanth devenu le plus gros succès tamoul de l'époque, c'était le premier film tamoul distribué mondialement avec 210 copies. Les chansons 'Minsara Kanna' et 'Vetri Kodi Kattu' sont cultes. En quelle année est sorti Padayappa ?",
-      "answer": "1999",
-      "difficulty": "difficile",
-      "category": "Records"
+      "question": "Dans ce blockbuster, Rajinikanth affronte Neelambari, l'une des antagonistes féminines les plus puissantes et iconiques du cinéma tamoul, jouée par Ramya Krishnan. Quel est ce film ?",
+      "answer": "Padayappa",
+      "difficulty": "normal",
+      "category": "Personnages Cultes"
     },
     {
       "id": "kol049",
@@ -481,10 +481,10 @@
     },
     {
       "id": "kol069",
-      "question": "Film le plus cher de l'histoire du cinéma indien lors de sa sortie en 2018, suite d'Enthiran avec Rajinikanth et Akshay Kumar. Le méchant robot 2.0 y est mémorable. Quel est ce film ?",
+      "question": "Dans ce blockbuster de science-fiction, une entité surnaturelle aspire tous les téléphones portables de la ville pour former un monstre aviaire géant. Rajinikanth doit réactiver son robot pour sauver Chennai. Quel est ce film ?",
       "answer": "2.0",
       "difficulty": "normal",
-      "category": "Records"
+      "category": "Science-fiction"
     },
     {
       "id": "kol070",
@@ -516,10 +516,10 @@
     },
     {
       "id": "kol074",
-      "question": "Record de projection continue en salles tamoules, le film Chandramukhi avec Rajinikanth a été diffusé pendant 890 jours consécutifs. C'est un film d'horreur-comédie de P. Vasu. En quelle année est-il sorti ?",
-      "answer": "2005",
-      "difficulty": "difficile",
-      "category": "Records"
+      "question": "Dans ce film d'horreur-comédie, Jyothika livre une performance terrifiante en danseuse possédée, tandis que Rajinikanth popularise le cri 'Laka Laka Laka'. Quel est ce film ?",
+      "answer": "Chandramukhi",
+      "difficulty": "normal",
+      "category": "Films cultes"
     },
     {
       "id": "kol075",
@@ -558,10 +558,10 @@
     },
     {
       "id": "kol080",
-      "question": "Film de 2016 avec Suriya en double rôle de père et fils, explorant les thèmes de l'héritage et du destin. La bande originale de Harris Jayaraj est mémorable. Quel est ce film ?",
-      "answer": "24",
+      "question": "Film de 2021 diffusé sur Amazon Prime, basé sur une histoire vraie. Suriya y joue l'avocat Chandru qui se bat pour la justice d'une femme tribale dont le mari a disparu en garde à vue. Quel est ce film ?",
+      "answer": "Jai Bhim",
       "difficulty": "normal",
-      "category": "Science-fiction"
+      "category": "Drame juridique"
     },
     {
       "id": "kol081",
@@ -656,15 +656,15 @@
     },
     {
       "id": "kol094",
-      "question": "Film de 2000 avec Madhavan et Reema Sen, leur histoire d'amour dans les trains et la ville de Chennai est devenue iconique. Réalisé par Mani Ratnam. Quel est ce film ?",
-      "answer": "Alaipayuthey",
+      "question": "Film romantique de 2010 réalisé par Gautham Menon, mettant en scène l'amour compliqué entre un assistant réalisateur hindou (Simbu) et une fille chrétienne (Trisha). La musique d'A.R. Rahman est légendaire. Quel est ce film ?",
+      "answer": "Vinnaithaandi Varuvaayaa (VTV)",
       "difficulty": "normal",
       "category": "Romance"
     },
     {
       "id": "kol095",
-      "question": "Compositeur qui a fait ses débuts à 23 ans et est devenu l'un des plus demandés, fils de l'acteur Ravi Raghavendra et neveu de Rajinikanth. 'Why This Kolaveri Di' l'a rendu célèbre. Qui est-ce ?",
-      "answer": "Anirudh Ravichander",
+      "question": "Fils du maestro Ilaiyaraaja, ce compositeur est surnommé le 'BGM King' (Roi de la musique de fond). Il a modernisé la musique tamoule avec du hip-hop et a composé pour Mankatha et Maanaadu. Qui est-ce ?",
+      "answer": "Yuvan Shankar Raja",
       "difficulty": "normal",
       "category": "Musique"
     },
@@ -677,10 +677,10 @@
     },
     {
       "id": "kol097",
-      "question": "Film de 2023 où Rajinikanth joue un gardien de prison à la retraite. Le film contient des cameos de Mohanlal et Shiva Rajkumar. C'est un des plus grands succès récents. Quel est ce film ?",
-      "answer": "Jailer",
+      "question": "Thriller néo-noir de 2017 inspiré du conte folklorique Vikram et Betaal. Vijay Sethupathi y joue un gangster qui raconte trois histoires à un policier joué par Madhavan pour questionner sa morale. Quel est ce film ?",
+      "answer": "Vikram Vedha",
       "difficulty": "normal",
-      "category": "Action"
+      "category": "Thriller"
     },
     {
       "id": "kol098",
@@ -698,8 +698,8 @@
     },
     {
       "id": "kol100",
-      "question": "Film de 2019 avec Rajinikanth en politicien corrompu puis réformé. C'est un film sur la politique indienne et le système. Réalisé par A.R. Murugadoss. Quel est ce film ?",
-      "answer": "Darbar",
+      "question": "Blockbuster de 2007 réalisé par Shankar, où Rajinikanth joue un ingénieur logiciel revenant des USA pour construire des écoles gratuites, mais qui se heurte à la corruption. Il utilise une pièce de monnaie pour se décider. Quel est ce film ?",
+      "answer": "Sivaji: The Boss",
       "difficulty": "normal",
       "category": "Action"
     }

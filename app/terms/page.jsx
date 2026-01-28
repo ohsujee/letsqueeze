@@ -19,39 +19,39 @@ export default function TermsPage() {
 
       <main className="legal-content">
         <p className="legal-intro">
-          En utilisant l'application Gigglz, vous acceptez les presentes
-          Conditions Generales d'Utilisation. Veuillez les lire attentivement.
+          En utilisant l'application Gigglz, vous acceptez les présentes
+          Conditions Générales d'Utilisation. Veuillez les lire attentivement.
         </p>
 
         <section className="legal-section">
-          <h2>1. Presentation du service</h2>
+          <h2>1. Présentation du service</h2>
           <p>
-            Gigglz est une application de jeux de societe multijoueur editee
+            Gigglz est une application de jeux de société multijoueur éditée
             par Agence UMAIN. L'application propose plusieurs modes de jeu
             incluant des quiz, le jeu Alibi, le Blind Test musical et le jeu Mime.
           </p>
         </section>
 
         <section className="legal-section">
-          <h2>2. Conditions d'acces</h2>
-          <h3>Age minimum</h3>
+          <h2>2. Conditions d'accès</h2>
+          <h3>Âge minimum</h3>
           <p>
-            L'application est destinee aux personnes agees de <strong>13 ans et plus</strong>.
-            En creant un compte ou en utilisant l'application, vous confirmez avoir
+            L'application est destinée aux personnes âgées de <strong>13 ans et plus</strong>.
+            En créant un compte ou en utilisant l'application, vous confirmez avoir
             au moins 13 ans.
           </p>
 
           <h3>Inscription</h3>
           <p>
-            L'acces a certaines fonctionnalites necessite la creation d'un compte
-            via Google ou Apple. Vous etes responsable de la confidentialite de
+            L'accès à certaines fonctionnalités nécessite la création d'un compte
+            via Google ou Apple. Vous êtes responsable de la confidentialité de
             vos identifiants de connexion.
           </p>
 
-          <h3>Mode invite</h3>
+          <h3>Mode invité</h3>
           <p>
-            Vous pouvez utiliser l'application en mode invite (sans compte).
-            Certaines fonctionnalites seront limitees dans ce mode.
+            Vous pouvez utiliser l'application en mode invité (sans compte).
+            Certaines fonctionnalités seront limitées dans ce mode.
           </p>
         </section>
 
@@ -60,19 +60,19 @@ export default function TermsPage() {
           <h3>Version gratuite</h3>
           <p>La version gratuite inclut :</p>
           <ul>
-            <li>Acces a un nombre limite de packs de quiz et scenarios</li>
+            <li>Accès à un nombre limité de packs de quiz et scénarios</li>
             <li>3 parties par jour par mode de jeu</li>
-            <li>Affichage de publicites</li>
+            <li>Affichage de publicités</li>
           </ul>
 
           <h3>Abonnement Pro</h3>
           <p>L'abonnement Gigglz Pro offre :</p>
           <ul>
-            <li>Acces illimite a tous les contenus</li>
-            <li>Parties illimitees</li>
-            <li>Suppression des publicites</li>
-            <li>Statistiques avancees</li>
-            <li>Cosmetiques exclusifs</li>
+            <li>Accès illimité à tous les contenus</li>
+            <li>Parties illimitées</li>
+            <li>Suppression des publicités</li>
+            <li>Statistiques avancées</li>
+            <li>Cosmétiques exclusifs</li>
           </ul>
 
           <h3>Tarifs et facturation</h3>
@@ -81,42 +81,42 @@ export default function TermsPage() {
             <li>Abonnement annuel : 29,99 EUR/an</li>
           </ul>
           <p>
-            Les paiements sont geres par l'App Store (Apple) ou le Play Store (Google)
+            Les paiements sont gérés par l'App Store (Apple) ou le Play Store (Google)
             selon votre appareil. Les prix peuvent varier selon votre pays.
           </p>
 
-          <h3>Renouvellement et resiliation</h3>
+          <h3>Renouvellement et résiliation</h3>
           <p>
-            Les abonnements se renouvellent automatiquement sauf resiliation
-            au moins 24 heures avant la fin de la periode en cours.
-            Vous pouvez gerer votre abonnement dans les parametres de votre
+            Les abonnements se renouvellent automatiquement sauf résiliation
+            au moins 24 heures avant la fin de la période en cours.
+            Vous pouvez gérer votre abonnement dans les paramètres de votre
             compte App Store ou Play Store.
           </p>
         </section>
 
         <section className="legal-section">
-          <h2>4. Regles d'utilisation</h2>
-          <p>En utilisant Gigglz, vous vous engagez a :</p>
+          <h2>4. Règles d'utilisation</h2>
+          <p>En utilisant Gigglz, vous vous engagez à :</p>
           <ul>
-            <li>Utiliser l'application de maniere loyale et respectueuse</li>
+            <li>Utiliser l'application de manière loyale et respectueuse</li>
             <li>Ne pas tricher ou utiliser de logiciels tiers pour obtenir un avantage</li>
-            <li>Ne pas usurper l'identite d'autrui</li>
-            <li>Ne pas diffuser de contenu illegal, offensant ou inapproprie</li>
+            <li>Ne pas usurper l'identité d'autrui</li>
+            <li>Ne pas diffuser de contenu illégal, offensant ou inapproprié</li>
             <li>Ne pas tenter de pirater ou perturber le fonctionnement du service</li>
             <li>Respecter les autres joueurs</li>
           </ul>
         </section>
 
         <section className="legal-section">
-          <h2>5. Integration Spotify</h2>
+          <h2>5. Intégration Spotify</h2>
           <p>
             Le mode Blind Test utilise l'API Spotify. Pour utiliser cette
-            fonctionnalite :
+            fonctionnalité :
           </p>
           <ul>
             <li>Vous devez disposer d'un compte Spotify</li>
             <li>Un abonnement Spotify Premium est requis pour la lecture musicale</li>
-            <li>Vous autorisez l'application a acceder a votre lecteur Spotify</li>
+            <li>Vous autorisez l'application à accéder à votre lecteur Spotify</li>
           </ul>
           <p>
             L'utilisation de Spotify est soumise aux conditions d'utilisation
@@ -125,73 +125,73 @@ export default function TermsPage() {
         </section>
 
         <section className="legal-section">
-          <h2>6. Propriete intellectuelle</h2>
+          <h2>6. Propriété intellectuelle</h2>
           <p>
-            Tous les elements de l'application (design, code, textes, images,
-            sons, logos) sont la propriete d'Agence UMAIN ou de ses partenaires
-            et sont proteges par le droit de la propriete intellectuelle.
+            Tous les éléments de l'application (design, code, textes, images,
+            sons, logos) sont la propriété d'Agence UMAIN ou de ses partenaires
+            et sont protégés par le droit de la propriété intellectuelle.
           </p>
           <p>
-            Vous beneficiez d'une licence limitee, non exclusive et revocable
-            pour utiliser l'application a des fins personnelles et non commerciales.
+            Vous bénéficiez d'une licence limitée, non exclusive et révocable
+            pour utiliser l'application à des fins personnelles et non commerciales.
           </p>
         </section>
 
         <section className="legal-section">
           <h2>7. Contenu utilisateur</h2>
           <p>
-            Si vous creez du contenu dans l'application (pseudonyme, avatar),
+            Si vous créez du contenu dans l'application (pseudonyme, avatar),
             vous garantissez que ce contenu ne viole pas les droits de tiers
-            et n'est pas contraire a la loi ou aux bonnes moeurs.
+            et n'est pas contraire à la loi ou aux bonnes mœurs.
           </p>
           <p>
-            Nous nous reservons le droit de supprimer tout contenu inapproprie
-            sans preavis.
-          </p>
-        </section>
-
-        <section className="legal-section">
-          <h2>8. Disponibilite du service</h2>
-          <p>
-            Nous nous efforcons d'assurer la disponibilite de l'application
-            24h/24 et 7j/7. Cependant, nous ne pouvons garantir une disponibilite
-            ininterrompue. Le service peut etre suspendu pour maintenance
-            ou mise a jour.
+            Nous nous réservons le droit de supprimer tout contenu inapproprié
+            sans préavis.
           </p>
         </section>
 
         <section className="legal-section">
-          <h2>9. Limitation de responsabilite</h2>
+          <h2>8. Disponibilité du service</h2>
           <p>
-            L'application est fournie "en l'etat". Agence UMAIN ne saurait
-            etre tenue responsable :
+            Nous nous efforçons d'assurer la disponibilité de l'application
+            24h/24 et 7j/7. Cependant, nous ne pouvons garantir une disponibilité
+            ininterrompue. Le service peut être suspendu pour maintenance
+            ou mise à jour.
+          </p>
+        </section>
+
+        <section className="legal-section">
+          <h2>9. Limitation de responsabilité</h2>
+          <p>
+            L'application est fournie "en l'état". Agence UMAIN ne saurait
+            être tenue responsable :
           </p>
           <ul>
             <li>Des interruptions temporaires du service</li>
-            <li>De la perte de donnees due a des circonstances exceptionnelles</li>
-            <li>Des dommages indirects lies a l'utilisation de l'application</li>
+            <li>De la perte de données due à des circonstances exceptionnelles</li>
+            <li>Des dommages indirects liés à l'utilisation de l'application</li>
             <li>Du contenu des services tiers (Spotify, etc.)</li>
           </ul>
         </section>
 
         <section className="legal-section">
-          <h2>10. Suspension et resiliation</h2>
+          <h2>10. Suspension et résiliation</h2>
           <p>
-            Nous nous reservons le droit de suspendre ou supprimer votre compte
-            en cas de violation des presentes CGU, sans preavis ni indemnite.
+            Nous nous réservons le droit de suspendre ou supprimer votre compte
+            en cas de violation des présentes CGU, sans préavis ni indemnité.
           </p>
           <p>
-            Vous pouvez a tout moment supprimer votre compte en nous contactant
-            a contact@weareumain.com.
+            Vous pouvez à tout moment supprimer votre compte en nous contactant
+            à contact@weareumain.com.
           </p>
         </section>
 
         <section className="legal-section">
           <h2>11. Modifications des CGU</h2>
           <p>
-            Nous pouvons modifier ces CGU a tout moment. Les modifications
-            entrent en vigueur des leur publication dans l'application.
-            En continuant a utiliser l'application apres une modification,
+            Nous pouvons modifier ces CGU à tout moment. Les modifications
+            entrent en vigueur dès leur publication dans l'application.
+            En continuant à utiliser l'application après une modification,
             vous acceptez les nouvelles conditions.
           </p>
         </section>
@@ -199,10 +199,10 @@ export default function TermsPage() {
         <section className="legal-section">
           <h2>12. Droit applicable et litiges</h2>
           <p>
-            Les presentes CGU sont regies par le droit francais.
-            En cas de litige, une solution amiable sera recherchee avant
-            toute action judiciaire. A defaut, les tribunaux francais
-            seront competents.
+            Les présentes CGU sont régies par le droit français.
+            En cas de litige, une solution amiable sera recherchée avant
+            toute action judiciaire. À défaut, les tribunaux français
+            seront compétents.
           </p>
         </section>
 
@@ -214,7 +214,7 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <p className="legal-update">Derniere mise a jour : Janvier 2025</p>
+        <p className="legal-update">Dernière mise à jour : Janvier 2025</p>
       </main>
 
       <style jsx>{`
@@ -222,6 +222,8 @@ export default function TermsPage() {
           flex: 1; min-height: 0;
           background: #0a0a0f;
           position: relative;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
         }
 
         .legal-bg {

@@ -3,15 +3,355 @@
   "title": "Art",
   "lang": "fr",
   "items": [
-    {"id": "cg-art001", "question": "Peintre, sculpteur et architecte italien de la Renaissance, il a peint le plafond de la Chapelle Sixtine et sculpté le David de Florence. Rival de Léonard de Vinci, il incarne le génie universel. Qui est-ce ?", "answer": "Michel-Ange", "difficulty": "normal", "category": "Art"},
-    {"id": "cg-art002", "question": "Polymathe italien de la Renaissance, il a peint La Joconde et La Cène. Inventeur visionnaire, ses carnets contiennent des croquis d'hélicoptères et de sous-marins. Son sourire énigmatique est au Louvre. Qui est-ce ?", "answer": "Léonard de Vinci", "difficulty": "normal", "category": "Art"},
-    {"id": "cg-art003", "question": "Peintre post-impressionniste néerlandais, il se coupe l'oreille en 1888 et meurt à 37 ans. La Nuit étoilée et Les Tournesols sont parmi ses œuvres les plus célèbres. Qui est-ce ?", "answer": "Vincent van Gogh", "difficulty": "normal", "category": "Art"},
-    {"id": "cg-art004", "question": "Peintre espagnol cofondateur du cubisme avec Georges Braque, il réalise Guernica en réponse au bombardement de la ville basque. L'artiste le plus prolifique du XXe siècle selon le Guinness. Qui est-ce ?", "answer": "Pablo Picasso", "difficulty": "normal", "category": "Art"},
-    {"id": "cg-art005", "question": "Chef de file de l'impressionnisme français, il peint Les Nymphéas dans son jardin de Giverny et la série des Cathédrales de Rouen. Son tableau 'Impression, soleil levant' donne son nom au mouvement. Qui est-ce ?", "answer": "Claude Monet", "difficulty": "normal", "category": "Art"},
-    {"id": "cg-art006", "question": "Peintre surréaliste espagnol à la moustache extravagante, il est célèbre pour ses montres molles dans La Persistance de la mémoire. Excentrique assumé, il vit à Figueras et Port Lligat. Qui est-ce ?", "answer": "Salvador Dalí", "difficulty": "normal", "category": "Art"},
-    {"id": "cg-art007", "question": "Figure du Pop Art américain, il réalise des sérigraphies de Marilyn Monroe et des boîtes de soupe Campbell's. Sa Factory à New York devient le lieu emblématique de l'avant-garde des années 60. Qui est-ce ?", "answer": "Andy Warhol", "difficulty": "normal", "category": "Art"},
-    {"id": "cg-art008", "question": "Sculpteur français du XIXe siècle, il crée Le Penseur et Le Baiser. Sa Porte de l'Enfer reste inachevée. Le musée qui porte son nom est à Paris dans l'hôtel Biron. Qui est-ce ?", "answer": "Auguste Rodin", "difficulty": "normal", "category": "Art"},
-    {"id": "cg-art009", "question": "Peintre mexicaine aux sourcils joints et aux autoportraits douloureux, elle épouse le muraliste Diego Rivera. Ses œuvres expriment sa souffrance physique après un grave accident. Qui est-ce ?", "answer": "Frida Kahlo", "difficulty": "normal", "category": "Art"},
-    {"id": "cg-art010", "question": "Architecte catalan visionnaire, il conçoit la Sagrada Familia de Barcelone, toujours inachevée plus de 100 ans après sa mort. Le parc Güell et la Casa Batlló sont aussi de lui. Qui est-ce ?", "answer": "Antoni Gaudí", "difficulty": "normal", "category": "Art"}
+    {
+      "id": "cg-art001",
+      "question": "Peintre, sculpteur et architecte italien de la Renaissance, il a peint le plafond de la Chapelle Sixtine et sculpté le David de Florence. Rival de Léonard de Vinci, il incarne le génie universel. Qui est-ce ?",
+      "answer": "Michel-Ange",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art002",
+      "question": "Polymathe italien de la Renaissance, il a peint La Joconde et La Cène. Inventeur visionnaire, ses carnets contiennent des croquis d'hélicoptères et de sous-marins. Le sourire de sa Joconde est au Louvre. Qui est-ce ?",
+      "answer": "Léonard de Vinci",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art003",
+      "question": "Peintre post-impressionniste néerlandais, il se coupe l'oreille en 1888 et meurt à 37 ans. La Nuit étoilée et Les Tournesols sont parmi ses œuvres les plus célèbres. Qui est-ce ?",
+      "answer": "Vincent van Gogh",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art004",
+      "question": "Peintre espagnol cofondateur du cubisme avec Georges Braque, il réalise Guernica en réponse au bombardement de la ville basque. L'artiste le plus prolifique du XXe siècle selon le Guinness. Qui est-ce ?",
+      "answer": "Pablo Picasso",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art005",
+      "question": "Chef de file de l'impressionnisme français, il peint Les Nymphéas dans son jardin de Giverny et la série des Cathédrales de Rouen. Son tableau 'Impression, soleil levant' donne son nom au mouvement. Qui est-ce ?",
+      "answer": "Claude Monet",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art006",
+      "question": "Peintre surréaliste espagnol à la moustache extravagante, il est célèbre pour ses montres molles dans La Persistance de la mémoire. Excentrique assumé, il vit à Figueras et Port Lligat. Qui est-ce ?",
+      "answer": "Salvador Dalí",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art007",
+      "question": "Figure du Pop Art américain, il réalise des sérigraphies de Marilyn Monroe et des boîtes de soupe Campbell's. Sa Factory à New York devient le lieu emblématique de l'avant-garde des années 60. Qui est-ce ?",
+      "answer": "Andy Warhol",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art008",
+      "question": "Sculpteur français du XIXe siècle, il crée Le Penseur et Le Baiser. Sa Porte de l'Enfer reste inachevée. Le musée qui porte son nom est à Paris dans l'hôtel Biron. Qui est-ce ?",
+      "answer": "Auguste Rodin",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art009",
+      "question": "Peintre mexicaine aux sourcils joints et aux autoportraits douloureux, elle épouse le muraliste Diego Rivera. Ses œuvres expriment sa souffrance physique après un grave accident. Qui est-ce ?",
+      "answer": "Frida Kahlo",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art010",
+      "question": "Architecte catalan visionnaire, il conçoit la Sagrada Familia de Barcelone, toujours inachevée près d'un siècle après sa mort. Le parc Güell et la Casa Batlló sont aussi de lui. Qui est-ce ?",
+      "answer": "Antoni Gaudí",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art011",
+      "question": "Peintre norvégien précurseur de l'expressionnisme, son œuvre la plus célèbre représente un visage déformé par la terreur sous un ciel rouge sang. On a volé ce tableau plusieurs fois. Qui est-ce ?",
+      "answer": "Edvard Munch (Le Cri)",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art012",
+      "question": "Artiste de rue anonyme originaire de Bristol, il est mondialement connu pour ses pochoirs engagés et satiriques. Il a autodétruit une de ses œuvres juste après sa vente aux enchères. Qui est-ce ?",
+      "answer": "Banksy",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art013",
+      "question": "Peintre néerlandais du Siècle d'or, maître du clair-obscur. Il a peint La Ronde de nuit et de nombreux autoportraits montrant son vieillissement. Qui est-ce ?",
+      "answer": "Rembrandt",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art014",
+      "question": "Peintre surréaliste belge, il joue avec le décalage entre l'objet et sa représentation. Son tableau représentant une pipe porte la mention 'Ceci n'est pas une pipe'. Qui est-ce ?",
+      "answer": "René Magritte",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art015",
+      "question": "Peintre autrichien associé au mouvement de la Sécession viennoise. Il est célèbre pour sa 'Période dorée' et son tableau Le Baiser, où les amants sont enveloppés d'or. Qui est-ce ?",
+      "answer": "Gustav Klimt",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art016",
+      "question": "Artiste américain figure majeure de l'expressionnisme abstrait. Il peignait ses toiles posées au sol en projetant la peinture sans toucher la toile, une technique appelée 'Drip painting'. Qui est-ce ?",
+      "answer": "Jackson Pollock",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art017",
+      "question": "Peintre néerlandais du XVIIe siècle, il a peint La Jeune Fille à la perle, surnommée la 'Mona Lisa du Nord'. Il est connu pour sa maîtrise de la lumière et ses scènes d'intérieur calmes. Qui est-ce ?",
+      "answer": "Johannes Vermeer",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art018",
+      "question": "Peintre espagnol de la cour, il a réalisé Les Ménines, un chef-d'œuvre de composition où il se peint lui-même en train de peindre la famille royale. Qui est-ce ?",
+      "answer": "Diego Vélasquez",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art019",
+      "question": "Peintre français chef de file du fauvisme, il est connu pour son utilisation de couleurs vives et non réalistes. À la fin de sa vie, il créait des 'papiers découpés' colorés. Qui est-ce ?",
+      "answer": "Henri Matisse",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art020",
+      "question": "Artiste japonaise contemporaine obsédée par les pois (polka dots) et les citrouilles. Elle vit volontairement dans un hôpital psychiatrique et crée des 'Infinity Rooms'. Qui est-ce ?",
+      "answer": "Yayoi Kusama",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art021",
+      "question": "Peintre italien de la Renaissance, il a peint La Naissance de Vénus où la déesse sort des eaux debout sur un coquillage. Il a travaillé pour les Médicis à Florence. Qui est-ce ?",
+      "answer": "Sandro Botticelli",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art022",
+      "question": "Artiste américain du Pop Art, il s'inspire des bandes dessinées (comics) et de la publicité. Ses œuvres utilisent des points de trame (points Ben-Day) et des bulles de dialogue. Qui est-ce ?",
+      "answer": "Roy Lichtenstein",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art023",
+      "question": "Peintre français du XIXe siècle, chef de file du mouvement romantique. Son tableau La Liberté guidant le peuple est devenu un symbole de la République française. Qui est-ce ?",
+      "answer": "Eugène Delacroix",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art024",
+      "question": "Artiste américain néo-expressionniste, il a commencé comme graffeur sous le nom de SAMO. Ami de Warhol, il est devenu une star de l'art avant de mourir d'overdose à 27 ans. Qui est-ce ?",
+      "answer": "Jean-Michel Basquiat",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art025",
+      "question": "Peintre américain réaliste connu pour ses toiles mélancoliques dépeignant la solitude urbaine. Nighthawks (Oiseaux de nuit) montre des clients dans un diner tard le soir. Qui est-ce ?",
+      "answer": "Edward Hopper",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art026",
+      "question": "Sculpteur français créateur de la Statue de la Liberté offerte aux États-Unis. Il a aussi sculpté le Lion de Belfort. Qui est-ce ?",
+      "answer": "Auguste Bartholdi",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art027",
+      "question": "Peintre néerlandais pionnier de l'abstraction, il est célèbre pour ses grilles de lignes noires et ses rectangles de couleurs primaires (rouge, bleu, jaune). Qui est-ce ?",
+      "answer": "Piet Mondrian",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art028",
+      "question": "Artiste japonais maître de l'estampe (ukiyo-e). Sa série des Trente-six vues du mont Fuji contient La Grande Vague de Kanagawa, l'une des images les plus célèbres au monde. Qui est-ce ?",
+      "answer": "Hokusai",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art029",
+      "question": "Peintre russe considéré comme l'un des fondateurs de l'art abstrait. Il associait la peinture à la musique et cherchait à exprimer la spiritualité par la couleur. Qui est-ce ?",
+      "answer": "Vassily Kandinsky",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art030",
+      "question": "Architecte sino-américain célèbre pour son style moderniste. Il a conçu la Pyramide du Louvre à Paris, qui fit scandale avant d'être acceptée. Qui est-ce ?",
+      "answer": "I.M. Pei (Ieoh Ming Pei)",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art031",
+      "question": "Peintre français impressionniste célèbre pour ses scènes de bal populaire (Le Bal du moulin de la Galette) et ses portraits de femmes et d'enfants lumineux. Qui est-ce ?",
+      "answer": "Auguste Renoir",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art032",
+      "question": "Peintre espagnol de transition entre classicisme et modernité. Ses 'Peintures noires' et son tableau Tres de Mayo dénonçant la guerre sont célèbres. Qui est-ce ?",
+      "answer": "Francisco de Goya",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art033",
+      "question": "Peintre français souvent considéré comme le père de l'art moderne. Il peignait obsessionnellement la montagne Sainte-Victoire et des natures mortes de pommes. Qui est-ce ?",
+      "answer": "Paul Cézanne",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art034",
+      "question": "Artiste contemporain américain controversé, connu pour ses œuvres kitsch et monumentales, notamment ses sculptures de chiens ballons en acier inoxydable (Balloon Dog). Qui est-ce ?",
+      "answer": "Jeff Koons",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art035",
+      "question": "Sculpteur suisse célèbre pour ses figures humaines filiformes, étirées et fragiles, souvent en bronze. L'Homme qui marche est l'une de ses œuvres les plus connues. Qui est-ce ?",
+      "answer": "Alberto Giacometti",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art036",
+      "question": "Architecte suisse naturalisé français, pionnier de l'architecture moderne. Il a conçu la Cité radieuse à Marseille et la Villa Savoye. Connu pour ses lunettes rondes. Qui est-ce ?",
+      "answer": "Le Corbusier",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art037",
+      "question": "Peintre italien de la période baroque, célèbre pour son usage dramatique du clair-obscur (ténébrisme) et sa vie tumultueuse de bagarreur. Il a peint une Tête de Méduse effrayante. Qui est-ce ?",
+      "answer": "Le Caravage (Caravaggio)",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art038",
+      "question": "Peintre français scandaleux du XIXe siècle. Son Déjeuner sur l'herbe, montrant une femme nue pique-niquant avec des hommes habillés, a choqué le public parisien. Qui est-ce ?",
+      "answer": "Édouard Manet",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art039",
+      "question": "Artiste française sculptrice et plasticienne, célèbre pour ses araignées géantes nommées 'Maman'. Elle explore les thèmes de la maternité et de l'enfance. Qui est-ce ?",
+      "answer": "Louise Bourgeois",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art040",
+      "question": "Peintre français post-impressionniste connu pour avoir inventé le pointillisme : peindre par petites touches de couleur pure juxtaposées. Un dimanche après-midi à l'île de la Grande Jatte est son chef-d'œuvre. Qui est-ce ?",
+      "answer": "Georges Seurat",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art041",
+      "question": "Peintre français ayant vécu à Tahiti et aux Marquises pour fuir la civilisation européenne. Il est célèbre pour ses représentations de femmes polynésiennes et ses couleurs chaudes. Qui est-ce ?",
+      "answer": "Paul Gauguin",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art042",
+      "question": "Peintre américain connu pour ses portraits stylisés de la société rurale du Midwest. Son tableau American Gothic montre un couple austère avec une fourche devant une maison. Qui est-ce ?",
+      "answer": "Grant Wood",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art043",
+      "question": "Peintre italien de la Haute Renaissance, célèbre pour ses madones douces et ses fresques au Vatican, notamment L'École d'Athènes. Il est mort très jeune à 37 ans. Qui est-ce ?",
+      "answer": "Raphaël",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art044",
+      "question": "Peintre russe naturalisé français, connu pour ses œuvres oniriques représentant souvent des amoureux volants, des violonistes et sa ville natale de Vitebsk. Il a peint le plafond de l'Opéra Garnier. Qui est-ce ?",
+      "answer": "Marc Chagall",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art045",
+      "question": "Peintre français du XIXe siècle, célèbre pour ses peintures et pastels de danseuses de ballet à l'Opéra de Paris. Il s'intéressait particulièrement au mouvement. Qui est-ce ?",
+      "answer": "Edgar Degas",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art046",
+      "question": "Mouvement artistique né à Zurich en 1916 en réaction à l'absurdité de la Première Guerre mondiale. Marcel Duchamp et son urinoir (Fontaine) en sont les symboles. Quel est ce mouvement ?",
+      "answer": "Dada (ou Dadaïsme)",
+      "difficulty": "normal",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art047",
+      "question": "Peintre flamand du XVe siècle, célèbre pour le Retable de Gand et Les Époux Arnolfini. Il a perfectionné la technique de la peinture à l'huile. Qui est-ce ?",
+      "answer": "Jan van Eyck",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art048",
+      "question": "Architecte américain célèbre pour son style 'organique' en harmonie avec la nature. Il a conçu la Maison sur la cascade et le musée Guggenheim de New York en spirale. Qui est-ce ?",
+      "answer": "Frank Lloyd Wright",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art049",
+      "question": "Artiste serbe pionnière de l'art corporel et de la performance. Dans 'The Artist is Present', elle est restée assise immobile face au public pendant 736 heures au MoMA. Qui est-ce ?",
+      "answer": "Marina Abramović",
+      "difficulty": "difficile",
+      "category": "Art"
+    },
+    {
+      "id": "cg-art050",
+      "question": "Peintre mexicain muraliste, communiste engagé, célèbre pour ses fresques monumentales racontant l'histoire du Mexique. Il a eu une relation tumultueuse avec Frida Kahlo. Qui est-ce ?",
+      "answer": "Diego Rivera",
+      "difficulty": "normal",
+      "category": "Art"
+    }
   ]
 }

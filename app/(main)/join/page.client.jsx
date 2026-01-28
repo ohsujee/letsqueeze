@@ -19,7 +19,7 @@ export default function JoinClient({ initialCode = "" }) {
   const [joining, setJoining] = useState(false);
   const [joiningGameId, setJoiningGameId] = useState(null);
   const [error, setError] = useState("");
-  const { user: currentUser, profile, subscription, loading: profileLoading, refresh: refreshProfile } = useUserProfile();
+  const { user: currentUser, profile, subscription, loading: profileLoading, refresh: refreshProfile, cachedPseudo } = useUserProfile();
 
   // Pseudo editing state
   const [isEditingPseudo, setIsEditingPseudo] = useState(false);
@@ -30,8 +30,8 @@ export default function JoinClient({ initialCode = "" }) {
   // Check if user is Pro
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
-  // Get pseudo from profile or fallback to displayName
-  const pseudo = profile?.pseudo || user?.displayName?.split(' ')[0] || 'Joueur';
+  // Get pseudo from profile or fallback to cached pseudo, then displayName
+  const pseudo = profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Joueur';
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {

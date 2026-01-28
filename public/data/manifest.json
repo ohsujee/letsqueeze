@@ -5,6 +5,7 @@
       "name": "Culture Générale",
       "emoji": "🌍",
       "themes": [
+        {"id": "database-divers", "title": "Divers", "emoji": "🎲", "questionCount": 100, "description": "Marques, Jeux, Traditions, Pop Culture", "free": true},
         {"id": "database-sciences", "title": "Sciences", "emoji": "🔬", "questionCount": 100, "description": "Physique, Chimie, Biologie, Astronomie"},
         {"id": "database-histoire", "title": "Histoire", "emoji": "📜", "questionCount": 100, "description": "Événements, Personnages, Guerres"},
         {"id": "database-geographie", "title": "Géographie", "emoji": "🗺️", "questionCount": 100, "description": "Pays, Capitales, Fleuves, Monuments"},
@@ -12,10 +13,10 @@
         {"id": "database-cinema", "title": "Cinéma", "emoji": "🎬", "questionCount": 100, "description": "Films, Réalisateurs, Acteurs"},
         {"id": "database-musique", "title": "Musique", "emoji": "🎵", "questionCount": 12, "description": "Artistes, Groupes, Classique, Pop"},
         {"id": "database-litterature", "title": "Littérature", "emoji": "📚", "questionCount": 10, "description": "Auteurs, Romans, Poésie"},
-        {"id": "database-art", "title": "Art", "emoji": "🎨", "questionCount": 10, "description": "Peinture, Sculpture, Architecture"},
+        {"id": "database-art", "title": "Art", "emoji": "🎨", "questionCount": 50, "description": "Peinture, Sculpture, Architecture"},
         {"id": "database-gastronomie", "title": "Gastronomie", "emoji": "🍽️", "questionCount": 8, "description": "Cuisine du monde, Chefs, Spécialités"},
-        {"id": "database-technologie", "title": "Technologie", "emoji": "💻", "questionCount": 10, "description": "Tech, Apps, Entrepreneurs"},
-        {"id": "database-nature", "title": "Nature", "emoji": "🌿", "questionCount": 10, "description": "Animaux, Écosystèmes, Phénomènes"},
+        {"id": "database-technologie", "title": "Technologie", "emoji": "💻", "questionCount": 50, "description": "Tech, Apps, Entrepreneurs"},
+        {"id": "database-nature", "title": "Nature", "emoji": "🌿", "questionCount": 50, "description": "Animaux, Écosystèmes, Phénomènes"},
         {"id": "database-mythologie", "title": "Mythologie", "emoji": "⚡", "questionCount": 12, "description": "Dieux grecs, nordiques, égyptiens"}
       ]
     },

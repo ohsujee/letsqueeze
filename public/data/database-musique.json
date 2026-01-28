@@ -3,17 +3,355 @@
   "title": "Musique",
   "lang": "fr",
   "items": [
-    {"id": "cg-mus001", "question": "Groupe britannique formé à Liverpool en 1960, il compte John Lennon, Paul McCartney, George Harrison et Ringo Starr. Avec plus de 600 millions d'albums vendus, c'est le groupe le plus influent de l'histoire. Quel est ce groupe ?", "answer": "The Beatles", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus002", "question": "Surnommé le 'Roi de la Pop', ce chanteur américain a révolutionné le clip vidéo avec Thriller et Bad. Son moonwalk et son gant pailleté sont légendaires. Décédé en 2009 à Los Angeles. Qui est-ce ?", "answer": "Michael Jackson", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus003", "question": "Groupe britannique mené par Freddie Mercury, il a produit Bohemian Rhapsody, un opéra rock de 6 minutes devenu hymne mondial. Le concert de Live Aid en 1985 reste mythique. Quel est ce groupe ?", "answer": "Queen", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus004", "question": "Compositeur allemand devenu sourd à 26 ans, il continue malgré tout à composer ses plus grandes œuvres dont la 9e Symphonie et l'Hymne à la Joie. Mort à Vienne en 1827. Qui est-ce ?", "answer": "Ludwig van Beethoven", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus005", "question": "Chanteuse originaire de la Barbade, elle est connue pour ses tubes Umbrella et Diamonds. Fondatrice de Fenty Beauty et Savage X Fenty, elle est aussi milliardaire. Qui est-ce ?", "answer": "Rihanna", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus006", "question": "Duo électro français formé par Thomas Bangalter et Guy-Manuel de Homem-Christo, ils sont reconnaissables à leurs casques de robots. Get Lucky et Around the World sont parmi leurs tubes. Quel est ce duo ?", "answer": "Daft Punk", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus007", "question": "Chanteur français d'origine arménienne décédé en 2018, il a interprété plus de 1200 chansons dont La Bohème et Emmenez-moi. Figure emblématique de la chanson française pendant 60 ans. Qui est-ce ?", "answer": "Charles Aznavour", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus008", "question": "Rappeur américain assassiné à Las Vegas en 1996, il est considéré comme l'un des plus grands de l'histoire du hip-hop. Changes et California Love restent des classiques. Qui est-ce ?", "answer": "Tupac (2Pac)", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus009", "question": "Chanteuse québécoise à la voix puissante, elle interprète My Heart Will Go On, thème du film Titanic. Résidente à Las Vegas pendant des années, elle a vendu plus de 200 millions d'albums. Qui est-ce ?", "answer": "Céline Dion", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus010", "question": "Prodige autrichien mort à 35 ans en 1791, il compose La Flûte enchantée, Don Giovanni et le Requiem inachevé. Enfant prodige, il compose dès l'âge de 5 ans. Qui est-ce ?", "answer": "Wolfgang Amadeus Mozart", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus011", "question": "Groupe de rock irlandais formé à Dublin en 1976, il est mené par le chanteur Bono. With or Without You et One figurent parmi leurs tubes. Engagés pour l'humanitaire, ils ont vendu 170 millions d'albums. Quel est ce groupe ?", "answer": "U2", "difficulty": "normal", "category": "Musique"},
-    {"id": "cg-mus012", "question": "Chanteuse britannique aux albums titrés par des nombres (19, 21, 25, 30), elle a remporté 16 Grammy Awards. Hello et Rolling in the Deep sont des tubes planétaires. Qui est-ce ?", "answer": "Adele", "difficulty": "normal", "category": "Musique"}
+    {
+      "id": "cg-mus001",
+      "question": "Groupe britannique formé à Liverpool en 1960, il compte John Lennon, Paul McCartney, George Harrison et Ringo Starr. Avec plus de 600 millions d'albums vendus, c'est le groupe le plus influent de l'histoire. Quel est ce groupe ?",
+      "answer": "The Beatles",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus002",
+      "question": "Surnommé le 'Roi de la Pop', ce chanteur américain a révolutionné le clip vidéo avec Thriller et Bad. Son moonwalk et son gant pailleté sont légendaires. Décédé en 2009 à Los Angeles. Qui est-ce ?",
+      "answer": "Michael Jackson",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus003",
+      "question": "Groupe britannique mené par Freddie Mercury, il a produit Bohemian Rhapsody, un opéra rock de 6 minutes devenu hymne mondial. Le concert de Live Aid en 1985 reste mythique. Quel est ce groupe ?",
+      "answer": "Queen",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus004",
+      "question": "Compositeur allemand devenu sourd à 26 ans, il continue malgré tout à composer ses plus grandes œuvres dont la 9e Symphonie et l'Hymne à la Joie. Mort à Vienne en 1827. Qui est-ce ?",
+      "answer": "Ludwig van Beethoven",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus005",
+      "question": "Chanteuse originaire de la Barbade, elle est connue pour ses tubes Umbrella et Diamonds. Fondatrice de Fenty Beauty et Savage X Fenty, elle est aussi milliardaire. Qui est-ce ?",
+      "answer": "Rihanna",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus006",
+      "question": "Duo électro français formé par Thomas Bangalter et Guy-Manuel de Homem-Christo, ils sont reconnaissables à leurs casques de robots. Get Lucky et Around the World sont parmi leurs tubes. Quel est ce duo ?",
+      "answer": "Daft Punk",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus007",
+      "question": "Chanteur français d'origine arménienne décédé en 2018, il a interprété plus de 1200 chansons dont La Bohème et Emmenez-moi. Figure emblématique de la chanson française pendant 60 ans. Qui est-ce ?",
+      "answer": "Charles Aznavour",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus008",
+      "question": "Rappeur américain assassiné à Las Vegas en 1996, il est considéré comme l'un des plus grands de l'histoire du hip-hop. Changes et California Love restent des classiques. Qui est-ce ?",
+      "answer": "Tupac (2Pac)",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus009",
+      "question": "Chanteuse québécoise à la voix puissante, elle interprète My Heart Will Go On, thème du film Titanic. Résidente à Las Vegas pendant des années, elle a vendu plus de 200 millions d'albums. Qui est-ce ?",
+      "answer": "Céline Dion",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus010",
+      "question": "Prodige autrichien mort à 35 ans en 1791, il compose La Flûte enchantée, Don Giovanni et le Requiem inachevé. Enfant prodige, il compose dès l'âge de 5 ans. Qui est-ce ?",
+      "answer": "Wolfgang Amadeus Mozart",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus011",
+      "question": "Groupe de rock irlandais formé à Dublin en 1976, il est mené par le chanteur Bono. With or Without You et One figurent parmi leurs tubes. Engagés pour l'humanitaire, ils ont vendu 170 millions d'albums. Quel est ce groupe ?",
+      "answer": "U2",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus012",
+      "question": "Chanteuse britannique aux albums titrés par des nombres (19, 21, 25, 30), elle a remporté 16 Grammy Awards. Hello et Rolling in the Deep sont des tubes planétaires. Qui est-ce ?",
+      "answer": "Adele",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus013",
+      "question": "Légende du reggae originaire de Jamaïque, il a popularisé le mouvement rastafari dans le monde entier. Mort à 36 ans, il chantait No Woman, No Cry et One Love. Qui est-ce ?",
+      "answer": "Bob Marley",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus014",
+      "question": "Chanteur de rock britannique connu pour ses yeux vairons et son alter ego Ziggy Stardust. Il a traversé les décennies avec des tubes comme Heroes, Space Oddity et Let's Dance. Qui est-ce ?",
+      "answer": "David Bowie",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus015",
+      "question": "Groupe de rock australien formé par les frères Young, célèbre pour l'uniforme d'écolier du guitariste Angus. Leurs tubes Highway to Hell et Back in Black sont des classiques du hard rock. Quel est ce groupe ?",
+      "answer": "AC/DC",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus016",
+      "question": "Rappeur blanc de Détroit, il est le protégé de Dr. Dre. Connu pour son alter ego Slim Shady et son débit ultra-rapide dans Rap God, il a joué dans le film 8 Mile. Qui est-ce ?",
+      "answer": "Eminem",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus017",
+      "question": "Idole des jeunes en France, ce rockeur a rempli les stades pendant 50 ans. Connu pour Allumer le feu et Que je t'aime, il a eu des funérailles nationales à la Madeleine en 2017. Qui est-ce ?",
+      "answer": "Johnny Hallyday",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus018",
+      "question": "Chanteuse américaine surnommée 'Queen B', elle a débuté dans le groupe Destiny's Child avant une carrière solo triomphale. Crazy in Love et Single Ladies sont ses hymnes. Qui est-ce ?",
+      "answer": "Beyoncé",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus019",
+      "question": "Groupe grunge de Seattle mené par Kurt Cobain, ils ont défini la musique des années 90 avec l'album Nevermind. Leur tube Smells Like Teen Spirit est l'hymne d'une génération. Quel est ce groupe ?",
+      "answer": "Nirvana",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus020",
+      "question": "Artiste belge inclassable, il a connu un succès mondial avec son album Racine Carrée. Ses tubes Papaoutai et Alors on danse mêlent électro, pop et textes sombres. Qui est-ce ?",
+      "answer": "Stromae",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus021",
+      "question": "Chanteuse française iconique surnommée 'La Môme', elle a vécu une vie tragique et passionnée. La Vie en rose et Non, je ne regrette rien sont ses chansons éternelles. Qui est-ce ?",
+      "answer": "Édith Piaf",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus022",
+      "question": "Chanteur et pianiste britannique aux lunettes excentriques, il a vendu plus de 300 millions de disques. Rocket Man et Candle in the Wind (hommage à Lady Di) sont ses grands succès. Qui est-ce ?",
+      "answer": "Elton John",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus023",
+      "question": "Superstar américaine de la pop et de la country, sa tournée 'Eras Tour' a battu tous les records de revenus de l'histoire. Elle est connue pour écrire des chansons sur ses ex-petits amis. Qui est-ce ?",
+      "answer": "Taylor Swift",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus024",
+      "question": "Groupe britannique mené par Mick Jagger et Keith Richards, ils sont actifs depuis 1962. Le logo de la langue rouge est l'un des plus connus au monde. (I Can't Get No) Satisfaction est leur tube. Quel est ce groupe ?",
+      "answer": "The Rolling Stones",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus025",
+      "question": "Compositeur de musique de film américain, il a créé les thèmes de Star Wars, Indiana Jones, Harry Potter et Les Dents de la mer. Il est le collaborateur fétiche de Spielberg. Qui est-ce ?",
+      "answer": "John Williams",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus026",
+      "question": "Chanteuse américaine à la voix exceptionnelle, surnommée 'The Voice'. Elle a joué dans Bodyguard et sa reprise de I Will Always Love You est l'un des singles les plus vendus. Qui est-ce ?",
+      "answer": "Whitney Houston",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus027",
+      "question": "Groupe suédois vainqueur de l'Eurovision 1974 avec Waterloo. Leurs initiales forment le nom du groupe. Dancing Queen et Mamma Mia font danser la planète depuis 50 ans. Quel est ce groupe ?",
+      "answer": "ABBA",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus028",
+      "question": "Chanteur français provocateur et poète, il a brûlé un billet de 500 francs à la télé. Auteur de La Javanaise et Je t'aime... moi non plus avec Jane Birkin. Qui est-ce ?",
+      "answer": "Serge Gainsbourg",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus029",
+      "question": "Groupe de rock britannique mené par Chris Martin, ils ont rempli les stades avec des tubes comme Yellow, Fix You et Viva la Vida. Ils sont connus pour leurs concerts colorés. Quel est ce groupe ?",
+      "answer": "Coldplay",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus030",
+      "question": "Chanteur américain multi-instrumentiste de Minneapolis, génie du funk et de la pop. Connu pour sa couleur violette et le film Purple Rain. Il a changé son nom en un symbole imprononçable. Qui est-ce ?",
+      "answer": "Prince",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus031",
+      "question": "Chanteuse britannique à la voix soul unique et au destin tragique, morte à 27 ans. Son album Back to Black et le tube Rehab l'ont propulsée au sommet. Qui est-ce ?",
+      "answer": "Amy Winehouse",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus032",
+      "question": "Compositeur baroque allemand du XVIIIe siècle, maître du contrepoint et de l'orgue. Auteur des Concertos brandebourgeois et des Variations Goldberg. Qui est-ce ?",
+      "answer": "Jean-Sébastien Bach",
+      "difficulty": "difficile",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus033",
+      "question": "Rappeur et producteur américain de la West Coast, connu pour son attitude décontractée et son amour de la marijuana. Il a été découvert par Dr. Dre avec Doggystyle. Qui est-ce ?",
+      "answer": "Snoop Dogg",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus034",
+      "question": "Chanteur et parolier français, personnalité préférée des Français pendant des décennies. Membre des Enfoirés, il a écrit pour Céline Dion. Il marche seul et donne l'envie d'avoir envie. Qui est-ce ?",
+      "answer": "Jean-Jacques Goldman",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus035",
+      "question": "Groupe de filles britannique des années 90 qui a prôné le 'Girl Power'. Victoria Beckham en faisait partie. Wannabe est leur tube planétaire. Quel est ce groupe ?",
+      "answer": "Les Spice Girls",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus036",
+      "question": "Trompettiste et chanteur de jazz américain à la voix rocailleuse. Surnommé Satchmo, il a interprété What a Wonderful World et Hello, Dolly!. Qui est-ce ?",
+      "answer": "Louis Armstrong",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus037",
+      "question": "Chanteuse américaine surnommée la 'Princesse de la Pop' fin des années 90. Baby One More Time et Toxic sont ses plus gros succès. Elle a récemment été libérée de sa tutelle. Qui est-ce ?",
+      "answer": "Britney Spears",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus038",
+      "question": "Groupe de rock psychédélique britannique connu pour ses albums conceptuels comme The Dark Side of the Moon et The Wall. David Gilmour et Roger Waters en étaient les piliers. Quel est ce groupe ?",
+      "answer": "Pink Floyd",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus039",
+      "question": "Chanteuse québécoise rousse, icône en France pour ses shows spectaculaires et ses clips cinématographiques. Désenchantée et Sans contrefaçon sont ses hymnes. Qui est-ce ?",
+      "answer": "Mylène Farmer",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus040",
+      "question": "Chanteur américain de folk-rock, voix de la protestation dans les années 60 avec Blowin' in the Wind. Il a reçu le prix Nobel de littérature en 2016, une première pour un musicien. Qui est-ce ?",
+      "answer": "Bob Dylan",
+      "difficulty": "difficile",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus041",
+      "question": "Chanteur canadien de R&B connu pour ses tubes Blinding Lights et Starboy. Il a assuré le show de la mi-temps du Super Bowl en 2021. Qui est-ce ?",
+      "answer": "The Weeknd",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus042",
+      "question": "Groupe français de new wave mené par Nicola Sirkis, actif depuis 1981. L'Aventurier et J'ai demandé à la lune sont leurs tubes intergénérationnels. Quel est ce groupe ?",
+      "answer": "Indochine",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus043",
+      "question": "DJ et producteur français mondialement connu, il a fait danser la planète avec Titanium, I Gotta Feeling (pour les Black Eyed Peas) et When Love Takes Over. Qui est-ce ?",
+      "answer": "David Guetta",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus044",
+      "question": "Chanteuse américaine de jazz et de soul, surnommée 'Lady Day'. Sa chanson Strange Fruit, dénonçant le lynchage des Noirs dans le Sud, est historique. Qui est-ce ?",
+      "answer": "Billie Holiday",
+      "difficulty": "difficile",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus045",
+      "question": "Compositeur de musique de film allemand, il a créé les bandes originales du Roi Lion, Gladiator, Inception et Pirates des Caraïbes. Son style épique est reconnaissable. Qui est-ce ?",
+      "answer": "Hans Zimmer",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus046",
+      "question": "Rappeur new-yorkais marié à Beyoncé, il est le premier rappeur milliardaire. Empire State of Mind est son hymne à New York. Qui est-ce ?",
+      "answer": "Jay-Z",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus047",
+      "question": "Chanteur populaire français des années 70, connu pour ses costumes à paillettes et ses chorégraphies avec les Claudettes. Alexandrie Alexandra et Cette année-là sont cultes. Qui est-ce ?",
+      "answer": "Claude François",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus048",
+      "question": "Groupe de nu-metal américain qui a marqué les années 2000 avec l'album Hybrid Theory. Leur chanteur Chester Bennington avait une voix puissante. In the End est leur tube. Quel est ce groupe ?",
+      "answer": "Linkin Park",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus049",
+      "question": "Chanteur français à l'accent du sud-ouest, il chante Je l'aime à mourir et La Corrida. Ses chansons poétiques sont des classiques de la variété. Qui est-ce ?",
+      "answer": "Francis Cabrel",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "cg-mus050",
+      "question": "Diva américaine célèbre pour sa voix couvrant 5 octaves et ses sifflets. Son tube All I Want for Christmas Is You revient chaque année à Noël. Qui est-ce ?",
+      "answer": "Mariah Carey",
+      "difficulty": "normal",
+      "category": "Musique"
+    }
   ]
 }

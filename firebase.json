@@ -1,5 +1,8 @@
 {
   "database": {
     "rules": "firebase.rules.json"
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
   }
 }

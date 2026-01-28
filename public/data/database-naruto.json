@@ -369,8 +369,8 @@
     },
     {
       "id": "nar053",
-      "question": "Sphère de chakra tournoyante créée par le 4ème Hokage, cette technique de rang A ne nécessite aucun signe. Le héros l'apprend de Jiraiya en trois étapes d'entraînement. Quelle est cette technique ?",
-      "answer": "Rasengan",
+      "question": "Technique de feu emblématique du clan Uchiha, elle consiste à accumuler du chakra dans la poitrine et le recracher sous forme d'une énorme boule de feu. Quelle est cette technique ?",
+      "answer": "Katon - Goukakyuu no Jutsu (Boule de feu suprême)",
       "difficulty": "normal",
       "category": "Techniques"
     },
@@ -467,38 +467,38 @@
     },
     {
       "id": "nar067",
-      "question": "Déserteur de Kiri à la peau bleue maniant l'épée Samehada qui absorbe le chakra, ce membre de l'Akatsuki était surnommé le Monstre Sans Queue. Partenaire d'Itachi, il ressemblait à un requin. Qui est-ce ?",
-      "answer": "Kisame Hoshigaki",
+      "question": "Premier antagoniste majeur de la série, ce ninja déserteur de Kiri surnommé le Démon du Brouillard manie l'épée Kubikiribocho. Son lien avec Haku est tragique. Qui est-ce ?",
+      "answer": "Zabuza Momochi",
       "difficulty": "normal",
-      "category": "Akatsuki"
+      "category": "Antagonistes"
     },
     {
       "id": "nar068",
-      "question": "Prodige du clan Uchiha ayant massacré sa famille sur ordre de Konoha, ce membre de l'Akatsuki portait un lourd secret. Il a laissé son petit frère en vie pour être tué par lui. Qui est-ce ?",
-      "answer": "Itachi Uchiha",
-      "difficulty": "normal",
-      "category": "Akatsuki"
+      "question": "Meilleur ami d'Itachi surnommé le Mirage, il possédait le Mangekyo Sharingan le plus puissant pour le genjutsu (Kotoamatsukami). Il s'est suicidé pour protéger le village. Qui est-ce ?",
+      "answer": "Shisui Uchiha",
+      "difficulty": "difficile",
+      "category": "Uchiha"
     },
     {
       "id": "nar069",
-      "question": "Artiste déserteur d'Iwa créant des sculptures d'argile explosive, ce membre blond de l'Akatsuki considérait l'art comme une explosion. Il s'est fait exploser contre Sasuke. Qui est-ce ?",
-      "answer": "Deidara",
-      "difficulty": "normal",
-      "category": "Akatsuki"
+      "question": "Troisième Tsuchikage d'Iwa, ce petit vieillard souffre du dos mais possède le Kekkei Tota (Jinton) capable de désintégrer la matière. Il a porté l'île-tortue sur son dos. Qui est-ce ?",
+      "answer": "Onoki",
+      "difficulty": "difficile",
+      "category": "Kages"
     },
     {
       "id": "nar070",
-      "question": "Marionnettiste de génie de Suna transformé lui-même en pantin, ce membre roux de l'Akatsuki avait une collection de 298 marionnettes humaines. Petit-fils de Chiyo, il a été vaincu par Sakura. Qui est-ce ?",
-      "answer": "Sasori",
+      "question": "Grand-mère de Sasori et marionnettiste légendaire de Suna, elle se sacrifie pour ressusciter Gaara après son extraction. Elle a combattu Hanzo la Salamandre autrefois. Qui est-ce ?",
+      "answer": "Chiyo",
       "difficulty": "normal",
-      "category": "Akatsuki"
+      "category": "Suna"
     },
     {
       "id": "nar071",
-      "question": "Immortel fanatique du culte de Jashin, ce membre aux cheveux blancs de l'Akatsuki tuait par des rituels vaudou. Enterré vivant par Shikamaru, il ne peut pas mourir. Qui est-ce ?",
-      "answer": "Hidan",
+      "question": "Fils du 3ème Hokage et sensei de l'équipe 10, ce fumeur invétéré manie des poings américains tranchants. Il est tué par Hidan en protégeant ses élèves. Qui est-ce ?",
+      "answer": "Asuma Sarutobi",
       "difficulty": "normal",
-      "category": "Akatsuki"
+      "category": "Senseis"
     },
     {
       "id": "nar072",
@@ -516,17 +516,17 @@
     },
     {
       "id": "nar074",
-      "question": "Portant un masque en spirale orange et jouant l'idiot, ce membre de l'Akatsuki cachait sa vraie identité. Ancien élève de Minato, il a survécu à l'éboulement grâce à Madara. Qui est-ce ?",
-      "answer": "Tobi (Obito Uchiha)",
-      "difficulty": "normal",
-      "category": "Akatsuki"
+      "question": "Kunoichi de l'équipe de Kakashi et Obito, elle est devenue involontairement l'hôte de Sanbi. Elle s'est jetée sur l'éclair de Kakashi pour protéger le village, traumatisant Obito. Qui est-ce ?",
+      "answer": "Rin Nohara",
+      "difficulty": "difficile",
+      "category": "Histoire"
     },
     {
       "id": "nar075",
-      "question": "Leader de l'Akatsuki contrôlant six corps grâce au Rinnegan, ce ninja aux cheveux orange se faisait appeler Dieu. Son vrai corps, Nagato, était paralysé et caché. Qui est-ce ?",
-      "answer": "Pain",
-      "difficulty": "normal",
-      "category": "Akatsuki"
+      "question": "Fondateur originel de l'Akatsuki et ami d'enfance de Nagato, son corps a été utilisé pour créer Tendo, le chemin Deva de Pain. Il voulait la paix par la compréhension mutuelle. Qui est-ce ?",
+      "answer": "Yahiko",
+      "difficulty": "difficile",
+      "category": "Histoire"
     },
     {
       "id": "nar076",
@@ -572,17 +572,17 @@
     },
     {
       "id": "nar082",
-      "question": "Premier bijuu capturé par l'Akatsuki, ce démon tanuki à une queue était scellé dans le Kazekage de Suna. Son extraction a causé la mort temporaire de son jinchuuriki. Quel est ce bijuu ?",
-      "answer": "Shukaku (Ichibi)",
-      "difficulty": "normal",
+      "question": "Démon chat à deux queues fait de flammes bleues, scellé dans Yugito Nii de Kumo. Elle a été capturée par Hidan et Kakuzu. Quel est ce bijuu ?",
+      "answer": "Matatabi (Nibi)",
+      "difficulty": "difficile",
       "category": "Bijuu"
     },
     {
       "id": "nar083",
-      "question": "Membre immortel de l'Akatsuki enterré vivant dans la forêt du clan Nara après sa défaite, il ne peut pas mourir mais reste emprisonné pour l'éternité. Shikamaru a vengé son maître Asuma. Qui est enterré ?",
-      "answer": "Hidan",
-      "difficulty": "difficile",
-      "category": "Akatsuki"
+      "question": "Membre de l'ANBU et seul survivant des expériences d'Orochimaru capable d'utiliser le Mokuton. Il remplace Kakashi comme capitaine de l'équipe 7 et surveille Naruto. Qui est-ce ?",
+      "answer": "Yamato (Tenzo)",
+      "difficulty": "normal",
+      "category": "Personnages"
     },
     {
       "id": "nar084",

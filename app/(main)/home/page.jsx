@@ -21,7 +21,8 @@ import { useToast } from '@/lib/hooks/useToast';
 import { Gamepad2, Heart, ChevronsUp, Crown, Search, Users, X, Minus, Plus, ArrowUpDown, TrendingUp, Clock, SortAsc } from 'lucide-react';
 import { genUniqueCode } from '@/lib/utils';
 import { isFounder } from '@/lib/admin';
-import { GAMES, getVisibleGames, filterByPlayerCount, sortGames, searchGames } from '@/lib/config/games';
+import { GAMES, getVisibleGames, filterByPlayerCount, sortGames, searchGames, applyRemoteConfig } from '@/lib/config/games';
+import { useRemoteConfig } from '@/lib/hooks/useRemoteConfig';
 import { useGlobalPlayCounts } from '@/lib/hooks/useGlobalPlayCounts';
 import { ROOM_TYPES } from '@/lib/config/rooms';
 
@@ -35,7 +36,7 @@ function HomePageContent() {
   const [showModeSelector, setShowModeSelector] = useState(false);
   const [pendingGame, setPendingGame] = useState(null);
   const { isPro } = useSubscription(user);
-  const { profile } = useUserProfile();
+  const { profile, cachedPseudo } = useUserProfile();
   const [showRejoinBanner, setShowRejoinBanner] = useState(true);
 
   // Search & Filter state
@@ -49,6 +50,9 @@ function HomePageContent() {
 
   // Global play counts for "popular" sort
   const { playCounts } = useGlobalPlayCounts();
+
+  // Remote Config for dynamic game availability
+  const { gamesConfig } = useRemoteConfig();
 
   // Close modals when clicking outside
   useEffect(() => {
@@ -181,7 +185,7 @@ function HomePageContent() {
           code: c,
           createdAt: now,
           hostUid: auth.currentUser.uid,
-          hostName: profile?.pseudo || user?.displayName?.split(' ')[0] || 'Animateur',
+          hostName: profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Animateur',
           expiresAt: now + 12 * 60 * 60 * 1000,
           mode: "individuel",
           teamCount: 0,
@@ -235,7 +239,7 @@ function HomePageContent() {
           code: c,
           createdAt: now,
           hostUid: auth.currentUser.uid,
-          hostName: profile?.pseudo || user?.displayName?.split(' ')[0] || 'Animateur',
+          hostName: profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Animateur',
           expiresAt: now + 12 * 60 * 60 * 1000,
           mode: "individuel",
           teamCount: 0,
@@ -265,7 +269,7 @@ function HomePageContent() {
           code: c,
           createdAt: now,
           hostUid: auth.currentUser.uid,
-          hostName: profile?.pseudo || user?.displayName?.split(' ')[0] || 'Animateur',
+          hostName: profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Animateur',
           expiresAt: now + 12 * 60 * 60 * 1000,
           mode: "individuel",
           teamCount: 0,
@@ -431,9 +435,9 @@ function HomePageContent() {
     }
   };
 
-  // Filter out founders-only games for non-founders
+  // Filter out founders-only games for non-founders, then apply Remote Config overrides
   const userIsFounder = isFounder(user);
-  const visibleGames = getVisibleGames(userIsFounder);
+  const visibleGames = applyRemoteConfig(getVisibleGames(userIsFounder), gamesConfig);
 
   const favoriteGames = visibleGames.filter(game => favorites.includes(game.id));
 
@@ -478,12 +482,12 @@ function HomePageContent() {
         <header className="home-header-modern">
           <div className="avatar-container">
             <div className="avatar-placeholder">
-              {(profile?.pseudo?.[0] || user?.displayName?.[0] || 'J').toUpperCase()}
+              {(profile?.pseudo?.[0] || cachedPseudo?.[0] || user?.displayName?.[0] || 'J').toUpperCase()}
             </div>
             <div className="avatar-status"></div>
           </div>
 
-          <h1 className="user-name">{profile?.pseudo || user?.displayName?.split(' ')[0] || 'Joueur'}</h1>
+          <h1 className="user-name">{profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Joueur'}</h1>
 
           <div className="header-actions">
             {isPro ? (

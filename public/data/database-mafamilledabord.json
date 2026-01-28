@@ -166,16 +166,16 @@
     },
     {
       "id": "mfd-024",
-      "question": "Dans cet épisode de la saison 4, Michael obtient des billets pour voir une star de la NBA jouer au Madison Square Garden. Quand toute la famille tombe malade, il prend des mesures extrêmes pour ne pas être contaminé. Quel est cet épisode ?",
-      "answer": "Outbreak Monkey",
+      "question": "Dans l'épisode culte où toute la famille tombe malade sauf Michael qui les met en quarantaine, quel animal est accusé par Michael d'avoir transmis le virus ?",
+      "answer": "Un singe (Le singe de l'épidémie)",
       "difficulty": "normal",
       "category": "Episodes"
     },
     {
       "id": "mfd-025",
-      "question": "Cet épisode en trois parties de la saison 3 voit la famille Kyle partir en vacances. Michael, pour économiser de l'argent, réserve un vol avec de nombreuses escales qui dure 43 heures. Quel est le titre de ces épisodes ?",
-      "answer": "The Kyles Go to Hawaii",
-      "difficulty": "normal",
+      "question": "Lorsque la famille Kyle part en vacances à Hawaï, Michael choisit un vol 'économique' avec de multiples escales. Combien d'heures le voyage est-il censé durer ?",
+      "answer": "43 heures",
+      "difficulty": "difficile",
       "category": "Episodes"
     },
     {
@@ -194,10 +194,10 @@
     },
     {
       "id": "mfd-028",
-      "question": "Dans l'épisode 'Outbreak Monkey', cette star de la NBA fait une apparition alors que Michael veut absolument assister à son début au Madison Square Garden. Qui est cette légende du basketball ?",
+      "question": "Dans l'épisode 'Outbreak Monkey', quelle star de la NBA Michael veut-il désespérément voir jouer au Madison Square Garden avant de tomber malade ?",
       "answer": "LeBron James",
       "difficulty": "normal",
-      "category": "Acteurs"
+      "category": "Episodes"
     },
     {
       "id": "mfd-029",
@@ -208,16 +208,16 @@
     },
     {
       "id": "mfd-030",
-      "question": "Dans cet épisode de la saison 2, Junior ose Claire de manger la tarte citron meringuée de leur père. Michael les punit en ne leur servant que cette tarte jusqu'à ce que quelqu'un avoue. Quel est le titre de cet épisode ?",
-      "answer": "Let Them Eat Pie (VF: Punition au citron)",
+      "question": "Dans un épisode célèbre, quelqu'un a mangé la part de tarte de Michael. Pour trouver le coupable, il oblige ses enfants à ne manger que de cette tarte. Quel était le parfum ?",
+      "answer": "Citron meringué",
       "difficulty": "normal",
       "category": "Episodes"
     },
     {
       "id": "mfd-031",
-      "question": "Épisode final de la série diffusé le 17 mai 2005, il se termine sur un cliffhanger où Jay annonce à Michael qu'elle est enceinte, alors qu'il s'apprêtait à subir une vasectomie. Quel est le titre de cet épisode ?",
-      "answer": "The 'V' Story (VF: Pour l'amour de ma vie)",
-      "difficulty": "difficile",
+      "question": "Dans le tout dernier épisode de la série, alors que Michael a rendez-vous pour faire une vasectomie, quelle nouvelle Jay lui annonce-t-elle à la toute fin ?",
+      "answer": "Elle est enceinte",
+      "difficulty": "normal",
       "category": "Episodes"
     },
     {
@@ -250,8 +250,8 @@
     },
     {
       "id": "mfd-036",
-      "question": "Dans la saison 2, Michael laisse les enfants vivre sans règles pendant une semaine. Ils doivent tout faire eux-mêmes, y compris cuisiner et payer leurs propres appels téléphoniques. Quel est le titre de cet épisode ?",
-      "answer": "No Rules (VF: La loi de la jungle)",
+      "question": "Dans l'épisode où Michael instaure la semaine 'sans règles', Junior finit par vivre dehors et manger dans la gamelle du chien. Quelle leçon Michael voulait-il leur apprendre ?",
+      "answer": "L'autonomie (ou que rien n'est gratuit)",
       "difficulty": "normal",
       "category": "Episodes"
     },
@@ -460,10 +460,10 @@
     },
     {
       "id": "mfd-066",
-      "question": "Épisode de la saison 5 où Michael retrouve un ami de lycée musclé qui l'aide à rentrer dans son jean vintage. Terry Crews joue le personnage de Darryl. Quel est le titre de cet épisode ?",
-      "answer": "Michael Joins a Gym (VF: Gym naze !)",
-      "difficulty": "normal",
-      "category": "Episodes"
+      "question": "Dans la saison 5, Michael fait appel à Darryl (Terry Crews) pour perdre du poids afin de rentrer à nouveau dans son jean fétiche de l'époque du lycée. Quelle est la marque de ce jean ?",
+      "answer": "Cavaricci",
+      "difficulty": "difficile",
+      "category": "Humour"
     },
     {
       "id": "mfd-067",
@@ -551,10 +551,10 @@
     },
     {
       "id": "mfd-079",
-      "question": "Dans 'Ma Famille D'abord', George Gore II a réalisé un épisode de la série où LeBron James fait une apparition. Quel est le titre de cet épisode ?",
-      "answer": "Outbreak Monkey",
+      "question": "Acteur célèbre pour la série 'Arnold et Willy', il apparaît dans un rêve de Kady comme un petit fiancé riche et exigeant. Il prononce sa phrase culte 'Qu'est-ce que tu me racontes là ?'. Qui est-ce ?",
+      "answer": "Gary Coleman",
       "difficulty": "normal",
-      "category": "Production"
+      "category": "Guest Stars"
     },
     {
       "id": "mfd-080",

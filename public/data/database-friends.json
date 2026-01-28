@@ -4,105 +4,105 @@
   "lang": "fr",
   "items": [
     {
-      "id": "tv-fr001",
+      "id": "friends-001",
       "question": "Dans cette sitcom américaine diffusée de 1994 à 2004, six amis new-yorkais se retrouvent quotidiennement au Central Perk, un café au canapé orange emblématique. Ross y répète sans cesse 'On avait fait une pause !' après sa rupture avec Rachel. De quelle série s'agit-il ?",
       "answer": "Friends",
       "difficulty": "normal",
       "category": "Friends"
     },
     {
-      "id": "tv-fr002",
+      "id": "friends-002",
       "question": "Paléontologue passionné de dinosaures travaillant au musée d'histoire naturelle de New York, ce personnage de Friends se marie trois fois et dit accidentellement le mauvais prénom à son mariage avec Emily. Qui est-ce ?",
       "answer": "Ross Geller",
       "difficulty": "normal",
       "category": "Friends"
     },
     {
-      "id": "tv-fr003",
+      "id": "friends-003",
       "question": "Chanson composée et interprétée par Phoebe Buffay au Central Perk, elle parle d'un félin malodorant dont personne ne s'occupe correctement. Taylor Swift et Lady Gaga l'ont reprise en duo avec Lisa Kudrow. Comment s'appelle cette chanson culte ?",
       "answer": "Smelly Cat (VF: Tu pues le chat)",
       "difficulty": "normal",
       "category": "Friends"
     },
     {
-      "id": "tv-fr004",
+      "id": "friends-004",
       "question": "Dans Friends, ce duo improbable de volailles vit dans l'appartement de Chandler et Joey. L'un est un petit oiseau jaune, l'autre est un palmipède blanc. Ils deviennent des compagnons récurrents au fil des saisons. Quels sont ces deux animaux de compagnie ?",
       "answer": "Un poussin et un canard (VO: Chick and Duck)",
       "difficulty": "normal",
       "category": "Friends"
     },
     {
-      "id": "tv-fr005",
+      "id": "friends-005",
       "question": "Manager du Central Perk aux cheveux blonds peroxydés, ce personnage est secrètement amoureux de Rachel pendant toute la série Friends. Il ne lui avoue son amour que dans le tout dernier épisode. Qui est-ce ?",
       "answer": "Gunther",
       "difficulty": "normal",
       "category": "Friends"
     },
     {
-      "id": "tv-fr006",
+      "id": "friends-006",
       "question": "Dans Friends, ce pingouin en peluche est le doudou préféré de Joey Tribbiani qu'il refuse de prêter. Il dort avec chaque nuit et le considère comme un confident. Comment s'appelle cette peluche ?",
       "answer": "Hugsy",
       "difficulty": "normal",
       "category": "Friends"
     },
     {
-      "id": "tv-fr007",
+      "id": "friends-007",
       "question": "Personnage de soap opera joué par Joey dans le feuilleton 'Des Jours et des Vies', ce neurochirurgien tombe dans un puits d'ascenseur, reçoit le cerveau de Jessica Lockhart, puis revient d'entre les morts. Comment s'appelle ce personnage ?",
       "answer": "Dr. Drake Ramoray",
       "difficulty": "difficile",
       "category": "Friends"
     },
     {
-      "id": "tv-fr008",
+      "id": "friends-008",
       "question": "Argument éternel entre Ross et Rachel dans Friends après leur séparation, cette phrase est répétée par Ross pour se justifier d'avoir couché avec Chloe la nuit même de leur rupture. Quelle est cette réplique culte ?",
       "answer": "We were on a break! (On avait fait une pause !)",
       "difficulty": "normal",
       "category": "Friends"
     },
     {
-      "id": "tv-fr009",
+      "id": "friends-009",
       "question": "Née en saison 8 de Friends et nommée d'après une amie de Rachel, cette petite fille est la fille de Ross et Rachel. Elle porte un double nom de famille. Comment s'appelle-t-elle ?",
       "answer": "Emma Geller-Green",
       "difficulty": "normal",
       "category": "Friends"
     },
     {
-      "id": "tv-fr010",
+      "id": "friends-010",
       "question": "Jumeaux adoptés par Monica et Chandler dans le dernier épisode de Friends, ils sont nés d'une jeune femme de l'Ohio jouée par Anna Faris. Le garçon porte le prénom du père de Monica. Comment s'appellent ces bébés qui clôturent la série ?",
       "answer": "Jack et Erica",
       "difficulty": "difficile",
       "category": "Friends"
     },
     {
-      "id": "tv-fr011",
+      "id": "friends-011",
       "question": "Sœur jumelle de Phoebe Buffay dans Friends, elle travaille comme serveuse distraite chez Riff's. Odieuse et égoïste, ce personnage a été créé pour la série 'Mad About You' avant d'apparaître dans Friends. Qui est-ce ?",
       "answer": "Ursula Buffay",
       "difficulty": "difficile",
       "category": "Friends"
     },
     {
-      "id": "tv-fr012",
+      "id": "friends-012",
       "question": "Pour expliquer les fêtes de décembre à son fils Ben, Ross se déguise en cet animal à carapace originaire du Texas, créant le 'Holiday Armadillo' pour enseigner Hanouka. En quel animal se déguise-t-il ?",
       "answer": "Un tatou (Armadillo)",
       "difficulty": "difficile",
       "category": "Friends"
     },
     {
-      "id": "tv-fr013",
+      "id": "friends-013",
       "question": "Maniaque du rangement et chef cuisinière, cette New-Yorkaise est la sœur de Ross et épouse Chandler à la fin de la série Friends. Son appartement violet est le point de rencontre du groupe. Qui est-ce ?",
       "answer": "Monica Geller",
       "difficulty": "normal",
       "category": "Friends"
     },
     {
-      "id": "tv-fr014",
+      "id": "friends-014",
       "question": "Acteur italo-américain au physique avantageux mais pas très futé, il refuse catégoriquement de partager sa nourriture et joue le Dr. Drake Ramoray dans 'Des Jours et des Vies'. Il reste célibataire à la fin de la série. Qui est-ce ?",
       "answer": "Joey Tribbiani",
       "difficulty": "normal",
       "category": "Friends"
     },
     {
-      "id": "tv-fr015",
+      "id": "friends-015",
       "question": "Spécialiste du sarcasme et ancien colocataire de Joey, ce personnage de Friends travaille dans l'analyse de données statistiques avant de se reconvertir dans la publicité. Il épouse Monica. Qui est-ce ?",
       "answer": "Chandler Bing",
       "difficulty": "normal",
@@ -264,7 +264,7 @@
     },
     {
       "id": "friends-038",
-      "question": "Joey explique à Rachel que si quelqu'un ne t'aime pas, son opinion n'a pas d'importance - c'est comme l'opinion d'une vache. Comment Joey appelle-t-il ce type d'argument sans importance ?",
+      "question": "Joey explique à Rachel que si quelqu'un ne t'aime pas, son opinion n'a pas d'importance - c'est comme l'opinion d'une vache. Dans la version originale, comment Joey appelle-t-il ce type d'argument sans importance ?",
       "answer": "A moo point",
       "difficulty": "normal",
       "category": "Friends"
@@ -362,8 +362,8 @@
     },
     {
       "id": "friends-052",
-      "question": "Marin de la Navy et ancien petit ami de Phoebe joué par Charlie Sheen, il revient pour un séjour romantique mais tous deux attrapent la varicelle. Dans quel épisode apparaît-il ?",
-      "answer": "The One with the Chicken Pox",
+      "question": "L'ancien petit ami de Phoebe, joué par Charlie Sheen, revient pour un séjour romantique mais ils attrapent tous les deux la varicelle. Que portent-ils sur leurs mains pour s'empêcher de se gratter ?",
+      "answer": "Des gants de cuisine (ou des maniques)",
       "difficulty": "difficile",
       "category": "Friends"
     },
@@ -411,9 +411,9 @@
     },
     {
       "id": "friends-059",
-      "question": "L'épisode 'The One with the Embryos' est considéré par TV Guide comme le meilleur de la série. Il combine le quiz de l'appartement avec l'implantation d'embryons chez Phoebe. Quelle note lui a donné Entertainment Weekly ?",
-      "answer": "A+",
-      "difficulty": "difficile",
+      "question": "Dans l'épisode culte du quiz, si les filles gagnent, le coq et le canard partent. Mais que gagnent les garçons s'ils remportent la victoire ?",
+      "answer": "L'appartement des filles (Le grand appartement)",
+      "difficulty": "normal",
       "category": "Friends"
     },
     {
@@ -656,8 +656,8 @@
     },
     {
       "id": "friends-094",
-      "question": "Après avoir gagné l'appartement de Monica au quiz, Joey et Chandler installent un objet ridicule dans le salon. C'est un grand coq en porcelaine blanc. Quel est l'autre objet absurde qu'ils installent ?",
-      "answer": "Un chien en porcelaine",
+      "question": "Après avoir gagné l'appartement, Joey ramène une énorme statue en porcelaine blanche sur roulettes. Quel animal représente-t-elle ?",
+      "answer": "Un chien",
       "difficulty": "difficile",
       "category": "Friends"
     },

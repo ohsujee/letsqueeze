@@ -14,16 +14,16 @@ export default function LegalPage() {
         <button className="back-btn" onClick={() => router.back()}>
           <ArrowLeft size={22} />
         </button>
-        <h1 className="header-title">Mentions Legales</h1>
+        <h1 className="header-title">Mentions Légales</h1>
       </header>
 
       <main className="legal-content">
         <section className="legal-section">
-          <h2>Editeur de l'application</h2>
+          <h2>Éditeur de l'application</h2>
           <p>
             <strong>Agence UMAIN</strong><br />
             SIRET : 989 982 913 00018<br />
-            Pierre-Levee, France<br />
+            Pierre-Levée, France<br />
             Email : contact@weareumain.com
           </p>
         </section>
@@ -34,7 +34,7 @@ export default function LegalPage() {
         </section>
 
         <section className="legal-section">
-          <h2>Hebergement</h2>
+          <h2>Hébergement</h2>
           <p>
             <strong>Vercel Inc.</strong><br />
             440 N Barranca Ave #4133<br />
@@ -44,7 +44,7 @@ export default function LegalPage() {
         </section>
 
         <section className="legal-section">
-          <h2>Base de donnees</h2>
+          <h2>Base de données</h2>
           <p>
             <strong>Google Firebase</strong><br />
             Google LLC<br />
@@ -54,16 +54,16 @@ export default function LegalPage() {
         </section>
 
         <section className="legal-section">
-          <h2>Propriete intellectuelle</h2>
+          <h2>Propriété intellectuelle</h2>
           <p>
             L'ensemble du contenu de l'application Gigglz (textes, images, logos,
-            elements graphiques, sons, logiciels) est la propriete exclusive
-            d'Agence UMAIN ou de ses partenaires et est protege par les lois
-            francaises et internationales relatives a la propriete intellectuelle.
+            éléments graphiques, sons, logiciels) est la propriété exclusive
+            d'Agence UMAIN ou de ses partenaires et est protégé par les lois
+            françaises et internationales relatives à la propriété intellectuelle.
           </p>
           <p>
-            Toute reproduction, representation, modification ou exploitation
-            non autorisee de tout ou partie du contenu est interdite.
+            Toute reproduction, représentation, modification ou exploitation
+            non autorisée de tout ou partie du contenu est interdite.
           </p>
         </section>
 
@@ -71,21 +71,21 @@ export default function LegalPage() {
           <h2>Services tiers</h2>
           <p>L'application utilise les services suivants :</p>
           <ul>
-            <li><strong>Spotify</strong> - Integration musicale pour le Blind Test (Spotify AB)</li>
-            <li><strong>Firebase</strong> - Authentification et base de donnees (Google LLC)</li>
+            <li><strong>Spotify</strong> - Intégration musicale pour le Blind Test (Spotify AB)</li>
+            <li><strong>Firebase</strong> - Authentification et base de données (Google LLC)</li>
             <li><strong>RevenueCat</strong> - Gestion des abonnements in-app</li>
           </ul>
         </section>
 
         <section className="legal-section">
-          <h2>Limitation de responsabilite</h2>
+          <h2>Limitation de responsabilité</h2>
           <p>
-            Agence UMAIN s'efforce de fournir des informations exactes et a jour,
-            mais ne peut garantir l'exactitude, la completude ou l'actualite des
-            informations diffusees sur l'application.
+            Agence UMAIN s'efforce de fournir des informations exactes et à jour,
+            mais ne peut garantir l'exactitude, la complétude ou l'actualité des
+            informations diffusées sur l'application.
           </p>
           <p>
-            L'utilisateur reconnait utiliser ces informations sous sa responsabilite
+            L'utilisateur reconnaît utiliser ces informations sous sa responsabilité
             exclusive.
           </p>
         </section>
@@ -93,20 +93,20 @@ export default function LegalPage() {
         <section className="legal-section">
           <h2>Droit applicable</h2>
           <p>
-            Les presentes mentions legales sont regies par le droit francais.
-            En cas de litige, les tribunaux francais seront seuls competents.
+            Les présentes mentions légales sont régies par le droit français.
+            En cas de litige, les tribunaux français seront seuls compétents.
           </p>
         </section>
 
         <section className="legal-section">
           <h2>Contact</h2>
           <p>
-            Pour toute question concernant ces mentions legales, vous pouvez
-            nous contacter a : <a href="mailto:contact@weareumain.com">contact@weareumain.com</a>
+            Pour toute question concernant ces mentions légales, vous pouvez
+            nous contacter à : <a href="mailto:contact@weareumain.com">contact@weareumain.com</a>
           </p>
         </section>
 
-        <p className="legal-update">Derniere mise a jour : Janvier 2025</p>
+        <p className="legal-update">Dernière mise à jour : Janvier 2025</p>
       </main>
 
       <style jsx>{`
@@ -114,6 +114,8 @@ export default function LegalPage() {
           flex: 1; min-height: 0;
           background: #0a0a0f;
           position: relative;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
         }
 
         .legal-bg {

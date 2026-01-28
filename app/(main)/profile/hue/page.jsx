@@ -4,9 +4,17 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ChevronLeft, Lightbulb, Wifi, WifiOff, Check, Play,
-  Settings2, Zap, Palette, RefreshCw, Search, X
+  ChevronLeft, ChevronDown, Lightbulb, Wifi, WifiOff, Check, Play,
+  Settings2, Zap, Palette, RefreshCw, Search, X,
+  Sparkles, Clock, Trophy, Frown, Bell, CirclePlay, CheckCircle, XCircle, Timer
 } from 'lucide-react';
+
+// Philips Hue Logo
+const HueLogo = ({ size = 32 }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width={size} height={size}>
+    <path d="M20.672 9.6c-2.043 0-3.505 1.386-3.682 3.416h-.664c-.247 0-.395.144-.395.384 0 .24.148.384.395.384h.661c.152 2.09 1.652 3.423 3.915 3.423.944 0 1.685-.144 2.332-.453.158-.075.337-.217.292-.471a.334.334 0 0 0-.15-.242c-.104-.065-.25-.072-.422-.02a7.93 7.93 0 0 0-.352.12c-.414.146-.771.273-1.599.273-1.75 0-2.908-1.023-2.952-2.605v-.025h5.444c.313 0 .492-.164.505-.463v-.058C23.994 9.865 21.452 9.6 20.672 9.6zm2.376 3.416h-5l.004-.035c.121-1.58 1.161-2.601 2.649-2.601 1.134 0 2.347.685 2.347 2.606zM9.542 10.221c0-.335-.195-.534-.52-.534s-.52.2-.52.534v2.795h1.04zm4.29 3.817c0 1.324-.948 2.361-2.16 2.361-1.433 0-2.13-.763-2.13-2.333v-.282h-1.04v.34c0 2.046.965 3.083 2.868 3.083 1.12 0 1.943-.486 2.443-1.445l.02-.036v.861c0 .334.193.534.519.534.325 0 .52-.2.52-.534v-2.803h-1.04zm.52-4.351c-.326 0-.52.2-.52.534v2.795h1.04v-2.795c0-.335-.195-.534-.52-.534zM3.645 9.6c-1.66 0-2.31 1.072-2.471 1.4l-.135.278V7.355c0-.347-.199-.562-.52-.562-.32 0-.519.215-.519.562v5.661h1.039v-.015c0-1.249.72-2.592 2.304-2.592 1.29 0 2.001.828 2.001 2.332v.275h1.04v-.246c0-2.044-.973-3.17-2.739-3.17zM0 16.558c0 .347.199.563.52.563.32 0 .519-.216.519-.563v-2.774H0zm5.344 0c0 .347.2.563.52.563s.52-.216.52-.563v-2.774h-1.04z"/>
+  </svg>
+);
 import hueService from '@/lib/hue-module/services/hueService';
 import hueScenariosService, { COLORS } from '@/lib/hue-module/services/hueScenariosService';
 import { GAME_EVENTS } from '@/lib/hue-module/components/HueGameConfig';
@@ -65,6 +73,59 @@ export default function HueSettingsPage() {
   const [gameConfigs, setGameConfigs] = useState({});
   const [editingEvent, setEditingEvent] = useState(null);
   const [testingScenario, setTestingScenario] = useState(null);
+  const [testingColor, setTestingColor] = useState(null);
+
+  // Event icons mapping
+  const EVENT_ICONS = {
+    ambiance: Sparkles,
+    roundStart: CirclePlay,
+    goodAnswer: CheckCircle,
+    badAnswer: XCircle,
+    timeUp: Timer,
+    victory: Trophy,
+    defeat: Frown,
+    buzz: Bell
+  };
+
+  // Presets for quick configuration
+  const PRESETS = [
+    {
+      id: 'gameshow',
+      name: 'Game Show',
+      icon: '🎬',
+      config: {
+        ambiance: { color: 'blue', effect: 'solid', enabled: true },
+        goodAnswer: { color: 'green', effect: 'flash', enabled: true },
+        badAnswer: { color: 'red', effect: 'flash', enabled: true },
+        victory: { color: 'yellow', effect: 'rainbow', enabled: true }
+      }
+    },
+    {
+      id: 'chill',
+      name: 'Chill',
+      icon: '🌙',
+      config: {
+        ambiance: { color: 'purple', effect: 'solid', enabled: true },
+        goodAnswer: { color: 'cyan', effect: 'pulse', enabled: true },
+        badAnswer: { color: 'orange', effect: 'solid', enabled: true },
+        victory: { color: 'pink', effect: 'pulse', enabled: true }
+      }
+    },
+    {
+      id: 'intense',
+      name: 'Intense',
+      icon: '🔥',
+      config: {
+        ambiance: { color: 'red', effect: 'pulse', enabled: true },
+        roundStart: { color: 'orange', effect: 'flash', enabled: true },
+        goodAnswer: { color: 'green', effect: 'flash', enabled: true },
+        badAnswer: { color: 'red', effect: 'flash', enabled: true },
+        timeUp: { color: 'orange', effect: 'pulse', enabled: true },
+        victory: { color: 'yellow', effect: 'rainbow', enabled: true },
+        defeat: { color: 'purple', effect: 'solid', enabled: true }
+      }
+    }
+  ];
 
   // Load Hue config when user is available
   useEffect(() => {
@@ -185,6 +246,8 @@ export default function HueSettingsPage() {
   };
 
   const testColor = async (colorPreset) => {
+    setTestingColor(colorPreset.id);
+
     // Sauvegarder l'état actuel
     await hueService.saveCurrentState();
 
@@ -200,7 +263,30 @@ export default function HueSettingsPage() {
     // Restaurer après 2s
     setTimeout(async () => {
       await hueService.restoreState();
+      setTestingColor(null);
     }, 2000);
+  };
+
+  // Apply preset configuration
+  const applyPreset = (preset) => {
+    Object.entries(preset.config).forEach(([eventId, eventConfig]) => {
+      saveEventConfig(activeGame, eventId, {
+        ...eventConfig,
+        lights: selectedLights // Use all selected lights
+      });
+    });
+  };
+
+  // Test full sequence
+  const testFullSequence = async () => {
+    const events = GAME_EVENTS[activeGame]?.events || [];
+    for (const event of events) {
+      const config = getEventConfig(activeGame, event.id);
+      if (config.enabled && (config.lights || []).length > 0) {
+        await testEventEffect(activeGame, event.id);
+        await new Promise(resolve => setTimeout(resolve, 2500)); // Wait between effects
+      }
+    }
   };
 
   const saveEventConfig = (gameId, eventId, config) => {
@@ -351,14 +437,14 @@ export default function HueSettingsPage() {
 
       {/* Main Content */}
       <main className="hue-main">
-        {/* Hero Section */}
+        {/* Hero Section - Compact */}
         <section className="hue-hero">
           <div className="hue-hero-icon">
-            <Lightbulb size={40} />
+            <HueLogo size={32} />
           </div>
           <div className="hue-hero-content">
             <h2>Éclairage Intelligent</h2>
-            <p>Créez une expérience immersive avec vos lumières Philips Hue synchronisées aux événements du jeu.</p>
+            <p>Synchronisez vos lumières avec les événements du jeu.</p>
           </div>
         </section>
 
@@ -416,29 +502,30 @@ export default function HueSettingsPage() {
                   </div>
                 ) : (
                   <div className="hue-connection-flow">
-                    {/* Search Button */}
-                    <button
-                      onClick={handleDiscover}
-                      disabled={isSearching}
-                      className="hue-btn hue-btn-primary hue-btn-large"
-                    >
-                      {isSearching ? (
-                        <>
-                          <RefreshCw size={22} className="spinning" />
-                          <span>Recherche en cours...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Search size={22} />
-                          <span>Rechercher les bridges</span>
-                        </>
-                      )}
-                    </button>
+                    {/* Search Button - Hidden when bridges found */}
+                    {bridges.length === 0 && (
+                      <button
+                        onClick={handleDiscover}
+                        disabled={isSearching}
+                        className="hue-btn hue-btn-primary hue-btn-large"
+                      >
+                        {isSearching ? (
+                          <>
+                            <RefreshCw size={20} className="spinning" />
+                            <span>Recherche...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Search size={20} />
+                            <span>Rechercher les bridges</span>
+                          </>
+                        )}
+                      </button>
+                    )}
 
-                    {/* Bridges Found */}
+                    {/* Bridges Found - Compact */}
                     {bridges.length > 0 && (
                       <div className="hue-bridges-list">
-                        <h4>Bridges trouvés</h4>
                         {bridges.map((bridge) => (
                           <button
                             key={bridge.id}
@@ -446,46 +533,26 @@ export default function HueSettingsPage() {
                             className={`hue-bridge-item ${selectedBridge === bridge.ip ? 'selected' : ''}`}
                           >
                             <div className="hue-bridge-icon">
-                              <Lightbulb size={24} />
+                              <Lightbulb size={20} />
                             </div>
                             <div className="hue-bridge-info">
                               <span className="hue-bridge-ip">{bridge.ip}</span>
-                              <span className="hue-bridge-id">{bridge.id}</span>
                             </div>
-                            {selectedBridge === bridge.ip && <Check size={20} className="hue-bridge-check" />}
+                            {selectedBridge === bridge.ip && <Check size={18} className="hue-bridge-check" />}
                           </button>
                         ))}
                       </div>
                     )}
 
-                    {/* Manual Input Toggle */}
-                    <button
-                      onClick={() => setShowManualInput(!showManualInput)}
-                      className="hue-link-btn"
-                    >
-                      {showManualInput ? 'Masquer la saisie manuelle' : 'Entrer l\'IP manuellement'}
-                    </button>
-
-                    {/* Manual IP Input */}
-                    {showManualInput && (
-                      <div className="hue-input-group">
-                        <label>Adresse IP du bridge</label>
-                        <input
-                          type="text"
-                          value={manualIp}
-                          onChange={(e) => setManualIp(e.target.value)}
-                          placeholder="192.168.1.xxx"
-                          className="hue-input"
-                        />
-                      </div>
-                    )}
-
-                    {/* Connect Instructions */}
+                    {/* Instruction + Connect Button */}
                     {(selectedBridge || manualIp) && (
-                      <div className="hue-connect-section">
-                        <div className="hue-instruction-card">
-                          <span className="hue-instruction-icon">👆</span>
-                          <p>Appuyez sur le <strong>bouton central</strong> de votre bridge Hue, puis cliquez sur Connecter</p>
+                      <>
+                        <div className={`hue-instruction-card ${connectionError ? 'error' : ''}`}>
+                          {connectionError ? (
+                            <p>Le bouton du bridge n'a pas été appuyé. Appuyez dessus puis réessayez.</p>
+                          ) : (
+                            <p>Appuyez sur le <strong>bouton du bridge</strong> puis cliquez sur Connecter</p>
+                          )}
                         </div>
                         <button
                           onClick={handleConnect}
@@ -494,14 +561,29 @@ export default function HueSettingsPage() {
                         >
                           {isSearching ? 'Connexion...' : 'Connecter'}
                         </button>
-                      </div>
+                      </>
                     )}
 
-                    {/* Error */}
-                    {connectionError && (
-                      <div className="hue-error-card">
-                        <X size={20} />
-                        <p>{connectionError}</p>
+                    {/* Manual Input Toggle - Only when no bridge found */}
+                    {bridges.length === 0 && (
+                      <button
+                        onClick={() => setShowManualInput(!showManualInput)}
+                        className="hue-link-btn"
+                      >
+                        {showManualInput ? 'Masquer' : 'Entrer l\'IP manuellement'}
+                      </button>
+                    )}
+
+                    {/* Manual IP Input */}
+                    {showManualInput && bridges.length === 0 && (
+                      <div className="hue-input-group">
+                        <input
+                          type="text"
+                          value={manualIp}
+                          onChange={(e) => setManualIp(e.target.value)}
+                          placeholder="192.168.1.xxx"
+                          className="hue-input"
+                        />
                       </div>
                     )}
                   </div>
@@ -521,7 +603,6 @@ export default function HueSettingsPage() {
                 {/* Room Selector */}
                 {groups.length > 0 && (
                   <div className="hue-room-selector">
-                    <label>Pièce du jeu</label>
                     <div className="hue-room-buttons">
                       <button
                         onClick={() => setSelectedGroup(null)}
@@ -545,57 +626,59 @@ export default function HueSettingsPage() {
                 {/* Lights Header */}
                 <div className="hue-lights-header">
                   <div className="hue-lights-count">
-                    <span className="count">{selectedLights.length}</span>
-                    <span className="label">lampe{selectedLights.length !== 1 ? 's' : ''} sélectionnée{selectedLights.length !== 1 ? 's' : ''}</span>
+                    <span className="count">{selectedLights.length}</span> sélectionnée{selectedLights.length !== 1 ? 's' : ''}
                   </div>
                   <div className="hue-lights-actions">
                     <button onClick={selectAllLights} className="hue-btn hue-btn-small">Tout</button>
                     <button onClick={deselectAllLights} className="hue-btn hue-btn-small">Aucun</button>
-                    {selectedLights.length > 0 && (
-                      <button onClick={testLights} className="hue-btn hue-btn-small hue-btn-accent">
-                        <Zap size={16} />
-                        Tester
-                      </button>
-                    )}
                   </div>
                 </div>
 
-                {/* Lights Grid */}
-                {loadingLights ? (
-                  <div className="hue-lights-loading">
-                    <div className="hue-loading-spinner" />
-                    <p>Chargement des lampes...</p>
-                  </div>
-                ) : filteredLights.length === 0 ? (
-                  <div className="hue-lights-empty">
-                    <Lightbulb size={48} />
-                    <p>Aucune lampe trouvée</p>
-                    <span>Vérifiez que vos lampes sont connectées au bridge</span>
-                  </div>
-                ) : (
-                  <div className="hue-lights-grid">
-                    {filteredLights.map((light) => (
-                      <button
-                        key={light.id}
-                        onClick={() => toggleLight(light.id)}
-                        className={`hue-light-card ${selectedLights.includes(light.id) ? 'selected' : ''}`}
-                      >
-                        <div className={`hue-light-bulb ${light.state.on ? 'on' : 'off'}`}>
-                          <Lightbulb size={28} />
-                        </div>
-                        <div className="hue-light-info">
-                          <span className="hue-light-name">{light.name}</span>
-                          <span className="hue-light-state">{light.state.on ? 'Allumée' : 'Éteinte'}</span>
-                        </div>
-                        {selectedLights.includes(light.id) && (
-                          <div className="hue-light-check">
-                            <Check size={16} />
-                          </div>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                {/* Lights Grid - Scrollable */}
+                <div className="hue-lights-scroll">
+                  {loadingLights ? (
+                    <div className="hue-lights-loading">
+                      <div className="hue-loading-spinner" />
+                      <p>Chargement des lampes...</p>
+                    </div>
+                  ) : filteredLights.length === 0 ? (
+                    <div className="hue-lights-empty">
+                      <Lightbulb size={48} />
+                      <p>Aucune lampe trouvée</p>
+                      <span>Vérifiez que vos lampes sont connectées au bridge</span>
+                    </div>
+                  ) : (
+                    <div className="hue-lights-grid">
+                      {filteredLights.map((light) => {
+                        const isSelected = selectedLights.includes(light.id);
+                        const isOn = light.state.on;
+                        return (
+                          <button
+                            key={light.id}
+                            onClick={() => toggleLight(light.id)}
+                            className={`hue-light-card ${isSelected ? 'selected' : ''} ${isOn ? 'is-on' : ''}`}
+                          >
+                            {isOn && <div className="light-glow" />}
+                            {isSelected && <div className="selection-ring" />}
+
+                            <div className={`light-icon ${isOn ? 'on' : 'off'}`}>
+                              <Lightbulb size={28} strokeWidth={1.5} />
+                            </div>
+
+                            <span className="light-name">{light.name}</span>
+                            <span className="light-status">{isOn ? 'Allumée' : 'Éteinte'}</span>
+
+                            {isSelected && (
+                              <div className="check-badge">
+                                <Check size={10} strokeWidth={3} />
+                              </div>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               </motion.div>
             )}
 
@@ -620,12 +703,34 @@ export default function HueSettingsPage() {
                       <button
                         key={color.id}
                         onClick={() => testColor(color)}
-                        className="hue-color-btn"
+                        className={`hue-color-btn ${testingColor === color.id ? 'testing' : ''}`}
                         style={{ '--color': color.color }}
                         title={color.name}
+                        disabled={testingColor !== null}
                       >
-                        <div className="hue-color-swatch" />
-                        <span>{color.name}</span>
+                        <div className="hue-color-swatch">
+                          {testingColor === color.id && (
+                            <div className="color-testing-indicator">
+                              <Zap size={16} />
+                            </div>
+                          )}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Presets Section - Sans encadré */}
+                <div className="hue-presets-section">
+                  <div className="hue-presets-grid">
+                    {PRESETS.map((preset) => (
+                      <button
+                        key={preset.id}
+                        onClick={() => applyPreset(preset)}
+                        className="hue-preset-card"
+                      >
+                        <span className="preset-icon">{preset.icon}</span>
+                        <span className="preset-name">{preset.name}</span>
                       </button>
                     ))}
                   </div>
@@ -649,31 +754,66 @@ export default function HueSettingsPage() {
                     ))}
                   </div>
 
+                  {/* Test Sequence Button */}
+                  <button
+                    onClick={testFullSequence}
+                    className="hue-test-sequence-btn"
+                    disabled={testingScenario !== null}
+                  >
+                    <Play size={16} />
+                    Tester la séquence
+                  </button>
+
                   {/* Events List */}
                   <div className="hue-events-list">
                     {GAME_EVENTS[activeGame]?.events.map((event) => {
                       const config = getEventConfig(activeGame, event.id);
                       const selectedColor = COLOR_PRESETS.find(c => c.id === config.color) || COLOR_PRESETS[5];
+                      const EventIcon = EVENT_ICONS[event.id] || Sparkles;
+                      const isConfigured = config.enabled && (config.lights || []).length > 0;
+                      const isExpanded = editingEvent === `${activeGame}-${event.id}`;
 
                       return (
-                        <div key={event.id} className="hue-event-card">
-                          <div className="hue-event-header">
+                        <div
+                          key={event.id}
+                          className={`hue-event-card ${config.enabled ? 'enabled' : ''} ${isConfigured ? 'configured' : ''} ${isExpanded ? 'expanded' : ''}`}
+                          style={isConfigured ? { '--event-color': selectedColor.color } : {}}
+                        >
+                          <div
+                            className="hue-event-header"
+                            onClick={() => setEditingEvent(isExpanded ? null : `${activeGame}-${event.id}`)}
+                          >
+                            <div className="event-icon-wrap">
+                              <EventIcon size={18} />
+                            </div>
                             <div className="hue-event-info">
-                              <h4>{event.name}</h4>
+                              <div className="event-title-row">
+                                <h4>{event.name}</h4>
+                                {isConfigured && (
+                                  <div
+                                    className="event-color-dot"
+                                    style={{ background: selectedColor.color }}
+                                  />
+                                )}
+                              </div>
                               <p>{event.description}</p>
                             </div>
-                            <button
-                              onClick={() => {
-                                const newConfig = { ...config, enabled: !config.enabled };
-                                saveEventConfig(activeGame, event.id, newConfig);
-                              }}
-                              className={`hue-toggle ${config.enabled ? 'active' : ''}`}
-                            >
-                              <div className="hue-toggle-thumb" />
-                            </button>
+                            <div className="event-actions">
+                              <ChevronDown size={18} className={`event-chevron ${isExpanded ? 'rotated' : ''}`} />
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  const newConfig = { ...config, enabled: !config.enabled };
+                                  saveEventConfig(activeGame, event.id, newConfig);
+                                }}
+                                className={`hue-toggle ${config.enabled ? 'active' : ''}`}
+                              >
+                                <div className="hue-toggle-thumb" />
+                              </button>
+                            </div>
                           </div>
 
-                          {config.enabled && (
+                          {isExpanded && (
                             <div className="hue-event-config">
                               {/* Sélecteur de lampes */}
                               <div className="hue-config-row">
@@ -776,10 +916,16 @@ export default function HueSettingsPage() {
 
       <style jsx>{`
         .hue-page {
-          flex: 1; min-height: 0;
+          flex: 1;
+          min-height: 0;
+          display: flex;
+          flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
           color: white;
           position: relative;
+          overflow-x: hidden;
+          width: 100%;
+          max-width: 100vw;
         }
 
         /* Background - Style Guide Section 7.1 */
@@ -900,55 +1046,58 @@ export default function HueSettingsPage() {
 
         /* Main */
         .hue-main {
+          flex: 1;
+          min-height: 0;
+          overflow-y: auto;
+          overflow-x: hidden;
+          -webkit-overflow-scrolling: touch;
           position: relative;
           z-index: 1;
           max-width: 800px;
+          width: 100%;
           margin: 0 auto;
           padding: 24px;
-          padding-bottom: 80px;
+          padding-bottom: calc(100px + var(--safe-area-bottom, 0px));
+          box-sizing: border-box;
         }
 
-        /* Hero - Style Guide Glassmorphism */
+        /* Hero - Compact */
         .hue-hero {
           display: flex;
-          gap: 20px;
-          padding: 24px;
+          align-items: center;
+          gap: 16px;
+          padding: 16px;
           background: rgba(20, 20, 30, 0.8);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border: 1px solid rgba(139, 92, 246, 0.25);
-          border-radius: 20px;
-          margin-bottom: 24px;
-          box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          border-radius: 16px;
+          margin-bottom: 20px;
         }
         .hue-hero-icon {
-          width: 72px;
-          height: 72px;
-          border-radius: 16px;
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
           background: linear-gradient(135deg, #8B5CF6, #3B82F6);
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          box-shadow:
-            0 8px 24px rgba(139, 92, 246, 0.4),
-            0 0 40px rgba(139, 92, 246, 0.2);
+          box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
         }
         .hue-hero-content h2 {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 1.375rem;
+          font-size: 1rem;
           font-weight: 700;
-          margin: 0 0 8px 0;
+          margin: 0 0 2px 0;
           color: #ffffff;
         }
         .hue-hero-content p {
           font-family: 'Inter', sans-serif;
-          font-size: 0.875rem;
+          font-size: 0.8125rem;
           color: rgba(255, 255, 255, 0.6);
           margin: 0;
-          line-height: 1.5;
+          line-height: 1.4;
         }
 
         /* Tabs */
@@ -993,7 +1142,6 @@ export default function HueSettingsPage() {
 
         /* Content */
         .hue-content {
-          min-height: 400px;
         }
         .hue-section {
           display: flex;
@@ -1153,31 +1301,47 @@ export default function HueSettingsPage() {
         .hue-connection-flow {
           display: flex;
           flex-direction: column;
-          gap: 16px;
+          gap: 12px;
+        }
+        .hue-instruction-card {
+          padding: 12px 16px;
+          background: rgba(139, 92, 246, 0.1);
+          border: 1px solid rgba(139, 92, 246, 0.3);
+          border-radius: 10px;
+          text-align: center;
+        }
+        .hue-instruction-card p {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.8125rem;
+          color: rgba(255, 255, 255, 0.8);
+          margin: 0;
+          line-height: 1.4;
+        }
+        .hue-instruction-card strong {
+          color: #a78bfa;
+        }
+        .hue-instruction-card.error {
+          background: rgba(239, 68, 68, 0.1);
+          border-color: rgba(239, 68, 68, 0.3);
+        }
+        .hue-instruction-card.error p {
+          color: #fca5a5;
         }
 
         /* Bridges List */
         .hue-bridges-list {
           display: flex;
           flex-direction: column;
-          gap: 12px;
-        }
-        .hue-bridges-list h4 {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.5);
-          margin: 0;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
+          gap: 8px;
         }
         .hue-bridge-item {
           display: flex;
           align-items: center;
-          gap: 16px;
-          padding: 16px;
+          gap: 12px;
+          padding: 12px;
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
+          border-radius: 10px;
           cursor: pointer;
           transition: all 0.2s;
           text-align: left;
@@ -1192,8 +1356,8 @@ export default function HueSettingsPage() {
           border-color: rgba(139, 92, 246, 0.4);
         }
         .hue-bridge-icon {
-          width: 48px;
-          height: 48px;
+          width: 40px;
+          height: 40px;
           border-radius: 10px;
           background: rgba(255, 255, 255, 0.1);
           display: flex;
@@ -1202,7 +1366,7 @@ export default function HueSettingsPage() {
         }
         .hue-bridge-item.selected .hue-bridge-icon {
           background: linear-gradient(135deg, #8B5CF6, #7c3aed);
-          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+          box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
         }
         .hue-bridge-info {
           flex: 1;
@@ -1256,10 +1420,51 @@ export default function HueSettingsPage() {
         }
 
         /* Instruction Card */
-        .hue-connect-section {
+        .hue-connect-btn {
           display: flex;
           flex-direction: column;
-          gap: 16px;
+          align-items: center;
+          gap: 6px;
+          width: 100%;
+          padding: 14px 20px;
+          background: linear-gradient(135deg, #22C55E, #16a34a);
+          border: none;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+          box-shadow:
+            0 4px 0 #15803d,
+            0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+        .hue-connect-btn:hover {
+          transform: translateY(-2px);
+          box-shadow:
+            0 6px 0 #15803d,
+            0 10px 30px rgba(34, 197, 94, 0.5);
+        }
+        .hue-connect-btn:active {
+          transform: translateY(2px);
+          box-shadow:
+            0 2px 0 #15803d,
+            0 4px 10px rgba(34, 197, 94, 0.3);
+        }
+        .hue-connect-btn:disabled {
+          opacity: 0.6;
+          cursor: wait;
+          transform: none;
+        }
+        .hue-connect-hint {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.8);
+        }
+        .hue-connect-label {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1rem;
+          font-weight: 700;
+          color: white;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
         .hue-instruction-card {
           display: flex;
@@ -1297,35 +1502,35 @@ export default function HueSettingsPage() {
           margin: 0;
         }
 
-        /* Room Selector */
+        /* Room Selector - Compact horizontal scroll */
         .hue-room-selector {
-          margin-bottom: 16px;
-        }
-        .hue-room-selector label {
-          display: block;
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.6);
-          margin-bottom: 8px;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
+          margin-bottom: 12px;
         }
         .hue-room-buttons {
           display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
+          gap: 6px;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          padding-bottom: 4px;
+        }
+        .hue-room-buttons::-webkit-scrollbar {
+          display: none;
         }
         .hue-room-btn {
-          padding: 8px 16px;
-          border-radius: 10px;
+          padding: 6px 12px;
+          border-radius: 8px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
           color: rgba(255, 255, 255, 0.6);
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.875rem;
+          font-family: 'Inter', sans-serif;
+          font-size: 0.75rem;
           font-weight: 500;
           cursor: pointer;
           transition: all 0.2s;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
         .hue-room-btn:hover {
           background: rgba(255, 255, 255, 0.1);
@@ -1342,25 +1547,27 @@ export default function HueSettingsPage() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 16px;
+          padding: 10px 12px;
           background: rgba(20, 20, 30, 0.6);
-          border-radius: 12px;
+          border-radius: 10px;
           border: 1px solid rgba(255, 255, 255, 0.05);
+          margin-bottom: 12px;
+        }
+        .hue-lights-count {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.8125rem;
+          color: rgba(255, 255, 255, 0.6);
         }
         .hue-lights-count .count {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 1.5rem;
           font-weight: 700;
           color: #a78bfa;
         }
-        .hue-lights-count .label {
-          font-family: 'Inter', sans-serif;
-          margin-left: 8px;
-          color: rgba(255, 255, 255, 0.6);
-        }
         .hue-lights-actions {
           display: flex;
-          gap: 8px;
+          gap: 6px;
+        }
+        .hue-lights-scroll {
+          position: relative;
         }
         .hue-lights-loading {
           display: flex;
@@ -1400,74 +1607,174 @@ export default function HueSettingsPage() {
         }
         .hue-lights-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+          grid-template-columns: repeat(2, 1fr);
           gap: 12px;
         }
+
+        /* Light Card - Premium Design */
         .hue-light-card {
+          position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 12px;
-          padding: 20px;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          gap: 10px;
+          padding: 18px 12px 14px;
+          background: linear-gradient(145deg, rgba(30, 30, 40, 0.8), rgba(20, 20, 28, 0.9));
+          border: 1px solid rgba(255, 255, 255, 0.06);
           border-radius: 16px;
           cursor: pointer;
-          transition: all 0.2s;
-          position: relative;
           text-align: center;
+          min-width: 0;
+          overflow: hidden;
+          transition: transform 0.2s, border-color 0.3s;
+        }
+        .hue-light-card::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+          pointer-events: none;
         }
         .hue-light-card:hover {
-          background: rgba(255, 255, 255, 0.06);
-          border-color: rgba(139, 92, 246, 0.3);
-          transform: translateY(-2px);
+          border-color: rgba(255, 255, 255, 0.12);
         }
-        .hue-light-card.selected {
-          background: rgba(139, 92, 246, 0.15);
-          border-color: rgba(139, 92, 246, 0.5);
-          box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+
+        /* Selection Ring */
+        .selection-ring {
+          position: absolute;
+          inset: -1px;
+          border-radius: 17px;
+          border: 2px solid transparent;
+          background: linear-gradient(135deg, #8B5CF6, #6366F1) border-box;
+          -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          animation: pulse-ring 2s ease-in-out infinite;
         }
-        .hue-light-bulb {
-          width: 56px;
-          height: 56px;
-          border-radius: 12px;
+        @keyframes pulse-ring {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.6; }
+        }
+
+        /* Light Glow - For ON state */
+        .light-glow {
+          position: absolute;
+          top: -20px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 80px;
+          height: 80px;
+          background: radial-gradient(circle, rgba(251, 191, 36, 0.4) 0%, rgba(251, 191, 36, 0.1) 40%, transparent 70%);
+          pointer-events: none;
+          animation: glow-pulse 3s ease-in-out infinite;
+        }
+        @keyframes glow-pulse {
+          0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+          50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Light Icon */
+        .light-icon {
+          position: relative;
+          width: 52px;
+          height: 52px;
+          border-radius: 14px;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.2s;
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          z-index: 1;
         }
-        .hue-light-bulb.off {
-          background: rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 0.4);
+        .light-icon.off {
+          background: rgba(255, 255, 255, 0.05);
+          color: rgba(255, 255, 255, 0.35);
         }
-        .hue-light-bulb.on {
-          background: linear-gradient(135deg, #FBBF24, #F59E0B);
+        .light-icon.on {
+          background: linear-gradient(145deg, #FCD34D, #F59E0B);
           color: #78350F;
-          box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+          box-shadow:
+            0 4px 20px rgba(251, 191, 36, 0.5),
+            0 0 40px rgba(251, 191, 36, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
-        .hue-light-name {
-          font-family: 'Space Grotesk', sans-serif;
-          font-weight: 600;
-          font-size: 0.875rem;
-        }
-        .hue-light-state {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.5);
-        }
-        .hue-light-check {
+
+        /* Light Rays - Decorative effect for ON */
+        .light-rays {
           position: absolute;
-          top: 12px;
-          right: 12px;
-          width: 24px;
-          height: 24px;
+          inset: -8px;
+          border-radius: 20px;
+          background: conic-gradient(
+            from 0deg,
+            transparent 0deg,
+            rgba(251, 191, 36, 0.15) 20deg,
+            transparent 40deg,
+            rgba(251, 191, 36, 0.1) 60deg,
+            transparent 80deg,
+            rgba(251, 191, 36, 0.15) 100deg,
+            transparent 120deg
+          );
+          animation: rotate-rays 8s linear infinite;
+          pointer-events: none;
+        }
+        @keyframes rotate-rays {
+          to { transform: rotate(360deg); }
+        }
+
+        /* Light Name */
+        .light-name {
+          display: block;
+          width: 100%;
+          font-family: 'Space Grotesk', system-ui, sans-serif;
+          font-weight: 600;
+          font-size: 0.8125rem;
+          color: #ffffff;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          letter-spacing: -0.01em;
+          z-index: 1;
+        }
+
+        /* Light Status */
+        .light-status {
+          display: block;
+          font-family: system-ui, sans-serif;
+          font-size: 0.6875rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+          color: rgba(255, 255, 255, 0.35);
+          z-index: 1;
+        }
+        .hue-light-card.is-on .light-status {
+          color: #FCD34D;
+          text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+
+        /* Check Badge */
+        .check-badge {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          width: 18px;
+          height: 18px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #8B5CF6, #7c3aed);
+          background: linear-gradient(135deg, #8B5CF6, #7C3AED);
           display: flex;
           align-items: center;
           justify-content: center;
           color: white;
-          box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+          box-shadow: 0 2px 8px rgba(139, 92, 246, 0.5);
+          z-index: 2;
+        }
+
+        /* Selected state enhancements */
+        .hue-light-card.selected {
+          background: linear-gradient(145deg, rgba(139, 92, 246, 0.15), rgba(99, 102, 241, 0.1));
+        }
+        .hue-light-card.selected .light-icon.off {
+          background: rgba(139, 92, 246, 0.2);
+          color: rgba(167, 139, 250, 0.8);
         }
 
         /* Config Section */
@@ -1476,7 +1783,11 @@ export default function HueSettingsPage() {
           backdrop-filter: blur(20px);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 16px;
-          padding: 20px;
+          padding: 16px;
+          margin-bottom: 16px;
+        }
+        .hue-config-section:last-child {
+          margin-bottom: 0;
         }
         .hue-config-section h3 {
           display: flex;
@@ -1499,36 +1810,126 @@ export default function HueSettingsPage() {
         .hue-color-grid {
           display: grid;
           grid-template-columns: repeat(5, 1fr);
-          gap: 12px;
+          gap: 10px;
         }
         .hue-color-btn {
           display: flex;
+          align-items: center;
+          justify-content: center;
+          aspect-ratio: 1;
+          padding: 8px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 2px solid transparent;
+          border-radius: 14px;
+          cursor: pointer;
+          transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .hue-color-btn:hover:not(:disabled) {
+          transform: scale(1.08);
+          border-color: var(--color);
+          box-shadow: 0 0 25px color-mix(in srgb, var(--color) 40%, transparent);
+        }
+        .hue-color-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+        .hue-color-btn.testing {
+          animation: color-pulse 0.6s ease-in-out infinite;
+          border-color: var(--color);
+          box-shadow: 0 0 30px color-mix(in srgb, var(--color) 50%, transparent);
+        }
+        @keyframes color-pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+        }
+        .hue-color-swatch {
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+          background: var(--color);
+          box-shadow:
+            0 4px 12px color-mix(in srgb, var(--color) 40%, transparent),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+        }
+        .color-testing-indicator {
+          color: white;
+          animation: zap-pulse 0.4s ease-in-out infinite;
+          filter: drop-shadow(0 0 8px white);
+        }
+        @keyframes zap-pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        /* Presets Section */
+        .hue-presets-section {
+          margin-bottom: 20px;
+        }
+        .hue-presets-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+        .hue-preset-card {
+          display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 8px;
-          padding: 12px;
+          justify-content: center;
+          gap: 6px;
+          padding: 16px 10px;
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 12px;
           cursor: pointer;
           transition: all 0.2s;
         }
-        .hue-color-btn:hover {
-          transform: scale(1.05);
-          border-color: var(--color);
-          box-shadow: 0 0 20px color-mix(in srgb, var(--color) 30%, transparent);
+        .hue-preset-card:hover {
+          border-color: rgba(139, 92, 246, 0.5);
+          background: rgba(139, 92, 246, 0.1);
         }
-        .hue-color-swatch {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-          background: var(--color);
-          box-shadow: 0 4px 12px color-mix(in srgb, var(--color) 40%, transparent);
+        .hue-preset-card:active {
+          transform: scale(0.97);
         }
-        .hue-color-btn span {
-          font-family: 'Inter', sans-serif;
+        .preset-icon {
+          font-size: 1.75rem;
+        }
+        .preset-name {
+          font-family: 'Space Grotesk', sans-serif;
           font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.7);
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Test Sequence Button - Outline style */
+        .hue-test-sequence-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          width: 100%;
+          padding: 10px 16px;
+          margin-bottom: 14px;
+          background: transparent;
+          border: 1px solid rgba(139, 92, 246, 0.4);
+          border-radius: 10px;
+          color: #a78bfa;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.8125rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        .hue-test-sequence-btn:hover {
+          background: rgba(139, 92, 246, 0.1);
+          border-color: rgba(139, 92, 246, 0.6);
+        }
+        .hue-test-sequence-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
 
         /* Game Tabs */
@@ -1566,27 +1967,97 @@ export default function HueSettingsPage() {
         }
         .hue-event-card {
           background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 14px;
           overflow: hidden;
+          transition: all 0.3s ease;
+        }
+        .hue-event-card.enabled {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.12);
+        }
+        .hue-event-card.configured {
+          border-color: color-mix(in srgb, var(--event-color) 40%, transparent);
+          box-shadow: 0 0 20px color-mix(in srgb, var(--event-color) 15%, transparent);
         }
         .hue-event-header {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          padding: 16px;
+          gap: 12px;
+          padding: 14px 16px;
+        }
+        .event-icon-wrap {
+          width: 36px;
+          height: 36px;
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.06);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: rgba(255, 255, 255, 0.5);
+          flex-shrink: 0;
+          transition: all 0.3s;
+        }
+        .hue-event-card.enabled .event-icon-wrap {
+          background: rgba(139, 92, 246, 0.2);
+          color: #a78bfa;
+        }
+        .hue-event-card.configured .event-icon-wrap {
+          background: color-mix(in srgb, var(--event-color) 25%, transparent);
+          color: var(--event-color);
+        }
+        .hue-event-info {
+          flex: 1;
+          min-width: 0;
+        }
+        .event-title-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
         }
         .hue-event-info h4 {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 1rem;
+          font-size: 0.9375rem;
           font-weight: 600;
           margin: 0;
         }
+        .event-color-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          flex-shrink: 0;
+          box-shadow: 0 0 8px currentColor;
+        }
         .hue-event-info p {
           font-family: 'Inter', sans-serif;
-          font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.5);
-          margin: 4px 0 0 0;
+          font-size: 0.8125rem;
+          color: rgba(255, 255, 255, 0.45);
+          margin: 2px 0 0 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .event-actions {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-shrink: 0;
+        }
+        .event-chevron {
+          color: rgba(255, 255, 255, 0.4);
+          transition: transform 0.2s ease;
+        }
+        .event-chevron.rotated {
+          transform: rotate(180deg);
+        }
+        .hue-event-card.expanded .event-chevron {
+          color: #a78bfa;
+        }
+        .hue-event-header {
+          cursor: pointer;
+        }
+        .hue-event-header:hover .event-chevron {
+          color: rgba(255, 255, 255, 0.7);
         }
 
         /* Toggle - Style Guide */
@@ -1760,20 +2231,22 @@ export default function HueSettingsPage() {
         /* Mobile */
         @media (max-width: 640px) {
           .hue-main {
-            padding: var(--space-4);
+            padding: 12px;
+            padding-bottom: calc(100px + var(--safe-area-bottom, 0px));
           }
           .hue-hero {
-            flex-direction: column;
-            text-align: center;
-            padding: var(--space-5);
+            padding: 12px;
           }
           .hue-hero-icon {
-            width: 64px;
-            height: 64px;
+            width: 40px;
+            height: 40px;
+          }
+          .hue-config-section {
+            padding: 14px;
           }
           .hue-color-grid {
             grid-template-columns: repeat(5, 1fr);
-            gap: var(--space-2);
+            gap: 8px;
           }
           .hue-color-btn {
             padding: var(--space-2);
@@ -1790,6 +2263,12 @@ export default function HueSettingsPage() {
           }
           .hue-status span {
             display: none;
+          }
+          .hue-tab span {
+            display: none;
+          }
+          .hue-tab {
+            padding: 12px;
           }
         }
       `}</style>
