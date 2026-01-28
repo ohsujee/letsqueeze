@@ -155,10 +155,10 @@ Chaque jeu a UNE couleur primaire et UNE couleur de glow (plus légère).
 --mime-light: #a3e635;
 --mime-glow: rgba(132, 204, 22, 0.24);
 
-/* TrouveRegle - Cyan */
---trouveregle-primary: #06b6d4;
---trouveregle-light: #22d3ee;
---trouveregle-glow: rgba(6, 182, 212, 0.24);
+/* LaLoi - Cyan */
+--laloi-primary: #06b6d4;
+--laloi-light: #22d3ee;
+--laloi-glow: rgba(6, 182, 212, 0.24);
 ```
 
 #### Couleurs Sémantiques
@@ -762,7 +762,7 @@ Configuration spécifique :
 - Sélection alibi
 - Attribution rôles (inspecteurs/suspects)
 
-#### `/trouveregle/room/[code]` - TrouveRegle
+#### `/laloi/room/[code]` - LaLoi
 
 Configuration spécifique :
 - Mode (même pièce / à distance)
@@ -1108,7 +1108,7 @@ transition: all 0.2s ease;
 - [ ] `/blindtest/room/[code]`
 - [ ] `/deeztest/room/[code]`
 - [ ] `/alibi/room/[code]`
-- [ ] `/trouveregle/room/[code]`
+- [ ] `/laloi/room/[code]`
 
 #### 4.4 Jeux - Quiz
 - [ ] `/game/[code]/play`
@@ -1131,10 +1131,10 @@ transition: all 0.2s ease;
 - [ ] `/alibi/game/[code]/play`
 - [ ] `/alibi/game/[code]/end`
 
-#### 4.8 Jeux - TrouveRegle
-- [ ] `/trouveregle/game/[code]/play`
-- [ ] `/trouveregle/game/[code]/investigate`
-- [ ] `/trouveregle/game/[code]/end`
+#### 4.8 Jeux - LaLoi
+- [ ] `/laloi/game/[code]/play`
+- [ ] `/laloi/game/[code]/investigate`
+- [ ] `/laloi/game/[code]/end`
 
 #### 4.9 Jeux - Mime
 - [ ] `/mime`
@@ -1246,10 +1246,10 @@ Avant de valider un composant, vérifier :
 | `/alibi/game/[code]/prep` | Alibi | Play | P2 |
 | `/alibi/game/[code]/play` | Alibi | Play | P2 |
 | `/alibi/game/[code]/end` | Alibi | End | P2 |
-| `/trouveregle/room/[code]` | TrouveRegle | Lobby | P2 |
-| `/trouveregle/game/[code]/play` | TrouveRegle | Play | P2 |
-| `/trouveregle/game/[code]/investigate` | TrouveRegle | Play | P2 |
-| `/trouveregle/game/[code]/end` | TrouveRegle | End | P2 |
+| `/laloi/room/[code]` | LaLoi | Lobby | P2 |
+| `/laloi/game/[code]/play` | LaLoi | Play | P2 |
+| `/laloi/game/[code]/investigate` | LaLoi | Play | P2 |
+| `/laloi/game/[code]/end` | LaLoi | End | P2 |
 | `/mime` | Mime | Full | P2 |
 | `/profile` | Global | Profile | P3 |
 | `/profile/stats` | Global | Profile | P3 |

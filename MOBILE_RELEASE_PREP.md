@@ -529,7 +529,7 @@ npx cap open ios
 | BlindTest - message "non supporté" | [ ] | [ ] |
 | Alibi - partie complète | [ ] | [ ] |
 | Mime - partie locale | [ ] | [ ] |
-| Trouve la Règle - partie complète | [ ] | [ ] |
+| La Loi - partie complète | [ ] | [ ] |
 | Pub interstitielle affichée | [ ] | [ ] |
 | Pub rewarded fonctionne | [ ] | [ ] |
 | Achat abonnement | [ ] | [ ] |

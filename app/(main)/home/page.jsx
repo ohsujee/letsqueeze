@@ -296,19 +296,19 @@ function HomePageContent() {
       // Jeu local - pas de Firebase, navigation directe
       router.push('/mime');
       return; // Pas besoin de recordGamePlayed pour un jeu local
-    } else if (game.id === 'trouveregle') {
+    } else if (game.id === 'laloi') {
       Promise.all([
-        set(ref(db, `rooms_trouveregle/${c}/meta`), {
+        set(ref(db, `rooms_laloi/${c}/meta`), {
           code: c,
           createdAt: now,
           hostUid: auth.currentUser.uid,
           expiresAt: now + 12 * 60 * 60 * 1000,
-          gameType: "trouveregle",
+          gameType: "laloi",
           mode: "classic",
           timerDuration: 300,
           investigatorCount: 1
         }),
-        set(ref(db, `rooms_trouveregle/${c}/state`), {
+        set(ref(db, `rooms_laloi/${c}/state`), {
           phase: "lobby",
           investigatorUids: [],
           currentRule: null,
@@ -321,16 +321,16 @@ function HomePageContent() {
           playedRuleIds: []
         })
       ]).then(() => {
-        router.push(`/trouveregle/room/${c}`);
+        router.push(`/laloi/room/${c}`);
       }).catch(err => {
-        console.error('TrouveRegle room creation error:', err);
+        console.error('LaLoi room creation error:', err);
       });
     }
   };
 
   const handleGameClick = (game) => {
-    // Redirect to coming soon page for unreleased games
-    if (game.comingSoon) {
+    // Redirect to coming soon page for unreleased games (founders bypass)
+    if (game.comingSoon && !userIsFounder) {
       router.push(`/coming-soon/${game.id}`);
       return;
     }

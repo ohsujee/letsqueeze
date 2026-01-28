@@ -1,5 +1,5 @@
 /**
- * Trouve la Règle - Rules Database
+ * La Loi - Rules Database
  * 110+ rules organized by category
  */
 

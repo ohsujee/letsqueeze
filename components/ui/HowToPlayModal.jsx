@@ -66,8 +66,8 @@ const GAME_RULES = {
       { icon: Clock, text: "Le joueur avec le plus de points gagne !" }
     ]
   },
-  trouveregle: {
-    title: 'Trouve la Règle',
+  laloi: {
+    title: 'La Loi',
     subtitle: 'Devenez détective !',
     icon: Search,
     accentColor: '#06b6d4',
@@ -214,7 +214,7 @@ export default function HowToPlayModal({
       width: '100%',
       padding: '16px',
       background: `linear-gradient(135deg, ${game.accentColor}, ${game.accentColor}cc)`,
-      color: (gameType === 'alibi' || gameType === 'mime' || gameType === 'trouveregle') ? '#000' : '#fff',
+      color: (gameType === 'alibi' || gameType === 'mime' || gameType === 'laloi') ? '#000' : '#fff',
       border: 'none',
       borderRadius: '14px',
       fontFamily: "'Space Grotesk', sans-serif",

@@ -15,7 +15,7 @@ import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { storage } from "@/lib/utils/storage";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { CheckCircle, XCircle } from "lucide-react";
-import { TROUVE_COLORS } from "@/data/trouveregle-rules";
+import { TROUVE_COLORS } from "@/data/laloi-rules";
 
 const CYAN_PRIMARY = TROUVE_COLORS.primary;
 const CYAN_LIGHT = TROUVE_COLORS.light;
@@ -102,7 +102,7 @@ function PlayersWinIcon({ size = 100 }) {
   );
 }
 
-export default function TrouveRegleEndPage() {
+export default function LaLoiEndPage() {
   const { code } = useParams();
   const router = useRouter();
   const toast = useToast();
@@ -122,7 +122,7 @@ export default function TrouveRegleEndPage() {
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
   // Centralized players hook (live data)
-  const { players: livePlayers } = usePlayers({ roomCode: code, roomPrefix: 'rooms_trouveregle' });
+  const { players: livePlayers } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laloi' });
 
   // Snapshot players on first load for stable end screen
   // This prevents the leaderboard from changing when players leave
@@ -135,13 +135,13 @@ export default function TrouveRegleEndPage() {
   // Room guard
   useRoomGuard({
     roomCode: code,
-    roomPrefix: 'rooms_trouveregle',
+    roomPrefix: 'rooms_laloi',
     playerUid: myUid,
     isHost: false
   });
 
   // Record game completion
-  useGameCompletion({ gameType: 'trouveregle', roomCode: code });
+  useGameCompletion({ gameType: 'laloi', roomCode: code });
 
   // Get current user UID
   useEffect(() => {
@@ -160,7 +160,7 @@ export default function TrouveRegleEndPage() {
       adShownRef.current = true;
       initAdMob().then(() => {
         showInterstitialAd().catch(err => {
-          console.log('[TrouveRegleEndPage] Interstitial ad error:', err);
+          console.log('[LaLoiEndPage] Interstitial ad error:', err);
         });
       });
     }
@@ -168,14 +168,14 @@ export default function TrouveRegleEndPage() {
 
   // Firebase listeners
   useEffect(() => {
-    const u1 = onValue(ref(db, `rooms_trouveregle/${code}/meta`), s => {
+    const u1 = onValue(ref(db, `rooms_laloi/${code}/meta`), s => {
       const data = s.val();
       setMeta(data);
       if (!data || data.closed) {
         setRoomExists(false);
       }
     });
-    const u2 = onValue(ref(db, `rooms_trouveregle/${code}/state`), s => {
+    const u2 = onValue(ref(db, `rooms_laloi/${code}/state`), s => {
       setState(s.val());
     });
     return () => { u1(); u2(); };
@@ -226,7 +226,7 @@ export default function TrouveRegleEndPage() {
 
     const hostCheck = myUid && meta?.hostUid === myUid;
     if (state?.phase === "lobby" && !hostCheck && hostPresent) {
-      router.push(`/trouveregle/room/${code}`);
+      router.push(`/laloi/room/${code}`);
     }
   }, [state?.phase, myUid, meta, router, code, hostPresent]);
 
@@ -237,13 +237,13 @@ export default function TrouveRegleEndPage() {
       // Reset player scores and roles
       players.forEach(player => {
         if (player.uid) {
-          updates[`rooms_trouveregle/${code}/players/${player.uid}/score`] = 0;
-          updates[`rooms_trouveregle/${code}/players/${player.uid}/role`] = 'player';
+          updates[`rooms_laloi/${code}/players/${player.uid}/score`] = 0;
+          updates[`rooms_laloi/${code}/players/${player.uid}/role`] = 'player';
         }
       });
 
       // Reset state
-      updates[`rooms_trouveregle/${code}/state`] = {
+      updates[`rooms_laloi/${code}/state`] = {
         phase: "lobby",
         investigatorUids: [],
         currentRule: null,
@@ -257,7 +257,7 @@ export default function TrouveRegleEndPage() {
       };
 
       await update(ref(db), updates);
-      router.push(`/trouveregle/room/${code}`);
+      router.push(`/laloi/room/${code}`);
     } catch (error) {
       console.error('Erreur retour lobby:', error);
       toast.error('Erreur lors du retour au lobby');
@@ -482,7 +482,7 @@ export default function TrouveRegleEndPage() {
             } else if (isHost) {
               handleBackToLobby();
             } else {
-              router.push(`/trouveregle/room/${code}`);
+              router.push(`/laloi/room/${code}`);
             }
           }}
         />

@@ -13,10 +13,17 @@ const GAME_INFO = {
   },
   memory: {
     name: 'Memory',
-    description: 'Testez votre mémoire en retrouvant les paires !',
+    description: 'Testez votre mémoire dans différentes situations !',
     emoji: '🧠',
     color: '#ec4899',
     glow: '#f472b6',
+  },
+  laloi: {
+    name: 'La Loi',
+    description: 'Découvrez la règle secrète que les autres joueurs suivent !',
+    emoji: '⚖️',
+    color: '#06b6d4',
+    glow: '#22d3ee',
   },
 };
 

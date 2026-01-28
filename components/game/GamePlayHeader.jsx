@@ -30,9 +30,9 @@ import { GAME_COLORS } from '@/lib/config/colors';
  *
  *   // Sans score
  *   <GamePlayHeader
- *     game="trouveregle"
+ *     game="laloi"
  *     progress="2:45"
- *     title="Trouve la Règle"
+ *     title="La Loi"
  *     showScore={false}
  *   />
  */
@@ -220,7 +220,7 @@ export default function GamePlayHeader({
           border-bottom-color: rgba(162, 56, 255, 0.2);
         }
 
-        .game-play-header.trouveregle {
+        .game-play-header.laloi {
           border-bottom-color: rgba(6, 182, 212, 0.2);
         }
       `}</style>

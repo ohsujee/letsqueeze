@@ -28,7 +28,7 @@ ROOM_TYPES = {
   blindtest: { prefix: 'rooms_blindtest', playerSchema: {...} },
   deeztest: { prefix: 'rooms_deeztest', playerSchema: {...} },
   alibi: { prefix: 'rooms_alibi', playerSchema: {...} },
-  trouveregle: { prefix: 'rooms_trouveregle', playerSchema: {...} }
+  laloi: { prefix: 'rooms_laloi', playerSchema: {...} }
 }
 ```
 
@@ -47,4 +47,4 @@ ROOM_TYPES = {
 | BlindTest | `rooms_blindtest/` |
 | DeezTest | `rooms_deeztest/` |
 | Alibi | `rooms_alibi/` |
-| TrouveRègle | `rooms_trouveregle/` |
+| TrouveRègle | `rooms_laloi/` |

@@ -76,7 +76,7 @@ export default function LoadingScreen({
           );
         }
 
-        .loading-screen.trouveregle {
+        .loading-screen.laloi {
           background: radial-gradient(
             ellipse at center,
             rgba(6, 182, 212, 0.1) 0%,

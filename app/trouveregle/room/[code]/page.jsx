@@ -28,14 +28,14 @@ import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { Search, Users, Clock, Shuffle, Check } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
-import { TROUVE_COLORS, getRandomRulesForVoting } from "@/data/trouveregle-rules";
+import { TROUVE_COLORS, getRandomRulesForVoting } from "@/data/laloi-rules";
 
 // Cyan theme colors
 const CYAN_PRIMARY = TROUVE_COLORS.primary;
 const CYAN_LIGHT = TROUVE_COLORS.light;
 const CYAN_DARK = TROUVE_COLORS.dark;
 
-export default function TrouveRegleLobby() {
+export default function LaLoiLobby() {
   const { code } = useParams();
   const router = useRouter();
   const toast = useToast();
@@ -59,14 +59,14 @@ export default function TrouveRegleLobby() {
   const [nbInvestigators, setNbInvestigators] = useState(1);
 
   // Centralized players hook
-  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_trouveregle' });
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laloi' });
 
   // Get user profile for pseudo
   const { user: currentUser, profile, loading: profileLoading } = useUserProfile();
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
 
   // Interstitial ad
-  useInterstitialAd({ context: 'TrouveRegle' });
+  useInterstitialAd({ context: 'LaLoi' });
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });
@@ -94,7 +94,7 @@ export default function TrouveRegleLobby() {
   // Room guard
   useRoomGuard({
     roomCode: code,
-    roomPrefix: 'rooms_trouveregle',
+    roomPrefix: 'rooms_laloi',
     playerUid: myUid,
     isHost,
     skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
@@ -103,14 +103,14 @@ export default function TrouveRegleLobby() {
   // Host disconnect - ferme la room si l'hôte perd sa connexion
   useHostDisconnect({
     roomCode: code,
-    roomPrefix: 'rooms_trouveregle',
+    roomPrefix: 'rooms_laloi',
     isHost
   });
 
   // Presence hook - real-time connection tracking
   const { isConnected, forceReconnect } = usePresence({
     roomCode: code,
-    roomPrefix: 'rooms_trouveregle',
+    roomPrefix: 'rooms_laloi',
     playerUid: myUid,
     heartbeatInterval: 15000,
     enabled: !isHost && !!myUid
@@ -119,7 +119,7 @@ export default function TrouveRegleLobby() {
   // Player cleanup with auto-rejoin for hard refresh
   const { leaveRoom, markVoluntaryLeave, attemptRejoin, isRejoining } = usePlayerCleanup({
     roomCode: code,
-    roomPrefix: 'rooms_trouveregle',
+    roomPrefix: 'rooms_laloi',
     playerUid: myUid,
     isHost,
     phase: 'lobby',
@@ -147,7 +147,7 @@ export default function TrouveRegleLobby() {
   useEffect(() => {
     if (!code) return;
 
-    const metaUnsub = onValue(ref(db, `rooms_trouveregle/${code}/meta`), (snap) => {
+    const metaUnsub = onValue(ref(db, `rooms_laloi/${code}/meta`), (snap) => {
       const m = snap.val();
       if (m) {
         if (m.closed) return;
@@ -159,7 +159,7 @@ export default function TrouveRegleLobby() {
       }
     });
 
-    const stateUnsub = onValue(ref(db, `rooms_trouveregle/${code}/state`), (snap) => {
+    const stateUnsub = onValue(ref(db, `rooms_laloi/${code}/state`), (snap) => {
       const state = snap.val();
       if (state?.phase === "choosing" && !countdownTriggeredRef.current) {
         countdownTriggeredRef.current = true;
@@ -177,7 +177,7 @@ export default function TrouveRegleLobby() {
   useEffect(() => {
     if (!isHost || !userPseudo || !auth.currentUser || hostJoined || profileLoading) return;
     const uid = auth.currentUser.uid;
-    set(ref(db, `rooms_trouveregle/${code}/players/${uid}`), {
+    set(ref(db, `rooms_laloi/${code}/players/${uid}`), {
       uid,
       name: userPseudo,
       score: 0,
@@ -224,12 +224,12 @@ export default function TrouveRegleLobby() {
       // Update player roles
       players.forEach(p => {
         const role = selectedInvestigators.includes(p.uid) ? 'investigator' : 'player';
-        updates[`rooms_trouveregle/${code}/players/${p.uid}/role`] = role;
+        updates[`rooms_laloi/${code}/players/${p.uid}/role`] = role;
       });
 
       // Update meta with settings
-      updates[`rooms_trouveregle/${code}/meta/mode`] = mode;
-      updates[`rooms_trouveregle/${code}/meta/timerMinutes`] = timerMinutes;
+      updates[`rooms_laloi/${code}/meta/mode`] = mode;
+      updates[`rooms_laloi/${code}/meta/timerMinutes`] = timerMinutes;
 
       // Generate rule options for voting
       const ruleOptions = getRandomRulesForVoting({
@@ -238,7 +238,7 @@ export default function TrouveRegleLobby() {
       });
 
       // Initialize state
-      updates[`rooms_trouveregle/${code}/state`] = {
+      updates[`rooms_laloi/${code}/state`] = {
         phase: 'choosing',
         investigatorUids: selectedInvestigators,
         currentRule: null,
@@ -259,7 +259,7 @@ export default function TrouveRegleLobby() {
 
   const handleHostExit = async () => {
     if (isHost) {
-      await update(ref(db, `rooms_trouveregle/${code}/meta`), { closed: true });
+      await update(ref(db, `rooms_laloi/${code}/meta`), { closed: true });
     }
     router.push('/home');
   };
@@ -274,14 +274,14 @@ export default function TrouveRegleLobby() {
   const handleModeChange = (newMode) => {
     setMode(newMode);
     if (isHost && code) {
-      update(ref(db, `rooms_trouveregle/${code}/meta`), { mode: newMode });
+      update(ref(db, `rooms_laloi/${code}/meta`), { mode: newMode });
     }
   };
 
   const handleTimerChange = (newTimer) => {
     setTimerMinutes(newTimer);
     if (isHost && code) {
-      update(ref(db, `rooms_trouveregle/${code}/meta`), { timerMinutes: newTimer });
+      update(ref(db, `rooms_laloi/${code}/meta`), { timerMinutes: newTimer });
     }
   };
 
@@ -292,7 +292,7 @@ export default function TrouveRegleLobby() {
   // Loading state
   if (!meta) {
     return (
-      <div className="trouveregle-lobby game-page">
+      <div className="laloi-lobby game-page">
         <div className="lobby-loading">
           <div className="loading-spinner" />
           <p>Chargement...</p>
@@ -303,7 +303,7 @@ export default function TrouveRegleLobby() {
   }
 
   return (
-    <div className="trouveregle-lobby game-page">
+    <div className="laloi-lobby game-page">
       {/* Launch Countdown */}
       <AnimatePresence>
         {showCountdown && (
@@ -312,9 +312,9 @@ export default function TrouveRegleLobby() {
             onComplete={() => {
               const myPlayer = players.find(p => p.uid === myUid);
               if (myPlayer?.role === 'investigator') {
-                router.push(`/trouveregle/game/${code}/investigate`);
+                router.push(`/laloi/game/${code}/investigate`);
               } else {
-                router.push(`/trouveregle/game/${code}/play`);
+                router.push(`/laloi/game/${code}/play`);
               }
             }}
           />
@@ -325,7 +325,7 @@ export default function TrouveRegleLobby() {
       <HowToPlayModal
         isOpen={showHowToPlay}
         onClose={() => setShowHowToPlay(false)}
-        gameType="trouveregle"
+        gameType="laloi"
       />
 
       {/* Lobby Disconnect Alert */}
@@ -340,7 +340,7 @@ export default function TrouveRegleLobby() {
 
       {/* Header */}
       <LobbyHeader
-        variant="trouveregle"
+        variant="laloi"
         code={code}
         isHost={isHost}
         players={players}
@@ -544,7 +544,7 @@ export default function TrouveRegleLobby() {
 }
 
 const styles = `
-  .trouveregle-lobby {
+  .laloi-lobby {
     flex: 1;
     min-height: 0;
     display: flex;
@@ -552,7 +552,7 @@ const styles = `
     background: var(--bg-primary, #0a0a0f);
   }
 
-  .trouveregle-lobby::before {
+  .laloi-lobby::before {
     content: '';
     position: fixed;
     inset: 0;

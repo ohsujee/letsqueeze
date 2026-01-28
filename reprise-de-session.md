@@ -227,7 +227,7 @@ const getPresenceStatus = (presence) => {
 - [x] `app/blindtest/room/[code]/page.jsx`
 - [x] `app/deeztest/room/[code]/page.jsx`
 - [x] `app/alibi/room/[code]/page.jsx`
-- [x] `app/trouveregle/room/[code]/page.jsx`
+- [x] `app/laloi/room/[code]/page.jsx`
 
 **Ajouts par page:**
 ```jsx
@@ -317,7 +317,7 @@ app/room/[code]/page.jsx
 app/blindtest/room/[code]/page.jsx
 app/deeztest/room/[code]/page.jsx
 app/alibi/room/[code]/page.jsx
-app/trouveregle/room/[code]/page.jsx
+app/laloi/room/[code]/page.jsx
 ```
 
 ---

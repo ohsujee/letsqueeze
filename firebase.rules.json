@@ -281,7 +281,7 @@
         }
       }
     },
-    "rooms_trouveregle": {
+    "rooms_laloi": {
       "$code": {
         ".read": "auth != null",
         "meta": {
@@ -289,7 +289,7 @@
         },
         "state": {
           ".read": "auth != null",
-          ".write": "auth != null && auth.uid == root.child('rooms_trouveregle/'+$code+'/meta/hostUid').val()",
+          ".write": "auth != null && auth.uid == root.child('rooms_laloi/'+$code+'/meta/hostUid').val()",
           "votes": {
             "$uid": {
               ".write": "auth != null && auth.uid == $uid"
@@ -303,7 +303,7 @@
         },
         "players": {
           "$uid": {
-            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_trouveregle/'+$code+'/meta/hostUid').val() )"
+            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_laloi/'+$code+'/meta/hostUid').val() )"
           },
           ".read": "auth != null"
         },
@@ -316,7 +316,7 @@
         "kickedPlayers": {
           ".read": "auth != null",
           "$uid": {
-            ".write": "auth != null && auth.uid == root.child('rooms_trouveregle/'+$code+'/meta/hostUid').val()"
+            ".write": "auth != null && auth.uid == root.child('rooms_laloi/'+$code+'/meta/hostUid').val()"
           }
         }
       }

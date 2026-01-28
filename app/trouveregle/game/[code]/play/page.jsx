@@ -30,14 +30,14 @@ import {
   getCategoryDisplayName,
   getDifficultyInfo,
   TROUVE_COLORS
-} from "@/data/trouveregle-rules";
+} from "@/data/laloi-rules";
 
 const CYAN_PRIMARY = TROUVE_COLORS.primary;
 const CYAN_LIGHT = TROUVE_COLORS.light;
 const CYAN_DARK = TROUVE_COLORS.dark;
 const MAX_REROLLS = 3;
 
-export default function TrouveReglePlayPage() {
+export default function LaLoiPlayPage() {
   const { code } = useParams();
   const router = useRouter();
   const toast = useToast();
@@ -64,7 +64,7 @@ export default function TrouveReglePlayPage() {
   const autoConfirmTriggeredRef = useRef(false);
   const endTransitionTriggeredRef = useRef(false);
 
-  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_trouveregle' });
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laloi' });
 
   // Auth
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function TrouveReglePlayPage() {
   // Room guard
   const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
-    roomPrefix: 'rooms_trouveregle',
+    roomPrefix: 'rooms_laloi',
     playerUid: myUid,
     isHost: false
   });
@@ -91,14 +91,14 @@ export default function TrouveReglePlayPage() {
   // Host disconnect - ferme la room si l'hôte perd sa connexion
   useHostDisconnect({
     roomCode: code,
-    roomPrefix: 'rooms_trouveregle',
+    roomPrefix: 'rooms_laloi',
     isHost
   });
 
   // Player cleanup
   const { markActive, leaveRoom } = usePlayerCleanup({
     roomCode: code,
-    roomPrefix: 'rooms_trouveregle',
+    roomPrefix: 'rooms_laloi',
     playerUid: myUid,
     isHost,
     phase: 'playing'
@@ -107,7 +107,7 @@ export default function TrouveReglePlayPage() {
   // Inactivity detection
   useInactivityDetection({
     roomCode: code,
-    roomPrefix: 'rooms_trouveregle',
+    roomPrefix: 'rooms_laloi',
     playerUid: myUid,
     inactivityTimeout: 30000
   });
@@ -116,20 +116,20 @@ export default function TrouveReglePlayPage() {
   useEffect(() => {
     if (!code) return;
 
-    const metaUnsub = onValue(ref(db, `rooms_trouveregle/${code}/meta`), (snap) => {
+    const metaUnsub = onValue(ref(db, `rooms_laloi/${code}/meta`), (snap) => {
       const m = snap.val();
       if (m && !m.closed) {
         setMeta(m);
       }
     });
 
-    const stateUnsub = onValue(ref(db, `rooms_trouveregle/${code}/state`), (snap) => {
+    const stateUnsub = onValue(ref(db, `rooms_laloi/${code}/state`), (snap) => {
       const s = snap.val();
       setState(s);
 
       // Redirect on phase changes
       if (s?.phase === 'lobby') {
-        router.push(`/trouveregle/room/${code}`);
+        router.push(`/laloi/room/${code}`);
       } else if (s?.phase === 'ended' && !endTransitionTriggeredRef.current) {
         endTransitionTriggeredRef.current = true;
         setShowEndTransition(true);
@@ -163,7 +163,7 @@ export default function TrouveReglePlayPage() {
 
       if (remaining <= 0 && isHost && currentPhase === 'playing') {
         // Time's up - go directly to ended
-        update(ref(db, `rooms_trouveregle/${code}/state`), {
+        update(ref(db, `rooms_laloi/${code}/state`), {
           phase: 'ended',
           foundByInvestigators: false
         });
@@ -182,7 +182,7 @@ export default function TrouveReglePlayPage() {
     if (state?.timerPaused) {
       // Resume: recalculate timerEndAt based on remaining time
       const newTimerEndAt = Date.now() + (state.timeLeftWhenPaused || 0) * 1000;
-      await update(ref(db, `rooms_trouveregle/${code}/state`), {
+      await update(ref(db, `rooms_laloi/${code}/state`), {
         timerPaused: false,
         timerEndAt: newTimerEndAt,
         timeLeftWhenPaused: null
@@ -190,7 +190,7 @@ export default function TrouveReglePlayPage() {
     } else {
       // Pause: store current remaining time
       const remaining = Math.max(0, Math.floor((state.timerEndAt - Date.now()) / 1000));
-      await update(ref(db, `rooms_trouveregle/${code}/state`), {
+      await update(ref(db, `rooms_laloi/${code}/state`), {
         timerPaused: true,
         timeLeftWhenPaused: remaining
       });
@@ -206,7 +206,7 @@ export default function TrouveReglePlayPage() {
   // Validate vote (send to Firebase)
   const handleValidateVote = async () => {
     if (!myUid || !preVote || hasValidated || revealPhase) return;
-    await set(ref(db, `rooms_trouveregle/${code}/state/votes/${myUid}`), preVote);
+    await set(ref(db, `rooms_laloi/${code}/state/votes/${myUid}`), preVote);
     setHasValidated(true);
   };
 
@@ -219,7 +219,7 @@ export default function TrouveReglePlayPage() {
       excludeIds: [...(state.playedRuleIds || []), ...(state.ruleOptions?.map(r => r.id) || [])]
     });
 
-    await update(ref(db, `rooms_trouveregle/${code}/state`), {
+    await update(ref(db, `rooms_laloi/${code}/state`), {
       ruleOptions: options.map(r => ({ id: r.id, text: r.text, category: r.category, difficulty: r.difficulty })),
       votes: {},
       rerollsUsed: (state.rerollsUsed || 0) + 1
@@ -251,14 +251,14 @@ export default function TrouveReglePlayPage() {
     // Write reveal state to Firebase so all players see animation
     if (tiedRules.length > 1) {
       // Multiple winners - tiebreaker animation
-      await update(ref(db, `rooms_trouveregle/${code}/state`), {
+      await update(ref(db, `rooms_laloi/${code}/state`), {
         revealPhase: 'tiebreaker',
         tiedRuleIds: tiedRules.map(r => r.id)
       });
     } else {
       // Single winner - direct reveal
       const winnerId = tiedRules[0]?.id || state.ruleOptions[0].id;
-      await update(ref(db, `rooms_trouveregle/${code}/state`), {
+      await update(ref(db, `rooms_laloi/${code}/state`), {
         revealPhase: 'revealing',
         winningRuleId: winnerId
       });
@@ -287,7 +287,7 @@ export default function TrouveReglePlayPage() {
           clearInterval(interval);
           // Host picks random winner
           const randomWinner = state.tiedRuleIds[Math.floor(Math.random() * state.tiedRuleIds.length)];
-          update(ref(db, `rooms_trouveregle/${code}/state`), {
+          update(ref(db, `rooms_laloi/${code}/state`), {
             revealPhase: 'revealing',
             winningRuleId: randomWinner
           });
@@ -302,7 +302,7 @@ export default function TrouveReglePlayPage() {
       // After 2s of glow animation, show winner phase
       const timer = setTimeout(() => {
         if (isHost) {
-          update(ref(db, `rooms_trouveregle/${code}/state`), {
+          update(ref(db, `rooms_laloi/${code}/state`), {
             revealPhase: 'winner'
           });
         }
@@ -318,7 +318,7 @@ export default function TrouveReglePlayPage() {
           const selectedRule = state.ruleOptions.find(r => r.id === state.winningRuleId);
           const timerEndAt = Date.now() + (meta?.timerMinutes || 5) * 60 * 1000;
 
-          update(ref(db, `rooms_trouveregle/${code}/state`), {
+          update(ref(db, `rooms_laloi/${code}/state`), {
             phase: 'playing',
             currentRule: selectedRule,
             timerEndAt,
@@ -389,14 +389,14 @@ export default function TrouveReglePlayPage() {
         try {
           if (tiedRules.length > 1) {
             // Multiple winners - tiebreaker animation
-            await update(ref(db, `rooms_trouveregle/${code}/state`), {
+            await update(ref(db, `rooms_laloi/${code}/state`), {
               revealPhase: 'tiebreaker',
               tiedRuleIds: tiedRules.map(r => r.id)
             });
           } else {
             // Single winner - direct reveal
             const winnerId = tiedRules[0]?.id || state.ruleOptions[0].id;
-            await update(ref(db, `rooms_trouveregle/${code}/state`), {
+            await update(ref(db, `rooms_laloi/${code}/state`), {
               revealPhase: 'revealing',
               winningRuleId: winnerId
             });
@@ -414,7 +414,7 @@ export default function TrouveReglePlayPage() {
   // Vote on investigator's guess
   const handleGuessVote = async (isCorrect) => {
     if (!myUid) return;
-    await set(ref(db, `rooms_trouveregle/${code}/state/guessVotes/${myUid}`), isCorrect);
+    await set(ref(db, `rooms_laloi/${code}/state/guessVotes/${myUid}`), isCorrect);
   };
 
   // Process guess votes (host only)
@@ -438,13 +438,13 @@ export default function TrouveReglePlayPage() {
         state.investigatorUids.forEach(uid => {
           const player = players.find(p => p.uid === uid);
           if (player) {
-            updates[`rooms_trouveregle/${code}/players/${uid}/score`] = (player.score || 0) + Math.max(points, 1);
+            updates[`rooms_laloi/${code}/players/${uid}/score`] = (player.score || 0) + Math.max(points, 1);
           }
         });
 
-        updates[`rooms_trouveregle/${code}/state/phase`] = 'ended';
-        updates[`rooms_trouveregle/${code}/state/foundByInvestigators`] = true;
-        updates[`rooms_trouveregle/${code}/state/guessVotes`] = null;
+        updates[`rooms_laloi/${code}/state/phase`] = 'ended';
+        updates[`rooms_laloi/${code}/state/foundByInvestigators`] = true;
+        updates[`rooms_laloi/${code}/state/guessVotes`] = null;
 
         update(ref(db), updates);
       } else {
@@ -454,15 +454,15 @@ export default function TrouveReglePlayPage() {
           // Out of attempts - players win, go directly to ended
           const updates = {};
           players.filter(p => p.role !== 'investigator').forEach(player => {
-            updates[`rooms_trouveregle/${code}/players/${player.uid}/score`] = (player.score || 0) + 5;
+            updates[`rooms_laloi/${code}/players/${player.uid}/score`] = (player.score || 0) + 5;
           });
-          updates[`rooms_trouveregle/${code}/state/phase`] = 'ended';
-          updates[`rooms_trouveregle/${code}/state/foundByInvestigators`] = false;
-          updates[`rooms_trouveregle/${code}/state/guessVotes`] = null;
+          updates[`rooms_laloi/${code}/state/phase`] = 'ended';
+          updates[`rooms_laloi/${code}/state/foundByInvestigators`] = false;
+          updates[`rooms_laloi/${code}/state/guessVotes`] = null;
           update(ref(db), updates);
         } else {
           // Continue playing
-          update(ref(db, `rooms_trouveregle/${code}/state`), {
+          update(ref(db, `rooms_laloi/${code}/state`), {
             phase: 'playing',
             guessVotes: null
           });
@@ -536,8 +536,8 @@ export default function TrouveReglePlayPage() {
       <AnimatePresence>
         {showEndTransition && (
           <GameEndTransition
-            variant="trouveregle"
-            onComplete={() => router.replace(`/trouveregle/game/${code}/end`)}
+            variant="laloi"
+            onComplete={() => router.replace(`/laloi/game/${code}/end`)}
           />
         )}
       </AnimatePresence>
@@ -886,7 +886,7 @@ export default function TrouveReglePlayPage() {
       {/* Disconnect Alert */}
       <DisconnectAlert
         roomCode={code}
-        roomPrefix="rooms_trouveregle"
+        roomPrefix="rooms_laloi"
         playerUid={myUid}
         onReconnect={markActive}
       />
