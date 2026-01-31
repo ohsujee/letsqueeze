@@ -24,6 +24,7 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { usePlayers } from "@/lib/hooks/usePlayers";
+import { AlibiPartyEndScreen } from "@/components/game-alibi";
 
 /**
  * Icône Trophy animée pour la victoire
@@ -198,13 +199,18 @@ export default function AlibiEnd() {
 
   const [score, setScore] = useState(null); // null = loading
   const [myTeam, setMyTeam] = useState(null);
+  const [myGroupId, setMyGroupId] = useState(null);
   const [isHost, setIsHost] = useState(false);
   const [meta, setMeta] = useState(null);
+  const [groups, setGroups] = useState({});
   const [roomExists, setRoomExists] = useState(true);
   const [displayScore, setDisplayScore] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [firebaseUser, setFirebaseUser] = useState(null);
+
+  // Party Mode detection
+  const isPartyMode = meta?.gameMasterMode === 'party';
 
   // Refs pour éviter les re-renders qui relancent l'animation
   const animationStartedRef = useRef(false);
@@ -268,14 +274,17 @@ export default function AlibiEnd() {
     return () => unsub();
   }, []);
 
-  // Listen to player team - separate effect with proper cleanup
+  // Listen to player team/group - separate effect with proper cleanup
   useEffect(() => {
     if (!code || !firebaseUser?.uid) return;
 
     const playerRef = ref(db, `rooms_alibi/${code}/players/${firebaseUser.uid}`);
     const unsub = onValue(playerRef, (snap) => {
       const player = snap.val();
-      if (player) setMyTeam(player.team);
+      if (player) {
+        setMyTeam(player.team);
+        setMyGroupId(player.groupId || null);
+      }
     });
 
     return () => unsub();
@@ -299,17 +308,31 @@ export default function AlibiEnd() {
     return () => unsub();
   }, [code, firebaseUser?.uid]);
 
+  // Listen to groups (Party Mode)
+  useEffect(() => {
+    if (!code) return;
+
+    const groupsUnsub = onValue(ref(db, `rooms_alibi/${code}/groups`), (snap) => {
+      setGroups(snap.val() || {});
+    });
+
+    return () => groupsUnsub();
+  }, [code]);
+
   // Computed: is host still present?
   const hostPresent = roomExists && meta && !meta.closed;
 
   useEffect(() => {
     if (!code) return;
 
+    // Game Master Mode: listen to global score
     const scoreUnsub = onValue(ref(db, `rooms_alibi/${code}/score`), (snap) => {
       const s = snap.val() || { correct: 0, total: 10 };
       setScore(s);
-      // Petit délai pour une transition fluide
-      setTimeout(() => setIsLoaded(true), 100);
+      // Party Mode loaded when we have groups, Game Master Mode loaded when we have score
+      if (!isPartyMode) {
+        setTimeout(() => setIsLoaded(true), 100);
+      }
     });
 
     // Redirection automatique quand l'hôte retourne au lobby (seulement si l'hôte est présent)
@@ -324,26 +347,62 @@ export default function AlibiEnd() {
       scoreUnsub();
       stateUnsub();
     };
-  }, [code, router, hostPresent]);
+  }, [code, router, hostPresent, isPartyMode]);
+
+  // Party Mode: set loaded when groups have scores
+  useEffect(() => {
+    if (!isPartyMode) return;
+
+    const groupIds = Object.keys(groups).filter(id => id.startsWith('group'));
+    if (groupIds.length > 0 && groupIds.some(id => groups[id]?.score)) {
+      setTimeout(() => setIsLoaded(true), 100);
+    }
+  }, [isPartyMode, groups]);
 
 
   const handleReturnToLobby = async () => {
     if (!isHost) return;
 
-    // Retourner au lobby SANS réinitialiser les scores
-    // Les scores seront réinitialisés au prochain démarrage de partie
-    await update(ref(db, `rooms_alibi/${code}`), {
-      state: {
-        phase: "lobby",
-        currentQuestion: 0,
-        prepTimeLeft: 90,
-        questionTimeLeft: 30,
-        allAnswered: false
-      },
-      interrogation: null,
-      questions: null,
-      alibi: null
-    });
+    if (isPartyMode) {
+      // Party Mode: reset state but keep groups structure (reset scores)
+      const groupUpdates = {};
+      Object.keys(groups).filter(id => id.startsWith('group')).forEach(groupId => {
+        groupUpdates[`groups/${groupId}/score`] = { correct: 0, total: 0 };
+        groupUpdates[`groups/${groupId}/alibiId`] = null;
+        groupUpdates[`groups/${groupId}/alibiData`] = null;
+      });
+
+      await update(ref(db, `rooms_alibi/${code}`), {
+        ...groupUpdates,
+        state: {
+          phase: "lobby",
+          currentQuestion: 0,
+          prepTimeLeft: 90,
+          questionTimeLeft: 30,
+          allAnswered: false,
+          currentRound: null,
+          totalRounds: null,
+          inspectorGroupId: null,
+          accusedGroupId: null,
+          roundRotation: null
+        },
+        interrogation: null
+      });
+    } else {
+      // Game Master Mode: original logic
+      await update(ref(db, `rooms_alibi/${code}`), {
+        state: {
+          phase: "lobby",
+          currentQuestion: 0,
+          prepTimeLeft: 90,
+          questionTimeLeft: 30,
+          allAnswered: false
+        },
+        interrogation: null,
+        questions: null,
+        alibi: null
+      });
+    }
 
     router.push(`/alibi/room/${code}`);
   };
@@ -440,6 +499,27 @@ export default function AlibiEnd() {
     if (percentage >= 30) return "Alibi fragile... Beaucoup d'incohérences !";
     return "Alibi effondré ! Trop d'erreurs !";
   };
+
+  // ========== PARTY MODE END SCREEN ==========
+  if (isPartyMode && isLoaded) {
+    return (
+      <div className="alibi-end-screen game-page">
+        <div className="alibi-end-container">
+          <AlibiPartyEndScreen
+            groups={groups}
+            myGroupId={myGroupId}
+            isHost={isHost}
+            onNewGame={handleReturnToLobby}
+            onGoHome={() => router.push('/home')}
+            hostPresent={hostPresent}
+          />
+          <BottomNav />
+        </div>
+      </div>
+    );
+  }
+
+  // ========== GAME MASTER MODE ==========
 
   // Écran de chargement pendant que le score charge
   if (!isLoaded || !score) {

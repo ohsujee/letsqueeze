@@ -207,7 +207,7 @@ const ALIBI_GROUP_COLORS = [
 - [x] Créer `AlibiGroupSelector.jsx` - Interface assignation groupes
 - [ ] Créer/Extraire `AlibiInspectorView.jsx` (Phase 6 - intégration play page)
 
-### Phase 4: Lobby 🔄 (en cours)
+### Phase 4: Lobby ✅
 - [x] Modifier `room/[code]/page.jsx` - détection isPartyMode
 - [x] Ajouter imports hooks et composants
 - [x] Ajouter listener Firebase pour groups
@@ -217,25 +217,32 @@ const ALIBI_GROUP_COLORS = [
 - [x] Ajouter sélection alibis par groupe
 - [x] Modifier vue joueur pour Party Mode
 - [x] Initialiser rotation au lancement
-- [ ] Ajouter styles CSS manquants (groups grid player view, etc.)
-- [ ] Test complet des deux modes
+- [x] Ajouter styles CSS (my-group-banner, groups-grid-player, party-groups-card, etc.)
 
-### Phase 5: Prep Page
-- [ ] Modifier `prep/page.jsx` - vue différenciée par groupe
-- [ ] Chaque groupe voit son propre alibi
-- [ ] Preview des questions à poser
+### Phase 5: Prep Page ✅
+- [x] Modifier `prep/page.jsx` - détection Party Mode
+- [x] Ajouter state et listeners pour groups/groupId
+- [x] Chaque groupe voit son propre alibi (myGroupAlibi)
+- [x] Affichage badge groupe dans le header
+- [x] En Party Mode: tous les joueurs voient la vue "suspects" (mémoriser alibi)
 
-### Phase 6: Play Page
-- [ ] Modifier `play/page.jsx` - render conditionnel
-- [ ] Vue Inspecteur (groupe qui pose)
-- [ ] Vue Accusé (groupe qui répond)
-- [ ] Vue Spectateur (groupes passifs)
-- [ ] Intégrer transitions entre rounds
+### Phase 6: Play Page ✅
+- [x] Modifier `play/page.jsx` - render conditionnel
+- [x] Ajouter state/listeners pour meta, state, groups
+- [x] Hook useAlibiGroupRotation pour rôles dynamiques
+- [x] canControl/canAnswer basés sur myRole
+- [x] Vue Inspecteur (groupe qui pose) - badge groupe + questions
+- [x] Vue Accusé (groupe qui répond) - réponses individuelles
+- [x] Vue Spectateur (AlibiSpectatorView) - temps réel
+- [x] Intégrer AlibiRoundTransition entre rounds
+- [x] Scoring par groupe (correct/total)
 
-### Phase 7: End Page
-- [ ] Modifier `end/page.jsx` - classement par groupe
-- [ ] Afficher % cohérence par groupe
-- [ ] Podium adapté
+### Phase 7: End Page ✅
+- [x] Modifier `end/page.jsx` - détection Party Mode
+- [x] Ajouter state/listeners pour groups
+- [x] Intégrer AlibiPartyEndScreen pour Party Mode
+- [x] handleReturnToLobby reset scores groupe
+- [x] Afficher classement par groupe avec % cohérence
 
 ### Phase 8: Finitions
 - [ ] Firebase Rules - permissions groupes

@@ -13,7 +13,7 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Clock, CheckCircle, XCircle, Users, AlertTriangle } from 'lucide-react';
+import { Send, Clock, CheckCircle, XCircle, Users, AlertTriangle, Eye } from 'lucide-react';
 import ExitButton from "@/lib/components/ExitButton";
 import PlayerManager from "@/components/game/PlayerManager";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
@@ -26,8 +26,10 @@ import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { VerdictTransition } from "@/components/game-alibi/VerdictTransition";
+import { AlibiRoundTransition, AlibiSpectatorView } from "@/components/game-alibi";
 import { GameEndTransition } from "@/components/transitions";
 import { hueScenariosService } from "@/lib/hue-module";
+import { useAlibiGroupRotation } from "@/lib/hooks/useAlibiGroupRotation";
 
 export default function AlibiInterrogation() {
   const { code } = useParams();
@@ -35,9 +37,14 @@ export default function AlibiInterrogation() {
 
   const [myUid, setMyUid] = useState(null);
   const [myTeam, setMyTeam] = useState(null);
+  const [myGroupId, setMyGroupId] = useState(null);
   const [isHost, setIsHost] = useState(false);
   const [hostUid, setHostUid] = useState(null);
+  const [meta, setMeta] = useState(null);
+  const [state, setState] = useState(null);
+  const [groups, setGroups] = useState({});
   const [questions, setQuestions] = useState([]);
+  const [showRoundTransition, setShowRoundTransition] = useState(false);
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
@@ -77,10 +84,45 @@ export default function AlibiInterrogation() {
     inactivityTimeout: 30000
   });
 
-  // Derive suspects from players
+  // Party Mode detection and rotation
+  const isPartyMode = meta?.gameMasterMode === 'party';
+
+  // Use the group rotation hook for Party Mode
+  const {
+    myRole,
+    inspectorGroup,
+    accusedGroup,
+    spectatorGroups,
+    currentRound,
+    totalRounds,
+    gameProgress,
+    advanceToNextRound
+  } = useAlibiGroupRotation({
+    roomCode: code,
+    meta,
+    state,
+    groups,
+    players,
+    myUid,
+    isHost
+  });
+
+  // Derive suspects - in Party Mode, it's the accused group members
   const suspects = useMemo(() => {
+    if (isPartyMode && accusedGroup) {
+      return players.filter(p => p.groupId === accusedGroup.id);
+    }
     return players.filter(p => p.team === "suspects");
-  }, [players]);
+  }, [players, isPartyMode, accusedGroup]);
+
+  // Get questions for current context
+  // In Party Mode: questions come from accused group's alibi
+  const currentQuestions = useMemo(() => {
+    if (isPartyMode && accusedGroup?.alibiData?.questions) {
+      return accusedGroup.alibiData.questions;
+    }
+    return questions;
+  }, [isPartyMode, accusedGroup, questions]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questionState, setQuestionState] = useState("waiting");
   const [timeLeft, setTimeLeft] = useState(30);
@@ -130,14 +172,17 @@ export default function AlibiInterrogation() {
     return () => unsub();
   }, []);
 
-  // Listen to player team - separate effect with proper cleanup
+  // Listen to player team/group - separate effect with proper cleanup
   useEffect(() => {
     if (!code || !myUid) return;
 
     const playerRef = ref(db, `rooms_alibi/${code}/players/${myUid}`);
     const unsub = onValue(playerRef, (snap) => {
       const player = snap.val();
-      if (player) setMyTeam(player.team);
+      if (player) {
+        setMyTeam(player.team);
+        setMyGroupId(player.groupId || null);
+      }
     });
 
     return () => unsub();
@@ -157,13 +202,40 @@ export default function AlibiInterrogation() {
     return () => unsub();
   }, [code, myUid]);
 
-  // Écouter les questions
+  // Écouter les questions (Game Master Mode)
   useEffect(() => {
     if (!code) return;
     const questionsUnsub = onValue(ref(db, `rooms_alibi/${code}/questions`), (snap) => {
       setQuestions(snap.val() || []);
     });
     return () => questionsUnsub();
+  }, [code]);
+
+  // Listen to meta (for Party Mode detection)
+  useEffect(() => {
+    if (!code) return;
+    const metaUnsub = onValue(ref(db, `rooms_alibi/${code}/meta`), (snap) => {
+      setMeta(snap.val());
+    });
+    return () => metaUnsub();
+  }, [code]);
+
+  // Listen to state (for Party Mode rotation)
+  useEffect(() => {
+    if (!code) return;
+    const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
+      setState(snap.val());
+    });
+    return () => stateUnsub();
+  }, [code]);
+
+  // Listen to groups (Party Mode)
+  useEffect(() => {
+    if (!code) return;
+    const groupsUnsub = onValue(ref(db, `rooms_alibi/${code}/groups`), (snap) => {
+      setGroups(snap.val() || {});
+    });
+    return () => groupsUnsub();
   }, [code]);
 
   // Écouter l'état de l'interrogation
@@ -254,9 +326,17 @@ export default function AlibiInterrogation() {
     }
   }, [timeLeft, allAnswered, questionState, isHost, code, currentQuestion]);
 
+  // Check if I can control (inspector in Game Master Mode OR inspector group in Party Mode)
+  const canControl = useMemo(() => {
+    if (isPartyMode) {
+      return myRole === 'inspector';
+    }
+    return myTeam === 'inspectors';
+  }, [isPartyMode, myRole, myTeam]);
+
   // Actions INSPECTEURS
   const startQuestion = async () => {
-    if (myTeam !== "inspectors") return;
+    if (!canControl) return;
 
     hueScenariosService.trigger('alibi', 'roundStart');
 
@@ -265,7 +345,9 @@ export default function AlibiInterrogation() {
       state: "answering",
       timeLeft: 30,
       responses: {},
-      verdict: null
+      verdict: null,
+      // Party Mode: track which group is being interrogated
+      ...(isPartyMode && { targetGroupId: accusedGroup?.id })
     });
 
     setTimeLeft(30);
@@ -274,14 +356,22 @@ export default function AlibiInterrogation() {
   };
 
   const judgeAnswers = async (isCorrect) => {
-    if (myTeam !== "inspectors") return;
+    if (!canControl) return;
 
     await update(ref(db, `rooms_alibi/${code}/interrogation`), {
       state: "verdict",
       verdict: isCorrect ? "correct" : "incorrect"
     });
 
-    if (isCorrect) {
+    if (isPartyMode && accusedGroup) {
+      // Party Mode: update accused group's score
+      const currentScore = accusedGroup.score || { correct: 0, total: 0 };
+      await update(ref(db, `rooms_alibi/${code}/groups/${accusedGroup.id}/score`), {
+        correct: currentScore.correct + (isCorrect ? 1 : 0),
+        total: currentScore.total + 1
+      });
+    } else if (isCorrect) {
+      // Game Master Mode: update global score
       const scoreRef = ref(db, `rooms_alibi/${code}/score/correct`);
       onValue(scoreRef, (snap) => {
         const current = snap.val() || 0;
@@ -291,18 +381,53 @@ export default function AlibiInterrogation() {
   };
 
   const handleNextQuestion = async () => {
-    if (myTeam !== "inspectors") return;
+    if (!canControl) return;
 
-    if (currentQuestion >= 9) {
-      await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
+    if (isPartyMode) {
+      // Party Mode: check if this round is complete
+      const questionsPerGroup = state?.questionsPerGroup || 8;
+      const questionInRound = currentQuestion % questionsPerGroup;
+
+      if (questionInRound >= questionsPerGroup - 1) {
+        // Round complete - check if game is over
+        if (currentRound >= totalRounds - 1) {
+          await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
+        } else {
+          // Advance to next round
+          await advanceToNextRound();
+          setShowRoundTransition(true);
+          // Reset interrogation for new round
+          await update(ref(db, `rooms_alibi/${code}/interrogation`), {
+            currentQuestion: 0,
+            state: "waiting",
+            timeLeft: 30,
+            responses: {},
+            verdict: null
+          });
+        }
+      } else {
+        // Next question in current round
+        await update(ref(db, `rooms_alibi/${code}/interrogation`), {
+          currentQuestion: currentQuestion + 1,
+          state: "waiting",
+          timeLeft: 30,
+          responses: {},
+          verdict: null
+        });
+      }
     } else {
-      await update(ref(db, `rooms_alibi/${code}/interrogation`), {
-        currentQuestion: currentQuestion + 1,
-        state: "waiting",
-        timeLeft: 30,
-        responses: {},
-        verdict: null
-      });
+      // Game Master Mode: original logic
+      if (currentQuestion >= 9) {
+        await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
+      } else {
+        await update(ref(db, `rooms_alibi/${code}/interrogation`), {
+          currentQuestion: currentQuestion + 1,
+          state: "waiting",
+          timeLeft: 30,
+          responses: {},
+          verdict: null
+        });
+      }
     }
   };
 
@@ -347,14 +472,24 @@ export default function AlibiInterrogation() {
     };
   }, []);
 
-  // Actions SUSPECTS
+  // Check if I can answer (suspect in Game Master Mode OR accused group in Party Mode)
+  const canAnswer = useMemo(() => {
+    if (isPartyMode) {
+      return myRole === 'accused';
+    }
+    return myTeam === 'suspects';
+  }, [isPartyMode, myRole, myTeam]);
+
+  // Actions SUSPECTS / ACCUSED
   const submitAnswer = async () => {
-    if (myTeam !== "suspects" || !myUid || hasAnswered) return;
+    if (!canAnswer || !myUid || hasAnswered) return;
+
+    const myName = players.find(p => p.uid === myUid)?.name || "Inconnu";
 
     await update(ref(db, `rooms_alibi/${code}/interrogation/responses/${myUid}`), {
       answer: myAnswer,
       uid: myUid,
-      name: suspects.find(s => s.uid === myUid)?.name || "Inconnu"
+      name: myName
     });
 
     setHasAnswered(true);
@@ -362,8 +497,17 @@ export default function AlibiInterrogation() {
 
   const formatTime = (seconds) => `${seconds}s`;
 
-  const currentQuestionData = questions[currentQuestion];
-  const progressPercent = ((currentQuestion + 1) / 10) * 100;
+  const currentQuestionData = currentQuestions[currentQuestion];
+
+  // Progress calculation
+  const progressPercent = useMemo(() => {
+    if (isPartyMode) {
+      // Party Mode: progress based on rounds
+      return gameProgress?.percentage || 0;
+    }
+    return ((currentQuestion + 1) / 10) * 100;
+  }, [isPartyMode, gameProgress, currentQuestion]);
+
   const isUrgent = timeLeft <= 10;
   const isCritical = timeLeft <= 5;
 
@@ -375,7 +519,13 @@ export default function AlibiInterrogation() {
       {/* Header */}
       <header className="interro-header">
         <div className="interro-header-content">
-          <div className="interro-header-title">Question {currentQuestion + 1}/10</div>
+          <div className="interro-header-title">
+            {isPartyMode ? (
+              <>Round {currentRound + 1}/{totalRounds} • Q{currentQuestion + 1}</>
+            ) : (
+              <>Question {currentQuestion + 1}/10</>
+            )}
+          </div>
 
           <div className="interro-header-actions">
             {isHost && (
@@ -414,16 +564,26 @@ export default function AlibiInterrogation() {
           {/* ========== WAITING STATE ========== */}
           {questionState === "waiting" && (
             <>
-              {/* INSPECTORS - Waiting */}
-              {myTeam === "inspectors" && (
+              {/* INSPECTORS / Inspector Group - Waiting */}
+              {canControl && (
                 <motion.div
                   className="interro-waiting"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
                   <div className="interro-phase-header">
+                    {isPartyMode && inspectorGroup && (
+                      <div className="interro-group-badge" style={{ '--group-color': inspectorGroup.color }}>
+                        <span className="group-dot" style={{ background: inspectorGroup.color }} />
+                        <span>🔍 {inspectorGroup.name} interroge</span>
+                      </div>
+                    )}
                     <h1 className="interro-title">Interrogatoire</h1>
-                    <p className="interro-subtitle">Posez cette question aux suspects</p>
+                    <p className="interro-subtitle">
+                      {isPartyMode
+                        ? `Posez cette question à ${accusedGroup?.name || 'l\'équipe accusée'}`
+                        : 'Posez cette question aux suspects'}
+                    </p>
                   </div>
 
                   {/* Hint for inspector - reference passage */}
@@ -465,16 +625,26 @@ export default function AlibiInterrogation() {
                 </motion.div>
               )}
 
-              {/* SUSPECTS - Waiting */}
-              {myTeam === "suspects" && (
+              {/* SUSPECTS / Accused Group - Waiting */}
+              {canAnswer && (
                 <motion.div
                   className="interro-waiting"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
                   <div className="interro-phase-header">
+                    {isPartyMode && accusedGroup && (
+                      <div className="interro-group-badge accused" style={{ '--group-color': accusedGroup.color }}>
+                        <span className="group-dot" style={{ background: accusedGroup.color }} />
+                        <span>🎭 {accusedGroup.name}</span>
+                      </div>
+                    )}
                     <h1 className="interro-title">En attente...</h1>
-                    <p className="interro-subtitle">Les inspecteurs préparent la question</p>
+                    <p className="interro-subtitle">
+                      {isPartyMode
+                        ? `${inspectorGroup?.name || 'Les inspecteurs'} préparent la question`
+                        : 'Les inspecteurs préparent la question'}
+                    </p>
                   </div>
 
                   <motion.div
@@ -500,14 +670,38 @@ export default function AlibiInterrogation() {
                   </motion.div>
                 </motion.div>
               )}
+
+              {/* SPECTATORS - Party Mode only */}
+              {isPartyMode && myRole === 'spectator' && (
+                <AlibiSpectatorView
+                  inspectorGroup={inspectorGroup}
+                  accusedGroup={accusedGroup}
+                  question={currentQuestionData}
+                  interrogation={{ state: questionState, responses, verdict }}
+                  progress={gameProgress}
+                  timeLeft={timeLeft}
+                />
+              )}
             </>
           )}
 
           {/* ========== ANSWERING STATE ========== */}
           {questionState === "answering" && (
             <>
-              {/* SUSPECTS - Answering */}
-              {myTeam === "suspects" && (
+              {/* SPECTATORS - Party Mode only */}
+              {isPartyMode && myRole === 'spectator' && (
+                <AlibiSpectatorView
+                  inspectorGroup={inspectorGroup}
+                  accusedGroup={accusedGroup}
+                  question={currentQuestionData}
+                  interrogation={{ state: questionState, responses, verdict }}
+                  progress={gameProgress}
+                  timeLeft={timeLeft}
+                />
+              )}
+
+              {/* SUSPECTS / Accused Group - Answering */}
+              {canAnswer && (
                 <motion.div
                   className="interro-answering"
                   initial={{ opacity: 0, y: 20 }}
@@ -595,8 +789,8 @@ export default function AlibiInterrogation() {
                 </motion.div>
               )}
 
-              {/* INSPECTORS - Answering */}
-              {myTeam === "inspectors" && (
+              {/* INSPECTORS / Inspector Group - Answering */}
+              {canControl && (
                 <motion.div
                   className="interro-answering"
                   initial={{ opacity: 0, y: 20 }}
@@ -715,15 +909,15 @@ export default function AlibiInterrogation() {
             </>
           )}
 
-          {/* No team */}
-          {!myTeam && (
+          {/* No team / No group */}
+          {((!isPartyMode && !myTeam) || (isPartyMode && !myGroupId)) && (
             <motion.div
               className="interro-no-team"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
               <AlertTriangle size={48} />
-              <p>Tu n'es assigné à aucune équipe...</p>
+              <p>{isPartyMode ? "Tu n'es assigné à aucun groupe..." : "Tu n'es assigné à aucune équipe..."}</p>
             </motion.div>
           )}
         </div>
@@ -748,10 +942,23 @@ export default function AlibiInterrogation() {
       <VerdictTransition
         isVisible={questionState === "verdict" && verdict !== null}
         verdict={verdict}
-        showButton={myTeam === "inspectors"}
+        showButton={canControl}
         onButtonClick={handleNextQuestion}
         duration={3500}
       />
+
+      {/* Round Transition - Party Mode only */}
+      {isPartyMode && (
+        <AlibiRoundTransition
+          show={showRoundTransition}
+          inspectorGroup={inspectorGroup}
+          accusedGroup={accusedGroup}
+          myRole={myRole}
+          progress={gameProgress}
+          duration={4000}
+          onComplete={() => setShowRoundTransition(false)}
+        />
+      )}
 
       {/* End Transition */}
       <AnimatePresence>
@@ -883,6 +1090,34 @@ export default function AlibiInterrogation() {
         .interro-phase-header {
           text-align: center;
           flex-shrink: 0;
+        }
+
+        /* Party Mode: Group Badge */
+        .interro-group-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 14px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+          border: 1.5px solid var(--group-color, #f59e0b);
+          border-radius: 20px;
+          margin-bottom: 8px;
+          font-family: 'Space Grotesk', sans-serif !important;
+          font-size: 0.8125rem !important;
+          font-weight: 600 !important;
+          color: var(--group-color, #f59e0b) !important;
+        }
+
+        .interro-group-badge .group-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          box-shadow: 0 0 10px currentColor;
+        }
+
+        .interro-group-badge.accused {
+          border-color: var(--group-color, #6366f1);
+          color: var(--group-color, #6366f1) !important;
         }
 
         .interro-title {

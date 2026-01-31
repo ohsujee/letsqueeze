@@ -32,6 +32,7 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
+import { ALIBI_GROUP_CONFIG } from "@/lib/config/rooms";
 
 export default function AlibiPrep() {
   const { code } = useParams();
@@ -48,6 +49,12 @@ export default function AlibiPrep() {
   const [showCountdown, setShowCountdown] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef(null);
+
+  // Party Mode state
+  const [isPartyMode, setIsPartyMode] = useState(false);
+  const [myGroupId, setMyGroupId] = useState(null);
+  const [groups, setGroups] = useState({});
+  const [myGroupAlibi, setMyGroupAlibi] = useState(null);
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
@@ -123,14 +130,17 @@ export default function AlibiPrep() {
     return () => unsub();
   }, []);
 
-  // Listen to player team - separate effect with proper cleanup
+  // Listen to player team/group - separate effect with proper cleanup
   useEffect(() => {
     if (!code || !myUid) return;
 
     const playerRef = ref(db, `rooms_alibi/${code}/players/${myUid}`);
     const unsub = onValue(playerRef, (snap) => {
       const player = snap.val();
-      if (player) setMyTeam(player.team);
+      if (player) {
+        setMyTeam(player.team);
+        setMyGroupId(player.groupId || null);
+      }
     });
 
     return () => unsub();
@@ -153,6 +163,20 @@ export default function AlibiPrep() {
   useEffect(() => {
     if (!code) return;
 
+    // Listen to meta for Party Mode detection
+    const metaUnsub = onValue(ref(db, `rooms_alibi/${code}/meta`), (snap) => {
+      const meta = snap.val();
+      if (meta?.gameMasterMode === 'party') {
+        setIsPartyMode(true);
+      }
+    });
+
+    // Listen to groups (Party Mode)
+    const groupsUnsub = onValue(ref(db, `rooms_alibi/${code}/groups`), (snap) => {
+      setGroups(snap.val() || {});
+    });
+
+    // Listen to alibi (Game Master Mode)
     const alibiUnsub = onValue(ref(db, `rooms_alibi/${code}/alibi`), (snap) => {
       setAlibi(snap.val());
     });
@@ -184,11 +208,22 @@ export default function AlibiPrep() {
     });
 
     return () => {
+      metaUnsub();
+      groupsUnsub();
       alibiUnsub();
       questionsUnsub();
       stateUnsub();
     };
   }, [code, router, showCountdown]);
+
+  // Party Mode: get my group's alibi
+  useEffect(() => {
+    if (!isPartyMode || !myGroupId || !groups[myGroupId]) {
+      setMyGroupAlibi(null);
+      return;
+    }
+    setMyGroupAlibi(groups[myGroupId]?.alibiData || null);
+  }, [isPartyMode, myGroupId, groups]);
 
   // Timer countdown (seulement pour l'hôte)
   useEffect(() => {
@@ -273,21 +308,23 @@ export default function AlibiPrep() {
   };
 
   // Sanitize HTML when alibi changes (async DOMPurify)
+  // Works for both Game Master Mode (alibi) and Party Mode (myGroupAlibi)
   useEffect(() => {
-    if (!alibi?.accused_document) {
+    const currentAlibi = isPartyMode ? myGroupAlibi : alibi;
+    if (!currentAlibi?.accused_document) {
       setSanitizedDoc(null);
       return;
     }
 
     (async () => {
       const DOMPurify = await getDOMPurify();
-      const sanitized = DOMPurify.sanitize(alibi.accused_document, {
+      const sanitized = DOMPurify.sanitize(currentAlibi.accused_document, {
         ALLOWED_TAGS: ['strong', 'em', 'b', 'i', 'u', 'br', 'p', 'span', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4'],
         ALLOWED_ATTR: ['class', 'style']
       });
       setSanitizedDoc(sanitized);
     })();
-  }, [alibi?.accused_document]);
+  }, [isPartyMode, alibi?.accused_document, myGroupAlibi?.accused_document]);
 
   const renderHTML = () => {
     if (!sanitizedDoc) return null;
@@ -303,6 +340,10 @@ export default function AlibiPrep() {
   const progressPercent = (timeLeft / 90) * 100;
   const isUrgent = timeLeft <= 15;
 
+  // Get current alibi based on mode
+  const currentAlibi = isPartyMode ? myGroupAlibi : alibi;
+  const myGroup = isPartyMode && myGroupId ? groups[myGroupId] : null;
+
   return (
     <div className="game-screen game-page">
       {/* Animated Background */}
@@ -311,7 +352,7 @@ export default function AlibiPrep() {
       {/* Header Fixe */}
       <header className="game-header">
         <div className="header-content">
-          <div className="header-title">{alibi?.title || "Alibi"}</div>
+          <div className="header-title">{currentAlibi?.title || "Alibi"}</div>
 
           <div className="timer-section">
             {isHost && (
@@ -357,14 +398,31 @@ export default function AlibiPrep() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="game-title">
-              {myTeam === "suspects" ? "🎭 Mémorise ton Alibi" : "🕵️ Prépare tes Questions"}
-            </h1>
-            <p className="phase-subtitle">
-              {myTeam === "suspects"
-                ? "Tu n'auras plus accès à ce texte pendant l'interrogatoire !"
-                : "Les suspects vont devoir défendre cet alibi"}
-            </p>
+            {isPartyMode ? (
+              <>
+                {/* Party Mode: everyone memorizes their group's alibi */}
+                <div className="group-badge-prep" style={{ '--group-color': myGroup?.color }}>
+                  <span className="group-dot" style={{ background: myGroup?.color }} />
+                  <span className="group-name">{myGroup?.name || 'Ton groupe'}</span>
+                </div>
+                <h1 className="game-title">🎭 Mémorise ton Alibi</h1>
+                <p className="phase-subtitle">
+                  Tu n'auras plus accès à ce texte pendant l'interrogatoire !
+                </p>
+              </>
+            ) : (
+              <>
+                {/* Game Master Mode: inspectors vs suspects */}
+                <h1 className="game-title">
+                  {myTeam === "suspects" ? "🎭 Mémorise ton Alibi" : "🕵️ Prépare tes Questions"}
+                </h1>
+                <p className="phase-subtitle">
+                  {myTeam === "suspects"
+                    ? "Tu n'auras plus accès à ce texte pendant l'interrogatoire !"
+                    : "Les suspects vont devoir défendre cet alibi"}
+                </p>
+              </>
+            )}
           </motion.div>
 
           {/* Contrôles Hôte */}
@@ -387,8 +445,8 @@ export default function AlibiPrep() {
             </motion.div>
           )}
 
-          {/* Vue SUSPECTS */}
-          {myTeam === "suspects" && alibi && (
+          {/* Vue SUSPECTS (Game Master Mode) ou vue PARTY MODE (tous les joueurs) */}
+          {((myTeam === "suspects" && alibi) || (isPartyMode && currentAlibi)) && (
             <motion.div
               className={`alibi-card ${isPaused ? 'paused' : ''}`}
               initial={{ opacity: 0, y: 20 }}
@@ -397,7 +455,7 @@ export default function AlibiPrep() {
             >
               <div className="card-glow" />
 
-              {alibi.isNewFormat ? (
+              {currentAlibi?.isNewFormat ? (
                 <div className="alibi-content">
                   {/* Contexte / Accusation */}
                   <div className="accusation-box">
@@ -405,7 +463,7 @@ export default function AlibiPrep() {
                       <span className="accusation-icon">⚠️</span>
                       <span className="accusation-label">Accusation</span>
                     </div>
-                    <p className="accusation-text">{alibi.context}</p>
+                    <p className="accusation-text">{currentAlibi.context}</p>
                   </div>
 
                   {/* Document de l'accusé */}
@@ -417,7 +475,7 @@ export default function AlibiPrep() {
                 <div className="alibi-content">
                   <div className="document-box">
                     <div className="scenario-text">
-                      {parseMarkdown(alibi.scenario)}
+                      {parseMarkdown(currentAlibi?.scenario)}
                     </div>
                   </div>
                 </div>
@@ -440,8 +498,8 @@ export default function AlibiPrep() {
             </motion.div>
           )}
 
-          {/* Vue INSPECTEURS */}
-          {myTeam === "inspectors" && alibi && (
+          {/* Vue INSPECTEURS (Game Master Mode only) */}
+          {!isPartyMode && myTeam === "inspectors" && alibi && (
             <div className="inspector-section">
               {/* Contexte */}
               <motion.div
@@ -533,14 +591,14 @@ export default function AlibiPrep() {
             </div>
           )}
 
-          {/* Aucune équipe */}
-          {!myTeam && (
+          {/* Aucune équipe / groupe */}
+          {((!isPartyMode && !myTeam) || (isPartyMode && !myGroupId)) && (
             <motion.div
               className="no-team-card"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <p>Tu n'es assigné à aucune équipe...</p>
+              <p>{isPartyMode ? "Tu n'es assigné à aucun groupe..." : "Tu n'es assigné à aucune équipe..."}</p>
             </motion.div>
           )}
         </div>
@@ -721,6 +779,34 @@ export default function AlibiPrep() {
         :global(.phase-header) {
           text-align: center;
           flex-shrink: 0;
+        }
+
+        /* Party Mode: Group Badge */
+        :global(.group-badge-prep) {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 14px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+          border: 1.5px solid var(--group-color, #f59e0b);
+          border-radius: 20px;
+          margin-bottom: 8px;
+        }
+
+        :global(.group-badge-prep .group-dot) {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          box-shadow: 0 0 10px currentColor;
+        }
+
+        :global(.group-badge-prep .group-name) {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.8125rem;
+          font-weight: 700;
+          color: var(--group-color, #f59e0b);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
         /* Game Title (Style Guide Section 3) */
