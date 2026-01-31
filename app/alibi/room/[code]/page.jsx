@@ -17,8 +17,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LobbyHeader from "@/components/game/LobbyHeader";
 import PaywallModal from "@/components/ui/PaywallModal";
 import AlibiSelectorModal from "@/components/game-alibi/AlibiSelectorModal";
+import { AlibiGroupSelector, AlibiGroupNameEditor } from "@/components/game-alibi";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { useAlibiGroups } from "@/lib/hooks/useAlibiGroups";
+import { useAlibiGroupRotation } from "@/lib/hooks/useAlibiGroupRotation";
 import { canAccessPack, isPro } from "@/lib/subscription";
+import { ALIBI_GROUP_CONFIG } from "@/lib/config/rooms";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
@@ -43,9 +47,33 @@ export default function AlibiLobby() {
   const [meta, setMeta] = useState(null);
   const [isHost, setIsHost] = useState(false);
   const [myUid, setMyUid] = useState(null);
+  const [groups, setGroups] = useState({});
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
+
+  // Party Mode detection
+  const isPartyMode = meta?.gameMasterMode === 'party';
+
+  // Party Mode hooks
+  const alibiGroupsHook = useAlibiGroups({
+    roomCode: code,
+    meta,
+    groups,
+    players,
+    myUid,
+    isHost
+  });
+
+  const { initializeRotation } = useAlibiGroupRotation({
+    roomCode: code,
+    meta,
+    state: null, // Not needed in lobby
+    groups,
+    players,
+    myUid,
+    isHost
+  });
   const [alibiOptions, setAlibiOptions] = useState([]);
   const [selectedAlibiId, setSelectedAlibiId] = useState(null);
   const [joinUrl, setJoinUrl] = useState("");
@@ -104,18 +132,26 @@ export default function AlibiLobby() {
     return () => unsub();
   }, [meta?.hostUid, players]);
 
-  // Auto-join host as inspector
+  // Auto-join host
   useEffect(() => {
     if (isHost && !hostJoined && userPseudo && !profileLoading && auth.currentUser) {
       const uid = auth.currentUser.uid;
       set(ref(db, `rooms_alibi/${code}/players/${uid}`), {
         uid,
         name: userPseudo,
-        team: 'inspectors',
+        team: isPartyMode ? null : 'inspectors', // Party Mode: no team, will be assigned to group
+        groupId: null,
         joinedAt: Date.now()
       });
     }
-  }, [isHost, hostJoined, userPseudo, profileLoading, code]);
+  }, [isHost, hostJoined, userPseudo, profileLoading, code, isPartyMode]);
+
+  // Initialize groups in Party Mode (host only, once)
+  useEffect(() => {
+    if (isHost && isPartyMode && meta?.groupCount && Object.keys(groups).length === 0) {
+      alibiGroupsHook.initializeGroups(meta.groupCount);
+    }
+  }, [isHost, isPartyMode, meta?.groupCount, groups, alibiGroupsHook]);
 
   // Presence hook - real-time connection tracking
   const { isConnected, forceReconnect } = usePresence({
@@ -193,14 +229,30 @@ export default function AlibiLobby() {
       }
     });
 
+    // Listen for groups (Party Mode)
+    const groupsUnsub = onValue(ref(db, `rooms_alibi/${code}/groups`), (snap) => {
+      setGroups(snap.val() || {});
+    });
+
     return () => {
       metaUnsub();
       stateUnsub();
+      groupsUnsub();
     };
   }, [code, router]);
 
   const handleSelectAlibi = async (alibiId) => {
     if (!isHost) return;
+
+    // Party Mode: assign alibi to specific group
+    if (isPartyMode && window.__selectingAlibiForGroup) {
+      const groupId = window.__selectingAlibiForGroup;
+      window.__selectingAlibiForGroup = null;
+      await alibiGroupsHook.assignAlibiToGroup(groupId, alibiId);
+      return;
+    }
+
+    // Game Master Mode: single alibi
     await update(ref(db, `rooms_alibi/${code}/meta`), { alibiId });
   };
 
@@ -240,7 +292,111 @@ export default function AlibiLobby() {
   };
 
   const handleStartGame = async () => {
-    if (!isHost || !selectedAlibiId) return;
+    if (!isHost) return;
+
+    // ========== PARTY MODE ==========
+    if (isPartyMode) {
+      // Validate all groups have players and alibis
+      if (!alibiGroupsHook.allGroupsValid || !alibiGroupsHook.allGroupsHaveAlibi) {
+        toast.error('Tous les groupes doivent avoir au moins 2 joueurs et un alibi');
+        return;
+      }
+
+      // Check access for all alibis
+      const groupIds = alibiGroupsHook.groupIds;
+      for (let i = 0; i < groupIds.length; i++) {
+        const group = groups[groupIds[i]];
+        const alibiIndex = alibiOptions.findIndex(a => a.id === group?.alibiId);
+        if (currentUser && !userIsPro && alibiIndex >= 0) {
+          const hasAccess = canAccessPack(
+            { ...currentUser, subscription },
+            'alibi',
+            alibiIndex,
+            { isPartyMode: true }
+          );
+          if (!hasAccess) {
+            const alibi = alibiOptions.find(a => a.id === group?.alibiId);
+            setLockedAlibiName(alibi?.title || group?.alibiId);
+            setShowPaywall(true);
+            return;
+          }
+        }
+      }
+
+      try {
+        // Load alibi data for each group
+        const groupUpdates = {};
+        for (const groupId of groupIds) {
+          const group = groups[groupId];
+          if (!group?.alibiId) continue;
+
+          const alibiData = await fetch(`/data/alibis/${group.alibiId}.json`).then(r => r.json());
+          const isNewFormat = alibiData.accused_document !== undefined;
+
+          let questions;
+          if (isNewFormat) {
+            questions = alibiData.inspector_questions.map((q, i) => ({
+              id: i,
+              text: typeof q === 'string' ? q : q.text,
+              hint: typeof q === 'object' ? q.hint : null,
+              custom: false
+            }));
+          } else {
+            questions = [
+              ...alibiData.predefinedQuestions.map((q, i) => ({ id: i, text: q, custom: false })),
+              { id: 7, text: "", custom: true },
+              { id: 8, text: "", custom: true },
+              { id: 9, text: "", custom: true }
+            ];
+          }
+
+          groupUpdates[`groups/${groupId}/alibiData`] = {
+            context: alibiData.context || null,
+            accused_document: alibiData.accused_document || null,
+            inspector_summary: alibiData.inspector_summary || null,
+            scenario: alibiData.scenario || null,
+            keyElements: alibiData.keyElements || null,
+            title: alibiData.title,
+            isNewFormat,
+            questions
+          };
+        }
+
+        // Initialize rotation
+        const rotationState = await initializeRotation();
+
+        // Calculate questions per group
+        const questionsPerGroup = alibiGroupsHook.getQuestionsPerGroup();
+
+        await update(ref(db, `rooms_alibi/${code}`), {
+          ...groupUpdates,
+          state: {
+            phase: "prep",
+            currentQuestion: 0,
+            prepTimeLeft: 90,
+            questionTimeLeft: 30,
+            allAnswered: false,
+            // Party mode rotation
+            ...rotationState,
+            questionsPerGroup
+          },
+          interrogation: {
+            currentQuestion: 0,
+            state: "waiting",
+            responses: null,
+            verdict: null
+          }
+        });
+
+      } catch (error) {
+        console.error('Erreur lors du lancement (Party Mode):', error);
+        toast.error('Erreur lors du lancement de la partie');
+      }
+      return;
+    }
+
+    // ========== GAME MASTER MODE (existing logic) ==========
+    if (!selectedAlibiId) return;
 
     const alibiIndex = alibiOptions.findIndex(a => a.id === selectedAlibiId);
 
@@ -330,9 +486,12 @@ export default function AlibiLobby() {
 
   const inspectors = players.filter(p => p.team === "inspectors");
   const suspects = players.filter(p => p.team === "suspects");
-  const unassigned = players.filter(p => !p.team);
+  const unassigned = players.filter(p => !p.team && !p.groupId);
 
-  const canStart = isHost && selectedAlibiId && inspectors.length > 0 && suspects.length > 0;
+  // Can start conditions depend on mode
+  const canStartGameMaster = isHost && selectedAlibiId && inspectors.length > 0 && suspects.length > 0;
+  const canStartParty = isHost && isPartyMode && alibiGroupsHook.allGroupsValid && alibiGroupsHook.allGroupsHaveAlibi;
+  const canStart = isPartyMode ? canStartParty : canStartGameMaster;
 
   // Get selected alibi info
   const selectedAlibi = alibiOptions.find(a => a.id === selectedAlibiId);
@@ -421,37 +580,103 @@ export default function AlibiLobby() {
         {isHost ? (
           // HOST VIEW
           <>
+            {/* Party Mode Badge */}
+            {isPartyMode && (
+              <div className="game-mode-badge party alibi">
+                <span className="game-mode-icon">🎉</span>
+                <span className="game-mode-text">Party Mode - Tout le monde joue !</span>
+              </div>
+            )}
+
             <div className="alibi-lobby-content">
-              {/* Alibi Selector Card */}
-              <motion.div
-                className="alibi-lobby-card alibi-selector"
-                onClick={() => setShowAlibiSelector(true)}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-              >
-                <div className="alibi-card-content">
-                  <div className="alibi-card-left">
-                    <span className="alibi-card-emoji">
-                      {alibiEmojis[selectedAlibiId] || '🕵️'}
-                    </span>
+              {/* GAME MASTER MODE: Single Alibi Selector */}
+              {!isPartyMode && (
+                <motion.div
+                  className="alibi-lobby-card alibi-selector"
+                  onClick={() => setShowAlibiSelector(true)}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                >
+                  <div className="alibi-card-content">
+                    <div className="alibi-card-left">
+                      <span className="alibi-card-emoji">
+                        {alibiEmojis[selectedAlibiId] || '🕵️'}
+                      </span>
+                    </div>
+                    <div className="alibi-card-center">
+                      <span className="alibi-card-label">Alibi</span>
+                      <h3 className="alibi-card-title">
+                        {selectedAlibi?.title || 'Choisir un alibi'}
+                      </h3>
+                      <p className="alibi-card-meta">
+                        {selectedAlibiId ? '10 questions • Interrogatoire' : 'Appuyer pour choisir'}
+                      </p>
+                    </div>
+                    <div className="alibi-card-right">
+                      <span className="alibi-change-hint">{selectedAlibiId ? 'Changer' : 'Choisir'}</span>
+                      <ChevronRight size={20} className="alibi-card-arrow" />
+                    </div>
                   </div>
-                  <div className="alibi-card-center">
-                    <span className="alibi-card-label">Alibi</span>
-                    <h3 className="alibi-card-title">
-                      {selectedAlibi?.title || 'Choisir un alibi'}
-                    </h3>
-                    <p className="alibi-card-meta">
-                      {selectedAlibiId ? '10 questions • Interrogatoire' : 'Appuyer pour choisir'}
-                    </p>
-                  </div>
-                  <div className="alibi-card-right">
-                    <span className="alibi-change-hint">{selectedAlibiId ? 'Changer' : 'Choisir'}</span>
-                    <ChevronRight size={20} className="alibi-card-arrow" />
+                </motion.div>
+              )}
+
+              {/* PARTY MODE: Group Management */}
+              {isPartyMode && (
+                <div className="alibi-lobby-card party-groups-card">
+                  <AlibiGroupSelector
+                    groups={groups}
+                    players={players}
+                    playersByGroup={alibiGroupsHook.playersByGroup}
+                    groupCount={alibiGroupsHook.groupCount}
+                    onGroupCountChange={alibiGroupsHook.setGroupCount}
+                    onAssignPlayer={alibiGroupsHook.assignToGroup}
+                    onRemovePlayer={alibiGroupsHook.removeFromGroup}
+                    onAutoAssign={alibiGroupsHook.autoAssignPlayers}
+                    onReset={alibiGroupsHook.resetAssignments}
+                    isGroupValid={alibiGroupsHook.isGroupValid}
+                  />
+
+                  {/* Alibi Selection per Group */}
+                  <div className="group-alibis-section">
+                    <h4 className="section-title">Alibis par groupe</h4>
+                    <div className="group-alibis-list">
+                      {alibiGroupsHook.groupIds.map(groupId => {
+                        const group = groups[groupId];
+                        const groupAlibi = alibiOptions.find(a => a.id === group?.alibiId);
+                        return (
+                          <div key={groupId} className="group-alibi-row" style={{ '--group-color': group?.color }}>
+                            <div className="group-alibi-info">
+                              <div className="group-dot" style={{ background: group?.color }} />
+                              <span className="group-name">{group?.name}</span>
+                            </div>
+                            <button
+                              className="group-alibi-btn"
+                              onClick={() => {
+                                // Store which group we're selecting for
+                                window.__selectingAlibiForGroup = groupId;
+                                setShowAlibiSelector(true);
+                              }}
+                            >
+                              {groupAlibi ? (
+                                <>
+                                  <span className="alibi-emoji">{alibiEmojis[group?.alibiId] || '🕵️'}</span>
+                                  <span className="alibi-name">{groupAlibi.title}</span>
+                                </>
+                              ) : (
+                                <span className="no-alibi">Choisir un alibi</span>
+                              )}
+                              <ChevronRight size={16} />
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-              </motion.div>
+              )}
 
-              {/* Roles Management Card */}
+              {/* GAME MASTER MODE: Roles Management Card */}
+              {!isPartyMode && (
               <div className="alibi-lobby-card alibi-roles-card">
                 {/* Header with Quick Actions */}
                 <div className="roles-header">
@@ -640,6 +865,7 @@ export default function AlibiLobby() {
                 )}
 
               </div>
+              )}
             </div>
 
             {/* Fixed Start Button */}
@@ -670,87 +896,155 @@ export default function AlibiLobby() {
         ) : (
           // PLAYER VIEW
           <div className="alibi-player-view">
-            {/* My Role Banner */}
-            {players.find(p => p.uid === auth.currentUser?.uid)?.team ? (
-              <div className={`my-role-banner ${players.find(p => p.uid === auth.currentUser?.uid)?.team}`}>
-                <div className="banner-glow" />
-                <span className="banner-label">Ton rôle</span>
-                <span className="banner-role-name">
-                  {players.find(p => p.uid === auth.currentUser?.uid)?.team === 'inspectors'
-                    ? '🕵️ Inspecteur'
-                    : '🎭 Suspect'}
-                </span>
-                <span className="banner-description">
-                  {players.find(p => p.uid === auth.currentUser?.uid)?.team === 'inspectors'
-                    ? 'Tu devras interroger les suspects'
-                    : 'Tu devras défendre ton alibi'}
-                </span>
-              </div>
+            {/* PARTY MODE: My Group Banner */}
+            {isPartyMode ? (
+              alibiGroupsHook.myGroup ? (
+                <div className="my-group-banner" style={{ '--group-color': alibiGroupsHook.myGroup.color }}>
+                  <div className="banner-glow" style={{ background: alibiGroupsHook.myGroup.color }} />
+                  <AlibiGroupNameEditor
+                    group={alibiGroupsHook.myGroup}
+                    onUpdateName={(name) => alibiGroupsHook.updateGroupName(alibiGroupsHook.myGroup.id, name)}
+                    canEdit={true}
+                  />
+                  <span className="banner-description">
+                    Chaque groupe aura son propre alibi à défendre
+                  </span>
+                </div>
+              ) : (
+                <div className="pending-banner alibi">
+                  <span className="pending-icon">⏳</span>
+                  <span className="pending-text">L'hôte va t'assigner un groupe...</span>
+                </div>
+              )
             ) : (
-              <div className="pending-banner alibi">
-                <span className="pending-icon">⏳</span>
-                <span className="pending-text">L'hôte va t'assigner un rôle...</span>
-              </div>
+              /* GAME MASTER MODE: My Role Banner */
+              players.find(p => p.uid === auth.currentUser?.uid)?.team ? (
+                <div className={`my-role-banner ${players.find(p => p.uid === auth.currentUser?.uid)?.team}`}>
+                  <div className="banner-glow" />
+                  <span className="banner-label">Ton rôle</span>
+                  <span className="banner-role-name">
+                    {players.find(p => p.uid === auth.currentUser?.uid)?.team === 'inspectors'
+                      ? '🕵️ Inspecteur'
+                      : '🎭 Suspect'}
+                  </span>
+                  <span className="banner-description">
+                    {players.find(p => p.uid === auth.currentUser?.uid)?.team === 'inspectors'
+                      ? 'Tu devras interroger les suspects'
+                      : 'Tu devras défendre ton alibi'}
+                  </span>
+                </div>
+              ) : (
+                <div className="pending-banner alibi">
+                  <span className="pending-icon">⏳</span>
+                  <span className="pending-text">L'hôte va t'assigner un rôle...</span>
+                </div>
+              )
             )}
 
-            {/* Roles Grid with Players */}
-            <div className="alibi-roles-grid-player">
-              {/* Inspectors */}
-              <div className={`role-card-player inspectors ${players.find(p => p.uid === auth.currentUser?.uid)?.team === 'inspectors' ? 'my-role' : ''}`}>
-                <div className="role-card-bar inspectors" />
-                <div className="role-card-header">
-                  <span className="role-card-icon">🕵️</span>
-                  <span className="role-card-name">Inspecteurs</span>
-                  <span className="role-card-count">{inspectors.length}</span>
-                </div>
-                <div className="role-card-players">
-                  {inspectors.length === 0 ? (
-                    <span className="no-players-text">Vide</span>
-                  ) : (
-                    inspectors.slice(0, 4).map((player) => (
-                      <span
-                        key={player.uid}
-                        className={`player-tag inspectors ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
-                      >
-                        {player.uid === auth.currentUser?.uid && '👤 '}
-                        {player.name}
-                      </span>
-                    ))
-                  )}
-                  {inspectors.length > 4 && (
-                    <span className="player-tag more">+{inspectors.length - 4}</span>
-                  )}
-                </div>
-              </div>
+            {/* PARTY MODE: Groups Grid */}
+            {isPartyMode ? (
+              <div className="alibi-groups-grid-player">
+                {alibiGroupsHook.groupIds.map(groupId => {
+                  const group = groups[groupId];
+                  const groupPlayers = alibiGroupsHook.playersByGroup[groupId] || [];
+                  const isMyGroup = alibiGroupsHook.myGroup?.id === groupId;
 
-              {/* Suspects */}
-              <div className={`role-card-player suspects ${players.find(p => p.uid === auth.currentUser?.uid)?.team === 'suspects' ? 'my-role' : ''}`}>
-                <div className="role-card-bar suspects" />
-                <div className="role-card-header">
-                  <span className="role-card-icon">🎭</span>
-                  <span className="role-card-name">Suspects</span>
-                  <span className="role-card-count">{suspects.length}</span>
+                  return (
+                    <div
+                      key={groupId}
+                      className={`group-card-player ${isMyGroup ? 'my-group' : ''}`}
+                      style={{ '--group-color': group?.color }}
+                    >
+                      <div className="group-card-bar" style={{ background: group?.color }} />
+                      <div className="group-card-header">
+                        <span className="group-card-name" style={{ color: group?.color }}>
+                          {group?.name}
+                        </span>
+                        <span className="group-card-count">{groupPlayers.length}</span>
+                      </div>
+                      <div className="group-card-players">
+                        {groupPlayers.length === 0 ? (
+                          <span className="no-players-text">Vide</span>
+                        ) : (
+                          groupPlayers.slice(0, 4).map((player) => (
+                            <span
+                              key={player.uid}
+                              className={`player-tag ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
+                              style={{ '--group-color': group?.color }}
+                            >
+                              {player.uid === auth.currentUser?.uid && '👤 '}
+                              {player.name}
+                            </span>
+                          ))
+                        )}
+                        {groupPlayers.length > 4 && (
+                          <span className="player-tag more">+{groupPlayers.length - 4}</span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              /* GAME MASTER MODE: Roles Grid */
+              <div className="alibi-roles-grid-player">
+                {/* Inspectors */}
+                <div className={`role-card-player inspectors ${players.find(p => p.uid === auth.currentUser?.uid)?.team === 'inspectors' ? 'my-role' : ''}`}>
+                  <div className="role-card-bar inspectors" />
+                  <div className="role-card-header">
+                    <span className="role-card-icon">🕵️</span>
+                    <span className="role-card-name">Inspecteurs</span>
+                    <span className="role-card-count">{inspectors.length}</span>
+                  </div>
+                  <div className="role-card-players">
+                    {inspectors.length === 0 ? (
+                      <span className="no-players-text">Vide</span>
+                    ) : (
+                      inspectors.slice(0, 4).map((player) => (
+                        <span
+                          key={player.uid}
+                          className={`player-tag inspectors ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
+                        >
+                          {player.uid === auth.currentUser?.uid && '👤 '}
+                          {player.name}
+                        </span>
+                      ))
+                    )}
+                    {inspectors.length > 4 && (
+                      <span className="player-tag more">+{inspectors.length - 4}</span>
+                    )}
+                  </div>
                 </div>
-                <div className="role-card-players">
-                  {suspects.length === 0 ? (
-                    <span className="no-players-text">Vide</span>
-                  ) : (
-                    suspects.slice(0, 4).map((player) => (
-                      <span
-                        key={player.uid}
-                        className={`player-tag suspects ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
-                      >
-                        {player.uid === auth.currentUser?.uid && '👤 '}
-                        {player.name}
-                      </span>
-                    ))
-                  )}
-                  {suspects.length > 4 && (
-                    <span className="player-tag more">+{suspects.length - 4}</span>
-                  )}
+
+                {/* Suspects */}
+                <div className={`role-card-player suspects ${players.find(p => p.uid === auth.currentUser?.uid)?.team === 'suspects' ? 'my-role' : ''}`}>
+                  <div className="role-card-bar suspects" />
+                  <div className="role-card-header">
+                    <span className="role-card-icon">🎭</span>
+                    <span className="role-card-name">Suspects</span>
+                    <span className="role-card-count">{suspects.length}</span>
+                  </div>
+                  <div className="role-card-players">
+                    {suspects.length === 0 ? (
+                      <span className="no-players-text">Vide</span>
+                    ) : (
+                      suspects.slice(0, 4).map((player) => (
+                        <span
+                          key={player.uid}
+                          className={`player-tag suspects ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
+                        >
+                          {player.uid === auth.currentUser?.uid && '👤 '}
+                          {player.name}
+                        </span>
+                      ))
+                    )}
+                    {suspects.length > 4 && (
+                      <span className="player-tag more">+{suspects.length - 4}</span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Waiting Animation */}
             <div className="waiting-compact alibi">

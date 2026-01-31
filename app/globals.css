@@ -11150,6 +11150,121 @@ input[type="text"].game-search-input:focus,
   min-height: 0;
 }
 
+/* ===== PARTY MODE - Host View ===== */
+.party-groups-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.group-alibis-section {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.group-alibis-section .section-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.75rem;
+}
+
+.group-alibis-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.group-alibi-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.group-alibi-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.group-alibi-info .group-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.group-alibi-info .group-name {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--group-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.group-alibi-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  max-width: 180px;
+}
+
+.group-alibi-btn:hover {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.group-alibi-btn .alibi-emoji {
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.group-alibi-btn .alibi-name {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-primary, #ffffff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.group-alibi-btn .no-alibi {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+}
+
+.group-alibi-btn svg {
+  color: var(--alibi-glow, #fbbf24);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
 /* Roles Header */
 .roles-header {
   display: flex;
@@ -11615,6 +11730,145 @@ input[type="text"].game-search-input:focus,
 .pending-banner.alibi {
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
   border-color: rgba(245, 158, 11, 0.4);
+}
+
+/* ===== PARTY MODE - My Group Banner (Player View) ===== */
+.my-group-banner {
+  position: relative;
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 16px;
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  border: 2px solid var(--group-color);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--group-color) 25%, transparent);
+}
+
+.my-group-banner .banner-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  filter: blur(30px);
+  animation: banner-pulse 3s ease-in-out infinite;
+}
+
+.my-group-banner .banner-description {
+  display: block;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+/* ===== PARTY MODE - Groups Grid (Player View) ===== */
+.alibi-groups-grid-player {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.group-card-player {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1rem 1.25rem;
+  background: rgba(20, 20, 30, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.group-card-player.my-group {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  border-color: var(--group-color);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--group-color) 25%, transparent);
+}
+
+.group-card-player .group-card-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--group-color) 50%, transparent);
+}
+
+.group-card-player .group-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.group-card-player .group-card-name {
+  flex: 1;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.group-card-player .group-card-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 0.375rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.75rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+}
+
+.group-card-player .group-card-players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 32px;
+}
+
+.group-card-player .no-players-text {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--text-muted, rgba(255, 255, 255, 0.4));
+}
+
+.group-card-player .player-tag {
+  padding: 0.5rem 0.875rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-primary, #ffffff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.group-card-player .player-tag.is-me {
+  font-weight: 600;
+  background: color-mix(in srgb, var(--group-color) 15%, transparent);
+  border-color: color-mix(in srgb, var(--group-color) 30%, transparent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--group-color) 15%, transparent);
+}
+
+.group-card-player .player-tag.more {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+  font-size: 0.8125rem;
 }
 
 /* Roles Grid Player View - Liste verticale */
