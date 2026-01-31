@@ -98,15 +98,27 @@
         },
         "state": {
           ".read": "auth != null",
-          ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()"
+          ".write": "auth != null && ( auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val() || ( root.child('rooms_alibi/'+$code+'/meta/gameMasterMode').val() == 'party' && root.child('rooms_alibi/'+$code+'/players/'+auth.uid+'/groupId').val() == root.child('rooms_alibi/'+$code+'/state/inspectorGroupId').val() ) )"
         },
         "teams": {
           ".read": "auth != null",
           ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()"
         },
+        "groups": {
+          ".read": "auth != null",
+          "$groupId": {
+            ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()",
+            "name": {
+              ".write": "auth != null && ( auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val() || root.child('rooms_alibi/'+$code+'/players/'+auth.uid+'/groupId').val() == $groupId )"
+            },
+            "score": {
+              ".write": "auth != null && ( auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val() || ( root.child('rooms_alibi/'+$code+'/meta/gameMasterMode').val() == 'party' && root.child('rooms_alibi/'+$code+'/players/'+auth.uid+'/groupId').val() == root.child('rooms_alibi/'+$code+'/state/inspectorGroupId').val() ) )"
+            }
+          }
+        },
         "score": {
           ".read": "auth != null",
-          ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()"
+          ".write": "auth != null && ( auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val() || ( root.child('rooms_alibi/'+$code+'/meta/gameMasterMode').val() == 'party' && root.child('rooms_alibi/'+$code+'/players/'+auth.uid+'/groupId').val() == root.child('rooms_alibi/'+$code+'/state/inspectorGroupId').val() ) )"
         },
         "alibi": {
           ".read": "auth != null",
@@ -118,10 +130,10 @@
         },
         "interrogation": {
           ".read": "auth != null",
-          ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()",
+          ".write": "auth != null && ( auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val() || ( root.child('rooms_alibi/'+$code+'/meta/gameMasterMode').val() == 'party' && root.child('rooms_alibi/'+$code+'/players/'+auth.uid+'/groupId').val() == root.child('rooms_alibi/'+$code+'/state/inspectorGroupId').val() ) )",
           "responses": {
             "$uid": {
-              ".write": "auth != null && auth.uid == $uid"
+              ".write": "auth != null && ( auth.uid == $uid || ( root.child('rooms_alibi/'+$code+'/meta/gameMasterMode').val() == 'party' && root.child('rooms_alibi/'+$code+'/players/'+auth.uid+'/groupId').val() == root.child('rooms_alibi/'+$code+'/state/accusedGroupId').val() && auth.uid == $uid ) )"
             }
           }
         },
