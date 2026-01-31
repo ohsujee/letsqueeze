@@ -5,10 +5,8 @@ const config: CapacitorConfig = {
   appName: 'Gigglz',
   webDir: 'public', // Temporary, will use remote server
   server: {
-    // Development: use local IP (phone must be on same WiFi)
-    // Production: change to your Vercel URL
-    url: 'http://192.168.1.141:3000',
-    cleartext: true,
+    // Production: Vercel deployment
+    url: 'https://app.gigglz.fun',
     androidScheme: 'https'
   },
   plugins: {

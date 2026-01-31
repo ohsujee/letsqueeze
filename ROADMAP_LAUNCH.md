@@ -104,7 +104,7 @@ NEXT_PUBLIC_FOUNDER_EMAILS=email1@test.com,email2@test.com
 ### Variables d'environnement a ajouter
 ```env
 NEXT_PUBLIC_APPLE_CLIENT_ID=com.gigglz.app.signin
-NEXT_PUBLIC_APPLE_REDIRECT_URL=https://circuitbreak.co/auth/apple/callback
+NEXT_PUBLIC_APPLE_REDIRECT_URL=https://app.gigglz.fun/auth/apple/callback
 NEXT_PUBLIC_APPLE_TEAM_ID=XXXXXXXXX
 REVENUECAT_IOS_KEY=appl_XXXXXXXX
 ```

@@ -1,12 +1,15 @@
 'use client';
 
 import BottomNav from '@/lib/components/BottomNav';
+import PageTransition from '@/components/layout/PageTransition';
 
 export default function MainLayout({ children }) {
   return (
     <div className="main-layout">
       <div className="main-content">
-        {children}
+        <PageTransition>
+          {children}
+        </PageTransition>
       </div>
       <BottomNav />
 

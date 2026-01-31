@@ -28,6 +28,7 @@ import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { Search, Users, Clock, Shuffle, Check } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
+import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import { TROUVE_COLORS, getRandomRulesForVoting } from "@/data/laloi-rules";
 
 // Cyan theme colors
@@ -327,6 +328,7 @@ export default function LaLoiLobby() {
         onClose={() => setShowHowToPlay(false)}
         gameType="laloi"
       />
+      <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
 
       {/* Lobby Disconnect Alert */}
       <LobbyDisconnectAlert

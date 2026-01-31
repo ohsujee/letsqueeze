@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signInWithGoogle, signInWithApple, signInAnonymously, onAuthStateChanged, auth } from '@/lib/firebase';
 import { useSubscription } from '@/lib/hooks/useSubscription';
+import { usePlatform } from '@/lib/hooks/usePlatform';
 import { initializeUserProfile } from '@/lib/userProfile';
 import { trackSignup, trackLogin, initAnalytics } from '@/lib/analytics';
 import { useToast } from '@/lib/hooks/useToast';
@@ -13,6 +14,7 @@ import { AuthButtons } from '@/components/auth';
 export default function LoginPage() {
   const router = useRouter();
   const toast = useToast();
+  const { isAndroid } = usePlatform();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -154,11 +156,12 @@ export default function LoginPage() {
                 </div>
               )}
 
-              {/* Auth Buttons */}
+              {/* Auth Buttons - Hide Apple on Android */}
               <AuthButtons
                 onGoogle={handleGoogleSignIn}
                 onApple={handleAppleSignIn}
                 onGuest={handleAnonymousSignIn}
+                showApple={!isAndroid}
                 disabled={loading}
               />
 

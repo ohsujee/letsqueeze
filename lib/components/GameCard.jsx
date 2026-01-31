@@ -1,24 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-
-// Helper to format countdown with days, hours, minutes, seconds
-function formatCountdown(targetDate) {
-  const now = new Date();
-  const target = new Date(targetDate);
-  const diff = target - now;
-
-  if (diff <= 0) return null; // Released!
-
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-  return { days, hours, minutes, seconds };
-}
+import { useCountdownTick, calculateCountdown } from '@/lib/hooks/useCountdownTick';
 
 export default function GameCard({
   game,
@@ -28,23 +13,11 @@ export default function GameCard({
 }) {
   const router = useRouter();
   const [showHeart, setShowHeart] = useState(false);
-  const [countdown, setCountdown] = useState(null);
   const { Illustration, image } = game;
 
-  // Countdown timer for games with releaseDate (updates every second)
-  useEffect(() => {
-    if (!game.releaseDate) return;
-
-    const updateCountdown = () => {
-      const formatted = formatCountdown(game.releaseDate);
-      setCountdown(formatted);
-    };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000); // Update every second
-
-    return () => clearInterval(interval);
-  }, [game.releaseDate]);
+  // Shared countdown tick (single interval for all cards)
+  const tick = useCountdownTick();
+  const countdown = game.releaseDate ? calculateCountdown(game.releaseDate, tick) : null;
 
   const handleCardClick = () => {
     if (onClick) {

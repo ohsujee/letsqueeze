@@ -3,23 +3,55 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/utils/storage';
-import { Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
+
+// Les 5 couleurs des jeux
+const GAME_COLORS = [
+  '#8b5cf6', // Quiz - Purple
+  '#f59e0b', // Alibi - Orange
+  '#10b981', // BlindTest - Green
+  '#A238FF', // DeezTest - Magenta
+  '#06b6d4', // LaLoi - Cyan
+];
+
+// Durée totale du splash (sans fade)
+const SPLASH_DURATION = 1200;
+// Moment où Giggly fait le wink (ms)
+const WINK_TIME = 700;
+// Durée du fade-out (ms)
+const FADE_DURATION = 400;
 
 export default function SplashScreen() {
   const router = useRouter();
-  const [loadingText, setLoadingText] = useState('Chargement');
+  const [progress, setProgress] = useState(0);
+  const [isWinking, setIsWinking] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
-    // Animation du texte de chargement
-    const texts = ['Chargement', 'Chargement.', 'Chargement..', 'Chargement...'];
-    let index = 0;
-    const textInterval = setInterval(() => {
-      index = (index + 1) % texts.length;
-      setLoadingText(texts[index]);
-    }, 400);
+    // Animation de la barre de progression
+    const startTime = Date.now();
 
-    // Redirection après 2.5s
+    const progressInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const newProgress = Math.min((elapsed / SPLASH_DURATION) * 100, 100);
+      setProgress(newProgress);
+
+      if (newProgress >= 100) {
+        clearInterval(progressInterval);
+      }
+    }, 16);
+
+    // Déclencher le wink
+    const winkTimeout = setTimeout(() => {
+      setIsWinking(true);
+    }, WINK_TIME);
+
+    // Déclencher le fade-out
+    const fadeTimeout = setTimeout(() => {
+      setIsFadingOut(true);
+    }, SPLASH_DURATION);
+
+    // Redirection après le fade
     const redirectTimeout = setTimeout(() => {
       const hasSeenOnboarding = storage.get('hasSeenOnboarding');
 
@@ -28,93 +60,92 @@ export default function SplashScreen() {
       } else {
         window.location.href = '/login';
       }
-    }, 1200);
+    }, SPLASH_DURATION + FADE_DURATION);
 
     return () => {
-      clearInterval(textInterval);
+      clearInterval(progressInterval);
+      clearTimeout(winkTimeout);
+      clearTimeout(fadeTimeout);
       clearTimeout(redirectTimeout);
     };
   }, [router]);
 
   return (
-    <div style={{
-      minHeight: '100dvh',
-      maxHeight: '100dvh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'fixed',
-      inset: 0,
-      overflow: 'hidden',
-      background: '#0a0a0f'
-    }}>
-      {/* Background avec dégradés */}
-      <div style={{
-        position: 'absolute',
+    <motion.div
+      style={{
+        minHeight: '100dvh',
+        maxHeight: '100dvh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'fixed',
         inset: 0,
-        background: `
-          radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-          radial-gradient(ellipse at 70% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
-          radial-gradient(ellipse at 50% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 40%),
-          #0a0a0f
-        `,
-        zIndex: 0
-      }} />
+        overflow: 'hidden',
+        background: '#0a0a0f'
+      }}
+      animate={{
+        opacity: isFadingOut ? 0 : 1,
+        scale: isFadingOut ? 1.05 : 1,
+      }}
+      transition={{
+        duration: FADE_DURATION / 1000,
+        ease: [0.4, 0, 1, 1]
+      }}
+    >
+      {/* Orbes colorées - chaque jeu représenté */}
+      {GAME_COLORS.map((color, index) => {
+        // Positions différentes pour chaque orbe
+        const positions = [
+          { top: '-5%', left: '10%', size: 280 },    // Purple - haut gauche
+          { top: '60%', right: '-5%', size: 320 },   // Orange - bas droite
+          { bottom: '-10%', left: '20%', size: 260 }, // Green - bas gauche
+          { top: '20%', right: '5%', size: 240 },    // Magenta - haut droite
+          { top: '40%', left: '-10%', size: 300 },   // Cyan - milieu gauche
+        ];
+        const pos = positions[index];
+
+        return (
+          <motion.div
+            key={color}
+            style={{
+              position: 'absolute',
+              width: pos.size,
+              height: pos.size,
+              borderRadius: '50%',
+              background: color,
+              filter: 'blur(100px)',
+              opacity: 0,
+              top: pos.top,
+              left: pos.left,
+              right: pos.right,
+              bottom: pos.bottom,
+            }}
+            animate={{
+              opacity: [0, 0.5, 0.35, 0.5],
+              scale: [0.8, 1.1, 1, 1.05],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              delay: index * 0.15,
+              ease: 'easeInOut',
+            }}
+          />
+        );
+      })}
 
       {/* Grille subtile */}
       <div style={{
         position: 'absolute',
         inset: 0,
         backgroundImage: `
-          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)
+          linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px)
         `,
-        backgroundSize: '60px 60px',
+        backgroundSize: '50px 50px',
         zIndex: 1,
-        opacity: 0.5
       }} />
-
-      {/* Orbes flottantes */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          width: 350,
-          height: 350,
-          borderRadius: '50%',
-          background: '#8b5cf6',
-          filter: 'blur(80px)',
-          top: '-15%',
-          right: '-10%',
-          opacity: 0.4,
-          zIndex: 2
-        }}
-        animate={{
-          x: [0, 30, -20, 0],
-          y: [0, -30, 20, 0],
-          scale: [1, 1.1, 0.9, 1]
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        style={{
-          position: 'absolute',
-          width: 300,
-          height: 300,
-          borderRadius: '50%',
-          background: '#f59e0b',
-          filter: 'blur(80px)',
-          bottom: '-10%',
-          left: '-10%',
-          opacity: 0.35,
-          zIndex: 2
-        }}
-        animate={{
-          x: [0, -25, 15, 0],
-          y: [0, 25, -15, 0],
-          scale: [1, 0.95, 1.1, 1]
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-      />
 
       {/* Contenu principal */}
       <motion.div
@@ -125,204 +156,128 @@ export default function SplashScreen() {
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
-          padding: '2rem'
+          padding: '2rem',
+          gap: '0.5rem',
         }}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
       >
-        {/* Logo avec effet 3D */}
+        {/* Giggly Head avec animation rotation → wink */}
         <motion.div
           style={{
+            width: 'clamp(180px, 55vw, 280px)',
+            height: 'clamp(180px, 55vw, 280px)',
             position: 'relative',
-            marginBottom: '2rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
           }}
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.2 }}
+          initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            rotate: [null, 0, -8, 8, -5, 0]
+          }}
+          transition={{
+            opacity: { duration: 0.3 },
+            scale: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] },
+            rotate: {
+              duration: 0.6,
+              delay: 0.3,
+              ease: "easeInOut",
+              times: [0, 0.2, 0.4, 0.6, 0.8, 1]
+            }
+          }}
         >
-          {/* Anneau externe pulsant */}
-          <motion.div
+          {/* Neutral head - visible jusqu'au wink */}
+          <motion.img
+            src="/images/mascot/giggly-head-neutral.png"
+            alt="Giggly"
             style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
               position: 'absolute',
-              width: 160,
-              height: 160,
-              borderRadius: '50%',
-              border: '2px solid #8b5cf6'
+              inset: 0,
             }}
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.3, 0, 0.3]
-            }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
+            animate={{ opacity: isWinking ? 0 : 1 }}
+            transition={{ duration: 0.1 }}
+            draggable={false}
           />
-          {/* Anneau interne */}
-          <motion.div
+          {/* Wink head - apparaît au moment du wink */}
+          <motion.img
+            src="/images/mascot/giggly-head-wink.png"
+            alt="Giggly wink"
             style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
               position: 'absolute',
-              width: 140,
-              height: 140,
-              borderRadius: '50%',
-              border: '2px solid #8b5cf6'
+              inset: 0,
             }}
+            initial={{ opacity: 0, scale: 1.1 }}
             animate={{
-              scale: [1, 1.15, 1],
-              opacity: [0.6, 0.3, 0.6]
+              opacity: isWinking ? 1 : 0,
+              scale: isWinking ? 1 : 1.1
             }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            draggable={false}
           />
-          {/* Coeur du logo */}
-          <motion.div
-            style={{
-              width: 100,
-              height: 100,
-              background: 'linear-gradient(145deg, #8b5cf6, #7c3aed)',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
-              position: 'relative',
-              zIndex: 5,
-              border: '3px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: `
-                0 10px 40px rgba(139, 92, 246, 0.4),
-                0 0 60px rgba(139, 92, 246, 0.2),
-                inset 0 -4px 10px rgba(0, 0, 0, 0.3),
-                inset 0 4px 10px rgba(255, 255, 255, 0.2)
-              `
-            }}
-            animate={{
-              boxShadow: [
-                '0 10px 40px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.2), inset 0 -4px 10px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(255, 255, 255, 0.2)',
-                '0 10px 60px rgba(139, 92, 246, 0.6), 0 0 100px rgba(139, 92, 246, 0.4), inset 0 -4px 10px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(255, 255, 255, 0.2)',
-                '0 10px 40px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.2), inset 0 -4px 10px rgba(0, 0, 0, 0.3), inset 0 4px 10px rgba(255, 255, 255, 0.2)'
-              ]
-            }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <Zap size={56} strokeWidth={2.5} fill="currentColor" />
-          </motion.div>
         </motion.div>
 
-        {/* Titre */}
+        {/* Wordmark GIGGLZ */}
         <motion.h1
           style={{
             fontFamily: "'Bungee', cursive",
-            fontSize: 'clamp(2.5rem, 12vw, 4rem)',
+            fontSize: 'clamp(3.5rem, 18vw, 6rem)',
             fontWeight: 400,
             color: '#ffffff',
-            margin: '0 0 0.5rem 0',
-            textTransform: 'uppercase',
+            margin: 0,
             letterSpacing: '0.02em',
             textShadow: `
-              0 0 20px rgba(139, 92, 246, 0.6),
-              0 0 40px rgba(139, 92, 246, 0.4),
-              0 0 80px rgba(139, 92, 246, 0.2),
-              0 4px 0 rgba(0, 0, 0, 0.3)
-            `
+              0 0 60px rgba(139, 92, 246, 0.4),
+              0 0 120px rgba(245, 158, 11, 0.2),
+              0 4px 0 rgba(0, 0, 0, 0.4)
+            `,
+            WebkitTextStroke: '1px rgba(255, 255, 255, 0.1)',
           }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
+          initial={{ opacity: 0, y: 20, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.5,
+            ease: [0.22, 1, 0.36, 1],
+            delay: 0.1
+          }}
         >
-          Gigglz
+          GIGGLZ
         </motion.h1>
-
-        {/* Sous-titre */}
-        <motion.p
-          style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '1.125rem',
-            fontWeight: 600,
-            color: 'rgba(255, 255, 255, 0.7)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.2em',
-            margin: '0 0 3rem 0'
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-        >
-          Jeux de Soirée
-        </motion.p>
-
-        {/* Loader dots */}
-        <motion.div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '1rem'
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                style={{
-                  width: 12,
-                  height: 12,
-                  backgroundColor: '#8b5cf6',
-                  borderRadius: '50%',
-                  boxShadow: '0 0 12px rgba(139, 92, 246, 0.4)'
-                }}
-                animate={{
-                  y: [0, -18, 0],
-                  opacity: [0.5, 1, 0.5],
-                  scale: [1, 1.2, 1]
-                }}
-                transition={{
-                  duration: 0.6,
-                  repeat: Infinity,
-                  delay: i * 0.15,
-                  ease: [0.4, 0, 0.2, 1]
-                }}
-              />
-            ))}
-          </div>
-          <motion.p
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '0.875rem',
-              color: 'rgba(255, 255, 255, 0.5)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.15em',
-              margin: 0,
-              minWidth: 120
-            }}
-            key={loadingText}
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: 1 }}
-          >
-            {loadingText}
-          </motion.p>
-        </motion.div>
       </motion.div>
 
-      {/* Version en bas */}
+      {/* Barre de progression en bas */}
       <motion.div
         style={{
           position: 'absolute',
-          bottom: 'calc(20px + env(safe-area-inset-bottom, 0px))',
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '0.75rem',
-          color: 'rgba(255, 255, 255, 0.3)',
-          letterSpacing: '0.1em',
-          zIndex: 10
+          bottom: 'calc(40px + env(safe-area-inset-bottom, 0px))',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '140px',
+          height: '3px',
+          background: 'rgba(255, 255, 255, 0.1)',
+          borderRadius: '2px',
+          overflow: 'hidden',
+          zIndex: 10,
         }}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.5 }}
-        transition={{ delay: 1, duration: 0.5 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.4 }}
       >
-        v2.0
+        <motion.div
+          style={{
+            height: '100%',
+            background: 'linear-gradient(90deg, #8b5cf6, #f59e0b, #10b981)',
+            borderRadius: '2px',
+            width: `${progress}%`,
+          }}
+        />
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

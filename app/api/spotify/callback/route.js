@@ -12,7 +12,7 @@ export async function GET(request) {
   const error = searchParams.get('error');
 
   // URL de base pour les redirections
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://circuitbreak.co';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.gigglz.fun';
 
   // Si erreur (user a refusé ou autre)
   if (error) {

@@ -33,6 +33,7 @@ import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { GameLaunchCountdown } from "@/components/transitions";
+import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 
 export default function AlibiLobby() {
   const { code } = useParams();
@@ -390,6 +391,7 @@ export default function AlibiLobby() {
         onClose={() => setShowHowToPlay(false)}
         gameType="alibi"
       />
+      <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
 
       {/* Lobby Disconnect Alert */}
       <LobbyDisconnectAlert

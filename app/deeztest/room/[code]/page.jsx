@@ -40,6 +40,7 @@ import {
 import TeamModeSelector from "@/components/game/TeamModeSelector";
 import TeamPlayerView from "@/components/game/TeamPlayerView";
 import TeamTabs from "@/lib/components/TeamTabs";
+import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 
 // Nombre max de playlists pour non-Pro
 const MAX_PLAYLISTS_FREE = 3;
@@ -510,6 +511,7 @@ export default function DeezTestLobby() {
         onClose={() => setShowHowToPlay(false)}
         gameType="blindtest"
       />
+      <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
 
       {/* Lobby Disconnect Alert */}
       <LobbyDisconnectAlert

@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import { trackPaywallShown, trackPaywallConversion } from '@/lib/analytics';
 import { auth, signInWithGoogle, signInWithApple } from '@/lib/firebase';
 import { initializeUserProfile } from '@/lib/userProfile';
+import { usePlatform } from '@/lib/hooks/usePlatform';
 import { GoogleIcon, AppleIcon } from '@/components/icons';
 
 /**
@@ -18,6 +19,7 @@ import { GoogleIcon, AppleIcon } from '@/components/icons';
  * @param {string} props.contentName - Name of locked content
  */
 export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', contentName = 'ce contenu' }) {
+  const { isAndroid } = usePlatform();
   const [pricingTier, setPricingTier] = useState('annual');
   const [isGuest, setIsGuest] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -136,15 +138,17 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
                 {loadingGoogle ? 'Connexion...' : 'Continuer avec Google'}
               </button>
 
-              {/* Apple */}
-              <button
-                onClick={handleAppleConnect}
-                disabled={loadingGoogle || loadingApple}
-                className="btn-connect btn-apple"
-              >
-                <AppleIcon />
-                {loadingApple ? 'Connexion...' : 'Continuer avec Apple'}
-              </button>
+              {/* Apple - Hidden on Android */}
+              {!isAndroid && (
+                <button
+                  onClick={handleAppleConnect}
+                  disabled={loadingGoogle || loadingApple}
+                  className="btn-connect btn-apple"
+                >
+                  <AppleIcon />
+                  {loadingApple ? 'Connexion...' : 'Continuer avec Apple'}
+                </button>
+              )}
             </div>
 
             {/* Benefits Preview */}

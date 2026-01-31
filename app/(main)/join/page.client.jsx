@@ -11,6 +11,7 @@ import { isPro } from "@/lib/subscription";
 import { shouldShowInterstitial, markAdShownDuringJoin } from "@/lib/hooks/useInterstitialAd";
 import JoinLoadingScreen from "@/components/ui/JoinLoadingScreen";
 import { validatePseudo, updateUserPseudo } from "@/lib/userProfile";
+import "./join.css";
 
 export default function JoinClient({ initialCode = "" }) {
   const router = useRouter();
@@ -177,12 +178,7 @@ export default function JoinClient({ initialCode = "" }) {
 
   return (
     <div className="join-container">
-      <motion.main
-        className="join-content"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-      >
+      <main className="join-content">
         <div className="join-header">
           <h1 className="page-title">Rejoindre</h1>
         </div>
@@ -260,13 +256,12 @@ export default function JoinClient({ initialCode = "" }) {
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -5 }}
-                  style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div className="pseudo-preview-label">
                     <User size={14} className="pseudo-icon" />
                     <span className="pseudo-label">Tu joues en tant que</span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', paddingLeft: '22px' }}>
+                  <div className="pseudo-preview-name">
                     <span className="pseudo-name">{pseudo}</span>
                     <button
                       className="pseudo-edit-btn"
@@ -308,34 +303,34 @@ export default function JoinClient({ initialCode = "" }) {
             {error && (
               error.includes("déjà commencé") ? (
                 <motion.div
-                  className="error-card warning"
+                  className="join-error-card warning"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
                 >
-                  <div className="error-card-icon warning">
+                  <div className="join-error-card-icon warning">
                     <PlayCircle size={22} />
                   </div>
-                  <div className="error-card-content">
-                    <span className="error-card-title warning">Partie en cours</span>
-                    <span className="error-card-text">
+                  <div className="join-error-card-content">
+                    <span className="join-error-card-title warning">Partie en cours</span>
+                    <span className="join-error-card-text">
                       Cette partie a déjà commencé, tu ne peux plus la rejoindre.
                     </span>
                   </div>
                 </motion.div>
               ) : error.includes("Code invalide") ? (
                 <motion.div
-                  className="error-card danger"
+                  className="join-error-card danger"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
                 >
-                  <div className="error-card-icon danger">
+                  <div className="join-error-card-icon danger">
                     <SearchX size={22} />
                   </div>
-                  <div className="error-card-content">
-                    <span className="error-card-title danger">Code introuvable</span>
-                    <span className="error-card-text">
+                  <div className="join-error-card-content">
+                    <span className="join-error-card-title danger">Code introuvable</span>
+                    <span className="join-error-card-text">
                       Aucune partie ne correspond à ce code. Vérifie et réessaye.
                     </span>
                   </div>
@@ -361,272 +356,7 @@ export default function JoinClient({ initialCode = "" }) {
             <div className="code">{initialCode}</div>
           </div>
         )}
-      </motion.main>
-
-      <style jsx>{`
-        .code-input-wrapper {
-          position: relative;
-          cursor: text;
-        }
-
-        .code-input-hidden {
-          position: absolute;
-          opacity: 0;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          left: 0;
-          z-index: 1;
-        }
-
-        .code-boxes {
-          display: flex;
-          gap: 8px;
-          justify-content: center;
-        }
-
-        .code-box {
-          width: 44px;
-          height: 56px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(255, 255, 255, 0.05);
-          border: 2px solid rgba(139, 92, 246, 0.3);
-          border-radius: 12px;
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 1.4rem;
-          font-weight: 700;
-          color: rgba(255, 255, 255, 0.3);
-          transition: all 0.2s ease;
-        }
-
-        .code-box.filled {
-          color: var(--quiz-primary, #8b5cf6);
-          border-color: var(--quiz-primary, #8b5cf6);
-          background: rgba(139, 92, 246, 0.15);
-        }
-
-        .code-box.active {
-          border-color: var(--quiz-primary, #8b5cf6);
-          box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
-          animation: pulse-box 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse-box {
-          0%, 100% { box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2); }
-          50% { box-shadow: 0 0 0 5px rgba(139, 92, 246, 0.1); }
-        }
-
-        .pseudo-section {
-          margin-bottom: 12px;
-        }
-
-        .pseudo-preview {
-          padding: 14px 16px;
-          background: rgba(139, 92, 246, 0.1);
-          border: 1px solid rgba(139, 92, 246, 0.2);
-          border-radius: 12px;
-        }
-
-        .pseudo-edit-row {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 12px 16px;
-          background: rgba(139, 92, 246, 0.1);
-          border: 1px solid rgba(139, 92, 246, 0.2);
-          border-radius: 12px;
-          flex-wrap: wrap;
-        }
-
-        .pseudo-preview :global(.pseudo-icon),
-        .pseudo-edit-row :global(.pseudo-icon) {
-          color: var(--quiz-primary, #8b5cf6);
-          flex-shrink: 0;
-        }
-
-        .pseudo-label {
-          font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.5);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
-        .pseudo-name {
-          font-family: 'Space Grotesk', sans-serif;
-          font-weight: 700;
-          font-size: 1.2rem;
-          color: var(--quiz-primary, #8b5cf6);
-        }
-
-        .pseudo-edit-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 28px;
-          height: 28px;
-          background: rgba(255, 255, 255, 0.1);
-          border: none;
-          border-radius: 8px;
-          color: rgba(255, 255, 255, 0.6);
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .pseudo-edit-btn:hover {
-          background: rgba(139, 92, 246, 0.3);
-          color: white;
-        }
-
-        .pseudo-input {
-          flex: 1;
-          min-width: 80px;
-          padding: 6px 10px;
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(139, 92, 246, 0.4);
-          border-radius: 8px;
-          color: white;
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.95rem;
-          font-weight: 600;
-          outline: none;
-          transition: border-color 0.2s;
-        }
-
-        .pseudo-input:focus {
-          border-color: var(--quiz-primary, #8b5cf6);
-        }
-
-        .pseudo-input.has-error {
-          border-color: #ef4444;
-        }
-
-        .pseudo-action-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 28px;
-          height: 28px;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .pseudo-action-btn.save {
-          background: rgba(34, 197, 94, 0.2);
-          color: #22c55e;
-        }
-
-        .pseudo-action-btn.save:hover {
-          background: rgba(34, 197, 94, 0.4);
-        }
-
-        .pseudo-action-btn.cancel {
-          background: rgba(239, 68, 68, 0.2);
-          color: #ef4444;
-        }
-
-        .pseudo-action-btn.cancel:hover {
-          background: rgba(239, 68, 68, 0.4);
-        }
-
-        .pseudo-action-btn:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-
-        .pseudo-error {
-          font-size: 0.8rem;
-          color: #ef4444;
-          padding: 6px 12px;
-          margin-top: 6px;
-        }
-
-        .join-error {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 12px 16px;
-          background: rgba(239, 68, 68, 0.15);
-          border: 1px solid rgba(239, 68, 68, 0.3);
-          border-radius: 12px;
-          color: #f87171;
-          font-size: 0.9rem;
-          margin-top: 16px;
-        }
-
-        :global(.error-card) {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          gap: 10px;
-          padding: 20px 16px;
-          border-radius: 14px;
-          margin-top: 12px;
-        }
-
-        :global(.error-card.warning) {
-          background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(245, 158, 11, 0.08) 100%);
-          border: 2px solid rgba(251, 191, 36, 0.35);
-        }
-
-        :global(.error-card.danger) {
-          background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(220, 38, 38, 0.08) 100%);
-          border: 2px solid rgba(239, 68, 68, 0.35);
-        }
-
-        :global(.error-card-icon) {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          margin: 0 auto;
-        }
-
-        :global(.error-card-icon.warning) {
-          background: rgba(251, 191, 36, 0.2);
-          color: #fbbf24;
-        }
-
-        :global(.error-card-icon.danger) {
-          background: rgba(239, 68, 68, 0.2);
-          color: #f87171;
-        }
-
-        :global(.error-card-content) {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 6px;
-        }
-
-        :global(.error-card-title) {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1rem;
-        }
-
-        :global(.error-card-title.warning) {
-          color: #fbbf24;
-        }
-
-        :global(.error-card-title.danger) {
-          color: #f87171;
-        }
-
-        :global(.error-card-text) {
-          font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.6);
-          line-height: 1.4;
-          max-width: 240px;
-        }
-      `}</style>
+      </main>
     </div>
   );
 }

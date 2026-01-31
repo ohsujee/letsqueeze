@@ -46,6 +46,9 @@ android/.idea/
 android/local.properties
 android/*.iml
 android/app/google-services.json
+android/keystore.properties
+android/app/*.keystore
+android/app/create-keystore.bat
 
 ios/App/Pods/
 ios/App/build/

@@ -1,7 +1,82 @@
 # LetsQueeze - Préparation Release Mobile
 
 > Guide complet pour préparer l'application iOS et Android pour publication.
-> Généré le 2026-01-09
+> Inclut: Configuration, RevenueCat, AdMob, Signing, Build
+
+---
+
+## 🎯 PROGRESS TRACKER
+
+> Mis à jour: 2026-01-30
+
+### Phase 1: Comptes & Accès ✅
+- [x] Apple Developer Account actif (99€/an)
+- [x] Google Play Developer Account actif (25€ one-time)
+- [x] RevenueCat account créé (gratuit)
+- [x] AdMob account actif
+
+### Phase 2: RevenueCat Dashboard ✅
+- [x] Projet "Gigglz" créé dans RevenueCat
+- [x] App iOS ajoutée (Bundle ID: com.gigglz.app)
+- [x] App Android ajoutée (Package: com.gigglz.app)
+- [x] Entitlement "Gigglz Pro" créé
+- [x] Offering "default" créé
+- [x] API Key iOS récupérée (appl_xxx)
+- [x] API Key Android récupérée (goog_xxx)
+
+### Phase 3: App Store Connect (iOS) ✅
+- [x] App créée dans App Store Connect
+- [x] Groupe d'abonnement "Gigglz Pro" créé
+- [x] IAP: gigglz_pro_monthly (4,99€/mois)
+- [x] IAP: gigglz_pro_annual (29,99€/an)
+- [x] P8 Key configurée dans RevenueCat (remplace Shared Secret)
+
+### Phase 4: Google Play Console (Android)
+- [x] App créée dans Play Console
+- [x] Service Account créé (Google Cloud)
+- [x] Service Account JSON uploadé dans RevenueCat
+- [ ] Subscription: gigglz_pro_monthly (4,99€/mois) ⏳ Nécessite APK uploadé
+- [ ] Subscription: gigglz_pro_annual (29,99€/an) ⏳ Nécessite APK uploadé
+
+### Phase 5: Configuration iOS ⏳ (Nécessite Mac ou Codemagic)
+- [x] GoogleService-Info.plist téléchargé
+- [ ] GoogleService-Info.plist ajouté au projet Xcode
+- [ ] Info.plist: GADApplicationIdentifier ajouté
+- [ ] Info.plist: NSUserTrackingUsageDescription ajouté
+- [ ] Info.plist: CFBundleURLTypes ajouté
+- [ ] Info.plist: LSApplicationQueriesSchemes ajouté
+- [ ] Info.plist: armv7 → arm64
+- [ ] Xcode: Team sélectionné
+- [ ] Xcode: Signing configuré
+
+### Phase 6: Configuration Android ✅
+- [x] Keystore créé (gigglz-release.keystore)
+- [x] keystore.properties créé
+- [x] build.gradle: signingConfigs ajouté
+- [x] SHA-1 release ajouté dans Firebase
+- [ ] google-services.json mis à jour (optionnel - re-télécharger si besoin)
+- [x] AndroidManifest: Intent filters ajoutés
+- [x] .gitignore mis à jour
+
+### Phase 7: Code & Config ✅
+- [x] capacitor.config.ts: URL production (app.gigglz.fun)
+- [x] lib/admob.js: Interstitial iOS ID
+- [x] lib/admob.js: Interstitial Android ID
+- [x] lib/revenuecat.js: API Key iOS
+- [x] lib/revenuecat.js: API Key Android
+- [x] .env.production: REVENUECAT_WEBHOOK_SECRET (Vercel)
+- [x] Webhook configuré dans RevenueCat
+
+### Phase 8: Build & Test
+- [ ] npx cap sync
+- [ ] Test iOS Simulator
+- [ ] Test Android Emulator
+- [ ] Test sur device iOS réel
+- [ ] Test sur device Android réel
+- [ ] Test achat sandbox iOS
+- [ ] Test achat sandbox Android
+- [ ] Archive iOS pour App Store
+- [ ] Bundle AAB pour Play Store
 
 ---
 
@@ -19,13 +94,12 @@
 | **Signing** | 🔴 Non configuré | 🔴 Non configuré |
 | **BlindTest (Spotify)** | 🔴 NE FONCTIONNE PAS | 🔴 NE FONCTIONNE PAS |
 | **DeezTest** | ✅ Fonctionne | ✅ Fonctionne |
-| **Permissions** | ✅ OK | 🟠 Incomplètes |
 
 ---
 
-# PROBLÈME CRITIQUE: BlindTest/Spotify
+# ⚠️ PROBLÈME CRITIQUE: BlindTest/Spotify
 
-## Le Spotify Web Playback SDK ne fonctionne PAS sur mobile
+Le Spotify Web Playback SDK **ne fonctionne PAS sur mobile**.
 
 | Plateforme | BlindTest | DeezTest | Raison |
 |------------|-----------|----------|--------|
@@ -35,168 +109,262 @@
 | Android App (Capacitor) | ❌ | ✅ | WebView ≠ Chrome |
 | Desktop Chrome/Edge | ✅ | ✅ | Support complet |
 
-### Solution Recommandée
+**Solution:** Désactiver BlindTest sur mobile ou afficher message "Desktop Only"
 
-**Option A (Rapide):** Désactiver BlindTest sur mobile
 ```javascript
-// Dans lib/config/games.js ou composant BlindTest
 import { Capacitor } from '@capacitor/core';
-
 const isNativeApp = Capacitor.isNativePlatform();
-// Si isNativeApp, masquer BlindTest ou afficher message
-```
-
-**Option B (Long terme):** Utiliser le SDK Spotify natif (iOS/Android)
-- Nécessite développement natif
-- Plugins Capacitor à créer
-
----
-
-# SECTION 1: CONFIGURATION COMMUNE
-
-## 1.1 Capacitor Config - URL Serveur
-
-**Fichier:** `capacitor.config.ts`
-
-### Actuel (DEV) ❌
-```typescript
-server: {
-  url: 'http://192.168.1.141:3000',
-  cleartext: true,
-}
-```
-
-### Production ✅
-```typescript
-server: {
-  // Supprimer url pour utiliser le build local
-  // OU pointer vers votre domaine de production:
-  // url: 'https://letsqueeze.app',
-  androidScheme: 'https',
-  iosScheme: 'https',
-}
-```
-
-**Important:** Après modification, exécuter:
-```bash
-npx cap sync
+// Si isNativeApp → masquer BlindTest ou afficher message
 ```
 
 ---
 
-## 1.2 AdMob - Créer les Interstitials
+# PHASE 1: COMPTES & ACCÈS
 
-**Fichier:** `lib/admob.js`
+## 1.1 Apple Developer Account (99€/an)
 
-### Actuel ❌
-```javascript
-const AD_UNIT_IDS = {
-  ios: {
-    interstitial: 'ca-app-pub-1140758415112389/XXXXXXXXXX',  // TODO
-    rewarded: 'ca-app-pub-1140758415112389/5594671010',      // OK
-  },
-  android: {
-    interstitial: 'ca-app-pub-1140758415112389/XXXXXXXXXX',  // TODO
-    rewarded: 'ca-app-pub-1140758415112389/6397628551',      // OK
-  }
-};
-```
+1. Aller sur [developer.apple.com](https://developer.apple.com)
+2. S'inscrire au Apple Developer Program
+3. Payer 99€/an
+4. Attendre validation (24-48h)
 
-### Actions requises:
-1. Aller sur [AdMob Console](https://admob.google.com)
-2. Apps → Gigglz iOS → Ad units → Create ad unit → Interstitial
-3. Apps → Gigglz Android → Ad units → Create ad unit → Interstitial
-4. Copier les IDs et remplacer les `XXXXXXXXXX`
+**Vérification:** Accès à [App Store Connect](https://appstoreconnect.apple.com)
 
----
+## 1.2 Google Play Developer Account (25€ one-time)
 
-## 1.3 RevenueCat - Configurer les Clés API
+1. Aller sur [play.google.com/console](https://play.google.com/console)
+2. Créer un compte développeur
+3. Payer 25€ (une seule fois)
 
-**Fichier:** `lib/revenuecat.js`
+**Vérification:** Accès à Google Play Console
 
-### Actuel ❌
-```javascript
-const REVENUECAT_API_KEYS = {
-  ios: 'appl_XXXXXXXXXXXXXXXX',     // TODO
-  android: 'goog_XXXXXXXXXXXXXXXX'  // TODO
-};
-```
+## 1.3 RevenueCat Account (Gratuit)
 
-### Actions requises:
-1. Aller sur [RevenueCat Dashboard](https://app.revenuecat.com)
-2. Project Settings → API Keys
-3. Copier iOS Public API Key (commence par `appl_`)
-4. Copier Android Public API Key (commence par `goog_`)
+1. Aller sur [revenuecat.com](https://www.revenuecat.com)
+2. Créer un compte (gratuit jusqu'à 2500$/mois de revenus)
+3. Créer un nouveau projet nommé "Gigglz"
 
-### Produits à créer:
+**Vérification:** Projet visible dans le dashboard
 
-**App Store Connect (iOS):**
-| Product ID | Type | Prix |
-|------------|------|------|
-| `gigglz_pro_monthly` | Auto-Renewable Subscription | 3,99 €/mois |
-| `gigglz_pro_annual` | Auto-Renewable Subscription | 29,99 €/an |
+## 1.4 AdMob Account
 
-**Google Play Console (Android):**
-| Product ID | Type | Prix |
-|------------|------|------|
-| `gigglz_pro_monthly` | Subscription | 3,99 €/mois |
-| `gigglz_pro_annual` | Subscription | 29,99 €/an |
+1. Aller sur [admob.google.com](https://admob.google.com)
+2. Se connecter avec compte Google
+3. Vérifier que les apps Gigglz iOS/Android existent
+
+**App IDs existants:**
+- iOS: `ca-app-pub-1140758415112389~9949860754`
+- Android: `ca-app-pub-1140758415112389~6606152744`
 
 ---
 
-## 1.4 Spotify - URL de Callback Production
+# PHASE 2: REVENUECAT DASHBOARD
 
-**Fichier:** `.env.local` ou `.env.production`
+## 2.1 Créer le projet
 
-### Actuel (DEV) ❌
-```
-NEXT_PUBLIC_SPOTIFY_REDIRECT_URI=https://ja-subloral-estella.ngrok-free.dev/api/spotify/callback
-```
+1. RevenueCat Dashboard → Projects → New Project
+2. Nom: `Gigglz`
 
-### Production ✅
-```
-NEXT_PUBLIC_SPOTIFY_REDIRECT_URI=https://letsqueeze.app/api/spotify/callback
-```
+## 2.2 Ajouter l'app iOS
 
-**Aussi dans Spotify Developer Dashboard:**
-1. [Spotify Developer](https://developer.spotify.com/dashboard)
-2. App → Settings → Redirect URIs
-3. Ajouter: `https://letsqueeze.app/api/spotify/callback`
-4. Ajouter: `https://letsqueeze.app/blindtest/spotify-callback`
+1. Project → Apps → + New App
+2. Platform: **App Store**
+3. App name: `Gigglz iOS`
+4. Bundle ID: `com.gigglz.app`
+
+## 2.3 Ajouter l'app Android
+
+1. Project → Apps → + New App
+2. Platform: **Play Store**
+3. App name: `Gigglz Android`
+4. Package name: `com.gigglz.app`
+
+## 2.4 Créer l'Entitlement
+
+1. Project → Entitlements → + New
+2. Identifier: `pro`
+3. Description: `Accès Pro complet - Tous les jeux, pas de pubs, pas de limites`
+
+## 2.5 Créer l'Offering
+
+1. Project → Offerings → + New
+2. Identifier: `default`
+3. Description: `Offre standard`
+
+## 2.6 Récupérer les API Keys
+
+1. Project → API Keys
+2. Copier **Public API Key** pour iOS (commence par `appl_`)
+3. Copier **Public API Key** pour Android (commence par `goog_`)
+
+**⚠️ GARDER CES CLÉS** - On les ajoutera dans le code à la Phase 7
 
 ---
 
-# SECTION 2: iOS
+# PHASE 3: APP STORE CONNECT (iOS)
 
-## 2.1 GoogleService-Info.plist (OBLIGATOIRE)
+## 3.1 Créer l'app
 
-**Status:** ❌ MANQUANT
+1. [App Store Connect](https://appstoreconnect.apple.com) → Apps → "+"
+2. **New App**
+3. Platforms: iOS
+4. Name: `Gigglz`
+5. Primary Language: French
+6. Bundle ID: `com.gigglz.app`
+7. SKU: `gigglz-app`
+8. User Access: Full Access
 
-### Actions:
-1. Aller sur [Firebase Console](https://console.firebase.google.com)
-2. Project Settings → Your apps → iOS app
-3. Télécharger `GoogleService-Info.plist`
-4. Dans Xcode: Glisser le fichier dans `ios/App/App/`
-5. Cocher "Copy items if needed"
+## 3.2 Créer le groupe d'abonnement
+
+1. App → Features → In-App Purchases → Manage
+2. Subscription Groups → "+"
+3. Reference Name: `Gigglz Pro`
+
+## 3.3 Créer l'abonnement mensuel
+
+1. Dans le groupe "Gigglz Pro" → "+"
+2. Type: **Auto-Renewable Subscription**
+3. Reference Name: `Gigglz Pro Mensuel`
+4. Product ID: `gigglz_pro_monthly`
+5. Subscription Duration: 1 Month
+6. Subscription Prices → Add Price:
+   - Country: France
+   - Price: 4,99 €
+7. App Store Localization:
+   - Display Name: `Gigglz Pro Mensuel`
+   - Description: `Accès illimité à tous les jeux, sans publicités`
+
+## 3.4 Créer l'abonnement annuel
+
+1. Dans le groupe "Gigglz Pro" → "+"
+2. Type: **Auto-Renewable Subscription**
+3. Reference Name: `Gigglz Pro Annuel`
+4. Product ID: `gigglz_pro_annual`
+5. Subscription Duration: 1 Year
+6. Subscription Prices → Add Price:
+   - Country: France
+   - Price: 29,99 €
+7. App Store Localization:
+   - Display Name: `Gigglz Pro Annuel`
+   - Description: `Accès illimité à tous les jeux, sans publicités - Économisez 37%`
+
+## 3.5 Générer le Shared Secret
+
+1. App Store Connect → Users and Access → Keys
+2. In-App Purchase → Generate
+3. Copier le **App-Specific Shared Secret**
+
+## 3.6 Connecter à RevenueCat
+
+1. RevenueCat → Project → iOS App → App Store Connect
+2. Coller le **App-Specific Shared Secret**
+3. Save
 
 ---
 
-## 2.2 Info.plist - Modifications Requises
+# PHASE 4: GOOGLE PLAY CONSOLE (Android)
+
+## 4.1 Créer l'app
+
+1. [Google Play Console](https://play.google.com/console) → All apps → Create app
+2. App name: `Gigglz`
+3. Default language: French
+4. App or game: Game
+5. Free or paid: Free
+6. Declarations: Accept all
+
+## 4.2 Créer un Service Account
+
+Pour que RevenueCat puisse vérifier les achats:
+
+1. [Google Cloud Console](https://console.cloud.google.com)
+2. IAM & Admin → Service Accounts → Create
+3. Name: `revenuecat-gigglz`
+4. Role: None (on configure dans Play Console)
+5. Create Key → JSON → Download
+
+## 4.3 Lier le Service Account à Play Console
+
+1. Google Play Console → Users and permissions → Invite new users
+2. Email: `revenuecat-gigglz@[project].iam.gserviceaccount.com`
+3. Permissions:
+   - View app information and download bulk reports
+   - View financial data, orders, and cancellation survey responses
+   - Manage orders and subscriptions
+4. Add user
+
+## 4.4 Connecter à RevenueCat
+
+1. RevenueCat → Project → Android App → Play Store Credentials
+2. Upload le fichier JSON du Service Account
+3. Save
+
+## 4.5 Créer l'abonnement mensuel
+
+1. Play Console → App → Monetize → Products → Subscriptions → Create
+2. Product ID: `gigglz_pro_monthly`
+3. Name: `Gigglz Pro Mensuel`
+4. Description: `Accès illimité à tous les jeux, sans publicités`
+5. Benefits: (optionnel)
+6. Base plans → Create base plan:
+   - ID: `monthly`
+   - Billing period: 1 month
+   - Price: 4,99 €
+
+## 4.6 Créer l'abonnement annuel
+
+1. Create subscription
+2. Product ID: `gigglz_pro_annual`
+3. Name: `Gigglz Pro Annuel`
+4. Description: `Accès illimité à tous les jeux - Économisez 37%`
+5. Base plans → Create base plan:
+   - ID: `annual`
+   - Billing period: 1 year
+   - Price: 29,99 €
+
+## 4.7 Configurer les produits dans RevenueCat
+
+1. RevenueCat → Offerings → `default`
+2. Add Package:
+   - Identifier: `$rc_monthly`
+   - Product: iOS `gigglz_pro_monthly` + Android `gigglz_pro_monthly`
+3. Add Package:
+   - Identifier: `$rc_annual`
+   - Product: iOS `gigglz_pro_annual` + Android `gigglz_pro_annual`
+4. Assign to Entitlement `pro`
+
+---
+
+# PHASE 5: CONFIGURATION iOS
+
+## 5.1 GoogleService-Info.plist (OBLIGATOIRE)
+
+**Status actuel:** ❌ MANQUANT
+
+1. [Firebase Console](https://console.firebase.google.com) → Project Settings
+2. Your apps → iOS app (com.gigglz.app)
+3. Download `GoogleService-Info.plist`
+4. Ouvrir Xcode: `npx cap open ios`
+5. Drag & drop dans `ios/App/App/`
+6. Cocher "Copy items if needed"
+7. Target: App
+
+## 5.2 Info.plist - Modifications
 
 **Fichier:** `ios/App/App/Info.plist`
 
-### Ajouter ces clés (avant `</dict></plist>`):
+Ajouter avant `</dict></plist>`:
 
 ```xml
-<!-- 1. AdMob App ID (OBLIGATOIRE pour que les pubs marchent) -->
+<!-- 1. AdMob App ID (OBLIGATOIRE) -->
 <key>GADApplicationIdentifier</key>
 <string>ca-app-pub-1140758415112389~9949860754</string>
 
-<!-- 2. Permissions utilisateur -->
+<!-- 2. Permission tracking publicitaire -->
 <key>NSUserTrackingUsageDescription</key>
 <string>Cette autorisation permet d'afficher des publicités personnalisées.</string>
 
-<!-- 3. URL Schemes pour OAuth callbacks -->
+<!-- 3. URL Schemes pour OAuth -->
 <key>CFBundleURLTypes</key>
 <array>
     <dict>
@@ -210,130 +378,45 @@ NEXT_PUBLIC_SPOTIFY_REDIRECT_URI=https://letsqueeze.app/api/spotify/callback
     </dict>
 </array>
 
-<!-- 4. Apps externes autorisées (pour ouvrir Spotify, etc.) -->
+<!-- 4. Apps externes (Spotify, Chrome, Google) -->
 <key>LSApplicationQueriesSchemes</key>
 <array>
     <string>spotify</string>
     <string>googlechrome</string>
     <string>comgoogleusercontent.apps.1027748327177-qaiocif72fo1ddgvl2n5h89pq78tdm9g</string>
 </array>
-
-<!-- 5. App Transport Security (si besoin de HTTP en dev) -->
-<key>NSAppTransportSecurity</key>
-<dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <false/>
-</dict>
 ```
 
-### Modifier cette clé existante:
+Modifier cette clé existante:
 
 ```xml
-<!-- AVANT (obsolète) -->
+<!-- AVANT -->
 <key>UIRequiredDeviceCapabilities</key>
 <array>
     <string>armv7</string>
 </array>
 
-<!-- APRÈS (iOS moderne) -->
+<!-- APRÈS -->
 <key>UIRequiredDeviceCapabilities</key>
 <array>
     <string>arm64</string>
 </array>
 ```
 
----
+## 5.3 iOS Signing (Xcode)
 
-## 2.3 iOS Signing (Xcode)
-
-### Actions dans Xcode:
-
-1. Ouvrir le projet:
-   ```bash
-   npx cap open ios
-   ```
-
-2. Dans Xcode:
-   - Sélectionner le projet "App" dans le navigator
-   - Target "App" → Signing & Capabilities
-   - Team: Sélectionner votre Apple Developer Team
-   - Bundle Identifier: `com.gigglz.app`
-   - Cocher "Automatically manage signing"
-
-3. Pour distribution App Store:
-   - Product → Archive
-   - Distribute App → App Store Connect
+1. Ouvrir Xcode: `npx cap open ios`
+2. Sélectionner le projet "App" dans le navigator
+3. Target "App" → Signing & Capabilities
+4. Team: Sélectionner votre Apple Developer Team
+5. Bundle Identifier: `com.gigglz.app`
+6. Cocher "Automatically manage signing"
 
 ---
 
-## 2.4 Checklist iOS
+# PHASE 6: CONFIGURATION ANDROID
 
-```
-CONFIGURATION:
-[ ] GoogleService-Info.plist ajouté dans Xcode
-[ ] GADApplicationIdentifier dans Info.plist
-[ ] URL Schemes configurés dans Info.plist
-[ ] LSApplicationQueriesSchemes configurés
-[ ] armv7 → arm64 dans UIRequiredDeviceCapabilities
-[ ] NSUserTrackingUsageDescription ajouté
-
-ADMOB:
-[ ] Interstitial iOS créé dans AdMob Console
-[ ] ID copié dans lib/admob.js
-
-REVENUECAT:
-[ ] Clé API iOS récupérée
-[ ] Produits créés dans App Store Connect
-[ ] Shared Secret configuré dans RevenueCat
-
-SIGNING:
-[ ] Apple Developer Account actif
-[ ] Team sélectionné dans Xcode
-[ ] Provisioning profiles générés
-[ ] Certificat de distribution créé
-
-BUILD:
-[ ] Capacitor sync: npx cap sync ios
-[ ] Build test sur device/simulateur
-[ ] Archive pour App Store
-```
-
----
-
-# SECTION 3: Android
-
-## 3.1 AndroidManifest.xml - Intent Filters
-
-**Fichier:** `android/app/src/main/AndroidManifest.xml`
-
-### Ajouter dans `<activity>` (après l'intent-filter LAUNCHER existant):
-
-```xml
-<!-- Deep linking pour OAuth callbacks -->
-<intent-filter>
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-    <data android:scheme="com.gigglz.app" />
-</intent-filter>
-
-<!-- Deep linking HTTPS (si domaine vérifié) -->
-<intent-filter android:autoVerify="true">
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-    <data
-        android:scheme="https"
-        android:host="letsqueeze.app"
-        android:pathPrefix="/api/spotify/callback" />
-</intent-filter>
-```
-
----
-
-## 3.2 Android Signing - Keystore
-
-### Créer un keystore de release:
+## 6.1 Créer le Keystore
 
 ```bash
 cd android/app
@@ -346,12 +429,17 @@ keytool -genkey -v \
   -validity 10000
 ```
 
-**IMPORTANT:**
-- Sauvegarder le keystore et les mots de passe en lieu sûr
-- NE JAMAIS commiter le keystore dans git
-- Ajouter `*.keystore` au `.gitignore`
+**Répondre aux questions:**
+- Mot de passe keystore: (choisir et NOTER)
+- Prénom/Nom: Votre nom
+- Organisation: Gigglz
+- Ville, Province, Pays: Vos infos
 
-### Créer `android/keystore.properties`:
+**⚠️ SAUVEGARDER LE KEYSTORE ET LES MOTS DE PASSE EN LIEU SÛR**
+
+## 6.2 Créer keystore.properties
+
+**Fichier:** `android/keystore.properties`
 
 ```properties
 storePassword=VOTRE_MOT_DE_PASSE_STORE
@@ -360,22 +448,23 @@ keyAlias=gigglz
 storeFile=gigglz-release.keystore
 ```
 
-**Ajouter au `.gitignore`:**
-```
-android/keystore.properties
-android/app/*.keystore
-```
+## 6.3 Configurer build.gradle
 
-### Modifier `android/app/build.gradle`:
+**Fichier:** `android/app/build.gradle`
+
+Ajouter au début du fichier (après `apply plugin`):
 
 ```gradle
-// Au début du fichier, après "apply plugin"
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
+```
 
+Ajouter dans le bloc `android { }`:
+
+```gradle
 android {
     // ... existing config ...
 
@@ -392,7 +481,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true  // Activer pour production
+            minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -400,120 +489,218 @@ android {
 }
 ```
 
----
+## 6.4 Mettre à jour .gitignore
 
-## 3.3 Firebase - Mettre à jour le Certificate Hash
+Ajouter au `.gitignore`:
 
-Après création du keystore de release:
+```
+# Android signing
+android/keystore.properties
+android/app/*.keystore
+```
 
+## 6.5 Ajouter SHA-1 dans Firebase
+
+1. Obtenir le SHA-1 du keystore de release:
 ```bash
-# Obtenir le SHA-1 du keystore de release
 keytool -list -v -keystore android/app/gigglz-release.keystore -alias gigglz
 ```
 
-1. Copier le SHA-1 (sans les `:`)
-2. Aller sur Firebase Console → Project Settings → Your apps → Android
-3. Ajouter le SHA-1 fingerprint
-4. Re-télécharger `google-services.json`
-5. Remplacer `android/app/google-services.json`
+2. Copier le SHA-1 (format: `XX:XX:XX:...`)
+3. Firebase Console → Project Settings → Android app
+4. Add fingerprint → Coller le SHA-1
+5. Re-télécharger `google-services.json`
+6. Remplacer `android/app/google-services.json`
 
----
+## 6.6 AndroidManifest - Intent Filters
 
-## 3.4 Checklist Android
+**Fichier:** `android/app/src/main/AndroidManifest.xml`
 
-```
-CONFIGURATION:
-[ ] Intent filters ajoutés dans AndroidManifest.xml
-[ ] google-services.json à jour avec SHA-1 de release
-[ ] URL de production dans capacitor.config.ts
+Ajouter dans `<activity>` (après l'intent-filter LAUNCHER existant):
 
-ADMOB:
-[ ] Interstitial Android créé dans AdMob Console
-[ ] ID copié dans lib/admob.js
-[ ] APPLICATION_ID vérifié dans AndroidManifest.xml (déjà OK)
+```xml
+<!-- Deep linking pour OAuth callbacks -->
+<intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="com.gigglz.app" />
+</intent-filter>
 
-REVENUECAT:
-[ ] Clé API Android récupérée
-[ ] Produits créés dans Google Play Console
-[ ] Licence key configurée dans RevenueCat
-
-SIGNING:
-[ ] Keystore créé (gigglz-release.keystore)
-[ ] keystore.properties créé
-[ ] build.gradle configuré avec signingConfigs
-[ ] SHA-1 ajouté dans Firebase Console
-[ ] google-services.json mis à jour
-
-BUILD:
-[ ] Capacitor sync: npx cap sync android
-[ ] Build debug test: npx cap run android
-[ ] Build release: cd android && ./gradlew assembleRelease
-[ ] Test APK release sur device
-[ ] Bundle AAB pour Play Store: ./gradlew bundleRelease
+<!-- Deep linking HTTPS -->
+<intent-filter android:autoVerify="true">
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data
+        android:scheme="https"
+        android:host="letsqueeze.app"
+        android:pathPrefix="/api/spotify/callback" />
+</intent-filter>
 ```
 
 ---
 
-# SECTION 4: Commandes de Build
+# PHASE 7: CODE & CONFIG
 
-## Development
+## 7.1 Capacitor Config - URL Production
+
+**Fichier:** `capacitor.config.ts`
+
+```typescript
+// ACTUEL (DEV) ❌
+server: {
+  url: 'http://192.168.1.141:3000',
+  cleartext: true,
+}
+
+// PRODUCTION ✅
+server: {
+  // Supprimer url pour utiliser le build local
+  // OU pointer vers le domaine de production:
+  // url: 'https://letsqueeze.app',
+  androidScheme: 'https',
+  iosScheme: 'https',
+}
+```
+
+## 7.2 AdMob - IDs Interstitial
+
+**Fichier:** `lib/admob.js`
+
+1. [AdMob Console](https://admob.google.com) → Apps → Gigglz iOS
+2. Ad units → Create ad unit → **Interstitial**
+3. Copier l'ID
+
+4. Apps → Gigglz Android → Ad units → Create → **Interstitial**
+5. Copier l'ID
+
+```javascript
+const AD_UNIT_IDS = {
+  ios: {
+    interstitial: 'ca-app-pub-1140758415112389/XXXXXXXXXX',  // ← Remplacer
+    rewarded: 'ca-app-pub-1140758415112389/5594671010',      // OK
+  },
+  android: {
+    interstitial: 'ca-app-pub-1140758415112389/XXXXXXXXXX',  // ← Remplacer
+    rewarded: 'ca-app-pub-1140758415112389/6397628551',      // OK
+  }
+};
+```
+
+## 7.3 RevenueCat - API Keys
+
+**Fichier:** `lib/revenuecat.js`
+
+```javascript
+const REVENUECAT_API_KEYS = {
+  ios: 'appl_XXXXXXXXXXXXXXXX',     // ← Clé de la Phase 2.6
+  android: 'goog_XXXXXXXXXXXXXXXX'  // ← Clé de la Phase 2.6
+};
+```
+
+## 7.4 RevenueCat Webhook
+
+1. RevenueCat → Project → Integrations → Webhooks
+2. Add endpoint: `https://letsqueeze.app/api/webhooks/revenuecat`
+3. Events: All subscription events
+4. Authorization header: `Bearer VOTRE_SECRET`
+
+5. Créer `.env.production`:
+```
+REVENUECAT_WEBHOOK_SECRET=VOTRE_SECRET
+```
+
+## 7.5 Spotify Redirect URI
+
+**Fichier:** `.env.production`
+
+```
+NEXT_PUBLIC_SPOTIFY_REDIRECT_URI=https://letsqueeze.app/api/spotify/callback
+```
+
+Dans [Spotify Developer Dashboard](https://developer.spotify.com/dashboard):
+1. App → Settings → Redirect URIs
+2. Ajouter: `https://letsqueeze.app/api/spotify/callback`
+
+---
+
+# PHASE 8: BUILD & TEST
+
+## 8.1 Sync Capacitor
 
 ```bash
-# Sync les changements vers les projets natifs
+npm run build
 npx cap sync
+```
 
-# Lancer sur Android
-npx cap run android
+## 8.2 Test iOS
 
-# Lancer sur iOS
+```bash
+# Simulateur
 npx cap run ios
 
-# Ouvrir dans l'IDE
+# Ouvrir Xcode pour device réel
+npx cap open ios
+# Sélectionner device → Run
+```
+
+## 8.3 Test Android
+
+```bash
+# Emulateur
+npx cap run android
+
+# Ouvrir Android Studio
 npx cap open android
-npx cap open ios
+# Sélectionner device → Run
 ```
 
-## Production
+## 8.4 Test Achats Sandbox
 
-### Android
+### iOS Sandbox
 
-```bash
-# Build le projet Next.js
-npm run build
+1. App Store Connect → Users and Access → Sandbox
+2. Create Sandbox Tester (email différent de votre compte)
+3. Sur device iOS: Settings → App Store → Sign out
+4. Dans l'app: Tenter un achat → Login avec sandbox tester
 
-# Sync vers Android
-npx cap sync android
+### Android Test
 
-# Build APK release
-cd android
-./gradlew assembleRelease
-# APK: android/app/build/outputs/apk/release/app-release.apk
+1. Play Console → App → Testing → Internal testing
+2. Create track → Add testers (emails)
+3. Publier l'AAB en internal testing
+4. Les testeurs peuvent acheter sans être facturés
 
-# Build AAB pour Play Store
-./gradlew bundleRelease
-# AAB: android/app/build/outputs/bundle/release/app-release.aab
-```
+## 8.5 Build Production
 
-### iOS
+### iOS - Archive
 
 ```bash
-# Build le projet Next.js
 npm run build
-
-# Sync vers iOS
 npx cap sync ios
-
-# Ouvrir Xcode
 npx cap open ios
-
-# Dans Xcode:
-# Product → Archive
-# Window → Organizer → Distribute App
 ```
+
+Dans Xcode:
+1. Product → Archive
+2. Window → Organizer
+3. Distribute App → App Store Connect
+
+### Android - AAB
+
+```bash
+npm run build
+npx cap sync android
+cd android
+./gradlew bundleRelease
+```
+
+L'AAB est dans: `android/app/build/outputs/bundle/release/app-release.aab`
 
 ---
 
-# SECTION 5: Tests Pré-Publication
+# TESTS PRÉ-PUBLICATION
 
 ## Tests Fonctionnels
 
@@ -547,29 +734,7 @@ npx cap open ios
 
 ---
 
-# SECTION 6: Résumé des Fichiers à Modifier
-
-## Fichiers Communs
-- [ ] `capacitor.config.ts` - URL serveur
-- [ ] `lib/admob.js` - IDs interstitial
-- [ ] `lib/revenuecat.js` - Clés API
-- [ ] `.env.production` - URLs Spotify
-
-## Fichiers iOS
-- [ ] `ios/App/App/Info.plist` - Permissions, URL schemes, AdMob ID
-- [ ] `ios/App/App/GoogleService-Info.plist` - À télécharger
-
-## Fichiers Android
-- [ ] `android/app/src/main/AndroidManifest.xml` - Intent filters
-- [ ] `android/app/build.gradle` - Signing config
-- [ ] `android/keystore.properties` - À créer
-- [ ] `android/app/google-services.json` - À mettre à jour avec SHA-1
-
----
-
-# SECTION 7: Contacts & Ressources
-
-## Consoles
+# RESSOURCES & LIENS
 
 | Service | URL |
 |---------|-----|
@@ -580,6 +745,7 @@ npx cap open ios
 | Apple Developer | https://developer.apple.com |
 | App Store Connect | https://appstoreconnect.apple.com |
 | Google Play Console | https://play.google.com/console |
+| Google Cloud Console | https://console.cloud.google.com |
 
 ## Documentation
 
@@ -589,7 +755,8 @@ npx cap open ios
 | Capacitor Android | https://capacitorjs.com/docs/android |
 | AdMob Capacitor | https://github.com/capacitor-community/admob |
 | RevenueCat Capacitor | https://docs.revenuecat.com/docs/capacitor |
+| RevenueCat Webhooks | https://docs.revenuecat.com/docs/webhooks |
 
 ---
 
-*Dernière mise à jour: 2026-01-09*
+*Dernière mise à jour: 2026-01-30*

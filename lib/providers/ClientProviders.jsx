@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { ThemeProvider } from '@/lib/contexts/ThemeContext';
 import { ToastProvider } from '@/lib/contexts/ToastContext';
+import { ReviewPromptProvider } from '@/lib/contexts/ReviewPromptContext';
 import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
 import { AppShell } from '@/components/layout/AppShell';
 import { prefetchManifests } from '@/lib/utils/manifestCache';
@@ -22,7 +23,9 @@ export function ClientProviders({ children }) {
       <AppShell>
         <ThemeProvider>
           <ToastProvider>
-            {children}
+            <ReviewPromptProvider>
+              {children}
+            </ReviewPromptProvider>
           </ToastProvider>
         </ThemeProvider>
       </AppShell>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef, Suspense } from 'react';
+import { useEffect, useState, useMemo, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { onAuthStateChanged, auth, db, ref, set, signInWithGoogle, signInWithApple } from '@/lib/firebase';
@@ -11,26 +11,26 @@ import { useGameLimits } from '@/lib/hooks/useGameLimits';
 import { useDevAuth } from '@/lib/hooks/useDevAuth';
 import { storage } from '@/lib/utils/storage';
 import GameCard from '@/lib/components/GameCard';
-import GuestAccountPromptModal from '@/components/ui/GuestAccountPromptModal';
 import GuestWarningModal from '@/components/ui/GuestWarningModal';
 import GameLimitModal from '@/components/ui/GameLimitModal';
 import GameModeSelector from '@/components/ui/GameModeSelector';
 import RejoinBanner from '@/components/ui/RejoinBanner';
+import HomeHeader from '@/components/home/HomeHeader';
+import GameFilterBar from '@/components/home/GameFilterBar';
 import { useActiveGameCheck } from '@/lib/hooks/usePlayerCleanup';
 import { useToast } from '@/lib/hooks/useToast';
-import { Gamepad2, Heart, ChevronsUp, Crown, Search, Users, X, Minus, Plus, ArrowUpDown, TrendingUp, Clock, SortAsc } from 'lucide-react';
+import { Gamepad2, Heart } from 'lucide-react';
 import { genUniqueCode } from '@/lib/utils';
 import { isFounder } from '@/lib/admin';
-import { GAMES, getVisibleGames, filterByPlayerCount, sortGames, searchGames, applyRemoteConfig } from '@/lib/config/games';
+import { getVisibleGames, filterByPlayerCount, sortGames, searchGames, applyRemoteConfig } from '@/lib/config/games';
 import { useRemoteConfig } from '@/lib/hooks/useRemoteConfig';
 import { useGlobalPlayCounts } from '@/lib/hooks/useGlobalPlayCounts';
-import { ROOM_TYPES } from '@/lib/config/rooms';
+import { ROOM_TYPES, createRoom } from '@/lib/config/rooms';
 
 function HomePageContent() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [favorites, setFavorites] = useState([]);
-  const [showGuestPrompt, setShowGuestPrompt] = useState(false);
   const [showGuestWarning, setShowGuestWarning] = useState(false);
   const [showGameLimit, setShowGameLimit] = useState(false);
   const [showModeSelector, setShowModeSelector] = useState(false);
@@ -43,41 +43,12 @@ function HomePageContent() {
   const [searchQuery, setSearchQuery] = useState('');
   const [playerCountFilter, setPlayerCountFilter] = useState(null);
   const [sortBy, setSortBy] = useState('default'); // 'default', 'popular', 'newest', 'alphabetical'
-  const [showPlayerModal, setShowPlayerModal] = useState(false);
-  const [showSortModal, setShowSortModal] = useState(false);
-  const playerModalRef = useRef(null);
-  const sortModalRef = useRef(null);
 
   // Global play counts for "popular" sort
   const { playCounts } = useGlobalPlayCounts();
 
   // Remote Config for dynamic game availability
   const { gamesConfig } = useRemoteConfig();
-
-  // Close modals when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (playerModalRef.current && !playerModalRef.current.contains(e.target) && !e.target.closest('.player-filter-btn')) {
-        setShowPlayerModal(false);
-      }
-      if (sortModalRef.current && !sortModalRef.current.contains(e.target) && !e.target.closest('.sort-filter-btn')) {
-        setShowSortModal(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  // Sort options with icons
-  const sortOptions = [
-    { value: 'default', label: 'Par défaut', icon: ArrowUpDown },
-    { value: 'popular', label: 'Les plus joués', icon: TrendingUp },
-    { value: 'newest', label: 'Nouveautés', icon: Clock },
-    { value: 'alphabetical', label: 'A-Z', icon: SortAsc },
-  ];
-
-  const currentSortOption = sortOptions.find(o => o.value === sortBy) || sortOptions[0];
-  const SortIcon = currentSortOption.icon;
 
   // Check for active game the player can rejoin
   const activeGame = useActiveGameCheck(user?.uid);
@@ -123,43 +94,11 @@ function HomePageContent() {
         router.push('/login');
       } else {
         setUser(currentUser);
-
-        // Check if we should show guest account prompt
-        if (currentUser.isAnonymous) {
-          checkGuestPrompt();
-        }
       }
     });
 
     return () => unsubscribe();
   }, [router]);
-
-  // Check if we should show the guest account prompt
-  const checkGuestPrompt = () => {
-    // Check if user just returned from a game
-    const returnedFromGame = storage.get('returnedFromGame');
-    if (!returnedFromGame) return;
-
-    // Clear the flag
-    storage.remove('returnedFromGame');
-
-    // Increment games played counter
-    const gamesPlayed = (storage.get('guestGamesPlayed') || 0) + 1;
-    storage.set('guestGamesPlayed', gamesPlayed);
-
-    // Check cooldown (24h since last dismiss)
-    const dismissedAt = storage.get('guestPromptDismissedAt');
-    if (dismissedAt) {
-      const hoursSinceDismiss = (Date.now() - dismissedAt) / (1000 * 60 * 60);
-      if (hoursSinceDismiss < 24) return; // Still in cooldown
-    }
-
-    // Show prompt after 3 games
-    if (gamesPlayed >= 3) {
-      // Small delay so page loads first
-      setTimeout(() => setShowGuestPrompt(true), 500);
-    }
-  };
 
   const handleToggleFavorite = (gameId) => {
     const newFavorites = favorites.includes(gameId)
@@ -172,163 +111,38 @@ function HomePageContent() {
 
   // Actually create the game room and navigate
   const createAndNavigateToGame = async (game, gameMasterMode = 'gamemaster') => {
-    const c = await genUniqueCode();
-    const now = Date.now();
+    // Local games (like Mime) - no Firebase, direct navigation
+    if (game.local) {
+      router.push(game.path || `/${game.id}`);
+      return;
+    }
 
-    // NOTE: recordGamePlayed() is now called on END pages, not here
-    // This ensures a game is only counted when actually completed
+    const code = await genUniqueCode();
+    const hostName = profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Animateur';
 
-    if (game.id === 'quiz') {
-      router.push(`/room/${c}`);
-      Promise.all([
-        set(ref(db, `rooms/${c}/meta`), {
-          code: c,
-          createdAt: now,
-          hostUid: auth.currentUser.uid,
-          hostName: profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Animateur',
-          expiresAt: now + 12 * 60 * 60 * 1000,
-          mode: "individuel",
-          teamCount: 0,
-          quizId: "general",
-          teams: {},
-          gameMasterMode // 'gamemaster' ou 'party'
-        }),
-        set(ref(db, `rooms/${c}/state`), {
-          phase: "lobby",
-          currentIndex: 0,
-          revealed: false,
-          lockUid: null,
-          buzzBanner: "",
-          lastRevealAt: 0
-        }),
-        set(ref(db, `rooms/${c}/__health__`), { aliveAt: now })
-      ]).catch(err => console.error('Room creation error:', err));
-
-    } else if (game.id === 'alibi') {
-      router.push(`/alibi/room/${c}`);
-      Promise.all([
-        set(ref(db, `rooms_alibi/${c}/meta`), {
-          code: c,
-          createdAt: now,
-          hostUid: auth.currentUser.uid,
-          expiresAt: now + 12 * 60 * 60 * 1000,
-          alibiId: null,
-          gameType: "alibi"
-        }),
-        set(ref(db, `rooms_alibi/${c}/teams`), {
-          inspectors: [],
-          suspects: []
-        }),
-        set(ref(db, `rooms_alibi/${c}/state`), {
-          phase: "lobby",
-          currentQuestion: 0,
-          prepTimeLeft: 90,
-          questionTimeLeft: 30,
-          allAnswered: false
-        }),
-        set(ref(db, `rooms_alibi/${c}/score`), {
-          correct: 0,
-          total: 10
-        })
-      ]).catch(err => console.error('Alibi room creation error:', err));
-
-    } else if (game.id === 'blindtest') {
-      router.push(`/blindtest/room/${c}`);
-      Promise.all([
-        set(ref(db, `rooms_blindtest/${c}/meta`), {
-          code: c,
-          createdAt: now,
-          hostUid: auth.currentUser.uid,
-          hostName: profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Animateur',
-          expiresAt: now + 12 * 60 * 60 * 1000,
-          mode: "individuel",
-          teamCount: 0,
-          teams: {},
-          spotifyConnected: false,
-          playlist: null,
-          playlistsUsed: 0,
-          gameType: "blindtest",
-          gameMasterMode // 'gamemaster' ou 'party'
-        }),
-        set(ref(db, `rooms_blindtest/${c}/state`), {
-          phase: "lobby",
-          currentIndex: 0,
-          revealed: false,
-          snippetLevel: 0,
-          lockUid: null,
-          buzzBanner: "",
-          lastRevealAt: 0,
-          elapsedAcc: 0,
-          pausedAt: null,
-          lockedAt: null
-        })
-      ]).catch(err => console.error('Blindtest room creation error:', err));
-    } else if (game.id === 'deeztest') {
-      Promise.all([
-        set(ref(db, `rooms_deeztest/${c}/meta`), {
-          code: c,
-          createdAt: now,
-          hostUid: auth.currentUser.uid,
-          hostName: profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Animateur',
-          expiresAt: now + 12 * 60 * 60 * 1000,
-          mode: "individuel",
-          teamCount: 0,
-          teams: {},
-          playlist: null,
-          playlistsUsed: 0,
-          gameType: "deeztest",
-          gameMasterMode // 'gamemaster' ou 'party'
-        }),
-        set(ref(db, `rooms_deeztest/${c}/state`), {
-          phase: "lobby",
-          currentIndex: 0,
-          revealed: false,
-          snippetLevel: 0,
-          lockUid: null,
-          buzzBanner: "",
-          lastRevealAt: 0,
-          elapsedAcc: 0,
-          pausedAt: null,
-          lockedAt: null
-        })
-      ]).then(() => {
-        router.push(`/deeztest/room/${c}`);
-      }).catch(err => {
-        console.error('Deeztest room creation error:', err);
+    try {
+      const { path, navigateBeforeCreate, writePromise } = await createRoom({
+        gameId: game.id,
+        code,
+        hostUid: auth.currentUser.uid,
+        hostName,
+        gameMasterMode,
+        db,
+        ref,
+        set
       });
-    } else if (game.id === 'mime') {
-      // Jeu local - pas de Firebase, navigation directe
-      router.push('/mime');
-      return; // Pas besoin de recordGamePlayed pour un jeu local
-    } else if (game.id === 'laloi') {
-      Promise.all([
-        set(ref(db, `rooms_laloi/${c}/meta`), {
-          code: c,
-          createdAt: now,
-          hostUid: auth.currentUser.uid,
-          expiresAt: now + 12 * 60 * 60 * 1000,
-          gameType: "laloi",
-          mode: "classic",
-          timerDuration: 300,
-          investigatorCount: 1
-        }),
-        set(ref(db, `rooms_laloi/${c}/state`), {
-          phase: "lobby",
-          investigatorUids: [],
-          currentRule: null,
-          ruleOptions: [],
-          votes: {},
-          rerollsUsed: 0,
-          guessAttempts: 0,
-          guesses: [],
-          roundNumber: 1,
-          playedRuleIds: []
-        })
-      ]).then(() => {
-        router.push(`/laloi/room/${c}`);
-      }).catch(err => {
-        console.error('LaLoi room creation error:', err);
-      });
+
+      if (navigateBeforeCreate) {
+        // Navigate immediately, create in background
+        router.push(path);
+        writePromise.catch(err => console.error(`${game.id} room creation error:`, err));
+      } else {
+        // Wait for creation, then navigate
+        await writePromise;
+        router.push(path);
+      }
+    } catch (err) {
+      console.error(`${game.id} room creation error:`, err);
     }
   };
 
@@ -437,81 +251,36 @@ function HomePageContent() {
 
   // Filter out founders-only games for non-founders, then apply Remote Config overrides
   const userIsFounder = isFounder(user);
-  const visibleGames = applyRemoteConfig(getVisibleGames(userIsFounder), gamesConfig);
 
-  const favoriteGames = visibleGames.filter(game => favorites.includes(game.id));
+  // Memoize visible games (only recalculate when user or config changes)
+  const visibleGames = useMemo(() => {
+    return applyRemoteConfig(getVisibleGames(userIsFounder), gamesConfig);
+  }, [userIsFounder, gamesConfig]);
 
-  // Apply search, filter, and sort to games
-  let filteredGames = visibleGames;
-  filteredGames = searchGames(filteredGames, searchQuery);
-  filteredGames = filterByPlayerCount(filteredGames, playerCountFilter);
-  filteredGames = sortGames(filteredGames, sortBy, playCounts);
-  const allGames = filteredGames;
+  // Memoize favorite games
+  const favoriteGames = useMemo(() => {
+    return visibleGames.filter(game => favorites.includes(game.id));
+  }, [visibleGames, favorites]);
 
-  // Check if any filters are active
-  const hasActiveFilters = searchQuery || playerCountFilter || sortBy !== 'default';
+  // Memoize filtered & sorted games (only recalculate when filters change)
+  const allGames = useMemo(() => {
+    let games = visibleGames;
+    games = searchGames(games, searchQuery);
+    games = filterByPlayerCount(games, playerCountFilter);
+    games = sortGames(games, sortBy, playCounts);
+    return games;
+  }, [visibleGames, searchQuery, playerCountFilter, sortBy, playCounts]);
 
-  // Clear all filters
-  const clearFilters = () => {
-    setSearchQuery('');
-    setPlayerCountFilter(null);
-    setSortBy('default');
-  };
-
-  // Player count stepper handlers
-  const incrementPlayerCount = () => {
-    if (playerCountFilter === null) {
-      setPlayerCountFilter(2);
-    } else if (playerCountFilter < 20) {
-      setPlayerCountFilter(playerCountFilter + 1);
-    }
-  };
-
-  const decrementPlayerCount = () => {
-    if (playerCountFilter !== null && playerCountFilter > 2) {
-      setPlayerCountFilter(playerCountFilter - 1);
-    } else {
-      setPlayerCountFilter(null);
-    }
-  };
 
   return (
     <div className="home-container">
       <main className="home-content">
         {/* Modern Header 2025 */}
-        <header className="home-header-modern">
-          <div className="avatar-container">
-            <div className="avatar-placeholder">
-              {(profile?.pseudo?.[0] || cachedPseudo?.[0] || user?.displayName?.[0] || 'J').toUpperCase()}
-            </div>
-            <div className="avatar-status"></div>
-          </div>
-
-          <h1 className="user-name">{profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Joueur'}</h1>
-
-          <div className="header-actions">
-            {isPro ? (
-              <motion.div
-                className="pro-badge-circle"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                title="Membre Pro"
-              >
-                <Crown size={20} strokeWidth={2.5} />
-              </motion.div>
-            ) : (
-              <motion.button
-                className="upgrade-btn-circle"
-                onClick={() => router.push('/subscribe')}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                title="Passer Pro"
-              >
-                <ChevronsUp size={20} strokeWidth={2.5} />
-              </motion.button>
-            )}
-          </div>
-        </header>
+        <HomeHeader
+          displayName={profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Joueur'}
+          avatarInitial={(profile?.pseudo?.[0] || cachedPseudo?.[0] || user?.displayName?.[0] || 'J').toUpperCase()}
+          isPro={isPro}
+        />
 
         {/* Rejoin Banner - Show when player has an active game */}
         {activeGame && showRejoinBanner && (
@@ -524,153 +293,15 @@ function HomePageContent() {
           />
         )}
 
-        {/* Search & Filter Bar - Gaming Style */}
-        <div className="game-filter-bar">
-          {/* Search Input with Glow */}
-          <div className="game-search-wrapper">
-            <Search className="game-search-icon" size={20} />
-            <input
-              type="text"
-              className="game-search-input"
-              placeholder="Rechercher..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {searchQuery && (
-              <button
-                className="game-search-clear"
-                onClick={() => setSearchQuery('')}
-              >
-                <X size={16} />
-              </button>
-            )}
-          </div>
-
-          {/* Action Buttons */}
-          <div className="game-filter-actions">
-            {/* Player Count Button */}
-            <div className="player-filter-wrapper">
-              <motion.button
-                className={`player-filter-btn ${playerCountFilter ? 'active' : ''}`}
-                onClick={() => {
-                  setShowPlayerModal(!showPlayerModal);
-                  setShowSortModal(false);
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Users size={18} />
-                {playerCountFilter && <span className="player-count-badge">{playerCountFilter}</span>}
-              </motion.button>
-
-              {/* Player Count Mini-Modal */}
-              {showPlayerModal && (
-                <motion.div
-                  ref={playerModalRef}
-                  className="player-modal"
-                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <div className="player-modal-header">Nombre de joueurs</div>
-                  <div className="player-stepper">
-                    <motion.button
-                      className="stepper-btn minus"
-                      onClick={decrementPlayerCount}
-                      whileTap={{ scale: 0.9 }}
-                      disabled={playerCountFilter === null}
-                    >
-                      <Minus size={18} />
-                    </motion.button>
-                    <div className="stepper-value">
-                      {playerCountFilter !== null ? (
-                        <span className="value-number">{playerCountFilter}</span>
-                      ) : (
-                        <span className="value-all">Tous</span>
-                      )}
-                    </div>
-                    <motion.button
-                      className="stepper-btn plus"
-                      onClick={incrementPlayerCount}
-                      whileTap={{ scale: 0.9 }}
-                      disabled={playerCountFilter === 20}
-                    >
-                      <Plus size={18} />
-                    </motion.button>
-                  </div>
-                  {playerCountFilter && (
-                    <button
-                      className="player-modal-reset"
-                      onClick={() => {
-                        setPlayerCountFilter(null);
-                        setShowPlayerModal(false);
-                      }}
-                    >
-                      Réinitialiser
-                    </button>
-                  )}
-                </motion.div>
-              )}
-            </div>
-
-            {/* Sort Button with Modal */}
-            <div className="sort-filter-wrapper">
-              <motion.button
-                className={`sort-filter-btn ${sortBy !== 'default' ? 'active' : ''}`}
-                onClick={() => {
-                  setShowSortModal(!showSortModal);
-                  setShowPlayerModal(false);
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <SortIcon size={18} />
-              </motion.button>
-
-              {/* Sort Modal */}
-              {showSortModal && (
-                <motion.div
-                  ref={sortModalRef}
-                  className="sort-modal"
-                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  <div className="sort-modal-header">Trier par</div>
-                  <div className="sort-options">
-                    {sortOptions.map((option) => {
-                      const OptionIcon = option.icon;
-                      return (
-                        <button
-                          key={option.value}
-                          className={`sort-option ${sortBy === option.value ? 'active' : ''}`}
-                          onClick={() => {
-                            setSortBy(option.value);
-                            setShowSortModal(false);
-                          }}
-                        >
-                          <OptionIcon size={16} />
-                          <span>{option.label}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {sortBy !== 'default' && (
-                    <button
-                      className="sort-modal-reset"
-                      onClick={() => {
-                        setSortBy('default');
-                        setShowSortModal(false);
-                      }}
-                    >
-                      Réinitialiser
-                    </button>
-                  )}
-                </motion.div>
-              )}
-            </div>
-          </div>
-        </div>
+        {/* Search & Filter Bar */}
+        <GameFilterBar
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          playerCountFilter={playerCountFilter}
+          onPlayerCountChange={setPlayerCountFilter}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+        />
 
         {/* Favorites Section */}
         {favoriteGames.length > 0 && (
@@ -739,16 +370,6 @@ function HomePageContent() {
         <div className="bottom-padding"></div>
       </main>
 
-
-      {/* Guest Account Prompt Modal */}
-      <GuestAccountPromptModal
-        isOpen={showGuestPrompt}
-        onClose={() => setShowGuestPrompt(false)}
-        onConnected={() => {
-          // Refresh user state after connection
-          setUser(auth.currentUser);
-        }}
-      />
 
       {/* Guest Warning Modal - Blocks game creation for guests */}
       <GuestWarningModal

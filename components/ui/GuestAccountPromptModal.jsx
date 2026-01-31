@@ -2,17 +2,51 @@
 
 /**
  * GuestAccountPromptModal
- * Shows after 3 games for guest users to encourage account creation
- * Non-intrusive: dismissable, respects 24h cooldown or 3 more games delay
+ * Self-contained component - add to any lobby page
+ * Shows after 2+ completed games for guest users (non-hosts) to encourage account creation
+ *
+ * Usage: <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { signInWithGoogle, signInWithApple } from '@/lib/firebase';
 import { initializeUserProfile } from '@/lib/userProfile';
-import { storage } from '@/lib/utils/storage';
+import { usePlatform } from '@/lib/hooks/usePlatform';
+import { useToast } from '@/lib/hooks/useToast';
 import { GoogleIcon, AppleIcon } from '@/components/icons';
+
+const SESSION_KEY_SHOWN = 'guestPromptShown';
+const SESSION_KEY_GAMES = 'guestGamesCompleted';
+const MIN_GAMES_BEFORE_PROMPT = 2;
+
+// Private helpers
+function wasGuestPromptShown() {
+  if (typeof window === 'undefined') return true;
+  return sessionStorage.getItem(SESSION_KEY_SHOWN) === 'true';
+}
+
+function markGuestPromptShown() {
+  if (typeof window === 'undefined') return;
+  sessionStorage.setItem(SESSION_KEY_SHOWN, 'true');
+}
+
+function shouldShowGuestPrompt() {
+  if (typeof window === 'undefined') return false;
+  if (wasGuestPromptShown()) return false;
+  const gamesCompleted = parseInt(sessionStorage.getItem(SESSION_KEY_GAMES) || '0', 10);
+  return gamesCompleted >= MIN_GAMES_BEFORE_PROMPT;
+}
+
+// Public helper - call from END pages to increment counter
+export function incrementGuestGamesCompleted() {
+  if (typeof window === 'undefined') return 0;
+  const current = parseInt(sessionStorage.getItem(SESSION_KEY_GAMES) || '0', 10);
+  const newCount = current + 1;
+  sessionStorage.setItem(SESSION_KEY_GAMES, String(newCount));
+  return newCount;
+}
 
 // Styles suivant le style guide
 const styles = {
@@ -136,12 +170,38 @@ const styles = {
   },
 };
 
-export default function GuestAccountPromptModal({ isOpen, onClose, onConnected }) {
+/**
+ * Self-contained guest account prompt modal
+ * Handles all display logic internally - just pass currentUser and isHost
+ */
+export default function GuestAccountPromptModal({ currentUser, isHost, onConnected }) {
+  const { isAndroid } = usePlatform();
+  const toast = useToast();
+  const [isOpen, setIsOpen] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [loadingApple, setLoadingApple] = useState(false);
   const [error, setError] = useState(null);
 
+  // Self-managed display logic
+  useEffect(() => {
+    // Not a guest user
+    if (!currentUser?.isAnonymous) return;
+    // Hosts create rooms, they're not guests joining
+    if (isHost) return;
+    // Already shown or not enough games played
+    if (!shouldShowGuestPrompt()) return;
+
+    // Small delay to let lobby load
+    const timer = setTimeout(() => {
+      markGuestPromptShown();
+      setIsOpen(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [currentUser, isHost]);
+
   if (!isOpen) return null;
+
+  const handleClose = () => setIsOpen(false);
 
   const handleGoogleConnect = async () => {
     try {
@@ -150,11 +210,10 @@ export default function GuestAccountPromptModal({ isOpen, onClose, onConnected }
       const result = await signInWithGoogle();
       if (result?.user) {
         await initializeUserProfile(result.user);
-        // Clear the guest prompt tracking
-        storage.remove('guestGamesPlayed');
-        storage.remove('guestPromptDismissedAt');
+        markGuestPromptShown();
+        toast.success('Connecté avec Google !');
         onConnected?.();
-        onClose();
+        handleClose();
       }
     } catch (err) {
       console.error('Google connection error:', err);
@@ -170,10 +229,10 @@ export default function GuestAccountPromptModal({ isOpen, onClose, onConnected }
       const result = await signInWithApple();
       if (result?.user) {
         await initializeUserProfile(result.user);
-        storage.remove('guestGamesPlayed');
-        storage.remove('guestPromptDismissedAt');
+        markGuestPromptShown();
+        toast.success('Connecté avec Apple !');
         onConnected?.();
-        onClose();
+        handleClose();
       }
     } catch (err) {
       console.error('Apple connection error:', err);
@@ -187,11 +246,9 @@ export default function GuestAccountPromptModal({ isOpen, onClose, onConnected }
   };
 
   const handleLater = () => {
-    // Set cooldown: don't show again for 24h
-    storage.set('guestPromptDismissedAt', Date.now());
-    // Reset games counter to delay by 3 more games
-    storage.set('guestGamesPlayed', 0);
-    onClose();
+    // Mark as shown so it won't appear again this session
+    markGuestPromptShown();
+    handleClose();
   };
 
   return (
@@ -260,20 +317,22 @@ export default function GuestAccountPromptModal({ isOpen, onClose, onConnected }
                 {loadingGoogle ? 'Connexion...' : 'Continuer avec Google'}
               </motion.button>
 
-              <motion.button
-                style={{
-                  ...styles.btnApple,
-                  opacity: (loadingGoogle || loadingApple) ? 0.6 : 1,
-                  cursor: (loadingGoogle || loadingApple) ? 'wait' : 'pointer',
-                }}
-                onClick={handleAppleConnect}
-                disabled={loadingGoogle || loadingApple}
-                whileHover={(loadingGoogle || loadingApple) ? {} : { scale: 1.02, y: -2 }}
-                whileTap={(loadingGoogle || loadingApple) ? {} : { scale: 0.98 }}
-              >
-                <AppleIcon />
-                {loadingApple ? 'Connexion...' : 'Continuer avec Apple'}
-              </motion.button>
+              {!isAndroid && (
+                <motion.button
+                  style={{
+                    ...styles.btnApple,
+                    opacity: (loadingGoogle || loadingApple) ? 0.6 : 1,
+                    cursor: (loadingGoogle || loadingApple) ? 'wait' : 'pointer',
+                  }}
+                  onClick={handleAppleConnect}
+                  disabled={loadingGoogle || loadingApple}
+                  whileHover={(loadingGoogle || loadingApple) ? {} : { scale: 1.02, y: -2 }}
+                  whileTap={(loadingGoogle || loadingApple) ? {} : { scale: 0.98 }}
+                >
+                  <AppleIcon />
+                  {loadingApple ? 'Connexion...' : 'Continuer avec Apple'}
+                </motion.button>
+              )}
             </div>
 
             {/* Later button */}

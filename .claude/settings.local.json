@@ -91,7 +91,9 @@
       "Bash(git fetch:*)",
       "Bash(npx next build:*)",
       "Bash(npx firebase deploy:*)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "WebFetch(domain:buildui.com)",
+      "Bash(copy \"E:\\\\LetsQueeze - Content\\\\giggly-excited.png\" \"E:\\\\LetsQueeze\\\\public\\\\images\\\\mascot\\\\giggly-excited.png\")"
     ]
   }
 }

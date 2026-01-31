@@ -34,6 +34,7 @@ import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { GameLaunchCountdown } from "@/components/transitions";
+import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 
 export default function Room() {
   const { code } = useParams();
@@ -496,6 +497,7 @@ export default function Room() {
         onClose={() => setShowHowToPlay(false)}
         gameType="quiz"
       />
+      <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
 
       {/* Lobby Disconnect Alert */}
       <LobbyDisconnectAlert
