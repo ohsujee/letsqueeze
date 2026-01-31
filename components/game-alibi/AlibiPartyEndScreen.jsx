@@ -1,9 +1,9 @@
 'use client';
 
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Medal, Skull, FileText, RotateCcw, Home } from 'lucide-react';
-import Confetti from '@/components/ui/Confetti';
+import { triggerConfetti } from '@/components/shared/Confetti';
 
 /**
  * AlibiPartyEndScreen - Écran de fin style "Rapport d'enquête"
@@ -25,7 +25,6 @@ export default function AlibiPartyEndScreen({
   onPlayAgain,
   onExit
 }) {
-  const [showConfetti, setShowConfetti] = useState(false);
 
   // Calculer le classement
   const ranking = useMemo(() => {
@@ -78,7 +77,8 @@ export default function AlibiPartyEndScreen({
   // Confetti pour le gagnant
   useEffect(() => {
     if (ranking.length > 0 && ranking[0].id === myGroupId) {
-      setTimeout(() => setShowConfetti(true), 500);
+      const timer = setTimeout(() => triggerConfetti('victory'), 500);
+      return () => clearTimeout(timer);
     }
   }, [ranking, myGroupId]);
 
@@ -90,8 +90,6 @@ export default function AlibiPartyEndScreen({
 
   return (
     <div className="alibi-end-screen">
-      {showConfetti && <Confetti type="victory" />}
-
       <motion.div
         className="report-container"
         initial={{ opacity: 0, y: 20 }}
