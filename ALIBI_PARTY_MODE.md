@@ -245,7 +245,7 @@ const ALIBI_GROUP_COLORS = [
 - [x] Afficher classement par groupe avec % cohérence
 
 ### Phase 8: Finitions
-- [ ] Firebase Rules - permissions groupes
+- [x] Firebase Rules - permissions groupes (inspecteurs peuvent contrôler interrogation, membres peuvent éditer nom groupe)
 - [ ] Tests complets
 - [ ] Edge cases (déconnexions, groupes incomplets)
 
