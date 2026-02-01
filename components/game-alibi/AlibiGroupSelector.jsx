@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Users, Shuffle, RotateCcw, ChevronDown, ChevronUp, UserPlus, UserMinus, AlertCircle } from 'lucide-react';
+import { Users, Shuffle, RotateCcw, ChevronDown, ChevronUp, UserPlus, UserMinus } from 'lucide-react';
 import { ALIBI_GROUP_CONFIG } from '@/lib/config/rooms';
 
 /**
@@ -95,16 +95,6 @@ export default function AlibiGroupSelector({
         </button>
       </div>
 
-      {/* Avertissement si pas assez de joueurs */}
-      {players.length < totalRequired && (
-        <div className="warning-banner">
-          <AlertCircle size={16} />
-          <span>
-            {totalRequired - players.length} joueur{totalRequired - players.length > 1 ? 's' : ''} manquant{totalRequired - players.length > 1 ? 's' : ''} (min. {minPlayersPerGroup}/groupe)
-          </span>
-        </div>
-      )}
-
       {/* Liste des groupes */}
       <div className="groups-list">
         {groupIds.map(groupId => {
@@ -135,11 +125,6 @@ export default function AlibiGroupSelector({
                   </span>
                 </div>
                 <div className="group-status">
-                  {!isValid && (
-                    <span className="status-warning">
-                      <AlertCircle size={14} />
-                    </span>
-                  )}
                   {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                 </div>
               </button>
@@ -202,30 +187,12 @@ export default function AlibiGroupSelector({
         })}
       </div>
 
-      {/* Joueurs non assignés (toujours visible) */}
-      {unassignedPlayers.length > 0 && (
-        <div className="unassigned-section">
-          <div className="unassigned-header">
-            <span>Non assignés ({unassignedPlayers.length})</span>
-          </div>
-          <div className="unassigned-chips">
-            {unassignedPlayers.map(player => (
-              <span key={player.uid} className="player-chip">
-                {player.name}
-              </span>
-            ))}
-          </div>
+      {/* Indicateur de progression (seulement si pas prêt) */}
+      {!canStart && (
+        <div className="progress-indicator">
+          <span>{groupIds.filter(id => isGroupValid(id)).length}/{groupCount} groupes prêts</span>
         </div>
       )}
-
-      {/* Indicateur prêt */}
-      <div className={`ready-indicator ${canStart ? 'ready' : 'not-ready'}`}>
-        {canStart ? (
-          <span>✓ Tous les groupes sont prêts</span>
-        ) : (
-          <span>⚠ Assignez au moins {minPlayersPerGroup} joueurs par groupe</span>
-        )}
-      </div>
 
       <style jsx>{`
         .group-selector {
@@ -322,18 +289,6 @@ export default function AlibiGroupSelector({
           cursor: not-allowed;
         }
 
-        .warning-banner {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 10px 14px;
-          background: rgba(245, 158, 11, 0.1);
-          border: 1px solid rgba(245, 158, 11, 0.3);
-          border-radius: 10px;
-          color: #fbbf24;
-          font-size: 0.8rem;
-        }
-
         .groups-list {
           display: flex;
           flex-direction: column;
@@ -401,10 +356,6 @@ export default function AlibiGroupSelector({
           align-items: center;
           gap: 8px;
           color: rgba(255, 255, 255, 0.5);
-        }
-
-        .status-warning {
-          color: #ef4444;
         }
 
         :global(.group-content) {
@@ -494,51 +445,11 @@ export default function AlibiGroupSelector({
           background: rgba(34, 197, 94, 0.2);
         }
 
-        .unassigned-section {
-          padding: 12px;
-          background: rgba(107, 114, 128, 0.1);
-          border: 1px dashed rgba(107, 114, 128, 0.3);
-          border-radius: 12px;
-        }
-
-        .unassigned-header {
+        .progress-indicator {
+          text-align: center;
           font-size: 0.8rem;
           color: rgba(255, 255, 255, 0.5);
-          margin-bottom: 8px;
-        }
-
-        .unassigned-chips {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
-        }
-
-        .player-chip {
-          padding: 4px 10px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.7);
-        }
-
-        .ready-indicator {
-          padding: 12px;
-          border-radius: 10px;
-          text-align: center;
-          font-size: 0.85rem;
-          font-weight: 500;
-        }
-
-        .ready-indicator.ready {
-          background: rgba(34, 197, 94, 0.1);
-          border: 1px solid rgba(34, 197, 94, 0.3);
-          color: #22c55e;
-        }
-
-        .ready-indicator.not-ready {
-          background: rgba(245, 158, 11, 0.1);
-          border: 1px solid rgba(245, 158, 11, 0.3);
-          color: #fbbf24;
+          padding: 8px 0;
         }
       `}</style>
     </div>

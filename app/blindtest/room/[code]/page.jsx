@@ -164,7 +164,7 @@ export default function BlindTestLobby() {
     roomPrefix: 'rooms_blindtest',
     playerUid: myUid,
     heartbeatInterval: 15000,
-    enabled: !isHost && !!myUid
+    enabled: !!myUid
   });
 
   // Player cleanup hook with auto-rejoin for hard refresh

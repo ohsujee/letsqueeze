@@ -20,7 +20,7 @@ import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
-import { getPlaylistTracks, formatTracksForGame } from "@/lib/deezer/api";
+import { getPlaylistTracks, formatTracksForGame, getRandomUnplayedTrack } from "@/lib/deezer/api";
 import { usePlaylistHistory } from "@/lib/hooks/usePlaylistHistory";
 
 const DEEZER_PURPLE = '#A238FF';
@@ -76,7 +76,7 @@ export default function DeezTestHostView({ code, isActualHost = true, onAdvanceA
   const [isChangingSong, setIsChangingSong] = useState(false);
 
   // Playlist history (to avoid replaying same tracks)
-  const { markTracksAsPlayed } = usePlaylistHistory();
+  const { markTracksAsPlayed, getPlayedTracks } = usePlaylistHistory();
 
   const myUid = auth.currentUser?.uid;
   // Pour les permissions Firebase, on est "host" si on est le vrai host OU si on est l'asker actuel
@@ -574,56 +574,74 @@ export default function DeezTestHostView({ code, isActualHost = true, onAdvanceA
     await nextTrack();
   }
 
-  // Change to a different random track (doesn't count as skip)
+  // Change to a different random track from the playlist (fetches from API)
   async function changeSong() {
-    if (!canControl || total === 0 || isChangingSong) return;
+    if (!canControl || total === 0 || isChangingSong || !playlist?.id) return;
 
     setIsChangingSong(true);
     await stopMusic();
 
-    // Trouver les indices des tracks restantes (après la position actuelle)
-    const remainingIndices = [];
-    for (let i = qIndex + 1; i < total; i++) {
-      remainingIndices.push(i);
+    try {
+      // Get IDs to exclude: currently loaded tracks + already played tracks
+      const loadedTrackIds = playlist.tracks.map(t => t.id);
+      const playedTrackIds = getPlayedTracks(playlist.id);
+      const excludeIds = [...new Set([...loadedTrackIds, ...playedTrackIds])];
+
+      // Fetch a new unplayed track from the API
+      const newTrack = await getRandomUnplayedTrack(playlist.id, excludeIds);
+
+      if (!newTrack) {
+        // No new track available, fall back to swapping with remaining tracks
+        const remainingIndices = [];
+        for (let i = qIndex + 1; i < total; i++) {
+          remainingIndices.push(i);
+        }
+
+        if (remainingIndices.length === 0) {
+          setIsChangingSong(false);
+          return;
+        }
+
+        // Swap with a random remaining track
+        const randomIdx = remainingIndices[Math.floor(Math.random() * remainingIndices.length)];
+        const newTracks = [...playlist.tracks];
+        [newTracks[qIndex], newTracks[randomIdx]] = [newTracks[randomIdx], newTracks[qIndex]];
+
+        await set(ref(db, `rooms_deeztest/${code}/meta/playlist/tracks`), newTracks);
+      } else {
+        // Replace current track with the new one from API
+        const newTracks = [...playlist.tracks];
+        newTracks[qIndex] = {
+          id: newTrack.id,
+          title: newTrack.title,
+          artist: newTrack.artist,
+          previewUrl: newTrack.previewUrl,
+          albumArt: newTrack.albumArt,
+        };
+
+        await set(ref(db, `rooms_deeztest/${code}/meta/playlist/tracks`), newTracks);
+      }
+
+      // Reset l'état local pour la nouvelle track
+      setCurrentSnippet(null);
+      setUnlockedLevel(0);
+      setHighestLevelPlayed(null);
+      setPlayerError(null);
+
+      // Reset les buzzers au cas où
+      await update(ref(db, `rooms_deeztest/${code}/state`), {
+        lockUid: null,
+        buzzBanner: "",
+        buzz: null,
+        pausedAt: null,
+        lockedAt: null,
+        snippetLevel: 0,
+        highestSnippetLevel: -1,
+        revealed: false
+      });
+    } catch (error) {
+      console.error('[DeezTest] Error changing song:', error);
     }
-
-    if (remainingIndices.length === 0) {
-      // Plus de tracks disponibles, on ne peut pas changer
-      return;
-    }
-
-    // Choisir un index aléatoire parmi les restantes
-    const randomIdx = remainingIndices[Math.floor(Math.random() * remainingIndices.length)];
-
-    // Échanger la track actuelle avec celle choisie dans Firebase
-    const currentTrackData = playlist.tracks[qIndex];
-    const newTrackData = playlist.tracks[randomIdx];
-
-    // Créer le nouveau tableau avec les tracks échangées
-    const newTracks = [...playlist.tracks];
-    newTracks[qIndex] = newTrackData;
-    newTracks[randomIdx] = currentTrackData;
-
-    // Mettre à jour Firebase
-    await set(ref(db, `rooms_deeztest/${code}/meta/playlist/tracks`), newTracks);
-
-    // Reset l'état local pour la nouvelle track
-    setCurrentSnippet(null);
-    setUnlockedLevel(0);
-    setHighestLevelPlayed(null);
-    setPlayerError(null);
-
-    // Reset les buzzers au cas où
-    await update(ref(db, `rooms_deeztest/${code}/state`), {
-      lockUid: null,
-      buzzBanner: "",
-      buzz: null,
-      pausedAt: null,
-      lockedAt: null,
-      snippetLevel: 0,
-      highestSnippetLevel: -1,
-      revealed: false
-    });
 
     // Fin de l'animation après un court délai
     setTimeout(() => setIsChangingSong(false), 250);

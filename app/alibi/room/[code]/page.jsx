@@ -21,7 +21,7 @@ import { AlibiGroupSelector, AlibiGroupNameEditor } from "@/components/game-alib
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { useAlibiGroups } from "@/lib/hooks/useAlibiGroups";
 import { useAlibiGroupRotation } from "@/lib/hooks/useAlibiGroupRotation";
-import { canAccessPack, isPro } from "@/lib/subscription";
+import { canAccessPack, isPro, PRO_CONTENT } from "@/lib/subscription";
 import { ALIBI_GROUP_CONFIG } from "@/lib/config/rooms";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
@@ -31,7 +31,7 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { getAlibiManifest } from "@/lib/utils/manifestCache";
-import { ChevronRight, Shuffle, RotateCcw, X, UserPlus } from "lucide-react";
+import { ChevronRight, ChevronUp, ChevronDown, Shuffle, RotateCcw, X, UserPlus } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
@@ -86,6 +86,9 @@ export default function AlibiLobby() {
   const [showCountdown, setShowCountdown] = useState(false);
   const roomWasValidRef = useRef(false);
   const countdownTriggeredRef = useRef(false);
+  const scrollContainerRef = useRef(null);
+  const [canScrollUp, setCanScrollUp] = useState(false);
+  const [canScrollDown, setCanScrollDown] = useState(false);
   const [isPlayerMissing, setIsPlayerMissing] = useState(false);
   const [rejoinError, setRejoinError] = useState(null);
 
@@ -118,6 +121,33 @@ export default function AlibiLobby() {
       });
   }, []);
 
+  // Get available alibis based on subscription
+  const availableAlibis = userIsPro
+    ? alibiOptions
+    : alibiOptions.slice(0, PRO_CONTENT.alibi.free);
+
+  // Auto-select random alibi when options load (Game Master mode)
+  useEffect(() => {
+    if (!isPartyMode && isHost && alibiOptions.length > 0 && !selectedAlibiId) {
+      const available = userIsPro ? alibiOptions : alibiOptions.slice(0, PRO_CONTENT.alibi.free);
+      if (available.length > 0) {
+        const randomIndex = Math.floor(Math.random() * available.length);
+        setSelectedAlibiId(available[randomIndex].id);
+      }
+    }
+  }, [isPartyMode, isHost, alibiOptions, selectedAlibiId, userIsPro]);
+
+  // Shuffle to pick a different random alibi
+  const shuffleAlibi = () => {
+    if (availableAlibis.length <= 1) return;
+    let newIndex;
+    const currentIndex = availableAlibis.findIndex(a => a.id === selectedAlibiId);
+    do {
+      newIndex = Math.floor(Math.random() * availableAlibis.length);
+    } while (newIndex === currentIndex);
+    setSelectedAlibiId(availableAlibis[newIndex].id);
+  };
+
   // Auth
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -141,6 +171,7 @@ export default function AlibiLobby() {
         name: userPseudo,
         team: isPartyMode ? null : 'inspectors', // Party Mode: no team, will be assigned to group
         groupId: null,
+        status: 'active',
         joinedAt: Date.now()
       });
     }
@@ -159,7 +190,7 @@ export default function AlibiLobby() {
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
     heartbeatInterval: 15000,
-    enabled: !isHost && !!myUid
+    enabled: !!myUid
   });
 
   // Player cleanup with auto-rejoin for hard refresh
@@ -174,6 +205,7 @@ export default function AlibiLobby() {
       uid,
       name,
       team: null,
+      status: 'active',
       joinedAt: Date.now()
     }),
     onPlayerRemoved: () => {
@@ -241,18 +273,33 @@ export default function AlibiLobby() {
     };
   }, [code, router]);
 
+  // Scroll indicators for host view
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const checkScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      setCanScrollUp(scrollTop > 10);
+      setCanScrollDown(scrollTop < scrollHeight - clientHeight - 10);
+    };
+
+    checkScroll();
+    container.addEventListener('scroll', checkScroll);
+
+    // Also check on resize and when content changes
+    const resizeObserver = new ResizeObserver(checkScroll);
+    resizeObserver.observe(container);
+
+    return () => {
+      container.removeEventListener('scroll', checkScroll);
+      resizeObserver.disconnect();
+    };
+  }, [isHost, isPartyMode, groups, players]);
+
   const handleSelectAlibi = async (alibiId) => {
     if (!isHost) return;
-
-    // Party Mode: assign alibi to specific group
-    if (isPartyMode && window.__selectingAlibiForGroup) {
-      const groupId = window.__selectingAlibiForGroup;
-      window.__selectingAlibiForGroup = null;
-      await alibiGroupsHook.assignAlibiToGroup(groupId, alibiId);
-      return;
-    }
-
-    // Game Master Mode: single alibi
+    // Game Master Mode only: single alibi selection
     await update(ref(db, `rooms_alibi/${code}/meta`), { alibiId });
   };
 
@@ -296,60 +343,55 @@ export default function AlibiLobby() {
 
     // ========== PARTY MODE ==========
     if (isPartyMode) {
-      // Validate all groups have players and alibis
-      if (!alibiGroupsHook.allGroupsValid || !alibiGroupsHook.allGroupsHaveAlibi) {
-        toast.error('Tous les groupes doivent avoir au moins 2 joueurs et un alibi');
+      // Validate all groups have enough players
+      if (!alibiGroupsHook.allGroupsValid) {
+        toast.error('Tous les groupes doivent avoir au moins 2 joueurs');
         return;
       }
 
-      // Check access for all alibis
       const groupIds = alibiGroupsHook.groupIds;
-      for (let i = 0; i < groupIds.length; i++) {
-        const group = groups[groupIds[i]];
-        const alibiIndex = alibiOptions.findIndex(a => a.id === group?.alibiId);
-        if (currentUser && !userIsPro && alibiIndex >= 0) {
-          const hasAccess = canAccessPack(
-            { ...currentUser, subscription },
-            'alibi',
-            alibiIndex,
-            { isPartyMode: true }
-          );
-          if (!hasAccess) {
-            const alibi = alibiOptions.find(a => a.id === group?.alibiId);
-            setLockedAlibiName(alibi?.title || group?.alibiId);
-            setShowPaywall(true);
-            return;
-          }
-        }
-      }
 
       try {
+        // Get available alibis (Pro = all, Free = first 4)
+        const availableAlibis = userIsPro
+          ? alibiOptions
+          : alibiOptions.slice(0, 4);
+
+        if (availableAlibis.length < groupIds.length) {
+          toast.error(`Pas assez d'alibis disponibles (${availableAlibis.length} pour ${groupIds.length} groupes)`);
+          return;
+        }
+
+        // Shuffle alibis and assign randomly to groups
+        const shuffledAlibis = [...availableAlibis].sort(() => Math.random() - 0.5);
+
         // Load alibi data for each group
         const groupUpdates = {};
-        for (const groupId of groupIds) {
-          const group = groups[groupId];
-          if (!group?.alibiId) continue;
+        for (let i = 0; i < groupIds.length; i++) {
+          const groupId = groupIds[i];
+          const alibi = shuffledAlibis[i];
 
-          const alibiData = await fetch(`/data/alibis/${group.alibiId}.json`).then(r => r.json());
+          const alibiData = await fetch(`/data/alibis/${alibi.id}.json`).then(r => r.json());
           const isNewFormat = alibiData.accused_document !== undefined;
 
           let questions;
           if (isNewFormat) {
-            questions = alibiData.inspector_questions.map((q, i) => ({
-              id: i,
+            questions = alibiData.inspector_questions.map((q, idx) => ({
+              id: idx,
               text: typeof q === 'string' ? q : q.text,
               hint: typeof q === 'object' ? q.hint : null,
               custom: false
             }));
           } else {
             questions = [
-              ...alibiData.predefinedQuestions.map((q, i) => ({ id: i, text: q, custom: false })),
+              ...alibiData.predefinedQuestions.map((q, idx) => ({ id: idx, text: q, custom: false })),
               { id: 7, text: "", custom: true },
               { id: 8, text: "", custom: true },
               { id: 9, text: "", custom: true }
             ];
           }
 
+          groupUpdates[`groups/${groupId}/alibiId`] = alibi.id;
           groupUpdates[`groups/${groupId}/alibiData`] = {
             context: alibiData.context || null,
             accused_document: alibiData.accused_document || null,
@@ -490,7 +532,7 @@ export default function AlibiLobby() {
 
   // Can start conditions depend on mode
   const canStartGameMaster = isHost && selectedAlibiId && inspectors.length > 0 && suspects.length > 0;
-  const canStartParty = isHost && isPartyMode && alibiGroupsHook.allGroupsValid && alibiGroupsHook.allGroupsHaveAlibi;
+  const canStartParty = isHost && isPartyMode && alibiGroupsHook.allGroupsValid;
   const canStart = isPartyMode ? canStartParty : canStartGameMaster;
 
   // Get selected alibi info
@@ -573,6 +615,7 @@ export default function AlibiLobby() {
         onPlayerExit={handlePlayerExit}
         onShowHowToPlay={() => setShowHowToPlay(true)}
         joinUrl={joinUrl}
+        gameMode={isPartyMode ? 'party' : 'gamemaster'}
       />
 
       {/* Main Content */}
@@ -580,97 +623,86 @@ export default function AlibiLobby() {
         {isHost ? (
           // HOST VIEW
           <>
-            {/* Party Mode Badge */}
-            {isPartyMode && (
-              <div className="game-mode-badge party alibi">
-                <span className="game-mode-icon">🎉</span>
-                <span className="game-mode-text">Party Mode - Tout le monde joue !</span>
-              </div>
-            )}
-
             <div className="alibi-lobby-content">
-              {/* GAME MASTER MODE: Single Alibi Selector */}
+              {/* GAME MASTER MODE: Random Alibi Display - Compact */}
               {!isPartyMode && (
-                <motion.div
-                  className="alibi-lobby-card alibi-selector"
-                  onClick={() => setShowAlibiSelector(true)}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                >
-                  <div className="alibi-card-content">
-                    <div className="alibi-card-left">
-                      <span className="alibi-card-emoji">
-                        {alibiEmojis[selectedAlibiId] || '🕵️'}
-                      </span>
+                <div className="alibi-lobby-card gm-alibi-card">
+                  <div className="gm-alibi-row">
+                    <span className="gm-alibi-emoji">{alibiEmojis[selectedAlibiId] || '🕵️'}</span>
+                    <div className="gm-alibi-info">
+                      <h3 className="gm-alibi-title">{selectedAlibi?.title || 'Chargement...'}</h3>
+                      {!userIsPro ? (
+                        <button className="gm-upsell-link" onClick={() => setShowPaywall(true)}>
+                          {PRO_CONTENT.alibi.free}/{PRO_CONTENT.alibi.total} alibis • <span>+{PRO_CONTENT.alibi.proOnly} avec Pro</span>
+                        </button>
+                      ) : (
+                        <span className="gm-pro-hint">🎲 {PRO_CONTENT.alibi.total} alibis</span>
+                      )}
                     </div>
-                    <div className="alibi-card-center">
-                      <span className="alibi-card-label">Alibi</span>
-                      <h3 className="alibi-card-title">
-                        {selectedAlibi?.title || 'Choisir un alibi'}
-                      </h3>
-                      <p className="alibi-card-meta">
-                        {selectedAlibiId ? '10 questions • Interrogatoire' : 'Appuyer pour choisir'}
-                      </p>
-                    </div>
-                    <div className="alibi-card-right">
-                      <span className="alibi-change-hint">{selectedAlibiId ? 'Changer' : 'Choisir'}</span>
-                      <ChevronRight size={20} className="alibi-card-arrow" />
-                    </div>
+                    <motion.button
+                      className="gm-shuffle-btn"
+                      onClick={shuffleAlibi}
+                      whileHover={{ scale: 1.1, rotate: 180 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Shuffle size={18} />
+                    </motion.button>
                   </div>
-                </motion.div>
+                </div>
               )}
 
               {/* PARTY MODE: Group Management */}
               {isPartyMode && (
-                <div className="alibi-lobby-card party-groups-card">
-                  <AlibiGroupSelector
-                    groups={groups}
-                    players={players}
-                    playersByGroup={alibiGroupsHook.playersByGroup}
-                    groupCount={alibiGroupsHook.groupCount}
-                    onGroupCountChange={alibiGroupsHook.setGroupCount}
-                    onAssignPlayer={alibiGroupsHook.assignToGroup}
-                    onRemovePlayer={alibiGroupsHook.removeFromGroup}
-                    onAutoAssign={alibiGroupsHook.autoAssignPlayers}
-                    onReset={alibiGroupsHook.resetAssignments}
-                    isGroupValid={alibiGroupsHook.isGroupValid}
-                  />
+                <div className="party-groups-wrapper">
+                  {/* Scroll indicator - Up */}
+                  <div className={`scroll-indicator up ${canScrollUp ? 'visible' : ''}`}>
+                    <ChevronUp size={20} />
+                  </div>
 
-                  {/* Alibi Selection per Group */}
-                  <div className="group-alibis-section">
-                    <h4 className="section-title">Alibis par groupe</h4>
-                    <div className="group-alibis-list">
-                      {alibiGroupsHook.groupIds.map(groupId => {
-                        const group = groups[groupId];
-                        const groupAlibi = alibiOptions.find(a => a.id === group?.alibiId);
-                        return (
-                          <div key={groupId} className="group-alibi-row" style={{ '--group-color': group?.color }}>
-                            <div className="group-alibi-info">
-                              <div className="group-dot" style={{ background: group?.color }} />
-                              <span className="group-name">{group?.name}</span>
-                            </div>
-                            <button
-                              className="group-alibi-btn"
-                              onClick={() => {
-                                // Store which group we're selecting for
-                                window.__selectingAlibiForGroup = groupId;
-                                setShowAlibiSelector(true);
-                              }}
-                            >
-                              {groupAlibi ? (
-                                <>
-                                  <span className="alibi-emoji">{alibiEmojis[group?.alibiId] || '🕵️'}</span>
-                                  <span className="alibi-name">{groupAlibi.title}</span>
-                                </>
-                              ) : (
-                                <span className="no-alibi">Choisir un alibi</span>
-                              )}
-                              <ChevronRight size={16} />
-                            </button>
-                          </div>
-                        );
-                      })}
-                    </div>
+                  <div className="alibi-lobby-card party-groups-card" ref={scrollContainerRef}>
+                    <AlibiGroupSelector
+                      groups={groups}
+                      players={players}
+                      playersByGroup={alibiGroupsHook.playersByGroup}
+                      groupCount={alibiGroupsHook.groupCount}
+                      onGroupCountChange={alibiGroupsHook.setGroupCount}
+                      onAssignPlayer={alibiGroupsHook.assignToGroup}
+                      onRemovePlayer={alibiGroupsHook.removeFromGroup}
+                      onAutoAssign={alibiGroupsHook.autoAssignPlayers}
+                      onReset={alibiGroupsHook.resetAssignments}
+                      isGroupValid={alibiGroupsHook.isGroupValid}
+                    />
+
+                    {/* Pro Upsell Banner OR Simple hint for Pro users */}
+                    {!userIsPro ? (
+                      <motion.div
+                        className="party-free-limit-banner"
+                        onClick={() => setShowPaywall(true)}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                      >
+                        <div className="limit-message">
+                          <span className="limit-emoji">🎲</span>
+                          <span className="limit-text">
+                            Vos groupes tourneront sur <strong>{PRO_CONTENT.alibi.free} alibis</strong> gratuits
+                          </span>
+                        </div>
+                        <div className="unlock-cta">
+                          <span>Débloquer les {PRO_CONTENT.alibi.total}</span>
+                          <ChevronRight size={16} />
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <div className="party-alibi-hint">
+                        <span className="hint-icon">🎲</span>
+                        <span className="hint-text">Alibis assignés aléatoirement au lancement</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Scroll indicator - Down */}
+                  <div className={`scroll-indicator down ${canScrollDown ? 'visible' : ''}`}>
+                    <ChevronDown size={20} />
                   </div>
                 </div>
               )}
@@ -880,7 +912,13 @@ export default function AlibiLobby() {
                 <span className="btn-text">
                   {canStart ? (
                     "Démarrer l'interrogatoire"
+                  ) : isPartyMode ? (
+                    /* Party Mode: show group status */
+                    alibiGroupsHook.allGroupsValid
+                      ? "Démarrer l'interrogatoire"
+                      : `${Object.values(groups).filter(g => alibiGroupsHook.isGroupValid(g.id)).length}/${alibiGroupsHook.groupCount} groupes prêts`
                   ) : (
+                    /* Game Master Mode: show checklist */
                     <>
                       <span className={selectedAlibiId ? 'check-done' : ''}>Alibi</span>
                       {' • '}

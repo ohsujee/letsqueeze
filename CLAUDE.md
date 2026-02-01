@@ -107,6 +107,7 @@ app/{game}/
 | `useInterstitialAd` | ✓ | | | |
 | `usePlayers` | ✓ | ✓ | ✓ | ✓ |
 | `usePlayerCleanup` | ✓ (lobby) | ✓ (playing) | | |
+| `usePresence` | ✓ | | | |
 | `useInactivityDetection` | | ✓ | ✓ | |
 | `useRoomGuard` | ✓ | ✓ | ✓ | ✓ |
 | `useHostDisconnect` | | | ✓ | |
@@ -128,6 +129,13 @@ const { leaveRoom, markActive } = usePlayerCleanup({
   roomCode, roomPrefix, playerUid,
   phase: 'lobby' | 'playing' | 'ended'
   // lobby → supprime joueur | playing → marque disconnected (score préservé)
+});
+
+// Présence temps réel (lobby uniquement, pour TOUS les joueurs y compris host)
+const { isConnected, forceReconnect } = usePresence({
+  roomCode, roomPrefix, playerUid,
+  heartbeatInterval: 15000,
+  enabled: !!myUid  // IMPORTANT: inclure le host (pas !isHost)
 });
 
 // Inactivité (30s sans interaction)
@@ -671,7 +679,7 @@ Composants:   components/game/{DisconnectAlert,LobbySettings,LobbyHeader}.jsx
    - [ ] `lib/config/rooms.js` - ROOM_TYPES avec prefix et playerSchema
 
 2. **Pages**
-   - [ ] `room/[code]/page.jsx` - Lobby avec hooks: useInterstitialAd, usePlayers, usePlayerCleanup(lobby), useRoomGuard
+   - [ ] `room/[code]/page.jsx` - Lobby avec hooks: useInterstitialAd, usePlayers, usePlayerCleanup(lobby), useRoomGuard, usePresence(`enabled: !!myUid`)
    - [ ] `game/[code]/play/page.jsx` - avec hooks: usePlayers, usePlayerCleanup(playing), useInactivityDetection, useRoomGuard + DisconnectAlert
    - [ ] `game/[code]/end/page.jsx` - avec hooks: usePlayers, useGameCompletion, useRoomGuard
 

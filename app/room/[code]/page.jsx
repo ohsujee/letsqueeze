@@ -101,7 +101,7 @@ export default function Room() {
     roomPrefix: 'rooms',
     playerUid: myUid,
     heartbeatInterval: 15000,
-    enabled: !isHost && !!myUid
+    enabled: !!myUid
   });
 
   // Player cleanup hook with auto-rejoin for hard refresh
@@ -539,15 +539,8 @@ export default function Room() {
         onPlayerExit={handlePlayerExit}
         onShowHowToPlay={() => setShowHowToPlay(true)}
         joinUrl={joinUrl}
+        gameMode={meta?.gameMasterMode}
       />
-
-      {/* Game Mode Badge - Party Mode indicator */}
-      {meta?.gameMasterMode === 'party' && (
-        <div className="game-mode-badge party">
-          <span className="game-mode-icon">🎉</span>
-          <span className="game-mode-text">Party Mode - Tout le monde joue !</span>
-        </div>
-      )}
 
       {/* Main Content */}
       <main className="lobby-main">

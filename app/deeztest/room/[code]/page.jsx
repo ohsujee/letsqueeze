@@ -26,6 +26,7 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
+import { usePlaylistHistory } from "@/lib/hooks/usePlaylistHistory";
 import { ChevronRight, Music, Search, Check, X } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
@@ -80,6 +81,9 @@ export default function DeezTestLobby() {
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_deeztest' });
+
+  // Playlist history for avoiding repeated tracks
+  const { getPlayedTracks, markTracksAsPlayed } = usePlaylistHistory();
 
   // Centralized team mode hook
   const {
@@ -154,7 +158,7 @@ export default function DeezTestLobby() {
     roomPrefix: 'rooms_deeztest',
     playerUid: myUid,
     heartbeatInterval: 15000,
-    enabled: !isHost && !!myUid
+    enabled: !!myUid
   });
 
   // Player cleanup with auto-rejoin for hard refresh
@@ -274,7 +278,10 @@ export default function DeezTestLobby() {
 
     try {
       setIsSearching(true);
-      const tracks = await getRandomTracksFromPlaylist(playlist.id, 20);
+
+      // Get already-played track IDs to avoid repetition
+      const playedIds = getPlayedTracks(playlist.id);
+      const tracks = await getRandomTracksFromPlaylist(playlist.id, 20, playedIds);
 
       if (tracks.length < 5) {
         toast.error("Playlist trop petite (minimum 5 titres)");
@@ -346,10 +353,13 @@ export default function DeezTestLobby() {
       }
 
       // Refresh tracks to get fresh preview URLs (they expire!)
+      // Also exclude already-played tracks for variety
       console.log("[DeezTest] Refreshing tracks before game start...");
+      const playedIds = getPlayedTracks(selectedPlaylist.id);
       const freshTracks = await getRandomTracksFromPlaylist(
         selectedPlaylist.id,
-        selectedPlaylist.totalTracks || 20
+        selectedPlaylist.totalTracks || 20,
+        playedIds
       );
 
       const formattedTracks = formatTracksForGame(freshTracks);
@@ -659,15 +669,8 @@ export default function DeezTestLobby() {
         onPlayerExit={handlePlayerExit}
         onShowHowToPlay={() => setShowHowToPlay(true)}
         joinUrl={joinUrl}
+        gameMode={meta?.gameMasterMode}
       />
-
-      {/* Game Mode Badge - Party Mode indicator */}
-      {meta?.gameMasterMode === 'party' && (
-        <div className="game-mode-badge party deeztest">
-          <span className="game-mode-icon">🎉</span>
-          <span className="game-mode-text">Party Mode - Tout le monde joue !</span>
-        </div>
-      )}
 
       {/* Main Content */}
       <main className="lobby-main">

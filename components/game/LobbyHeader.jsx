@@ -20,6 +20,7 @@ import ShareModal from '@/lib/components/ShareModal';
  * @param {function} props.onPlayerExit - Callback quand un joueur quitte
  * @param {function} props.onShowHowToPlay - Callback pour ouvrir le modal "Comment jouer"
  * @param {string} props.joinUrl - URL de join pour le partage
+ * @param {'gamemaster'|'party'} props.gameMode - Mode de jeu (optionnel)
  */
 export default function LobbyHeader({
   variant = 'quiz',
@@ -30,7 +31,8 @@ export default function LobbyHeader({
   onHostExit,
   onPlayerExit,
   onShowHowToPlay,
-  joinUrl
+  joinUrl,
+  gameMode
 }) {
   const router = useRouter();
 
@@ -87,6 +89,7 @@ export default function LobbyHeader({
             hostUid={hostUid}
             variant={variant}
             onShowHowToPlay={onShowHowToPlay}
+            gameMode={gameMode}
           />
         ) : (
           <motion.button

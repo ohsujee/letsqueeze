@@ -93,6 +93,7 @@
     "rooms_alibi": {
       "$code": {
         ".read": "auth != null",
+        ".write": "auth != null && auth.uid == root.child('rooms_alibi/'+$code+'/meta/hostUid').val()",
         "meta": {
           ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )"
         },

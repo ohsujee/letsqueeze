@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Settings, X, HelpCircle, UserX, WifiOff, Moon, Crown } from 'lucide-react';
+import { Settings, X, HelpCircle, UserX, WifiOff, Moon, Crown, Users, Sparkles } from 'lucide-react';
 import { ref, remove } from 'firebase/database';
 import { db } from '@/lib/firebase';
 
@@ -27,6 +27,7 @@ const VARIANT_COLORS = {
  * @param {string} props.hostUid - UID de l'hôte
  * @param {'quiz'|'blindtest'|'deeztest'|'alibi'|'laloi'} props.variant - Thème couleur
  * @param {function} props.onShowHowToPlay - Callback pour ouvrir le modal Comment jouer
+ * @param {'gamemaster'|'party'} props.gameMode - Mode de jeu (optionnel)
  */
 export default function LobbySettings({
   players = [],
@@ -34,7 +35,8 @@ export default function LobbySettings({
   roomPrefix = 'rooms',
   hostUid,
   variant = 'quiz',
-  onShowHowToPlay
+  onShowHowToPlay,
+  gameMode
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmKick, setConfirmKick] = useState(null);
@@ -136,6 +138,25 @@ export default function LobbySettings({
                   <HelpCircle size={20} />
                   <span>Comment jouer</span>
                 </button>
+
+                {/* Game Mode indicator (if applicable) */}
+                {gameMode && (
+                  <div className="game-mode-info">
+                    {gameMode === 'party' ? (
+                      <>
+                        <Sparkles size={16} />
+                        <span>Party Mode</span>
+                        <span className="game-mode-desc">Tout le monde joue</span>
+                      </>
+                    ) : (
+                      <>
+                        <Users size={16} />
+                        <span>Game Master</span>
+                        <span className="game-mode-desc">L'hôte anime</span>
+                      </>
+                    )}
+                  </div>
+                )}
 
                 {/* Divider */}
                 <div className="settings-divider" />
@@ -310,6 +331,34 @@ export default function LobbySettings({
           background: ${color.primary}30;
           border-color: ${color.primary}60;
           transform: translateY(-1px);
+        }
+
+        .game-mode-info {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 0 16px 16px;
+          padding: 10px 14px;
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: 10px;
+          color: rgba(255, 255, 255, 0.6);
+          font-size: 0.85rem;
+        }
+
+        .game-mode-info svg {
+          color: ${color.primary};
+          flex-shrink: 0;
+        }
+
+        .game-mode-info span:first-of-type {
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .game-mode-desc {
+          margin-left: auto;
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.4);
         }
 
         .settings-divider {

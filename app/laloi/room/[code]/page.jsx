@@ -114,7 +114,7 @@ export default function LaLoiLobby() {
     roomPrefix: 'rooms_laloi',
     playerUid: myUid,
     heartbeatInterval: 15000,
-    enabled: !isHost && !!myUid
+    enabled: !!myUid
   });
 
   // Player cleanup with auto-rejoin for hard refresh

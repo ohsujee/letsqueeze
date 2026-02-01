@@ -9757,42 +9757,29 @@ input[type="text"].game-search-input:focus,
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Share Trigger Button - Prominent */
+/* Share Trigger Button */
 .share-trigger-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
-  border: 2px solid rgba(34, 197, 94, 0.4);
+  background: rgba(34, 197, 94, 0.1);
+  border: 2px solid rgba(34, 197, 94, 0.3);
   border-radius: 10px;
   color: #4ade80;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
-  animation: share-pulse 2s ease-in-out infinite;
-}
-
-@keyframes share-pulse {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
-  }
+  transition: all 0.2s ease;
 }
 
 .share-trigger-btn:hover {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.35), rgba(34, 197, 94, 0.2));
-  border-color: rgba(34, 197, 94, 0.6);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 4px 25px rgba(34, 197, 94, 0.4);
-  animation: none;
+  background: rgba(34, 197, 94, 0.2);
+  border-color: rgba(34, 197, 94, 0.5);
+  transform: translateY(-1px);
 }
 
 .share-trigger-btn:active {
-  transform: translateY(0) scale(0.95);
+  transform: scale(0.95);
 }
 
 .share-modal .btn-copy {
@@ -11058,7 +11045,93 @@ input[type="text"].game-search-input:focus,
   transition: all 0.3s ease;
 }
 
-/* Alibi Selector Card */
+/* ========================================
+   GAME MASTER MODE: Alibi Display Card - Compact
+   ======================================== */
+.gm-alibi-card {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.05)) !important;
+  border: 2px solid rgba(245, 158, 11, 0.3) !important;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+  padding: 0.875rem 1rem !important;
+}
+
+.gm-alibi-row {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.gm-alibi-emoji {
+  font-size: 2.25rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.4));
+}
+
+.gm-alibi-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.gm-alibi-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
+}
+
+.gm-upsell-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.gm-upsell-link span {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.gm-upsell-link:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.gm-upsell-link:hover span {
+  color: #fbbf24;
+}
+
+.gm-pro-hint {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.gm-shuffle-btn {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 12px;
+  color: #fbbf24;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gm-shuffle-btn:hover {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+/* Legacy selector styles (keep for AlibiSelectorModal) */
 .alibi-lobby-card.alibi-selector {
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
   border: 2px solid rgba(245, 158, 11, 0.25);
@@ -11151,6 +11224,14 @@ input[type="text"].game-search-input:focus,
 }
 
 /* ===== PARTY MODE - Host View ===== */
+.party-groups-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 .party-groups-card {
   display: flex;
   flex-direction: column;
@@ -11158,111 +11239,139 @@ input[type="text"].game-search-input:focus,
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
-.group-alibis-section {
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+/* Scroll indicators */
+.scroll-indicator {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 24px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
+  color: var(--alibi-glow, #fbbf24);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
 }
 
-.group-alibis-section .section-title {
-  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin: 0 0 0.75rem;
+.scroll-indicator.visible {
+  opacity: 1;
+  animation: scroll-bounce 1.5s ease-in-out infinite;
 }
 
-.group-alibis-list {
+.scroll-indicator.up {
+  top: -8px;
+}
+
+.scroll-indicator.down {
+  bottom: -8px;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-3px); }
+}
+
+.scroll-indicator.down {
+  animation-name: scroll-bounce-down;
+}
+
+@keyframes scroll-bounce-down {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(3px); }
+}
+
+/* Random alibi hint for Party Mode */
+/* Party Mode Free Limit Banner */
+.party-free-limit-banner {
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
-}
-
-.group-alibi-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: 0.75rem;
-  padding: 0.625rem 0.875rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-}
-
-.group-alibi-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 0;
-}
-
-.group-alibi-info .group-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: 0 0 8px currentColor;
-}
-
-.group-alibi-info .group-name {
-  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--group-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.group-alibi-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: rgba(245, 158, 11, 0.1);
+  padding: 1rem 1.25rem;
+  margin-top: 0.75rem;
+  background: rgba(245, 158, 11, 0.08);
   border: 1px solid rgba(245, 158, 11, 0.25);
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
-  max-width: 180px;
 }
 
-.group-alibi-btn:hover {
-  background: rgba(245, 158, 11, 0.2);
+.party-free-limit-banner:hover {
+  background: rgba(245, 158, 11, 0.12);
   border-color: rgba(245, 158, 11, 0.4);
 }
 
-.group-alibi-btn .alibi-emoji {
-  font-size: 1.125rem;
-  flex-shrink: 0;
+.party-free-limit-banner .limit-message {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
 }
 
-.group-alibi-btn .alibi-name {
-  font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--text-primary, #ffffff);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: 1;
-  min-width: 0;
+.party-free-limit-banner .limit-emoji {
+  font-size: 1.25rem;
 }
 
-.group-alibi-btn .no-alibi {
+.party-free-limit-banner .limit-text {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+.party-free-limit-banner .limit-text strong {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.party-free-limit-banner .unlock-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.625rem 1rem;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border-radius: 10px;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.party-free-limit-banner:hover .unlock-cta {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+/* Simple hint for Pro users */
+.party-alibi-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  margin-top: 0.5rem;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px dashed rgba(245, 158, 11, 0.25);
+  border-radius: 10px;
+}
+
+.party-alibi-hint .hint-icon {
+  font-size: 1rem;
+}
+
+.party-alibi-hint .hint-text {
   font-family: var(--font-body, 'Inter'), sans-serif;
   font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
   font-style: italic;
-  color: var(--text-muted, rgba(255, 255, 255, 0.5));
-}
-
-.group-alibi-btn svg {
-  color: var(--alibi-glow, #fbbf24);
-  opacity: 0.6;
-  flex-shrink: 0;
 }
 
 /* Roles Header */
@@ -11740,17 +11849,17 @@ input[type="text"].game-search-input:focus,
   border-radius: 16px;
   text-align: center;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
   border: 2px solid var(--group-color);
-  box-shadow: 0 0 40px color-mix(in srgb, var(--group-color) 25%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--group-color) 15%, transparent);
 }
 
 .my-group-banner .banner-glow {
   position: absolute;
   inset: 0;
-  opacity: 0.3;
-  filter: blur(30px);
-  animation: banner-pulse 3s ease-in-out infinite;
+  opacity: 0.15;
+  filter: blur(40px);
+  pointer-events: none;
 }
 
 .my-group-banner .banner-description {
@@ -12857,4 +12966,500 @@ input[type="text"].game-search-input:focus,
   font-size: 0.95rem;
   color: var(--text-secondary, rgba(255, 255, 255, 0.7));
   text-align: center;
+}
+
+/* ==============================================
+   PAYWALL MODAL
+   ============================================== */
+
+.paywall-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9998;
+}
+
+.paywall-modal-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.paywall-modal {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  max-height: calc(100vh - 2rem);
+  background: linear-gradient(145deg,
+    rgba(30, 25, 45, 0.98) 0%,
+    rgba(20, 18, 35, 0.98) 100%
+  );
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 24px;
+  pointer-events: auto;
+}
+
+.paywall-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(139, 92, 246, 0.15) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+.paywall-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+  pointer-events: none;
+  border-radius: 24px;
+}
+
+.paywall-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.paywall-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: white;
+  transform: scale(1.05);
+}
+
+.paywall-close:active {
+  transform: scale(0.95);
+}
+
+/* Scroll indicators */
+.paywall-scroll-indicator {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 20px;
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 10px;
+  color: rgba(167, 139, 250, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.paywall-scroll-indicator.visible {
+  opacity: 1;
+}
+
+.paywall-scroll-indicator.up {
+  top: 0.5rem;
+  animation: paywall-bounce-up 1.5s ease-in-out infinite;
+}
+
+.paywall-scroll-indicator.down {
+  bottom: 0.5rem;
+  animation: paywall-bounce-down 1.5s ease-in-out infinite;
+}
+
+@keyframes paywall-bounce-up {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-3px); }
+}
+
+@keyframes paywall-bounce-down {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(3px); }
+}
+
+.paywall-content {
+  position: relative;
+  padding: 2rem 1.5rem 1.5rem;
+  z-index: 1;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.paywall-content::-webkit-scrollbar {
+  display: none;
+}
+
+.paywall-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.paywall-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 0.75rem;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.paywall-icon.pro {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.3);
+}
+
+.paywall-icon.guest {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+}
+
+.paywall-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.5rem;
+}
+
+.paywall-subtitle {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.paywall-subtitle strong {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.paywall-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #f87171;
+  text-align: center;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+}
+
+/* Content preview grid */
+.paywall-preview {
+  margin-bottom: 1.25rem;
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.625rem;
+}
+
+.preview-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 0.75rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.preview-emoji {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.preview-name {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.preview-item.more {
+  background: linear-gradient(135deg,
+    rgba(139, 92, 246, 0.1) 0%,
+    rgba(139, 92, 246, 0.05) 100%
+  );
+  border-color: rgba(139, 92, 246, 0.2);
+  justify-content: center;
+}
+
+.preview-more {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #a78bfa;
+}
+
+/* Benefits */
+.paywall-benefits {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.benefit-item .benefit-icon {
+  color: #22c55e;
+}
+
+/* Pricing */
+.paywall-pricing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.paywall-pricing .pricing-option {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.paywall-pricing .pricing-option:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.paywall-pricing .pricing-option.selected {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.05);
+}
+
+.paywall-pricing .pricing-option.best {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.paywall-pricing .pricing-option.best.selected {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.paywall-pricing .pricing-badge {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.25rem;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+.paywall-pricing .pricing-label {
+  display: block;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.paywall-pricing .pricing-price {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.paywall-pricing .pricing-period {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.paywall-pricing .pricing-equivalent {
+  display: block;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 0.25rem;
+}
+
+/* CTA Button */
+.paywall-cta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(245, 158, 11, 0.3);
+  transition: box-shadow 0.2s ease;
+}
+
+.paywall-cta:hover {
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.4);
+}
+
+.paywall-cta.loading,
+.paywall-cta:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.paywall-skip {
+  width: 100%;
+  padding: 0.875rem;
+  margin-top: 0.75rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.paywall-skip:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.paywall-legal {
+  text-align: center;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0.5rem 0 0;
+}
+
+/* Auth buttons for guest view */
+.paywall-auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.paywall-auth-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 12px;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.paywall-auth-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.paywall-auth-btn.google {
+  background: white;
+  border: none;
+  color: #1f1f1f;
+}
+
+.paywall-auth-btn.google:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.paywall-auth-btn.apple {
+  background: black;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.paywall-auth-btn.apple:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Mobile adjustments */
+@media (max-width: 400px) {
+  .paywall-content {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .preview-grid {
+    gap: 0.5rem;
+  }
+
+  .paywall-benefits {
+    gap: 1rem;
+  }
+
+  .benefit-item {
+    font-size: 0.75rem;
+  }
 }
