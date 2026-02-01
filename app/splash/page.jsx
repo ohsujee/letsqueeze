@@ -5,6 +5,10 @@ import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/utils/storage';
 import { motion } from 'framer-motion';
 
+// Preload images for smooth animation
+const NEUTRAL_IMG = '/images/mascot/giggly-head-neutral.webp';
+const WINK_IMG = '/images/mascot/giggly-head-wink.webp';
+
 // Les 5 couleurs des jeux
 const GAME_COLORS = [
   '#8b5cf6', // Quiz - Purple
@@ -26,8 +30,35 @@ export default function SplashScreen() {
   const [progress, setProgress] = useState(0);
   const [isWinking, setIsWinking] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload images before starting animations
+  useEffect(() => {
+    const img1 = new Image();
+    const img2 = new Image();
+    let loaded = 0;
+
+    const onLoad = () => {
+      loaded++;
+      if (loaded === 2) {
+        setImagesLoaded(true);
+      }
+    };
+
+    img1.onload = onLoad;
+    img2.onload = onLoad;
+    img1.src = NEUTRAL_IMG;
+    img2.src = WINK_IMG;
+
+    // Fallback si les images ne chargent pas en 500ms
+    const fallbackTimer = setTimeout(() => setImagesLoaded(true), 500);
+
+    return () => clearTimeout(fallbackTimer);
+  }, []);
 
   useEffect(() => {
+    // Attendre que les images soient chargées
+    if (!imagesLoaded) return;
     // Animation de la barre de progression
     const startTime = Date.now();
 
@@ -68,7 +99,7 @@ export default function SplashScreen() {
       clearTimeout(fadeTimeout);
       clearTimeout(redirectTimeout);
     };
-  }, [router]);
+  }, [router, imagesLoaded]);
 
   return (
     <motion.div
@@ -113,12 +144,13 @@ export default function SplashScreen() {
               height: pos.size,
               borderRadius: '50%',
               background: color,
-              filter: 'blur(100px)',
+              filter: 'blur(70px)',
               opacity: 0,
               top: pos.top,
               left: pos.left,
               right: pos.right,
               bottom: pos.bottom,
+              willChange: 'opacity, transform',
             }}
             animate={{
               opacity: [0, 0.5, 0.35, 0.5],
@@ -169,6 +201,7 @@ export default function SplashScreen() {
             width: 'clamp(180px, 55vw, 280px)',
             height: 'clamp(180px, 55vw, 280px)',
             position: 'relative',
+            willChange: 'opacity, transform',
           }}
           initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
           animate={{
@@ -189,7 +222,7 @@ export default function SplashScreen() {
         >
           {/* Neutral head - visible jusqu'au wink */}
           <motion.img
-            src="/images/mascot/giggly-head-neutral.png"
+            src={NEUTRAL_IMG}
             alt="Giggly"
             style={{
               width: '100%',
@@ -197,6 +230,7 @@ export default function SplashScreen() {
               objectFit: 'contain',
               position: 'absolute',
               inset: 0,
+              willChange: 'opacity',
             }}
             animate={{ opacity: isWinking ? 0 : 1 }}
             transition={{ duration: 0.1 }}
@@ -204,7 +238,7 @@ export default function SplashScreen() {
           />
           {/* Wink head - apparaît au moment du wink */}
           <motion.img
-            src="/images/mascot/giggly-head-wink.png"
+            src={WINK_IMG}
             alt="Giggly wink"
             style={{
               width: '100%',
@@ -212,6 +246,7 @@ export default function SplashScreen() {
               objectFit: 'contain',
               position: 'absolute',
               inset: 0,
+              willChange: 'opacity, transform',
             }}
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{
