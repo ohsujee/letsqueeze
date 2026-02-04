@@ -8,6 +8,8 @@ workflows:
       app_store_connect: Gigglz API Key
 
     environment:
+      groups:
+        - ios_credentials
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.gigglz.app
@@ -20,6 +22,21 @@ workflows:
       cocoapods: default
 
     scripts:
+      - name: Set up keychain
+        script: |
+          keychain initialize
+
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files com.gigglz.app \
+            --type IOS_APP_STORE \
+            --certificate-key=@env:CERTIFICATE_PRIVATE_KEY \
+            --create
+
+      - name: Set up signing certificates
+        script: |
+          keychain add-certificates
+
       - name: Install npm dependencies
         script: |
           npm install
