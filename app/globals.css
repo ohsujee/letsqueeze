@@ -2703,6 +2703,19 @@ textarea:focus-visible {
   width: 100%;
 }
 
+/* Extension du fond dans la safe-area bottom */
+.game-footer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--safe-area-bottom, 0px);
+  transform: translateY(100%);
+  background: rgba(10, 10, 15, 0.95);
+  pointer-events: none;
+}
+
 .host-actions {
   display: flex;
   gap: 10px;
