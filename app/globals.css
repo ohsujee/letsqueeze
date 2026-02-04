@@ -106,6 +106,8 @@ body > * {
   /* Sur Android, env(safe-area-inset-top) retourne 0, on utilise le fallback JS */
   padding-top: max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px));
   padding-bottom: var(--safe-area-bottom);
+  /* Fond permanent pour éviter le flash noir pendant les transitions */
+  background: var(--bg-primary, #0a0a0f);
 }
 
 /* Enfants directs de app-shell remplissent l'espace */
