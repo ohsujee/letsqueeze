@@ -1,10 +1,14 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, useAnimation } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
 interface MimeCardProps {
   word: string;
+  category?: string;
+  onReveal?: () => void;
+  revealed?: boolean;
+  disabled?: boolean;
 }
 
 // Couleurs MIME - alignées sur theme.css (--mime-primary, --mime-secondary)
@@ -13,29 +17,43 @@ const MIME_COLORS = {
   primaryRgb: '0, 255, 102',
 };
 
-export default function MimeCard({ word }: MimeCardProps) {
-  const y = useMotionValue(0);
+export default function MimeCard({ word, category, onReveal, revealed = false, disabled = false }: MimeCardProps) {
   const controls = useAnimation();
-  const maxDrag = -180;
+  const maxDrag = -120;
+  const revealThreshold = -60; // Seuil pour considérer comme révélé
+  const hasTriggeredReveal = useRef(false);
 
-  const coverY = useTransform(y, [maxDrag, 0], [maxDrag, 0]);
+  const handleDrag = (_event: any, info: { offset: { y: number } }) => {
+    // Détecter quand le seuil de révélation est atteint via l'offset du drag
+    if (info.offset.y <= revealThreshold && !hasTriggeredReveal.current && onReveal) {
+      hasTriggeredReveal.current = true;
+      onReveal();
+    }
+  };
 
   const handleDragEnd = () => {
+    // Toujours refermer la carte après le drag (pour cacher le mot)
     controls.start({
       y: 0,
       transition: { type: 'spring', stiffness: 400, damping: 30 }
     });
   };
 
+  // Réinitialiser quand le mot change
   useEffect(() => {
-    y.set(0);
-  }, [word, y]);
+    hasTriggeredReveal.current = false;
+    controls.start({ y: 0 });
+  }, [word, controls]);
 
   return (
     <div style={{
       position: 'relative',
-      width: 300,
-      height: 320,
+      width: '100%',
+      maxWidth: 280,
+      height: 160,
+      margin: '0 auto',
+      opacity: disabled ? 0.6 : 1,
+      pointerEvents: disabled ? 'none' : 'auto',
     }}>
 
       {/* === CARTE DU MOT (derrière) === */}
@@ -46,22 +64,39 @@ export default function MimeCard({ word }: MimeCardProps) {
         right: 0,
         bottom: 0,
         zIndex: 1,
-        borderRadius: 24,
+        borderRadius: 16,
         display: 'flex',
-        alignItems: 'flex-end', // Aligné en BAS pour être visible quand cover monte
+        flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: 50, // Centré dans la zone visible (180px / 2 - marge)
+        padding: '16px',
         background: 'linear-gradient(180deg, #0a0a0f 0%, #050508 100%)',
-        border: `3px solid ${MIME_COLORS.primary}`,
-        boxShadow: `0 0 50px rgba(${MIME_COLORS.primaryRgb}, 0.6), 0 0 100px rgba(${MIME_COLORS.primaryRgb}, 0.3), inset 0 0 50px rgba(${MIME_COLORS.primaryRgb}, 0.15)`,
+        border: `2px solid ${MIME_COLORS.primary}`,
+        boxShadow: `0 0 15px rgba(${MIME_COLORS.primaryRgb}, 0.25)`,
       }}>
+        {/* Catégorie */}
+        {category && (
+          <span style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: 10,
+            fontWeight: 600,
+            color: MIME_COLORS.primary,
+            textTransform: 'uppercase',
+            letterSpacing: 1,
+            marginBottom: 6,
+            opacity: 0.8,
+          }}>
+            {category}
+          </span>
+        )}
+        {/* Mot */}
         <span style={{
           fontFamily: "'Bungee', cursive",
-          fontSize: 'clamp(1.75rem, 8vw, 2.75rem)',
+          fontSize: 'clamp(1.25rem, 6vw, 1.75rem)',
           color: '#ffffff',
           textAlign: 'center',
-          padding: 24,
-          textShadow: `0 0 10px rgba(${MIME_COLORS.primaryRgb}, 1), 0 0 25px rgba(${MIME_COLORS.primaryRgb}, 0.9), 0 0 50px rgba(${MIME_COLORS.primaryRgb}, 0.6)`,
+          padding: '0 12px',
+          textShadow: `0 0 8px rgba(${MIME_COLORS.primaryRgb}, 0.6)`,
           lineHeight: 1.2,
         }}>
           {word}
@@ -77,20 +112,20 @@ export default function MimeCard({ word }: MimeCardProps) {
           right: 0,
           bottom: 0,
           zIndex: 10,
-          borderRadius: 24,
+          borderRadius: 16,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           background: 'linear-gradient(180deg, #111118 0%, #0a0a0f 100%)',
-          border: `3px solid rgba(${MIME_COLORS.primaryRgb}, 0.7)`,
-          boxShadow: `0 8px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(${MIME_COLORS.primaryRgb}, 0.3)`,
-          cursor: 'grab',
+          border: `2px solid rgba(${MIME_COLORS.primaryRgb}, 0.5)`,
+          boxShadow: `0 4px 15px rgba(0, 0, 0, 0.6)`,
+          cursor: disabled ? 'not-allowed' : 'grab',
           touchAction: 'none',
-          y: coverY,
         }}
-        drag="y"
+        drag={disabled ? false : 'y'}
         dragConstraints={{ top: maxDrag, bottom: 0 }}
         dragElastic={0.05}
+        onDrag={handleDrag}
         onDragEnd={handleDragEnd}
         animate={controls}
         whileDrag={{ cursor: 'grabbing' }}
@@ -99,63 +134,52 @@ export default function MimeCard({ word }: MimeCardProps) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 12,
-          padding: 20,
+          gap: 8,
+          padding: 12,
         }}>
-          {/* Emoji */}
-          <motion.span
-            style={{ fontSize: 52, filter: `drop-shadow(0 0 20px rgba(${MIME_COLORS.primaryRgb}, 0.8))` }}
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            🎭
-          </motion.span>
-
-          {/* Titre */}
-          <span style={{
-            fontFamily: "'Bungee', cursive",
-            fontSize: 24,
-            color: '#ffffff',
-            textShadow: `0 0 12px rgba(${MIME_COLORS.primaryRgb}, 1), 0 0 25px rgba(${MIME_COLORS.primaryRgb}, 0.6)`,
-          }}>
-            Ton mot
-          </span>
+          {/* Titre + Flèche sur la même ligne */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{
+              fontFamily: "'Bungee', cursive",
+              fontSize: 18,
+              color: '#ffffff',
+              textShadow: `0 0 6px rgba(${MIME_COLORS.primaryRgb}, 0.5)`,
+            }}>
+              Ton mot
+            </span>
+            <motion.div
+              style={{
+                width: 28,
+                height: 28,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: `rgba(${MIME_COLORS.primaryRgb}, 0.2)`,
+                border: `2px solid rgba(${MIME_COLORS.primaryRgb}, 0.7)`,
+                borderRadius: '50%',
+              }}
+              animate={{ y: [-3, 3, -3] }}
+              transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <span style={{
+                fontSize: 14,
+                fontWeight: 'bold',
+                color: MIME_COLORS.primary,
+              }}>
+                ↑
+              </span>
+            </motion.div>
+          </div>
 
           {/* Instruction */}
           <span style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: 13,
-            fontWeight: 600,
-            color: 'rgba(255, 255, 255, 0.6)',
+            fontSize: 11,
+            fontWeight: 500,
+            color: 'rgba(255, 255, 255, 0.5)',
           }}>
-            Glisse vers le haut pour voir
+            Glisse vers le haut
           </span>
-
-          {/* Flèche */}
-          <motion.div
-            style={{
-              width: 38,
-              height: 38,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: `rgba(${MIME_COLORS.primaryRgb}, 0.2)`,
-              border: `2px solid rgba(${MIME_COLORS.primaryRgb}, 0.7)`,
-              borderRadius: '50%',
-              marginTop: 4,
-            }}
-            animate={{ y: [-5, 5, -5] }}
-            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <span style={{
-              fontSize: 18,
-              fontWeight: 'bold',
-              color: MIME_COLORS.primary,
-              textShadow: `0 0 8px rgba(${MIME_COLORS.primaryRgb}, 1)`,
-            }}>
-              ↑
-            </span>
-          </motion.div>
         </div>
       </motion.div>
     </div>

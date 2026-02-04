@@ -125,10 +125,6 @@
   text-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
 }
 
-.text-glow-blindtest {
-  text-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
-}
-
 .text-glow-deeztest {
   text-shadow: 0 0 20px rgba(162, 56, 255, 0.6);
 }
@@ -167,10 +163,6 @@
 
 .shadow-glow-alibi {
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.4), 0 4px 15px rgba(245, 158, 11, 0.3);
-}
-
-.shadow-glow-blindtest {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 
 .shadow-glow-deeztest {

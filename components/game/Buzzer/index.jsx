@@ -17,7 +17,7 @@ import styles from './Buzzer.module.css';
  */
 export default function Buzzer({
   roomCode,
-  roomPrefix = 'rooms', // 'rooms' for quiz, 'rooms_blindtest' for blind test, 'rooms_alibi' for alibi
+  roomPrefix = 'rooms', // 'rooms' for quiz, 'rooms_blindtest' for deez test, 'rooms_alibi' for alibi
   playerUid,
   playerName,
   blockedUntil = 0,

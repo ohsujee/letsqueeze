@@ -14,6 +14,7 @@ import GameCard from '@/lib/components/GameCard';
 import GuestWarningModal from '@/components/ui/GuestWarningModal';
 import GameLimitModal from '@/components/ui/GameLimitModal';
 import GameModeSelector from '@/components/ui/GameModeSelector';
+import HowToPlayModal from '@/components/ui/HowToPlayModal';
 import RejoinBanner from '@/components/ui/RejoinBanner';
 import HomeHeader from '@/components/home/HomeHeader';
 import GameFilterBar from '@/components/home/GameFilterBar';
@@ -35,6 +36,8 @@ function HomePageContent() {
   const [showGameLimit, setShowGameLimit] = useState(false);
   const [showModeSelector, setShowModeSelector] = useState(false);
   const [pendingGame, setPendingGame] = useState(null);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [helpGameId, setHelpGameId] = useState('quiz');
   const { isPro } = useSubscription(user);
   const { profile, cachedPseudo } = useUserProfile();
   const [showRejoinBanner, setShowRejoinBanner] = useState(true);
@@ -219,6 +222,12 @@ function HomePageContent() {
     router.push('/subscribe');
   };
 
+  // Handle showing help for a game
+  const handleShowHelp = (gameId) => {
+    setHelpGameId(gameId);
+    setShowHowToPlay(true);
+  };
+
   // Handlers for guest warning modal sign-in
   const handleGuestWarningGoogle = async () => {
     try {
@@ -328,6 +337,7 @@ function HomePageContent() {
                     isFavorite={true}
                     onToggleFavorite={handleToggleFavorite}
                     onClick={handleGameClick}
+                    onShowHelp={handleShowHelp}
                   />
                 </motion.div>
               ))}
@@ -342,10 +352,12 @@ function HomePageContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
         >
-          <h2 className="section-title">
-            <Gamepad2 className="title-icon" size={24} strokeWidth={2.5} />
-            Tous les Jeux
-          </h2>
+          {favoriteGames.length > 0 && (
+            <h2 className="section-title">
+              <Gamepad2 className="title-icon" size={24} strokeWidth={2.5} />
+              Tous les Jeux
+            </h2>
+          )}
           <div className="games-grid">
             {allGames.map((game) => (
               <motion.div
@@ -359,6 +371,7 @@ function HomePageContent() {
                   isFavorite={favorites.includes(game.id)}
                   onToggleFavorite={handleToggleFavorite}
                   onClick={handleGameClick}
+                  onShowHelp={handleShowHelp}
                 />
               </motion.div>
             ))}
@@ -403,6 +416,13 @@ function HomePageContent() {
         }}
         onSelectMode={handleModeSelect}
         game={pendingGame}
+      />
+
+      {/* How To Play Modal */}
+      <HowToPlayModal
+        isOpen={showHowToPlay}
+        onClose={() => setShowHowToPlay(false)}
+        gameType={helpGameId}
       />
     </div>
   );

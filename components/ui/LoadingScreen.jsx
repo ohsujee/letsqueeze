@@ -60,14 +60,6 @@ export default function LoadingScreen({
           );
         }
 
-        .loading-screen.blindtest {
-          background: radial-gradient(
-            ellipse at center,
-            rgba(16, 185, 129, 0.1) 0%,
-            #0a0a0f 70%
-          );
-        }
-
         .loading-screen.deeztest {
           background: radial-gradient(
             ellipse at center,

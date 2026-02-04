@@ -1,0 +1,196 @@
+/* MimeBuzzer - Styles du buzzer Mime */
+
+.mime-buzzer-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.mime-buzzer {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  /* Base shadow */
+  box-shadow:
+    0 8px 0 0 rgba(0, 0, 0, 0.4),
+    0 12px 20px rgba(0, 0, 0, 0.3),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+/* Active state - Vert */
+.mime-buzzer.active {
+  background: linear-gradient(180deg, #00ff66 0%, #00cc52 100%);
+  box-shadow:
+    0 8px 0 0 #00994d,
+    0 12px 30px rgba(0, 255, 102, 0.4),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.mime-buzzer.active:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 0 0 #00994d,
+    0 16px 40px rgba(0, 255, 102, 0.5),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.mime-buzzer.active:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 4px 0 0 #00994d,
+    0 6px 20px rgba(0, 255, 102, 0.4),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+/* Pending state - Jaune */
+.mime-buzzer.pending {
+  background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
+  box-shadow:
+    0 8px 0 0 #b45309,
+    0 12px 30px rgba(251, 191, 36, 0.4),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 4px 12px rgba(255, 255, 255, 0.3);
+  animation: pulse-pending 0.8s ease-in-out infinite;
+}
+
+@keyframes pulse-pending {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Success state - Vert vif */
+.mime-buzzer.success {
+  background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+  box-shadow:
+    0 8px 0 0 #15803d,
+    0 12px 40px rgba(34, 197, 94, 0.5),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 4px 12px rgba(255, 255, 255, 0.3);
+  animation: pulse-success 1s ease-in-out infinite;
+}
+
+@keyframes pulse-success {
+  0%, 100% {
+    box-shadow:
+      0 8px 0 0 #15803d,
+      0 12px 40px rgba(34, 197, 94, 0.5),
+      inset 0 -4px 12px rgba(0, 0, 0, 0.2),
+      inset 0 4px 12px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 8px 0 0 #15803d,
+      0 12px 60px rgba(34, 197, 94, 0.7),
+      inset 0 -4px 12px rgba(0, 0, 0, 0.2),
+      inset 0 4px 12px rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Blocked state - Grisé */
+.mime-buzzer.blocked {
+  background: linear-gradient(180deg, #4b5563 0%, #374151 100%);
+  box-shadow:
+    0 8px 0 0 #1f2937,
+    0 12px 20px rgba(0, 0, 0, 0.3),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 4px 12px rgba(255, 255, 255, 0.05);
+  cursor: not-allowed;
+}
+
+/* Penalty state - Orange */
+.mime-buzzer.penalty {
+  background: linear-gradient(180deg, #f97316 0%, #ea580c 100%);
+  box-shadow:
+    0 8px 0 0 #c2410c,
+    0 12px 30px rgba(249, 115, 22, 0.4),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 4px 12px rgba(255, 255, 255, 0.2);
+  cursor: not-allowed;
+}
+
+/* Disabled state - Grisé */
+.mime-buzzer.disabled {
+  background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
+  box-shadow:
+    0 8px 0 0 #111827,
+    0 12px 20px rgba(0, 0, 0, 0.3),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 4px 12px rgba(255, 255, 255, 0.02);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Croix pour blocked */
+.buzzer-cross {
+  position: absolute;
+  width: 60%;
+  height: 60%;
+}
+
+.buzzer-cross::before,
+.buzzer-cross::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.buzzer-cross::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.buzzer-cross::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Contenu */
+.buzzer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 1;
+}
+
+.buzzer-label {
+  font-family: var(--font-title, 'Bungee', cursive);
+  font-size: 24px;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.mime-buzzer.active .buzzer-label,
+.mime-buzzer.pending .buzzer-label,
+.mime-buzzer.success .buzzer-label {
+  color: #000;
+  text-shadow: none;
+}
+
+.buzzer-sublabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mime-buzzer.penalty .buzzer-sublabel {
+  color: rgba(0, 0, 0, 0.7);
+}

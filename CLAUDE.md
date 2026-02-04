@@ -61,7 +61,6 @@
 | Jeu | Route Lobby | Firebase Prefix | Type |
 |-----|-------------|-----------------|------|
 | Quiz (Buzzer) | `/room/[code]` | `rooms/` | Multiplayer |
-| BlindTest (Spotify) | `/blindtest/room/[code]` | `rooms_blindtest/` | Multiplayer |
 | DeezTest (Deezer) | `/deeztest/room/[code]` | `rooms_deeztest/` | Multiplayer |
 | Alibi | `/alibi/room/[code]` | `rooms_alibi/` | Multiplayer |
 | La Loi | `/laloi/room/[code]` | `rooms_laloi/` | Multiplayer |
@@ -302,14 +301,6 @@ Variables env: `NEXT_PUBLIC_FOUNDER_UIDS`, `NEXT_PUBLIC_FOUNDER_EMAILS` → Pro 
 
 **Scoring:** `points = floor + (start - floor) × (1 - elapsed/duration)`
 
-### BlindTest (Spotify)
-
-- Auth PKCE obligatoire
-- Tokens en cookies httpOnly
-- Web Playback SDK
-- 4 niveaux snippets: 1.5s → 3s → 10s → Full
-- Keep-alive ping 15s
-
 ### DeezTest (Deezer)
 
 - Pas d'auth (API publique)
@@ -490,7 +481,6 @@ if (amIAsker) {
 | Jeu | Supporté | Composant HostView |
 |-----|:--------:|-------------------|
 | Quiz | ✓ | `QuizHostView.jsx` |
-| BlindTest | ✓ | À créer |
 | DeezTest | ✓ | `DeezTestHostView.jsx` |
 
 ---
@@ -633,7 +623,6 @@ playSound('error');    // quiz-bad-answer.wav
 ```css
 --quiz-primary: #8b5cf6;        /* Purple */
 --alibi-primary: #f59e0b;       /* Orange */
---blindtest-primary: #10b981;   /* Green */
 --deeztest-primary: #A238FF;    /* Magenta */
 --mime-primary: #00ff66;        /* Neon Green */
 --laloi-primary: #06b6d4; /* Cyan */
@@ -662,7 +651,6 @@ Quand on modifie une feature partagée, vérifier:
 ```
 Pages:
   Quiz:       app/room/[code], app/game/[code]/{play,host}, app/end/[code]
-  BlindTest:  app/blindtest/room/[code], game/[code]/{play,host,end}
   DeezTest:   app/deeztest/room/[code], game/[code]/{play,host,end}
   Alibi:      app/alibi/room/[code], game/[code]/{prep,play,end}
   LaLoi: app/laloi/room/[code], game/[code]/{play,investigate,end}
@@ -767,7 +755,7 @@ Cette page:
 { "roomCode": "ABC123", "prefix": "rooms", "action": "list" }
 ```
 
-**Prefixes disponibles:** `rooms` (Quiz), `rooms_blindtest`, `rooms_deeztest`, `rooms_alibi`, `rooms_laloi`
+**Prefixes disponibles:** `rooms` (Quiz), `rooms_deeztest`, `rooms_alibi`, `rooms_laloi`
 
 **Sécurité:** Ces APIs ne fonctionnent qu'en `NODE_ENV=development` et depuis localhost.
 
@@ -788,7 +776,8 @@ Cette page:
 
 - Utiliser `height: var(--app-height)` (PAS 100vh)
 - `flex: 1; min-height: 0;` pour les pages
-- PAS de `padding-top: env(safe-area-inset-top)`
+- PAS de `padding-top/bottom: env(safe-area-inset-*)` dans les composants
+- L'AppShell gère automatiquement les safe-areas (top ET bottom) via `globals.css`
 
 ### Flags Pub
 

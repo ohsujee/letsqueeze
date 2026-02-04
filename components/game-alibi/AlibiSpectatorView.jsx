@@ -2,24 +2,10 @@
 
 import { useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, Users, CheckCircle, Clock, HelpCircle } from 'lucide-react';
+import { Eye, Users, CheckCircle, XCircle, Clock, TimerOff, ChevronRight } from 'lucide-react';
 
 /**
  * AlibiSpectatorView - Vue passive pour les groupes spectateurs
- *
- * Affiche l'interrogatoire en temps réel :
- * - Question posée
- * - Réponses des accusés (en temps réel)
- * - Verdict
- *
- * @param {Object} props
- * @param {Object} props.inspectorGroup - Groupe inspecteur { name, color }
- * @param {Object} props.accusedGroup - Groupe accusé { name, color }
- * @param {Object} props.question - Question actuelle { text, hint }
- * @param {Object} props.interrogation - État interrogation { state, responses, verdict }
- * @param {Object} props.progress - { current, total }
- * @param {number} props.timeLeft - Temps restant en secondes
- * @param {number} props.roundsUntilMyTurn - Nombre de rounds avant mon tour
  */
 export default function AlibiSpectatorView({
   inspectorGroup,
@@ -34,12 +20,10 @@ export default function AlibiSpectatorView({
   const responses = interrogation?.responses || {};
   const verdict = interrogation?.verdict;
 
-  // Accusés qui ont répondu
   const respondedCount = Object.keys(responses).length;
   const accusedPlayers = accusedGroup?.players || [];
   const totalAccused = accusedPlayers.length;
 
-  // Timer urgence
   const isUrgent = timeLeft <= 10 && timeLeft > 5;
   const isCritical = timeLeft <= 5;
 
@@ -53,93 +37,81 @@ export default function AlibiSpectatorView({
         </div>
         {progress && (
           <div className="progress-indicator">
-            Question {progress.current}/{progress.total}
+            Q{progress.current}/{progress.total}
           </div>
         )}
       </header>
 
       {/* Confrontation display */}
-      <div className="confrontation">
-        <div className="confrontation-group inspector">
-          <div
-            className="group-avatar"
-            style={{ background: inspectorGroup?.color }}
-          >
-            🔍
+      <div className="confrontation-card">
+        <div className="card-glow" />
+        <div className="confrontation-content">
+          <div className="confrontation-group" style={{ '--group-color': inspectorGroup?.color }}>
+            <div className="group-dot" style={{ background: inspectorGroup?.color }} />
+            <div className="group-details">
+              <span className="group-name">{inspectorGroup?.name}</span>
+              <span className="group-role">Interroge</span>
+            </div>
           </div>
-          <span className="group-name" style={{ color: inspectorGroup?.color }}>
-            {inspectorGroup?.name}
-          </span>
-          <span className="group-role">Interroge</span>
-        </div>
 
-        <div className="confrontation-arrow">→</div>
-
-        <div className="confrontation-group accused">
-          <div
-            className="group-avatar"
-            style={{ background: accusedGroup?.color }}
-          >
-            🎭
+          <div className="confrontation-arrow">
+            <ChevronRight size={24} />
           </div>
-          <span className="group-name" style={{ color: accusedGroup?.color }}>
-            {accusedGroup?.name}
-          </span>
-          <span className="group-role">Répond</span>
+
+          <div className="confrontation-group" style={{ '--group-color': accusedGroup?.color }}>
+            <div className="group-dot" style={{ background: accusedGroup?.color }} />
+            <div className="group-details">
+              <span className="group-name">{accusedGroup?.name}</span>
+              <span className="group-role">Répond</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Question */}
-      <div className="question-section">
+      {/* Question Card */}
+      <div className="question-card">
+        <div className="card-glow" />
         {questionState === 'waiting' ? (
           <div className="waiting-state">
-            <HelpCircle size={32} className="waiting-icon" />
-            <p>En attente de la question...</p>
+            <div className="waiting-icon">
+              <Clock size={32} />
+            </div>
+            <p className="waiting-text">En attente de la question...</p>
           </div>
         ) : (
           <>
+            <div className="question-badge">Question {progress?.current || 1}</div>
             <h2 className="question-text">{question?.text}</h2>
             {question?.hint && (
-              <p className="question-hint">💡 {question.hint}</p>
+              <p className="question-hint">{question.hint}</p>
             )}
           </>
         )}
       </div>
 
-      {/* Timer (si en cours de réponse) */}
+      {/* Réponses */}
       {questionState === 'answering' && (
-        <div className={`timer-display ${isUrgent ? 'urgent' : ''} ${isCritical ? 'critical' : ''}`}>
-          <Clock size={18} />
-          <span>{timeLeft}s</span>
-        </div>
-      )}
-
-      {/* Réponses en temps réel */}
-      {questionState === 'answering' && (
-        <div className="responses-section">
+        <div className="responses-card">
+          <div className="card-glow" />
           <div className="responses-header">
             <Users size={16} />
             <span>Réponses ({respondedCount}/{totalAccused})</span>
+            <span className={`timer-inline ${isUrgent ? 'urgent' : ''} ${isCritical ? 'critical' : ''}`}>
+              <Clock size={14} />
+              {timeLeft}s
+            </span>
           </div>
 
           <div className="responses-list">
-            <AnimatePresence>
-              {Object.values(responses).map((response, index) => (
-                <motion.div
-                  key={response.uid}
-                  className="response-item"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <div className="response-author">
-                    <CheckCircle size={14} className="check-icon" />
-                    <span>{response.name}</span>
-                  </div>
-                  <p className="response-text">"{response.answer}"</p>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+            {Object.values(responses).map((response, index) => (
+              <div key={response.uid} className="response-item">
+                <div className="response-header">
+                  <CheckCircle size={14} className="check-icon" />
+                  <span className="response-name">{response.name}</span>
+                </div>
+                <p className="response-text">"{response.answer}"</p>
+              </div>
+            ))}
 
             {respondedCount === 0 && (
               <div className="no-responses">
@@ -152,24 +124,22 @@ export default function AlibiSpectatorView({
 
       {/* Verdict */}
       {questionState === 'verdict' && verdict && (
-        <motion.div
-          className={`verdict-display ${verdict}`}
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-        >
+        <div className={`verdict-card ${verdict}`}>
           <span className="verdict-icon">
-            {verdict === 'correct' ? '✓' : verdict === 'incorrect' ? '✗' : '⏱'}
+            {verdict === 'correct' && <CheckCircle size={36} />}
+            {verdict === 'incorrect' && <XCircle size={36} />}
+            {verdict === 'timeout' && <TimerOff size={36} />}
           </span>
           <span className="verdict-text">
             {verdict === 'correct' ? 'VALIDÉ' : verdict === 'incorrect' ? 'REFUSÉ' : 'TEMPS ÉCOULÉ'}
           </span>
-        </motion.div>
+        </div>
       )}
 
       {/* Info prochain tour */}
       {roundsUntilMyTurn !== undefined && roundsUntilMyTurn > 0 && (
-        <div className="next-turn-info">
-          <span>🎯 Votre tour dans {roundsUntilMyTurn} round{roundsUntilMyTurn > 1 ? 's' : ''}</span>
+        <div className="next-turn-card">
+          <span>Votre tour dans {roundsUntilMyTurn} round{roundsUntilMyTurn > 1 ? 's' : ''}</span>
         </div>
       )}
 
@@ -177,16 +147,16 @@ export default function AlibiSpectatorView({
         .spectator-view {
           display: flex;
           flex-direction: column;
-          min-height: 100%;
+          gap: 16px;
           padding: 16px;
-          background: linear-gradient(180deg, #1a1410 0%, #0d0a08 100%);
         }
 
+        /* ===== HEADER ===== */
         .spectator-header {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 20px;
+          flex-shrink: 0;
         }
 
         .spectator-badge {
@@ -194,73 +164,126 @@ export default function AlibiSpectatorView({
           align-items: center;
           gap: 8px;
           padding: 8px 14px;
-          background: rgba(107, 114, 128, 0.2);
-          border: 1px solid rgba(107, 114, 128, 0.4);
+          background: rgba(245, 158, 11, 0.15);
+          border: 1px solid rgba(245, 158, 11, 0.3);
           border-radius: 20px;
-          color: #9ca3af;
+          color: #fbbf24;
+          font-family: 'Space Grotesk', sans-serif;
           font-size: 0.8rem;
           font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
         .progress-indicator {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-size: 0.85rem;
+          font-weight: 600;
           color: rgba(255, 255, 255, 0.5);
         }
 
-        .confrontation {
+        /* ===== CARDS BASE ===== */
+        .confrontation-card,
+        .question-card {
+          position: relative;
+          flex-shrink: 0;
+          background: rgba(20, 20, 30, 0.8);
+          border: 1px solid rgba(245, 158, 11, 0.25);
+          border-radius: 16px;
+          padding: 16px;
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          overflow: hidden;
+          box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .responses-card {
+          position: relative;
+          background: rgba(20, 20, 30, 0.8);
+          border: 1px solid rgba(245, 158, 11, 0.25);
+          border-radius: 16px;
+          padding: 16px;
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .card-glow {
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 50%);
+          animation: glow-pulse 4s ease-in-out infinite;
+          pointer-events: none;
+        }
+
+        @keyframes glow-pulse {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* ===== CONFRONTATION ===== */
+        .confrontation-content {
+          position: relative;
+          z-index: 1;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 16px;
-          margin-bottom: 24px;
-          padding: 16px;
-          background: rgba(255, 255, 255, 0.03);
-          border-radius: 16px;
         }
 
         .confrontation-group {
           display: flex;
-          flex-direction: column;
           align-items: center;
-          gap: 6px;
+          gap: 10px;
+          padding: 10px 14px;
+          background: color-mix(in srgb, var(--group-color) 12%, transparent);
+          border: 1px solid var(--group-color);
+          border-radius: 12px;
         }
 
-        .group-avatar {
-          width: 48px;
-          height: 48px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.4rem;
+        .group-dot {
+          width: 12px;
+          height: 12px;
           border-radius: 50%;
-          box-shadow: 0 0 20px currentColor;
+          flex-shrink: 0;
+        }
+
+        .group-details {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
         }
 
         .group-name {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.9rem;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.875rem;
           font-weight: 700;
+          color: var(--group-color);
         }
 
         .group-role {
           font-size: 0.7rem;
-          color: rgba(255, 255, 255, 0.4);
+          color: rgba(255, 255, 255, 0.5);
           text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
         .confrontation-arrow {
-          font-size: 1.5rem;
-          color: rgba(255, 255, 255, 0.3);
+          color: rgba(245, 158, 11, 0.6);
+          display: flex;
+          align-items: center;
         }
 
-        .question-section {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
+        /* ===== QUESTION CARD ===== */
+        .question-card {
           text-align: center;
-          padding: 20px;
         }
 
         .waiting-state {
@@ -268,175 +291,236 @@ export default function AlibiSpectatorView({
           flex-direction: column;
           align-items: center;
           gap: 12px;
-          color: rgba(255, 255, 255, 0.4);
+          padding: 20px 0;
         }
 
-        :global(.waiting-icon) {
-          animation: pulse 2s ease-in-out infinite;
+        .waiting-icon {
+          color: #fbbf24;
+          opacity: 0.7;
+          animation: spin 3s linear infinite;
         }
 
-        @keyframes pulse {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 0.8; }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
-        .question-text {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.2rem;
-          color: white;
-          margin: 0 0 12px 0;
-          line-height: 1.3;
-        }
-
-        .question-hint {
-          font-size: 0.85rem;
-          color: rgba(245, 158, 11, 0.8);
+        .waiting-text {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.5);
           margin: 0;
         }
 
-        .timer-display {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          padding: 10px 20px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          color: white;
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.2rem;
+        .question-badge {
+          display: inline-block;
+          background: rgba(245, 158, 11, 0.25);
+          padding: 6px 14px;
+          border-radius: 8px;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.75rem;
           font-weight: 700;
-          margin-bottom: 16px;
-          align-self: center;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: #fbbf24;
+          margin-bottom: 12px;
+          position: relative;
+          z-index: 1;
         }
 
-        .timer-display.urgent {
-          background: rgba(245, 158, 11, 0.2);
+        .question-text {
+          font-family: 'Bungee', cursive;
+          font-size: 1.1rem;
+          color: white;
+          margin: 0 0 8px 0;
+          line-height: 1.4;
+          position: relative;
+          z-index: 1;
+        }
+
+        .question-hint {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.8rem;
+          color: rgba(165, 180, 252, 0.8);
+          font-style: italic;
+          margin: 0;
+          position: relative;
+          z-index: 1;
+        }
+
+        /* ===== TIMER INLINE ===== */
+        .timer-inline {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          margin-left: auto;
+          padding: 4px 10px;
+          background: rgba(245, 158, 11, 0.15);
+          border-radius: 8px;
+          font-family: 'Roboto Mono', monospace;
+          font-size: 0.85rem;
+          font-weight: 600;
           color: #fbbf24;
         }
 
-        .timer-display.critical {
-          background: rgba(239, 68, 68, 0.2);
-          color: #f87171;
-          animation: blink 0.5s ease-in-out infinite;
+        .timer-inline.urgent {
+          background: rgba(245, 158, 11, 0.25);
+          color: #f59e0b;
         }
 
-        @keyframes blink {
+        .timer-inline.critical {
+          background: rgba(239, 68, 68, 0.2);
+          color: #ef4444;
+          animation: pulse-critical 0.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-critical {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.6; }
         }
 
-        .responses-section {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 16px;
-          padding: 16px;
-          margin-bottom: 16px;
-        }
-
+        /* ===== RESPONSES ===== */
         .responses-header {
+          position: relative;
+          z-index: 1;
           display: flex;
           align-items: center;
           gap: 8px;
           color: rgba(255, 255, 255, 0.6);
+          font-family: 'Space Grotesk', sans-serif;
           font-size: 0.85rem;
+          font-weight: 600;
           margin-bottom: 12px;
         }
 
         .responses-list {
+          position: relative;
+          z-index: 1;
           display: flex;
           flex-direction: column;
           gap: 10px;
         }
 
         .response-item {
-          padding: 12px;
+          padding: 12px 14px;
           background: rgba(34, 197, 94, 0.1);
           border: 1px solid rgba(34, 197, 94, 0.3);
           border-radius: 12px;
         }
 
-        .response-author {
+        .response-header {
           display: flex;
           align-items: center;
           gap: 6px;
           margin-bottom: 6px;
         }
 
-        :global(.check-icon) {
+        .response-header :global(.check-icon) {
           color: #22c55e;
         }
 
-        .response-author span {
+        .response-name {
+          font-family: 'Space Grotesk', sans-serif;
           font-size: 0.8rem;
           font-weight: 600;
-          color: rgba(255, 255, 255, 0.7);
+          color: #fbbf24;
         }
 
         .response-text {
-          font-size: 0.9rem;
-          color: white;
+          font-family: 'Inter', sans-serif;
+          font-size: 0.875rem;
+          color: rgba(255, 255, 255, 0.9);
           margin: 0;
           font-style: italic;
+          line-height: 1.5;
         }
 
         .no-responses {
           text-align: center;
           color: rgba(255, 255, 255, 0.4);
+          font-family: 'Inter', sans-serif;
           font-size: 0.85rem;
           padding: 20px;
+          animation: pulse-opacity 1.5s ease-in-out infinite;
         }
 
-        .verdict-display {
+        @keyframes pulse-opacity {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 0.8; }
+        }
+
+        /* ===== VERDICT ===== */
+        .verdict-card {
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 12px;
           padding: 20px;
           border-radius: 16px;
-          margin-bottom: 16px;
         }
 
-        .verdict-display.correct {
+        .verdict-card.correct {
           background: rgba(34, 197, 94, 0.15);
           border: 2px solid rgba(34, 197, 94, 0.4);
         }
 
-        .verdict-display.incorrect {
+        .verdict-card.incorrect {
           background: rgba(239, 68, 68, 0.15);
           border: 2px solid rgba(239, 68, 68, 0.4);
         }
 
-        .verdict-display.timeout {
+        .verdict-card.timeout {
           background: rgba(245, 158, 11, 0.15);
           border: 2px solid rgba(245, 158, 11, 0.4);
         }
 
         .verdict-icon {
-          font-size: 2rem;
+          display: flex;
+          align-items: center;
         }
 
-        .verdict-display.correct .verdict-icon { color: #22c55e; }
-        .verdict-display.incorrect .verdict-icon { color: #ef4444; }
-        .verdict-display.timeout .verdict-icon { color: #f59e0b; }
+        .verdict-card.correct .verdict-icon { color: #22c55e; }
+        .verdict-card.incorrect .verdict-icon { color: #ef4444; }
+        .verdict-card.timeout .verdict-icon { color: #f59e0b; }
 
         .verdict-text {
-          font-family: var(--font-title, 'Bungee'), cursive;
+          font-family: 'Bungee', cursive;
           font-size: 1.2rem;
         }
 
-        .verdict-display.correct .verdict-text { color: #22c55e; }
-        .verdict-display.incorrect .verdict-text { color: #ef4444; }
-        .verdict-display.timeout .verdict-text { color: #f59e0b; }
+        .verdict-card.correct .verdict-text { color: #22c55e; }
+        .verdict-card.incorrect .verdict-text { color: #ef4444; }
+        .verdict-card.timeout .verdict-text { color: #f59e0b; }
 
-        .next-turn-info {
+        /* ===== NEXT TURN ===== */
+        .next-turn-card {
+          flex-shrink: 0;
           text-align: center;
-          padding: 12px;
-          background: rgba(139, 92, 246, 0.1);
-          border: 1px solid rgba(139, 92, 246, 0.3);
+          padding: 14px 16px;
+          background: rgba(139, 92, 246, 0.12);
+          border: 1px solid rgba(139, 92, 246, 0.35);
           border-radius: 12px;
           color: #a78bfa;
-          font-size: 0.85rem;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.9rem;
+          font-weight: 600;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 400px) {
+          .confrontation-content {
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          .confrontation-arrow {
+            transform: rotate(90deg);
+          }
+
+          .confrontation-group {
+            width: 100%;
+            justify-content: center;
+          }
         }
       `}</style>
     </div>

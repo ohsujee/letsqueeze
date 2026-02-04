@@ -107,6 +107,12 @@ export default function AlibiInterrogation() {
     isHost
   });
 
+  // My team color for header styling in Party Mode
+  const myGroupColor = useMemo(() => {
+    if (!isPartyMode || !myGroupId) return null;
+    return groups[myGroupId]?.color || null;
+  }, [isPartyMode, myGroupId, groups]);
+
   // Derive suspects - in Party Mode, it's the accused group members
   const suspects = useMemo(() => {
     if (isPartyMode && accusedGroup) {
@@ -517,7 +523,10 @@ export default function AlibiInterrogation() {
       <div className="interro-bg" />
 
       {/* Header */}
-      <header className="interro-header">
+      <header
+        className={`interro-header ${isPartyMode && myGroupColor ? 'party-mode' : ''}`}
+        style={isPartyMode && myGroupColor ? { '--my-team-color': myGroupColor } : {}}
+      >
         <div className="interro-header-content">
           <div className="interro-header-title">
             {isPartyMode ? (
@@ -1041,20 +1050,33 @@ export default function AlibiInterrogation() {
           letter-spacing: 0.05em;
         }
 
+        /* Party Mode: colored header based on team */
+        .interro-header.party-mode {
+          border-bottom-color: var(--my-team-color, rgba(245, 158, 11, 0.2));
+        }
+
+        .interro-header.party-mode .interro-header-title {
+          color: var(--my-team-color, rgba(255, 255, 255, 0.7)) !important;
+        }
+
         .interro-progress {
           height: 4px;
           background: rgba(255, 255, 255, 0.1);
           overflow: hidden;
         }
 
-        .interro-progress-fill {
+        :global(.interro-progress-fill) {
           height: 100%;
           background: linear-gradient(90deg, #f59e0b, #fbbf24);
           position: relative;
           border-radius: 0 2px 2px 0;
         }
 
-        .interro-progress-fill::after {
+        .interro-header.party-mode :global(.interro-progress-fill) {
+          background: linear-gradient(90deg, var(--my-team-color), color-mix(in srgb, var(--my-team-color) 70%, white));
+        }
+
+        :global(.interro-progress-fill)::after {
           content: '';
           position: absolute;
           top: 0;

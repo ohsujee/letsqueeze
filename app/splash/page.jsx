@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 import { storage } from '@/lib/utils/storage';
 import { motion } from 'framer-motion';
 
@@ -13,7 +15,7 @@ const WINK_IMG = '/images/mascot/giggly-head-wink.webp';
 const GAME_COLORS = [
   '#8b5cf6', // Quiz - Purple
   '#f59e0b', // Alibi - Orange
-  '#10b981', // BlindTest - Green
+  '#00ff66', // Mime - Neon Green
   '#A238FF', // DeezTest - Magenta
   '#06b6d4', // LaLoi - Cyan
 ];
@@ -31,6 +33,21 @@ export default function SplashScreen() {
   const [isWinking, setIsWinking] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [animationDone, setAnimationDone] = useState(false);
+  const authResultRef = useRef({ user: null, hasSeenOnboarding: false });
+  const hasRedirected = useRef(false);
+
+  // Check auth state
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      const hasSeenOnboarding = storage.get('hasSeenOnboarding');
+      authResultRef.current = { user, hasSeenOnboarding };
+      setAuthChecked(true);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   // Preload images before starting animations
   useEffect(() => {
@@ -56,10 +73,10 @@ export default function SplashScreen() {
     return () => clearTimeout(fallbackTimer);
   }, []);
 
+  // Animation effect (runs once when images are loaded)
   useEffect(() => {
-    // Attendre que les images soient chargées
     if (!imagesLoaded) return;
-    // Animation de la barre de progression
+
     const startTime = Date.now();
 
     const progressInterval = setInterval(() => {
@@ -77,29 +94,39 @@ export default function SplashScreen() {
       setIsWinking(true);
     }, WINK_TIME);
 
-    // Déclencher le fade-out
-    const fadeTimeout = setTimeout(() => {
-      setIsFadingOut(true);
+    // Marquer l'animation comme terminée
+    const animationTimeout = setTimeout(() => {
+      setAnimationDone(true);
     }, SPLASH_DURATION);
-
-    // Redirection après le fade
-    const redirectTimeout = setTimeout(() => {
-      const hasSeenOnboarding = storage.get('hasSeenOnboarding');
-
-      if (!hasSeenOnboarding) {
-        window.location.href = '/onboarding';
-      } else {
-        window.location.href = '/login';
-      }
-    }, SPLASH_DURATION + FADE_DURATION);
 
     return () => {
       clearInterval(progressInterval);
       clearTimeout(winkTimeout);
-      clearTimeout(fadeTimeout);
-      clearTimeout(redirectTimeout);
+      clearTimeout(animationTimeout);
     };
-  }, [router, imagesLoaded]);
+  }, [imagesLoaded]);
+
+  // Redirect effect (triggers when both animation AND auth are done)
+  useEffect(() => {
+    if (!animationDone || !authChecked || hasRedirected.current) return;
+
+    hasRedirected.current = true;
+    setIsFadingOut(true);
+
+    const redirectTimeout = setTimeout(() => {
+      const { user, hasSeenOnboarding } = authResultRef.current;
+
+      if (!hasSeenOnboarding) {
+        window.location.href = '/onboarding';
+      } else if (user) {
+        window.location.href = '/home';
+      } else {
+        window.location.href = '/login';
+      }
+    }, FADE_DURATION);
+
+    return () => clearTimeout(redirectTimeout);
+  }, [animationDone, authChecked]);
 
   return (
     <motion.div

@@ -16,7 +16,7 @@ import { db } from '@/lib/firebase';
  * @param {string} props.roomCode - Code de la room
  * @param {string} props.roomPrefix - Préfixe Firebase ('rooms', 'rooms_blindtest', 'rooms_alibi')
  * @param {string} props.hostUid - UID de l'hôte (pour ne pas pouvoir se kick soi-même)
- * @param {string} props.variant - 'quiz' | 'blindtest' | 'alibi' (pour les couleurs)
+ * @param {string} props.variant - 'quiz' | 'deeztest' | 'alibi' (pour les couleurs)
  * @param {string} props.phase - 'lobby' | 'playing' (pour le comportement du kick)
  */
 export default function PlayerManager({
@@ -34,7 +34,7 @@ export default function PlayerManager({
   // Couleurs par variante
   const colors = {
     quiz: { primary: '#8b5cf6', glow: 'rgba(139, 92, 246, 0.5)' },
-    blindtest: { primary: '#10b981', glow: 'rgba(16, 185, 129, 0.5)' },
+    deeztest: { primary: '#A238FF', glow: 'rgba(162, 56, 255, 0.5)' },
     alibi: { primary: '#f59e0b', glow: 'rgba(245, 158, 11, 0.5)' }
   };
   const color = colors[variant] || colors.quiz;

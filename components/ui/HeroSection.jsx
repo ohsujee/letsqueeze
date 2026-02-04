@@ -28,7 +28,7 @@ import { motion } from 'framer-motion';
  *   // Sans animation
  *   <HeroSection
  *     icon={Music}
- *     title="Spotify"
+ *     title="Paramètres"
  *     animated={false}
  *   />
  */

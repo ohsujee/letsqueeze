@@ -3,13 +3,12 @@
 /**
  * HostActionFooter - Footer d'actions partagé entre Host et Asker (Party Mode)
  *
- * Boutons: Révéler/Masquer, Reset, Passer, Fin
+ * Boutons: Révéler/Masquer, Passer, Fin
  * Utilisé dans: host/page.jsx, play/page.jsx (asker view)
  */
 export default function HostActionFooter({
   revealed,
   onRevealToggle,
-  onReset,
   onSkip,
   onEnd
 }) {
@@ -32,13 +31,6 @@ export default function HostActionFooter({
             )}
           </svg>
           <span>{revealed ? "Masquer" : "Révéler"}</span>
-        </button>
-        <button className="action-btn action-reset" onClick={onReset}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M1 4v6h6M23 20v-6h-6"/>
-            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
-          </svg>
-          <span>Reset</span>
         </button>
         <button className="action-btn action-skip" onClick={onSkip}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

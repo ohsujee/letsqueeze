@@ -19,10 +19,6 @@
   background: linear-gradient(135deg, #f59e0b, #d97706);
 }
 
-.gradient-blindtest {
-  background: linear-gradient(135deg, #10b981, #059669);
-}
-
 .gradient-deeztest {
   background: linear-gradient(135deg, #A238FF, #FF0092);
 }
@@ -45,10 +41,6 @@
 
 .gradient-alibi-subtle {
   background: linear-gradient(180deg, rgba(245, 158, 11, 0.15) 0%, transparent 50%);
-}
-
-.gradient-blindtest-subtle {
-  background: linear-gradient(180deg, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
 }
 
 .gradient-deeztest-subtle {
@@ -93,10 +85,6 @@
 
 .bg-radial-alibi {
   background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.2) 0%, transparent 50%);
-}
-
-.bg-radial-blindtest {
-  background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
 }
 
 .bg-radial-deeztest {
@@ -148,13 +136,6 @@
 
 .text-gradient-alibi {
   background: linear-gradient(135deg, #f59e0b, #fbbf24);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-blindtest {
-  background: linear-gradient(135deg, #10b981, #34d399);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

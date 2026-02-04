@@ -1,17 +1,15 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Eye } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import ExitButton from '@/lib/components/ExitButton';
 import LobbySettings from '@/components/game/LobbySettings';
 import ShareModal from '@/lib/components/ShareModal';
+import { HelpCircle } from 'lucide-react';
 
 /**
  * LobbyHeader - Header unifié pour tous les lobbys de jeux
  *
  * @param {Object} props
- * @param {'quiz'|'blindtest'|'deeztest'|'alibi'|'laloi'} props.variant - Thème couleur
+ * @param {'quiz'|'deeztest'|'alibi'|'laloi'|'mime'} props.variant - Thème couleur
  * @param {string} props.code - Code de la room
  * @param {boolean} props.isHost - Si l'utilisateur est l'hôte
  * @param {Array} props.players - Liste des joueurs
@@ -34,33 +32,16 @@ export default function LobbyHeader({
   joinUrl,
   gameMode
 }) {
-  const router = useRouter();
-
   // Config par variante
-  const config = {
-    quiz: {
-      roomPrefix: 'rooms',
-      spectatePath: `/spectate/${code}`,
-    },
-    blindtest: {
-      roomPrefix: 'rooms_blindtest',
-      spectatePath: `/blindtest/spectate/${code}`,
-    },
-    deeztest: {
-      roomPrefix: 'rooms_deeztest',
-      spectatePath: `/deeztest/spectate/${code}`,
-    },
-    alibi: {
-      roomPrefix: 'rooms_alibi',
-      spectatePath: `/spectate/${code}`,
-    },
-    laloi: {
-      roomPrefix: 'rooms_laloi',
-      spectatePath: `/laloi/spectate/${code}`,
-    }
+  const roomPrefixMap = {
+    quiz: 'rooms',
+    deeztest: 'rooms_blindtest',
+    alibi: 'rooms_alibi',
+    laloi: 'rooms_laloi',
+    mime: 'rooms_mime'
   };
 
-  const { roomPrefix, spectatePath } = config[variant] || config.quiz;
+  const roomPrefix = roomPrefixMap[variant] || 'rooms';
 
   // Messages de confirmation
   const hostConfirmMessage = "Voulez-vous vraiment quitter ? La partie sera fermée pour tous les joueurs.";
@@ -92,15 +73,12 @@ export default function LobbyHeader({
             gameMode={gameMode}
           />
         ) : (
-          <motion.button
-            className="spectator-btn"
-            onClick={() => router.push(spectatePath)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            title="Mode spectateur"
-          >
-            <Eye size={18} />
-          </motion.button>
+          /* Help button for non-host players */
+          onShowHowToPlay && (
+            <button className="header-help-btn" onClick={onShowHowToPlay}>
+              <HelpCircle size={22} />
+            </button>
+          )
         )}
         <ShareModal roomCode={code} joinUrl={joinUrl} gameType={variant} />
       </div>

@@ -4,18 +4,53 @@ import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * AskerTransition - Modal de transition quand le poseur change
+ * AskerTransition - Modal de transition quand le poseur/mimeur change
  *
- * Affiche brièvement "C'est au tour de X de poser la question"
- * dans une modal centrée, puis se ferme automatiquement.
+ * Affiche brièvement "C'est au tour de X" dans une modal centrée,
+ * puis se ferme automatiquement.
+ *
+ * @param {string} game - 'quiz' | 'blindtest' | 'mime' (défaut: 'quiz')
+ * @param {string} themeColor - Couleur custom (override la couleur du jeu)
  */
+
+const GAME_PRESETS = {
+  quiz: {
+    emojiMe: '🎤',
+    emojiOther: '🎯',
+    titleMe: 'Tu poses la question',
+    hintMe: 'Lis la question à voix haute',
+    hintOther: 'Prépare-toi à buzzer !',
+    defaultColor: '#8b5cf6',
+  },
+  blindtest: {
+    emojiMe: '🎵',
+    emojiOther: '🎧',
+    titleMe: 'Tu lances la musique',
+    hintMe: 'Lance le morceau !',
+    hintOther: 'Prépare-toi à buzzer !',
+    defaultColor: '#A238FF',
+  },
+  mime: {
+    emojiMe: '🎭',
+    emojiOther: '👀',
+    titleMe: 'C\'est ton tour de mimer',
+    hintMe: 'Prépare-toi à mimer',
+    hintOther: 'Prépare-toi à deviner !',
+    defaultColor: '#00ff66',
+  },
+};
+
 export default function AskerTransition({
   show,
   asker,
   isMe = false,
   onComplete,
-  duration = 2000
+  duration = 2000,
+  game = 'quiz',
+  themeColor,
 }) {
+  const preset = GAME_PRESETS[game] || GAME_PRESETS.quiz;
+  const accentColor = themeColor || asker?.teamColor || preset.defaultColor;
   const [visible, setVisible] = useState(false);
   const onCompleteRef = useRef(onComplete);
   const timerRef = useRef(null);
@@ -85,19 +120,18 @@ export default function AskerTransition({
             {/* Icône animée */}
             <motion.div
               className="asker-modal-icon"
-              initial={{ scale: 0, rotate: -20 }}
-              animate={{ scale: 1, rotate: 0 }}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
               transition={{
                 type: "spring",
                 stiffness: 400,
-                damping: 15,
-                delay: 0.1
+                damping: 20
               }}
               style={{
-                '--accent-color': isMe ? '#22c55e' : (asker.teamColor || '#8b5cf6')
+                '--accent-color': accentColor
               }}
             >
-              {isMe ? '🎤' : '🎯'}
+              {isMe ? preset.emojiMe : preset.emojiOther}
             </motion.div>
 
             {/* Contenu texte */}
@@ -105,19 +139,19 @@ export default function AskerTransition({
               {isMe ? (
                 <>
                   <span className="asker-subtitle">C'est ton tour !</span>
-                  <span className="asker-title asker-title-me">Tu poses la question</span>
-                  <span className="asker-hint">Lis la question à voix haute</span>
+                  <span className="asker-title" style={{ '--name-color': accentColor }}>{preset.titleMe}</span>
+                  <span className="asker-hint">{preset.hintMe}</span>
                 </>
               ) : (
                 <>
                   <span className="asker-subtitle">C'est au tour de</span>
                   <span
                     className="asker-title"
-                    style={{ '--name-color': asker.teamColor || '#a78bfa' }}
+                    style={{ '--name-color': accentColor }}
                   >
                     {asker.name}
                   </span>
-                  <span className="asker-hint">Prépare-toi à buzzer !</span>
+                  <span className="asker-hint">{preset.hintOther}</span>
                 </>
               )}
             </div>
@@ -143,7 +177,7 @@ export default function AskerTransition({
               animate={{ scaleX: 0 }}
               transition={{ duration: duration / 1000, ease: "linear" }}
               style={{
-                '--progress-color': isMe ? '#22c55e' : (asker.teamColor || '#8b5cf6')
+                '--progress-color': accentColor
               }}
             />
           </motion.div>
@@ -222,10 +256,6 @@ export default function AskerTransition({
               word-break: break-word;
             }
 
-            .asker-title-me {
-              color: #22c55e;
-              text-shadow: 0 0 30px rgba(34, 197, 94, 0.6);
-            }
 
             .asker-hint {
               font-family: var(--font-body, 'Inter'), sans-serif;

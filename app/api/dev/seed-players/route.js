@@ -289,6 +289,19 @@ export async function POST(request) {
         });
       }
 
+      case 'endGame': {
+        // Set game phase to "end" to show end screen
+        await db.ref(`${prefix}/${roomCode}/state/phase`).set('end');
+        // Make sure room is not closed
+        await db.ref(`${prefix}/${roomCode}/meta/closed`).set(false);
+        return NextResponse.json({
+          success: true,
+          action: 'endGame',
+          roomCode,
+          message: 'Game ended - players will see end screen'
+        });
+      }
+
       case 'simulateBuzzes': {
         // Simule plusieurs buzzes quasi-simultanés pour tester le système de résolution
         // Les buzzes sont écrits avec des timestamps très proches (0-50ms d'écart)
@@ -335,6 +348,65 @@ export async function POST(request) {
             adjustedTime: b.adjustedTime
           })),
           message: `Simulated ${buzzers.length} simultaneous buzzes`
+        });
+      }
+
+      case 'advanceRound': {
+        // Advance to next round in Alibi Party mode
+        const stateRef = db.ref(`${prefix}/${roomCode}/state`);
+        const stateSnapshot = await stateRef.get();
+
+        if (!stateSnapshot.exists()) {
+          return NextResponse.json({ error: 'No state found' }, { status: 400 });
+        }
+
+        const state = stateSnapshot.val();
+        const currentRound = state.currentRound || 0;
+        const totalRounds = state.totalRounds || 0;
+        const roundRotation = state.roundRotation || [];
+
+        if (roundRotation.length === 0) {
+          return NextResponse.json({ error: 'No round rotation found - is this Alibi Party mode?' }, { status: 400 });
+        }
+
+        const nextRoundIndex = currentRound + 1;
+
+        if (nextRoundIndex >= roundRotation.length) {
+          // End of game
+          await stateRef.update({ phase: 'end' });
+          return NextResponse.json({
+            success: true,
+            action: 'advanceRound',
+            message: 'Game ended - no more rounds',
+            phase: 'end'
+          });
+        }
+
+        const nextRound = roundRotation[nextRoundIndex];
+
+        // Update state
+        await stateRef.update({
+          currentRound: nextRoundIndex,
+          inspectorGroupId: nextRound.inspector,
+          accusedGroupId: nextRound.accused
+        });
+
+        // Reset interrogation (separate path)
+        await db.ref(`${prefix}/${roomCode}/interrogation`).update({
+          currentQuestion: 0,
+          state: 'waiting',
+          timeLeft: 30,
+          responses: null,
+          verdict: null
+        });
+
+        return NextResponse.json({
+          success: true,
+          action: 'advanceRound',
+          currentRound: nextRoundIndex,
+          totalRounds: roundRotation.length,
+          inspector: nextRound.inspector,
+          accused: nextRound.accused
         });
       }
 

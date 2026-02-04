@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import { PRO_PRICING } from '@/lib/subscription';
 
 export default function TermsPage() {
   const router = useRouter();
@@ -77,8 +78,8 @@ export default function TermsPage() {
 
           <h3>Tarifs et facturation</h3>
           <ul>
-            <li>Abonnement mensuel : 3,99 EUR/mois</li>
-            <li>Abonnement annuel : 29,99 EUR/an</li>
+            <li>Abonnement mensuel : {PRO_PRICING.monthly.price.toFixed(2).replace('.', ',')} EUR/mois</li>
+            <li>Abonnement annuel : {PRO_PRICING.annual.price.toFixed(2).replace('.', ',')} EUR/an</li>
           </ul>
           <p>
             Les paiements sont gérés par l'App Store (Apple) ou le Play Store (Google)
@@ -91,6 +92,14 @@ export default function TermsPage() {
             au moins 24 heures avant la fin de la période en cours.
             Vous pouvez gérer votre abonnement dans les paramètres de votre
             compte App Store ou Play Store.
+          </p>
+
+          <h3>Remboursements</h3>
+          <p>
+            Les remboursements sont gérés exclusivement par Apple (App Store) ou
+            Google (Play Store) selon leurs politiques respectives. Gigglz ne
+            procède à aucun remboursement direct. Pour toute demande de
+            remboursement, veuillez contacter le support de votre store.
           </p>
         </section>
 
@@ -108,19 +117,15 @@ export default function TermsPage() {
         </section>
 
         <section className="legal-section">
-          <h2>5. Intégration Spotify</h2>
+          <h2>5. Intégration Deezer</h2>
           <p>
-            Le mode Blind Test utilise l'API Spotify. Pour utiliser cette
-            fonctionnalité :
+            Le mode Blind Test utilise l'API Deezer pour diffuser des extraits
+            musicaux de 30 secondes. Aucun compte Deezer n'est requis.
           </p>
-          <ul>
-            <li>Vous devez disposer d'un compte Spotify</li>
-            <li>Un abonnement Spotify Premium est requis pour la lecture musicale</li>
-            <li>Vous autorisez l'application à accéder à votre lecteur Spotify</li>
-          </ul>
           <p>
-            L'utilisation de Spotify est soumise aux conditions d'utilisation
-            de Spotify AB.
+            Les extraits musicaux restent la propriété de leurs ayants droit
+            respectifs. L'utilisation est soumise aux conditions d'utilisation
+            de Deezer SA.
           </p>
         </section>
 
@@ -170,7 +175,7 @@ export default function TermsPage() {
             <li>Des interruptions temporaires du service</li>
             <li>De la perte de données due à des circonstances exceptionnelles</li>
             <li>Des dommages indirects liés à l'utilisation de l'application</li>
-            <li>Du contenu des services tiers (Spotify, etc.)</li>
+            <li>Du contenu des services tiers (Deezer, Firebase, etc.)</li>
           </ul>
         </section>
 
@@ -214,7 +219,7 @@ export default function TermsPage() {
           </p>
         </section>
 
-        <p className="legal-update">Dernière mise à jour : Janvier 2025</p>
+        <p className="legal-update">Dernière mise à jour : Février 2025</p>
       </main>
 
       <style jsx>{`

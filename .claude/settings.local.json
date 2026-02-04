@@ -93,7 +93,19 @@
       "Bash(npx firebase deploy:*)",
       "Bash(npm uninstall:*)",
       "WebFetch(domain:buildui.com)",
-      "Bash(copy \"E:\\\\LetsQueeze - Content\\\\giggly-excited.png\" \"E:\\\\LetsQueeze\\\\public\\\\images\\\\mascot\\\\giggly-excited.png\")"
+      "Bash(copy \"E:\\\\LetsQueeze - Content\\\\giggly-excited.png\" \"E:\\\\LetsQueeze\\\\public\\\\images\\\\mascot\\\\giggly-excited.png\")",
+      "Bash(where:*)",
+      "Bash(magick:*)",
+      "Bash(for:*)",
+      "Bash(do sed -i \"s/rooms_blindtest/rooms_deeztest/g; s/''blindtest''/''deeztest''/g\" \"$f\")",
+      "Bash(done)",
+      "Bash(python clean_kollywood.py:*)",
+      "Bash(python clean_kollywood_v2.py:*)",
+      "Bash(python:*)",
+      "Bash(dir /s /b \"E:\\\\LetsQueeze\\\\app\")",
+      "WebFetch(domain:www.orbix.studio)",
+      "WebFetch(domain:news.simplybook.me)",
+      "Bash(dir:*)"
     ]
   }
 }

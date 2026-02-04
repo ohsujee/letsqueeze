@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Users, Shuffle, RotateCcw, ChevronDown, ChevronUp, UserPlus, UserMinus } from 'lucide-react';
+import { Users, Shuffle, RotateCcw, ChevronDown, ChevronUp, UserPlus, UserMinus, User } from 'lucide-react';
 import { ALIBI_GROUP_CONFIG } from '@/lib/config/rooms';
 
 /**
@@ -35,7 +35,8 @@ export default function AlibiGroupSelector({
   onRemovePlayer,
   onAutoAssign,
   onReset,
-  isGroupValid
+  isGroupValid,
+  myUid
 }) {
   const [expandedGroup, setExpandedGroup] = useState(null);
 
@@ -49,7 +50,18 @@ export default function AlibiGroupSelector({
   // Compter les joueurs valides
   const assignedCount = players.length - unassignedPlayers.length;
   const totalRequired = groupCount * minPlayersPerGroup;
-  const canStart = groupIds.every(id => isGroupValid(id));
+
+  // Find which group the host (myUid) is in
+  const myGroupId = useMemo(() => {
+    if (!myUid) return null;
+    for (const groupId of groupIds) {
+      const groupPlayers = playersByGroup[groupId] || [];
+      if (groupPlayers.some(p => p.uid === myUid)) {
+        return groupId;
+      }
+    }
+    return null;
+  }, [myUid, groupIds, playersByGroup]);
 
   return (
     <div className="group-selector">
@@ -106,7 +118,7 @@ export default function AlibiGroupSelector({
           return (
             <div
               key={groupId}
-              className={`group-card ${isValid ? 'valid' : 'invalid'}`}
+              className={`group-card ${isValid ? 'valid' : 'invalid'} ${groupId === myGroupId ? 'is-my-group' : ''}`}
               style={{ '--group-color': group?.color }}
             >
               {/* Header du groupe */}
@@ -124,6 +136,12 @@ export default function AlibiGroupSelector({
                     ({groupPlayers.length}/{minPlayersPerGroup}+)
                   </span>
                 </div>
+                {groupId === myGroupId && (
+                  <span className="my-group-badge">
+                    <User size={12} />
+                    Toi
+                  </span>
+                )}
                 <div className="group-status">
                   {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                 </div>
@@ -187,12 +205,23 @@ export default function AlibiGroupSelector({
         })}
       </div>
 
-      {/* Indicateur de progression (seulement si pas prêt) */}
-      {!canStart && (
-        <div className="progress-indicator">
-          <span>{groupIds.filter(id => isGroupValid(id)).length}/{groupCount} groupes prêts</span>
+      {/* Joueurs en attente d'assignation */}
+      {unassignedPlayers.length > 0 && (
+        <div className="unassigned-row">
+          <span className="unassigned-label">En attente</span>
+          <div className="unassigned-chips">
+            {unassignedPlayers.slice(0, 5).map(p => (
+              <span key={p.uid} className="unassigned-chip">
+                {p.name?.slice(0, 8)}{p.name?.length > 8 ? '…' : ''}
+              </span>
+            ))}
+            {unassignedPlayers.length > 5 && (
+              <span className="unassigned-chip more">+{unassignedPlayers.length - 5}</span>
+            )}
+          </div>
         </div>
       )}
+
 
       <style jsx>{`
         .group-selector {
@@ -311,6 +340,25 @@ export default function AlibiGroupSelector({
           border-color: rgba(239, 68, 68, 0.3);
         }
 
+        .group-card.is-my-group {
+          background: rgba(245, 158, 11, 0.08);
+          border-color: var(--group-color);
+          box-shadow: 0 0 12px color-mix(in srgb, var(--group-color) 25%, transparent);
+        }
+
+        .my-group-badge {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 0.7rem;
+          color: var(--group-color);
+          background: color-mix(in srgb, var(--group-color) 15%, transparent);
+          padding: 3px 8px;
+          border-radius: 10px;
+          margin-left: auto;
+          margin-right: 8px;
+        }
+
         .group-header {
           width: 100%;
           display: flex;
@@ -337,7 +385,6 @@ export default function AlibiGroupSelector({
           width: 12px;
           height: 12px;
           border-radius: 50%;
-          box-shadow: 0 0 10px currentColor;
         }
 
         .group-name {
@@ -445,12 +492,44 @@ export default function AlibiGroupSelector({
           background: rgba(34, 197, 94, 0.2);
         }
 
-        .progress-indicator {
-          text-align: center;
-          font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.5);
-          padding: 8px 0;
+        .unassigned-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 12px;
+          background: rgba(245, 158, 11, 0.08);
+          border: 1px dashed rgba(245, 158, 11, 0.3);
+          border-radius: 10px;
         }
+
+        .unassigned-row .unassigned-label {
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: #fbbf24;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          white-space: nowrap;
+        }
+
+        .unassigned-row .unassigned-chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+
+        .unassigned-row .unassigned-chip {
+          padding: 4px 10px;
+          background: rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .unassigned-row .unassigned-chip.more {
+          background: rgba(245, 158, 11, 0.15);
+          color: #fbbf24;
+        }
+
       `}</style>
     </div>
   );

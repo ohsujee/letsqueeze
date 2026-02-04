@@ -38,6 +38,7 @@ import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { GameLaunchCountdown } from "@/components/transitions";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
+import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
 
 export default function AlibiLobby() {
   const { code } = useParams();
@@ -89,6 +90,10 @@ export default function AlibiLobby() {
   const scrollContainerRef = useRef(null);
   const [canScrollUp, setCanScrollUp] = useState(false);
   const [canScrollDown, setCanScrollDown] = useState(false);
+  // Player view scroll indicators
+  const playerScrollRef = useRef(null);
+  const [canScrollUpPlayer, setCanScrollUpPlayer] = useState(false);
+  const [canScrollDownPlayer, setCanScrollDownPlayer] = useState(false);
   const [isPlayerMissing, setIsPlayerMissing] = useState(false);
   const [rejoinError, setRejoinError] = useState(null);
 
@@ -288,6 +293,30 @@ export default function AlibiLobby() {
     container.addEventListener('scroll', checkScroll);
 
     // Also check on resize and when content changes
+    const resizeObserver = new ResizeObserver(checkScroll);
+    resizeObserver.observe(container);
+
+    return () => {
+      container.removeEventListener('scroll', checkScroll);
+      resizeObserver.disconnect();
+    };
+  }, [isHost, isPartyMode, groups, players]);
+
+  // Scroll indicators for player view
+  useEffect(() => {
+    if (isHost) return; // Only for players
+    const container = playerScrollRef.current;
+    if (!container) return;
+
+    const checkScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      setCanScrollUpPlayer(scrollTop > 10);
+      setCanScrollDownPlayer(scrollTop < scrollHeight - clientHeight - 10);
+    };
+
+    checkScroll();
+    container.addEventListener('scroll', checkScroll);
+
     const resizeObserver = new ResizeObserver(checkScroll);
     resizeObserver.observe(container);
 
@@ -671,6 +700,7 @@ export default function AlibiLobby() {
                       onAutoAssign={alibiGroupsHook.autoAssignPlayers}
                       onReset={alibiGroupsHook.resetAssignments}
                       isGroupValid={alibiGroupsHook.isGroupValid}
+                      myUid={myUid}
                     />
 
                     {/* Pro Upsell Banner OR Simple hint for Pro users */}
@@ -933,7 +963,13 @@ export default function AlibiLobby() {
           </>
         ) : (
           // PLAYER VIEW
-          <div className="alibi-player-view">
+          <div className="alibi-player-view-wrapper">
+            {/* Scroll indicator - Up */}
+            <div className={`scroll-indicator up ${canScrollUpPlayer ? 'visible' : ''}`}>
+              <ChevronUp size={20} />
+            </div>
+
+            <div className="alibi-player-view" ref={playerScrollRef}>
             {/* PARTY MODE: My Group Banner */}
             {isPartyMode ? (
               alibiGroupsHook.myGroup ? (
@@ -1085,9 +1121,12 @@ export default function AlibiLobby() {
             )}
 
             {/* Waiting Animation */}
-            <div className="waiting-compact alibi">
-              <div className="waiting-pulse alibi" />
-              <span className="waiting-label">En attente du lancement...</span>
+            <LobbyWaitingIndicator gameColor="#f59e0b" />
+          </div>
+
+            {/* Scroll indicator - Down */}
+            <div className={`scroll-indicator down ${canScrollDownPlayer ? 'visible' : ''}`}>
+              <ChevronDown size={20} />
             </div>
           </div>
         )}

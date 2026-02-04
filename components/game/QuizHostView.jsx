@@ -15,6 +15,7 @@ import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
+import HostDisconnectAlert from "@/components/game/HostDisconnectAlert";
 import { hueScenariosService } from "@/lib/hue-module";
 import { GameEndTransition } from "@/components/transitions";
 import QuestionCard from "@/components/game/QuestionCard";
@@ -89,7 +90,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   }, [isActualHost]);
 
   // Room guard (actual host only)
-  useRoomGuard({
+  const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms',
     playerUid: myUid,
@@ -97,7 +98,11 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   });
 
   // Host disconnect (actual host only)
-  useHostDisconnect({
+  const {
+    isHostMarkedDisconnected: isHostDisconnected,
+    isFirebaseConnected,
+    forceReconnect
+  } = useHostDisconnect({
     roomCode: code,
     roomPrefix: 'rooms',
     isHost: isActualHost
@@ -341,7 +346,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
 
     await runTransaction(ref(db, `rooms/${code}/players/${uid}/score`), (cur) => (cur || 0) + pts);
 
-    if (meta?.mode === "equipes") {
+    if (meta?.mode === "équipes") {
       const player = players.find(p => p.uid === uid);
       const teamId = player?.teamId;
       if (teamId) {
@@ -394,7 +399,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
 
     await runTransaction(ref(db, `rooms/${code}/players/${uid}/score`), (cur) => Math.max(0, (cur || 0) - wrongPenalty));
 
-    if (meta?.mode === "equipes") {
+    if (meta?.mode === "équipes") {
       const player = players.find(p => p.uid === uid);
       const teamId = player?.teamId;
       if (teamId) {
@@ -405,7 +410,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
     const updates = {};
     const until = serverNow + ms;
 
-    if (meta?.mode === "equipes") {
+    if (meta?.mode === "équipes") {
       const player = players.find(p => p.uid === uid);
       const teamId = player?.teamId;
       if (teamId) {
@@ -607,7 +612,6 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
       <HostActionFooter
         revealed={state?.revealed}
         onRevealToggle={revealToggle}
-        onReset={resetBuzzers}
         onSkip={skip}
         onEnd={end}
       />
@@ -615,9 +619,18 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
       {/* Game Status Banners */}
       <GameStatusBanners
         isHost={isActualHost}
-        isHostTemporarilyDisconnected={false}
-        hostDisconnectedAt={null}
+        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
+        hostDisconnectedAt={hostDisconnectedAt}
       />
+
+      {/* Host Disconnect Alert - shown when host is marked as disconnected */}
+      {isActualHost && (
+        <HostDisconnectAlert
+          isDisconnected={isHostDisconnected}
+          isFirebaseConnected={isFirebaseConnected}
+          onReconnect={forceReconnect}
+        />
+      )}
 
       <style jsx>{`
         .host-game-page {

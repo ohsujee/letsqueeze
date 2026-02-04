@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { HelpCircle, Heart } from 'lucide-react';
 import { useCountdownTick, calculateCountdown } from '@/lib/hooks/useCountdownTick';
 
 export default function GameCard({
   game,
   isFavorite = false,
   onToggleFavorite,
-  onClick
+  onClick,
+  onShowHelp
 }) {
   const router = useRouter();
   const [showHeart, setShowHeart] = useState(false);
@@ -34,16 +36,20 @@ export default function GameCard({
     onToggleFavorite?.(game.id);
   };
 
+  const handleHelpClick = (e) => {
+    e.stopPropagation();
+    onShowHelp?.(game.id);
+  };
+
   // Game-specific gradient colors
   const getGradient = () => {
     switch (game.id) {
       case 'quiz': return 'linear-gradient(135deg, #8b5cf6, #7c3aed)';
       case 'alibi': return 'linear-gradient(135deg, #f59e0b, #d97706)';
-      case 'deeztest': return 'linear-gradient(135deg, #A238FF, #FF0092)'; // Deezer purple/pink
-      case 'blindtest': return 'linear-gradient(135deg, #10b981, #059669)';
+      case 'deeztest': return 'linear-gradient(135deg, #A238FF, #FF0092)';
       case 'memory': return 'linear-gradient(135deg, #ec4899, #db2777)';
       case 'mime': return 'linear-gradient(135deg, #84cc16, #65a30d)';
-      case 'laloi': return 'linear-gradient(135deg, #06b6d4, #0891b2)'; // Cyan
+      case 'laloi': return 'linear-gradient(135deg, #06b6d4, #0891b2)';
       default: return 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
     }
   };
@@ -82,15 +88,27 @@ export default function GameCard({
         </div>
       )}
 
-      {/* Favorite Button - Hidden for coming soon games */}
+      {/* Favorite Button - Top Left */}
       {!game.comingSoon && (
         <motion.button
-          className={`favorite-btn ${isFavorite ? 'active' : ''}`}
+          className={`card-action-btn favorite ${isFavorite ? 'active' : ''}`}
           onClick={handleFavoriteClick}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          {isFavorite ? '❤️' : '🤍'}
+          <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
+        </motion.button>
+      )}
+
+      {/* Help Button - Top Right */}
+      {!game.comingSoon && onShowHelp && (
+        <motion.button
+          className="card-action-btn help"
+          onClick={handleHelpClick}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <HelpCircle size={18} />
         </motion.button>
       )}
 
@@ -139,8 +157,7 @@ export default function GameCard({
       {/* Powered By Pill - Bottom Left */}
       {game.poweredBy && (
         <div className={`powered-pill powered-${game.poweredBy}`}>
-          {game.poweredBy === 'deezer' ? 'Deezer' :
-           game.poweredBy === 'spotify' ? 'Spotify' : game.poweredBy}
+          {game.poweredBy === 'deezer' ? 'Deezer' : game.poweredBy}
         </div>
       )}
 

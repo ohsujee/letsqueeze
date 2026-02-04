@@ -25,7 +25,6 @@ const SESSION_KEY = 'reviewPromptShownThisSession';
 // Lobby route patterns
 const LOBBY_PATTERNS = [
   /^\/room\/[A-Z0-9]+$/i,
-  /^\/blindtest\/room\/[A-Z0-9]+$/i,
   /^\/deeztest\/room\/[A-Z0-9]+$/i,
   /^\/alibi\/room\/[A-Z0-9]+$/i,
   /^\/laloi\/room\/[A-Z0-9]+$/i,

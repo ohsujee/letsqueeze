@@ -4,13 +4,6 @@ import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 
 const GAME_INFO = {
-  blindtest: {
-    name: 'Blind Test',
-    description: 'Devinez les chansons le plus vite possible !',
-    emoji: '🎵',
-    color: '#10b981',
-    glow: '#34d399',
-  },
   memory: {
     name: 'Memory',
     description: 'Testez votre mémoire dans différentes situations !',

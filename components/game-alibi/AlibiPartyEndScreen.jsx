@@ -2,7 +2,7 @@
 
 import { useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Medal, Skull, FileText, RotateCcw, Home } from 'lucide-react';
+import { Trophy, Medal, Skull, FileText, RotateCcw, Home, Users } from 'lucide-react';
 import { triggerConfetti } from '@/components/shared/Confetti';
 
 /**
@@ -15,20 +15,22 @@ import { triggerConfetti } from '@/components/shared/Confetti';
  * @param {Object} props.groups - { groupId: { name, color, score: { correct, total } } }
  * @param {string} props.myGroupId - ID du groupe du joueur
  * @param {boolean} props.isHost - Si l'utilisateur est l'hôte
- * @param {Function} props.onPlayAgain - Callback pour rejouer
- * @param {Function} props.onExit - Callback pour quitter
+ * @param {Function} props.onNewGame - Callback pour rejouer (retour lobby)
+ * @param {Function} props.onGoHome - Callback pour quitter (retour accueil)
+ * @param {boolean} props.hostPresent - Si l'hôte est encore présent
  */
 export default function AlibiPartyEndScreen({
   groups,
   myGroupId,
   isHost,
-  onPlayAgain,
-  onExit
+  onNewGame,
+  onGoHome,
+  hostPresent = true
 }) {
 
-  // Calculer le classement
+  // Calculer le classement avec gestion des égalités
   const ranking = useMemo(() => {
-    return Object.entries(groups)
+    const sorted = Object.entries(groups)
       .filter(([id]) => id.startsWith('group'))
       .map(([id, group]) => {
         const { correct = 0, total = 1 } = group.score || {};
@@ -43,6 +45,25 @@ export default function AlibiPartyEndScreen({
         };
       })
       .sort((a, b) => b.percentage - a.percentage);
+
+    // Attribuer les rangs avec gestion des ex-aequo
+    let currentRank = 0;
+    return sorted.map((group, index) => {
+      // Si c'est le premier ou si le pourcentage est différent du précédent
+      if (index === 0 || group.percentage !== sorted[index - 1].percentage) {
+        currentRank = index;
+      }
+      // Vérifier s'il y a égalité (même % que précédent ou suivant)
+      const isTied =
+        (index > 0 && group.percentage === sorted[index - 1].percentage) ||
+        (index < sorted.length - 1 && group.percentage === sorted[index + 1].percentage);
+
+      return {
+        ...group,
+        rank: currentRank,
+        isTied
+      };
+    });
   }, [groups]);
 
   // Message selon le pourcentage
@@ -110,7 +131,7 @@ export default function AlibiPartyEndScreen({
         <div className="report-rankings">
           {ranking.map((group, index) => {
             const isMyGroup = group.id === myGroupId;
-            const rankColor = getRankColor(index);
+            const rankColor = getRankColor(group.rank);
 
             return (
               <motion.div
@@ -126,8 +147,11 @@ export default function AlibiPartyEndScreen({
               >
                 {/* Rang */}
                 <div className="rank-badge" style={{ color: rankColor }}>
-                  {getRankIcon(index)}
-                  <span className="rank-number">{index + 1}</span>
+                  {getRankIcon(group.rank)}
+                  <span className="rank-number">
+                    {group.rank + 1}
+                    {group.isTied && <span className="tied-badge">ex æquo</span>}
+                  </span>
                 </div>
 
                 {/* Infos groupe */}
@@ -181,17 +205,22 @@ export default function AlibiPartyEndScreen({
         >
           {isHost ? (
             <>
-              <button className="action-btn primary" onClick={onPlayAgain}>
+              <button className="action-btn primary" onClick={onNewGame}>
                 <RotateCcw size={20} />
                 <span>Rejouer</span>
               </button>
-              <button className="action-btn secondary" onClick={onExit}>
+              <button className="action-btn secondary" onClick={onGoHome}>
                 <Home size={20} />
                 <span>Quitter</span>
               </button>
             </>
+          ) : hostPresent ? (
+            <button className="action-btn primary" onClick={onNewGame}>
+              <Users size={20} />
+              <span>Retour au lobby</span>
+            </button>
           ) : (
-            <button className="action-btn secondary" onClick={onExit}>
+            <button className="action-btn secondary" onClick={onGoHome}>
               <Home size={20} />
               <span>Retour à l'accueil</span>
             </button>
@@ -211,7 +240,7 @@ export default function AlibiPartyEndScreen({
           background: linear-gradient(180deg, #1a1410 0%, #0d0a08 100%);
         }
 
-        .report-container {
+        :global(.report-container) {
           width: 100%;
           max-width: 440px;
           background: linear-gradient(180deg, rgba(35, 28, 20, 0.95) 0%, rgba(25, 20, 15, 0.95) 100%);
@@ -270,7 +299,7 @@ export default function AlibiPartyEndScreen({
           margin-bottom: 24px;
         }
 
-        .ranking-row {
+        :global(.ranking-row) {
           display: flex;
           align-items: center;
           gap: 12px;
@@ -281,7 +310,7 @@ export default function AlibiPartyEndScreen({
           transition: all 0.2s;
         }
 
-        .ranking-row.my-group {
+        :global(.ranking-row.my-group) {
           background: rgba(245, 158, 11, 0.08);
           border-color: rgba(245, 158, 11, 0.3);
         }
@@ -290,14 +319,24 @@ export default function AlibiPartyEndScreen({
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 2px;
-          min-width: 44px;
+          gap: 4px;
+          min-width: 50px;
         }
 
         .rank-number {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.7rem;
+          font-size: 0.9rem;
           font-weight: 700;
+        }
+
+        .tied-badge {
+          font-size: 0.75rem;
+          font-weight: 600;
+          opacity: 0.9;
+          white-space: nowrap;
         }
 
         .group-info {
@@ -317,7 +356,6 @@ export default function AlibiPartyEndScreen({
           height: 10px;
           border-radius: 50%;
           flex-shrink: 0;
-          box-shadow: 0 0 8px currentColor;
         }
 
         .group-name {
@@ -377,8 +415,9 @@ export default function AlibiPartyEndScreen({
           box-shadow: 0 0 8px currentColor;
         }
 
-        .report-actions {
+        :global(.report-actions) {
           display: flex;
+          flex-direction: row;
           gap: 12px;
         }
 

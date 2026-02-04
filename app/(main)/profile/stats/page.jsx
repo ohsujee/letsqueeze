@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { getUserStats, formatStats } from '@/lib/services/statsService';
-import { ArrowLeft, Trophy, Target, Flame, Lock } from 'lucide-react';
+import { ArrowLeft, Trophy, Target, Flame } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getVisibleGames } from '@/lib/config/games';
 import admin from '@/lib/admin';
@@ -48,10 +48,10 @@ export default function StatsPage() {
         { label: 'Victoires', value: stats?.alibi?.totalWins || 0, icon: Trophy },
         { label: 'Meilleur', value: stats?.alibi?.bestScore || 0, icon: Flame }
       ],
-      blindtest: [
-        { label: 'Parties', value: stats?.blindtest?.gamesPlayed || 0, icon: Target },
-        { label: 'Victoires', value: stats?.blindtest?.wins || 0, icon: Trophy },
-        { label: 'Meilleur', value: stats?.blindtest?.bestScore || 0, icon: Flame }
+      deeztest: [
+        { label: 'Parties', value: stats?.deeztest?.gamesPlayed || 0, icon: Target },
+        { label: 'Victoires', value: stats?.deeztest?.wins || 0, icon: Trophy },
+        { label: 'Meilleur', value: stats?.deeztest?.bestScore || 0, icon: Flame }
       ],
       mime: [], // Local game, no online stats
       memory: []
@@ -116,11 +116,10 @@ export default function StatsPage() {
               {/* Overlay */}
               <div className="card-overlay" />
 
-              {/* Coming Soon Badge */}
+              {/* Coming Soon Badge - Bottom bar style like home */}
               {!game.available && (
                 <div className="coming-soon-badge">
-                  <Lock size={12} />
-                  <span>Bientôt</span>
+                  À VENIR
                 </div>
               )}
 
@@ -129,8 +128,8 @@ export default function StatsPage() {
                 <h2 className="game-name">{game.title}</h2>
               </div>
 
-              {/* Stats - Bottom */}
-              {game.available ? (
+              {/* Stats - Bottom (only for available games) */}
+              {game.available && (
                 <div className="stats-row">
                   {game.stats.map((stat, i) => (
                     <div key={i} className="stat-box">
@@ -139,10 +138,6 @@ export default function StatsPage() {
                       <div className="stat-label">{stat.label}</div>
                     </div>
                   ))}
-                </div>
-              ) : (
-                <div className="stats-row coming-soon">
-                  <span className="coming-soon-text">Stats bientôt disponibles</span>
                 </div>
               )}
             </motion.div>
@@ -153,6 +148,7 @@ export default function StatsPage() {
       <style jsx global>{`
         .stats-page {
           flex: 1; min-height: 0;
+          overflow-y: auto;
           background: #0a0a0f;
           position: relative;
         }
@@ -218,7 +214,7 @@ export default function StatsPage() {
           max-width: 600px;
           margin: 0 auto;
           padding: 24px 20px;
-          padding-bottom: calc(24px + env(safe-area-inset-bottom));
+          padding-bottom: calc(100px + env(safe-area-inset-bottom));
         }
 
         /* Total Card */
@@ -312,27 +308,31 @@ export default function StatsPage() {
           pointer-events: none;
         }
 
-        /* Coming Soon Badge */
+        /* Coming Soon Badge - Bottom bar style like home */
         .stat-game-card .coming-soon-badge {
           position: absolute;
-          top: 10px;
-          right: 10px;
-          padding: 4px 10px;
-          border-radius: 999px;
-          background: rgba(0, 0, 0, 0.6);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          bottom: 0;
+          left: 0;
+          right: 0;
+          padding: 14px 16px 16px;
+          background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(0, 0, 0, 0.85) 40%,
+            rgba(0, 0, 0, 0.5) 70%,
+            rgba(0, 0, 0, 0.2) 85%,
+            transparent 100%
+          );
+          border: none;
+          border-radius: 0 0 20px 20px;
           z-index: 4;
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.6rem;
+          font-size: 0.7rem;
           font-weight: 700;
-          color: rgba(255, 255, 255, 0.9);
+          color: rgba(255, 255, 255, 0.95);
           text-transform: uppercase;
-          letter-spacing: 0.05em;
-          display: flex;
-          align-items: center;
-          gap: 4px;
+          letter-spacing: 0.15em;
+          text-align: center;
         }
 
         /* Game Title - TOP of card */
@@ -355,38 +355,7 @@ export default function StatsPage() {
           text-transform: uppercase;
           letter-spacing: 0.03em;
           line-height: 1.1;
-        }
-
-        /* Quiz glow */
-        .stat-game-card[data-game="quiz"] .game-name {
-          text-shadow:
-            0 0 10px #a78bfa,
-            0 0 20px #a78bfa,
-            0 0 40px #8b5cf6;
-        }
-
-        /* Alibi glow */
-        .stat-game-card[data-game="alibi"] .game-name {
-          text-shadow:
-            0 0 10px #fbbf24,
-            0 0 20px #fbbf24,
-            0 0 40px #f59e0b;
-        }
-
-        /* Blind Test glow */
-        .stat-game-card[data-game="blindtest"] .game-name {
-          text-shadow:
-            0 0 10px #34d399,
-            0 0 20px #34d399,
-            0 0 40px #10b981;
-        }
-
-        /* Memory glow */
-        .stat-game-card[data-game="memory"] .game-name {
-          text-shadow:
-            0 0 10px #f472b6,
-            0 0 20px #f472b6,
-            0 0 40px #ec4899;
+          /* Glows inherited from globals.css [data-game="xxx"] .game-name */
         }
 
         /* Stats Row - BOTTOM of card */
@@ -403,17 +372,6 @@ export default function StatsPage() {
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
           border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-game-card .stats-row.coming-soon {
-          justify-content: center;
-          padding: 16px;
-        }
-
-        .stat-game-card .coming-soon-text {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.5);
         }
 
         /* Stat Box */

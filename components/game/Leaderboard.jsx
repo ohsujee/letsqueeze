@@ -12,7 +12,7 @@ import { WifiOff, ChevronDown, ChevronUp, User } from 'lucide-react';
  * - Largeur fixe pour les scores (4 digits max)
  * - Support mode équipes: affiche les équipes avec scores agrégés
  */
-export default function Leaderboard({ players = [], currentPlayerUid = null, mode = 'individuel', teams = {} }) {
+export default function Leaderboard({ players = [], currentPlayerUid = null, mode = 'individuel', teams = {}, gameColor = '#8b5cf6' }) {
   const prevPositionsRef = useRef({});
   const prevScoresRef = useRef({});
   const listRef = useRef(null);
@@ -192,7 +192,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
 
       if (current !== target) {
         const diff = target - current;
-        const steps = 8; // Fewer steps for smoother performance
+        const steps = 3; // Fast animation for better score sync across devices
         const stepValue = diff / steps;
         let step = 0;
 
@@ -207,7 +207,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
               [key]: Math.round(current + stepValue * step)
             }));
           }
-        }, 80); // 80ms intervals (~12fps) - sufficient for number counters
+        }, 50); // 50ms intervals - total ~150ms for minimal sync delay
         intervals.push(interval);
       }
     });
@@ -266,7 +266,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
   }, [checkScroll, players.length, viewMode]);
 
   return (
-    <div className="leaderboard-card">
+    <div className="leaderboard-card" style={{ '--game-color': gameColor }}>
       <div className="leaderboard-header">
         <span className="leaderboard-title">Classement</span>
         {canToggle ? (
@@ -463,7 +463,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
 
         .leaderboard-card :global(.carousel-slide)::-webkit-scrollbar { width: 0.4vh; }
         .leaderboard-card :global(.carousel-slide)::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 2px; }
-        .leaderboard-card :global(.carousel-slide)::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.4); border-radius: 2px; }
+        .leaderboard-card :global(.carousel-slide)::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--game-color) 40%, transparent); border-radius: 2px; }
 
         .leaderboard-card :global(.carousel-slide.team-mode) {
           gap: 1vh;
@@ -485,7 +485,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
           display: flex;
           flex-direction: column;
           background: rgba(20, 20, 30, 0.8);
-          border: 1px solid rgba(139, 92, 246, 0.25);
+          border: 1px solid color-mix(in srgb, var(--game-color) 25%, transparent);
           border-radius: 2vh;
           padding: 1.5vh 16px;
           backdrop-filter: blur(10px);
@@ -506,17 +506,17 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
         .leaderboard-title {
           font-family: var(--font-title, 'Bungee'), cursive;
           font-size: 1.8vh;
-          color: var(--quiz-glow, #a78bfa);
-          text-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
+          color: var(--game-color);
+          text-shadow: 0 0 12px color-mix(in srgb, var(--game-color) 50%, transparent);
         }
 
         .leaderboard-count {
           font-family: var(--font-mono, 'Roboto Mono'), monospace;
           font-size: 1.3vh;
           font-weight: 600;
-          color: var(--quiz-glow, #a78bfa);
-          background: rgba(139, 92, 246, 0.15);
-          border: 1px solid rgba(139, 92, 246, 0.3);
+          color: var(--game-color);
+          background: color-mix(in srgb, var(--game-color) 15%, transparent);
+          border: 1px solid color-mix(in srgb, var(--game-color) 30%, transparent);
           padding: 0.5vh 1vh;
           border-radius: 1vh;
         }
@@ -550,9 +550,9 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
         }
 
         .toggle-btn.active {
-          color: var(--quiz-glow, #a78bfa);
-          background: rgba(139, 92, 246, 0.2);
-          box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
+          color: var(--game-color);
+          background: color-mix(in srgb, var(--game-color) 20%, transparent);
+          box-shadow: 0 0 8px color-mix(in srgb, var(--game-color) 30%, transparent);
         }
 
         .leaderboard-list-wrapper {
@@ -572,8 +572,8 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
           justify-content: center;
           width: 28px;
           height: 20px;
-          background: rgba(139, 92, 246, 0.3);
-          border: 1px solid rgba(139, 92, 246, 0.5);
+          background: color-mix(in srgb, var(--game-color) 30%, transparent);
+          border: 1px solid color-mix(in srgb, var(--game-color) 50%, transparent);
           border-radius: 10px;
           color: rgba(255, 255, 255, 0.8);
           z-index: 10;
@@ -645,8 +645,8 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
         }
 
         .leaderboard-card :global(.player-row.is-me) {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(139, 92, 246, 0.15)) !important;
-          border-color: rgba(139, 92, 246, 0.7) !important;
+          background: linear-gradient(135deg, color-mix(in srgb, var(--game-color) 30%, transparent), color-mix(in srgb, var(--game-color) 15%, transparent)) !important;
+          border-color: color-mix(in srgb, var(--game-color) 70%, transparent) !important;
         }
 
         .leaderboard-card :global(.player-row.disconnected) {
@@ -747,7 +747,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
           font-size: 1vh;
           padding: 0.3vh 0.6vh;
           margin-left: 1vw;
-          background: var(--quiz-primary, #8b5cf6);
+          background: var(--game-color);
           border-radius: 0.4vh;
           text-transform: uppercase;
           font-weight: 700;

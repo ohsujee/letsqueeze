@@ -13,7 +13,7 @@ import { openManageSubscriptions } from '@/lib/revenuecat';
 import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProfileSkeleton from '@/components/ui/ProfileSkeleton';
-import { HueLogo, SpotifyLogo, DeezerLogo, GoogleIcon, AppleIcon } from '@/components/icons';
+import { HueLogo, DeezerLogo, GoogleIcon, AppleIcon } from '@/components/icons';
 import './profile.css';
 
 export default function ProfilePage() {
@@ -518,34 +518,16 @@ export default function ProfilePage() {
               </button>
 
               {isAdmin && (
-                <>
-                  <button
-                    onClick={() => router.push('/profile/spotify')}
-                    className="connection-item"
-                  >
-                    <div className="connection-icon spotify">
-                      <SpotifyLogo />
-                    </div>
-                    <div className="connection-info">
-                      <span className="connection-name">Spotify</span>
-                      <span className="connection-desc">Blind Test musical</span>
-                    </div>
-                    <div className="connection-status-wrap">
-                      <ChevronRight size={18} className="connection-chevron" />
-                    </div>
-                  </button>
-
-                  <div className="connection-item disabled">
-                    <div className="connection-icon deezer">
-                      <DeezerLogo />
-                    </div>
-                    <div className="connection-info">
-                      <span className="connection-name">Deezer</span>
-                      <span className="connection-desc">Musique d'ambiance</span>
-                    </div>
-                    <span className="connection-badge">Bientôt</span>
+                <div className="connection-item disabled">
+                  <div className="connection-icon deezer">
+                    <DeezerLogo />
                   </div>
-                </>
+                  <div className="connection-info">
+                    <span className="connection-name">Deezer</span>
+                    <span className="connection-desc">Musique d'ambiance</span>
+                  </div>
+                  <span className="connection-badge">Bientôt</span>
+                </div>
               )}
             </div>
           </section>

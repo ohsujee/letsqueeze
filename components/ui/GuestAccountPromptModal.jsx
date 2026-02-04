@@ -290,7 +290,7 @@ export default function GuestAccountPromptModal({ currentUser, isHost, onConnect
             </motion.div>
 
             {/* Title */}
-            <h2 style={styles.title}>Tu kiffes le jeu ?</h2>
+            <h2 style={styles.title}>T'aimes le jeu ?</h2>
 
             {/* Description */}
             <p style={styles.desc}>

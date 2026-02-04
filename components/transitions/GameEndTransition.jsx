@@ -39,16 +39,6 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
       icon: "trophy",
       particleColor: "#a78bfa"
     },
-    "blindtest": {
-      gradient: ["rgba(16, 185, 129, 0.97)", "rgba(5, 150, 105, 0.97)"],
-      glow: "rgba(16, 185, 129, 0.6)",
-      accent: "#10b981",
-      accentGlow: "#34d399",
-      title: "Fin du BlindTest",
-      subtitle: "Découvrez qui a la meilleure oreille...",
-      icon: "music",
-      particleColor: "#34d399"
-    },
     "deeztest": {
       gradient: ["rgba(162, 56, 255, 0.97)", "rgba(130, 30, 220, 0.97)"],
       glow: "rgba(162, 56, 255, 0.6)",
@@ -78,6 +68,16 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
       subtitle: "Découvrez les scores...",
       icon: "lightbulb",
       particleColor: "#22d3ee"
+    },
+    "mime": {
+      gradient: ["rgba(0, 255, 102, 0.97)", "rgba(0, 204, 82, 0.97)"],
+      glow: "rgba(0, 255, 102, 0.6)",
+      accent: "#00ff66",
+      accentGlow: "#4dff8d",
+      title: "Partie Terminée",
+      subtitle: "Qui est le meilleur mimeur ?",
+      icon: "theater",
+      particleColor: "#4dff8d"
     }
   };
 
@@ -276,6 +276,7 @@ function TransitionIcon({ type, color, glowColor, step }) {
     music: <MusicIcon size={size} color={color} glowColor={glowColor} />,
     folder: <FolderIcon size={size} color={color} glowColor={glowColor} />,
     lightbulb: <LightbulbIcon size={size} color={color} glowColor={glowColor} />,
+    theater: <TheaterIcon size={size} color={color} glowColor={glowColor} />,
   };
 
   return (
@@ -519,6 +520,96 @@ function LightbulbIcon({ size, color, glowColor }) {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ delay: 0.6 }}
+        />
+      </svg>
+    </div>
+  );
+}
+
+function TheaterIcon({ size, color, glowColor }) {
+  return (
+    <div style={{ position: "relative", width: size, height: size }}>
+      <motion.div
+        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          position: "absolute",
+          inset: -25,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
+          filter: "blur(15px)"
+        }}
+      />
+      <svg viewBox="0 0 24 24" fill="none" width={size} height={size}>
+        {/* Theatre masks - Happy mask (left) */}
+        <motion.path
+          d="M7 8C5.5 8 4 9.5 4 11.5C4 14.5 6 16 8 16C10 16 11 14 11 12V6C11 6 9 6 7 8Z"
+          fill={color}
+          stroke="white"
+          strokeWidth="1.5"
+          initial={{ scale: 0, rotate: -20 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ delay: 0.2, type: "spring" }}
+        />
+        {/* Happy eyes */}
+        <motion.circle cx="6.5" cy="10" r="0.8" fill="white" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.5 }} />
+        <motion.circle cx="9" cy="10" r="0.8" fill="white" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.5 }} />
+        {/* Happy smile */}
+        <motion.path
+          d="M6 12.5C6.5 13.5 7.5 14 8 13.5"
+          stroke="white"
+          strokeWidth="1"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ delay: 0.6, duration: 0.3 }}
+        />
+        {/* Sad mask (right) */}
+        <motion.path
+          d="M17 8C18.5 8 20 9.5 20 11.5C20 14.5 18 16 16 16C14 16 13 14 13 12V6C13 6 15 6 17 8Z"
+          fill={color}
+          stroke="white"
+          strokeWidth="1.5"
+          initial={{ scale: 0, rotate: 20 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ delay: 0.3, type: "spring" }}
+        />
+        {/* Sad eyes */}
+        <motion.circle cx="15" cy="10" r="0.8" fill="white" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.6 }} />
+        <motion.circle cx="17.5" cy="10" r="0.8" fill="white" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.6 }} />
+        {/* Sad frown */}
+        <motion.path
+          d="M15 14C15.5 13 16.5 12.5 17 13"
+          stroke="white"
+          strokeWidth="1"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ delay: 0.7, duration: 0.3 }}
+        />
+        {/* Ribbon at top */}
+        <motion.path
+          d="M8 4C10 3 14 3 16 4"
+          stroke={glowColor}
+          strokeWidth="2"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ delay: 0.8, duration: 0.4 }}
+        />
+        {/* Ribbon tails */}
+        <motion.path
+          d="M8 4L6 6M16 4L18 6"
+          stroke={glowColor}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ delay: 0.9, duration: 0.3 }}
         />
       </svg>
     </div>

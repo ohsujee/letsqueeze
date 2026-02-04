@@ -5,15 +5,20 @@ import { db, ref, onValue, update } from "@/lib/firebase";
 import { PodiumPremium } from "@/components/ui/PodiumPremium";
 import Leaderboard from "@/components/game/Leaderboard";
 import { motion } from "framer-motion";
+import { EndScreenFooter } from "@/components/transitions";
 import { useToast } from "@/lib/hooks/useToast";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
 import { rankWithTies } from "@/lib/utils/ranking";
-import { EndScreenFooter } from "@/components/transitions";
 
-export default function BlindTestEndPage() {
+// Deezer brand colors
+const DEEZER_PURPLE = '#A238FF';
+const DEEZER_PINK = '#FF0092';
+const DEEZER_LIGHT = '#C574FF';
+
+export default function DeezTestEndPage() {
   const { code } = useParams();
   const router = useRouter();
   const toast = useToast();
@@ -45,13 +50,14 @@ export default function BlindTestEndPage() {
   });
 
   // Record game completion (for daily limits)
-  useGameCompletion({ gameType: 'blindtest', roomCode: code });
+  useGameCompletion({ gameType: 'deeztest', roomCode: code });
 
   // Firebase listeners
   useEffect(() => {
     const u1 = onValue(ref(db, `rooms_blindtest/${code}/meta`), s => {
       const data = s.val();
       setMeta(data);
+      // Room is gone or closed by host
       if (!data || data.closed) {
         setRoomExists(false);
       }
@@ -63,7 +69,7 @@ export default function BlindTestEndPage() {
   const isHost = myUid && meta?.hostUid === myUid;
   const hostPresent = roomExists && meta && !meta.closed;
   const modeEquipes = meta?.mode === "équipes";
-  const playlistName = meta?.playlist?.name || "Blind Test";
+  const playlistName = meta?.playlist?.name || "Deez Test";
 
   const teamsArray = useMemo(() => {
     const t = meta?.teams || {};
@@ -72,19 +78,6 @@ export default function BlindTestEndPage() {
 
   const rankedPlayers = useMemo(() => rankWithTies(players, "score"), [players]);
   const rankedTeams = useMemo(() => rankWithTies(teamsArray, "score"), [teamsArray]);
-
-  // Stats du joueur actuel
-  const myStats = useMemo(() => {
-    const me = players.find(p => p.uid === myUid);
-    if (!me) return null;
-    const totalTracks = meta?.playlist?.tracks?.length || 0;
-    return {
-      correctAnswers: me.correctAnswers || 0,
-      wrongAnswers: me.wrongAnswers || 0,
-      totalTracks,
-      score: me.score || 0
-    };
-  }, [players, myUid, meta?.playlist?.tracks?.length]);
 
   // Redirect if host returns to lobby (only if host is still present)
   useEffect(() => {
@@ -124,6 +117,7 @@ export default function BlindTestEndPage() {
       updates[`rooms_blindtest/${code}/state/currentIndex`] = 0;
       updates[`rooms_blindtest/${code}/state/revealed`] = false;
       updates[`rooms_blindtest/${code}/state/snippetLevel`] = 0;
+      updates[`rooms_blindtest/${code}/state/highestSnippetLevel`] = -1;
       updates[`rooms_blindtest/${code}/state/lockUid`] = null;
       updates[`rooms_blindtest/${code}/state/buzzBanner`] = "";
 
@@ -156,27 +150,6 @@ export default function BlindTestEndPage() {
           </div>
         )}
 
-        {/* Stats personnelles */}
-        {myStats && (
-          <div className="my-stats-card">
-            <div className="stats-title">Ton récap</div>
-            <div className="stats-row">
-              <div className="stat-item correct">
-                <span className="stat-value">{myStats.correctAnswers}</span>
-                <span className="stat-label">Bonnes réponses</span>
-              </div>
-              <div className="stat-item wrong">
-                <span className="stat-value">{myStats.wrongAnswers}</span>
-                <span className="stat-label">Erreurs</span>
-              </div>
-              <div className="stat-item total">
-                <span className="stat-value">{myStats.score}</span>
-                <span className="stat-label">Points</span>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Leaderboard */}
         <div className="leaderboard-wrapper">
           <Leaderboard players={rankedPlayers} currentPlayerUid={myUid} teams={meta?.teams} />
@@ -185,7 +158,7 @@ export default function BlindTestEndPage() {
 
       {/* Footer */}
       <EndScreenFooter
-        gameColor="#10b981"
+        gameColor="#A238FF"
         label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
         onNewGame={() => {
           if (!hostPresent) {
@@ -206,7 +179,6 @@ export default function BlindTestEndPage() {
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
-          overflow: hidden;
         }
 
         .end-page::before {
@@ -215,8 +187,8 @@ export default function BlindTestEndPage() {
           inset: 0;
           z-index: 0;
           background:
-            radial-gradient(ellipse at 50% 0%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 0%, rgba(162, 56, 255, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 80%, rgba(255, 0, 146, 0.06) 0%, transparent 50%),
             var(--bg-primary, #0a0a0f);
           pointer-events: none;
         }
@@ -228,7 +200,8 @@ export default function BlindTestEndPage() {
           flex-direction: column;
           position: relative;
           z-index: 1;
-          padding: 1.5vh 3vw;
+          padding: 16px;
+          padding-top: 16px;
           max-width: 500px;
           margin: 0 auto;
           width: 100%;
@@ -236,135 +209,48 @@ export default function BlindTestEndPage() {
           overflow: hidden;
         }
 
-        /* ===== HEADER - 5vh ===== */
+        /* ===== HEADER ===== */
         .end-header {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 2vw;
-          height: 5vh;
+          gap: 10px;
+          padding: 8px 0;
           flex-shrink: 0;
           position: relative;
           z-index: 1;
         }
 
         .trophy-icon {
-          font-size: 3vh;
+          font-size: 1.5rem;
         }
 
         .title-text {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 2.5vh;
-          color: #34d399;
-          text-shadow: 0 0 1.5vh rgba(16, 185, 129, 0.5);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          font-size: clamp(1rem, 4vw, 1.3rem);
+          color: ${DEEZER_PURPLE};
+          text-shadow: 0 0 15px rgba(162, 56, 255, 0.5);
         }
 
-        /* ===== PODIUM - scaled to fit ===== */
+        /* ===== PODIUM ===== */
         .podium-section {
           flex-shrink: 0;
           position: relative;
           z-index: 2;
-          transform: scale(0.45);
+          transform: scale(0.5);
           transform-origin: center top;
-          margin: 0 0 -22vh 0;
-        }
-
-        /* ===== STATS CARD ===== */
-        .my-stats-card {
-          flex-shrink: 0;
-          background: rgba(20, 20, 30, 0.8);
-          border: 1px solid rgba(16, 185, 129, 0.25);
-          border-radius: 1.8vh;
-          padding: 1.5vh 2vw;
-          margin-bottom: 1.5vh;
-          position: relative;
-          z-index: 3;
-        }
-
-        .stats-title {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.4vh;
-          font-weight: 600;
-          color: rgba(255, 255, 255, 0.6);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          margin-bottom: 1.2vh;
-          text-align: center;
-        }
-
-        .stats-row {
-          display: flex;
-          justify-content: space-around;
-          gap: 1.5vw;
-        }
-
-        .stat-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0.5vh;
-          padding: 1.2vh 2.5vw;
-          background: rgba(0, 0, 0, 0.3);
-          border-radius: 1.2vh;
-          flex: 1;
-        }
-
-        .stat-item.correct {
-          border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-
-        .stat-item.wrong {
-          border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .stat-item.total {
-          border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .stat-value {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 2.5vh;
-          line-height: 1;
-        }
-
-        .stat-item.correct .stat-value {
-          color: #22c55e;
-          text-shadow: 0 0 1vh rgba(34, 197, 94, 0.5);
-        }
-
-        .stat-item.wrong .stat-value {
-          color: #f87171;
-          text-shadow: 0 0 1vh rgba(239, 68, 68, 0.5);
-        }
-
-        .stat-item.total .stat-value {
-          color: #34d399;
-          text-shadow: 0 0 1vh rgba(16, 185, 129, 0.5);
-        }
-
-        .stat-label {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.1vh;
-          font-weight: 600;
-          color: rgba(255, 255, 255, 0.5);
-          text-transform: uppercase;
-          letter-spacing: 0.3px;
-          text-align: center;
+          margin: 0 0 -200px 0;
         }
 
         /* ===== LEADERBOARD ===== */
         .leaderboard-wrapper {
           flex: 1;
-          min-height: 15vh;
+          min-height: 150px;
           display: flex;
           overflow: hidden;
           position: relative;
           z-index: 3;
         }
-
       `}</style>
     </div>
   );

@@ -25,13 +25,6 @@ const MOCK_PLAYERS = {
     { uid: "5", name: "TomBuzz", score: 1420, rank: 5 },
     { uid: "6", name: "EmmaWin", score: 1180, rank: 6 },
   ],
-  blindtest: [
-    { uid: "1", name: "MusicKing", score: 3200, rank: 1, correctAnswers: 12, wrongAnswers: 3 },
-    { uid: "2", name: "BeatMaster", score: 2850, rank: 2, correctAnswers: 10, wrongAnswers: 4 },
-    { uid: "3", name: "SoundWave", score: 2400, rank: 3, correctAnswers: 9, wrongAnswers: 5 },
-    { uid: "4", name: "MeloFan", score: 1950, rank: 4, correctAnswers: 7, wrongAnswers: 6 },
-    { uid: "5", name: "RhythmPro", score: 1600, rank: 5, correctAnswers: 6, wrongAnswers: 7 },
-  ],
   deeztest: [
     { uid: "1", name: "DJMax", score: 2800, rank: 1, correctAnswers: 11, wrongAnswers: 2 },
     { uid: "2", name: "TrackStar", score: 2500, rank: 2, correctAnswers: 9, wrongAnswers: 4 },
@@ -74,7 +67,6 @@ export default function TransitionTestPage() {
 
   const games = [
     { id: "quiz", label: "Quiz", color: "#8b5cf6", emoji: "🏆" },
-    { id: "blindtest", label: "BlindTest", color: "#10b981", emoji: "🎵" },
     { id: "deeztest", label: "DeezTest", color: "#A238FF", emoji: "🎧" },
     { id: "alibi", label: "Alibi", color: "#f59e0b", emoji: "🔍" },
     { id: "laloi", label: "La Loi", color: "#06b6d4", emoji: "💡" },
@@ -520,16 +512,6 @@ function GameTransition({ variant, onComplete, duration = 3500 }) {
       subtitle: "Préparez-vous pour le podium...",
       icon: "trophy",
       particleColor: "#a78bfa"
-    },
-    "blindtest": {
-      gradient: ["rgba(16, 185, 129, 0.97)", "rgba(5, 150, 105, 0.97)"],
-      glow: "rgba(16, 185, 129, 0.6)",
-      accent: "#10b981",
-      accentGlow: "#34d399",
-      title: "Fin du BlindTest",
-      subtitle: "Découvrez qui a la meilleure oreille...",
-      icon: "music",
-      particleColor: "#34d399"
     },
     "deeztest": {
       gradient: ["rgba(162, 56, 255, 0.97)", "rgba(130, 30, 220, 0.97)"],
@@ -1622,7 +1604,7 @@ function HeaderIcon({ gameId, color }) {
     );
   }
 
-  if (gameId === "blindtest" || gameId === "deeztest") {
+  if (gameId === "deeztest") {
     return (
       <motion.svg
         viewBox="0 0 24 24"
@@ -1721,14 +1703,13 @@ function EndScreenPreview({ gameId, gameColor, gameEmoji, players }) {
   // Titres par jeu
   const titles = {
     quiz: "Partie terminée",
-    blindtest: "Blind Test",
     deeztest: "Deez Test",
     laloi: "Règle révélée",
   };
 
-  // Stats personnelles (pour BlindTest/DeezTest)
+  // Stats personnelles (pour DeezTest)
   const myPlayer = players.find(p => p.uid === currentPlayerUid);
-  const showStats = (gameId === "blindtest" || gameId === "deeztest") && myPlayer;
+  const showStats = gameId === "deeztest" && myPlayer;
 
   // Calcul dynamique du scale du podium
   useEffect(() => {
@@ -1803,7 +1784,7 @@ function EndScreenPreview({ gameId, gameColor, gameEmoji, players }) {
         </div>
       </div>
 
-      {/* Stats personnelles (BlindTest/DeezTest) */}
+      {/* Stats personnelles (DeezTest) */}
       {showStats && (
         <div className="my-stats-card" style={{ borderColor: `${gameColor}40` }}>
           <div className="stats-title">Ton récap</div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Pencil, Check, X, Users } from 'lucide-react';
 
 /**
@@ -81,89 +81,66 @@ export default function AlibiGroupNameEditor({
 
   return (
     <div className={`group-name-editor ${compact ? 'compact' : ''}`}>
-      <AnimatePresence mode="wait">
+      {!compact && (
+        <div className="display-label">
+          <Users size={14} style={{ color: groupColor }} />
+          <span>Ton équipe</span>
+        </div>
+      )}
+
+      <div className="inline-row">
+        <span className="color-dot" style={{ background: groupColor }} />
+
         {isEditing ? (
-          // MODE ÉDITION
-          <motion.div
-            key="editing"
-            className="edit-container"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-          >
-            <div className="edit-row">
-              <input
-                type="text"
-                className={`edit-input ${error ? 'has-error' : ''}`}
-                value={editedName}
-                onChange={(e) => {
-                  setEditedName(e.target.value);
-                  if (error) setError('');
-                }}
-                onKeyDown={handleKeyDown}
-                maxLength={20}
-                autoFocus
-                placeholder="Nom du groupe"
-                style={{ borderColor: groupColor }}
-              />
-            </div>
-            <div className="edit-actions">
-              <button
-                className="action-btn save"
-                onClick={saveNameChange}
-                disabled={saving}
-              >
-                <Check size={14} />
-                <span>OK</span>
-              </button>
-              <button
-                className="action-btn cancel"
-                onClick={cancelEditing}
-                disabled={saving}
-              >
-                <X size={14} />
-                <span>Annuler</span>
-              </button>
-            </div>
-            {error && <div className="edit-error">{error}</div>}
-          </motion.div>
+          <>
+            <input
+              type="text"
+              className={`inline-input ${error ? 'has-error' : ''}`}
+              value={editedName}
+              onChange={(e) => {
+                setEditedName(e.target.value);
+                if (error) setError('');
+              }}
+              onKeyDown={handleKeyDown}
+              maxLength={20}
+              autoFocus
+              placeholder="Nom du groupe"
+              style={{ borderColor: groupColor, color: groupColor }}
+            />
+            <button
+              className="action-btn-icon save"
+              onClick={saveNameChange}
+              disabled={saving}
+            >
+              <Check size={18} />
+            </button>
+            <button
+              className="action-btn-icon cancel"
+              onClick={cancelEditing}
+              disabled={saving}
+            >
+              <X size={18} />
+            </button>
+          </>
         ) : (
-          // MODE AFFICHAGE
-          <motion.div
-            key="display"
-            className="display-container"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-          >
-            {!compact && (
-              <div className="display-label">
-                <Users size={14} style={{ color: groupColor }} />
-                <span>Ton équipe</span>
-              </div>
+          <>
+            <span className="display-name" style={{ color: groupColor }}>
+              {group.name}
+            </span>
+            {canEdit && (
+              <button className="edit-btn" onClick={startEditing}>
+                <Pencil size={14} />
+              </button>
             )}
-            <div className="display-row">
-              <span className="color-dot" style={{ background: groupColor, boxShadow: `0 0 10px ${groupColor}` }} />
-              <span className="display-name" style={{ color: groupColor }}>
-                {group.name}
-              </span>
-              {canEdit && (
-                <button className="edit-btn" onClick={startEditing}>
-                  <Pencil size={14} />
-                </button>
-              )}
-            </div>
-          </motion.div>
+          </>
         )}
-      </AnimatePresence>
+      </div>
+
+      {error && <div className="edit-error">{error}</div>}
 
       <style jsx>{`
         .group-name-editor {
           width: 100%;
-        }
-
-        /* === MODE AFFICHAGE === */
-        .display-container {
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -180,7 +157,7 @@ export default function AlibiGroupNameEditor({
           letter-spacing: 0.5px;
         }
 
-        .display-row {
+        .inline-row {
           display: flex;
           align-items: center;
           gap: 10px;
@@ -190,6 +167,7 @@ export default function AlibiGroupNameEditor({
           width: 12px;
           height: 12px;
           border-radius: 50%;
+          flex-shrink: 0;
         }
 
         .display-name {
@@ -216,88 +194,60 @@ export default function AlibiGroupNameEditor({
           color: white;
         }
 
-        /* === MODE ÉDITION === */
-        .edit-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 10px;
-          padding: 12px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(245, 158, 11, 0.3);
-          border-radius: 12px;
-        }
-
-        .edit-row {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-        }
-
-        .edit-input {
-          width: 160px;
-          padding: 8px 12px;
+        /* === INLINE INPUT === */
+        .inline-input {
+          width: 130px;
+          padding: 6px 10px;
           background: rgba(255, 255, 255, 0.08);
           border: 2px solid;
           border-radius: 8px;
-          color: white;
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.9rem;
-          font-weight: 600;
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1rem;
           text-align: center;
           outline: none;
           transition: all 0.2s;
         }
 
-        .edit-input:focus {
-          background: rgba(255, 255, 255, 0.1);
-          box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+        .inline-input:focus {
+          background: rgba(255, 255, 255, 0.12);
         }
 
-        .edit-input.has-error {
+        .inline-input.has-error {
           border-color: #ef4444 !important;
         }
 
-        .edit-actions {
-          display: flex;
-          gap: 6px;
-          margin-top: 2px;
-        }
-
-        .action-btn {
+        /* === ACTION BUTTONS === */
+        .action-btn-icon {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 4px;
-          padding: 5px 10px;
+          width: 38px;
+          height: 38px;
           border: none;
-          border-radius: 6px;
-          font-family: var(--font-body, 'Inter'), sans-serif;
-          font-size: 0.7rem;
-          font-weight: 500;
+          border-radius: 10px;
           cursor: pointer;
           transition: all 0.2s;
         }
 
-        .action-btn.save {
-          background: rgba(34, 197, 94, 0.2);
+        .action-btn-icon.save {
+          background: rgba(34, 197, 94, 0.25);
           color: #22c55e;
         }
 
-        .action-btn.save:hover {
-          background: rgba(34, 197, 94, 0.35);
+        .action-btn-icon.save:hover {
+          background: rgba(34, 197, 94, 0.4);
         }
 
-        .action-btn.cancel {
-          background: rgba(239, 68, 68, 0.2);
+        .action-btn-icon.cancel {
+          background: rgba(239, 68, 68, 0.25);
           color: #ef4444;
         }
 
-        .action-btn.cancel:hover {
-          background: rgba(239, 68, 68, 0.35);
+        .action-btn-icon.cancel:hover {
+          background: rgba(239, 68, 68, 0.4);
         }
 
-        .action-btn:disabled {
+        .action-btn-icon:disabled {
           opacity: 0.5;
           cursor: not-allowed;
         }
@@ -306,17 +256,20 @@ export default function AlibiGroupNameEditor({
           font-size: 0.75rem;
           color: #ef4444;
           text-align: center;
-          margin-top: -4px;
         }
 
         /* === COMPACT MODE === */
-        .compact .display-container {
-          flex-direction: row;
+        .compact .inline-row {
           gap: 8px;
         }
 
         .compact .display-name {
           font-size: 0.95rem;
+        }
+
+        .compact .inline-input {
+          width: 110px;
+          font-size: 0.9rem;
         }
       `}</style>
     </div>

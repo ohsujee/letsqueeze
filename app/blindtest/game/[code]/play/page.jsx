@@ -1,28 +1,35 @@
 "use client";
-import { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
 import Buzzer from "@/components/game/Buzzer";
 import Leaderboard from "@/components/game/Leaderboard";
+import BlindTestHostView from "@/components/game/BlindTestHostView";
+import AskerTransition from "@/components/game/AskerTransition";
 import { motion, AnimatePresence } from "framer-motion";
+import { GameEndTransition } from "@/components/transitions";
 import { triggerConfetti } from "@/components/shared/Confetti";
 import GamePlayHeader from "@/components/game/GamePlayHeader";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
+import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import { useAskerRotation } from "@/lib/hooks/useAskerRotation";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { storage } from "@/lib/utils/storage";
 import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
-import { GameEndTransition } from "@/components/transitions";
 
-export default function BlindTestPlayerGame() {
+// Deezer brand colors
+const DEEZER_PURPLE = '#A238FF';
+
+export default function DeezTestPlayerGame() {
   const { code } = useParams();
   const router = useRouter();
 
@@ -31,33 +38,47 @@ export default function BlindTestPlayerGame() {
   const [playlist, setPlaylist] = useState(null);
   const [myUid, setMyUid] = useState(null);
   const [showEndTransition, setShowEndTransition] = useState(false);
+  const [showAskerTransition, setShowAskerTransition] = useState(false);
   const endTransitionTriggeredRef = useRef(false);
+  const prevAskerUidRef = useRef(null);
 
   // Centralized players hook
   const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
+
+  // Party Mode: Asker rotation hook
+  const {
+    isPartyMode,
+    currentAsker,
+    currentAskerUid,
+    isCurrentAsker,
+    canBuzz,
+    advanceToNextAsker
+  } = useAskerRotation({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
+    meta,
+    state,
+    players
+  });
+
+  // Am I the current asker in party mode?
+  const amIAsker = isPartyMode && isCurrentAsker(myUid);
 
   // Server time sync (300ms tick for score updates)
   const { serverNow, offset } = useServerTime(300);
 
   // Auth
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setMyUid(user.uid);
-        // Store last game info for rejoin
-        storage.set('last_game', {
-          roomCode: code,
-          roomPrefix: 'rooms_blindtest',
-          joinedAt: Date.now()
-        });
-      } else {
-        signInAnonymously(auth).catch(() => {});
+    const unsub = onAuthStateChanged(auth, async u => {
+      if (u) setMyUid(u.uid);
+      else {
+        await signInAnonymously(auth);
       }
     });
-    return () => unsub();
-  }, [code]);
+    return unsub;
+  }, []);
 
-  // Player cleanup hook - preserves score on disconnect
+  // Player cleanup (mark disconnected on leave)
   const { leaveRoom, markActive } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
@@ -80,12 +101,22 @@ export default function BlindTestPlayerGame() {
     }
   }, [myUid, code, markActive]);
 
+  // Am I the actual host (room creator)?
+  const isActualHost = meta?.hostUid === myUid;
+
   // Room guard - détecte kick et fermeture room
   const { markVoluntaryLeave, isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
     playerUid: myUid,
-    isHost: false
+    isHost: isActualHost
+  });
+
+  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  useHostDisconnect({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
+    isHost: isActualHost && !amIAsker // Only if host is on player view (not asker view which has its own)
   });
 
   // Keep screen awake during game
@@ -158,21 +189,67 @@ export default function BlindTestPlayerGame() {
 
   const isMyTurn = state?.lockUid === me?.uid;
 
+  // Party Mode: Show transition when asker changes
+  useEffect(() => {
+    if (!isPartyMode || !currentAskerUid) return;
+
+    if (prevAskerUidRef.current !== null && prevAskerUidRef.current !== currentAskerUid) {
+      setShowAskerTransition(true);
+    }
+    prevAskerUidRef.current = currentAskerUid;
+  }, [isPartyMode, currentAskerUid]);
+
+  // Can I buzz? (Party Mode check)
+  const canIBuzz = !amIAsker && canBuzz(myUid, me?.teamId);
+
   // Calcul de la latence (affichée si > 500ms)
   const latencyMs = Math.abs(offset);
   const showLatencyWarning = latencyMs > 500;
 
+  // ========== PARTY MODE: ASKER VIEW ==========
+  if (amIAsker) {
+    return (
+      <>
+        {/* Asker Transition */}
+        <AskerTransition
+          show={showAskerTransition}
+          asker={currentAsker}
+          isTeamMode={meta?.mode === 'équipes'}
+          onComplete={() => setShowAskerTransition(false)}
+          themeColor={DEEZER_PURPLE}
+        />
+
+        {/* Use the shared host view component */}
+        <BlindTestHostView
+          code={code}
+          isActualHost={false}
+          onAdvanceAsker={advanceToNextAsker}
+        />
+      </>
+    );
+  }
+
+  // ========== PLAYER VIEW ==========
   return (
-    <div className={`blindtest-player-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
-      {/* Transition de fin de partie (pas si room fermée - useRoomGuard gère la redirection) */}
+    <div className={`deeztest-player-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
+      {/* Game End Transition (pas si room fermée - useRoomGuard gère la redirection) */}
       <AnimatePresence>
         {showEndTransition && !meta?.closed && (
           <GameEndTransition
-            variant="blindtest"
+            variant="deeztest"
             onComplete={() => router.replace(`/blindtest/game/${code}/end`)}
           />
         )}
       </AnimatePresence>
+
+      {/* Asker Transition (Party Mode) */}
+      <AskerTransition
+        show={showAskerTransition}
+        asker={currentAsker}
+        isTeamMode={meta?.mode === 'équipes'}
+        onComplete={() => setShowAskerTransition(false)}
+        themeColor={DEEZER_PURPLE}
+      />
 
       {/* Glow when it's my turn */}
       <AnimatePresence>
@@ -186,7 +263,7 @@ export default function BlindTestPlayerGame() {
               inset: 0,
               zIndex: 50,
               pointerEvents: 'none',
-              boxShadow: 'inset 0 0 60px 5px rgba(34, 197, 94, 0.25)'
+              boxShadow: `inset 0 0 60px 5px rgba(162, 56, 255, 0.25)`
             }}
           />
         )}
@@ -194,15 +271,25 @@ export default function BlindTestPlayerGame() {
 
       {/* Header */}
       <GamePlayHeader
-        game="blindtest"
+        game="deeztest"
         progress={progressLabel}
-        title={playlist?.name || 'Blind Test'}
+        title={playlist?.name || 'Deez Test'}
         score={me?.score || 0}
         onExit={async () => {
-          await leaveRoom();
+          if (isActualHost) {
+            // Host quitte -> fermer la room
+            const { update, ref: dbRef } = await import('@/lib/firebase');
+            await update(dbRef(db, `rooms_blindtest/${code}/state`), { phase: 'ended' });
+            await update(dbRef(db, `rooms_blindtest/${code}/meta`), { closed: true });
+          } else {
+            await leaveRoom();
+          }
           router.push('/home');
         }}
-        exitMessage="Voulez-vous vraiment quitter ? Votre score sera conservé."
+        exitMessage={isActualHost
+          ? "Voulez-vous vraiment quitter ? La partie sera terminée pour tous."
+          : "Voulez-vous vraiment quitter ? Votre score sera conservé."
+        }
       >
         {showLatencyWarning && (
           <div className="latency-indicator" title={`Décalage: ${latencyMs}ms`}>
@@ -217,7 +304,7 @@ export default function BlindTestPlayerGame() {
         {state?.buzzBanner && state?.lockUid !== me?.uid && (
           <div className="buzz-notification-wrapper">
             <motion.div
-              className="buzz-notification blindtest"
+              className="buzz-notification deeztest"
               initial={{ opacity: 0, scale: 0.9, y: -30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: -20 }}
@@ -235,7 +322,7 @@ export default function BlindTestPlayerGame() {
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="game-content blindtest">
+      <main className="game-content deeztest">
         {/* Points & Level Card */}
         <div className="points-card">
           <div className="points-main">
@@ -253,7 +340,7 @@ export default function BlindTestPlayerGame() {
       </main>
 
       {/* Buzzer */}
-      <footer className="buzzer-footer blindtest">
+      <footer className="buzzer-footer deeztest">
         <Buzzer
           roomCode={code}
           roomPrefix="rooms_blindtest"
@@ -262,6 +349,7 @@ export default function BlindTestPlayerGame() {
           blockedUntil={me?.blockedUntil || 0}
           serverNow={serverNow}
           serverOffset={offset}
+          disabled={!canIBuzz}
         />
       </footer>
 
@@ -281,23 +369,22 @@ export default function BlindTestPlayerGame() {
       />
 
       <style jsx>{`
-        .blindtest-player-page {
+        .deeztest-player-page {
           flex: 1;
           min-height: 0;
           display: flex;
           flex-direction: column;
           background: var(--bg-primary, #0a0a0f);
-          overflow: hidden;
         }
 
-        .blindtest-player-page::before {
+        .deeztest-player-page::before {
           content: '';
           position: fixed;
           inset: 0;
           z-index: 0;
           background:
-            radial-gradient(ellipse at 20% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+            radial-gradient(ellipse at 20% 80%, rgba(162, 56, 255, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 20%, rgba(255, 0, 146, 0.08) 0%, transparent 50%),
             var(--bg-primary, #0a0a0f);
           pointer-events: none;
         }
@@ -306,17 +393,17 @@ export default function BlindTestPlayerGame() {
         .latency-indicator {
           display: flex;
           align-items: center;
-          gap: 0.5vw;
-          padding: 0.4vh 1.5vw;
+          gap: 4px;
+          padding: 3px 8px;
           background: rgba(251, 191, 36, 0.15);
           border: 1px solid rgba(251, 191, 36, 0.3);
-          border-radius: 1.5vh;
+          border-radius: 12px;
           flex-shrink: 0;
         }
 
         .latency-dot {
-          width: 0.8vh;
-          height: 0.8vh;
+          width: 6px;
+          height: 6px;
           background: #fbbf24;
           border-radius: 50%;
           animation: latency-pulse 1s ease-in-out infinite;
@@ -329,7 +416,7 @@ export default function BlindTestPlayerGame() {
 
         .latency-text {
           font-family: var(--font-mono, 'Roboto Mono'), monospace;
-          font-size: 1.1vh;
+          font-size: 0.6rem;
           font-weight: 600;
           color: #fbbf24;
         }
@@ -337,30 +424,30 @@ export default function BlindTestPlayerGame() {
         /* Buzz notification */
         .buzz-notification-wrapper {
           position: fixed;
-          top: calc(8vh + env(safe-area-inset-top));
-          left: 3vw;
-          right: 3vw;
+          top: calc(70px + env(safe-area-inset-top));
+          left: 16px;
+          right: 16px;
           z-index: 100;
           display: flex;
           justify-content: center;
           pointer-events: none;
         }
 
-        .buzz-notification.blindtest {
+        .buzz-notification.deeztest {
           pointer-events: auto;
           display: flex;
           align-items: center;
-          gap: 2vw;
-          padding: 1.5vh 3vw;
+          gap: 12px;
+          padding: 12px 20px;
           background: rgba(20, 20, 30, 0.95);
           backdrop-filter: blur(20px);
-          border: 0.25vh solid #10b981;
-          border-radius: 2vh;
-          box-shadow: 0 0 4vh rgba(6, 182, 212, 0.4);
+          border: 2px solid ${DEEZER_PURPLE};
+          border-radius: 16px;
+          box-shadow: 0 0 30px rgba(162, 56, 255, 0.4);
         }
 
         .buzz-notification-icon {
-          font-size: 2.5vh;
+          font-size: 1.5rem;
           animation: buzz-icon-pulse 1s ease-in-out infinite;
         }
 
@@ -372,69 +459,69 @@ export default function BlindTestPlayerGame() {
         .buzz-notification-content {
           display: flex;
           flex-direction: column;
-          gap: 0.3vh;
+          gap: 2px;
         }
 
         .buzz-notification-label {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.3vh;
+          font-size: 0.7rem;
           font-weight: 600;
           text-transform: uppercase;
-          color: #34d399;
+          color: ${DEEZER_PURPLE};
         }
 
         .buzz-notification-name {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 2vh;
+          font-size: 1.1rem;
           color: var(--text-primary);
         }
 
-        /* Main content - fills remaining space */
-        .game-content.blindtest {
+        /* Main content */
+        .game-content.deeztest {
           flex: 1;
           position: relative;
           z-index: 1;
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 1.5vh 3vw;
-          gap: 1.5vh;
+          padding: 16px;
+          gap: 12px;
           overflow: hidden;
           min-height: 0;
         }
 
-        /* Points card - flex-shrink for fit */
+        /* Points card */
         .points-card {
           width: 100%;
           max-width: 500px;
           flex-shrink: 0;
           background: rgba(20, 20, 30, 0.8);
-          border: 1px solid rgba(16, 185, 129, 0.25);
-          border-radius: 2vh;
-          padding: 2vh 3vw;
+          border: 1px solid rgba(162, 56, 255, 0.25);
+          border-radius: 16px;
+          padding: 20px 24px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 3vw;
+          gap: 16px;
         }
 
         .points-main {
           display: flex;
           align-items: baseline;
-          gap: 1.5vw;
+          gap: 8px;
         }
 
         .points-value {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 5vh;
-          color: #34d399;
-          text-shadow: 0 0 2.5vh rgba(16, 185, 129, 0.5);
+          font-size: 2.5rem;
+          color: ${DEEZER_PURPLE};
+          text-shadow: 0 0 20px rgba(162, 56, 255, 0.5);
           line-height: 1;
         }
 
         .points-label {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.6vh;
+          font-size: 0.9rem;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.5);
           text-transform: uppercase;
@@ -444,16 +531,16 @@ export default function BlindTestPlayerGame() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.5vh;
-          padding: 1.5vh 3vw;
-          background: rgba(16, 185, 129, 0.1);
-          border: 1px solid rgba(16, 185, 129, 0.3);
-          border-radius: 1.5vh;
+          gap: 4px;
+          padding: 12px 20px;
+          background: rgba(162, 56, 255, 0.1);
+          border: 1px solid rgba(162, 56, 255, 0.3);
+          border-radius: 12px;
         }
 
         .level-label {
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.2vh;
+          font-size: 0.65rem;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.5);
           text-transform: uppercase;
@@ -461,25 +548,22 @@ export default function BlindTestPlayerGame() {
         }
 
         .level-value {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 2vh;
-          color: #34d399;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: ${DEEZER_PURPLE};
         }
 
-        /* Buzzer footer - 12vh */
-        .buzzer-footer.blindtest {
+        /* Buzzer footer */
+        .buzzer-footer.deeztest {
           flex-shrink: 0;
           position: relative;
           z-index: 10;
-          height: 12vh;
           width: 100%;
           max-width: 500px;
           margin: 0 auto;
-          padding: 0 3vw;
-          padding-bottom: var(--safe-area-bottom);
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          padding: 0 16px;
+          padding-bottom: env(safe-area-inset-bottom);
         }
       `}</style>
     </div>

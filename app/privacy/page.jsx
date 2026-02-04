@@ -59,13 +59,6 @@ export default function PrivacyPage() {
             <li>Données de performance de l'application</li>
           </ul>
 
-          <h3>Intégration Spotify (optionnelle)</h3>
-          <p>
-            Si vous connectez Spotify pour le Blind Test, nous stockons
-            temporairement vos tokens d'accès dans des cookies sécurisés.
-            Nous n'avons <strong>pas accès</strong> à vos playlists, historique
-            d'écoute ou autres données Spotify de façon permanente.
-          </p>
         </section>
 
         <section className="legal-section">
@@ -86,7 +79,7 @@ export default function PrivacyPage() {
           <ul>
             <li><strong>Exécution du contrat</strong> : pour fournir les services de jeu</li>
             <li><strong>Intérêt légitime</strong> : pour améliorer et sécuriser l'application</li>
-            <li><strong>Consentement</strong> : pour l'intégration Spotify et les cookies</li>
+            <li><strong>Consentement</strong> : pour les cookies analytiques</li>
           </ul>
         </section>
 
@@ -97,7 +90,7 @@ export default function PrivacyPage() {
             <li><strong>Firebase (Google)</strong> - Authentification et base de données</li>
             <li><strong>Vercel</strong> - Hébergement de l'application</li>
             <li><strong>RevenueCat</strong> - Gestion des abonnements</li>
-            <li><strong>Spotify</strong> - Si vous utilisez le Blind Test</li>
+            <li><strong>Deezer</strong> - Pour le Blind Test musical</li>
           </ul>
           <p>
             Nous ne vendons jamais vos données personnelles à des tiers.
@@ -109,7 +102,6 @@ export default function PrivacyPage() {
           <p>Nous utilisons des cookies pour :</p>
           <ul>
             <li><strong>Cookies essentiels</strong> : authentification, session utilisateur</li>
-            <li><strong>Cookies Spotify</strong> : tokens d'accès sécurisés (httpOnly)</li>
           </ul>
           <p>
             Vous pouvez gérer vos préférences de cookies dans les paramètres
@@ -122,7 +114,6 @@ export default function PrivacyPage() {
           <ul>
             <li><strong>Données de compte</strong> : tant que votre compte est actif</li>
             <li><strong>Données de jeu</strong> : tant que votre compte est actif</li>
-            <li><strong>Tokens Spotify</strong> : 1 an maximum (renouvelés automatiquement)</li>
             <li><strong>Logs de sécurité</strong> : 12 mois</li>
           </ul>
           <p>
@@ -199,7 +190,7 @@ export default function PrivacyPage() {
           </p>
         </section>
 
-        <p className="legal-update">Dernière mise à jour : Janvier 2025</p>
+        <p className="legal-update">Dernière mise à jour : Février 2026</p>
       </main>
 
       <style jsx>{`

@@ -30,7 +30,14 @@
       "$code": {
         ".read": "auth != null",
         "meta": {
-          ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )"
+          ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )",
+          "teams": {
+            "$teamId": {
+              "score": {
+                ".write": "auth != null && ( auth.uid == root.child('rooms/'+$code+'/meta/hostUid').val() || ( root.child('rooms/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms/'+$code+'/state/currentAskerUid').val() ) )"
+              }
+            }
+          }
         },
         "state": {
           ".read": "auth != null",
@@ -172,8 +179,18 @@
         ".read": "auth != null",
         "meta": {
           ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )",
+          "teams": {
+            "$teamId": {
+              "score": {
+                ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) )"
+              }
+            }
+          },
           "playlist": {
-            ".validate": "newData.hasChildren(['id', 'name'])"
+            ".validate": "newData.hasChildren(['id', 'name'])",
+            "tracks": {
+              ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) )"
+            }
           },
           "playlistsUsed": {
             ".validate": "newData.isNumber()"
@@ -181,27 +198,33 @@
         },
         "state": {
           ".read": "auth != null",
-          ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( !data.child('lockUid').exists() && newData.child('lockUid').val() == auth.uid && newData.child('buzz/uid').val() == auth.uid && root.child('rooms_blindtest/'+$code+'/state/phase').val() == 'playing' ) )",
+          ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) || ( !data.child('lockUid').exists() && newData.child('lockUid').val() == auth.uid && newData.child('buzz/uid').val() == auth.uid && root.child('rooms_blindtest/'+$code+'/state/phase').val() == 'playing' ) )",
           "lockUid": {
-            ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( !data.exists() && newData.val() == auth.uid && root.child('rooms_blindtest/'+$code+'/state/phase').val() == 'playing' ) )"
+            ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) || ( !data.exists() && newData.val() == auth.uid && root.child('rooms_blindtest/'+$code+'/state/phase').val() == 'playing' ) )"
           },
           "buzzBanner": {
-            ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || root.child('rooms_blindtest/'+$code+'/state/lockUid').val() == auth.uid )"
+            ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) || root.child('rooms_blindtest/'+$code+'/state/lockUid').val() == auth.uid )"
           },
           "buzz": {
-            ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( ( !root.child('rooms_blindtest/'+$code+'/state/lockUid').exists() || root.child('rooms_blindtest/'+$code+'/state/lockUid').val() == auth.uid ) && newData.hasChildren(['uid','at']) && newData.child('uid').val() == auth.uid ) )",
-            ".validate": "newData.hasChildren(['uid','at']) && (auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || newData.child('uid').val() == auth.uid)"
+            ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) || ( ( !root.child('rooms_blindtest/'+$code+'/state/lockUid').exists() || root.child('rooms_blindtest/'+$code+'/state/lockUid').val() == auth.uid ) && newData.hasChildren(['uid','at']) && newData.child('uid').val() == auth.uid ) )",
+            ".validate": "newData.hasChildren(['uid','at']) && (auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) || newData.child('uid').val() == auth.uid)"
+          },
+          "pausedAt": {
+            ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) )"
+          },
+          "lockedAt": {
+            ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) )"
           },
           "pendingBuzzes": {
             "$uid": {
-              ".write": "auth != null && (auth.uid == $uid || auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val()) && (root.child('rooms_blindtest/'+$code+'/state/phase').val() == 'playing' || auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val())",
+              ".write": "auth != null && (auth.uid == $uid || auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() )) && (root.child('rooms_blindtest/'+$code+'/state/phase').val() == 'playing' || auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ))",
               ".validate": "newData.hasChildren(['uid','adjustedTime']) && newData.child('uid').val() == auth.uid"
             }
           }
         },
         "players": {
           "$uid": {
-            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() )"
+            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) )"
           },
           ".read": "auth != null"
         },
@@ -219,78 +242,10 @@
         },
         "tracks": {
           ".read": "auth != null",
-          ".write": "auth != null && auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val()"
+          ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) )"
         },
         "history": {
-          ".write": "auth != null && auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val()"
-        }
-      }
-    },
-    "rooms_deeztest": {
-      "$code": {
-        ".read": "auth != null",
-        "meta": {
-          ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )",
-          "playlist": {
-            ".validate": "newData.hasChildren(['id', 'name'])",
-            "tracks": {
-              ".write": "auth != null && ( auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) )"
-            }
-          },
-          "playlistsUsed": {
-            ".validate": "newData.isNumber()"
-          }
-        },
-        "state": {
-          ".read": "auth != null",
-          ".write": "auth != null && ( auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) || ( !data.child('lockUid').exists() && newData.child('lockUid').val() == auth.uid && newData.child('buzz/uid').val() == auth.uid && root.child('rooms_deeztest/'+$code+'/state/phase').val() == 'playing' ) )",
-          "lockUid": {
-            ".write": "auth != null && ( auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) || ( !data.exists() && newData.val() == auth.uid && root.child('rooms_deeztest/'+$code+'/state/phase').val() == 'playing' ) )"
-          },
-          "buzzBanner": {
-            ".write": "auth != null && ( auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) || root.child('rooms_deeztest/'+$code+'/state/lockUid').val() == auth.uid )"
-          },
-          "buzz": {
-            ".write": "auth != null && ( auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) || ( ( !root.child('rooms_deeztest/'+$code+'/state/lockUid').exists() || root.child('rooms_deeztest/'+$code+'/state/lockUid').val() == auth.uid ) && newData.hasChildren(['uid','at']) && newData.child('uid').val() == auth.uid ) )",
-            ".validate": "newData.hasChildren(['uid','at']) && (auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) || newData.child('uid').val() == auth.uid)"
-          },
-          "pausedAt": {
-            ".write": "auth != null && ( auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) )"
-          },
-          "lockedAt": {
-            ".write": "auth != null && ( auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) )"
-          },
-          "pendingBuzzes": {
-            "$uid": {
-              ".write": "auth != null && (auth.uid == $uid || auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() )) && (root.child('rooms_deeztest/'+$code+'/state/phase').val() == 'playing' || auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ))",
-              ".validate": "newData.hasChildren(['uid','adjustedTime']) && newData.child('uid').val() == auth.uid"
-            }
-          }
-        },
-        "players": {
-          "$uid": {
-            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) )"
-          },
-          ".read": "auth != null"
-        },
-        "presence": {
-          ".read": "auth != null",
-          "$uid": {
-            ".write": "auth != null && auth.uid == $uid"
-          }
-        },
-        "kickedPlayers": {
-          ".read": "auth != null",
-          "$uid": {
-            ".write": "auth != null && auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val()"
-          }
-        },
-        "tracks": {
-          ".read": "auth != null",
-          ".write": "auth != null && ( auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) )"
-        },
-        "history": {
-          ".write": "auth != null && ( auth.uid == root.child('rooms_deeztest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_deeztest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_deeztest/'+$code+'/state/currentAskerUid').val() ) )"
+          ".write": "auth != null && ( auth.uid == root.child('rooms_blindtest/'+$code+'/meta/hostUid').val() || ( root.child('rooms_blindtest/'+$code+'/meta/gameMasterMode').val() == 'party' && auth.uid == root.child('rooms_blindtest/'+$code+'/state/currentAskerUid').val() ) )"
         }
       }
     },
@@ -332,6 +287,58 @@
             ".write": "auth != null && auth.uid == root.child('rooms_laloi/'+$code+'/meta/hostUid').val()"
           }
         }
+      }
+    },
+    "rooms_mime": {
+      "$code": {
+        ".read": "auth != null",
+        "meta": {
+          ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )"
+        },
+        "state": {
+          ".read": "auth != null",
+          ".write": "auth != null && ( auth.uid == root.child('rooms_mime/'+$code+'/meta/hostUid').val() || auth.uid == root.child('rooms_mime/'+$code+'/state/currentMimeUid').val() )",
+          "lockUid": {
+            ".write": "auth != null && ( auth.uid == root.child('rooms_mime/'+$code+'/meta/hostUid').val() || auth.uid == root.child('rooms_mime/'+$code+'/state/currentMimeUid').val() || ( !data.exists() && newData.val() == auth.uid && root.child('rooms_mime/'+$code+'/state/phase').val() == 'playing' && root.child('rooms_mime/'+$code+'/state/revealed').val() == true ) )"
+          },
+          "buzzBanner": {
+            ".write": "auth != null && ( auth.uid == root.child('rooms_mime/'+$code+'/meta/hostUid').val() || auth.uid == root.child('rooms_mime/'+$code+'/state/currentMimeUid').val() || root.child('rooms_mime/'+$code+'/state/lockUid').val() == auth.uid )"
+          },
+          "pendingBuzzes": {
+            "$uid": {
+              ".write": "auth != null && (auth.uid == $uid || auth.uid == root.child('rooms_mime/'+$code+'/meta/hostUid').val() || auth.uid == root.child('rooms_mime/'+$code+'/state/currentMimeUid').val()) && (root.child('rooms_mime/'+$code+'/state/phase').val() == 'playing' || auth.uid == root.child('rooms_mime/'+$code+'/meta/hostUid').val() || auth.uid == root.child('rooms_mime/'+$code+'/state/currentMimeUid').val())",
+              ".validate": "newData.hasChildren(['uid','adjustedTime']) && newData.child('uid').val() == auth.uid"
+            }
+          }
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_mime/'+$code+'/meta/hostUid').val() || auth.uid == root.child('rooms_mime/'+$code+'/state/currentMimeUid').val() )"
+          },
+          ".read": "auth != null"
+        },
+        "presence": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        "kickedPlayers": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == root.child('rooms_mime/'+$code+'/meta/hostUid').val()"
+          }
+        },
+        "words": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_mime/'+$code+'/meta/hostUid').val()"
+        }
+      }
+    },
+    "mime_themes": {
+      ".read": "auth != null",
+      "$themeId": {
+        ".write": "root.child('admins').child(auth.uid).exists()"
       }
     },
     "stats": {

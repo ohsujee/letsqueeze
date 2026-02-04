@@ -28,8 +28,11 @@ import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { getQuizManifest } from "@/lib/utils/manifestCache";
+import { calculatePartyModeQuestions } from "@/lib/config/rooms";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Users, Zap } from "lucide-react";
+import LobbyStartButton from "@/components/game/LobbyStartButton";
+import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
@@ -218,7 +221,7 @@ export default function Room() {
       const allQuestions = [];
       for (const themeId of themeIds) {
         try {
-          const response = await fetch(`/data/${themeId}.json`);
+          const response = await fetch(`/data/quiz/${themeId}.json`);
           const database = await response.json();
           if (database?.items?.length) {
             allQuestions.push(...database.items);
@@ -240,14 +243,14 @@ export default function Room() {
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
 
-      // Prendre 20 questions (ou moins si la base en contient moins)
-      const selectedQuestions = shuffled.slice(0, 20);
+      // Calculer le nombre de questions
+      // Party Mode: ajuster pour l'équité (chaque joueur pose le même nombre)
+      let questionCount = 20;
+      let activePlayers = [];
 
-      // Party Mode: Calculate asker rotation
-      let askerRotationFields = {};
       if (isPartyMode) {
         // Get active players (including host who was just added)
-        const activePlayers = [...players.filter(p => p.status !== 'disconnected' && p.status !== 'left')];
+        activePlayers = [...players.filter(p => p.status !== 'disconnected' && p.status !== 'left')];
 
         // Add host if not in players list yet (just added above)
         if (myUid && !activePlayers.find(p => p.uid === myUid)) {
@@ -257,6 +260,16 @@ export default function Room() {
             teamId: ""
           });
         }
+
+        // Calculer le nombre optimal de questions pour l'équité
+        questionCount = calculatePartyModeQuestions(activePlayers.length);
+      }
+
+      const selectedQuestions = shuffled.slice(0, questionCount);
+
+      // Party Mode: Calculate asker rotation
+      let askerRotationFields = {};
+      if (isPartyMode) {
 
         if (meta?.mode === 'équipes') {
           // Team mode: rotation by team
@@ -687,16 +700,12 @@ export default function Room() {
 
             {/* Fixed Start Button - Always at bottom */}
             <div className="lobby-footer">
-              <motion.button
-                className="lobby-start-btn"
-                onClick={handleStartGame}
+              <LobbyStartButton
+                gameColor="#8b5cf6"
+                icon="🚀"
                 disabled={!canStart}
-                whileHover={canStart ? { scale: 1.02 } : {}}
-                whileTap={canStart ? { scale: 0.98 } : {}}
-              >
-                <span className="btn-icon">🚀</span>
-                <span className="btn-text">Démarrer la partie</span>
-              </motion.button>
+                onClick={handleStartGame}
+              />
             </div>
           </>
         ) : (
@@ -803,10 +812,7 @@ export default function Room() {
             )}
 
             {/* Waiting Animation */}
-            <div className="waiting-compact">
-              <div className="waiting-pulse" />
-              <span className="waiting-label">En attente du lancement...</span>
-            </div>
+            <LobbyWaitingIndicator gameColor="#8b5cf6" />
           </div>
         )}
       </main>

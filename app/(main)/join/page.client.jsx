@@ -31,8 +31,9 @@ export default function JoinClient({ initialCode = "" }) {
   // Check if user is Pro
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
-  // Get pseudo from profile or fallback to cached pseudo, then displayName
-  const pseudo = profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Joueur';
+  // Get pseudo from hook (profile.pseudo > cachedPseudo > displayName > 'Joueur')
+  const pseudo = profile?.pseudo || cachedPseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
+  const hasValidPseudo = pseudo && pseudo !== 'Joueur';
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
@@ -44,6 +45,14 @@ export default function JoinClient({ initialCode = "" }) {
     });
     return () => unsub();
   }, []);
+
+  // Auto-open edit mode if pseudo is "Joueur" (force user to set a real name)
+  useEffect(() => {
+    if (!profileLoading && !hasValidPseudo && !isEditingPseudo) {
+      setEditedPseudo('');
+      setIsEditingPseudo(true);
+    }
+  }, [profileLoading, hasValidPseudo, isEditingPseudo]);
 
   // Start editing pseudo
   const startEditPseudo = useCallback(() => {
@@ -293,9 +302,9 @@ export default function JoinClient({ initialCode = "" }) {
           <button
             className="btn-join"
             onClick={join}
-            disabled={!code || !user || profileLoading || joining || isEditingPseudo}
+            disabled={!code || !user || profileLoading || joining || isEditingPseudo || !hasValidPseudo}
           >
-            {!user || profileLoading ? "Connexion..." : joining ? "Connexion..." : "Rejoindre la partie"}
+            {!user || profileLoading ? "Connexion..." : joining ? "Connexion..." : !hasValidPseudo ? "Entre ton pseudo" : "Rejoindre la partie"}
           </button>
 
           {/* Error message (below button) */}

@@ -13,6 +13,7 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
+import { GameLaunchCountdown } from "@/components/transitions";
 import LobbyHeader from "@/components/game/LobbyHeader";
 import PaywallModal from "@/components/ui/PaywallModal";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
@@ -25,23 +26,27 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
-import { ChevronRight, Music, Search, LogIn, Check, X } from "lucide-react";
+import { usePlaylistHistory } from "@/lib/hooks/usePlaylistHistory";
+import { ChevronRight, Music, Search, Check, X } from "lucide-react";
+import LobbyStartButton from "@/components/game/LobbyStartButton";
+import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useTeamMode } from "@/lib/hooks/useTeamMode";
-import { isSpotifyConnected, startSpotifyAuth, clearTokens } from "@/lib/spotify/auth";
-import { getCurrentUser, isPremiumUser, searchPlaylists, getUserPlaylists, getRandomTracksFromPlaylist } from "@/lib/spotify/api";
-import { GameLaunchCountdown } from "@/components/transitions";
+import {
+  searchPlaylists,
+  getFeaturedPlaylists,
+  getRandomTracksFromPlaylist,
+  formatTracksForGame
+} from "@/lib/deezer/api";
 import TeamModeSelector from "@/components/game/TeamModeSelector";
 import TeamPlayerView from "@/components/game/TeamPlayerView";
 import TeamTabs from "@/lib/components/TeamTabs";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
+import { calculatePartyModeQuestions } from "@/lib/config/rooms";
 
-// Nombre max de playlists pour non-Pro
-const MAX_PLAYLISTS_FREE = 3;
-
-export default function BlindTestLobby() {
+export default function DeezTestLobby() {
   const { code } = useParams();
   const router = useRouter();
   const toast = useToast();
@@ -53,23 +58,20 @@ export default function BlindTestLobby() {
   const [showPaywall, setShowPaywall] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showPlaylistSelector, setShowPlaylistSelector] = useState(false);
-  const roomWasValidRef = useRef(false);
-  const [myUid, setMyUid] = useState(null);
   const [showCountdown, setShowCountdown] = useState(false);
   const countdownTriggeredRef = useRef(false);
+  const roomWasValidRef = useRef(false);
+  const [myUid, setMyUid] = useState(null);
   const [isPlayerMissing, setIsPlayerMissing] = useState(false);
   const [rejoinError, setRejoinError] = useState(null);
 
-  // Spotify state
-  const [spotifyConnected, setSpotifyConnected] = useState(false);
-  const [spotifyUser, setSpotifyUser] = useState(null);
-  const [spotifyPremium, setSpotifyPremium] = useState(false);
+  // Deezer state (no auth needed!)
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [userPlaylists, setUserPlaylists] = useState([]);
+  const [featuredPlaylists, setFeaturedPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
-  const [playlistsUsed, setPlaylistsUsed] = useState(0);
+  const [isLoadingFeatured, setIsLoadingFeatured] = useState(false);
   const searchTimeoutRef = useRef(null);
 
   // Get user profile for subscription check
@@ -78,6 +80,9 @@ export default function BlindTestLobby() {
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
+
+  // Playlist history for avoiding repeated tracks
+  const { getPlayedTracks, markTracksAsPlayed } = usePlaylistHistory();
 
   // Centralized team mode hook
   const {
@@ -99,11 +104,9 @@ export default function BlindTestLobby() {
     isHost
   });
 
-  // Check if can use more playlists
-  const canUseMorePlaylists = userIsPro || playlistsUsed < MAX_PLAYLISTS_FREE;
 
   // Interstitial ad (unified hook)
-  useInterstitialAd({ context: 'BlindTest' });
+  useInterstitialAd({ context: 'DeezTest' });
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });
@@ -115,32 +118,20 @@ export default function BlindTestLobby() {
     }
   }, [code]);
 
-  // Check Spotify connection on mount
+  // Load featured playlists on mount
   useEffect(() => {
-    const checkSpotify = async () => {
-      if (await isSpotifyConnected()) {
-        setSpotifyConnected(true);
-        try {
-          const user = await getCurrentUser();
-          setSpotifyUser(user);
-          const premium = await isPremiumUser();
-          setSpotifyPremium(premium);
-
-          if (!premium) {
-            toast.warning("Spotify Premium requis pour jouer de la musique");
-          }
-
-          // Load user's playlists
-          const playlists = await getUserPlaylists(20);
-          setUserPlaylists(playlists);
-        } catch (error) {
-          console.error("Spotify user error:", error);
-          clearTokens();
-          setSpotifyConnected(false);
-        }
+    const loadFeatured = async () => {
+      setIsLoadingFeatured(true);
+      try {
+        const playlists = await getFeaturedPlaylists(20);
+        setFeaturedPlaylists(playlists);
+      } catch (error) {
+        console.error("Error loading featured playlists:", error);
+      } finally {
+        setIsLoadingFeatured(false);
       }
     };
-    checkSpotify();
+    loadFeatured();
   }, []);
 
   // Auth
@@ -167,7 +158,7 @@ export default function BlindTestLobby() {
     enabled: !!myUid
   });
 
-  // Player cleanup hook with auto-rejoin for hard refresh
+  // Player cleanup with auto-rejoin for hard refresh
   const { leaveRoom, attemptRejoin, isRejoining } = usePlayerCleanup({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
@@ -195,7 +186,7 @@ export default function BlindTestLobby() {
     }
   });
 
-  // Room guard - détecte kick et fermeture room
+  // Room guard
   const { markVoluntaryLeave } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
@@ -211,7 +202,7 @@ export default function BlindTestLobby() {
     isHost
   });
 
-  // DB listeners
+  // Firebase listeners
   useEffect(() => {
     if (!code) return;
 
@@ -219,12 +210,11 @@ export default function BlindTestLobby() {
       const m = snap.val();
       if (m) {
         if (m.closed) {
-          return; // useRoomGuard handles this
+          return;
         }
         setMeta(m);
         setTeams(m?.teams || {});
         setSelectedPlaylist(m?.playlist || null);
-        setPlaylistsUsed(m?.playlistsUsed || 0);
         roomWasValidRef.current = true;
       } else if (roomWasValidRef.current) {
         toast.warning("L'hôte a quitté la partie");
@@ -235,7 +225,6 @@ export default function BlindTestLobby() {
     const stateUnsub = onValue(ref(db, `rooms_blindtest/${code}/state`), (snap) => {
       const state = snap.val();
       if (state?.phase === "playing" && !countdownTriggeredRef.current) {
-        // Afficher le countdown avant de redirect
         countdownTriggeredRef.current = true;
         setShowCountdown(true);
       }
@@ -263,117 +252,207 @@ export default function BlindTestLobby() {
     searchTimeoutRef.current = setTimeout(async () => {
       setIsSearching(true);
       try {
-        const results = await searchPlaylists(query, 10);
+        const results = await searchPlaylists(query, 20);
         setSearchResults(results);
       } catch (error) {
         console.error("Search error:", error);
-        toast.error("Erreur de recherche Spotify");
+        toast.error("Erreur de recherche");
       } finally {
         setIsSearching(false);
       }
     }, 500);
   };
 
-  // Connect to Spotify
-  const handleConnectSpotify = async () => {
-    sessionStorage.setItem('blindtest_pending_room', code);
-    await startSpotifyAuth();
-  };
-
-  // Disconnect from Spotify
-  const handleDisconnectSpotify = () => {
-    clearTokens();
-    setSpotifyConnected(false);
-    setSpotifyUser(null);
-    setSpotifyPremium(false);
-    setUserPlaylists([]);
-    setSearchResults([]);
-    setSelectedPlaylist(null);
-    toast.info("Déconnecté de Spotify");
-  };
-
-  // Select a playlist
+  // Handle playlist selection
   const handleSelectPlaylist = async (playlist) => {
     if (!isHost) return;
 
-    if (!userIsPro && playlistsUsed >= MAX_PLAYLISTS_FREE && !selectedPlaylist) {
-      setShowPaywall(true);
-      return;
-    }
-
     try {
-      const tracks = await getRandomTracksFromPlaylist(playlist.id, 20);
+      setIsSearching(true);
+
+      // Get already-played track IDs to avoid repetition
+      const playedIds = getPlayedTracks(playlist.id);
+      const tracks = await getRandomTracksFromPlaylist(playlist.id, 20, playedIds);
 
       if (tracks.length < 5) {
         toast.error("Playlist trop petite (minimum 5 titres)");
+        setIsSearching(false);
         return;
       }
+
+      const formattedTracks = formatTracksForGame(tracks);
 
       const newPlaylist = {
         id: playlist.id,
         name: playlist.name,
         image: playlist.image,
-        totalTracks: tracks.length,
-        tracks: tracks.map(t => ({
-          spotifyUri: t.uri,
-          title: t.name,
+        totalTracks: formattedTracks.length,
+        tracks: formattedTracks.map(t => ({
+          id: t.id,
+          title: t.title,
           artist: t.artist,
-          album: t.album,
-          albumArt: t.albumArt,
-          durationMs: t.duration,
           previewUrl: t.previewUrl,
-        }))
+          albumArt: t.albumArt,
+        })),
       };
-
-      const newPlaylistsUsed = selectedPlaylist?.id !== playlist.id
-        ? playlistsUsed + 1
-        : playlistsUsed;
 
       await update(ref(db, `rooms_blindtest/${code}/meta`), {
         playlist: newPlaylist,
-        playlistsUsed: newPlaylistsUsed
       });
 
       setSelectedPlaylist(newPlaylist);
       setSearchQuery("");
       setSearchResults([]);
       setShowPlaylistSelector(false);
-      // Playlist sélectionnée - pas besoin de toast, l'UI se met à jour
     } catch (error) {
       console.error("Error selecting playlist:", error);
-      toast.error("Erreur lors de la sélection");
+      toast.error(error.message || "Erreur lors de la sélection");
+    } finally {
+      setIsSearching(false);
     }
   };
 
-  // Start game
+  // Start game - refresh track URLs before starting (they expire after ~24h)
+  const [isStarting, setIsStarting] = useState(false);
+
   const handleStartGame = async () => {
-    if (!isHost || !selectedPlaylist) return;
+    if (!isHost || !selectedPlaylist || isStarting) return;
 
-    if (!spotifyPremium) {
-      toast.error("Spotify Premium requis pour jouer");
-      return;
-    }
-
+    setIsStarting(true);
     try {
+      const isPartyMode = meta?.gameMasterMode === 'party';
+
+      // Party Mode: Add host as player if not already
+      if (isPartyMode && myUid) {
+        const hostAsPlayer = players.find(p => p.uid === myUid);
+        if (!hostAsPlayer) {
+          await set(ref(db, `rooms_blindtest/${code}/players/${myUid}`), {
+            uid: myUid,
+            name: meta?.hostName || userPseudo,
+            score: 0,
+            teamId: "",
+            blockedUntil: 0,
+            joinedAt: Date.now(),
+            status: 'active'
+          });
+        }
+      }
+
+      // Calculer le nombre de tracks
+      // Party Mode: ajuster pour l'équité (chaque joueur pose le même nombre)
+      let trackCount = selectedPlaylist.totalTracks || 20;
+      let activePlayers = [];
+
+      if (isPartyMode) {
+        // Get active players (including host who was just added)
+        activePlayers = [...players.filter(p => p.status !== 'disconnected' && p.status !== 'left')];
+
+        // Add host if not in players list yet (just added above)
+        if (myUid && !activePlayers.find(p => p.uid === myUid)) {
+          activePlayers.push({
+            uid: myUid,
+            name: meta?.hostName || userPseudo,
+            teamId: ""
+          });
+        }
+
+        // Calculer le nombre optimal de tracks pour l'équité
+        trackCount = calculatePartyModeQuestions(activePlayers.length);
+      }
+
+      // Refresh tracks to get fresh preview URLs (they expire!)
+      // Also exclude already-played tracks for variety
+      console.log("[DeezTest] Refreshing tracks before game start...");
+      const playedIds = getPlayedTracks(selectedPlaylist.id);
+      const freshTracks = await getRandomTracksFromPlaylist(
+        selectedPlaylist.id,
+        trackCount,
+        playedIds
+      );
+
+      const formattedTracks = formatTracksForGame(freshTracks);
+
+      // Update playlist with fresh URLs
+      const refreshedPlaylist = {
+        ...selectedPlaylist,
+        tracks: formattedTracks.map(t => ({
+          id: t.id,
+          title: t.title,
+          artist: t.artist,
+          previewUrl: t.previewUrl,
+          albumArt: t.albumArt,
+        })),
+      };
+
+      console.log("[DeezTest] Tracks refreshed, starting game...");
+
+      // Party Mode: Calculate asker rotation
+      let askerRotationFields = {};
+      if (isPartyMode) {
+
+        if (meta?.mode === 'équipes') {
+          // Team mode: rotation by team
+          const teamIds = Object.keys(meta?.teams || {}).filter(teamId => {
+            const teamPlayers = activePlayers.filter(p => p.teamId === teamId);
+            return teamPlayers.length > 0;
+          });
+
+          // Shuffle teams
+          for (let i = teamIds.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [teamIds[i], teamIds[j]] = [teamIds[j], teamIds[i]];
+          }
+
+          // Pick first asker from first team
+          const firstTeamPlayers = activePlayers.filter(p => p.teamId === teamIds[0]);
+          const firstAsker = firstTeamPlayers[Math.floor(Math.random() * firstTeamPlayers.length)];
+
+          askerRotationFields = {
+            askerRotation: teamIds,
+            askerIndex: 0,
+            currentAskerUid: firstAsker?.uid || null,
+            currentAskerTeamId: teamIds[0] || null
+          };
+        } else {
+          // Individual mode: rotation by player
+          const shuffledPlayers = [...activePlayers];
+          for (let i = shuffledPlayers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledPlayers[i], shuffledPlayers[j]] = [shuffledPlayers[j], shuffledPlayers[i]];
+          }
+          const rotation = shuffledPlayers.map(p => p.uid);
+
+          askerRotationFields = {
+            askerRotation: rotation,
+            askerIndex: 0,
+            currentAskerUid: rotation[0] || null,
+            currentAskerTeamId: null
+          };
+        }
+      }
+
+      // Update playlist and start game atomically
       await update(ref(db, `rooms_blindtest/${code}`), {
+        'meta/playlist': refreshedPlaylist,
         state: {
           phase: "playing",
           currentIndex: 0,
           revealed: false,
           snippetLevel: 0,
+          highestSnippetLevel: -1,
           lockUid: null,
           buzzBanner: "",
           elapsedAcc: 0,
           lastRevealAt: 0,
           pausedAt: null,
           lockedAt: null,
+          ...askerRotationFields
         }
       });
-
-      // Partie lancée - pas besoin de toast, redirection automatique
     } catch (error) {
       console.error('Erreur lors du lancement:', error);
-      toast.error('Erreur lors du lancement de la partie');
+      toast.error(error.message || 'Erreur lors du lancement de la partie');
+      setIsStarting(false);
     }
   };
 
@@ -387,30 +466,19 @@ export default function BlindTestLobby() {
 
   // Player exit handler (non-host)
   const handlePlayerExit = async () => {
-    markVoluntaryLeave(); // Évite le toast "expulsé par l'hôte"
+    markVoluntaryLeave();
     await leaveRoom();
     router.push('/home');
   };
 
-  // Handle playlist card click
-  const handlePlaylistCardClick = () => {
-    if (!spotifyConnected) {
-      handleConnectSpotify();
-    } else if (!spotifyPremium) {
-      toast.warning("Spotify Premium requis");
-    } else {
-      setShowPlaylistSelector(true);
-    }
-  };
-
-  const canStart = isHost && selectedPlaylist && spotifyPremium && players.length > 0;
+  const canStart = isHost && selectedPlaylist && players.length > 0;
 
   // Loading state
   if (!meta) {
     return (
-      <div className="lobby-container blindtest game-page">
+      <div className="lobby-container deeztest game-page">
         <div className="lobby-loading">
-          <div className="loading-spinner blindtest" />
+          <div className="loading-spinner deeztest" />
           <p>Chargement...</p>
         </div>
       </div>
@@ -418,7 +486,26 @@ export default function BlindTestLobby() {
   }
 
   return (
-    <div className="lobby-container blindtest game-page">
+    <div className="lobby-container deeztest game-page">
+      {/* Game Launch Countdown */}
+      <AnimatePresence>
+        {showCountdown && (
+          <GameLaunchCountdown
+            gameColor="#A238FF"
+            onComplete={() => {
+              // Party Mode: everyone goes to play (no separate host view)
+              if (meta?.gameMasterMode === 'party') {
+                router.push(`/blindtest/game/${code}/play`);
+              } else if (isHost) {
+                router.push(`/blindtest/game/${code}/host`);
+              } else {
+                router.push(`/blindtest/game/${code}/play`);
+              }
+            }}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Modals */}
       <PaywallModal
         isOpen={showPaywall}
@@ -429,7 +516,7 @@ export default function BlindTestLobby() {
       <HowToPlayModal
         isOpen={showHowToPlay}
         onClose={() => setShowHowToPlay(false)}
-        gameType="blindtest"
+        gameType="deeztest"
       />
       <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
 
@@ -440,24 +527,8 @@ export default function BlindTestLobby() {
         onRejoin={attemptRejoin}
         onGoHome={() => router.push('/home')}
         error={rejoinError}
-        gameColor="#10b981"
+        gameColor="#A238FF"
       />
-
-      {/* Countdown de lancement */}
-      <AnimatePresence>
-        {showCountdown && (
-          <GameLaunchCountdown
-            gameColor="#10b981"
-            onComplete={() => {
-              if (isHost) {
-                router.push(`/blindtest/game/${code}/host`);
-              } else {
-                router.push(`/blindtest/game/${code}/play`);
-              }
-            }}
-          />
-        )}
-      </AnimatePresence>
 
       {/* Playlist Selector Modal */}
       <AnimatePresence>
@@ -470,7 +541,7 @@ export default function BlindTestLobby() {
             onClick={() => setShowPlaylistSelector(false)}
           >
             <motion.div
-              className="playlist-modal blindtest"
+              className="playlist-modal deeztest"
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 50, scale: 0.95 }}
@@ -484,7 +555,7 @@ export default function BlindTestLobby() {
               </div>
 
               {/* Search Input */}
-              <div className="playlist-search-wrapper">
+              <div className="playlist-search-wrapper deeztest">
                 <Search size={18} className="search-icon" />
                 <input
                   type="text"
@@ -494,26 +565,19 @@ export default function BlindTestLobby() {
                   className="playlist-search-input"
                   autoFocus
                 />
-                {isSearching && <div className="search-spinner" />}
+                {isSearching && <div className="search-spinner deeztest" />}
               </div>
-
-              {/* Limit indicator for non-Pro */}
-              {!userIsPro && (
-                <div className="playlist-limit-notice">
-                  <span>{MAX_PLAYLISTS_FREE - playlistsUsed} playlist(s) restante(s)</span>
-                </div>
-              )}
 
               {/* Playlists List */}
               <div className="playlist-modal-content">
                 {searchResults.length > 0 ? (
                   <>
-                    <span className="playlist-section-label">Résultats</span>
+                    <span className="playlist-section-label deeztest">Résultats</span>
                     <div className="playlist-grid">
                       {searchResults.map(playlist => (
                         <motion.div
                           key={playlist.id}
-                          className="playlist-option"
+                          className="playlist-option deeztest"
                           onClick={() => handleSelectPlaylist(playlist)}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
@@ -521,27 +585,27 @@ export default function BlindTestLobby() {
                           {playlist.image ? (
                             <img src={playlist.image} alt={playlist.name} className="playlist-option-img" />
                           ) : (
-                            <div className="playlist-option-placeholder">
+                            <div className="playlist-option-placeholder deeztest">
                               <Music size={24} />
                             </div>
                           )}
                           <div className="playlist-option-info">
                             <span className="playlist-option-name">{playlist.name}</span>
-                            <span className="playlist-option-meta">{playlist.totalTracks} titres • {playlist.owner}</span>
+                            <span className="playlist-option-meta">{playlist.totalTracks} titres • {playlist.creator}</span>
                           </div>
                           <ChevronRight size={18} className="playlist-option-arrow" />
                         </motion.div>
                       ))}
                     </div>
                   </>
-                ) : !searchQuery && userPlaylists.length > 0 ? (
+                ) : !searchQuery && featuredPlaylists.length > 0 ? (
                   <>
-                    <span className="playlist-section-label">Tes playlists</span>
+                    <span className="playlist-section-label deeztest">Populaires</span>
                     <div className="playlist-grid">
-                      {userPlaylists.map(playlist => (
+                      {featuredPlaylists.map(playlist => (
                         <motion.div
                           key={playlist.id}
-                          className="playlist-option"
+                          className="playlist-option deeztest"
                           onClick={() => handleSelectPlaylist(playlist)}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
@@ -549,7 +613,7 @@ export default function BlindTestLobby() {
                           {playlist.image ? (
                             <img src={playlist.image} alt={playlist.name} className="playlist-option-img" />
                           ) : (
-                            <div className="playlist-option-placeholder">
+                            <div className="playlist-option-placeholder deeztest">
                               <Music size={24} />
                             </div>
                           )}
@@ -562,6 +626,11 @@ export default function BlindTestLobby() {
                       ))}
                     </div>
                   </>
+                ) : !searchQuery && isLoadingFeatured ? (
+                  <div className="playlist-empty">
+                    <div className="search-spinner deeztest" />
+                    <p>Chargement...</p>
+                  </div>
                 ) : searchQuery && !isSearching ? (
                   <div className="playlist-empty">
                     <Music size={32} />
@@ -581,7 +650,7 @@ export default function BlindTestLobby() {
 
       {/* Header */}
       <LobbyHeader
-        variant="blindtest"
+        variant="deeztest"
         code={code}
         isHost={isHost}
         players={players}
@@ -590,6 +659,7 @@ export default function BlindTestLobby() {
         onPlayerExit={handlePlayerExit}
         onShowHowToPlay={() => setShowHowToPlay(true)}
         joinUrl={joinUrl}
+        gameMode={meta?.gameMasterMode}
       />
 
       {/* Main Content */}
@@ -598,30 +668,36 @@ export default function BlindTestLobby() {
           // HOST VIEW
           <>
             <div className="lobby-content">
-              {/* Playlist Selector Card - Same style as Quiz Selector */}
+              {/* Playlist Selector Card */}
               <motion.div
-                className={`lobby-card quiz-selector blindtest ${!spotifyConnected ? 'not-connected' : ''}`}
-                onClick={handlePlaylistCardClick}
+                className="lobby-card quiz-selector deeztest"
+                onClick={() => setShowPlaylistSelector(true)}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
               >
                 <div className="quiz-card-content">
                   <div className="quiz-card-left">
-                    <span className="quiz-card-emoji">🎵</span>
+                    {/* Deezer Equalizer Logo - 4 bars: 1, 3, 2, 4 blocks (wide rectangles) */}
+                    <svg className="deezer-logo-icon" viewBox="0 0 44 28" width="44" height="28" fill="none">
+                      {/* Bar 1 - 1 block */}
+                      <rect x="0" y="23" width="9" height="5" rx="1" fill="#FF0092"/>
+                      {/* Bar 2 - 3 blocks */}
+                      <rect x="11" y="23" width="9" height="5" rx="1" fill="#FF0092"/>
+                      <rect x="11" y="16" width="9" height="5" rx="1" fill="#A238FF"/>
+                      <rect x="11" y="9" width="9" height="5" rx="1" fill="#C574FF"/>
+                      {/* Bar 3 - 2 blocks */}
+                      <rect x="22" y="23" width="9" height="5" rx="1" fill="#FF0092"/>
+                      <rect x="22" y="16" width="9" height="5" rx="1" fill="#A238FF"/>
+                      {/* Bar 4 - 4 blocks */}
+                      <rect x="33" y="23" width="9" height="5" rx="1" fill="#FF0092"/>
+                      <rect x="33" y="16" width="9" height="5" rx="1" fill="#A238FF"/>
+                      <rect x="33" y="9" width="9" height="5" rx="1" fill="#C574FF"/>
+                      <rect x="33" y="2" width="9" height="5" rx="1" fill="#C574FF"/>
+                    </svg>
                   </div>
                   <div className="quiz-card-center">
-                    <span className="quiz-card-label">Playlist</span>
-                    {!spotifyConnected ? (
-                      <>
-                        <h3 className="quiz-card-title">Connecter Spotify</h3>
-                        <p className="quiz-card-meta">Premium requis pour jouer</p>
-                      </>
-                    ) : !spotifyPremium ? (
-                      <>
-                        <h3 className="quiz-card-title">Spotify Free</h3>
-                        <p className="quiz-card-meta warning">Premium requis pour jouer</p>
-                      </>
-                    ) : selectedPlaylist ? (
+                    <span className="quiz-card-label">Playlist Deezer</span>
+                    {selectedPlaylist ? (
                       <>
                         <h3 className="quiz-card-title">{selectedPlaylist.name}</h3>
                         <p className="quiz-card-meta">{selectedPlaylist.totalTracks} titres</p>
@@ -634,51 +710,31 @@ export default function BlindTestLobby() {
                     )}
                   </div>
                   <div className="quiz-card-right">
-                    {spotifyConnected && spotifyPremium ? (
-                      <>
-                        <span className="quiz-change-hint">{selectedPlaylist ? 'Changer' : 'Choisir'}</span>
-                        <ChevronRight size={20} className="quiz-card-arrow" />
-                      </>
-                    ) : (
-                      <LogIn size={20} className="quiz-card-arrow" />
-                    )}
+                    <span className="quiz-change-hint">{selectedPlaylist ? 'Changer' : 'Choisir'}</span>
+                    <ChevronRight size={20} className="quiz-card-arrow" />
                   </div>
                 </div>
 
-                {/* Spotify status bar */}
-                {spotifyConnected && (
-                  <div className="spotify-status-bar">
-                    <div className="spotify-user-info">
-                      <Check size={14} />
-                      <span>{spotifyUser?.display_name || 'Connecté'}</span>
-                      {spotifyPremium && <span className="premium-tag">Premium</span>}
-                    </div>
-                    <button
-                      className="spotify-disconnect"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDisconnectSpotify();
-                      }}
-                    >
-                      Déconnecter
-                    </button>
+                {/* Deezer badge */}
+                <div className="deezer-status-bar">
+                  <div className="deezer-badge">
+                    <Check size={14} />
+                    <span>Powered by Deezer</span>
                   </div>
-                )}
+                </div>
               </motion.div>
 
-              {/* Mode Selector - Centralized Component */}
+              {/* Mode Selector - Compact Toggle */}
               <TeamModeSelector
                 mode={mode}
-                teamCount={teamCount}
                 onModeToggle={handleModeToggle}
-                onTeamCountChange={handleTeamCountChange}
                 disabled={false}
-                gameColor="#10b981"
+                gameColor="#A238FF"
               />
 
               {/* Team Tabs - Only in team mode */}
               {isTeamMode && teamModeTeams && Object.keys(teamModeTeams).length > 0 && (
-                <div className="lobby-card teams-card blindtest">
+                <div className="lobby-card teams-card deeztest">
                   <TeamTabs
                     teams={teamModeTeams}
                     players={players}
@@ -687,17 +743,19 @@ export default function BlindTestLobby() {
                     onAutoBalance={handleAutoBalance}
                     onResetTeams={handleResetTeams}
                     teamCount={teamCount}
+                    onTeamCountChange={handleTeamCountChange}
+                    gameColor="#A238FF"
                   />
                 </div>
               )}
 
               {/* Players Card - Show only in solo mode */}
               {!isTeamMode && (
-                <div className="lobby-card lobby-players lobby-card-flex blindtest">
+                <div className="lobby-card lobby-players lobby-card-flex deeztest">
                   <div className="card-header">
                     <span className="card-icon">🎮</span>
                     <span className="card-label">Joueurs</span>
-                    <span className="player-count-badge blindtest">{players.length}</span>
+                    <span className="player-count-badge deeztest">{players.length}</span>
                   </div>
                   {players.length === 0 ? (
                     <div className="empty-state">
@@ -710,12 +768,12 @@ export default function BlindTestLobby() {
                       {players.map((player, index) => (
                         <motion.div
                           key={player.uid}
-                          className="player-chip blindtest"
+                          className="player-chip deeztest"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: index * 0.05 }}
                         >
-                          <div className="chip-avatar blindtest">
+                          <div className="chip-avatar deeztest">
                             {player.name?.charAt(0)?.toUpperCase() || '?'}
                           </div>
                           <span className="chip-name">{player.name}</span>
@@ -729,21 +787,18 @@ export default function BlindTestLobby() {
 
             {/* Fixed Start Button */}
             <div className="lobby-footer">
-              <motion.button
-                className="lobby-start-btn blindtest"
-                onClick={handleStartGame}
+              <LobbyStartButton
+                gameColor="#A238FF"
+                icon="🎵"
+                label="Démarrer le Blind Test"
+                loadingLabel="Préparation..."
                 disabled={!canStart}
-                whileHover={canStart ? { scale: 1.02 } : {}}
-                whileTap={canStart ? { scale: 0.98 } : {}}
-              >
-                <span className="btn-icon">🎵</span>
-                <span className="btn-text">Démarrer le Blind Test</span>
-              </motion.button>
-              {!canStart && (
-                <p className="start-hint blindtest">
-                  {!spotifyConnected ? "Connecte Spotify pour continuer" :
-                   !spotifyPremium ? "Spotify Premium requis" :
-                   !selectedPlaylist ? "Sélectionne une playlist" :
+                loading={isStarting}
+                onClick={handleStartGame}
+              />
+              {!canStart && !isStarting && (
+                <p className="start-hint deeztest">
+                  {!selectedPlaylist ? "Sélectionne une playlist" :
                    players.length === 0 ? "En attente de joueurs" : ""}
                 </p>
               )}
@@ -751,14 +806,14 @@ export default function BlindTestLobby() {
           </>
         ) : (
           // PLAYER VIEW
-          <div className="lobby-player-view blindtest">
+          <div className="lobby-player-view deeztest">
             {/* Selected Playlist Info */}
             {selectedPlaylist && (
-              <div className="player-info-card blindtest">
+              <div className="player-info-card deeztest">
                 {selectedPlaylist.image ? (
                   <img src={selectedPlaylist.image} alt={selectedPlaylist.name} className="player-info-image" />
                 ) : (
-                  <div className="player-info-placeholder blindtest">
+                  <div className="player-info-placeholder deeztest">
                     <Music size={28} />
                   </div>
                 )}
@@ -781,23 +836,23 @@ export default function BlindTestLobby() {
             ) : (
               <>
                 {/* Players Header */}
-                <div className="players-header-card blindtest">
+                <div className="players-header-card deeztest">
                   <span className="players-icon">🎮</span>
                   <span className="players-count">{players.length}</span>
                   <span className="players-label">joueurs connectés</span>
                 </div>
 
                 {/* Players List */}
-                <div className="players-list-player blindtest">
+                <div className="players-list-player deeztest">
                   {players.map((player, index) => (
                     <motion.div
                       key={player.uid}
-                      className={`player-chip-full blindtest ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
+                      className={`player-chip-full deeztest ${player.uid === auth.currentUser?.uid ? 'is-me' : ''}`}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.03 }}
                     >
-                      <div className="chip-avatar-glow blindtest">
+                      <div className="chip-avatar-glow deeztest">
                         {player.name?.charAt(0)?.toUpperCase() || '?'}
                       </div>
                       <span className="chip-name-full">
@@ -811,10 +866,7 @@ export default function BlindTestLobby() {
             )}
 
             {/* Waiting Animation */}
-            <div className="waiting-compact blindtest">
-              <div className="waiting-pulse blindtest" />
-              <span className="waiting-label">En attente du lancement...</span>
-            </div>
+            <LobbyWaitingIndicator gameColor="#A238FF" />
           </div>
         )}
       </main>

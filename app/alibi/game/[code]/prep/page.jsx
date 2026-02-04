@@ -12,7 +12,7 @@ import {
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion } from 'framer-motion';
-import { Pause, Play, SkipForward } from 'lucide-react';
+import { Pause, Play, SkipForward, ChevronUp, ChevronDown } from 'lucide-react';
 
 // Dynamic import for DOMPurify - only loaded when needed
 let DOMPurifyModule = null;
@@ -50,6 +50,11 @@ export default function AlibiPrep() {
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef(null);
 
+  // Scroll indicators
+  const documentScrollRef = useRef(null);
+  const [canScrollUp, setCanScrollUp] = useState(false);
+  const [canScrollDown, setCanScrollDown] = useState(false);
+
   // Party Mode state
   const [isPartyMode, setIsPartyMode] = useState(false);
   const [myGroupId, setMyGroupId] = useState(null);
@@ -69,6 +74,29 @@ export default function AlibiPrep() {
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });
+
+  // Scroll indicators for document
+  useEffect(() => {
+    const container = documentScrollRef.current;
+    if (!container) return;
+
+    const checkScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      setCanScrollUp(scrollTop > 10);
+      setCanScrollDown(scrollTop < scrollHeight - clientHeight - 10);
+    };
+
+    checkScroll();
+    container.addEventListener('scroll', checkScroll);
+
+    const resizeObserver = new ResizeObserver(checkScroll);
+    resizeObserver.observe(container);
+
+    return () => {
+      container.removeEventListener('scroll', checkScroll);
+      resizeObserver.disconnect();
+    };
+  }, [sanitizedDoc, alibi]);
 
   // Host disconnect - ferme la room si l'hôte perd sa connexion
   useHostDisconnect({
@@ -425,8 +453,8 @@ export default function AlibiPrep() {
             )}
           </motion.div>
 
-          {/* Contrôles Hôte */}
-          {isHost && timeLeft > 0 && (
+          {/* Contrôles Hôte (Game Master Mode only) */}
+          {isHost && !isPartyMode && timeLeft > 0 && (
             <motion.div
               className="host-controls"
               initial={{ opacity: 0, y: 20 }}
@@ -447,88 +475,63 @@ export default function AlibiPrep() {
 
           {/* Vue SUSPECTS (Game Master Mode) ou vue PARTY MODE (tous les joueurs) */}
           {((myTeam === "suspects" && alibi) || (isPartyMode && currentAlibi)) && (
-            <motion.div
-              className={`alibi-card ${isPaused ? 'paused' : ''}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 }}
-            >
-              <div className="card-glow" />
+            <div className="alibi-card-wrapper">
+              {/* Scroll indicator - Up (outside card for visibility) */}
+              <div className={`scroll-indicator up ${canScrollUp ? 'visible' : ''}`}>
+                <ChevronUp size={20} />
+              </div>
 
-              {currentAlibi?.isNewFormat ? (
-                <div className="alibi-content">
-                  {/* Contexte / Accusation */}
-                  <div className="accusation-box">
-                    <div className="accusation-header">
-                      <span className="accusation-icon">⚠️</span>
-                      <span className="accusation-label">Accusation</span>
-                    </div>
-                    <p className="accusation-text">{currentAlibi.context}</p>
-                  </div>
+              <motion.div
+                className={`alibi-card ${isPaused ? 'paused' : ''}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+              >
+                <div className="card-glow" />
 
-                  {/* Document de l'accusé */}
-                  <div className="document-box">
-                    {renderHTML()}
-                  </div>
-                </div>
-              ) : (
-                <div className="alibi-content">
-                  <div className="document-box">
-                    <div className="scenario-text">
-                      {parseMarkdown(currentAlibi?.scenario)}
+                {currentAlibi?.isNewFormat ? (
+                  <div className="alibi-content">
+                    {/* Document de l'accusé */}
+                    <div className="document-box" ref={documentScrollRef}>
+                      {renderHTML()}
                     </div>
                   </div>
-                </div>
-              )}
-
-              {/* Overlay pause sur l'alibi */}
-              {isPaused && (
-                <motion.div
-                  className="pause-blur-overlay"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="pause-label">
-                    <Pause size={32} />
-                    <span>PAUSE</span>
+                ) : (
+                  <div className="alibi-content">
+                    <div className="document-box" ref={documentScrollRef}>
+                      <div className="scenario-text">
+                        {parseMarkdown(currentAlibi?.scenario)}
+                      </div>
+                    </div>
                   </div>
-                </motion.div>
-              )}
-            </motion.div>
+                )}
+
+                {/* Overlay pause sur l'alibi */}
+                {isPaused && (
+                  <motion.div
+                    className="pause-blur-overlay"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="pause-label">
+                      <Pause size={32} />
+                      <span>PAUSE</span>
+                    </div>
+                  </motion.div>
+                )}
+              </motion.div>
+
+              {/* Scroll indicator - Down (outside card for visibility) */}
+              <div className={`scroll-indicator down ${canScrollDown ? 'visible' : ''}`}>
+                <ChevronDown size={20} />
+              </div>
+            </div>
           )}
 
           {/* Vue INSPECTEURS (Game Master Mode only) */}
           {!isPartyMode && myTeam === "inspectors" && alibi && (
             <div className="inspector-section">
-              {/* Contexte */}
-              <motion.div
-                className="context-card"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <div className="card-glow inspector" />
-                <h2 className="section-title">📋 Contexte</h2>
-
-                {alibi.isNewFormat ? (
-                  <div className="context-content">
-                    <div className="accusation-box inspector">
-                      <div className="accusation-header">
-                        <span className="accusation-icon">⚠️</span>
-                        <span className="accusation-label">Accusation</span>
-                      </div>
-                      <p className="accusation-text">{alibi.context}</p>
-                    </div>
-                    <p className="inspector-summary">{alibi.inspector_summary}</p>
-                  </div>
-                ) : (
-                  <div className="scenario-text small">
-                    {parseMarkdown(alibi.scenario)}
-                  </div>
-                )}
-              </motion.div>
-
               {/* Questions */}
               <motion.div
                 className="questions-card"
@@ -797,7 +800,6 @@ export default function AlibiPrep() {
           width: 10px;
           height: 10px;
           border-radius: 50%;
-          box-shadow: 0 0 10px currentColor;
         }
 
         :global(.group-badge-prep .group-name) {
@@ -857,6 +859,46 @@ export default function AlibiPrep() {
             0 0 30px rgba(245, 158, 11, 0.2),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== ALIBI CARD WRAPPER (for scroll indicators) ===== */
+        :global(.alibi-card-wrapper) {
+          position: relative;
+          flex: 1;
+          min-height: 0;
+          display: flex;
+          flex-direction: column;
+        }
+
+        :global(.alibi-card-wrapper .scroll-indicator) {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 20;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: rgba(245, 158, 11, 0.9);
+          color: white;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+          box-shadow: 0 2px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        :global(.alibi-card-wrapper .scroll-indicator.up) {
+          top: 8px;
+        }
+
+        :global(.alibi-card-wrapper .scroll-indicator.down) {
+          bottom: 8px;
+        }
+
+        :global(.alibi-card-wrapper .scroll-indicator.visible) {
+          opacity: 1;
         }
 
         /* ===== CARDS ===== */
@@ -1010,10 +1052,6 @@ export default function AlibiPrep() {
           min-height: 0;
           overflow-y: auto;
           -webkit-overflow-scrolling: touch;
-          padding: 10px 12px;
-          background: rgba(255, 255, 255, 0.03);
-          border-radius: 10px;
-          border: 1px solid rgba(245, 158, 11, 0.1);
         }
 
         :global(.scenario-text) {

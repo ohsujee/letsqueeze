@@ -212,16 +212,16 @@ export default function GamePlayHeader({
           border-bottom-color: rgba(245, 158, 11, 0.2);
         }
 
-        .game-play-header.blindtest {
-          border-bottom-color: rgba(16, 185, 129, 0.2);
-        }
-
         .game-play-header.deeztest {
           border-bottom-color: rgba(162, 56, 255, 0.2);
         }
 
         .game-play-header.laloi {
           border-bottom-color: rgba(6, 182, 212, 0.2);
+        }
+
+        .game-play-header.mime {
+          border-bottom-color: rgba(0, 255, 102, 0.2);
         }
       `}</style>
     </header>

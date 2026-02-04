@@ -1,15 +1,15 @@
 import type { NextConfig } from 'next';
 
-// Content Security Policy - adapté pour Firebase, Spotify, et les besoins de l'app
+// Content Security Policy - adapté pour Firebase et les besoins de l'app
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://sdk.scdn.co https://www.googletagmanager.com https://js.stripe.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://js.stripe.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com data:;
-  img-src 'self' blob: data: https://*.scdn.co https://*.spotifycdn.com https://i.scdn.co https://mosaic.scdn.co https://image-cdn-*.spotifycdn.com https://firebasestorage.googleapis.com;
-  connect-src 'self' https://*.firebaseio.com wss://*.firebaseio.com https://*.googleapis.com https://api.spotify.com https://accounts.spotify.com https://api.revenuecat.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;
-  frame-src 'self' https://accounts.spotify.com https://sdk.scdn.co https://js.stripe.com;
-  media-src 'self' https://*.scdn.co https://*.spotifycdn.com blob:;
+  img-src 'self' blob: data: https://firebasestorage.googleapis.com;
+  connect-src 'self' https://*.firebaseio.com wss://*.firebaseio.com https://*.googleapis.com https://api.revenuecat.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;
+  frame-src 'self' https://js.stripe.com;
+  media-src 'self' blob:;
   object-src 'none';
   base-uri 'self';
   form-action 'self';

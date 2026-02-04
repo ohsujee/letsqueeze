@@ -755,11 +755,6 @@
   box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
-.connection-icon.spotify {
-  background: linear-gradient(135deg, #1DB954, #1ed760);
-  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
-}
-
 .connection-icon.deezer {
   background: linear-gradient(135deg, #ff0092, #a238ff);
   box-shadow: 0 4px 12px rgba(255, 0, 146, 0.3);

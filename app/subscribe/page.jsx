@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useSubscription } from '@/lib/hooks/useSubscription';
-import { PRO_PRICING, FREE_LIMITS } from '@/lib/subscription';
+import { PRO_PRICING } from '@/lib/subscription';
 import {
   initRevenueCat,
   purchaseSubscription,
@@ -17,72 +17,51 @@ import {
   Crown,
   Check,
   X,
-  Sparkles,
   Zap,
   Infinity,
   Ban,
   Package,
   BarChart3,
-  Headphones,
-  Palette,
-  RotateCcw
+  RotateCcw,
+  AlertTriangle,
+  Shield
 } from 'lucide-react';
 import { useAuthProtect } from '@/lib/hooks/useAuthProtect';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
 export default function SubscribePage() {
   const router = useRouter();
-  // Allow guests to view subscribe page
   const { user, loading } = useAuthProtect({ allowGuests: true });
   const [selectedPlan, setSelectedPlan] = useState('annual');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isRestoring, setIsRestoring] = useState(false);
-  const [contentCounts, setContentCounts] = useState({ quizPacks: 0, alibiScenarios: 0 });
   const [errorMessage, setErrorMessage] = useState('');
   const [isNative, setIsNative] = useState(false);
   const { isPro } = useSubscription(user);
 
-  // Initialize RevenueCat when user is loaded
   useEffect(() => {
     setIsNative(Capacitor.isNativePlatform());
-
     if (user?.uid) {
       initRevenueCat(user.uid);
     }
   }, [user]);
 
-  // Fetch content counts from manifests
-  useEffect(() => {
-    Promise.all([
-      fetch('/data/manifest.json').then(r => r.json()),
-      fetch('/data/alibis/manifest.json').then(r => r.json())
-    ]).then(([quizManifest, alibiManifest]) => {
-      setContentCounts({
-        quizPacks: quizManifest.quizzes?.length || 0,
-        alibiScenarios: alibiManifest.alibis?.length || 0
-      });
-    }).catch(console.error);
-  }, []);
-
   const handleSubscribe = async () => {
     setErrorMessage('');
     setIsProcessing(true);
 
-    // Check if we're on native platform
     if (!isNative) {
       setIsProcessing(false);
       setErrorMessage('Les achats sont disponibles uniquement dans l\'application mobile.');
       return;
     }
 
-    const packageType = selectedPlan; // 'monthly' or 'annual'
+    const packageType = selectedPlan;
     const result = await purchaseSubscription(packageType);
 
     setIsProcessing(false);
 
     if (result.success) {
-      // Pro status is now updated via RevenueCat webhook (server-side)
-      // Refresh the page to show Pro status
       router.refresh();
     } else if (result.error === 'cancelled') {
       // User cancelled - do nothing
@@ -100,7 +79,6 @@ export default function SubscribePage() {
     setIsRestoring(false);
 
     if (result.success && result.isPro) {
-      // Pro status is now updated via RevenueCat webhook (server-side)
       router.refresh();
     } else if (result.success && !result.isPro) {
       setErrorMessage('Aucun abonnement actif trouvé');
@@ -176,7 +154,6 @@ export default function SubscribePage() {
 
   return (
     <div className="subscribe-page">
-      {/* Animated Background */}
       <div className="subscribe-bg" />
       <div className="subscribe-glow" />
 
@@ -189,7 +166,7 @@ export default function SubscribePage() {
       </header>
 
       <main className="subscribe-content">
-        {/* Hero Section */}
+        {/* Hero Section - Emotional */}
         <motion.section
           className="hero-section"
           initial={{ opacity: 0, y: 20 }}
@@ -197,78 +174,43 @@ export default function SubscribePage() {
           transition={{ duration: 0.4 }}
         >
           <div className="hero-crown">
-            <Crown size={48} />
+            <Crown size={40} />
           </div>
-          <h2 className="hero-title">Gigglz Pro</h2>
-          <p className="hero-subtitle">Débloque tout le potentiel du jeu</p>
+          <h2 className="hero-title">Libère tout le fun</h2>
+          <p className="hero-subtitle">
+            Plus de limites. Plus de pubs.
+            <br />
+            <span className="hero-emphasis">Juste du jeu.</span>
+          </p>
         </motion.section>
 
-        {/* Benefits Grid */}
+        {/* Loss Aversion - Limitations */}
         <motion.section
-          className="benefits-section"
+          className="limitations-section"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <div className="benefits-grid">
-            <div className="benefit-item">
-              <div className="benefit-icon">
-                <Infinity size={20} />
-              </div>
-              <div className="benefit-content">
-                <span className="benefit-title">Parties illimitées</span>
-                <span className="benefit-desc">Joue autant que tu veux</span>
-              </div>
+          <h3 className="limitations-title">
+            <AlertTriangle size={16} />
+            Tes limitations en Free
+          </h3>
+          <div className="limitations-list">
+            <div className="limitation-item">
+              <X size={16} className="limitation-icon" />
+              <span>Contenu supplémentaire bloqué</span>
             </div>
-
-            <div className="benefit-item">
-              <div className="benefit-icon">
-                <Package size={20} />
-              </div>
-              <div className="benefit-content">
-                <span className="benefit-title">Tous les contenus</span>
-                <span className="benefit-desc">{contentCounts.quizPacks} packs + {contentCounts.alibiScenarios} alibis</span>
-              </div>
+            <div className="limitation-item">
+              <X size={16} className="limitation-icon" />
+              <span>Publicités entre chaque partie</span>
             </div>
-
-            <div className="benefit-item">
-              <div className="benefit-icon">
-                <Ban size={20} />
-              </div>
-              <div className="benefit-content">
-                <span className="benefit-title">Sans publicité</span>
-                <span className="benefit-desc">Expérience sans interruption</span>
-              </div>
+            <div className="limitation-item">
+              <X size={16} className="limitation-icon" />
+              <span>3 parties gratuites/jour par jeu</span>
             </div>
-
-            <div className="benefit-item">
-              <div className="benefit-icon">
-                <BarChart3 size={20} />
-              </div>
-              <div className="benefit-content">
-                <span className="benefit-title">Stats avancées</span>
-                <span className="benefit-desc">Analyse tes performances</span>
-              </div>
-            </div>
-
-            <div className="benefit-item">
-              <div className="benefit-icon">
-                <Palette size={20} />
-              </div>
-              <div className="benefit-content">
-                <span className="benefit-title">Cosmétiques Pro</span>
-                <span className="benefit-desc">Avatars et effets exclusifs</span>
-              </div>
-            </div>
-
-            <div className="benefit-item">
-              <div className="benefit-icon">
-                <Headphones size={20} />
-              </div>
-              <div className="benefit-content">
-                <span className="benefit-title">Support prioritaire</span>
-                <span className="benefit-desc">Aide rapide et dédiée</span>
-              </div>
+            <div className="limitation-item">
+              <X size={16} className="limitation-icon" />
+              <span>Pubs non-skippables pour jouer plus</span>
             </div>
           </div>
         </motion.section>
@@ -280,24 +222,31 @@ export default function SubscribePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
         >
-          {/* Annual Plan */}
+          {/* Annual Plan - Recommended */}
           <button
-            className={`plan-card ${selectedPlan === 'annual' ? 'selected' : ''}`}
+            className={`plan-card plan-card-annual ${selectedPlan === 'annual' ? 'selected' : ''}`}
             onClick={() => setSelectedPlan('annual')}
           >
-            <div className="plan-badge">-{PRO_PRICING.annual.savings}%</div>
-            <div className="plan-header">
+            <div className="plan-recommended">Recommandé</div>
+            <div className="plan-badge">6 mois offerts</div>
+
+            <div className="plan-main">
               <span className="plan-name">{PRO_PRICING.annual.label}</span>
-              <div className="plan-price">
-                <span className="price-amount">{PRO_PRICING.annual.price}€</span>
-                <span className="price-period">/an</span>
+              <div className="plan-price-row">
+                <span className="plan-price-equivalent">{PRO_PRICING.annual.monthlyEquivalent.toFixed(2).replace('.', ',')}€</span>
+                <span className="plan-price-period">/mois</span>
               </div>
-              <span className="plan-monthly">
-                soit {PRO_PRICING.annual.monthlyEquivalent.toFixed(2)}€/mois
+              <span className="plan-price-detail">
+                Facturé {PRO_PRICING.annual.price}€/an
               </span>
             </div>
+
+            <div className="plan-value">
+              <span>Le prix d'un café ☕</span>
+            </div>
+
             <div className="plan-check">
-              {selectedPlan === 'annual' && <Check size={20} />}
+              {selectedPlan === 'annual' ? <Check size={20} /> : null}
             </div>
           </button>
 
@@ -306,18 +255,37 @@ export default function SubscribePage() {
             className={`plan-card ${selectedPlan === 'monthly' ? 'selected' : ''}`}
             onClick={() => setSelectedPlan('monthly')}
           >
-            <div className="plan-header">
+            <div className="plan-main">
               <span className="plan-name">{PRO_PRICING.monthly.label}</span>
-              <div className="plan-price">
-                <span className="price-amount">{PRO_PRICING.monthly.price}€</span>
-                <span className="price-period">/mois</span>
+              <div className="plan-price-row">
+                <span className="plan-price-amount">{PRO_PRICING.monthly.price.toFixed(2).replace('.', ',')}€</span>
+                <span className="plan-price-period">/mois</span>
               </div>
-              <span className="plan-monthly">Sans engagement</span>
+              <span className="plan-price-detail">Sans engagement</span>
             </div>
+
             <div className="plan-check">
-              {selectedPlan === 'monthly' && <Check size={20} />}
+              {selectedPlan === 'monthly' ? <Check size={20} /> : null}
             </div>
           </button>
+        </motion.section>
+
+        {/* Trust Signals */}
+        <motion.section
+          className="trust-section"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.25 }}
+        >
+          <div className="trust-item">
+            <Shield size={14} />
+            <span>Paiement sécurisé</span>
+          </div>
+          <div className="trust-divider" />
+          <div className="trust-item">
+            <Check size={14} />
+            <span>Annule quand tu veux</span>
+          </div>
         </motion.section>
 
         {/* CTA Button */}
@@ -337,12 +305,7 @@ export default function SubscribePage() {
             ) : (
               <>
                 <Zap size={20} />
-                <span>
-                  Débloquer Pro - {selectedPlan === 'annual'
-                    ? `${PRO_PRICING.annual.price}€/an`
-                    : `${PRO_PRICING.monthly.price}€/mois`
-                  }
-                </span>
+                <span>Jouer sans limites</span>
               </>
             )}
           </button>
@@ -350,10 +313,6 @@ export default function SubscribePage() {
           {errorMessage && (
             <p className="error-message">{errorMessage}</p>
           )}
-
-          <p className="cta-legal">
-            Annulable à tout moment. Paiement sécurisé.
-          </p>
 
           {isNative && (
             <button
@@ -373,73 +332,60 @@ export default function SubscribePage() {
           )}
         </motion.section>
 
-        {/* Comparison Table */}
+        {/* What you get - Benefits */}
         <motion.section
-          className="comparison-section"
+          className="benefits-section"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
+          transition={{ duration: 0.4, delay: 0.35 }}
         >
-          <h3 className="comparison-title">Free vs Pro</h3>
-
-          <div className="comparison-table">
-            <div className="comparison-header">
-              <span></span>
-              <span className="comparison-free">Free</span>
-              <span className="comparison-pro">Pro</span>
+          <h3 className="benefits-title">Tout ce que tu débloques</h3>
+          <div className="benefits-list">
+            <div className="benefit-row">
+              <div className="benefit-icon"><Package size={18} /></div>
+              <div className="benefit-text">
+                <span className="benefit-label">Tout le contenu de tous les jeux</span>
+                <span className="benefit-desc">Accès complet actuel et à venir</span>
+              </div>
             </div>
-
-            <div className="comparison-row">
-              <span>Packs Quiz</span>
-              <span className="comparison-free">{FREE_LIMITS.quiz.packs}</span>
-              <span className="comparison-pro">{contentCounts.quizPacks}</span>
+            <div className="benefit-row">
+              <div className="benefit-icon"><Infinity size={18} /></div>
+              <div className="benefit-text">
+                <span className="benefit-label">Parties illimitées</span>
+                <span className="benefit-desc">Joue autant que tu veux, chaque jour</span>
+              </div>
             </div>
-
-            <div className="comparison-row">
-              <span>Scénarios Alibi</span>
-              <span className="comparison-free">{FREE_LIMITS.alibi.scenarios}</span>
-              <span className="comparison-pro">{contentCounts.alibiScenarios}</span>
+            <div className="benefit-row">
+              <div className="benefit-icon"><Ban size={18} /></div>
+              <div className="benefit-text">
+                <span className="benefit-label">Zéro publicité</span>
+                <span className="benefit-desc">Expérience fluide et sans interruption</span>
+              </div>
             </div>
-
-            <div className="comparison-row">
-              <span>Parties/jour</span>
-              <span className="comparison-free">3+3</span>
-              <span className="comparison-pro">
-                <Infinity size={16} />
-              </span>
-            </div>
-
-            <div className="comparison-row">
-              <span>Publicités</span>
-              <span className="comparison-free">Oui</span>
-              <span className="comparison-pro">
-                <Ban size={16} />
-              </span>
-            </div>
-
-            <div className="comparison-row">
-              <span>Stats avancées</span>
-              <span className="comparison-free">
-                <X size={16} className="icon-no" />
-              </span>
-              <span className="comparison-pro">
-                <Check size={16} />
-              </span>
-            </div>
-
-            <div className="comparison-row">
-              <span>Cosmétiques exclusifs</span>
-              <span className="comparison-free">
-                <X size={16} className="icon-no" />
-              </span>
-              <span className="comparison-pro">
-                <Check size={16} />
-              </span>
+            <div className="benefit-row">
+              <div className="benefit-icon"><BarChart3 size={18} /></div>
+              <div className="benefit-text">
+                <span className="benefit-label">Stats avancées</span>
+                <span className="benefit-desc">Analyse tes performances en détail</span>
+              </div>
             </div>
           </div>
         </motion.section>
 
-        {/* Bottom padding */}
+        {/* Solo Dev Note */}
+        <motion.section
+          className="solo-section"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+        >
+          <p>
+            Gigglz est développé avec passion par un seul dev en France.
+            <br />
+            Ton soutien compte vraiment. Merci !
+          </p>
+        </motion.section>
+
         <div className="bottom-padding" />
       </main>
 
@@ -454,6 +400,8 @@ const styles = `
     background: #0a0a0f;
     position: relative;
     overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .subscribe-bg {
@@ -473,7 +421,7 @@ const styles = `
     transform: translateX(-50%);
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
     animation: pulse 4s ease-in-out infinite;
@@ -493,7 +441,6 @@ const styles = `
     align-items: center;
     gap: 16px;
     padding: 16px 20px;
-    padding-top: 16px;
     background: rgba(10, 10, 15, 0.9);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -540,14 +487,15 @@ const styles = `
   /* Hero */
   .hero-section {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
   }
 
   .hero-crown {
+    position: relative;
     width: 80px;
     height: 80px;
     margin: 0 auto 16px;
-    border-radius: 20px;
+    border-radius: 24px;
     background: linear-gradient(135deg, #8b5cf6, #7c3aed);
     display: flex;
     align-items: center;
@@ -561,7 +509,7 @@ const styles = `
 
   .hero-title {
     font-family: 'Bungee', cursive;
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 400;
     color: white;
     margin: 0 0 8px 0;
@@ -573,59 +521,54 @@ const styles = `
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.6);
     margin: 0;
+    line-height: 1.5;
   }
 
-  /* Benefits */
-  .benefits-section {
-    margin-bottom: 32px;
+  .hero-emphasis {
+    color: white;
+    font-weight: 600;
   }
 
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  /* Limitations Section */
+  .limitations-section {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 24px;
   }
 
-  .benefit-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-  }
-
-  .benefit-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: rgba(139, 92, 246, 0.15);
-    border: 1px solid rgba(139, 92, 246, 0.2);
+  .limitations-title {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: #a78bfa;
-    flex-shrink: 0;
-  }
-
-  .benefit-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .benefit-title {
+    gap: 8px;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 0.8125rem;
     font-weight: 600;
-    color: white;
+    color: #f87171;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 12px 0;
   }
 
-  .benefit-desc {
+  .limitations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .limitation-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-family: 'Inter', sans-serif;
-    font-size: 0.6875rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .limitation-icon {
+    color: #ef4444;
+    flex-shrink: 0;
   }
 
   /* Pricing */
@@ -633,7 +576,7 @@ const styles = `
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 
   .plan-card {
@@ -662,59 +605,90 @@ const styles = `
     box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
   }
 
+  .plan-card-annual {
+    padding-top: 32px;
+  }
+
+  .plan-recommended {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 6px;
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+    border-radius: 14px 14px 0 0;
+  }
+
   .plan-badge {
     position: absolute;
-    top: -10px;
+    top: 32px;
     right: 16px;
-    padding: 4px 12px;
+    padding: 4px 10px;
     background: linear-gradient(135deg, #fbbf24, #f59e0b);
     color: #1a1a2e;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 0.625rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
     border-radius: 999px;
     box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
   }
 
-  .plan-header {
+  .plan-main {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
   }
 
   .plan-name {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
-  .plan-price {
+  .plan-price-row {
     display: flex;
     align-items: baseline;
-    gap: 4px;
+    gap: 2px;
   }
 
-  .price-amount {
+  .plan-price-equivalent,
+  .plan-price-amount {
     font-family: 'Bungee', cursive;
     font-size: 1.75rem;
     color: white;
   }
 
-  .price-period {
+  .plan-price-period {
     font-family: 'Inter', sans-serif;
     font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.5);
   }
 
-  .plan-monthly {
+  .plan-price-detail {
     font-family: 'Inter', sans-serif;
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.4);
+  }
+
+  .plan-value {
+    position: absolute;
+    bottom: 16px;
+    right: 50px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
   }
 
   .plan-check {
@@ -727,12 +701,42 @@ const styles = `
     justify-content: center;
     color: transparent;
     transition: all 0.2s ease;
+    flex-shrink: 0;
   }
 
   .plan-card.selected .plan-check {
     background: #8b5cf6;
     border-color: #8b5cf6;
     color: white;
+  }
+
+  /* Trust Section */
+  .trust-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 0;
+    margin-bottom: 16px;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .trust-item svg {
+    color: rgba(139, 92, 246, 0.7);
+  }
+
+  .trust-divider {
+    width: 1px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.1);
   }
 
   /* CTA */
@@ -798,14 +802,6 @@ const styles = `
     to { transform: rotate(360deg); }
   }
 
-  .cta-legal {
-    text-align: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.4);
-    margin-top: 12px;
-  }
-
   .error-message {
     text-align: center;
     font-family: 'Inter', sans-serif;
@@ -825,7 +821,7 @@ const styles = `
     gap: 8px;
     width: 100%;
     padding: 14px;
-    margin-top: 16px;
+    margin-top: 12px;
     background: transparent;
     color: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -855,97 +851,82 @@ const styles = `
     animation: spin 0.8s linear infinite;
   }
 
-  /* Comparison */
-  .comparison-section {
+  /* Benefits Section */
+  .benefits-section {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 16px;
     padding: 20px;
+    margin-bottom: 20px;
   }
 
-  .comparison-title {
+  .benefits-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 0.875rem;
     font-weight: 700;
     color: white;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     margin: 0 0 16px 0;
     text-align: center;
   }
 
-  .comparison-table {
+  .benefits-list {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 14px;
   }
 
-  .comparison-header,
-  .comparison-row {
-    display: grid;
-    grid-template-columns: 1fr 60px 60px;
-    gap: 8px;
-    padding: 10px 0;
-    align-items: center;
+  .benefit-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
   }
 
-  .comparison-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 12px;
-    margin-bottom: 4px;
-  }
-
-  .comparison-header span {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    text-align: center;
-  }
-
-  .comparison-header .comparison-free {
-    color: rgba(255, 255, 255, 0.5);
-  }
-
-  .comparison-header .comparison-pro {
-    color: #a78bfa;
-  }
-
-  .comparison-row {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .comparison-row:last-child {
-    border-bottom: none;
-  }
-
-  .comparison-row span:first-child {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  .comparison-row .comparison-free,
-  .comparison-row .comparison-pro {
-    text-align: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8125rem;
+  .benefit-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #a78bfa;
+    flex-shrink: 0;
   }
 
-  .comparison-row .comparison-free {
+  .benefit-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 2px;
+  }
+
+  .benefit-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+  }
+
+  .benefit-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Solo Dev Section */
+  .solo-section {
+    text-align: center;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .solo-section p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
     color: rgba(255, 255, 255, 0.4);
-  }
-
-  .comparison-row .comparison-pro {
-    color: #22c55e;
-  }
-
-  .comparison-row .icon-no {
-    color: rgba(255, 255, 255, 0.3);
+    margin: 0;
+    line-height: 1.6;
   }
 
   /* Pro Active Card */
@@ -1034,16 +1015,26 @@ const styles = `
 
   /* Mobile adjustments */
   @media (max-width: 380px) {
-    .benefits-grid {
-      grid-template-columns: 1fr;
-    }
-
     .hero-title {
       font-size: 1.5rem;
     }
 
-    .price-amount {
+    .plan-price-equivalent,
+    .plan-price-amount {
       font-size: 1.5rem;
+    }
+
+    .trust-section {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .trust-divider {
+      display: none;
+    }
+
+    .plan-value {
+      display: none;
     }
   }
 `;

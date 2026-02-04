@@ -1,0 +1,12 @@
+/* Mime Play Page */
+
+.mime-play {
+  min-height: var(--app-height, 100vh);
+  background: var(--bg-primary, #0a0a0f);
+}
+
+.mime-play.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

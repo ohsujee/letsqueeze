@@ -7,7 +7,7 @@ import { getGameById } from "@/lib/config/games";
  * JoinLoadingScreen - Displays a Game Card with loading animation
  * while the ad plays and the lobby loads in background.
  *
- * @param {string} gameId - The game ID (quiz, blindtest, deeztest, alibi)
+ * @param {string} gameId - The game ID (quiz, deeztest, alibi)
  */
 export default function JoinLoadingScreen({ gameId }) {
   const game = getGameById(gameId);

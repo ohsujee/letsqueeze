@@ -11,9 +11,6 @@ import { checkRateLimit, getClientIP, rateLimitResponse } from './lib/rate-limit
  * Routes et leurs configurations de rate limit
  */
 const ROUTE_CONFIGS = [
-  // Spotify token - modéré
-  { pattern: /^\/api\/spotify\/token/, action: 'spotifyToken' },
-
   // Autres API - standard
   { pattern: /^\/api\//, action: 'api' },
 ];

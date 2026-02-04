@@ -71,7 +71,7 @@ export default function LegalPage() {
           <h2>Services tiers</h2>
           <p>L'application utilise les services suivants :</p>
           <ul>
-            <li><strong>Spotify</strong> - Intégration musicale pour le Blind Test (Spotify AB)</li>
+            <li><strong>Deezer</strong> - Intégration musicale pour le Blind Test (Deezer SA)</li>
             <li><strong>Firebase</strong> - Authentification et base de données (Google LLC)</li>
             <li><strong>RevenueCat</strong> - Gestion des abonnements in-app</li>
           </ul>
