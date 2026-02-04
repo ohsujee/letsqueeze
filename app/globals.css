@@ -263,6 +263,22 @@ p {
 .safe-bottom-lg { padding-bottom: calc(24px + var(--safe-area-bottom, 0px)) !important; }
 .safe-bottom-xl { padding-bottom: calc(32px + var(--safe-area-bottom, 0px)) !important; }
 
+/* Étendre le background d'un footer dans la safe-area (évite la coupure nette) */
+.footer-bg-extend {
+  position: relative;
+}
+.footer-bg-extend::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--safe-area-bottom, 0px);
+  transform: translateY(100%);
+  background: inherit;
+  pointer-events: none;
+}
+
 .space-y-2 > * + * { margin-top: var(--space-2); }
 .space-y-3 > * + * { margin-top: var(--space-3); }
 .space-y-4 > * + * { margin-top: var(--space-4); }
@@ -9000,11 +9016,25 @@ input[type="text"].game-search-input:focus,
 /* Themes Footer / Validate Button - toujours visible en bas */
 .quiz-themes-footer {
   flex-shrink: 0; /* Ne jamais shrink */
+  position: relative;
   padding: 0.75rem 1rem 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(20, 20, 30, 0.98);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+}
+
+/* Extension du fond dans la safe-area bottom */
+.quiz-themes-footer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--safe-area-bottom, 0px);
+  transform: translateY(100%);
+  background: rgba(20, 20, 30, 0.98);
+  pointer-events: none;
 }
 
 .quiz-validate-btn {
