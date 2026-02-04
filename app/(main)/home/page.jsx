@@ -456,7 +456,7 @@ function HomePageContent() {
           gameColor={transitionConfig.color}
           playerName={transitionConfig.playerName}
           onComplete={handleTransitionComplete}
-          duration={2500}
+          duration={2000}
         />
       )}
     </div>

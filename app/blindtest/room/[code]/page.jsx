@@ -797,12 +797,6 @@ export default function DeezTestLobby() {
                 loading={isStarting}
                 onClick={handleStartGame}
               />
-              {!canStart && !isStarting && (
-                <p className="start-hint deeztest">
-                  {!selectedPlaylist ? "Sélectionne une playlist" :
-                   players.length === 0 ? "En attente de joueurs" : ""}
-                </p>
-              )}
             </div>
           </>
         ) : (
