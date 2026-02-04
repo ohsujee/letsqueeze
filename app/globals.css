@@ -15,10 +15,9 @@
    🎯 BASE & RESET
    =========================================== */
 
-:root {
-  /* App height - Updated by JS for real viewport height on mobile */
-  --app-height: 100dvh;
-}
+/* --app-height est défini dans theme.css avec les safe-areas
+   NE PAS redéfinir ici - cela écraserait la valeur correcte
+   La valeur JS de AppShell override dynamiquement si nécessaire */
 
 * {
   box-sizing: border-box;
@@ -84,10 +83,17 @@ body > * {
       }
       → La page peut scroller verticalement
 
-   3. NE PAS utiliser dans les pages :
-      - height: 100vh ou 100dvh (géré par AppShell)
-      - padding-top: env(safe-area-inset-top) (géré par AppShell)
-      - overflow: hidden sur html/body (géré globalement)
+   ⛔ INTERDIT - Ne JAMAIS utiliser dans les pages/composants :
+      ❌ height: 100vh / 100dvh / 100svh
+      ❌ min-height: 100vh / 100dvh / 100svh
+      ❌ padding-top: env(safe-area-inset-top)
+
+      → Ces valeurs causent des bugs de layout sur Android après navigation
+      → L'AppShell gère déjà tout ça via --app-height et padding-top
+
+   ✅ UTILISER À LA PLACE :
+      → min-height: var(--app-height, 100dvh) si vraiment nécessaire
+      → Mais préférer flex: 1; min-height: 0; dans les conteneurs
 
    =========================================== */
 
@@ -97,7 +103,8 @@ body > * {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding-top: env(safe-area-inset-top, 0px);
+  /* Sur Android, env(safe-area-inset-top) retourne 0, on utilise le fallback JS */
+  padding-top: max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px));
   padding-bottom: var(--safe-area-bottom);
 }
 

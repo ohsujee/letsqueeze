@@ -36,7 +36,7 @@ export default function ComingSoonPage() {
   return (
     <div style={{
       position: 'relative',
-      minHeight: '100dvh',
+      minHeight: 'var(--app-height, 100dvh)',
       background: '#0a0a0f',
       overflow: 'hidden',
     }}>
@@ -61,7 +61,7 @@ export default function ComingSoonPage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: '100dvh',
+          minHeight: 'var(--app-height, 100dvh)',
           padding: '2rem',
           textAlign: 'center',
           gap: '1.5rem',

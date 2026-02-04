@@ -56,7 +56,7 @@ export default function MimeGame({ selectedThemes, onBackToLobby }: MimeGameProp
 
   return (
     <div style={{
-      minHeight: '100dvh',
+      minHeight: 'var(--app-height, 100dvh)',
       display: 'flex',
       flexDirection: 'column',
       background: '#0a0a0f',

@@ -230,8 +230,7 @@ export default function AlibiPartyEndScreen({
 
       <style jsx>{`
         .alibi-end-screen {
-          min-height: 100%;
-          min-height: 100dvh;
+          min-height: var(--app-height, 100dvh);
           display: flex;
           flex-direction: column;
           align-items: center;

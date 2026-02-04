@@ -774,10 +774,18 @@ Cette page:
 
 ### AppShell & Viewport
 
-- Utiliser `height: var(--app-height)` (PAS 100vh)
-- `flex: 1; min-height: 0;` pour les pages
-- PAS de `padding-top/bottom: env(safe-area-inset-*)` dans les composants
-- L'AppShell gère automatiquement les safe-areas (top ET bottom) via `globals.css`
+**⛔ INTERDIT dans les pages/composants:**
+- `height: 100vh` / `100dvh` / `100svh`
+- `min-height: 100vh` / `100dvh` / `100svh`
+- `padding-top: env(safe-area-inset-top)`
+
+> Ces valeurs causent des bugs de layout sur Android après navigation.
+> L'AppShell gère déjà la hauteur et les safe-areas.
+
+**✅ À utiliser:**
+- `flex: 1; min-height: 0;` pour les conteneurs de page
+- `var(--app-height, 100dvh)` si vraiment besoin d'une hauteur fixe
+- L'AppShell gère automatiquement les safe-areas via `globals.css`
 
 ### Flags Pub
 

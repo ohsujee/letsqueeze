@@ -17,8 +17,9 @@ export default function MainLayout({ children }) {
         .main-layout {
           display: flex;
           flex-direction: column;
-          min-height: 100%;
-          min-height: 100dvh;
+          flex: 1;
+          min-height: 0;
+          /* JAMAIS utiliser 100vh/100dvh ici - l'AppShell gère la hauteur */
         }
 
         .main-content {
