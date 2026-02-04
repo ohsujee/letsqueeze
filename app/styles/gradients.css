@@ -23,7 +23,7 @@
   background: linear-gradient(135deg, #A238FF, #FF0092);
 }
 
-.gradient-laloi {
+.gradient-laregle {
   background: linear-gradient(135deg, #06b6d4, #0891b2);
 }
 
@@ -47,7 +47,7 @@
   background: linear-gradient(180deg, rgba(162, 56, 255, 0.15) 0%, transparent 50%);
 }
 
-.gradient-laloi-subtle {
+.gradient-laregle-subtle {
   background: linear-gradient(180deg, rgba(6, 182, 212, 0.15) 0%, transparent 50%);
 }
 
@@ -91,7 +91,7 @@
   background: radial-gradient(circle at 50% 0%, rgba(162, 56, 255, 0.2) 0%, transparent 50%);
 }
 
-.bg-radial-laloi {
+.bg-radial-laregle {
   background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.2) 0%, transparent 50%);
 }
 
@@ -148,7 +148,7 @@
   background-clip: text;
 }
 
-.text-gradient-laloi {
+.text-gradient-laregle {
   background: linear-gradient(135deg, #06b6d4, #22d3ee);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

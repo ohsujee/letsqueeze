@@ -243,9 +243,9 @@ const GAMES_DATA = {
     ]
   },
 
-  laloi: {
-    id: 'laloi',
-    title: 'La Loi',
+  laregle: {
+    id: 'laregle',
+    title: 'La Règle',
     subtitle: 'Trouve la règle secrète !',
     accentColor: '#06b6d4',
     accentGradient: 'linear-gradient(135deg, #06b6d4, #0891b2)',

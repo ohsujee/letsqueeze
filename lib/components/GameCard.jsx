@@ -49,7 +49,7 @@ export default function GameCard({
       case 'deeztest': return 'linear-gradient(135deg, #A238FF, #FF0092)';
       case 'memory': return 'linear-gradient(135deg, #ec4899, #db2777)';
       case 'mime': return 'linear-gradient(135deg, #84cc16, #65a30d)';
-      case 'laloi': return 'linear-gradient(135deg, #06b6d4, #0891b2)';
+      case 'laregle': return 'linear-gradient(135deg, #06b6d4, #0891b2)';
       default: return 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
     }
   };

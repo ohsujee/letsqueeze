@@ -68,7 +68,7 @@ export default function LoadingScreen({
           );
         }
 
-        .loading-screen.laloi {
+        .loading-screen.laregle {
           background: radial-gradient(
             ellipse at center,
             rgba(6, 182, 212, 0.1) 0%,

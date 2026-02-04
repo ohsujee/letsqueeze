@@ -716,7 +716,7 @@ L'AAB est dans: `android/app/build/outputs/bundle/release/app-release.aab`
 | BlindTest - message "non supporté" | [ ] | [ ] |
 | Alibi - partie complète | [ ] | [ ] |
 | Mime - partie locale | [ ] | [ ] |
-| La Loi - partie complète | [ ] | [ ] |
+| La Règle - partie complète | [ ] | [ ] |
 | Pub interstitielle affichée | [ ] | [ ] |
 | Pub rewarded fonctionne | [ ] | [ ] |
 | Achat abonnement | [ ] | [ ] |

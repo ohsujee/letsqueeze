@@ -59,7 +59,7 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
       icon: "folder",
       particleColor: "#fbbf24"
     },
-    "laloi": {
+    "laregle": {
       gradient: ["rgba(6, 182, 212, 0.97)", "rgba(8, 145, 178, 0.97)"],
       glow: "rgba(6, 182, 212, 0.6)",
       accent: "#06b6d4",

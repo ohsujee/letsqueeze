@@ -1,5 +1,5 @@
 /**
- * La Loi - Rules Database
+ * La Règle - Rules Database
  * 110+ rules organized by category
  */
 

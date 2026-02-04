@@ -5862,7 +5862,7 @@ input[type="text"].game-search-input:focus,
     0 0 60px #ec4899;
 }
 
-[data-game="laloi"] .game-name {
+[data-game="laregle"] .game-name {
   text-shadow:
     0 0 10px #22d3ee,
     0 0 20px #22d3ee,
@@ -9235,30 +9235,30 @@ input[type="text"].game-search-input:focus,
   box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
 }
 
-/* Header - La Loi variant */
-.lobby-header.laloi {
+/* Header - La Règle variant */
+.lobby-header.laregle {
   border-bottom-color: rgba(6, 182, 212, 0.15);
 }
 
-.lobby-header.laloi .lobby-title {
+.lobby-header.laregle .lobby-title {
   text-shadow:
     0 0 10px rgba(6, 182, 212, 0.5),
     0 0 20px rgba(6, 182, 212, 0.3),
     0 0 40px rgba(6, 182, 212, 0.2);
 }
 
-.lobby-header.laloi .room-code {
+.lobby-header.laregle .room-code {
   color: #22d3ee;
   text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
 }
 
-.lobby-header.laloi .help-btn {
+.lobby-header.laregle .help-btn {
   background: rgba(6, 182, 212, 0.15);
   border: 2px solid rgba(6, 182, 212, 0.3);
   color: #22d3ee;
 }
 
-.lobby-header.laloi .help-btn:hover {
+.lobby-header.laregle .help-btn:hover {
   background: rgba(6, 182, 212, 0.25);
   border-color: rgba(6, 182, 212, 0.5);
   box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);

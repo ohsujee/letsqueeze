@@ -2,7 +2,7 @@
   "parameters": {
     "games_config": {
       "defaultValue": {
-        "value": "{\"laloi\":{\"releaseDate\":\"2026-02-12T00:00:00+01:00\"},\"memory\":{\"comingSoon\":true}}"
+        "value": "{\"laregle\":{\"releaseDate\":\"2026-02-12T00:00:00+01:00\"},\"memory\":{\"comingSoon\":true}}"
       },
       "description": "Configuration des jeux (available, comingSoon, releaseDate). Format: { gameId: { available, comingSoon, releaseDate } }"
     },

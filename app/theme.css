@@ -39,10 +39,10 @@
   --deeztest-tertiary: #C574FF;
   --deeztest-glow: rgba(162, 56, 255, 0.5);
 
-  --laloi-primary: #06b6d4;
-  --laloi-secondary: #0891b2;
-  --laloi-dark: #0e7490;
-  --laloi-glow: rgba(6, 182, 212, 0.5);
+  --laregle-primary: #06b6d4;
+  --laregle-secondary: #0891b2;
+  --laregle-dark: #0e7490;
+  --laregle-glow: rgba(6, 182, 212, 0.5);
 
   --success: #22c55e;
   --success-glow: #4ade80;
@@ -104,7 +104,7 @@
   --shadow-glow-quiz: 0 0 20px rgba(139, 92, 246, 0.4), 0 4px 15px rgba(139, 92, 246, 0.3);
   --shadow-glow-alibi: 0 0 20px rgba(245, 158, 11, 0.4), 0 4px 15px rgba(245, 158, 11, 0.3);
   --shadow-glow-deeztest: 0 0 20px rgba(162, 56, 255, 0.4), 0 4px 15px rgba(162, 56, 255, 0.3);
-  --shadow-glow-laloi: 0 0 20px rgba(6, 182, 212, 0.4), 0 4px 15px rgba(6, 182, 212, 0.3);
+  --shadow-glow-laregle: 0 0 20px rgba(6, 182, 212, 0.4), 0 4px 15px rgba(6, 182, 212, 0.3);
   --shadow-glow-mime: 0 0 20px rgba(0, 255, 102, 0.4), 0 4px 15px rgba(0, 255, 102, 0.3);
 
   /* Glassmorphism */

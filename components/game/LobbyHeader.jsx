@@ -9,7 +9,7 @@ import { HelpCircle } from 'lucide-react';
  * LobbyHeader - Header unifié pour tous les lobbys de jeux
  *
  * @param {Object} props
- * @param {'quiz'|'deeztest'|'alibi'|'laloi'|'mime'} props.variant - Thème couleur
+ * @param {'quiz'|'deeztest'|'alibi'|'laregle'|'mime'} props.variant - Thème couleur
  * @param {string} props.code - Code de la room
  * @param {boolean} props.isHost - Si l'utilisateur est l'hôte
  * @param {Array} props.players - Liste des joueurs
@@ -37,7 +37,7 @@ export default function LobbyHeader({
     quiz: 'rooms',
     deeztest: 'rooms_blindtest',
     alibi: 'rooms_alibi',
-    laloi: 'rooms_laloi',
+    laregle: 'rooms_laregle',
     mime: 'rooms_mime'
   };
 

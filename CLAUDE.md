@@ -63,7 +63,7 @@
 | Quiz (Buzzer) | `/room/[code]` | `rooms/` | Multiplayer |
 | DeezTest (Deezer) | `/deeztest/room/[code]` | `rooms_deeztest/` | Multiplayer |
 | Alibi | `/alibi/room/[code]` | `rooms_alibi/` | Multiplayer |
-| La Loi | `/laloi/room/[code]` | `rooms_laloi/` | Multiplayer |
+| La Règle | `/laregle/room/[code]` | `rooms_laregle/` | Multiplayer |
 | Mime | `/mime` | Aucun (local) | Local |
 
 ### Structure Pages (Multiplayer)
@@ -318,7 +318,7 @@ Variables env: `NEXT_PUBLIC_FOUNDER_UIDS`, `NEXT_PUBLIC_FOUNDER_EMAILS` → Pro 
 
 **Formats:** Old (scenario markdown) vs New (accused_document HTML + DOMPurify)
 
-### La Loi
+### La Règle
 
 **Phases:** `lobby` → `choosing` → `playing` → `guessing` → `reveal` → `ended`
 
@@ -625,7 +625,7 @@ playSound('error');    // quiz-bad-answer.wav
 --alibi-primary: #f59e0b;       /* Orange */
 --deeztest-primary: #A238FF;    /* Magenta */
 --mime-primary: #00ff66;        /* Neon Green */
---laloi-primary: #06b6d4; /* Cyan */
+--laregle-primary: #06b6d4; /* Cyan */
 ```
 
 ### Classes Boutons
@@ -653,7 +653,7 @@ Pages:
   Quiz:       app/room/[code], app/game/[code]/{play,host}, app/end/[code]
   DeezTest:   app/deeztest/room/[code], game/[code]/{play,host,end}
   Alibi:      app/alibi/room/[code], game/[code]/{prep,play,end}
-  LaLoi: app/laloi/room/[code], game/[code]/{play,investigate,end}
+  LaLoi: app/laregle/room/[code], game/[code]/{play,investigate,end}
   Mime:       app/mime/page.tsx
 
 Hooks:        lib/hooks/use{Players,PlayerCleanup,InactivityDetection,RoomGuard,GameCompletion,InterstitialAd}.js
@@ -755,7 +755,7 @@ Cette page:
 { "roomCode": "ABC123", "prefix": "rooms", "action": "list" }
 ```
 
-**Prefixes disponibles:** `rooms` (Quiz), `rooms_deeztest`, `rooms_alibi`, `rooms_laloi`
+**Prefixes disponibles:** `rooms` (Quiz), `rooms_deeztest`, `rooms_alibi`, `rooms_laregle`
 
 **Sécurité:** Ces APIs ne fonctionnent qu'en `NODE_ENV=development` et depuis localhost.
 

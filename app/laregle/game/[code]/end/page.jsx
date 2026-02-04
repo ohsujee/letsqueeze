@@ -15,7 +15,7 @@ import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { storage } from "@/lib/utils/storage";
 import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { CheckCircle, XCircle } from "lucide-react";
-import { TROUVE_COLORS } from "@/data/laloi-rules";
+import { TROUVE_COLORS } from "@/data/laregle-rules";
 
 const CYAN_PRIMARY = TROUVE_COLORS.primary;
 const CYAN_LIGHT = TROUVE_COLORS.light;
@@ -122,7 +122,7 @@ export default function LaLoiEndPage() {
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
   // Centralized players hook (live data)
-  const { players: livePlayers } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laloi' });
+  const { players: livePlayers } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laregle' });
 
   // Snapshot players on first load for stable end screen
   // This prevents the leaderboard from changing when players leave
@@ -135,13 +135,13 @@ export default function LaLoiEndPage() {
   // Room guard
   useRoomGuard({
     roomCode: code,
-    roomPrefix: 'rooms_laloi',
+    roomPrefix: 'rooms_laregle',
     playerUid: myUid,
     isHost: false
   });
 
   // Record game completion
-  useGameCompletion({ gameType: 'laloi', roomCode: code });
+  useGameCompletion({ gameType: 'laregle', roomCode: code });
 
   // Get current user UID
   useEffect(() => {
@@ -168,14 +168,14 @@ export default function LaLoiEndPage() {
 
   // Firebase listeners
   useEffect(() => {
-    const u1 = onValue(ref(db, `rooms_laloi/${code}/meta`), s => {
+    const u1 = onValue(ref(db, `rooms_laregle/${code}/meta`), s => {
       const data = s.val();
       setMeta(data);
       if (!data || data.closed) {
         setRoomExists(false);
       }
     });
-    const u2 = onValue(ref(db, `rooms_laloi/${code}/state`), s => {
+    const u2 = onValue(ref(db, `rooms_laregle/${code}/state`), s => {
       setState(s.val());
     });
     return () => { u1(); u2(); };
@@ -226,7 +226,7 @@ export default function LaLoiEndPage() {
 
     const hostCheck = myUid && meta?.hostUid === myUid;
     if (state?.phase === "lobby" && !hostCheck && hostPresent) {
-      router.push(`/laloi/room/${code}`);
+      router.push(`/laregle/room/${code}`);
     }
   }, [state?.phase, myUid, meta, router, code, hostPresent]);
 
@@ -237,13 +237,13 @@ export default function LaLoiEndPage() {
       // Reset player scores and roles
       players.forEach(player => {
         if (player.uid) {
-          updates[`rooms_laloi/${code}/players/${player.uid}/score`] = 0;
-          updates[`rooms_laloi/${code}/players/${player.uid}/role`] = 'player';
+          updates[`rooms_laregle/${code}/players/${player.uid}/score`] = 0;
+          updates[`rooms_laregle/${code}/players/${player.uid}/role`] = 'player';
         }
       });
 
       // Reset state
-      updates[`rooms_laloi/${code}/state`] = {
+      updates[`rooms_laregle/${code}/state`] = {
         phase: "lobby",
         investigatorUids: [],
         currentRule: null,
@@ -257,7 +257,7 @@ export default function LaLoiEndPage() {
       };
 
       await update(ref(db), updates);
-      router.push(`/laloi/room/${code}`);
+      router.push(`/laregle/room/${code}`);
     } catch (error) {
       console.error('Erreur retour lobby:', error);
       toast.error('Erreur lors du retour au lobby');
@@ -482,7 +482,7 @@ export default function LaLoiEndPage() {
             } else if (isHost) {
               handleBackToLobby();
             } else {
-              router.push(`/laloi/room/${code}`);
+              router.push(`/laregle/room/${code}`);
             }
           }}
         />

@@ -105,7 +105,9 @@
       "Bash(dir /s /b \"E:\\\\LetsQueeze\\\\app\")",
       "WebFetch(domain:www.orbix.studio)",
       "WebFetch(domain:news.simplybook.me)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(./gradlew bundleRelease:*)",
+      "Bash(git mv:*)"
     ]
   }
 }

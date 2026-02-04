@@ -37,7 +37,7 @@ const MOCK_PLAYERS = {
     { uid: "3", name: "Suspect1", score: 60, rank: 3, role: "suspect" },
     { uid: "4", name: "Suspect2", score: 45, rank: 4, role: "suspect" },
   ],
-  laloi: [
+  laregle: [
     { uid: "1", name: "RuleFinder", score: 45, rank: 1 },
     { uid: "2", name: "Enquêteur", score: 38, rank: 2 },
     { uid: "3", name: "Joueur3", score: 25, rank: 3 },
@@ -69,7 +69,7 @@ export default function TransitionTestPage() {
     { id: "quiz", label: "Quiz", color: "#8b5cf6", emoji: "🏆" },
     { id: "deeztest", label: "DeezTest", color: "#A238FF", emoji: "🎧" },
     { id: "alibi", label: "Alibi", color: "#f59e0b", emoji: "🔍" },
-    { id: "laloi", label: "La Loi", color: "#06b6d4", emoji: "💡" },
+    { id: "laregle", label: "La Règle", color: "#06b6d4", emoji: "💡" },
   ];
 
   const mockPlayers = MOCK_PLAYERS[selectedGame] || MOCK_PLAYERS.quiz;
@@ -533,7 +533,7 @@ function GameTransition({ variant, onComplete, duration = 3500 }) {
       icon: "folder",
       particleColor: "#34d399"
     },
-    "laloi": {
+    "laregle": {
       gradient: ["rgba(6, 182, 212, 0.97)", "rgba(8, 145, 178, 0.97)"],
       glow: "rgba(6, 182, 212, 0.6)",
       accent: "#06b6d4",
@@ -1628,7 +1628,7 @@ function HeaderIcon({ gameId, color }) {
     );
   }
 
-  if (gameId === "laloi") {
+  if (gameId === "laregle") {
     return (
       <motion.svg
         viewBox="0 0 24 24"
@@ -1704,7 +1704,7 @@ function EndScreenPreview({ gameId, gameColor, gameEmoji, players }) {
   const titles = {
     quiz: "Partie terminée",
     deeztest: "Deez Test",
-    laloi: "Règle révélée",
+    laregle: "Règle révélée",
   };
 
   // Stats personnelles (pour DeezTest)

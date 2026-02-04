@@ -29,7 +29,7 @@ import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { Search, Users, Clock, Shuffle, Check } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
-import { TROUVE_COLORS, getRandomRulesForVoting } from "@/data/laloi-rules";
+import { TROUVE_COLORS, getRandomRulesForVoting } from "@/data/laregle-rules";
 
 // Cyan theme colors
 const CYAN_PRIMARY = TROUVE_COLORS.primary;
@@ -60,7 +60,7 @@ export default function LaLoiLobby() {
   const [nbInvestigators, setNbInvestigators] = useState(1);
 
   // Centralized players hook
-  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laloi' });
+  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laregle' });
 
   // Get user profile for pseudo
   const { user: currentUser, profile, loading: profileLoading } = useUserProfile();
@@ -95,7 +95,7 @@ export default function LaLoiLobby() {
   // Room guard
   useRoomGuard({
     roomCode: code,
-    roomPrefix: 'rooms_laloi',
+    roomPrefix: 'rooms_laregle',
     playerUid: myUid,
     isHost,
     skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
@@ -104,14 +104,14 @@ export default function LaLoiLobby() {
   // Host disconnect - ferme la room si l'hôte perd sa connexion
   useHostDisconnect({
     roomCode: code,
-    roomPrefix: 'rooms_laloi',
+    roomPrefix: 'rooms_laregle',
     isHost
   });
 
   // Presence hook - real-time connection tracking
   const { isConnected, forceReconnect } = usePresence({
     roomCode: code,
-    roomPrefix: 'rooms_laloi',
+    roomPrefix: 'rooms_laregle',
     playerUid: myUid,
     heartbeatInterval: 15000,
     enabled: !!myUid
@@ -120,7 +120,7 @@ export default function LaLoiLobby() {
   // Player cleanup with auto-rejoin for hard refresh
   const { leaveRoom, markVoluntaryLeave, attemptRejoin, isRejoining } = usePlayerCleanup({
     roomCode: code,
-    roomPrefix: 'rooms_laloi',
+    roomPrefix: 'rooms_laregle',
     playerUid: myUid,
     isHost,
     phase: 'lobby',
@@ -148,7 +148,7 @@ export default function LaLoiLobby() {
   useEffect(() => {
     if (!code) return;
 
-    const metaUnsub = onValue(ref(db, `rooms_laloi/${code}/meta`), (snap) => {
+    const metaUnsub = onValue(ref(db, `rooms_laregle/${code}/meta`), (snap) => {
       const m = snap.val();
       if (m) {
         if (m.closed) return;
@@ -160,7 +160,7 @@ export default function LaLoiLobby() {
       }
     });
 
-    const stateUnsub = onValue(ref(db, `rooms_laloi/${code}/state`), (snap) => {
+    const stateUnsub = onValue(ref(db, `rooms_laregle/${code}/state`), (snap) => {
       const state = snap.val();
       if (state?.phase === "choosing" && !countdownTriggeredRef.current) {
         countdownTriggeredRef.current = true;
@@ -178,7 +178,7 @@ export default function LaLoiLobby() {
   useEffect(() => {
     if (!isHost || !userPseudo || !auth.currentUser || hostJoined || profileLoading) return;
     const uid = auth.currentUser.uid;
-    set(ref(db, `rooms_laloi/${code}/players/${uid}`), {
+    set(ref(db, `rooms_laregle/${code}/players/${uid}`), {
       uid,
       name: userPseudo,
       score: 0,
@@ -225,12 +225,12 @@ export default function LaLoiLobby() {
       // Update player roles
       players.forEach(p => {
         const role = selectedInvestigators.includes(p.uid) ? 'investigator' : 'player';
-        updates[`rooms_laloi/${code}/players/${p.uid}/role`] = role;
+        updates[`rooms_laregle/${code}/players/${p.uid}/role`] = role;
       });
 
       // Update meta with settings
-      updates[`rooms_laloi/${code}/meta/mode`] = mode;
-      updates[`rooms_laloi/${code}/meta/timerMinutes`] = timerMinutes;
+      updates[`rooms_laregle/${code}/meta/mode`] = mode;
+      updates[`rooms_laregle/${code}/meta/timerMinutes`] = timerMinutes;
 
       // Generate rule options for voting
       const ruleOptions = getRandomRulesForVoting({
@@ -239,7 +239,7 @@ export default function LaLoiLobby() {
       });
 
       // Initialize state
-      updates[`rooms_laloi/${code}/state`] = {
+      updates[`rooms_laregle/${code}/state`] = {
         phase: 'choosing',
         investigatorUids: selectedInvestigators,
         currentRule: null,
@@ -260,7 +260,7 @@ export default function LaLoiLobby() {
 
   const handleHostExit = async () => {
     if (isHost) {
-      await update(ref(db, `rooms_laloi/${code}/meta`), { closed: true });
+      await update(ref(db, `rooms_laregle/${code}/meta`), { closed: true });
     }
     router.push('/home');
   };
@@ -275,14 +275,14 @@ export default function LaLoiLobby() {
   const handleModeChange = (newMode) => {
     setMode(newMode);
     if (isHost && code) {
-      update(ref(db, `rooms_laloi/${code}/meta`), { mode: newMode });
+      update(ref(db, `rooms_laregle/${code}/meta`), { mode: newMode });
     }
   };
 
   const handleTimerChange = (newTimer) => {
     setTimerMinutes(newTimer);
     if (isHost && code) {
-      update(ref(db, `rooms_laloi/${code}/meta`), { timerMinutes: newTimer });
+      update(ref(db, `rooms_laregle/${code}/meta`), { timerMinutes: newTimer });
     }
   };
 
@@ -293,7 +293,7 @@ export default function LaLoiLobby() {
   // Loading state
   if (!meta) {
     return (
-      <div className="laloi-lobby game-page">
+      <div className="laregle-lobby game-page">
         <div className="lobby-loading">
           <div className="loading-spinner" />
           <p>Chargement...</p>
@@ -304,7 +304,7 @@ export default function LaLoiLobby() {
   }
 
   return (
-    <div className="laloi-lobby game-page">
+    <div className="laregle-lobby game-page">
       {/* Launch Countdown */}
       <AnimatePresence>
         {showCountdown && (
@@ -313,9 +313,9 @@ export default function LaLoiLobby() {
             onComplete={() => {
               const myPlayer = players.find(p => p.uid === myUid);
               if (myPlayer?.role === 'investigator') {
-                router.push(`/laloi/game/${code}/investigate`);
+                router.push(`/laregle/game/${code}/investigate`);
               } else {
-                router.push(`/laloi/game/${code}/play`);
+                router.push(`/laregle/game/${code}/play`);
               }
             }}
           />
@@ -326,7 +326,7 @@ export default function LaLoiLobby() {
       <HowToPlayModal
         isOpen={showHowToPlay}
         onClose={() => setShowHowToPlay(false)}
-        gameType="laloi"
+        gameType="laregle"
       />
       <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
 
@@ -342,7 +342,7 @@ export default function LaLoiLobby() {
 
       {/* Header */}
       <LobbyHeader
-        variant="laloi"
+        variant="laregle"
         code={code}
         isHost={isHost}
         players={players}
@@ -546,7 +546,7 @@ export default function LaLoiLobby() {
 }
 
 const styles = `
-  .laloi-lobby {
+  .laregle-lobby {
     flex: 1;
     min-height: 0;
     display: flex;
@@ -554,7 +554,7 @@ const styles = `
     background: var(--bg-primary, #0a0a0f);
   }
 
-  .laloi-lobby::before {
+  .laregle-lobby::before {
     content: '';
     position: fixed;
     inset: 0;

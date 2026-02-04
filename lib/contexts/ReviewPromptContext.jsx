@@ -27,7 +27,7 @@ const LOBBY_PATTERNS = [
   /^\/room\/[A-Z0-9]+$/i,
   /^\/deeztest\/room\/[A-Z0-9]+$/i,
   /^\/alibi\/room\/[A-Z0-9]+$/i,
-  /^\/laloi\/room\/[A-Z0-9]+$/i,
+  /^\/laregle\/room\/[A-Z0-9]+$/i,
 ];
 
 function isLobbyRoute(pathname) {

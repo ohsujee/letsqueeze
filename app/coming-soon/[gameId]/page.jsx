@@ -11,8 +11,8 @@ const GAME_INFO = {
     color: '#ec4899',
     glow: '#f472b6',
   },
-  laloi: {
-    name: 'La Loi',
+  laregle: {
+    name: 'La Règle',
     description: 'Découvrez la règle secrète que les autres joueurs suivent !',
     emoji: '⚖️',
     color: '#06b6d4',

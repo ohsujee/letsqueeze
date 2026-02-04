@@ -102,7 +102,7 @@ export const GAME_COLORS = {
       dark: 'rgba(162, 56, 255, 0.5)',
     }
   },
-  laloi: {
+  laregle: {
     primary: '#06b6d4',
     secondary: '#0891b2',
     dark: '#0e7490',
@@ -180,16 +180,16 @@ export const GAME_COLORS = {
   --blindtest-glow: rgba(16, 185, 129, 0.5);
 
   /* LaLoi (harmoniser) */
-  --laloi-primary: #06b6d4;
-  --laloi-secondary: #0891b2;
-  --laloi-glow: rgba(6, 182, 212, 0.5);
+  --laregle-primary: #06b6d4;
+  --laregle-secondary: #0891b2;
+  --laregle-glow: rgba(6, 182, 212, 0.5);
 
   /* Shadows par jeu */
   --shadow-glow-quiz: 0 0 20px var(--quiz-glow), 0 4px 15px rgba(139, 92, 246, 0.4);
   --shadow-glow-alibi: 0 0 20px var(--alibi-glow), 0 4px 15px rgba(245, 158, 11, 0.4);
   --shadow-glow-deeztest: 0 0 20px var(--deeztest-glow), 0 4px 15px rgba(162, 56, 255, 0.4);
   --shadow-glow-blindtest: 0 0 20px var(--blindtest-glow), 0 4px 15px rgba(16, 185, 129, 0.4);
-  --shadow-glow-laloi: 0 0 20px var(--laloi-glow), 0 4px 15px rgba(6, 182, 212, 0.4);
+  --shadow-glow-laregle: 0 0 20px var(--laregle-glow), 0 4px 15px rgba(6, 182, 212, 0.4);
 }
 ```
 
@@ -219,7 +219,7 @@ export const TIMINGS = {
 
   // Jeux spécifiques
   alibiPrepTime: 90,             // 90s
-  laloiTimerOptions: [3, 5, 7, 10], // minutes
+  laregleTimerOptions: [3, 5, 7, 10], // minutes
 
   // API
   spotifyKeepAlive: 15000,       // 15s
@@ -248,7 +248,7 @@ export const LIMITS = {
   deeztest: {
     maxPlaylistsFree: 3,
   },
-  laloi: {
+  laregle: {
     maxRerolls: 3,
     maxGuessAttempts: 3,
   },
@@ -260,7 +260,7 @@ export const LIMITS = {
 };
 
 export const SCORING = {
-  laloi: {
+  laregle: {
     firstAttempt: 10,
     secondAttempt: 7,
     thirdAttempt: 4,
@@ -594,7 +594,7 @@ export function useGameTimer({
 
 **Fichiers impactés:**
 - `app/alibi/game/[code]/prep/page.jsx` (lignes 180-216)
-- `app/laloi/game/[code]/investigate/page.jsx` (lignes 223-254)
+- `app/laregle/game/[code]/investigate/page.jsx` (lignes 223-254)
 
 ---
 
@@ -629,7 +629,7 @@ export function useGameTimer({
 **Problème:** Séquence d'animations complexe dans LaLoi.
 
 **Fichier impacté:**
-- `app/laloi/game/[code]/investigate/page.jsx` (lignes 177-220)
+- `app/laregle/game/[code]/investigate/page.jsx` (lignes 177-220)
 
 ---
 
@@ -732,7 +732,7 @@ export function GamePlayHeader({
   title,
   score,
   onExit,
-  variant = 'quiz', // quiz | blindtest | deeztest | alibi | laloi
+  variant = 'quiz', // quiz | blindtest | deeztest | alibi | laregle
 }) {
   return (
     <header className={`game-header ${variant}`}>
@@ -968,7 +968,7 @@ export function GamePlayHeader({
 .gradient-alibi { background: linear-gradient(135deg, #f59e0b, #d97706); }
 .gradient-blindtest { background: linear-gradient(135deg, #10b981, #059669); }
 .gradient-deeztest { background: linear-gradient(135deg, #A238FF, #FF0092); }
-.gradient-laloi { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+.gradient-laregle { background: linear-gradient(135deg, #06b6d4, #0891b2); }
 .gradient-mime { background: linear-gradient(135deg, #00ff66, #00cc52); }
 
 /* Gradients sémantiques */
@@ -1128,7 +1128,7 @@ export function validateParams(searchParams, required) {
 | BlindTest | `app/blindtest/room/[code]/page.jsx` | ~800 | Idem + Spotify spécifique |
 | DeezTest | `app/deeztest/room/[code]/page.jsx` | ~750 | Idem + Deezer spécifique |
 | Alibi | `app/alibi/room/[code]/page.jsx` | ~600 | Idem |
-| LaLoi | `app/laloi/room/[code]/page.jsx` | ~1000 | Idem |
+| LaLoi | `app/laregle/room/[code]/page.jsx` | ~1000 | Idem |
 
 **Patterns communs à extraire:**
 - Auth init (useGameAuth)
@@ -1145,7 +1145,7 @@ export function validateParams(searchParams, required) {
 | BlindTest | `app/blindtest/game/[code]/play/page.jsx` | ~550 | Idem |
 | DeezTest | `app/deeztest/game/[code]/play/page.jsx` | ~550 | Idem |
 | Alibi | `app/alibi/game/[code]/play/page.jsx` | ~1400 | Idem + Role views |
-| LaLoi | `app/laloi/game/[code]/play/page.jsx` | ~2000 | Idem + Timer |
+| LaLoi | `app/laregle/game/[code]/play/page.jsx` | ~2000 | Idem + Timer |
 
 ### 8.3 Pages Host (3)
 
@@ -1165,7 +1165,7 @@ export function validateParams(searchParams, required) {
 | BlindTest | `app/blindtest/game/[code]/end/page.jsx` | ~350 | Idem ✅ |
 | DeezTest | `app/deeztest/game/[code]/end/page.jsx` | ~350 | Idem ✅ |
 | Alibi | `app/alibi/game/[code]/end/page.jsx` | ~500 | À faire |
-| LaLoi | `app/laloi/game/[code]/end/page.jsx` | ~400 | À faire |
+| LaLoi | `app/laregle/game/[code]/end/page.jsx` | ~400 | À faire |
 
 ### 8.5 Pages Join (4)
 
@@ -1194,7 +1194,7 @@ export function validateParams(searchParams, required) {
 | Page | Fichier | Lignes | Actions |
 |------|---------|--------|---------|
 | Mime | `app/mime/page.tsx` | ~200 | Extraire theme selection |
-| Investigate | `app/laloi/game/[code]/investigate/page.jsx` | ~1220 | useGameTimer, useRevealSequence |
+| Investigate | `app/laregle/game/[code]/investigate/page.jsx` | ~1220 | useGameTimer, useRevealSequence |
 | Alibi Prep | `app/alibi/game/[code]/prep/page.jsx` | ~1150 | useGameTimer, externaliser CSS |
 
 ---
@@ -1466,7 +1466,7 @@ npm run build
 
 | Fichier | Lignes | Priorité refacto |
 |---------|--------|------------------|
-| `app/laloi/game/[code]/play/page.jsx` | 2005 | Haute |
+| `app/laregle/game/[code]/play/page.jsx` | 2005 | Haute |
 | `app/blindtest/game/[code]/host/page.jsx` | 1868 | Haute |
 | `app/deeztest/game/[code]/host/page.jsx` | 1860 | Haute |
 | `app/profile/hue/page.jsx` | 1832 | Moyenne |

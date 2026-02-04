@@ -217,17 +217,17 @@ Ces fichiers dépassent 1000 lignes et pourraient bénéficier d'un refactoring 
 
 | Fichier | Lignes | Note |
 |---------|--------|------|
-| `app/laloi/game/[code]/play/page.jsx` | **2005** | Le plus gros |
+| `app/laregle/game/[code]/play/page.jsx` | **2005** | Le plus gros |
 | `app/blindtest/game/[code]/host/page.jsx` | 1868 | |
 | `app/deeztest/game/[code]/host/page.jsx` | 1860 | |
 | `app/profile/hue/page.jsx` | 1832 | |
 | `app/profile/page.jsx` | 1728 | |
 | `app/alibi/game/[code]/play/page.jsx` | 1397 | |
 | `app/game/[code]/host/page.jsx` | 1246 | |
-| `app/laloi/game/[code]/investigate/page.jsx` | 1224 | |
+| `app/laregle/game/[code]/investigate/page.jsx` | 1224 | |
 | `app/alibi/game/[code]/prep/page.jsx` | 1147 | |
 | `app/subscribe/page.jsx` | 1087 | |
-| `app/laloi/room/[code]/page.jsx` | 1003 | |
+| `app/laregle/room/[code]/page.jsx` | 1003 | |
 
 ---
 
