@@ -173,7 +173,7 @@ export default function MimeGame({ selectedThemes, onBackToLobby }: MimeGameProp
         display: 'flex',
         gap: 12,
         padding: 20,
-        paddingBottom: 'calc(20px + env(safe-area-inset-bottom))',
+        // Safe area gérée par AppShell
         background: 'linear-gradient(180deg, rgba(10, 10, 15, 0.9) 0%, rgba(12, 12, 18, 0.95) 100%)',
         backdropFilter: 'blur(20px)',
         borderTop: `1px solid rgba(${MIME_COLORS.primaryRgb}, 0.25)`,

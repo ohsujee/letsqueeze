@@ -165,7 +165,11 @@ function HomePageContent() {
   // Handle transition complete - navigate to room
   const handleTransitionComplete = () => {
     if (transitionConfig) {
-      router.push(transitionConfig.path);
+      const path = transitionConfig.path;
+      // Reset state BEFORE navigation to allow re-trigger on next room creation
+      setShowEntryTransition(false);
+      setTransitionConfig(null);
+      router.push(path);
     }
   };
 
@@ -448,6 +452,7 @@ function HomePageContent() {
       {/* Entry Transition - Door opening animation before entering lobby */}
       {showEntryTransition && transitionConfig && (
         <LobbyEntryTransition
+          key={transitionConfig.path}
           gameColor={transitionConfig.color}
           playerName={transitionConfig.playerName}
           onComplete={handleTransitionComplete}

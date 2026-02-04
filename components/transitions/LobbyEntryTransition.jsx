@@ -49,7 +49,7 @@ export function LobbyEntryTransition({ gameColor, playerName, onComplete, durati
       {/* Vignette */}
       <div className="transition-vignette" />
 
-      {/* Lumière qui vient de la porte */}
+      {/* Lumière qui vient de la porte - optimisé pour mobile */}
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: [0, 0.4, 0.2], scale: [0.5, 1.5, 2] }}
@@ -60,8 +60,9 @@ export function LobbyEntryTransition({ gameColor, playerName, onComplete, durati
           height: "300px",
           borderRadius: "50%",
           background: `radial-gradient(circle, white 0%, ${accentGlow} 30%, transparent 70%)`,
-          filter: "blur(40px)",
-          pointerEvents: "none"
+          filter: "blur(20px)",
+          pointerEvents: "none",
+          willChange: "transform, opacity"
         }}
       />
 
@@ -122,8 +123,8 @@ export function LobbyEntryTransition({ gameColor, playerName, onComplete, durati
         />
       </div>
 
-      {/* Particules qui convergent vers le centre (effet d'aspiration) */}
-      <ConvergingParticles count={15} color={accentGlow} />
+      {/* Particules qui convergent vers le centre (effet d'aspiration) - réduit pour perf mobile */}
+      <ConvergingParticles count={8} color={accentGlow} />
 
       <style jsx global>{`
         .transition-overlay {
@@ -201,16 +202,17 @@ function DoorIcon({ size, color, glowColor, step }) {
 
   return (
     <div style={{ position: "relative", width: size, height: size }}>
-      {/* Glow pulsant */}
+      {/* Glow pulsant - optimisé pour mobile */}
       <motion.div
-        animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         style={{
           position: "absolute",
-          inset: -25,
+          inset: -20,
           borderRadius: "50%",
           background: `radial-gradient(circle, ${glowColor} 0%, transparent 60%)`,
-          filter: "blur(25px)"
+          filter: "blur(15px)",
+          willChange: "transform, opacity"
         }}
       />
 
@@ -323,7 +325,7 @@ function ConvergingParticles({ count = 15, color }) {
           key={p.id}
           initial={{ opacity: 0, x: p.startX, y: p.startY }}
           animate={{
-            opacity: [0, 0.9, 0],
+            opacity: [0, 0.8, 0],
             x: 0,
             y: 0,
             scale: [1, 0.5, 0]
@@ -343,7 +345,7 @@ function ConvergingParticles({ count = 15, color }) {
             background: color,
             borderRadius: "50%",
             pointerEvents: "none",
-            boxShadow: `0 0 ${p.size * 2}px ${color}`
+            willChange: "transform, opacity"
           }}
         />
       ))}

@@ -1928,7 +1928,8 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
           flex-shrink: 0;
           position: relative;
           z-index: 10;
-          padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+          padding: 12px 16px;
+          /* Safe area gérée par AppShell */
           background: rgba(10, 10, 15, 0.95);
           backdrop-filter: blur(20px);
           border-top: 1px solid rgba(162, 56, 255, 0.2);

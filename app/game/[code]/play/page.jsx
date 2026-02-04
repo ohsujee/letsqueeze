@@ -648,7 +648,7 @@ export default function PlayerGame() {
           max-width: 500px;
           margin: 0 auto;
           padding: 0 16px;
-          padding-bottom: env(safe-area-inset-bottom);
+          /* Safe area gérée par AppShell */
         }
       `}</style>
     </div>

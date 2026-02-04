@@ -15,7 +15,7 @@ export function EndScreenFooter({ gameColor, onNewGame, label = "Nouvelle partie
   const footerStyle = {
     flexShrink: 0,
     padding: '12px 16px',
-    paddingBottom: 'calc(12px + env(safe-area-inset-bottom, 0px))',
+    // Safe area gérée par AppShell - pas de paddingBottom supplémentaire
     background: 'rgba(10, 10, 15, 0.95)',
     backdropFilter: 'blur(20px)',
     borderTop: `1px solid ${gameColor}40`,

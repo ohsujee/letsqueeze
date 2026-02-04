@@ -177,6 +177,8 @@ export default function JoinClient({ initialCode = "" }) {
   const handleTransitionComplete = async () => {
     if (!transitionConfig) return;
 
+    const path = transitionConfig.path;
+
     // Check if should show ad (unified logic)
     if (shouldShowInterstitial(userIsPro)) {
       try {
@@ -191,8 +193,12 @@ export default function JoinClient({ initialCode = "" }) {
       }
     }
 
+    // Reset state before navigation
+    setShowEntryTransition(false);
+    setTransitionConfig(null);
+
     // Navigate to room (ad is dismissed or failed)
-    router.push(transitionConfig.path);
+    router.push(path);
   };
 
   // Show entry transition (door opening animation)

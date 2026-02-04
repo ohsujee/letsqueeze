@@ -665,7 +665,7 @@ export default function MimeGuesserView({ code, myUid }) {
           max-width: 500px;
           margin: 0 auto;
           padding: 0 16px 16px;
-          padding-bottom: calc(16px + env(safe-area-inset-bottom));
+          /* Safe area gérée par AppShell */
         }
       `}</style>
     </div>

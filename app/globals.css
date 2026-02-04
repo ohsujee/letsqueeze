@@ -237,6 +237,32 @@ p {
 .pb-28 { padding-bottom: 7rem; }
 .pb-36 { padding-bottom: 9rem; }
 
+/* ===========================================
+   📱 SAFE AREA UTILITIES
+   ===========================================
+
+   RÈGLE UNIVERSELLE :
+   - Éléments dans le flux (pas fixed/sticky) : NE PAS ajouter safe-area
+     → L'AppShell gère déjà padding-bottom: var(--safe-area-bottom)
+
+   - Éléments position: fixed/sticky au bottom : UTILISER .safe-bottom
+     → Ces éléments bypasse l'AppShell, ils ont besoin de leur propre safe-area
+
+   JAMAIS ajouter env(safe-area-inset-bottom) ou var(--safe-area-bottom)
+   manuellement dans les styles inline ou CSS des composants !
+   =========================================== */
+
+/* Pour éléments fixed/sticky au bottom uniquement */
+.safe-bottom {
+  padding-bottom: calc(var(--base-padding, 12px) + var(--safe-area-bottom, 0px)) !important;
+}
+
+/* Variantes avec padding de base différent */
+.safe-bottom-sm { padding-bottom: calc(8px + var(--safe-area-bottom, 0px)) !important; }
+.safe-bottom-md { padding-bottom: calc(16px + var(--safe-area-bottom, 0px)) !important; }
+.safe-bottom-lg { padding-bottom: calc(24px + var(--safe-area-bottom, 0px)) !important; }
+.safe-bottom-xl { padding-bottom: calc(32px + var(--safe-area-bottom, 0px)) !important; }
+
 .space-y-2 > * + * { margin-top: var(--space-2); }
 .space-y-3 > * + * { margin-top: var(--space-3); }
 .space-y-4 > * + * { margin-top: var(--space-4); }
@@ -2664,7 +2690,7 @@ textarea:focus-visible {
   position: relative;
   z-index: 10;
   padding: 12px 16px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  /* Safe area déjà gérée par .app-shell */
   background: rgba(10, 10, 15, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -2851,7 +2877,7 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   padding: 16px;
-  padding-bottom: calc(16px + var(--safe-area-bottom));
+  /* Safe area déjà gérée par .app-shell */
   background: var(--bg-primary, #0a0a0f);
   overflow: hidden; /* Guide: No scroll! */
 }
@@ -3645,7 +3671,7 @@ textarea:focus-visible {
 .home-content {
   padding: 1.5rem;
   padding-top: 0.5rem;
-  padding-bottom: calc(80px + var(--safe-area-bottom));
+  padding-bottom: 80px; /* Clearance for fixed bottom-nav, safe-area handled by .app-shell */
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
@@ -6248,7 +6274,7 @@ input[type="text"].game-search-input:focus,
 .lobby-footer {
   flex-shrink: 0;
   padding: 1.5vh 0;
-  padding-bottom: calc(1.5vh + var(--safe-area-bottom));
+  /* Safe area déjà gérée par .app-shell */
 }
 
 .lobby-loading {
@@ -9988,7 +10014,7 @@ input[type="text"].game-search-input:focus,
   position: relative;
   z-index: 10;
   padding: 1rem;
-  padding-bottom: calc(1rem + var(--safe-area-bottom));
+  /* Safe area déjà gérée par .app-shell */
   background: linear-gradient(to top, rgba(10, 10, 15, 0.98) 0%, rgba(10, 10, 15, 0.9) 70%, transparent 100%);
   flex-shrink: 0;
 }

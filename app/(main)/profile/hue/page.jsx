@@ -1057,7 +1057,7 @@ export default function HueSettingsPage() {
           width: 100%;
           margin: 0 auto;
           padding: 24px;
-          padding-bottom: calc(100px + var(--safe-area-bottom, 0px));
+          padding-bottom: 100px; /* Clearance for fixed bottom-nav, safe-area handled by AppShell */
           box-sizing: border-box;
         }
 
@@ -2232,7 +2232,7 @@ export default function HueSettingsPage() {
         @media (max-width: 640px) {
           .hue-main {
             padding: 12px;
-            padding-bottom: calc(100px + var(--safe-area-bottom, 0px));
+            padding-bottom: 100px; /* Clearance for fixed bottom-nav */
           }
           .hue-hero {
             padding: 12px;

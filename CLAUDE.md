@@ -778,6 +778,7 @@ Cette page:
 - `height: 100vh` / `100dvh` / `100svh`
 - `min-height: 100vh` / `100dvh` / `100svh`
 - `padding-top: env(safe-area-inset-top)`
+- `padding-bottom: env(safe-area-inset-bottom)` ou `var(--safe-area-bottom)` **dans les éléments du flux**
 
 > Ces valeurs causent des bugs de layout sur Android après navigation.
 > L'AppShell gère déjà la hauteur et les safe-areas.
@@ -786,6 +787,25 @@ Cette page:
 - `flex: 1; min-height: 0;` pour les conteneurs de page
 - `var(--app-height, 100dvh)` si vraiment besoin d'une hauteur fixe
 - L'AppShell gère automatiquement les safe-areas via `globals.css`
+
+### Safe Area Bottom - Règle Universelle
+
+| Type d'élément | Safe-area-bottom ? | Comment |
+|----------------|-------------------|---------|
+| Dans le flux (pas fixed/sticky) | ❌ NON | AppShell gère déjà |
+| `position: fixed` au bottom | ✅ OUI | Utiliser `.safe-bottom-*` |
+| `position: sticky` au bottom | ✅ OUI | Utiliser `.safe-bottom-*` |
+| Clearance pour bottom-nav | ❌ NON | Juste `padding-bottom: 80px` |
+
+**Classes utilitaires (globals.css):**
+```css
+.safe-bottom-sm  /* 8px + safe-area */
+.safe-bottom-md  /* 16px + safe-area */
+.safe-bottom-lg  /* 24px + safe-area */
+.safe-bottom-xl  /* 32px + safe-area */
+```
+
+**Pourquoi:** L'AppShell ajoute `padding-bottom: var(--safe-area-bottom)` au conteneur global. Les éléments dans le flux héritent automatiquement de cet espace. Seuls les éléments `position: fixed/sticky` bypasse ce padding et doivent gérer leur propre safe-area.
 
 ### Flags Pub
 

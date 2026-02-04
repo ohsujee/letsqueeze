@@ -762,7 +762,7 @@ export default function AlibiPrep() {
           position: relative;
           z-index: 1;
           padding: 12px;
-          padding-bottom: calc(12px + env(safe-area-inset-bottom));
+          /* Safe area gérée par AppShell */
           overflow: hidden;
           min-height: 0;
           display: flex;

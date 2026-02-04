@@ -1094,7 +1094,7 @@ export default function AlibiInterrogation() {
           position: relative;
           z-index: 1;
           padding: 16px;
-          padding-bottom: calc(16px + env(safe-area-inset-bottom));
+          /* Safe area gérée par AppShell */
           overflow-y: auto;
           overflow-x: hidden;
           -webkit-overflow-scrolling: touch;

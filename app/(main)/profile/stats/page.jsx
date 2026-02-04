@@ -214,7 +214,7 @@ export default function StatsPage() {
           max-width: 600px;
           margin: 0 auto;
           padding: 24px 20px;
-          padding-bottom: calc(100px + env(safe-area-inset-bottom));
+          padding-bottom: 100px; /* Clearance for fixed bottom-nav, safe-area handled by AppShell */
         }
 
         /* Total Card */
