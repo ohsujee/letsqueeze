@@ -15,7 +15,7 @@ workflows:
         XCODE_SCHEME: "App"
         APP_STORE_APP_ID: 6740466638
         BUNDLE_ID: "com.gigglz.app"
-      node: 18.17.0
+      node: 20.11.0
       xcode: latest
       cocoapods: default
 
