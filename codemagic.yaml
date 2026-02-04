@@ -10,13 +10,11 @@ workflows:
     environment:
       groups:
         - ios_credentials
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.gigglz.app
       vars:
         XCODE_WORKSPACE: "App.xcworkspace"
         XCODE_SCHEME: "App"
         APP_STORE_APP_ID: 6740466638
+        BUNDLE_ID: "com.gigglz.app"
       node: 18.17.0
       xcode: latest
       cocoapods: default
@@ -26,16 +24,17 @@ workflows:
         script: |
           keychain initialize
 
-      - name: Fetch signing files
+      - name: Add certificate to keychain
         script: |
-          app-store-connect fetch-signing-files com.gigglz.app \
-            --type IOS_APP_STORE \
-            --certificate-key=@env:CERTIFICATE_PRIVATE_KEY \
-            --create
+          echo $CM_CERTIFICATE | base64 --decode > /tmp/certificate.p12
+          keychain add-certificates --certificate /tmp/certificate.p12 --certificate-password $CM_CERTIFICATE_PASSWORD
 
-      - name: Set up signing certificates
+      - name: Install provisioning profile
         script: |
-          keychain add-certificates
+          PROFILES_HOME="$HOME/Library/MobileDevice/Provisioning Profiles"
+          mkdir -p "$PROFILES_HOME"
+          echo $CM_PROVISIONING_PROFILE | base64 --decode > "$PROFILES_HOME/profile.mobileprovision"
+          echo "Provisioning profile installed"
 
       - name: Install npm dependencies
         script: |
