@@ -49,6 +49,13 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
+/* Canvas confetti - visible au-dessus de tout et transparent (pas de flash blanc) */
+body > canvas,
+canvas[style*="position: fixed"] {
+  z-index: 99999 !important;
+  background: transparent !important;
+}
+
 
 body > * {
   position: relative;
