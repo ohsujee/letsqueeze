@@ -8,19 +8,20 @@ workflows:
       node: 18.17.0
       xcode: latest
       cocoapods: default
-      groups:
-        - app_store_credentials
       vars:
         BUNDLE_ID: "com.gigglz.app"
         APP_STORE_APP_ID: "6740466638"
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.gigglz.app
 
     integrations:
       app_store_connect: Gigglz API Key
 
     scripts:
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files com.gigglz.app \
+            --type IOS_APP_STORE \
+            --create
+
       - name: Install dependencies
         script: |
           npm install
