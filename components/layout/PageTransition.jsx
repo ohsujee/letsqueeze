@@ -6,40 +6,38 @@ import { usePathname } from 'next/navigation';
 const pageVariants = {
   initial: {
     opacity: 0,
-    y: 12,
   },
   animate: {
     opacity: 1,
-    y: 0,
   },
   exit: {
     opacity: 0,
-    y: -12,
   },
-};
-
-const pageTransition = {
-  type: 'tween',
-  ease: [0.25, 0.1, 0.25, 1],
-  duration: 0.25,
 };
 
 /**
  * PageTransition - Smooth page transitions for (main) layout
  * Uses pathname as key to trigger animations on route change
+ *
+ * Mode "popLayout" permet un crossfade où les deux pages sont visibles
+ * brièvement, évitant le flash noir entre les pages.
  */
 export default function PageTransition({ children }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode="popLayout" initial={false}>
       <motion.div
         key={pathname}
         initial="initial"
         animate="animate"
         exit="exit"
         variants={pageVariants}
-        transition={pageTransition}
+        transition={{
+          type: 'tween',
+          ease: 'easeInOut',
+          duration: 0.2,
+        }}
         style={{
           flex: 1,
           display: 'flex',

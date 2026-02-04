@@ -5710,6 +5710,14 @@ input[type="text"].game-search-input:focus,
   transform: translateZ(0);
 }
 
+/* Fallback backgrounds pendant le chargement des images (évite le flash noir) */
+.game-card[data-game="quiz"] .card-bg { background-color: #7c3aed; }
+.game-card[data-game="alibi"] .card-bg { background-color: #d97706; }
+.game-card[data-game="deeztest"] .card-bg { background-color: #A238FF; }
+.game-card[data-game="memory"] .card-bg { background-color: #db2777; }
+.game-card[data-game="mime"] .card-bg { background-color: #65a30d; }
+.game-card[data-game="laregle"] .card-bg { background-color: #0891b2; }
+
 .game-card:hover .card-bg {
   transform: scale(1.1) translateZ(0);
 }
