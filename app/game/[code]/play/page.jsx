@@ -116,11 +116,13 @@ export default function PlayerGame() {
     isHost: isActualHost
   });
 
-  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  // Host disconnect - gère la grace period si l'hôte perd sa connexion
+  // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
+  // Désactivé quand amIAsker (QuizHostView gère son propre useHostDisconnect)
   useHostDisconnect({
     roomCode: code,
     roomPrefix: 'rooms',
-    isHost: isActualHost && !amIAsker // Only if host is on player view (not asker view which has its own)
+    hostUid: amIAsker ? null : meta?.hostUid
   });
 
   // Keep screen awake

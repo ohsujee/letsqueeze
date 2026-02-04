@@ -62,11 +62,12 @@ export default function LaLoiInvestigatePage() {
     isHost: false
   });
 
-  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  // Host disconnect - gère la grace period si l'hôte perd sa connexion
+  // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
   useHostDisconnect({
     roomCode: code,
     roomPrefix: 'rooms_laregle',
-    isHost
+    hostUid: meta?.hostUid
   });
 
   // Player cleanup (phase: 'playing' to preserve score if disconnect)

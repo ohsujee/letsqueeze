@@ -144,11 +144,12 @@ export default function Room() {
     skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
   });
 
-  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  // Host disconnect - gère la grace period si l'hôte perd sa connexion
+  // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
   const { closeRoom } = useHostDisconnect({
     roomCode: code,
     roomPrefix: 'rooms',
-    isHost
+    hostUid: meta?.hostUid
   });
 
   // Marquer le joueur comme étant dans le lobby

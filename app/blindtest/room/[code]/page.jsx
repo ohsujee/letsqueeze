@@ -195,11 +195,12 @@ export default function DeezTestLobby() {
     skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
   });
 
-  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  // Host disconnect - gère la grace period si l'hôte perd sa connexion
+  // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
   useHostDisconnect({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
-    isHost
+    hostUid: meta?.hostUid
   });
 
   // Firebase listeners

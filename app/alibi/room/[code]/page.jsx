@@ -234,11 +234,12 @@ export default function AlibiLobby() {
     skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
   });
 
-  // Host disconnect - ferme la room si l'hôte perd sa connexion
+  // Host disconnect - gère la grace period si l'hôte perd sa connexion
+  // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
   useHostDisconnect({
     roomCode: code,
     roomPrefix: 'rooms_alibi',
-    isHost
+    hostUid: meta?.hostUid
   });
 
   // DB listeners

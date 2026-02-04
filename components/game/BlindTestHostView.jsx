@@ -195,6 +195,7 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   }, [state?.phase, router, code]);
 
   // Room guard - détecte fermeture room
+  // Note: isHost doit être basé sur isActualHost (pour le comportement de fermeture)
   const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
@@ -202,7 +203,8 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     isHost: isActualHost
   });
 
-  // Host disconnect - ferme la room si l'hôte perd sa connexion (seulement pour le vrai host)
+  // Host disconnect - gère la grace period si l'hôte perd sa connexion
+  // UNIVERSAL: Passer hostUid (meta.hostUid) - le hook détermine automatiquement si on est l'hôte
   const {
     isHostMarkedDisconnected: isHostDisconnected,
     isFirebaseConnected,
@@ -210,7 +212,7 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   } = useHostDisconnect({
     roomCode: code,
     roomPrefix: 'rooms_blindtest',
-    isHost: isActualHost
+    hostUid: meta?.hostUid
   });
 
   // Inactivity detection

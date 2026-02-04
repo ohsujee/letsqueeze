@@ -97,7 +97,8 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
     isHost: isActualHost
   });
 
-  // Host disconnect (actual host only)
+  // Host disconnect - gère la grace period si l'hôte perd sa connexion
+  // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
   const {
     isHostMarkedDisconnected: isHostDisconnected,
     isFirebaseConnected,
@@ -105,7 +106,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   } = useHostDisconnect({
     roomCode: code,
     roomPrefix: 'rooms',
-    isHost: isActualHost
+    hostUid: meta?.hostUid
   });
 
   // Keep screen awake
