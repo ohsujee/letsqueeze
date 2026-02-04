@@ -10,12 +10,12 @@ import { trackSignup, trackLogin } from '@/lib/analytics';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { ChevronRight, X, AlertTriangle } from 'lucide-react';
 
-// Images des jeux pour le carousel
+// Images des jeux pour le carousel (WebP optimisées)
 const GAME_IMAGES = [
-  { src: '/images/quiz-buzzer.png', color: '#8b5cf6' },  // Purple
-  { src: '/images/alibi.png', color: '#ff6b2c' },        // Orange vif
-  { src: '/images/blind-test.png', color: '#A238FF' },   // Magenta
-  { src: '/images/mime-game.png', color: '#22c55e' },    // Green plus vif
+  { src: '/images/optimized/quiz-buzzer.webp', color: '#8b5cf6' },  // Purple
+  { src: '/images/optimized/alibi.webp', color: '#ff6b2c' },        // Orange vif
+  { src: '/images/optimized/blind-test.webp', color: '#A238FF' },   // Magenta
+  { src: '/images/optimized/mime-game.webp', color: '#22c55e' },    // Green plus vif
 ];
 
 const SLIDE_COLORS = ['#8b5cf6', '#22c55e', '#8b5cf6'];
@@ -247,23 +247,19 @@ export default function OnboardingPage() {
           zIndex: 0
         }} />
 
-        {/* Orbe animée */}
-        <motion.div
+        {/* Orbe avec radial-gradient (pas de blur = performant) */}
+        <div
           style={{
             position: 'absolute',
-            width: 300,
-            height: 300,
+            width: 400,
+            height: 400,
             borderRadius: '50%',
-            filter: 'blur(100px)',
-            opacity: 0.25,
-            top: '-15%',
-            right: '-15%',
+            background: `radial-gradient(circle, ${SLIDE_COLORS[2]}50 0%, ${SLIDE_COLORS[2]}00 70%)`,
+            top: '-20%',
+            right: '-20%',
             zIndex: 1,
-            background: SLIDE_COLORS[2]
+            pointerEvents: 'none',
           }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.25 }}
-          transition={{ duration: 0.5 }}
         />
 
         <motion.div
@@ -405,21 +401,21 @@ export default function OnboardingPage() {
         transition={{ duration: 0.5 }}
       />
 
-      {/* Orbe animée */}
+      {/* Orbe avec radial-gradient (pas de blur = performant) */}
       <motion.div
         style={{
           position: 'absolute',
-          width: 300,
-          height: 300,
+          width: 400,
+          height: 400,
           borderRadius: '50%',
-          filter: 'blur(100px)',
-          opacity: 0.25,
-          top: '-15%',
-          right: '-15%',
+          top: '-20%',
+          right: '-20%',
           zIndex: 1,
-          background: currentColor
+          pointerEvents: 'none',
         }}
-        animate={{ background: currentColor }}
+        animate={{
+          background: `radial-gradient(circle, ${currentColor}50 0%, ${currentColor}00 70%)`,
+        }}
         transition={{ duration: 0.5 }}
       />
 

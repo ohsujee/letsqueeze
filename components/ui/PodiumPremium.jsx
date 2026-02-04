@@ -26,6 +26,9 @@ export const PodiumPremium = ({ topPlayers, disableAnimations = false }) => {
     return () => {
       clearTimeout(particleTimer);
       clearTimeout(fireworksTimer);
+      // CRITICAL: Clean up all particle effects and canvas on unmount
+      // This prevents GPU corruption on Android WebView
+      ParticleEffects.reset();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty deps - run once on mount only

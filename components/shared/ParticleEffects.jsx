@@ -3,11 +3,31 @@
 // Dynamic import - canvas-confetti is only loaded when actually used
 let confettiModule = null;
 
+// Track active animation frame IDs for cleanup
+let activeAnimationFrames = [];
+let activeTimeouts = [];
+
 async function getConfetti() {
   if (!confettiModule) {
     confettiModule = (await import('canvas-confetti')).default;
   }
   return confettiModule;
+}
+
+// Cancel all active animations and reset canvas
+async function resetAll() {
+  // Cancel all animation frames
+  activeAnimationFrames.forEach(id => cancelAnimationFrame(id));
+  activeAnimationFrames = [];
+
+  // Cancel all timeouts
+  activeTimeouts.forEach(id => clearTimeout(id));
+  activeTimeouts = [];
+
+  // Reset confetti canvas if loaded
+  if (confettiModule) {
+    confettiModule.reset();
+  }
 }
 
 export const ParticleEffects = {
@@ -57,8 +77,11 @@ export const ParticleEffects = {
     const duration = 2000;
     const end = Date.now() + duration;
     let lastTime = 0;
+    let cancelled = false;
 
     const frame = (currentTime) => {
+      if (cancelled) return;
+
       // Throttle: une particule toutes les 150ms
       if (currentTime - lastTime > 150) {
         confetti({
@@ -76,11 +99,13 @@ export const ParticleEffects = {
         lastTime = currentTime;
       }
 
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
+      if (Date.now() < end && !cancelled) {
+        const frameId = requestAnimationFrame(frame);
+        activeAnimationFrames.push(frameId);
       }
     };
-    requestAnimationFrame(frame);
+    const frameId = requestAnimationFrame(frame);
+    activeAnimationFrames.push(frameId);
   },
 
   // Feu d'artifice (fin de partie) - Version élégante
@@ -109,7 +134,11 @@ export const ParticleEffects = {
       });
 
       if (Date.now() < end) {
-        setTimeout(() => requestAnimationFrame(frame), 400 + Math.random() * 600);
+        const timeoutId = setTimeout(() => {
+          const frameId = requestAnimationFrame(frame);
+          activeAnimationFrames.push(frameId);
+        }, 400 + Math.random() * 600);
+        activeTimeouts.push(timeoutId);
       }
     };
     frame();
@@ -145,5 +174,8 @@ export const ParticleEffects = {
       scalar: 1.5,
       gravity: 0.8
     });
-  }
+  },
+
+  // Reset all animations and clean up canvas (call on unmount)
+  reset: resetAll
 };

@@ -321,37 +321,102 @@ export default function DeezTestPlayerGame() {
         )}
       </AnimatePresence>
 
-      {/* Main Content */}
-      <main className="game-content deeztest">
-        {/* Points & Level Card */}
-        <div className="points-card">
-          <div className="points-main">
-            <span className="points-value">{pointsEnJeu}</span>
-            <span className="points-label">points</span>
-          </div>
-          <div className="level-indicator">
-            <span className="level-label">Palier</span>
-            <span className="level-value">{currentLevelConfig?.label || '—'}</span>
-          </div>
-        </div>
+      {/* Reveal Screen for Players - Shows when answer is validated */}
+      <AnimatePresence>
+        {revealed && currentTrack && (
+          <motion.div
+            className="player-reveal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="player-reveal-content"
+              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ delay: 0.1, duration: 0.4 }}
+            >
+              {/* Winner info */}
+              {state?.lockUid && (
+                <motion.div
+                  className="player-reveal-winner"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <span className="winner-emoji">🏆</span>
+                  <span className="winner-name">
+                    {players.find(p => p.uid === state.lockUid)?.name || 'Joueur'}
+                  </span>
+                  <span className="winner-label">a trouvé !</span>
+                </motion.div>
+              )}
 
-        {/* Leaderboard */}
-        <Leaderboard players={players} currentPlayerUid={me?.uid} mode={meta?.mode} teams={meta?.teams} />
-      </main>
+              {/* Album Art */}
+              <motion.div
+                className="player-reveal-album"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+              >
+                {currentTrack.albumArt ? (
+                  <img src={currentTrack.albumArt} alt="Album" className="player-reveal-album-img" />
+                ) : (
+                  <div className="player-reveal-album-placeholder">🎵</div>
+                )}
+              </motion.div>
 
-      {/* Buzzer */}
-      <footer className="buzzer-footer deeztest">
-        <Buzzer
-          roomCode={code}
-          roomPrefix="rooms_blindtest"
-          playerUid={auth.currentUser?.uid}
-          playerName={me?.name}
-          blockedUntil={me?.blockedUntil || 0}
-          serverNow={serverNow}
-          serverOffset={offset}
-          disabled={!canIBuzz}
-        />
-      </footer>
+              {/* Track Info */}
+              <motion.div
+                className="player-reveal-track"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <h3 className="player-reveal-title">{currentTrack.title}</h3>
+                <p className="player-reveal-artist">{currentTrack.artist}</p>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main Content - Hidden when revealed */}
+      {!revealed && (
+        <main className="game-content deeztest">
+          {/* Points & Level Card */}
+          <div className="points-card">
+            <div className="points-main">
+              <span className="points-value">{pointsEnJeu}</span>
+              <span className="points-label">points</span>
+            </div>
+            <div className="level-indicator">
+              <span className="level-label">Palier</span>
+              <span className="level-value">{currentLevelConfig?.label || '—'}</span>
+            </div>
+          </div>
+
+          {/* Leaderboard */}
+          <Leaderboard players={players} currentPlayerUid={me?.uid} mode={meta?.mode} teams={meta?.teams} />
+        </main>
+      )}
+
+      {/* Buzzer - Hidden when revealed */}
+      {!revealed && (
+        <footer className="buzzer-footer deeztest">
+          <Buzzer
+            roomCode={code}
+            roomPrefix="rooms_blindtest"
+            playerUid={auth.currentUser?.uid}
+            playerName={me?.name}
+            blockedUntil={me?.blockedUntil || 0}
+            serverNow={serverNow}
+            serverOffset={offset}
+            disabled={!canIBuzz}
+          />
+        </footer>
+      )}
 
       {/* Disconnect Alert */}
       <DisconnectAlert
@@ -564,6 +629,100 @@ export default function DeezTestPlayerGame() {
           margin: 0 auto;
           padding: 0 16px;
           padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        /* ===== Player Reveal Screen (read-only view for players) ===== */
+        .player-reveal-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 200;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(10, 10, 15, 0.95);
+          padding: 24px;
+        }
+
+        .player-reveal-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 24px;
+          max-width: 400px;
+          width: 100%;
+          text-align: center;
+        }
+
+        .player-reveal-winner {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 24px;
+          background: rgba(162, 56, 255, 0.15);
+          border: 1px solid rgba(162, 56, 255, 0.4);
+          border-radius: 50px;
+        }
+
+        .winner-emoji {
+          font-size: 1.5rem;
+        }
+
+        .winner-name {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.1rem;
+          color: ${DEEZER_PURPLE};
+        }
+
+        .winner-label {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .player-reveal-album {
+          position: relative;
+          width: 200px;
+          height: 200px;
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 8px 40px rgba(162, 56, 255, 0.4);
+        }
+
+        .player-reveal-album-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .player-reveal-album-placeholder {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(162, 56, 255, 0.2);
+          font-size: 4rem;
+        }
+
+        .player-reveal-track {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .player-reveal-title {
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: 1.4rem;
+          color: white;
+          margin: 0;
+          line-height: 1.2;
+        }
+
+        .player-reveal-artist {
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: 1.1rem;
+          color: ${DEEZER_PURPLE};
+          margin: 0;
         }
       `}</style>
     </div>

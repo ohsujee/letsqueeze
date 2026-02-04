@@ -11,13 +11,11 @@ import { motion } from 'framer-motion';
 const NEUTRAL_IMG = '/images/mascot/giggly-head-neutral.webp';
 const WINK_IMG = '/images/mascot/giggly-head-wink.webp';
 
-// Les 5 couleurs des jeux
-const GAME_COLORS = [
-  '#8b5cf6', // Quiz - Purple
-  '#f59e0b', // Alibi - Orange
-  '#00ff66', // Mime - Neon Green
-  '#A238FF', // DeezTest - Magenta
-  '#06b6d4', // LaLoi - Cyan
+// 3 orbes avec dégradés radiaux (pas de blur filter = plus performant)
+const ORBS = [
+  { color: '#8b5cf6', top: '-10%', left: '5%', size: 350 },    // Purple
+  { color: '#f59e0b', bottom: '-15%', right: '-5%', size: 400 }, // Orange
+  { color: '#06b6d4', top: '30%', left: '-15%', size: 350 },   // Cyan
 ];
 
 // Durée totale du splash (sans fade)
@@ -29,7 +27,6 @@ const FADE_DURATION = 400;
 
 export default function SplashScreen() {
   const router = useRouter();
-  const [progress, setProgress] = useState(0);
   const [isWinking, setIsWinking] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -77,18 +74,6 @@ export default function SplashScreen() {
   useEffect(() => {
     if (!imagesLoaded) return;
 
-    const startTime = Date.now();
-
-    const progressInterval = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const newProgress = Math.min((elapsed / SPLASH_DURATION) * 100, 100);
-      setProgress(newProgress);
-
-      if (newProgress >= 100) {
-        clearInterval(progressInterval);
-      }
-    }, 16);
-
     // Déclencher le wink
     const winkTimeout = setTimeout(() => {
       setIsWinking(true);
@@ -100,7 +85,6 @@ export default function SplashScreen() {
     }, SPLASH_DURATION);
 
     return () => {
-      clearInterval(progressInterval);
       clearTimeout(winkTimeout);
       clearTimeout(animationTimeout);
     };
@@ -150,49 +134,32 @@ export default function SplashScreen() {
         ease: [0.4, 0, 1, 1]
       }}
     >
-      {/* Orbes colorées - chaque jeu représenté */}
-      {GAME_COLORS.map((color, index) => {
-        // Positions différentes pour chaque orbe
-        const positions = [
-          { top: '-5%', left: '10%', size: 280 },    // Purple - haut gauche
-          { top: '60%', right: '-5%', size: 320 },   // Orange - bas droite
-          { bottom: '-10%', left: '20%', size: 260 }, // Green - bas gauche
-          { top: '20%', right: '5%', size: 240 },    // Magenta - haut droite
-          { top: '40%', left: '-10%', size: 300 },   // Cyan - milieu gauche
-        ];
-        const pos = positions[index];
-
-        return (
-          <motion.div
-            key={color}
-            style={{
-              position: 'absolute',
-              width: pos.size,
-              height: pos.size,
-              borderRadius: '50%',
-              background: color,
-              filter: 'blur(70px)',
-              opacity: 0,
-              top: pos.top,
-              left: pos.left,
-              right: pos.right,
-              bottom: pos.bottom,
-              willChange: 'opacity, transform',
-            }}
-            animate={{
-              opacity: [0, 0.5, 0.35, 0.5],
-              scale: [0.8, 1.1, 1, 1.05],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: 'reverse',
-              delay: index * 0.15,
-              ease: 'easeInOut',
-            }}
-          />
-        );
-      })}
+      {/* Orbes colorées avec dégradés radiaux (pas de blur = performant) */}
+      {ORBS.map((orb, index) => (
+        <motion.div
+          key={orb.color}
+          style={{
+            position: 'absolute',
+            width: orb.size,
+            height: orb.size,
+            borderRadius: '50%',
+            background: `radial-gradient(circle, ${orb.color}66 0%, ${orb.color}00 70%)`,
+            top: orb.top,
+            left: orb.left,
+            right: orb.right,
+            bottom: orb.bottom,
+            pointerEvents: 'none',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0.4, 0.6, 0.4] }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: index * 0.3,
+          }}
+        />
+      ))}
 
       {/* Grille subtile */}
       <div style={{
@@ -222,33 +189,22 @@ export default function SplashScreen() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        {/* Giggly Head avec animation rotation → wink */}
+        {/* Giggly Head avec animation simple */}
         <motion.div
           style={{
             width: 'clamp(180px, 55vw, 280px)',
             height: 'clamp(180px, 55vw, 280px)',
             position: 'relative',
-            willChange: 'opacity, transform',
           }}
-          initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            rotate: [null, 0, -8, 8, -5, 0]
-          }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{
-            opacity: { duration: 0.3 },
-            scale: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] },
-            rotate: {
-              duration: 0.6,
-              delay: 0.3,
-              ease: "easeInOut",
-              times: [0, 0.2, 0.4, 0.6, 0.8, 1]
-            }
+            duration: 0.4,
+            ease: [0.34, 1.56, 0.64, 1],
           }}
         >
           {/* Neutral head - visible jusqu'au wink */}
-          <motion.img
+          <img
             src={NEUTRAL_IMG}
             alt="Giggly"
             style={{
@@ -257,14 +213,13 @@ export default function SplashScreen() {
               objectFit: 'contain',
               position: 'absolute',
               inset: 0,
-              willChange: 'opacity',
+              opacity: isWinking ? 0 : 1,
+              transition: 'opacity 0.1s ease',
             }}
-            animate={{ opacity: isWinking ? 0 : 1 }}
-            transition={{ duration: 0.1 }}
             draggable={false}
           />
           {/* Wink head - apparaît au moment du wink */}
-          <motion.img
+          <img
             src={WINK_IMG}
             alt="Giggly wink"
             style={{
@@ -273,14 +228,10 @@ export default function SplashScreen() {
               objectFit: 'contain',
               position: 'absolute',
               inset: 0,
-              willChange: 'opacity, transform',
-            }}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{
               opacity: isWinking ? 1 : 0,
-              scale: isWinking ? 1 : 1.1
+              transform: isWinking ? 'scale(1)' : 'scale(1.05)',
+              transition: 'opacity 0.15s ease, transform 0.15s ease',
             }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
             draggable={false}
           />
         </motion.div>
@@ -313,7 +264,7 @@ export default function SplashScreen() {
         </motion.h1>
       </motion.div>
 
-      {/* Barre de progression en bas */}
+      {/* Barre de progression en bas - CSS animation (pas de state updates) */}
       <motion.div
         style={{
           position: 'absolute',
@@ -329,14 +280,15 @@ export default function SplashScreen() {
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.4 }}
+        transition={{ delay: 0.2, duration: 0.3 }}
       >
-        <motion.div
+        <div
           style={{
             height: '100%',
             background: 'linear-gradient(90deg, #8b5cf6, #f59e0b, #10b981)',
             borderRadius: '2px',
-            width: `${progress}%`,
+            width: imagesLoaded ? '100%' : '0%',
+            transition: `width ${SPLASH_DURATION}ms linear`,
           }}
         />
       </motion.div>
