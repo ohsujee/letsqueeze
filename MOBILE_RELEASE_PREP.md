@@ -7,7 +7,7 @@
 
 ## 🎯 PROGRESS TRACKER
 
-> Mis à jour: 2026-01-30
+> Mis à jour: 2026-02-04
 
 ### Phase 1: Comptes & Accès ✅
 - [x] Apple Developer Account actif (99€/an)
@@ -35,19 +35,16 @@
 - [x] App créée dans Play Console
 - [x] Service Account créé (Google Cloud)
 - [x] Service Account JSON uploadé dans RevenueCat
-- [ ] Subscription: gigglz_pro_monthly (4,99€/mois) ⏳ Nécessite APK uploadé
-- [ ] Subscription: gigglz_pro_annual (29,99€/an) ⏳ Nécessite APK uploadé
+- [x] Subscription: gigglz_pro_monthly (4,99€/mois)
+- [x] Subscription: gigglz_pro_annual (29,99€/an)
 
-### Phase 5: Configuration iOS ⏳ (Nécessite Mac ou Codemagic)
+### Phase 5: Configuration iOS ✅ (Via Codemagic)
 - [x] GoogleService-Info.plist téléchargé
-- [ ] GoogleService-Info.plist ajouté au projet Xcode
-- [ ] Info.plist: GADApplicationIdentifier ajouté
-- [ ] Info.plist: NSUserTrackingUsageDescription ajouté
-- [ ] Info.plist: CFBundleURLTypes ajouté
-- [ ] Info.plist: LSApplicationQueriesSchemes ajouté
-- [ ] Info.plist: armv7 → arm64
-- [ ] Xcode: Team sélectionné
-- [ ] Xcode: Signing configuré
+- [x] Codemagic CI/CD configuré
+- [x] Certificat iOS Distribution créé
+- [x] Provisioning Profile créé
+- [x] Build iOS uploadé sur TestFlight
+- [x] Testeurs internes configurés
 
 ### Phase 6: Configuration Android ✅
 - [x] Keystore créé (gigglz-release.keystore)
@@ -68,15 +65,33 @@
 - [x] Webhook configuré dans RevenueCat
 
 ### Phase 8: Build & Test
-- [ ] npx cap sync
+- [x] npx cap sync
 - [ ] Test iOS Simulator
 - [ ] Test Android Emulator
 - [ ] Test sur device iOS réel
 - [ ] Test sur device Android réel
 - [ ] Test achat sandbox iOS
 - [ ] Test achat sandbox Android
-- [ ] Archive iOS pour App Store
-- [ ] Bundle AAB pour Play Store
+- [x] Archive iOS pour TestFlight (via Codemagic)
+- [x] Bundle AAB pour Play Store (Internal Testing)
+
+### Phase 9: Deep Linking & Partage ⏳
+- [ ] Custom URL Scheme (`gigglz://`) configuré iOS
+- [ ] Custom URL Scheme (`gigglz://`) configuré Android
+- [ ] Landing page web `/join` avec détection plateforme
+- [ ] Onboarding guard (vérifie pseudo avant /join)
+- [ ] App Links Android (`assetlinks.json`) - après upload Play Console
+- [ ] Universal Links iOS (`apple-app-site-association`) - après TestFlight
+- [ ] Smart App Banner iOS (meta tag)
+- [ ] Test deep link Android
+- [ ] Test deep link iOS
+- [ ] Test fallback web → store redirect
+
+### Phase 10: Blocage Web Public ⏳
+- [ ] Middleware Next.js: bloquer accès web sauf localhost
+- [ ] Page "Télécharger l'app" pour visiteurs web
+- [ ] Conserver accès API routes (`/api/*`)
+- [ ] Exception localhost pour développement
 
 ---
 
@@ -700,6 +715,228 @@ L'AAB est dans: `android/app/build/outputs/bundle/release/app-release.aab`
 
 ---
 
+# PHASE 9: DEEP LINKING & PARTAGE
+
+## Objectif
+
+Quand un utilisateur scanne le QR code ou clique sur un lien de partage:
+1. **Si app installée** → Ouvre l'app directement sur `/join?code=XXX`
+2. **Si app non installée** → Redirige vers le store approprié (iOS/Android)
+3. **Si desktop** → Affiche page "Téléchargez l'application"
+
+## Flux Utilisateur
+
+```
+Scan QR Code → https://app.gigglz.fun/join?code=ABC123
+                         ↓
+                [Détection plateforme]
+                    ↓         ↓           ↓
+              iOS App    Android App    Desktop/Web
+                ↓              ↓             ↓
+         [Universal     [App Link]    [Page "Télécharger"]
+          Link]              ↓             ↓
+              ↓         Ouvre app    Store buttons
+         Ouvre app           ↓
+              ↓         [Onboarding OK?]
+         [Onboarding         ↓    ↓
+          OK?]             Oui   Non
+           ↓    ↓           ↓     ↓
+          Oui   Non      /join  /onboarding
+           ↓     ↓                  ↓
+        /join  /onboarding    puis /join
+                  ↓
+             puis /join
+```
+
+## 9.1 Custom URL Scheme (Fonctionne sans store)
+
+### iOS - Info.plist
+
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleURLName</key>
+        <string>com.gigglz.app</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>gigglz</string>
+        </array>
+    </dict>
+</array>
+```
+
+### Android - AndroidManifest.xml
+
+```xml
+<intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="gigglz" />
+</intent-filter>
+```
+
+**Test:** `gigglz://join?code=ABC123`
+
+## 9.2 Universal Links (iOS) - Après TestFlight
+
+### Fichier: `public/.well-known/apple-app-site-association`
+
+```json
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAM_ID.com.gigglz.app",
+        "paths": ["/join", "/join/*", "/join?*"]
+      }
+    ]
+  }
+}
+```
+
+**Remplacer `TEAM_ID` par ton Apple Team ID**
+
+### Info.plist - Associated Domains
+
+```xml
+<key>com.apple.developer.associated-domains</key>
+<array>
+    <string>applinks:app.gigglz.fun</string>
+</array>
+```
+
+## 9.3 App Links (Android) - Après Play Console Upload
+
+### Fichier: `public/.well-known/assetlinks.json`
+
+```json
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.gigglz.app",
+    "sha256_cert_fingerprints": ["SHA256_FINGERPRINT_HERE"]
+  }
+}]
+```
+
+**Obtenir SHA256:**
+```bash
+keytool -list -v -keystore android/app/gigglz-release.keystore -alias gigglz | grep SHA256
+```
+
+### AndroidManifest.xml - Intent Filter
+
+```xml
+<intent-filter android:autoVerify="true">
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="https" android:host="app.gigglz.fun" android:pathPrefix="/join" />
+</intent-filter>
+```
+
+## 9.4 Landing Page Web Intelligente
+
+### Fichier: `app/join/page.jsx` (ou middleware)
+
+```javascript
+// Détection plateforme
+const userAgent = request.headers.get('user-agent') || '';
+const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
+const isAndroid = /Android/i.test(userAgent);
+const isMobile = isIOS || isAndroid;
+
+// URLs des stores
+const IOS_STORE_URL = 'https://apps.apple.com/app/gigglz/idXXXXXXXXX';
+const ANDROID_STORE_URL = 'https://play.google.com/store/apps/details?id=com.gigglz.app';
+
+// Si mobile sans app → redirect store
+// Si desktop → page "téléchargez l'app"
+```
+
+## 9.5 Onboarding Guard
+
+Dans l'app, vérifier avant d'accéder à `/join`:
+
+```javascript
+// lib/hooks/useDeepLinkGuard.js
+const hasCompletedOnboarding = () => {
+  // Vérifie si:
+  // 1. User connecté (Google/Apple) OU
+  // 2. Guest avec pseudo défini
+  return !!user || !!localStorage.getItem('guestPseudo');
+};
+
+// Si deep link arrive et onboarding pas fait:
+// 1. Sauvegarder le code dans sessionStorage
+// 2. Redirect vers /onboarding
+// 3. Après onboarding, redirect vers /join?code=XXX
+```
+
+## 9.6 Store URLs (à remplir après publication)
+
+| Plateforme | URL |
+|------------|-----|
+| iOS App Store | `https://apps.apple.com/app/gigglz/id__________` |
+| Google Play | `https://play.google.com/store/apps/details?id=com.gigglz.app` |
+
+---
+
+# PHASE 10: BLOCAGE WEB PUBLIC
+
+## Objectif
+
+- `app.gigglz.fun` ne doit PAS être utilisable comme site web
+- Seuls les appels API (`/api/*`) doivent fonctionner
+- Exception: `localhost` pour le développement
+
+## Middleware Next.js
+
+```javascript
+// middleware.js
+export function middleware(request) {
+  const { pathname } = request.nextUrl;
+  const host = request.headers.get('host') || '';
+
+  // Toujours autoriser localhost
+  if (host.includes('localhost') || host.includes('127.0.0.1')) {
+    return NextResponse.next();
+  }
+
+  // Toujours autoriser les API routes
+  if (pathname.startsWith('/api/')) {
+    return NextResponse.next();
+  }
+
+  // Autoriser les fichiers well-known (deep links)
+  if (pathname.startsWith('/.well-known/')) {
+    return NextResponse.next();
+  }
+
+  // Autoriser /join pour le smart redirect
+  if (pathname.startsWith('/join')) {
+    return NextResponse.next();
+  }
+
+  // Bloquer tout le reste → page "Téléchargez l'app"
+  return NextResponse.redirect(new URL('/download-app', request.url));
+}
+```
+
+## Page Download App
+
+Simple page statique avec:
+- Logo Gigglz
+- "Gigglz est disponible sur mobile uniquement"
+- Bouton App Store
+- Bouton Google Play
+
+---
+
 # TESTS PRÉ-PUBLICATION
 
 ## Tests Fonctionnels
@@ -721,6 +958,9 @@ L'AAB est dans: `android/app/build/outputs/bundle/release/app-release.aab`
 | Pub rewarded fonctionne | [ ] | [ ] |
 | Achat abonnement | [ ] | [ ] |
 | Restauration achat | [ ] | [ ] |
+| Deep link depuis QR code | [ ] | [ ] |
+| Deep link sans onboarding → redirect | [ ] | [ ] |
+| Fallback web → store redirect | [ ] | [ ] |
 
 ## Tests de Robustesse
 
@@ -759,4 +999,4 @@ L'AAB est dans: `android/app/build/outputs/bundle/release/app-release.aab`
 
 ---
 
-*Dernière mise à jour: 2026-01-30*
+*Dernière mise à jour: 2026-02-04*
