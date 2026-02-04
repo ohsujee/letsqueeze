@@ -9,7 +9,8 @@ import { ROOM_TYPES } from "@/lib/config/rooms";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { isPro } from "@/lib/subscription";
 import { shouldShowInterstitial, markAdShownDuringJoin } from "@/lib/hooks/useInterstitialAd";
-import JoinLoadingScreen from "@/components/ui/JoinLoadingScreen";
+import { LobbyEntryTransition } from "@/components/transitions";
+import { GAME_COLOR_MAP } from "@/lib/config/colors";
 import { validatePseudo, updateUserPseudo } from "@/lib/userProfile";
 import "./join.css";
 
@@ -18,7 +19,6 @@ export default function JoinClient({ initialCode = "" }) {
   const [code, setCode] = useState((initialCode || "").toUpperCase());
   const [user, setUser] = useState(null);
   const [joining, setJoining] = useState(false);
-  const [joiningGameId, setJoiningGameId] = useState(null);
   const [error, setError] = useState("");
   const { user: currentUser, profile, subscription, loading: profileLoading, refresh: refreshProfile, cachedPseudo } = useUserProfile();
 
@@ -27,6 +27,10 @@ export default function JoinClient({ initialCode = "" }) {
   const [editedPseudo, setEditedPseudo] = useState("");
   const [pseudoError, setPseudoError] = useState("");
   const [savingPseudo, setSavingPseudo] = useState(false);
+
+  // Entry transition state
+  const [showEntryTransition, setShowEntryTransition] = useState(false);
+  const [transitionConfig, setTransitionConfig] = useState(null);
 
   // Check if user is Pro
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
@@ -149,40 +153,58 @@ export default function JoinClient({ initialCode = "" }) {
         return;
       }
 
-      // Show loading screen with Game Card
-      setJoiningGameId(foundRoomType.id);
-
       // Add player to Firebase
       const playerData = foundRoomType.playerSchema(uid, pseudo);
       await set(ref(db, `${foundRoomType.prefix}/${roomCode}/players/${uid}`), playerData);
 
-      // Check if should show ad (unified logic)
-      if (shouldShowInterstitial(userIsPro)) {
-        try {
-          // Mark that ad was shown during join (so room page doesn't show it again)
-          markAdShownDuringJoin();
-
-          // Init and show interstitial ad
-          await initAdMob();
-          await showInterstitialAd();
-        } catch (err) {
-          console.log('[Join] Interstitial ad error:', err);
-        }
-      }
-
-      // Navigate to room (ad is dismissed or failed)
-      router.push(`${foundRoomType.path}/${roomCode}`);
+      // Show entry transition (ad will be shown when transition completes)
+      setTransitionConfig({
+        gameId: foundRoomType.id,
+        path: `${foundRoomType.path}/${roomCode}`,
+        color: GAME_COLOR_MAP[foundRoomType.id] || '#8b5cf6'
+      });
+      setShowEntryTransition(true);
     } catch (error) {
       console.error("Join error:", error);
       setError("Erreur lors de la connexion à la partie.");
       setJoining(false);
-      setJoiningGameId(null);
+      setShowEntryTransition(false);
+      setTransitionConfig(null);
     }
   }
 
-  // Show loading screen while joining (with Game Card)
-  if (joiningGameId) {
-    return <JoinLoadingScreen gameId={joiningGameId} />;
+  // Handle transition complete - show ad then navigate
+  const handleTransitionComplete = async () => {
+    if (!transitionConfig) return;
+
+    // Check if should show ad (unified logic)
+    if (shouldShowInterstitial(userIsPro)) {
+      try {
+        // Mark that ad was shown during join (so room page doesn't show it again)
+        markAdShownDuringJoin();
+
+        // Init and show interstitial ad
+        await initAdMob();
+        await showInterstitialAd();
+      } catch (err) {
+        console.log('[Join] Interstitial ad error:', err);
+      }
+    }
+
+    // Navigate to room (ad is dismissed or failed)
+    router.push(transitionConfig.path);
+  };
+
+  // Show entry transition (door opening animation)
+  if (showEntryTransition && transitionConfig) {
+    return (
+      <LobbyEntryTransition
+        gameColor={transitionConfig.color}
+        playerName={pseudo}
+        onComplete={handleTransitionComplete}
+        duration={2500}
+      />
+    );
   }
 
   return (

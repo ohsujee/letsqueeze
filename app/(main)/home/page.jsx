@@ -27,6 +27,8 @@ import { getVisibleGames, filterByPlayerCount, sortGames, searchGames, applyRemo
 import { useRemoteConfig } from '@/lib/hooks/useRemoteConfig';
 import { useGlobalPlayCounts } from '@/lib/hooks/useGlobalPlayCounts';
 import { ROOM_TYPES, createRoom } from '@/lib/config/rooms';
+import { LobbyEntryTransition } from '@/components/transitions';
+import { GAME_COLOR_MAP } from '@/lib/config/colors';
 
 function HomePageContent() {
   const router = useRouter();
@@ -46,6 +48,10 @@ function HomePageContent() {
   const [searchQuery, setSearchQuery] = useState('');
   const [playerCountFilter, setPlayerCountFilter] = useState(null);
   const [sortBy, setSortBy] = useState('default'); // 'default', 'popular', 'newest', 'alphabetical'
+
+  // Entry transition state
+  const [showEntryTransition, setShowEntryTransition] = useState(false);
+  const [transitionConfig, setTransitionConfig] = useState(null);
 
   // Global play counts for "popular" sort
   const { playCounts } = useGlobalPlayCounts();
@@ -135,17 +141,31 @@ function HomePageContent() {
         set
       });
 
+      // Store transition config and show animation
+      setTransitionConfig({
+        path,
+        color: GAME_COLOR_MAP[game.id] || '#8b5cf6',
+        playerName: hostName
+      });
+      setShowEntryTransition(true);
+
+      // Start room creation in background (or wait if needed)
       if (navigateBeforeCreate) {
-        // Navigate immediately, create in background
-        router.push(path);
         writePromise.catch(err => console.error(`${game.id} room creation error:`, err));
       } else {
-        // Wait for creation, then navigate
         await writePromise;
-        router.push(path);
       }
     } catch (err) {
       console.error(`${game.id} room creation error:`, err);
+      setShowEntryTransition(false);
+      setTransitionConfig(null);
+    }
+  };
+
+  // Handle transition complete - navigate to room
+  const handleTransitionComplete = () => {
+    if (transitionConfig) {
+      router.push(transitionConfig.path);
     }
   };
 
@@ -424,6 +444,16 @@ function HomePageContent() {
         onClose={() => setShowHowToPlay(false)}
         gameType={helpGameId}
       />
+
+      {/* Entry Transition - Door opening animation before entering lobby */}
+      {showEntryTransition && transitionConfig && (
+        <LobbyEntryTransition
+          gameColor={transitionConfig.color}
+          playerName={transitionConfig.playerName}
+          onComplete={handleTransitionComplete}
+          duration={2500}
+        />
+      )}
     </div>
   );
 }
