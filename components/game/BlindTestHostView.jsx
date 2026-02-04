@@ -409,7 +409,8 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
       await update(ref(db, `rooms_blindtest/${code}/state`), {
         snippetLevel: level,
         highestSnippetLevel: newHighest,
-        revealed: true,
+        // NE PAS mettre revealed: true ici - ça cache l'UI du joueur !
+        // revealed ne doit être true que quand on montre la réponse finale
         lastRevealAt: serverTimestamp()
       });
     } catch (error) {
