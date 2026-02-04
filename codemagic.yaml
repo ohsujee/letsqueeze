@@ -1,36 +1,26 @@
 workflows:
   ios-release:
     name: iOS Release
-    max_build_duration: 60
+    max_build_duration: 120
     instance_type: mac_mini_m2
-
-    environment:
-      node: 18.17.0
-      xcode: latest
-      cocoapods: default
-      vars:
-        BUNDLE_ID: "com.gigglz.app"
-        APP_STORE_APP_ID: "6740466638"
 
     integrations:
       app_store_connect: Gigglz API Key
 
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.gigglz.app
+      vars:
+        XCODE_WORKSPACE: "App.xcworkspace"
+        XCODE_SCHEME: "App"
+        APP_STORE_APP_ID: 6740466638
+      node: 18.17.0
+      xcode: latest
+      cocoapods: default
+
     scripts:
-      - name: Generate private key and fetch signing files
-        script: |
-          # Generate a new RSA private key for certificate
-          openssl genrsa -out /tmp/cert_key.pem 2048
-
-          # Fetch or create signing files using integration credentials
-          app-store-connect fetch-signing-files com.gigglz.app \
-            --type IOS_APP_STORE \
-            --create \
-            --certificate-key=@file:/tmp/cert_key.pem \
-            --issuer-id=$APP_STORE_CONNECT_ISSUER_ID \
-            --key-id=$APP_STORE_CONNECT_KEY_IDENTIFIER \
-            --private-key=@env:APP_STORE_CONNECT_PRIVATE_KEY
-
-      - name: Install dependencies
+      - name: Install npm dependencies
         script: |
           npm install
 
@@ -46,19 +36,19 @@ workflows:
         script: |
           cd ios/App && pod install
 
-      - name: Set up code signing
+      - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
 
-      - name: Build iOS app
+      - name: Build ipa for distribution
         script: |
+          cd $CM_BUILD_DIR/ios/App
           xcode-project build-ipa \
-            --workspace "ios/App/App.xcworkspace" \
-            --scheme "App" \
-            --config "Release"
+            --workspace "$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
 
     artifacts:
-      - build/ios/ipa/*.ipa
+      - ios/App/build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
 
@@ -66,4 +56,3 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
-        expire_build_submitted_for_review: true
