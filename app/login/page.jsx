@@ -73,7 +73,9 @@ export default function LoginPage() {
 
       // Track signup or login
       if (result && result.user) {
-        const isNewUser = result.user.metadata.creationTime === result.user.metadata.lastSignInTime;
+        // Native sign-in might not have metadata, handle gracefully
+        const metadata = result.user.metadata;
+        const isNewUser = metadata?.creationTime === metadata?.lastSignInTime;
         if (isNewUser) {
           trackSignup('apple', result.user.uid);
           toast.success('Compte créé avec succès !');
@@ -81,8 +83,12 @@ export default function LoginPage() {
           trackLogin('apple', result.user.uid);
           toast.success('Connexion réussie !');
         }
+
+        // Native sign-in might not trigger onAuthStateChanged on web
+        // Initialize profile and redirect manually
+        await initializeUserProfile(result.user);
+        router.push('/home');
       }
-      // User will be set by onAuthStateChanged
     } catch (err) {
       // Apple Sign-In not configured yet - show friendly message
       if (err.code === 'auth/operation-not-allowed') {
