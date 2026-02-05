@@ -84,9 +84,9 @@ export default function LoginPage() {
           toast.success('Connexion réussie !');
         }
 
-        // Native sign-in might not trigger onAuthStateChanged on web
-        // Initialize profile and redirect manually
-        await initializeUserProfile(result.user);
+        // Native sign-in: don't call initializeUserProfile here
+        // The web SDK auth state isn't updated yet, so it would fail with permission denied
+        // The profile will be initialized when onAuthStateChanged fires on /home
         router.push('/home');
       }
     } catch (err) {
