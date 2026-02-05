@@ -20,12 +20,12 @@ const GAME_IMAGES = [
 
 const SLIDE_COLORS = ['#8b5cf6', '#22c55e', '#8b5cf6'];
 
-// Mascot images par émotion
+// Mascot images par émotion (WebP optimisées)
 const MASCOT_IMAGES = {
-  welcome: '/images/mascot/giggly-excited.png',
-  ready: '/images/mascot/giggly-determined.png',
-  curious: '/images/mascot/giggly-curious.png',
-  warning: '/images/mascot/giggly-worried.png',
+  welcome: '/images/mascot/giggly-excited.webp',
+  ready: '/images/mascot/giggly-determined.webp',
+  curious: '/images/mascot/giggly-curious.webp',
+  warning: '/images/mascot/giggly-worried.webp',
 };
 
 // Mascotte avec image ou placeholder

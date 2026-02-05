@@ -12,9 +12,9 @@ import { getGameById } from "@/lib/config/games";
 export default function JoinLoadingScreen({ gameId }) {
   const game = getGameById(gameId);
 
-  // Fallback for unknown games
+  // Fallback for unknown games (WebP optimisée)
   const gameName = game?.name || "Partie";
-  const gameImage = game?.image || "/images/quiz-buzzer.png";
+  const gameImage = game?.image || "/images/optimized/quiz-buzzer.webp";
 
   return (
     <div className="join-loading-screen">

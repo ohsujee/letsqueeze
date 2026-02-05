@@ -330,9 +330,9 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                 const progressPercent = maxTeamScore > 0 ? (animatedScore / maxTeamScore) * 100 : 0;
                 const teamTheme = (team.name || '').toLowerCase().replace('équipe ', '').replace('team ', '');
 
-                // Map team themes to PNG images (leader only)
+                // Map team themes to WebP images (leader only)
                 const teamBgImage = isLeader && ['blaze', 'frost', 'venom', 'solar'].includes(teamTheme)
-                  ? `/images/${teamTheme}.png`
+                  ? `/images/optimized/${teamTheme}.webp`
                   : null;
 
                 return (

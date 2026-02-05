@@ -207,7 +207,7 @@ export function ReviewPromptProvider({ children }) {
               {/* Mascot */}
               <div style={styles.mascot}>
                 <Image
-                  src="/images/mascot/giggly-excited.png"
+                  src="/images/mascot/giggly-excited.webp"
                   alt="Giggly"
                   width={100}
                   height={100}
