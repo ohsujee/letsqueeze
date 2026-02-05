@@ -3395,11 +3395,18 @@ textarea:focus-visible {
   margin-bottom: 2.5rem;
 }
 
+.login-header .login-mascot {
+  width: clamp(120px, 35vw, 180px);
+  height: auto;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 8px 24px rgba(139, 92, 246, 0.3));
+}
+
 .login-header .app-title {
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: clamp(2.5rem, 10vw, 3.5rem);
   font-weight: 400;
-  margin-bottom: 0.75rem;
+  margin: 0;
   color: var(--text-primary, #ffffff);
   text-shadow:
     0 0 10px rgba(139, 92, 246, 0.5),

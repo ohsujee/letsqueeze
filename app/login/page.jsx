@@ -140,8 +140,12 @@ export default function LoginPage() {
       >
         {/* Logo/Title */}
         <div className="login-header">
-          <h1 className="app-title">Gigglz</h1>
-          <p className="app-subtitle">Jeux de Buzzer Multijoueur</p>
+          <img
+            src="/images/mascot/giggly-excited.webp"
+            alt="Giggly"
+            className="login-mascot"
+          />
+          <h1 className="app-title">GIGGLZ</h1>
         </div>
 
         {/* Main Card */}
@@ -219,10 +223,6 @@ export default function LoginPage() {
           )}
         </div>
 
-        {/* Footer */}
-        <div className="login-footer">
-          <p className="footer-text">Quiz Buzzer • Alibi • Buzzer Mode</p>
-        </div>
       </motion.div>
     </div>
   );
