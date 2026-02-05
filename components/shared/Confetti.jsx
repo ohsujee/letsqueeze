@@ -1,20 +1,15 @@
-// Dynamic import - canvas-confetti is only loaded when actually used
-let confettiModule = null;
-
-async function getConfetti() {
-  if (!confettiModule) {
-    confettiModule = (await import('canvas-confetti')).default;
-  }
-  return confettiModule;
-}
+// DISABLED: Confetti causes white square glitches on mobile
+// All functions return early without doing anything
 
 /**
  * Helper pour déclencher des animations de confetti
- * @param {string} type - Type d'animation : 'success', 'victory', 'team', 'reward'
- * @param {string} customColor - Couleur personnalisée (hex) pour type 'team'
- * @param {object} origin - Position d'origine {x: 0-1, y: 0-1} (optionnel)
+ * DISABLED - causes rendering glitches on mobile
  */
 export async function triggerConfetti(type = 'success', customColor = null, origin = { x: 0.5, y: 0.5 }) {
+  return; // Disabled due to glitches
+
+  // Original code kept for reference:
+  /*
   const confetti = await getConfetti();
 
   const configs = {
@@ -74,68 +69,26 @@ export async function triggerConfetti(type = 'success', customColor = null, orig
     }
   };
 
-  const config = configs[type] || configs.success;
-  confetti(config);
+  */
 }
 
 /**
- * Confetti en rafale (plusieurs explosions successives)
+ * Confetti en rafale - DISABLED
  */
 export async function triggerConfettiBurst(count = 3, delay = 150) {
-  // Pre-load confetti before starting interval
-  await getConfetti();
-
-  let fired = 0;
-  const interval = setInterval(() => {
-    triggerConfetti('success', null, {
-      x: Math.random() * 0.4 + 0.3, // Entre 0.3 et 0.7
-      y: Math.random() * 0.4 + 0.3
-    });
-    fired++;
-    if (fired >= count) {
-      clearInterval(interval);
-    }
-  }, delay);
+  return; // Disabled due to glitches
 }
 
 /**
- * Confetti latéral (des deux côtés)
+ * Confetti latéral - DISABLED
  */
 export async function triggerConfettiSides() {
-  const confetti = await getConfetti();
-
-  // Côté gauche
-  confetti({
-    particleCount: 50,
-    angle: 60,
-    spread: 55,
-    origin: { x: 0, y: 0.6 },
-    colors: ['#EF4444', '#F87171', '#FCA5A5']
-  });
-
-  // Côté droit
-  confetti({
-    particleCount: 50,
-    angle: 120,
-    spread: 55,
-    origin: { x: 1, y: 0.6 },
-    colors: ['#10B981', '#34D399', '#6EE7B7']
-  });
+  return; // Disabled due to glitches
 }
 
 /**
- * Confetti depuis le bas (comme une fontaine)
+ * Confetti depuis le bas - DISABLED
  */
 export async function triggerConfettiFountain(color = null) {
-  const confetti = await getConfetti();
-
-  confetti({
-    particleCount: 80,
-    angle: 90,
-    spread: 45,
-    origin: { x: 0.5, y: 1 },
-    startVelocity: 60,
-    colors: color ? [color] : ['#F59E0B', '#FBBF24', '#FCD34D'],
-    gravity: 1.5
-  });
+  return; // Disabled due to glitches
 }
