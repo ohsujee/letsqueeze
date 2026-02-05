@@ -14,6 +14,7 @@ import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProfileSkeleton from '@/components/ui/ProfileSkeleton';
 import { HueLogo, DeezerLogo, GoogleIcon, AppleIcon } from '@/components/icons';
+import { version } from '../../../package.json';
 import './profile.css';
 
 export default function ProfilePage() {
@@ -540,7 +541,7 @@ export default function ProfilePage() {
 
         {/* Footer */}
         <div className="profile-footer">
-          <p className="footer-text">Version 1.0.0</p>
+          <p className="footer-text">Version {version}</p>
           <div className="footer-links">
             <a href="/terms" className="footer-link">CGU</a>
             <span className="footer-separator">•</span>
