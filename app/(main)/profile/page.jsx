@@ -174,12 +174,25 @@ export default function ProfilePage() {
     }
   };
 
-  if (loading) {
-    return <ProfileSkeleton />;
-  }
-
   return (
-    <div className="profile-container">
+    <AnimatePresence mode="wait">
+      {loading ? (
+        <motion.div
+          key="skeleton"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <ProfileSkeleton />
+        </motion.div>
+      ) : (
+        <motion.div
+          key="content"
+          className="profile-container"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+        >
       <main className="profile-content">
         {/* Profile Header */}
         <section className="profile-header">
@@ -554,6 +567,8 @@ export default function ProfilePage() {
         {/* Bottom padding for nav */}
         <div className="bottom-padding"></div>
       </main>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

@@ -100,17 +100,18 @@ export default function SplashScreen() {
     const redirectTimeout = setTimeout(() => {
       const { user, hasSeenOnboarding } = authResultRef.current;
 
+      // Use router.push for smooth transitions (no full page reload)
       if (!hasSeenOnboarding) {
-        window.location.href = '/onboarding';
+        router.push('/onboarding');
       } else if (user) {
-        window.location.href = '/home';
+        router.push('/home');
       } else {
-        window.location.href = '/login';
+        router.push('/login');
       }
     }, FADE_DURATION);
 
     return () => clearTimeout(redirectTimeout);
-  }, [animationDone, authChecked]);
+  }, [animationDone, authChecked, router]);
 
   return (
     <motion.div

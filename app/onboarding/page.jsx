@@ -378,15 +378,19 @@ export default function OnboardingPage() {
 
   // ====== ONBOARDING SLIDES (0 et 1) ======
   return (
-    <div style={{
-      height: '100dvh',
-      width: '100vw',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      overflow: 'hidden',
-      background: '#0a0a0f',
-    }}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+      style={{
+        height: '100dvh',
+        width: '100vw',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        overflow: 'hidden',
+        background: '#0a0a0f',
+      }}>
       {/* Background animé */}
       <motion.div
         style={{
@@ -941,6 +945,6 @@ export default function OnboardingPage() {
           </>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }

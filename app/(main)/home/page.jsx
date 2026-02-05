@@ -306,7 +306,12 @@ function HomePageContent() {
 
 
   return (
-    <div className="home-container">
+    <motion.div
+      className="home-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+    >
       <main className="home-content">
         {/* Modern Header 2025 */}
         <HomeHeader
@@ -459,7 +464,7 @@ function HomePageContent() {
           duration={2000}
         />
       )}
-    </div>
+    </motion.div>
   );
 }
 
