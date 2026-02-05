@@ -39,6 +39,7 @@ export default function AlibiPrep() {
   const router = useRouter();
 
   const [myUid, setMyUid] = useState(null);
+  const [meta, setMeta] = useState(null);
   const [timeLeft, setTimeLeft] = useState(90);
   const [myTeam, setMyTeam] = useState(null);
   const [isHost, setIsHost] = useState(false);
@@ -194,8 +195,9 @@ export default function AlibiPrep() {
 
     // Listen to meta for Party Mode detection
     const metaUnsub = onValue(ref(db, `rooms_alibi/${code}/meta`), (snap) => {
-      const meta = snap.val();
-      if (meta?.gameMasterMode === 'party') {
+      const metaData = snap.val();
+      setMeta(metaData);
+      if (metaData?.gameMasterMode === 'party') {
         setIsPartyMode(true);
       }
     });
