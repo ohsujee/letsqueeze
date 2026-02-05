@@ -21,7 +21,7 @@ target 'App' do
   capacitor_pods
   # Add your Pods here
   pod 'CapacitorFirebaseAuthentication/Google', :path => '../../node_modules/@capacitor-firebase/authentication'
-  pod 'CapacitorFirebaseAuthentication/Apple', :path => '../../node_modules/@capacitor-firebase/authentication'
+  # Apple Sign-In is native iOS - no pod needed, just the entitlement
 end
 
 post_install do |installer|
