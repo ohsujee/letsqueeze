@@ -118,7 +118,7 @@ export function ToastContainer({ toasts, onDismiss }) {
     <div
       style={{
         position: 'fixed',
-        top: '1.25rem',
+        top: 'calc(1.25rem + env(safe-area-inset-top, 0px))',
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 9999,
