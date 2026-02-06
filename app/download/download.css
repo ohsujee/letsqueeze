@@ -1,0 +1,142 @@
+.download-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  padding: 24px;
+}
+
+.download-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.download-logo {
+  margin-bottom: 24px;
+}
+
+.app-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+}
+
+.download-title {
+  font-family: var(--font-title, 'Bungee', sans-serif);
+  font-size: 2.5rem;
+  color: white;
+  margin: 0 0 8px 0;
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.download-tagline {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  margin: 0 0 32px 0;
+}
+
+.download-redirect {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.download-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.store-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.store-button:hover {
+  transform: translateY(-2px);
+}
+
+.store-button:active {
+  transform: translateY(0);
+}
+
+.store-button.ios {
+  background: linear-gradient(135deg, #000000, #1a1a1a);
+  color: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.store-button.ios:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+.store-button.android {
+  background: linear-gradient(135deg, #01875f, #00a86b);
+  color: white;
+  box-shadow: 0 4px 16px rgba(1, 135, 95, 0.3);
+}
+
+.store-button.android:hover {
+  box-shadow: 0 6px 24px rgba(1, 135, 95, 0.4);
+}
+
+.store-button-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.store-label {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.store-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.download-features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.feature-emoji {
+  font-size: 1.1rem;
+}
