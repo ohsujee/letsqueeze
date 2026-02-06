@@ -2,7 +2,10 @@ import "./globals.css";
 import "./animations.css";
 import { ClientProviders } from "@/lib/providers/ClientProviders";
 
-export const metadata = { title: "Let'sQueeeze", description: "Quiz buzzer temps réel" };
+export const metadata = {
+  title: "Gigglz",
+  description: "Jeux de soirée entre amis - Quiz, Blindtest, Alibi et plus"
+};
 
 export const viewport = {
   width: 'device-width',
