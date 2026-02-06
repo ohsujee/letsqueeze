@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gigglz.app",
+      "sha256_cert_fingerprints": [
+        "7C:F6:D4:15:23:85:6D:ED:E0:90:EE:78:12:6F:CA:E0:4E:AB:15:30:98:29:BF:7D:6F:1B:87:1D:82:1B:82:78"
+      ]
+    }
+  }
+]

@@ -62,6 +62,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  devIndicators: {
+    appIsrStatus: false,
+    buildActivity: false,
+  },
 
   // Security headers for all routes
   async headers() {
@@ -70,6 +74,20 @@ const nextConfig: NextConfig = {
         // Apply to all routes
         source: '/:path*',
         headers: securityHeaders,
+      },
+      {
+        // .well-known files for Universal Links / App Links
+        source: '/.well-known/:path*',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/json'
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600'
+          }
+        ],
       },
       {
         // API routes - add CORS restrictions

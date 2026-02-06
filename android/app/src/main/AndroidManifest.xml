@@ -30,15 +30,35 @@
                 <data android:scheme="com.gigglz.app" />
             </intent-filter>
 
-            <!-- Deep linking HTTPS -->
+            <!-- Deep linking HTTPS - app.gigglz.fun -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:scheme="https"
-                    android:host="letsqueeze.app"
-                    android:pathPrefix="/api/spotify/callback" />
+                    android:host="app.gigglz.fun"
+                    android:pathPrefix="/room" />
+                <data
+                    android:scheme="https"
+                    android:host="app.gigglz.fun"
+                    android:pathPrefix="/blindtest/room" />
+                <data
+                    android:scheme="https"
+                    android:host="app.gigglz.fun"
+                    android:pathPrefix="/alibi/room" />
+                <data
+                    android:scheme="https"
+                    android:host="app.gigglz.fun"
+                    android:pathPrefix="/laregle/room" />
+                <data
+                    android:scheme="https"
+                    android:host="app.gigglz.fun"
+                    android:pathPrefix="/mime/room" />
+                <data
+                    android:scheme="https"
+                    android:host="app.gigglz.fun"
+                    android:pathPrefix="/join" />
             </intent-filter>
 
         </activity>
