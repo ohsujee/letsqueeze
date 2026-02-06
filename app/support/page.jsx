@@ -12,7 +12,7 @@ export default function SupportPage() {
   const faqs = [
     {
       question: "Comment créer une partie ?",
-      answer: "Depuis l'écran d'accueil, choisis un jeu puis clique sur 'Créer'. Un code sera généré que tu pourras partager avec tes amis pour qu'ils rejoignent la partie."
+      answer: "Depuis l'écran d'accueil, clique sur l'image d'un jeu. Une partie sera automatiquement créée et un code sera généré que tu pourras partager avec tes amis pour qu'ils rejoignent."
     },
     {
       question: "Comment rejoindre une partie ?",
