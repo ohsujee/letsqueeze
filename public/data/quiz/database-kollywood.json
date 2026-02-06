@@ -110,7 +110,7 @@
     },
     {
       "id": "kol016",
-      "question": "Acteur au physique frêle qui a conquis Hollywood (The Gray Man). Gendre de Rajinikanth pendant longtemps, il est aussi réalisateur et chanteur. Qui est-ce ?",
+      "question": "Acteur tamoul multi-récompensé (4 National Awards), aussi réalisateur et chanteur. Une de ses chansons est la première du Sud de l'Inde à atteindre 1 milliard de vues. Il a joué dans The Gray Man à Hollywood. Qui est-ce ?",
       "answer": "Dhanush",
       "difficulty": "normal",
       "category": "Acteurs"
@@ -614,8 +614,8 @@
     },
     {
       "id": "kol088",
-      "question": "Dans ce film, Vijay vit paisiblement dans les montagnes enneigées avec sa famille et une hyène, jusqu'à ce que des gangsters prétendent qu'il est leur ancien chef disparu. Quel est ce film ?",
-      "answer": "Leo",
+      "question": "Dans le film Leo (2023), Vijay vit avec sa famille et une hyène apprivoisée. Quel est le nom de cette hyène ?",
+      "answer": "Subramani",
       "difficulty": "normal",
       "category": "Action"
     },
@@ -796,7 +796,7 @@
     },
     {
       "id": "kol114",
-      "question": "Film de 2015 réalisé par Mohan Raja. Jayam Ravi y joue un policier qui affronte un scientifique maléfique intouchable. C'est un jeu du chat et de la souris cérébral. Quel est ce film ?",
+      "question": "Film de 2015 où un policier affronte un scientifique maléfique intouchable. C'est un jeu du chat et de la souris cérébral. Quel est ce film ?",
       "answer": "Thani Oruvan",
       "difficulty": "normal",
       "category": "Thriller"
@@ -852,7 +852,7 @@
     },
     {
       "id": "kol122",
-      "question": "Film culte de 1999 avec Ajith et Vijay ensemble. Ils jouent deux frères qui s'ignorent. C'est le seul film où les deux superstars partagent l'écran en rôles principaux. Quel est ce film ?",
+      "question": "Film culte de 1995 avec Ajith et Vijay ensemble. Ils jouent deux amis proches. C'est le seul film où les deux superstars partagent l'écran en rôles principaux. Quel est ce film ?",
       "answer": "Rajavin Parvaiyile",
       "difficulty": "difficile",
       "category": "Légendes"
@@ -873,7 +873,7 @@
     },
     {
       "id": "kol125",
-      "question": "Film de 2013. Un jeune homme se fait passer pour un guide touristique pour séduire une fille, mais ils se retrouvent pourchassés par des gangsters. La chanson 'Kasu Panam' est célèbre. Quel est ce film ?",
+      "question": "Film de 2013. Une comédie noire sur un gang de kidnappeurs menés par Das, qui simulent des enlèvements pour obtenir des rançons. La chanson 'Kasu Panam' est célèbre. Quel est ce film ?",
       "answer": "Soodhu Kavvum",
       "difficulty": "normal",
       "category": "Comédie Noire"
@@ -913,14 +913,7 @@
       "difficulty": "normal",
       "category": "Action-Romance"
     },
-    {
-      "id": "kol131",
-      "question": "Chanteuse à la voix rauque et puissante, fille de Kamal Haasan. Elle a chanté 'Why This Kolaveri Di' (version féminine) et joue dans 'Vikram'. Qui est-ce ?",
-      "answer": "Shruti Haasan",
-      "difficulty": "normal",
-      "category": "Musique/Actrices"
-    },
-    {
+        {
       "id": "kol132",
       "question": "Dans quel film voit-on Dhanush se battre torse nu au milieu d'un coq de combat géant (métaphore) lors du climax ?",
       "answer": "Aadukalam",
@@ -1018,14 +1011,7 @@
       "difficulty": "normal",
       "category": "Maquillage"
     },
-    {
-      "id": "kol146",
-      "question": "Chanson virale de 2022 tirée du film Beast. Vijay et Pooja Hegde y effectuent un pas de danse rapide et complexe qui a lancé un challenge mondial sur TikTok. Quelle est cette chanson ?",
-      "answer": "Arabic Kuthu (Halamithi Habibo)",
-      "difficulty": "normal",
-      "category": "Musique"
-    },
-    {
+        {
       "id": "kol147",
       "question": "Quel animal en CGI joue un rôle central dans le film fantastique Naan Ee (2012) de S.S. Rajamouli, où le héros se réincarne pour venger sa mort ?",
       "answer": "Une mouche (Ee)",
@@ -1102,28 +1088,14 @@
       "difficulty": "normal",
       "category": "Comédie"
     },
-    {
-      "id": "kol158",
-      "question": "Dans le film Saamy (2003), Vikram joue un policier qui accepte des pots-de-vin pour mieux contrôler la ville, mais reste fondamentalement bon. Il mange de l'Idli avec de la bière. Quel est ce film ?",
-      "answer": "Saamy",
-      "difficulty": "normal",
-      "category": "Action"
-    },
-    {
+        {
       "id": "kol159",
       "question": "Jeune réalisateur et acteur qui a fait sensation en 2022 avec 'Love Today', une comédie romantique sur l'échange de téléphones portables entre amoureux. Qui est-ce ?",
       "answer": "Pradeep Ranganathan",
       "difficulty": "normal",
       "category": "Acteurs-Réalisateurs"
     },
-    {
-      "id": "kol160",
-      "question": "Thriller de 2015. Jayam Ravi et Arvind Swamy (le méchant charismatique) jouent au chat et à la souris. Le méchant utilise la technologie pour toujours avoir un coup d'avance. Quel est ce film ?",
-      "answer": "Thani Oruvan",
-      "difficulty": "normal",
-      "category": "Thriller"
-    },
-    {
+        {
       "id": "kol161",
       "question": "Actrice qui a joué la femme de Rajinikanth dans Kabali. Sa performance réaliste et émouvante a été saluée, sortant des clichés de l'héroïne potiche. Qui est-ce ?",
       "answer": "Radhika Apte",
@@ -1195,8 +1167,8 @@
     },
     {
       "id": "kol171",
-      "question": "Quelle actrice joue la femme fantôme 'Muniya' dans le film Kanchana, livrant une performance terrifiante en sari rouge ?",
-      "answer": "Sarathkumar (C'est un acteur homme qui joue une femme transgenre)",
+      "question": "Quel acteur joue le fantôme transgenre 'Muniya' dans le film Kanchana, livrant une performance terrifiante en sari rouge ?",
+      "answer": "Sarathkumar",
       "difficulty": "difficile",
       "category": "Performance"
     },
@@ -1266,7 +1238,7 @@
     {
       "id": "kol181",
       "question": "Quel est le surnom donné aux fans fanatiques de Vijay qui se livrent à des guerres sur Twitter contre les fans d'Ajith ?",
-      "answer": "Anils (Écureuils) - Terme péjoratif utilisé par les rivaux, ou Nanbas.",
+      "answer": "Anils (Écureuils) - Terme péjoratif utilisé par les rivaux, ou Nanbas/Nanbis.",
       "difficulty": "difficile",
       "category": "Culture Fan"
     },
@@ -1301,13 +1273,13 @@
     {
       "id": "kol186",
       "question": "La 'BGM' (Musique de fond) virale du film Vikram (2022) qui accompagne l'entrée de l'agent Tina et les scènes de combat. Elle est composée par Anirudh. Quel est son titre ?",
-      "answer": "Porkanda Singam (Non). C'est le thème 'Vikram Title Track' ou 'Once Upon a Time'.",
+      "answer": "Vikram Title Track (Once Upon a Time)",
       "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "kol187",
-      "question": "Quel film de 2018 avec Vijay traite de la corruption dans le système médical indien ? Il y joue un médecin et un magicien. Quel est ce film ?",
+      "question": "Quel film tamoul de 2017 traite de la corruption dans le système médical indien ? Le héros y joue un médecin et un magicien. Quel est ce film ?",
       "answer": "Mersal",
       "difficulty": "normal",
       "category": "Action"
@@ -1391,7 +1363,7 @@
     },
     {
       "id": "kol199",
-      "question": "Quel film de 2024 met en scène Sivakarthikeyan en soldat extraterrestre venu sauver la Terre ? Un film à gros budget VFX. Quel est ce film ?",
+      "question": "Quel film de 2024 met en scène Sivakarthikeyan en homme ordinaire qui se lie d'amitié avec un alien perdu sur Terre ? Un film à gros budget VFX. Quel est ce film ?",
       "answer": "Ayalaan",
       "difficulty": "normal",
       "category": "Science-fiction"
@@ -1515,14 +1487,7 @@
       "difficulty": "facile",
       "category": "Comédie"
     },
-    {
-      "id": "kol217",
-      "question": "Acteur connu pour ses rôles de méchant dans les années 2000 (Gemini, Dhool), il est surnommé 'Kalabhavan' Mani. Il avait un rire très particulier. Qui est-ce ?",
-      "answer": "Kalabhavan Mani",
-      "difficulty": "normal",
-      "category": "Méchants"
-    },
-    {
+        {
       "id": "kol218",
       "question": "Film de 2011 où Jiiva, Srikanth et Vijay sont trois amis étudiants. Remake du film hindi '3 Idiots'. Quel est ce film ?",
       "answer": "Nanban",
@@ -1587,7 +1552,7 @@
     },
     {
       "id": "kol227",
-      "question": "Film de 2010. Arya joue un jeune homme qui se retrouve enfermé dans un hôpital psychiatrique dirigé par des cultistes. Le film finit très mal. Réalisé par Bala. Quel est ce film ?",
+      "question": "Film de 2009 réalisé par Bala. Arya y joue un Aghori (ascète hindou) qui croise le chemin d'une mendiante aveugle exploitée par un gang. Un film très sombre sur la souffrance et la libération. Quel est ce film ?",
       "answer": "Naan Kadavul",
       "difficulty": "difficile",
       "category": "Drame"
@@ -1601,7 +1566,7 @@
     },
     {
       "id": "kol229",
-      "question": "Film de science-fiction de 2018. Jayam Ravi joue un astronaute et une illusionniste qui doivent arrêter un astéroïde. Premier film spatial indien. Quel est ce film ?",
+      "question": "Film de science-fiction tamoul de 2018. Un magicien est recruté pour devenir astronaute et détruire un astéroïde. Premier film spatial indien. Quel est ce film ?",
       "answer": "Tik Tik Tik",
       "difficulty": "normal",
       "category": "Science-fiction"
@@ -1622,7 +1587,7 @@
     },
     {
       "id": "kol232",
-      "question": "Acteur connu pour ses talents de danseur acrobatique. Il a joué dans Boys, puis est devenu un héros d'action avec Nakkhul (Non). C'est Bharath. Il joue dans Kadhal. Qui est-ce ?",
+      "question": "Acteur connu pour ses talents de danseur acrobatique. Il a joué dans Boys, puis a connu son premier succès en tant qu'acteur principal avec le film Kadhal (2004). Qui est-ce ?",
       "answer": "Bharath",
       "difficulty": "normal",
       "category": "Acteurs"
@@ -1650,7 +1615,7 @@
     },
     {
       "id": "kol236",
-      "question": "Acteur et réalisateur connu pour ses films sur la jeunesse et l'amitié comme Chennai 600028, Saroja et Goa. Il est le frère de Yuvan Shankar Raja. Non, cousin. Non, frère de Premgi. Qui est-ce ?",
+      "question": "Acteur et réalisateur connu pour ses films sur la jeunesse et l'amitié comme Chennai 600028, Saroja et Goa. Il est le frère de Premgi Amaren. Qui est-ce ?",
       "answer": "Venkat Prabhu",
       "difficulty": "normal",
       "category": "Réalisateurs"
@@ -1664,19 +1629,12 @@
     },
     {
       "id": "kol238",
-      "question": "Actrice qui a fait ses débuts dans Mynaa (2010). Connue pour ses rôles ruraux intenses et émotionnels. Elle a gagné un National Award. Qui est-ce ?",
-      "answer": "Amala Paul (Mynaa, Deiva Thirumagal)",
+      "question": "Actrice révélée par Mynaa (2010), elle a ensuite joué dans VIP, Ratsasan et Aadai. Elle a gagné un Tamil Nadu State Award. Qui est-ce ?",
+      "answer": "Amala Paul",
       "difficulty": "normal",
       "category": "Actrices"
     },
-    {
-      "id": "kol239",
-      "question": "Film de 2013. Un homme simule son enlèvement pour payer ses dettes, mais se fait vraiment enlever. Une comédie noire avec Vijay Sethupathi. 'Soodhu Kavvum'. Quel est ce film ?",
-      "answer": "Soodhu Kavvum",
-      "difficulty": "normal",
-      "category": "Comédie"
-    },
-    {
+        {
       "id": "kol240",
       "question": "Dans le film Enthiran, comment s'appelle la petite amie humaine du Dr. Vaseegaran, dont le robot Chitti tombe éperdument amoureux ?",
       "answer": "Sana",
@@ -1720,21 +1678,21 @@
     },
     {
       "id": "kol246",
-      "question": "Quel célèbre acteur malayalam joue le méchant 'Rolex' à la fin du film Vikram, offrant une performance de 5 minutes qui a marqué les esprits ? (Non, c'est Suriya). Qui joue le méchant principal ? Vijay Sethupathi. Qui joue l'agent ? Fahadh Faasil. Question : Qui joue Rolex ?",
+      "question": "Quel acteur tamoul joue 'Rolex' dans le cameo final du film Vikram (2022), une apparition de 5 minutes qui a marqué les esprits ?",
       "answer": "Suriya",
       "difficulty": "facile",
       "category": "Cameo"
     },
     {
       "id": "kol247",
-      "question": "Dans le film Jeans (1998), Prashanth joue un double rôle pour satisfaire son père qui veut qu'il épouse la sœur jumelle de sa copine (Aishwarya Rai). Quel est le problème ? Aishwarya Rai n'a pas de jumelle. Que font-ils ?",
-      "answer": "Elle joue la comédie (se fait passer pour sa propre jumelle)",
+      "question": "Dans quel film tamoul de 1998, une chanson a été tournée aux sept merveilles du monde, et l'actrice principale est surnommée 'la huitième merveille' ?",
+      "answer": "Jeans",
       "difficulty": "normal",
-      "category": "Comédie"
+      "category": "Films cultes"
     },
     {
       "id": "kol248",
-      "question": "Chanson du film Beast. Anirudh a composé un mélange de musique arabe et de kuthu. Les paroles sont incompréhensibles mais entraînantes. 'Halamithi Habibo'. Quel est le titre ?",
+      "question": "Chanson du film Beast (2022) composée par Anirudh. Les paroles sont volontairement incompréhensibles mais ultra-entraînantes. Quelle est cette chanson ?",
       "answer": "Arabic Kuthu",
       "difficulty": "facile",
       "category": "Musique"
@@ -1748,7 +1706,7 @@
     },
     {
       "id": "kol250",
-      "question": "Actrice qui a joué la petite amie de Dhanush dans 3 et la prof dans Premam (Malayalam). Elle est aussi chanteuse. Qui est-ce ?",
+      "question": "Elle a chanté la version féminine de 'Why This Kolaveri Di' et joué la petite amie de Dhanush dans le film '3'. Fille d'un acteur légendaire, elle est aussi actrice. Qui est-ce ?",
       "answer": "Shruti Haasan",
       "difficulty": "normal",
       "category": "Actrices"
@@ -1909,8 +1867,8 @@
     },
     {
       "id": "kol273",
-      "question": "Dans le film Chandramukhi, quel objet Rajinikanth utilise-t-il pour prouver que Jyothika est possédée (elle le soulève alors qu'il est très lourd) ?",
-      "answer": "Un lit (ou le piano dans certaines versions, mais la scène clé est le lit qui bouge)",
+      "question": "Dans Chandramukhi, comment Saravanan (Rajinikanth) montre-t-il à Senthil que Ganga est possédée ?",
+      "answer": "Il le fait provoquer Ganga, qui se transforme et soulève un lit",
       "difficulty": "difficile",
       "category": "Scènes cultes"
     },
@@ -1984,14 +1942,7 @@
       "difficulty": "normal",
       "category": "Personnages Cultes"
     },
-    {
-      "id": "kol284",
-      "question": "Danseur et réalisateur qui joue souvent le héros dans ses propres films. Il a réalisé le hit 'Love Today' (2022) et joue dans le film. Qui est-ce ?",
-      "answer": "Pradeep Ranganathan",
-      "difficulty": "normal",
-      "category": "Acteurs-Réalisateurs"
-    },
-    {
+        {
       "id": "kol285",
       "question": "Réalisateur au style 'Dark Humor' très particulier. Ses personnages sont souvent impassibles dans des situations absurdes (Doctor, Beast, Jailer). Qui est-ce ?",
       "answer": "Nelson Dilipkumar",
@@ -2040,14 +1991,7 @@
       "difficulty": "normal",
       "category": "Musique"
     },
-    {
-      "id": "kol292",
-      "question": "Réalisateur connu pour ses films de 'potes' (Chennai 600028, Goa) et ses thrillers temporels (Maanaadu). Il fait souvent jouer son frère Premgi. Qui est-ce ?",
-      "answer": "Venkat Prabhu",
-      "difficulty": "normal",
-      "category": "Réalisateurs"
-    },
-    {
+        {
       "id": "kol293",
       "question": "Film de 2014 écrit par H. Vinoth. Natty joue un escroc brillant qui utilise la cupidité des gens pour les arnaquer (serpent de riz, MLM, Emu). Quel est ce film ?",
       "answer": "Sathuranga Vettai",
@@ -2182,7 +2126,7 @@
     },
     {
       "id": "kol312",
-      "question": "Acteur malayalam aux yeux intenses, devenu une star au Tamil Nadu grâce à ses rôles de méchant dans Velaikkaran et Maamannan, et d'agent secret dans Vikram. Qui est-ce ?",
+      "question": "Acteur malayalam aux yeux intenses, devenu une star au Tamil Nadu grâce à ses rôles de méchant dans Velaikkaran et Maamannan, et d'officier black ops dans Vikram. Qui est-ce ?",
       "answer": "Fahadh Faasil",
       "difficulty": "normal",
       "category": "Acteurs"
@@ -2280,7 +2224,7 @@
     },
     {
       "id": "kol326",
-      "question": "Film de 2019 de Vetrimaran. Dhanush joue un jeune joueur de carrom qui se retrouve aspiré malgré lui dans une guerre de gangs. Quel est ce film ?",
+      "question": "Film de 2018 de Vetrimaran. Dhanush joue un jeune joueur de carrom qui se retrouve aspiré malgré lui dans une guerre de gangs. Quel est ce film ?",
       "answer": "Vada Chennai",
       "difficulty": "normal",
       "category": "Films cultes"
@@ -2322,7 +2266,7 @@
     },
     {
       "id": "kol332",
-      "question": "Chanson du film Darbar (2020) avec Rajinikanth. Anirudh l'a composée. 'Chumma Kizhi'. Quel est le titre ?",
+      "question": "Chanson du film Darbar (2020), une des dernières chansons de SPB pour Rajinikanth. Composée par Anirudh. Quelle est cette chanson ?",
       "answer": "Chumma Kizhi",
       "difficulty": "facile",
       "category": "Musique"
@@ -2341,14 +2285,7 @@
       "difficulty": "normal",
       "category": "Action"
     },
-    {
-      "id": "kol335",
-      "question": "Quel film de 2024 met en scène Dhanush dans un film d'époque violent, où il mène une révolte armée contre les colons britanniques ?",
-      "answer": "Captain Miller",
-      "difficulty": "normal",
-      "category": "Action"
-    },
-    {
+        {
       "id": "kol336",
       "question": "Actrice qui a joué Baahubali (Devasena) et Rudhramadevi. Elle est connue pour ses rôles physiques et son yoga. Qui est-ce ?",
       "answer": "Anushka Shetty",
@@ -2392,7 +2329,7 @@
     },
     {
       "id": "kol342",
-      "question": "Acteur de comédie qui joue le rôle de 'Sathish', l'ami de Vijay dans Kaththi et Theri. Il est connu pour ses cheveux bouclés. Qui est-ce ?",
+      "question": "Acteur comique tamoul qui joue le sidekick de Vijay dans Kaththi (2014). Il a reçu l'Edison Award du meilleur comédien pour ce rôle. Qui est-ce ?",
       "answer": "Sathish",
       "difficulty": "normal",
       "category": "Comédie"
@@ -2420,17 +2357,17 @@
     },
     {
       "id": "kol346",
-      "question": "Chanson du film Doctor (2021). Sivakarthikeyan et Priyanka Mohan. 'Chellamma'. Les paroles parlent de TikTok banni. Quel est le titre ?",
+      "question": "Chanson du film Doctor (2021) avec Sivakarthikeyan. Les paroles font référence à l'interdiction de TikTok en Inde. Quelle est cette chanson ?",
       "answer": "Chellamma",
       "difficulty": "facile",
       "category": "Musique"
     },
     {
       "id": "kol347",
-      "question": "Dans le film Minsara Kanavu (1997), qui joue la nonne qui veut se consacrer à Dieu mais dont Prabhu Deva tombe amoureux ?",
-      "answer": "Kajol",
+      "question": "Film de 1997 inspiré de 'The Sound of Music'. Une jeune femme veut devenir nonne, mais un coiffeur chargé de la dissuader tombe amoureux d'elle. Quel est ce film ?",
+      "answer": "Minsara Kanavu",
       "difficulty": "normal",
-      "category": "Actrices"
+      "category": "Romance"
     },
     {
       "id": "kol348",
@@ -2663,14 +2600,7 @@
       "difficulty": "normal",
       "category": "Comédie"
     },
-    {
-      "id": "kol381",
-      "question": "Film de 2017 avec Vijay en triple rôle : un père chef de village, un magicien et un docteur. Le film a fait polémique pour ses dialogues sur la TVA (GST). Quel est ce film ?",
-      "answer": "Mersal",
-      "difficulty": "normal",
-      "category": "Action"
-    },
-    {
+        {
       "id": "kol382",
       "question": "Quelle expression tamoule signifiant 'Joie' ou 'Bonheur' Rajinikanth popularise-t-il dans le film Kabali ?",
       "answer": "Magizhchi",
@@ -2679,10 +2609,10 @@
     },
     {
       "id": "kol383",
-      "question": "Film de 2005. Sarathkumar joue une personne transgenre nommée Kanchana. (Non, c'est pas ça). Kanchana c'est Lawrence. Sarathkumar a joué transgenre dans quel film ? 'Muni 2 : Kanchana'.",
-      "answer": "Muni 2: Kanchana",
+      "question": "Film de 1997 où Sarathkumar joue un double rôle : un père strict et son fils illettré qu'il méprise. Ce drame familial rural a remporté six Tamil Nadu State Film Awards. Quel est ce film ?",
+      "answer": "Suryavamsam",
       "difficulty": "normal",
-      "category": "Horreur"
+      "category": "Drame"
     },
     {
       "id": "kol384",
@@ -2740,14 +2670,7 @@
       "difficulty": "normal",
       "category": "Intrigue"
     },
-    {
-      "id": "kol392",
-      "question": "Quel acteur joue le rôle du méchant terrifiant 'Vinayak Mahadevan' dans Mankatha, célèbre pour sa phrase 'I am back!' ?",
-      "answer": "Ajith Kumar (C'est un anti-héros/méchant)",
-      "difficulty": "normal",
-      "category": "Personnages"
-    },
-    {
+        {
       "id": "kol393",
       "question": "Dans le film Ratsasan, quel objet le tueur en série laisse-t-il comme signature après chaque meurtre ?",
       "answer": "Une boîte cadeau (contenant une poupée mutilée)",
@@ -2882,7 +2805,7 @@
     },
     {
       "id": "kol412",
-      "question": "Quelle actrice a commencé comme enfant star dans le film 'Anjali' et est devenue plus tard l'épouse de l'acteur Ajith Kumar ?",
+      "question": "Quelle actrice, sœur de Baby Shamili, est devenue célèbre dans les années 90 avant d'épouser l'acteur Ajith Kumar ?",
       "answer": "Shalini",
       "difficulty": "normal",
       "category": "Actrices"
@@ -2938,19 +2861,12 @@
     },
     {
       "id": "kol420",
-      "question": "Film de 2014. La suite de VIP. Dhanush affronte une femme d'affaires arrogante jouée par Kajol. Quel est ce film ?",
+      "question": "Film de 2017 où Dhanush reprend son rôle d'ingénieur rebelle face à Kajol, une femme d'affaires impitoyable. Quel est ce film ?",
       "answer": "VIP 2",
       "difficulty": "normal",
       "category": "Comédie/Action"
     },
-    {
-      "id": "kol421",
-      "question": "Quel instrument de musique traditionnel Kamal Haasan joue-t-il dans la scène d'ouverture du film Salangai Oli (Sagara Sangamam) ?",
-      "answer": "Le Mridangam (ou danse classique)",
-      "difficulty": "difficile",
-      "category": "Arts"
-    },
-    {
+        {
       "id": "kol422",
       "question": "Drame poignant de 2019 avec Mammootty. Un père élève seul sa fille adolescente souffrant de paralysie cérébrale. Réalisé par Ram. Quel est ce film ?",
       "answer": "Peranbu",
@@ -2978,14 +2894,7 @@
       "difficulty": "normal",
       "category": "Actrices"
     },
-    {
-      "id": "kol426",
-      "question": "Film de 2017. Vijay joue trois rôles (père et deux fils). Le père est un chef de village qui se bat pour construire un hôpital gratuit. La chanson 'Aalaporan Thamizhan' est un hymne. Quel est ce film ?",
-      "answer": "Mersal",
-      "difficulty": "normal",
-      "category": "Action"
-    },
-    {
+        {
       "id": "kol427",
       "question": "Dans le film Anniyan, quelle est la méthode utilisée par le justicier pour punir celui qui a fourni de la mauvaise nourriture dans le train ?",
       "answer": "Il le fait frire dans de l'huile bouillante (Kumbipakam)",
@@ -3015,7 +2924,7 @@
     },
     {
       "id": "kol431",
-      "question": "Film de 2003. Vikram joue un policier dur à cuire qui jure comme un charretier et boit de la bière avec des Idlis. Il affronte le méchant Perumal Pichai. Quel est ce film ?",
+      "question": "Film de 2003. Un policier rusé fait semblant d'être corrompu pour piéger le don Perumal Pichai. Ce film a lancé la mode des films de flics tamouls. Quel est ce film ?",
       "answer": "Saamy",
       "difficulty": "normal",
       "category": "Action"
@@ -3055,21 +2964,7 @@
       "difficulty": "normal",
       "category": "Personnages"
     },
-    {
-      "id": "kol437",
-      "question": "Acteur de comédie qui joue le rôle de l'ami de Dhanush dans VIP et de Vijay dans Theri. Il est grand et porte des lunettes. Qui est-ce ?",
-      "answer": "Sathish",
-      "difficulty": "normal",
-      "category": "Comédie"
-    },
-    {
-      "id": "kol438",
-      "question": "Film de 2013. Arya et Nayanthara. Ils se marient contre leur gré, chacun aimant quelqu'un d'autre avant. Flashbacks de leurs ex (Jai et Nazriya). 'Raja Rani'. Quel est ce film ?",
-      "answer": "Raja Rani",
-      "difficulty": "normal",
-      "category": "Romance"
-    },
-    {
+            {
       "id": "kol439",
       "question": "Chanson du film Petta (2019). Rajinikanth danse dans une auberge de jeunesse. 'Marana Mass'. Anirudh chante avec des percussions lourdes. Quel est le titre ?",
       "answer": "Marana Mass",
@@ -3142,7 +3037,7 @@
     {
       "id": "kol449",
       "question": "Dans le film Soorarai Pottru, quel est le nom de la compagnie aérienne fondée par Nedumaaran Rajangam (Suriya) ?",
-      "answer": "Deccan Air (ou Maara Air dans le film)",
+      "answer": "Deccan Air",
       "difficulty": "normal",
       "category": "Biopic"
     },
@@ -3218,7 +3113,7 @@
     },
     {
       "id": "kol460",
-      "question": "Film d'époque de 2023. Dhanush joue un rebelle armé qui lutte contre la colonisation britannique. Shivarajkumar y fait un cameo. Quel est ce film ?",
+      "question": "Film d'époque de 2024. Dhanush joue un rebelle armé qui lutte contre la colonisation britannique. Shivarajkumar y fait un cameo. Quel est ce film ?",
       "answer": "Captain Miller",
       "difficulty": "normal",
       "category": "Action"
@@ -3295,7 +3190,7 @@
     },
     {
       "id": "kol471",
-      "question": "Chanson du film Leo chantée par Vijay. Elle a créé la polémique pour ses paroles sur l'alcool et le tabac. 'Naa Ready...'. Quel est le titre ?",
+      "question": "Chanson chantée par Vijay qui a créé la polémique pour ses paroles sur l'alcool et le tabac. Quelle est cette chanson ?",
       "answer": "Naa Ready",
       "difficulty": "facile",
       "category": "Musique"
@@ -3407,7 +3302,7 @@
     },
     {
       "id": "kol487",
-      "question": "Chanson énergique du film 'Jailer'. C'est le thème musical qui accompagne la puissance de Rajinikanth. 'Hukum - Tiger Ka Hukum'. Quel est ce titre ?",
+      "question": "Chanson énergique du film Jailer composée par Anirudh. C'est le thème qui accompagne l'entrée en scène de Rajinikanth. Quelle est cette chanson ?",
       "answer": "Hukum",
       "difficulty": "facile",
       "category": "Musique"

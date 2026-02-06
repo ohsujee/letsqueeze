@@ -1,6 +1,6 @@
 {
-  "normal":   { "start": 100, "floor": 50,  "durationMs": 20000 },
-  "difficile":{ "start": 200, "floor": 100, "durationMs": 20000 },
+  "normal":    { "start": 100, "floor": 100, "durationMs": 20000 },
+  "difficile": { "start": 100, "floor": 100, "durationMs": 20000 },
   "lockoutMs": 8000,
   "wrongAnswerPenalty": 25,
   "pauseOnBuzz": true,

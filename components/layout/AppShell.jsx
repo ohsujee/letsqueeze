@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Capacitor } from '@capacitor/core';
+import { App } from '@capacitor/app';
 
 /**
  * AppShell - Wrapper global pour le viewport
@@ -20,6 +21,33 @@ import { Capacitor } from '@capacitor/core';
  */
 export function AppShell({ children }) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  // Gestion du bouton retour système (Android/iOS)
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return;
+
+    const listener = App.addListener('backButton', ({ canGoBack }) => {
+      // Pages principales où on minimise au lieu de quitter
+      const mainPages = ['/home', '/splash', '/'];
+      const isMainPage = mainPages.includes(pathname);
+
+      if (isMainPage) {
+        // Minimiser l'app au lieu de quitter
+        App.minimizeApp();
+      } else if (canGoBack) {
+        // Naviguer en arrière
+        router.back();
+      } else {
+        // Fallback : aller à home
+        router.push('/home');
+      }
+    });
+
+    return () => {
+      listener.then(l => l.remove());
+    };
+  }, [pathname, router]);
 
   useEffect(() => {
     const setAppHeight = () => {

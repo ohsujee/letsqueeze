@@ -5,19 +5,19 @@
       "name": "Culture Générale",
       "emoji": "🌍",
       "themes": [
-        {"id": "database-divers", "title": "Divers", "emoji": "🎲", "questionCount": 100, "description": "Marques, Jeux, Traditions, Pop Culture", "free": true},
-        {"id": "database-sciences", "title": "Sciences", "emoji": "🔬", "questionCount": 100, "description": "Physique, Chimie, Biologie, Astronomie"},
-        {"id": "database-histoire", "title": "Histoire", "emoji": "📜", "questionCount": 100, "description": "Événements, Personnages, Guerres"},
-        {"id": "database-geographie", "title": "Géographie", "emoji": "🗺️", "questionCount": 100, "description": "Pays, Capitales, Fleuves, Monuments"},
-        {"id": "database-sport", "title": "Sport", "emoji": "⚽", "questionCount": 100, "description": "Football, Tennis, JO, Légendes"},
-        {"id": "database-cinema", "title": "Cinéma", "emoji": "🎬", "questionCount": 100, "description": "Films, Réalisateurs, Acteurs"},
-        {"id": "database-musique", "title": "Musique", "emoji": "🎵", "questionCount": 12, "description": "Artistes, Groupes, Classique, Pop"},
-        {"id": "database-litterature", "title": "Littérature", "emoji": "📚", "questionCount": 10, "description": "Auteurs, Romans, Poésie"},
-        {"id": "database-art", "title": "Art", "emoji": "🎨", "questionCount": 50, "description": "Peinture, Sculpture, Architecture"},
-        {"id": "database-gastronomie", "title": "Gastronomie", "emoji": "🍽️", "questionCount": 8, "description": "Cuisine du monde, Chefs, Spécialités"},
-        {"id": "database-technologie", "title": "Technologie", "emoji": "💻", "questionCount": 50, "description": "Tech, Apps, Entrepreneurs"},
-        {"id": "database-nature", "title": "Nature", "emoji": "🌿", "questionCount": 50, "description": "Animaux, Écosystèmes, Phénomènes"},
-        {"id": "database-mythologie", "title": "Mythologie", "emoji": "⚡", "questionCount": 12, "description": "Dieux grecs, nordiques, égyptiens"}
+        {"id": "database-divers", "title": "Divers", "emoji": "🎲", "description": "Marques, Jeux, Traditions, Pop Culture", "free": true},
+        {"id": "database-sciences", "title": "Sciences", "emoji": "🔬", "description": "Physique, Chimie, Biologie, Astronomie"},
+        {"id": "database-histoire", "title": "Histoire", "emoji": "📜", "description": "Événements, Personnages, Guerres"},
+        {"id": "database-geographie", "title": "Géographie", "emoji": "🗺️", "description": "Pays, Capitales, Fleuves, Monuments"},
+        {"id": "database-sport", "title": "Sport", "emoji": "⚽", "description": "Football, Tennis, JO, Légendes"},
+        {"id": "database-cinema", "title": "Cinéma", "emoji": "🎬", "description": "Films, Réalisateurs, Acteurs"},
+        {"id": "database-musique", "title": "Musique", "emoji": "🎵", "description": "Artistes, Groupes, Classique, Pop"},
+        {"id": "database-litterature", "title": "Littérature", "emoji": "📚", "description": "Auteurs, Romans, Poésie"},
+        {"id": "database-art", "title": "Art", "emoji": "🎨", "description": "Peinture, Sculpture, Architecture"},
+        {"id": "database-gastronomie", "title": "Gastronomie", "emoji": "🍽️", "description": "Cuisine du monde, Chefs, Spécialités"},
+        {"id": "database-technologie", "title": "Technologie", "emoji": "💻", "description": "Tech, Apps, Entrepreneurs"},
+        {"id": "database-nature", "title": "Nature", "emoji": "🌿", "description": "Animaux, Écosystèmes, Phénomènes"},
+        {"id": "database-mythologie", "title": "Mythologie", "emoji": "⚡", "description": "Dieux grecs, nordiques, égyptiens"}
       ]
     },
     {
@@ -25,9 +25,9 @@
       "name": "Anime",
       "emoji": "🎌",
       "themes": [
-        {"id": "database-naruto", "title": "Naruto", "emoji": "🍥", "questionCount": 120, "description": "Personnages, Techniques, Clans, Akatsuki"},
-        {"id": "database-onepiece", "title": "One Piece", "emoji": "🏴‍☠️", "questionCount": 120, "description": "Équipage, Fruits du Démon, Empereurs"},
-        {"id": "database-dragonball", "title": "Dragon Ball", "emoji": "🐉", "questionCount": 0, "description": "Saiyans, Transformations, Tournois", "comingSoon": true}
+        {"id": "database-naruto", "title": "Naruto", "emoji": "🍥", "description": "Personnages, Techniques, Clans, Akatsuki"},
+        {"id": "database-onepiece", "title": "One Piece", "emoji": "🏴‍☠️", "description": "Équipage, Fruits du Démon, Empereurs"},
+        {"id": "database-dragonball", "title": "Dragon Ball", "emoji": "🐉", "description": "Saiyans, Transformations, Tournois", "comingSoon": true}
       ]
     },
     {
@@ -35,9 +35,9 @@
       "name": "Cinéma",
       "emoji": "🎬",
       "themes": [
-        {"id": "database-kollywood", "title": "Kollywood", "emoji": "🎥", "questionCount": 100, "description": "Films, Acteurs, Musique tamoule"},
-        {"id": "database-disney", "title": "Disney", "emoji": "🏰", "questionCount": 100, "description": "Films classiques et modernes"},
-        {"id": "database-marvel", "title": "Marvel", "emoji": "🦸", "questionCount": 0, "description": "MCU, Comics, Super-héros", "comingSoon": true}
+        {"id": "database-kollywood", "title": "Kollywood", "emoji": "🎥", "description": "Films, Acteurs, Musique tamoule"},
+        {"id": "database-disney", "title": "Disney", "emoji": "🏰", "description": "Films classiques et modernes"},
+        {"id": "database-marvel", "title": "Marvel", "emoji": "🦸", "description": "MCU, Comics, Super-héros", "comingSoon": true}
       ]
     },
     {
@@ -45,8 +45,8 @@
       "name": "Séries",
       "emoji": "📺",
       "themes": [
-        {"id": "database-friends", "title": "Friends", "emoji": "☕", "questionCount": 100, "description": "Central Perk, Ross, Rachel, Joey..."},
-        {"id": "database-mafamilledabord", "title": "Ma Famille D'abord", "emoji": "👨‍👩‍👧‍👦", "questionCount": 100, "description": "Michael Kyle et sa famille"}
+        {"id": "database-friends", "title": "Friends", "emoji": "☕", "description": "Central Perk, Ross, Rachel, Joey..."},
+        {"id": "database-mafamilledabord", "title": "Ma Famille D'abord", "emoji": "👨‍👩‍👧‍👦", "description": "Michael Kyle et sa famille"}
       ]
     }
   ]
