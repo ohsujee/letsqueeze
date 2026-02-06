@@ -1,7 +1,8 @@
 /**
- * Next.js Proxy - Rate Limiting & Security
+ * Next.js Proxy - Rate Limiting, Security & Browser Redirect
  *
- * Applique le rate limiting sur les routes API et protège contre le spam.
+ * - Rate limiting sur les routes API
+ * - Redirection navigateurs vers /download (sauf app native)
  */
 
 import { NextResponse } from 'next/server';
@@ -11,28 +12,82 @@ import { checkRateLimit, getClientIP, rateLimitResponse } from './lib/rate-limit
  * Routes et leurs configurations de rate limit
  */
 const ROUTE_CONFIGS = [
-  // Autres API - standard
+  // API - standard
   { pattern: /^\/api\//, action: 'api' },
 ];
 
 /**
- * Routes à exclure du rate limiting
+ * Routes accessibles depuis le navigateur (pas de redirect vers /download)
  */
-const EXCLUDED_ROUTES = [
+const BROWSER_ALLOWED_PATHS = [
+  '/download',
+  '/legal',
+  '/privacy',
+  '/terms',
+  '/support',
+  '/.well-known',
+  '/api',
+  '/icons',
+  '/images',
+  '/data',
+  '/config',
   '/_next',
   '/favicon.ico',
-  '/icon.svg',
+  '/',
+  '/home',
+  '/splash',
 ];
+
+/**
+ * Check if request is from Capacitor native app
+ */
+function isNativeApp(userAgent) {
+  return userAgent.includes('Capacitor') || userAgent.includes('capacitor');
+}
+
+/**
+ * Check if it's a bot/crawler
+ */
+function isBot(userAgent) {
+  const botPatterns = [
+    'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
+    'yandexbot', 'facebookexternalhit', 'twitterbot', 'linkedinbot',
+    'whatsapp', 'telegrambot', 'applebot',
+  ];
+  const ua = userAgent.toLowerCase();
+  return botPatterns.some(bot => ua.includes(bot));
+}
+
+/**
+ * Check if path is allowed for browser access
+ */
+function isBrowserAllowedPath(pathname) {
+  return BROWSER_ALLOWED_PATHS.some(allowed =>
+    pathname === allowed || pathname.startsWith(allowed + '/')
+  );
+}
 
 export async function proxy(request) {
   const { pathname } = request.nextUrl;
+  const userAgent = request.headers.get('user-agent') || '';
 
-  // Skip excluded routes
-  if (EXCLUDED_ROUTES.some(route => pathname.startsWith(route))) {
-    return NextResponse.next();
+  // === BROWSER REDIRECT LOGIC ===
+  // Skip for bots (SEO)
+  if (!isBot(userAgent)) {
+    // Skip for native app
+    if (!isNativeApp(userAgent)) {
+      // Skip for allowed paths
+      if (!isBrowserAllowedPath(pathname)) {
+        // Redirect browser users to download page
+        const url = request.nextUrl.clone();
+        url.pathname = '/download';
+        return NextResponse.redirect(url);
+      }
+    }
   }
 
-  // Skip non-API routes for rate limiting (static pages, etc.)
+  // === RATE LIMITING LOGIC ===
+  // Skip non-API routes
   if (!pathname.startsWith('/api/')) {
     return NextResponse.next();
   }
@@ -62,11 +117,10 @@ export async function proxy(request) {
 
 /**
  * Configuration du proxy
- * Matcher pour les routes où le proxy s'applique
  */
 export const config = {
   matcher: [
-    // API routes
-    '/api/:path*',
+    // All routes except static files
+    '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 };
