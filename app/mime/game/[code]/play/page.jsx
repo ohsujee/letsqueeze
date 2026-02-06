@@ -81,14 +81,11 @@ export default function MimePlayPage() {
     }
   }, [myUid, meta?.hostUid]);
 
-  // Détecter changement de mimeur pour afficher transition
+  // Détecter changement de mimeur pour afficher transition (y compris premier mimeur)
   useEffect(() => {
     if (state?.currentMimeUid && state.currentMimeUid !== previousMimeUid) {
-      // Ne pas afficher au premier chargement
-      if (previousMimeUid !== null) {
-        setShowMimerTransition(true);
-        setTimeout(() => setShowMimerTransition(false), 2000);
-      }
+      setShowMimerTransition(true);
+      setTimeout(() => setShowMimerTransition(false), 2000);
       setPreviousMimeUid(state.currentMimeUid);
     }
   }, [state?.currentMimeUid, previousMimeUid]);

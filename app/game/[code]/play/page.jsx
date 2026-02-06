@@ -223,11 +223,11 @@ export default function PlayerGame() {
 
   const isMyTurn = state?.lockUid === me?.uid;
 
-  // Party Mode: Show transition when asker changes
+  // Party Mode: Show transition when asker changes (including first asker)
   useEffect(() => {
     if (!isPartyMode || !currentAskerUid) return;
 
-    if (prevAskerUidRef.current !== null && prevAskerUidRef.current !== currentAskerUid) {
+    if (prevAskerUidRef.current !== currentAskerUid) {
       setShowAskerTransition(true);
     }
     prevAskerUidRef.current = currentAskerUid;

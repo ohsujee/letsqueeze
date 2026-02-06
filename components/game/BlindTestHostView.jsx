@@ -512,13 +512,14 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
       }
     }
 
-    // Clear buzz state
+    // Clear buzz state and show reveal to all players
     await update(ref(db, `rooms_blindtest/${code}/state`), {
-      lockUid: null,
+      revealed: true,
       buzzBanner: "",
       buzz: null,
       pausedAt: null,
       lockedAt: null
+      // lockUid kept so players see winner name
     });
 
     // Show reveal screen with winner info
