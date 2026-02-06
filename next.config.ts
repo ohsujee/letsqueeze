@@ -62,10 +62,6 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  devIndicators: {
-    appIsrStatus: false,
-    buildActivity: false,
-  },
 
   // Security headers for all routes
   async headers() {
