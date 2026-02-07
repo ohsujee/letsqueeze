@@ -637,9 +637,6 @@ function GameTransition({ variant, onComplete, duration = 3500 }) {
         />
       </div>
 
-      {/* Particles */}
-      <FloatingParticles count={20} color={config.particleColor} />
-
       <style jsx global>{`
         .transition-overlay {
           position: fixed;
@@ -1014,58 +1011,6 @@ function LightbulbIcon({ size, color, glowColor }) {
         />
       </svg>
     </div>
-  );
-}
-
-// ============================================
-// PARTICULES FLOTTANTES
-// ============================================
-
-function FloatingParticles({ count = 15, color }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const particles = useMemo(() => {
-    if (!mounted) return [];
-    // Utiliser des valeurs fixes pour éviter les problèmes SSR
-    const w = 800;
-    const h = 600;
-    return [...Array(count)].map((_, i) => ({
-      id: i,
-      startX: Math.random() * w,
-      endX: Math.random() * w,
-      duration: 4 + Math.random() * 3,
-      delay: Math.random() * 2,
-      startY: h + 50,
-      size: 3 + Math.random() * 4
-    }));
-  }, [mounted, count]);
-
-  if (!mounted) return null;
-
-  return (
-    <>
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          initial={{ opacity: 0, x: p.startX, y: p.startY }}
-          animate={{ opacity: [0, 0.8, 0], y: -100, x: p.endX }}
-          transition={{ duration: p.duration, repeat: Infinity, delay: p.delay }}
-          style={{
-            position: "absolute",
-            width: p.size,
-            height: p.size,
-            background: color,
-            borderRadius: "50%",
-            pointerEvents: "none",
-            boxShadow: `0 0 ${p.size * 2}px ${color}`
-          }}
-        />
-      ))}
-    </>
   );
 }
 

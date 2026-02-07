@@ -9,7 +9,7 @@ import Leaderboard from "@/components/game/Leaderboard";
 import AskerTransition from "@/components/game/AskerTransition";
 import QuizHostView from "@/components/game/QuizHostView";
 import { motion, AnimatePresence } from "framer-motion";
-import { triggerConfetti } from "@/components/shared/Confetti";
+
 import GamePlayHeader from "@/components/game/GamePlayHeader";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
@@ -213,8 +213,7 @@ export default function PlayerGame() {
     const isLockedByMe = state?.lockUid === auth.currentUser?.uid;
 
     if (currentIndex !== prevQuestionIndex.current && prevQuestionIndex.current >= 0 && wasLockedByMe.current) {
-      triggerConfetti('reward');
-      setTimeout(() => triggerConfetti('reward'), 100);
+      // Confetti removed (caused white squares on Android)
     }
 
     prevQuestionIndex.current = currentIndex;

@@ -24,7 +24,6 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
-import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { VerdictTransition } from "@/components/game-alibi/VerdictTransition";
 import { AlibiRoundTransition, AlibiSpectatorView } from "@/components/game-alibi";
 import { GameEndTransition } from "@/components/transitions";
@@ -457,16 +456,13 @@ export default function AlibiInterrogation() {
     }
   }, [questionState, suspects, responses]);
 
-  // Visual effects on verdict
+  // Visual effects on verdict (Hue only, confetti removed)
   useEffect(() => {
     if (verdict === "correct") {
-      ParticleEffects.celebrate('high');
       hueScenariosService.trigger('alibi', 'goodAnswer');
     } else if (verdict === "incorrect") {
-      ParticleEffects.wrongAnswer();
       hueScenariosService.trigger('alibi', 'badAnswer');
     } else if (verdict === "timeout") {
-      ParticleEffects.wrongAnswer();
       hueScenariosService.trigger('alibi', 'timeUp');
     }
   }, [verdict]);

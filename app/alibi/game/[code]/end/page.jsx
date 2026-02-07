@@ -14,7 +14,6 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import BottomNav from "@/lib/components/BottomNav";
 import { EndScreenFooter } from "@/components/transitions";
-import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { hueScenariosService } from "@/lib/hue-module";
 import { recordAlibiGame } from "@/lib/services/statsService";
 import { storage } from "@/lib/utils/storage";
@@ -448,7 +447,6 @@ export default function AlibiEnd() {
       setTimeout(() => {
         if (!confettiTriggeredRef.current) {
           confettiTriggeredRef.current = true;
-          ParticleEffects.wrongAnswer();
           hueScenariosService.trigger('alibi', 'defeat');
         }
         setShowMessage(true);
@@ -472,10 +470,8 @@ export default function AlibiEnd() {
           if (!confettiTriggeredRef.current) {
             confettiTriggeredRef.current = true;
             if (isSuccess) {
-              ParticleEffects.celebrate('high');
               hueScenariosService.trigger('alibi', 'victory');
             } else {
-              ParticleEffects.wrongAnswer();
               hueScenariosService.trigger('alibi', 'defeat');
             }
           }

@@ -2,34 +2,12 @@
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useGameAudio } from '@/lib/hooks/useGameAudio';
-import { ParticleEffects } from '@/components/shared/ParticleEffects';
-
 export const PodiumPremium = ({ topPlayers, disableAnimations = false }) => {
   const audio = useGameAudio();
 
   useEffect(() => {
     // Son de victoire (joue une seule fois)
     audio.play('victory/end-celebration', { volume: 0.4 });
-
-    // Skip particles if animations disabled, or defer them
-    if (disableAnimations) return;
-
-    // Defer particle effects to avoid competing with initial animations
-    const particleTimer = setTimeout(() => {
-      ParticleEffects.starRain();
-    }, 800); // Wait for podium animations to settle
-
-    const fireworksTimer = setTimeout(() => {
-      ParticleEffects.fireworks();
-    }, 3000); // Start fireworks after starRain
-
-    return () => {
-      clearTimeout(particleTimer);
-      clearTimeout(fireworksTimer);
-      // CRITICAL: Clean up all particle effects and canvas on unmount
-      // This prevents GPU corruption on Android WebView
-      ParticleEffects.reset();
-    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty deps - run once on mount only
 

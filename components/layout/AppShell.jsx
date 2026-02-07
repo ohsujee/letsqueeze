@@ -49,6 +49,28 @@ export function AppShell({ children }) {
     };
   }, [pathname, router]);
 
+  // Deep linking: handle QR code scans and universal links
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return;
+
+    const listener = App.addListener('appUrlOpen', ({ url }) => {
+      try {
+        const parsed = new URL(url);
+        // Build the internal path with query params
+        const path = parsed.pathname + parsed.search;
+        if (path && path !== '/') {
+          router.push(path);
+        }
+      } catch {
+        // Invalid URL, ignore
+      }
+    });
+
+    return () => {
+      listener.then(l => l.remove());
+    };
+  }, [router]);
+
   useEffect(() => {
     const setAppHeight = () => {
       // Calcule la vraie hauteur visible (sans barre d'adresse, etc.)

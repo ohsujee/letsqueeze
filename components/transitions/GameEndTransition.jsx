@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 /**
@@ -36,8 +36,7 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
       accentGlow: "#a78bfa",
       title: "Calcul des scores",
       subtitle: "Préparez-vous pour le podium...",
-      icon: "trophy",
-      particleColor: "#a78bfa"
+      icon: "trophy"
     },
     "deeztest": {
       gradient: ["rgba(162, 56, 255, 0.97)", "rgba(130, 30, 220, 0.97)"],
@@ -46,8 +45,7 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
       accentGlow: "#c084fc",
       title: "Résultats en cours",
       subtitle: "Qui connaît le mieux la musique ?",
-      icon: "music",
-      particleColor: "#c084fc"
+      icon: "music"
     },
     "alibi": {
       gradient: ["rgba(245, 158, 11, 0.97)", "rgba(217, 119, 6, 0.97)"],
@@ -56,8 +54,7 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
       accentGlow: "#fbbf24",
       title: "Enquête Terminée",
       subtitle: "Découvrez les résultats...",
-      icon: "folder",
-      particleColor: "#fbbf24"
+      icon: "folder"
     },
     "laregle": {
       gradient: ["rgba(6, 182, 212, 0.97)", "rgba(8, 145, 178, 0.97)"],
@@ -66,8 +63,7 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
       accentGlow: "#22d3ee",
       title: "Règle Révélée",
       subtitle: "Découvrez les scores...",
-      icon: "lightbulb",
-      particleColor: "#22d3ee"
+      icon: "lightbulb"
     },
     "mime": {
       gradient: ["rgba(0, 255, 102, 0.97)", "rgba(0, 204, 82, 0.97)"],
@@ -76,8 +72,7 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
       accentGlow: "#4dff8d",
       title: "Partie Terminée",
       subtitle: "Qui est le meilleur mimeur ?",
-      icon: "theater",
-      particleColor: "#4dff8d"
+      icon: "theater"
     }
   };
 
@@ -103,21 +98,6 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
 
       {/* Vignette */}
       <div className="transition-vignette" />
-
-      {/* Scanlines */}
-      <motion.div
-        className="transition-scanlines"
-        animate={{ y: ["-100%", "100%"] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-      />
-
-      {/* Flash subtil */}
-      <motion.div
-        className="transition-flash"
-        animate={{ opacity: [0, 0.12, 0] }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-        style={{ background: config.accentGlow }}
-      />
 
       {/* Contenu principal */}
       <div className="transition-content">
@@ -173,9 +153,6 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
         />
       </div>
 
-      {/* Particles */}
-      <FloatingParticles count={20} color={config.particleColor} />
-
       <style jsx global>{`
         .transition-overlay {
           position: fixed;
@@ -198,25 +175,6 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
           position: absolute;
           inset: 0;
           background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
-          pointer-events: none;
-        }
-
-        .transition-scanlines {
-          position: absolute;
-          inset: 0;
-          background: repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(255, 255, 255, 0.02) 2px,
-            rgba(255, 255, 255, 0.02) 4px
-          );
-          pointer-events: none;
-        }
-
-        .transition-flash {
-          position: absolute;
-          inset: 0;
           pointer-events: none;
         }
 
@@ -616,53 +574,3 @@ function TheaterIcon({ size, color, glowColor }) {
   );
 }
 
-// ============================================
-// PARTICULES FLOTTANTES
-// ============================================
-
-function FloatingParticles({ count = 15, color }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const particles = useMemo(() => {
-    if (!mounted) return [];
-    const w = 800;
-    const h = 600;
-    return [...Array(count)].map((_, i) => ({
-      id: i,
-      startX: Math.random() * w,
-      endX: Math.random() * w,
-      duration: 4 + Math.random() * 3,
-      delay: Math.random() * 2,
-      startY: h + 50,
-      size: 3 + Math.random() * 4
-    }));
-  }, [mounted, count]);
-
-  if (!mounted) return null;
-
-  return (
-    <>
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          initial={{ opacity: 0, x: p.startX, y: p.startY }}
-          animate={{ opacity: [0, 0.8, 0], y: -100, x: p.endX }}
-          transition={{ duration: p.duration, repeat: Infinity, delay: p.delay }}
-          style={{
-            position: "absolute",
-            width: p.size,
-            height: p.size,
-            background: color,
-            borderRadius: "50%",
-            pointerEvents: "none",
-            boxShadow: `0 0 ${p.size * 2}px ${color}`
-          }}
-        />
-      ))}
-    </>
-  );
-}

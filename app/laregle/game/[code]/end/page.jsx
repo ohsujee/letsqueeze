@@ -13,7 +13,6 @@ import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { storage } from "@/lib/utils/storage";
-import { ParticleEffects } from "@/components/shared/ParticleEffects";
 import { CheckCircle, XCircle } from "lucide-react";
 import { TROUVE_COLORS } from "@/data/laregle-rules";
 
@@ -205,11 +204,7 @@ export default function LaLoiEndPage() {
     // Determine if current player won
     const iWon = (isInvestigator && investigatorsWon) || (!isInvestigator && !investigatorsWon);
 
-    if (iWon) {
-      ParticleEffects.celebrate('high');
-    } else {
-      ParticleEffects.wrongAnswer();
-    }
+    // Confetti removed (caused white squares on Android)
   }, [showResult, players, myUid, state?.foundByInvestigators]);
 
   const isHost = myUid && meta?.hostUid === myUid;

@@ -3,7 +3,6 @@
 import { useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Medal, Skull, FileText, RotateCcw, Home, Users } from 'lucide-react';
-import { triggerConfetti } from '@/components/shared/Confetti';
 
 /**
  * AlibiPartyEndScreen - Écran de fin style "Rapport d'enquête"
@@ -95,13 +94,7 @@ export default function AlibiPartyEndScreen({
     }
   };
 
-  // Confetti pour le gagnant
-  useEffect(() => {
-    if (ranking.length > 0 && ranking[0].id === myGroupId) {
-      const timer = setTimeout(() => triggerConfetti('victory'), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [ranking, myGroupId]);
+  // Confetti removed (caused white squares on Android)
 
   const today = new Date().toLocaleDateString('fr-FR', {
     day: '2-digit',

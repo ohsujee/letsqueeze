@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, signInAnonymously, onAuthStateChanged
@@ -7,10 +7,11 @@ import {
 import Buzzer from "@/components/game/Buzzer";
 import Leaderboard from "@/components/game/Leaderboard";
 import BlindTestHostView from "@/components/game/BlindTestHostView";
+import BlindTestRevealScreen from "@/components/game/BlindTestRevealScreen";
 import AskerTransition from "@/components/game/AskerTransition";
 import { motion, AnimatePresence } from "framer-motion";
 import { GameEndTransition } from "@/components/transitions";
-import { triggerConfetti } from "@/components/shared/Confetti";
+
 import GamePlayHeader from "@/components/game/GamePlayHeader";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
@@ -143,6 +144,59 @@ export default function DeezTestPlayerGame() {
 
   const revealed = !!state?.revealed;
 
+  // Reveal playback state from Firebase (time-based sync)
+  const revealPlayback = state?.revealPlayback || null;
+  const revealWinnerData = state?.revealWinner || null;
+  const [playerRevealProgress, setPlayerRevealProgress] = useState(0);
+  const playerRevealAnimRef = useRef(null);
+
+  // Calculate reveal progress from Firebase time-based data
+  useEffect(() => {
+    if (!revealed || !revealPlayback) {
+      setPlayerRevealProgress(0);
+      if (playerRevealAnimRef.current) {
+        cancelAnimationFrame(playerRevealAnimRef.current);
+        playerRevealAnimRef.current = null;
+      }
+      return;
+    }
+
+    if (revealPlayback.paused) {
+      // Paused: show static progress
+      setPlayerRevealProgress(revealPlayback.startProgress || 0);
+      if (playerRevealAnimRef.current) {
+        cancelAnimationFrame(playerRevealAnimRef.current);
+        playerRevealAnimRef.current = null;
+      }
+      return;
+    }
+
+    // Playing: animate progress from startProgress using time elapsed
+    const REVEAL_DURATION_MS = 25000; // 25 seconds
+    const startedAt = revealPlayback.startedAt || Date.now();
+    const startProgress = revealPlayback.startProgress || 0;
+
+    const animate = () => {
+      const elapsed = Date.now() - startedAt;
+      const progressIncrement = (elapsed / REVEAL_DURATION_MS) * 100;
+      const newProgress = Math.min(100, startProgress + progressIncrement);
+      setPlayerRevealProgress(newProgress);
+
+      if (newProgress < 100) {
+        playerRevealAnimRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    playerRevealAnimRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (playerRevealAnimRef.current) {
+        cancelAnimationFrame(playerRevealAnimRef.current);
+        playerRevealAnimRef.current = null;
+      }
+    };
+  }, [revealed, revealPlayback?.paused, revealPlayback?.startedAt, revealPlayback?.startProgress]);
+
   // Validation des niveaux avec fallback sécurisé
   const rawSnippetLevel = state?.snippetLevel || 0;
   const snippetLevel = isValidLevel(rawSnippetLevel) ? rawSnippetLevel : 0;
@@ -181,8 +235,7 @@ export default function DeezTestPlayerGame() {
     const isLockedByMe = state?.lockUid === auth.currentUser?.uid;
 
     if (currentIndex !== prevQuestionIndex.current && prevQuestionIndex.current >= 0 && wasLockedByMe.current) {
-      triggerConfetti('reward');
-      setTimeout(() => triggerConfetti('reward'), 100);
+      // Confetti removed (caused white squares on Android)
     }
 
     prevQuestionIndex.current = currentIndex;
@@ -323,66 +376,15 @@ export default function DeezTestPlayerGame() {
         )}
       </AnimatePresence>
 
-      {/* Reveal Screen for Players - Shows when answer is validated */}
-      <AnimatePresence>
-        {revealed && currentTrack && (
-          <motion.div
-            className="player-reveal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="player-reveal-content"
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ delay: 0.1, duration: 0.4 }}
-            >
-              {/* Winner info */}
-              {state?.lockUid && (
-                <motion.div
-                  className="player-reveal-winner"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <span className="winner-emoji">🏆</span>
-                  <span className="winner-name">
-                    {players.find(p => p.uid === state.lockUid)?.name || 'Joueur'}
-                  </span>
-                  <span className="winner-label">a trouvé !</span>
-                </motion.div>
-              )}
-
-              {/* Album Art */}
-              <motion.div
-                className="player-reveal-album"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-              >
-                {currentTrack.albumArt ? (
-                  <img src={currentTrack.albumArt} alt="Album" className="player-reveal-album-img" />
-                ) : (
-                  <div className="player-reveal-album-placeholder">🎵</div>
-                )}
-              </motion.div>
-
-              {/* Track Info */}
-              <motion.div
-                className="player-reveal-track"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <h3 className="player-reveal-title">{currentTrack.title}</h3>
-                <p className="player-reveal-artist">{currentTrack.artist}</p>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Reveal Screen - Same view as host, read-only */}
+      <BlindTestRevealScreen
+        show={revealed && !!currentTrack}
+        track={currentTrack}
+        winner={revealWinnerData}
+        isPlaying={revealPlayback ? !revealPlayback.paused : false}
+        progress={playerRevealProgress}
+        isController={false}
+      />
 
       {/* Main Content - Hidden when revealed */}
       {!revealed && (
@@ -633,99 +635,7 @@ export default function DeezTestPlayerGame() {
           /* Safe area gérée par AppShell */
         }
 
-        /* ===== Player Reveal Screen (read-only view for players) ===== */
-        .player-reveal-overlay {
-          position: fixed;
-          inset: 0;
-          z-index: 200;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(10, 10, 15, 0.95);
-          padding: 24px;
-        }
-
-        .player-reveal-content {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 24px;
-          max-width: 400px;
-          width: 100%;
-          text-align: center;
-        }
-
-        .player-reveal-winner {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 12px 24px;
-          background: rgba(162, 56, 255, 0.15);
-          border: 1px solid rgba(162, 56, 255, 0.4);
-          border-radius: 50px;
-        }
-
-        .winner-emoji {
-          font-size: 1.5rem;
-        }
-
-        .winner-name {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.1rem;
-          color: ${DEEZER_PURPLE};
-        }
-
-        .winner-label {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.7);
-        }
-
-        .player-reveal-album {
-          position: relative;
-          width: 200px;
-          height: 200px;
-          border-radius: 16px;
-          overflow: hidden;
-          box-shadow: 0 8px 40px rgba(162, 56, 255, 0.4);
-        }
-
-        .player-reveal-album-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .player-reveal-album-placeholder {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(162, 56, 255, 0.2);
-          font-size: 4rem;
-        }
-
-        .player-reveal-track {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        }
-
-        .player-reveal-title {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.4rem;
-          color: white;
-          margin: 0;
-          line-height: 1.2;
-        }
-
-        .player-reveal-artist {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.1rem;
-          color: ${DEEZER_PURPLE};
-          margin: 0;
-        }
+        /* Reveal screen styles are in BlindTestRevealScreen component */
       `}</style>
     </div>
   );

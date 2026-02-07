@@ -16,7 +16,17 @@ import "./join.css";
 
 export default function JoinClient({ initialCode = "" }) {
   const router = useRouter();
-  const [code, setCode] = useState((initialCode || "").toUpperCase());
+  const [code, setCode] = useState(() => {
+    // Server may pass initialCode, but in Capacitor deep links it may be empty
+    // Fallback: read from URL query params client-side
+    if (initialCode) return initialCode.toUpperCase();
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const urlCode = params.get("code");
+      if (urlCode) return urlCode.toUpperCase();
+    }
+    return "";
+  });
   const [user, setUser] = useState(null);
   const [joining, setJoining] = useState(false);
   const [error, setError] = useState("");
