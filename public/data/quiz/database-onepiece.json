@@ -174,7 +174,7 @@
     {
       "id": "op025",
       "question": "Fruit du démon de type Logia permettant de créer et devenir du feu, il a été mangé par Ace puis récupéré après sa mort. Sabo l'a obtenu lors du tournoi de Dressrosa. Quel est ce fruit ?",
-      "answer": "Le Mera Mera no Mi",
+      "answer": "Le Mera Mera no Mi (fruit des Flammes)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
@@ -503,28 +503,28 @@
     {
       "id": "op072",
       "question": "Fruit du démon de type Logia permettant de devenir et créer de la foudre, il permet de se déplacer à la vitesse de l'éclair. Enel l'utilisait pour se faire passer pour un dieu. Quel est ce fruit ?",
-      "answer": "Le Goro Goro no Mi",
+      "answer": "Le Goro Goro no Mi (fruit de la Foudre)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
     {
       "id": "op073",
       "question": "Fruit du démon de type Logia permettant de devenir et créer de la glace, son utilisateur peut geler les océans entiers. Aokiji l'a utilisé pour traverser la mer à pied. Quel est ce fruit ?",
-      "answer": "Le Hie Hie no Mi",
+      "answer": "Le Hie Hie no Mi (fruit du Gel)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
     {
       "id": "op074",
       "question": "Fruit du démon de type Logia permettant de devenir et créer du sable, son utilisateur peut assécher tout ce qu'il touche. Crocodile l'utilisait pour dominer Alabasta. Quel est ce fruit ?",
-      "answer": "Le Suna Suna no Mi",
+      "answer": "Le Suna Suna no Mi (fruit du Sable)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
     {
       "id": "op075",
       "question": "Fruit du démon de type Logia permettant de devenir et créer du magma, sa chaleur surpasse même le feu. Akainu l'a utilisé pour tuer Ace. Quel est ce fruit ?",
-      "answer": "Le Magu Magu no Mi",
+      "answer": "Le Magu Magu no Mi (fruit du Magma)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
@@ -538,21 +538,21 @@
     {
       "id": "op077",
       "question": "Fruit du démon de type Paramecia créant une salle d'opération où l'utilisateur contrôle tout, il peut offrir l'immortalité au prix de la vie du donneur. Law le possède. Quel est ce fruit ?",
-      "answer": "Le Ope Ope no Mi",
+      "answer": "Le Ope Ope no Mi (fruit du Bistouri)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
     {
       "id": "op078",
       "question": "Fruit du démon de type Paramecia permettant de faire fleurir des parties de son corps n'importe où, idéal pour l'espionnage et le combat à distance. Robin le possède. Quel est ce fruit ?",
-      "answer": "Le Hana Hana no Mi",
+      "answer": "Le Hana Hana no Mi (fruit de l'Éclosion)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
     {
       "id": "op079",
       "question": "Fruit du démon de type Paramecia offrant une seconde vie après la mort, le corps devient un squelette animé. Brook l'a utilisé pour revenir mais s'est perdu 50 ans. Quel est ce fruit ?",
-      "answer": "Le Yomi Yomi no Mi",
+      "answer": "Le Yomi Yomi no Mi (fruit de la Résurrection)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
@@ -566,28 +566,28 @@
     {
       "id": "op081",
       "question": "Fruit du démon de type Paramecia permettant de contrôler des fils invisibles tranchants et de manipuler des gens comme des marionnettes. Doflamingo l'avait éveillé. Quel est ce fruit ?",
-      "answer": "Le Ito Ito no Mi",
+      "answer": "Le Ito Ito no Mi (fruit des Fils)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
     {
       "id": "op082",
       "question": "Fruit du démon de type Paramecia permettant de voler l'espérance de vie et de créer des êtres vivants artificiels appelés Homies. Big Mom terrorise avec ce pouvoir. Quel est ce fruit ?",
-      "answer": "Le Soru Soru no Mi",
+      "answer": "Le Soru Soru no Mi (fruit des Âmes)",
       "difficulty": "difficile",
       "category": "Fruits du démon"
     },
     {
       "id": "op083",
       "question": "Fruit du démon de type Paramecia permettant de pétrifier par l'amour ceux qui sont attirés par l'utilisateur, son pouvoir est lié à la beauté légendaire d'Hancock. Quel est ce fruit ?",
-      "answer": "Le Mero Mero no Mi",
+      "answer": "Le Mero Mero no Mi (fruit de l'Amour)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
     {
       "id": "op084",
       "question": "Fruit du démon de type Paramecia transformant les vivants en jouets et effaçant leur existence des mémoires, utilisé par Sugar à Dressrosa. Extrêmement dangereux. Quel est ce fruit ?",
-      "answer": "Le Hobi Hobi no Mi",
+      "answer": "Le Hobi Hobi no Mi (fruit des Jouets)",
       "difficulty": "difficile",
       "category": "Fruits du démon"
     },
@@ -797,7 +797,7 @@
     {
       "id": "op114",
       "question": "Fruit du démon permettant de voyager dans le temps mais uniquement vers le futur, utilisé par Kozuki Toki pour envoyer les samouraïs 20 ans plus tard. Quel est ce fruit ?",
-      "answer": "Le Toki Toki no Mi",
+      "answer": "Le Toki Toki no Mi (fruit du Temps)",
       "difficulty": "difficile",
       "category": "Fruits du démon"
     },
@@ -838,10 +838,255 @@
     },
     {
       "id": "op120",
-      "question": "Équilibre du pouvoir maintenu par trois grandes forces : la Marine, les Sept Corsaires et les Quatre Empereurs. Ce système a été détruit par l'abolition des Corsaires. Quel est ce concept ?",
-      "answer": "Les Trois Grandes Puissances",
+      "question": "Organisation formée après l'abolition des Corsaires par trois anciens membres dont Buggy nommé leader par erreur, elle chasse les Marines pour collecter leurs primes. Mihawk et Crocodile en sont les vrais cerveaux. Quelle est cette organisation ?",
+      "answer": "Cross Guild",
       "difficulty": "normal",
-      "category": "Système"
+      "category": "Organisations"
+    },
+    {
+      "id": "op121",
+      "question": "Divinité solaire adorée par les esclaves et les opprimés depuis des siècles, cette figure légendaire est associée à la liberté et au rire. Le vrai nom du fruit du héros est le Hito Hito no Mi modèle de cette divinité. Qui est-ce ?",
+      "answer": "Nika (le Dieu du Soleil)",
+      "difficulty": "difficile",
+      "category": "Mythologie"
+    },
+    {
+      "id": "op122",
+      "question": "Personnage mystérieux portant le titre de Joy Boy il y a 800 ans durant le Siècle Oublié, il avait laissé une promesse aux hommes-poissons et un trésor sur Laugh Tale. Le héros est considéré comme son successeur. Qui est-ce ?",
+      "answer": "Joy Boy",
+      "difficulty": "difficile",
+      "category": "Mythologie"
+    },
+    {
+      "id": "op123",
+      "question": "Fille de Bartholomew Kuma et membre de la Pire Génération, cette pirate au fruit qui permet de changer l'âge des gens ressemble étrangement à Conney. Elle cherche à découvrir pourquoi son père a été transformé en cyborg. Qui est-ce ?",
+      "answer": "Jewelry Bonney",
+      "difficulty": "normal",
+      "category": "Pirates"
+    },
+    {
+      "id": "op124",
+      "question": "Six satellites créés par le plus grand scientifique du monde, chacun représente un aspect de sa personnalité : Shaka (bien), Lilith (mal), Edison (pensée), Pythagoras (sagesse), Atlas (violence) et York (cupidité). Qui les a créés ?",
+      "answer": "Vegapunk",
+      "difficulty": "difficile",
+      "category": "Technologie"
+    },
+    {
+      "id": "op125",
+      "question": "Île laboratoire futuriste où Vegapunk mène ses recherches, elle ressemble à une tête géante entourée de nuages. L'équipage au chapeau de paille y découvre les secrets du Gouvernement Mondial. Quelle est cette île ?",
+      "answer": "Egghead",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "op126",
+      "question": "Capitaine pirate au nez rouge devenu accidentellement Empereur après la dissolution des Corsaires, il est le leader involontaire de Cross Guild. Ancien apprenti sur le navire de Roger avec Shanks. Qui est-ce ?",
+      "answer": "Buggy le Clown",
+      "difficulty": "normal",
+      "category": "Empereurs"
+    },
+    {
+      "id": "op127",
+      "question": "Équipage de Barbe Noire comptant dix capitaines possédant chacun un fruit du démon puissant, ils ont attaqué Amazon Lily et vaincu Law pour voler ses Ponéglyphes. Leur navire est le Saber of Xebec. Quel est cet équipage ?",
+      "answer": "L'équipage de Barbe Noire",
+      "difficulty": "normal",
+      "category": "Pirates"
+    },
+    {
+      "id": "op128",
+      "question": "Pirate le plus dangereux de l'ancienne ère ayant défié le Gouvernement Mondial à God Valley, il est le seul à avoir failli renverser le pouvoir mondial avant Roger. Son nom complet est Rocks D. Xebec. Qui est-ce ?",
+      "answer": "Rocks D. Xebec",
+      "difficulty": "difficile",
+      "category": "Légendes"
+    },
+    {
+      "id": "op129",
+      "question": "Incident historique où Garp et Roger se sont alliés pour vaincre l'équipage de Rocks il y a 38 ans, cet événement a été effacé de l'histoire. God Valley a disparu après la bataille. Quel est cet incident ?",
+      "answer": "L'incident de God Valley",
+      "difficulty": "difficile",
+      "category": "Histoire"
+    },
+    {
+      "id": "op130",
+      "question": "Arme antique correspondant à une personne vivante, c'est la princesse sirène capable de commander les Rois des Mers géants. La princesse Shirahoshi de l'île des Hommes-Poissons est l'incarnation actuelle. Quelle est cette arme ?",
+      "answer": "Poséidon",
+      "difficulty": "normal",
+      "category": "Armes Antiques"
+    },
+    {
+      "id": "op131",
+      "question": "Arme antique sous forme d'un navire de guerre capable de détruire une île entière, elle est cachée sous le pays de Wano selon un Ponéglyphe. Crocodile la cherchait à Alabasta. Quelle est cette arme ?",
+      "answer": "Pluton",
+      "difficulty": "normal",
+      "category": "Armes Antiques"
+    },
+    {
+      "id": "op132",
+      "question": "Forme éveillée du Gear Fifth où le héros peut transformer son environnement en caoutchouc et combattre comme un personnage de dessin animé, ses cheveux et vêtements deviennent blancs. Cette forme fait référence à quel dieu ?",
+      "answer": "Nika (le Dieu du Soleil)",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "op133",
+      "question": "Capacité avancée du Haki de l'Armement permettant de projeter le Haki à l'intérieur d'un objet ou d'une personne pour le détruire de l'intérieur, Rayleigh l'a enseignée au héros. Comment s'appelle cette technique ?",
+      "answer": "Le Haki de l'Armement avancé (Ryuo)",
+      "difficulty": "difficile",
+      "category": "Haki"
+    },
+    {
+      "id": "op134",
+      "question": "Capacité avancée du Haki de l'Observation permettant de voir quelques secondes dans le futur, Katakuri la maîtrise parfaitement. Le héros l'a développée durant leur combat à Whole Cake Island. Quel est ce pouvoir ?",
+      "answer": "Le Haki de l'Observation du futur (Kenbunshoku avancé)",
+      "difficulty": "difficile",
+      "category": "Haki"
+    },
+    {
+      "id": "op135",
+      "question": "Chef d'état-major de l'Armée Révolutionnaire et frère adoptif du héros, il a hérité du Mera Mera no Mi lors du tournoi de Dressrosa. Présumé mort enfant, il avait perdu la mémoire après l'attaque d'un Dragon Céleste. Qui est-ce ?",
+      "answer": "Sabo",
+      "difficulty": "normal",
+      "category": "Révolutionnaires"
+    },
+    {
+      "id": "op136",
+      "question": "Commandants de l'Armée Révolutionnaire dirigeant chacun une armée sur un continent différent, les plus connus sont Morley, Belo Betty, Lindbergh et Karasu. Chacun possède un fruit du démon unique. Quel est leur titre ?",
+      "answer": "Les commandants de l'Armée Révolutionnaire",
+      "difficulty": "difficile",
+      "category": "Révolutionnaires"
+    },
+    {
+      "id": "op137",
+      "question": "Technique combinant le Haki des Rois avec les attaques physiques, elle permet de frapper sans contact direct en projetant une onde de Haki dévastatrice. Shanks, Kaido, Big Mom et le héros la maîtrisent. Quelle est cette capacité ?",
+      "answer": "L'infusion du Haki des Rois (Haoshoku avancé)",
+      "difficulty": "difficile",
+      "category": "Haki"
+    },
+    {
+      "id": "op138",
+      "question": "Fils de Kaido et membre de la coalition contre son père, cette personne se présente comme le fils de Kaido bien que née femme. Elle possède le fruit Inu Inu no Mi modèle Okuchi no Makami. Qui est-ce ?",
+      "answer": "Yamato",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "op139",
+      "question": "Membre de la Pire Génération surnommé le Magicien, ce capitaine aux pouvoirs magnétiques possède le Jiki Jiki no Mi. Allié du héros à Wano, il affronte Big Mom avec Law. Qui est-ce ?",
+      "answer": "Eustass Kid",
+      "difficulty": "normal",
+      "category": "Pirates"
+    },
+    {
+      "id": "op140",
+      "question": "Technique secrète de l'Ope Ope no Mi permettant d'accorder l'immortalité à une personne au prix de la vie de l'utilisateur, c'est la raison pour laquelle le Gouvernement Mondial convoitait ce fruit. Quel est ce pouvoir ?",
+      "answer": "L'Opération d'Immortalité (Perennial Youth Operation)",
+      "difficulty": "difficile",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op141",
+      "question": "Race ailée vivant autrefois sur la Lune puis sur Red Line avant d'être exterminée, seul King en était un survivant connu. Leurs flammes dorsales brûlent éternellement et ils peuvent survivre à n'importe quel environnement. Quelle est cette race ?",
+      "answer": "Les Lunarias",
+      "difficulty": "difficile",
+      "category": "Races"
+    },
+    {
+      "id": "op142",
+      "question": "Fruit du démon de type Zoan mythique possédé par Sengoku l'ancien Fleet Admiral, il lui permet de se transformer en un Bouddha géant doré capable de lancer des ondes de choc. Quel est ce fruit ?",
+      "answer": "Le Hito Hito no Mi modèle Bouddha",
+      "difficulty": "difficile",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op143",
+      "question": "Pirate légendaire surnommé la Créature la plus forte du monde, ce dragon oriental immortel a tenté de se suicider en sautant d'une île céleste. Il régnait sur Wano avec une armée de Zoan. Qui est-ce ?",
+      "answer": "Kaido",
+      "difficulty": "normal",
+      "category": "Empereurs"
+    },
+    {
+      "id": "op144",
+      "question": "Impératrice pirate surnommée Big Mom, cette vieille femme au pouvoir de voler les âmes avait 85 enfants et rêvait de créer un pays de toutes les races. Son territoire était fait de nourriture vivante. Qui est-ce ?",
+      "answer": "Charlotte Linlin (Big Mom)",
+      "difficulty": "normal",
+      "category": "Empereurs"
+    },
+    {
+      "id": "op145",
+      "question": "Pirate aux deux fruits du démon, exploit supposé impossible, il possède le Yami Yami no Mi et le Gura Gura no Mi volé à Barbe Blanche. Son rêve est de devenir le Roi des Pirates. Qui est-ce ?",
+      "answer": "Marshall D. Teach (Barbe Noire)",
+      "difficulty": "normal",
+      "category": "Empereurs"
+    },
+    {
+      "id": "op146",
+      "question": "Nouvel Amiral de la Marine recruté après l'ellipse, il possède le fruit de la gravité (Zushi Zushi no Mi) permettant de créer des météorites. Son vrai nom est Issho et il est aveugle. Qui est-ce ?",
+      "answer": "Fujitora",
+      "difficulty": "normal",
+      "category": "Marine"
+    },
+    {
+      "id": "op147",
+      "question": "Nouvel Amiral aux pouvoirs de verdure capable de faire pousser des forêts entières avec le Mori Mori no Mi, il est loyal au pouvoir en place. Apparu lors de l'arc Dressrosa. Qui est-ce ?",
+      "answer": "Ryokugyu (Aramaki)",
+      "difficulty": "difficile",
+      "category": "Marine"
+    },
+    {
+      "id": "op148",
+      "question": "Fruits du démon artificiels créés par Caesar Clown et produits par Doflamingo, ces imitations de Zoan donnent des pouvoirs mais avec une chance sur dix de réussir. Les ratés rient sans pouvoir s'arrêter. Que sont ces fruits ?",
+      "answer": "Les SMILE",
+      "difficulty": "normal",
+      "category": "Fruits du démon"
+    },
+    {
+      "id": "op149",
+      "question": "Ancien shogun de Wano ayant trahi le clan Kozuki et régné avec Kaido pendant 20 ans, ce lâche aux dents pointues se cachait derrière la puissance de la Bête. Hiyori a pris sa revanche sur lui. Qui est-ce ?",
+      "answer": "Kurozumi Orochi",
+      "difficulty": "normal",
+      "category": "Antagonistes"
+    },
+    {
+      "id": "op150",
+      "question": "Technique de combat de Sanji activée après avoir porté le Raid Suit de la Germa, son corps a éveillé un exosquelette surhumain. Ses flammes ont changé de couleur, passant du rouge au bleu. Quel est ce pouvoir ?",
+      "answer": "Ifrit Jambe",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "op151",
+      "question": "Famille royale du royaume de Germa dirigée par le père de Sanji, elle utilise la science pour créer des soldats clones et des enfants génétiquement modifiés. Sanji est le seul à être resté humain. Quelle est cette famille ?",
+      "answer": "La famille Vinsmoke (Germa 66)",
+      "difficulty": "normal",
+      "category": "Familles"
+    },
+    {
+      "id": "op152",
+      "question": "Épée légendaire de Shanks le Roux, l'un des douze sabres suprêmes du monde. Cette lame est toujours à la ceinture de l'Empereur aux cheveux roux. Quel est le nom de ce sabre ?",
+      "answer": "Gryphon",
+      "difficulty": "difficile",
+      "category": "Armes"
+    },
+    {
+      "id": "op153",
+      "question": "Sabre maudit de grade Ō Wazamono trouvé par Zoro dans un tonneau d'armes à Loguetown, cette épée porte malheur à tous ses propriétaires. Zoro a défié sa malédiction en pariant son bras. Quel est ce sabre ?",
+      "answer": "Sandai Kitetsu",
+      "difficulty": "normal",
+      "category": "Armes"
+    },
+    {
+      "id": "op154",
+      "question": "Sabre noir national de Wano ayant appartenu au légendaire samouraï Ryuma, Zoro l'a gagné en combattant le zombie de Ryuma à Thriller Bark. Il l'a rendu à Wano après avoir obtenu Enma. Quel est ce sabre ?",
+      "answer": "Shusui",
+      "difficulty": "normal",
+      "category": "Armes"
+    },
+    {
+      "id": "op155",
+      "question": "Sabre blanc compagnon de Zoro depuis le début de l'aventure, il appartenait à Kuina, son amie d'enfance décédée. C'est le sabre qu'il tient dans la bouche durant ses combats au Santoryu. Quel est ce sabre ?",
+      "answer": "Wado Ichimonji",
+      "difficulty": "normal",
+      "category": "Armes"
     }
   ]
 }

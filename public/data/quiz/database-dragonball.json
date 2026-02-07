@@ -1,0 +1,1162 @@
+{
+  "id": "database-dragonball",
+  "title": "Dragon Ball",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "db001",
+      "question": "Envoyé sur Terre bébé dans une capsule spatiale, il a été recueilli par un vieil homme nommé Son Gohan. Il possède une queue de singe et devient incontrôlable les nuits de pleine lune. Qui est-ce ?",
+      "answer": "Sangoku",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db002",
+      "question": "Prince de la race des Saiyans, il est obsédé par l'idée de surpasser Sangoku. Il finit par s'installer sur Terre et épouser Bulma. Qui est-ce ?",
+      "answer": "Végéta",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db003",
+      "question": "Fils aîné de Sangoku, il possède un potentiel de combat immense mais préfère les études. Il est le premier à atteindre le stade de Super Saiyan 2. Qui est-ce ?",
+      "answer": "Gohan",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db004",
+      "question": "Ancien ennemi de Sangoku devenu son allié, ce Namekien fusionne avec Dieu pour retrouver sa puissance originelle. Il entraîne Gohan et développe un lien paternel avec lui. Qui est-ce ?",
+      "answer": "Piccolo",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db005",
+      "question": "Meilleur ami de Sangoku depuis l'enfance, ce moine au crâne rasé s'est entraîné au temple d'Orin. Il épouse C-18, une ancienne cyborg. Qui est-ce ?",
+      "answer": "Krilin",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db006",
+      "question": "Vieux maître d'arts martiaux vivant sur une petite île, il est l'inventeur du Kamé Hamé Ha. Il porte des lunettes de soleil et a un faible pour les jolies filles. Qui est-ce ?",
+      "answer": "Tortue Géniale",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db007",
+      "question": "Tyran intergalactique à la peau blanche et violette, il a détruit la planète Vegeta et exterminé presque tous les Saiyans. Sa défaite sur Namek marque un tournant dans la série. Qui est-ce ?",
+      "answer": "Freezer",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db008",
+      "question": "Créature bio-artificielle du Docteur Gero, elle absorbe C-17 et C-18 pour atteindre sa forme parfaite. Elle organise un tournoi d'arts martiaux pour prouver sa supériorité. Qui est-ce ?",
+      "answer": "Cell",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db009",
+      "question": "Créature magique rose libérée par le sorcier Babidi, elle peut transformer ses adversaires en chocolat ou en bonbons. Sa forme la plus dangereuse est celle d'un petit être enfantin et destructeur. Qui est-ce ?",
+      "answer": "Majin Bou",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db010",
+      "question": "Fils de Végéta venu du futur, il arrive sur Terre armé d'une épée et tranche Freezer en morceaux. Il prévient les guerriers Z de l'arrivée des cyborgs. Qui est-ce ?",
+      "answer": "Trunks du futur",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db011",
+      "question": "Cette technique signature de Sangoku consiste à concentrer son énergie dans les paumes des mains en criant son nom. Elle a été inventée par Tortue Géniale. Quelle est cette technique ?",
+      "answer": "Kamé Hamé Ha",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "db012",
+      "question": "Cette technique consiste à concentrer l'énergie de tous les êtres vivants en une immense sphère lumineuse. Sangoku l'utilise notamment contre Freezer sur Namek et contre Kid Bou. Quelle est cette technique ?",
+      "answer": "Genkidama (Boule de Genki)",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "db013",
+      "question": "Enseignée par Kaio du Nord, cette technique multiplie la puissance du combattant mais met son corps à rude épreuve. Sangoku l'utilise pour la première fois contre Végéta. Quelle est cette technique ?",
+      "answer": "Kaioken",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "db014",
+      "question": "Attaque dévastatrice de Végéta, il concentre toute son énergie dans ses deux mains jointes levées au-dessus de sa tête avant de projeter un immense rayon. Il l'utilise pour la première fois contre Cell. Quelle est cette technique ?",
+      "answer": "Final Flash",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "db015",
+      "question": "Technique signature de Piccolo, elle consiste à concentrer toute son énergie dans deux doigts posés sur le front avant de tirer un rayon perforant en spirale. Quelle est cette technique ?",
+      "answer": "Makankosappo",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db016",
+      "question": "Technique de Ten Shin Han qui concentre toute l'énergie vitale du combattant dans ses mains jointes en triangle. Elle est assez puissante pour retenir Cell sous sa forme semi-parfaite. Quelle est cette technique ?",
+      "answer": "Kikoho (Néo Kikoho)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db017",
+      "question": "Technique d'aveuglement qui produit un flash lumineux intense, inventée par Ten Shin Han. Elle ne cause aucun dégât mais rend temporairement aveugle. Quelle est cette technique ?",
+      "answer": "Taiyoken",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db018",
+      "question": "Transformation légendaire des Saiyans, les cheveux deviennent dorés et les yeux verts. Sangoku l'atteint pour la première fois sur Namek, poussé par la rage après la mort de Krilin. Quelle est cette transformation ?",
+      "answer": "Super Saiyan",
+      "difficulty": "normal",
+      "category": "Transformations"
+    },
+    {
+      "id": "db019",
+      "question": "Gohan est le premier à atteindre ce stade lors du Cell Game, se distinguant par des éclairs bleutés autour de l'aura dorée. Cette transformation lui donne la puissance de vaincre Cell. Quelle est cette transformation ?",
+      "answer": "Super Saiyan 2",
+      "difficulty": "normal",
+      "category": "Transformations"
+    },
+    {
+      "id": "db020",
+      "question": "Transformation aux cheveux extrêmement longs descendant jusqu'aux genoux, elle consomme énormément d'énergie. Sangoku la révèle pour la première fois face à Majin Bou. Quelle est cette transformation ?",
+      "answer": "Super Saiyan 3",
+      "difficulty": "normal",
+      "category": "Transformations"
+    },
+    {
+      "id": "db021",
+      "question": "Pour atteindre cette forme divine, cinq Saiyans au cœur pur doivent transférer leur énergie à un sixième. Les cheveux et l'aura deviennent rouges. Sangoku l'utilise pour affronter Beerus. Quelle est cette transformation ?",
+      "answer": "Super Saiyan God",
+      "difficulty": "normal",
+      "category": "Transformations"
+    },
+    {
+      "id": "db022",
+      "question": "Combinaison du Super Saiyan et du ki divin, cette transformation se caractérise par des cheveux et une aura bleus. Sangoku et Végéta l'utilisent dans Dragon Ball Super. Quelle est cette transformation ?",
+      "answer": "Super Saiyan Blue",
+      "difficulty": "normal",
+      "category": "Transformations"
+    },
+    {
+      "id": "db023",
+      "question": "Technique ultime des anges, elle permet au corps de réagir automatiquement sans intervention de la pensée. Les yeux deviennent argentés dans sa forme maîtrisée. Sangoku l'atteint lors du Tournoi du Pouvoir. Quelle est cette transformation ?",
+      "answer": "Ultra Instinct",
+      "difficulty": "normal",
+      "category": "Transformations"
+    },
+    {
+      "id": "db024",
+      "question": "Transformation exclusive de Végéta obtenue grâce à l'entraînement avec Beerus, elle se nourrit des dégâts reçus pour devenir plus puissante. Les cheveux deviennent violets. Quelle est cette transformation ?",
+      "answer": "Ultra Ego",
+      "difficulty": "difficile",
+      "category": "Transformations"
+    },
+    {
+      "id": "db025",
+      "question": "Fusion de Sangoku et Végéta grâce aux boucles d'oreilles Potaras, ce guerrier surpuissant affronte Majin Bou absorbé. Il réapparaît dans la saga Zamasu. Qui est-ce ?",
+      "answer": "Végéto",
+      "difficulty": "normal",
+      "category": "Fusions"
+    },
+    {
+      "id": "db026",
+      "question": "Fusion de Sangoku et Végéta par la Danse de la fusion, ce guerrier apparaît dans le film Fusion Reborn et dans le film Dragon Ball Super: Broly. Qui est-ce ?",
+      "answer": "Gogéta",
+      "difficulty": "normal",
+      "category": "Fusions"
+    },
+    {
+      "id": "db027",
+      "question": "Fusion de Goten et Trunks par la Danse de la fusion, ce jeune guerrier arrogant invente des techniques aux noms farfelus. Il affronte Majin Bou sous sa forme Super Saiyan 3. Qui est-ce ?",
+      "answer": "Gotenks",
+      "difficulty": "normal",
+      "category": "Fusions"
+    },
+    {
+      "id": "db028",
+      "question": "Dieu de la Destruction de l'Univers 7, ce félin violet aux manières raffinées adore la nourriture terrienne. Il menace de détruire la Terre après un mauvais repas. Qui est-ce ?",
+      "answer": "Beerus",
+      "difficulty": "normal",
+      "category": "Dieux"
+    },
+    {
+      "id": "db029",
+      "question": "Ange servant de maître et de guide au Dieu de la Destruction de l'Univers 7, il entraîne Sangoku et Végéta à maîtriser le ki divin. Il est toujours souriant et adore les sushis. Qui est-ce ?",
+      "answer": "Whis",
+      "difficulty": "normal",
+      "category": "Dieux"
+    },
+    {
+      "id": "db030",
+      "question": "Roi de tout ce qui existe, ce petit être à l'apparence enfantine peut effacer un univers entier d'un simple geste. Il organise le Tournoi du Pouvoir par amusement. Qui est-ce ?",
+      "answer": "Zeno (Zen'ô)",
+      "difficulty": "normal",
+      "category": "Dieux"
+    },
+    {
+      "id": "db031",
+      "question": "Champion du monde d'arts martiaux aux yeux du public, cet homme à la coupe afro et à la moustache s'attribue la victoire contre Cell. Son vrai nom est Mr. Satan. Qui est-ce ?",
+      "answer": "Mr. Satan (Hercule)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db032",
+      "question": "Génie scientifique et héritière de la Capsule Corporation, elle est la première personne que Sangoku rencontre dans Dragon Ball. Elle épouse Végéta et est la mère de Trunks. Qui est-ce ?",
+      "answer": "Bulma",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db033",
+      "question": "Fille du Roi Ox, elle épouse Sangoku et devient une mère surprotectrice. Elle insiste pour que Gohan étudie plutôt que de se battre. Qui est-ce ?",
+      "answer": "Chichi",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db034",
+      "question": "Fille de Mr. Satan, elle découvre que Gohan est en réalité le Great Saiyaman. Elle apprend à voler grâce à lui et l'épouse par la suite. Qui est-ce ?",
+      "answer": "Videl",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db035",
+      "question": "Ancien bandit du désert devenu guerrier Z, il est souvent considéré comme le plus faible du groupe. Son running gag est de se retrouver dans la pose de mort dans un cratère. Qui est-ce ?",
+      "answer": "Yamcha",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db036",
+      "question": "Ancien cyborg créé par le Docteur Gero, elle est la sœur jumelle de C-17. Elle participe au 25ème Tenkaichi Budokai et épouse Krilin. Qui est-ce ?",
+      "answer": "C-18",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db037",
+      "question": "Frère jumeau de C-18, ce cyborg est absorbé par Cell pour atteindre sa forme semi-parfaite. Dans Dragon Ball Super, il devient garde forestier et représente l'Univers 7 au Tournoi du Pouvoir. Qui est-ce ?",
+      "answer": "C-17",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db038",
+      "question": "Guerrier à trois yeux, il maîtrise le Kikoho et le Taiyoken. Toujours accompagné de son fidèle ami Chaozu, il s'entraîne sans relâche malgré son infériorité face aux Saiyans. Qui est-ce ?",
+      "answer": "Ten Shin Han",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db039",
+      "question": "Petit personnage aux joues rouges, il est inséparable de Ten Shin Han. Il se sacrifie en s'accrochant à Nappa pour le faire exploser, mais sans succès. Qui est-ce ?",
+      "answer": "Chaozu",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db040",
+      "question": "Dragon sacré de la Terre, il apparaît quand les sept boules de cristal sont réunies et peut exaucer un vœu (puis deux après l'amélioration par Dende). Quel est ce dragon ?",
+      "answer": "Shenron",
+      "difficulty": "normal",
+      "category": "Univers"
+    },
+    {
+      "id": "db041",
+      "question": "Dragon sacré de la planète Namek, il est plus grand que son homologue terrien et peut exaucer trois vœux. Son nom signifie 'dieu des rêves' en namekien. Quel est ce dragon ?",
+      "answer": "Porunga",
+      "difficulty": "difficile",
+      "category": "Univers"
+    },
+    {
+      "id": "db042",
+      "question": "Dragon gigantesque invoqué par les Super Dragon Balls, des sphères de la taille de planètes dispersées entre les Univers 6 et 7. Il peut exaucer n'importe quel vœu sans limite. Quel est ce dragon ?",
+      "answer": "Super Shenron",
+      "difficulty": "difficile",
+      "category": "Dieux"
+    },
+    {
+      "id": "db043",
+      "question": "Dimension spéciale au Palais de Dieu où un jour à l'extérieur équivaut à un an à l'intérieur. Sangoku et Gohan s'y entraînent avant le Cell Game. Quel est ce lieu ?",
+      "answer": "Salle de l'Esprit et du Temps",
+      "difficulty": "normal",
+      "category": "Univers"
+    },
+    {
+      "id": "db044",
+      "question": "Planète d'origine des Saiyans, elle a été détruite par Freezer qui craignait la légende du Super Saiyan. Végéta tire son nom du roi qui dirigeait cette planète. Quelle est cette planète ?",
+      "answer": "Planète Vegeta",
+      "difficulty": "normal",
+      "category": "Univers"
+    },
+    {
+      "id": "db045",
+      "question": "Tournoi mythique d'arts martiaux terrestres, Sangoku y participe dès son enfance. Jackie Chun (Tortue Géniale déguisé) remporte la 21ème édition. Quel est ce tournoi ?",
+      "answer": "Tenkaichi Budokai (Tournoi des Arts Martiaux)",
+      "difficulty": "normal",
+      "category": "Tournois"
+    },
+    {
+      "id": "db046",
+      "question": "Grand tournoi organisé entre les univers survivants par Zen'ô, les univers perdants sont effacés de l'existence. L'Univers 7 est représenté par dix combattants dont Sangoku et Végéta. Quel est ce tournoi ?",
+      "answer": "Tournoi du Pouvoir (Tournament of Power)",
+      "difficulty": "normal",
+      "category": "Tournois"
+    },
+    {
+      "id": "db047",
+      "question": "Frère aîné de Sangoku, ce Saiyan arrive sur Terre et révèle les origines extraterrestres de Sangoku. Il kidnappe Gohan et meurt lors du combat contre Sangoku et Piccolo alliés. Qui est-ce ?",
+      "answer": "Raditz",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db048",
+      "question": "Colosse Saiyan chauve au service de Végéta, il arrive sur Terre avec le prince des Saiyans. Il élimine facilement Yamcha, Ten Shin Han et Piccolo avant d'être vaincu par Sangoku. Qui est-ce ?",
+      "answer": "Nappa",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db049",
+      "question": "Deuxième fils de Sangoku, il est le meilleur ami de Trunks enfant. Ensemble ils maîtrisent la Danse de la fusion pour former Gotenks. Qui est-ce ?",
+      "answer": "Goten",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db050",
+      "question": "Apprenti Kaio Shin, il libère le potentiel caché de Gohan grâce à un long rituel sur la planète des Kaio Shin. Gohan atteint alors sa forme 'Ultime' sans avoir besoin de se transformer en Super Saiyan. Qui est-ce ?",
+      "answer": "Kaio Shin de l'Ancien (Vieux Kaio Shin)",
+      "difficulty": "difficile",
+      "category": "Dieux"
+    },
+    {
+      "id": "db051",
+      "question": "Kaio de la galaxie Nord, il enseigne le Kaioken et le Genkidama à Sangoku dans l'au-delà. Il vit sur une minuscule planète avec son singe Bubbles et l'insecte Gregory. Qui est-ce ?",
+      "answer": "Kaio du Nord (Maître Kaio)",
+      "difficulty": "normal",
+      "category": "Dieux"
+    },
+    {
+      "id": "db052",
+      "question": "Scientifique fou de l'Armée du Ruban Rouge, il crée les cyborgs C-16, C-17, C-18 et Cell dans le but de se venger de Sangoku. Il se transforme lui-même en cyborg C-20. Qui est-ce ?",
+      "answer": "Docteur Gero",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db053",
+      "question": "Grand cyborg roux au caractère doux, il a été programmé pour tuer Sangoku mais se passionne pour la nature. Il se sacrifie lors du Cell Game, déclenchant la transformation de Gohan en SSJ2. Qui est-ce ?",
+      "answer": "C-16",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db054",
+      "question": "Technique de déplacement instantané que Sangoku apprend sur la planète Yardrat. Il place deux doigts sur son front et se téléporte en se concentrant sur un ki. Quelle est cette technique ?",
+      "answer": "Téléportation (Shunkan Idô / Déplacement instantané)",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "db055",
+      "question": "Technique de Krilin qui consiste à lancer un disque d'énergie tranchant. Même Freezer se fait couper la queue par cette attaque sur Namek. Quelle est cette technique ?",
+      "answer": "Kienzan (Disque destructeur)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db056",
+      "question": "Sorcier qui libère Majin Bou de sa prison en collectant l'énergie des combattants. Il prend le contrôle de Végéta en exploitant les ténèbres de son cœur. Qui est-ce ?",
+      "answer": "Babidi",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db057",
+      "question": "Transformation de Végéta lorsqu'il accepte volontairement le contrôle de Babidi pour obtenir plus de puissance. Un 'M' apparaît sur son front et il redevient impitoyable. Quelle est cette transformation ?",
+      "answer": "Majin Végéta",
+      "difficulty": "normal",
+      "category": "Transformations"
+    },
+    {
+      "id": "db058",
+      "question": "Après être devenu Majin Végéta, le prince des Saiyans se sacrifie en s'auto-détruisant dans l'espoir de tuer Majin Bou. Il serre Trunks dans ses bras avant de mourir. Quelle est cette saga ?",
+      "answer": "Saga Bou (Saga Majin Bou)",
+      "difficulty": "normal",
+      "category": "Sagas"
+    },
+    {
+      "id": "db059",
+      "question": "Apprenti de Kaio Shin, ce Kaio Shin de l'Univers 10 est un Kaio bienveillant qui devient fou après avoir été trahi par son apprenti Zamasu. Son potara fusionné avec Zamasu est un ennemi redoutable. Qui est-ce ?",
+      "answer": "Gowasu",
+      "difficulty": "difficile",
+      "category": "Dieux"
+    },
+    {
+      "id": "db060",
+      "question": "Apprenti Kaio Shin de l'Univers 10 qui considère les mortels comme un mal à éradiquer. Il vole le corps de Sangoku dans une timeline alternative et se fait appeler 'Black'. Qui est-ce ?",
+      "answer": "Zamasu",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db061",
+      "question": "Mystérieux guerrier ressemblant à Sangoku mais vêtu de noir, il terrorise le futur de Trunks. Il s'avère être Zamasu ayant volé le corps de Sangoku grâce aux Super Dragon Balls. Qui est-ce ?",
+      "answer": "Black Goku (Goku Black)",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db062",
+      "question": "Combattant surpuissant de l'Univers 11, membre des Pride Troopers, il est le dernier adversaire de Sangoku lors du Tournoi du Pouvoir. Sa force dépasse même celle d'un Dieu de la Destruction. Qui est-ce ?",
+      "answer": "Jiren",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db063",
+      "question": "Leader des Pride Troopers de l'Univers 11, il se bat pour la justice avec un style flamboyant. Il affronte Sangoku au début du Tournoi du Pouvoir en Super Saiyan Blue. Qui est-ce ?",
+      "answer": "Toppo",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "db064",
+      "question": "Saiyan légendaire au pouvoir immense et incontrôlable, il est exilé bébé sur une planète inhospitalière par le roi Vegeta. Dans le film Dragon Ball Super, il affronte Sangoku et Végéta avant que ceux-ci ne fusionnent en Gogéta. Qui est-ce ?",
+      "answer": "Broly",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db065",
+      "question": "Père de Broly dans le film Dragon Ball Super, ce Saiyan obsédé par la vengeance contre Végéta utilise son fils comme une arme. Il porte un dispositif de contrôle à distance. Qui est-ce ?",
+      "answer": "Paragus",
+      "difficulty": "difficile",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db066",
+      "question": "Méthode de fusion utilisant des boucles d'oreilles sacrées des Kaio Shin. La fusion était censée être permanente mais ne dure qu'une heure pour les non-dieux. Quel est cet objet ?",
+      "answer": "Potaras (Boucles d'oreilles Potaras)",
+      "difficulty": "normal",
+      "category": "Fusions"
+    },
+    {
+      "id": "db067",
+      "question": "Méthode de fusion nécessitant une chorégraphie symétrique parfaite entre deux combattants de taille et puissance similaires. La fusion dure 30 minutes. Quelle est cette technique ?",
+      "answer": "Danse de la fusion (Fusion Dance)",
+      "difficulty": "normal",
+      "category": "Fusions"
+    },
+    {
+      "id": "db068",
+      "question": "Entreprise fondée par le père de Bulma, elle est célèbre pour ses capsules capables de stocker des objets gigantesques. Son siège est dans la Capitale de l'Ouest. Quelle est cette entreprise ?",
+      "answer": "Capsule Corporation",
+      "difficulty": "normal",
+      "category": "Univers"
+    },
+    {
+      "id": "db069",
+      "question": "Montagne isolée où Sangoku a grandi avec son grand-père adoptif Son Gohan. Il y vit plus tard avec Chichi et Gohan. Quel est ce lieu ?",
+      "answer": "Mont Paozu",
+      "difficulty": "difficile",
+      "category": "Univers"
+    },
+    {
+      "id": "db070",
+      "question": "Véhicule jaune volant en forme de nuage, offert à Sangoku par Tortue Géniale. Seules les personnes au cœur pur peuvent monter dessus. Quel est cet objet ?",
+      "answer": "Nuage magique (Kinto'un)",
+      "difficulty": "normal",
+      "category": "Univers"
+    },
+    {
+      "id": "db071",
+      "question": "Bâton rouge extensible que Sangoku utilise durant son enfance, hérité de son grand-père adoptif. Il relie la tour Karine au palais de Dieu. Quel est cet objet ?",
+      "answer": "Bâton magique (Nyoi-bô)",
+      "difficulty": "normal",
+      "category": "Univers"
+    },
+    {
+      "id": "db072",
+      "question": "Tour immense au sommet de laquelle vit un chat blanc nommé Karine. Les guerriers grimpent cette tour pour obtenir l'eau sacrée et des haricots magiques. Quel est ce lieu ?",
+      "answer": "Tour Karine",
+      "difficulty": "normal",
+      "category": "Univers"
+    },
+    {
+      "id": "db073",
+      "question": "Petits haricots verts capables de restaurer totalement l'énergie et de guérir les blessures d'un combattant. Ils sont cultivés par Karine au sommet de sa tour. Quel est cet objet ?",
+      "answer": "Senzu (Haricots magiques)",
+      "difficulty": "normal",
+      "category": "Univers"
+    },
+    {
+      "id": "db074",
+      "question": "Jeune Namekien qui devient le nouveau Dieu de la Terre après la fusion de Piccolo avec Kami. Il améliore les Dragon Balls terrestres pour permettre deux vœux. Qui est-ce ?",
+      "answer": "Dende",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db075",
+      "question": "Serviteur de Dieu sur le Palais Céleste, ce génie noir et corpulent entraîne Sangoku et ses amis. Il est extrêmement rapide malgré son apparence. Qui est-ce ?",
+      "answer": "Mr. Popo",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db076",
+      "question": "Père de Sangoku, ce Saiyan de classe inférieure a une vision de la destruction de la planète Vegeta par Freezer. Il tente en vain de prévenir les autres Saiyans. Qui est-ce ?",
+      "answer": "Bardock",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db077",
+      "question": "Lors de cet affrontement iconique sur Namek, Sangoku atteint pour la première fois le stade de Super Saiyan après que Freezer a tué Krilin sous ses yeux. La planète Namek est détruite. Quel est cet affrontement ?",
+      "answer": "Sangoku vs Freezer (sur Namek)",
+      "difficulty": "normal",
+      "category": "Sagas"
+    },
+    {
+      "id": "db078",
+      "question": "Lors de ce combat, Gohan enfant, poussé par la rage de la mort de C-16 et les encouragements de Sangoku depuis l'au-delà, vainc son adversaire avec un Kamé Hamé Ha père-fils. Quel est cet affrontement ?",
+      "answer": "Gohan SSJ2 vs Cell (Cell Game)",
+      "difficulty": "normal",
+      "category": "Sagas"
+    },
+    {
+      "id": "db079",
+      "question": "Forme de Freezer obtenue en s'entraînant pour la première fois de sa vie pendant quatre mois. Sa peau devient dorée et il rivalise avec Sangoku Super Saiyan Blue. Quelle est cette transformation ?",
+      "answer": "Golden Freezer",
+      "difficulty": "normal",
+      "category": "Transformations"
+    },
+    {
+      "id": "db080",
+      "question": "Forme la plus récente et puissante de Freezer, révélée dans le film Dragon Ball Super: Super Hero. Elle surpasse même les formes divines des Saiyans. Sa peau devient noire. Quelle est cette transformation ?",
+      "answer": "Black Freezer",
+      "difficulty": "difficile",
+      "category": "Transformations"
+    },
+    {
+      "id": "db081",
+      "question": "Identité secrète de Gohan adolescent quand il combat le crime à Satan City. Il porte un costume de super-héros ridicule et des poses de sentai. Quel est ce personnage ?",
+      "answer": "Great Saiyaman",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db082",
+      "question": "Nouvelle transformation de Gohan dans le film Dragon Ball Super: Super Hero, ses cheveux deviennent blancs et un œil rouge apparaît. Elle est déclenchée par la rage de croire Piccolo mort. Quelle est cette transformation ?",
+      "answer": "Gohan Beast",
+      "difficulty": "difficile",
+      "category": "Transformations"
+    },
+    {
+      "id": "db083",
+      "question": "Nouvelle transformation de Piccolo dans le film DBS: Super Hero, obtenue grâce à un vœu de Shenron par Bulma. Sa taille augmente considérablement et il devient orange. Quelle est cette transformation ?",
+      "answer": "Orange Piccolo",
+      "difficulty": "difficile",
+      "category": "Transformations"
+    },
+    {
+      "id": "db084",
+      "question": "Organisation militaire maléfique recherchant les Dragon Balls dans Dragon Ball original. Sangoku enfant la détruit à lui seul. Son emblème est un ruban rouge. Quelle est cette organisation ?",
+      "answer": "Armée du Ruban Rouge (Red Ribbon Army)",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db085",
+      "question": "Petit cochon métamorphe capable de se transformer en n'importe quoi pendant cinq minutes. Il accompagne Sangoku et Bulma au début de leurs aventures. Qui est-ce ?",
+      "answer": "Oolong",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db086",
+      "question": "Chat métamorphe bleu qui peut se transformer mais conserve toujours sa queue. Il accompagne Yamcha et finit par vivre à la Capsule Corporation. Qui est-ce ?",
+      "answer": "Plume (Puar)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "db087",
+      "question": "Premier grand méchant de Dragon Ball, ce petit être vert est le roi des démons. Piccolo est sa réincarnation. Il a été enfermé dans un autocuiseur par Tortue Géniale et Mutaïto. Qui est-ce ?",
+      "answer": "Piccolo Daimaô (Grand Démon Piccolo)",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db088",
+      "question": "Lors de la saga Saiyan, Sangoku revient de l'au-delà grâce au Nimbus et affronte Végéta sur Terre. Ce combat marque l'utilisation du Kaioken x4 et du premier Genkidama de la série Z. Quel est cet affrontement ?",
+      "answer": "Sangoku vs Végéta (saga Saiyan)",
+      "difficulty": "normal",
+      "category": "Sagas"
+    },
+    {
+      "id": "db089",
+      "question": "Technique de Piccolo consistant à étendre ses bras à une distance incroyable pour attraper ou frapper ses adversaires. C'est une capacité naturelle des Namekiens. Quelle est cette technique ?",
+      "answer": "Bras extensibles (Bras élastiques)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db090",
+      "question": "Cette version de Bou apparaît après que le gros Bou gentil est absorbé. Avec l'intelligence de Piccolo et la puissance de Gohan, il devient un adversaire stratégique et surpuissant. Quelle est cette forme ?",
+      "answer": "Super Bou (Bou absorbé / Buuhan)",
+      "difficulty": "difficile",
+      "category": "Méchants"
+    },
+    {
+      "id": "db091",
+      "question": "Forme originelle et la plus pure de Majin Bou, c'est un petit être rose chaotique et destructeur sans aucune raison. Il est finalement vaincu par un Genkidama géant alimenté par toute la Terre. Quelle est cette forme ?",
+      "answer": "Kid Bou (Bou originel / Bou pur)",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db092",
+      "question": "Membre de la Force Ginyu, ce grand guerrier rouge peut ralentir le temps avec ses pouvoirs psychiques. Il affronte Végéta sur Namek. Qui est-ce ?",
+      "answer": "Guldo",
+      "difficulty": "difficile",
+      "category": "Méchants"
+    },
+    {
+      "id": "db093",
+      "question": "Commandant d'une force spéciale au service de Freezer, il a le pouvoir de voler les corps de ses adversaires. Il échange son corps avec celui de Sangoku sur Namek. Qui est-ce ?",
+      "answer": "Ginyu (Capitaine Ginyu)",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db094",
+      "question": "Élite de Freezer composée de cinq guerriers qui font des poses ridicules avant chaque combat. Leur capitaine a le pouvoir d'échanger de corps. Quel est ce groupe ?",
+      "answer": "Force Ginyu (Commando Ginyu)",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db095",
+      "question": "Dans Dragon Ball Super, cet assassin de l'Univers 6 maîtrise une technique d'assassinat invisible. Il est éliminé par Sangoku lors du tournoi entre l'Univers 6 et l'Univers 7. Qui est-ce ?",
+      "answer": "Hit",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db096",
+      "question": "Saiyan de l'Univers 6, elle est l'équivalent de Sangoku dans son univers. Après le Tournoi du Pouvoir, elle atteint le Super Saiyan grâce à un picotement dans le dos. Qui est-ce ?",
+      "answer": "Caulifla",
+      "difficulty": "difficile",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db097",
+      "question": "Jeune Saiyan de l'Univers 6 protégée de Caulifla, elle atteint le Super Saiyan 2 par la rage pendant le Tournoi du Pouvoir. Elle fusionne avec Caulifla pour former Kefla. Qui est-ce ?",
+      "answer": "Kale",
+      "difficulty": "difficile",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db098",
+      "question": "Fusion de Caulifla et Kale par les Potaras pendant le Tournoi du Pouvoir. Elle affronte Sangoku en Ultra Instinct Sign et est finalement éliminée par un Kamé Hamé Ha. Qui est-ce ?",
+      "answer": "Kefla",
+      "difficulty": "difficile",
+      "category": "Fusions"
+    },
+    {
+      "id": "db099",
+      "question": "Dieu de la Destruction de l'Univers 6 et frère jumeau de Beerus. Contrairement à son frère, il est mince et élégant. Il organise un tournoi entre les Univers 6 et 7. Qui est-ce ?",
+      "answer": "Champa",
+      "difficulty": "difficile",
+      "category": "Dieux"
+    },
+    {
+      "id": "db100",
+      "question": "Ange de l'Univers 6 et sœur de Whis, elle sert de guide à Champa. Elle est aussi puissante que son frère. Qui est-ce ?",
+      "answer": "Vados",
+      "difficulty": "difficile",
+      "category": "Dieux"
+    },
+    {
+      "id": "db101",
+      "question": "Pendant le Tournoi du Pouvoir, ce guerrier de l'Univers 7 est le dernier éliminé avant la victoire. C'est C-17 qui fait le vœu final à Super Shenron. Qui est le MVP du tournoi selon Beerus ?",
+      "answer": "C-17",
+      "difficulty": "difficile",
+      "category": "Tournois"
+    },
+    {
+      "id": "db102",
+      "question": "Saga de Dragon Ball Z où Sangoku et ses amis se rendent sur Namek pour utiliser les Dragon Balls locales. Végéta, les Forces Ginyu et Freezer s'y affrontent aussi. Quelle est cette saga ?",
+      "answer": "Saga de Namek (Saga Freezer)",
+      "difficulty": "normal",
+      "category": "Sagas"
+    },
+    {
+      "id": "db103",
+      "question": "Technique signature de Végéta dans la saga Saiyan, il concentre son énergie dans une main levée et tire un puissant rayon violet. Il l'utilise pour la première fois contre Sangoku lors de leur premier affrontement sur Terre. Quelle est cette technique ?",
+      "answer": "Galick Gun (Garlic Ho)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db104",
+      "question": "Attaque signature de Végéta, il concentre une sphère d'énergie dans une main et la projette en un rayon dévastateur. Il l'utilise pour la première fois contre C-19. Quelle est cette technique ?",
+      "answer": "Big Bang Attack",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db105",
+      "question": "Technique de Yamcha inspirée d'un loup, il fonce sur son adversaire avec des griffes d'énergie. C'est sa technique signature, bien que devenue dérisoire face aux ennemis puissants. Quelle est cette technique ?",
+      "answer": "Rôga Fûfûken (Crocs du loup)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db106",
+      "question": "Fille de Gohan et Videl, cette petite fille est quart-Saiyan. Elle peut voler et participe au Tournoi du Pouvoir dans le manga. Dans l'anime, elle aide à invoquer le Super Saiyan God. Qui est-ce ?",
+      "answer": "Pan",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db107",
+      "question": "Fille de Végéta et Bulma, cette petite Saiyan est la sœur cadette de Trunks. Dans Dragon Ball Super, elle fournit l'énergie manquante pour le rituel du Super Saiyan God alors qu'elle est encore dans le ventre de Bulma. Qui est-ce ?",
+      "answer": "Bra (Bulla)",
+      "difficulty": "difficile",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db108",
+      "question": "Cyborg créé à partir d'un humain par le Docteur Gero, il est entièrement obéissant contrairement à C-17 et C-18. Sangoku le bat en absorbant son énergie avec un baiser sur la bouche... Non, c'est Végéta qui le détruit avec son Big Bang Attack. Qui est-ce ?",
+      "answer": "C-19",
+      "difficulty": "difficile",
+      "category": "Méchants"
+    },
+    {
+      "id": "db109",
+      "question": "Freezer possède quatre formes de transformation. Dans sa première forme, il ressemble à un petit extraterrestre à cornes. Combien de transformations Freezer a-t-il dans DBZ avant sa forme finale ?",
+      "answer": "3 transformations (4 formes au total)",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db110",
+      "question": "Pendant le Cell Game, Sangoku abandonne son combat contre Cell et désigne Gohan pour le remplacer, convaincu que son fils possède le potentiel pour le vaincre. Quel est le nom de ce tournoi organisé par Cell ?",
+      "answer": "Cell Game (Cell Games)",
+      "difficulty": "normal",
+      "category": "Tournois"
+    },
+    {
+      "id": "db111",
+      "question": "Technique de Sangoku consistant à se multiplier en créant des copies de lui-même. Contrairement à la technique de Ten Shin Han, ces copies sont des images résiduelles dues à sa vitesse. Il l'utilise en finale du 21ème Tenkaichi Budokai. Quelle est cette technique ?",
+      "answer": "Zanzoken (Image rémanente / Afterimage)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db112",
+      "question": "Technique d'emprisonnement consistant à enfermer un démon dans un récipient grâce à un tourbillon d'énergie. Tortue Géniale et Mutaïto l'utilisent contre Piccolo Daimaô. Quelle est cette technique ?",
+      "answer": "Mafuba (Onde d'assaut)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db113",
+      "question": "Petit empereur bleu obsédé par la domination du monde, il est accompagné de Shu et Mai. Ses plans sont toujours déjoués par Sangoku. Dans DBS, c'est lui qui libère accidentellement Zamasu en souhaitant aux Dragon Balls. Qui est-ce ?",
+      "answer": "Pilaf",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db114",
+      "question": "Pendant la saga Saiyan, Piccolo se sacrifie pour protéger Gohan d'une attaque de Nappa. Ce moment marque la première vraie preuve d'affection de Piccolo pour Gohan. Qui meurt pour sauver Gohan ?",
+      "answer": "Piccolo",
+      "difficulty": "normal",
+      "category": "Sagas"
+    },
+    {
+      "id": "db115",
+      "question": "Forme de Bou après avoir expulsé le Bou originel. Ce gros Bou rose et gentil adore les bonbons et se lie d'amitié avec Mr. Satan. Il vit désormais sur Terre en paix. Quelle est cette forme ?",
+      "answer": "Bou (le bon / Mr. Bou)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db116",
+      "question": "Arène céleste où les guerriers morts combattent pour l'éternité. Sangoku y combat Pikkon dans un tournoi de l'au-delà en attendant d'être ressuscité. Quel est ce lieu ?",
+      "answer": "L'Au-delà (Autre Monde)",
+      "difficulty": "difficile",
+      "category": "Univers"
+    },
+    {
+      "id": "db117",
+      "question": "Transformation atteinte par Sangoku en combinant le Super Saiyan Blue et le Kaioken. Il l'utilise pour la première fois contre Hit lors du tournoi Univers 6 vs 7. L'aura bleue se teinte de rouge. Quelle est cette technique ?",
+      "answer": "Super Saiyan Blue Kaioken",
+      "difficulty": "difficile",
+      "category": "Transformations"
+    },
+    {
+      "id": "db118",
+      "question": "Forme évoluée du Super Saiyan Blue exclusive à Végéta, atteinte lors du Tournoi du Pouvoir. Son aura devient plus intense et scintillante, lui permettant de rivaliser avec Toppo en mode Destruction. Quelle est cette transformation ?",
+      "answer": "Super Saiyan Blue Evolution (SSBE)",
+      "difficulty": "difficile",
+      "category": "Transformations"
+    },
+    {
+      "id": "db119",
+      "question": "Guerrier Namekien de l'Univers 6 très puissant, il fusionne avec tous les Namekiens de son univers pour devenir gigantesque. Il affronte Piccolo et Gohan lors du Tournoi du Pouvoir. Qui est-ce ?",
+      "answer": "Saonel et Pirina (Namekiens de l'Univers 6)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "db120",
+      "question": "Robot espion de Freezer envoyé sur Terre après les événements de Namek. Ses restes sont récupérés par le Docteur Gero pour créer Cell grâce aux cellules des combattants. Quel rôle jouent les cellules collectées ?",
+      "answer": "Créer Cell (elles contiennent l'ADN de Sangoku, Végéta, Piccolo, Freezer et King Cold)",
+      "difficulty": "difficile",
+      "category": "Détails"
+    },
+    {
+      "id": "db121",
+      "question": "Peuple d'êtres verts originaires de la planète Namek, ils sont à l'origine des Dragon Balls. Ils se reproduisent en pondant des œufs par la bouche et n'ont besoin que d'eau pour survivre. Quel est ce peuple ?",
+      "answer": "Les Namekiens (Nameks)",
+      "difficulty": "normal",
+      "category": "Univers"
+    },
+    {
+      "id": "db122",
+      "question": "Pendant le 23ème Tenkaichi Budokai, Sangoku affronte la réincarnation de Piccolo Daimaô en finale. Il remporte le tournoi pour la première et unique fois de sa vie. Contre qui gagne-t-il ?",
+      "answer": "Piccolo (Ma Junior)",
+      "difficulty": "normal",
+      "category": "Tournois"
+    },
+    {
+      "id": "db123",
+      "question": "Cette technique de Cell lui permet de se régénérer entièrement à partir d'une seule cellule intacte, capacité héritée des Namekiens via Piccolo. Grâce à elle, Cell survit à sa propre auto-destruction. Quelle est cette capacité ?",
+      "answer": "Régénération (cellules namekiennes)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db124",
+      "question": "Fille de Krilin et C-18, elle apparaît à la fin de Dragon Ball Z. Son nom signifie 'châtaigne' en japonais. Qui est-ce ?",
+      "answer": "Marron",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "db125",
+      "question": "Dans la saga Black Goku, Zamasu et Black fusionnent avec les Potaras pour devenir un être quasi-immortel et immensément puissant. Trunks du futur le tranche avec une épée d'énergie alimentée par l'espoir de l'humanité. Qui est cette fusion ?",
+      "answer": "Zamasu fusionné (Fusion Zamasu)",
+      "difficulty": "difficile",
+      "category": "Fusions"
+    },
+    {
+      "id": "db126",
+      "question": "Technique de Ten Shin Han consistant à se diviser en quatre clones de lui-même, chacun ayant un quart de la puissance originale. Il l'utilise lors du Tenkaichi Budokai. Quelle est cette technique ?",
+      "answer": "Shishin no Ken (Multi-Form / Technique des quatre corps)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db127",
+      "question": "Sangoku meurt deux fois dans Dragon Ball Z. La première fois, il se sacrifie en maintenant Raditz pendant que Piccolo les transperce tous les deux avec son Makankosappo. Comment meurt-il la seconde fois ?",
+      "answer": "Il se téléporte avec Cell sur la planète de Kaio du Nord avant l'explosion",
+      "difficulty": "normal",
+      "category": "Détails"
+    },
+    {
+      "id": "db128",
+      "question": "Mère de Sangoku dans le film Dragon Ball Super: Broly, cette Saiyan confie son fils à une capsule spatiale avant la destruction de la planète Vegeta par Freezer. Elle est la femme de Bardock. Qui est-ce ?",
+      "answer": "Gine",
+      "difficulty": "difficile",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db129",
+      "question": "Ancien gardien de la Terre, il est la moitié bienveillante du Namekien originel dont Piccolo est la moitié maléfique. Il fusionne avec Piccolo pendant la saga Cell pour reconstituer le Super Namekien. Qui est-ce ?",
+      "answer": "Kami (Dieu / Tout-Puissant)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db130",
+      "question": "Attaque signature de Freezer, il lève un doigt et crée une immense boule d'énergie orange semblable à un soleil miniature. C'est avec cette technique qu'il détruit la planète Vegeta. Quelle est cette technique ?",
+      "answer": "Supernova (Death Ball)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db131",
+      "question": "Père de Freezer, ce géant accompagne son fils sur Terre pour se venger après Namek. Trunks du futur le tranche en morceaux avant même qu'il ne puisse combattre. Qui est-ce ?",
+      "answer": "King Cold (Roi Cold)",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db132",
+      "question": "Dans Dragon Ball Super, cet ange est le père de tous les autres anges et le serviteur du Grand Prêtre Zen'ô. Il est considéré comme l'un des cinq êtres les plus puissants de tous les univers. Qui est-ce ?",
+      "answer": "Le Grand Prêtre (Daishinkan)",
+      "difficulty": "difficile",
+      "category": "Dieux"
+    },
+    {
+      "id": "db133",
+      "question": "Chat blanc et rond vivant au sommet de la tour qui porte son nom, il cultive les Senzu et guide les guerriers. Il est en fait un être divin qui a vécu plus de 800 ans. Qui est-ce ?",
+      "answer": "Karine (Maître Karine)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "db134",
+      "question": "Lors du Tournoi du Pouvoir, C-17 survit à tout et fait le vœu final à Super Shenron. Plutôt que de souhaiter quelque chose d'égoïste, il demande la restauration de tous les univers effacés. Quel est le vœu de C-17 ?",
+      "answer": "Restaurer tous les univers effacés",
+      "difficulty": "normal",
+      "category": "Tournois"
+    },
+    {
+      "id": "db135",
+      "question": "Seconde forme de Cell, obtenue après avoir absorbé C-17. Il devient plus grand et musclé mais n'a pas encore atteint la perfection. Il piège Végéta en flattant son ego pour absorber C-18. Quelle est cette forme ?",
+      "answer": "Cell semi-parfait (forme 2)",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db136",
+      "question": "Planète du Dieu de la Destruction de l'Univers 7, Sangoku et Végéta s'y entraînent avec Whis. La gravité y est extrêmement forte et le temps s'écoule différemment. Quel est ce lieu ?",
+      "answer": "Planète de Beerus",
+      "difficulty": "difficile",
+      "category": "Univers"
+    },
+    {
+      "id": "db137",
+      "question": "Attaque de Gotenks Super Saiyan 3 où il projette des fantômes miniatures de lui-même qui explosent au contact de l'ennemi. Ces fantômes ont sa personnalité et font des pitreries. Quelle est cette technique ?",
+      "answer": "Attaque Kamikaze des Fantômes (Super Ghost Kamikaze Attack)",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "db138",
+      "question": "Lors de la première saga de Dragon Ball Z, ces deux Saiyans arrivent sur Terre pour conquérir la planète. L'un est un colosse chauve et brutal, l'autre est le prince de la race Saiyan. Qui sont-ils ?",
+      "answer": "Nappa et Végéta",
+      "difficulty": "normal",
+      "category": "Sagas"
+    },
+    {
+      "id": "db139",
+      "question": "Planète où Sangoku apprend la téléportation après avoir survécu à l'explosion de Namek. Les habitants de cette planète sont des experts en manipulation du ki. Quelle est cette planète ?",
+      "answer": "Planète Yardrat",
+      "difficulty": "difficile",
+      "category": "Univers"
+    },
+    {
+      "id": "db140",
+      "question": "Dans Dragon Ball Super, Freezer recrute une armée de 1000 soldats pour envahir la Terre pendant que Sangoku et Végéta s'entraînent chez Beerus. Il arrive avec sa nouvelle forme dorée. Quelle est cette saga ?",
+      "answer": "Saga de la Résurrection de Freezer (Resurrection F)",
+      "difficulty": "normal",
+      "category": "Sagas"
+    },
+    {
+      "id": "db141",
+      "question": "Saiyan de l'Univers 6, il est le pendant de Végéta dans cet univers. Il participe au tournoi Univers 6 vs 7 et se transforme en Super Saiyan pour la première fois pendant son combat contre Végéta. Qui est-ce ?",
+      "answer": "Cabba",
+      "difficulty": "difficile",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db142",
+      "question": "Dans le film DBS: Super Hero, ces deux cyborgs créés par le Dr. Hedo se croient des super-héros. Ils portent des costumes colorés et combattent Piccolo et Gohan avant de réaliser qu'ils ont été manipulés. Qui sont-ils ?",
+      "answer": "Gamma 1 et Gamma 2",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "db143",
+      "question": "Lors du 22ème Tenkaichi Budokai, Sangoku affronte Ten Shin Han en finale. Ten Shin Han gagne en touchant le sol une fraction de seconde après Sangoku grâce à un véhicule qui percute Sangoku en plein vol. Comment Sangoku perd-il ?",
+      "answer": "Il est percuté par un camion/véhicule et touche le sol en premier",
+      "difficulty": "difficile",
+      "category": "Tournois"
+    },
+    {
+      "id": "db144",
+      "question": "Dans Dragon Ball Super, cet être aux cheveux blancs et au teint pâle est l'ange de l'Univers 11. Il entraîne Jiren et les Pride Troopers avec un calme imperturbable. Qui est-ce ?",
+      "answer": "Marcarita",
+      "difficulty": "difficile",
+      "category": "Dieux"
+    },
+    {
+      "id": "db145",
+      "question": "Épée légendaire sur la planète des Kaio Shin, Gohan la brise pendant son entraînement, libérant ainsi le Vieux Kaio Shin qui était enfermé à l'intérieur depuis des millénaires. Quel est cet objet ?",
+      "answer": "Z Sword (Épée Z / Zeta Sword)",
+      "difficulty": "difficile",
+      "category": "Détails"
+    },
+    {
+      "id": "db146",
+      "question": "Quand la Danse de la Fusion échoue parce que les deux combattants ne sont pas parfaitement synchronisés, le résultat est un guerrier grotesque, soit extrêmement maigre soit extrêmement gros. Goten et Trunks ratent la fusion plusieurs fois avant de créer Gotenks. Comment appelle-t-on ces fusions ratées ?",
+      "answer": "Fusion ratée (Veku / Fat Gotenks / Skinny Gotenks)",
+      "difficulty": "difficile",
+      "category": "Fusions"
+    },
+    {
+      "id": "db147",
+      "question": "Nom Saiyan de Sangoku, c'est le nom que lui ont donné ses parents biologiques sur la planète Vegeta avant qu'il ne soit envoyé sur Terre. Quel est ce nom ?",
+      "answer": "Kakarot",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db148",
+      "question": "Dans Dragon Ball Z, cet objet magique permet de détecter le niveau de puissance d'un adversaire. Utilisé par les soldats de Freezer et les Saiyans, il se porte sur l'oreille et affiche un chiffre. Végéta en détruit un de rage sur Terre. Quel est cet objet ?",
+      "answer": "Scouter (Détecteur de puissance)",
+      "difficulty": "normal",
+      "category": "Détails"
+    },
+    {
+      "id": "db149",
+      "question": "Lors de son premier combat contre Végéta, Sangoku utilise le Kaioken multiplié par trois puis par quatre. Malgré les dégâts sur son propre corps, il parvient à rivaliser avec l'élite Saiyan. À quel multiplicateur monte-t-il le Kaioken contre Freezer ?",
+      "answer": "Kaioken x20",
+      "difficulty": "difficile",
+      "category": "Détails"
+    },
+    {
+      "id": "db150",
+      "question": "Sangoku atteint pour la première fois l'Ultra Instinct Sign (imparfait) pendant le Tournoi du Pouvoir, avec une aura argentée mais des cheveux noirs. Contre quel adversaire maîtrise-t-il finalement l'Ultra Instinct complet avec les cheveux argentés ?",
+      "answer": "Jiren",
+      "difficulty": "normal",
+      "category": "Détails"
+    },
+    {
+      "id": "db151",
+      "question": "Cet objet radar inventé par Bulma permet de localiser les Dragon Balls. Elle le crée alors qu'elle n'a que 16 ans. C'est grâce à cet appareil que commence la quête de Sangoku et Bulma. Quel est cet objet ?",
+      "answer": "Dragon Radar",
+      "difficulty": "normal",
+      "category": "Détails"
+    },
+    {
+      "id": "db152",
+      "question": "Lors de la saga Bou, Vegeta accepte volontairement le contrôle de Babidi pour obtenir un pouvoir accru. Il défie Sangoku dans un combat où ils sont tous les deux en Super Saiyan 2. Leur combat libère l'énergie nécessaire pour réveiller Majin Bou. Quel est le résultat de ce combat ?",
+      "answer": "Végéta assomme Sangoku par derrière (match nul interrompu)",
+      "difficulty": "difficile",
+      "category": "Détails"
+    },
+    {
+      "id": "db153",
+      "question": "Ancien élève de Tortue Géniale aux côtés de Son Gohan (le grand-père), ce vieux maître utilise la technique du Mafuba pour sceller Piccolo Daimaô, au prix de sa propre vie. Qui est-ce ?",
+      "answer": "Mutaïto",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "db154",
+      "question": "Guerrier robot de l'Univers 3 au Tournoi du Pouvoir, il fusionne avec plusieurs autres combattants de son univers pour former un robot géant appelé Anilaza. Quel univers est représenté par ce robot fusionné ?",
+      "answer": "Univers 3",
+      "difficulty": "difficile",
+      "category": "Tournois"
+    },
+    {
+      "id": "db155",
+      "question": "Lors de la saga Zamasu, Trunks du futur obtient une forme unique de Super Saiyan où son aura mélange le bleu et le jaune. Il tranche Zamasu fusionné avec une épée d'énergie créée par le Genkidama de l'humanité. Quelle est cette forme ?",
+      "answer": "Super Saiyan Rage (Super Saiyan de Trunks / Spirit Sword)",
+      "difficulty": "difficile",
+      "category": "Transformations"
+    },
+    {
+      "id": "db156",
+      "question": "Dans Dragon Ball, la lune joue un rôle crucial pour les Saiyans. Quand un Saiyan avec sa queue regarde la pleine lune, il se transforme en un singe géant destructeur. Comment s'appelle cette transformation ?",
+      "answer": "Oozaru (Singe Géant)",
+      "difficulty": "normal",
+      "category": "Transformations"
+    },
+    {
+      "id": "db157",
+      "question": "Piccolo détruit la Lune à deux reprises dans la série. La première fois pour stopper la transformation de Gohan enfant en singe géant pendant son entraînement. Comment empêche-t-il définitivement Gohan de se transformer ?",
+      "answer": "Il lui arrache la queue",
+      "difficulty": "normal",
+      "category": "Détails"
+    },
+    {
+      "id": "db158",
+      "question": "Dans Dragon Ball Z, ce géant vert est le guerrier le plus puissant de la planète Namek. Il affronte Freezer sous sa deuxième forme et parvient à le dominer brièvement grâce à sa fusion avec le Namekien Nail. Qui est-ce ?",
+      "answer": "Piccolo (après fusion avec Nail)",
+      "difficulty": "normal",
+      "category": "Sagas"
+    },
+    {
+      "id": "db159",
+      "question": "Tueur à gages de l'Armée du Ruban Rouge, il est un cyborg à la langue bleue. Sangoku le bat lors de son assaut contre le QG de l'armée. Il est le plus puissant assassin de l'organisation. Qui est-ce ?",
+      "answer": "Tao Pai Pai (Mercenary Tao)",
+      "difficulty": "normal",
+      "category": "Méchants"
+    },
+    {
+      "id": "db160",
+      "question": "Lors du Tournoi du Pouvoir, 80 guerriers de 8 univers s'affrontent sur une arène. Combien de minutes dure ce tournoi dans le temps de l'histoire (pas en nombre d'épisodes) ?",
+      "answer": "48 minutes",
+      "difficulty": "difficile",
+      "category": "Tournois"
+    },
+    {
+      "id": "db161",
+      "question": "Piccolo entraîne Gohan en le laissant survivre seul dans la nature pendant six mois avant l'arrivée des Saiyans. Durant cet entraînement, Gohan se transforme en Oozaru en regardant la Terre depuis... Non, en regardant quoi ?",
+      "answer": "La pleine lune (transformé en singe géant)",
+      "difficulty": "normal",
+      "category": "Détails"
+    },
+    {
+      "id": "db162",
+      "question": "Guerrier Namekien héroïque, il est le bras droit du Grand Ancien sur la planète Namek. Grièvement blessé par Freezer, il fusionne avec Piccolo en lui transférant toute sa puissance avant de mourir. Qui est-ce ?",
+      "answer": "Nail",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "db163",
+      "question": "Ce Saiyan légendaire est mentionné dans les prophéties : un guerrier au cœur pur apparaîtrait tous les mille ans avec un pouvoir illimité. C'est la peur de cette légende qui pousse Freezer à détruire la planète Vegeta. Quelle est cette légende ?",
+      "answer": "La légende du Super Saiyan",
+      "difficulty": "normal",
+      "category": "Saiyans"
+    },
+    {
+      "id": "db164",
+      "question": "Végéta se sacrifie contre Majin Bou en s'auto-détruisant dans une explosion massive. Avant de mourir, il serre Trunks dans ses bras et demande à Piccolo si lui, le prince des Saiyans, retrouvera Sangoku dans l'au-delà. Que répond Piccolo ?",
+      "answer": "Non (son âme sera purifiée et il cessera d'exister car il a trop péché)",
+      "difficulty": "difficile",
+      "category": "Détails"
+    },
+    {
+      "id": "db165",
+      "question": "Whis possède la capacité de remonter le temps de trois minutes exactement. Il utilise ce pouvoir pour sauver la Terre après que Freezer l'ait détruite dans la saga de la Résurrection. Quel est le nom de ce pouvoir ?",
+      "answer": "Temporal Do-Over (Retour temporel / Rewind)",
+      "difficulty": "difficile",
+      "category": "Détails"
+    }
+  ]
+}
