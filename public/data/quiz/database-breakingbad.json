@@ -223,7 +223,7 @@
     {
       "id": "bb032",
       "question": "Méthode de synthèse utilisée par Walter White pour produire sa méthamphétamine d'une pureté exceptionnelle, elle implique l'utilisation de méthylamine comme précurseur au lieu de la pseudoéphédrine. Comment appelle-t-on cette méthode en chimie ?",
-      "answer": "La réduction de Birch (ou synthèse par méthylamine / P2P)",
+      "answer": "La synthèse P2P (par méthylamine / phénylacétone)",
       "difficulty": "difficile",
       "category": "Chimie"
     },
@@ -236,7 +236,7 @@
     },
     {
       "id": "bb034",
-      "question": "L'autre meilleur ami de Jesse, maigre et portant un bonnet, il est souvent vu avec Badger. Son vrai nom est rarement mentionné dans la série. Il a un cousin dealer nommé Combo. Quel est son surnom ?",
+      "question": "L'autre meilleur ami de Jesse, maigre et portant un bonnet, il est souvent vu avec Badger. Son vrai nom est rarement mentionné dans la série. Son ami dealer Combo est assassiné. Quel est son surnom ?",
       "answer": "Skinny Pete",
       "difficulty": "normal",
       "category": "Personnages"
@@ -250,10 +250,10 @@
     },
     {
       "id": "bb036",
-      "question": "Petit ami de la mère de Jesse et dealer impitoyable, il utilise deux revendeurs dont un enfant pour contrôler son territoire. Jesse le tue pour venger la mort du petit Tomas. Qui est-ce ?",
-      "answer": "Gus Fring's dealers (les deux dealers de rue)",
+      "question": "Ce dealer de rue travaillant pour Gus Fring utilise un enfant nommé Tomás pour vendre de la drogue, ce qui pousse Jesse à vouloir se venger. L'enfant est finalement tué par ces dealers. Comment Jesse réagit-il ?",
+      "answer": "Il tue les deux dealers (provoquant la rupture avec Gus)",
       "difficulty": "difficile",
-      "category": "Personnages"
+      "category": "Jesse"
     },
     {
       "id": "bb037",
@@ -327,8 +327,8 @@
     },
     {
       "id": "bb047",
-      "question": "Walter White utilise du fulminate de mercure pour intimider Tuco Salamanca en faisant exploser un morceau dans son bureau. Cette scène de la saison 1 marque la première véritable démonstration de puissance d'Heisenberg. Quel est le composé chimique utilisé ?",
-      "answer": "Le fulminate de mercure (Hg(CNO)₂)",
+      "question": "Walter White intimide Tuco Salamanca en lançant un cristal explosif au sol, provoquant une explosion dans son repaire. Quel composé chimique utilise-t-il pour cette démonstration de force ?",
+      "answer": "Le fulminate de mercure",
       "difficulty": "difficile",
       "category": "Chimie"
     },
@@ -355,7 +355,7 @@
     },
     {
       "id": "bb051",
-      "question": "Réplique prononcée par Walter White dans la saison 4 quand Skyler lui exprime sa peur de Gus Fring. Walter lui répond qu'elle ne devrait pas s'inquiéter pour lui car il n'est pas en danger, il EST le danger. Complétez : 'I am not in danger, Skyler. I am the...'",
+      "question": "Walter White prononce cette réplique terrifiante à Skyler quand elle craint pour sa sécurité : « I am not in danger, Skyler. I am the... ». Quel mot complète cette phrase culte ?",
       "answer": "Danger (I am the danger)",
       "difficulty": "normal",
       "category": "Répliques cultes"
@@ -495,14 +495,14 @@
     },
     {
       "id": "bb071",
-      "question": "Le chapeau pork pie noir que porte Walter White quand il devient Heisenberg est devenu un accessoire iconique de la culture pop. Bryan Cranston l'a donné au Smithsonian Museum après la fin de la série. De quel type de chapeau s'agit-il ?",
+      "question": "Walter White adopte un accessoire vestimentaire noir iconique quand il devient Heisenberg, qu'il porte incliné sur la tête comme un gangster des années 50. Quel est cet accessoire devenu culte ?",
       "answer": "Un chapeau pork pie (pork pie hat)",
       "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb072",
-      "question": "Dans la saison 3, Walter convainc Jesse de l'aider à voler 1 000 gallons de méthylamine d'un train de marchandises. Cette opération baptisée 'le casse du train' se passe dans un épisode palpitant. Mais ce vol se termine par un acte horrible commis par Todd. Que fait Todd ?",
+      "question": "Dans la saison 5, Walter convainc Jesse de l'aider à voler 1 000 gallons de méthylamine d'un train de marchandises. Cette opération baptisée 'le casse du train' se passe dans un épisode palpitant. Mais ce vol se termine par un acte horrible commis par Todd. Que fait Todd ?",
       "answer": "Il tue un enfant (Drew Sharp) qui avait assisté au vol depuis son vélo",
       "difficulty": "normal",
       "category": "Épisodes marquants"
@@ -544,8 +544,8 @@
     },
     {
       "id": "bb078",
-      "question": "Breaking Bad a remporté de nombreux Emmy Awards au cours de ses 5 saisons (2008-2013). Bryan Cranston a remporté l'Emmy du meilleur acteur dans un drame un nombre record de fois consécutives pour ce rôle. Combien de fois l'a-t-il remporté ?",
-      "answer": "4 fois (2008, 2009, 2010, 2014)",
+      "question": "Breaking Bad a remporté de nombreux Emmy Awards au cours de ses 5 saisons (2008-2013). Bryan Cranston a remporté l'Emmy du meilleur acteur dans un drame un nombre record de fois pour ce rôle. Combien de fois l'a-t-il remporté ?",
+      "answer": "quatre fois (2008, 2009, 2010, 2014)",
       "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
@@ -565,7 +565,7 @@
     },
     {
       "id": "bb081",
-      "question": "Dans la saison 2, Walter et Jesse séquestrent un dealer nommé Krazy-8 dans le sous-sol de Jesse. Walter hésite pendant des jours avant de le tuer. Il découvre que Krazy-8 a caché un objet pour l'attaquer. Quel objet Krazy-8 avait-il dissimulé ?",
+      "question": "Dans la saison 1, Walter et Jesse séquestrent un dealer nommé Krazy-8 dans le sous-sol de Jesse. Walter hésite pendant des jours avant de le tuer. Il découvre que Krazy-8 a caché un objet pour l'attaquer. Quel objet Krazy-8 avait-il dissimulé ?",
       "answer": "Un morceau d'assiette cassée (un tesson)",
       "difficulty": "difficile",
       "category": "Épisodes marquants"

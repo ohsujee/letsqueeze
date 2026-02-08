@@ -243,7 +243,7 @@
     },
     {
       "id": "st035",
-      "question": "Dans la saison 4, Eleven retrouve ses pouvoirs perdus grâce au programme NINA, qui lui fait revivre ses souvenirs d'enfance au laboratoire. Ce programme utilise un caisson sensoriel avancé. Quel est le nom de code du projet ?",
+      "question": "Dans la saison 4, Eleven accepte de participer à un programme secret qui lui fait revivre ses souvenirs d'enfance dans un laboratoire souterrain pour récupérer ses pouvoirs. Quel est le nom de code de ce projet ?",
       "answer": "Projet NINA (Programme NINA)",
       "difficulty": "difficile",
       "category": "Pouvoirs"
@@ -285,17 +285,17 @@
     },
     {
       "id": "st041",
-      "question": "Cabane isolée dans les bois de Hawkins où Hopper cache Eleven pendant un an entre les saisons 1 et 2. Protégée par des fils piégeurs et des alarmes, elle devient leur foyer. Hopper y installe une règle stricte : 'Ne pas ouvrir la porte'. Quel autre mot-clé dit-il à Eleven ?",
-      "answer": "Les yeux ne mentent pas (ou la règle des 3 : Don't be stupid / 'La porte reste fermée')",
+      "question": "Hopper rédige une lettre touchante à Eleven dans la saison 3, qu'il n'arrive jamais à lui lire en personne. Joyce la lit finalement à Eleven après la supposée mort de Hopper. Quel est le thème principal de cette lettre ?",
+      "answer": "Accepter le changement et laisser la porte ouverte à 3 pouces (la règle des 3 pouces)",
       "difficulty": "difficile",
-      "category": "Personnages"
+      "category": "Hopper"
     },
     {
       "id": "st042",
-      "question": "Dans la saison 1, les garçons cachent Eleven dans le sous-sol de la famille Wheeler. Pour la déguiser et l'aider à passer inaperçue au collège, ils lui mettent une perruque blonde et une robe rose. De quel personnage Mike dit-il qu'elle a l'air ?",
-      "answer": "D'une jolie fille / elle est jolie (Mike la trouve belle / il n'y a pas de comparaison spécifique à un personnage)",
-      "difficulty": "difficile",
-      "category": "Saisons"
+      "question": "Dans la saison 1, Eleven découvre pour la première fois un aliment qu'elle adore instantanément chez les garçons, et qui devient un symbole récurrent de son personnage tout au long de la série. Quel est cet aliment ?",
+      "answer": "Les gaufres Eggo",
+      "difficulty": "normal",
+      "category": "Eleven"
     },
     {
       "id": "st043",
@@ -397,7 +397,7 @@
     },
     {
       "id": "st057",
-      "question": "En saison 4, Eleven vit en Californie avec la famille Byers et se fait harceler au lycée. Un garçon populaire lui casse un projet scolaire (un diorama) sur la tête dans un roller rink. Comment se nomme cette brute ?",
+      "question": "En saison 4, Eleven vit en Californie avec la famille Byers et se fait harceler au lycée. Une fille populaire lui casse un projet scolaire (un diorama) sur la tête dans un roller rink. Comment se nomme cette brute ?",
       "answer": "Angela",
       "difficulty": "difficile",
       "category": "Saisons"
@@ -502,7 +502,7 @@
     },
     {
       "id": "st072",
-      "question": "Keith, personnage mineur récurrent, est le gérant du Palace Arcade où les garçons jouent aux jeux vidéo. En saison 2, un jeu d'arcade spécifique est le préféré de Dustin. Il bat le record de Max sur ce jeu intitulé 'Dig Dug'. Quel autre jeu d'arcade donne son nom à un épisode de la saison 2 ?",
+      "question": "Dans la saison 2, Dustin essaie d'impressionner Max en battant un record sur un jeu d'arcade classique des années 80. Ce jeu donne aussi son nom à un épisode de la série. Quel est ce jeu ?",
       "answer": "Dig Dug (épisode 5 de la saison 2)",
       "difficulty": "difficile",
       "category": "Hawkins"
@@ -517,14 +517,14 @@
     {
       "id": "st074",
       "question": "La saison 4 de Stranger Things est divisée en deux volumes. Le Volume 2, sorti séparément, contient un épisode final de durée exceptionnelle qui bat les records de la plateforme. Quelle est la durée approximative de cet épisode final ?",
-      "answer": "2h30 environ (2 heures 19 minutes exactement pour l'épisode 9)",
+      "answer": "Environ 2h30 (2 heures 30 minutes)",
       "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st075",
-      "question": "En saison 4, le groupe se divise en plusieurs équipes à travers le monde : une en Californie, une en Russie, une à Hawkins et une dans le Nevada. L'équipe de Californie cherche Eleven qui a été emmenée par un militaire. Quel est le nom de cet officier qui aide Eleven ?",
-      "answer": "Le Colonel Sullivan (ou le Lieutenant Colonel Sullivan - mais c'est l'antagoniste qui la traque, pas un allié. Le militaire qui l'aide est le Dr. Owens)",
+      "question": "En saison 4, le groupe se divise en plusieurs équipes à travers le monde : une en Californie, une en Russie, une à Hawkins et une dans le Nevada. Un ancien scientifique du Département de l'Énergie aide Eleven à retrouver ses pouvoirs en organisant le programme secret dans un silo souterrain. Quel est le nom de ce personnage qui aide Eleven ?",
+      "answer": "Le Dr. Sam Owens",
       "difficulty": "difficile",
       "category": "Saisons"
     },

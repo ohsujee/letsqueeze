@@ -446,7 +446,7 @@
     },
     {
       "id": "mcu064",
-      "question": "Ce Valkyrie asgardienne rencontrée sur Sakaar est devenue alcoolique après la mort de ses sœurs d'armes, aide Thor à s'échapper et devient la reine de New Asgard dans Endgame. Qui est-ce ?",
+      "question": "Cette guerrière asgardienne rencontrée sur Sakaar est devenue alcoolique après la mort de ses sœurs d'armes, aide Thor à s'échapper et devient la reine de New Asgard dans Endgame. Qui est-ce ?",
       "answer": "Valkyrie / Brunnhilde",
       "difficulty": "difficile",
       "category": "Thor"
@@ -859,10 +859,10 @@
     },
     {
       "id": "mcu123",
-      "question": "Dans la Phase 1 du MCU, les six films sortis entre 2008 et 2012 culminent avec le premier film Avengers. Quel est le tout dernier film de la Phase 1 ?",
-      "answer": "Avengers (2012)",
+      "question": "Dans Spider-Man: No Way Home, ce méchant iconique au masque vert et au planeur revient du multivers, manipule Peter Parker en se faisant passer pour un allié avant de tuer Tante May. Qui est-ce ?",
+      "answer": "Le Bouffon Vert / Norman Osborn",
       "difficulty": "normal",
-      "category": "Phases"
+      "category": "Méchants"
     },
     {
       "id": "mcu124",
@@ -971,7 +971,7 @@
     },
     {
       "id": "mcu139",
-      "question": "Ce scientifique interprété par Mark Ruffalo dans le MCU se transforme en géant vert, refuse de se transformer pendant la majeure partie d'Infinity War et fusionne ses deux personnalités dans Endgame. Qui est cet acteur ?",
+      "question": "Cet acteur américain incarne Hulk dans le MCU depuis Avengers (2012), remplaçant Edward Norton, et est connu pour avoir accidentellement diffusé en direct une avant-première Thor: Ragnarok sur Instagram. Qui est cet acteur ?",
       "answer": "Mark Ruffalo",
       "difficulty": "normal",
       "category": "Acteurs"
@@ -1020,10 +1020,10 @@
     },
     {
       "id": "mcu146",
-      "question": "Ce film est le dernier de la Phase 3 du MCU, se déroule après Endgame et suit Peter Parker en voyage scolaire en Europe. Quel est ce film ?",
-      "answer": "Spider-Man: Far From Home",
-      "difficulty": "normal",
-      "category": "Phases"
+      "question": "Ce personnage adolescent joué par Xochitl Gomez peut ouvrir des portails en forme d'étoile entre les dimensions, est poursuivie par la Sorcière Rouge à travers le multivers et devient une alliée clé de Doctor Strange. Qui est-ce ?",
+      "answer": "America Chavez",
+      "difficulty": "difficile",
+      "category": "Doctor Strange"
     },
     {
       "id": "mcu147",

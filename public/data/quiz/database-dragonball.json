@@ -187,7 +187,7 @@
     },
     {
       "id": "db027",
-      "question": "Fusion de Goten et Trunks par la Danse de la fusion, ce jeune guerrier arrogant invente des techniques aux noms farfelus. Il affronte Majin Bou sous sa forme Super Saiyan 3. Qui est-ce ?",
+      "question": "Fusion de Sangoten et Trunks par la Danse de la fusion, ce jeune guerrier arrogant invente des techniques aux noms farfelus. Il affronte Majin Bou sous sa forme Super Saiyan 3. Qui est-ce ?",
       "answer": "Gotenks",
       "difficulty": "normal",
       "category": "Fusions"
@@ -215,7 +215,7 @@
     },
     {
       "id": "db031",
-      "question": "Champion du monde d'arts martiaux aux yeux du public, cet homme à la coupe afro et à la moustache s'attribue la victoire contre Cell. Son vrai nom est Mr. Satan. Qui est-ce ?",
+      "question": "Ce champion du monde d'arts martiaux est adulé par la Terre entière, prétend avoir battu Cell, a une fille nommée Videl et finit par devenir l'ami de Boo. Qui est-ce ?",
       "answer": "Mr. Satan (Hercule)",
       "difficulty": "normal",
       "category": "Personnages"
@@ -342,13 +342,13 @@
     {
       "id": "db049",
       "question": "Deuxième fils de Sangoku, il est le meilleur ami de Trunks enfant. Ensemble ils maîtrisent la Danse de la fusion pour former Gotenks. Qui est-ce ?",
-      "answer": "Goten",
+      "answer": "Sangoten",
       "difficulty": "normal",
       "category": "Saiyans"
     },
     {
       "id": "db050",
-      "question": "Apprenti Kaio Shin, il libère le potentiel caché de Gohan grâce à un long rituel sur la planète des Kaio Shin. Gohan atteint alors sa forme 'Ultime' sans avoir besoin de se transformer en Super Saiyan. Qui est-ce ?",
+      "question": "Ancien Kaio Shin d'il y a 15 générations, il libère le potentiel caché de Gohan grâce à un long rituel sur la planète des Kaio Shin. Gohan atteint alors sa forme 'Ultime' sans avoir besoin de se transformer en Super Saiyan. Qui est-ce ?",
       "answer": "Kaio Shin de l'Ancien (Vieux Kaio Shin)",
       "difficulty": "difficile",
       "category": "Dieux"
@@ -411,7 +411,7 @@
     },
     {
       "id": "db059",
-      "question": "Apprenti de Kaio Shin, ce Kaio Shin de l'Univers 10 est un Kaio bienveillant qui devient fou après avoir été trahi par son apprenti Zamasu. Son potara fusionné avec Zamasu est un ennemi redoutable. Qui est-ce ?",
+      "question": "Ce Kaio Shin de l'Univers 10 est le maître de Zamasu, utilise le GodTube pour observer les mortels et voit avec horreur son apprenti sombrer dans la folie meurtrière. Qui est-ce ?",
       "answer": "Gowasu",
       "difficulty": "difficile",
       "category": "Dieux"
@@ -579,7 +579,7 @@
     },
     {
       "id": "db083",
-      "question": "Nouvelle transformation de Piccolo dans le film DBS: Super Hero, obtenue grâce à un vœu de Shenron par Bulma. Sa taille augmente considérablement et il devient orange. Quelle est cette transformation ?",
+      "question": "Nouvelle transformation de Piccolo dans le film DBS: Super Hero, obtenue grâce à un vœu à Shenron qu'il a lui-même orchestré. Sa taille augmente considérablement et il devient orange. Quelle est cette transformation ?",
       "answer": "Orange Piccolo",
       "difficulty": "difficile",
       "category": "Transformations"
@@ -642,7 +642,7 @@
     },
     {
       "id": "db092",
-      "question": "Membre de la Force Ginyu, ce grand guerrier rouge peut ralentir le temps avec ses pouvoirs psychiques. Il affronte Végéta sur Namek. Qui est-ce ?",
+      "question": "Membre de la Force Ginyu, ce petit guerrier vert à quatre yeux peut ralentir le temps avec ses pouvoirs psychiques. Il affronte Végéta sur Namek. Qui est-ce ?",
       "answer": "Guldo",
       "difficulty": "difficile",
       "category": "Méchants"
@@ -691,7 +691,7 @@
     },
     {
       "id": "db099",
-      "question": "Dieu de la Destruction de l'Univers 6 et frère jumeau de Beerus. Contrairement à son frère, il est mince et élégant. Il organise un tournoi entre les Univers 6 et 7. Qui est-ce ?",
+      "question": "Dieu de la Destruction de l'Univers 6 et frère jumeau de Beerus. Contrairement à son frère, il est rond et corpulent. Il organise un tournoi entre les Univers 6 et 7. Qui est-ce ?",
       "answer": "Champa",
       "difficulty": "difficile",
       "category": "Dieux"
@@ -705,7 +705,7 @@
     },
     {
       "id": "db101",
-      "question": "Pendant le Tournoi du Pouvoir, ce guerrier de l'Univers 7 est le dernier éliminé avant la victoire. C'est C-17 qui fait le vœu final à Super Shenron. Qui est le MVP du tournoi selon Beerus ?",
+      "question": "Ce personnage fait le vœu final à Super Shenron à la fin du Tournoi du Pouvoir, demandant la restauration de tous les univers effacés, ce qui prouve sa noblesse cachée. Qui est-ce ?",
       "answer": "C-17",
       "difficulty": "difficile",
       "category": "Tournois"
@@ -754,22 +754,22 @@
     },
     {
       "id": "db108",
-      "question": "Cyborg créé à partir d'un humain par le Docteur Gero, il est entièrement obéissant contrairement à C-17 et C-18. Sangoku le bat en absorbant son énergie avec un baiser sur la bouche... Non, c'est Végéta qui le détruit avec son Big Bang Attack. Qui est-ce ?",
-      "answer": "C-19",
-      "difficulty": "difficile",
-      "category": "Méchants"
+      "question": "Ce guerrier Saiyan détruit les Cell Junior un par un pour protéger ses amis, atteint un niveau de puissance supérieur à celui de son père et porte le coup final à Cell grâce à un Kamehameha père-fils. Qui est-ce ?",
+      "answer": "Gohan (Super Saiyan 2)",
+      "difficulty": "normal",
+      "category": "Saiyans"
     },
     {
       "id": "db109",
-      "question": "Freezer possède quatre formes de transformation. Dans sa première forme, il ressemble à un petit extraterrestre à cornes. Combien de transformations Freezer a-t-il dans DBZ avant sa forme finale ?",
-      "answer": "3 transformations (4 formes au total)",
+      "question": "Le tyran galactique Freezer révèle progressivement sa vraie puissance sur Namek, passant par plusieurs formes intermédiaires avant d'atteindre sa forme finale face à Sangoku. Combien de formes intermédiaires montre-t-il avant sa forme finale ?",
+      "answer": "3 (formes 1, 2 et 3 avant la forme finale)",
       "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "db110",
-      "question": "Pendant le Cell Game, Sangoku abandonne son combat contre Cell et désigne Gohan pour le remplacer, convaincu que son fils possède le potentiel pour le vaincre. Quel est le nom de ce tournoi organisé par Cell ?",
-      "answer": "Cell Game (Cell Games)",
+      "question": "Cell organise un tournoi d'arts martiaux retransmis à la télévision, défiant tous les guerriers de la Terre, avec un ring spécialement construit. Quel est le nom de cet événement ?",
+      "answer": "Le Cell Game",
       "difficulty": "normal",
       "category": "Tournois"
     },
@@ -789,14 +789,14 @@
     },
     {
       "id": "db113",
-      "question": "Petit empereur bleu obsédé par la domination du monde, il est accompagné de Shu et Mai. Ses plans sont toujours déjoués par Sangoku. Dans DBS, c'est lui qui libère accidentellement Zamasu en souhaitant aux Dragon Balls. Qui est-ce ?",
+      "question": "Ce petit empereur aux ambitions démesurées tente régulièrement de conquérir le monde avec ses deux acolytes Mai et Shu, utilise les Dragon Balls pour rajeunir accidentellement et se retrouve transformé en enfant dans Dragon Ball Super. Qui est-ce ?",
       "answer": "Pilaf",
       "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "db114",
-      "question": "Pendant la saga Saiyan, Piccolo se sacrifie pour protéger Gohan d'une attaque de Nappa. Ce moment marque la première vraie preuve d'affection de Piccolo pour Gohan. Qui meurt pour sauver Gohan ?",
+      "question": "Ce guerrier Namekien, ancien ennemi de Sangoku devenu le mentor de son fils, se jette devant une attaque mortelle de Nappa pour sauver Gohan lors de l'invasion Saiyan. Qui est-ce ?",
       "answer": "Piccolo",
       "difficulty": "normal",
       "category": "Sagas"
@@ -922,7 +922,7 @@
     },
     {
       "id": "db132",
-      "question": "Dans Dragon Ball Super, cet ange est le père de tous les autres anges et le serviteur du Grand Prêtre Zen'ô. Il est considéré comme l'un des cinq êtres les plus puissants de tous les univers. Qui est-ce ?",
+      "question": "Cet ange est le père de Whis et de tous les autres anges, sert directement Zen'o, le roi de tous les univers, et organise le Tournoi du Pouvoir. Qui est-ce ?",
       "answer": "Le Grand Prêtre (Daishinkan)",
       "difficulty": "difficile",
       "category": "Dieux"
@@ -936,7 +936,7 @@
     },
     {
       "id": "db134",
-      "question": "Lors du Tournoi du Pouvoir, C-17 survit à tout et fait le vœu final à Super Shenron. Plutôt que de souhaiter quelque chose d'égoïste, il demande la restauration de tous les univers effacés. Quel est le vœu de C-17 ?",
+      "question": "Après la victoire du Tournoi du Pouvoir, le vainqueur utilise Super Shenron pour exaucer un souhait altruiste qui sauve tous les participants éliminés. Quel est ce vœu ?",
       "answer": "Restaurer tous les univers effacés",
       "difficulty": "normal",
       "category": "Tournois"
@@ -999,8 +999,8 @@
     },
     {
       "id": "db143",
-      "question": "Lors du 22ème Tenkaichi Budokai, Sangoku affronte Ten Shin Han en finale. Ten Shin Han gagne en touchant le sol une fraction de seconde après Sangoku grâce à un véhicule qui percute Sangoku en plein vol. Comment Sangoku perd-il ?",
-      "answer": "Il est percuté par un camion/véhicule et touche le sol en premier",
+      "question": "Lors du 22ème Championnat du Monde, Tenshinhan utilise une méthode inattendue et humiliante pour éliminer Sangoku du ring alors que celui-ci volait dans les airs. Comment Sangoku perd-il ce match ?",
+      "answer": "Il est percuté par un véhicule (une voiture)",
       "difficulty": "difficile",
       "category": "Tournois"
     },
@@ -1076,8 +1076,8 @@
     },
     {
       "id": "db154",
-      "question": "Guerrier robot de l'Univers 3 au Tournoi du Pouvoir, il fusionne avec plusieurs autres combattants de son univers pour former un robot géant appelé Anilaza. Quel univers est représenté par ce robot fusionné ?",
-      "answer": "Univers 3",
+      "question": "Lors du Tournoi du Pouvoir, un guerrier robotique géant formé par la fusion de plusieurs combattants mécaniques est l'un des derniers adversaires éliminés. Quel univers est représenté par ce robot fusionné ?",
+      "answer": "L'Univers 3",
       "difficulty": "difficile",
       "category": "Tournois"
     },
@@ -1097,7 +1097,7 @@
     },
     {
       "id": "db157",
-      "question": "Piccolo détruit la Lune à deux reprises dans la série. La première fois pour stopper la transformation de Gohan enfant en singe géant pendant son entraînement. Comment empêche-t-il définitivement Gohan de se transformer ?",
+      "question": "Piccolo détruit la Lune pour empêcher la transformation Oozaru de Gohan pendant son entraînement. Comment empêche-t-il définitivement Gohan de se transformer ?",
       "answer": "Il lui arrache la queue",
       "difficulty": "normal",
       "category": "Détails"
@@ -1125,10 +1125,10 @@
     },
     {
       "id": "db161",
-      "question": "Piccolo entraîne Gohan en le laissant survivre seul dans la nature pendant six mois avant l'arrivée des Saiyans. Durant cet entraînement, Gohan se transforme en Oozaru en regardant la Terre depuis... Non, en regardant quoi ?",
-      "answer": "La pleine lune (transformé en singe géant)",
+      "question": "Chaque nuit de pleine lune, les Saiyans qui possèdent encore leur queue se transforment en singes géants destructeurs après avoir absorbé les ondes Blutz. Quel est le nom de cette transformation ?",
+      "answer": "Oozaru (singe géant)",
       "difficulty": "normal",
-      "category": "Détails"
+      "category": "Transformations"
     },
     {
       "id": "db162",
@@ -1153,10 +1153,10 @@
     },
     {
       "id": "db165",
-      "question": "Whis possède la capacité de remonter le temps de trois minutes exactement. Il utilise ce pouvoir pour sauver la Terre après que Freezer l'ait détruite dans la saga de la Résurrection. Quel est le nom de ce pouvoir ?",
-      "answer": "Temporal Do-Over (Retour temporel / Rewind)",
+      "question": "Dans Dragon Ball Super, Whis possède la capacité de remonter le temps de quelques minutes, ce qui permet de corriger des erreurs fatales. Il utilise ce pouvoir après la destruction de la Terre par Freezer. Quel est le nom de cette technique ?",
+      "answer": "Le retour temporel (Do-Over)",
       "difficulty": "difficile",
-      "category": "Détails"
+      "category": "Techniques"
     }
   ]
 }

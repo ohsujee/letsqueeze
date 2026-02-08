@@ -5,7 +5,7 @@
   "items": [
     {
       "id": "got001",
-      "question": "Bâtard de Ned Stark élevé à Winterfell, il rejoint la Garde de Nuit et finit par devenir Roi au-delà du Mur. Tué puis ressuscité par Melisandre, il découvre qu'il est en réalité le fils de Rhaegar Targaryen et Lyanna Stark. Qui est-ce ?",
+      "question": "Bâtard de Ned Stark élevé à Winterfell, il rejoint la Garde de Nuit et est exilé au-delà du Mur à la fin de la série. Tué puis ressuscité par Melisandre, il découvre qu'il est en réalité le fils de Rhaegar Targaryen et Lyanna Stark. Qui est-ce ?",
       "answer": "Jon Snow (Aegon Targaryen)",
       "difficulty": "normal",
       "category": "Personnages"
@@ -41,7 +41,7 @@
     {
       "id": "got006",
       "question": "Événement le plus traumatisant de Game of Thrones, ce massacre a lieu lors du mariage d'Edmure Tully aux Jumeaux. Robb Stark, sa femme enceinte Talisa et sa mère Catelyn y sont assassinés par Walder Frey et Roose Bolton. Comment s'appelle cet événement ?",
-      "answer": "Les Noces Pourpres (The Red Wedding)",
+      "answer": "Les Noces Rouges (The Red Wedding)",
       "difficulty": "normal",
       "category": "Batailles"
     },
@@ -96,7 +96,7 @@
     },
     {
       "id": "got014",
-      "question": "Fille aînée de Ned Stark, d'abord naïve et rêvant de devenir reine, elle subit les pires épreuves : mariage forcé avec Joffrey puis Ramsay Bolton, manipulation par Littlefinger. Elle finit par devenir Reine du Nord. Qui est-ce ?",
+      "question": "Fille aînée de Ned Stark, d'abord naïve et rêvant de devenir reine, elle subit les pires épreuves : fiançailles forcées avec Joffrey et mariage forcé avec Ramsay Bolton, manipulation par Littlefinger. Elle finit par devenir Reine du Nord. Qui est-ce ?",
       "answer": "Sansa Stark",
       "difficulty": "normal",
       "category": "Personnages"
@@ -180,7 +180,7 @@
     },
     {
       "id": "got026",
-      "question": "Patriarche impitoyable de la Maison Lannister et Main du Roi, il est le stratège le plus redouté de Westeros. Il orchestre les Noces Pourpres et humilie constamment Tyrion. Il meurt sur les toilettes, tué par une arbalète. Qui est-ce ?",
+      "question": "Patriarche impitoyable de la Maison Lannister et Main du Roi, il est le stratège le plus redouté de Westeros. Il orchestre les Noces Rouges et humilie constamment Tyrion. Il meurt sur les toilettes, tué par une arbalète. Qui est-ce ?",
       "answer": "Tywin Lannister",
       "difficulty": "normal",
       "category": "Personnages"
@@ -194,7 +194,7 @@
     },
     {
       "id": "got028",
-      "question": "Matriarche de la Maison Tyrell surnommée 'La Reine des Épines' pour sa langue acérée, elle empoisonne Joffrey lors des Noces Pourpres... Pourpres parce que Joffrey vire au pourpre en mourant. Elle avoue son crime à Jaime avant de mourir. Qui est-ce ?",
+      "question": "Matriarche de la Maison Tyrell surnommée 'La Reine des Épines' pour sa langue acérée, elle empoisonne Joffrey lors des Noces Pourpres (Purple Wedding)... Pourpres parce que Joffrey vire au pourpre en mourant. Elle avoue son crime à Jaime avant de mourir. Qui est-ce ?",
       "answer": "Olenna Tyrell (Lady Olenna)",
       "difficulty": "normal",
       "category": "Personnages"
@@ -306,10 +306,10 @@
     },
     {
       "id": "got044",
-      "question": "Maison noble dont le blason est un loup-garou gris sur champ blanc et dont le siège est Winterfell, elle règne sur le Nord depuis des milliers d'années. Chaque enfant Stark reçoit un loup-garou comme compagnon. Quelle est la devise de cette maison ?",
-      "answer": "Winter is Coming (L'Hiver vient)",
-      "difficulty": "normal",
-      "category": "Maisons"
+      "question": "Ce personnage est le frère aîné de Robert Baratheon par la loi, seigneur de Peyredragon, suit la prêtresse rouge Mélisandre et croit être Azor Ahai réincarné. Qui est-ce ?",
+      "answer": "Stannis Baratheon",
+      "difficulty": "difficile",
+      "category": "Personnages"
     },
     {
       "id": "got045",
@@ -432,7 +432,7 @@
     },
     {
       "id": "got062",
-      "question": "Maison noble dont le blason est un homme écorché sur champ rose, connue pour sa cruauté, elle trahit les Stark lors des Noces Pourpres. Roose Bolton est assassiné par son fils Ramsay qui prend le contrôle du Nord. Quelle est la devise de cette maison ?",
+      "question": "Maison noble dont le blason est un homme écorché sur champ rose, connue pour sa cruauté, elle trahit les Stark lors des Noces Rouges. Roose Bolton est assassiné par son fils Ramsay qui prend le contrôle du Nord. Quelle est la devise de cette maison ?",
       "answer": "Our Blades Are Sharp (Nos lames sont acérées) - devise non officielle : A Naked Man Has Few Secrets (Un homme nu a peu de secrets)",
       "difficulty": "difficile",
       "category": "Maisons"
@@ -460,7 +460,7 @@
     },
     {
       "id": "got066",
-      "question": "Pirate sanguinaire et capitaine du 'Silence', il est le frère de Balon Greyjoy et l'oncle de Theon et Yara. Il devient une menace majeure en tuant deux dragons et en offrant sa flotte à Cersei. Qui est-ce ?",
+      "question": "Pirate sanguinaire et capitaine du 'Silence', il est le frère de Balon Greyjoy et l'oncle de Theon et Yara. Il devient une menace majeure en tuant le dragon Rhaegal d'un tir de scorpion et en offrant sa flotte à Cersei. Qui est-ce ?",
       "answer": "Euron Greyjoy",
       "difficulty": "difficile",
       "category": "Personnages"
@@ -516,15 +516,15 @@
     },
     {
       "id": "got074",
-      "question": "L'épisode 'The Rains of Castamere' (saison 3, épisode 9) tire son nom de la chanson des Lannister qui raconte la destruction de la Maison Reyne de Castamere. Cette chanson est jouée pendant les Noces Pourpres. Qui a détruit la Maison Reyne ?",
+      "question": "L'épisode 'The Rains of Castamere' (saison 3, épisode 9) tire son nom de la chanson des Lannister qui raconte la destruction de la Maison Reyne de Castamere. Cette chanson est jouée pendant les Noces Rouges. Qui a détruit la Maison Reyne ?",
       "answer": "Tywin Lannister",
       "difficulty": "difficile",
       "category": "Batailles"
     },
     {
       "id": "got075",
-      "question": "Les Enfants de la Forêt sont les premiers habitants de Westeros, des créatures magiques de petite taille. Ils ont créé les Marcheurs Blancs comme arme contre les Premiers Hommes en enfonçant un éclat de verredragon dans le coeur d'un homme. Comment ce premier Marcheur est-il devenu le Roi de la Nuit ?",
-      "answer": "En recevant un poignard de verredragon dans le coeur (planté par les Enfants de la Forêt dans un barral)",
+      "question": "Les Enfants de la Forêt ont créé les Marcheurs Blancs il y a des milliers d'années comme arme contre les Premiers Hommes, mais leur création leur a échappé. Comment le tout premier Marcheur Blanc est-il devenu le Roi de la Nuit ?",
+      "answer": "En recevant un poignard de verredragon dans le cœur",
       "difficulty": "difficile",
       "category": "Marcheurs Blancs"
     },
@@ -600,7 +600,7 @@
     },
     {
       "id": "got086",
-      "question": "Le Roi Robert Baratheon meurt au début de la série après avoir été blessé lors d'une chasse au sanglier. Sa mort n'est pas un accident : Cersei a fait en sorte que le vin soit plus fort que d'habitude pour qu'il soit ivre. Quel animal le blesse mortellement ?",
+      "question": "Ce roi buveur et corpulent est blessé mortellement lors d'une partie de chasse dans la forêt du Roi, après avoir bu trop de vin. Son écuyer Lancel Lannister lui a servi du vin fortifié sur ordre de Cersei. Quel animal le blesse mortellement ?",
       "answer": "Un sanglier",
       "difficulty": "normal",
       "category": "Personnages"

@@ -27,7 +27,7 @@
     {
       "id": "op004",
       "question": "Mangé accidentellement par le héros enfant, ce fruit du démon transforme son corps en caoutchouc élastique. Son vrai nom, caché par le Gouvernement, est le Hito Hito no Mi modèle Nika. Quel est ce fruit ?",
-      "answer": "Le Gomu Gomu no Mi (Fruit du Gum-Gum)",
+      "answer": "Le Gomu Gomu no Mi (Fruit du Caoutchouc)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
@@ -321,7 +321,7 @@
     {
       "id": "op046",
       "question": "Fruit du démon de type Zoan mythique le plus rare transformant en dragon oriental, il appartient à la créature la plus forte du monde. Kaido l'a utilisé pour terroriser Wano. Quel est ce fruit ?",
-      "answer": "Le Uo Uo no Mi modèle Seiryu (dragon azur)",
+      "answer": "Le Uo Uo no Mi modèle Seiryu (Fruit du Poisson modèle Dragon Azur)",
       "difficulty": "difficile",
       "category": "Fruits du démon"
     },
@@ -369,7 +369,7 @@
     },
     {
       "id": "op053",
-      "question": "Pierres antiques de couleur rouge indiquant un point géographique, quatre sont nécessaires pour localiser l'île finale par triangulation. L'équipage en possède trois après Wano. Combien en faut-il ?",
+      "question": "Ces stèles rouges contiennent chacune un fragment de la localisation de Laugh Tale, l'île finale de Grand Line. Seul celui qui les réunit tous peut trouver le One Piece. Combien de ces Ponéglyphes rouges existent ?",
       "answer": "4 Road Ponéglyphes",
       "difficulty": "normal",
       "category": "Objets"
@@ -439,7 +439,7 @@
     },
     {
       "id": "op063",
-      "question": "Arc où l'équipage sauve un royaume désertique d'une guerre civile orchestrée par Crocodile, la princesse Vivi les accompagnait. C'est leur première aventure sur Grand Line. Quel est cet arc ?",
+      "question": "Arc où l'équipage sauve un royaume désertique d'une guerre civile orchestrée par Crocodile, la princesse Vivi les accompagnait. C'est leur grande aventure sur Grand Line. Quel est cet arc ?",
       "answer": "Arc Alabasta",
       "difficulty": "normal",
       "category": "Arcs"
@@ -467,7 +467,7 @@
     },
     {
       "id": "op067",
-      "question": "Arc où l'équipage réuni plonge à 10000 mètres de profondeur pour atteindre le royaume des sirènes, le héros y détruit le Noah d'un coup. Quel est cet arc ?",
+      "question": "Arc où l'équipage réuni plonge à 10000 mètres de profondeur pour atteindre le royaume des sirènes, le héros tente de détruire le Noah à coups de Elephant Gatling. Quel est cet arc ?",
       "answer": "Arc Île des Hommes-Poissons",
       "difficulty": "normal",
       "category": "Arcs"
@@ -559,7 +559,7 @@
     {
       "id": "op080",
       "question": "Fruit du démon de type Zoan mythique transformant en phénix aux flammes bleues régénératrices, il appartient au premier commandant de Barbe Blanche. Marco le possède. Quel est ce fruit ?",
-      "answer": "Le Tori Tori no Mi modèle Phénix",
+      "answer": "Le Tori Tori no Mi modèle Phénix (Fruit du Volatile modèle Phénix)",
       "difficulty": "difficile",
       "category": "Fruits du démon"
     },
@@ -782,7 +782,7 @@
     },
     {
       "id": "op112",
-      "question": "Épéiste créateur de tous les sabres de grade Meito, ce forgeron légendaire de Wano a vécu il y a des siècles. Ses lames les plus célèbres sont les douze Saijo O Wazamono. Qui est-ce ?",
+      "question": "Épéiste créateur de Wado Ichimonji et d'Enma, deux sabres légendaires, ce forgeron légendaire de Wano a vécu il y a des siècles. Ses lames les plus célèbres sont les douze Saijo O Wazamono. Qui est-ce ?",
       "answer": "Shimotsuki Kozaburo / les forgerons de Wano",
       "difficulty": "difficile",
       "category": "Histoire"
@@ -852,7 +852,7 @@
     },
     {
       "id": "op122",
-      "question": "Personnage mystérieux portant le titre de Joy Boy il y a 800 ans durant le Siècle Oublié, il avait laissé une promesse aux hommes-poissons et un trésor sur Laugh Tale. Le héros est considéré comme son successeur. Qui est-ce ?",
+      "question": "Ce personnage mystérieux vivait il y a 800 ans durant le Siècle Oublié, il avait laissé une promesse aux hommes-poissons de l'île des Hommes-Poissons et un trésor sur Laugh Tale. Le héros est considéré comme son successeur. Qui est-ce ?",
       "answer": "Joy Boy",
       "difficulty": "difficile",
       "category": "Mythologie"
@@ -894,7 +894,7 @@
     },
     {
       "id": "op128",
-      "question": "Pirate le plus dangereux de l'ancienne ère ayant défié le Gouvernement Mondial à God Valley, il est le seul à avoir failli renverser le pouvoir mondial avant Roger. Son nom complet est Rocks D. Xebec. Qui est-ce ?",
+      "question": "Ce pirate de l'ancienne ère est considéré comme le plus dangereux de son temps, ayant défié le Gouvernement Mondial à God Valley où il fallut l'alliance de Garp et Roger pour le vaincre. Il dirigeait un équipage de futurs Empereurs. Qui est-ce ?",
       "answer": "Rocks D. Xebec",
       "difficulty": "difficile",
       "category": "Légendes"
@@ -993,7 +993,7 @@
     {
       "id": "op142",
       "question": "Fruit du démon de type Zoan mythique possédé par Sengoku l'ancien Fleet Admiral, il lui permet de se transformer en un Bouddha géant doré capable de lancer des ondes de choc. Quel est ce fruit ?",
-      "answer": "Le Hito Hito no Mi modèle Bouddha",
+      "answer": "Le Hito Hito no Mi modèle Bouddha (Fruit de l'Humain modèle Bouddha)",
       "difficulty": "difficile",
       "category": "Fruits du démon"
     },
@@ -1062,7 +1062,7 @@
     },
     {
       "id": "op152",
-      "question": "Épée légendaire de Shanks le Roux, l'un des douze sabres suprêmes du monde. Cette lame est toujours à la ceinture de l'Empereur aux cheveux roux. Quel est le nom de ce sabre ?",
+      "question": "Épée légendaire de Shanks le Roux, un sabre d'un grade extrêmement élevé. Cette lame est toujours à la ceinture de l'Empereur aux cheveux roux. Quel est le nom de ce sabre ?",
       "answer": "Gryphon",
       "difficulty": "difficile",
       "category": "Armes"

@@ -131,7 +131,7 @@
     },
     {
       "id": "nar019",
-      "question": "Démon renard à neuf queues scellé dans le héros, cette créature fière et intelligente détestait les humains avant de devenir l'allié de son jinchuuriki. Son vrai nom est révélé durant la guerre. Quel est ce nom ?",
+      "question": "Ce démon renard est scellé dans le héros depuis sa naissance, a été capturé puis libéré lors de l'attaque du village, et son vrai nom n'est révélé que bien plus tard dans la série quand il devient l'allié de son jinchuuriki. Quel est son vrai nom ?",
       "answer": "Kurama",
       "difficulty": "difficile",
       "category": "Bijuu"
@@ -418,8 +418,8 @@
     },
     {
       "id": "nar061",
-      "question": "Technique de taijutsu ultime consistant à ouvrir les huit portes du corps, la dernière porte donne une puissance surpassant les Kages mais cause la mort de l'utilisateur. Combien y a-t-il de portes ?",
-      "answer": "8 portes",
+      "question": "Maito Gai et Rock Lee maîtrisent un système de taijutsu extrême qui consiste à ouvrir des points de limitation du chakra dans le corps, la dernière porte causant la mort de l'utilisateur. Combien de portes ce système comporte-t-il ?",
+      "answer": "8 portes (Hachimon)",
       "difficulty": "difficile",
       "category": "Taijutsu"
     },
@@ -775,7 +775,7 @@
     },
     {
       "id": "nar114",
-      "question": "Fille de Sasuke et Sakura portant des lunettes comme sa mère, cette jeune Uchiha a éveillé son Sharingan. Elle admire le Septième Hokage et veut devenir comme lui. Qui est-ce ?",
+      "question": "Fille de Sasuke et Sakura portant des lunettes rouges caractéristiques, cette jeune Uchiha a éveillé son Sharingan. Elle admire le Septième Hokage et veut devenir comme lui. Qui est-ce ?",
       "answer": "Sarada Uchiha",
       "difficulty": "normal",
       "category": "Nouvelle génération"
@@ -873,7 +873,7 @@
     },
     {
       "id": "nar128",
-      "question": "Bijuu à trois queues ressemblant à une tortue géante, il a été scellé dans Rin Nohara puis libéré après sa mort. Recapturé par Deidara et Tobi, il est l'un des rares bijuu sans jinchuuriki connu. Quel est ce bijuu ?",
+      "question": "Bijuu à trois queues ressemblant à une tortue géante, il a été scellé dans Rin Nohara puis libéré après sa mort. Recapturé par Deidara et Tobi, il est un bijuu qui a eu pour jinchuuriki Yagura, le 4e Mizukage, et brièvement Rin Nohara. Quel est ce bijuu ?",
       "answer": "Isobu (Sanbi)",
       "difficulty": "difficile",
       "category": "Bijuu"
@@ -971,7 +971,7 @@
     },
     {
       "id": "nar142",
-      "question": "Duo de flûte composant l'équipe de son du village d'Oto, ces jumeaux siamois pouvaient fusionner leur corps et contrôler les ennemis avec leur musique. Ils ont affronté Shikamaru et Temari lors de la mission de récupération. Qui sont-ils ?",
+      "question": "Duo capable de fusionner leurs corps, le plus bizarre du Quartet du Son, ces jumeaux siamois du village d'Oto pouvaient se séparer et se recombiner à volonté. Ils ont affronté Kiba et Akamaru lors de la mission de récupération de Sasuke. Qui sont-ils ?",
       "answer": "Sakon et Ukon",
       "difficulty": "difficile",
       "category": "Antagonistes"
@@ -1028,7 +1028,7 @@
     {
       "id": "nar150",
       "question": "Technique utilisée par Nagato pour détruire entièrement Konoha d'un seul mouvement, créant un cratère géant. C'est l'application la plus puissante de la répulsion gravitationnelle du chemin Deva. Quelle est cette technique ?",
-      "answer": "Chibaku Tensei (Shinra Tensei massif)",
+      "answer": "Shinra Tensei (Almighty Push) massif",
       "difficulty": "difficile",
       "category": "Techniques"
     },
