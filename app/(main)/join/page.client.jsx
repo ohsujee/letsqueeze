@@ -203,11 +203,10 @@ export default function JoinClient({ initialCode = "" }) {
       }
     }
 
-    // Reset state before navigation
-    setShowEntryTransition(false);
-    setTransitionConfig(null);
-
     // Navigate to room (ad is dismissed or failed)
+    // Don't reset transition state - let it stay visible during navigation
+    // The overlay (z-9999) covers everything while the lobby loads underneath
+    // It disappears naturally when this component unmounts on page change
     router.push(path);
   };
 

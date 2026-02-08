@@ -165,11 +165,10 @@ function HomePageContent() {
   // Handle transition complete - navigate to room
   const handleTransitionComplete = () => {
     if (transitionConfig) {
-      const path = transitionConfig.path;
-      // Reset state BEFORE navigation to allow re-trigger on next room creation
-      setShowEntryTransition(false);
-      setTransitionConfig(null);
-      router.push(path);
+      // Don't reset transition state - let it stay visible during navigation
+      // The transition overlay (z-9999) covers everything while the lobby loads underneath
+      // It disappears naturally when this component unmounts on page change
+      router.push(transitionConfig.path);
     }
   };
 
