@@ -371,6 +371,66 @@ Avant de valider une question :
 
 ---
 
+## 11. ERREURS FRÉQUENTES À ÉVITER (RETOUR D'EXPÉRIENCE)
+
+> Ces erreurs ont été identifiées lors d'audits sur 700+ questions. Elles passent souvent inaperçues à la rédaction.
+
+### Leaks subtils (réponse cachée dans la question)
+
+Le cas évident ("Dans Naruto, qui est Naruto ?") est facile à repérer. Les cas suivants le sont beaucoup moins :
+
+| Type de leak | ❌ Exemple | Pourquoi c'est un leak |
+|--------------|-----------|----------------------|
+| **Citation contenant la réponse** | "ne peut dire que « I am Groot »" | Le nom "Groot" est dans la citation |
+| **Nombre = réponse** | "quatre sont nécessaires pour localiser..." | Réponse = "4 Road Poneglyphes" |
+| **Objet/concept nommé** | "blessé lors d'une chasse au sanglier" | Réponse = "un sanglier" |
+| **Méthode/technique décrite** | "en enfonçant un éclat de verredragon dans le cœur" | Réponse = "verredragon dans le cœur" |
+| **Mot-clé de la réponse** | "il EST le danger" | Réponse = "danger" |
+| **Objet vestimentaire nommé** | "son chapeau pork pie noir" | Réponse = "chapeau pork pie" |
+
+**Test infaillible :** Relire la question en cachant la réponse. Si un joueur peut répondre **sans aucune connaissance du sujet**, juste en lisant la question attentivement, c'est un leak.
+
+### Erreurs factuelles fréquentes
+
+| Type d'erreur | ❌ Exemple réel | ✅ Correction |
+|---------------|----------------|--------------|
+| **Description physique inversée** | Guldo "grand guerrier rouge" | Guldo est petit, vert, 4 yeux |
+| **Corpulence inversée** | Champa "mince et élégant" | Champa est rond et corpulent |
+| **Genre inversé** | Angela "un garçon populaire" | Angela est une fille |
+| **Mauvaise saison/épisode** | "Dans la saison 3" (train heist BB) | C'est la saison 5 (S05E05) |
+| **Relation fausse** | "son cousin Combo" | Combo est un ami, pas un cousin |
+| **Statut faux** | Jon Snow "devenu Roi" | Jon est exilé, jamais couronné |
+| **Fiancée ≠ mariée** | Sansa "mariée à Joffrey" | Fiancée seulement, jamais mariée |
+| **Technique confondue** | Chibaku Tensei détruit Konoha | C'est Shinra Tensei |
+| **Attribution fausse** | "Piccolo détruit la Lune 2 fois" | 1ère fois = Tortue Géniale |
+| **Fait inventé** | Slogan "Taste the Family" (BB) | Ce slogan n'existe pas |
+| **Info non confirmée** | "l'un des 12 sabres suprêmes" | Grade non confirmé officiellement |
+
+**Règle :** En cas de doute sur un fait, ne pas l'inclure. Mieux vaut un indice sûr qu'un indice potentiellement faux.
+
+### Noms VF pour anime/manga
+
+Pour les œuvres japonaises, **toujours inclure VO et VF** dans les réponses :
+
+| Élément | ❌ Mauvais | ✅ Correct |
+|---------|-----------|-----------|
+| **Fruit du Démon** | "fruit de la foudre" (traduction libre) | "Goro Goro no Mi (Fulguro-Fruit)" |
+| **Fruit modèle** | "Tori Tori no Mi modèle Phénix" | "Tori Tori no Mi modèle Phénix (Fruit du Volatile modèle Phénix)" |
+| **Personnage** | "Goten" | "Sangoten" (nom VF officiel) |
+
+**Sources VF fiables :** Wikis officiels en français (ex: `onepiece.fandom.com/fr`, `naruto.fandom.com/fr`). Ne JAMAIS traduire soi-même un nom — utiliser le nom VF officiel ou ne pas en mettre.
+
+### Disambiguation de termes similaires
+
+Quand un même terme peut désigner plusieurs choses, être explicite :
+
+| ❌ Ambigu | ✅ Précis |
+|-----------|----------|
+| "Les Noces Pourpres" (Red ou Purple Wedding ?) | "Les Noces Rouges (Red Wedding)" ou "Les Noces Pourpres (Purple Wedding)" |
+| "la forme finale de Freezer" | Préciser laquelle (4ème forme, Golden, Black...) |
+
+---
+
 ## SOURCES ET RÉFÉRENCES
 
 - [Trivia Hall of Fame - Writing Great Questions](https://www.triviahalloffame.com/writeq)

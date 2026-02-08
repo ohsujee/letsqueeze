@@ -2,6 +2,12 @@
 
 > Documentation optimisée pour Claude. Chaque système documenté UNE seule fois.
 
+## Identité App
+
+- **Nom public:** Gigglz (avec un Z, pas "Giggles")
+- **Mascotte:** Giggly - pingouin style Duolingo avec chapeau haut-de-forme violet et nœud papillon
+- **Repo/Projet:** LetsQueeze (nom interne)
+
 ---
 
 ## 0. RÈGLES DE TRAVAIL (OBLIGATOIRE)
@@ -300,6 +306,8 @@ Variables env: `NEXT_PUBLIC_FOUNDER_UIDS`, `NEXT_PUBLIC_FOUNDER_EMAILS` → Pro 
 **États Buzzer:** `active` (rouge) → `pending` (jaune) → `success` (vert) / `blocked` (gris) / `penalty` (orange, 8s)
 
 **Scoring:** `points = floor + (start - floor) × (1 - elapsed/duration)`
+
+**Création de questions :** Voir `GUIDE_CREATION_QUIZ.md` pour les règles complètes. Règle absolue : la réponse (ni en entier, ni en partie, ni via citation, nombre ou concept) ne doit JAMAIS apparaître dans la question. Pour les animes, toujours utiliser le format `VO (VF officielle)` dans les réponses.
 
 ### DeezTest (Deezer)
 
