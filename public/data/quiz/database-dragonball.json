@@ -250,7 +250,7 @@
     },
     {
       "id": "db036",
-      "question": "Ancien cyborg créé par le Docteur Gero, elle est la sœur jumelle de C-17. Elle participe au 25ème Tenkaichi Budokai et épouse Krilin. Qui est-ce ?",
+      "question": "Ancien cyborg créé par le Docteur Gero, elle est la sœur jumelle de C-17. Elle épouse Krilin après la saga Cell et participe au 25ème Tenkaichi Budokai. Qui est-ce ?",
       "answer": "C-18",
       "difficulty": "normal",
       "category": "Personnages"
@@ -334,7 +334,7 @@
     },
     {
       "id": "db048",
-      "question": "Colosse Saiyan chauve au service de Végéta, il arrive sur Terre avec le prince des Saiyans. Il élimine facilement Yamcha, Ten Shin Han et Piccolo avant d'être vaincu par Sangoku. Qui est-ce ?",
+      "question": "Colosse Saiyan chauve au service de Végéta, il arrive sur Terre avec le prince des Saiyans. Il élimine Ten Shin Han et provoque le sacrifice de Piccolo avant d'être vaincu par Sangoku. Qui est-ce ?",
       "answer": "Nappa",
       "difficulty": "normal",
       "category": "Saiyans"
@@ -558,7 +558,7 @@
     },
     {
       "id": "db080",
-      "question": "Forme la plus récente et puissante de Freezer, révélée dans le film Dragon Ball Super: Super Hero. Elle surpasse même les formes divines des Saiyans. Sa peau devient noire. Quelle est cette transformation ?",
+      "question": "Forme la plus récente et puissante de Freezer, révélée dans le manga Dragon Ball Super (arc Granolah). Elle surpasse même les formes divines des Saiyans. Sa peau devient noire. Quelle est cette transformation ?",
       "answer": "Black Freezer",
       "difficulty": "difficile",
       "category": "Transformations"
@@ -607,14 +607,14 @@
     },
     {
       "id": "db087",
-      "question": "Premier grand méchant de Dragon Ball, ce petit être vert est le roi des démons. Piccolo est sa réincarnation. Il a été enfermé dans un autocuiseur par Tortue Géniale et Mutaïto. Qui est-ce ?",
+      "question": "Premier grand méchant de Dragon Ball, cet être démoniaque vert est le roi des démons. Piccolo est sa réincarnation. Il a été enfermé dans un autocuiseur par Tortue Géniale et Mutaïto. Qui est-ce ?",
       "answer": "Piccolo Daimaô (Grand Démon Piccolo)",
       "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "db088",
-      "question": "Lors de la saga Saiyan, Sangoku revient de l'au-delà grâce au Nimbus et affronte Végéta sur Terre. Ce combat marque l'utilisation du Kaioken x4 et du premier Genkidama de la série Z. Quel est cet affrontement ?",
+      "question": "Lors de la saga Saiyan, Sangoku, ressuscité par les Dragon Balls, arrive sur le Nimbus et affronte Végéta sur Terre. Ce combat marque l'utilisation du Kaioken x4 et du premier Genkidama de la série Z. Quel est cet affrontement ?",
       "answer": "Sangoku vs Végéta (saga Saiyan)",
       "difficulty": "normal",
       "category": "Sagas"
@@ -663,14 +663,14 @@
     },
     {
       "id": "db095",
-      "question": "Dans Dragon Ball Super, cet assassin de l'Univers 6 maîtrise une technique d'assassinat invisible. Il est éliminé par Sangoku lors du tournoi entre l'Univers 6 et l'Univers 7. Qui est-ce ?",
+      "question": "Dans Dragon Ball Super, cet assassin de l'Univers 6 maîtrise le Time Skip, une technique de saut temporel qui le rend quasi imbattable. Il affronte Sangoku lors du tournoi entre l'Univers 6 et l'Univers 7. Qui est-ce ?",
       "answer": "Hit",
       "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "db096",
-      "question": "Saiyan de l'Univers 6, elle est l'équivalent de Sangoku dans son univers. Après le Tournoi du Pouvoir, elle atteint le Super Saiyan grâce à un picotement dans le dos. Qui est-ce ?",
+      "question": "Saiyan de l'Univers 6, elle est l'équivalent de Sangoku dans son univers. Avant le Tournoi du Pouvoir, elle atteint le Super Saiyan grâce à un picotement dans le dos, technique enseignée par Cabba. Qui est-ce ?",
       "answer": "Caulifla",
       "difficulty": "difficile",
       "category": "Saiyans"
