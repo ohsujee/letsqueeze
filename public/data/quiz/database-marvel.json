@@ -180,7 +180,7 @@
     },
     {
       "id": "mcu026",
-      "question": "Cette Pierre d'Infinité est de couleur rouge, permet de manipuler la réalité elle-même et était cachée sous forme d'Éther dans le monde de Jane Foster à Asgard. Quelle est cette pierre ?",
+      "question": "Cette Pierre d'Infinité est de couleur rouge, permet de manipuler la réalité elle-même et était cachée sous forme d'Éther dans un lieu secret, retrouvée accidentellement par Jane Foster lors de la Convergence dans Thor: Le Monde des ténèbres. Quelle est cette pierre ?",
       "answer": "La Pierre de Réalité",
       "difficulty": "difficile",
       "category": "Pierres d'Infinité"
@@ -383,17 +383,17 @@
     },
     {
       "id": "mcu055",
-      "question": "Ce gardien de la Bifrost d'Asgard possède une vision qui porte sur les neuf royaumes, porte une armure dorée et se sacrifie pour tenter de tuer Thanos au début d'Infinity War. Qui est-ce ?",
+      "question": "Ce gardien de la Bifrost d'Asgard possède une vision qui porte sur les neuf royaumes, porte une armure dorée et se sacrifie pour envoyer Hulk sur Terre via le Bifrost au début d'Infinity War. Qui est-ce ?",
       "answer": "Heimdall",
       "difficulty": "difficile",
       "category": "Thor"
     },
     {
       "id": "mcu056",
-      "question": "Dans Avengers: Endgame, Tony Stark résout le problème du voyage dans le temps en découvrant un modèle en forme de cette figure géométrique inversée. Quelle est cette forme ?",
-      "answer": "Un Möbius strip inversé / Le modèle du GPS temporel",
+      "question": "Cette planète désolée est gardée par Red Skull, exilé là par le Tesseract, et exige le sacrifice d'un être aimé pour obtenir la Pierre de l'Âme. Natasha et Gamora y ont toutes deux perdu la vie. Quelle est cette planète ?",
+      "answer": "Vormir",
       "difficulty": "difficile",
-      "category": "Iron Man"
+      "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu057",
@@ -418,7 +418,7 @@
     },
     {
       "id": "mcu060",
-      "question": "Cet acteur britannique joue Tom Holland dans le rôle de Spider-Man dans le MCU, est le plus jeune acteur à incarner ce personnage au cinéma et fait ses débuts dans Captain America: Civil War. Qui est cet acteur ?",
+      "question": "Cet acteur britannique est le plus jeune à incarner Spider-Man au cinéma, fait ses débuts dans le MCU dans Captain America: Civil War en 2016 et est connu pour spoiler accidentellement des scènes Marvel en interview. Qui est cet acteur ?",
       "answer": "Tom Holland",
       "difficulty": "normal",
       "category": "Acteurs"
@@ -558,9 +558,9 @@
     },
     {
       "id": "mcu080",
-      "question": "Ce personnage féminin est une espionne du KGB reconvertie en agent du SHIELD, porte une combinaison noire, manie des pistolets et des « Widow's Bites » électriques et réalise la manœuvre de combat « la cuisse étrangleuse ». Qui est-ce ?",
-      "answer": "Natasha Romanoff / Veuve Noire",
-      "difficulty": "normal",
+      "question": "Cette petite sœur adoptive de Natasha Romanoff a été formée dans la Red Room, porte un gilet vert tactique, libère les autres Veuves et prend le relais en tant que nouvelle Veuve Noire après le sacrifice de Natasha sur Vormir. Qui est-ce ?",
+      "answer": "Yelena Belova",
+      "difficulty": "difficile",
       "category": "Avengers"
     },
     {
@@ -691,10 +691,10 @@
     },
     {
       "id": "mcu099",
-      "question": "Dans le MCU, Tony Stark construit de nombreuses armures. Quelle armure de couleur argentée autonome est créée dans Iron Man 3 sous le nom de code « Iron Legion » et marque le début de l'obsession de Tony pour la protection ?",
-      "answer": "L'armure Mark 42 / Iron Legion",
+      "question": "Ce méchant scientifique d'Iron Man 3 a créé le virus Extremis qui donne des pouvoirs régénératifs et une chaleur intense, a financé le faux Mandarin Trevor Slattery et est un scientifique que Tony Stark avait humilié en l'ignorant lors d'une fête du Nouvel An. Qui est-ce ?",
+      "answer": "Aldrich Killian",
       "difficulty": "difficile",
-      "category": "Iron Man"
+      "category": "Méchants"
     },
     {
       "id": "mcu100",
@@ -719,10 +719,10 @@
     },
     {
       "id": "mcu103",
-      "question": "Ce premier film de la Phase 1 du MCU sorti en 2008 contient une scène post-générique où Nick Fury apparaît pour la première fois et mentionne l'Initiative Avengers à Tony Stark. Quel est ce film ?",
-      "answer": "Iron Man (2008)",
+      "question": "Dans Avengers: Infinity War, Thanos obtient la première Pierre d'Infinité en attaquant le vaisseau des réfugiés asgardiens au tout début du film, tuant la moitié des survivants et étranglant Loki. Quelle pierre récupère-t-il sur ce vaisseau ?",
+      "answer": "La Pierre de l'Espace (le Tesseract)",
       "difficulty": "normal",
-      "category": "Phases"
+      "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu104",
@@ -838,10 +838,10 @@
     },
     {
       "id": "mcu120",
-      "question": "Ce personnage est l'assistant fidèle de Thor sur Asgard dans les deux premiers films, un guerrier courageux membre des Warriors Three et est interprété par Tadanobu Asano. Qui est ce personnage ?",
-      "answer": "Hogun",
+      "question": "Cette entité démoniaque de la Dimension Noire menace de dévorer la Terre, affronte Doctor Strange dans une boucle temporelle infinie et finit par accepter de partir quand Strange se condamne à mourir éternellement. Qui est-ce ?",
+      "answer": "Dormammu",
       "difficulty": "difficile",
-      "category": "Thor"
+      "category": "Doctor Strange"
     },
     {
       "id": "mcu121",
@@ -852,7 +852,7 @@
     },
     {
       "id": "mcu122",
-      "question": "Ce personnage du MCU est un chat roux nommé Goose, mais c'est en réalité un alien Flerken capable d'avaler des objets entiers et c'est lui qui crève l'œil de Nick Fury dans Captain Marvel. Quel type d'alien est-ce ?",
+      "question": "Ce chat roux nommé Goose dans Captain Marvel n'est pas un simple félin : il peut déployer des tentacules dimensionnels, avaler le Tesseract entier et c'est lui qui crève l'œil de Nick Fury. Quelle espèce extraterrestre est-ce en réalité ?",
       "answer": "Un Flerken",
       "difficulty": "difficile",
       "category": "Avengers"
@@ -866,7 +866,7 @@
     },
     {
       "id": "mcu124",
-      "question": "Ce personnage est le bras droit de Thanos, surnommé « l'Ordre Noir », possède des pouvoirs de télékinésie, torture Doctor Strange pour obtenir la Pierre du Temps et est tué par Spider-Man dans le vaisseau. Qui est-ce ?",
+      "question": "Ce membre de l'Ordre Noir de Thanos possède des pouvoirs de télékinésie redoutables, torture Doctor Strange pour obtenir la Pierre du Temps et est éjecté dans l'espace par Spider-Man et Iron Man à bord du vaisseau. Qui est-ce ?",
       "answer": "Ebony Maw",
       "difficulty": "difficile",
       "category": "Méchants"
@@ -908,10 +908,10 @@
     },
     {
       "id": "mcu130",
-      "question": "Ce héros du MCU interprété par Paul Rudd est connu pour son humour, peut changer de taille, reste piégé dans le royaume quantique pendant 5 ans entre Infinity War et Endgame alors que pour lui seules quelques heures passent. Qui est-ce ?",
-      "answer": "Scott Lang / Ant-Man",
-      "difficulty": "normal",
-      "category": "Avengers"
+      "question": "Ce super-héros mutant maya de Talocan possède des ailes aux chevilles, une lance en vibranium et défie le Wakanda après la mort de T'Challa, inondant la capitale wakandaise dans Black Panther: Wakanda Forever. Qui est-ce ?",
+      "answer": "Namor / K'uk'ulkan",
+      "difficulty": "difficile",
+      "category": "Black Panther"
     },
     {
       "id": "mcu131",
@@ -929,31 +929,31 @@
     },
     {
       "id": "mcu133",
-      "question": "Ce personnage est une Sorcière Rouge dont les pouvoirs viennent de la Pierre de l'Esprit, crée une sitcom magique à Westview pour vivre avec Vision et ses enfants, et bascule vers la magie noire avec le Darkhold. Qui est-ce ?",
-      "answer": "Wanda Maximoff / Sorcière Rouge",
-      "difficulty": "normal",
-      "category": "Avengers"
+      "question": "Ce méchant de Thor: Love and Thunder a perdu sa fille et fait le vœu d'exterminer tous les dieux, manie la Necrosword qui corrompt son porteur et peut invoquer des monstres d'ombre. Il kidnappe les enfants de New Asgard. Qui est-ce ?",
+      "answer": "Gorr le Boucher des Dieux",
+      "difficulty": "difficile",
+      "category": "Méchants"
     },
     {
       "id": "mcu134",
-      "question": "Cet acteur oscarisé joue Thanos grâce à la capture de mouvement, est également connu pour ses rôles dans No Country for Old Men et Deadpool 2. Qui est cet acteur ?",
+      "question": "Cet acteur nommé aux Oscars joue Thanos grâce à la capture de mouvement, est également connu pour ses rôles dans No Country for Old Men et Deadpool 2. Qui est cet acteur ?",
       "answer": "Josh Brolin",
       "difficulty": "difficile",
       "category": "Acteurs"
     },
     {
       "id": "mcu135",
-      "question": "Dans le MCU, Tony Stark construit la tour Stark à New York, qui devient plus tard le QG des Avengers. Après les événements d'Age of Ultron, le QG des Avengers déménage dans quel État américain ?",
-      "answer": "L'État de New York (dans un complexe au nord de la ville)",
+      "question": "Dans Black Panther, cette plante sacrée confère les pouvoirs de Black Panther à celui qui l'ingère lors du rituel de succession. Killmonger ordonne de brûler toutes les réserves mais Nakia en sauve une pour sauver T'Challa. Quelle est cette plante ?",
+      "answer": "L'Herbe en forme de Cœur (Heart-Shaped Herb)",
       "difficulty": "difficile",
-      "category": "Avengers"
+      "category": "Black Panther"
     },
     {
       "id": "mcu136",
-      "question": "Ce personnage de Spider-Man: Homecoming est le dealer d'armes extraterrestres, ancien ouvrier de récupération ruiné par le département de Tony Stark et père de Liz, la camarade de Peter Parker. Qui est-ce ?",
-      "answer": "Adrian Toomes / Le Vautour",
+      "question": "Ce vrai Mandarin possède les dix anneaux depuis plus de mille ans, est le père de Shang-Chi, a fondé l'organisation criminelle des Dix Anneaux et cherche à ouvrir un portail vers Ta Lo pour retrouver sa femme décédée. Qui est-ce ?",
+      "answer": "Xu Wenwu",
       "difficulty": "difficile",
-      "category": "Spider-Man"
+      "category": "Méchants"
     },
     {
       "id": "mcu137",
@@ -992,16 +992,16 @@
     },
     {
       "id": "mcu142",
-      "question": "Ce personnage est un guerrier du Wakanda reconverti en espion, ami de T'Challa, sert de lien entre le Wakanda et la CIA et est interprété par Martin Freeman. Qui est-ce ?",
+      "question": "Cet agent de la CIA, allié du Wakanda, est interprété par Martin Freeman, aide T'Challa lors de la traque de Klaue et joue un rôle clé dans la bataille finale contre Killmonger en pilotant un vaisseau. Qui est-ce ?",
       "answer": "Everett Ross",
       "difficulty": "difficile",
       "category": "Black Panther"
     },
     {
       "id": "mcu143",
-      "question": "Les Dora Milaje sont les guerrières d'élite qui protègent le roi du Wakanda. Elles sont reconnaissables à leurs têtes rasées, leurs armures rouges et leurs lances en vibranium. Qui est leur générale ?",
-      "answer": "Okoye",
-      "difficulty": "normal",
+      "question": "Ce chef de la tribu Jabari, retirée dans les montagnes du Wakanda, défie T'Challa pour le trône lors du rituel des chutes, perd le combat mais revient aider le Wakanda contre Killmonger dans la bataille finale. Qui est-ce ?",
+      "answer": "M'Baku",
+      "difficulty": "difficile",
       "category": "Black Panther"
     },
     {

@@ -27,7 +27,7 @@
     {
       "id": "op004",
       "question": "Mangé accidentellement par le héros enfant, ce fruit du démon transforme son corps en caoutchouc élastique. Son vrai nom, caché par le Gouvernement, est le Hito Hito no Mi modèle Nika. Quel est ce fruit ?",
-      "answer": "Le Gomu Gomu no Mi (fruit du caoutchoutier)",
+      "answer": "Le Gomu Gomu no Mi (Fruit du Gum-Gum)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
@@ -174,7 +174,7 @@
     {
       "id": "op025",
       "question": "Fruit du démon de type Logia permettant de créer et devenir du feu, il a été mangé par Ace puis récupéré après sa mort. Sabo l'a obtenu lors du tournoi de Dressrosa. Quel est ce fruit ?",
-      "answer": "Le Mera Mera no Mi (fruit des Flammes)",
+      "answer": "Le Mera Mera no Mi (Pyro-Fruit)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
@@ -503,21 +503,21 @@
     {
       "id": "op072",
       "question": "Fruit du démon de type Logia permettant de devenir et créer de la foudre, il permet de se déplacer à la vitesse de l'éclair. Enel l'utilisait pour se faire passer pour un dieu. Quel est ce fruit ?",
-      "answer": "Le Goro Goro no Mi (fruit de la Foudre)",
+      "answer": "Le Goro Goro no Mi (Fulguro-Fruit)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
     {
       "id": "op073",
       "question": "Fruit du démon de type Logia permettant de devenir et créer de la glace, son utilisateur peut geler les océans entiers. Aokiji l'a utilisé pour traverser la mer à pied. Quel est ce fruit ?",
-      "answer": "Le Hie Hie no Mi (fruit du Gel)",
+      "answer": "Le Hie Hie no Mi (Givro-Fruit)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
     {
       "id": "op074",
       "question": "Fruit du démon de type Logia permettant de devenir et créer du sable, son utilisateur peut assécher tout ce qu'il touche. Crocodile l'utilisait pour dominer Alabasta. Quel est ce fruit ?",
-      "answer": "Le Suna Suna no Mi (fruit du Sable)",
+      "answer": "Le Suna Suna no Mi (Fruit des Sables)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
@@ -545,7 +545,7 @@
     {
       "id": "op078",
       "question": "Fruit du démon de type Paramecia permettant de faire fleurir des parties de son corps n'importe où, idéal pour l'espionnage et le combat à distance. Robin le possède. Quel est ce fruit ?",
-      "answer": "Le Hana Hana no Mi (fruit de l'Éclosion)",
+      "answer": "Le Hana Hana no Mi (Fruit des Éclosions)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
@@ -580,14 +580,14 @@
     {
       "id": "op083",
       "question": "Fruit du démon de type Paramecia permettant de pétrifier par l'amour ceux qui sont attirés par l'utilisateur, son pouvoir est lié à la beauté légendaire d'Hancock. Quel est ce fruit ?",
-      "answer": "Le Mero Mero no Mi (fruit de l'Amour)",
+      "answer": "Le Mero Mero no Mi (Fruit de la Passion)",
       "difficulty": "normal",
       "category": "Fruits du démon"
     },
     {
       "id": "op084",
       "question": "Fruit du démon de type Paramecia transformant les vivants en jouets et effaçant leur existence des mémoires, utilisé par Sugar à Dressrosa. Extrêmement dangereux. Quel est ce fruit ?",
-      "answer": "Le Hobi Hobi no Mi (fruit des Jouets)",
+      "answer": "Le Hobi Hobi no Mi (Fruit du Joujou)",
       "difficulty": "difficile",
       "category": "Fruits du démon"
     },
@@ -621,7 +621,7 @@
     },
     {
       "id": "op089",
-      "question": "Amiral de la Marine possédant le fruit de la lumière (Pika Pika no Mi), il se déplace à la vitesse de la lumière mais parle très lentement. Il a décimé les Supernovas à Sabaody. Qui est-ce ?",
+      "question": "Amiral de la Marine possédant le Pika Pika no Mi (Fruit du Flash), il se déplace à la vitesse de la lumière mais parle très lentement. Il a décimé les Supernovas à Sabaody. Qui est-ce ?",
       "answer": "Kizaru (Borsalino)",
       "difficulty": "normal",
       "category": "Marine"
