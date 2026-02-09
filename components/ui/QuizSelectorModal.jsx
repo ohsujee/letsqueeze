@@ -241,7 +241,12 @@ export default function QuizSelectorModal({
                         {/* Theme Info */}
                         <span className="theme-emoji">{theme.emoji}</span>
                         <div className="theme-info">
-                          <span className="theme-title">{theme.title}</span>
+                          <span className="theme-title">
+                            {theme.title}
+                            {theme.isNew && !isLocked && !isComingSoon && (
+                              <span className="theme-new-badge">NEW</span>
+                            )}
+                          </span>
                           <span className="theme-meta">
                             {isComingSoon
                               ? 'Bientôt disponible'

@@ -1,0 +1,805 @@
+{
+  "id": "database-minecraft",
+  "title": "Minecraft",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "mc001",
+      "question": "Créature verte silencieuse qui s'approche des joueurs avant de gonfler et d'exploser, ce mob hostile est devenu la mascotte non officielle du jeu. Son visage triste figure sur des tonnes de produits dérivés. De quel mob s'agit-il ?",
+      "answer": "Creeper",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc002",
+      "question": "Grande créature noire aux yeux violets, elle se téléporte lorsqu'on la regarde dans les yeux et devient agressive. Elle lâche un objet permettant de se téléporter quand on la tue. De quel mob s'agit-il ?",
+      "answer": "Enderman",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc003",
+      "question": "Boss final se trouvant au sommet de piliers d'obsidienne, cette créature volante est régénérée par des cristaux lumineux. La vaincre ouvre un portail de retour et fait apparaître un œuf sur une fontaine de bedrock. Quel est ce boss ?",
+      "answer": "Ender Dragon (Dragon de l'End)",
+      "difficulty": "normal",
+      "category": "L'End"
+    },
+    {
+      "id": "mc004",
+      "question": "Invoqué en plaçant quatre blocs de sable des âmes en T surmontés de trois crânes de squelettes spéciaux, ce boss à trois têtes tire des projectiles explosifs. Il lâche une étoile à sa mort. Quel est ce boss ?",
+      "answer": "Wither",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc005",
+      "question": "Programmeur suédois qui a créé la première version du jeu en mai 2009 sous le pseudonyme Notch, il a ensuite vendu son studio à Microsoft pour 2,5 milliards de dollars en 2014. Quel est son vrai nom ?",
+      "answer": "Markus Persson",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mc006",
+      "question": "Studio de développement fondé par Markus Persson à Stockholm, il est le créateur originel du jeu de blocs le plus vendu au monde. Racheté par Microsoft en septembre 2014, il continue de développer les mises à jour. Quel est ce studio ?",
+      "answer": "Mojang",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mc007",
+      "question": "Dimension infernale remplie de lave et de créatures hostiles, on y accède via un cadre de blocs d'obsidienne allumé avec un briquet. On y trouve des forteresses, des bastions et du minerai rare. Quelle est cette dimension ?",
+      "answer": "Le Nether",
+      "difficulty": "normal",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc008",
+      "question": "Dimension composée d'îles flottantes dans le vide, peuplée de créatures noires qui se téléportent. On y accède via un portail activé par des yeux spéciaux dans une forteresse souterraine. Quelle est cette dimension ?",
+      "answer": "L'End",
+      "difficulty": "normal",
+      "category": "L'End"
+    },
+    {
+      "id": "mc009",
+      "question": "Bloc indispensable obtenu en plaçant quatre planches de bois dans la grille d'inventaire, il offre une grille de fabrication 3x3 permettant de créer la majorité des objets du jeu. Quel est ce bloc ?",
+      "answer": "Établi (Crafting Table)",
+      "difficulty": "normal",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc010",
+      "question": "Enchantement d'épée qui augmente les dégâts infligés à chaque coup, il existe en cinq niveaux et s'applique à toutes les cibles sans distinction. C'est l'enchantement offensif le plus polyvalent. Comment s'appelle-t-il ?",
+      "answer": "Tranchant (Sharpness)",
+      "difficulty": "normal",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc011",
+      "question": "Matériau le plus résistant du jeu, introduit en 2020, il s'obtient en combinant des lingots d'or avec des fragments fondus à partir de débris antiques trouvés dans les profondeurs de la dimension infernale. Quel est ce matériau ?",
+      "answer": "Netherite",
+      "difficulty": "normal",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc012",
+      "question": "Minerai très rare généré entre les couches 8 et 22 de la dimension infernale, il résiste aux explosions et ne brûle pas dans la lave. Une fois fondu, il donne des fragments nécessaires à la fabrication du matériau le plus solide du jeu. Quel est ce minerai ?",
+      "answer": "Débris antiques (Ancient Debris)",
+      "difficulty": "normal",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc013",
+      "question": "Biome aride composé de terre cuite colorée en strates et de sable rouge, il rappelle les paysages du Grand Canyon américain. Anciennement appelé Mesa, il a été renommé dans une mise à jour ultérieure. Quel est ce biome ?",
+      "answer": "Badlands",
+      "difficulty": "difficile",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc014",
+      "question": "Enchantement de pioche qui permet de récolter les blocs dans leur forme originale, comme le minerai au lieu du drop normal. Il est indispensable pour récupérer du verre, de la pierre ou des ruches intactes. Comment s'appelle-t-il ?",
+      "answer": "Toucher de soie (Silk Touch)",
+      "difficulty": "normal",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc015",
+      "question": "Enchantement qui augmente la quantité de ressources obtenues en minant, particulièrement utile pour les diamants et le lapis-lazuli. Il existe en trois niveaux et ne fonctionne pas avec un certain autre enchantement de pioche. Comment s'appelle-t-il ?",
+      "answer": "Fortune",
+      "difficulty": "normal",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc016",
+      "question": "Bloc de fabrication composé d'un bâton de Blaze et de trois pierres, il est essentiel à l'alchimie. On y place des fioles d'eau et des ingrédients pour créer des potions aux effets variés. Quel est ce bloc ?",
+      "answer": "Alambic (Brewing Stand)",
+      "difficulty": "normal",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc017",
+      "question": "Mob aveugle le plus puissant du jeu, il apparaît dans les abîmes après quatre activations d'un hurleur sculk. Guidé uniquement par les vibrations et l'odorat, il peut tuer en deux coups un joueur en armure complète. De quel mob s'agit-il ?",
+      "answer": "Warden",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc018",
+      "question": "Petit mob volant bleu clair vainqueur du vote communautaire de 2021, il collecte les objets identiques à celui qu'on lui donne et les rapporte au joueur ou à un bloc musical. De quel mob s'agit-il ?",
+      "answer": "Allay",
+      "difficulty": "difficile",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc019",
+      "question": "Structure sous-marine massive composée de prismerine et de prismerine sombre, elle est éclairée par des lanternes aquatiques et gardée par des créatures qui infligent Fatigue de minage. Quelle est cette structure ?",
+      "answer": "Monument océanique (Ocean Monument)",
+      "difficulty": "normal",
+      "category": "Blocs"
+    },
+    {
+      "id": "mc020",
+      "question": "Enchantement d'armure qui réduit tous les types de dégâts reçus, avec une réduction de 4% par niveau. Il monte jusqu'au niveau IV et se cumule entre les pièces d'équipement. Comment s'appelle-t-il ?",
+      "answer": "Protection",
+      "difficulty": "normal",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc021",
+      "question": "Objet fabriqué en combinant une perle de l'Ender et de la poudre de Blaze, il s'envole en direction de la forteresse la plus proche quand on le lance. Jusqu'à douze sont nécessaires pour activer un portail dimensionnel. Quel est cet objet ?",
+      "answer": "Œil de l'Ender (Eye of Ender)",
+      "difficulty": "normal",
+      "category": "L'End"
+    },
+    {
+      "id": "mc022",
+      "question": "Poudre rouge récoltée en profondeur, elle permet de créer des circuits et mécanismes complexes. Torches, répéteurs et comparateurs l'utilisent pour transmettre un signal sur quinze blocs maximum. Quelle est cette ressource ?",
+      "answer": "Redstone",
+      "difficulty": "normal",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc023",
+      "question": "Composant de redstone qui prolonge un signal, lui ajoute un délai réglable de un à quatre ticks, et empêche le courant de revenir en arrière. Il est essentiel dans les circuits nécessitant du timing précis. Quel est ce composant ?",
+      "answer": "Répéteur de redstone (Redstone Repeater)",
+      "difficulty": "difficile",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc024",
+      "question": "Mise à jour 1.13 sortie en juillet 2018, elle a entièrement refondu les océans en ajoutant des épaves, des ruines, des trésors enfouis, des coraux et de nouvelles créatures marines comme les dauphins et les tortues. Quel est le nom de cette mise à jour ?",
+      "answer": "Update Aquatic",
+      "difficulty": "difficile",
+      "category": "Mises à jour"
+    },
+    {
+      "id": "mc025",
+      "question": "Mise à jour 1.16 sortie en juin 2020, elle a transformé la dimension infernale en ajoutant quatre nouveaux biomes, les Piglins, les Hoglins, la Netherite et les vestiges de bastion. Quel est le nom de cette mise à jour ?",
+      "answer": "Nether Update",
+      "difficulty": "normal",
+      "category": "Mises à jour"
+    },
+    {
+      "id": "mc026",
+      "question": "Mise à jour sortie en deux parties (1.17 en juin 2021 et 1.18 en novembre 2021), elle a étendu la génération du monde en profondeur et en hauteur, ajouté l'axolotl et la chèvre, et refondu les grottes. Quel est le nom de cette mise à jour ?",
+      "answer": "Caves & Cliffs",
+      "difficulty": "normal",
+      "category": "Mises à jour"
+    },
+    {
+      "id": "mc027",
+      "question": "Mise à jour 1.19 sortie en juin 2022, elle a introduit le Warden, le biome des abîmes, les anciennes cités, les grenouilles et le biome de la mangrove. Quel est le nom de cette mise à jour ?",
+      "answer": "The Wild Update",
+      "difficulty": "difficile",
+      "category": "Mises à jour"
+    },
+    {
+      "id": "mc028",
+      "question": "Mise à jour 1.20 sortie en juin 2023, elle a ajouté le Sniffer, les signes de cerisier, l'archéologie, les motifs d'armure et le chameau. Quel est le nom de cette mise à jour ?",
+      "answer": "Trails & Tales",
+      "difficulty": "difficile",
+      "category": "Mises à jour"
+    },
+    {
+      "id": "mc029",
+      "question": "Légende urbaine née sur 4chan en 2010, elle décrit une silhouette de joueur aux yeux blancs et lumineux apparaissant en mode solo. Mojang a entretenu le mythe en ajoutant 'Removed...' dans les notes de mise à jour. De quelle légende s'agit-il ?",
+      "answer": "Herobrine",
+      "difficulty": "normal",
+      "category": "Culture"
+    },
+    {
+      "id": "mc030",
+      "question": "Grand protecteur des villages, cette créature de fer aux bras puissants apparaît naturellement quand un village a assez d'habitants et de lits. Le joueur peut aussi le fabriquer avec quatre blocs de fer et une citrouille. De quel mob s'agit-il ?",
+      "answer": "Golem de fer (Iron Golem)",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc031",
+      "question": "Le jeu de blocs le plus célèbre au monde a officiellement dépassé les 300 millions d'exemplaires vendus en octobre 2023, puis 350 millions en 2025. Il détient le record du jeu vidéo le plus vendu de tous les temps, devant GTA V. Combien de copies avait-il vendues au moment du record de 2023 ?",
+      "answer": "300 millions",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mc032",
+      "question": "Bloc noir extrêmement solide trouvé au fond du monde et au sommet de la dimension infernale, il est totalement indestructible en mode Survie. Seul le mode Créatif permet de le casser. Quel est ce bloc ?",
+      "answer": "Bedrock",
+      "difficulty": "normal",
+      "category": "Blocs"
+    },
+    {
+      "id": "mc033",
+      "question": "Créée en combinant trois lingots d'or avec deux bâtons et une pierre, cette montre dorée indique le cycle jour-nuit grâce à un cadran solaire animé. Elle ne fonctionne pas dans les autres dimensions. Quel est cet objet ?",
+      "answer": "Horloge",
+      "difficulty": "difficile",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc034",
+      "question": "Spin-off hack-and-slash sorti en mai 2020, il propose une aventure coopérative jusqu'à quatre joueurs dans des donjons procéduraux peuplés de mobs classiques. Il a attiré 25 millions de joueurs avant l'arrêt de son développement. Quel est ce jeu ?",
+      "answer": "Minecraft Dungeons",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mc035",
+      "question": "Spin-off stratégique sorti en avril 2023, il mélange action et commande de troupes dans le monde cubique. Les joueurs défendent l'Overworld contre les Piglins dans des batailles en temps réel. Quel est ce jeu ?",
+      "answer": "Minecraft Legends",
+      "difficulty": "difficile",
+      "category": "Histoire"
+    },
+    {
+      "id": "mc036",
+      "question": "Bloc fabriqué avec quatre obsidiennes, deux diamants et un livre, il permet d'appliquer des améliorations magiques aux outils et armures. Entouré de bibliothèques, il peut offrir des sorts de niveau 30. Quel est ce bloc ?",
+      "answer": "Table d'enchantement (Enchanting Table)",
+      "difficulty": "normal",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc037",
+      "question": "Mob volant hostile de la dimension infernale, il flotte près des forteresses et tire des boules de feu. Ses bâtons, récoltés à sa mort, sont indispensables pour fabriquer de la poudre utile en alchimie et pour activer le portail final. De quel mob s'agit-il ?",
+      "answer": "Blaze",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc038",
+      "question": "Squelette noir armé d'une épée en pierre qui erre dans les forteresses de la dimension infernale, il inflige l'effet Wither. Très rarement, il peut lâcher un crâne nécessaire à l'invocation d'un boss. De quel mob s'agit-il ?",
+      "answer": "Wither squelette (Wither Skeleton)",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc039",
+      "question": "Créature porcine intelligente qui habite les vestiges de bastion dans la dimension infernale, elle troque des objets contre des lingots d'or et devient hostile si le joueur n'en porte pas. De quel mob s'agit-il ?",
+      "answer": "Piglin",
+      "difficulty": "normal",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc040",
+      "question": "Enchantement applicable aux outils qui réduit les chances que leur durabilité baisse à chaque utilisation. Au niveau III, un outil dure en moyenne quatre fois plus longtemps. Comment s'appelle-t-il ?",
+      "answer": "Solidité (Unbreaking)",
+      "difficulty": "normal",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc041",
+      "question": "Enchantement de réparation qui utilise l'expérience ramassée pour restaurer la durabilité de l'objet équipé, au lieu d'ajouter les points au niveau du joueur. Il est exclusif avec l'enchantement d'arc à munitions infinies. Comment s'appelle-t-il ?",
+      "answer": "Raccommodage (Mending)",
+      "difficulty": "normal",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc042",
+      "question": "Objet lâché par les créatures noires qui se téléportent, il permet au joueur de se téléporter là où il le lance, au prix de cinq points de dégâts de chute. C'est aussi un ingrédient essentiel pour accéder à la dernière dimension. Quel est cet objet ?",
+      "answer": "Perle de l'Ender (Ender Pearl)",
+      "difficulty": "normal",
+      "category": "L'End"
+    },
+    {
+      "id": "mc043",
+      "question": "Objet rare lâché par le Wither à sa mort, il est l'ingrédient central de la fabrication d'un bloc lumineux qui projette un faisceau de lumière et confère des bonus aux joueurs à proximité. Quel est cet objet ?",
+      "answer": "Étoile du Nether (Nether Star)",
+      "difficulty": "difficile",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc044",
+      "question": "Bloc lumineux fabriqué avec cinq blocs de verre, trois obsidiennes et une étoile du Nether, il projette un faisceau vers le ciel et confère des effets comme Rapidité ou Force aux joueurs proches. Quel est ce bloc ?",
+      "answer": "Balise (Beacon)",
+      "difficulty": "normal",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc045",
+      "question": "Biome souterrain extrêmement profond ajouté en 1.19, couvert de blocs organiques bleu-vert qui détectent les vibrations. Les anciennes cités s'y génèrent, et un mob redoutable y rôde. Quel est ce biome ?",
+      "answer": "Abîmes (Deep Dark)",
+      "difficulty": "normal",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc046",
+      "question": "Structure massive trouvée dans les profondeurs souterraines les plus sombres du jeu, elle contient des coffres de butin unique et un cadre central rappelant un portail. Le mob le plus puissant du jeu y est invoqué. Quelle est cette structure ?",
+      "answer": "Ancienne cité (Ancient City)",
+      "difficulty": "difficile",
+      "category": "Blocs"
+    },
+    {
+      "id": "mc047",
+      "question": "Bloc de la famille sculk qui émet un cri strident quand un joueur s'approche trop près. Après quatre activations, il fait apparaître le mob aveugle le plus dangereux du jeu depuis les ténèbres du sol. Quel est ce bloc ?",
+      "answer": "Hurleur sculk (Sculk Shrieker)",
+      "difficulty": "difficile",
+      "category": "Blocs"
+    },
+    {
+      "id": "mc048",
+      "question": "Bloc bioluminescent de la famille sculk qui détecte les vibrations dans un rayon autour de lui et émet un signal de redstone. Il a révolutionné les circuits sans fil depuis son ajout en 1.19. Quel est ce bloc ?",
+      "answer": "Capteur sculk (Sculk Sensor)",
+      "difficulty": "difficile",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc049",
+      "question": "Biome de forêt dense où les arbres sont si hauts et serrés que la lumière peine à percer la canopée, permettant aux mobs hostiles de spawner même en journée. Les manoirs des invocateurs s'y trouvent parfois. Quel est ce biome ?",
+      "answer": "Forêt sombre (Dark Forest)",
+      "difficulty": "normal",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc050",
+      "question": "Biome chaud caractérisé par du sable, des cactus et des buissons morts, sans pluie. La nuit y est particulièrement dangereuse à cause du manque d'abris naturels et de la visibilité dégagée des mobs. Quel est ce biome ?",
+      "answer": "Désert",
+      "difficulty": "normal",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc051",
+      "question": "Composant de redstone qui peut comparer l'intensité de deux signaux, soustraire leurs valeurs, ou mesurer le contenu de blocs comme les coffres et les fours. Il possède un mode classique et un mode soustraction. Quel est ce composant ?",
+      "answer": "Comparateur de redstone (Redstone Comparator)",
+      "difficulty": "difficile",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc052",
+      "question": "Bloc mécanique de redstone qui pousse jusqu'à douze blocs devant lui quand il est alimenté en courant. Sa variante collante peut aussi tirer un bloc vers elle. Quel est ce mécanisme ?",
+      "answer": "Piston",
+      "difficulty": "normal",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc053",
+      "question": "Bloc qui détecte les changements d'état du bloc situé devant sa face, puis émet une impulsion de redstone. Ajouté en 1.11, il est essentiel pour détecter la croissance des cultures ou les mouvements de blocs. Quel est ce bloc ?",
+      "answer": "Observateur (Observer)",
+      "difficulty": "difficile",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc054",
+      "question": "Amphibien aux couleurs variées ajouté dans la mise à jour Caves & Cliffs, cette petite créature aquatique se régénère en faisant le mort. En combat, elle aide le joueur en attaquant les mobs aquatiques hostiles. De quel mob s'agit-il ?",
+      "answer": "Axolotl",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc055",
+      "question": "Mob passif ajouté en 1.19, il existe en trois variantes selon le biome de naissance de son têtard : tempéré, chaud ou froid. Chaque variante a une couleur différente et la variante chaude produit des boules de magma (Froglight). De quel mob s'agit-il ?",
+      "answer": "Grenouille (Frog)",
+      "difficulty": "difficile",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc056",
+      "question": "Mob préhistorique vainqueur du vote communautaire de 2022, il éclot d'un œuf trouvé dans des ruines sous-marines. Une fois adulte, il renifle le sol pour déterrer des graines de plantes décoratives uniques. De quel mob s'agit-il ?",
+      "answer": "Sniffer",
+      "difficulty": "difficile",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc057",
+      "question": "La toute première version publique du jeu a été mise en ligne le 17 mai 2009 sur le forum TIGSource. Le jeu a ensuite traversé les phases Classic, Indev, Infdev, Alpha et Beta. En quelle année la version 1.0 officielle est-elle sortie ?",
+      "answer": "2011",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mc058",
+      "question": "Bloc transparent fabriqué avec du sable fondu dans un four, il laisse passer la lumière mais bloque les mobs et les joueurs. Quand on le casse sans enchantement spécial, il se détruit sans rien lâcher. Quel est ce bloc ?",
+      "answer": "Verre",
+      "difficulty": "normal",
+      "category": "Blocs"
+    },
+    {
+      "id": "mc059",
+      "question": "Bloc de rangement fabriqué avec huit planches de bois disposées autour de la grille de craft, il permet de stocker 27 piles d'objets. Deux placés côte à côte fusionnent pour doubler la capacité. Quel est ce bloc ?",
+      "answer": "Coffre (Chest)",
+      "difficulty": "normal",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc060",
+      "question": "Bloc métallique fabriqué avec trois blocs de fer et quatre lingots de fer, il permet de renommer des objets, combiner des enchantements et réparer des outils. Il se dégrade et tombe après trop d'utilisations. Quel est ce bloc ?",
+      "answer": "Enclume (Anvil)",
+      "difficulty": "normal",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc061",
+      "question": "Bloc fabriqué avec huit pavés et un bâton, il permet de retirer les enchantements des objets pour récupérer de l'expérience, ou de réparer deux outils identiques en un seul. Quel est ce bloc ?",
+      "answer": "Meule (Grindstone)",
+      "difficulty": "difficile",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc062",
+      "question": "Potion brassée avec une verrue du Nether, de la poudre de Blaze et une fiole d'eau maladroite, elle augmente les dégâts de mêlée du joueur pendant plusieurs minutes. C'est l'une des potions les plus utilisées en combat. Quelle est cette potion ?",
+      "answer": "Potion de force",
+      "difficulty": "normal",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc063",
+      "question": "Potion permettant de voir dans le noir total comme en plein jour, elle est brassée avec une carotte dorée. Sous l'eau, elle améliore aussi la visibilité dans les profondeurs. Quelle est cette potion ?",
+      "answer": "Potion de vision nocturne",
+      "difficulty": "normal",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc064",
+      "question": "Structure souterraine en briques de pierre contenant un portail dimensionnel, une bibliothèque et un spawner de Silverfish. Le joueur doit la localiser en lançant des yeux spéciaux dans les airs. Quelle est cette structure ?",
+      "answer": "Forteresse (Stronghold)",
+      "difficulty": "normal",
+      "category": "L'End"
+    },
+    {
+      "id": "mc065",
+      "question": "Structure en briques sombres de la dimension infernale, elle contient des spawners de Blazes et des coffres avec des selles et du butin rare. C'est le seul endroit où trouver des verrues nécessaires à l'alchimie. Quelle est cette structure ?",
+      "answer": "Forteresse du Nether (Nether Fortress)",
+      "difficulty": "normal",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc066",
+      "question": "Structure noire massive de la dimension infernale habitée par des créatures porcines, elle contient des coffres remplis de lingots d'or et parfois de débris antiques. Il en existe quatre variantes architecturales. Quelle est cette structure ?",
+      "answer": "Vestige de bastion (Bastion Remnant)",
+      "difficulty": "difficile",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc067",
+      "question": "Biome de la dimension infernale couvert de champignons géants rouges et de végétation rouge sang. Les Piglins et les Hoglins y vivent naturellement, et le sol est composé d'un type spécial de Nylium. Quel est ce biome ?",
+      "answer": "Forêt cramoisie (Crimson Forest)",
+      "difficulty": "difficile",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc068",
+      "question": "Bloc d'obsidienne formé quand de l'eau coule sur de la lave source, il faut au minimum une pioche en diamant pour le miner. Dix blocs suffisent pour construire un cadre de portail vers la dimension infernale. Quel est ce bloc ?",
+      "answer": "Obsidienne",
+      "difficulty": "normal",
+      "category": "Blocs"
+    },
+    {
+      "id": "mc069",
+      "question": "Enchantement d'arc qui permet de tirer des flèches indéfiniment tant qu'une seule flèche reste dans l'inventaire du joueur. Il est mutuellement exclusif avec l'enchantement de réparation. Comment s'appelle-t-il ?",
+      "answer": "Infinité (Infinity)",
+      "difficulty": "normal",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc070",
+      "question": "Enchantement de bottes qui réduit les dégâts de chute de 12% par niveau, jusqu'au niveau IV pour une réduction de 48%. Indispensable pour les explorateurs qui sautent de hauteurs importantes. Comment s'appelle-t-il ?",
+      "answer": "Chute amortie (Feather Falling)",
+      "difficulty": "normal",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc071",
+      "question": "Enchantement de casque qui prolonge le temps de respiration sous l'eau de 15 secondes par niveau, jusqu'au niveau III. Combiné à d'autres effets, il permet d'explorer longuement les fonds marins. Comment s'appelle-t-il ?",
+      "answer": "Respiration",
+      "difficulty": "normal",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc072",
+      "question": "Enchantement d'épée augmentant les dégâts contre les morts-vivants comme les zombies, les squelettes et les Wither squelettes. Il est exclusif avec les autres enchantements de dégâts ciblés. Comment s'appelle-t-il ?",
+      "answer": "Châtiment (Smite)",
+      "difficulty": "difficile",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc073",
+      "question": "Enchantement qui accélère considérablement la vitesse de minage des outils, jusqu'au niveau V. Un outil en diamant avec cet enchantement au maximum mine presque instantanément la pierre. Comment s'appelle-t-il ?",
+      "answer": "Efficacité (Efficiency)",
+      "difficulty": "normal",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc074",
+      "question": "Le jeu a été officiellement racheté par un géant de la technologie en septembre 2014 pour la somme record de 2,5 milliards de dollars. Notch et les autres fondateurs ont quitté le studio après la transaction. Quelle entreprise a réalisé ce rachat ?",
+      "answer": "Microsoft",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mc075",
+      "question": "Bloc fabriqué avec un lingot de fer au centre et six planches de bois, il ressemble à un entonnoir et transfère automatiquement les objets entre les conteneurs. Incontournable dans les systèmes de tri automatiques. Quel est ce bloc ?",
+      "answer": "Entonnoir (Hopper)",
+      "difficulty": "normal",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc076",
+      "question": "Mode de jeu où le joueur peut voler, a un inventaire illimité, ne prend aucun dégât et peut détruire n'importe quel bloc instantanément. Il est principalement utilisé pour construire librement sans contraintes. Quel est ce mode ?",
+      "answer": "Mode Créatif (Creative)",
+      "difficulty": "normal",
+      "category": "Culture"
+    },
+    {
+      "id": "mc077",
+      "question": "Mode de jeu principal où le joueur doit récolter des ressources, se nourrir, fabriquer des outils et se défendre contre les mobs hostiles la nuit. La mort fait perdre tout l'inventaire. Quel est ce mode ?",
+      "answer": "Mode Survie (Survival)",
+      "difficulty": "normal",
+      "category": "Culture"
+    },
+    {
+      "id": "mc078",
+      "question": "Mode de jeu extrême similaire au Survie, mais où la mort est définitive et le monde est supprimé. La difficulté est bloquée sur Difficile et les cœurs ne se régénèrent pas naturellement sans nourriture dorée. Quel est ce mode ?",
+      "answer": "Mode Hardcore",
+      "difficulty": "normal",
+      "category": "Culture"
+    },
+    {
+      "id": "mc079",
+      "question": "Pratique compétitive consistant à terminer le jeu le plus vite possible en tuant le boss final, les meilleurs joueurs y parviennent en moins de dix minutes. Dream a été controversé pour avoir triché dans cette discipline. Comment appelle-t-on cette pratique ?",
+      "answer": "Speedrun",
+      "difficulty": "normal",
+      "category": "Culture"
+    },
+    {
+      "id": "mc081",
+      "question": "Structure générée naturellement dans les plaines et autres biomes, habitée par des villageois qui commercent avec le joueur. Un golem de fer y apparaît pour protéger les habitants contre les raids. Quelle est cette structure ?",
+      "answer": "Village",
+      "difficulty": "normal",
+      "category": "Blocs"
+    },
+    {
+      "id": "mc082",
+      "question": "Événement hostile déclenché quand un joueur entre dans un village après avoir tué un capitaine de Pillards et obtenu l'effet Mauvais Présage. Des vagues de mobs attaquent alors les villageois. Comment appelle-t-on cet événement ?",
+      "answer": "Raid",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc083",
+      "question": "Mob hostile ressemblant à un villageois gris armé d'une arbalète, il patrouille en groupes autour de tours en bois. Son capitaine porte un drapeau sinistre et confère un effet négatif au joueur qui le tue. De quel mob s'agit-il ?",
+      "answer": "Pillard (Pillager)",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc084",
+      "question": "Mob qui apparaît à la surface la nuit ou dans l'obscurité, il est lent, grogne et tend les bras vers le joueur. La lumière du soleil le fait brûler au matin. Transformé en Noyé s'il reste sous l'eau. De quel mob s'agit-il ?",
+      "answer": "Zombie",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc085",
+      "question": "Mob hostile à distance qui apparaît la nuit, il tire des flèches avec un arc et brûle au soleil comme les zombies. Sa variante gelée tire des flèches de lenteur dans les biomes neigeux. De quel mob s'agit-il ?",
+      "answer": "Squelette (Skeleton)",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc086",
+      "question": "Insecte argenté minuscule qui se cache dans des blocs de pierre factices et apparaît en essaim quand un bloc infesté est cassé. On les trouve principalement dans les forteresses souterraines et les biomes montagneux. De quel mob s'agit-il ?",
+      "answer": "Silverfish (Poisson d'argent)",
+      "difficulty": "difficile",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc087",
+      "question": "Bloc lumineux rouge obtenu en minant du minerai spécial en profondeur, il est posable au sol comme une torche et transmet du courant. On en a besoin pour fabriquer des torches, des pistons et des rails motorisés. Quel est ce bloc ?",
+      "answer": "Torche de redstone",
+      "difficulty": "difficile",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc088",
+      "question": "Structure en grès trouvée dans les biomes désertiques, elle contient un piège TNT au centre du sol et des coffres remplis de butin. Certaines sont à moitié enfouies dans le sable et d'autres entièrement exposées. Quelle est cette structure ?",
+      "answer": "Temple du désert (Desert Temple)",
+      "difficulty": "normal",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc089",
+      "question": "Structure de pierre envahie par la mousse trouvée dans la jungle, elle contient des pièges à flèches par fil de fer, des leviers et un puzzle de redstone à résoudre pour accéder au butin. Quelle est cette structure ?",
+      "answer": "Temple de la jungle (Jungle Temple)",
+      "difficulty": "normal",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc090",
+      "question": "Biome aquatique composé de récifs multicolores vivants ajoutés dans la mise à jour Aquatic. Poissons tropicaux, concombres de mer et dauphins y nagent entre les éponges et les coraux. Quel est ce biome ?",
+      "answer": "Récif de corail (Coral Reef)",
+      "difficulty": "difficile",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc091",
+      "question": "Biome froid couvert de neige et de glace où apparaissent des igloos contenant parfois un laboratoire secret au sous-sol. Des ours polaires et des renards blancs y vivent. Quel est ce biome ?",
+      "answer": "Plaines enneigées (Snowy Plains)",
+      "difficulty": "normal",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc092",
+      "question": "Bloc explosif rouge fabriqué avec du sable et de la poudre à canon, il peut être allumé par un briquet, une traînée de redstone ou une flèche enflammée. Il détruit les blocs environnants dans un rayon de quatre blocs. Quel est ce bloc ?",
+      "answer": "TNT",
+      "difficulty": "normal",
+      "category": "Blocs"
+    },
+    {
+      "id": "mc093",
+      "question": "Dimension principale du jeu où le joueur apparaît pour la première fois, composée d'une surface avec des biomes variés et d'un sous-sol rempli de grottes et de minerais. Quel est le nom de cette dimension ?",
+      "answer": "Overworld",
+      "difficulty": "normal",
+      "category": "Culture"
+    },
+    {
+      "id": "mc094",
+      "question": "Portail circulaire composé de douze cadres spéciaux activés par des yeux lancés depuis l'Overworld, il se trouve dans une salle précise d'une forteresse souterraine. Il mène à la dimension du boss final. Quel est ce portail ?",
+      "answer": "Portail de l'End (End Portal)",
+      "difficulty": "normal",
+      "category": "L'End"
+    },
+    {
+      "id": "mc095",
+      "question": "Cristal translucide posé sur les piliers d'obsidienne de la dimension finale, il régénère constamment les points de vie du boss dragon. Le joueur doit les détruire pour empêcher cette régénération. Quel est cet objet ?",
+      "answer": "Cristal de l'End (End Crystal)",
+      "difficulty": "normal",
+      "category": "L'End"
+    },
+    {
+      "id": "mc096",
+      "question": "Fruit violet récupérable sur de grands arbres à tige violette dans les îles extérieures de la dernière dimension, il téléporte aléatoirement le joueur qui le mange. Une fois cuit, il devient un ingrédient pour fabriquer des blocs de purpur. Quel est ce fruit ?",
+      "answer": "Fruit de chorus (Chorus Fruit)",
+      "difficulty": "difficile",
+      "category": "L'End"
+    },
+    {
+      "id": "mc097",
+      "question": "Bloc contenant un mini-mob en rotation à l'intérieur d'une cage, il fait apparaître des créatures hostiles quand un joueur s'approche. On les trouve dans les donjons, les mines abandonnées et les forteresses. Quel est ce bloc ?",
+      "answer": "Générateur de monstres (Spawner)",
+      "difficulty": "normal",
+      "category": "Blocs"
+    },
+    {
+      "id": "mc098",
+      "question": "Biome marécageux avec des arbres de mangrove dont les racines plongent dans l'eau boueuse, ajouté dans la mise à jour 1.19. Les grenouilles y pondent leurs œufs et on y trouve un nouveau bloc de boue. Quel est ce biome ?",
+      "answer": "Mangrove",
+      "difficulty": "difficile",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc099",
+      "question": "Bloc de redstone qui lance les objets placés dans son inventaire quand il reçoit un signal. Il peut tirer des flèches, des boules de feu, des œufs et même de l'eau avec un seau. Quel est ce bloc ?",
+      "answer": "Distributeur (Dispenser)",
+      "difficulty": "normal",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc100",
+      "question": "Biome tropical dense couvert de grands arbres, de lianes pendantes, de melons et de perroquets. Des temples en pierre moussue s'y cachent, et les ocelots y rôdent furtivement. Quel est ce biome ?",
+      "answer": "Jungle",
+      "difficulty": "normal",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc101",
+      "question": "Arbre rose décoratif ajouté dans la version 1.20, ses pétales tombent doucement formant un sol rose sous sa canopée. Son bois permet de fabriquer des planches et des objets dans des teintes rosées. De quel arbre s'agit-il ?",
+      "answer": "Cerisier (Cherry Blossom)",
+      "difficulty": "difficile",
+      "category": "Biomes"
+    },
+    {
+      "id": "mc102",
+      "question": "Mob passif à deux bosses ajouté en 1.20, il permet à deux joueurs de monter dessus simultanément. Il peut traverser des ravins en effectuant un grand saut rapide grâce à sa mécanique de dash. De quel mob s'agit-il ?",
+      "answer": "Chameau (Camel)",
+      "difficulty": "difficile",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc103",
+      "question": "Roche noire trouvée exclusivement dans la dimension infernale, elle peut remplacer les pavés dans la plupart des recettes de fabrication. Ses variantes polies et en briques servent de matériau de construction élégant. Quel est ce bloc ?",
+      "answer": "Roche noire (Blackstone)",
+      "difficulty": "difficile",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc104",
+      "question": "Plante rouge ressemblant à un champignon qui pousse exclusivement dans la dimension infernale, elle est le premier ingrédient de toutes les potions. Sans elle, l'alchimie est impossible. Quelle est cette plante ?",
+      "answer": "Verrue du Nether (Nether Wart)",
+      "difficulty": "normal",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc105",
+      "question": "Mob aquatique hostile généré dans les monuments océaniques, il tire un rayon laser bleu et inflige Fatigue de minage III pendant cinq minutes. Trois spécimens plus grands et plus rares gardent les ailes du monument. De quel mob s'agit-il ?",
+      "answer": "Gardien (Guardian)",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc106",
+      "question": "Variante massive et épineuse du gardien des monuments océaniques, il n'en existe que trois par structure. En plus de son laser, il maudit les joueurs proches d'un effet de fatigue de minage affiché sous forme de fantôme à l'écran. De quel mob s'agit-il ?",
+      "answer": "Grand gardien (Elder Guardian)",
+      "difficulty": "difficile",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc107",
+      "question": "Bloc doré fabriqué avec une pomme entourée de huit lingots d'or, il confère les effets Régénération et Absorption quand on le mange. Sa variante enchantée, non craftable, donne en plus Résistance et Résistance au feu. Quel est cet objet ?",
+      "answer": "Pomme dorée (Golden Apple)",
+      "difficulty": "normal",
+      "category": "Crafting"
+    },
+    {
+      "id": "mc108",
+      "question": "Enchantement d'épée qui augmente le nombre d'objets lâchés par les mobs à leur mort, avec un maximum de trois niveaux. Très utile pour farmer les perles, la poudre de Blaze et les crânes de Wither squelettes. Comment s'appelle-t-il ?",
+      "answer": "Butin (Looting)",
+      "difficulty": "difficile",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc109",
+      "question": "Créature volante fantomatique qui apparaît quand le joueur n'a pas dormi pendant trois jours en jeu. Elle plonge en piqué depuis le ciel nocturne et traverse les blocs solides. En la tuant, elle lâche une membrane utile pour les potions et l'Élytre. De quel mob s'agit-il ?",
+      "answer": "Phantom",
+      "difficulty": "normal",
+      "category": "Mobs"
+    },
+    {
+      "id": "mc110",
+      "question": "Paire d'ailes trouvée sur un bateau flottant dans les îles extérieures de la dernière dimension, elle permet au joueur de planer sur de longues distances. Combinée à des fusées de feu d'artifice, elle offre un vrai vol propulsé. Quel est cet objet ?",
+      "answer": "Élytre (Elytra)",
+      "difficulty": "normal",
+      "category": "L'End"
+    },
+    {
+      "id": "mc111",
+      "question": "Bloc fabriqué avec quatre fils et une planche de bois, il émet un signal de redstone quand un joueur ou un mob marche dessus. Très utilisé dans les pièges, il est quasi invisible une fois posé au sol. Quel est ce bloc ?",
+      "answer": "Plaque de pression",
+      "difficulty": "normal",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc112",
+      "question": "Bloc musical fabriqué avec huit planches de bois et un lingot de redstone, il joue une note quand on clique dessus. Le bloc situé en dessous détermine l'instrument : bois pour basse, sable pour caisse claire, pierre pour grosse caisse. Quel est ce bloc ?",
+      "answer": "Bloc musical (Note Block)",
+      "difficulty": "normal",
+      "category": "Redstone"
+    },
+    {
+      "id": "mc113",
+      "question": "Enchantement d'armure qui renvoie une partie des dégâts reçus à l'attaquant, au prix d'une usure plus rapide de l'équipement. Au niveau III maximum, les mobs se blessent en frappant le joueur. Comment s'appelle-t-il ?",
+      "answer": "Épines (Thorns)",
+      "difficulty": "difficile",
+      "category": "Enchantements"
+    },
+    {
+      "id": "mc114",
+      "question": "Bloc de sable brun clair trouvé dans la dimension infernale, les mobs qui marchent dessus sont ralentis. Empilé en forme de T, il sert de socle pour invoquer un boss à trois têtes quand on y place des crânes. Quel est ce bloc ?",
+      "answer": "Sable des âmes (Soul Sand)",
+      "difficulty": "normal",
+      "category": "Le Nether"
+    },
+    {
+      "id": "mc115",
+      "question": "Système de rail alimenté par la redstone qui propulse les wagonnets automatiquement sans besoin de pousser. Posé à intervalles réguliers le long d'une voie ferrée, il maintient la vitesse du transport. Quel est ce type de rail ?",
+      "answer": "Rail motorisé (Powered Rail)",
+      "difficulty": "difficile",
+      "category": "Redstone"
+    }
+  ]
+}

@@ -1,0 +1,777 @@
+{
+  "id": "database-myheroacademia",
+  "title": "My Hero Academia",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "mha001",
+      "question": "Né sans Alter dans un monde où 80% de la population en possède un, ce collégien est pourtant accepté au lycée Yuei après avoir impressionné le héros numéro un. Héritier d'un pouvoir transmis de génération en génération, il apprend à maîtriser une force qui détruit son propre corps. Qui est-ce ?",
+      "answer": "Midoriya Izuku (Deku)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha002",
+      "question": "Son Alter lui permet de créer des explosions à partir de la nitroglycérine que ses paumes sécrètent. Surnommé Kacchan par son rival d'enfance, il a longtemps refusé de choisir un nom de héros avant d'en adopter un ridiculement long. Qui est-ce ?",
+      "answer": "Bakugo Katsuki (Great Explosion Murder God Dynamight)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha003",
+      "question": "Fils du héros numéro un de l'époque, il possède un Alter hybride hérité de ses deux parents : la glace du côté droit et les flammes du côté gauche. Longtemps, il a refusé d'utiliser sa moitié gauche par rancune envers son père. Qui est-ce ?",
+      "answer": "Todoroki Shoto",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha004",
+      "question": "Cette élève de la classe 1-A possède un Alter qui annule la gravité sur tout objet qu'elle touche du bout de ses cinq doigts. Elle est entrée à Yuei pour devenir héroïne et aider financièrement ses parents. Qui est-ce ?",
+      "answer": "Uraraka Ochaco (Uravity)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha005",
+      "question": "Délégué de la classe 1-A, cet élève possède des réacteurs dans ses mollets qui lui confèrent une vitesse surhumaine. Il a repris le nom de héros de son frère aîné après que celui-ci a été paralysé par un vilain. Qui est-ce ?",
+      "answer": "Iida Tenya (Ingenium)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha006",
+      "question": "Admise sur recommandation à Yuei, cette vice-déléguée de la classe 1-A peut créer n'importe quel objet non vivant à partir de ses lipides, à condition d'en connaître la structure moléculaire. Qui est-ce ?",
+      "answer": "Yaoyorozu Momo (Creati)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha007",
+      "question": "Cette élève de la classe 1-A possède les capacités physiques d'une grenouille : langue extensible, adhésion aux murs, nage rapide et camouflage. Son nom d'héroïne fait référence à l'onomatopée anglaise du coassement. Qui est-ce ?",
+      "answer": "Asui Tsuyu (Froppy)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha008",
+      "question": "Inspiré par le héros Crimson Riot qu'il admire profondément, cet élève de la classe 1-A peut durcir l'intégralité de son corps. Sa super-technique ultime, Unbreakable, le rend quasiment indestructible pendant un temps limité. Qui est-ce ?",
+      "answer": "Kirishima Eijiro (Red Riot)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha009",
+      "question": "Cet élève à la tête d'oiseau de la classe 1-A contrôle une entité d'ombre sentiente qui gagne énormément en puissance dans l'obscurité mais devient difficile à maîtriser. Son nom de héros fait référence à une divinité lunaire japonaise. Qui est-ce ?",
+      "answer": "Tokoyami Fumikage (Tsukuyomi)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha010",
+      "question": "Capable de générer de l'électricité avec son corps, cet élève de la classe 1-A a un effet secondaire embarrassant : lorsqu'il dépasse sa limite de voltage, son cerveau court-circuite et il devient complètement idiot pendant une heure. Qui est-ce ?",
+      "answer": "Kaminari Denki (Chargebolt)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha011",
+      "question": "Cette élève de la classe 1-A possède des lobes d'oreilles en forme de prises audio qu'elle peut utiliser pour écouter des sons infimes ou projeter des ondes sonores dévastatrices. Elle est la chanteuse principale lors du festival culturel de Yuei. Qui est-ce ?",
+      "answer": "Jiro Kyoka (Earphone Jack)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha012",
+      "question": "Cet élève de la classe 1-A peut projeter de l'adhésif depuis ses coudes, ce qui lui permet de se balancer d'un point à l'autre ou d'immobiliser ses adversaires. Son style de combat rappelle celui d'un certain héros arachnéen. Qui est-ce ?",
+      "answer": "Sero Hanta (Cellophane)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha013",
+      "question": "Cet élève de la classe 1-A peut sécréter et projeter de l'acide dont il contrôle la viscosité et le degré corrosif. Avec sa peau rose et ses cornes, il possède l'une des apparences les plus reconnaissables de sa promotion. Qui est-ce ?",
+      "answer": "Ashido Mina (Pinky)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha014",
+      "question": "Cet artiste martial de la classe 1-A possède une queue préhensile musclée qu'il utilise comme arme principale au combat. Lors du tournoi sportif, il a abandonné son match par fair-play après avoir été manipulé par un Alter mental. Qui est-ce ?",
+      "answer": "Ojiro Mashirao (Tailman)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha015",
+      "question": "Cet élève très timide de la classe 1-A peut communiquer avec les animaux et leur donner des ordres vocaux. Malgré sa réserve, il surmonte ses peurs pour protéger ses camarades lors des situations critiques. Qui est-ce ?",
+      "answer": "Koda Koji (Anima)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha016",
+      "question": "Le pouvoir de cet élève de la classe 1-A augmente sa force proportionnellement à la quantité de sucre qu'il consomme, mais provoque une baisse de ses capacités cognitives après utilisation. C'est un excellent pâtissier. Qui est-ce ?",
+      "answer": "Sato Rikido (Sugarman)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha017",
+      "question": "Cet élève imposant de la classe 1-A possède six bras aux extrémités modulables : il peut y faire pousser des oreilles, des yeux ou des bouches supplémentaires. Il dissimule son visage par pudeur en raison de sa nature hétéromorphe. Qui est-ce ?",
+      "answer": "Shoji Mezo (Tentacole)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha018",
+      "question": "Perpétuellement invisible à cause de son Alter, cette élève de la classe 1-A peut réfracter la lumière pour aveugler ses adversaires. Son corps nu est paradoxalement sa tenue de combat la plus efficace. Qui est-ce ?",
+      "answer": "Hagakure Toru (Invisible Girl)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha019",
+      "question": "Cet élève controversé de la classe 1-A produit des boules collantes sur sa tête qu'il peut détacher et lancer. Ces sphères adhèrent à toutes les surfaces sauf à lui-même, sur lequel elles rebondissent. Qui est-ce ?",
+      "answer": "Mineta Minoru (Grape Juice)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha020",
+      "question": "Révélé comme le traître de Yuei, cet élève de la classe 1-A est né sans Alter avant de recevoir le sien d'un vilain légendaire. Ses parents, menacés, n'ont eu d'autre choix que de le faire espionner sa propre classe. Qui est-ce ?",
+      "answer": "Aoyama Yuga (Can't Stop Twinkling)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha021",
+      "question": "Professeur principal de la classe 1-A, ce héros clandestin peut annuler temporairement l'Alter de quiconque tant qu'il le fixe du regard. Il souffre de sécheresse oculaire et porte toujours du collyre sur lui. Qui est-ce ?",
+      "answer": "Aizawa Shota (Eraser Head)",
+      "difficulty": "normal",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha022",
+      "question": "Ancien symbole de la paix, ce héros au sourire éclatant dissimule une forme squelettique quand il n'utilise pas son pouvoir. Nommé d'après une expression anglaise signifiant 'toute puissance', il a transmis son Alter à son successeur. Qui est-ce ?",
+      "answer": "All Might (Toshinori Yagi)",
+      "difficulty": "normal",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha023",
+      "question": "Classé numéro deux des héros pendant des décennies, il est devenu numéro un après la retraite du symbole de la paix. Obsédé par le dépassement de son prédécesseur, il a arrangé un mariage Alter pour créer l'enfant parfait. Qui est-ce ?",
+      "answer": "Endeavor (Enji Todoroki)",
+      "difficulty": "normal",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha024",
+      "question": "Plus jeune héros à avoir atteint le top 10, cet agent double possède de grandes ailes rouges composées de plumes qu'il contrôle individuellement par la pensée. Sa principale faiblesse est le feu, qui brûle ses plumes. Qui est-ce ?",
+      "answer": "Hawks (Keigo Takami)",
+      "difficulty": "normal",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha025",
+      "question": "Ce héros pro contrôle toutes les fibres textiles à proximité, avec une préférence pour le denim qui lui est plus facile à manipuler. Son nom de héros fait référence à un prix de mode qu'il a remporté huit années consécutives. Qui est-ce ?",
+      "answer": "Best Jeanist (Tsunagu Hakamada)",
+      "difficulty": "normal",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha026",
+      "question": "Cette héroïne au physique de lapin possède des oreilles et une queue blanches. Héroïne solo par choix, elle refuse d'ouvrir une agence ou de prendre des acolytes, préférant compter uniquement sur la puissance brute de ses jambes. Qui est-ce ?",
+      "answer": "Mirko (Rumi Usagiyama)",
+      "difficulty": "normal",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha027",
+      "question": "Héros pro dont l'Alter Arboration lui permet de transformer ses bras en branches de bois extensibles, il fait partie du trio des Lurkers avec une héroïne géante et un ninja transformiste. Qui est-ce ?",
+      "answer": "Kamui Woods (Shinji Nishiya)",
+      "difficulty": "normal",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha028",
+      "question": "Cette jeune héroïne blonde a fait ses débuts en volant la vedette à un confrère lors de sa première apparition publique. Son Alter lui permet d'atteindre une taille de plus de vingt mètres, mais ne fonctionne pas dans les espaces confinés. Qui est-ce ?",
+      "answer": "Mt. Lady (Yu Takeyama)",
+      "difficulty": "normal",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha029",
+      "question": "Infirmière de Yuei depuis plus de quarante ans, cette héroïne vétérane guérit les blessures en embrassant ses patients. Son pouvoir accélère la guérison naturelle mais puise dans l'énergie vitale du blessé. Qui est-ce ?",
+      "answer": "Recovery Girl (Chiyo Shuzenji)",
+      "difficulty": "normal",
+      "category": "Yuei"
+    },
+    {
+      "id": "mha030",
+      "question": "Directeur de Yuei, cet être est un cas extrêmement rare d'animal ayant développé un Alter. Son intelligence surpasse celle de n'importe quel humain, et personne ne sait exactement quelle espèce il est : chien, souris ou ours. Qui est-ce ?",
+      "answer": "Nezu",
+      "difficulty": "normal",
+      "category": "Yuei"
+    },
+    {
+      "id": "mha031",
+      "question": "Professeur d'anglais à Yuei et commentateur officiel des événements de l'école, ce héros peut amplifier sa voix à un niveau destructeur. Ami de longue date du professeur principal de la 1-A depuis le lycée. Qui est-ce ?",
+      "answer": "Present Mic (Yamada Hizashi)",
+      "difficulty": "normal",
+      "category": "Yuei"
+    },
+    {
+      "id": "mha032",
+      "question": "Professeure d'histoire de l'art moderne à Yuei, cette héroïne libérait un gaz soporifique par sa peau nue. Son nom d'héroïne évoque le milieu de la nuit, et son costume était volontairement provoquant. Qui est-ce ?",
+      "answer": "Midnight (Nemuri Kayama)",
+      "difficulty": "normal",
+      "category": "Yuei"
+    },
+    {
+      "id": "mha033",
+      "question": "Professeur de la classe 1-B et héros pro, il peut contrôler son propre sang une fois expulsé de son corps. Son nom de héros évoque un roi sanguinaire de la fiction. Qui est-ce ?",
+      "answer": "Vlad King (Sekijiro Kan)",
+      "difficulty": "difficile",
+      "category": "Yuei"
+    },
+    {
+      "id": "mha034",
+      "question": "Ce vilain est le leader de l'Alliance des Super-Vilains. Né sous le nom de Tenko Shimura, il a été recueilli et manipulé par le plus grand ennemi du symbole de la paix. Son Alter désintègre tout ce qu'il touche avec ses cinq doigts. Qui est-ce ?",
+      "answer": "Shigaraki Tomura (Tenko Shimura)",
+      "difficulty": "normal",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha035",
+      "question": "Vilain légendaire capable de voler et de donner des Alters, il est le véritable cerveau derrière l'Alliance des Super-Vilains. Frère aîné du premier détenteur du pouvoir opposé au sien, il manipule les événements depuis l'ombre depuis des générations. Qui est-ce ?",
+      "answer": "All For One",
+      "difficulty": "normal",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha036",
+      "question": "Ce vilain aux flammes bleues a révélé publiquement son identité en pleine guerre, choquant le monde entier. Fils aîné d'un célèbre héros, il était présumé mort dans un incendie de forêt durant son enfance. Qui est-ce ?",
+      "answer": "Dabi (Toya Todoroki)",
+      "difficulty": "normal",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha037",
+      "question": "Cette vilaine peut prendre l'apparence de n'importe qui en ingérant son sang. Après l'éveil de son Alter, elle peut même utiliser les pouvoirs de la personne copiée, à condition d'éprouver un lien émotionnel avec elle. Qui est-ce ?",
+      "answer": "Toga Himiko",
+      "difficulty": "normal",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha038",
+      "question": "Ce vilain pouvait créer des doubles parfaits de lui-même et des autres, mais souffrait d'un sévère trouble dissociatif de l'identité. Sa mort tragique lors de la guerre a profondément affecté ses alliés de l'Alliance. Qui est-ce ?",
+      "answer": "Twice (Jin Bubaigawara)",
+      "difficulty": "normal",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha039",
+      "question": "Ce vilain masqué d'apparence reptilienne a rejoint l'Alliance par admiration pour l'idéologie du tueur de héros. Son Alter, de type hétéromorphe, lui confère des capacités de gecko comme l'adhésion aux surfaces. Qui est-ce ?",
+      "answer": "Spinner (Shuichi Iguchi)",
+      "difficulty": "normal",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha040",
+      "question": "Ce vilain au masque de magicien peut comprimer des objets ou des personnes en petites billes sans les détruire. Descendant d'un célèbre voleur qui dérobait les richesses des faux héros, il a rejoint l'Alliance par conviction. Qui est-ce ?",
+      "answer": "Mr. Compress (Atsuhiro Sako)",
+      "difficulty": "normal",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha041",
+      "question": "Ancien garde du corps fidèle du plus grand vilain, cette créature colossale mesure environ vingt-cinq mètres et possède sept Alters différents. Sa force augmente proportionnellement à son excitation. Qui est-ce ?",
+      "answer": "Gigantomachia",
+      "difficulty": "difficile",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha042",
+      "question": "Ce vilain composé de brume noire peut créer des portails de téléportation. On a découvert qu'il était en réalité un Nomu fabriqué à partir du corps d'un ancien camarade de classe du professeur principal de la 1-A. Qui est-ce ?",
+      "answer": "Kurogiri (Oboro Shirakumo)",
+      "difficulty": "difficile",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha043",
+      "question": "Ancien chef des Shie Hassaikai, un groupe yakuza, ce vilain peut désassembler et réassembler la matière par le toucher. Il a exploité une petite fille pour fabriquer des balles capables de détruire les Alters. Qui est-ce ?",
+      "answer": "Overhaul (Chisaki Kai)",
+      "difficulty": "normal",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha044",
+      "question": "Ce tueur de héros considérait que seuls ceux prêts au sacrifice ultime méritaient ce titre. Son Alter lui permettait de paralyser ses victimes en léchant leur sang, avec une durée variable selon le groupe sanguin. Qui est-ce ?",
+      "answer": "Stain (Chizome Akaguro)",
+      "difficulty": "normal",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha045",
+      "question": "Ce scientifique dévoué au plus grand vilain est le créateur des Nomus, des êtres bio-ingéniérisés à partir de cadavres humains modifiés pour supporter plusieurs Alters. Il a opéré dans l'ombre pendant des décennies. Qui est-ce ?",
+      "answer": "Ujiko Daruma (Kyudai Garaki)",
+      "difficulty": "difficile",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha046",
+      "question": "Transmis de génération en génération, ce pouvoir accumule la force de ses détenteurs successifs. Créé involontairement par le plus grand vilain en donnant un Alter de stockage à son frère qui en possédait déjà un de transfert. Quel est cet Alter ?",
+      "answer": "One For All",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha047",
+      "question": "Cet Alter permet à son utilisateur de voler les pouvoirs des autres et de les redistribuer à sa guise. Porté par un vilain immortel, il est l'exact opposé du pouvoir transmis par le symbole de la paix. Quel est cet Alter ?",
+      "answer": "All For One (l'Alter)",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha048",
+      "question": "Cet Alter hybride combine le froid du côté droit du corps et le feu du côté gauche. Il est le résultat d'un mariage Alter orchestré par un héros obsédé par l'idée de surpasser le numéro un. Quel est cet Alter ?",
+      "answer": "Half-Cold Half-Hot (Moitié Froid Moitié Chaud)",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha049",
+      "question": "Cet Alter annule temporairement celui de toute personne fixée du regard par son utilisateur. Il cesse de fonctionner dès que l'utilisateur cligne des yeux, ce qui cause une sécheresse oculaire chronique. Quel est cet Alter ?",
+      "answer": "Erasure (Effacement)",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha050",
+      "question": "Cet Alter octroie à son possédeur des attributs de lapin : une force dans les jambes suffisante pour broyer du béton, une ouïe surdéveloppée via ses oreilles et un instinct animal face au danger. Quel est cet Alter ?",
+      "answer": "Rabbit (Lapin)",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha051",
+      "question": "Cet Alter permet de rembobiner l'état biologique des êtres vivants, les rajeunissant ou guérissant leurs blessures. Sa puissance est liée à la taille d'une corne sur la tête de son utilisatrice. Quel est cet Alter ?",
+      "answer": "Rewind (Retour)",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha052",
+      "question": "Cet Alter de type Transformation permet de prendre l'apparence de n'importe quelle personne dont on a ingéré le sang. La durée de la métamorphose dépend de la quantité de sang consommée. Quel est cet Alter ?",
+      "answer": "Transform (Métamorphose)",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha053",
+      "question": "Cet Alter convertit le stress psychologique accumulé en puissance physique brute. Plus son utilisateur est sous pression, plus son corps grossit et se recouvre de marques sombres. Quel est cet Alter ?",
+      "answer": "Stress",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha054",
+      "question": "Premier membre des Big Three à se présenter à la classe 1-A, cet étudiant de troisième année peut rendre son corps intangible. Considéré comme le plus proche du titre de numéro un parmi les élèves, il a perdu temporairement son Alter contre un yakuza. Qui est-ce ?",
+      "answer": "Mirio Togata (Lemillion)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha055",
+      "question": "Ce membre des Big Three peut manifester les caractéristiques de tout ce qu'il mange : des tentacules s'il mange du poulpe, des griffes s'il mange du poulet. Malgré un potentiel supérieur à la plupart des héros pro, il manque terriblement de confiance en lui. Qui est-ce ?",
+      "answer": "Amajiki Tamaki (Suneater)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha056",
+      "question": "Seule femme du trio des Big Three, cette étudiante convertit sa propre vitalité en ondes de choc en spirale. Ces ondes lui permettent aussi bien d'attaquer à distance que de voler. Qui est-ce ?",
+      "answer": "Hado Nejire (Nejire Chan)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha057",
+      "question": "Cet élève de la classe 1-B nourrit une rivalité obsessionnelle envers la classe 1-A. Son Alter lui permet de copier temporairement celui de toute personne qu'il touche, mais il ne peut utiliser qu'un Alter copié à la fois pendant dix minutes. Qui est-ce ?",
+      "answer": "Monoma Neito (Phantom Thief)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha058",
+      "question": "Représentante de la classe 1-B et figure bienveillante, cette élève peut agrandir ses poings à volonté. Contrairement à son camarade rival, elle entretient de bonnes relations avec la classe 1-A. Qui est-ce ?",
+      "answer": "Kendo Itsuka (Battle Fist)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha059",
+      "question": "Cet élève de la classe 1-B possède un Alter presque identique à celui de Kirishima : il transforme son corps en acier pur. Sa puissance dépend directement de la quantité de fer dans son alimentation. Qui est-ce ?",
+      "answer": "Tetsutetsu Tetsutetsu (Real Steel)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha060",
+      "question": "Ce petit garçon au chapeau rouge est le neveu de Mandalay, l'une des Wild Wild Pussycats. Après avoir perdu ses parents à cause d'un vilain, il se montre distant et cynique envers les aspirants héros. Qui est-ce ?",
+      "answer": "Kota Izumi",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha061",
+      "question": "Initialement dans le département général de Yuei, cet élève peut prendre le contrôle de quiconque lui répond verbalement. Longtemps discriminé à cause de son Alter jugé inquiétant, il a finalement intégré la filière héros sous le mentorat d'Eraser Head. Qui est-ce ?",
+      "answer": "Shinso Hitoshi",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha062",
+      "question": "Cette petite fille à la corne sur le front a été exploitée par un yakuza pour fabriquer des armes anti-Alter. Sauvée par le neuvième détenteur d'un pouvoir légendaire, elle a souri pour la première fois lors du festival culturel de Yuei. Qui est-ce ?",
+      "answer": "Eri",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mha063",
+      "question": "Ancien acolyte du symbole de la paix, ce héros pro pouvait voir l'avenir d'une personne en la touchant et en croisant son regard. Il a prédit la mort horrible de son ancien partenaire et est décédé durant le raid contre les Shie Hassaikai. Qui est-ce ?",
+      "answer": "Sir Nighteye (Mirai Sasaki)",
+      "difficulty": "difficile",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha064",
+      "question": "Leader du Front de Libération Paranormale et PDG de la société Detnerat, ce vilain est le descendant du fondateur de l'Armée de Libération des Meta. Son Alter transforme son stress accumulé en force brute. Qui est-ce ?",
+      "answer": "Re-Destro (Rikiya Yotsubashi)",
+      "difficulty": "difficile",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha065",
+      "question": "Équipe de quatre héros pro spécialisés dans les sauvetages en montagne, ce groupe porte des costumes à oreilles de chat. L'une de ses membres a perdu son Alter après qu'il a été volé par le plus grand vilain lors du camp d'entraînement. Quelle est cette équipe ?",
+      "answer": "Wild Wild Pussycats",
+      "difficulty": "normal",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha066",
+      "question": "Ce héros pro peut replier et étirer son corps aussi fin qu'une fibre, lui permettant de se faufiler dans les fissures les plus étroites. Il s'est sacrifié en se transformant en cœur artificiel pour sauver un élève mortellement blessé. Qui est-ce ?",
+      "answer": "Edgeshot (Shinya Kamihara)",
+      "difficulty": "difficile",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha067",
+      "question": "Septième détentrice d'un pouvoir légendaire et ancienne héroïne, elle est la grand-mère du leader de l'Alliance des Super-Vilains. Elle a abandonné son fils pour le protéger, ce qui a finalement mené à la tragédie de sa famille. Qui est-ce ?",
+      "answer": "Nana Shimura",
+      "difficulty": "difficile",
+      "category": "Lore"
+    },
+    {
+      "id": "mha068",
+      "question": "Ce combat entre le symbole de la paix et le plus grand vilain a dévasté un quartier entier de la ville. C'est lors de cet affrontement que le héros numéro un a utilisé les derniers vestiges de son pouvoir avec une attaque finale nommée d'après un pays entier. Où a eu lieu cette bataille décisive ?",
+      "answer": "Kamino (l'incident de Kamino)",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "mha069",
+      "question": "Première attaque majeure des vilains dans la série, cet événement se déroule dans un complexe d'entraînement de Yuei. Le professeur principal de la 1-A y est grièvement blessé en protégeant ses élèves contre un Nomu modifié pour le contrer. Comment s'appelle cet arc ?",
+      "answer": "L'arc USJ (Unforeseen Simulation Joint)",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "mha070",
+      "question": "Durant cet arc, un vilain au nez coupé paralyse des héros pro en léchant leur sang et terrorise la ville de Hosu. Trois élèves de la classe 1-A l'affrontent illégalement et parviennent à le vaincre. Comment appelle-t-on cet arc ?",
+      "answer": "L'arc Stain (Vs. Hero Killer)",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "mha071",
+      "question": "Lors de cet arc, les élèves de Yuei participent à un camp d'été supervisé par les Wild Wild Pussycats. L'Alliance des Super-Vilains y lance une attaque nocturne et kidnappe l'élève le plus combatif de la classe 1-A. Comment s'appelle cet arc ?",
+      "answer": "L'arc du Camp d'Entraînement (Forest Training Camp)",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "mha072",
+      "question": "Cet arc met en scène un raid conjoint entre héros pro et élèves contre l'organisation yakuza des Shie Hassaikai. Le premier des Big Three y perd temporairement son Alter en protégeant une petite fille. Comment appelle-t-on cet arc ?",
+      "answer": "L'arc Shie Hassaikai (Overhaul)",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "mha073",
+      "question": "Durant cet arc, l'Alliance des Super-Vilains affronte l'Armée de Libération des Meta. Le leader de l'Alliance y éveille pleinement son pouvoir de désintégration et soumet le leader adverse, fusionnant les deux groupes. Comment s'appelle cet arc ?",
+      "answer": "L'arc My Villain Academia (Meta Liberation Army)",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "mha074",
+      "question": "Cette bataille à grande échelle oppose l'ensemble des héros pro au Front de Libération Paranormale. C'est lors de cet événement que la véritable identité du vilain aux flammes bleues est révélée au monde entier. Comment appelle-t-on cet arc ?",
+      "answer": "L'arc de la Guerre de Libération Paranormale (Paranormal Liberation War)",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "mha075",
+      "question": "Événement sportif annuel retransmis en direct à la télévision, cette compétition entre les classes de Yuei comporte des épreuves éliminatoires, une course d'obstacles et des duels individuels. C'est lors de cet événement qu'un élève au pouvoir de glace accepte enfin ses flammes. Quel est cet événement ?",
+      "answer": "Le Tournoi Sportif de Yuei (U.A. Sports Festival)",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "mha076",
+      "question": "Ce Nomu surpuissant de type High-End possède plusieurs Alters dont la Super-Régénération. Il affronte le nouveau numéro un des héros dans un combat aérien dévastateur qui marque un tournant pour la crédibilité de ce héros auprès du public. Quel est le nom de ce Nomu ?",
+      "answer": "Hood",
+      "difficulty": "difficile",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha077",
+      "question": "Cet Alter vestige du cinquième détenteur permet à son utilisateur de projeter des filaments noirs semblables à des fouets depuis ses bras. C'est le premier Alter vestige que le neuvième détenteur a éveillé accidentellement. Quel est cet Alter ?",
+      "answer": "Blackwhip (Fouet Noir)",
+      "difficulty": "difficile",
+      "category": "Alters"
+    },
+    {
+      "id": "mha078",
+      "question": "Cet Alter vestige de la septième détentrice permet de léviter et de flotter dans les airs. Le neuvième détenteur l'a éveillé lors d'un combat crucial, combinant la lévitation avec la puissance de ses autres pouvoirs hérités. Quel est cet Alter ?",
+      "answer": "Float (Lévitation)",
+      "difficulty": "difficile",
+      "category": "Alters"
+    },
+    {
+      "id": "mha079",
+      "question": "Ce quatrième détenteur du pouvoir légendaire a passé sa vie à entraîner et renforcer l'Alter en secret sans combattre. Son propre pouvoir vestige, qui permet de détecter les intentions hostiles, s'est réveillé chez le neuvième détenteur. Qui est-ce ?",
+      "answer": "Hikage Shinomori",
+      "difficulty": "difficile",
+      "category": "Lore"
+    },
+    {
+      "id": "mha080",
+      "question": "Cinquième détenteur du pouvoir légendaire et héros pro sous le nom de Lariat, c'est son pouvoir vestige de fouets noirs qui s'est manifesté en premier chez le neuvième détenteur. Qui est-ce ?",
+      "answer": "Daigoro Banjo (Lariat)",
+      "difficulty": "difficile",
+      "category": "Lore"
+    },
+    {
+      "id": "mha081",
+      "question": "Cet Alter donne à son possédeur une paire de grandes ailes rouges composées de plumes contrôlables individuellement par la pensée. Les plumes peuvent servir de lames, de capteurs ou même être utilisées pour porter d'autres personnes. Quel est cet Alter ?",
+      "answer": "Fierce Wings (Ailes Féroces)",
+      "difficulty": "difficile",
+      "category": "Alters"
+    },
+    {
+      "id": "mha082",
+      "question": "Cet Alter permet à son utilisateur de traverser la matière en rendant tout son corps intangible. La maîtrise est extrêmement difficile car l'utilisateur ne peut ni voir ni respirer lorsqu'il est actif, et la gravité le fait tomber à travers le sol. Quel est cet Alter ?",
+      "answer": "Permeation (Perméabilité)",
+      "difficulty": "difficile",
+      "category": "Alters"
+    },
+    {
+      "id": "mha083",
+      "question": "Ce héros pro massif au costume orange peut absorber les chocs et la graisse pour les convertir en puissance offensive. Plus il absorbe de coups, plus son corps grossit, avant de relâcher toute l'énergie accumulée. Qui est-ce ?",
+      "answer": "Fat Gum (Taishiro Toyomitsu)",
+      "difficulty": "difficile",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha084",
+      "question": "Cet Alter permet de produire de puissantes flammes dont l'intensité est telle qu'elles peuvent changer de couleur. Son utilisateur est le fils aîné d'un célèbre héros, mais son corps ne supporte pas la chaleur de ses propres flammes. Quel est cet Alter ?",
+      "answer": "Crémation (Blueflame)",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha085",
+      "question": "Ce vilain youtubeur aux manières théâtrales peut rendre n'importe quelle surface élastique en la touchant. Il voulait infiltrer le festival culturel de Yuei pour devenir célèbre et a affronté le neuvième détenteur du pouvoir légendaire. Qui est-ce ?",
+      "answer": "Gentle Criminal (Danjuro Tobita)",
+      "difficulty": "difficile",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha086",
+      "question": "Partenaire dévouée du vilain youtubeur, cette jeune femme possède un Alter qui amplifie temporairement les capacités de la personne qu'elle aime. Elle filme ses exploits et les publie en ligne. Qui est-ce ?",
+      "answer": "La Brava (Manami Aiba)",
+      "difficulty": "difficile",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha087",
+      "question": "Cette membre des Wild Wild Pussycats possédait un Alter nommé Search qui lui permettait de localiser et surveiller n'importe qui dans un large périmètre. Elle a perdu ce pouvoir lorsqu'il a été volé par le plus grand vilain. Qui est-ce ?",
+      "answer": "Ragdoll (Tomoko Shiretoko)",
+      "difficulty": "difficile",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha088",
+      "question": "Cette membre des Wild Wild Pussycats peut communiquer par télépathie avec les personnes dans son champ de vision. C'est elle qui élève son neveu devenu orphelin après la mort de ses parents face à un vilain. Qui est-ce ?",
+      "answer": "Mandalay (Shino Sosaki)",
+      "difficulty": "difficile",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha089",
+      "question": "Ce héros pro massif au bouclier est décédé héroïquement en protégeant Eraser Head lors de la Guerre de Libération Paranormale. Il était classé sixième au classement des héros japonais. Qui est-ce ?",
+      "answer": "Crust",
+      "difficulty": "difficile",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha090",
+      "question": "Dans l'univers de la série, ce pourcentage représente la part de la population mondiale possédant un Alter. Les personnes nées sans pouvoir sont devenues une minorité discriminée dans cette société. Quel est ce pourcentage ?",
+      "answer": "80%",
+      "difficulty": "normal",
+      "category": "Lore"
+    },
+    {
+      "id": "mha091",
+      "question": "Ce terme désigne dans la série les êtres humains modifiés à partir de cadavres, capables de supporter plusieurs Alters greffés artificiellement. Ils perdent toute conscience et obéissent aveuglément aux ordres de leur créateur. Quel est ce terme ?",
+      "answer": "Nomu",
+      "difficulty": "normal",
+      "category": "Lore"
+    },
+    {
+      "id": "mha092",
+      "question": "Ce lycée prestigieux est la meilleure école de formation de héros au Japon. Son nom de deux lettres est devenu synonyme d'excellence dans le domaine héroïque, et il est dirigé par un directeur de nature animale extrêmement intelligent. Quel est ce lycée ?",
+      "answer": "Yuei (U.A. High School)",
+      "difficulty": "normal",
+      "category": "Yuei"
+    },
+    {
+      "id": "mha093",
+      "question": "Ce nom désigne le trio des trois meilleurs élèves de Yuei, considérés comme les plus proches du statut de héros professionnel. Le groupe est composé d'un garçon intangible, d'un garçon transformiste et d'une fille aux ondes de choc. Quel est le nom de ce trio ?",
+      "answer": "Les Big Three (Big 3)",
+      "difficulty": "normal",
+      "category": "Yuei"
+    },
+    {
+      "id": "mha094",
+      "question": "Cette technique consiste à utiliser le pouvoir légendaire transmissible dans l'ensemble du corps plutôt que concentré dans un seul membre. Le symbole de la paix la maîtrisait parfaitement, tandis que son successeur devait se contenter de pourcentages réduits pour ne pas se briser les os. Quelle est cette technique ?",
+      "answer": "Full Cowl (Full Cowling)",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "mha095",
+      "question": "Cette attaque finale du symbole de la paix lors de son dernier combat est nommée d'après un pays entier plutôt qu'un simple État américain comme ses attaques habituelles. Elle a mis fin au règne du plus grand vilain à Kamino. Quelle est cette attaque ?",
+      "answer": "United States of Smash",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "mha096",
+      "question": "Cette super-technique de l'élève au durcissement le rend quasiment indestructible pendant environ quarante secondes. Son nom évoque un état permanent de solidité, en hommage à son modèle Crimson Riot. Quelle est cette technique ?",
+      "answer": "Red Riot Unbreakable",
+      "difficulty": "difficile",
+      "category": "Techniques"
+    },
+    {
+      "id": "mha097",
+      "question": "Ce terme désigne un mariage arrangé entre personnes possédant des Alters complémentaires dans le but d'engendrer un enfant au pouvoir optimal. Le héros numéro deux de l'époque y a eu recours pour créer un héritier surpassant le numéro un. Quel est ce concept ?",
+      "answer": "Mariage Alter (Quirk Marriage)",
+      "difficulty": "normal",
+      "category": "Lore"
+    },
+    {
+      "id": "mha098",
+      "question": "Ce vilain historique a écrit un livre prônant la libre utilisation des super-pouvoirs par tous. Son successeur, PDG d'une grande entreprise, a continué son combat idéologique des générations plus tard sous le nom de Re-Destro. Qui était ce fondateur ?",
+      "answer": "Destro (Chikara Yotsubashi)",
+      "difficulty": "difficile",
+      "category": "Lore"
+    },
+    {
+      "id": "mha102",
+      "question": "Cet Alter désigne la capacité à produire et manipuler de grandes quantités de flammes intenses. Son utilisateur principal est le héros devenu numéro un après la retraite du symbole de la paix, et il est à l'origine du feu hérité par deux de ses enfants. Quel est cet Alter ?",
+      "answer": "Hellflame (Flamme Infernale)",
+      "difficulty": "difficile",
+      "category": "Alters"
+    },
+    {
+      "id": "mha103",
+      "question": "Ce nom désigne l'organisation née de la fusion entre l'Alliance des Super-Vilains et l'Armée de Libération des Meta. Comptant plus de cent mille membres, elle représente la plus grande menace que les héros aient jamais affrontée. Quel est le nom de cette organisation ?",
+      "answer": "Le Front de Libération Paranormale (Paranormal Liberation Front)",
+      "difficulty": "normal",
+      "category": "Vilains"
+    },
+    {
+      "id": "mha104",
+      "question": "Ce héros clandestin était l'ami d'enfance d'Eraser Head et Present Mic à Yuei. Présumé mort lors d'un stage, son corps a en réalité été récupéré et transformé en Nomu par le plus grand vilain. Qui était-il avant de devenir un portail de brume ?",
+      "answer": "Oboro Shirakumo",
+      "difficulty": "difficile",
+      "category": "Lore"
+    },
+    {
+      "id": "mha105",
+      "question": "Cet Alter de type émetteur permet à son utilisateur de tirer un rayon laser depuis son nombril. Donné par le plus grand vilain à un garçon né sans pouvoir, il provoque des maux d'estomac quand il est utilisé trop longtemps. Quel est cet Alter ?",
+      "answer": "Navel Laser (Rayon Laser Naval)",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha106",
+      "question": "Lors du camp d'entraînement en forêt, l'équipe d'assaut de l'Alliance kidnappe l'élève le plus combatif de la classe 1-A. Un groupe d'élèves tente une mission de sauvetage secrète avant que les héros pro ne lancent le raid officiel. Qui a été kidnappé ?",
+      "answer": "Bakugo Katsuki",
+      "difficulty": "normal",
+      "category": "Arcs"
+    },
+    {
+      "id": "mha107",
+      "question": "Ce mangaka japonais est le créateur et illustrateur de la série, publiée dans le Weekly Shonen Jump de juillet 2014 à août 2024. La série totalise quarante-deux tomes. Qui est-il ?",
+      "answer": "Horikoshi Kohei",
+      "difficulty": "normal",
+      "category": "Lore"
+    },
+    {
+      "id": "mha108",
+      "question": "Cet Alter de type mutant invoque une entité d'ombre sentiente depuis le corps de son utilisateur. Dans l'obscurité totale, elle devient incontrôlable et extrêmement puissante, tandis que la lumière vive la rend docile mais faible. Quel est cet Alter ?",
+      "answer": "Dark Shadow",
+      "difficulty": "normal",
+      "category": "Alters"
+    },
+    {
+      "id": "mha109",
+      "question": "Ce frère aîné d'un élève de la classe 1-A était un héros pro respecté. Paralysé après une attaque du tueur de héros à Hosu, il a demandé à son cadet de reprendre son nom et de poursuivre son héritage héroïque. Qui est-ce ?",
+      "answer": "Iida Tensei (Ingenium)",
+      "difficulty": "normal",
+      "category": "Héros Pro"
+    },
+    {
+      "id": "mha110",
+      "question": "Lors de la guerre finale, cette vilaine a utilisé le sang d'un ami décédé pour se transformer en lui et activer son Alter de duplication, créant des centaines de copies qui ont submergé les héros. Quel Alter a-t-elle ainsi copié ?",
+      "answer": "Double (l'Alter de Twice)",
+      "difficulty": "difficile",
+      "category": "Batailles"
+    },
+    {
+      "id": "mha112",
+      "question": "Ce premier détenteur du pouvoir légendaire transmissible était en réalité le jeune frère du plus grand vilain. Né avec un Alter de transfert jugé inutile, il a reçu un Alter de stockage de force de son frère, et la fusion des deux a créé un pouvoir unique. Qui est-ce ?",
+      "answer": "Yoichi Shigaraki",
+      "difficulty": "difficile",
+      "category": "Lore"
+    },
+    {
+      "id": "mha114",
+      "question": "Cette technique du neuvième détenteur consiste à concentrer le pouvoir légendaire dans ses jambes pour compenser la fragilité de ses bras. En frappant avec des coups de pied renforcés, il protège ses bras déjà endommagés par une utilisation excessive. Quel est le nom de ce style de combat ?",
+      "answer": "Shoot Style",
+      "difficulty": "normal",
+      "category": "Techniques"
+    },
+    {
+      "id": "mha115",
+      "question": "Ce nom désigne l'Alter du leader de l'Alliance des Super-Vilains. Il désintègre tout ce que son utilisateur touche avec les cinq doigts d'une main, et après son éveil complet, il peut se propager au sol et aux structures environnantes. Quel est cet Alter ?",
+      "answer": "Decay (Désintégration)",
+      "difficulty": "normal",
+      "category": "Alters"
+    }
+  ]
+}

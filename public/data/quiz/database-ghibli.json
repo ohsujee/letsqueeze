@@ -1,0 +1,777 @@
+{
+  "id": "database-ghibli",
+  "title": "Studio Ghibli",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "ghb001",
+      "question": "Fondé le 15 juin 1985 par deux réalisateurs visionnaires et un producteur issu du magazine Animage, ce studio d'animation japonais a choisi comme logo la silhouette d'un esprit de la forêt gris et rond. Quel est le nom de ce producteur ?",
+      "answer": "Toshio Suzuki",
+      "difficulty": "difficile",
+      "category": "Production"
+    },
+    {
+      "id": "ghb002",
+      "question": "Dans ce film de 1988 réalisé par Miyazaki, deux sœurs de 10 et 4 ans emménagent à la campagne pour se rapprocher de l'hôpital où séjourne leur mère. La cadette découvre un jour d'énormes créatures endormies au pied d'un camphrier géant. Quel est ce film ?",
+      "answer": "Tonari no Totoro (Mon Voisin Totoro)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb003",
+      "question": "Dans un film de 2001, une fillette de 10 ans se retrouve piégée dans un monde peuplé d'esprits après que ses parents se sont gavés de nourriture interdite. Elle doit travailler dans un établissement de bains pour les sauver. Quel est ce film ?",
+      "answer": "Sen to Chihiro no Kamikakushi (Le Voyage de Chihiro)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb004",
+      "question": "Ce compositeur japonais, né en 1950 sous le nom de Mamoru Fujisawa, a signé la musique de presque tous les films de Miyazaki. Son pseudonyme est un jeu de mots inspiré du nom d'un célèbre musicien américain, Quincy Jones. Qui est-ce ?",
+      "answer": "Joe Hisaishi",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "ghb005",
+      "question": "Sorti en août 1986, ce film raconte l'aventure de Pazu et Sheeta à la recherche d'une île flottante légendaire convoitée par l'armée et des pirates. C'est le tout premier long-métrage produit par le studio après sa fondation. Quel est ce film ?",
+      "answer": "Tenkū no Shiro Rapyuta (Le Château dans le ciel)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb006",
+      "question": "Dans un film de 1997, un jeune prince Emishi est frappé par la malédiction d'un dieu sanglier transformé en démon. Il part vers l'ouest et découvre un conflit entre une cité industrielle et les dieux de la forêt. Quel est ce film ?",
+      "answer": "Mononoke-hime (Princesse Mononoké)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb007",
+      "question": "Dans un film de 1997, une jeune fille élevée par une louve géante nommée Moro voue une haine farouche à Dame Eboshi. Elle porte un masque de terre cuite et chevauche des loups blancs. Quel est le nom de cette guerrière sauvage ?",
+      "answer": "San",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb008",
+      "question": "Ce film de 1992 met en scène un ancien pilote italien transformé en cochon par une mystérieuse malédiction. Il traque les pirates de l'air dans la mer Adriatique à bord d'un hydravion rouge. Quel est ce film ?",
+      "answer": "Kurenai no Buta (Porco Rosso)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb009",
+      "question": "En 2002, lors de la 52e Berlinale, un film d'animation japonais partage l'Ours d'or avec 'Bloody Sunday', devenant le premier film animé à recevoir cette récompense suprême à Berlin. Quel réalisateur japonais a reçu ce prix ?",
+      "answer": "Hayao Miyazaki",
+      "difficulty": "normal",
+      "category": "Récompenses"
+    },
+    {
+      "id": "ghb010",
+      "question": "Cofondateur du studio aux côtés de Miyazaki et Suzuki, ce réalisateur a signé un drame de guerre en 1988 et un film sur les tanuki en 1994. Il est décédé le 5 avril 2018 à l'âge de 82 ans. Qui est-ce ?",
+      "answer": "Isao Takahata",
+      "difficulty": "normal",
+      "category": "Takahata"
+    },
+    {
+      "id": "ghb011",
+      "question": "En 1988, Takahata réalise un film bouleversant situé à Kobe pendant les bombardements américains. Un adolescent de 14 ans et sa petite sœur de 4 ans tentent de survivre après la mort de leur mère. Quel est ce film ?",
+      "answer": "Hotaru no Haka (Le Tombeau des Lucioles)",
+      "difficulty": "normal",
+      "category": "Takahata"
+    },
+    {
+      "id": "ghb012",
+      "question": "Dans ce drame de 1988 signé Takahata, un adolescent nommé Seita s'occupe de sa petite sœur dans un abri de fortune après les bombardements de Kobe. Le prénom de cette petite sœur de 4 ans est devenu iconique. Comment s'appelle-t-elle ?",
+      "answer": "Setsuko",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb013",
+      "question": "En 1989, Miyazaki adapte un roman d'Eiko Kadono. Une jeune fille de 13 ans quitte sa famille avec son chat noir pour s'installer dans une ville portuaire et ouvrir un service de livraison par les airs grâce à son balai. Quel est ce film ?",
+      "answer": "Majo no Takkyūbin (Kiki la petite sorcière)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb014",
+      "question": "Dans un film de 1989, l'héroïne est accompagnée d'un chat noir bavard qui lui sert de confident et de compagnon de vol. Ce félin perd temporairement la capacité de parler quand sa maîtresse traverse une crise de confiance. Comment s'appelle-t-il ?",
+      "answer": "Jiji",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb015",
+      "question": "En mars 1984, Miyazaki réalise un film post-apocalyptique où une princesse pacifiste tente de réconcilier l'humanité avec une forêt peuplée d'insectes géants, mille ans après l'effondrement de la civilisation industrielle. Quel est ce film ?",
+      "answer": "Kaze no Tani no Naushika (Nausicaä de la Vallée du Vent)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb016",
+      "question": "Dans un film de 1984, la jungle empoisonnée est peuplée d'insectes colossaux ressemblant à des cloportes géants. Dotés d'une grande sagesse, leurs yeux passent du rouge au bleu selon leur humeur. Comment s'appellent ces créatures ?",
+      "answer": "Ômu (Ohmu)",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb017",
+      "question": "Dans un film de 2004, une jeune chapelière timide est victime d'un sortilège lancé par une sorcière jalouse qui la transforme en vieille femme de 90 ans. Elle trouve refuge dans une demeure mécanique propulsée par un démon de feu. Quel est ce film ?",
+      "answer": "Hauru no Ugoku Shiro (Le Château ambulant)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb018",
+      "question": "Dans un film de 2004 adapté d'un roman de Diana Wynne Jones, un démon de feu alimente la demeure mécanique en énergie. Il est en réalité lié au cœur du magicien par un pacte ancien. Quel est le nom de ce démon flamboyant ?",
+      "answer": "Calcifer",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb019",
+      "question": "En 2008, Miyazaki réalise un film entièrement dessiné à l'aquarelle, une première pour lui. Un garçon de 5 ans vivant en bord de mer recueille un petit poisson rouge à visage humain piégé dans un pot de confiture. Quel est ce film ?",
+      "answer": "Gake no Ue no Ponyo (Ponyo sur la falaise)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb020",
+      "question": "Dans un film de 2008, le petit garçon de 5 ans qui recueille un poisson rouge et refuse de l'abandonner malgré le cataclysme que sa métamorphose déclenche porte un prénom japonais. Comment s'appelle-t-il ?",
+      "answer": "Sōsuke",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb021",
+      "question": "Le nom du célèbre studio d'animation japonais fondé en 1985 vient d'un mot arabe désignant le vent chaud du Sahara. Ce mot a aussi donné son nom à un avion de reconnaissance italien Caproni Ca.309 de la Seconde Guerre mondiale. Quel est ce mot ?",
+      "answer": "Ghibli",
+      "difficulty": "normal",
+      "category": "Production"
+    },
+    {
+      "id": "ghb023",
+      "question": "Depuis 1991, le logo du célèbre studio d'animation japonais représente la silhouette d'un gros esprit gris issu d'un film de 1988. Le producteur Suzuki a comparé ce personnage à ce que Mickey Mouse représente pour Disney. Quel est ce personnage-mascotte ?",
+      "answer": "Totoro",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb024",
+      "question": "Dans un film de 2001, un mystérieux esprit portant un masque de Nô s'introduit dans un établissement de bains. D'abord silencieux et inoffensif, il devient monstrueux en absorbant la cupidité des employés qu'il dévore. Comment s'appelle cet esprit ?",
+      "answer": "Kaonashi (Le Sans-Visage)",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb025",
+      "question": "Dans un film de 2001, un jeune garçon mystérieux aide l'héroïne dès son arrivée dans le monde des esprits. Apprenti d'une sorcière, il peut se métamorphoser en dragon blanc. Son vrai nom est celui d'un cours d'eau disparu sous les immeubles. Qui est-ce ?",
+      "answer": "Haku (Nigihayami Kohakunushi)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb027",
+      "question": "En 1994, Takahata réalise un film où des créatures du folklore japonais utilisent leurs pouvoirs de métamorphose pour lutter contre un projet immobilier qui détruit leur habitat dans les collines de Tama. Quel est ce film ?",
+      "answer": "Heisei Tanuki Gassen Ponpoko (Pompoko)",
+      "difficulty": "normal",
+      "category": "Takahata"
+    },
+    {
+      "id": "ghb028",
+      "question": "Dans un film de 1994 de Takahata, les héros sont des animaux du folklore japonais capables de se métamorphoser grâce à leur 'science de l'illusion'. Ils organisent même une parade de fantômes géante pour effrayer les humains. Quels sont ces animaux ?",
+      "answer": "Les tanuki (chiens viverrins)",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb030",
+      "question": "En 2013, Miyazaki réalise un film biographique sur un ingénieur qui a conçu le fameux chasseur Mitsubishi A6M, surnommé 'Chasseur Zéro'. Pour la première fois chez Ghibli, les bruitages des moteurs sont faits par des voix humaines. Quel est ce film ?",
+      "answer": "Kaze Tachinu (Le vent se lève)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb031",
+      "question": "Le film de 2013 de Miyazaki s'inspire de la vie d'un ingénieur aéronautique et du roman de Tatsuo Hori sur son épouse atteinte de tuberculose. Quel est le nom de cet ingénieur réel qui a conçu le célèbre chasseur Zéro ?",
+      "answer": "Jirō Horikoshi",
+      "difficulty": "difficile",
+      "category": "Miyazaki"
+    },
+    {
+      "id": "ghb032",
+      "question": "En 2010, un jeune réalisateur signe son premier film pour le studio, adapté d'un roman de Mary Norton. Une famille miniature vit sous le plancher d'une maison et doit rester invisible aux yeux des humains. Quel est ce film ?",
+      "answer": "Karigurashi no Arrietty (Arrietty, le petit monde des chapardeurs)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb033",
+      "question": "Ce film de 2010 marque les débuts d'un réalisateur qui n'est ni Miyazaki ni Takahata, avec plus de 7,5 millions d'entrées au Japon. Sa musique a été composée par la harpiste celtique bretonne Cécile Corbel. Qui est ce réalisateur ?",
+      "answer": "Hiromasa Yonebayashi",
+      "difficulty": "difficile",
+      "category": "Production"
+    },
+    {
+      "id": "ghb034",
+      "question": "Ces petites créatures rondes et noires de quelques centimètres apparaissent dans deux films du studio : dans le premier, elles habitent une maison abandonnée, dans le second, elles transportent du charbon dans une chaufferie. Quel est leur nom japonais ?",
+      "answer": "Susuwatari (les noiraudes)",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb035",
+      "question": "Dans un film de 1988, une créature fantastique issue du folklore japonais des bakeneko a pris la forme d'un véhicule de transport en commun. Avec ses douze pattes et ses phares en forme d'yeux, elle traverse la campagne nocturne. Quelle est cette créature ?",
+      "answer": "Nekobasu (le Chat-bus)",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb036",
+      "question": "Dans un film de 1997, de petites créatures blanches à tête ronde peuplent la forêt ancienne. Elles font vibrer leur tête en produisant un cliquetis caractéristique et représentent la pureté de la nature. Comment s'appellent ces esprits des arbres ?",
+      "answer": "Kodama",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb037",
+      "question": "En 2023, Miyazaki revient de sa retraite pour un film dont le titre japonais signifie 'Comment vivez-vous ?', inspiré d'un roman de 1937. Un garçon nommé Mahito découvre un monde fantastique guidé par un oiseau cendré parlant. Quel est ce film ?",
+      "answer": "Kimitachi wa Dō Ikiru ka (Le Garçon et le Héron)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb039",
+      "question": "En 2013, Takahata réalise son dernier film, une adaptation du plus ancien récit japonais connu. Réalisé dans un style d'aquarelle épuré, il a coûté 49,3 millions de dollars, un record pour un film japonais. Quel est ce film ?",
+      "answer": "Kaguya-hime no Monogatari (Le Conte de la Princesse Kaguya)",
+      "difficulty": "normal",
+      "category": "Takahata"
+    },
+    {
+      "id": "ghb040",
+      "question": "En 2015, le dernier film de Takahata est nommé à l'Oscar du meilleur film d'animation mais perd face à 'Les Nouveaux Héros' de Disney. Ce film adapte le plus ancien récit littéraire japonais connu, le Taketori Monogatari. Quel est le nom de la protagoniste de ce récit ?",
+      "answer": "Kaguya-hime (Princesse Kaguya)",
+      "difficulty": "normal",
+      "category": "Takahata"
+    },
+    {
+      "id": "ghb041",
+      "question": "En mai 2024, lors du 77e Festival de Cannes, une distinction historique est remise pour la première fois non pas à un individu mais à une institution d'animation japonaise. C'est le fils du cofondateur qui a reçu le trophée. Quelle est cette récompense ?",
+      "answer": "La Palme d'or d'honneur",
+      "difficulty": "difficile",
+      "category": "Récompenses"
+    },
+    {
+      "id": "ghb042",
+      "question": "Fils aîné du plus célèbre réalisateur du studio, il a d'abord supervisé la construction du musée de Mitaka avant de réaliser une adaptation des romans d'Ursula K. Le Guin en 2006. Il a reçu la Palme d'or d'honneur à Cannes en 2024. Qui est-ce ?",
+      "answer": "Gorō Miyazaki",
+      "difficulty": "difficile",
+      "category": "Production"
+    },
+    {
+      "id": "ghb043",
+      "question": "En octobre 2001, un musée conçu par Miyazaki lui-même ouvre ses portes dans le parc Inokashira, dans la banlieue ouest de Tokyo. Sa construction a été supervisée par le fils du réalisateur. Dans quelle ville est situé ce musée ?",
+      "answer": "Mitaka",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "ghb044",
+      "question": "En novembre 2022, un parc consacré à l'univers du studio ouvre dans la préfecture d'Aichi, sur le site de l'Exposition universelle de 2005. Aucun arbre n'a été abattu pendant sa construction, fidèle aux valeurs écologiques. Quel est le nom de ce parc ?",
+      "answer": "Ghibli Park",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "ghb045",
+      "question": "Dans un film de 2001, la puissante sorcière qui dirige l'établissement de bains contrôle ses employés en leur volant leur nom. Quand l'héroïne signe son contrat, elle prend un kanji de son prénom pour la renommer 'Sen'. Qui est cette sorcière ?",
+      "answer": "Yubaba",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb046",
+      "question": "En 1995, un réalisateur prometteur signe le premier long-métrage du studio qui ne soit dirigé ni par Miyazaki ni par Takahata. Ce film suit une adolescente passionnée de lecture qui découvre l'amour à Tokyo. Le réalisateur décède hélas en 1998. Qui était-il ?",
+      "answer": "Yoshifumi Kondō",
+      "difficulty": "difficile",
+      "category": "Production"
+    },
+    {
+      "id": "ghb047",
+      "question": "Sorti en 1995, ce film suit Shizuku Tsukishima, une collégienne passionnée de lecture qui tombe amoureuse d'un apprenti luthier. C'est le premier film du studio à utiliser la composition numérique. Quel est ce film ?",
+      "answer": "Mimi wo Sumaseba (Si tu tends l'oreille)",
+      "difficulty": "difficile",
+      "category": "Films"
+    },
+    {
+      "id": "ghb048",
+      "question": "Le pseudonyme de ce compositeur japonais est un jeu de mots sur 'Quincy Jones' : 'Joe' vient de 'Jones' et les kanji de son nom de famille se prononcent d'une manière proche de 'Quincy' en japonais. Quel est son vrai nom civil ?",
+      "answer": "Mamoru Fujisawa",
+      "difficulty": "difficile",
+      "category": "Musique"
+    },
+    {
+      "id": "ghb049",
+      "question": "Dans le film de 1992 avec le pilote transformé en cochon, le vrai nom du héros est un hommage aux frères pionniers de l'animation italienne. Il pilote un hydravion rouge inspiré du Macchi M.33. Quel est le vrai nom de ce personnage ?",
+      "answer": "Marco Pagot",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb050",
+      "question": "Dans un film de 1986, l'héroïne Sheeta est en réalité la descendante de la famille royale d'une cité volante légendaire. Son véritable nom, qu'elle ignore au début de l'histoire, révèle son lignage noble. Quel est ce nom complet ?",
+      "answer": "Lusheeta Toel Ul Laputa",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb051",
+      "question": "Dans un film de 1997, le prince Ashitaka quitte son village après avoir été maudit par un dieu sanglier devenu démon. Il chevauche un élan rouge fidèle pour voyager vers l'ouest. Comment s'appelle sa monture ?",
+      "answer": "Yakul",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb052",
+      "question": "Dans un film de 1997, Dame Eboshi cherche à décapiter le dieu protecteur de la forêt pour obtenir l'immortalité. Ce dieu possède un visage humain, des bois de cerf et le pouvoir de donner ou reprendre la vie. Quel est son nom japonais ?",
+      "answer": "Shishigami",
+      "difficulty": "difficile",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb053",
+      "question": "Dans un film de 1988 avec deux sœurs à la campagne, le père est un professeur d'université qui les rassure sur la présence de petites créatures noires inoffensives dans leur maison. Leur mère, absente au quotidien, souffre d'une maladie. Où se trouve la mère ?",
+      "answer": "À l'hôpital",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb054",
+      "question": "Ce film de 2002 réalisé par Hiroyuki Morita raconte l'histoire d'une lycéenne nommée Haru qui sauve un chat de la route. Invitée au monde félin pour épouser le prince, elle est secourue par une figurine de chat distingué qui prend vie. Quel est ce film ?",
+      "answer": "Neko no Ongaeshi (Le Royaume des chats)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb055",
+      "question": "En 2014, Yonebayashi réalise son deuxième film pour le studio, adapté d'un roman de Joan G. Robinson. Une adolescente solitaire nommée Anna rencontre une mystérieuse jeune fille dans un manoir abandonné des marais de Hokkaido. Quel est ce film ?",
+      "answer": "Omoide no Marnie (Souvenirs de Marnie)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb056",
+      "question": "En 1991, Takahata réalise un film où une femme de bureau de 27 ans, Taeko, part à la campagne de Yamagata et se remémore ses années d'écolière. Ce film introspectif mêle passé et présent avec délicatesse. Quel est ce film ?",
+      "answer": "Omoide Poro Poro (Souvenirs goutte à goutte)",
+      "difficulty": "difficile",
+      "category": "Takahata"
+    },
+    {
+      "id": "ghb057",
+      "question": "En 1999, Takahata réalise un film adapté d'un manga de Hisaichi Ishii, centré sur une famille japonaise ordinaire et leur quotidien chaotique. C'est le premier film du studio au style d'aquarelle minimaliste. Quel est ce film ?",
+      "answer": "Hōhokekyo Tonari no Yamada-kun (Mes voisins les Yamada)",
+      "difficulty": "difficile",
+      "category": "Takahata"
+    },
+    {
+      "id": "ghb058",
+      "question": "Dans un film de 1988, l'aînée des deux sœurs a 10 ans et est décrite comme active, gaie et courageuse. Elle prend soin de sa cadette en l'absence de leurs parents. Comment s'appelle cette grande sœur responsable ?",
+      "answer": "Satsuki",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb059",
+      "question": "Dans le même film de 1988, la cadette de 4 ans est impulsive et débordante d'énergie. C'est elle qui découvre en premier les créatures magiques en tombant dans un terrier sous les racines du grand camphrier. Comment s'appelle-t-elle ?",
+      "answer": "Mei",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb060",
+      "question": "Dans un film de 2004, la jeune chapelière transformée en vieille femme rencontre un épouvantail sautillant planté sur un bâton. Ce personnage muet l'aide à trouver la demeure du magicien. Il s'avère être un prince ensorcelé. Quel est son surnom ?",
+      "answer": "Kabu (Tête-de-Navet / Turnip Head)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb061",
+      "question": "Dans un film de 2004, le jeune apprenti du magicien se déguise en vieil homme barbu pour impressionner les visiteurs. Il gère les affaires quotidiennes de la demeure mécanique avec débrouillardise. Comment s'appelle-t-il ?",
+      "answer": "Markl",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb062",
+      "question": "Le fils de Miyazaki réalise en 2006 un film d'heroic fantasy adapté du cycle d'Ursula K. Le Guin. Le prince Arren fuit son pays après un acte terrible et voyage avec un mage nommé Épervier. Quel est ce film ?",
+      "answer": "Gedo Senki (Les Contes de Terremer)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb063",
+      "question": "En 2011, Gorō Miyazaki réalise son deuxième film, situé dans le Yokohama de 1963. Une lycéenne nommée Umi hisse chaque matin des pavillons de signalisation maritime en mémoire de son père disparu en mer. Quel est ce film ?",
+      "answer": "Kokuriko-zaka kara (La Colline aux Coquelicots)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb064",
+      "question": "En novembre 2014, Miyazaki reçoit un prix de l'Académie des Oscars récompensant l'ensemble de sa carrière et son impact sur le cinéma d'animation mondial. Ce prix est décerné par le conseil des gouverneurs. Comment s'appelle cette distinction ?",
+      "answer": "L'Oscar d'honneur (Academy Honorary Award)",
+      "difficulty": "difficile",
+      "category": "Récompenses"
+    },
+    {
+      "id": "ghb065",
+      "question": "Dans un film de 2008, le petit poisson rouge qui veut devenir humaine est en réalité la fille aînée de Fujimoto, un ancien humain devenu sorcier des mers. Son vrai prénom, d'origine nordique, est rejeté au profit de celui que lui donne le garçon. Quel est-il ?",
+      "answer": "Brunehilde",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb066",
+      "question": "Dans un film de 1984, l'héroïne pacifiste qui communique avec les insectes géants porte le nom d'une princesse de la mythologie grecque, fille du roi Alcinoos des Phéaciens, qui apparaît dans une célèbre épopée attribuée à un poète aveugle. Quel est le nom de ce poète ?",
+      "answer": "Homère",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb067",
+      "question": "Dans un film de 1986, le garçon orphelin nommé Pazu travaille dur pour vivre seul. Son père avait photographié la cité volante Laputa mais était mort ridiculisé. Le garçon rêve de prouver que son père avait raison. Quel âge a Pazu au début du film ?",
+      "answer": "13 ans (environ)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb068",
+      "question": "Dans un film de 1997, la louve géante à deux queues qui a adopté et élevé San est la matriarche d'un clan de loups divins. Mortellement blessée par Dame Eboshi, elle tente une dernière attaque avant de mourir. Quel est son nom ?",
+      "answer": "Moro",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb069",
+      "question": "Le compositeur attitré de Miyazaki a aussi travaillé avec le réalisateur Takeshi Kitano. Mais c'est sa collaboration avec Miyazaki, débutée en 1984 avec un film sur une princesse pacifiste, qui l'a rendu célèbre. En quelle année est né ce compositeur ?",
+      "answer": "1950",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "ghb070",
+      "question": "Dans un film de 2001, la sorcière des bains vole un kanji du prénom de l'héroïne pour la renommer. Ce nouveau nom, composé d'un seul caractère signifiant 'mille', est utilisé tout au long de son séjour dans le monde des esprits. Quel est ce nom ?",
+      "answer": "Sen (千)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb071",
+      "question": "Dans un film de 1992, le héros transformé en cochon est un chasseur de primes qui traque les pirates du ciel dans l'Adriatique. Son surnom italien signifie littéralement 'cochon rouge'. Comment l'appellent ses ennemis ?",
+      "answer": "Porco Rosso",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb072",
+      "question": "En 1989, le film sur la jeune fille de 13 ans devient le premier grand succès commercial du studio avec plus de 2,6 millions d'entrées au Japon. L'héroïne s'installe dans une ville portuaire d'inspiration européenne. Quel est son unique pouvoir magique ?",
+      "answer": "Le vol sur un balai",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb073",
+      "question": "Avant la fondation du studio en 1985, Miyazaki et Takahata avaient déjà collaboré sur un film de 1968. Ce film d'aventure nordique constitue leur toute première collaboration cinématographique. Quel est le titre de ce film fondateur ?",
+      "answer": "Taiyō no Ōji: Horus no Daibōken (Horus, Prince du Soleil)",
+      "difficulty": "difficile",
+      "category": "Production"
+    },
+    {
+      "id": "ghb074",
+      "question": "Dans un film de 1988, le grand esprit gris attend avec les deux sœurs à un arrêt de bus sous la pluie. Il reçoit un objet de l'aînée et s'amuse du bruit des gouttes qui tombent dessus. Quel instrument de musique crée-t-il avec cet objet en tapant du pied ?",
+      "answer": "Un tambour improvisé (avec le parapluie)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb076",
+      "question": "Dans un film de 2001, l'héroïne découvre que le garçon-dragon est en réalité l'esprit d'un cours d'eau disparu sous des immeubles. Elle se souvient y être tombée enfant, ce qui brise le sortilège. Quel est le nom de ce cours d'eau ?",
+      "answer": "La rivière Kohaku",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "ghb077",
+      "question": "Dans un film de 1988, plusieurs variantes d'un même esprit de la forêt apparaissent : le plus grand est gris avec un large sourire, le moyen est bleu et porte un sac, et le plus petit est blanc et quasi transparent. Combien de variantes de cet esprit existe-t-il au total ?",
+      "answer": "Trois (Ō-Totoro, Chū-Totoro et Chibi-Totoro)",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb078",
+      "question": "La passion de Miyazaki pour l'aviation vient de son enfance : son père dirigeait pendant la Seconde Guerre mondiale une entreprise familiale liée à l'industrie aéronautique, ce qui a profondément marqué le futur cinéaste. Que fabriquait cette entreprise ?",
+      "answer": "Des gouvernails d'avions (pièces pour chasseurs Zéro)",
+      "difficulty": "difficile",
+      "category": "Miyazaki"
+    },
+    {
+      "id": "ghb079",
+      "question": "Dans un film de 2004, le magicien propriétaire de la demeure mécanique est réputé pour dévorer le cœur des jeunes filles. En réalité, c'est un jeune homme vaniteux qui a donné son propre cœur au démon de feu. Comment s'appelle ce magicien ?",
+      "answer": "Howl (Hauru)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb080",
+      "question": "Dans un film de 2004, la Sorcière des Landes jette un sort à la jeune chapelière par jalousie envers le magicien. Ce sortilège transforme l'héroïne de 18 ans en vieille femme de 90 ans. Comment s'appelle cette héroïne courageuse ?",
+      "answer": "Sophie",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb081",
+      "question": "Dans un film de 1986, l'incantation de destruction de la cité volante est un mot de trois syllabes que Sheeta prononce en dernier recours face au colonel Muska. Ce mot est devenu culte chez les fans japonais. Quel est-il ?",
+      "answer": "Balse (Barusu)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb082",
+      "question": "Dans un film de 1986, la cité flottante où se rendent les héros tire son nom d'une île volante apparaissant dans un célèbre roman satirique anglais du XVIIIe siècle. Quel est l'auteur de ce roman ?",
+      "answer": "Jonathan Swift",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb083",
+      "question": "Miyazaki a un processus de création unique : il ne travaille pas à partir d'un scénario écrit mais dessine directement les scènes clés avant que l'histoire ne soit terminée. Comment appelle-t-on ces planches séquentielles en japonais ?",
+      "answer": "E-konte (storyboard)",
+      "difficulty": "difficile",
+      "category": "Miyazaki"
+    },
+    {
+      "id": "ghb084",
+      "question": "La bande originale du film de 1988 avec les deux sœurs contient un morceau joué à l'ocarina, joyeux et mélancolique à la fois, devenu iconique. Il évoque la promenade à travers la campagne japonaise. Quel est le titre de ce morceau célèbre ?",
+      "answer": "Kaze no Tōrimichi (Le chemin du vent)",
+      "difficulty": "difficile",
+      "category": "Musique"
+    },
+    {
+      "id": "ghb085",
+      "question": "En 1992, le film sur le pilote transformé en cochon est situé dans l'entre-deux-guerres, sur la côte adriatique. Le héros combat un rival américain nommé Donald Curtis. Dans quel pays se déroule principalement l'action ?",
+      "answer": "L'Italie",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "ghb086",
+      "question": "Le film de 2001 avec la fillette dans le monde des esprits a rapporté plus de 300 millions de dollars de recettes mondiales, détrônant un film de James Cameron de 1997 au box-office japonais. Combien de milliards de yens a-t-il rapporté au Japon ?",
+      "answer": "Environ 31,7 milliards de yens",
+      "difficulty": "difficile",
+      "category": "Films"
+    },
+    {
+      "id": "ghb087",
+      "question": "Le studio d'animation fondé en 1985 est situé dans un quartier résidentiel d'une ville de la banlieue ouest de Tokyo. Ce même quartier abrite les bureaux de production où Miyazaki travaille encore aujourd'hui. Dans quelle ville se trouvent les studios ?",
+      "answer": "Koganei",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "ghb088",
+      "question": "Dans un film de 1997, le dieu protecteur de la forêt a un visage humain et des bois de cerf. La nuit, il se transforme en une créature géante et translucide parcourant le paysage. Quel est le pouvoir principal de ce dieu ?",
+      "answer": "Donner et reprendre la vie",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb089",
+      "question": "Le film de Miyazaki sorti en 2013 est le seul de sa filmographie sans éléments fantastiques. Ce biopic est ancré dans le Japon des années 1920 à 1940, entre un séisme dévastateur et la Seconde Guerre mondiale. En quelle année ce séisme a-t-il lieu dans le film ?",
+      "answer": "1923 (le séisme du Kantō)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb090",
+      "question": "Dans un film de 2001, les parents de l'héroïne se gavent de nourriture destinée aux esprits dans une ville fantôme abandonnée. En punition de leur gourmandise, ils subissent une transformation animale humiliante. En quel animal sont-ils changés ?",
+      "answer": "En porcs (cochons)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb091",
+      "question": "Ce personnage récurrent du folklore japonais est célèbre pour ses pouvoirs de métamorphose et son ventre rebondi. Takahata leur a consacré un film entier en 1994 où ils luttent contre l'urbanisation. Quel est le nom japonais de cet animal ?",
+      "answer": "Tanuki",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb092",
+      "question": "Dans un film de 1989, l'héroïne traverse une crise de confiance et perd temporairement ses pouvoirs. Une artiste peintre nommée Ursula, vivant seule dans les bois, l'aide à retrouver sa motivation. Quel talent l'héroïne perd-elle temporairement ?",
+      "answer": "Sa capacité à voler",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb093",
+      "question": "En 2006, Gorō Miyazaki adapte un cycle littéraire d'une autrice américaine malgré les réserves de son père. Hayao Miyazaki avait essuyé un refus des décennies plus tôt pour adapter cette même œuvre. Qui est cette autrice ?",
+      "answer": "Ursula K. Le Guin",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb094",
+      "question": "Dans un film de 1984, la princesse pacifiste porte une combinaison bleue et voyage sur un planeur personnel. Elle découvre que sous la jungle empoisonnée, le sol est en réalité purifié par les plantes et les insectes. Comment s'appelle ce planeur ?",
+      "answer": "Le Mehve (Möwe)",
+      "difficulty": "difficile",
+      "category": "Films"
+    },
+    {
+      "id": "ghb095",
+      "question": "Avant la fondation du studio en 1985, Miyazaki et Takahata ont travaillé sur une série télévisée célèbre diffusée en 1974, adaptée d'un roman de Johanna Spyri. Quelle est cette série sur une petite fille dans les Alpes ?",
+      "answer": "Heidi (Alps no Shōjo Heidi)",
+      "difficulty": "normal",
+      "category": "Production"
+    },
+    {
+      "id": "ghb096",
+      "question": "Dans un film de 1997, Dame Eboshi dirige une cité industrielle fortifiée où elle accueille des lépreux et d'anciennes prostituées. Le nom de ce lieu fait référence à la métallurgie traditionnelle japonaise. Comment s'appelle cette cité ?",
+      "answer": "Tatara-ba",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "ghb097",
+      "question": "Dans un film de 1992, une jeune ingénieure de 17 ans répare et améliore l'hydravion rouge du héros. Brillante et déterminée, elle est la petite-fille du vieil ingénieur qui tient l'atelier. Comment s'appelle cette jeune femme ?",
+      "answer": "Fio Piccolo",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb098",
+      "question": "Le studio a produit en 2020 son tout premier film entièrement réalisé en images de synthèse 3D, réalisé par Gorō Miyazaki. Adapté d'un roman de Diana Wynne Jones, il raconte l'histoire d'une orpheline. Quel est ce film ?",
+      "answer": "Āya to Majo (Aya et la sorcière)",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb099",
+      "question": "Dans un film de 1984, la jungle empoisonnée qui s'étend inexorablement est appelée 'Fukai' en japonais, un terme évoquant la profondeur et la putréfaction. Les humains la craignent mais elle purifie en réalité la terre polluée. Comment traduit-on ce nom en français ?",
+      "answer": "La mer de la Décrépitude",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "ghb100",
+      "question": "En 2003, Miyazaki refuse de se rendre à la cérémonie des Oscars malgré la nomination de son film. Le réalisateur japonais protestait contre une intervention militaire américaine lancée cette même année au Moyen-Orient. Dans quel pays avait lieu ce conflit ?",
+      "answer": "L'Irak",
+      "difficulty": "normal",
+      "category": "Miyazaki"
+    },
+    {
+      "id": "ghb101",
+      "question": "Le film de 2004 est adapté d'un roman britannique pour la jeunesse paru en 1986. La demeure mécanique du titre se déplace sur des pattes rappelant la hutte de Baba Yaga du folklore slave. Qui est l'autrice de ce roman original ?",
+      "answer": "Diana Wynne Jones",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb102",
+      "question": "Dans un film de 1986, la bande de pirates du ciel est menée par une vieille femme énergique et colérique, mère de nombreux fils costauds. Malgré son apparence de brigande, elle s'allie aux héros face à l'armée. Comment s'appelle-t-elle ?",
+      "answer": "Dora (Ma Dora)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb103",
+      "question": "Dans un film de 2008, le père du petit poisson rouge est un ancien humain qui a renoncé à sa condition pour vivre sous la mer. Il collectionne des potions et tente de maintenir l'équilibre des océans. Comment s'appelle-t-il ?",
+      "answer": "Fujimoto",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb104",
+      "question": "La bande originale du film de 1997 mêle orchestre symphonique, chœurs et instruments traditionnels japonais. Le morceau principal, puissant et épique, est chanté par la soprano Yoshikazu Mera. Quel est le titre de ce morceau ?",
+      "answer": "Mononoke Hime (thème principal)",
+      "difficulty": "normal",
+      "category": "Musique"
+    },
+    {
+      "id": "ghb105",
+      "question": "Dans un film de 2001, un personnage à six bras travaille sans relâche dans la chaufferie des bains, préparant les mélanges d'herbes médicinales. Les boules de suie noires lui servent d'assistants. Comment s'appelle ce vieil homme de la chaudière ?",
+      "answer": "Kamaji",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb106",
+      "question": "Le célèbre studio d'animation fondé en 1985 est né des cendres d'un autre studio plus ancien, qui avait fait faillite après avoir produit un film de Miyazaki. Le président de ce studio défunt, Toru Hara, a vendu la société qui a ensuite été renommée. Quel était le nom de ce studio d'animation disparu ?",
+      "answer": "Topcraft",
+      "difficulty": "normal",
+      "category": "Production"
+    },
+    {
+      "id": "ghb107",
+      "question": "Dans un film de 1988 signé Takahata, le frère et la sœur orphelins vivent près de Kobe pendant les bombardements de 1945. Le titre fait référence à de petits insectes lumineux que les enfants observent la nuit dans leur abri. Quel type d'insectes ?",
+      "answer": "Des lucioles (hotaru)",
+      "difficulty": "normal",
+      "category": "Takahata"
+    },
+    {
+      "id": "ghb108",
+      "question": "Dans un film de 2010, la famille miniature vit sous le plancher d'une maison au Japon. Le père sort régulièrement 'emprunter' des objets aux géants selon des règles strictes de discrétion. Comment s'appelle le père de l'héroïne ?",
+      "answer": "Pod",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "ghb109",
+      "question": "Le film de 2010 sur la famille miniature est adapté du premier tome d'une saga britannique écrite en 1952. L'autrice a inventé un monde où de minuscules personnes vivent cachées chez les humains. Qui est cette autrice ?",
+      "answer": "Mary Norton",
+      "difficulty": "normal",
+      "category": "Films"
+    },
+    {
+      "id": "ghb110",
+      "question": "Dans un film de 1997, le prince Ashitaka vient d'un peuple indigène du nord-est de l'archipel nippon, reclus et isolé. Ce peuple a réellement existé et est considéré comme l'un des peuples autochtones du Japon. Comment s'appelle ce peuple ?",
+      "answer": "Les Emishi",
+      "difficulty": "difficile",
+      "category": "Films"
+    },
+    {
+      "id": "ghb111",
+      "question": "Dans un film de 1994 de Takahata, les tanuki organisent une gigantesque procession de fantômes et de monstres pour effrayer les humains. Un parc d'attractions voisin revendique le spectacle, ruinant leurs efforts. Comment appelle-t-on ce défilé folklorique ?",
+      "answer": "Hyakki Yakō (la parade nocturne des cent démons)",
+      "difficulty": "difficile",
+      "category": "Takahata"
+    },
+    {
+      "id": "ghb112",
+      "question": "La chanson finale du film de 2001, accompagnant le générique de fin, est un morceau doux et mélancolique chanté par Youmi Kimura. Ce thème est devenu l'un des plus célèbres de tout le studio. Quel est son titre ?",
+      "answer": "Itsumo Nando Demo (Toujours avec moi)",
+      "difficulty": "difficile",
+      "category": "Musique"
+    },
+    {
+      "id": "ghb113",
+      "question": "Dans un film de 2023, le héros Mahito Maki découvre un monde fantastique après la mort de sa mère. Le titre japonais 'Kimitachi wa Dō Ikiru ka' est emprunté à un roman philosophique japonais de 1937 pour la jeunesse. Qui a écrit ce roman ?",
+      "answer": "Genzaburō Yoshino",
+      "difficulty": "difficile",
+      "category": "Films"
+    },
+    {
+      "id": "ghb114",
+      "question": "Dans un film de 1997, Dame Eboshi tranche la tête du dieu de la forêt. Son corps se transforme alors en un géant visqueux et destructeur qui absorbe toute vie sur son passage. Quel est le nom de cette forme nocturne terrifiante ?",
+      "answer": "Didarabocchi",
+      "difficulty": "difficile",
+      "category": "Créatures"
+    },
+    {
+      "id": "ghb115",
+      "question": "Le studio d'animation japonais a remporté deux Oscars du meilleur film d'animation dans son histoire : le premier en 2003 et le second en 2024. Combien d'années séparent ces deux victoires historiques ?",
+      "answer": "21 ans",
+      "difficulty": "normal",
+      "category": "Récompenses"
+    }
+  ]
+}

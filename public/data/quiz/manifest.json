@@ -27,7 +27,13 @@
       "themes": [
         {"id": "database-naruto", "title": "Naruto", "emoji": "🍥", "description": "Personnages, Techniques, Clans, Akatsuki"},
         {"id": "database-onepiece", "title": "One Piece", "emoji": "🏴‍☠️", "description": "Équipage, Fruits du Démon, Empereurs"},
-        {"id": "database-dragonball", "title": "Dragon Ball", "emoji": "🐉", "description": "Saiyans, Transformations, Tournois"}
+        {"id": "database-dragonball", "title": "Dragon Ball", "emoji": "🐉", "description": "Saiyans, Transformations, Tournois"},
+        {"id": "database-attackontitan", "title": "L'Attaque des Titans", "emoji": "⚔️", "description": "Titans, Bataillon, Murs, Mahr", "isNew": true},
+        {"id": "database-deathnote", "title": "Death Note", "emoji": "📓", "description": "Light, L, Shinigami, Enquête", "isNew": true},
+        {"id": "database-demonslayer", "title": "Demon Slayer", "emoji": "🔥", "description": "Pourfendeurs, Lunes, Souffles", "isNew": true},
+        {"id": "database-jujutsukaisen", "title": "Jujutsu Kaisen", "emoji": "👁️", "description": "Fléaux, Exorcistes, Énergies Occultes", "isNew": true},
+        {"id": "database-hunterxhunter", "title": "Hunter x Hunter", "emoji": "🃏", "description": "Hunters, Nen, Brigades, Chimères", "isNew": true},
+        {"id": "database-myheroacademia", "title": "My Hero Academia", "emoji": "🦸", "description": "Alters, Héros, Vilains, Yuei", "isNew": true}
       ]
     },
     {
@@ -37,7 +43,12 @@
       "themes": [
         {"id": "database-kollywood", "title": "Kollywood", "emoji": "🎥", "description": "Films, Acteurs, Musique tamoule"},
         {"id": "database-disney", "title": "Disney", "emoji": "🏰", "description": "Films classiques et modernes"},
-        {"id": "database-marvel", "title": "Marvel", "emoji": "🦸", "description": "MCU, Films, Super-héros"}
+        {"id": "database-marvel", "title": "Marvel", "emoji": "🦸", "description": "MCU, Films, Super-héros"},
+        {"id": "database-harrypotter", "title": "Harry Potter", "emoji": "⚡", "description": "Poudlard, Sortilèges, Magie Noire", "isNew": true},
+        {"id": "database-starwars", "title": "Star Wars", "emoji": "🌌", "description": "Jedi, Sith, Trilogie, Force", "isNew": true},
+        {"id": "database-lotr", "title": "Le Seigneur des Anneaux", "emoji": "💍", "description": "Terre du Milieu, Communauté, Mordor", "isNew": true},
+        {"id": "database-ghibli", "title": "Studio Ghibli", "emoji": "🌿", "description": "Miyazaki, Totoro, Chihiro", "isNew": true},
+        {"id": "database-pixar", "title": "Pixar", "emoji": "🏮", "description": "Toy Story, Vice-Versa, Coco", "isNew": true}
       ]
     },
     {
@@ -49,7 +60,37 @@
         {"id": "database-mafamilledabord", "title": "Ma Famille D'abord", "emoji": "👨‍👩‍👧‍👦", "description": "Michael Kyle et sa famille"},
         {"id": "database-breakingbad", "title": "Breaking Bad", "emoji": "🧪", "description": "Heisenberg, Jesse, Chimie, Nouveau-Mexique"},
         {"id": "database-strangerthings", "title": "Stranger Things", "emoji": "🔦", "description": "Eleven, Monde Inversé, Hawkins"},
-        {"id": "database-gameofthrones", "title": "Game of Thrones", "emoji": "🐉", "description": "Maisons, Dragons, Trône de Fer"}
+        {"id": "database-gameofthrones", "title": "Game of Thrones", "emoji": "🐉", "description": "Maisons, Dragons, Trône de Fer"},
+        {"id": "database-lacasadepapel", "title": "La Casa de Papel", "emoji": "🎭", "description": "Braquage, Professeur, Résistance", "isNew": true},
+        {"id": "database-theoffice", "title": "The Office", "emoji": "🏢", "description": "Dunder Mifflin, Michael Scott, Scranton", "isNew": true},
+        {"id": "database-himym", "title": "How I Met Your Mother", "emoji": "☂️", "description": "Ted, Barney, MacLaren's Pub", "isNew": true},
+        {"id": "database-peakyblinders", "title": "Peaky Blinders", "emoji": "🎩", "description": "Shelby, Birmingham, Gangs", "isNew": true},
+        {"id": "database-squidgame", "title": "Squid Game", "emoji": "🦑", "description": "Jeux mortels, Masques, Survie", "isNew": true},
+        {"id": "database-prisonbreak", "title": "Prison Break", "emoji": "🔓", "description": "Scofield, Fox River, Évasion", "isNew": true}
+      ]
+    },
+    {
+      "id": "jeux-video",
+      "name": "Jeux Vidéo",
+      "emoji": "🎮",
+      "themes": [
+        {"id": "database-jeuxvideo", "title": "Jeux Vidéo", "emoji": "🕹️", "description": "Culture gaming, Consoles, Classiques", "isNew": true},
+        {"id": "database-pokemon", "title": "Pokémon", "emoji": "⚡", "description": "Créatures, Dresseurs, Régions", "isNew": true},
+        {"id": "database-zelda", "title": "Zelda", "emoji": "🗡️", "description": "Link, Hyrule, Donjons, Triforce", "isNew": true},
+        {"id": "database-mario", "title": "Mario", "emoji": "🍄", "description": "Champignon, Peach, Bowser", "isNew": true},
+        {"id": "database-minecraft", "title": "Minecraft", "emoji": "⛏️", "description": "Crafting, Mobs, Biomes, Ender", "isNew": true},
+        {"id": "database-gta", "title": "GTA", "emoji": "🚗", "description": "Open World, Crime, Rockstar", "isNew": true}
+      ]
+    },
+    {
+      "id": "musique-cat",
+      "name": "Musique",
+      "emoji": "🎵",
+      "themes": [
+        {"id": "database-rapfr", "title": "Rap FR", "emoji": "🎤", "description": "Rappeurs français, Albums, Classiques", "isNew": true},
+        {"id": "database-pophits", "title": "Pop & Hits", "emoji": "🌟", "description": "Tubes internationaux, Artistes, Records", "isNew": true},
+        {"id": "database-kpop", "title": "K-Pop", "emoji": "💜", "description": "BTS, Blackpink, Groupes, Idoles", "isNew": true},
+        {"id": "database-rapus", "title": "Rap US", "emoji": "🔊", "description": "Hip-Hop américain, Légendes, Bangers", "isNew": true}
       ]
     }
   ]

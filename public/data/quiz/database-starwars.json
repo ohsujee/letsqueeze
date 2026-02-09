@@ -1,0 +1,819 @@
+{
+  "id": "database-starwars",
+  "title": "Star Wars",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "sw001",
+      "question": "Ancien esclave sur Tatooine, ce jeune prodige du pilotage est découvert par un maître Jedi lors d'une mission diplomatique. Formé par Obi-Wan Kenobi après la mort de son mentor, il devient l'un des Jedi les plus puissants avant de basculer du côté obscur. Qui est-ce ?",
+      "answer": "Anakin Skywalker (Dark Vador)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw002",
+      "question": "Ce fermier de Tatooine rêve de quitter sa planète et d'intégrer l'Académie impériale. Après avoir découvert un message holographique caché dans un droïde, il part avec un vieil ermite et finit par détruire une station de combat spatiale. Qui est-ce ?",
+      "answer": "Luke Skywalker",
+      "difficulty": "normal",
+      "category": "Trilogie originale"
+    },
+    {
+      "id": "sw003",
+      "question": "Sénatrice d'Alderaan, cette dirigeante rebelle transmet des plans secrets à un petit droïde astromécano avant d'être capturée par l'Empire. Elle s'avère être la sœur jumelle d'un héros de la Rébellion, séparée à la naissance. Qui est-ce ?",
+      "answer": "Leia Organa (Princesse Leia)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw004",
+      "question": "Ce contrebandier corellien pilote un vaisseau cargo YT-1300 en compagnie de son copilote Wookiee. D'abord motivé par l'argent, il rejoint la Rébellion et intervient in extremis lors de l'assaut contre une station spatiale impériale. Qui est-ce ?",
+      "answer": "Han Solo",
+      "difficulty": "normal",
+      "category": "Trilogie originale"
+    },
+    {
+      "id": "sw005",
+      "question": "Ce Wookiee originaire de Kashyyyk mesure plus de deux mètres et communique par des grognements que seuls ses proches comprennent. Copilote légendaire et expert en réparation, il accompagne son meilleur ami dans toutes ses aventures de contrebande. Qui est-ce ?",
+      "answer": "Chewbacca",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw006",
+      "question": "Ce petit droïde astromécano blanc et bleu transporte des plans secrets dans sa mémoire et émet des séries de bips caractéristiques. Il accompagne les héros de la saga depuis la chute de la République jusqu'à la victoire finale de la Rébellion. Quel est ce droïde ?",
+      "answer": "R2-D2",
+      "difficulty": "normal",
+      "category": "Droïdes"
+    },
+    {
+      "id": "sw007",
+      "question": "Ce droïde de protocole doré et poli maîtrise plus de six millions de formes de communication. Construit par un jeune esclave sur Tatooine, il est souvent paniqué et rappelle constamment les probabilités de survie à ses compagnons. Quel est ce droïde ?",
+      "answer": "C-3PO (Z-6PO en VF)",
+      "difficulty": "normal",
+      "category": "Droïdes"
+    },
+    {
+      "id": "sw008",
+      "question": "Ce maître Jedi de petite taille vit en exil sur une planète marécageuse après la chute de l'Ordre. Âgé de près de 900 ans, il parle avec une syntaxe inversée caractéristique et forme un dernier apprenti avant de disparaître dans la Force. Qui est-ce ?",
+      "answer": "Yoda",
+      "difficulty": "normal",
+      "category": "Jedi"
+    },
+    {
+      "id": "sw009",
+      "question": "Ce Jedi originaire de Stewjon est le maître d'un Padawan devenu un Seigneur Sith. Il remporte un duel décisif sur une planète volcanique et veille ensuite en secret sur le fils de son ancien apprenti pendant près de vingt ans. Qui est-ce ?",
+      "answer": "Obi-Wan Kenobi",
+      "difficulty": "normal",
+      "category": "Jedi"
+    },
+    {
+      "id": "sw010",
+      "question": "Ce sénateur de Naboo manipule les deux camps pendant les Guerres des Clones et se fait élire Chancelier Suprême. En réalité Seigneur Sith, il instaure un régime totalitaire galactique après avoir éliminé l'Ordre Jedi. Qui est-ce ?",
+      "answer": "Palpatine (Dark Sidious)",
+      "difficulty": "normal",
+      "category": "Sith"
+    },
+    {
+      "id": "sw011",
+      "question": "Cette planète désertique possède deux soleils et abrite des fermes d'humidité. Repaire de gangsters Hutts et marché d'esclaves, c'est le lieu de naissance de deux des plus grands héros de la saga. Quelle est cette planète ?",
+      "answer": "Tatooine",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw012",
+      "question": "Ce chasseur de primes Mandalorien porte une armure verte cabossée et utilise un jetpack. Engagé par un seigneur du crime pour capturer un contrebandier, il livre sa cible congelée dans un bloc de carbonite. Qui est-ce ?",
+      "answer": "Boba Fett",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw013",
+      "question": "Cette immense station de combat sphérique possède un superlaser capable de détruire une planète entière. Construite en secret par l'Empire, elle est détruite lors de la bataille de Yavin grâce à un tir dans un conduit d'aération. Quelle est cette arme ?",
+      "answer": "Death Star (Étoile de la Mort)",
+      "difficulty": "normal",
+      "category": "Vaisseaux"
+    },
+    {
+      "id": "sw014",
+      "question": "Ce cargo corellien modifié de type YT-1300 est décrit comme un tas de ferraille malgré ses performances exceptionnelles. Capable de voyager en hyperespace plus vite que la plupart des vaisseaux impériaux, il complète le Kessel Run en moins de douze parsecs. Quel est ce vaisseau ?",
+      "answer": "Faucon Millenium (Millennium Falcon)",
+      "difficulty": "normal",
+      "category": "Vaisseaux"
+    },
+    {
+      "id": "sw015",
+      "question": "Ce Sith à la peau rouge et noire, originaire de Dathomir, manie un sabre laser à double lame. Il tue un maître Jedi sur Naboo avant d'être coupé en deux, mais survit grâce à sa haine et réapparaît des années plus tard. Qui est-ce ?",
+      "answer": "Darth Maul (Dark Maul)",
+      "difficulty": "normal",
+      "category": "Sith"
+    },
+    {
+      "id": "sw016",
+      "question": "Ce Jedi est le seul du Conseil à manier un sabre laser d'une couleur unique, ni bleue, ni verte, ni rouge. Maître de la forme de combat Vaapad, il affronte le Chancelier Suprême et manque de peu de le vaincre avant d'être trahi. Qui est-ce ?",
+      "answer": "Mace Windu",
+      "difficulty": "normal",
+      "category": "Jedi"
+    },
+    {
+      "id": "sw017",
+      "question": "Cette jeune reine de Naboo, élue à seulement 14 ans, affronte une invasion de la Fédération du Commerce. Devenue sénatrice, elle épouse secrètement un Jedi et donne naissance à des jumeaux avant de mourir de chagrin. Qui est-ce ?",
+      "answer": "Padmé Amidala",
+      "difficulty": "normal",
+      "category": "Prélogie"
+    },
+    {
+      "id": "sw018",
+      "question": "Ce maître Jedi à la longue chevelure est le premier à identifier un fort potentiel chez un enfant esclave sur Tatooine. Convaincu d'avoir trouvé l'Élu de la prophétie, il défie le Conseil pour le former avant de périr sur Naboo. Qui est-ce ?",
+      "answer": "Qui-Gon Jinn",
+      "difficulty": "normal",
+      "category": "Jedi"
+    },
+    {
+      "id": "sw019",
+      "question": "Cette planète glaciale abrite la base secrète Echo de l'Alliance Rebelle. L'Empire y lance un assaut terrestre avec des quadripodes blindés AT-AT, forçant les rebelles à évacuer en urgence. Quelle est cette planète ?",
+      "answer": "Hoth",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw020",
+      "question": "Cette lune forestière est peuplée de petites créatures poilues vivant dans des villages suspendus dans les arbres. C'est là que se déroule la bataille décisive pour désactiver le bouclier protégeant une station spatiale impériale. Quelle est cette lune ?",
+      "answer": "Endor",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw021",
+      "question": "Ce joueur et ancien propriétaire d'un célèbre cargo corellien administre une cité minière flottante dans les nuages d'une géante gazeuse. D'abord contraint de trahir ses amis, il rejoint ensuite la Rébellion. Qui est-ce ?",
+      "answer": "Lando Calrissian",
+      "difficulty": "normal",
+      "category": "Trilogie originale"
+    },
+    {
+      "id": "sw022",
+      "question": "Ce puissant gangster de type Hutt règne sur le crime organisé depuis son palais sur Tatooine. Gardant un contrebandier congelé comme trophée, il est finalement éliminé à bord de sa barge de plaisance au-dessus du Sarlacc. Qui est-ce ?",
+      "answer": "Jabba le Hutt (Jabba the Hutt)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw023",
+      "question": "Cette planète-océan est le site de clonage où une armée entière est produite en secret à partir de l'ADN d'un chasseur de primes mandalorien. Située hors des cartes de la bibliothèque Jedi, sa découverte déclenche un conflit galactique majeur. Quelle est cette planète ?",
+      "answer": "Kamino",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw024",
+      "question": "Ce chasseur de primes mandalorien sert de modèle génétique pour une armée de clones. En échange de sa coopération, il demande un clone non modifié qu'il élève comme son propre fils. Il meurt décapité dans une arène sur Geonosis. Qui est-ce ?",
+      "answer": "Jango Fett",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw025",
+      "question": "Cette planète volcanique aux rivières de lave est le théâtre d'un duel tragique entre un maître Jedi et son ancien apprenti passé du côté obscur. Le vaincu y perd trois membres et est laissé pour mort au bord de la lave. Quelle est cette planète ?",
+      "answer": "Mustafar",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw026",
+      "question": "Cet aristocrate de Serenno et ancien maître Jedi quitte l'Ordre après la mort de son Padawan sur Naboo. Devenu apprenti Sith sous un nouveau nom, il dirige le mouvement séparatiste et manie un sabre laser à poignée courbée. Qui est-ce ?",
+      "answer": "Comte Dooku (Darth Tyranus / Dark Tyranus)",
+      "difficulty": "normal",
+      "category": "Sith"
+    },
+    {
+      "id": "sw027",
+      "question": "Ce cyborg mi-organique mi-mécanique commande les armées droïdes de la Confédération des Systèmes Indépendants. Collectionneur de sabres laser pris à des Jedi vaincus, il tousse constamment à cause de ses poumons comprimés. Qui est-ce ?",
+      "answer": "Général Grievous (General Grievous)",
+      "difficulty": "normal",
+      "category": "Prélogie"
+    },
+    {
+      "id": "sw028",
+      "question": "Cette planète marécageuse et brumeuse, couverte de végétation dense, sert de refuge à un maître Jedi en exil. Un jeune pilote rebelle s'y pose par accident et y reçoit un entraînement décisif dans les voies de la Force. Quelle est cette planète ?",
+      "answer": "Dagobah",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw029",
+      "question": "Cette métropole flottant dans l'atmosphère d'une géante gazeuse est un centre d'extraction de gaz tibanna. Son baron administrateur y accueille des amis en fuite, mais un piège impérial les y attend. Quel est cet endroit ?",
+      "answer": "Cité des Nuages (Cloud City)",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw030",
+      "question": "Cette pilleuse d'épaves vit seule sur une planète désertique jonchée de débris de vaisseaux impériaux. Forte dans la Force sans le savoir, elle découvre un sabre laser dans les ruines d'un château de pirate et entend un appel mystérieux. Qui est-ce ?",
+      "answer": "Rey",
+      "difficulty": "normal",
+      "category": "Postlogie"
+    },
+    {
+      "id": "sw031",
+      "question": "Ce stormtrooper déserte le Premier Ordre après avoir refusé de tirer sur des civils lors de sa première mission. Portant le matricule FN-2187, il fuit avec un pilote de la Résistance et rejoint la lutte contre la tyrannie galactique. Qui est-ce ?",
+      "answer": "Finn",
+      "difficulty": "normal",
+      "category": "Postlogie"
+    },
+    {
+      "id": "sw032",
+      "question": "Ce pilote de X-Wing est considéré comme le meilleur de la Résistance. Capturé par le Premier Ordre sur Jakku, il s'évade avec un stormtrooper déserteur et possède un droïde sphérique orange et blanc qui transporte une carte cruciale. Qui est-ce ?",
+      "answer": "Poe Dameron",
+      "difficulty": "normal",
+      "category": "Postlogie"
+    },
+    {
+      "id": "sw033",
+      "question": "Ce petit droïde sphérique orange et blanc roule à grande vitesse sur le sable de Jakku. Confié une carte essentielle par son maître pilote, il rencontre une pilleuse d'épaves qui le protège des agents du Premier Ordre. Quel est ce droïde ?",
+      "answer": "BB-8",
+      "difficulty": "normal",
+      "category": "Droïdes"
+    },
+    {
+      "id": "sw034",
+      "question": "Fils de deux héros de la Rébellion, ce jeune homme est formé aux arts Jedi par son oncle avant de basculer du côté obscur. Il porte un masque noir, manie un sabre laser instable à lame rouge en croix et idolâtre son grand-père. Qui est-ce ?",
+      "answer": "Kylo Ren (Ben Solo)",
+      "difficulty": "normal",
+      "category": "Postlogie"
+    },
+    {
+      "id": "sw035",
+      "question": "Cette base militaire du Premier Ordre, construite à l'intérieur d'une planète glacée, aspire l'énergie d'une étoile pour alimenter un superlaser capable de détruire un système solaire entier. Elle est détruite par la Résistance. Quelle est cette arme ?",
+      "answer": "Starkiller Base (Base Starkiller)",
+      "difficulty": "normal",
+      "category": "Postlogie"
+    },
+    {
+      "id": "sw036",
+      "question": "Ce leader suprême du Premier Ordre, balafré et puissant dans le côté obscur, manipule son apprenti à distance via un lien mental. Il est finalement trahi et coupé en deux par celui qu'il croyait contrôler, lors d'un coup de théâtre dans la salle du trône. Qui est-ce ?",
+      "answer": "Snoke",
+      "difficulty": "normal",
+      "category": "Postlogie"
+    },
+    {
+      "id": "sw037",
+      "question": "Cette Padawan Togruta est assignée comme apprentie à un Jedi impétueux pendant les Guerres des Clones. Faussement accusée d'un attentat au Temple Jedi, elle quitte l'Ordre et survit à la purge grâce à un capitaine clone qui a retiré sa puce. Qui est-ce ?",
+      "answer": "Ahsoka Tano",
+      "difficulty": "normal",
+      "category": "Séries"
+    },
+    {
+      "id": "sw038",
+      "question": "Ce capitaine clone porte le numéro CT-7567 et commande la 501ème Légion aux côtés d'un Jedi et de sa Padawan. Il retire sa puce inhibitrice avant l'Ordre 66, ce qui lui permet de résister à la programmation et de protéger son amie Jedi. Qui est-ce ?",
+      "answer": "Rex (Capitaine Rex)",
+      "difficulty": "normal",
+      "category": "Séries"
+    },
+    {
+      "id": "sw039",
+      "question": "Ce chasseur de primes mandalorien au casque en beskar refuse de retirer son armure en public, conformément au credo de sa secte. Il accepte un contrat impérial pour capturer un enfant sensible à la Force, mais finit par le protéger et l'adopter. Qui est-ce ?",
+      "answer": "Din Djarin (Le Mandalorien)",
+      "difficulty": "normal",
+      "category": "Séries"
+    },
+    {
+      "id": "sw040",
+      "question": "Cet enfant de la même espèce que le plus ancien maître Jedi est âgé de cinquante ans mais ressemble à un bébé. Traqué par les vestiges de l'Empire pour son sang riche en midi-chloriens, il est adopté par un chasseur de primes mandalorien. Qui est-ce ?",
+      "answer": "Grogu",
+      "difficulty": "normal",
+      "category": "Séries"
+    },
+    {
+      "id": "sw041",
+      "question": "Cet ordre secret, désigné par un numéro, est activé par le Chancelier Suprême lors des derniers jours des Guerres des Clones. Des puces inhibitrices implantées dans le cerveau des soldats clones les forcent à exécuter leurs généraux Jedi sans hésitation. Quel est cet ordre ?",
+      "answer": "Ordre 66",
+      "difficulty": "normal",
+      "category": "Force"
+    },
+    {
+      "id": "sw042",
+      "question": "Ces cristaux vivants, sensibles à la Force, constituent le cœur de tout sabre laser. Ils se trouvent naturellement sur des planètes comme Ilum et prennent leur couleur en résonnant avec la personnalité de leur porteur Jedi. Comment s'appellent-ils ?",
+      "answer": "Cristaux Kyber",
+      "difficulty": "normal",
+      "category": "Force"
+    },
+    {
+      "id": "sw043",
+      "question": "Cette planète entièrement urbanisée sert de capitale à la République Galactique puis à l'Empire. Abritant le Temple Jedi et le Sénat galactique, sa surface est couverte d'une mégalopole s'étendant sur des milliers de niveaux. Quelle est cette planète ?",
+      "answer": "Coruscant",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw044",
+      "question": "Cette planète paisible et verdoyante est le monde natal d'une jeune reine devenue sénatrice. Connue pour ses plaines fleuries, ses lacs et son architecture élégante, elle est le lieu d'un mariage secret entre une sénatrice et un Jedi. Quelle est cette planète ?",
+      "answer": "Naboo",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw045",
+      "question": "Ce vaisseau triangulaire massif est le navire de guerre standard de la flotte impériale. Long de plus d'un kilomètre, il embarque des escadrons de chasseurs TIE et peut bombarder une planète depuis l'orbite. Quel est ce type de vaisseau ?",
+      "answer": "Star Destroyer (Destroyer Stellaire)",
+      "difficulty": "normal",
+      "category": "Vaisseaux"
+    },
+    {
+      "id": "sw046",
+      "question": "Ce chasseur spatial monoplace de l'Alliance Rebelle possède des ailes en forme de X qui se déploient en position d'attaque. Équipé d'un droïde astromécano, c'est avec ce vaisseau qu'un jeune pilote détruit la première station spatiale impériale. Quel est ce vaisseau ?",
+      "answer": "X-Wing",
+      "difficulty": "normal",
+      "category": "Vaisseaux"
+    },
+    {
+      "id": "sw047",
+      "question": "Ce chasseur impérial reconnaissable à ses ailes hexagonales et à son cri strident ne possède ni bouclier ni hyperdrive. Produit en masse et piloté par des pilotes impériaux, il est rapide mais fragile face aux chasseurs rebelles. Quel est ce vaisseau ?",
+      "answer": "TIE Fighter (Chasseur TIE)",
+      "difficulty": "normal",
+      "category": "Vaisseaux"
+    },
+    {
+      "id": "sw048",
+      "question": "Ce quadripode blindé impérial, haut de plus de vingt mètres, est utilisé lors de l'assaut sur une base rebelle installée sur une planète glaciale. Quasi invulnérable aux tirs frontaux, il ne peut être abattu qu'en entravant ses pattes avec des câbles. Quel est ce véhicule ?",
+      "answer": "AT-AT (All Terrain Armored Transport)",
+      "difficulty": "normal",
+      "category": "Vaisseaux"
+    },
+    {
+      "id": "sw049",
+      "question": "Ces petits êtres poilus aux grands yeux vivent dans des cabanes perchées dans les arbres d'une lune forestière. Malgré leur technologie primitive, ils aident la Rébellion à vaincre une garnison impériale en utilisant des pièges et des catapultes. Quelles sont ces créatures ?",
+      "answer": "Ewoks",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "sw050",
+      "question": "Cette créature géante vit dans une fosse du désert de Tatooine et digère ses proies lentement pendant mille ans. Un seigneur du crime Hutt menace d'y jeter ses prisonniers, mais l'exécution tourne en sa défaveur. Quelle est cette créature ?",
+      "answer": "Sarlacc",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "sw051",
+      "question": "Cette fille de scientifique est recrutée par l'Alliance Rebelle pour une mission suicide visant à voler les plans d'une superarme impériale. Avec une équipe de volontaires, elle infiltre une base de données tropicale et transmet les plans avant de périr dans l'explosion. Qui est-ce ?",
+      "answer": "Jyn Erso",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw052",
+      "question": "Cet officier du renseignement rebelle accompagne une jeune femme dans une mission pour voler des plans impériaux sur une planète tropicale. Natif de Fest, il lutte contre l'Empire depuis son enfance et sacrifie sa vie lors de la bataille de Scarif. Qui est-ce ?",
+      "answer": "Cassian Andor",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw053",
+      "question": "Ce droïde de sécurité impérial reprogrammé par un agent rebelle est connu pour son honnêteté brutale et son ton sarcastique. Grand et mince, il calcule constamment les probabilités de réussite des missions et donne son avis sans filtre. Quel est ce droïde ?",
+      "answer": "K-2SO",
+      "difficulty": "normal",
+      "category": "Droïdes"
+    },
+    {
+      "id": "sw054",
+      "question": "Cette bataille spatiale et terrestre se déroule sur une planète tropicale où l'Empire stocke les plans de sa superarme dans une tour de données. Une escouade rebelle s'y infiltre dans une mission désespérée qui coûte la vie à tous ses membres. Quelle est cette bataille ?",
+      "answer": "Bataille de Scarif",
+      "difficulty": "normal",
+      "category": "Batailles"
+    },
+    {
+      "id": "sw055",
+      "question": "Cette bataille oppose les chasseurs rebelles à une station de combat impériale en orbite autour d'une géante gazeuse. Un jeune pilote sensible à la Force tire le tir décisif dans un conduit d'aération, provoquant la destruction de la station. Quelle est cette bataille ?",
+      "answer": "Bataille de Yavin",
+      "difficulty": "normal",
+      "category": "Batailles"
+    },
+    {
+      "id": "sw056",
+      "question": "Cette bataille sur une planète glaciale voit l'Empire lancer une offensive terrestre massive avec des quadripodes blindés contre la base rebelle Echo. Les rebelles tentent de ralentir l'avancée ennemie pour permettre une évacuation en urgence. Quelle est cette bataille ?",
+      "answer": "Bataille de Hoth",
+      "difficulty": "normal",
+      "category": "Batailles"
+    },
+    {
+      "id": "sw057",
+      "question": "Cette bataille décisive se déroule simultanément sur une lune forestière, en orbite et à bord d'une station spatiale en construction. Elle aboutit à la chute de l'Empereur et marque la fin de la Guerre Civile Galactique. Quelle est cette bataille ?",
+      "answer": "Bataille d'Endor",
+      "difficulty": "normal",
+      "category": "Batailles"
+    },
+    {
+      "id": "sw058",
+      "question": "Ce jeune orphelin de la planète Lothal rejoint un équipage rebelle et est formé aux arts Jedi par un survivant de la purge. Capable de communiquer avec les animaux via la Force, il disparaît dans l'hyperespace en entraînant un amiral ennemi avec lui. Qui est-ce ?",
+      "answer": "Ezra Bridger",
+      "difficulty": "normal",
+      "category": "Séries"
+    },
+    {
+      "id": "sw059",
+      "question": "Cette guerrière mandalorienne aux cheveux roux est la sœur d'une ancienne duchesse pacifiste de Mandalore. Ancienne membre du groupe Death Watch, elle cherche à récupérer une arme ancestrale à lame noire pour réunifier son peuple. Qui est-ce ?",
+      "answer": "Bo-Katan Kryze",
+      "difficulty": "normal",
+      "category": "Séries"
+    },
+    {
+      "id": "sw060",
+      "question": "Cette arme ancestrale mandalorienne ressemble à un sabre laser mais émet une lame plate et noire bordée de blanc. Forgée par le premier Mandalorien ayant intégré l'Ordre Jedi, elle symbolise le droit de gouverner Mandalore. Quelle est cette arme ?",
+      "answer": "Darksaber (Sabre Noir)",
+      "difficulty": "normal",
+      "category": "Séries"
+    },
+    {
+      "id": "sw061",
+      "question": "Ce Grand Amiral à la peau bleue et aux yeux rouges est un Chiss originaire des Régions Inconnues. Stratège militaire brillant qui étudie l'art de ses ennemis pour anticiper leurs tactiques, il commande la flotte impériale contre les rebelles. Qui est-ce ?",
+      "answer": "Thrawn (Grand Amiral Thrawn)",
+      "difficulty": "normal",
+      "category": "Séries"
+    },
+    {
+      "id": "sw062",
+      "question": "Cette assassine Dathomirienne aux sabres laser jumeaux est l'apprentie secrète d'un comte Sith pendant les Guerres des Clones. Trahie et abandonnée par son maître, elle retourne auprès des Sœurs de la Nuit avant de devenir chasseuse de primes. Qui est-ce ?",
+      "answer": "Asajj Ventress",
+      "difficulty": "difficile",
+      "category": "Séries"
+    },
+    {
+      "id": "sw063",
+      "question": "Ce Jedi aveugle, gardien d'un ancien temple sur la lune sainte de Jedha, répète le mantra « Je fais un avec la Force et la Force est avec moi ». Il rejoint la mission pour voler les plans de la superarme impériale. Qui est-ce ?",
+      "answer": "Chirrut Îmwe",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw064",
+      "question": "Cet ancien Jedi devenu mercenaire après la chute de l'Ordre forme une apprentie nommée Shin Hati. Il travaille avec Morgan Elsbeth pour retrouver un Grand Amiral exilé dans une autre galaxie. Qui est-ce ?",
+      "answer": "Baylan Skoll",
+      "difficulty": "difficile",
+      "category": "Séries"
+    },
+    {
+      "id": "sw065",
+      "question": "Ce scientifique impérial est le père d'une future héroïne rebelle. Forcé de concevoir le superlaser d'une station de combat, il y intègre secrètement une faille exploitable pour permettre sa destruction. Qui est-ce ?",
+      "answer": "Galen Erso",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw066",
+      "question": "Ce Gungan maladroit de Naboo devient malgré lui sénateur de sa planète et propose la motion d'urgence qui accorde les pleins pouvoirs au Chancelier Suprême. Ce vote marque un tournant fatal pour la République. Qui est-ce ?",
+      "answer": "Jar Jar Binks",
+      "difficulty": "normal",
+      "category": "Prélogie"
+    },
+    {
+      "id": "sw067",
+      "question": "Cette règle Sith stipule qu'il ne peut y avoir que deux adeptes du côté obscur à la fois : un maître et un apprenti. Instaurée il y a un millénaire, elle permet aux Sith de se cacher et de planifier en secret la chute des Jedi. Quelle est cette règle ?",
+      "answer": "Règle des Deux (Rule of Two)",
+      "difficulty": "normal",
+      "category": "Sith"
+    },
+    {
+      "id": "sw068",
+      "question": "Ces micro-organismes vivant dans les cellules de tous les êtres vivants permettent de communiquer avec la Force. Un taux exceptionnellement élevé chez un enfant esclave de Tatooine dépasse même celui du plus ancien maître Jedi. Comment s'appellent-ils ?",
+      "answer": "Midi-chloriens",
+      "difficulty": "normal",
+      "category": "Force"
+    },
+    {
+      "id": "sw069",
+      "question": "Cette planète paisible et pacifiste est le monde natal d'une princesse et sénatrice rebelle. Détruite par le superlaser d'une station de combat impériale en guise de démonstration de force, c'est la première planète à subir ce sort. Quelle est cette planète ?",
+      "answer": "Alderaan (Aldéran)",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw070",
+      "question": "Cette planète boisée est le monde natal des Wookiees. Ses arbres géants wroshyr abritent des villes entières, et elle est le théâtre d'une bataille majeure pendant les Guerres des Clones, juste avant l'exécution de l'Ordre 66. Quelle est cette planète ?",
+      "answer": "Kashyyyk",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw071",
+      "question": "Ce procédé de congélation, normalement utilisé pour le transport de gaz tibanna, est détourné par un Seigneur Sith pour piéger un contrebandier. La victime est ensuite livrée à un seigneur du crime comme trophée. Quel est ce procédé ?",
+      "answer": "Carbonite (congélation carbonite)",
+      "difficulty": "normal",
+      "category": "Trilogie originale"
+    },
+    {
+      "id": "sw072",
+      "question": "Ce Super Star Destroyer de 19 kilomètres de long sert de vaisseau amiral au bras droit de l'Empereur. Fer de lance de la flotte impériale, il est détruit lors d'une bataille spatiale lorsqu'un chasseur rebelle s'écrase sur son pont de commandement. Quel est ce vaisseau ?",
+      "answer": "Executor",
+      "difficulty": "difficile",
+      "category": "Vaisseaux"
+    },
+    {
+      "id": "sw073",
+      "question": "Ce pilote de la Rébellion est le premier à établir un plan d'attaque contre les quadripodes impériaux sur une planète glaciale, en utilisant des câbles pour entraver leurs pattes. Ancien pilote de T-16 sur Tatooine, il mène l'escadron Rogue. Qui est-ce ?",
+      "answer": "Wedge Antilles",
+      "difficulty": "difficile",
+      "category": "Trilogie originale"
+    },
+    {
+      "id": "sw074",
+      "question": "Ce droïde assassin IG reprogrammé par un fermeur d'humidité Ugnaught se sacrifie héroïquement pour protéger un enfant sensible à la Force sur la planète Nevarro. Il s'autodétruit dans une rivière de lave pour éliminer une garnison de stormtroopers. Quel est ce droïde ?",
+      "answer": "IG-11",
+      "difficulty": "difficile",
+      "category": "Droïdes"
+    },
+    {
+      "id": "sw075",
+      "question": "Cet Ugnaught ancien esclave de l'Empire vit en solitaire sur Nevarro et élève des blurrgs. Il reprogramme un droïde assassin en nourrice et prononce la phrase « J'ai parlé » pour clore toute discussion. Qui est-ce ?",
+      "answer": "Kuiil",
+      "difficulty": "difficile",
+      "category": "Séries"
+    },
+    {
+      "id": "sw076",
+      "question": "Cet officier impérial de haut rang, obsédé par la récupération d'un enfant sensible à la Force, possède temporairement une arme mandalorienne ancestrale à lame noire. Il est vaincu par un chasseur de primes en beskar lors du sauvetage de l'enfant. Qui est-ce ?",
+      "answer": "Moff Gideon",
+      "difficulty": "difficile",
+      "category": "Séries"
+    },
+    {
+      "id": "sw077",
+      "question": "Ces soldats en armure blanche constituent l'infanterie principale de l'Empire Galactique. Issus à l'origine d'un programme de clonage, ils sont progressivement remplacés par des recrues volontaires et sont célèbres pour leur manque de précision au tir. Comment les appelle-t-on ?",
+      "answer": "Stormtroopers",
+      "difficulty": "normal",
+      "category": "Trilogie originale"
+    },
+    {
+      "id": "sw078",
+      "question": "Ce phénomène permet aux vaisseaux spatiaux de voyager plus vite que la lumière en traversant une dimension alternative. Pour l'activer, il faut calculer des coordonnées précises afin d'éviter les obstacles comme les étoiles et les trous noirs. Quel est ce mode de voyage ?",
+      "answer": "Hyperespace (Hyperspace)",
+      "difficulty": "normal",
+      "category": "Vaisseaux"
+    },
+    {
+      "id": "sw079",
+      "question": "Cette technique Sith consiste à « faire saigner » un cristal Kyber en le soumettant au côté obscur de la Force, le corrompant jusqu'à ce qu'il émette une lueur écarlate. C'est ainsi que les Sith obtiennent la couleur caractéristique de leurs sabres laser. Quel est le nom de ce processus ?",
+      "answer": "Saignée (Bleeding)",
+      "difficulty": "difficile",
+      "category": "Sith"
+    },
+    {
+      "id": "sw080",
+      "question": "Cette planète désertique jonchée d'épaves de vaisseaux impériaux et rebelles est le lieu où grandit une pilleuse d'épaves sensible à la Force. C'est aussi le site de la dernière grande bataille entre l'Empire et la Nouvelle République. Quelle est cette planète ?",
+      "answer": "Jakku",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw081",
+      "question": "Ce petit droïde conique noir et blanc, appartenant au Premier Ordre, sert d'espion et de contrepoint maléfique à un droïde sphérique orange de la Résistance. Il accompagne un officier du renseignement lors de la traque d'une carte stellaire. Quel est ce droïde ?",
+      "answer": "BB-9E",
+      "difficulty": "difficile",
+      "category": "Droïdes"
+    },
+    {
+      "id": "sw082",
+      "question": "Cette forme de combat Jedi, la septième et la plus controversée, canalise l'énergie du côté obscur de l'adversaire. Un seul maître du Conseil Jedi la maîtrise, ce qui lui confère un style de combat unique et imprévisible. Quelle est cette forme ?",
+      "answer": "Vaapad (Forme VII)",
+      "difficulty": "difficile",
+      "category": "Jedi"
+    },
+    {
+      "id": "sw083",
+      "question": "Ce phénomène de la Force relie deux individus à travers la galaxie, leur permettant de se voir et d'interagir comme s'ils étaient face à face. Ce lien inédit se manifeste entre une apprentie Jedi et le chef du Premier Ordre dans la postlogie. Quel est ce phénomène ?",
+      "answer": "Dyade de Force (Force Dyad)",
+      "difficulty": "difficile",
+      "category": "Force"
+    },
+    {
+      "id": "sw084",
+      "question": "Cet amiral rebelle de l'espèce Mon Calamari commande la flotte de l'Alliance lors de la bataille d'Endor. Il prononce la célèbre réplique « C'est un piège ! » en découvrant que la station spatiale impériale est opérationnelle. Qui est-ce ?",
+      "answer": "Amiral Ackbar",
+      "difficulty": "normal",
+      "category": "Trilogie originale"
+    },
+    {
+      "id": "sw085",
+      "question": "Ce vaisseau de patrouille mandalorien, piloté par un chasseur de primes solitaire, possède une coque en beskar résistante aux tirs de blaster. Détruit lors d'un bombardement impérial sur Nevarro, il est remplacé par un ancien chasseur Naboo modifié. Quel est ce vaisseau ?",
+      "answer": "Razor Crest",
+      "difficulty": "difficile",
+      "category": "Vaisseaux"
+    },
+    {
+      "id": "sw086",
+      "question": "Cette technique Jedi permet à un maître de conserver sa conscience après la mort et d'apparaître sous forme translucide et lumineuse aux vivants. Un maître rebelle l'utilise pour guider son apprenti bien après sa disparition physique. Quel est le nom de cette capacité ?",
+      "answer": "Fantôme de Force (Force Ghost)",
+      "difficulty": "normal",
+      "category": "Force"
+    },
+    {
+      "id": "sw087",
+      "question": "Cette planète aride aux immenses dolines et gouffres est le dernier refuge du Général Grievous à la fin des Guerres des Clones. Un Jedi y poursuit le cyborg et l'élimine à l'aide d'un blaster plutôt que de son sabre laser. Quelle est cette planète ?",
+      "answer": "Utapau",
+      "difficulty": "difficile",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw088",
+      "question": "Cette planète rocailleuse et rouge, couverte de sel blanc en surface, sert de dernier bastion à la Résistance assiégée par le Premier Ordre. Des renards de cristal y vivent dans des tunnels, et un dernier Jedi y fait une apparition spectaculaire en hologramme. Quelle est cette planète ?",
+      "answer": "Crait",
+      "difficulty": "difficile",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw089",
+      "question": "Cette île isolée sur une planète océanique abrite le premier temple Jedi et un arbre contenant les textes sacrés originaux de l'Ordre. Un vieux maître Jedi en exil y vit en ermite, refusant d'entraîner quiconque après un échec traumatisant. Quelle est cette planète ?",
+      "answer": "Ahch-To",
+      "difficulty": "difficile",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw090",
+      "question": "Ce duel au sabre laser se déroule au-dessus d'un puits de réacteur dans une cité flottante. Le vainqueur coupe la main de son adversaire et lui révèle un secret familial bouleversant qui change le cours de toute la saga. Où se déroule ce duel ?",
+      "answer": "Bespin (Cité des Nuages)",
+      "difficulty": "normal",
+      "category": "Batailles"
+    },
+    {
+      "id": "sw091",
+      "question": "Ce commandant clone de la 212ème Compagnie d'Attaque sert fidèlement sous les ordres d'Obi-Wan Kenobi pendant les Guerres des Clones. Lorsque l'Ordre 66 est activé, il ordonne à ses troupes de tirer sur son général Jedi sur Utapau. Qui est-ce ?",
+      "answer": "Commandant Cody",
+      "difficulty": "difficile",
+      "category": "Prélogie"
+    },
+    {
+      "id": "sw092",
+      "question": "Ces gigantesques créatures spatiales ressemblant à des baleines voyagent naturellement à travers l'hyperespace. Un jeune Jedi de Lothal les invoque pour emporter un Destroyer Stellaire ennemi dans les profondeurs de l'espace inconnu. Comment s'appellent-elles ?",
+      "answer": "Purrgils",
+      "difficulty": "difficile",
+      "category": "Créatures"
+    },
+    {
+      "id": "sw093",
+      "question": "Cette lune désertique abritant une cité sainte est une source majeure de cristaux utilisés dans les sabres laser. L'Empire y teste pour la première fois le superlaser de sa station de combat à puissance réduite, dévastant la ville sacrée. Quelle est cette lune ?",
+      "answer": "Jedha",
+      "difficulty": "difficile",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw094",
+      "question": "Cette planète cachée dans les Régions Inconnues, enveloppée de brumes et d'éclairs, abrite un culte fanatique des Sith et une flotte secrète de Destroyers équipés de superlasers. Sa découverte nécessite un artefact de navigation Sith appelé orienteur. Quelle est cette planète ?",
+      "answer": "Exegol",
+      "difficulty": "difficile",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw095",
+      "question": "Cette petite créature verte aux longues oreilles est l'un des rares membres connus de l'espèce du plus ancien maître Jedi. Elle siège au Conseil Jedi à l'époque de l'invasion de Naboo et apparaît dans le premier épisode de la prélogie. Qui est-ce ?",
+      "answer": "Yaddle",
+      "difficulty": "difficile",
+      "category": "Jedi"
+    },
+    {
+      "id": "sw096",
+      "question": "Cette ancienne ami d'enfance d'un célèbre contrebandier sur Corellia devient la lieutenante d'un syndicat criminel appelé Aube Écarlate. Elle contacte secrètement un ancien Sith à la fin du film pour lui rendre des comptes. Qui est-ce ?",
+      "answer": "Qi'ra",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw097",
+      "question": "Ce partisan extrémiste, ancien mentor d'une future héroïne rebelle, dirige une faction radicale de résistants sur Jedha. Blessé et équipé d'un exosquelette pour survivre, il refuse de suivre les méthodes diplomatiques de l'Alliance Rebelle. Qui est-ce ?",
+      "answer": "Saw Gerrera",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw098",
+      "question": "Ce vaisseau de classe Firespray, reconnaissable à sa silhouette verticale en vol, est piloté par un chasseur de primes et son fils clone. Transmis de père en fils, il est utilisé pour traquer des cibles à travers la galaxie pendant des décennies. Quel est ce vaisseau ?",
+      "answer": "Slave I",
+      "difficulty": "difficile",
+      "category": "Vaisseaux"
+    },
+    {
+      "id": "sw099",
+      "question": "Ce reptile carnivore géant au long cou vit dans les arènes de Geonosis. Trois condamnés à mort, dont deux Jedi et une sénatrice, doivent l'affronter avec d'autres bêtes féroces dans un spectacle organisé par les Séparatistes. Quelle est cette créature ?",
+      "answer": "Nexu",
+      "difficulty": "difficile",
+      "category": "Créatures"
+    },
+    {
+      "id": "sw100",
+      "question": "Ce pirate millénaire au château situé sur la planète Takodana possède des lunettes grossissantes emblématiques et est sensible à la Force. Elle garde un sabre laser dans un coffre pendant des décennies avant de le confier à une jeune pilleuse d'épaves. Qui est-ce ?",
+      "answer": "Maz Kanata",
+      "difficulty": "normal",
+      "category": "Postlogie"
+    },
+    {
+      "id": "sw101",
+      "question": "Ce Jedi porte un masque et utilise le pseudonyme de « Caleb Dume » avant de reprendre son vrai nom. Survivant de l'Ordre 66 alors qu'il n'est que Padawan, il forme un apprenti sur Lothal et se sacrifie pour sauver ses compagnons rebelles. Qui est-ce ?",
+      "answer": "Kanan Jarrus",
+      "difficulty": "difficile",
+      "category": "Séries"
+    },
+    {
+      "id": "sw102",
+      "question": "Ce petit droïde en forme de cône tronqué se déplace sur une seule roue et accompagne une ancienne héroïne rebelle devenue générale de la Résistance. Vieux et grincheux, il sert d'assistant personnel et de messager au sein de la base secrète. Quel est ce droïde ?",
+      "answer": "D-O",
+      "difficulty": "difficile",
+      "category": "Droïdes"
+    },
+    {
+      "id": "sw103",
+      "question": "Ce commandant du Premier Ordre, fils d'un officier impérial, dirige la base Starkiller et prononce un discours fanatique avant de déclencher son superlaser. Rival de Kylo Ren pour les faveurs du Leader Suprême, il finit par trahir le Premier Ordre. Qui est-ce ?",
+      "answer": "Général Hux",
+      "difficulty": "difficile",
+      "category": "Postlogie"
+    },
+    {
+      "id": "sw099b",
+      "question": "Ces immenses créatures ressemblant à des vers des sables parcourent les déserts de Tatooine. Considérées comme des demi-dieux par les Tuskens, elles creusent des tunnels sous le sable et peuvent avaler un vaisseau entier. Comment s'appellent-elles ?",
+      "answer": "Krayt Dragon (Dragon Krayt)",
+      "difficulty": "difficile",
+      "category": "Créatures"
+    },
+    {
+      "id": "sw104",
+      "question": "Cette technique de la Force permet de projeter une image parfaite de soi à travers la galaxie, si réaliste que même un sabre laser la traverse sans effet. Un maître Jedi l'utilise comme ultime acte héroïque, mais l'effort lui coûte la vie. Quelle est cette technique ?",
+      "answer": "Projection de Force (Force Projection)",
+      "difficulty": "difficile",
+      "category": "Force"
+    },
+    {
+      "id": "sw105",
+      "question": "Cette prise de Force, signature d'un Seigneur Sith en armure noire, consiste à étrangler un adversaire à distance en serrant les doigts dans le vide. Utilisée pour punir les officiers impériaux incompétents, elle est devenue une des images les plus iconiques de la saga. Quelle est cette technique ?",
+      "answer": "Force Choke (Étranglement de Force)",
+      "difficulty": "normal",
+      "category": "Force"
+    },
+    {
+      "id": "sw106",
+      "question": "Cette bataille massive dans une arène rocheuse marque le début des Guerres des Clones. Des Jedi encerclés y sont secourus par une armée de clones tout juste révélée, tandis qu'un comte Sith s'échappe après avoir affronté un vieux maître Jedi. Quelle est cette bataille ?",
+      "answer": "Bataille de Geonosis",
+      "difficulty": "normal",
+      "category": "Batailles"
+    },
+    {
+      "id": "sw107",
+      "question": "Ce peuple nomade du désert de Tatooine, vêtu de bandages et armé de bâtons gaffi, voyage en file indienne pour masquer son nombre. Considérés comme des pillards, ils attaquent les fermiers d'humidité et les voyageurs isolés. Quel est ce peuple ?",
+      "answer": "Tuskens (Peuple des Sables / Tusken Raiders)",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "sw108",
+      "question": "Cette méchante de l'Empire, ancienne magistrate de Corvus, recherche un Grand Amiral disparu en utilisant d'anciens artefacts. Native de Dathomir et alliée des Sœurs de la Nuit, elle pratique la magie de la Force en dehors des traditions Jedi et Sith. Qui est-ce ?",
+      "answer": "Morgan Elsbeth",
+      "difficulty": "difficile",
+      "category": "Séries"
+    },
+    {
+      "id": "sw109",
+      "question": "Ce jeu de cartes est extrêmement populaire dans les cantinas de la galaxie. Un joueur et contrebandier y remporte un cargo corellien légendaire, tandis qu'un autre y gagne le titre de baron administrateur d'une cité flottante. Quel est ce jeu ?",
+      "answer": "Sabacc",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw110",
+      "question": "Cette planète, berceau des Mandaloriens, est ravagée par une purge impériale connue sous le nom de « la Grande Purge ». Ses habitants sont dispersés à travers la galaxie et rêvent de la reconquérir pour restaurer leur civilisation guerrière. Quelle est cette planète ?",
+      "answer": "Mandalore",
+      "difficulty": "normal",
+      "category": "Planètes"
+    },
+    {
+      "id": "sw111",
+      "question": "Ce métal ultra-résistant, capable de dévier les tirs de blaster et de résister aux coups de sabre laser, est utilisé par les Mandaloriens pour forger leurs armures. Extrêmement rare et précieux, il ne se trouve que sur une seule planète. Quel est ce métal ?",
+      "answer": "Beskar",
+      "difficulty": "normal",
+      "category": "Séries"
+    },
+    {
+      "id": "sw112",
+      "question": "Cette épreuve rituelle Jedi envoie de jeunes Padawans dans les cavernes glacées d'Ilum pour trouver le cristal qui alimentera leur futur sabre laser. Le cristal choisit son porteur à travers la Force, et chaque épreuve est unique et personnelle. Quel est le nom de cette épreuve ?",
+      "answer": "Le Rassemblement (The Gathering)",
+      "difficulty": "difficile",
+      "category": "Jedi"
+    },
+    {
+      "id": "sw113",
+      "question": "Ce leader charismatique de la Rébellion, sénateur de Chandrila, signe un traité de paix avec les restes de l'Empire après la bataille de Jakku. Elle fonde la Nouvelle République et est la mère d'un futur pilote héros de la Résistance. Qui est-ce ?",
+      "answer": "Mon Mothma",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw114",
+      "question": "Ce directeur impérial supervise la construction de la première station de combat spatiale et commande la bataille de Scarif. Ambitieux et cruel, il est finalement éliminé par la propre arme qu'il a contribué à créer. Qui est-ce ?",
+      "answer": "Orson Krennic",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "sw115",
+      "question": "Ce Zabrak frère de Dark Maul est créé par les Sœurs de la Nuit à l'aide de magie ancienne. Devenu une montagne de muscles et de rage, il manie un sabre laser à double lame et traque les Jedi à travers la galaxie aux côtés de son frère ressuscité. Qui est-ce ?",
+      "answer": "Savage Opress",
+      "difficulty": "difficile",
+      "category": "Séries"
+    }
+  ]
+}

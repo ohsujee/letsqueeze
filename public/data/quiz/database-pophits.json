@@ -1,0 +1,742 @@
+{
+  "id": "database-pophits",
+  "title": "Pop & Hits",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "pop001",
+      "question": "Sorti en 1982, cet album a été produit par Quincy Jones et reste le disque le plus vendu de l'histoire avec plus de 66 millions d'exemplaires écoulés dans le monde. Son clip révolutionnaire de 14 minutes a doublé les ventes dès sa diffusion sur MTV. Quel est cet album ?",
+      "answer": "Thriller",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "pop002",
+      "question": "Détentrice du record de 19 singles numéro un au Billboard Hot 100 chez les femmes, cette chanteuse américaine possède une tessiture de cinq octaves incluant le registre sifflé. Ses cinq premiers singles ont tous atteint la première place du classement américain. Qui est cette artiste ?",
+      "answer": "Mariah Carey",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop003",
+      "question": "Certifiée meilleure vendeuse de disques féminines de tous les temps par le Guinness, cette artiste américaine a écoulé plus de 400 millions de disques en carrière. Seuls les Beatles, Elvis et le Roi de la Pop ont fait mieux. Qui est-elle ?",
+      "answer": "Madonna",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop004",
+      "question": "En 1984, cet artiste de Minneapolis devient le premier à occuper simultanément la première place du box-office, du classement albums et du classement singles aux États-Unis, grâce à un film semi-autobiographique et son album éponyme. Qui est cet artiste ?",
+      "answer": "Prince",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop005",
+      "question": "Sorti en novembre 2019, ce single synthwave aux sonorités rétro des années 80 est devenu le titre le plus longtemps classé au Billboard Hot 100, avec 90 semaines au total, et le morceau le plus streamé de l'histoire de Spotify. Quel est ce titre ?",
+      "answer": "Blinding Lights",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop006",
+      "question": "Chanteuse britannique dont le deuxième album, sorti en 2011, s'est vendu à plus de 31 millions d'exemplaires, devenant le disque le plus vendu du XXIe siècle. Il est resté 24 semaines numéro un au Billboard 200, un record depuis 1985. Qui est cette artiste ?",
+      "answer": "Adele",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop007",
+      "question": "Hymne officiel de la Coupe du monde 2010 en Afrique du Sud, ce titre interprété par une chanteuse colombienne a dépassé les 4 milliards de vues sur YouTube et détient le record Guinness du titre de Coupe du monde le plus streamé sur Spotify. Quel est ce titre ?",
+      "answer": "Waka Waka",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop008",
+      "question": "En janvier 2017, ce chanteur britannique roux sort simultanément deux singles de son troisième album. L'un d'eux devient le premier titre à atteindre 3 milliards de streams sur Spotify, en décembre 2021. Qui est cet artiste ?",
+      "answer": "Ed Sheeran",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop009",
+      "question": "Groupe suédois formé en 1972, il a vendu plus de 400 millions de disques. Une comédie musicale basée sur ses chansons, créée en 1999, a été vue par plus de 70 millions de spectateurs dans le monde et a généré 4,5 milliards de dollars de recettes. Quel est ce groupe ?",
+      "answer": "ABBA",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop010",
+      "question": "En 1997, ce chanteur britannique réenregistre l'un de ses classiques des années 70 en hommage à la princesse Diana. Vendu à plus de 33 millions d'exemplaires, il devient le single le plus vendu depuis l'invention des classements musicaux. Qui est cet artiste ?",
+      "answer": "Elton John",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop011",
+      "question": "Sortie en 1975 sur l'album A Night at the Opera, cette composition de près de 6 minutes mêlant opéra et rock est devenue le titre du XXe siècle le plus streamé de tous les temps, dépassant les 2,8 milliards d'écoutes sur Spotify. Quel est ce morceau ?",
+      "answer": "Bohemian Rhapsody",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop012",
+      "question": "En 2020, à seulement 18 ans, cette chanteuse américaine devient la première femme et la plus jeune artiste à remporter les quatre catégories majeures des Grammy Awards lors d'une seule cérémonie. Qui est-elle ?",
+      "answer": "Billie Eilish",
+      "difficulty": "normal",
+      "category": "Grammys"
+    },
+    {
+      "id": "pop013",
+      "question": "Sorti en 2017, ce tube de reggaeton portoricain interprété avec Daddy Yankee est devenu le premier clip à atteindre 4, 5, 6 puis 7 milliards de vues sur YouTube, avant d'être finalement détrôné par une comptine pour enfants. Quel est ce titre ?",
+      "answer": "Despacito",
+      "difficulty": "normal",
+      "category": "Clips"
+    },
+    {
+      "id": "pop014",
+      "question": "Artiste portoricain couronné quatre fois artiste le plus écouté au monde sur Spotify, il est aussi l'homme le plus streamé de l'histoire de la plateforme. Son album de 2022 reste l'album le plus streamé de tous les temps. Qui est-il ?",
+      "answer": "Bad Bunny",
+      "difficulty": "normal",
+      "category": "Records"
+    },
+    {
+      "id": "pop015",
+      "question": "Avec plus de 35 Grammy Awards remportés, cette chanteuse américaine détient le record absolu de récompenses dans l'histoire de la cérémonie, dépassant le chef d'orchestre Georg Solti et ses 31 trophées. Qui est-elle ?",
+      "answer": "Beyoncé",
+      "difficulty": "normal",
+      "category": "Grammys"
+    },
+    {
+      "id": "pop016",
+      "question": "En 2024, cette chanteuse américaine conclut une tournée de 149 dates à travers 51 villes, devenant la première tournée de l'histoire à dépasser les 2 milliards de dollars de recettes. Qui est cette artiste ?",
+      "answer": "Taylor Swift",
+      "difficulty": "normal",
+      "category": "Concerts"
+    },
+    {
+      "id": "pop018",
+      "question": "Sortie en 1996, cette chanson est devenue le single de début le plus vendu de l'histoire et a atteint le numéro un dans 37 pays. C'est aussi le single le plus vendu jamais enregistré par un groupe entièrement féminin. Quel est ce titre ?",
+      "answer": "Wannabe",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop019",
+      "question": "Artiste belge francophone, son album sorti en 2013 s'est vendu à plus de 2,5 millions d'exemplaires et a été sacré album le plus téléchargé et le plus streamé en français au monde. Son clip le plus célèbre dépasse le milliard de vues sur YouTube. Qui est-il ?",
+      "answer": "Stromae",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop020",
+      "question": "Chanteuse franco-malienne née à Aulnay-sous-Bois, elle est devenue l'artiste francophone féminine la plus écoutée au monde sur Spotify. Son deuxième album est l'album en français le plus streamé de l'histoire de la plateforme. Qui est-elle ?",
+      "answer": "Aya Nakamura",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop021",
+      "question": "En décembre 2012, ce clip du rappeur sud-coréen PSY devient le premier de l'histoire de YouTube à franchir le cap du milliard de vues, seulement 159 jours après sa mise en ligne. Quel est le nom de cette chanson ?",
+      "answer": "Gangnam Style",
+      "difficulty": "normal",
+      "category": "Clips"
+    },
+    {
+      "id": "pop022",
+      "question": "Sorti en 1987, le premier album solo de cet ancien membre de Wham! s'est vendu à plus de 25 millions d'exemplaires. Il en a extrait quatre singles numéro un au Billboard, un record pour un artiste masculin britannique à partir d'un seul disque. Qui est cet artiste ?",
+      "answer": "George Michael",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop023",
+      "question": "Écrite en 1945 et popularisée dès 1946, cette chanson française est devenue un hymne romantique après la Seconde Guerre mondiale. Elle a reçu un Grammy Hall of Fame Award en 1998 et reste la signature de la plus grande voix de la chanson française. Quel est ce titre ?",
+      "answer": "La Vie en rose",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop024",
+      "question": "Chanteuse canadienne qui a interprété le thème du film Titanic en 1997, ce titre s'est vendu à plus de 18 millions d'exemplaires et a remporté quatre Grammy Awards, dont ceux du disque et de la chanson de l'année. Qui est cette artiste ?",
+      "answer": "Céline Dion",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop025",
+      "question": "En mars 2000, le groupe *NSYNC sort son deuxième album qui s'écoule à 2,4 millions d'exemplaires lors de sa première semaine, doublant le record établi un an plus tôt par les Backstreet Boys. Quel est le nom de cet album ?",
+      "answer": "No Strings Attached",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "pop026",
+      "question": "Sorti en 1999, le premier album de cette chanteuse américaine alors âgée de 17 ans s'est vendu à plus de 25 millions d'exemplaires, devenant le premier album de début le plus vendu par une artiste féminine. Elle est la plus jeune artiste à recevoir une certification Diamant de la RIAA. Qui est-elle ?",
+      "answer": "Britney Spears",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop027",
+      "question": "Ce titre de Wham! sorti en 1984 a mis 36 ans pour atteindre la première place des charts britanniques, établissant un record pour le délai le plus long entre la sortie d'un single et son accession au numéro un. Quel est ce titre ?",
+      "answer": "Last Christmas",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop028",
+      "question": "En août 2020, ce groupe sud-coréen devient le premier groupe asiatique à débuter directement numéro un au Billboard Hot 100, avec un single entièrement chanté en anglais. Quel est ce groupe ?",
+      "answer": "BTS",
+      "difficulty": "normal",
+      "category": "Records"
+    },
+    {
+      "id": "pop029",
+      "question": "Avec 14 singles numéro un au Billboard Hot 100, cette chanteuse originaire de la Barbade détient le record féminin du plus grand nombre de titres ayant atteint le sommet de ce classement. Elle est aussi fondatrice d'un empire cosmétique devenu milliardaire. Qui est-elle ?",
+      "answer": "Rihanna",
+      "difficulty": "normal",
+      "category": "Records"
+    },
+    {
+      "id": "pop031",
+      "question": "Chanson composée par Jacques Brel en 1959, elle est considérée comme l'une des plus grandes chansons françaises jamais écrites. Reprise plus de 80 fois, elle a été adaptée en anglais sous le titre « If You Go Away » par Rod McKuen. Quel est son titre original ?",
+      "answer": "Ne me quitte pas",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop032",
+      "question": "Unique artiste à avoir vendu un single à plus de 10 millions d'exemplaires à trois reprises, cette chanteuse américaine a fait ses débuts en 2008 avec l'album The Fame. Ses tenues extravagantes et ses clips avant-gardistes ont redéfini la pop du XXIe siècle. Qui est-elle ?",
+      "answer": "Lady Gaga",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop033",
+      "question": "Extrait de l'album Future Nostalgia sorti en 2020, ce titre disco-pop est resté 77 semaines au Billboard Hot 100, établissant le record du titre le plus longtemps classé par une artiste féminine dans l'histoire de ce palmarès. Quel est ce morceau ?",
+      "answer": "Levitating",
+      "difficulty": "difficile",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop034",
+      "question": "Après avoir subi des années de violences conjugales, cette chanteuse américaine effectue un retour triomphal en 1984 avec l'album Private Dancer. Sa reprise de « What's Love Got to Do with It » lui vaut le Grammy du disque de l'année. Qui est-elle ?",
+      "answer": "Tina Turner",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop035",
+      "question": "La bande originale du film The Bodyguard, sortie en 1992, est devenue la bande-son la plus vendue de l'histoire avec plus de 45 millions d'exemplaires. Le single principal est resté 14 semaines numéro un au Billboard Hot 100. Qui en est l'interprète principale ?",
+      "answer": "Whitney Houston",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop036",
+      "question": "Avec plus de 180 millions de disques vendus et plus de 1200 chansons enregistrées en neuf langues sur plus de 70 ans de carrière, ce chanteur français d'origine arménienne est l'un des artistes les plus prolifiques de la chanson francophone. Qui est-il ?",
+      "answer": "Charles Aznavour",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop037",
+      "question": "En 2012, cet artiste belgo-australien remporte le Grammy du disque de l'année avec un duo mélancolique qui s'est vendu à plus de 13 millions d'exemplaires dans le monde, devenant le titre le plus vendu de l'année. Qui est cet artiste ?",
+      "answer": "Gotye",
+      "difficulty": "difficile",
+      "category": "Grammys"
+    },
+    {
+      "id": "pop038",
+      "question": "Lancée en mars 2022, la tournée Music of the Spheres de ce groupe britannique a battu le record d'affluence totale pour une tournée musicale avec plus de 10 millions de billets vendus, dépassant le record précédent d'Ed Sheeran. Quel est ce groupe ?",
+      "answer": "Coldplay",
+      "difficulty": "normal",
+      "category": "Concerts"
+    },
+    {
+      "id": "pop039",
+      "question": "En 1984, lors de la cérémonie des Grammy Awards, un artiste remporte 8 récompenses en une seule soirée, un record qui tiendra 16 ans. C'est aussi la même année qu'il révolutionne le clip vidéo avec un court-métrage de 14 minutes. Qui est cet artiste ?",
+      "answer": "Michael Jackson",
+      "difficulty": "normal",
+      "category": "Grammys"
+    },
+    {
+      "id": "pop040",
+      "question": "Album visuel sorti en 2016 sur HBO, ce disque concept explore l'infidélité, la douleur et la résilience à travers un prisme racial et générationnel. Il a été nommé album de la décennie par l'Associated Press. Quel est cet album ?",
+      "answer": "Lemonade",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "pop041",
+      "question": "En 2009, ce titre devient le single le plus vendu de l'année dans le monde entier. Premier extrait de l'album The Fame, il atteint le numéro un en Australie, au Canada, au Royaume-Uni et aux États-Unis. Quel est ce morceau ?",
+      "answer": "Poker Face",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop042",
+      "question": "Leur album Millennium s'est écoulé à plus d'un million d'exemplaires lors de sa première semaine en 1999. Avec plus de 100 millions de disques vendus, ils restent le boys band le plus vendu de l'histoire. Quel est ce groupe ?",
+      "answer": "Backstreet Boys",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop043",
+      "question": "En 2010, la chorégraphie de cette chanson devient un phénomène viral mondial et son interprète remporte le Grammy de la chanson de l'année. La performance aux MTV VMAs cette même année entre dans la légende grâce à l'interruption de Kanye West. Quel est ce titre ?",
+      "answer": "Single Ladies",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop044",
+      "question": "Groupe pop irlandais formé en 1998, il détient le record du plus grand nombre de singles débutant directement à la première place des charts britanniques, avec sept titres consécutifs entre 1999 et 2003. Quel est ce groupe ?",
+      "answer": "Westlife",
+      "difficulty": "difficile",
+      "category": "Records"
+    },
+    {
+      "id": "pop045",
+      "question": "Extrait de l'album 21 sorti en 2011, ce titre d'adieu sur un piano mélancolique a remporté six Grammy Awards dont ceux du disque, de la chanson et de l'album de l'année, et a dominé les charts dans plus de 30 pays. Quel est ce titre ?",
+      "answer": "Rolling in the Deep",
+      "difficulty": "difficile",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop046",
+      "question": "Surnommée la « Reine de la soul », cette chanteuse américaine est la première femme intronisée au Rock and Roll Hall of Fame en 1987. Sa reprise de « Respect » en 1967 est devenue un hymne féministe. Qui est-elle ?",
+      "answer": "Aretha Franklin",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop047",
+      "question": "En 1985, au stade de Wembley devant 72 000 personnes, ce groupe britannique livre une performance de 20 minutes lors du concert caritatif Live Aid, considérée comme la meilleure prestation live de l'histoire du rock. Quel est ce groupe ?",
+      "answer": "Queen",
+      "difficulty": "normal",
+      "category": "Concerts"
+    },
+    {
+      "id": "pop048",
+      "question": "Chanteuse britannique née à Londres de parents kosovars-albanais, elle a donné son nom à une règle du football anglais après avoir été citée par un arbitre. Son album Future Nostalgia a été nommé aux Grammy Awards dans six catégories. Qui est-elle ?",
+      "answer": "Dua Lipa",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop049",
+      "question": "Duo français formé en 1993, reconnaissable à ses casques robotiques, il a remporté cinq Grammy Awards dont ceux de l'album et du disque de l'année en 2014 pour un titre enregistré avec Pharrell Williams et Nile Rodgers. Quel est ce duo ?",
+      "answer": "Daft Punk",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop050",
+      "question": "En 1992, la reprise d'une chanson de Dolly Parton par cette chanteuse américaine pour la bande originale de The Bodyguard se vend à plus de 25 millions d'exemplaires, devenant le single le plus vendu par une artiste féminine. Quel est ce titre ?",
+      "answer": "I Will Always Love You",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop051",
+      "question": "Sorti en 2013, l'album Racine carrée de cet artiste belge est devenu l'album francophone le plus streamé au monde. Le clip de son titre phare, évoquant l'absence d'un père, a dépassé le milliard de vues sur YouTube. Quel est ce titre ?",
+      "answer": "Papaoutai",
+      "difficulty": "normal",
+      "category": "Clips"
+    },
+    {
+      "id": "pop053",
+      "question": "Titre phare de la bande originale du film Saturday Night Fever en 1977, cette chanson disco interprétée par trois frères australiens est devenue l'une des plus emblématiques de l'ère disco. Quel est ce titre ?",
+      "answer": "Stayin' Alive",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop054",
+      "question": "Ce groupe britannique, formé à Londres en 1962, est souvent considéré comme le plus grand groupe de rock au monde. Mick Jagger et Keith Richards en sont les membres fondateurs toujours actifs après plus de 60 ans de carrière. Quel est ce groupe ?",
+      "answer": "The Rolling Stones",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop055",
+      "question": "En 1985, 45 artistes américains se réunissent pour enregistrer un titre caritatif au profit de la lutte contre la famine en Éthiopie, produit par Quincy Jones et écrit par Lionel Richie et un ancien membre des Beatles. Quel est ce titre ?",
+      "answer": "We Are the World",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop056",
+      "question": "En 1977, cette chanson du groupe ABBA devient un hymne disco planétaire. Jouée lors du mariage de la princesse Victoria de Suède en 2010, elle reste le titre le plus iconique du quatuor suédois et un incontournable des soirées dansantes. Quel est ce titre ?",
+      "answer": "Dancing Queen",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop057",
+      "question": "Première tournée de l'histoire à dépasser le milliard de dollars de recettes, cette méga-tournée de 149 dates a vendu plus de 10 millions de billets à travers 51 villes sur cinq continents entre 2023 et 2024. Quel est le nom de cette tournée ?",
+      "answer": "The Eras Tour",
+      "difficulty": "normal",
+      "category": "Concerts"
+    },
+    {
+      "id": "pop059",
+      "question": "En 1999, ce single de la chanteuse colombienne Shakira, chanté en espagnol et en anglais, lance sa carrière internationale. Il est extrait de l'album Laundry Service, premier album en anglais de l'artiste. Quel est ce titre ?",
+      "answer": "Whenever, Wherever",
+      "difficulty": "difficile",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop061",
+      "question": "Album de 1984 qui a passé 24 semaines consécutives en tête du Billboard 200, il a été certifié 13 fois platine aux États-Unis. Son interprète est devenu le premier artiste à avoir le film, l'album et le single numéro un simultanément. Quel est cet album ?",
+      "answer": "Purple Rain",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "pop063",
+      "question": "Trio composé de trois frères originaires du New Jersey, ce groupe familial a connu un renouveau massif en 2019 après six ans d'absence. Leur titre « Sucker » est devenu leur premier numéro un au Billboard Hot 100. Quel est ce groupe ?",
+      "answer": "Jonas Brothers",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop064",
+      "question": "En 1998, la bande originale de Titanic se vend à plus de 30 millions d'exemplaires dans le monde. Son thème principal, interprété par une chanteuse québécoise, remporte l'Oscar de la meilleure chanson originale. Quel est le titre de cette chanson ?",
+      "answer": "My Heart Will Go On",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop065",
+      "question": "Surnommées les « Fab Five », ces cinq chanteuses britanniques ont vendu plus de 100 millions de disques avec leur girl power des années 90. Leur album Spice, sorti en 1996, reste le plus vendu par un groupe féminin. Quel est ce groupe ?",
+      "answer": "Spice Girls",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop066",
+      "question": "En 1981, cet artiste américain est le seul soliste à avoir remporté les quatre catégories majeures des Grammy Awards lors d'une même cérémonie, un exploit qu'il faudra attendre 39 ans pour voir une femme le réaliser. Qui est cet artiste ?",
+      "answer": "Christopher Cross",
+      "difficulty": "difficile",
+      "category": "Grammys"
+    },
+    {
+      "id": "pop067",
+      "question": "En 2023, le titre « Flowers » de cette chanteuse américaine, ancienne star de Disney Channel, bat le record du single le plus rapidement streamé un milliard de fois sur Spotify. Elle remporte le Grammy du disque de l'année en 2024 pour ce même titre. Qui est-elle ?",
+      "answer": "Miley Cyrus",
+      "difficulty": "normal",
+      "category": "Records"
+    },
+    {
+      "id": "pop069",
+      "question": "Fondé en 1964 à Liverpool par Roger Daltrey, Pete Townshend, John Entwistle et Keith Moon, ce groupe britannique est l'un des pionniers du rock et créateur de l'un des premiers opéras rock, Tommy, en 1969. Quel est ce groupe ?",
+      "answer": "The Who",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop070",
+      "question": "Sorti en 2008, le premier album de cette chanteuse new-yorkaise inclut le tube « Just Dance » et se classe numéro un dans six pays. Il est certifié 8 fois platine aux États-Unis et lance l'ère des hits pop excentriques des années 2010. Quel est cet album ?",
+      "answer": "The Fame",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "pop071",
+      "question": "Avec 22 Grammy Awards, ce groupe de rock irlandais formé en 1976 par Bono et The Edge détient le record du plus grand nombre de récompenses par un groupe dans l'histoire des Grammys. Quel est ce groupe ?",
+      "answer": "U2",
+      "difficulty": "normal",
+      "category": "Grammys"
+    },
+    {
+      "id": "pop072",
+      "question": "En 2015, le titre « Hello » de cette chanteuse britannique bat le record de vues sur YouTube lors de sa première semaine, avec plus de 27 millions de visionnages en 24 heures. Il est extrait de son troisième album portant un nombre comme titre. Quel est ce nombre ?",
+      "answer": "25",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "pop073",
+      "question": "Interprète de « No Woman, No Cry » et de « Redemption Song », ce musicien jamaïcain est considéré comme l'ambassadeur mondial du reggae. Décédé en 1981 à seulement 36 ans, sa musique reste un symbole de paix et de résistance. Qui est-il ?",
+      "answer": "Bob Marley",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop074",
+      "question": "Single le plus vendu de l'histoire au Royaume-Uni lors de ses premières 24 heures de vente, ce titre caritatif de 1997 a écoulé plus de 650 000 copies le jour de sa sortie. Les bénéfices étaient reversés à un fonds mémorial royal. Quel est ce titre ?",
+      "answer": "Candle in the Wind 1997",
+      "difficulty": "difficile",
+      "category": "Records"
+    },
+    {
+      "id": "pop075",
+      "question": "Surnommé le « Boss », ce chanteur et guitariste américain du New Jersey est l'auteur de Born in the U.S.A., album qui a généré sept singles dans le top 10 du Billboard Hot 100 en 1984-1985. Qui est-il ?",
+      "answer": "Bruce Springsteen",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop076",
+      "question": "Clip réalisé par Mark Romanek et sorti en 2009, cette vidéo de 9 minutes aux références à la mode et à l'horreur a remporté sept MTV Video Music Awards. C'est l'un des clips les plus primés de l'histoire. De quel clip s'agit-il ?",
+      "answer": "Bad Romance",
+      "difficulty": "normal",
+      "category": "Clips"
+    },
+    {
+      "id": "pop077",
+      "question": "Chanteuse et actrice portoricaine née dans le Bronx, elle a été la première artiste latino à avoir un album et un film numéro un simultanément aux États-Unis, avec l'album J.Lo et le film The Wedding Planner en 2001. Qui est-elle ?",
+      "answer": "Jennifer Lopez",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop078",
+      "question": "Auteur-compositeur-interprète britannique roux, l'un de ses singles sortis en janvier 2017 est devenu le premier morceau de l'histoire à dépasser 3 milliards de streams sur Spotify. Il est resté le titre le plus écouté de la plateforme pendant quatre ans. Quel est ce titre ?",
+      "answer": "Shape of You",
+      "difficulty": "normal",
+      "category": "Records"
+    },
+    {
+      "id": "pop079",
+      "question": "En 1991, ce groupe de rock irlandais sort un album qui se vendra à plus de 18 millions d'exemplaires dans le monde. Le titre « One », dédié à la réconciliation, en est devenu l'hymne le plus célèbre. Quel est cet album ?",
+      "answer": "Achtung Baby",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "pop081",
+      "question": "Groupe britannique dont l'album Definitely Maybe en 1994 devient l'album le plus rapidement vendu pour un premier album au Royaume-Uni. La rivalité entre ses deux frères fondateurs défraye la chronique musicale des années 90. Quel est ce groupe ?",
+      "answer": "Oasis",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop082",
+      "question": "En 1969, plus de 400 000 personnes se rassemblent dans une ferme de l'État de New York pour trois jours de musique, de paix et d'amour, avec des performances de Jimi Hendrix, Janis Joplin et Santana. Quel est le nom de ce festival légendaire ?",
+      "answer": "Woodstock",
+      "difficulty": "normal",
+      "category": "Concerts"
+    },
+    {
+      "id": "pop083",
+      "question": "Considérée comme la plus grande voix de la chanson française, cette artiste surnommée « la Môme » est décédée en 1963. Son répertoire inclut « Non, je ne regrette rien » et le titre dont le nom évoque une vision optimiste de la vie. Qui est-elle ?",
+      "answer": "Édith Piaf",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop084",
+      "question": "En 1997, ce titre des Verve utilise un sample orchestral d'un morceau des Rolling Stones. Le groupe britannique a dû reverser l'intégralité des droits d'auteur à Jagger et Richards, faisant de ce succès mondial un titre qu'ils n'ont jamais pu monétiser. Quel est ce titre ?",
+      "answer": "Bitter Sweet Symphony",
+      "difficulty": "difficile",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop085",
+      "question": "Label fondé en 1959 à Detroit par Berry Gordy Jr., il a lancé les carrières de Stevie Wonder, Diana Ross, Marvin Gaye et des Jackson 5. Son nom est devenu synonyme de la musique soul et R&B des années 60 et 70. Quel est ce label ?",
+      "answer": "Motown",
+      "difficulty": "normal",
+      "category": "Labels"
+    },
+    {
+      "id": "pop087",
+      "question": "Auteur-compositeur belge considéré comme l'un des plus grands artistes de la chanson francophone, il est connu pour ses textes poétiques et intenses. Sa chanson d'adieu de 1959, suppliant une femme de rester, est reprise dans le monde entier. Qui est-il ?",
+      "answer": "Jacques Brel",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop088",
+      "question": "Fondé en 1958 par Berry Gordy Jr. avant de devenir un label, ce studio d'enregistrement situé au 2648 West Grand Boulevard est surnommé « Hitsville U.S.A. ». Il est aujourd'hui un musée dans une grande ville du Michigan. Dans quelle ville américaine se trouve-t-il ?",
+      "answer": "Detroit",
+      "difficulty": "difficile",
+      "category": "Labels"
+    },
+    {
+      "id": "pop090",
+      "question": "Groupe de new wave britannique formé à Bath en 1985, il est connu pour le titre « Everybody Hurts » et l'album Shiny Happy People. Mené par Curt Smith et Roland Orzabal, il a vendu plus de 30 millions d'albums. Quel est ce groupe ?",
+      "answer": "Tears for Fears",
+      "difficulty": "difficile",
+      "category": "Années 80-90"
+    },
+    {
+      "id": "pop091",
+      "question": "En 1983, ce single de new wave devient l'un des morceaux les plus emblématiques des années 80. Son clip tourné sous forme de bande dessinée animée remporte six MTV Video Music Awards. Son refrain « Take On Me » est reconnaissable entre mille. Quel groupe l'interprète ?",
+      "answer": "a-ha",
+      "difficulty": "normal",
+      "category": "Années 80-90"
+    },
+    {
+      "id": "pop092",
+      "question": "Chanteuse australienne devenue icône pop des années 2000, son titre « Can't Get You Out of My Head » sorti en 2001 s'est vendu à plus de 5 millions d'exemplaires et a atteint le numéro un dans plus de 40 pays. Qui est-elle ?",
+      "answer": "Kylie Minogue",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop093",
+      "question": "Sorti en 1991, cet album du chanteur britannique George Michael contient les titres « Freedom! '90 » et « Praying for Time ». Malgré un immense succès critique, les ventes sont en deçà de son premier album solo. Quel est cet album ?",
+      "answer": "Listen Without Prejudice Vol. 1",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "pop094",
+      "question": "Chanteuse colombienne qui a enflammé la cérémonie de clôture de la Coupe du monde 2010 en Afrique du Sud, elle a vendu plus de 80 millions de disques dans le monde et chante couramment en espagnol, anglais, portugais et français. Qui est-elle ?",
+      "answer": "Shakira",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop095",
+      "question": "Duo pop britannique des années 80 formé par Andrew Ridgeley et un futur chanteur solo légendaire, leur titre de Noël de 1984 est le seul morceau à avoir été numéro un au Royaume-Uni à Noël deux années consécutives. Quel est ce duo ?",
+      "answer": "Wham!",
+      "difficulty": "normal",
+      "category": "Années 80-90"
+    },
+    {
+      "id": "pop097",
+      "question": "En 2000, le groupe Santana égale le record de 8 Grammy Awards en une soirée, grâce à un album collaboratif. Le titre principal, chanté par Rob Thomas du groupe Matchbox Twenty, reste 12 semaines numéro un au Billboard. Quel est le nom de cet album ?",
+      "answer": "Supernatural",
+      "difficulty": "difficile",
+      "category": "Grammys"
+    },
+    {
+      "id": "pop098",
+      "question": "Artiste canadien d'origine éthiopienne, il a vu son titre synthwave de 2019 devenir le morceau le plus streamé de l'histoire de Spotify, détrônant « Shape of You ». Il a aussi passé le plus de semaines dans le top 5 du Hot 100 avec 43 semaines. Qui est-il ?",
+      "answer": "The Weeknd",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop099",
+      "question": "En 2025, un duo inattendu composé d'une icône pop excentrique et d'un chanteur hawaïen au chapeau Fedora classe leur collaboration comme le titre le plus écouté de l'année sur Spotify Wrapped, avec plus de 1,7 milliard de streams. Quel est le nom de ce titre ?",
+      "answer": "Die With a Smile",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop100",
+      "question": "Auteur-compositeur-interprète canadien né Leonard Norman Cohen, il est l'auteur d'une chanson de 1984 reprise plus de 300 fois, devenue un standard universel chanté par Jeff Buckley, Rufus Wainwright et k.d. lang. Quel est le titre de cette chanson ?",
+      "answer": "Hallelujah",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop101",
+      "question": "Label britannique fondé en 1962 par George Martin, il est surtout connu pour avoir produit les albums des Beatles à Abbey Road Studios. Le dernier album du groupe, sorti en 1970, porte d'ailleurs le nom de la rue où se trouve le studio. Quel est ce label ?",
+      "answer": "Parlophone",
+      "difficulty": "difficile",
+      "category": "Labels"
+    },
+    {
+      "id": "pop102",
+      "question": "En 1986, ce titre de la chanteuse américaine Whitney Houston bat le record du plus grand nombre de semaines consécutives en tête du Billboard Hot 100 à l'époque, avec 14 semaines. Il est extrait de son deuxième album studio. Quel est ce titre ?",
+      "answer": "Greatest Love of All",
+      "difficulty": "difficile",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop103",
+      "question": "Trio suédois formé en 2015, leur titre « Don't You Worry Child » a atteint le top 10 dans plus de 20 pays et le clip de leur titre « The Days » est un hommage à Avicii. Cependant, un autre trio suédois bien plus ancien a dominé le paysage musical avec « The Sign » en 1994. Quel est ce groupe des années 90 ?",
+      "answer": "Ace of Base",
+      "difficulty": "difficile",
+      "category": "Années 80-90"
+    },
+    {
+      "id": "pop104",
+      "question": "Chanteuse et pianiste britannique originaire de Londres, elle a remporté cinq Grammy Awards en 2008, dont ceux du disque de l'année et de la meilleure nouvelle artiste. Son titre « Rehab » est devenu son plus grand hit. Décédée en 2011 à 27 ans. Qui est-elle ?",
+      "answer": "Amy Winehouse",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop105",
+      "question": "En 2002, ce titre d'Eminem extrait du film 8 Mile remporte l'Oscar de la meilleure chanson originale. Le rappeur, absent de la cérémonie car il pensait ne pas gagner, interprètera finalement le morceau aux Oscars 17 ans plus tard, en 2020. Quel est ce titre ?",
+      "answer": "Lose Yourself",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop107",
+      "question": "Producteur et DJ suédois né Tim Bergling, il a popularisé l'EDM dans le monde entier avec des tubes comme « Wake Me Up » et « Levels ». Son décès en 2018 à l'âge de 28 ans a provoqué une onde de choc dans l'industrie musicale. Quel était son nom de scène ?",
+      "answer": "Avicii",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop108",
+      "question": "Album phare d'un groupe de rock alternatif californien sorti en 1991, il contient les titres « Under the Bridge » et « Give It Away ». Mêlant funk, rock et rap, il s'est vendu à plus de 13 millions d'exemplaires. Quel est cet album ?",
+      "answer": "Blood Sugar Sex Magik",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "pop109",
+      "question": "Tube dance de 1996, ce titre du groupe français Modjo est devenu un hit international malgré sa sortie quatre ans plus tard en 2000. Utilisant un sample de Chic, il incarne la french touch et la house music des années 2000. Quel est ce titre ?",
+      "answer": "Lady (Hear Me Tonight)",
+      "difficulty": "difficile",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop110",
+      "question": "En 2024, la chanteuse Sabrina Carpenter sort un titre pop aux accents rétro qui devient un tube planétaire de l'été. Le morceau atteint le numéro un dans plus de 20 pays et le clip accumule plus d'un milliard de vues. Le titre fait référence au café. Quel est ce titre ?",
+      "answer": "Espresso",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop113",
+      "question": "Ce titre emblématique des Bee Gees, sorti en 1977, est resté numéro un au Billboard Hot 100 pendant quatre semaines consécutives. Les trois frères Gibb, originaires de l'île de Man et élevés en Australie, ont écrit l'essentiel de la bande originale du film dont il est extrait. Quel est ce film ?",
+      "answer": "Saturday Night Fever",
+      "difficulty": "normal",
+      "category": "Années 80-90"
+    },
+    {
+      "id": "pop114",
+      "question": "Ce producteur américain a co-composé le titre « Get Lucky » avec Daft Punk et interprété un morceau de la bande originale du film Moi, moche et méchant 2 qui a dominé les charts de 23 pays en 2013. Ce titre est devenu un hymne de bonne humeur dans le monde entier. Quel est ce titre ?",
+      "answer": "Happy",
+      "difficulty": "normal",
+      "category": "Tubes"
+    },
+    {
+      "id": "pop115",
+      "question": "En 2014, le duo électronique français Daft Punk remporte cinq Grammy Awards, dont ceux de l'album et du disque de l'année, pour un titre funk enregistré avec Nile Rodgers et Pharrell Williams. Quel est ce titre ?",
+      "answer": "Get Lucky",
+      "difficulty": "normal",
+      "category": "Grammys"
+    },
+    {
+      "id": "pop116",
+      "question": "Chanteur nigérian naturalisé américain, il est surnommé le « roi de l'afrobeats » et a collaboré avec des artistes comme Beyoncé sur l'album The Lion King: The Gift. Son titre « Essence » avec Tems a été qualifié de chanson de l'été 2021. Qui est-il ?",
+      "answer": "Wizkid",
+      "difficulty": "difficile",
+      "category": "Années 2000-2020"
+    },
+    {
+      "id": "pop117",
+      "question": "Sorti en 1971, cet album solo d'un ancien Beatle contient le titre « Imagine », devenu un hymne pacifiste mondial. La chanson a été désignée par le magazine Rolling Stone comme la troisième meilleure chanson de tous les temps. Qui est l'auteur de cette chanson ?",
+      "answer": "John Lennon",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop118",
+      "question": "Groupe de pop rock américain formé à Los Angeles en 1994, il est connu pour les tubes « Sugar », « Moves Like Jagger » et « Payphone ». Le chanteur principal est aussi célèbre pour son rôle de coach dans l'émission The Voice. Quel est ce groupe ?",
+      "answer": "Maroon 5",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "pop119",
+      "question": "Producteur suédois détenant le record du plus grand nombre de numéros un au Billboard Hot 100 en tant que compositeur et producteur, il a façonné les carrières de Britney Spears, Backstreet Boys, Taylor Swift et The Weeknd depuis les années 90. Qui est ce légendaire architecte de la pop ?",
+      "answer": "Max Martin",
+      "difficulty": "difficile",
+      "category": "Labels"
+    }
+  ]
+}

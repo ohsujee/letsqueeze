@@ -1,0 +1,812 @@
+{
+  "id": "database-harrypotter",
+  "title": "Harry Potter",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "hp001",
+      "question": "Elevé dans un placard sous l'escalier au 4 Privet Drive, ce jeune sorcier découvre le monde magique le jour de ses 11 ans grâce à un demi-géant. Portant une cicatrice en forme d'éclair sur le front, il est le seul à avoir survécu au sortilège de la Mort. Qui est-ce ?",
+      "answer": "Harry Potter",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp002",
+      "question": "Née de parents moldus, cette sorcière brillante est décrite comme la meilleure élève de sa promotion à Poudlard. Elle fonde l'Armée de Dumbledore aux côtés de ses deux meilleurs amis et utilise un Retourneur de Temps en troisième année pour suivre tous ses cours. Qui est-ce ?",
+      "answer": "Hermione Granger",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp003",
+      "question": "Sixième enfant d'une famille de sept frères et sœurs aux cheveux roux, ce sorcier a une peur panique des araignées et possède un rat nommé Croûtard. Fidèle meilleur ami du héros de la saga, il est aussi un excellent joueur d'échecs. Qui est-ce ?",
+      "answer": "Ron Weasley",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp004",
+      "question": "Né sous le nom de Tom Elvis Jedusor, cet ancien élève de Serpentard est un descendant direct de Salazar. Il a divisé son âme en sept fragments pour échapper à la mort et son véritable nom, réarrangé en anagramme, révèle son identité de mage noir. Quel est le nom qu'il s'est choisi ?",
+      "answer": "Voldemort",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp005",
+      "question": "Ce directeur de Poudlard à la longue barbe argentée est considéré comme le plus grand sorcier de son époque. Ancien vainqueur de Grindelwald en 1945, il possède un phénix nommé Fumseck et a un faible bien connu pour les bonbons au citron. Qui est-ce ?",
+      "answer": "Albus Dumbledore",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp006",
+      "question": "Maître des potions à Poudlard, cet ancien Mangemort repenti protège secrètement le fils de la femme qu'il a toujours aimée. Son patronus prend la forme d'une biche, identique à celui de Lily Evans, et il prononce le mot « Toujours » face à Dumbledore. Qui est-ce ?",
+      "answer": "Severus Rogue",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp007",
+      "question": "Gardien des clés et des lieux à Poudlard, ce demi-géant vit dans une cabane en bordure de la Forêt interdite. Passionné de créatures dangereuses, il possède un chien à trois têtes nommé Touffu et offre à un jeune sorcier sa première chouette pour ses 11 ans. Qui est-ce ?",
+      "answer": "Rubeus Hagrid",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp008",
+      "question": "Parrain du héros de la saga, ce sorcier est le premier prisonnier connu à s'être évadé d'Azkaban par ses propres moyens. Accusé à tort d'avoir trahi les Potter, il se transforme en un grand chien noir grâce à ses pouvoirs d'Animagus. Qui est-ce ?",
+      "answer": "Sirius Black",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp009",
+      "question": "Atteint de lycanthropie depuis l'enfance, cet ancien professeur de défense contre les forces du Mal est surnommé Lunard par ses amis de Poudlard. Il enseigne à son élève préféré comment produire un Patronus corporel pour se protéger des Détraqueurs. Qui est-ce ?",
+      "answer": "Remus Lupin",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp010",
+      "question": "Rival du héros dès leur première rencontre chez Madame Guipure, cet élève de Serpentard aux cheveux blond platine est le fils d'un riche Mangemort. Il échoue dans sa mission de tuer Dumbledore lors de sa sixième année et possède une baguette en aubépine. Qui est-ce ?",
+      "answer": "Drago Malefoy",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp011",
+      "question": "Timide et maladroit, cet élève de Gryffondor est souvent rabaissé par le professeur de potions et perd constamment son crapaud Trevor. Il prend confiance au fil des années et accomplit un acte héroïque décisif lors de la bataille finale en tranchant la tête du dernier Horcruxe. Qui est-ce ?",
+      "answer": "Neville Londubat",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp012",
+      "question": "Cette Mangemort fanatiquement dévouée au Seigneur des Ténèbres a passé des années à Azkaban pour avoir torturé les parents de Neville Londubat. Cousine de Sirius Black, elle tue ce dernier au Département des Mystères avant d'être elle-même vaincue par Molly Weasley. Qui est-ce ?",
+      "answer": "Bellatrix Lestrange",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp013",
+      "question": "Professeure de métamorphose et directrice de la maison Gryffondor, cette sorcière au chignon sévère est un Animagus enregistré capable de se transformer en chat tigré. Elle devient directrice de Poudlard après la mort de Dumbledore. Qui est-ce ?",
+      "answer": "Minerva McGonagall",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp014",
+      "question": "Envoyée par le ministère de la Magie, cette femme vêtue de rose impose des décrets éducatifs tyranniques à Poudlard lors de la cinquième année. Elle interdit l'enseignement pratique de la défense contre les forces du Mal et utilise une plume qui grave les lignes de punition dans la peau. Qui est-ce ?",
+      "answer": "Dolores Ombrage",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp015",
+      "question": "Cette élève de Serdaigle, surnommée Loufoca, croit aux Nargoles et aux Ronflaks Cornus, et porte des boucles d'oreilles en forme de radis. Excentrique mais loyale, elle voit les Sombrals dès sa première arrivée à Poudlard et se bat aux côtés de l'Armée de Dumbledore. Qui est-ce ?",
+      "answer": "Luna Lovegood",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp016",
+      "question": "Seule fille d'une fratrie de sept enfants roux, cette sorcière est possédée par le journal de Tom Jedusor lors de sa première année à Poudlard. Excellente au sortilège de Chauve-Furie, elle devient poursuiveuse dans l'équipe de Quidditch de Gryffondor. Qui est-ce ?",
+      "answer": "Ginny Weasley",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp017",
+      "question": "Cet ancien Auror à l'œil magique bleu tournoyant est un membre éminent de l'Ordre du Phénix, connu pour sa paranoïa et son cri de ralliement « Vigilance constante ! ». Il est remplacé par un imposteur utilisant du Polynectar pendant toute une année scolaire. Qui est-ce ?",
+      "answer": "Alastor Maugrey (Maugrey Fol Œil)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp018",
+      "question": "Ce quatrième Maraudeur, surnommé Queudver, est un Animagus non déclaré qui se transforme en rat. Gardien du secret des Potter, il trahit ses amis au profit de Voldemort et se cache pendant douze ans sous la forme de l'animal de compagnie d'un camarade de classe. Qui est-ce ?",
+      "answer": "Peter Pettigrow",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp019",
+      "question": "Ce jeune sorcier de Poufsouffle est champion de Poudlard lors du Tournoi des Trois Sorciers en quatrième année. Attrapeur de l'équipe de Quidditch de sa maison, il meurt dans le cimetière de Little Hangleton après avoir touché le trophée-Portoloin. Qui est-ce ?",
+      "answer": "Cédric Diggory",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp020",
+      "question": "Cette métamorphomage aux cheveux changeant de couleur selon son humeur est membre de l'Ordre du Phénix et Auror de profession. Elle épouse un loup-garou et donne naissance à un fils prénommé Teddy avant de périr lors de la bataille de Poudlard. Qui est-ce ?",
+      "answer": "Nymphadora Tonks",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp021",
+      "question": "Ce célèbre fabricant de baguettes du Chemin de Traverse se souvient de chaque baguette qu'il a vendue. Il révèle au héros que sa baguette en bois de houx partage un cœur de plume de phénix avec celle du Seigneur des Ténèbres, ce qui les rend jumelles. Qui est-ce ?",
+      "answer": "Ollivander",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp022",
+      "question": "Ce professeur de défense contre les forces du Mal cache le visage de Voldemort sous son turban lors de la première année à Poudlard. Il tente de voler la Pierre philosophale protégée par le miroir du Riséd, mais échoue face à un jeune sorcier de 11 ans. Qui est-ce ?",
+      "answer": "Quirinus Quirrell",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp023",
+      "question": "Cet auteur vaniteux aux dents étincelantes prétend avoir accompli de nombreux exploits héroïques, mais il efface en réalité la mémoire des véritables héros. Nommé professeur de défense contre les forces du Mal en deuxième année, il finit à Sainte-Mangouste après un sortilège d'Amnésie raté. Qui est-ce ?",
+      "answer": "Gilderoy Lockhart",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp024",
+      "question": "Ce premier elfe de maison libre de la saga est libéré grâce à une ruse impliquant une chaussette cachée dans un livre. Autrefois au service de la famille Malefoy, il vient en aide au héros à plusieurs reprises et meurt en héros en sauvant ses amis du manoir des Malefoy. Qui est-ce ?",
+      "answer": "Dobby",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp025",
+      "question": "Ce phénix au plumage rouge et or est le compagnon fidèle de Dumbledore. Ses larmes possèdent des vertus curatives puissantes et deux de ses plumes de queue servent de cœur à une paire de baguettes jumelles, dont celle du héros. Comment s'appelle-t-il ?",
+      "answer": "Fumseck",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp026",
+      "question": "Ce serpent géant de plus de quinze mètres vit dans la Chambre des Secrets depuis mille ans, obéissant uniquement aux ordres de l'héritier de Serpentard. Son regard tue instantanément, et ses crochets sont assez venimeux pour détruire un Horcruxe. Quelle est cette créature ?",
+      "answer": "Le Basilic",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp027",
+      "question": "Mi-aigle mi-cheval, cette créature fière exige un salut respectueux avant de se laisser approcher. Présenté en cours de Soins aux créatures magiques en troisième année, il blesse Drago Malefoy puis est condamné à mort avant d'être sauvé grâce à un voyage dans le temps. Comment s'appelle-t-il ?",
+      "answer": "Buck (l'hippogriffe)",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp028",
+      "question": "Ces chevaux ailés squelettiques ne peuvent être vus que par les personnes ayant été témoins de la mort et l'ayant acceptée. Considérés comme des présages de malheur, ils tirent les diligences qui mènent les élèves de la gare de Pré-au-Lard à Poudlard. Quelles sont ces créatures ?",
+      "answer": "Les Sombrals",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp029",
+      "question": "Ces créatures spectrales encapuchonnées se nourrissent des souvenirs heureux et plongent leurs victimes dans le désespoir. Gardiens de la prison d'Azkaban, leur arme ultime consiste à aspirer l'âme d'un sorcier par la bouche, un acte considéré comme pire que la mort. Quelles sont ces créatures ?",
+      "answer": "Les Détraqueurs",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp030",
+      "question": "Ce serpent femelle est le fidèle compagnon de Voldemort et le dernier Horcruxe à être détruit. Responsable de la mort d'un professeur de Poudlard dans une cabane hurlante, elle est finalement décapitée par l'épée de Gryffondor lors de la bataille finale. Comment s'appelle cette créature ?",
+      "answer": "Nagini",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp031",
+      "question": "Cet elfe de maison revêche et méprisant au service de la famille Black vit au 12 square Grimmaurd. Longtemps loyal au portrait de sa maîtresse, il finit par aider le héros dans sa quête contre Voldemort après que celui-ci lui confie le médaillon de Serpentard. Comment s'appelle-t-il ?",
+      "answer": "Kreattur",
+      "difficulty": "difficile",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp032",
+      "question": "Créé par Hagrid en croisant un Manticore et un Crabe de feu, cet hybride dangereux ressemble à un scorpion déformé et crache du feu par l'arrière. Son nom évoque le bruit qu'il produit et il terrorise les élèves de Poudlard. Quelle est cette créature ?",
+      "answer": "Le Scroutt à pétard",
+      "difficulty": "difficile",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp033",
+      "question": "Ce sortilège de désarmement, favori du héros de la saga, arrache la baguette de la main de l'adversaire. Appris dès la deuxième année au club de duel, il est utilisé pour vaincre Voldemort lors de l'ultime affrontement. Quelle est la formule magique de ce sort ?",
+      "answer": "Expelliarmus",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp034",
+      "question": "Ce puissant sortilège de protection invoque un gardien argenté prenant une forme animale propre à chaque sorcier. Enseigné par le professeur Lupin, c'est le seul charme efficace contre les Détraqueurs et il est alimenté par un souvenir heureux. Quelle est sa formule ?",
+      "answer": "Expecto Patronum",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp035",
+      "question": "Ce sortilège de lévitation est le premier appris par les élèves de première année à Poudlard. Le professeur Flitwick insiste sur la prononciation correcte de sa formule, et c'est Hermione Granger qui la maîtrise en premier lors du cours d'enchantements. Quelle est cette formule ?",
+      "answer": "Wingardium Leviosa",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp036",
+      "question": "Ce sortilège impardonnable provoque une douleur insoutenable chez la victime et peut mener à la folie si utilisé de manière prolongée. Les Lestrange l'ont infligé aux parents de Neville Londubat au point de les rendre fous. Quelle est la formule de ce sortilège de torture ?",
+      "answer": "Endoloris (Doloris)",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp037",
+      "question": "Ce sortilège impardonnable permet de prendre le contrôle total de la volonté d'une autre personne. Utilisé massivement par les Mangemorts pour recruter des espions, il est le seul des trois sorts interdits auquel un sorcier suffisamment déterminé peut résister. Quel est ce sortilège ?",
+      "answer": "Imperium (Impero)",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp038",
+      "question": "Ce sortilège de mort provoque un éclair de lumière verte et tue instantanément sans laisser de trace sur le corps de la victime. Aucun contre-sort n'existe, et une seule personne dans l'histoire de la magie y a survécu grâce au sacrifice de sa mère. Quelle est cette formule fatale ?",
+      "answer": "Avada Kedavra",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp039",
+      "question": "Ce sortilège d'attraction permet de faire voler vers soi n'importe quel objet en prononçant la formule suivie du nom de l'objet désiré. Le héros l'utilise pour récupérer son Eclair de Feu lors de la première épreuve du Tournoi des Trois Sorciers face à un Magyar à pointes. Quelle est cette formule ?",
+      "answer": "Accio",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp040",
+      "question": "Ce sortilège inventé par le Prince de Sang-Mêlé tranche la chair de la victime comme une épée invisible, provoquant de graves hémorragies. Le héros l'utilise involontairement contre Drago Malefoy dans les toilettes, ignorant ses effets dévastateurs. Quel est ce sort ?",
+      "answer": "Sectumsempra",
+      "difficulty": "difficile",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp041",
+      "question": "Ce sortilège, dont la formule signifie « j'efface », supprime les souvenirs de la personne ciblée. Le professeur Lockhart en est un expert mais se retrouve victime de son propre sort après avoir tenté de l'utiliser avec une baguette défectueuse. Quel est ce sortilège ?",
+      "answer": "Oubliettes (sortilège d'Amnésie)",
+      "difficulty": "difficile",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp042",
+      "question": "Ce sort d'ouverture est le premier que le héros apprend dans ses manuels scolaires. Utilisé par Hermione dès la première année pour ouvrir une porte verrouillée menant à Touffu, il est considéré comme un sortilège de base pour tout élève de Poudlard. Quelle est cette formule ?",
+      "answer": "Alohomora",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp043",
+      "question": "Ce premier Horcruxe de Voldemort est un petit carnet noir dans lequel un souvenir de l'adolescent Tom Jedusor est emprisonné. Glissé dans le chaudron de Ginny Weasley par Lucius Malefoy, il est détruit dans la Chambre des Secrets par un crochet de Basilic. Quel est cet objet ?",
+      "answer": "Le journal intime de Tom Jedusor",
+      "difficulty": "normal",
+      "category": "Horcruxes"
+    },
+    {
+      "id": "hp044",
+      "question": "Cet Horcruxe est un bijou ayant appartenu à Salazar Serpentard, caché dans une grotte protégée par une potion maléfique. Volé par Regulus Black avant d'être récupéré par le trio, il est finalement détruit par Ron Weasley à l'aide de l'épée de Gryffondor. Quel est cet objet ?",
+      "answer": "Le médaillon de Serpentard",
+      "difficulty": "normal",
+      "category": "Horcruxes"
+    },
+    {
+      "id": "hp045",
+      "question": "Cet Horcruxe est une relique familiale sertie de la Pierre de Résurrection, transmise de génération en génération dans la lignée maternelle de Voldemort. Il la transforme en Horcruxe après le meurtre de son père moldu, et sa destruction par Dumbledore lui vaut une malédiction mortelle à la main droite. Quel est cet objet ?",
+      "answer": "La bague de Gaunt (bague de Marvolo Gaunt)",
+      "difficulty": "difficile",
+      "category": "Horcruxes"
+    },
+    {
+      "id": "hp046",
+      "question": "Cet Horcruxe est un petit récipient en or orné d'un blaireau, symbole de la fondatrice de Poufsouffle. Caché dans le coffre des Lestrange à Gringotts, il est volé lors d'un cambriolage spectaculaire à dos de dragon. Quel est cet objet ?",
+      "answer": "La coupe de Poufsouffle (coupe d'Helga Poufsouffle)",
+      "difficulty": "difficile",
+      "category": "Horcruxes"
+    },
+    {
+      "id": "hp047",
+      "question": "Cet Horcruxe est un bijou de tête perdu depuis des siècles, ayant appartenu à l'une des quatre fondatrices de Poudlard, celle qui valorisait l'intelligence et la sagesse. Caché dans la Salle sur Demande, il est accidentellement détruit par un Feudeymon lancé par Vincent Crabbe lors de la bataille finale. Quel est cet objet ?",
+      "answer": "Le diadème de Serdaigle (diadème de Rowena Serdaigle)",
+      "difficulty": "difficile",
+      "category": "Horcruxes"
+    },
+    {
+      "id": "hp048",
+      "question": "Dans la saga, sept fragments d'âme ont été arrachés par Voldemort et cachés dans des objets ou des êtres vivants pour lui assurer l'immortalité. Chacun ne peut être détruit que par des moyens extrêmes comme le venin de Basilic ou le Feudeymon. Comment appelle-t-on ces fragments ?",
+      "answer": "Les Horcruxes",
+      "difficulty": "normal",
+      "category": "Horcruxes"
+    },
+    {
+      "id": "hp049",
+      "question": "Ce miroir magique montre à celui qui le regarde le désir le plus profond de son cœur. Son nom se lit à l'envers et son inscription révèle sa nature : il ne montre pas le visage mais le désir du cœur. Comment s'appelle ce miroir ?",
+      "answer": "Le miroir du Riséd",
+      "difficulty": "normal",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp050",
+      "question": "Créée par les quatre Maraudeurs, cette carte enchantée révèle tous les passages secrets de Poudlard et montre en temps réel la position de chaque personne dans le château. Elle s'active avec la phrase « Je jure solennellement que mes intentions sont mauvaises ». Quel est cet objet ?",
+      "answer": "La carte du Maraudeur",
+      "difficulty": "normal",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp051",
+      "question": "Ce petit sablier doré accroché à une chaîne permet de remonter le temps d'une heure par tour. Confié à Hermione par le professeur McGonagall en troisième année, il sert à sauver un hippogriffe et un prisonnier évadé. Comment s'appelle cet objet ?",
+      "answer": "Le Retourneur de Temps",
+      "difficulty": "normal",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp052",
+      "question": "Ce vieux chapeau rapiécé ayant appartenu à Godric Gryffondor est capable de lire les pensées des élèves. Enchanté par les quatre fondateurs de l'école, il chante une chanson différente chaque année avant de répartir les première année dans les maisons. Quel est cet objet ?",
+      "answer": "Le Choixpeau magique",
+      "difficulty": "normal",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp053",
+      "question": "Ce balai de course haut de gamme, offert anonymement au héros lors de sa troisième année, est le plus rapide du monde sorcier. Confisqué temporairement par McGonagall qui soupçonne un piège, il remplace le Nimbus 2000 brisé par le Saule Cogneur. Comment s'appelle ce balai ?",
+      "answer": "L'Éclair de Feu",
+      "difficulty": "normal",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp054",
+      "question": "Cette arme forgée par le roi des gobelins Ragnuk Ier ne se présente qu'aux vrais membres de la maison de son propriétaire originel. Imprégnée de venin de Basilic, elle est capable de détruire les Horcruxes et apparaît à plusieurs reprises en sortant du Choixpeau magique. Quel est cet objet ?",
+      "answer": "L'épée de Gryffondor (épée de Godric Gryffondor)",
+      "difficulty": "normal",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp055",
+      "question": "Selon le conte des Trois Frères, la Mort aurait offert trois objets légendaires aux frères Peverell. Celui qui les réunit tous deviendrait maître de la Mort : une baguette invincible, une pierre permettant de rappeler les morts et une cape rendant invisible. Comment nomme-t-on ces trois objets ?",
+      "answer": "Les Reliques de la Mort",
+      "difficulty": "normal",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp056",
+      "question": "Cette baguette légendaire, la plus puissante jamais créée, est l'une des trois reliques offertes par la Mort. Passée entre les mains de Grindelwald puis de Dumbledore, son allégeance ultime revient à celui qui a désarmé son dernier maître. Comment s'appelle-t-elle ?",
+      "answer": "La Baguette de Sureau",
+      "difficulty": "normal",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp057",
+      "question": "Cet objet transmis de père en fils dans la famille Potter depuis des générations est l'une des trois reliques légendaires. Contrairement aux capes ordinaires qui perdent leur pouvoir avec le temps, celle-ci conserve une invisibilité parfaite et permanente. Quel est cet objet ?",
+      "answer": "La Cape d'invisibilité",
+      "difficulty": "normal",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp058",
+      "question": "Sertie dans la bague de Marvolo Gaunt, cette petite pierre noire est l'une des trois reliques légendaires. Elle permet de faire revenir les esprits des défunts mais pas de les ramener véritablement à la vie, et le héros l'utilise dans la Forêt interdite avant de se rendre à Voldemort. Quel est cet objet ?",
+      "answer": "La Pierre de Résurrection",
+      "difficulty": "difficile",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp059",
+      "question": "Ce grand calice de bois lance des flammes bleues et choisit les champions de chaque école en crachant leurs noms sur des morceaux de parchemin enflammés. Une limite d'âge magique de 17 ans est censée empêcher les plus jeunes de soumettre leur candidature. Quel est cet objet ?",
+      "answer": "La Coupe de Feu",
+      "difficulty": "normal",
+      "category": "Objets magiques"
+    },
+    {
+      "id": "hp060",
+      "question": "Fondée il y a environ mille ans par quatre illustres sorciers, cette école de magie est située dans un château écossais caché aux yeux des Moldus. On y accède par un train rouge au départ de la voie 9 3/4 de la gare de King's Cross. Quelle est cette école ?",
+      "answer": "Poudlard",
+      "difficulty": "normal",
+      "category": "Poudlard"
+    },
+    {
+      "id": "hp061",
+      "question": "Cette maison de Poudlard, fondée par un sorcier réputé pour son courage et ses talents de duelliste, accueille les élèves les plus braves et les plus hardis. Son emblème est un lion d'or sur fond écarlate et sa salle commune se trouve derrière le portrait de la Grosse Dame. Quelle est cette maison ?",
+      "answer": "Gryffondor",
+      "difficulty": "normal",
+      "category": "Maisons"
+    },
+    {
+      "id": "hp062",
+      "question": "Cette maison de Poudlard, fondée par un sorcier qui parlait aux serpents, valorise l'ambition, la ruse et la détermination. Ses couleurs sont le vert et l'argent, et sa salle commune se situe dans les cachots sous le lac de Poudlard. Quelle est cette maison ?",
+      "answer": "Serpentard",
+      "difficulty": "normal",
+      "category": "Maisons"
+    },
+    {
+      "id": "hp063",
+      "question": "Cette maison de Poudlard, fondée par une sorcière écossaise d'une grande intelligence, valorise la sagesse, la créativité et l'érudition. Son emblème est un aigle de bronze sur fond bleu et les élèves doivent résoudre une énigme pour entrer dans leur salle commune. Quelle est cette maison ?",
+      "answer": "Serdaigle",
+      "difficulty": "normal",
+      "category": "Maisons"
+    },
+    {
+      "id": "hp064",
+      "question": "Cette maison de Poudlard, fondée par une sorcière des vallées qui acceptait tous les élèves sans distinction, valorise la loyauté, la patience et le travail. Son emblème est un blaireau noir sur fond jaune et sa salle commune se trouve près des cuisines. Quelle est cette maison ?",
+      "answer": "Poufsouffle",
+      "difficulty": "normal",
+      "category": "Maisons"
+    },
+    {
+      "id": "hp065",
+      "question": "Cette pièce magique de Poudlard n'apparaît que lorsqu'on en a véritablement besoin, après avoir passé trois fois devant un mur du septième étage en pensant très fort à ce que l'on cherche. L'Armée de Dumbledore s'y entraîne secrètement et un Horcruxe y est caché. Quelle est cette salle ?",
+      "answer": "La Salle sur Demande",
+      "difficulty": "normal",
+      "category": "Poudlard"
+    },
+    {
+      "id": "hp066",
+      "question": "Ce sport sorcier se joue sur des balais à deux équipes de sept joueurs chacune, avec quatre balles différentes. Attraper la petite balle dorée ailée rapporte 150 points et met généralement fin au match. Comment s'appelle ce sport ?",
+      "answer": "Le Quidditch",
+      "difficulty": "normal",
+      "category": "Quidditch"
+    },
+    {
+      "id": "hp067",
+      "question": "Au Quidditch, cette petite balle dorée dotée d'ailes minuscules file à toute vitesse à travers le terrain. Sa capture rapporte 150 points à l'équipe de celui qui l'attrape et met fin à la partie dans la grande majorité des cas. Comment s'appelle cette balle ?",
+      "answer": "Le Vif d'or",
+      "difficulty": "normal",
+      "category": "Quidditch"
+    },
+    {
+      "id": "hp068",
+      "question": "Au Quidditch, ce joueur a pour unique mission de repérer et capturer la petite balle dorée ailée. Le héros de la saga occupe ce poste pour l'équipe de Gryffondor dès sa première année, faisant de lui le plus jeune à ce poste depuis un siècle. Quel est le nom de ce poste ?",
+      "answer": "Attrapeur",
+      "difficulty": "normal",
+      "category": "Quidditch"
+    },
+    {
+      "id": "hp069",
+      "question": "Ces deux balles noires ensorcelées foncent sur les joueurs de Quidditch pour les désarçonner de leur balai. Les batteurs sont chargés de les repousser à l'aide de battes pour protéger leurs coéquipiers. Comment s'appellent ces balles agressives ?",
+      "answer": "Les Cognards",
+      "difficulty": "normal",
+      "category": "Quidditch"
+    },
+    {
+      "id": "hp070",
+      "question": "Cette longue rue commerçante cachée derrière un mur de briques accessible depuis le Chaudron Baveur abrite les boutiques les plus célèbres du monde sorcier. On y trouve la banque des gobelins, la boutique de baguettes Ollivander et la librairie Fleury et Bott. Quel est ce lieu ?",
+      "answer": "Le Chemin de Traverse",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "hp071",
+      "question": "Ce village entièrement sorcier situé près de Poudlard est le seul en Grande-Bretagne où aucun Moldu ne réside. Les élèves de troisième année et plus peuvent s'y rendre lors de sorties autorisées pour visiter Honeydukes, Zonko et les Trois Balais. Quel est ce village ?",
+      "answer": "Pré-au-Lard",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "hp072",
+      "question": "Cette banque souterraine gérée par des gobelins possède des coffres protégés par des dragons dans ses niveaux les plus profonds. On y accède par des wagonnets à grande vitesse, et le héros y découvre son héritage lors de sa première visite dans le monde magique. Quelle est cette banque ?",
+      "answer": "Gringotts",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "hp073",
+      "question": "Cette forteresse sinistre bâtie sur un îlot en pleine mer du Nord sert de prison pour les sorciers condamnés. Gardée pendant des siècles par des créatures spectrales, ses prisonniers les plus célèbres comptent Sirius Black et Bellatrix Lestrange. Quelle est cette prison ?",
+      "answer": "Azkaban",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "hp074",
+      "question": "Protégé par un sortilège de Fidelitas, cet ancien manoir londonien de la famille Black sert de quartier général à l'Ordre du Phénix. Il abrite un elfe de maison grincheux nommé Kreattur et le portrait hurlant de Walburga Black. Les membres de l'Ordre doivent lire un papier du gardien du secret pour le voir apparaître entre deux maisons moldues. Quel est ce lieu ?",
+      "answer": "Le 12, square Grimmaurd",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "hp075",
+      "question": "Cette cabane réputée hantée de Pré-au-Lard est en réalité le refuge mensuel d'un élève souffrant de lycanthropie durant sa scolarité. Accessible par un passage secret sous le Saule Cogneur, c'est là que la vérité sur Peter Pettigrow est révélée en troisième année. Quel est ce lieu ?",
+      "answer": "La Cabane Hurlante",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "hp076",
+      "question": "Cette potion complexe nécessite un mois entier de préparation et permet de prendre temporairement l'apparence de quelqu'un d'autre en ajoutant un élément de cette personne. Préparée illégalement par Hermione en deuxième année dans les toilettes de Mimi Geignarde, elle est souvent utilisée par les espions. Quelle est cette potion ?",
+      "answer": "Le Polynectar",
+      "difficulty": "normal",
+      "category": "Potions"
+    },
+    {
+      "id": "hp077",
+      "question": "Cette potion dorée aussi appelée « chance liquide » offre une journée de réussite totale à celui qui la boit. Extrêmement difficile à préparer, elle est le prix d'un défi lancé par le professeur Slughorn et permet au héros d'obtenir un souvenir crucial sur les Horcruxes. Quelle est cette potion ?",
+      "answer": "Felix Felicis",
+      "difficulty": "normal",
+      "category": "Potions"
+    },
+    {
+      "id": "hp078",
+      "question": "Ce sérum de vérité incolore et inodore est la plus puissante potion existante pour forcer quelqu'un à dire la vérité. Le professeur Rogue menace régulièrement de l'utiliser sur les élèves, et son usage est strictement encadré par le ministère de la Magie. Quelle est cette potion ?",
+      "answer": "Le Veritaserum",
+      "difficulty": "normal",
+      "category": "Potions"
+    },
+    {
+      "id": "hp079",
+      "question": "Cette potion d'amour est la plus puissante au monde et se reconnaît à ses reflets nacrés et à sa vapeur en spirale. Elle ne crée pas un véritable amour mais une obsession violente, et son odeur est différente pour chaque personne, évoquant ce qui l'attire le plus. Quelle est cette potion ?",
+      "answer": "L'Amortentia",
+      "difficulty": "difficile",
+      "category": "Potions"
+    },
+    {
+      "id": "hp080",
+      "question": "Cette potion complexe permet aux loups-garous de conserver leur esprit humain lors de la transformation de la pleine lune, les rendant inoffensifs. Le professeur Rogue la prépare chaque mois pour un de ses collègues enseignant la défense contre les forces du Mal. Le nom de cette potion évoque sa capacité à neutraliser la bête intérieure. Quelle est cette potion ?",
+      "answer": "La potion Tue-Loup",
+      "difficulty": "difficile",
+      "category": "Potions"
+    },
+    {
+      "id": "hp081",
+      "question": "Ce groupe secret de quatre amis de Poudlard a créé une carte enchantée du château et exploré ses passages secrets. Composé de Lunard, Queudver, Patmol et Cornedrue, trois d'entre eux sont devenus des Animagi illégaux pour accompagner leur ami loup-garou. Comment appelle-t-on ce groupe ?",
+      "answer": "Les Maraudeurs",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp082",
+      "question": "Cette organisation secrète fondée par Dumbledore rassemble des sorciers dévoués à la lutte contre Voldemort et ses partisans. Basée au 12 square Grimmaurd lors de sa reformation, elle compte parmi ses membres Sirius Black, les Weasley et le professeur Lupin. Comment s'appelle cette organisation ?",
+      "answer": "L'Ordre du Phénix",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp083",
+      "question": "Cette association étudiante clandestine est créée en cinquième année pour apprendre la défense contre les forces du Mal en dehors du contrôle d'Ombrage. Ses 29 membres s'entraînent dans la Salle sur Demande et communiquent grâce à de faux Gallions enchantés par Hermione. Comment s'appelle ce groupe ?",
+      "answer": "L'Armée de Dumbledore (l'AD)",
+      "difficulty": "normal",
+      "category": "Poudlard"
+    },
+    {
+      "id": "hp084",
+      "question": "Cette capacité extrêmement rare permet de communiquer avec les serpents dans leur propre langage. Transmise au héros involontairement par Voldemort, elle est historiquement associée à l'héritier de Serpentard et provoque la méfiance de nombreux sorciers. Comment appelle-t-on cette faculté ?",
+      "answer": "Le Fourchelang",
+      "difficulty": "normal",
+      "category": "Poudlard"
+    },
+    {
+      "id": "hp085",
+      "question": "Cette compétition prestigieuse, interrompue pendant des siècles en raison de son taux de mortalité élevé, oppose trois grandes écoles de magie européennes. Lors de son édition à Poudlard, quatre champions sont exceptionnellement sélectionnés au lieu de trois. Quel est le nom de cette compétition ?",
+      "answer": "Le Tournoi des Trois Sorciers",
+      "difficulty": "normal",
+      "category": "Poudlard"
+    },
+    {
+      "id": "hp086",
+      "question": "Ce joueur de Quidditch professionnel est l'attrapeur vedette de l'équipe nationale de Bulgarie. Champion de la Coupe du Monde en quatrième année, il est aussi le champion de l'école de Durmstrang lors du Tournoi des Trois Sorciers. Qui est-ce ?",
+      "answer": "Viktor Krum",
+      "difficulty": "normal",
+      "category": "Quidditch"
+    },
+    {
+      "id": "hp087",
+      "question": "Cette demi-Vélane française est la championne de l'Académie de Beauxbâtons lors du Tournoi des Trois Sorciers. Sa petite sœur Gabrielle est retenue au fond du lac lors de la deuxième épreuve, et elle épouse plus tard Bill Weasley. Qui est-ce ?",
+      "answer": "Fleur Delacour",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp088",
+      "question": "Ce fantôme de Gryffondor, dont le vrai nom est Sir Nicholas de Mimsy-Porpington, célèbre chaque année l'anniversaire de sa mort. Son surnom vient du fait que le bourreau n'a pas réussi à le décapiter entièrement, laissant sa tête pendante à un fil de peau. Quel est son surnom ?",
+      "answer": "Nick Quasi-Sans-Tête",
+      "difficulty": "normal",
+      "category": "Poudlard"
+    },
+    {
+      "id": "hp089",
+      "question": "Cette journaliste de la Gazette du Sorcier utilise une Plume à Papotes qui déforme les propos de ses interviewés. Animagus non déclarée prenant la forme d'un scarabée, elle espionne le héros et ses amis avant qu'Hermione ne découvre son secret et la fasse chanter. Qui est-ce ?",
+      "answer": "Rita Skeeter",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp090",
+      "question": "Ce fantôme des toilettes des filles du deuxième étage pleure en permanence depuis sa mort provoquée par le regard du monstre de la Chambre des Secrets. Son vrai nom est Myrtle Elizabeth Warren, et elle aide le héros à localiser l'entrée de la Chambre. Quel est son surnom ?",
+      "answer": "Mimi Geignarde",
+      "difficulty": "normal",
+      "category": "Poudlard"
+    },
+    {
+      "id": "hp091",
+      "question": "Cet alchimiste célèbre et ami de Dumbledore est le créateur de la Pierre philosophale, un objet capable de transformer le plomb en or et de produire l'Elixir de Longue Vie. Âgé de plus de 665 ans, il accepte la destruction de sa pierre à la fin de la première année. Qui est-ce ?",
+      "answer": "Nicolas Flamel",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp092",
+      "question": "Ce sorcier noir vaincu par Dumbledore en 1945 est recherché dans toute l'Europe pour ses crimes. Ancien ami intime de Dumbledore dans sa jeunesse, il vole la Baguette de Sureau au fabricant Gregorovitch et est enfermé dans sa propre prison, Nurmengard. Qui est-ce ?",
+      "answer": "Gellert Grindelwald",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp093",
+      "question": "Cette chouette harfang des neiges est offerte au héros pour ses 11 ans par le gardien des clés de Poudlard. Compagnon fidèle pendant six ans, elle est tuée par un sortilège de Mort pendant la fuite du 4 Privet Drive au début du septième tome. Comment s'appelle-t-elle ?",
+      "answer": "Hedwige",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp094",
+      "question": "Ce chat au pelage orange et à la face aplatie appartient à Hermione Granger, qui l'achète sur le Chemin de Traverse en troisième année. Particulièrement intelligent, il poursuit sans relâche le rat Croûtard et s'avère être à moitié Fléreur. Comment s'appelle-t-il ?",
+      "answer": "Pattenrond",
+      "difficulty": "normal",
+      "category": "Créatures"
+    },
+    {
+      "id": "hp095",
+      "question": "Ce fils aîné de la famille Weasley travaille comme briseur de sorts pour la banque Gringotts en Egypte. Défiguré par le loup-garou Fenrir Greyback lors de la bataille de la tour d'astronomie, il épouse une championne du Tournoi des Trois Sorciers. Qui est-ce ?",
+      "answer": "Bill Weasley",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp096",
+      "question": "Ces frères jumeaux facétieux de la famille Weasley ouvrent un magasin de farces et attrapes au 93, Chemin de Traverse grâce aux gains du Tournoi des Trois Sorciers. Inventeurs de génie, ils créent les Oreilles à rallonge et les Boîtes à Flemme. Qui sont-ils ?",
+      "answer": "Fred et George Weasley",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp097",
+      "question": "Parmi les jumeaux Weasley, l'un d'eux périt lors de la bataille de Poudlard, tué par une explosion. Sa mort est l'une des plus déchirantes de la saga, laissant son frère amputé d'une oreille poursuivre seul la gestion de leur boutique de farces. Comment s'appelle celui qui meurt ?",
+      "answer": "Fred Weasley",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp098",
+      "question": "Ce Mangemort aristocratique aux longs cheveux blonds dissimule sa baguette dans une canne à tête de serpent. Membre du conseil d'administration de Poudlard, il glisse secrètement le journal de Tom Jedusor parmi les affaires de Ginny Weasley. Qui est-ce ?",
+      "answer": "Lucius Malefoy",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp099",
+      "question": "Cette mère de famille nombreuse est connue pour ses talents culinaires et son caractère protecteur envers ses proches. Membre de l'Ordre du Phénix, elle affronte en duel une redoutable Mangemort lors de la bataille de Poudlard en criant « Pas ma fille ! » et la terrasse. Qui est-ce ?",
+      "answer": "Molly Weasley",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp100",
+      "question": "Ce jeune frère de Sirius Black devient Mangemort avant de se retourner contre Voldemort après avoir découvert le secret des Horcruxes. Portant les initiales R.A.B., il vole le médaillon de Serpentard et le remplace par un faux dans la grotte gardée par des Inferi. Qui est-ce ?",
+      "answer": "Regulus Arcturus Black (R.A.B.)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp101",
+      "question": "Ce sort illumine l'extrémité de la baguette d'une lueur vive, servant de lampe torche dans l'obscurité. Appris très tôt dans le cursus de Poudlard, il possède un contre-sort qui éteint la lumière. Quelle est la formule de ce sortilège d'éclairage ?",
+      "answer": "Lumos",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp102",
+      "question": "Cette matière enseignée à Poudlard par le professeur Rogue, puis par Slughorn, consiste à préparer des breuvages magiques en suivant des recettes précises. Le manuel du « Prince de Sang-Mêlé » contient de nombreuses améliorations qui aident le héros à exceller dans cette discipline. Quelle est cette matière ?",
+      "answer": "Les Potions",
+      "difficulty": "normal",
+      "category": "Potions"
+    },
+    {
+      "id": "hp103",
+      "question": "Ce vieux sorcier excentrique, directeur de la maison Serdaigle, est aussi le plus petit professeur de Poudlard. Maître en enchantements, il enseigne le sortilège de lévitation en insistant sur l'importance de la prononciation et du mouvement de baguette. Qui est-ce ?",
+      "answer": "Le professeur Flitwick (Filius Flitwick)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp104",
+      "question": "Ce professeur rond et jovial enseigne la botanique à Poudlard et est directrice de la maison Poufsouffle. Experte en plantes magiques, elle utilise notamment des Mandragores pour préparer un antidote contre la pétrification lors de la deuxième année. Qui est-ce ?",
+      "answer": "Le professeur Chourave (Pomona Chourave)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp105",
+      "question": "Ce train à vapeur rouge écarlate part chaque premier septembre de la voie 9 3/4 de la gare de King's Cross à Londres. On y accède en traversant le mur entre les voies 9 et 10, et une dame au chariot y vend des Chocogrenouilles et des Dragées Surprise. Comment s'appelle ce train ?",
+      "answer": "Le Poudlard Express",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "hp106",
+      "question": "Ce professeur de potions au ventre rebondi et à la moustache de morse a un faible pour les élèves célèbres ou talentueux. Fondateur du « Club de Slug », il possède un souvenir crucial sur Tom Jedusor et les Horcruxes qu'il a honte de révéler. Qui est-ce ?",
+      "answer": "Horace Slughorn",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp107",
+      "question": "Cette forme avancée de magie permet à un sorcier de se transformer à volonté en un animal spécifique. Le registre du ministère ne compte que sept sorciers déclarés au XXe siècle, mais plusieurs l'ont maîtrisée en secret, dont trois Maraudeurs. Comment appelle-t-on un sorcier possédant ce pouvoir ?",
+      "answer": "Un Animagus",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp108",
+      "question": "Ces adeptes de Voldemort portent des robes noires et des masques de crâne argenté. Marqués au bras gauche d'un tatouage de crâne avec un serpent, ils sèment la terreur dans le monde sorcier et se rassemblent quand leur maître active cette marque. Comment les appelle-t-on ?",
+      "answer": "Les Mangemorts",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp109",
+      "question": "Ce minuscule professeur de défense contre les forces du Mal en quatrième année est en réalité un Mangemort évadé d'Azkaban déguisé en Auror grâce au Polynectar. Fils d'un haut responsable du ministère, il orchestre la participation du héros au Tournoi des Trois Sorciers. Qui est ce Mangemort infiltré ?",
+      "answer": "Barty Croupton Jr (Bartemius Croupton Junior)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "hp110",
+      "question": "Ces plantes magiques à l'apparence de bébés criards ont des racines dont le cri peut assommer ou tuer selon leur maturité. Étudiées en botanique à Poudlard, elles sont utilisées pour préparer un philtre qui redonne vie aux victimes de pétrification. Comment s'appellent ces plantes ?",
+      "answer": "Les Mandragores",
+      "difficulty": "normal",
+      "category": "Potions"
+    },
+    {
+      "id": "hp111",
+      "question": "Cet arbre magique planté dans le parc de Poudlard attaque violemment quiconque s'approche trop près de lui. Installé pour protéger l'accès à un tunnel secret menant à Pré-au-Lard, il détruit le balai Nimbus 2000 du héros en troisième année. Quel est cet arbre ?",
+      "answer": "Le Saule Cogneur",
+      "difficulty": "normal",
+      "category": "Poudlard"
+    },
+    {
+      "id": "hp112",
+      "question": "Ce patronus du héros prend la forme d'un cerf, identique à la forme Animagus de son père James Potter. Produit pour la première fois en troisième année au bord d'un lac face à des centaines de Détraqueurs, il est assez puissant pour tous les repousser. Quelle forme animale prend le patronus du fils Potter ?",
+      "answer": "Un cerf",
+      "difficulty": "normal",
+      "category": "Sortilèges"
+    },
+    {
+      "id": "hp113",
+      "question": "Ce directeur de la maison Serpentard est aussi le fantôme le plus sinistre de Poudlard. Connu sous son titre de Baron, il porte des chaînes et des taches de sang argenté sur ses vêtements translucides. Quel est le surnom de ce fantôme ?",
+      "answer": "Le Baron Sanglant",
+      "difficulty": "difficile",
+      "category": "Poudlard"
+    },
+    {
+      "id": "hp114",
+      "question": "Ce département du ministère de la Magie, situé au niveau le plus profond, contient des salles remplies de prophéties, de cerveaux et un mystérieux voile entre les vivants et les morts. Une bataille majeure s'y déroule entre l'Armée de Dumbledore et les Mangemorts en cinquième année. Quel est ce département ?",
+      "answer": "Le Département des Mystères",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "hp115",
+      "question": "Ce troisième fils Weasley, préfet puis Préfet-en-Chef, rompt avec sa famille pour soutenir le ministère de la Magie contre Dumbledore. Ambitieux et respectueux des règles à l'excès, il finit par se réconcilier avec les siens lors de la bataille finale de Poudlard. Qui est-ce ?",
+      "answer": "Percy Weasley",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    }
+  ]
+}

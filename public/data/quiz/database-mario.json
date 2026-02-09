@@ -1,0 +1,798 @@
+{
+  "id": "database-mario",
+  "title": "Mario",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "mar001",
+      "question": "Créé par Shigeru Miyamoto, ce personnage moustachu portant une casquette rouge avec un M blanc est le héros le plus emblématique de Nintendo. Il est accompagné de son frère en vert dans de nombreuses aventures. Qui est son frère ?",
+      "answer": "Luigi",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar002",
+      "question": "Souveraine du Royaume Champignon, cette princesse blonde en robe rose est constamment enlevée par Bowser. Son nom complet inclut le nom de famille Toadstool, utilisé en Occident jusqu'aux années 90. Qui est-elle ?",
+      "answer": "Princesse Peach",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar003",
+      "question": "Roi des Koopas et ennemi juré du plombier moustachu, ce reptile géant crache du feu et enlève régulièrement la princesse du Royaume Champignon. Son nom japonais est Kuppa et il a un fils unique. Qui est-il ?",
+      "answer": "Bowser",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar004",
+      "question": "Apparu pour la première fois dans Super Mario World en 1990, ce dinosaure vert peut avaler des ennemis avec sa longue langue et pondre des œufs. Miyamoto rêvait de le créer dès la conception du premier jeu NES. Qui est-il ?",
+      "answer": "Yoshi",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar005",
+      "question": "Ce petit champignon à tête blanche tachetée de rouge fait partie de la garde personnelle de la Princesse Peach. Son espèce porte le même nom que lui et se décline en plusieurs couleurs. Qui est ce personnage ?",
+      "answer": "Toad",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar006",
+      "question": "Double maléfique du héros moustachu, ce personnage corpulent vêtu de jaune et violet est apparu pour la première fois dans Super Mario Land 2 sur Game Boy en 1992. Il possède sa propre série de jeux WarioWare. Qui est-il ?",
+      "answer": "Wario",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar007",
+      "question": "Grand, mince et vêtu de violet, ce personnage est le rival de Luigi et le partenaire de Wario. Il est apparu pour la première fois dans Mario Tennis sur Nintendo 64 en 2000, et reste absent de la série Super Smash Bros en tant que combattant. Qui est-il ?",
+      "answer": "Waluigi",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar008",
+      "question": "Gardienne de l'univers et mère adoptive des Lumas, cette princesse mystérieuse vit dans l'Observatoire de la Comète. Elle est apparue pour la première fois dans Super Mario Galaxy en 2007. Quel est son nom en version française ?",
+      "answer": "Harmonie (Rosalina)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar009",
+      "question": "Fils unique du roi des Koopas, il est apparu pour la première fois dans Super Mario Sunshine en se faisant passer pour le héros grâce à un foulard magique. Il utilise un pinceau inventé par le Professeur K. Tastroff pour vandaliser une île tropicale. Qui est-il ?",
+      "answer": "Bowser Jr.",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar010",
+      "question": "Princesse du royaume de Sarasaland, elle est apparue pour la première fois dans Super Mario Land sur Game Boy en 1989. Souvent vêtue de jaune et d'orange, elle est devenue une habituée des spin-offs sportifs. Qui est-elle ?",
+      "answer": "Princesse Daisy",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar011",
+      "question": "Ce jeu d'arcade de 1981, conçu par Shigeru Miyamoto pour remplacer les bornes invendues de Radar Scope, met en scène un charpentier surnommé Jumpman qui doit sauver Pauline d'un gorille. Quel est ce jeu fondateur ?",
+      "answer": "Donkey Kong",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar012",
+      "question": "Sorti le 13 septembre 1985 au Japon sur Famicom, ce jeu de plateforme révolutionnaire a été conçu par Miyamoto et Tezuka. Son premier niveau, le Monde 1-1, est devenu l'un des niveaux les plus iconiques de l'histoire du jeu vidéo. Quel est ce jeu ?",
+      "answer": "Super Mario Bros.",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar013",
+      "question": "Sorti en 1988 sur NES, ce troisième opus de la série introduit la carte du monde, la Super Feuille qui donne des oreilles de raton-laveur, et le costume Tanooki qui permet de se transformer en statue. Quel est ce jeu ?",
+      "answer": "Super Mario Bros. 3",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar014",
+      "question": "Jeu de lancement de la Super Nintendo en 1990, ce titre se déroule sur la Terre des Dinosaures et introduit le compagnon vert que le héros peut chevaucher. Il propose aussi le Cape Plume et les blocs de couleur. Quel est ce jeu ?",
+      "answer": "Super Mario World",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar015",
+      "question": "Premier jeu en 3D de la franchise, sorti en 1996 sur Nintendo 64, ce titre propose un château comme hub central avec des tableaux servant de portails vers des niveaux. Le joueur doit collecter un total de 120 étoiles. Quel est ce jeu ?",
+      "answer": "Super Mario 64",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar016",
+      "question": "Sorti en 2002 sur GameCube, ce jeu se déroule sur l'Île Delfino, une île tropicale inspirée de l'Italie. Le héros utilise un jet-pack à eau nommé FLUDD pour nettoyer les graffitis et collecter 120 Soleils. Quel est ce jeu ?",
+      "answer": "Super Mario Sunshine",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar017",
+      "question": "Sorti en 2007 sur Wii, ce jeu propulse le héros moustachu dans l'espace pour sauver la princesse avec l'aide d'Harmonie et des Lumas. Il exploite la gravité de petites planètes sphériques pour un gameplay révolutionnaire. Quel est ce jeu ?",
+      "answer": "Super Mario Galaxy",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar018",
+      "question": "Sorti en 2017 sur Nintendo Switch, ce jeu en monde ouvert introduit Cappy, un Chapiforme qui permet de prendre possession des ennemis grâce à la chapimorphose. Le joueur collecte des Lunes à travers différents pays. Quel est ce jeu ?",
+      "answer": "Super Mario Odyssey",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar019",
+      "question": "Sorti en octobre 2023 sur Nintendo Switch, ce jeu de plateforme en 2D introduit les Fleurs Merveille qui transforment les niveaux. C'est le premier jeu où Kevin Afghani remplace Charles Martinet comme doubleur vocal. Quel est ce jeu ?",
+      "answer": "Super Mario Bros. Wonder",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar020",
+      "question": "Sorti en 1992 sur Super Nintendo, ce jeu de course introduit le mode Bataille avec des ballons et permet à deux joueurs de s'affronter sur des circuits inspirés de l'univers champignon. C'est le premier opus d'une longue série. Quel est ce jeu ?",
+      "answer": "Super Mario Kart",
+      "difficulty": "normal",
+      "category": "Karts"
+    },
+    {
+      "id": "mar021",
+      "question": "Ce power-up rouge et blanc, présent depuis le tout premier jeu en 1985, permet au héros de doubler de taille quand il le touche. C'est l'objet le plus iconique de toute la franchise. Quel est cet objet ?",
+      "answer": "Le Super Champignon",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar022",
+      "question": "Apparue dès le premier opus en 1985, cette fleur orange et blanche transforme le héros en version pyromane capable de lancer des boules de feu rebondissantes sur les ennemis. Quel est ce power-up ?",
+      "answer": "La Fleur de Feu",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar023",
+      "question": "Cet objet en forme d'étoile jaune souriante rend temporairement invincible celui qui le touche. Une musique entraînante accompagne toujours cet état, et le personnage brille en courant à toute vitesse. Quel est cet objet ?",
+      "answer": "La Super Étoile",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar024",
+      "question": "Introduite dans Super Mario Bros. 3, cette feuille à rayures donne au héros des oreilles et une queue de raton-laveur, lui permettant de planer dans les airs après une course d'élan. Quel est ce power-up ?",
+      "answer": "La Super Feuille",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar025",
+      "question": "Introduite dans Super Mario 3D World en 2013, cette clochette dorée à rayures transforme le héros en version féline capable de grimper aux murs et de griffer les ennemis. Quel est ce power-up ?",
+      "answer": "La Super Clochette",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar026",
+      "question": "Dans Super Mario Bros. Wonder, ce fruit rouge à oreilles transforme le héros en pachyderme massif capable de charger les ennemis, casser des blocs latéralement et asperger de l'eau avec sa trompe. Quel est ce power-up ?",
+      "answer": "Le Fruit Éléphant",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar027",
+      "question": "Petit champignon marron avec des sourcils froncés, cet ennemi est la toute première créature rencontrée dans le Monde 1-1 de Super Mario Bros. en 1985. Il suffit de lui sauter dessus pour l'écraser. Quel est cet ennemi ?",
+      "answer": "Le Goomba",
+      "difficulty": "normal",
+      "category": "Ennemis"
+    },
+    {
+      "id": "mar028",
+      "question": "Tortue bipède portant une carapace verte ou rouge, cet ennemi récurrent rentre dans sa coquille quand on lui saute dessus. Sa carapace peut alors être lancée pour éliminer d'autres ennemis. Quel est cet ennemi ?",
+      "answer": "Le Koopa Troopa",
+      "difficulty": "normal",
+      "category": "Ennemis"
+    },
+    {
+      "id": "mar029",
+      "question": "Ce fantôme blanc timide se cache le visage quand on le regarde, mais se rapproche dès qu'on lui tourne le dos. Apparu dans Super Mario Bros. 3, son roi est l'ennemi principal de la série Luigi's Mansion. Quel est cet ennemi ?",
+      "answer": "Le Boo",
+      "difficulty": "normal",
+      "category": "Ennemis"
+    },
+    {
+      "id": "mar030",
+      "question": "Grosse boule noire métallique enchaînée à un piquet, cet ennemi aboie et charge vers le héros dans de nombreux jeux. Miyamoto s'est inspiré d'une mésaventure avec un chien de son voisin pour le créer. Quel est cet ennemi ?",
+      "answer": "Le Chomp (Chain Chomp)",
+      "difficulty": "normal",
+      "category": "Ennemis"
+    },
+    {
+      "id": "mar031",
+      "question": "Plante carnivore rouge et blanche qui surgit des tuyaux verts, cet ennemi se cache si le héros se tient trop près. Certaines variantes crachent des boules de feu. Quel est cet ennemi ?",
+      "answer": "La Plante Piranha",
+      "difficulty": "normal",
+      "category": "Ennemis"
+    },
+    {
+      "id": "mar032",
+      "question": "Koopa volant perché sur un nuage souriant, cet ennemi lance des Hériss épineux sur le héros depuis les hauteurs. Dans Mario Kart, il joue le rôle d'arbitre et repêche les coureurs tombés hors circuit. Quel est cet ennemi ?",
+      "answer": "Lakitu",
+      "difficulty": "normal",
+      "category": "Ennemis"
+    },
+    {
+      "id": "mar033",
+      "question": "Petit personnage masqué en robe rouge, cet ennemi est originaire du jeu Doki Doki Panic avant d'être intégré à l'univers champignon via Super Mario Bros. 2. Son nom français est un jeu de mots sur le masque. Quel est cet ennemi ?",
+      "answer": "Le Maskass (Shy Guy)",
+      "difficulty": "normal",
+      "category": "Ennemis"
+    },
+    {
+      "id": "mar034",
+      "question": "Projectile noir avec des yeux et des bras, tiré par des canons, cet ennemi fonce en ligne droite sur le héros. Sa version géante, le Bill Bourrin, est apparue dans Super Mario World. Quel est cet ennemi ?",
+      "answer": "Le Bill Balle (Bullet Bill)",
+      "difficulty": "normal",
+      "category": "Ennemis"
+    },
+    {
+      "id": "mar035",
+      "question": "Ce monde féerique peuplé de Toads est le royaume de la Princesse Peach. Constitué de collines verdoyantes, de blocs à points d'interrogation et de tuyaux verts, c'est le décor principal de la série. Quel est ce lieu ?",
+      "answer": "Le Royaume Champignon",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar036",
+      "question": "Île tropicale inspirée de l'Italie où se déroule Super Mario Sunshine, ce lieu est célèbre pour sa place centrale et ses plages paradisiaques. Le héros y est accusé à tort d'avoir vandalisé les lieux avec des graffitis de peinture. Quel est ce lieu ?",
+      "answer": "L'Île Delfino",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar037",
+      "question": "Métropole réaliste peuplée d'humains dans Super Mario Odyssey, cette ville est dirigée par Pauline, l'ancienne demoiselle en détresse de Donkey Kong en 1981. Un festival musical s'y déroule. Quel est ce lieu ?",
+      "answer": "New Donk City",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar038",
+      "question": "Vaisseau spatial en forme de tête du héros dans Super Mario Galaxy 2, ce hub est piloté par Lubba, un gros Luma violet. Il remplace l'Observatoire de la Comète du premier opus. Quel est ce lieu ?",
+      "answer": "Le Vaisseau Mario",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar039",
+      "question": "Premier niveau de Super Mario 64, ce champ de bataille est peuplé de Bob-Ombs noirs et roses qui se font la guerre. Le roi des Bob-Ombs attend le héros au sommet de la montagne. Quel est ce niveau en français ?",
+      "answer": "Bataille de Bob-Omb",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar040",
+      "question": "Ce créateur japonais légendaire, né en 1952, a conçu à la fois le plombier moustachu et Link de Zelda. Il a rejoint Nintendo en 1977 comme designer industriel avant de révolutionner le jeu vidéo. Qui est-il ?",
+      "answer": "Shigeru Miyamoto",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar041",
+      "question": "Cet acteur vocal américain d'origine italienne a donné sa voix au plombier moustachu pendant près de 30 ans, de 1996 à 2023. Il doublait aussi Luigi, Wario et Waluigi. En 2023, il a reçu le titre d'Ambassadeur. Qui est-il ?",
+      "answer": "Charles Martinet",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar042",
+      "question": "Ce doubleur vocal a officiellement remplacé Charles Martinet dans le rôle du plombier moustachu à partir de Super Mario Bros. Wonder en 2023. Il double désormais aussi Luigi, Wario et Waluigi. Qui est-il ?",
+      "answer": "Kevin Afghani",
+      "difficulty": "difficile",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar043",
+      "question": "Sorti en avril 2023 et produit par Illumination, ce film d'animation a dépassé 1,3 milliard de dollars au box-office mondial, devenant le film basé sur un jeu vidéo le plus rentable de l'histoire. De quel film s'agit-il ?",
+      "answer": "Super Mario Bros. le film",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar044",
+      "question": "Dans le film d'animation de 2023, cet acteur américain connu pour Les Gardiens de la Galaxie prête sa voix au plombier moustachu en version originale. Son casting a fait polémique auprès des fans. Qui est cet acteur ?",
+      "answer": "Chris Pratt",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar045",
+      "question": "Dans le film de 2023, cet acteur et musicien américain incarne le roi des Koopas en version originale. Il interprète aussi la chanson rock Peaches devenue virale. Qui est cet acteur ?",
+      "answer": "Jack Black",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar046",
+      "question": "Avant de s'appeler Mario, le personnage portait un autre surnom dans le jeu Donkey Kong de 1981. Ce nom, choisi pour sa ressemblance avec les marques Walkman et Pac-Man, décrivait sa principale action. Quel était ce surnom ?",
+      "answer": "Jumpman",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar047",
+      "question": "Le nom définitif du héros moustachu provient d'une personne réelle : le propriétaire de l'entrepôt de Nintendo of America à Seattle, que les employés trouvaient ressemblant au personnage. Quel était le nom complet de cet homme ?",
+      "answer": "Mario Segale",
+      "difficulty": "difficile",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar048",
+      "question": "Chanson emblématique de Super Mario Odyssey interprétée par Pauline lors du festival de New Donk City, ce titre jazz est la première chanson avec paroles de l'histoire de la série. Quel est le nom de cette chanson ?",
+      "answer": "Jump Up, Super Star!",
+      "difficulty": "difficile",
+      "category": "Musique"
+    },
+    {
+      "id": "mar049",
+      "question": "Le thème musical du Monde 1-1 de Super Mario Bros. en 1985 est devenu l'un des morceaux de jeu vidéo les plus reconnaissables au monde. Son compositeur japonais a aussi créé les musiques de la série Zelda, dont le thème d'Hyrule. Quel est le nom de ce compositeur ?",
+      "answer": "Koji Kondo",
+      "difficulty": "difficile",
+      "category": "Musique"
+    },
+    {
+      "id": "mar050",
+      "question": "Dans Mario Kart, cette carapace bleue ailée cible systématiquement le coureur en première position pour le percuter avec une explosion. Cauchemar des joueurs en tête, elle est surnommée la carapace bleue. Quel est son vrai nom ?",
+      "answer": "La Carapace à épines (Spiny Shell)",
+      "difficulty": "normal",
+      "category": "Karts"
+    },
+    {
+      "id": "mar051",
+      "question": "Objet le plus détesté dans Mario Kart, cette peau jaune courbée peut être posée au sol pour faire déraper les coureurs qui roulent dessus. On peut aussi la lancer derrière soi comme bouclier. Quel est cet objet ?",
+      "answer": "La Banane",
+      "difficulty": "normal",
+      "category": "Karts"
+    },
+    {
+      "id": "mar052",
+      "question": "Circuit final emblématique présent dans chaque opus de Mario Kart, cette piste multicolore se déroule dans l'espace et est réputée pour sa difficulté et ses virages sans barrières. Quel est le nom de ce circuit ?",
+      "answer": "Route Arc-en-ciel (Rainbow Road)",
+      "difficulty": "normal",
+      "category": "Karts"
+    },
+    {
+      "id": "mar053",
+      "question": "Développé par Hudson Soft et sorti sur Nintendo 64 en décembre 1998 au Japon, ce jeu de société virtuel propose cinquante mini-jeux où les joueurs s'affrontent sur un plateau. C'est le premier opus d'une longue série festive. Quel est ce jeu ?",
+      "answer": "Mario Party",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar054",
+      "question": "Sorti en 2001 comme jeu de lancement de la GameCube, ce titre met en scène le frère du héros explorant un manoir hanté pour sauver son aîné. Il utilise un aspirateur baptisé Ectoblast pour capturer les fantômes. Quel est ce jeu ?",
+      "answer": "Luigi's Mansion",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar055",
+      "question": "Petit scientifique chauve portant de grosses lunettes et une mèche blanche verticale, cet inventeur de Luigi's Mansion a créé l'Ectoblast pour aspirer les fantômes. Son nom français est un jeu de mots avec catastrophe. Qui est-il ?",
+      "answer": "Le Professeur K. Tastroff",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar056",
+      "question": "Roi des fantômes Boo et ennemi principal de Luigi's Mansion, ce spectre porte une couronne dorée ornée d'un joyau magenta. Il réapparaît comme boss récurrent et comme personnage jouable dans Mario Kart. Qui est-il ?",
+      "answer": "Le Roi Boo",
+      "difficulty": "normal",
+      "category": "Boss"
+    },
+    {
+      "id": "mar057",
+      "question": "Dans Super Mario Odyssey, ce Chapiforme prend la forme de la casquette du héros et lui permet de prendre possession des ennemis grâce à la chapimorphose. Sa sœur Tiara a été enlevée par Bowser. Quel est son nom ?",
+      "answer": "Cappy",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar058",
+      "question": "Dans Super Mario Odyssey, les Chapiformes vivent dans le premier pays visité par le héros, un endroit brumeux avec une petite bourgade appelée Haut-de-Bourg. Quel est le nom français de ce pays ?",
+      "answer": "Le Pays des Chapeaux",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar059",
+      "question": "Petites étoiles en forme de goutte apparues dans Super Mario Galaxy, ces créatures vivent dans l'Observatoire de la Comète avec Harmonie. Certaines se transforment en étoiles de lancement ou en galaxies entières. Comment s'appellent-elles ?",
+      "answer": "Les Lumas",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar060",
+      "question": "Luma âgé et brun servant de majordome à Harmonie dans Super Mario Galaxy, ce guide montre la carte des galaxies au héros et lui enseigne comment naviguer dans l'observatoire. C'est le seul Luma de cette couleur. Qui est-il ?",
+      "answer": "Polari",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar061",
+      "question": "Co-développé par les studios Ubisoft Paris et Milan et sorti en 2017 sur Nintendo Switch, ce jeu de tactique au tour par tour mélange l'univers champignon avec celui de petites créatures blanches hilarantes d'Ubisoft. Quel est ce jeu ?",
+      "answer": "Mario + The Lapins Crétins: Kingdom Battle",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar062",
+      "question": "Dans Super Mario 64, le joueur explore un château servant de hub central où des tableaux font office de portails vers les niveaux. Ce château appartient à la princesse du Royaume Champignon. De combien d'étoiles le jeu dispose-t-il au total ?",
+      "answer": "120 étoiles",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar063",
+      "question": "Dans Super Mario Sunshine, le héros porte sur son dos un appareil à eau robotique baptisé FLUDD, créé par le Professeur K. Tastroff. Cet appareil projette de l'eau pour nettoyer l'île et propulser le héros. Que signifie le sigle FLUDD en anglais ?",
+      "answer": "Flash Liquidizer Ultra Dousing Device",
+      "difficulty": "difficile",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar064",
+      "question": "Dans Super Mario Sunshine, le héros doit collecter des objets en forme de soleil dispersés sur l'Île Delfino pour prouver son innocence. Comme les étoiles de Mario 64, il y en a le même nombre au total. Comment s'appellent ces collectibles ?",
+      "answer": "Les Soleils (Shine Sprites)",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar065",
+      "question": "Jeu de rôle développé par Intelligent Systems sorti en 2000 sur Nintendo 64, ce titre met en scène le héros moustachu en version plate comme du papier, accompagné de partenaires comme Goomélie et Koopek. Quel est ce jeu ?",
+      "answer": "Paper Mario",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar066",
+      "question": "Dans Super Mario Bros. 3, ce costume spécial basé sur le tanuki japonais offre les mêmes capacités que la Super Feuille, mais avec le pouvoir supplémentaire de se transformer en statue invincible pendant quelques secondes. Quel est ce costume ?",
+      "answer": "Le costume Tanooki",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar067",
+      "question": "Dans Super Mario Galaxy, le héros peut se transformer en abeille grâce à un champignon spécial, lui permettant de voler brièvement et de se poser sur des fleurs. Ce champignon a des rayures caractéristiques. Quel est ce power-up ?",
+      "answer": "Le Champignon Abeille",
+      "difficulty": "difficile",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar068",
+      "question": "Dans Super Mario Bros., ce champignon vert identique au Super Champignon mais de couleur différente offre une vie supplémentaire au joueur quand il le touche. Il est devenu le symbole de la vie extra dans le jeu vidéo. Quel est cet objet ?",
+      "answer": "Le Champignon 1-UP",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar069",
+      "question": "Les sept enfants Koopas qui servent de boss de monde dans Super Mario Bros. 3, chacun gardant un pays différent. Parmi eux figurent Iggy, Larry, Lemmy, Morton Jr., Wendy, Roy et Ludwig. Comment les appelle-t-on collectivement ?",
+      "answer": "Les Koopalings",
+      "difficulty": "normal",
+      "category": "Boss"
+    },
+    {
+      "id": "mar070",
+      "question": "Aîné des sept sbires récurrents du roi des reptiles dans Super Mario Bros. 3, ce boss a les cheveux bleus et est souvent le dernier à être affronté. Il porte le même prénom qu'un célèbre compositeur classique allemand de Bonn. Quel est son nom complet ?",
+      "answer": "Ludwig von Koopa",
+      "difficulty": "difficile",
+      "category": "Boss"
+    },
+    {
+      "id": "mar071",
+      "question": "Dans Donkey Kong de 1981, cette femme en détresse attend d'être sauvée au sommet d'un chantier de construction. Réapparue dans Super Mario Odyssey comme maire de New Donk City, elle chante lors du festival. Qui est-elle ?",
+      "answer": "Pauline",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar072",
+      "question": "Personnage jouable féminin dans Super Mario 3D World et New Super Mario Bros. U Deluxe, cette Toad aux tresses roses et à la tête tachetée de rose est la partenaire de Toad. Elle est jouable dans Mario Kart et Mario Party. Qui est-elle ?",
+      "answer": "Toadette",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar073",
+      "question": "Version aventurière du petit champignon à tête blanche, ce personnage courageux mais incapable de sauter porte un sac à dos et une lampe frontale. Apparu dans Super Mario 3D World, il a obtenu son propre jeu de puzzle en 2014. Qui est-il ?",
+      "answer": "Capitaine Toad (Captain Toad)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar074",
+      "question": "Premier jeu de la série de combat crossover de Nintendo sorti en 1999 sur N64, ce titre propose douze personnages jouables issus de différentes franchises, dont huit disponibles dès le début. Le plombier moustachu en fait partie. Quel est ce jeu ?",
+      "answer": "Super Smash Bros.",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar075",
+      "question": "Sorti en 2010 sur Wii, ce jeu fait suite à un titre galactique acclamé et introduit Yoshi comme monture dans l'espace. Lubba, un gros Luma violet, y pilote un vaisseau en forme de tête du héros. Quel est ce jeu ?",
+      "answer": "Super Mario Galaxy 2",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar076",
+      "question": "Dans Super Mario Bros. 3, ce monde géant où tous les ennemis et tuyaux sont surdimensionnés est le quatrième de l'aventure. Les Goombas et Koopas y sont énormes. Quel est le thème de ce monde ?",
+      "answer": "Le Pays des Géants (Giant Land)",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar077",
+      "question": "Sorti en 2021 sur Nintendo Switch, ce jeu regroupe un portage de Super Mario 3D World (Wii U, 2013) et une aventure inédite en monde ouvert au bord d'un lac. Le héros y affronte une version enragée et gigantesque de Bowser. Quel est le nom de cette extension ?",
+      "answer": "Bowser's Fury",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar078",
+      "question": "Dans Bowser's Fury, le héros peut utiliser une Giga Clochette pour se transformer en version féline géante et affronter Bowser enragé à taille égale. Le lieu de cette aventure est un lac peuplé de chats. Quel est le nom de ce lac ?",
+      "answer": "Le Lac Lapcat",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar079",
+      "question": "Dans Super Mario Odyssey, le héros voyage entre les pays à bord d'un vaisseau volant en forme de chapeau haut-de-forme. Ce vaisseau est alimenté par les Lunes de puissance collectées. Quel est le nom de ce vaisseau ?",
+      "answer": "L'Odyssée (The Odyssey)",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar080",
+      "question": "Dans la chronologie officielle de Nintendo, le héros moustachu a exercé de nombreux métiers dont médecin, coureur et sportif. Mais quel est le métier principal pour lequel il est universellement connu ?",
+      "answer": "Plombier",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar082",
+      "question": "Pièce d'or ronde avec un contour noir, cet objet collectible est présent dans presque chaque jeu de la franchise. Récupérer cent de ces objets dans un même niveau offre traditionnellement une vie supplémentaire. Quel est cet objet ?",
+      "answer": "La Pièce (Coin)",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar083",
+      "question": "Dans la série Mario Kart, ce champignon boost augmente la vitesse du kart pendant quelques secondes quand il est utilisé. Sa version triple permet trois accélérations successives. C'est l'objet le plus basique de la course. Quel est-il ?",
+      "answer": "Le Champignon (Mushroom)",
+      "difficulty": "normal",
+      "category": "Karts"
+    },
+    {
+      "id": "mar084",
+      "question": "Dans Mario Kart, cette carapace verte rebondit sur les murs en ligne droite et élimine tout coureur sur son passage, y compris celui qui l'a lancée. Contrairement à sa version rouge, elle ne suit pas de cible. Quel est cet objet ?",
+      "answer": "La Carapace verte",
+      "difficulty": "normal",
+      "category": "Karts"
+    },
+    {
+      "id": "mar085",
+      "question": "Dans Mario Kart, cet objet dévastateur prend la forme d'un éclair et foudroie tous les adversaires en les rétrécissant et en les ralentissant temporairement. Seul le joueur qui l'utilise est épargné. Quel est cet objet ?",
+      "answer": "L'Éclair (Lightning)",
+      "difficulty": "normal",
+      "category": "Karts"
+    },
+    {
+      "id": "mar086",
+      "question": "Gros poisson violet avec des lèvres roses et des lunettes de soleil, ce boss aquatique est affronté dans plusieurs jeux dont Super Mario 64 et Super Mario Galaxy. Il essaie d'avaler le héros tout entier. Qui est-il ?",
+      "answer": "Le Gros Cheep-Cheep (Boss Bass / Big Cheep Cheep)",
+      "difficulty": "difficile",
+      "category": "Boss"
+    },
+    {
+      "id": "mar087",
+      "question": "Boss récurrent constitué d'un énorme mur de pierre avec un visage, il tente d'écraser le héros en tombant de face dans Super Mario 64. Le héros doit lui sauter sur le dos pour le vaincre. Quel est ce boss ?",
+      "answer": "Le Roi Whomp",
+      "difficulty": "difficile",
+      "category": "Boss"
+    },
+    {
+      "id": "mar088",
+      "question": "Version géante et bipède de l'ennemie végétale carnivore classique de la série, ce boss possède des pétales autour de la tête et un corps massif. Apparue dans Super Mario Sunshine, cette créature crache de la boue. Quel est son nom en français ?",
+      "answer": "Flora Piranha (Petey Piranha)",
+      "difficulty": "difficile",
+      "category": "Boss"
+    },
+    {
+      "id": "mar089",
+      "question": "Jeu GameCube sorti en 2004, ce RPG met en scène le héros moustachu en version papier explorant la ville de Port-Lacanaïe pour trouver sept étoiles de cristal derrière des portes magiques. Quel est ce jeu ?",
+      "answer": "Paper Mario : La Porte Millénaire",
+      "difficulty": "difficile",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar090",
+      "question": "Dans Super Mario Bros. Wonder, ces fleurs spéciales déclenchent des transformations délirantes du niveau quand le héros les touche : les tuyaux dansent, les ennemis changent de comportement, le décor se déforme. Comment s'appellent-elles ?",
+      "answer": "Les Fleurs Merveille (Wonder Flowers)",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar091",
+      "question": "Dans Super Mario Galaxy, cette transformation permet au héros de patiner sur l'eau et la lave pendant quelques secondes grâce à un champignon qui le recouvre de glace. Ce pouvoir l'entoure d'un halo bleu glacé. Quel est ce power-up ?",
+      "answer": "Le Champignon de Glace (Ice Flower)",
+      "difficulty": "difficile",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar092",
+      "question": "Dans Super Mario Odyssey, le pays des sables abrite la ville de Tostarena et son désert gelé la nuit. Le héros y chapimorphose un Bullet Bill pour traverser des gouffres. Ce pays rappelle le Mexique avec ses squelettes festifs. Quel est ce pays ?",
+      "answer": "Le Pays des Sables",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar093",
+      "question": "Dans Super Mario Odyssey, ce pays culinaire avec des volcans de soupe et des aliments géants est l'un des plus colorés du jeu. Le héros y chapimorphose un marteau pour cuisiner. Quel est le nom de ce pays gourmand ?",
+      "answer": "Le Pays de la Cuisine",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar094",
+      "question": "Le tout premier jeu Mario Bros., sorti en arcade en 1983, se déroule dans les égouts et introduit le gameplay coopératif avec le frère en vert. Les joueurs éliminent les ennemis en frappant le sol sous eux. Quel est ce jeu ?",
+      "answer": "Mario Bros.",
+      "difficulty": "difficile",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar095",
+      "question": "Sorti sur Game Boy en 1989, ce jeu de plateforme se déroule dans le royaume de Sarasaland divisé en quatre mondes. Le héros pilote un sous-marin et un avion dans certains niveaux pour sauver la princesse. Quel est ce jeu ?",
+      "answer": "Super Mario Land",
+      "difficulty": "difficile",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar096",
+      "question": "Suite de Super Mario Land sortie en 1992 sur Game Boy, ce jeu est célèbre pour être le premier à introduire le rival cupide du héros comme antagoniste principal. Le héros doit récupérer six pièces d'or pour reprendre son château. Quel est ce jeu ?",
+      "answer": "Super Mario Land 2: 6 Golden Coins",
+      "difficulty": "difficile",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar097",
+      "question": "Le film d'animation Super Mario Bros. sorti en 2023 a rapporté plus d'un milliard de dollars au box-office mondial. Ce studio d'animation français, fondé par Chris Meledandri et basé à Paris, est aussi connu pour les franchises Moi, Moche et Méchant et Sing. Quel studio a produit ce film ?",
+      "answer": "Illumination",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar098",
+      "question": "Dans la série Mario Kart, six objets sont présents depuis le tout premier opus en 1992 : la Banane, la Carapace verte, l'Éclair, le Champignon, la Carapace rouge, et un dernier objet qui rend invincible. Quel est ce sixième objet historique ?",
+      "answer": "La Super Étoile (Starman)",
+      "difficulty": "normal",
+      "category": "Karts"
+    },
+    {
+      "id": "mar099",
+      "question": "Dans Super Mario Odyssey, ce pays directement inspiré de l'architecture japonaise féodale abrite le château de l'antagoniste principal de la série. Le héros y affronte des mécha-gongs et des oiseaux géants. Quel est le nom de ce pays ?",
+      "answer": "Le Pays de Bowser",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar100",
+      "question": "Sur les circuits de Mario Kart, ce personnage Lakitu signale le départ avec des feux tricolores, repêche les coureurs tombés dans le vide avec une canne à pêche et indique les mauvais sens. Quel rôle remplit-il dans la course ?",
+      "answer": "Arbitre (juge de course)",
+      "difficulty": "difficile",
+      "category": "Karts"
+    },
+    {
+      "id": "mar101",
+      "question": "Dans Super Mario World, le héros peut trouver des Yoshis de différentes couleurs, chacune offrant un pouvoir spécial en mangeant des carapaces de Koopa. Le Yoshi bleu peut voler quelle que soit la couleur de la carapace avalée. Combien de couleurs de Yoshi existe-t-il dans ce jeu ?",
+      "answer": "4 couleurs (vert, rouge, bleu, jaune)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "mar102",
+      "question": "Inventé en 1996, le premier game over en 3D de la franchise montre le héros tomber au sol en disant une phrase devenue culte. Quand il meurt dans Super Mario 64, il regarde la caméra en disant cette réplique. Quelle est-elle ?",
+      "answer": "Mama mia!",
+      "difficulty": "normal",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar103",
+      "question": "Bloc jaune orné d'un point d'interrogation, cet élément de décor iconique contient des pièces ou des power-ups quand on le frappe par en dessous. Présent depuis 1985, il est devenu un symbole universel du jeu vidéo. Quel est cet objet ?",
+      "answer": "Le Bloc ? (Question Block)",
+      "difficulty": "normal",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar104",
+      "question": "Structure verte verticale présente dans presque chaque jeu de la franchise, cet élément de décor sert à la fois de passage entre les zones, de cachette pour les Plantes Piranha et de moyen de transport souterrain. Quel est cet élément ?",
+      "answer": "Le Tuyau (Warp Pipe)",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar105",
+      "question": "Quand le héros moustachu commence un niveau à sa taille normale sans power-up, on dit qu'il est dans sa forme de base, la plus petite et la plus vulnérable. Un seul coup d'ennemi le tue dans cet état. Comment appelle-t-on cette forme ?",
+      "answer": "Petit Mario (Small Mario)",
+      "difficulty": "difficile",
+      "category": "Power-ups"
+    },
+    {
+      "id": "mar106",
+      "question": "Drapeau au bout d'un mât qui marque la fin de chaque niveau dans les jeux 2D de la série, atteindre son sommet rapporte une vie supplémentaire. Le héros s'y accroche et glisse jusqu'en bas. Quel est cet élément ?",
+      "answer": "Le Drapeau de fin (Goal Pole / Flagpole)",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar107",
+      "question": "Dans Mario Kart 8 Deluxe, un Pass de circuits additionnels a ajouté 48 circuits remasterisés au jeu de base, portant le total à un nombre record. Sorti en vagues entre 2022 et 2023, c'est le plus gros DLC de la série. Combien de circuits le jeu possède-t-il au total avec le DLC ?",
+      "answer": "96 circuits",
+      "difficulty": "difficile",
+      "category": "Karts"
+    },
+    {
+      "id": "mar108",
+      "question": "Bloc transparent avec une note de musique à l'intérieur, cet élément de Super Mario World propulse le héros en l'air quand il saute dessus. Selon sa couleur, il active un effet différent. Quel est cet élément ?",
+      "answer": "Le Bloc Note",
+      "difficulty": "difficile",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar109",
+      "question": "Sorti en 2015 sur Wii U, ce jeu permet aux joueurs de créer et partager leurs propres niveaux en utilisant les éléments de la série. Sa suite sur Nintendo Switch en 2019 a ajouté le style Super Mario 3D World. Quel est ce jeu créatif ?",
+      "answer": "Super Mario Maker",
+      "difficulty": "normal",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar111",
+      "question": "Extraterrestre maléfique qui a hypnotisé les habitants de Sarasaland dans Super Mario Land sur Game Boy, ce personnage est le tout premier antagoniste principal de la série à ne pas être Bowser. Qui est-il ?",
+      "answer": "Tatanga",
+      "difficulty": "difficile",
+      "category": "Boss"
+    },
+    {
+      "id": "mar112",
+      "question": "Dans le film de 2023, cette actrice connue pour ses rôles dans Le Jeu de la dame et Furiosa prête sa voix à la princesse du Royaume Champignon en version originale. Qui est cette actrice ?",
+      "answer": "Anya Taylor-Joy",
+      "difficulty": "difficile",
+      "category": "Histoire"
+    },
+    {
+      "id": "mar113",
+      "question": "Niveau secret de Super Mario World accessible après avoir terminé le jeu, ces zones spéciales portent chacune le nom d'un adjectif en anglais comme Tubular, Awesome ou Gnarly. Comment appelle-t-on collectivement ces niveaux ultra-difficiles ?",
+      "answer": "Le Monde Spécial (Special World)",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "mar114",
+      "question": "Bloc transparent marron devenu vide après avoir été frappé, cet élément visuel indique qu'un bloc a déjà été utilisé et ne contient plus rien. Il est présent depuis le tout premier jeu en 1985. Quel est cet objet ?",
+      "answer": "Le Bloc vide (Empty Block / Used Block)",
+      "difficulty": "difficile",
+      "category": "Jeux"
+    },
+    {
+      "id": "mar115",
+      "question": "Dans Super Mario Bros. Wonder, les joueurs peuvent jouer en ligne ensemble pour la première fois dans un jeu 2D de la série principale. Des fantômes d'autres joueurs apparaissent pour aider en posant des panneaux de soutien. Comment s'appellent ces éléments multijoueurs ?",
+      "answer": "Les Panneaux Debout (Standees)",
+      "difficulty": "difficile",
+      "category": "Jeux"
+    }
+  ]
+}

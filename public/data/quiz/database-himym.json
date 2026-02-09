@@ -1,0 +1,805 @@
+{
+  "id": "database-himym",
+  "title": "How I Met Your Mother",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "him001",
+      "question": "Architecte new-yorkais diplômé de Wesleyan, ce romantique incorrigible raconte à ses deux enfants, depuis un canapé en 2030, la longue histoire de ses aventures amoureuses à Manhattan. Quel est le personnage principal de cette sitcom ?",
+      "answer": "Ted Mosby",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him002",
+      "question": "Toujours vêtu d'un costume impeccable, ce dragueur compulsif travaille à la Goliath National Bank et vit selon un code de conduite entre amis qu'il a lui-même rédigé. Qui est ce personnage joué par Neil Patrick Harris ?",
+      "answer": "Barney Stinson",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him003",
+      "question": "Originaire du Minnesota, ce grand gaillard passionné d'environnement étudie le droit et épouse sa petite amie du lycée après des fiançailles mouvementées. Il finira par devenir juge. Qui est-ce ?",
+      "answer": "Marshall Eriksen",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him004",
+      "question": "Maîtresse de maternelle et artiste frustrée, elle part un été à San Francisco pour suivre une formation d'art, brisant le cœur de son fiancé. Elle deviendra plus tard consultante artistique pour un riche collectionneur. De qui s'agit-il ?",
+      "answer": "Lily Aldrin",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him005",
+      "question": "Journaliste canadienne installée à New York, elle travaille d'abord comme reporter terrain pour une chaîne locale avant de gravir les échelons médiatiques. Elle possède plusieurs chiens et a un passé secret de pop star adolescente. Qui est-ce ?",
+      "answer": "Robin Scherbatsky",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him006",
+      "question": "Joueuse de basse dans un groupe d'économistes nommé Superfreakonomics, cette femme possède un parapluie jaune iconique et chante La Vie en Rose au ukulélé sur un balcon. Quel est le nom complet de la mère des enfants de Ted ?",
+      "answer": "Tracy McConnell",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him007",
+      "question": "Ce chauffeur de taxi originaire du Bangladesh conduit le groupe d'amis dès le tout premier épisode de la série. Toujours souriant et enthousiaste, il finira par réaliser son rêve en devenant propriétaire d'une compagnie de limousines. Qui est-ce ?",
+      "answer": "Ranjit",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him008",
+      "question": "Présentateur de télévision dragueur et peu subtil, il est le collègue de Robin à Metro News 1 avant de partir pour CNN, la recommandant comme sa remplaçante au poste de présentatrice principale. Qui est ce personnage ?",
+      "answer": "Sandy Rivers",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him009",
+      "question": "Demi-frère aîné de Barney du côté maternel, ce personnage afro-américain et gay est marié et père adoptif. Il est joué par l'acteur et chanteur Wayne Brady. Quel est son prénom ?",
+      "answer": "James",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him010",
+      "question": "Dans la série, la mère de Barney est une femme forte qui a élevé seule ses deux fils. Elle est connue pour ses mensonges à Barney concernant l'identité de son père. Quel est le prénom de cette mère dévouée au nom de famille Stinson ?",
+      "answer": "Loretta",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him011",
+      "question": "Père biologique de Barney, cet homme rangé vit en banlieue avec une nouvelle famille quand son fils le retrouve enfin. Il est incarné par l'acteur John Lithgow dans un épisode au titre évocateur. Quel est le nom complet de ce personnage ?",
+      "answer": "Jerome Whittaker",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "him012",
+      "question": "Riche collectionneur d'art et ex-mari de Zoey, ce personnage au surnom nautique a un regard intense qui effraie le groupe d'amis. Il engagera plus tard Lily comme consultante artistique. Quel surnom porte George Van Smoot ?",
+      "answer": "The Captain (Le Capitaine)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him013",
+      "question": "Boulangère talentueuse rencontrée au mariage de Stuart et Claudia, cette femme devient la petite amie de Ted avant de partir suivre une formation culinaire en Allemagne. Elle reviendra plus tard dans la série. Qui est-ce ?",
+      "answer": "Victoria",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him014",
+      "question": "Dermatologue qui enlève le tatouage de Ted sur le bas du dos, elle accepte un rendez-vous de deux minutes compressé dans le temps. Elle finira par laisser Ted à l'autel pour retourner avec son ex, Tony. Qui est-ce ?",
+      "answer": "Stella Zinman",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him015",
+      "question": "Activiste qui milite pour sauver un vieux bâtiment voué à la démolition pour le projet de la GNB, cette femme séduit Ted alors qu'elle ignore qu'il est l'architecte chargé de le remplacer. Quel est son prénom ?",
+      "answer": "Zoey",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him016",
+      "question": "Dans la série, après que Ted et Robin se séparent en saison 2, Ted sort un soir et se réveille le lendemain avec une fille inconnue, une cheville foulée, un manteau brûlé et un fruit tropical mystérieux sur sa table de nuit. Quel est ce fruit ?",
+      "answer": "Un ananas (A Pineapple)",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him017",
+      "question": "Lors de la première visite d'un restaurant de leur quartier, les amis découvrent un instrument de musique accroché au mur. Ted le vole pour l'offrir à Robin lors de leur premier rendez-vous, et ce même objet réapparaît dans le tout dernier épisode. De quel instrument s'agit-il ?",
+      "answer": "Un cor français bleu (Blue French Horn)",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him018",
+      "question": "Symbole récurrent de la série pendant huit saisons, cet accessoire de couleur vive est le seul indice que les spectateurs possèdent sur la future femme de Ted. Tracy le laisse à une fête à la fin de la saison 3. De quel objet s'agit-il ?",
+      "answer": "Le parapluie jaune (Yellow Umbrella)",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him019",
+      "question": "Dans la série, Marshall et Barney font un pari sur le secret que cache Robin. Le perdant reçoit des gifles. Marshall gagne et obtient le droit d'en distribuer cinq, puis trois de plus en saison 7. Combien de gifles au total Marshall peut-il donner à Barney ?",
+      "answer": "8 (huit)",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him020",
+      "question": "Quand les amis découvrent la vidéo humiliante du passé secret de Robin, c'est aussi le jour où Marshall utilise sa première gifle. Sous quel nom de scène Robin était-elle connue quand elle était pop star adolescente au Canada ?",
+      "answer": "Robin Sparkles",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him021",
+      "question": "Chanson pop des années 90 au clip kitsch, elle est le plus grand succès musical du passé secret de Robin. Le groupe découvre la vidéo hilarante lors de l'épisode du Slap Bet. Quel est le titre de cette chanson sur les centres commerciaux ?",
+      "answer": "Let's Go to the Mall",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him022",
+      "question": "Deuxième chanson du passé musical de Robin, cette ballade sentimentale parle d'une rupture amoureuse avec un garçon nommé Simon. Son clip est dans le style des power ballads des années 80. Quel est le titre de cette chanson ?",
+      "answer": "Sandcastles in the Sand",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him023",
+      "question": "Émission canadienne pour enfants dans laquelle Robin a joué adolescente, ce programme éducatif met en scène deux filles voyageant dans l'espace à bord d'un vaisseau en forme de pierre de curling, avec Alan Thicke. Quel est le nom de cette émission ?",
+      "answer": "Space Teens",
+      "difficulty": "difficile",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him024",
+      "question": "Chaque fois qu'un personnage mentionne un mot évoquant un grade militaire dans une phrase, deux membres du groupe se lèvent instinctivement pour faire un geste respectueux. Quel est ce running gag récurrent impliquant Ted et Robin ?",
+      "answer": "Le salut militaire (Mock Salute)",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him025",
+      "question": "Les amis organisent régulièrement des séances où ils confrontent l'un d'entre eux à propos d'un comportement problématique, en accrochant une grande bannière peinte à la main. De quel type de réunion s'agit-il ?",
+      "answer": "Une intervention",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him026",
+      "question": "Créature improbable découverte dans l'appartement de Ted et Marshall en saison 1, ce spécimen hybride a des antennes, de la fourrure, un exosquelette et peut voler. Il réapparaît dans le dernier épisode avec des bébés. Quel est le nom de cette créature ?",
+      "answer": "Le Cockamouse",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him027",
+      "question": "Technique de drague inventée par un personnage nommé Mitch, elle consiste à se déshabiller entièrement quand son rendez-vous quitte brièvement la pièce. Selon lui, elle fonctionne dans deux cas sur trois. Comment s'appelle cette technique ?",
+      "answer": "The Naked Man",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him028",
+      "question": "Technique d'approche favorite de Barney pour aider Ted à rencontrer des femmes dans les bars, elle consiste à s'approcher d'une inconnue et à prononcer une phrase d'introduction incluant le prénom de son ami. Quelle est cette phrase célèbre ?",
+      "answer": "Have you met Ted?",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him029",
+      "question": "Malédiction qui frappe un ancien ami de fac du groupe, Steve Henry, cette force mystérieuse fait que des événements extraordinaires se produisent systématiquement dès que la victime quitte la pièce. Quel est le nom de cette malédiction ?",
+      "answer": "The Blitz (La malédiction du Blitz)",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him030",
+      "question": "Dans la série, le groupe d'amis repère en ville des inconnus qui ressemblent trait pour trait à chacun d'entre eux. Celui de Marshall a une moustache, celui de Robin est une femme homosexuelle. Quel nom donne-t-on à ces sosies ?",
+      "answer": "Les doppelgängers",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him031",
+      "question": "Le sosie de Barney est un médecin spécialisé dans l'aide aux couples qui souhaitent avoir des enfants. Marshall et Lily le consultent quand ils décident de fonder une famille. Quelle est la spécialité de ce doppelgänger ?",
+      "answer": "Médecin de la fertilité (Fertility Doctor)",
+      "difficulty": "difficile",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him032",
+      "question": "Dans la série, une nuit arrosée au MacLaren's après cinq shots d'un cocktail spécial préparé par le barman Carl, Ted se réveille le lendemain avec des souvenirs fragmentés et un mystère sur sa table de nuit. Quel est le nom de ce cocktail rouge ?",
+      "answer": "Red Dragon",
+      "difficulty": "difficile",
+      "category": "MacLaren's"
+    },
+    {
+      "id": "him033",
+      "question": "Bar situé sous l'appartement de Ted et Marshall à Manhattan, ce pub irlandais est le lieu de rendez-vous quotidien du groupe d'amis. Il est inspiré d'un vrai bar new-yorkais nommé McGee's. Quel est le nom de ce pub fictif ?",
+      "answer": "MacLaren's Pub",
+      "difficulty": "normal",
+      "category": "MacLaren's"
+    },
+    {
+      "id": "him034",
+      "question": "Barman taciturne du lieu de rendez-vous habituel du groupe, il sert les amis pendant les neuf saisons sans jamais vraiment participer à leurs conversations. Le pub porte d'ailleurs son nom de famille. Quel est son prénom ?",
+      "answer": "Carl",
+      "difficulty": "normal",
+      "category": "MacLaren's"
+    },
+    {
+      "id": "him035",
+      "question": "Banque où travaille Barney, cette institution financière au nom évocateur est aussi le client qui commande la construction d'un nouveau siège à Manhattan, projet confié à Ted. Quel est le nom complet de cette banque ?",
+      "answer": "Goliath National Bank (GNB)",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "him036",
+      "question": "Vieil hôtel de Manhattan conçu par l'architecte John Clifford Larrabee, ce bâtiment doit être démoli pour faire place au nouveau siège de la GNB. Zoey milite activement pour sa préservation. Quel est le nom de cet édifice ?",
+      "answer": "L'Arcadian (The Arcadian)",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "him037",
+      "question": "Auberge située en dehors de New York où se déroule la quasi-totalité de la saison 9, c'est le lieu du mariage de Barney et Robin et aussi l'endroit où Tracy chante au ukulélé sur un balcon. Quel est le nom de cet établissement ?",
+      "answer": "Le Farhampton Inn",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "him038",
+      "question": "Chaîne de télévision locale new-yorkaise où Robin commence sa carrière comme reporter terrain avant de devenir présentatrice principale grâce à la recommandation de son collègue dragueur. Quel est le nom de cette chaîne ?",
+      "answer": "Metro News 1",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "him039",
+      "question": "Université du Connecticut où Ted et Marshall se sont rencontrés en tant que colocataires de première année, avant de devenir meilleurs amis lors d'un road trip désastreux. Quel est le nom de cette université ?",
+      "answer": "Wesleyan University",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "him040",
+      "question": "Dans la série, la véritable profession de Barney à la GNB est restée un mystère pendant huit saisons. En saison 9, on découvre que son titre est un acronyme signifiant Provide Legal Exculpation And Sign Everything. Quel est cet acronyme qui sert aussi de mot ?",
+      "answer": "P.L.E.A.S.E.",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him041",
+      "question": "Livre publié contenant 150 règles de conduite entre hommes, rédigé par le personnage de Barney et vendu en librairie dans la vraie vie avec un audiobook narré par Neil Patrick Harris. Quel est le titre de cet ouvrage devenu best-seller ?",
+      "answer": "The Bro Code",
+      "difficulty": "normal",
+      "category": "Playbook"
+    },
+    {
+      "id": "him042",
+      "question": "Carnet de stratégies de drague de Barney, il contient des dizaines de techniques élaborées pour séduire des femmes, de la plus simple à la plus absurde. Il donne son nom à un épisode de la saison 5. Comment s'appelle ce carnet ?",
+      "answer": "The Playbook",
+      "difficulty": "normal",
+      "category": "Playbook"
+    },
+    {
+      "id": "him043",
+      "question": "Technique du Playbook où Barney crée de faux sites web le présentant comme un milliardaire philanthrope et aventurier, puis se présente sous un nom exotique pour que sa cible le cherche sur internet. Quel faux nom utilise-t-il ?",
+      "answer": "Lorenzo Von Matterhorn",
+      "difficulty": "normal",
+      "category": "Playbook"
+    },
+    {
+      "id": "him044",
+      "question": "Technique du Playbook dans laquelle Barney prétend travailler pour une agence gouvernementale cachée, liée à l'exploration de l'espace, et affirme avoir visité un astre interdit au grand public. Quel est le nom de cette fausse agence ?",
+      "answer": "SNASA (Secret NASA)",
+      "difficulty": "difficile",
+      "category": "Playbook"
+    },
+    {
+      "id": "him045",
+      "question": "Technique du Playbook où Barney s'approche d'une femme ayant commandé un verre et lui dit de ne surtout pas le boire, prétendant avoir vu quelqu'un y mettre quelque chose, se faisant ainsi passer pour un héros. Quel est le nom de cette technique ?",
+      "answer": "The Don't Drink That",
+      "difficulty": "difficile",
+      "category": "Playbook"
+    },
+    {
+      "id": "him046",
+      "question": "Technique du Playbook où Barney prétend être le bassiste d'un groupe de rock au nom ironique et porte des extensions de cheveux coûteuses pour être crédible. Quel est le nom du faux groupe qu'il invoque ?",
+      "answer": "Cheap Trick",
+      "difficulty": "difficile",
+      "category": "Playbook"
+    },
+    {
+      "id": "him047",
+      "question": "Technique du Playbook qui se déroule sur la plateforme d'observation de l'Empire State Building, où Barney attend qu'une femme se fasse poser un lapin par son rendez-vous galant. Quel est le nom de cette technique qui utilise trois mots simples ?",
+      "answer": "He's Not Coming",
+      "difficulty": "difficile",
+      "category": "Playbook"
+    },
+    {
+      "id": "him048",
+      "question": "Dans le tout premier épisode, Ted vole un instrument bleu dans un restaurant pour Robin, Ranjit conduit le taxi, et le narrateur révèle que Robin n'est pas la mère. Quel acteur américain, connu pour une autre sitcom familiale, prête sa voix au Ted du futur ?",
+      "answer": "Bob Saget",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him049",
+      "question": "Dans la série, le Ted du futur raconte son histoire à ses deux enfants adolescents, assis sur un canapé, en l'an 2030. Sa fille aînée porte un prénom qui fait écho à un épisode de la saison 2 sur une pièce de monnaie porte-bonheur. Quel est le prénom de la fille de Ted ?",
+      "answer": "Penny",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him050",
+      "question": "Le fils cadet de Ted porte un prénom que son père avait toujours voulu donner en hommage à un personnage de la saga Star Wars. Ted voulait d'ailleurs appeler ses enfants comme le frère et la sœur de cette saga. Quel est le prénom du fils de Ted ?",
+      "answer": "Luke",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him051",
+      "question": "Dans le finale controversé de la série, les enfants de Ted lui font remarquer que toute son histoire est en réalité une déclaration d'amour pour leur tante. Ils lui disent que leur mère est morte depuis six ans. En quelle année Tracy décède-t-elle dans la série ?",
+      "answer": "2024",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him052",
+      "question": "Dans le dernier épisode, après avoir terminé son récit, Ted se rend sous la fenêtre de Robin avec le même objet qu'il avait volé pour elle lors de leur premier rendez-vous, des années plus tôt. Quel épisode de la saison 1 est ainsi rappelé par cette scène finale ?",
+      "answer": "Le Pilote (Pilot)",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him053",
+      "question": "Dans l'épisode Bad News de la saison 6, des nombres apparaissent cachés dans le décor tout au long de l'épisode, formant un décompte de 50 à 1. Quand le chiffre 1 apparaît, Lily annonce une terrible nouvelle à Marshall. Quel événement survient ?",
+      "answer": "La mort de son père (Marvin Eriksen Sr.)",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him054",
+      "question": "Épisode le mieux noté de toute la série avec 9.5 sur IMDb, il montre l'histoire du point de vue de Tracy, depuis la mort de son petit ami Max jusqu'à son arrivée au Farhampton Inn. Quel est le titre de cet épisode de la saison 9 ?",
+      "answer": "How Your Mother Met Me",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him055",
+      "question": "Dans cet épisode de Thanksgiving, le groupe découvre le pari des gifles, la vidéo embarrassante de Robin et sa chanson sur les centres commerciaux. Cet épisode, noté 9.4 sur IMDb, est un des plus populaires de la série. Quel est son titre ?",
+      "answer": "Slap Bet",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him056",
+      "question": "Épisode spécial de Thanksgiving où Marshall utilise sa troisième gifle après avoir installé un compte à rebours en ligne, donnant son nom à une tradition récurrente dans la série. Quel est le titre de cet épisode festif ?",
+      "answer": "Slapsgiving",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him057",
+      "question": "Épisode de la saison 2 où Barney est sélectionné comme candidat du jeu télévisé The Price Is Right pour rencontrer l'animateur qu'il croit être son père biologique. Quel est le nom de cet animateur de jeu télévisé réel ?",
+      "answer": "Bob Barker",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him058",
+      "question": "Épisode où Ted raconte l'anniversaire de ses 30 ans en promettant une histoire impliquant un animal de ferme et sa salle de bains. Il réalise ensuite qu'il s'est trompé d'année et que l'incident a eu lieu à ses 31 ans. Quel animal était impliqué ?",
+      "answer": "Une chèvre (Missy)",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him059",
+      "question": "Dans la saison 4, Marshall entraîne le groupe dans une quête nocturne à travers New York pour retrouver un restaurant qu'il a visité en arrivant dans la ville. Un célèbre animateur de talk-show se joint à leur recherche. Quel personnage réel joue son propre rôle dans cet épisode ?",
+      "answer": "Regis Philbin",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him060",
+      "question": "Règle de vie énoncée par la mère de Ted et rappelée par le narrateur, elle affirme qu'aucune bonne décision n'est prise passé une certaine heure de la nuit. Ce principe donne son titre à un épisode de la saison 1. Quelle heure est mentionnée ?",
+      "answer": "2 heures du matin (2 AM)",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him061",
+      "question": "Après sa rupture avec Robin en saison 3, Ted sort faire la fête et se réveille le lendemain avec un tatouage sur le bas du dos qu'il ne se souvient pas avoir fait. Quel est le motif de ce tatouage qu'il demandera plus tard à Stella de retirer ?",
+      "answer": "Un papillon (Butterfly)",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him062",
+      "question": "La toute dernière saison se déroule entièrement pendant un week-end de festivités en dehors de New York. L'intégralité des 22 premiers épisodes couvre les événements menant à la cérémonie du dimanche. De quel événement s'agit-il ?",
+      "answer": "Le mariage de Barney et Robin",
+      "difficulty": "normal",
+      "category": "Saisons"
+    },
+    {
+      "id": "him063",
+      "question": "Lors du mariage de Barney et Robin, un véritable animal sauvage apporte les alliances jusqu'à l'autel, réalisant une blague récurrente de Barney qui voulait un ring bear au lieu d'un ring bearer. Quel animal porte les alliances ?",
+      "answer": "Un ours (A bear)",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him064",
+      "question": "Dans le finale de la série, on apprend que Barney et Robin divorcent trois ans après leur mariage. Barney a ensuite une fille issue d'une aventure lors de son mois parfait où il a eu 31 conquêtes en 31 jours. Quel est le prénom de sa fille ?",
+      "answer": "Ellie",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him065",
+      "question": "Quand Barney prend sa fille nouveau-née dans ses bras pour la première fois à l'hôpital, il lui déclare en pleurant qu'elle est l'amour de sa vie. Cette scène est considérée comme l'un des moments les plus émouvants de toute la série. En quelle année de la fiction Ellie naît-elle ?",
+      "answer": "2020",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him066",
+      "question": "Marshall et Lily se sont rencontrés à l'université et se sont fréquentés pendant neuf ans avant de se marier. Leur cérémonie se déroule en plein air plutôt qu'à l'intérieur prévu, avec un ami qui officie. Qui célèbre officieusement leur mariage ?",
+      "answer": "Barney",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him067",
+      "question": "Au mariage de Marshall et Lily, tout va de travers : le coiffeur rate, le groupe ne vient pas, et il pleut. Ils décident finalement de se marier dehors dans le jardin plutôt que dans la salle prévue. Quel est le nom du lieu où devait se tenir le mariage à l'intérieur ?",
+      "answer": "La Van Smoot House",
+      "difficulty": "difficile",
+      "category": "Relations"
+    },
+    {
+      "id": "him069",
+      "question": "Voiture adorée de Marshall depuis son adolescence, ce véhicule de sport des années 80 a une histoire riche en souvenirs avec Ted. Ses frères lui imposent des épreuves d'initiation humiliantes pour la mériter à ses 16 ans. Quel est le modèle exact de cette voiture mythique ?",
+      "answer": "Pontiac Fiero (1985 Pontiac Fiero GT)",
+      "difficulty": "difficile",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him070",
+      "question": "En saison 7, Barney parie qu'il peut reproduire toutes les techniques de cuisine teppanyaki du chef dans un restaurant japonais. S'il perd, il doit porter un accessoire ridicule pendant un an. Quel est cet accessoire à motif de canard ?",
+      "answer": "La Ducky Tie (cravate à canards)",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him071",
+      "question": "Restaurant japonais de teppanyaki où se déroule le pari entre Barney et Marshall à propos des compétences culinaires, Barney y a secrètement pris des cours pendant six mois à Hoboken pour préparer son coup. Quel est le nom de ce restaurant ?",
+      "answer": "Shinjitsu",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "him072",
+      "question": "Lily pratique une forme de vengeance personnelle où elle vole les objets précieux des personnes qu'elle juge impolies ou méchantes. Elle dérobe notamment la balle de baseball de Druthers et le cendrier du Capitaine. Quel nom donne-t-on à cette habitude de Lily ?",
+      "answer": "Aldrin Justice",
+      "difficulty": "difficile",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him073",
+      "question": "L'ex-petit ami décédé de Tracy était musicien. C'est lui qui lui avait offert le ukulélé sur lequel elle joue La Vie en Rose au balcon du Farhampton Inn. Quel était le prénom de ce petit ami ?",
+      "answer": "Max",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him074",
+      "question": "Dans la série, Ted enseigne l'architecture dans une prestigieuse université de New York après avoir quitté son cabinet. Il y rencontre d'ailleurs Cindy, la colocataire de sa future femme. Dans quelle université enseigne-t-il ?",
+      "answer": "Columbia University",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "him075",
+      "question": "Ted est originaire d'une banlieue de Cleveland, dans l'Ohio. C'est là qu'il a grandi avant de partir étudier à l'université et de s'installer à New York. Quel est le nom de cette ville de banlieue ?",
+      "answer": "Shaker Heights",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "him076",
+      "question": "Le deuxième prénom de Ted est un secret embarrassant qu'il cache à ses amis. Ce prénom féminin est révélé dans la série et devient un sujet de moquerie pour le groupe. Quel est le deuxième prénom complet de Ted ?",
+      "answer": "Evelyn",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "him077",
+      "question": "La sitcom a été diffusée de 2005 à 2014 sur une chaîne américaine, pour un total de neuf saisons et 208 épisodes. Ses créateurs, Carter Bays et Craig Thomas, avaient travaillé ensemble sur le Late Show. Sur quelle chaîne la série a-t-elle été diffusée ?",
+      "answer": "CBS",
+      "difficulty": "normal",
+      "category": "Saisons"
+    },
+    {
+      "id": "him078",
+      "question": "Barney a une demi-sœur du côté de son père Jerome, une étudiante universitaire que Ted finit par fréquenter brièvement dans l'épisode Ring Up! de la saison 8. Cette demi-sœur est jouée par Ashley Benson. Quel est son prénom ?",
+      "answer": "Carly",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "him079",
+      "question": "Dans le mariage raté de Ted en saison 4, sa fiancée le laisse à l'autel pour retourner avec son ex-petit ami Tony, le père de sa fille. Tony écrira plus tard un film inspiré de cette histoire, intitulé The Wedding Bride. Quel est le métier de la fiancée qui a quitté Ted ?",
+      "answer": "Dermatologue",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him080",
+      "question": "Couple d'amis du groupe dont le mariage mouvementé est montré en saison 1, Stuart et sa femme se disputent constamment mais restent ensemble. C'est à leur mariage que Ted rencontre Victoria. Quel est le prénom de la femme de Stuart ?",
+      "answer": "Claudia",
+      "difficulty": "difficile",
+      "category": "Relations"
+    },
+    {
+      "id": "him081",
+      "question": "En saison 9, lors d'une discussion nocturne arrosée avec Ted et Marshall au Farhampton Inn, Barney est tellement ivre qu'il répond honnêtement à toutes les questions, y compris le secret de sa profession. Quel est le titre de cet épisode révélateur ?",
+      "answer": "Unpause",
+      "difficulty": "difficile",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him082",
+      "question": "Épisode de la saison 6 où Barney retrouve enfin son père biologique, devenu un homme rangé vivant en banlieue, aux antipodes du personnage extravagant de son fils. Cet épisode porte un titre qui est un jeu de mots entre daddy et un mot-clé de Barney. Quel est ce titre ?",
+      "answer": "Legendaddy",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him083",
+      "question": "En saison 2, le mariage de Marshall et Lily est compromis quand elle décide de partir poursuivre une carrière artistique loin de New York. Dans quelle ville californienne Lily s'installe-t-elle pendant cet été de séparation ?",
+      "answer": "San Francisco",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him084",
+      "question": "Marshall est un passionné de créatures cryptiques et de légendes urbaines. Il croit fermement en l'existence d'un célèbre primate légendaire d'Amérique du Nord et consulte régulièrement des sites internet à son sujet. En quelle créature mythique croit-il ?",
+      "answer": "Bigfoot (Le Sasquatch / Yéti)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him085",
+      "question": "Marshall nomme son fils en hommage à son propre père décédé. Ce bébé devient un personnage récurrent dans les dernières saisons, notamment lors du road trip de Marshall vers le Farhampton Inn en saison 9. Quel prénom porte le fils de Marshall et Lily ?",
+      "answer": "Marvin",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him086",
+      "question": "Dans la série, Robin possède un total de cinq chiens dans son appartement quand Ted emménage chez elle. Elle finit par les donner car ils sont en réalité des cadeaux de ses ex-petits amis, ce qui dérange Ted. De quelle race sont principalement ses chiens ?",
+      "answer": "Des chiens de différentes races (elle a 5 chiens, pas d'une race unique)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "him087",
+      "question": "Épisode de la saison 1 où Ted embauche une agence matrimoniale en ligne et découvre que sa compatibilité parfaite est en réalité une personne que le système refuse de lui révéler. C'est aussi l'épisode qui introduit la créature hybride dans l'appartement. Quel est le titre de cet épisode ?",
+      "answer": "Matchmaker",
+      "difficulty": "difficile",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him088",
+      "question": "Dans l'épisode du rendez-vous de Ted avec Stella, il compresse un dîner romantique complet en un temps extrêmement court pour s'adapter à l'emploi du temps chargé de la dermatologue. Combien de minutes dure ce rendez-vous express ?",
+      "answer": "2 minutes",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him089",
+      "question": "Le groupe d'amis baptise les femmes qui crient de joie dans les bars d'un nom spécifique. Lily se retrouve temporairement parmi elles quand Robin commence à fréquenter un groupe d'amies bruyantes et enthousiastes. Comment appelle-t-on ces femmes ?",
+      "answer": "Les Woo Girls",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him090",
+      "question": "En saison 5, le groupe obtient des billets pour un événement improbable opposant des machines aux combattants mexicains. Ted manque l'événement pour aller à une soirée intellectuelle qu'il regrette ensuite. Quel est le nom de cet événement sportif fictif ?",
+      "answer": "Robots vs Wrestlers",
+      "difficulty": "normal",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him091",
+      "question": "En saison 6, Victoria révèle qu'elle s'est enfuie de son propre mariage avec un autre homme pour retrouver Ted. Ce fiancé allemand s'est lui aussi enfui de la cérémonie de son côté. Quel est le prénom de l'ex-fiancé de Victoria ?",
+      "answer": "Klaus",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him092",
+      "question": "Patron tyrannique de Ted dans son cabinet d'architecture, cet homme possède une balle de baseball autographiée que Lily finira par voler dans un acte de justice personnelle. Quel est le nom de famille de ce patron ?",
+      "answer": "Druthers (Hammond Druthers)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "him093",
+      "question": "Dans la série, la date de naissance de Ted est célébrée à plusieurs reprises et joue un rôle important dans l'histoire de la chèvre et dans plusieurs intrigues amoureuses. En quelle date du calendrier Ted est-il né ?",
+      "answer": "Le 25 avril (April 25)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "him094",
+      "question": "Strip-club favori de Barney et Marshall, cet établissement au nom félin est le lieu où ils découvrent le sosie de Lily qui y travaille comme danseuse. Quel est le nom de ce club qui apparaît régulièrement dans la série ?",
+      "answer": "The Lusty Leopard",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "him095",
+      "question": "Groupe de musique à thème économique dans lequel Tracy joue de la basse, le nom de ce groupe est un jeu de mots entre un best-seller d'économie et un titre de Rick James. Un membre nommé Darren essaie de l'évincer. Quel est le nom de ce groupe ?",
+      "answer": "Superfreakonomics",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him096",
+      "question": "En saison 9, Marshall accepte un poste de magistrat sans consulter Lily, ce qui crée un conflit majeur dans leur couple car Lily venait d'obtenir un poste à Rome. Cette décision unilatérale provoque une de leurs pires disputes. Quel poste Marshall a-t-il accepté ?",
+      "answer": "Juge (Judge)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him097",
+      "question": "Dans la série, Robin est originaire d'une ville majeure de la Colombie-Britannique. Son père, Robin Sr., l'a élevée comme un garçon et voulait un fils. De quel pays Robin est-elle originaire ?",
+      "answer": "Le Canada",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him098",
+      "question": "Quand Barney et Robin commencent à se fréquenter en saison 5, ils découvrent un clip vidéo embarrassant de Robin adolescente que Barney refuse de détruire. Ce clip est celui de la ballade sentimentale où elle pleure sur la plage. Avec quel garçon Robin sortait-elle à l'époque du clip ?",
+      "answer": "Simon",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him099",
+      "question": "Dans la série, les créateurs ont nommé le protagoniste principal d'après un vrai DJ new-yorkais qu'ils ont rencontré dans un bar. Le nom de famille du personnage vient directement de cette personne réelle. Quel est ce nom de famille partagé par le DJ et le personnage ?",
+      "answer": "Mosby",
+      "difficulty": "difficile",
+      "category": "Théories"
+    },
+    {
+      "id": "him100",
+      "question": "Structure narrative centrale de la série, l'histoire entière est racontée par un père à ses enfants depuis un canapé. Le concept est directement inspiré d'une autre série américaine où un adulte raconte son enfance avec une voix off. Quelle série des années 80-90 a inspiré ce procédé narratif ?",
+      "answer": "The Wonder Years (Les Années Coup de Cœur)",
+      "difficulty": "difficile",
+      "category": "Théories"
+    },
+    {
+      "id": "him101",
+      "question": "Épisode culte de Thanksgiving en saison 6, il met en scène un ancien ami de fac de Ted portant une malédiction qui fait que des événements incroyables se produisent dès qu'il part. Jorge Garcia de Lost y fait un caméo. Quel est le titre de cet épisode ?",
+      "answer": "Blitzgiving",
+      "difficulty": "difficile",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him102",
+      "question": "Le mystère de l'ananas trouvé sur la table de nuit de Ted après sa nuit d'ivresse n'est résolu que bien plus tard dans une scène coupée. Il s'avère que Ted ivre l'avait pris sur le perron d'un riche personnage, car c'est une vieille tradition de capitaine de navire. Chez qui Ted avait-il pris l'ananas ?",
+      "answer": "Chez le Capitaine (George Van Smoot / The Captain)",
+      "difficulty": "difficile",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him103",
+      "question": "Dans la série, Lily travaille pendant des années comme enseignante dans une école maternelle de New York. Elle rêve de devenir artiste mais a renoncé à cette carrière. Elle finit par obtenir un poste de consultante en art pour un riche collectionneur. Quel diplôme universitaire Lily possède-t-elle dans le domaine artistique ?",
+      "answer": "Un diplôme en Histoire de l'Art (Art History degree)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "him104",
+      "question": "Dans l'épisode Ducky Tie, on découvre que Barney a passé six mois à faire l'aller-retour dans une ville du New Jersey pour apprendre les techniques de cuisine teppanyaki en secret, dans le but de gagner un futur pari. Quelle est cette ville ?",
+      "answer": "Hoboken",
+      "difficulty": "difficile",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him105",
+      "question": "Première petite amie sérieuse de Ted dans la série, cette Canadienne est présentée dès l'épisode pilote comme une reporter terrain à New York. Le narrateur révèle immédiatement qu'elle n'est pas la mère de ses enfants. Par quel surnom Ted l'appelle-t-il parfois affectueusement ?",
+      "answer": "Scherbatsky",
+      "difficulty": "difficile",
+      "category": "Relations"
+    },
+    {
+      "id": "him106",
+      "question": "Barney révèle en saison 9 qu'il travaillait secrètement avec les autorités fédérales pour aider à piéger les dirigeants corrompus d'une entreprise fusionnée avec la GNB. Avec quelle agence fédérale américaine Barney coopérait-il ?",
+      "answer": "Le FBI",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "him107",
+      "question": "En saison 1, Lily offre un surnom affectueux à Marshall basé sur un animal, tandis que Marshall la surnomme en retour avec un autre petit nom mignon. Le couple est célèbre pour ses surnoms romantiques. Quel duo de surnoms utilisent-ils principalement ?",
+      "answer": "Marshmallow et Lilypad",
+      "difficulty": "normal",
+      "category": "Relations"
+    },
+    {
+      "id": "him108",
+      "question": "Commissaire du Slap Bet responsable de trancher les litiges entre Marshall et Barney, cette personne a le pouvoir d'ajouter ou de retirer des gifles selon les infractions. Qui est le commissaire officiel du Slap Bet ?",
+      "answer": "Lily",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him109",
+      "question": "Dernière gifle administrée par Marshall à Barney, la huitième et ultime, elle survient le jour du mariage de Barney et Robin pour le calmer pendant une crise de panique. Dans quel épisode de la saison 9 cette gifle finale est-elle donnée ?",
+      "answer": "The End of the Aisle",
+      "difficulty": "difficile",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him110",
+      "question": "En saison 4, Barney brûle son Playbook devant ses amis après une rupture douloureuse avec Shannon, mais il est révélé plus tard qu'il en possède une copie de sauvegarde. L'épisode qui donne son nom au carnet de drague est le huitième de quelle saison ?",
+      "answer": "Saison 5",
+      "difficulty": "difficile",
+      "category": "Saisons"
+    },
+    {
+      "id": "him111",
+      "question": "Coiffure que Robin portait dans son clip Let's Go to the Mall, elle reflète le style années 80 arrivé au Canada avec une décennie de retard selon les personnages. La chanson a été enregistrée en 1993 alors que son style correspondait à la fin de quelle décennie ?",
+      "answer": "Les années 1980 (les 80's)",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him112",
+      "question": "Dans la série, Barney possède un écran plat géant dans son appartement et une tempête destructrice appelée Stormtrooper. Son expression favorite pour décrire quelque chose d'extraordinaire est précédée d'une pause dramatique en deux mots. Quelle phrase utilise-t-il pour cette pause ?",
+      "answer": "Wait for it",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him113",
+      "question": "Quand quelqu'un propose à Barney un défi apparemment impossible, il répond toujours par la même phrase de deux mots avant de se lancer avec détermination. Cette réplique est devenue l'une des plus iconiques de la série. Quelle est cette phrase ?",
+      "answer": "Challenge Accepted",
+      "difficulty": "normal",
+      "category": "Running Gags"
+    },
+    {
+      "id": "him114",
+      "question": "Dans un épisode de la saison 3, un agriculteur nommé Farmer Frank amène un animal à la classe de maternelle de Lily et terrifie les enfants en décrivant son sort futur chez le boucher. Lily s'attache à cet animal et l'emmène à la fête de Ted. Quel est le nom de cet animal ?",
+      "answer": "Missy",
+      "difficulty": "difficile",
+      "category": "Épisodes"
+    },
+    {
+      "id": "him115",
+      "question": "Série dérivée lancée en 2022 avec Hilary Duff, elle reprend le concept narratif de l'original mais du point de vue d'une femme racontant à son fils comment elle a rencontré son père. Quel est le titre complet de ce spin-off ?",
+      "answer": "How I Met Your Father",
+      "difficulty": "normal",
+      "category": "Saisons"
+    }
+  ]
+}

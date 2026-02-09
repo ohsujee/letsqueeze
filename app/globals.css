@@ -9027,6 +9027,21 @@ input[type="text"].game-search-input:focus,
   text-transform: uppercase;
 }
 
+.theme-new-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.125rem 0.4rem;
+  background: linear-gradient(135deg, #22c55e, #10b981);
+  border-radius: 4px;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+
 /* Themes Footer / Validate Button - toujours visible en bas */
 .quiz-themes-footer {
   flex-shrink: 0; /* Ne jamais shrink */

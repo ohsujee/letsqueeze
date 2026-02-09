@@ -1,0 +1,728 @@
+{
+  "id": "database-rapus",
+  "title": "Rap US",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "rus001",
+      "question": "En 1979, un trio de rappeurs du New Jersey enregistre le premier single de rap a entrer dans le Top 40 du Billboard Hot 100. Ce morceau de plus de 14 minutes a popularise le hip-hop aupres du grand public. Quel est ce groupe ?",
+      "answer": "The Sugarhill Gang",
+      "difficulty": "normal",
+      "category": "Old School"
+    },
+    {
+      "id": "rus002",
+      "question": "En 1982, un groupe du Bronx sort un morceau devenu le premier titre de rap a offrir un commentaire social engagé, transformant a jamais l'image du hip-hop. Ce titre a ete le premier morceau rap preserve par la Bibliotheque du Congres. Quel est ce groupe ?",
+      "answer": "Grandmaster Flash and the Furious Five",
+      "difficulty": "normal",
+      "category": "Old School"
+    },
+    {
+      "id": "rus003",
+      "question": "Ce groupe de hip-hop originaire du Queens a ete le premier a obtenir un disque d'or, puis le premier a atteindre le statut platine avec leur troisieme album en 1986. Leur collaboration avec Aerosmith sur Walk This Way a fusionne rock et rap. Quel est ce groupe ?",
+      "answer": "Run-DMC",
+      "difficulty": "normal",
+      "category": "Old School"
+    },
+    {
+      "id": "rus004",
+      "question": "A seulement 16 ans, ce rappeur signe chez Def Jam et sort en 1985 le premier album solo de rap a atteindre le disque de platine. Son nom de scene signifie Ladies Love Cool James. Qui est-ce ?",
+      "answer": "LL Cool J",
+      "difficulty": "normal",
+      "category": "Old School"
+    },
+    {
+      "id": "rus005",
+      "question": "En 1984, deux passionnes de musique creent ce label mythique dans un dortoir universitaire de NYU. Parmi ses premiers signataires : LL Cool J et les Beastie Boys. Ce label deviendra l'un des plus influents du hip-hop. Quel est ce label ?",
+      "answer": "Def Jam Recordings",
+      "difficulty": "normal",
+      "category": "Labels"
+    },
+    {
+      "id": "rus006",
+      "question": "Ce duo de producteurs new-yorkais compose de Chuck D et Flavor Flav a revolutionne le hip-hop politique avec des albums comme Fear of a Black Planet. Leur titre Fight the Power est devenu un hymne du cinema de Spike Lee. Quel est ce groupe ?",
+      "answer": "Public Enemy",
+      "difficulty": "normal",
+      "category": "Golden Age"
+    },
+    {
+      "id": "rus007",
+      "question": "Ce groupe de Compton, forme en 1987, a invente le gangsta rap avec un album sorti en 1988 qui a provoque un avertissement du FBI. Parmi ses membres figurent Dr. Dre, Ice Cube et Eazy-E. Quel est ce groupe ?",
+      "answer": "N.W.A",
+      "difficulty": "normal",
+      "category": "Golden Age"
+    },
+    {
+      "id": "rus008",
+      "question": "En 1987, un duo compose d'un DJ de Houston et d'un MC de Long Island sort Paid in Full, considere par MTV comme le plus grand album hip-hop de tous les temps. Le rappeur du duo est souvent cite comme le plus grand lyriciste de l'histoire. Quel est ce duo ?",
+      "answer": "Eric B. & Rakim",
+      "difficulty": "difficile",
+      "category": "Golden Age"
+    },
+    {
+      "id": "rus009",
+      "question": "En decembre 1992, ce producteur originaire de Compton sort son premier album solo apres avoir quitte N.W.A. Cet album popularise le G-funk et lance le label Death Row Records. Qui est cet artiste ?",
+      "answer": "Dr. Dre",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus010",
+      "question": "Ce label fonde en 1991 par Suge Knight a Los Angeles a sorti les albums de Snoop Dogg, 2Pac et Dr. Dre, dominant le rap West Coast des annees 90. Quel est ce label ?",
+      "answer": "Death Row Records",
+      "difficulty": "normal",
+      "category": "Labels"
+    },
+    {
+      "id": "rus011",
+      "question": "En novembre 1993, ce rappeur de Long Beach sort son premier album produit integralement par Dr. Dre. L'album se vend a plus de 800 000 exemplaires en premiere semaine et popularise le G-funk aupres du grand public. Qui est cet artiste ?",
+      "answer": "Snoop Dogg",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus012",
+      "question": "Ce collectif de Staten Island, compose de 9 membres, sort en 1993 un album debut considere comme un classique du rap hardcore. Le producteur du groupe, RZA, a cree un son brut inspire des films de kung-fu. Quel est ce collectif ?",
+      "answer": "Wu-Tang Clan",
+      "difficulty": "normal",
+      "category": "Golden Age"
+    },
+    {
+      "id": "rus013",
+      "question": "Sorti en avril 1994, cet album de 10 titres enregistre a Queensbridge est devenu la reference absolue du lyrisme new-yorkais. Produit par DJ Premier, Pete Rock et Large Professor, il est considere comme l'un des debuts les plus parfaits de l'histoire du rap. Quel est cet album ?",
+      "answer": "Illmatic",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus014",
+      "question": "Ce rappeur de Queensbridge a sorti en 1994 un album debut produit par DJ Premier et Pete Rock qui est devenu la pierre angulaire du rap East Coast. Son nom est inspire d'un roi du Zulu. Qui est cet artiste ?",
+      "answer": "Nas",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus015",
+      "question": "En septembre 1994, ce rappeur de Brooklyn sort Ready to Die, premier album de Bad Boy Records. Des tubes comme Juicy et Big Poppa en font une legende du rap, malgre sa mort tragique en 1997 a Los Angeles. Qui est cet artiste ?",
+      "answer": "The Notorious B.I.G.",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus016",
+      "question": "Ce label fonde a New York par Sean Combs en 1993 a lance la carriere du plus grand rappeur de Brooklyn. Juicy, Big Poppa et Hypnotize comptent parmi les tubes sortis sous cette banniere. Quel est ce label ?",
+      "answer": "Bad Boy Records",
+      "difficulty": "normal",
+      "category": "Labels"
+    },
+    {
+      "id": "rus017",
+      "question": "En fevrier 1996, ce rappeur sort le premier double album original de l'histoire du hip-hop, comprenant 27 titres. Signe chez Death Row Records, il est assassine a Las Vegas seulement 7 mois apres la sortie de cet album. Qui est cet artiste ?",
+      "answer": "2Pac",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus018",
+      "question": "Ce morceau de 1995, extrait de l'album Me Against the World, est un hommage emouvant d'un rappeur a sa mere. Il a ete preserve par la Bibliotheque du Congres americain en 2010 pour son importance culturelle. Quel est le titre de ce morceau ?",
+      "answer": "Dear Mama",
+      "difficulty": "normal",
+      "category": "Culture hip-hop"
+    },
+    {
+      "id": "rus019",
+      "question": "Dans les annees 1990, une rivalite mediatique oppose les scenes rap de deux cotes des Etats-Unis, incarnee par 2Pac et Biggie Smalls. Les deux artistes sont assassines a quelques mois d'intervalle. Comment appelle-t-on ce conflit legendaire ?",
+      "answer": "East Coast vs West Coast",
+      "difficulty": "normal",
+      "category": "Beef"
+    },
+    {
+      "id": "rus020",
+      "question": "En 1996, un rappeur de Brooklyn sort Reasonable Doubt, son premier album, sur un label qu'il a cofonde avec Damon Dash et Kareem Burke apres avoir ete refuse par toutes les majors. Il deviendra le rappeur milliardaire le plus celebre de l'histoire. Qui est-ce ?",
+      "answer": "Jay-Z",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus021",
+      "question": "Cofonde en 1994 par Jay-Z, Damon Dash et Kareem Burke, ce label independant a sorti Reasonable Doubt avant de signer des artistes comme Kanye West et Memphis Bleek. Son nom est un jeu de mots sur la famille Rockefeller. Quel est ce label ?",
+      "answer": "Roc-A-Fella Records",
+      "difficulty": "normal",
+      "category": "Labels"
+    },
+    {
+      "id": "rus022",
+      "question": "Ce groupe de hip-hop new-yorkais, mene par Q-Tip, sort en 1991 un deuxieme album qui fusionne jazz et hip-hop de maniere inedite. Preserve par la Bibliotheque du Congres, il est considere comme l'un des meilleurs albums rap de tous les temps. Quel est ce groupe ?",
+      "answer": "A Tribe Called Quest",
+      "difficulty": "normal",
+      "category": "Golden Age"
+    },
+    {
+      "id": "rus023",
+      "question": "Ce duo new-yorkais compose de Havoc et Prodigy a sorti The Infamous en 1995, un classique du rap hardcore. Le titre Shook Ones Part II reste l'un des morceaux les plus sombres et emblematiques du rap de Queensbridge. Quel est ce duo ?",
+      "answer": "Mobb Deep",
+      "difficulty": "difficile",
+      "category": "Golden Age"
+    },
+    {
+      "id": "rus024",
+      "question": "Ce producteur legendaire, moitie du duo Gang Starr aux cotes de Guru, est considere comme l'un des plus grands beatmakers de l'histoire du hip-hop. Il a produit des classiques pour Nas, Notorious B.I.G. et Jay-Z. Qui est-ce ?",
+      "answer": "DJ Premier",
+      "difficulty": "difficile",
+      "category": "Producteurs"
+    },
+    {
+      "id": "rus025",
+      "question": "En 1998, ce rappeur au style agressif signe chez Def Jam et devient le premier artiste a sortir deux albums numero un du Billboard la meme annee. Son premier s'intitule It's Dark and Hell Is Hot. Qui est-ce ?",
+      "answer": "DMX",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus026",
+      "question": "En 1998, cette rappeuse et chanteuse sort un album solo mele de soul, reggae et hip-hop qui rafle 5 Grammy Awards, dont celui du meilleur album de l'annee. C'est le premier album hip-hop a remporter cette recompense supreme. Qui est cette artiste ?",
+      "answer": "Lauryn Hill",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus027",
+      "question": "Ce duo d'Atlanta, forme par Big Boi et Andre 3000, a revolutionne le rap du Sud. En 2003, leur double album devient le premier projet hip-hop depuis 1999 a remporter le Grammy du meilleur album de l'annee. Quel est ce duo ?",
+      "answer": "OutKast",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus028",
+      "question": "En 2003, ce double album d'un duo d'Atlanta devient l'album rap le plus vendu de tous les temps avec 13 millions d'exemplaires certifies. Il contient le mega-tube Hey Ya! Quel est cet album ?",
+      "answer": "Speakerboxxx/The Love Below",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "rus029",
+      "question": "En fevrier 1999, ce rappeur de Detroit signe chez Aftermath Entertainment et sort son premier album majeur, propulse par le single My Name Is. Son alter ego au caractere provocateur scandalise l'Amerique. Qui est cet artiste ?",
+      "answer": "Eminem",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus030",
+      "question": "Sorti en 2000, cet album d'un rappeur de Detroit se vend a 1,78 million d'exemplaires en premiere semaine, un record pour un album solo. Il est considere comme l'album rap le plus vendu de l'histoire avec plus de 25 millions de copies mondiales. Quel est cet album ?",
+      "answer": "The Marshall Mathers LP",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus031",
+      "question": "En 2002, un rappeur de Detroit joue dans un film semi-autobiographique sur les battles de rap a Detroit. Le titre phare de la bande originale devient le premier morceau hip-hop a remporter l'Oscar de la meilleure chanson originale. Quel est le titre de cette chanson ?",
+      "answer": "Lose Yourself",
+      "difficulty": "normal",
+      "category": "Records"
+    },
+    {
+      "id": "rus032",
+      "question": "Ce film de 2002 avec un rappeur de Detroit dans le role principal est inspire de sa jeunesse dans les battles de freestyle. Son titre fait reference a une route celebre de la banlieue de Detroit. Quel est ce film ?",
+      "answer": "8 Mile",
+      "difficulty": "normal",
+      "category": "Culture hip-hop"
+    },
+    {
+      "id": "rus033",
+      "question": "En fevrier 2003, ce rappeur du Queens sort son album debut produit par Eminem et Dr. Dre. Il se vend a 872 000 exemplaires en premiere semaine et devient l'album le plus vendu de l'annee. Son label s'appelle G-Unit Records. Qui est cet artiste ?",
+      "answer": "50 Cent",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus034",
+      "question": "En septembre 2007, un affrontement commercial historique oppose les sorties simultanees de Graduation et Curtis. Le vainqueur vend 957 000 copies en premiere semaine et symbolise la fin de l'ere gangsta rap mainstream. Qui remporte cette bataille des ventes ?",
+      "answer": "Kanye West",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus035",
+      "question": "En fevrier 2004, ce producteur devenu rappeur sort son premier album sur Roc-A-Fella Records, popularisant le style chipmunk soul base sur des samples acceleres de musique soul. Il remporte le Grammy du meilleur album rap. Quel est cet album ?",
+      "answer": "The College Dropout",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus036",
+      "question": "En novembre 2008, un rappeur celebre surprend tout le monde en sortant un album ou il chante presque integralement avec l'Auto-Tune au lieu de rapper. Cet album, inspire par la mort de sa mere et une rupture sentimentale, influencera Drake, Future et toute une generation. Quel est cet album ?",
+      "answer": "808s & Heartbreak",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "rus037",
+      "question": "Sorti en novembre 2010, ce cinquieme album studio est souvent considere comme le chef-d'oeuvre absolu de son auteur. Enregistre a Hawaii avec des collaborateurs comme Nicki Minaj et Bon Iver, il recoit des notes quasi-parfaites de la critique. Quel est cet album ?",
+      "answer": "My Beautiful Dark Twisted Fantasy",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus038",
+      "question": "En juin 2008, ce rappeur de La Nouvelle-Orleans sort un album qui se vend a plus d'un million d'exemplaires en premiere semaine, le premier a accomplir cet exploit depuis 2005. Des hits comme Lollipop et A Milli dominent les ondes. Qui est cet artiste ?",
+      "answer": "Lil Wayne",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus039",
+      "question": "Ce rappeur canadien originaire de Toronto detient le record du plus grand nombre d'entrees au Billboard Hot 100 de tous les temps avec plus de 300 chansons classees. Il a egalement battu le record du plus grand nombre de top 10. Qui est-ce ?",
+      "answer": "Drake",
+      "difficulty": "normal",
+      "category": "Records"
+    },
+    {
+      "id": "rus040",
+      "question": "Ce label fonde en 2012 a Toronto par un rappeur canadien et son producteur Noah '40' Shebib a signe des artistes comme PartyNextDoor et Majid Jordan. Son nom de trois lettres est aussi celui d'un festival annuel. Quel est ce label ?",
+      "answer": "OVO Sound",
+      "difficulty": "difficile",
+      "category": "Labels"
+    },
+    {
+      "id": "rus041",
+      "question": "Ce rappeur de Compton, Californie, sort en 2012 son album majeur good kid, m.A.A.d city, un recit autobiographique de son adolescence dans les rues de sa ville natale. Il est souvent considere comme le plus grand lyriciste de sa generation. Qui est-ce ?",
+      "answer": "Kendrick Lamar",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus042",
+      "question": "En 2018, un rappeur de Compton remporte le prix Pulitzer de la musique, devenant le premier artiste hors des genres classique et jazz a recevoir cette distinction. L'album recompense, sorti en 2017, est compose de 14 titres au style minimaliste et percutant. Quel est le nom de cet album ?",
+      "answer": "DAMN.",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus043",
+      "question": "Ce label independant fonde en 2004 par Anthony Tiffith a Carson, Californie, a lance les carrieres de Kendrick Lamar, SZA, ScHoolboy Q et Ab-Soul. Quel est ce label ?",
+      "answer": "Top Dawg Entertainment",
+      "difficulty": "difficile",
+      "category": "Labels"
+    },
+    {
+      "id": "rus044",
+      "question": "Sorti en 2015, ce troisieme album studio d'un rappeur de Compton melange jazz, funk et spoken word pour aborder la question raciale en Amerique. Il remporte 5 Grammy Awards dont celui du meilleur album rap. Quel est cet album ?",
+      "answer": "To Pimp a Butterfly",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus045",
+      "question": "En decembre 2014, un rappeur de Fayetteville sort un album sans aucun featuring invite, le premier album rap a atteindre le disque de platine sans collaboration depuis 25 ans. L'album porte le nom d'une adresse de son enfance. Quel est cet album ?",
+      "answer": "2014 Forest Hills Drive",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus046",
+      "question": "Ce rappeur de Fayetteville, Caroline du Nord, est diplome de l'universite St. John's de New York. Il est connu pour ses albums sans featuring et son label Dreamville Records. Qui est-ce ?",
+      "answer": "J. Cole",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus047",
+      "question": "En 2024, un rappeur de Compton sort un diss track devastateur qui debutera numero un au Billboard Hot 100 et remportera les Grammy de la chanson et du disque de l'annee en 2025. Ce titre accuse son rival d'etre un imposteur. Quel est le titre de ce morceau ?",
+      "answer": "Not Like Us",
+      "difficulty": "normal",
+      "category": "Beef"
+    },
+    {
+      "id": "rus048",
+      "question": "Le beef le plus mediatise de 2024 oppose un rappeur de Compton a un artiste canadien. Il debute apres un couplet incendiaire sur le titre Like That de Metro Boomin et Future, avant d'escalader en une serie de diss tracks. Quels sont les deux artistes opposes dans ce conflit ?",
+      "answer": "Drake et Kendrick Lamar",
+      "difficulty": "normal",
+      "category": "Beef"
+    },
+    {
+      "id": "rus049",
+      "question": "En aout 2018, un rappeur de Houston sort son troisieme album studio, nomme d'apres un parc d'attractions ferme de sa ville natale. Le single Sicko Mode avec Drake devient un phenomene mondial. Qui est cet artiste ?",
+      "answer": "Travis Scott",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus050",
+      "question": "Ce rappeur d'Atlanta, ne Nayvadius Wilburn, est connu pour avoir popularise le style trap melodique avec son usage pionnier de l'Auto-Tune. Son troisieme album DS2, sorti en 2015, fait reference a sa mixtape Dirty Sprite. Qui est-ce ?",
+      "answer": "Future",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus051",
+      "question": "Ce jeune producteur originaire de Saint Louis a redéfini le son trap d'Atlanta en collaborant avec Future, Migos et 21 Savage. En 2016, il produit Bad and Boujee, titre qui atteint la premiere place du Hot 100. Qui est-ce ?",
+      "answer": "Metro Boomin",
+      "difficulty": "normal",
+      "category": "Producteurs"
+    },
+    {
+      "id": "rus052",
+      "question": "Ce duo de producteurs compose de Pharrell Williams et Chad Hugo, forme en Virginie en 1992, a produit 43% des morceaux diffuses a la radio americaine en 2003. Parmi leurs hits : Drop It Like It's Hot et Hot in Herre. Quel est ce duo ?",
+      "answer": "The Neptunes",
+      "difficulty": "difficile",
+      "category": "Producteurs"
+    },
+    {
+      "id": "rus053",
+      "question": "En 2019, cette chanson country-rap virale passe 19 semaines consecutives en tete du Billboard Hot 100, battant un record vieux de 24 ans. Son interprete, age de 20 ans, l'avait initialement publiee sur TikTok. Quel est le titre de ce morceau ?",
+      "answer": "Old Town Road",
+      "difficulty": "normal",
+      "category": "Records"
+    },
+    {
+      "id": "rus054",
+      "question": "Ce rappeur d'Atlanta, decouvert sur SoundCloud, sort en mai 2018 son album debut Die Lit, produit principalement par Pi'erre Bourne. Son deuxieme album Whole Lotta Red, sorti a Noel 2020, lance le sous-genre rage. Qui est-ce ?",
+      "answer": "Playboi Carti",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus055",
+      "question": "Revele en 2019 comme rappeur d'Atlanta, ce artiste est arrete par les services d'immigration qui revelent qu'il est en realite un citoyen britannique ne a Londres, residant illegalement aux Etats-Unis depuis l'age de 7 ans. Qui est-ce ?",
+      "answer": "21 Savage",
+      "difficulty": "normal",
+      "category": "Culture hip-hop"
+    },
+    {
+      "id": "rus056",
+      "question": "Ce rappeur de Chicago, ne Jarad Higgins, est celebre pour sa capacite a improviser des morceaux entiers en freestyle sans jamais ecrire de texte. Son titre Lucid Dreams, sorti en 2018, atteint la deuxieme place du Billboard Hot 100. Qui est-ce ?",
+      "answer": "Juice WRLD",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus057",
+      "question": "En 2017, une rappeuse du Bronx sort Bodak Yellow, qui atteint la premiere place du Billboard Hot 100. C'est la premiere rappeuse solo a accomplir cet exploit depuis Lauryn Hill en 1998, soit 19 ans d'ecart. Qui est cette artiste ?",
+      "answer": "Cardi B",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus058",
+      "question": "En 2023, cette productrice, rappeuse et danseuse originaire de Virginie devient la premiere femme rappeuse intronisee au Rock & Roll Hall of Fame. Elle est connue pour des tubes comme Work It et Get Ur Freak On. Qui est-ce ?",
+      "answer": "Missy Elliott",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus059",
+      "question": "Ce rappeur de Los Angeles, surnomme Neighborhood Nip, sort son premier album studio Victory Lap en 2018, nomme aux Grammy. Entrepreneur engage dans sa communaute, il est tragiquement assassine devant son magasin Marathon Clothing en mars 2019. Qui est-ce ?",
+      "answer": "Nipsey Hussle",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus060",
+      "question": "Ce rappeur de Floride, ne Jahseh Onfroy, sort en 2017 un album debut minimaliste de 22 minutes melant emo et lo-fi. Il est assassine en juin 2018 a seulement 20 ans lors d'un braquage a Deerfield Beach. Qui est-ce ?",
+      "answer": "XXXTentacion",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus061",
+      "question": "En 2020, un rappeur californien de 29 ans remporte le Grammy du meilleur album rap pour IGOR, un album experimental melant synth-pop et neo-soul. Il critique ensuite les Grammy pour avoir automatiquement classe son projet dans la categorie rap a cause de sa couleur de peau. Qui est-ce ?",
+      "answer": "Tyler, the Creator",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus063",
+      "question": "Sorti en septembre 1994, cet album debut d'un rappeur de Brooklyn est le premier projet publie par Bad Boy Records. Il se termine par une piste simulant un suicide et raconte l'ascension et la chute d'un jeune criminel. Quel est cet album ?",
+      "answer": "Ready to Die",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus066",
+      "question": "En 1992, un producteur sort son premier album solo qui definit le son G-funk : des basses lourdes, des synthetiseurs planants et des samples de Parliament-Funkadelic. Cet album est preserve par la Bibliotheque du Congres depuis 2019. Quel est cet album ?",
+      "answer": "The Chronic",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus067",
+      "question": "En novembre 1993, un collectif de 9 rappeurs de Staten Island sort un album debut au son brut et minimaliste, produit pour moins de 36 000 dollars. Le titre C.R.E.A.M. en est devenu l'hymne le plus celebre. Quel est cet album ?",
+      "answer": "Enter the Wu-Tang (36 Chambers)",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus068",
+      "question": "Ce membre du Wu-Tang Clan, connu pour son style unique et imprévisible, a sorti l'album Return to the 36 Chambers en 1995. Il est tristement celebre pour ses demeles avec la justice et son deces premature en 2004 a 35 ans. Qui est-ce ?",
+      "answer": "Ol' Dirty Bastard",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus069",
+      "question": "En 1996, un rappeur signe chez Death Row Records sort le premier double album studio solo dans l'histoire du hip-hop, contenant 27 titres et des featurings avec Dr. Dre et Snoop Dogg. Ce disque mythique porte un titre evoquant le regard omnipresent de son auteur. Quel est cet album ?",
+      "answer": "All Eyez on Me",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus070",
+      "question": "En 1996, un rappeur signe chez Death Row apres que le patron du label ait paye sa caution de 1,4 million de dollars pour le faire sortir de prison. 7 mois plus tard, il est assassine dans un drive-by a Las Vegas. De quelle ville etait originaire ce rappeur ?",
+      "answer": "Harlem",
+      "difficulty": "difficile",
+      "category": "Culture hip-hop"
+    },
+    {
+      "id": "rus071",
+      "question": "Ce rappeur et magnat du hip-hop, cofondateur de Bad Boy Records, est connu sous de multiples noms de scene incluant Puff Daddy et Diddy. Il a produit le celebre titre I'll Be Missing You en hommage a son ami Notorious B.I.G. Qui est-ce ?",
+      "answer": "Sean Combs",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus072",
+      "question": "Cet album de 1991, deuxieme d'un groupe du Queens, est une fusion revolutionnaire de jazz et de hip-hop. Q-Tip en assure la production minimaliste, avec des lignes de basse proeminentes et des samples de jazz. Quel est cet album ?",
+      "answer": "The Low End Theory",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "rus073",
+      "question": "En 2003, un rappeur du Queens produit par Eminem et Dr. Dre sort un album debut qui se vend a 872 000 exemplaires en premiere semaine. Le single In Da Club devient le morceau le plus diffuse en radio cette annee-la. L'album porte un titre evoquant la quete de richesse ou la mort. Quel est cet album ?",
+      "answer": "Get Rich or Die Tryin'",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus074",
+      "question": "En juin 2008, un rappeur de La Nouvelle-Orleans sort le troisieme volet de sa serie d'albums la plus celebre, qui se vend a plus d'un million d'exemplaires en premiere semaine. Son single Lollipop est le premier tube numero un de cet artiste. Quel est cet album ?",
+      "answer": "Tha Carter III",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus076",
+      "question": "En 2010, cette rappeuse originaire de Trinidad et Tobago sort son premier album Pink Friday, realisant la plus grosse semaine de ventes pour un album de rappeuse au 21e siecle. Elle deviendra la rappeuse aux plus gros records Billboard de l'histoire. Qui est-ce ?",
+      "answer": "Nicki Minaj",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus077",
+      "question": "Ce producteur et membre du Wu-Tang Clan a produit l'integralite de l'album Enter the Wu-Tang (36 Chambers) pour moins de 36 000 dollars. Son style sombre inspire des films de kung-fu a revolutionne la production hip-hop des annees 90. Qui est-ce ?",
+      "answer": "RZA",
+      "difficulty": "difficile",
+      "category": "Producteurs"
+    },
+    {
+      "id": "rus078",
+      "question": "Depuis 2006, la ceremonie annuelle des BET Hip Hop Awards presente des sessions de freestyle ou des rappeurs se succedent en cercle pour montrer leur talent d'improvisation. Ce format de freestyle collectif porte un nom specifique. Quel est-il ?",
+      "answer": "Cypher",
+      "difficulty": "normal",
+      "category": "Culture hip-hop"
+    },
+    {
+      "id": "rus079",
+      "question": "En 1986, un groupe de hip-hop de Queens reprend Walk This Way avec un groupe de rock legendaire, fusionnant rap et rock pour la premiere fois a grande echelle. Le clip tourne en boucle sur MTV et atteint la 4e place du Billboard Hot 100. Quel est le groupe de rock en question ?",
+      "answer": "Aerosmith",
+      "difficulty": "normal",
+      "category": "Culture hip-hop"
+    },
+    {
+      "id": "rus081",
+      "question": "Ce membre du Wu-Tang Clan, connu pour son flow melodique et son charisme, sort Tical en 1994 avant de devenir acteur dans plusieurs series televisees. Il doit son nom de scene a une legende des arts martiaux. Qui est-ce ?",
+      "answer": "Method Man",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus082",
+      "question": "En 1990, un groupe de hip-hop politique de Long Island sort son troisieme album, preserve par la Bibliotheque du Congres en 2004. Il est considere comme le sommet du rap engagé avec des titres comme Welcome to the Terrordome. Quel est cet album ?",
+      "answer": "Fear of a Black Planet",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "rus083",
+      "question": "Ce rappeur et entrepreneur de la Bay Area a popularise le terme 'hyphy' et le mouvement musical du meme nom a Oakland dans les annees 2000. Son tube Tell Me When to Go est devenu un hymne de la scene West Coast. Qui est-ce ?",
+      "answer": "E-40",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus084",
+      "question": "Ce trio d'Atlanta compose de Quavo, Offset et Takeoff a popularise le flow triplet dans le rap moderne. Leur titre Bad and Boujee atteint la premiere place du Billboard Hot 100 en 2017. Quel est ce groupe ?",
+      "answer": "Migos",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus085",
+      "question": "En 2015, un rappeur de Compton remporte le record de 11 nominations aux Grammy Awards en une seule annee, grace a son troisieme album melant jazz et funk. L'un de ses singles devient un hymne du mouvement Black Lives Matter, repris dans les marches a travers le pays. Quel est ce single protestataire ?",
+      "answer": "Alright",
+      "difficulty": "difficile",
+      "category": "Culture hip-hop"
+    },
+    {
+      "id": "rus086",
+      "question": "Ce rappeur d'Atlanta, ne Jeffery Lamar Williams, est connu pour son flow melodique experimental et son influence majeure sur le rap moderne. Il a popularise l'usage de robes et de vetements non-conformistes dans le hip-hop. Qui est-ce ?",
+      "answer": "Young Thug",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus090",
+      "question": "En 1988, un groupe de Compton sort un album dont le titre Fuck tha Police provoque un avertissement officiel du FBI. C'est le premier album de gangsta rap a obtenir la certification platine. Quel est cet album ?",
+      "answer": "Straight Outta Compton",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus091",
+      "question": "Rappeur et producteur originaire d'Atlanta, ce fondateur de la Dungeon Family a produit l'integralite de l'album Southernplayalisticadillacmuzik en 1994. Son vrai nom est Rico Wade et il a lance la scene Southern hip-hop. Quel est le collectif dont il fait partie ?",
+      "answer": "Organized Noize",
+      "difficulty": "difficile",
+      "category": "Producteurs"
+    },
+    {
+      "id": "rus093",
+      "question": "En 2011, un duo forme par Jay-Z et Kanye West sort un album collaboratif enregistre entre New York, Sydney et les studios Metropolis a Londres. Le titre Niggas in Paris devient un phenomene mondial. Quel est cet album ?",
+      "answer": "Watch the Throne",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus094",
+      "question": "Ce rappeur d'Atlanta, ne Radric Davis, est surnomme le parrain de la trap music. Incarcere a de multiples reprises, il continue de sortir des mixtapes depuis sa cellule et a influence toute la scene trap d'Atlanta. Qui est-ce ?",
+      "answer": "Gucci Mane",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus095",
+      "question": "En 2004, un producteur et rappeur d'Atlanta sort son album debut Trap Muzik, qui contribue a definir le sous-genre trap du hip-hop. Son style melant narration de rue et beats lourds deviendra un modele pour toute une generation de rappeurs du Sud. Qui est-ce ?",
+      "answer": "T.I.",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus096",
+      "question": "Ce groupe de rap de Long Island, signe chez Def Jam, sort en 1986 Licensed to Ill, le premier album de rap a atteindre la premiere place du Billboard 200. Ils sont egalement les premiers rappeurs blancs a connaitre un succes commercial massif. Quel est ce groupe ?",
+      "answer": "Beastie Boys",
+      "difficulty": "normal",
+      "category": "Old School"
+    },
+    {
+      "id": "rus097",
+      "question": "Membre du Wu-Tang Clan ne Dennis Coles, ce rappeur de Staten Island sort Supreme Clientele en 2000, considere comme un chef-d'oeuvre du rap mafieux. Il est connu pour ses references constantes aux films de blaxploitation et a la mode haute couture. Qui est-ce ?",
+      "answer": "Ghostface Killah",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus098",
+      "question": "Ce duo de Virginia Beach, compose de deux freres rappeurs signes chez Star Trak, est connu pour ses albums Lord Willin' et Hell Hath No Fury, tous deux produits par les Neptunes. L'un des membres deviendra plus tard president de GOOD Music. Quel est ce duo ?",
+      "answer": "Clipse",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus099",
+      "question": "Membre du Wu-Tang Clan, ce rappeur sort en 1995 Only Built 4 Cuban Linx..., considere comme le blueprint du rap mafieux. Son partenaire Ghostface Killah y joue un role central sous le pseudonyme de Tony Starks. Qui est-ce ?",
+      "answer": "Raekwon",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus100",
+      "question": "Ce rappeur et producteur de Virginie, membre du duo Neptunes et du groupe N.E.R.D, sort le mega-tube Happy en 2013 qui passe 25 semaines dans le top 10 du Hot 100. Il est egalement connu pour son chapeau Vivienne Westwood iconique. Qui est-ce ?",
+      "answer": "Pharrell Williams",
+      "difficulty": "normal",
+      "category": "Producteurs"
+    },
+    {
+      "id": "rus101",
+      "question": "En 2012, un rappeur sort un album concept decrivant sa jeunesse a Compton comme un court-metrage, avec sa mere qui laisse des messages vocaux entre les morceaux. L'album se termine par une priere. Quel est cet album ?",
+      "answer": "good kid, m.A.A.d city",
+      "difficulty": "normal",
+      "category": "Albums"
+    },
+    {
+      "id": "rus103",
+      "question": "Ce label legendaire de la scene Southern, fonde a Atlanta par Jermaine Dupri en 1993, a lance les carrieres de Ludacris, Da Brat et Bow Wow. Son nom evoque l'idee d'un disque jockey exclusif. Quel est ce label ?",
+      "answer": "So So Def Recordings",
+      "difficulty": "difficile",
+      "category": "Labels"
+    },
+    {
+      "id": "rus104",
+      "question": "En 2017, un rappeur d'Atlanta sort le titre XO Tour Llif3 qui atteint la 7e place du Billboard Hot 100 et definit le son emo-trap melodique. Son style melant Auto-Tune, punk et trap influence une generation entiere. Qui est-ce ?",
+      "answer": "Lil Uzi Vert",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus105",
+      "question": "En 1995, un rappeur et acteur de Harlem sort un album depuis sa cellule de prison. L'album debute numero un au Billboard 200, faisant de lui le premier artiste a reussir cet exploit depuis une cellule. Le disque contient l'hommage emouvant Dear Mama. Quel est cet album au titre evoquant un combat solitaire ?",
+      "answer": "Me Against the World",
+      "difficulty": "difficile",
+      "category": "Albums"
+    },
+    {
+      "id": "rus106",
+      "question": "Ce rappeur d'Atlanta, ne Dominique Jones, est le plus jeune membre du trio Migos. Il sort son album solo The Last Rocket en 2018 mais decede tragiquement en novembre 2022 a Houston a l'age de 28 ans. Qui est-ce ?",
+      "answer": "Takeoff",
+      "difficulty": "difficile",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus107",
+      "question": "Ce rappeur de Chicago sort le titre Love Sosa en 2012 a seulement 16 ans, lancant le mouvement drill de sa ville. Son style brut et agressif influence des scenes entieres a Londres et New York. Son nom de scene est compose d'un titre honorifique et d'un prenom. Qui est-ce ?",
+      "answer": "Chief Keef",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus108",
+      "question": "Ce rappeur de Chicago melange gospel, soul et hip-hop dans ses mixtapes. Son projet Coloring Book de 2016 est le premier album exclusivement en streaming a remporter un Grammy Award. Il refuse de signer chez un label, restant artiste independant. Qui est-ce ?",
+      "answer": "Chance the Rapper",
+      "difficulty": "normal",
+      "category": "Modern"
+    },
+    {
+      "id": "rus110",
+      "question": "En 1979, le morceau Rapper's Delight sample le riff de basse d'un celebre titre disco de Chic sorti la meme annee. Ce sample est devenu l'un des plus reconnaissables de l'histoire du hip-hop. Quel est le titre de Chic sample ?",
+      "answer": "Good Times",
+      "difficulty": "difficile",
+      "category": "Culture hip-hop"
+    },
+    {
+      "id": "rus111",
+      "question": "Ce rappeur originaire de Compton, ancien membre de N.W.A, quitte le groupe en 1989 pour une dispute financiere et lance une carriere solo avec l'album AmeriKKKa's Most Wanted en 1990. Il deviendra ensuite acteur de cinema avec la franchise Friday. Qui est-ce ?",
+      "answer": "Ice Cube",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus112",
+      "question": "En 2019, un jeune rappeur du Mississippi sort le titre Old Town Road qui est d'abord retire du classement country de Billboard avant de devenir le plus long numero un de l'histoire du Hot 100 avec 19 semaines. Qui est cet artiste ?",
+      "answer": "Lil Nas X",
+      "difficulty": "normal",
+      "category": "Records"
+    },
+    {
+      "id": "rus114",
+      "question": "Ce rappeur et entrepreneur de la cote Ouest, cofondateur de N.W.A et de Ruthless Records, est souvent surnomme le parrain du gangsta rap. Il decede en 1995 a 30 ans des suites du SIDA. Qui est-ce ?",
+      "answer": "Eazy-E",
+      "difficulty": "normal",
+      "category": "Artistes"
+    },
+    {
+      "id": "rus115",
+      "question": "Ce rappeur et producteur de New York, ne Sean Michaels Leonard Anderson, est la moitie du duo Gang Starr avec DJ Premier. Il est connu pour sa voix monotone et son flow jazzy. Il decede en 2010 a 48 ans des suites d'un cancer. Quel est son nom de scene ?",
+      "answer": "Guru",
+      "difficulty": "difficile",
+      "category": "Golden Age"
+    }
+  ]
+}

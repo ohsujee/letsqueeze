@@ -1,0 +1,812 @@
+{
+  "id": "database-kpop",
+  "title": "K-Pop",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "kpop001",
+      "question": "Formé par Big Hit Entertainment en 2012, ce groupe de sept membres est devenu le premier acte sud-coréen à atteindre la première place du Billboard Hot 100 en 2020 avec un single entièrement en anglais. Leur fandom, l'un des plus puissants au monde, s'appelle ARMY. Quel est ce groupe ?",
+      "answer": "BTS",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop002",
+      "question": "Leader et rappeur principal de son groupe, cet artiste né Kim Namjoon est connu pour son QI de 148 et ses discours aux Nations Unies. Il a sorti les albums solo Indigo et Right Place, Wrong Person. Quel est son nom de scène ?",
+      "answer": "RM",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop003",
+      "question": "Membre le plus âgé de son groupe, ce chanteur sud-coréen surnommé 'Worldwide Handsome' a collaboré avec Coldplay pour un single spatial sorti en 2022. Son service militaire a été le premier du groupe, faisant de lui un pionnier parmi les sept. De quel membre s'agit-il ?",
+      "answer": "Jin",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop004",
+      "question": "Sous le nom d'Agust D, ce rappeur et producteur a sorti trois mixtapes solo acclamées par la critique. Né Min Yoongi, il est aussi réputé pour ses compositions au sein de son groupe et son émission de talk-show Suchwita. Quel est son nom de scène dans le groupe ?",
+      "answer": "Suga",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop005",
+      "question": "Surnommé le Golden Maknae pour sa polyvalence en chant, danse et rap, ce membre est le plus jeune de son groupe. Son album solo Golden sorti en 2023 a battu des records de streaming sur Spotify. De quel artiste parle-t-on ?",
+      "answer": "Jungkook",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop006",
+      "question": "Sorti en août 2020, ce single disco-pop entièrement en anglais a débuté directement au numéro un du Billboard Hot 100, une première historique pour un groupe sud-coréen. Il a accumulé 265 000 ventes en téléchargement la première semaine. Quel est ce titre ?",
+      "answer": "Dynamite",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop007",
+      "question": "Sorti en mai 2018, cet album est devenu le premier disque K-pop à atteindre la première place du Billboard 200. Son titre phare, Fake Love, a aussi marqué l'histoire des classements américains pour la pop coréenne. Quel est le nom de cet album ?",
+      "answer": "Love Yourself: Tear",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop008",
+      "question": "En 2019, ce titre porté par une collaboration avec Halsey a récolté 74,6 millions de vues en 24 heures sur YouTube. Le clip coloré et rétro montre les sept membres dans un décor inspiré des années 1960. Quel est le titre de cette chanson ?",
+      "answer": "Boy With Luv",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop009",
+      "question": "Sorti en mai 2021, ce single estival en anglais est resté trois semaines consécutives numéro un du Billboard Hot 100. Le clip met en scène les membres dans des décors inspirés de restaurants et a battu des records YouTube. Quel est ce titre ?",
+      "answer": "Butter",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop010",
+      "question": "Danseur et chanteur reconnu pour ses performances solo comme Lie et Filter, ce membre de Busan a été élu à plusieurs reprises artiste le plus recherché sur Google au sein de son groupe. Son album solo Face est sorti en mars 2023. Qui est-il ?",
+      "answer": "Jimin",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop011",
+      "question": "Né Kim Taehyung, ce chanteur au timbre baryton reconnaissable a sorti l'album solo Layover en 2023. Connu pour son amour de l'art et de la photographie, il est aussi acteur dans le drama historique Hwarang. Son nom de scène est la 22e lettre de l'alphabet latin. Quelle est cette lettre ?",
+      "answer": "V",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop012",
+      "question": "Danseur, rappeur et fondateur de sa propre marque, ce membre né Jung Hoseok a sorti l'album solo Jack in the Box en 2022. Il a été le premier artiste coréen à se produire en tête d'affiche du festival Lollapalooza. Quel est son nom de scène ?",
+      "answer": "J-Hope",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop013",
+      "question": "Anthologie sortie en 2022, cet album triple CD compile les plus grands succès du groupe ainsi que des titres inédits dont Yet To Come. Il marque une transition vers les projets solo des sept membres. Quel est le nom de cet album ?",
+      "answer": "Proof",
+      "difficulty": "difficile",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop014",
+      "question": "Le nom complet de ce groupe en coréen est Bangtan Sonyeondan, signifiant littéralement 'scouts anti-balles'. En 2017, il a été réinterprété pour le marché international avec un nouveau sigle anglais. Que signifient les trois mots de cette version anglaise du nom ?",
+      "answer": "Beyond The Scene",
+      "difficulty": "normal",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop015",
+      "question": "Série d'albums conceptuels explorant les thèmes de la jeunesse et de l'amour de soi, cette franchise a débuté en 2018 et inclut les volets Her, Tear et Answer. Le dernier volet a été le premier album K-pop numéro un du Billboard 200. Quel est le nom de cette série d'albums ?",
+      "answer": "Love Yourself",
+      "difficulty": "difficile",
+      "category": "BTS"
+    },
+    {
+      "id": "kpop016",
+      "question": "Formé par YG Entertainment, ce girl group de quatre membres a débuté en août 2016 avec les singles Whistle et Boombayah. Avec plus de 40 milliards de streams, il est l'un des groupes féminins les plus écoutés de l'histoire. Quel est ce groupe ?",
+      "answer": "BLACKPINK",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop017",
+      "question": "Membre la plus âgée de son groupe, cette chanteuse et actrice sud-coréenne a joué dans le drama Snowdrop en 2021. Elle est aussi connue pour sa reprise virale de Liar par Camila Cabello. De quel membre de BLACKPINK s'agit-il ?",
+      "answer": "Jisoo",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop018",
+      "question": "Rappeuse principale et première membre révélée de son groupe, cette artiste a sorti le single SOLO en 2018, premier titre solo d'une membre de BLACKPINK. Ambassadrice de Chanel, elle est considérée comme l'une des icônes de mode les plus influentes de la K-pop. Qui est-elle ?",
+      "answer": "Jennie",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop019",
+      "question": "Née en Nouvelle-Zélande et élevée en Australie, cette chanteuse est la vocaliste principale de son groupe. Son single solo On The Ground a atteint le numéro un du Billboard Global 200 en 2021. Son album solo APT. avec Bruno Mars est devenu viral en 2024. Qui est-elle ?",
+      "answer": "Rosé",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop020",
+      "question": "Seule membre non coréenne de son groupe, cette danseuse et rappeuse thaïlandaise est devenue la personne la plus suivie de son pays sur Instagram. Son premier single solo en 2021 a battu le record de vues en 24 heures pour une artiste solo sur YouTube. Qui est-elle ?",
+      "answer": "Lisa",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop021",
+      "question": "En 2019, un girl group K-pop est devenu le premier groupe féminin coréen à se produire au festival de Coachella. Quatre ans plus tard, elles sont revenues comme têtes d'affiche, devenant le premier acte asiatique à headliner ce même festival. En quelle année ont-elles headliné Coachella ?",
+      "answer": "2023",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop022",
+      "question": "Sortie en 2018, cette chanson au rythme addictif et au refrain répétant le son 'ddu-du' est devenue la première chanson d'un groupe féminin K-pop à dépasser un milliard de vues sur YouTube. Quel est le titre de ce morceau ?",
+      "answer": "DDU-DU DDU-DU",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop023",
+      "question": "Sorti en août 2020, ce single en collaboration avec Selena Gomez est le deuxième pré-single de l'album The Album. Le clip a accumulé plus de 79 millions de vues en 24 heures lors de sa sortie. Quel est le titre de cette chanson de BLACKPINK ?",
+      "answer": "Ice Cream",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop024",
+      "question": "Premier album studio de BLACKPINK sorti en octobre 2020, ce disque inclut les singles How You Like That, Ice Cream et Lovesick Girls. Il s'est vendu à plus d'un million d'exemplaires la première semaine. Quel est le nom de cet album ?",
+      "answer": "The Album",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop025",
+      "question": "Single de pré-comeback sorti en juin 2020, ce titre de BLACKPINK a battu le record de la première mondiale la plus regardée sur YouTube avec 86,3 millions de vues en 24 heures. Son titre est une question provocatrice. Comment s'appelle cette chanson ?",
+      "answer": "How You Like That",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop026",
+      "question": "Fandom officiel de BLACKPINK, ce nom combine les mots 'black' et 'pink' en un acronyme qui signifie aussi cligner des yeux en anglais. Les fans se reconnaissent par leur lightstick en forme de marteau. Comment s'appellent-ils ?",
+      "answer": "Blink",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop027",
+      "question": "Surnommé 'les Rois de la K-pop', ce boy group de cinq membres formé par YG Entertainment en 2006 a révolutionné le genre avec des titres comme Fantastic Baby et Bang Bang Bang. Son leader, rapper et producteur, est une icône de la mode. Quel est ce groupe ?",
+      "answer": "BIGBANG",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop028",
+      "question": "Leader et rappeur emblématique de BIGBANG, cet artiste né Kwon Jiyong est considéré comme le 'roi de la K-pop'. Créateur de la première lightstick K-pop, il est aussi une icône de la mode collaborant avec les plus grandes maisons de luxe. Quel est son nom de scène ?",
+      "answer": "G-Dragon",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop029",
+      "question": "Groupe de boy band débutant en avril 2012 sous SM Entertainment, cette formation était à l'origine divisée en deux sous-groupes basés en Corée et en Chine. Leur single Growl en 2013 a propulsé leur album XOXO au-delà du million de copies. Quel est ce groupe ?",
+      "answer": "EXO",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop030",
+      "question": "Composé de treize membres répartis en trois sous-unités (hip-hop, vocal, performance), ce groupe formé par Pledis Entertainment en 2015 est célèbre pour être un groupe auto-produit dont les membres écrivent et chorégraphient eux-mêmes. Quel est ce groupe ?",
+      "answer": "SEVENTEEN",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop031",
+      "question": "Formé à travers le reality show éponyme de JYP Entertainment en 2017, ce groupe de huit membres est mené par Bang Chan, un Australien d'origine coréenne. Leur titre God's Menu est devenu leur morceau signature en 2020. Quel est ce groupe ?",
+      "answer": "Stray Kids",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop032",
+      "question": "Acronyme de Neo Culture Technology, ce projet de SM Entertainment lancé en 2016 repose sur un nombre illimité de membres répartis en sous-unités. 127 fait référence à la longitude de Séoul, et le groupe compte plus de vingt-cinq membres au total. Quel est ce groupe ?",
+      "answer": "NCT",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop033",
+      "question": "Deuxième groupe masculin lancé par Big Hit Entertainment (devenu HYBE), ce quintette a débuté en mars 2019 avec l'EP The Dream Chapter: Star. Leur nom complet signifie 'ensemble demain' en anglais. Quel est ce groupe souvent abrégé en trois lettres ?",
+      "answer": "TXT",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop034",
+      "question": "Formé par KQ Entertainment, ce groupe de huit membres mené par Hongjoong a débuté en octobre 2018. Connu pour ses performances intenses et son univers narratif de pirates, leur chanson Wonderland est devenue un hymne de la quatrième génération. Quel est ce groupe ?",
+      "answer": "ATEEZ",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop035",
+      "question": "Formé via le survival show I-LAND diffusé sur Mnet en 2020, ce groupe de sept membres est géré par Belift Lab, une coentreprise entre CJ ENM et HYBE. Ils ont débuté avec l'EP Border: Day One. Quel est ce groupe ?",
+      "answer": "ENHYPEN",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop036",
+      "question": "Groupe de sept membres formé par JYP Entertainment en 2014, cette formation est connue pour intégrer des éléments d'arts martiaux et de b-boying dans ses performances. Jackson Wang, l'un de ses membres, est un ancien escrimeur hongkongais de haut niveau. Quel est ce groupe ?",
+      "answer": "GOT7",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop037",
+      "question": "Débutant en mai 2008 sous SM Entertainment avec le single Replay, ce groupe de cinq membres est considéré comme l'un des pionniers de la troisième génération K-pop. Leur plus jeune membre est devenu l'un des solistes masculins les plus acclamés de l'industrie. Quel est ce groupe ?",
+      "answer": "SHINee",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop038",
+      "question": "Débutant en novembre 2005 sur Inkigayo avec douze membres, ce boy group de SM Entertainment a conquis l'Asie avec le titre Sorry, Sorry en 2009. Leur leader Leeteuk est le plus ancien idol encore actif de l'agence. Quel est ce groupe ?",
+      "answer": "Super Junior",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop039",
+      "question": "Sous-unité de NCT basée à Séoul, ce groupe tire son nom de la longitude de la capitale sud-coréenne. Ils ont percé à l'international avec des titres comme Kick It et Sticker. Le nombre dans leur nom est un repère géographique. Quel est ce groupe ?",
+      "answer": "NCT 127",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop040",
+      "question": "Quatrième sous-unité de NCT dédiée au marché chinois, ce groupe de sept membres a débuté en janvier 2019 avec une version chinoise du titre Regular. Leur nom signifie 'Vision' en mandarin. Quel est ce sous-groupe ?",
+      "answer": "WayV",
+      "difficulty": "difficile",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop041",
+      "question": "Sous-unité de NCT composée à l'origine de membres adolescents, ce groupe a débuté en août 2016 et a connu un immense succès commercial avec des titres comme Chewing Gum et Hot Sauce. Leur nom évoque le rêve et la jeunesse. Quel est ce sous-groupe ?",
+      "answer": "NCT Dream",
+      "difficulty": "normal",
+      "category": "Groupes masculins"
+    },
+    {
+      "id": "kpop042",
+      "question": "Formé par JYP Entertainment en 2015, ce girl group de neuf membres a explosé avec le single Cheer Up en 2016, élu chanson de l'année aux Melon Music Awards et aux MAMA. Trois de ses membres sont japonaises. Quel est ce groupe ?",
+      "answer": "TWICE",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop043",
+      "question": "Girl group de SM Entertainment ayant débuté en août 2014 avec le single Happiness, ce groupe de cinq membres (Irene, Seulgi, Wendy, Joy, Yeri) est connu pour son double concept alternant entre chansons pop colorées et titres R&B plus sombres. Quel est ce groupe ?",
+      "answer": "Red Velvet",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop044",
+      "question": "Premier groupe féminin du SM Culture Universe, ce girl group de quatre membres a débuté en novembre 2020 avec le concept d'avatars virtuels appelés æ. Leur univers se déroule dans un monde fictif nommé KWANGYA. Quel est ce groupe ?",
+      "answer": "aespa",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop045",
+      "question": "Formé par Cube Entertainment en 2018, ce girl group est célèbre pour être l'un des rares groupes féminins auto-produits. Leur leader et rappeuse, ancienne candidate de Produce 101, compose la majorité de leurs titres. Quel est ce groupe dont le nom commence par une parenthèse ?",
+      "answer": "(G)I-DLE",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop046",
+      "question": "Débutant en décembre 2021 sous Starship Entertainment avec le single ELEVEN, ce girl group de six membres inclut Wonyoung et Yujin, anciennes membres du groupe projet IZ*ONE. Elles ont rapidement dominé les charts coréens. Quel est ce groupe ?",
+      "answer": "IVE",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop047",
+      "question": "Débutant en juillet 2022 sous ADOR, filiale de HYBE, ce girl group de cinq membres a révolutionné la K-pop avec une esthétique rétro années 90. Leur titre Ditto a battu des records de streaming en Corée et leur EP Get Up a atteint le sommet du Billboard 200. Quel est ce groupe ?",
+      "answer": "NewJeans",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop048",
+      "question": "Formé par Source Music, filiale de HYBE, ce girl group a débuté en mai 2022 avec l'EP Fearless. Il compte parmi ses membres Sakura et Kim Chaewon, toutes deux anciennes de IZ*ONE. Leur nom est un anagramme d'un groupe de six lettres angéliques. Quel est ce groupe ?",
+      "answer": "LE SSERAFIM",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop049",
+      "question": "Premier girl group lancé par JYP Entertainment après TWICE, ce quintette a débuté en février 2019 avec le titre Dalla Dalla. Leur concept met en avant la confiance en soi et l'individualité. Elles ont battu le record de victoire la plus rapide dans un music show. Quel est ce groupe ?",
+      "answer": "ITZY",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop050",
+      "question": "Composé de quatre membres (Solar, Moonbyul, Wheein, Hwasa), ce girl group de RBW Entertainment a débuté en 2014. Connu pour ses performances vocales live exceptionnelles, leur titre Hip en 2019 a atteint le numéro un du Billboard World Digital Song Sales. Quel est ce groupe ?",
+      "answer": "MAMAMOO",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop051",
+      "question": "Girl group de quatre membres formé par YG Entertainment en 2009, ce groupe a été pionnier dans le mélange hip-hop et pop féminine. Leur titre I Am the Best en 2011 est devenu un hymne emblématique. Elles se sont réunies en 2024 pour célébrer leur quinzième anniversaire. Quel est ce groupe ?",
+      "answer": "2NE1",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop052",
+      "question": "Débutant en août 2007 sous SM Entertainment, ce girl group de huit membres (après le départ de Jessica) a dominé la K-pop de la deuxième génération. Leur single Gee en 2009 est resté neuf semaines consécutives au sommet du classement Music Bank. Quel est ce groupe dont le nom coréen est Sonyeo Sidae ?",
+      "answer": "Girls' Generation",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop053",
+      "question": "Groupe féminin de douze membres ayant eu un concept de pré-début unique où chaque membre a sorti un single solo mensuel entre 2016 et 2018. Divisé en trois sous-unités avant de débuter ensemble, leur fandom s'appelle Orbit. Quel est ce groupe dont l'univers fictif porte leur nom ?",
+      "answer": "LOONA",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop054",
+      "question": "Débutant en février 2022 sous JYP Entertainment avec le single O.O, ce girl group de six membres est connu pour son style musical expérimental mélangeant plusieurs genres dans un même titre. Leur deuxième single Dice a confirmé leur identité sonore unique. Quel est ce groupe ?",
+      "answer": "NMIXX",
+      "difficulty": "difficile",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop055",
+      "question": "Sorti en mai 2023, ce titre de (G)I-DLE écrit et produit par Soyeon aborde les thèmes de l'acceptation de soi et de la confiance. Il est devenu leur troisième single consécutif numéro un en Corée du Sud et a connu un succès viral mondial. Quel est le titre de cette chanson ?",
+      "answer": "Queencard",
+      "difficulty": "difficile",
+      "category": "Groupes féminins"
+    },
+    {
+      "id": "kpop056",
+      "question": "Née Lee Jieun, cette chanteuse et actrice sud-coréenne a débuté en 2008 et détient le record du plus grand nombre de singles numéro un en Corée du Sud. Son titre Good Day en 2010 est resté cinq semaines en tête du Gaon Digital Chart. Quel est son nom de scène de deux lettres ?",
+      "answer": "IU",
+      "difficulty": "normal",
+      "category": "Solistes"
+    },
+    {
+      "id": "kpop057",
+      "question": "Né Park Jae-sang, ce chanteur et producteur sud-coréen a créé le phénomène mondial de 2012 dont le clip est devenu la première vidéo YouTube à atteindre un milliard de vues, le 21 décembre de cette année-là. Quel est son nom de scène ?",
+      "answer": "PSY",
+      "difficulty": "normal",
+      "category": "Solistes"
+    },
+    {
+      "id": "kpop058",
+      "question": "Plus jeune membre de SHINee lors de ses débuts en 2008, ce danseur et chanteur a lancé sa carrière solo en 2014 avec l'EP Ace. Reconnu comme l'un des meilleurs performeurs de la K-pop, il a aussi fait partie du supergroupe SuperM. Qui est cet artiste ?",
+      "answer": "Taemin",
+      "difficulty": "normal",
+      "category": "Solistes"
+    },
+    {
+      "id": "kpop059",
+      "question": "Ancienne membre des Wonder Girls ayant quitté le groupe pour ses études en 2010, cette soliste est revenue en 2013 avant de connaître un immense succès avec Gashina en 2017. Elle a développé un style musical unique surnommé par les fans du nom de son art. Qui est cette artiste ?",
+      "answer": "Sunmi",
+      "difficulty": "normal",
+      "category": "Solistes"
+    },
+    {
+      "id": "kpop060",
+      "question": "Leader et vocaliste principale de Girls' Generation, cette artiste solo de SM Entertainment est connue pour ses ballades puissantes et ses performances live. Nommée meilleure chanteuse de K-pop par de nombreux critiques, elle a sorti plusieurs albums solo dont My Voice. Qui est-elle ?",
+      "answer": "Taeyeon",
+      "difficulty": "normal",
+      "category": "Solistes"
+    },
+    {
+      "id": "kpop061",
+      "question": "Ancienne membre et rappeuse de 4Minute, cette artiste solo de Cube Entertainment a marqué l'industrie en 2011 avec un clip qui a dépassé les 100 millions de vues, une première pour une soliste K-pop féminine. Elle a aussi collaboré avec PSY dans un remix de son tube mondial. Qui est-elle ?",
+      "answer": "HyunA",
+      "difficulty": "normal",
+      "category": "Solistes"
+    },
+    {
+      "id": "kpop062",
+      "question": "Rappeur, producteur et ancien leader du groupe Block B, cet artiste a connu un immense succès solo avec le titre Any Song en 2020, dont le challenge viral a envahi TikTok. Il dirige aussi son propre label, KOZ Entertainment, affilié à HYBE. Qui est-il ?",
+      "answer": "Zico",
+      "difficulty": "difficile",
+      "category": "Solistes"
+    },
+    {
+      "id": "kpop063",
+      "question": "Né Jung Ji-hoon, ce chanteur et acteur sud-coréen a débuté en 2002 et est devenu un pionnier de la vague Hallyu. Il a été le premier artiste coréen à apparaître dans le classement Time 100 et a joué dans le film hollywoodien Ninja Assassin en 2009. Quel est son nom de scène météorologique ?",
+      "answer": "Rain",
+      "difficulty": "normal",
+      "category": "Solistes"
+    },
+    {
+      "id": "kpop064",
+      "question": "Surnommée la 'Reine de la K-pop', cette artiste a débuté en 2000 sous SM Entertainment à seulement treize ans. Première star coréenne à percer au Japon, elle a vendu plus de dix millions d'albums en carrière et a ouvert la voie à toute une génération d'idols. Qui est cette pionnière ?",
+      "answer": "BoA",
+      "difficulty": "difficile",
+      "category": "Solistes"
+    },
+    {
+      "id": "kpop065",
+      "question": "Ancien membre de GOT7 originaire de Hong Kong, cet artiste est aussi un ancien escrimeur de niveau international. Il a bâti une carrière solo florissante en Chine et à l'international avec des titres comme 100 Ways et sa propre marque de mode. Qui est-il ?",
+      "answer": "Jackson Wang",
+      "difficulty": "normal",
+      "category": "Solistes"
+    },
+    {
+      "id": "kpop066",
+      "question": "Fondée par Lee Soo-man en 1995, cette agence est à l'origine de groupes comme H.O.T., BoA, TVXQ, Super Junior, Girls' Generation, EXO, Red Velvet, NCT et aespa. Elle est souvent désignée par deux lettres suivies du mot Entertainment. Quelle est cette agence ?",
+      "answer": "SM Entertainment",
+      "difficulty": "normal",
+      "category": "Industrie K-Pop"
+    },
+    {
+      "id": "kpop067",
+      "question": "Fondée par Yang Hyun-suk en 1996, cette agence sud-coréenne est connue pour ses groupes au style hip-hop et R&B, notamment BIGBANG, 2NE1 et BLACKPINK. Son nom est composé de deux lettres suivies du mot Entertainment. Quelle est cette agence ?",
+      "answer": "YG Entertainment",
+      "difficulty": "normal",
+      "category": "Industrie K-Pop"
+    },
+    {
+      "id": "kpop068",
+      "question": "Fondée par le producteur Park Jin-young en 1997, cette agence a lancé des groupes comme Wonder Girls, 2PM, GOT7, TWICE, Stray Kids, ITZY et NMIXX. Son fondateur est lui-même un artiste célèbre en Corée. Quelle est cette agence désignée par trois lettres ?",
+      "answer": "JYP Entertainment",
+      "difficulty": "normal",
+      "category": "Industrie K-Pop"
+    },
+    {
+      "id": "kpop069",
+      "question": "Conglomérat fondé par Bang Si-hyuk en 2005 sous le nom de Big Hit Entertainment, cette entreprise a été renommée en 2021 et chapeaute désormais des labels comme Big Hit Music, Source Music, Pledis et ADOR. Elle est la maison-mère du plus grand groupe K-pop au monde. Quel est son nom actuel de quatre lettres ?",
+      "answer": "HYBE",
+      "difficulty": "normal",
+      "category": "Industrie K-Pop"
+    },
+    {
+      "id": "kpop070",
+      "question": "Dans l'industrie K-pop, les aspirants idols passent par une période d'entraînement intensif couvrant le chant, la danse, les langues et le comportement public, pouvant durer de quelques mois à plus de dix ans. Comment appelle-t-on ces jeunes en formation avant leur début officiel ?",
+      "answer": "Trainee",
+      "difficulty": "normal",
+      "category": "Industrie K-Pop"
+    },
+    {
+      "id": "kpop071",
+      "question": "Diffusé sur la chaîne SBS depuis 1998, ce programme musical hebdomadaire sud-coréen est l'un des plus anciens encore en activité. Les artistes K-pop s'y produisent pour promouvoir leurs nouveaux titres et peuvent y remporter un trophée de première place. Quel est le nom de ce show commençant par 'Inki' ?",
+      "answer": "Inkigayo",
+      "difficulty": "difficile",
+      "category": "Industrie K-Pop"
+    },
+    {
+      "id": "kpop072",
+      "question": "Diffusé sur KBS depuis 1998, ce programme musical hebdomadaire est célèbre pour son classement K-Chart. Girls' Generation y a détenu le record de neuf semaines consécutives au sommet avec Gee. Les artistes s'y produisent chaque vendredi. Quel est le nom de ce show ?",
+      "answer": "Music Bank",
+      "difficulty": "difficile",
+      "category": "Industrie K-Pop"
+    },
+    {
+      "id": "kpop073",
+      "question": "Diffusé sur Mnet depuis 2004, ce programme musical est connu pour ses segments spéciaux comme le MCD Vocal Challenge où des idols de différents groupes chantent ensemble. C'est sur ce show qu'ITZY a remporté sa première victoire seulement huit jours après ses débuts. Quel est son nom ?",
+      "answer": "M Countdown",
+      "difficulty": "difficile",
+      "category": "Industrie K-Pop"
+    },
+    {
+      "id": "kpop074",
+      "question": "Dans les cérémonies de récompenses K-pop comme les MAMA ou les Melon Music Awards, le prix le plus prestigieux est appelé 'Grand Prix' en coréen. Ce terme désigne les catégories majeures comme Artiste de l'année ou Album de l'année. Quel est ce mot coréen ?",
+      "answer": "Daesang",
+      "difficulty": "difficile",
+      "category": "Industrie K-Pop"
+    },
+    {
+      "id": "kpop075",
+      "question": "Anciennement connus sous le nom de Mnet Asian Music Awards (MKMF jusqu'en 2008), ces prix annuels sont parmi les plus prestigieux de la K-pop. Organisés par Mnet, ils se tiennent généralement en fin d'année dans différents pays d'Asie. Quel est l'acronyme actuel de quatre lettres de cette cérémonie ?",
+      "answer": "MAMA",
+      "difficulty": "normal",
+      "category": "Industrie K-Pop"
+    },
+    {
+      "id": "kpop076",
+      "question": "En décembre 2012, le clip de Gangnam Style est devenu la première vidéo de l'histoire de YouTube à franchir le cap symbolique du milliard. Ce record a même forcé la plateforme à modifier son compteur de vues, qui était limité à un entier 32-bit. Quel cap de vues cette vidéo a-t-elle franchi en premier au monde ?",
+      "answer": "Un milliard",
+      "difficulty": "normal",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop077",
+      "question": "Le terme désignant la vague culturelle sud-coréenne qui a envahi le monde depuis les années 1990, englobant la K-pop, les K-dramas, le cinéma et la gastronomie, est un mot coréen signifiant littéralement 'vague coréenne'. Quel est ce terme ?",
+      "answer": "Hallyu",
+      "difficulty": "normal",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop078",
+      "question": "Accessoire lumineux emblématique des concerts K-pop, cet objet personnalisé aux couleurs du groupe est agité par les fans pendant les performances. Celui de BTS s'appelle ARMY Bomb, celui de TWICE le Candy Bong. Comment désigne-t-on génériquement cet accessoire en anglais ?",
+      "answer": "Lightstick",
+      "difficulty": "normal",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop079",
+      "question": "En 2009, un girl group de JYP Entertainment est devenu le premier acte K-pop à entrer dans le Billboard Hot 100 américain, atteignant la 76e place. L'agence avait préparé cette percée en les faisant tourner en première partie des Jonas Brothers. À quelle position ce girl group s'est-il classé dans le Hot 100 ?",
+      "answer": "76",
+      "difficulty": "difficile",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop080",
+      "question": "Dans la culture fan K-pop, ce terme désigne les acclamations synchronisées que les fans crient pendant les performances live, suivant le rythme et les paroles de la chanson. Chaque titre a le sien, appris via des vidéos tutoriels. Comment appelle-t-on ces cris de soutien ?",
+      "answer": "Fanchant",
+      "difficulty": "normal",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop081",
+      "question": "Terme péjoratif en coréen, ce mot désigne les fans obsessionnels qui traquent les idols, envahissent leur vie privée et les suivent partout, allant jusqu'à installer des caméras ou réserver des places d'avion à côté d'eux. Comment appelle-t-on ces fans extrêmes ?",
+      "answer": "Sasaeng",
+      "difficulty": "difficile",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop082",
+      "question": "Expression coréenne désignant un comportement mignon et enfantin utilisé par les idols pour séduire leurs fans, ce concept implique des voix mignonnes, des gestes adorables et des expressions faciales exagérées. Quel est ce terme omniprésent dans la culture K-pop ?",
+      "answer": "Aegyo",
+      "difficulty": "normal",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop083",
+      "question": "Inscrit au Guinness des records comme le plus grand fan-club officiel du monde en 2008 avec plus de 800 000 membres, ce fandom porte le nom d'une constellation à cinq étoiles, en référence aux cinq membres originaux du groupe. Quel est le nom de ce fandom de TVXQ ?",
+      "answer": "Cassiopeia",
+      "difficulty": "difficile",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop084",
+      "question": "En K-pop, ce terme anglais désigne le retour d'un artiste ou groupe avec un nouveau single ou album après une période d'absence. Chaque retour s'accompagne d'un nouveau concept visuel, de teasers et de promotions intensives dans les music shows. Quel est ce terme ?",
+      "answer": "Comeback",
+      "difficulty": "normal",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop085",
+      "question": "Plateforme de streaming musical la plus populaire en Corée du Sud, ce service lancé par Kakao est souvent utilisé comme référence pour mesurer le succès digital des artistes K-pop. Ses classements sont considérés comme les plus représentatifs du marché coréen. Quel est son nom fruité ?",
+      "answer": "Melon",
+      "difficulty": "normal",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop086",
+      "question": "En 2018, le leader RM a prononcé un discours historique devant l'Assemblée générale d'une grande institution internationale à New York, une première pour un artiste K-pop. Il y a parlé d'acceptation de soi et de la pression que subissent les jeunes. Devant quelle institution RM s'est-il exprimé ce jour-là ?",
+      "answer": "Les Nations Unies",
+      "difficulty": "normal",
+      "category": "Culture/Records"
+    },
+    {
+      "id": "kpop087",
+      "question": "HyunA a fait une apparition remarquée dans le clip de ce tube planétaire de 2012 aux côtés de son créateur, dans une scène se déroulant dans un sauna. Cette collaboration a renforcé la visibilité mondiale de la K-pop féminine. Dans quel clip est-elle apparue ?",
+      "answer": "Gangnam Style",
+      "difficulty": "normal",
+      "category": "Collaborations/Crossover"
+    },
+    {
+      "id": "kpop088",
+      "question": "En 2019, un membre de BTS a sorti une collaboration devenue virale avec la chanteuse latino Becky G, reprenant un classique de la culture hip-hop. Le clip coloré tourné entre Séoul et Los Angeles a déclenché un challenge de danse mondial. Quel est le titre de cette chanson culinaire ?",
+      "answer": "Chicken Noodle Soup",
+      "difficulty": "difficile",
+      "category": "Collaborations/Crossover"
+    },
+    {
+      "id": "kpop089",
+      "question": "En 2020, Lady Gaga a inclus une collaboration avec BLACKPINK sur son sixième album studio. Ce disque pop et dance contient aussi les titres Rain On Me avec Ariana Grande et 911. Sur quel album de Lady Gaga figure cette collaboration K-pop ?",
+      "answer": "Chromatica",
+      "difficulty": "normal",
+      "category": "Collaborations/Crossover"
+    },
+    {
+      "id": "kpop090",
+      "question": "Supergroupe formé par SM Entertainment en 2019 réunissant Taemin de SHINee, Baekhyun et Kai d'EXO, et des membres de NCT 127 et WayV, ce projet visait le marché américain avec le titre Jopping. Le groupe s'est produit au Super Bowl de 2020. Quel est son nom ?",
+      "answer": "SuperM",
+      "difficulty": "difficile",
+      "category": "Collaborations/Crossover"
+    },
+    {
+      "id": "kpop091",
+      "question": "En 2022, le membre le plus âgé de BTS a sorti un single solo avec un célèbre groupe de rock britannique, juste avant son service militaire. Le titre évoque un voyageur de l'espace et a été interprété en duo lors d'un concert émouvant en Argentine. Quel est le nom de ce groupe britannique ?",
+      "answer": "Coldplay",
+      "difficulty": "difficile",
+      "category": "Collaborations/Crossover"
+    },
+    {
+      "id": "kpop092",
+      "question": "Lors de la cérémonie de clôture des Jeux olympiques d'hiver de 2018 en Corée du Sud, un boy group de SM Entertainment s'est produit aux côtés de CL, ancienne leader de 2NE1. Cet événement sportif mondial s'est tenu dans la province de Gangwon. Dans quelle ville sud-coréenne ces Jeux olympiques se sont-ils déroulés ?",
+      "answer": "PyeongChang",
+      "difficulty": "difficile",
+      "category": "Collaborations/Crossover"
+    },
+    {
+      "id": "kpop093",
+      "question": "En 2020, le producteur Suga de BTS a composé un titre pour la plus grande soliste de Corée du Sud, née Lee Jieun, en hommage au chiffre symbolisant leur âge à ce moment-là (28 ans). La chanson au style rétro-pop est devenue numéro un dans toute l'Asie. Quel est le titre numérique de cette collaboration ?",
+      "answer": "Eight",
+      "difficulty": "difficile",
+      "category": "Collaborations/Crossover"
+    },
+    {
+      "id": "kpop094",
+      "question": "Stray Kids a collaboré avec Charlie Puth sur le titre Lose My Breath en 2024, marquant une percée significative sur le marché américain. Le leader australien du groupe a co-produit le titre. Quel est le nom de ce leader né à Sydney ?",
+      "answer": "Bang Chan",
+      "difficulty": "difficile",
+      "category": "Collaborations/Crossover"
+    },
+    {
+      "id": "kpop095",
+      "question": "Considéré comme le premier groupe d'idols K-pop de l'histoire, ce boy group de cinq membres a été formé par SM Entertainment en 1996. Leur succès phénoménal a posé les bases du système d'idols que l'on connaît aujourd'hui. Quel est ce groupe dont le nom est un acronyme ?",
+      "answer": "H.O.T.",
+      "difficulty": "difficile",
+      "category": "Générations K-Pop"
+    },
+    {
+      "id": "kpop096",
+      "question": "Rival direct de H.O.T. dans les années 1990, ce boy group formé par Daesung Entertainment a débuté en mai 1997. Composé de six membres (d'où leur nom allemand), ils ont été au cœur de la première guerre de fandoms de la K-pop. Quel est ce groupe ?",
+      "answer": "Sechskies",
+      "difficulty": "difficile",
+      "category": "Générations K-Pop"
+    },
+    {
+      "id": "kpop097",
+      "question": "Premier girl group à succès de la K-pop, ce trio féminin de SM Entertainment a débuté en novembre 1997. Considérées comme les pionnières de la pop féminine coréenne, leurs initiales correspondent aux premières lettres des prénoms anglais de ses trois membres. Quel est ce groupe ?",
+      "answer": "S.E.S.",
+      "difficulty": "difficile",
+      "category": "Générations K-Pop"
+    },
+    {
+      "id": "kpop098",
+      "question": "Débutant en décembre 2003 sous SM Entertainment avec le single Hug, ce groupe masculin était à l'origine composé de cinq membres. Connu sous le nom de Tohoshinki au Japon, leur nom signifie 'les dieux levants de l'Est'. Quel est l'acronyme de quatre lettres de ce groupe ?",
+      "answer": "TVXQ",
+      "difficulty": "difficile",
+      "category": "Générations K-Pop"
+    },
+    {
+      "id": "kpop099",
+      "question": "Ce groupe-duo souvent crédité comme le point de départ de la K-pop moderne a débuté en 1992 avec un album mélangeant rap, rock et techno qui a choqué la Corée conservatrice. Le leader, dont le nom de famille est Seo, a révolutionné la musique populaire coréenne. Quel est ce groupe pionnier ?",
+      "answer": "Seo Taiji and Boys",
+      "difficulty": "difficile",
+      "category": "Générations K-Pop"
+    },
+    {
+      "id": "kpop100",
+      "question": "La deuxième génération de la K-pop, généralement située entre 2003 et 2012, a vu émerger des groupes comme TVXQ, Super Junior, BIGBANG et Girls' Generation. Cette ère est marquée par l'expansion internationale de la musique coréenne, surtout vers quel pays asiatique voisin ?",
+      "answer": "Le Japon",
+      "difficulty": "normal",
+      "category": "Générations K-Pop"
+    },
+    {
+      "id": "kpop101",
+      "question": "La troisième génération de la K-pop, débutant vers 2012, est marquée par l'explosion des réseaux sociaux et la conquête du marché occidental. EXO, TWICE et BLACKPINK en font partie. En quelle année le groupe phare de cette génération, formé par Big Hit, a-t-il débuté avec 2 Cool 4 Skool ?",
+      "answer": "2013",
+      "difficulty": "normal",
+      "category": "Générations K-Pop"
+    },
+    {
+      "id": "kpop102",
+      "question": "La quatrième génération de K-pop, débutant vers 2018, se caractérise par des concepts plus expérimentaux et une présence massive sur TikTok. Parmi les groupes phares, on retrouve Stray Kids, ATEEZ et aespa. Quel sous-label de HYBE, dirigé par Min Hee-jin, a lancé le groupe féminin phare de cette ère en 2022 ?",
+      "answer": "ADOR",
+      "difficulty": "normal",
+      "category": "Générations K-Pop"
+    },
+    {
+      "id": "kpop103",
+      "question": "Groupe masculin emblématique de la deuxième génération formé par JYP Entertainment, ce boy group de six membres incluant Nichkhun et Taecyeon était surnommé 'beast idols' pour leur style viril et leurs acrobaties sur scène. Débutant en 2008, quel est ce groupe dont le nom évoque une heure de l'après-midi ?",
+      "answer": "2PM",
+      "difficulty": "difficile",
+      "category": "Générations K-Pop"
+    },
+    {
+      "id": "kpop104",
+      "question": "Formé par SM Entertainment en 1998, ce boys band de six membres de la première génération est le plus ancien groupe d'idols K-pop encore en activité. Leur nom signifie 'légende' en coréen et ils n'ont jamais changé de formation en plus de vingt-cinq ans d'existence. Quel est ce groupe légendaire ?",
+      "answer": "Shinhwa",
+      "difficulty": "difficile",
+      "category": "Générations K-Pop"
+    },
+    {
+      "id": "kpop105",
+      "question": "Univers partagé produit par SM Entertainment, ce concept relie les histoires de groupes comme aespa, EXO et NCT dans une réalité fictive. Le terme KWANGYA, signifiant 'désert' en coréen, en est un élément central. Comment appelle-t-on cet univers par ses initiales ?",
+      "answer": "SMCU",
+      "difficulty": "difficile",
+      "category": "Concepts/Univers"
+    },
+    {
+      "id": "kpop106",
+      "question": "Dans le concept d'aespa, chaque membre possède un alter ego numérique qui évolue dans un monde virtuel. Ces avatars interagissent avec les membres réelles dans différents clips et contenus. Comment appelle-t-on ces doubles virtuels des membres d'aespa, désignés par un symbole et une lettre ?",
+      "answer": "æ",
+      "difficulty": "difficile",
+      "category": "Concepts/Univers"
+    },
+    {
+      "id": "kpop107",
+      "question": "En K-pop, ce format de sortie musicale contient généralement entre quatre et sept chansons et constitue le format le plus courant pour les promotions. Plus court qu'un album complet mais plus étoffé qu'un single, il est souvent le support d'un comeback. Comment appelle-t-on ce format ?",
+      "answer": "Mini-album",
+      "difficulty": "normal",
+      "category": "Concepts/Univers"
+    },
+    {
+      "id": "kpop108",
+      "question": "En K-pop, ce terme désigne les photos thématiques publiées avant un comeback, montrant les membres dans l'esthétique visuelle du nouvel album. Elles servent de teasers et sont souvent déclinées en plusieurs versions. Comment appelle-t-on ces images promotionnelles ?",
+      "answer": "Concept photos",
+      "difficulty": "normal",
+      "category": "Concepts/Univers"
+    },
+    {
+      "id": "kpop109",
+      "question": "Le conglomérat fondé par Bang Si-hyuk a développé un univers narratif transmedia liant les histoires de BTS et TXT à travers des bandes dessinées numériques, des romans et des jeux vidéo. Cet univers explore des thèmes de jeunesse, de voyage temporel et de dimensions parallèles. Comment appelle-t-on cet univers ?",
+      "answer": "HYBE Webtoon Universe",
+      "difficulty": "difficile",
+      "category": "Concepts/Univers"
+    },
+    {
+      "id": "kpop110",
+      "question": "Concept unique à LOONA, cet univers fictif complexe relie les douze membres à travers des animaux représentatifs, des couleurs et des récits interconnectés dans leurs clips vidéo. Les fans passent des heures à décrypter les théories qui s'y cachent. Comment appelle-t-on cet univers narratif ?",
+      "answer": "LOONAVERSE",
+      "difficulty": "difficile",
+      "category": "Concepts/Univers"
+    },
+    {
+      "id": "kpop111",
+      "question": "En K-pop, lorsqu'un album est réédité avec des chansons bonus et parfois un nouveau titre principal, on parle d'un format spécial. L'album XOXO d'EXO a bénéficié de ce traitement et a franchi le million de copies grâce à cette réédition. Quel est le terme anglais pour cette pratique ?",
+      "answer": "Repackage",
+      "difficulty": "normal",
+      "category": "Concepts/Univers"
+    },
+    {
+      "id": "kpop112",
+      "question": "Dans l'industrie K-pop, les quatre plus grandes agences de divertissement sont souvent regroupées sous un surnom collectif. SM, YG, JYP et HYBE dominent le marché et produisent la majorité des groupes à succès. Comment appelle-t-on collectivement ces quatre géants ?",
+      "answer": "Big 4",
+      "difficulty": "normal",
+      "category": "Concepts/Univers"
+    },
+    {
+      "id": "kpop113",
+      "question": "Groupe projet formé via le survival show Produce 48 en 2018, cette formation de douze membres mêlait des trainees coréennes et japonaises. Active de 2018 à 2021, elle a lancé les carrières de futures membres de LE SSERAFIM et IVE. Quel est le nom de ce groupe incluant un astérisque ?",
+      "answer": "IZ*ONE",
+      "difficulty": "difficile",
+      "category": "Concepts/Univers"
+    },
+    {
+      "id": "kpop114",
+      "question": "En 2021, la danseuse et rappeuse thaïlandaise de BLACKPINK a sorti son premier single solo éponyme, dont le clip a battu le record de vues en 24 heures pour une artiste solo sur YouTube avec plus de 73 millions de vues. Ce titre porte son vrai prénom complet. Quel est le titre de ce single ?",
+      "answer": "LALISA",
+      "difficulty": "normal",
+      "category": "BLACKPINK"
+    },
+    {
+      "id": "kpop115",
+      "question": "Membre australo-vietnamienne de NewJeans née à Melbourne en 2004, cette chanteuse a fait les gros titres en 2024 lors du conflit juridique entre ADOR et HYBE. Elle est reconnue pour son charisme naturel et sa personnalité attachante. Quel est son prénom de scène ?",
+      "answer": "Hanni",
+      "difficulty": "normal",
+      "category": "Groupes féminins"
+    }
+  ]
+}

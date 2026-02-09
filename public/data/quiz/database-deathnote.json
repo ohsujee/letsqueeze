@@ -1,0 +1,812 @@
+{
+  "id": "database-deathnote",
+  "title": "Death Note",
+  "lang": "fr",
+  "items": [
+    {
+      "id": "dn001",
+      "question": "Premier de sa classe au Japon avec un QI exceptionnel, ce lyceen de 17 ans decouvre un jour un cahier noir tombe du ciel dans la cour de son lycee. Convaincu que le monde est pourri, il decide de l'utiliser pour eliminer tous les criminels et devenir le dieu du nouveau monde. Qui est-ce ?",
+      "answer": "Yagami Light (Light Yagami)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn002",
+      "question": "Ce shinigami s'ennuyait tellement dans son monde qu'il a vole le cahier d'un congenere pour le laisser tomber dans le monde des humains. Addict aux pommes du monde humain, il suit le possesseur du cahier en tant qu'observateur amuse. Qui est-ce ?",
+      "answer": "Ryuk",
+      "difficulty": "normal",
+      "category": "Shinigami"
+    },
+    {
+      "id": "dn003",
+      "question": "Connu sous les alias Ryuzaki et Hideki Ryuga, ce detective excentrique resout les affaires les plus complexes au monde depuis l'anonymat. Il se tient accroupi, mange enormement de sucreries, et ne revele jamais son vrai nom. De quel detective s'agit-il ?",
+      "answer": "L (L Lawliet)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn004",
+      "question": "Mannequin et actrice originaire du Kansai, cette jeune femme voue un culte absolu a Kira apres que celui-ci a tue l'assassin de ses parents. Elle devient la deuxieme utilisatrice du cahier et sacrifie par deux fois la moitie de son esperance de vie pour obtenir les yeux des dieux de la mort. Qui est-ce ?",
+      "answer": "Amane Misa (Misa Amane)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn005",
+      "question": "Selon la regle la plus fondamentale du cahier, si l'on ne precise pas les circonstances du deces apres avoir ecrit un nom, la victime meurt d'une cause par defaut au bout de 40 secondes. Quelle est cette cause de mort automatique ?",
+      "answer": "Arret cardiaque (crise cardiaque)",
+      "difficulty": "normal",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn006",
+      "question": "Ce shinigami a l'apparence squelettique et de couleur bleutee a donne son cahier a une jeune mannequin apres qu'un autre dieu de la mort s'etait sacrifie pour la sauver. Il finira par ecrire le vrai nom du plus grand detective du monde pour la proteger. Qui est-ce ?",
+      "answer": "Rem",
+      "difficulty": "normal",
+      "category": "Shinigami"
+    },
+    {
+      "id": "dn007",
+      "question": "Fonde par un inventeur fortune sous le nom de Quillsh Wammy, cet orphelinat pour enfants surdoues situe a Winchester, en Angleterre, a forme les plus grands esprits deductifs du monde, dont le celebre detective masque. Quel est le nom de cet etablissement ?",
+      "answer": "Wammy's House (la Wammy's House)",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "dn008",
+      "question": "Apres avoir ecrit le nom d'une personne dans le cahier, l'utilisateur peut preciser la cause de la mort dans un delai de 40 secondes. S'il le fait, il obtient un temps supplementaire pour decrire les circonstances exactes du deces. Combien de temps supplementaire obtient-il ?",
+      "answer": "6 minutes et 40 secondes",
+      "difficulty": "normal",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn009",
+      "question": "Designee par la lettre N, cette personne a grandi dans un orphelinat anglais pour enfants surdoues et joue constamment avec des jouets et des puzzles. Apres la mort du plus grand detective, elle prend la tete du SPK pour traquer Kira. Qui est-ce ?",
+      "answer": "Near (Nate River)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn010",
+      "question": "Designe par la lettre M, ce jeune homme impulsif a grandi dans le meme orphelinat que son rival. Amateur de chocolat et pret a s'allier avec la mafia pour atteindre ses objectifs, il veut prouver qu'il est le meilleur successeur du grand detective. Qui est-ce ?",
+      "answer": "Mello (Mihael Keehl)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn011",
+      "question": "Pour demeurer totalement anonyme, le plus grand detective du monde utilise aussi les identites des deuxieme et troisieme meilleurs detectives de la planete. Le deuxieme se nomme Eraldo Coil. Quel est le nom du troisieme detective dont il usurpe l'identite ?",
+      "answer": "Deneuve",
+      "difficulty": "difficile",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn012",
+      "question": "Commissaire divisionnaire de l'Agence Nationale de la Police japonaise, ce pere de famille dirige l'equipe d'enquete sur Kira aux cotes du detective. Il mourra sans jamais decouvrir que son propre fils est le criminel qu'il poursuivait. Qui est-ce ?",
+      "answer": "Yagami Soichiro (Soichiro Yagami)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn013",
+      "question": "Un possesseur du cahier peut conclure un pacte avec le dieu de la mort qui lui est attache pour obtenir un pouvoir surnaturel de perception. En contrepartie, il sacrifie la moitie de son esperance de vie restante. Quel pouvoir obtient-il en echange ?",
+      "answer": "Les yeux de shinigami (Shinigami Eyes)",
+      "difficulty": "normal",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn014",
+      "question": "Lors du deuxieme episode, le detective utilise un condamne a mort pour pieger Kira a la television. Ce criminel se presente comme etant le detective et declare que Kira est le mal, avant d'etre tue en direct. Quel est le nom de cet homme utilise comme appat ?",
+      "answer": "Lind L. Tailor",
+      "difficulty": "difficile",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn015",
+      "question": "Grace a son piege televisuel de l'episode 2, le detective deduit que Kira se trouve dans une zone geographique precise du Japon, car l'emission n'etait diffusee que dans cette region et non dans le monde entier comme annonce. De quelle region s'agit-il ?",
+      "answer": "La region du Kanto",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn016",
+      "question": "Ce petit dieu de la mort timide et fragile est tombe amoureux d'une jeune humaine en l'observant depuis le monde des shinigami. Quand un harceleur a tente de la tuer, il a ecrit le nom de l'agresseur dans son cahier, se sacrifiant pour la sauver. Qui est-ce ?",
+      "answer": "Gelus (Jealous)",
+      "difficulty": "normal",
+      "category": "Shinigami"
+    },
+    {
+      "id": "dn017",
+      "question": "Agent du FBI envoye au Japon pour surveiller les familles des policiers, cet homme a ete piege dans un bus detourne puis force d'ecrire les noms de ses onze collegues sur une page du cahier. Il meurt d'un arret cardiaque en sortant du train. Qui est-ce ?",
+      "answer": "Raye Penber",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn018",
+      "question": "Ancienne agente du FBI et fiancee d'un agent tue par Kira, cette femme mene sa propre enquete et deduit que Kira se trouvait dans le bus detourne. Elle est tuee apres avoir imprudemment revele son vrai nom au suspect principal. Qui est-ce ?",
+      "answer": "Misora Naomi (Naomi Misora)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn019",
+      "question": "Le detective s'inscrit a la meme universite que son suspect principal en utilisant le nom d'un celebre chanteur et acteur japonais. Les deux obtiennent des notes parfaites a l'examen d'entree et prononcent ensemble le discours de rentree. A quelle universite s'inscrivent-ils ?",
+      "answer": "L'universite To-Oh (To-Oh Daigaku)",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "dn020",
+      "question": "Quand un humain renonce volontairement a la possession de son cahier de mort, il perd tous les souvenirs lies a son utilisation du cahier, mais conserve le reste de sa memoire intacte. Il ne peut retrouver ces souvenirs qu'a une seule condition. Laquelle ?",
+      "answer": "Toucher ou obtenir a nouveau un cahier de mort (un Death Note)",
+      "difficulty": "difficile",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn021",
+      "question": "Cette chaine de television japonaise a sensation est utilisee par la deuxieme Kira pour diffuser des cassettes video adressees au vrai Kira. Son directeur creera plus tard une emission pro-Kira avant d'etre elimine. Quelle est cette chaine ?",
+      "answer": "Sakura TV",
+      "difficulty": "normal",
+      "category": "Lieux"
+    },
+    {
+      "id": "dn022",
+      "question": "Membre le plus impulsif de la cellule d'enquete japonaise, ce policier se precipite seul devant les locaux d'une chaine de television pour empecher la diffusion des cassettes de la deuxieme Kira. Il est tue sur place grace aux yeux de shinigami. Qui est-ce ?",
+      "answer": "Ukita Hirokazu (Hirokazu Ukita)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn023",
+      "question": "Procureur fanatique et adorateur de Kira, cet homme est choisi comme bras droit pour utiliser le cahier a la place du suspect principal. Il repete inlassablement le mot 'sakujo' a chaque fois qu'il ecrit un nom. Qui est-ce ?",
+      "answer": "Mikami Teru (Teru Mikami)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn024",
+      "question": "Ce mot japonais signifiant 'supprimer' ou 'effacer' est prononce de maniere obsessionnelle par un procureur fanatique chaque fois qu'il ecrit un nom dans le cahier. C'est devenu l'un des mots les plus emblematiques de la serie. Quel est ce mot ?",
+      "answer": "Sakujo (Delete)",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn025",
+      "question": "Le vrai nom du detective le plus celebre du monde n'est revele que dans le guidebook Death Note 13: How to Read. Ne un 31 octobre, il est decede a l'age de 25 ans. Quel est son nom complet ?",
+      "answer": "L Lawliet",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn026",
+      "question": "Presentatrice de journal televisee et ancienne petite amie du suspect principal a l'universite, cette femme est choisie par le procureur fanatique comme nouvelle porte-parole de Kira a la television, remplacant le precedent directeur. Qui est-ce ?",
+      "answer": "Takada Kiyomi (Kiyomi Takada)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn027",
+      "question": "Responsable du developpement technologique chez Yotsuba, cet homme d'affaires cupide est le troisieme humain a utiliser le cahier de mort. Il elimine les concurrents de son entreprise et sera finalement demasque grace a une operation conjointe du detective et de la cellule d'enquete. Qui est-ce ?",
+      "answer": "Higuchi Kyosuke (Kyosuke Higuchi)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn028",
+      "question": "Ce groupe constitue de huit hommes d'affaires influents se reunit chaque semaine pour decider quels rivaux commerciaux eliminer grace au cahier. Leur entreprise est l'une des plus puissantes du Japon. Quel est le nom de ce conglomerat ?",
+      "answer": "Le groupe Yotsuba (Yotsuba Group)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn029",
+      "question": "Le fruit prefere de Ryuk est une veritable obsession pour lui, car dans le monde des shinigami, ces fruits sont fletris et ont un gout de sable. Sans en manger pendant trop longtemps, il se contorsionne dans tous les sens en signe de manque. De quel fruit s'agit-il ?",
+      "answer": "Les pommes",
+      "difficulty": "normal",
+      "category": "Shinigami"
+    },
+    {
+      "id": "dn030",
+      "question": "Ce fidele assistant du grand detective, toujours vetu d'un costume et d'un chapeau, est en realite un inventeur fortune qui a fonde un orphelinat pour enfants surdoues. Son vrai nom est Quillsh Wammy. Sous quel alias est-il connu ?",
+      "answer": "Watari",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn031",
+      "question": "Selon les regles, un dieu de la mort qui ecrit le nom d'un humain dans son cahier dans le but de prolonger la vie d'un autre humain subit une consequence fatale. Que lui arrive-t-il ?",
+      "answer": "Il meurt (il est reduit en poussiere / cendres)",
+      "difficulty": "normal",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn032",
+      "question": "Dans l'episode intitule 'Silence', le detective est tue apres qu'un shinigami a ecrit son nom pour proteger la deuxieme Kira. Avant de mourir, il confirme ses soupcons en voyant le sourire triomphant de son suspect. Quel est le numero de cet episode marquant ?",
+      "answer": "Episode 25",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn033",
+      "question": "Apres la mort du detective et de son assistant, le suspect principal obtient un nouveau cahier et manipule les evenements a son avantage pendant plusieurs annees. Il integre meme officiellement la cellule d'enquete pour mieux la controler de l'interieur. Pendant combien d'annees environ regne-t-il sans opposition ?",
+      "answer": "5 ans (de 2004 a 2009/2010)",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn034",
+      "question": "Pour ecrire un nom dans le cahier et provoquer la mort de quelqu'un, deux conditions sont necessaires : ecrire le nom complet de la personne et avoir une autre information en tete au moment de l'ecriture. Quelle est cette seconde condition ?",
+      "answer": "Avoir le visage de la personne en tete (connaitre son visage)",
+      "difficulty": "normal",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn035",
+      "question": "Cree pour traquer Kira apres la mort du detective original, ce groupe d'elites compose d'agents du FBI et de la CIA est dirige par le jeune successeur designe N. Quel est le nom complet de cette organisation ?",
+      "answer": "Le SPK (Special Provision for Kira)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn036",
+      "question": "Second de commandement du SPK et ancien capitaine des forces speciales, cet homme au vrai nom d'Anthony Carter assiste le successeur de N tout au long de la traque finale. Sous quel alias est-il connu ?",
+      "answer": "Anthony Rester",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn037",
+      "question": "Membre du SPK, cette ancienne agente de la CIA et des services secrets transmet secretement les informations du groupe a un autre successeur du detective, tout en pretendant ne prendre le parti de personne. Qui est-ce ?",
+      "answer": "Halle Lidner (Halle Bullook)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn038",
+      "question": "Ce membre du SPK, habile faussaire et crocheteur de serrures, est charge de suivre le procureur fanatique de Kira et de remplacer le vrai cahier par une contrefacon. Son vrai nom est Stephen Loud. Sous quel alias est-il connu dans l'equipe ?",
+      "answer": "Stephen Gevanni",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn039",
+      "question": "Apres avoir confie son cahier a un troisieme Kira du monde des affaires, le suspect principal se retrouve temporairement sans cahier et perd tous ses souvenirs de Kira. Durant cette periode, il collabore sincerement avec le detective pour resoudre l'affaire. A quel arc narratif correspond cette periode ?",
+      "answer": "L'arc Yotsuba",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn040",
+      "question": "Le dernier episode de l'anime s'intitule 'New World' et montre la confrontation finale dans un entrepot. Le successeur N revele que les pages du cahier utilise par le procureur fanatique ont ete remplacees par des fausses. Quel est le nom de cet entrepot ?",
+      "answer": "Yellow Box Warehouse (l'entrepot Yellow Box)",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "dn041",
+      "question": "A la fin de la confrontation dans l'entrepot, le suspect principal est blesse par balle par un membre de la cellule d'enquete qui avait toujours paru naif et maladroit. Ce policier, furieux de la trahison, lui tire dessus a plusieurs reprises. Qui est-ce ?",
+      "answer": "Matsuda Touta (Touta Matsuda)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn042",
+      "question": "Quand le shinigami femelle se sacrifie pour sauver la deuxieme Kira en eliminant le detective et son assistant, elle se desintegre en cendres et laisse derriere elle un objet precieux que le suspect principal recupere immediatement. Quel objet le shinigami laisse-t-il derriere lui en mourant ?",
+      "answer": "Son cahier de mort (son Death Note)",
+      "difficulty": "normal",
+      "category": "Shinigami"
+    },
+    {
+      "id": "dn043",
+      "question": "Ce congenere de Ryuk est le proprietaire originel du cahier que Ryuk a vole avant de le laisser tomber dans le monde humain. Il descend finalement sur Terre pour recuperer son bien, et s'allie temporairement a la mafia. Qui est-ce ?",
+      "answer": "Sidoh",
+      "difficulty": "normal",
+      "category": "Shinigami"
+    },
+    {
+      "id": "dn044",
+      "question": "Troisieme pensionnaire le plus intelligent de l'orphelinat anglais, ce jeune homme passionné de jeux video et de technologie aide son ami Mello dans la traque de Kira. Son vrai nom est Mail Jeevas, et il meurt abattu par les gardes du corps d'une presentatrice. Qui est-ce ?",
+      "answer": "Matt (Mail Jeevas)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn045",
+      "question": "Selon la regle du cahier, le pouvoir de celui-ci ne peut influencer les circonstances de la mort d'une victime que dans une limite de temps apres l'ecriture du nom. Au-dela de cette duree, la personne meurt simplement d'un arret cardiaque. Quelle est cette duree maximale ?",
+      "answer": "23 jours",
+      "difficulty": "difficile",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn046",
+      "question": "Pour pieger un agent du FBI qui le surveillait, le suspect principal organise un faux detournement de bus avec un braqueur nomme Kiichiro Osoreda. Le braqueur touche une page du cahier et peut alors voir le shinigami, ce qui le fait paniquer et fuir. Quel est le nom de cet evenement ?",
+      "answer": "Le detournement de bus (bus jacking)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn047",
+      "question": "Le suspect principal et le detective se sont affrontes dans un sport sur le campus universitaire, tous deux ayant ete champions dans leur pays respectif durant leur jeunesse. Le suspect remporte la partie 6 a 4 devant toute l'universite. A quel sport ont-ils joue ?",
+      "answer": "Le tennis",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn048",
+      "question": "Le manga est l'oeuvre de deux createurs japonais : l'un est le scenariste, l'autre l'illustrateur egalement connu pour Hikaru no Go et Bakuman. Qui est l'illustrateur du manga ?",
+      "answer": "Obata Takeshi (Takeshi Obata)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn049",
+      "question": "Le scenariste du manga est un auteur tres mysterieux dont on ne connait presque rien, pas meme le vrai visage. Il a egalement ecrit Bakuman et Platinum End avec le meme illustrateur. Quel est son pseudonyme ?",
+      "answer": "Ohba Tsugumi (Tsugumi Ohba)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn050",
+      "question": "Le suspect principal demande a Ryuk d'ecrire deux fausses regles dans le cahier pour brouiller les pistes de l'enquete. L'une d'elles stipule que si l'utilisateur cesse d'ecrire des noms pendant un certain nombre de jours, il mourra. Combien de jours cette fausse regle indique-t-elle ?",
+      "answer": "13 jours",
+      "difficulty": "normal",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn051",
+      "question": "Surnommee 'Misa-Misa' par ses fans, la deuxieme Kira est nee a Kyoto un 25 decembre. Ses parents ont ete assassines sous ses yeux par un cambrioleur, et c'est Kira qui a puni leur meurtrier. Quel est le metier principal qu'elle exerce dans la serie ?",
+      "answer": "Mannequin (modele / top model)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn052",
+      "question": "Quand le detective rencontre la cellule d'enquete japonaise en personne pour la premiere fois, il leur demande de l'appeler par un surnom pour proteger son identite, plutot que par son vrai nom ou ses alias officiels. Quel surnom leur demande-t-il d'utiliser ?",
+      "answer": "Ryuzaki",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn053",
+      "question": "Dans la deuxieme partie de l'histoire, un groupe mafieux s'empare du cahier apres avoir enleve la soeur cadette du suspect principal. Le pere de famille est contraint de remettre le cahier en echange de la liberation de sa fille. Quel est le prenom de cette soeur enlevee ?",
+      "answer": "Sayu (Sayu Yagami)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn054",
+      "question": "Lors du raid contre le repaire de la mafia, le pere de famille est mortellement blesse par balle. Avant de mourir a l'hopital, il regarde son fils avec les yeux de shinigami et meurt heureux car il peut encore voir le temps de vie de son fils, ce qui signifie selon lui que son fils n'est pas Kira. Pourquoi cette conclusion est-elle erronee ?",
+      "answer": "Light n'etait pas possesseur d'un cahier a ce moment-la (le cahier etait entre les mains de Mello)",
+      "difficulty": "difficile",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn055",
+      "question": "Escroc professionnel engage par le detective pour infiltrer le groupe Yotsuba, cet homme joue le role d'un homme d'affaires pour s'approcher des huit suspects. Son vrai nom est Thierry Morello. Sous quel alias est-il connu ?",
+      "answer": "Aiber",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn056",
+      "question": "Cambrioleuse professionnelle engagee par le detective, cette femme installe des micros et cameras dans la salle de reunion du groupe Yotsuba pour espionner leurs reunions secretes. Son vrai nom est Mary Kenwood. Sous quel alias est-elle connue ?",
+      "answer": "Wedy",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn057",
+      "question": "Les yeux des dieux de la mort permettent de voir deux informations au-dessus de la tete de chaque humain. La premiere est le nom reel de la personne. Quelle est la seconde information visible avec ces yeux surnaturels ?",
+      "answer": "L'esperance de vie restante (la duree de vie)",
+      "difficulty": "normal",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn058",
+      "question": "Pour prouver au detective que la deuxieme Kira existait bien, des cassettes video sont envoyees a une chaine de television. Ces cassettes contiennent des messages et des preuves que cette personne peut tuer uniquement en voyant un visage. Par quel surnom le detective designe-t-il cette deuxieme personne ?",
+      "answer": "Le deuxieme Kira (Second Kira)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn059",
+      "question": "Le detective souhaite tester la regle des 13 jours en utilisant deux condamnes a mort. Il contacte son assistant pour organiser ce test, mais il est elimine avant de pouvoir le realiser. Comment le detective comptait-il verifier l'authenticite de cette regle ?",
+      "answer": "Faire ecrire un nom par un condamne a mort et attendre 13 jours pour voir s'il meurt",
+      "difficulty": "difficile",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn060",
+      "question": "Le manga a ete publie dans un celebre magazine de manga hebdomadaire japonais, de decembre 2003 a mai 2006. Les 108 chapitres ont ensuite ete regroupes en douze volumes. Dans quel magazine le manga a-t-il ete serialise ?",
+      "answer": "Weekly Shonen Jump (Shukan Shonen Jump)",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn061",
+      "question": "Le nom sous lequel Kira est connu dans le monde entier vient en realite d'une mauvaise prononciation japonaise d'un mot anglais signifiant 'tueur'. Ce surnom est adopte par les medias et le public. De quel mot anglais derive-t-il ?",
+      "answer": "Killer",
+      "difficulty": "normal",
+      "category": "Kira"
+    },
+    {
+      "id": "dn062",
+      "question": "Les deux successeurs du detective ont grandi ensemble dans un orphelinat en Angleterre et se considerent comme des rivaux. L'un est calme et methodique, l'autre est impulsif et emotif. Dans quel pays les deux successeurs s'installent-ils pour mener leurs enquetes respectives apres la mort du detective ?",
+      "answer": "Les Etats-Unis (les USA / l'Amerique)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn063",
+      "question": "Ce shinigami ressemblant a un squelette dore couvert de bijoux siege en permanence sur un trone de cranes. Bras droit du Roi des shinigami, il est celui qui informe Sidoh que son cahier a ete vole. Quel est son nom complet ?",
+      "answer": "Armonia Justin Beyondormason",
+      "difficulty": "difficile",
+      "category": "Shinigami"
+    },
+    {
+      "id": "dn064",
+      "question": "Le detective a une posture tres particuliere quand il s'assoit : il ne s'assoit jamais normalement sur une chaise. Il affirme que s'asseoir autrement reduirait ses capacites de reflexion de 40%. Comment s'assoit-il ?",
+      "answer": "Accroupi (les genoux replies contre la poitrine)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn065",
+      "question": "L'anime compte 37 episodes diffuses au Japon entre octobre 2006 et juin 2007 sur une chaine de television du reseau NTV. Le dernier episode, ou le suspect principal est finalement demasque, porte un titre evocateur. Quel est le titre de cet episode final ?",
+      "answer": "New World (Nouveau monde)",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn066",
+      "question": "L'enlevement de la porte-parole de Kira par un successeur du detective a des consequences inattendues : le procureur fanatique est force de sortir de sa routine pour gerer la crise, ce qui revele des incoherences au SPK. Quel vehicule le ravisseur utilise-t-il pour s'enfuir avec la presentatrice ?",
+      "answer": "Un camion (une camionnette)",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn067",
+      "question": "Apres son enlevement, la presentatrice se retrouve enfermee dans un camion avec son ravisseur. Forcee de se deshabiller pour eliminer tout traceur, elle cache un morceau de page du cahier et l'utilise pour tuer son ravisseur dont elle connait le vrai nom. Quel est ce vrai nom qu'elle ecrit ?",
+      "answer": "Mihael Keehl",
+      "difficulty": "difficile",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn068",
+      "question": "Le detective ne se nourrit presque exclusivement que de sucreries et de patisseries. Il empile methodiquement des morceaux de sucre, tient ses aliments du bout des doigts, et declare que le cerveau a besoin de glucose pour fonctionner. Quel type de nourriture le detective ne mange-t-il presque jamais ?",
+      "answer": "De la nourriture salee (des plats sales / de la viande)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn069",
+      "question": "Pour synchroniser les timestamps entre les clients lors de l'enquete, les informaticiens utilisent un mecanisme de Firebase qui mesure le decalage entre l'horloge locale et le serveur. Dans la serie, les dieux de la mort possedent naturellement cette capacite de voir le temps restant. Comment s'appelle le monde ou resident les shinigami ?",
+      "answer": "Le monde des shinigami (Shinigami Realm)",
+      "difficulty": "normal",
+      "category": "Shinigami"
+    },
+    {
+      "id": "dn070",
+      "question": "Le suspect principal est demasque dans le dernier episode quand il est le seul dont le nom n'apparait pas dans le faux cahier. Desespere, il tente d'utiliser un morceau de page cache dans un compartiment secret d'un accessoire qu'il porte sur lui pour ecrire le nom du successeur N. Dans quel objet dissimule-t-il ce morceau de page ?",
+      "answer": "Sa montre (une montre-bracelet)",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn071",
+      "question": "A la toute fin de la serie, le shinigami qui accompagnait le suspect principal depuis le debut met fin a sa vie en ecrivant son nom dans son propre cahier, comme il l'avait promis des le depart. De quelle maniere le suspect principal meurt-il officiellement ?",
+      "answer": "D'un arret cardiaque (ecrit par Ryuk dans son cahier)",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn072",
+      "question": "Le detective enchaine le suspect principal et lui-meme avec une chaine de plusieurs metres pour le surveiller en permanence, 24 heures sur 24. Ils vivent, dorment et travaillent ensemble pendant des semaines entieres. A quel moment de l'intrigue cette surveillance rapprochee commence-t-elle ?",
+      "answer": "Apres la liberation de Light et Misa (apres la periode de confinement)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn073",
+      "question": "Quand un humain touche le cahier d'un dieu de la mort, il acquiert une capacite surnaturelle unique : il peut voir et entendre le shinigami attache a ce cahier, alors que les autres humains ne percoivent rien. Que doit-on faire pour perdre cette capacite ?",
+      "answer": "Renoncer a la possession du cahier (abandonner le Death Note)",
+      "difficulty": "normal",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn074",
+      "question": "Le directeur d'une chaine de television cree une emission dediee a la glorification de Kira et tente de construire un temple pour recueillir des dons en son honneur. Le procureur fanatique le juge indigne et l'elimine avec le cahier. Quel est le nom de ce directeur televisuel ?",
+      "answer": "Demegawa Hitoshi (Hitoshi Demegawa)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn075",
+      "question": "Le detective nait un jour particulier de l'annee, associe dans la culture occidentale aux fantomes et aux morts-vivants. Cette date de naissance a un cote ironique pour un personnage qui traque un tueur surnaturel. Quel jour est ne le detective ?",
+      "answer": "Le 31 octobre (Halloween)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn076",
+      "question": "Selon les regles du cahier, un dieu de la mort apparait devant le nouveau possesseur du cahier dans un delai maximum apres sa premiere utilisation, pour se presenter et l'informer des regles. Quel est ce delai maximal ?",
+      "answer": "39 jours",
+      "difficulty": "difficile",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn077",
+      "question": "Quand le suspect principal renonce volontairement a son cahier et se fait confiner, le detective enchaine le suspect a lui avec une longue chaine metallique apres sa liberation pour le surveiller en permanence. Les deux hommes vivent, dorment et travaillent ensemble 24 heures sur 24. Quel objet les relie physiquement l'un a l'autre ?",
+      "answer": "Une chaine (des menottes reliees par une chaine)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn078",
+      "question": "Membre de la cellule d'enquete japonaise, ce policier serieux et pragmatique quitte temporairement l'equipe car il refuse de travailler en dehors de la police officielle. Il revient plus tard quand la situation l'exige. Qui est-ce ?",
+      "answer": "Aizawa Shuichi (Shuichi Aizawa)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn079",
+      "question": "Ce membre silencieux et imposant de la cellule d'enquete japonaise est envoye accompagner la deuxieme Kira en tant que manager pour la surveiller apres sa liberation. Il est aussi charge de missions de terrain dangereuses. Qui est-ce ?",
+      "answer": "Mogi Kanzo (Kanzo Mogi)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn080",
+      "question": "Pour proteger l'identite du detective lors de son inscription a l'universite, il utilise le nom d'une veritable celebrite japonaise, un chanteur et acteur populaire. L'idee est qu'ecrire ce nom dans le cahier tuerait la celebrite et non le detective. Quel est le nom de cette celebrite dont il emprunte l'identite ?",
+      "answer": "Hideki Ryuga",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn081",
+      "question": "Le suspect principal a un reve qu'il revele des le premier episode : utiliser le cahier pour eliminer tous les criminels du monde et regner sur une humanite purifiee de tout mal. Il se considere comme un etre superieur destine a gouverner. Quel titre se donne-t-il ?",
+      "answer": "Le dieu du nouveau monde (Kami)",
+      "difficulty": "normal",
+      "category": "Kira"
+    },
+    {
+      "id": "dn082",
+      "question": "Le suspect principal dispose d'un piege dans le tiroir de son bureau pour proteger le cahier : si quelqu'un ouvre le tiroir sans desactiver le mecanisme, le cahier prend feu instantanement. Quel element chimique est utilise dans ce piege thermique ?",
+      "answer": "Du thermite (de la thermite / poudre incendiaire)",
+      "difficulty": "difficile",
+      "category": "Kira"
+    },
+    {
+      "id": "dn083",
+      "question": "Le pere de famille fait le pacte des yeux de shinigami lors du raid contre la mafia pour pouvoir identifier les criminels. A l'hopital, il regarde son fils avec ces yeux et voit qu'il peut toujours lire son esperance de vie. Il en conclut avec soulagement que son fils n'est pas le tueur. Quel membre de la mafia l'a mortellement blesse par balle ?",
+      "answer": "Jose (un mafieux / un membre de la mafia de Mello)",
+      "difficulty": "difficile",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn084",
+      "question": "L'agent du FBI piege dans le bus avait pour mission de surveiller les familles des policiers haut places. Il surveillait specificement la famille du commissaire divisionnaire et son fils, qui s'est avere etre son tueur. Combien d'agents du FBI au total sont envoyes au Japon par le detective ?",
+      "answer": "12 agents",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn085",
+      "question": "Quand un possesseur du cahier obtient les yeux de shinigami puis renonce a son cahier, il perd ses souvenirs et ses yeux surnaturels. S'il refait le pacte, il perd a nouveau la moitie de sa vie restante. La deuxieme Kira a fait ce pacte deux fois. A combien de sa vie originale cela la reduit-il ?",
+      "answer": "Un quart de sa vie originale (1/4)",
+      "difficulty": "difficile",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn086",
+      "question": "Le suspect principal tue l'ancienne agente du FBI en la manipulant pour qu'elle lui revele son vrai nom. Il se fait passer pour un membre de la cellule d'enquete et gagne sa confiance. La veille, elle avait tente de contacter directement le detective pour partager ses deductions. Quel alias le suspect utilise-t-il lors de cette rencontre ?",
+      "answer": "Light Yagami (il utilise son vrai nom pour se presenter comme membre de l'equipe de L)",
+      "difficulty": "difficile",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn087",
+      "question": "La mere du suspect principal est une femme au foyer aimante et inquiete pour sa famille, completement ignorante des activites de son fils. Elle se preoccupe surtout de la sante de son mari, hospitalise pour une crise cardiaque liee au stress de l'enquete. Quel est son prenom ?",
+      "answer": "Sachiko (Sachiko Yagami)",
+      "difficulty": "normal",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn088",
+      "question": "Selon les regles, le cahier ne peut pas tuer une personne dont le nom est mal orthographie un certain nombre de fois consecutives. Au-dela de cette limite, la personne devient immunisee. Combien de fois ?",
+      "answer": "4 fois (apres 4 erreurs sur le meme nom, la personne est immunisee)",
+      "difficulty": "difficile",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn089",
+      "question": "Le detective se sert de cameras de surveillance cachees dans la chambre et la maison du suspect principal pour l'observer en permanence. Le suspect, soupconnant leur presence, demande a Ryuk de les trouver. Que promet-il a Ryuk en echange de ce service ?",
+      "answer": "Des pommes",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn090",
+      "question": "Pour calculer le moment exact d'un buzz ou d'une mort dans la serie, les personnages utilisent un decalage temporel serveur. Dans l'univers de la serie, ce decalage est crucial quand le suspect principal planifie la mort d'un agent du FBI a la seconde pres en sortant du train. A quelle heure exacte cet agent meurt-il ?",
+      "answer": "16h42 (4:42 PM)",
+      "difficulty": "difficile",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn091",
+      "question": "Les dieux de la mort prolongent leur propre vie en ecrivant les noms d'humains dans leur cahier. Les annees de vie restantes de l'humain tue sont ajoutees a la duree de vie du shinigami. Cependant, si un shinigami utilise son cahier pour sauver un humain au lieu de le tuer, il meurt. Quel est le seul moyen pour un shinigami de mourir ?",
+      "answer": "Prolonger la vie d'un humain en tuant un autre humain (ecrire un nom par amour pour un humain)",
+      "difficulty": "normal",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn092",
+      "question": "Le suspect principal cache son cahier dans un double fond de tiroir avec un piege a incendie, tandis que la deuxieme Kira cache le sien dans un endroit different. Elle le dissimule dans un objet du quotidien dans sa chambre. Dans quel objet cache-t-elle son journal intime contenant les pages ?",
+      "answer": "Dans son journal intime (un faux journal intime)",
+      "difficulty": "difficile",
+      "category": "Kira"
+    },
+    {
+      "id": "dn093",
+      "question": "L'un des episodes les plus marquants montre le detective lavant les pieds du suspect principal, dans une scene chargee de symbolisme religieux evoquant une celebre scene biblique. Cet episode exclusif a l'anime n'existe pas dans le manga. A quel evenement biblique cette scene fait-elle reference ?",
+      "answer": "Le lavement des pieds (Jesus lavant les pieds de ses disciples / Judas)",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn094",
+      "question": "Le detective analyse les horaires auxquels Kira tue ses victimes et remarque un schema revelateur. Les meurtres sont concentres en fin de journee et le soir, avec une absence totale durant certaines heures de la journee. Que deduit le detective de ce schema concernant la vie quotidienne de Kira ?",
+      "answer": "Kira est un etudiant (il a des cours en journee / c'est un lyceen ou un universitaire)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn095",
+      "question": "Selon les regles du cahier, si une personne possede simultanement deux cahiers de mort et renonce a l'un d'entre eux, elle perd le droit de voir le shinigami qui y est attache, mais conserve tous ses souvenirs tant qu'elle garde l'autre cahier. Combien de cahiers de mort existent au maximum dans le monde humain pendant la serie ?",
+      "answer": "Trois (3 cahiers)",
+      "difficulty": "difficile",
+      "category": "Regles du Death Note"
+    },
+    {
+      "id": "dn096",
+      "question": "Le suspect principal est un lyceen modele qui excelle dans tous les domaines. Il obtient le meilleur score national aux examens d'entree universitaire et est classe premier de sa promotion. A quel lycee le suspect principal est-il inscrit au debut de la serie, avant de decouvrir le cahier ?",
+      "answer": "Le lycee Daikoku (Daikoku Private Academy)",
+      "difficulty": "difficile",
+      "category": "Lieux"
+    },
+    {
+      "id": "dn097",
+      "question": "Le directeur de Sakura TV cree une emission televisee pour glorifier Kira et diffuser de la propagande pro-Kira. Il recrute des fideles et demande des dons, ce qui le rend indigne aux yeux du procureur fanatique qui finit par l'eliminer. Quel est le nom de cette emission ?",
+      "answer": "Kira's Kingdom (Le Royaume de Kira)",
+      "difficulty": "normal",
+      "category": "Kira"
+    },
+    {
+      "id": "dn098",
+      "question": "Le membre le plus maladroit de la cellule d'enquete se deguise un jour en artiste sous un faux nom pour infiltrer le groupe Yotsuba. Son intrusion tourne mal et il est decouvert, ce qui oblige le detective a improviser un plan de sauvetage impliquant une fausse mort. Quel faux nom de scene utilise-t-il lors de cette infiltration ?",
+      "answer": "Taro Matsui",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn099",
+      "question": "Membre de la cellule d'enquete qui rejoint le groupe dans la deuxieme partie de la serie, ce policier avait initialement refuse de participer a l'enquete. Il revient apres la mort du detective original car il se sent coupable de ne pas avoir ete la. Qui est-ce ?",
+      "answer": "Ide Hideki (Hideki Ide)",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn100",
+      "question": "La deuxieme Kira envoie quatre cassettes video a une chaine de television pour contacter le vrai Kira. Les cassettes contiennent des preuves qu'elle peut tuer uniquement en voyant un visage, sans connaitre le nom de sa victime. Cela revele au detective qu'elle possede un pouvoir special. Quel pouvoir le detective deduit-il ?",
+      "answer": "Les yeux de shinigami (elle possede les yeux des dieux de la mort)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn101",
+      "question": "Le suspect principal decouvre le cahier en le ramassant dans la cour de son lycee. Pour tester si le cahier fonctionne reellement, il ecrit le nom d'un criminel qu'il voit en direct a la television en train de prendre des otages. Quelle est la premiere reaction du suspect apres avoir constate que le cahier a fonctionne ?",
+      "answer": "Il est choque et terrifie (il ne croyait pas que ca marcherait vraiment)",
+      "difficulty": "normal",
+      "category": "Kira"
+    },
+    {
+      "id": "dn102",
+      "question": "Le shinigami qui suit le suspect principal a deux passions principales dans le monde humain : les fruits rouges qu'il devore avec appetit, et une activite qu'il observe avec un interet amuse depuis le monde des shinigami. Quelle est la raison pour laquelle il a lance le cahier dans le monde humain ?",
+      "answer": "Il s'ennuyait (par ennui / pour se divertir)",
+      "difficulty": "normal",
+      "category": "Shinigami"
+    },
+    {
+      "id": "dn103",
+      "question": "Le vrai nom du successeur designe N, qui dirige le SPK et finit par demasquer Kira, est revele dans le manga. Ce jeune homme aux cheveux blancs qui joue avec des figurines et des des porte un prenom et un nom de famille anglais. Quel est son vrai nom ?",
+      "answer": "Nate River",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn104",
+      "question": "Le manga se compose de 108 chapitres regroupes en un certain nombre de volumes, publies entre avril 2004 et juillet 2006 chez Shueisha. Combien de volumes le manga compte-t-il au total ?",
+      "answer": "12 volumes (12 tomes)",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn105",
+      "question": "Lorsque le suspect principal perd temporairement la memoire du cahier pendant l'arc Yotsuba, il aide sincerement le detective a attraper le nouveau Kira. C'est en touchant a nouveau le cahier lors de l'arrestation de l'homme d'affaires que tous ses souvenirs reviennent d'un coup. Qui conduisait le vehicule lors de cette arrestation ?",
+      "answer": "Watari (dans l'helicoptere)",
+      "difficulty": "difficile",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn106",
+      "question": "Le successeur M s'associe avec une organisation criminelle pour obtenir le cahier par la force. Ce groupe mafieux opere depuis les Etats-Unis et utilise le cahier pour eliminer ses propres membres qui connaissaient trop de details sur l'operation. De quel type d'organisation criminelle s'agit-il ?",
+      "answer": "La mafia (la Mafia americaine)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn107",
+      "question": "Dans la serie, le suspect principal prend un enorme risque en confiant le cahier a un procureur fanatique qu'il n'a jamais rencontre en personne. Il le choisit apres l'avoir observe a la television car il partage la meme vision de la justice. Comment le procureur designe-t-il le suspect principal dans ses pensees ?",
+      "answer": "Dieu (Kami-sama)",
+      "difficulty": "normal",
+      "category": "Kira"
+    },
+    {
+      "id": "dn108",
+      "question": "Les shinigami passent la majeure partie de leur temps dans leur monde a ne rien faire. Certains jouent a des jeux d'argent avec des os ou des cranes. Ryuk jouait regulierement avec un shinigami au crane plat. Quelle activite principale font les shinigami dans leur monde pour passer le temps ?",
+      "answer": "Ils jouent (ils parient / ils jouent aux jeux de hasard / gambling)",
+      "difficulty": "normal",
+      "category": "Shinigami"
+    },
+    {
+      "id": "dn109",
+      "question": "L'ancienne agente du FBI, fiancee de l'agent tue, a travaille sur une affaire celebre avant de quitter le FBI. Cette affaire, relatee dans le roman 'Death Note Another Note', impliquait un tueur en serie a Los Angeles connu sous les initiales BB. Quel est le nom complet de ce tueur ?",
+      "answer": "Beyond Birthday",
+      "difficulty": "difficile",
+      "category": "Personnages"
+    },
+    {
+      "id": "dn110",
+      "question": "Lors de la confrontation finale dans l'entrepot, le successeur N prouve que le cahier du procureur fanatique a ete remplace par une copie parfaite. Combien de secondes s'ecoulent avant que tous comprennent que le cahier est un faux ?",
+      "answer": "40 secondes",
+      "difficulty": "normal",
+      "category": "Episodes cles"
+    },
+    {
+      "id": "dn111",
+      "question": "Le suspect principal a une technique pour ecrire des noms dans le cahier en cours pendant un examen sans que personne ne s'en apercoive. Il cache le cahier a l'interieur d'un sac de chips et ecrit les noms avec une television miniature pour voir les visages des criminels en direct. Quel objet cache le cahier pendant ces sessions d'ecriture secretes ?",
+      "answer": "Un sac de chips (un paquet de chips)",
+      "difficulty": "normal",
+      "category": "Kira"
+    },
+    {
+      "id": "dn112",
+      "question": "Pendant l'arc Yotsuba, la deuxieme Kira accepte de participer a un piege pour demasquer le troisieme utilisateur du cahier. Elle se fait passer pour une admiratrice de Kira et enregistre secretement sa confession. Comment l'homme d'affaires se trahit-il aupres d'elle ?",
+      "answer": "Il revele qu'il est Kira (il avoue posseder le pouvoir de tuer)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn113",
+      "question": "Le suspect principal planifie meticulement la mort de l'agent du FBI dans un train. Il lui remet une enveloppe contenant des pages du cahier sur lesquelles l'agent ecrit sans le savoir les noms de ses 11 collegues, pensant ecrire autre chose. Comment le suspect fait-il pour que l'agent ne se mefie pas ?",
+      "answer": "Il lui fait croire qu'il ecrit les noms sur un document officiel du FBI (un fichier de transmission de donnees)",
+      "difficulty": "difficile",
+      "category": "Kira"
+    },
+    {
+      "id": "dn114",
+      "question": "Apres la mort du detective, le suspect principal herite de son titre et de sa lettre symbolique pour continuer la traque de Kira, tout en etant secretement Kira lui-meme. Il travaille ainsi des deux cotes simultanement. Quel rang le suspect principal occupe-t-il alors dans l'equipe d'enquete ?",
+      "answer": "Le nouveau L (il devient le deuxieme L)",
+      "difficulty": "normal",
+      "category": "Enquete"
+    },
+    {
+      "id": "dn115",
+      "question": "Selon les regles, si un humain utilise une gomme ou un correcteur pour effacer un nom deja ecrit dans le cahier, cela n'annule pas la mort de la victime. Une fois le nom correctement ecrit et le visage en tete, la mort est inevitable. Quel est le seul moyen d'empecher la mort d'une personne dont le nom a ete ecrit ?",
+      "answer": "C'est impossible (on ne peut pas annuler une mort une fois le nom ecrit)",
+      "difficulty": "normal",
+      "category": "Regles du Death Note"
+    }
+  ]
+}
