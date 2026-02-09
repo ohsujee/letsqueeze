@@ -215,7 +215,6 @@ export default function SplashScreen() {
               position: 'absolute',
               inset: 0,
               opacity: isWinking ? 0 : 1,
-              transition: 'opacity 0.1s ease',
             }}
             draggable={false}
           />
@@ -230,8 +229,6 @@ export default function SplashScreen() {
               position: 'absolute',
               inset: 0,
               opacity: isWinking ? 1 : 0,
-              transform: isWinking ? 'scale(1)' : 'scale(1.05)',
-              transition: 'opacity 0.15s ease, transform 0.15s ease',
             }}
             draggable={false}
           />

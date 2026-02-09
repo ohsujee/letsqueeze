@@ -93,21 +93,43 @@
 - [ ] Conserver accès API routes (`/api/*`)
 - [ ] Exception localhost pour développement
 
+### Phase 11: V2 - Bundle Local (Performance) ⏳
+> Actuellement l'app charge depuis Vercel (remote URL). La v2 bundlera le code localement pour un chargement instantané.
+
+- [ ] Configurer Next.js pour export statique (`output: 'export'`)
+- [ ] Adapter les routes dynamiques (`[code]`) pour export statique
+- [ ] Mettre à jour `capacitor.config.ts`: retirer `server.url`, mettre `webDir: 'out'`
+- [ ] Les API routes restent sur Vercel (appelées via fetch)
+- [ ] Firebase Realtime Database pour les données temps réel (inchangé)
+- [ ] Test de performance (temps de chargement)
+- [ ] Workflow de déploiement: build → cap sync → upload stores
+
+**Avantages v2:**
+- Chargement instantané (pas de latence réseau pour le code)
+- Mode offline partiel possible
+- Expérience plus "native"
+
+**Inconvénients v2:**
+- Chaque mise à jour nécessite upload sur les stores
+- Review Apple/Google pour chaque changement
+
 ---
 
 ## Résumé Exécutif
 
+> Mis à jour: 2026-02-05
+
 | Élément | Android | iOS |
 |---------|---------|-----|
-| **Config Capacitor** | 🔴 IP dev hardcodée | 🔴 IP dev hardcodée |
-| **Firebase Config** | ✅ google-services.json OK | 🔴 GoogleService-Info.plist MANQUANT |
-| **AdMob App ID** | ✅ Configuré | 🔴 GADApplicationIdentifier MANQUANT |
-| **AdMob Interstitial** | 🔴 Placeholder | 🔴 Placeholder |
+| **Config Capacitor** | ✅ Production URL | ✅ Production URL |
+| **Firebase Config** | ✅ google-services.json | ✅ GoogleService-Info.plist |
+| **Firebase Auth** | ✅ Google natif | ✅ Google + Apple natif |
+| **AdMob App ID** | ✅ Configuré | ✅ Configuré |
+| **AdMob Interstitial** | ✅ Configuré | ✅ Configuré |
 | **AdMob Rewarded** | ✅ Configuré | ✅ Configuré |
-| **RevenueCat** | 🔴 Clé placeholder | 🔴 Clé placeholder |
-| **OAuth/Deep Links** | 🔴 Intent filter manquant | 🔴 URL schemes manquants |
-| **Signing** | 🔴 Non configuré | 🔴 Non configuré |
-| **BlindTest (Spotify)** | 🔴 NE FONCTIONNE PAS | 🔴 NE FONCTIONNE PAS |
+| **RevenueCat** | ✅ Configuré | ✅ Configuré |
+| **Signing** | ✅ Keystore configuré | ✅ Via Codemagic |
+| **Build CI/CD** | ✅ Codemagic | ✅ Codemagic |
 | **DeezTest** | ✅ Fonctionne | ✅ Fonctionne |
 
 ---
@@ -999,4 +1021,285 @@ Simple page statique avec:
 
 ---
 
-*Dernière mise à jour: 2026-02-04*
+# PHASE 12: PUBLICATION SUR LES STORES
+
+## 12.1 Informations de base
+
+| Élément | Valeur | Status |
+|---------|--------|--------|
+| **Nom de l'app** | Gigglz | ✅ |
+| **Bundle ID** | com.gigglz.app | ✅ |
+| **Version** | 1.0.1 | ✅ |
+| **Build iOS** | 5 | ✅ |
+| **Développeur** | À définir | ⏳ |
+| **Email support** | À définir | ⏳ |
+| **Site web** | https://gigglz.fun | ✅ |
+
+## 12.2 Textes Store Listing
+
+### App Store (iOS)
+
+| Élément | Limite | Status | Contenu |
+|---------|--------|--------|---------|
+| **Nom** | 30 car. | ✅ | Gigglz - Jeux de Soirée |
+| **Sous-titre** | 30 car. | ✅ | Quiz, Blindtest & Party Games |
+| **Description** | 4000 car. | ✅ | Voir section "CONTENU STORE LISTING" |
+| **Mots-clés** | 100 car. | ✅ | Voir section "CONTENU STORE LISTING" |
+| **What's New** | 4000 car. | ✅ | Voir section "CONTENU STORE LISTING" |
+| **URL Support** | - | ⏳ | |
+| **URL Confidentialité** | - | ✅ | https://app.gigglz.fun/privacy |
+| **Catégorie principale** | - | ✅ | Jeux |
+| **Catégorie secondaire** | - | ✅ | Jeux de société / Trivia |
+
+### Google Play (Android)
+
+| Élément | Limite | Status | Contenu |
+|---------|--------|--------|---------|
+| **Titre** | 50 car. | ✅ | Gigglz - Jeux de Soirée |
+| **Description courte** | 80 car. | ✅ | Voir section "CONTENU STORE LISTING" |
+| **Description complète** | 4000 car. | ✅ | Voir section "CONTENU STORE LISTING" |
+| **Catégorie** | - | ✅ | Jeux > Casual / Trivia |
+
+## 12.3 Visuels
+
+### Icônes
+
+| Élément | Dimensions | Format | Status |
+|---------|------------|--------|--------|
+| **Icône iOS** | 1024x1024 | PNG (pas de transparence) | ⏳ |
+| **Icône Android** | 512x512 | PNG | ⏳ |
+
+### Tailles Screenshots (2025-2026)
+
+**iOS - Obligatoires:**
+| Device | Dimensions | Status |
+|--------|------------|--------|
+| **iPhone 6.9"** (15 Pro Max) | 1320 x 2868 | ⏳ |
+| **iPad 13"** | 2064 x 2752 | ⏳ |
+
+> Note: Les anciennes tailles (5.5", 6.5") ne sont plus obligatoires en 2026.
+
+**Android:**
+| Type | Dimensions | Status |
+|------|------------|--------|
+| **Téléphone** | 1080 x 1920+ | ⏳ |
+
+### Bannières
+
+| Élément | Dimensions | Status |
+|---------|------------|--------|
+| **Feature Graphic Android** | 1024 x 500 | ⏳ |
+| **App Store Preview** (vidéo) | Optionnel | ⏳ |
+
+---
+
+## 12.4 Stratégie Screenshots (Best Practices ASO 2026)
+
+### Règles clés
+
+| Règle | Détail |
+|-------|--------|
+| ⏱️ **7 secondes** | Temps pour convaincre l'utilisateur |
+| 📊 **90% ne scrollent pas** | Au-delà du 3ème screenshot |
+| 🎯 **Feature excitante d'abord** | Pas de login, pas de tutorial, pas d'onboarding |
+| 🐙 **Mascotte = branding** | Utiliser Giggly sur tous les screenshots |
+| ✍️ **Texte court** | 3-5 mots max, format "Verbe + Bénéfice" |
+
+### ❌ Ce qu'il NE FAUT PAS montrer
+
+- Écran de login/onboarding
+- Écrans de paramètres
+- Pages vides ou de chargement
+- Trop de texte
+
+### ✅ Plan des 6 Screenshots
+
+| # | Contenu | Texte overlay | Objectif |
+|---|---------|---------------|----------|
+| **1** | 🎯 **HÉRO** - Giggly excité + aperçu des 4 jeux | "Tous vos jeux de soirée" | Accroche, montre la variété |
+| **2** | 🔴 **QUIZ BUZZER** - Écran de jeu avec buzzer rouge visible | "Buzzez le premier !" | Jeu phare, action visible |
+| **3** | 🎵 **BLINDTEST** - Écran avec waveform/musique en cours | "Devinez la chanson" | Différenciant, musical |
+| **4** | 🕵️ **ALIBI** - Interrogatoire ou cartes suspect/inspecteur | "Bluffez vos amis" | Intrigue, unique |
+| **5** | 👥 **LOBBY** - Joueurs connectés + QR code visible | "Rejoignez en 2 sec" | Facilité, aspect social |
+| **6** | 🏆 **PODIUM** - Écran de fin avec classement + confettis | "Qui sera champion ?" | Récompense, motivation |
+
+### 🐙 Utilisation de Giggly (Mascotte)
+
+| Placement | Usage |
+|-----------|-------|
+| **Screenshot 1 (héro)** | Giggly en grand, excité, présentant les jeux |
+| **Coins/badges** | Petit Giggly qui réagit (content, surpris, etc.) |
+| **Cohérence** | Même style graphique sur tous les screenshots |
+
+**Objectif:** Créer une identité visuelle forte et reconnaissable (comme Duolingo avec son hibou).
+
+### Checklist Screenshots
+
+- [ ] Screenshot 1: Héro avec Giggly + jeux
+- [ ] Screenshot 2: Quiz Buzzer en action
+- [ ] Screenshot 3: BlindTest musical
+- [ ] Screenshot 4: Alibi/enquête
+- [ ] Screenshot 5: Lobby avec joueurs
+- [ ] Screenshot 6: Podium/classement
+- [ ] Tous les textes en français
+- [ ] Giggly présent sur chaque image
+- [ ] Export aux bonnes dimensions (iOS + Android)
+
+## 12.5 Classification & Age Rating
+
+### Questionnaire (identique iOS/Android)
+
+| Question | Réponse |
+|----------|---------|
+| Violence | Non |
+| Contenu sexuel | Non |
+| Langage grossier | Non |
+| Substances contrôlées | Non |
+| Jeux d'argent simulés | Non |
+| Contenu généré par utilisateurs | Oui (pseudos) |
+| Partage de localisation | Non |
+| Achats intégrés | Oui (abonnement) |
+| Publicités | Oui |
+
+**Résultat attendu:** 4+ (iOS) / PEGI 3 ou Everyone (Android)
+
+## 12.6 Informations légales
+
+| Document | URL | Status |
+|----------|-----|--------|
+| **Politique de confidentialité** | https://app.gigglz.fun/privacy | ✅ |
+| **Conditions d'utilisation** | https://app.gigglz.fun/terms | ✅ |
+| **Mentions légales** | https://app.gigglz.fun/legal | ✅ |
+
+## 12.7 Checklist Publication
+
+### Pré-soumission
+
+- [ ] Tous les textes rédigés et validés
+- [ ] Icônes créées aux bonnes dimensions
+- [ ] Captures d'écran créées pour tous les devices
+- [ ] Feature Graphic Android créée
+- [ ] Age rating complété
+- [ ] Informations de contact renseignées
+- [ ] Build uploadé et validé par Apple/Google
+
+### App Store (iOS)
+
+- [ ] App Information complétée
+- [ ] Pricing and Availability configuré (Gratuit)
+- [ ] In-App Purchases liés (gigglz_pro_monthly, gigglz_pro_annual)
+- [ ] App Privacy (Data Collection) renseigné
+- [ ] App Review Information (contact, notes pour reviewer)
+- [ ] Soumission pour review
+
+### Google Play (Android)
+
+- [ ] Store Listing complété
+- [ ] Content Rating questionnaire complété
+- [ ] Target Audience défini
+- [ ] App Content (Data Safety) renseigné
+- [ ] Countries/Regions sélectionnés
+- [ ] Pricing (Gratuit)
+- [ ] Internal Testing → Closed Testing → Open Testing → Production
+
+---
+
+# CONTENU STORE LISTING
+
+## Nom & Sous-titre ✅
+
+| Élément | Contenu | Caractères |
+|---------|---------|------------|
+| **Nom (iOS & Android)** | `Gigglz - Jeux de Soirée` | 22/30 ✅ |
+| **Sous-titre iOS** | `Quiz, Blindtest & Party Games` | 27/30 ✅ |
+| **Description courte Android** | `Quiz buzzer, blindtest musical, alibi... Vos jeux de soirée préférés, en multijoueur !` | 79/80 ✅ |
+
+## Mots-clés iOS ✅
+
+```
+quiz,blindtest,amis,buzzer,musique,mime,équipe,multijoueur,culture,trivia,groupe,fête,apéro
+```
+*89/100 caractères*
+
+> Note: "jeux", "soirée", "party", "games" retirés car déjà dans le titre/sous-titre (Apple combine tout).
+
+## Description complète (iOS & Android) ✅
+
+```
+Gigglz est l'application ultime qui transforme vos soirées en véritables shows télé ! Quiz buzzer, blindtest musical, jeu d'enquête et mime – tous vos jeux de soirée préférés réunis dans une seule app multijoueur.
+
+Créez une partie, partagez le code et jouez ensemble en temps réel. Chacun sur son téléphone, comme dans un vrai jeu TV !
+
+🎮 Tous les meilleurs jeux de soirée dans une seule app
+
+• Quiz Buzzer – Le plus rapide au buzzer gagne le droit de répondre ! Des dizaines de thèmes : cinéma, musique, sport, histoire, sciences et plus encore. Le jeu de culture générale parfait pour tester vos connaissances entre amis.
+
+• BlindTest Musical – Devinez les chansons le plus vite possible. Des milliers de titres de tous les styles : pop, rock, rap, années 80, Disney... Qui sera le meilleur oreille musicale du groupe ?
+
+• Alibi – Un crime a été commis et vous êtes suspects ! Inventez un alibi cohérent pendant que les inspecteurs cherchent la faille. Un jeu de bluff et de déduction pour les soirées mémorables.
+
+• Mime – Faites deviner des mots uniquement avec des gestes. Le classique indémodable des jeux de groupe, parfait pour les fous rires garantis.
+
+• Et d'autres jeux à venir...
+
+✨ Pourquoi Gigglz est l'app idéale pour vos soirées
+
+• Multijoueur en temps réel – Chacun joue sur son propre téléphone, comme un vrai quiz TV.
+• 2 à 20 joueurs – Parfait pour les petits groupes comme les grandes soirées.
+• Mode équipes – Formez des équipes et affrontez-vous !
+• Rejoignez en 2 secondes – Code ou QR code, c'est ultra simple.
+• Classements en direct – Suivez les scores en temps réel.
+• Pas besoin de compte – Jouez immédiatement en tant qu'invité.
+
+👑 Gigglz Pro
+
+Passez Pro pour une expérience sans limites :
+• Parties illimitées
+• Tous les packs de questions débloqués
+• Aucune publicité
+• Nouvelles fonctionnalités en avant-première
+
+Que ce soit pour un anniversaire, un apéro, une soirée jeux ou un voyage entre amis, Gigglz a toujours un jeu prêt pour animer le groupe. Téléchargez et lancez votre première partie !
+
+📄 Conditions d'utilisation : https://app.gigglz.fun/terms
+📄 Politique de confidentialité : https://app.gigglz.fun/privacy
+```
+
+## What's New (Notes de version 1.0.1) ✅
+
+```
+🎉 Première version publique de Gigglz !
+
+• Quiz Buzzer - Testez vos connaissances
+• BlindTest Musical - Devinez les chansons
+• Alibi - Jeu d'enquête et de bluff
+• Mime - Faites deviner sans parler
+• Mode équipes disponible
+• Abonnement Pro pour une expérience sans limites
+```
+
+## Catégories recommandées
+
+| Store | Catégorie principale | Catégorie secondaire |
+|-------|---------------------|---------------------|
+| **App Store** | Jeux | Jeux de société / Trivia |
+| **Google Play** | Jeux | Casual / Trivia |
+
+## Classification d'âge
+
+| Question | Réponse |
+|----------|---------|
+| Violence | Non |
+| Contenu sexuel | Non |
+| Langage grossier | Non |
+| Substances contrôlées | Non |
+| Jeux d'argent simulés | Non |
+| Contenu généré par utilisateurs | Oui (pseudos) |
+| Achats intégrés | Oui (abonnement) |
+| Publicités | Oui |
+
+**Résultat attendu:** 4+ (iOS) / PEGI 3 (Android)
+
+---
+
+*Dernière mise à jour: 2026-02-05*
