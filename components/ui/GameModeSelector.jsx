@@ -22,7 +22,6 @@ export default function GameModeSelector({ isOpen, onClose, onSelectMode, game }
 
   const handleSelect = (mode) => {
     onSelectMode(mode);
-    onClose();
   };
 
   return (

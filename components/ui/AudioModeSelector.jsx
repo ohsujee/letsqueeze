@@ -22,7 +22,6 @@ export default function AudioModeSelector({ isOpen, onClose, onSelectMode, game 
 
   const handleSelect = (mode) => {
     onSelectMode(mode);
-    onClose();
   };
 
   return (

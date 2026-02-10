@@ -237,6 +237,7 @@ function HomePageContent() {
     }
 
     // For other games, create directly (no audio mode)
+    setShowModeSelector(false);
     createAndNavigateToGame(pendingGame, mode);
     setPendingGame(null);
   };
