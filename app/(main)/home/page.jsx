@@ -14,6 +14,7 @@ import GameCard from '@/lib/components/GameCard';
 import GuestWarningModal from '@/components/ui/GuestWarningModal';
 import GameLimitModal from '@/components/ui/GameLimitModal';
 import GameModeSelector from '@/components/ui/GameModeSelector';
+import AudioModeSelector from '@/components/ui/AudioModeSelector';
 import HowToPlayModal from '@/components/ui/HowToPlayModal';
 import RejoinBanner from '@/components/ui/RejoinBanner';
 import HomeHeader from '@/components/home/HomeHeader';
@@ -37,7 +38,9 @@ function HomePageContent() {
   const [showGuestWarning, setShowGuestWarning] = useState(false);
   const [showGameLimit, setShowGameLimit] = useState(false);
   const [showModeSelector, setShowModeSelector] = useState(false);
+  const [showAudioModeSelector, setShowAudioModeSelector] = useState(false);
   const [pendingGame, setPendingGame] = useState(null);
+  const [selectedGameMasterMode, setSelectedGameMasterMode] = useState(null);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [helpGameId, setHelpGameId] = useState('quiz');
   const { isPro } = useSubscription(user);
@@ -119,7 +122,7 @@ function HomePageContent() {
   };
 
   // Actually create the game room and navigate
-  const createAndNavigateToGame = async (game, gameMasterMode = 'gamemaster') => {
+  const createAndNavigateToGame = async (game, gameMasterMode = 'gamemaster', audioMode = 'single') => {
     // Local games (like Mime) - no Firebase, direct navigation
     if (game.local) {
       router.push(game.path || `/${game.id}`);
@@ -136,6 +139,7 @@ function HomePageContent() {
         hostUid: auth.currentUser.uid,
         hostName,
         gameMasterMode,
+        audioMode,
         db,
         ref,
         set
@@ -222,10 +226,33 @@ function HomePageContent() {
 
   // Handle mode selection from GameModeSelector
   const handleModeSelect = (mode) => {
-    if (pendingGame) {
-      createAndNavigateToGame(pendingGame, mode);
-      setPendingGame(null);
+    if (!pendingGame) return;
+
+    // For blindtest, show audio mode selector next
+    if (pendingGame.id === 'blindtest') {
+      setSelectedGameMasterMode(mode);
+      setShowModeSelector(false);
+      setShowAudioModeSelector(true);
+      return;
     }
+
+    // For other games, create directly (no audio mode)
+    createAndNavigateToGame(pendingGame, mode);
+    setPendingGame(null);
+  };
+
+  // Handle audio mode selection from AudioModeSelector
+  const handleAudioModeSelect = async (audioMode) => {
+    if (!pendingGame || !selectedGameMasterMode) return;
+
+    setShowAudioModeSelector(false);
+
+    // Create room with both gameMasterMode and audioMode
+    await createAndNavigateToGame(pendingGame, selectedGameMasterMode, audioMode);
+
+    // Reset states
+    setPendingGame(null);
+    setSelectedGameMasterMode(null);
   };
 
   // Handle watching ad for extra game
@@ -443,6 +470,18 @@ function HomePageContent() {
           setPendingGame(null);
         }}
         onSelectMode={handleModeSelect}
+        game={pendingGame}
+      />
+
+      {/* Audio Mode Selector - Choose where audio plays (DeezTest only) */}
+      <AudioModeSelector
+        isOpen={showAudioModeSelector}
+        onClose={() => {
+          setShowAudioModeSelector(false);
+          setPendingGame(null);
+          setSelectedGameMasterMode(null);
+        }}
+        onSelectMode={handleAudioModeSelect}
         game={pendingGame}
       />
 

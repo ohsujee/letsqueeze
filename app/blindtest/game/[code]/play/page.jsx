@@ -125,6 +125,95 @@ export default function DeezTestPlayerGame() {
   // Keep screen awake during game
   useWakeLock({ enabled: true });
 
+  // ========== AUDIO SYNC PLAYER (mode 'all') ==========
+  const audioMode = meta?.audioMode || 'single';
+  const shouldPlayAudio = audioMode === 'all' && !amIAsker; // Joueurs jouent l'audio (pas l'asker)
+
+  const audioPlayerRef = useRef(null);
+  const audioSyncTimeoutRef = useRef(null);
+
+  // Listener pour audioSync dans Firebase
+  useEffect(() => {
+    if (!shouldPlayAudio || !code) return;
+
+    const audioSyncRef = ref(db, `rooms_blindtest/${code}/state/audioSync`);
+
+    const unsubscribe = onValue(audioSyncRef, async (snapshot) => {
+      const syncData = snapshot.val();
+
+      if (!syncData || !syncData.startAt || !syncData.previewUrl) return;
+
+      const { startAt, previewUrl, duration } = syncData;
+      const now = Date.now();
+      const delay = startAt - now;
+
+      // Si le timestamp est dans le passé (>500ms), ignorer (trop tard)
+      if (delay < -500) return;
+
+      // Clear ancien timeout
+      if (audioSyncTimeoutRef.current) {
+        clearTimeout(audioSyncTimeoutRef.current);
+        audioSyncTimeoutRef.current = null;
+      }
+
+      // Preload l'audio
+      try {
+        const audio = new Audio(previewUrl);
+        audio.preload = 'auto';
+        audioPlayerRef.current = audio;
+
+        // Attendre que l'audio soit prêt
+        await new Promise((resolve, reject) => {
+          audio.addEventListener('canplaythrough', resolve, { once: true });
+          audio.addEventListener('error', reject, { once: true });
+
+          // Timeout de 2 secondes
+          setTimeout(() => reject(new Error('Audio load timeout')), 2000);
+        });
+
+        // Programmer le démarrage
+        const finalDelay = Math.max(0, startAt - Date.now());
+
+        audioSyncTimeoutRef.current = setTimeout(() => {
+          audio.play().catch(err => {
+            console.error('[Audio Sync] Play error:', err);
+          });
+
+          // Arrêter après la durée du snippet (si défini)
+          if (duration) {
+            setTimeout(() => {
+              audio.pause();
+              audio.currentTime = 0;
+            }, duration);
+          }
+        }, finalDelay);
+
+      } catch (error) {
+        console.error('[Audio Sync] Preload error:', error);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+      if (audioSyncTimeoutRef.current) {
+        clearTimeout(audioSyncTimeoutRef.current);
+      }
+      if (audioPlayerRef.current) {
+        audioPlayerRef.current.pause();
+        audioPlayerRef.current = null;
+      }
+    };
+  }, [shouldPlayAudio, code]);
+
+  // Cleanup audio quand on buzz ou quand la musique s'arrête
+  useEffect(() => {
+    if (state?.lockUid && audioPlayerRef.current) {
+      audioPlayerRef.current.pause();
+      audioPlayerRef.current.currentTime = 0;
+    }
+  }, [state?.lockUid]);
+  // ========== FIN AUDIO SYNC ==========
+
   // DB listeners
   useEffect(() => {
     const u1 = onValue(ref(db, `rooms_blindtest/${code}/state`), s => {

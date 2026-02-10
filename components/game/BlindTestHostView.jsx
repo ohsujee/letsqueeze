@@ -365,6 +365,27 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
       return;
     }
 
+    // ========== AUDIO SYNC: Write to Firebase before playing ==========
+    const audioMode = meta?.audioMode || 'single';
+
+    if (audioMode === 'all') {
+      // Mode synchronisé: écrire dans Firebase AVANT de jouer
+      await update(ref(db, `rooms_blindtest/${code}/state`), {
+        snippetLevel: level,
+        highestSnippetLevel: Math.max(state?.highestSnippetLevel ?? -1, level),
+        audioSync: {
+          startAt: Date.now() + 1000, // Démarrer dans 1 seconde
+          previewUrl: previewUrl,
+          duration: config.duration || 25000,
+          level: level
+        },
+        lastRevealAt: serverTimestamp()
+      });
+
+      // L'host joue aussi (pas besoin d'attendre, il déclenche juste le timer)
+    }
+    // ========== FIN AUDIO SYNC ==========
+
     try {
       const snippet = await playSnippet(previewUrl, config.duration);
       snippetStopRef.current = snippet;
@@ -404,16 +425,19 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
         }, unlockDelay);
       }
 
-      const currentHighest = state?.highestSnippetLevel ?? -1;
-      const newHighest = Math.max(currentHighest, level);
+      // Mode 'single' uniquement: update Firebase state
+      if (audioMode === 'single') {
+        const currentHighest = state?.highestSnippetLevel ?? -1;
+        const newHighest = Math.max(currentHighest, level);
 
-      await update(ref(db, `rooms_blindtest/${code}/state`), {
-        snippetLevel: level,
-        highestSnippetLevel: newHighest,
-        // NE PAS mettre revealed: true ici - ça cache l'UI du joueur !
-        // revealed ne doit être true que quand on montre la réponse finale
-        lastRevealAt: serverTimestamp()
-      });
+        await update(ref(db, `rooms_blindtest/${code}/state`), {
+          snippetLevel: level,
+          highestSnippetLevel: newHighest,
+          // NE PAS mettre revealed: true ici - ça cache l'UI du joueur !
+          // revealed ne doit être true que quand on montre la réponse finale
+          lastRevealAt: serverTimestamp()
+        });
+      }
     } catch (error) {
       console.error("[DeezTest Host] Error playing snippet:", error);
       setIsAudioLoading(false);
@@ -852,6 +876,7 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     updates[`rooms_blindtest/${code}/state/buzz`] = null;
     updates[`rooms_blindtest/${code}/state/revealPlayback`] = null;
     updates[`rooms_blindtest/${code}/state/revealWinner`] = null;
+    updates[`rooms_blindtest/${code}/state/audioSync`] = null;
 
     isResolving.current = false;
 
@@ -952,7 +977,8 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
         highestSnippetLevel: -1,
         revealed: false,
         revealPlayback: null,
-        revealWinner: null
+        revealWinner: null,
+        audioSync: null
       });
     } catch (error) {
       console.error('[DeezTest] Error changing song:', error);
