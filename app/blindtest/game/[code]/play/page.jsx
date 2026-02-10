@@ -11,6 +11,7 @@ import BlindTestRevealScreen from "@/components/game/BlindTestRevealScreen";
 import AskerTransition from "@/components/game/AskerTransition";
 import { motion, AnimatePresence } from "framer-motion";
 import { GameEndTransition } from "@/components/transitions";
+import { PREVIEW_START_OFFSET_SEC } from "@/lib/deezer/player";
 
 import GamePlayHeader from "@/components/game/GamePlayHeader";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
@@ -175,6 +176,7 @@ export default function DeezTestPlayerGame() {
         const finalDelay = Math.max(0, startAt - Date.now());
 
         audioSyncTimeoutRef.current = setTimeout(() => {
+          audio.currentTime = PREVIEW_START_OFFSET_SEC;
           audio.play().catch(err => {
             console.error('[Audio Sync] Play error:', err);
           });
