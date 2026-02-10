@@ -27,7 +27,7 @@ import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { isPro } from "@/lib/subscription";
 import { useToast } from "@/lib/hooks/useToast";
 import { usePlaylistHistory } from "@/lib/hooks/usePlaylistHistory";
-import { ChevronRight, Music, Search, Check, X, Speakers } from "lucide-react";
+import { ChevronRight, Music, Search, Check, X, Volume2 } from "lucide-react";
 import LobbyStartButton from "@/components/game/LobbyStartButton";
 import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
 import { storage } from "@/lib/utils/storage";
@@ -726,7 +726,7 @@ export default function DeezTestLobby() {
                   {/* Audio Mode badge - Show if 'all' mode */}
                   {meta?.audioMode === 'all' && (
                     <div className="audio-mode-badge">
-                      <Speakers size={14} />
+                      <Volume2 size={14} />
                       <span>Audio Synchronisé</span>
                     </div>
                   )}

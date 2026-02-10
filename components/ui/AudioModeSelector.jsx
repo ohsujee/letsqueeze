@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Speaker, Speakers, X } from 'lucide-react';
+import { Speaker, Volume2, X } from 'lucide-react';
 
 /**
  * AudioModeSelector - Modal de sélection du mode audio (DeezTest)
@@ -89,7 +89,7 @@ export default function AudioModeSelector({ isOpen, onClose, onSelectMode, game 
                 style={{ '--option-color': '#06b6d4' }}
               >
                 <div className="gms-option-icon party">
-                  <Speakers size={32} />
+                  <Volume2 size={32} />
                 </div>
                 <div className="gms-option-content">
                   <h3 className="gms-option-title">Tous les téléphones</h3>
