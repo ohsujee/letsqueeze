@@ -14,7 +14,7 @@ import HostDisconnectAlert from "@/components/game/HostDisconnectAlert";
 import { initializePlayer, playSnippet, pause, resume, isPlayerReady, disconnect, preloadPreview, seek, getPlayerState } from "@/lib/deezer/player";
 import { SkipForward, X, Check, Music, Play, Pause, Bell, RefreshCw, Shuffle } from "lucide-react";
 import BlindTestRevealScreen from "@/components/game/BlindTestRevealScreen";
-import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel } from "@/lib/constants/blindtest";
+import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel, AUDIO_SYNC_BUFFER_MS } from "@/lib/constants/blindtest";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
@@ -62,7 +62,7 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   const [highestLevelPlayed, setHighestLevelPlayed] = useState(null);
 
   // Server time sync (300ms tick for score updates)
-  const { serverNow } = useServerTime(300);
+  const { serverNow, offset: serverOffset } = useServerTime(300);
 
   // Player error state
   const [playerError, setPlayerError] = useState(null);
@@ -365,16 +365,19 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
       return;
     }
 
-    // ========== AUDIO SYNC: Write to Firebase before playing ==========
+    // ========== AUDIO SYNC ==========
     const audioMode = meta?.audioMode || 'single';
 
     if (audioMode === 'all') {
-      // Mode synchronisé: écrire dans Firebase AVANT de jouer
+      // Mode synchronisé: tout le monde démarre au même moment (server time)
+      const startAt = Date.now() + serverOffset + AUDIO_SYNC_BUFFER_MS;
+
+      // Écrire dans Firebase pour que les players reçoivent l'event
       await update(ref(db, `rooms_blindtest/${code}/state`), {
         snippetLevel: level,
         highestSnippetLevel: Math.max(state?.highestSnippetLevel ?? -1, level),
         audioSync: {
-          startAt: Date.now() + 1000, // Démarrer dans 1 seconde
+          startAt,
           previewUrl: previewUrl,
           duration: config.duration || 25000,
           level: level
@@ -382,7 +385,11 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
         lastRevealAt: serverTimestamp()
       });
 
-      // L'host joue aussi (pas besoin d'attendre, il déclenche juste le timer)
+      // L'asker attend aussi startAt (même timing que les players)
+      const delay = Math.max(0, startAt - (Date.now() + serverOffset));
+      if (delay > 0) {
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
     }
     // ========== FIN AUDIO SYNC ==========
 

@@ -132,6 +132,9 @@ export default function DeezTestPlayerGame() {
 
   const audioPlayerRef = useRef(null);
   const audioSyncTimeoutRef = useRef(null);
+  // Ref pour accéder à l'offset serveur dans le callback Firebase sans re-subscribe
+  const serverOffsetRef = useRef(offset);
+  serverOffsetRef.current = offset;
 
   // Listener pour audioSync dans Firebase
   useEffect(() => {
@@ -145,16 +148,20 @@ export default function DeezTestPlayerGame() {
       if (!syncData || !syncData.startAt || !syncData.previewUrl) return;
 
       const { startAt, previewUrl, duration } = syncData;
-      const now = Date.now();
-      const delay = startAt - now;
+      const serverNowMs = Date.now() + serverOffsetRef.current;
+      const delay = startAt - serverNowMs;
 
-      // Si le timestamp est dans le passé (>500ms), ignorer (trop tard)
+      // Si le timestamp est dans le passé (>500ms en server time), ignorer
       if (delay < -500) return;
 
-      // Clear ancien timeout
+      // Clear ancien audio + timeout
       if (audioSyncTimeoutRef.current) {
         clearTimeout(audioSyncTimeoutRef.current);
         audioSyncTimeoutRef.current = null;
+      }
+      if (audioPlayerRef.current) {
+        audioPlayerRef.current.pause();
+        audioPlayerRef.current = null;
       }
 
       // Preload l'audio
@@ -167,26 +174,27 @@ export default function DeezTestPlayerGame() {
         await new Promise((resolve, reject) => {
           audio.addEventListener('canplaythrough', resolve, { once: true });
           audio.addEventListener('error', reject, { once: true });
-
-          // Timeout de 2 secondes
           setTimeout(() => reject(new Error('Audio load timeout')), 2000);
         });
 
-        // Programmer le démarrage
-        const finalDelay = Math.max(0, startAt - Date.now());
+        // Programmer le démarrage à startAt (server time)
+        const finalDelay = Math.max(0, startAt - (Date.now() + serverOffsetRef.current));
 
-        audioSyncTimeoutRef.current = setTimeout(() => {
-          audio.currentTime = PREVIEW_START_OFFSET_SEC;
-          audio.play().catch(err => {
+        audioSyncTimeoutRef.current = setTimeout(async () => {
+          try {
+            audio.currentTime = PREVIEW_START_OFFSET_SEC;
+            await audio.play();
+
+            // Timer de durée démarre APRÈS que l'audio joue réellement
+            // (même comportement que playSnippet côté asker)
+            if (duration) {
+              setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+              }, duration);
+            }
+          } catch (err) {
             console.error('[Audio Sync] Play error:', err);
-          });
-
-          // Arrêter après la durée du snippet (si défini)
-          if (duration) {
-            setTimeout(() => {
-              audio.pause();
-              audio.currentTime = 0;
-            }, duration);
           }
         }, finalDelay);
 
@@ -207,7 +215,7 @@ export default function DeezTestPlayerGame() {
     };
   }, [shouldPlayAudio, code]);
 
-  // Cleanup audio quand on buzz ou quand la musique s'arrête
+  // Cleanup audio quand quelqu'un buzz
   useEffect(() => {
     if (state?.lockUid && audioPlayerRef.current) {
       audioPlayerRef.current.pause();
