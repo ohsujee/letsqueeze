@@ -224,6 +224,106 @@ export default function DeezTestPlayerGame() {
   }, [state?.lockUid]);
   // ========== FIN AUDIO SYNC ==========
 
+  // ========== REVEAL AUDIO SYNC (mode 'all') ==========
+  const revealAudioPlayerRef = useRef(null);
+  const revealAudioTimeoutRef = useRef(null);
+
+  // Listener pour revealAudioSync dans Firebase
+  useEffect(() => {
+    if (!shouldPlayAudio || !code) return;
+
+    const revealAudioSyncRef = ref(db, `rooms_blindtest/${code}/state/revealAudioSync`);
+
+    const unsubscribe = onValue(revealAudioSyncRef, async (snapshot) => {
+      const syncData = snapshot.val();
+
+      if (!syncData || !syncData.action) return;
+
+      const { action, startAt, previewUrl } = syncData;
+
+      // Action: 'play', 'pause', 'resume'
+      if (action === 'play' && startAt && previewUrl) {
+        // Démarrage du reveal audio
+        const serverNowMs = Date.now() + serverOffsetRef.current;
+        const delay = startAt - serverNowMs;
+
+        // Si le timestamp est dans le passé (>500ms), ignorer
+        if (delay < -500) return;
+
+        // Clear ancien audio + timeout
+        if (revealAudioTimeoutRef.current) {
+          clearTimeout(revealAudioTimeoutRef.current);
+          revealAudioTimeoutRef.current = null;
+        }
+        if (revealAudioPlayerRef.current) {
+          revealAudioPlayerRef.current.pause();
+          revealAudioPlayerRef.current = null;
+        }
+
+        // Preload l'audio
+        try {
+          const audio = new Audio(previewUrl);
+          audio.preload = 'auto';
+          revealAudioPlayerRef.current = audio;
+
+          // Attendre que l'audio soit prêt
+          await new Promise((resolve, reject) => {
+            audio.addEventListener('canplaythrough', resolve, { once: true });
+            audio.addEventListener('error', reject, { once: true });
+            setTimeout(() => reject(new Error('Reveal audio load timeout')), 2000);
+          });
+
+          // Programmer le démarrage à startAt (server time)
+          const finalDelay = Math.max(0, startAt - (Date.now() + serverOffsetRef.current));
+
+          revealAudioTimeoutRef.current = setTimeout(async () => {
+            try {
+              audio.currentTime = PREVIEW_START_OFFSET_SEC;
+              await audio.play();
+            } catch (err) {
+              console.error('[Reveal Audio Sync] Play error:', err);
+            }
+          }, finalDelay);
+
+        } catch (error) {
+          console.error('[Reveal Audio Sync] Preload error:', error);
+        }
+
+      } else if (action === 'pause' && revealAudioPlayerRef.current) {
+        // Pause du reveal audio
+        revealAudioPlayerRef.current.pause();
+
+      } else if (action === 'resume' && revealAudioPlayerRef.current) {
+        // Resume du reveal audio
+        try {
+          await revealAudioPlayerRef.current.play();
+        } catch (err) {
+          console.error('[Reveal Audio Sync] Resume error:', err);
+        }
+      }
+    });
+
+    return () => {
+      unsubscribe();
+      if (revealAudioTimeoutRef.current) {
+        clearTimeout(revealAudioTimeoutRef.current);
+      }
+      if (revealAudioPlayerRef.current) {
+        revealAudioPlayerRef.current.pause();
+        revealAudioPlayerRef.current = null;
+      }
+    };
+  }, [shouldPlayAudio, code]);
+
+  // Cleanup reveal audio quand on quitte le reveal
+  useEffect(() => {
+    if (!revealed && revealAudioPlayerRef.current) {
+      revealAudioPlayerRef.current.pause();
+      revealAudioPlayerRef.current = null;
+    }
+  }, [revealed]);
+  // ========== FIN REVEAL AUDIO SYNC ==========
+
   // DB listeners
   useEffect(() => {
     const u1 = onValue(ref(db, `rooms_blindtest/${code}/state`), s => {

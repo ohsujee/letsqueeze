@@ -593,6 +593,30 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
         snippetStopRef.current = null;
       }
 
+      // ========== REVEAL AUDIO SYNC ==========
+      const audioMode = meta?.audioMode || 'single';
+
+      if (audioMode === 'all') {
+        // Mode synchronisé: sync reveal audio sur tous les téléphones
+        const startAt = Date.now() + serverOffset + AUDIO_SYNC_BUFFER_MS;
+
+        // Écrire dans Firebase pour que les players reçoivent l'event
+        await update(ref(db, `rooms_blindtest/${code}/state`), {
+          revealAudioSync: {
+            startAt,
+            previewUrl: currentTrack.previewUrl,
+            action: 'play' // 'play', 'pause', 'resume'
+          }
+        });
+
+        // L'asker attend aussi startAt (même timing que les players)
+        const delay = Math.max(0, startAt - (Date.now() + serverOffset));
+        if (delay > 0) {
+          await new Promise(resolve => setTimeout(resolve, delay));
+        }
+      }
+      // ========== FIN REVEAL AUDIO SYNC ==========
+
       // Play full 30s preview (null duration = full length)
       const snippet = await playSnippet(currentTrack.previewUrl, null);
       snippetStopRef.current = snippet;
@@ -631,6 +655,8 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   };
 
   const toggleRevealPlayback = async () => {
+    const audioMode = meta?.audioMode || 'single';
+
     if (isRevealPlaying) {
       // Pause
       if (revealAnimationRef.current) {
@@ -645,6 +671,13 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
         paused: true,
         startProgress: revealProgressRef.current
       }).catch(() => {});
+
+      // Sync audio pause to all players (mode 'all')
+      if (audioMode === 'all') {
+        update(ref(db, `rooms_blindtest/${code}/state/revealAudioSync`), {
+          action: 'pause'
+        }).catch(() => {});
+      }
     } else {
       // Resume from current progress
       await resume();
@@ -658,6 +691,13 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
         startedAt: Date.now(),
         startProgress
       }).catch(() => {});
+
+      // Sync audio resume to all players (mode 'all')
+      if (audioMode === 'all') {
+        update(ref(db, `rooms_blindtest/${code}/state/revealAudioSync`), {
+          action: 'resume'
+        }).catch(() => {});
+      }
 
       // Time-based animation resuming from current progress (use ref for accurate value)
       let startTime = null;
@@ -797,7 +837,8 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     // Clean up Firebase reveal data (nextTrack also sets revealed: false)
     update(ref(db, `rooms_blindtest/${code}/state`), {
       revealPlayback: null,
-      revealWinner: null
+      revealWinner: null,
+      revealAudioSync: null
     }).catch(() => {});
 
     // Go to next track
@@ -884,6 +925,7 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     updates[`rooms_blindtest/${code}/state/revealPlayback`] = null;
     updates[`rooms_blindtest/${code}/state/revealWinner`] = null;
     updates[`rooms_blindtest/${code}/state/audioSync`] = null;
+    updates[`rooms_blindtest/${code}/state/revealAudioSync`] = null;
 
     isResolving.current = false;
 
