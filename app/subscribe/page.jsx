@@ -233,11 +233,11 @@ export default function SubscribePage() {
             <div className="plan-main">
               <span className="plan-name">{PRO_PRICING.annual.label}</span>
               <div className="plan-price-row">
-                <span className="plan-price-equivalent">{PRO_PRICING.annual.monthlyEquivalent.toFixed(2).replace('.', ',')}€</span>
-                <span className="plan-price-period">/mois</span>
+                <span className="plan-price-amount">{PRO_PRICING.annual.price.toFixed(2).replace('.', ',')}€</span>
+                <span className="plan-price-period">/an</span>
               </div>
               <span className="plan-price-detail">
-                Facturé {PRO_PRICING.annual.price}€/an
+                Soit {PRO_PRICING.annual.monthlyEquivalent.toFixed(2).replace('.', ',')}€/mois
               </span>
             </div>
 
@@ -372,12 +372,30 @@ export default function SubscribePage() {
           </div>
         </motion.section>
 
+        {/* Legal Links (Required by Apple for subscriptions) */}
+        <motion.section
+          className="legal-links-section"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+        >
+          <div className="legal-links">
+            <a href="/terms" className="legal-link">
+              Conditions d'utilisation (CGU)
+            </a>
+            <span className="legal-divider">•</span>
+            <a href="/privacy" className="legal-link">
+              Politique de confidentialité
+            </a>
+          </div>
+        </motion.section>
+
         {/* Solo Dev Note */}
         <motion.section
           className="solo-section"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
+          transition={{ duration: 0.4, delay: 0.45 }}
         >
           <p>
             Gigglz est développé avec passion par un seul dev en France.
@@ -912,6 +930,40 @@ const styles = `
     font-family: 'Inter', sans-serif;
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Legal Links Section */
+  .legal-links-section {
+    text-align: center;
+    padding: 20px 16px;
+    margin-bottom: 16px;
+  }
+
+  .legal-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .legal-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: #a78bfa;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .legal-link:hover {
+    color: #8b5cf6;
+    text-decoration: underline;
+  }
+
+  .legal-divider {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.3);
   }
 
   /* Solo Dev Section */

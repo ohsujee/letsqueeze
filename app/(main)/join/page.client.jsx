@@ -9,6 +9,7 @@ import { ROOM_TYPES } from "@/lib/config/rooms";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { isPro } from "@/lib/subscription";
 import { shouldShowInterstitial, markAdShownDuringJoin } from "@/lib/hooks/useInterstitialAd";
+import ATTPromptHandler from "@/components/game/ATTPromptHandler";
 import { LobbyEntryTransition } from "@/components/transitions";
 import { GAME_COLOR_MAP } from "@/lib/config/colors";
 import { validatePseudo, updateUserPseudo } from "@/lib/userProfile";
@@ -224,6 +225,9 @@ export default function JoinClient({ initialCode = "" }) {
 
   return (
     <div className="join-container">
+      {/* ATT Prompt for players (GDPR + ATT) */}
+      <ATTPromptHandler enabled={true} context="join" delay={0} />
+
       <main className="join-content">
         <div className="join-header">
           <h1 className="page-title">Rejoindre</h1>

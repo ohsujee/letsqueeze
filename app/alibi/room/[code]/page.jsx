@@ -36,6 +36,7 @@ import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import { storage } from "@/lib/utils/storage";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { GameLaunchCountdown } from "@/components/transitions";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
@@ -109,6 +110,9 @@ export default function AlibiLobby() {
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });
+
+  // ATT Prompt for hosts (GDPR + ATT)
+  useATTPromptInLobby(isHost);
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {

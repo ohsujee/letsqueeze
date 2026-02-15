@@ -26,6 +26,7 @@ import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
+import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { Search, Users, Clock, Shuffle, Check } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
@@ -71,6 +72,9 @@ export default function LaLoiLobby() {
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });
+
+  // ATT Prompt for hosts (GDPR + ATT)
+  useATTPromptInLobby(isHost);
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) {
