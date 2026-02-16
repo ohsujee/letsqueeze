@@ -15,6 +15,7 @@ import GuestWarningModal from '@/components/ui/GuestWarningModal';
 import GameLimitModal from '@/components/ui/GameLimitModal';
 import GameModeSelector from '@/components/ui/GameModeSelector';
 import AudioModeSelector from '@/components/ui/AudioModeSelector';
+import CreateOrJoinSelector from '@/components/ui/CreateOrJoinSelector';
 import HowToPlayModal from '@/components/ui/HowToPlayModal';
 import RejoinBanner from '@/components/ui/RejoinBanner';
 import HomeHeader from '@/components/home/HomeHeader';
@@ -37,6 +38,7 @@ function HomePageContent() {
   const [favorites, setFavorites] = useState([]);
   const [showGuestWarning, setShowGuestWarning] = useState(false);
   const [showGameLimit, setShowGameLimit] = useState(false);
+  const [showCreateOrJoinSelector, setShowCreateOrJoinSelector] = useState(false);
   const [showModeSelector, setShowModeSelector] = useState(false);
   const [showAudioModeSelector, setShowAudioModeSelector] = useState(false);
   const [pendingGame, setPendingGame] = useState(null);
@@ -212,16 +214,35 @@ function HomePageContent() {
       }
     }
 
-    // Check if game supports Party Mode - show selector
-    const roomType = ROOM_TYPES.find(rt => rt.id === game.id);
+    // Show Create or Join selector for all multiplayer games
+    setPendingGame(game);
+    setShowCreateOrJoinSelector(true);
+  };
+
+  // Handle Create or Join selection
+  const handleCreateSelect = () => {
+    if (!pendingGame) return;
+
+    setShowCreateOrJoinSelector(false);
+
+    // Check if game supports Party Mode - show mode selector
+    const roomType = ROOM_TYPES.find(rt => rt.id === pendingGame.id);
     if (roomType?.supportsPartyMode) {
-      setPendingGame(game);
       setShowModeSelector(true);
       return;
     }
 
-    // Can play - create game (default gamemaster mode)
-    createAndNavigateToGame(game);
+    // No party mode - create game directly (default gamemaster mode)
+    createAndNavigateToGame(pendingGame);
+    setPendingGame(null);
+  };
+
+  const handleJoinSelect = () => {
+    setShowCreateOrJoinSelector(false);
+    setPendingGame(null);
+
+    // Redirect to join page
+    router.push('/join');
   };
 
   // Handle mode selection from GameModeSelector
@@ -461,6 +482,18 @@ function HomePageContent() {
         rewardedGamesRemaining={rewardedGamesRemaining}
         isWatchingAd={isWatchingAd}
         isBlocked={isBlocked}
+      />
+
+      {/* Create or Join Selector - First step for all multiplayer games */}
+      <CreateOrJoinSelector
+        isOpen={showCreateOrJoinSelector}
+        onClose={() => {
+          setShowCreateOrJoinSelector(false);
+          setPendingGame(null);
+        }}
+        onSelectCreate={handleCreateSelect}
+        onSelectJoin={handleJoinSelect}
+        game={pendingGame}
       />
 
       {/* Game Mode Selector - Choose between Game Master and Party Mode */}

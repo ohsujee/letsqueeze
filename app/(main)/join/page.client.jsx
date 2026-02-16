@@ -231,6 +231,9 @@ export default function JoinClient({ initialCode = "" }) {
       <main className="join-content">
         <div className="join-header">
           <h1 className="page-title">Rejoindre</h1>
+          <p className="join-help-text">
+            Entrez le code à 6 caractères fourni par l'hôte qui a créé la partie
+          </p>
         </div>
 
         <div className="join-card">

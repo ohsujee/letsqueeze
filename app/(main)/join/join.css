@@ -1,5 +1,15 @@
 /* Join Page - Component-specific styles */
 
+/* Help text */
+.join-help-text {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  margin: 12px 0 0 0;
+  line-height: 1.5;
+}
+
 /* Code input boxes */
 .code-input-wrapper {
   position: relative;
