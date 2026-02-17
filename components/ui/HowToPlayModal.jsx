@@ -299,6 +299,118 @@ const GAMES_DATA = {
     ]
   },
 
+  motmystere: {
+    id: 'motmystere',
+    title: 'Mot Mystère',
+    subtitle: 'Trouve le mot en 6 essais !',
+    accentColor: '#10b981',
+    accentGradient: 'linear-gradient(135deg, #059669, #10b981)',
+    glowColor: 'rgba(16, 185, 129, 0.4)',
+    sections: [
+      {
+        id: 'concept',
+        title: 'Le concept',
+        icon: Target,
+        content: {
+          type: 'intro',
+          text: 'Chaque jour, un mot de 5 lettres est choisi. Tu as 6 essais pour le deviner. Après chaque essai, les cases changent de couleur pour t\'indiquer où tu en es.'
+        }
+      },
+      {
+        id: 'colors',
+        title: 'Les couleurs',
+        icon: CheckCircle,
+        content: {
+          type: 'wordle-colors',
+          examples: [
+            {
+              word: 'PLAGE',
+              highlight: 2,
+              state: 'correct',
+              label: 'La lettre A est dans le mot, à la bonne place.'
+            },
+            {
+              word: 'COEUR',
+              highlight: 1,
+              state: 'present',
+              label: 'La lettre O est dans le mot, mais pas à la bonne place.'
+            },
+            {
+              word: 'BRUIT',
+              highlight: 3,
+              state: 'absent',
+              label: 'La lettre I n\'est pas dans le mot.'
+            }
+          ]
+        }
+      },
+      {
+        id: 'scoring',
+        title: 'Le score',
+        icon: Trophy,
+        content: {
+          type: 'scoring',
+          items: [
+            { label: 'Trouvé en 1 essai', value: '6 000 pts', icon: Zap, color: '#10b981' },
+            { label: 'Trouvé en 2 essais', value: '5 000 pts', icon: Zap, color: '#10b981' },
+            { label: 'Trouvé en 6 essais', value: '1 000 pts', icon: Zap, color: '#f59e0b' },
+            { label: 'Bonus rapidité', value: '+3 000 pts max', icon: Timer, color: '#06b6d4' }
+          ],
+          note: 'Un timer invisible démarre à ton premier essai. Plus tu es rapide, plus le bonus est élevé !'
+        }
+      }
+    ]
+  },
+
+  semantique: {
+    id: 'semantique',
+    title: 'Sémantique',
+    subtitle: 'Trouve le mot par proximité !',
+    accentColor: '#f97316',
+    accentGradient: 'linear-gradient(135deg, #ea580c, #f97316)',
+    glowColor: 'rgba(249, 115, 22, 0.4)',
+    sections: [
+      {
+        id: 'concept',
+        title: 'Le concept',
+        icon: Target,
+        content: {
+          type: 'intro',
+          text: 'Chaque jour, un mot secret est choisi. Entre n\'importe quel mot et tu reçois une température : plus elle est élevée, plus tu es proche du mot cible. Tu peux essayer autant de fois que tu veux !'
+        }
+      },
+      {
+        id: 'temperature',
+        title: 'La température',
+        icon: Zap,
+        content: {
+          type: 'scoring',
+          items: [
+            { label: '🧊 Glacial', value: '< 0°C', icon: Zap, color: '#64748b' },
+            { label: '🥶 Froid', value: '0 – 20°C', icon: Zap, color: '#3b82f6' },
+            { label: '😎 Chaud', value: '20 – 40°C', icon: Zap, color: '#f59e0b' },
+            { label: '🔥 Brûlant', value: '≥ 40°C', icon: Zap, color: '#ef4444' },
+          ],
+          note: '😱 Bouillant à ≥ 50°C — et 🎯 à 100°C : tu as trouvé !'
+        }
+      },
+      {
+        id: 'scoring',
+        title: 'Le score',
+        icon: Trophy,
+        content: {
+          type: 'scoring',
+          items: [
+            { label: 'Trouvé en 1 essai', value: '5 000 pts', icon: Zap, color: '#f97316' },
+            { label: 'Trouvé en 10 essais', value: '500 pts', icon: Zap, color: '#f97316' },
+            { label: 'Trouvé en 50 essais', value: '100 pts', icon: Zap, color: '#f59e0b' },
+          ],
+          note: 'Formule : 5000 ÷ nombre d\'essais. Moins d\'essais = plus de points !'
+        }
+      }
+    ]
+  },
+
   mime: {
     id: 'mime',
     title: 'Mime',
@@ -480,6 +592,57 @@ function PhasesSection({ content }) {
   );
 }
 
+function WordleColorsSection({ content }) {
+  const stateColors = {
+    correct: '#10b981',
+    present: '#e07c1a',
+    absent: '#3a3a4a',
+  };
+  const stateBorders = {
+    correct: '#10b981',
+    present: '#e07c1a',
+    absent: '#3a3a4a',
+  };
+
+  return (
+    <div className="section-wordle-colors">
+      {content.examples.map((ex, i) => (
+        <motion.div
+          key={i}
+          className="wc-example"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: i * 0.12 }}
+        >
+          <div className="wc-cells">
+            {ex.word.split('').map((letter, j) => {
+              const isHighlight = j === ex.highlight;
+              return (
+                <div
+                  key={j}
+                  className="wc-cell"
+                  style={isHighlight ? {
+                    background: stateColors[ex.state],
+                    borderColor: stateBorders[ex.state],
+                    color: '#fff',
+                  } : {
+                    background: '#0a0a0f',
+                    borderColor: '#3a3a5c',
+                    color: '#fff',
+                  }}
+                >
+                  {letter}
+                </div>
+              );
+            })}
+          </div>
+          <p className="wc-label">{ex.label}</p>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
 function VerdictInlineSection({ content }) {
   return (
     <div className="section-verdict-inline">
@@ -543,6 +706,8 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz' }) {
         return <PhasesSection content={content} />;
       case 'verdict-inline':
         return <VerdictInlineSection content={content} />;
+      case 'wordle-colors':
+        return <WordleColorsSection content={content} />;
       default:
         return null;
     }
@@ -959,6 +1124,41 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz' }) {
               line-height: 1.5;
               color: rgba(255, 255, 255, 0.7);
               margin: 0;
+            }
+
+            /* Section: Wordle Colors */
+            .section-wordle-colors {
+              display: flex;
+              flex-direction: column;
+              gap: 20px;
+            }
+            .wc-example {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+            }
+            .wc-cells {
+              display: flex;
+              gap: 5px;
+            }
+            .wc-cell {
+              width: 44px;
+              height: 44px;
+              border: 2px solid;
+              border-radius: 5px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-family: 'Bungee', cursive;
+              font-size: 1.2rem;
+              font-weight: 400;
+            }
+            .wc-label {
+              font-family: 'Inter', sans-serif;
+              font-size: 0.875rem;
+              color: rgba(255, 255, 255, 0.75);
+              margin: 0;
+              line-height: 1.4;
             }
 
             /* Section: Verdict Inline */

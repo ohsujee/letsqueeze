@@ -23,6 +23,7 @@ import GameFilterBar from '@/components/home/GameFilterBar';
 import { useActiveGameCheck } from '@/lib/hooks/usePlayerCleanup';
 import { useToast } from '@/lib/hooks/useToast';
 import { Gamepad2, Heart } from 'lucide-react';
+import DailyGamesSection from '@/components/home/DailyGamesSection';
 import { genUniqueCode } from '@/lib/utils';
 import { isFounder } from '@/lib/admin';
 import { getVisibleGames, filterByPlayerCount, sortGames, searchGames, applyRemoteConfig } from '@/lib/config/games';
@@ -378,6 +379,9 @@ function HomePageContent() {
             }}
           />
         )}
+
+        {/* Daily Games Section */}
+        <DailyGamesSection />
 
         {/* Search & Filter Bar */}
         <GameFilterBar

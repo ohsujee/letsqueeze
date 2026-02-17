@@ -351,9 +351,13 @@
     },
     "daily": {
       "wordle": {
+        "schedule": {
+          ".read": true,
+          ".write": "root.child('admins').child(auth.uid).exists()"
+        },
         "$date": {
           "word": {
-            ".read": "auth != null",
+            ".read": true,
             ".write": "root.child('admins').child(auth.uid).exists()"
           },
           "word_length": {
