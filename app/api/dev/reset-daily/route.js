@@ -25,13 +25,25 @@ function getFirebaseAdmin() {
   }
 }
 
-// Mots 5 lettres — jamais retournés au client
-const WORD_POOL = [
+// Mots 5 lettres pour Mot Mystère — jamais retournés au client
+const WORDLE_WORD_POOL = [
   'nuage', 'calme', 'bulle', 'pluie', 'vague',
   'perle', 'boire', 'ombre', 'fuite', 'coude',
   'geste', 'ferme', 'douce', 'comte', 'bague',
   'pomme', 'carte', 'livre', 'roule', 'fonte',
 ];
+
+// Mots pour Sémantique — longueur variée, thèmes riches en voisins sémantiques
+const SEMANTIC_WORD_POOL = [
+  'musique', 'soleil', 'montagne', 'voyage', 'cuisine',
+  'jardin', 'animal', 'enfant', 'nature', 'lumiere',
+  'famille', 'reve', 'ocean', 'foret', 'silence',
+  'amour', 'danse', 'sport', 'ecole', 'maison',
+];
+
+function pickRandom(pool) {
+  return pool[Math.floor(Math.random() * pool.length)];
+}
 
 export async function POST(request) {
   if (process.env.NODE_ENV !== 'development') {
@@ -46,20 +58,28 @@ export async function POST(request) {
   const body = await request.json();
   const {
     date,
-    gameNode = 'daily/wordle',
+    game = 'both', // 'wordle' | 'semantic' | 'both'
   } = body;
 
   const today = date || new Date().toISOString().split('T')[0];
   const database = admin.database();
+  const results = {};
 
-  // Choisir un mot aléatoire (serveur uniquement — jamais renvoyé)
-  const word = WORD_POOL[Math.floor(Math.random() * WORD_POOL.length)];
+  // ── Réinitialiser Mot Mystère ─────────────────────────────────────────────
+  if (game === 'wordle' || game === 'both') {
+    const wordleWord = pickRandom(WORDLE_WORD_POOL);
+    await database.ref(`daily/wordle/${today}/leaderboard`).remove();
+    await database.ref(`daily/wordle/${today}/word`).set(wordleWord);
+    results.wordle = { ok: true };
+  }
 
-  // Effacer le leaderboard
-  await database.ref(`${gameNode}/${today}/leaderboard`).remove();
+  // ── Réinitialiser Sémantique ───────────────────────────────────────────────
+  if (game === 'semantic' || game === 'both') {
+    const semanticWord = pickRandom(SEMANTIC_WORD_POOL);
+    await database.ref(`daily/semantic/${today}/leaderboard`).remove();
+    await database.ref(`daily/semantic/${today}/word`).set(semanticWord);
+    results.semantic = { ok: true };
+  }
 
-  // Poser le nouveau mot
-  await database.ref(`${gameNode}/${today}/word`).set(word);
-
-  return NextResponse.json({ ok: true, date: today, gameNode });
+  return NextResponse.json({ ok: true, date: today, ...results });
 }

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Brain, Trophy, BarChart2, HelpCircle, X, Send } from 'lucide-react';
-import { ref, get, onValue } from 'firebase/database';
+import { ref, onValue } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
@@ -41,28 +41,6 @@ function getStreakFlames(count) {
   if (count < 7) return ' 🔥🔥';
   return ' 🔥🔥🔥';
 }
-
-// ─── Mock fallback ────────────────────────────────────────────────────────────
-const MOCK_DATA = {
-  word: 'maison',
-  neighbors: [
-    { word: 'maisons', score: 0.48 }, { word: 'demeure', score: 0.44 },
-    { word: 'habitation', score: 0.41 }, { word: 'logement', score: 0.38 },
-    { word: 'domicile', score: 0.36 }, { word: 'appartement', score: 0.33 },
-    { word: 'foyer', score: 0.31 }, { word: 'villa', score: 0.29 },
-    { word: 'immeuble', score: 0.27 }, { word: 'batiment', score: 0.25 },
-    { word: 'jardin', score: 0.22 }, { word: 'cuisine', score: 0.20 },
-    { word: 'chambre', score: 0.19 }, { word: 'salon', score: 0.18 },
-    { word: 'porte', score: 0.16 }, { word: 'fenetre', score: 0.14 },
-    { word: 'toit', score: 0.13 }, { word: 'mur', score: 0.12 },
-    { word: 'rue', score: 0.11 }, { word: 'quartier', score: 0.10 },
-    { word: 'ville', score: 0.09 }, { word: 'famille', score: 0.08 },
-    { word: 'enfant', score: 0.07 }, { word: 'table', score: 0.06 },
-    { word: 'chaise', score: 0.05 }, { word: 'lampe', score: 0.04 },
-    { word: 'escalier', score: 0.04 }, { word: 'cave', score: 0.03 },
-    { word: 'grenier', score: 0.03 }, { word: 'voisin', score: 0.02 },
-  ],
-};
 
 // ─── Leaderboard helpers ──────────────────────────────────────────────────────
 const RANK_MEDAL = ['🥇', '🥈', '🥉'];
@@ -457,9 +435,9 @@ export default function SemantiquePage() {
     useDailyGame('semantique', { forceDate: serverDate });
 
   const [targetWord, setTargetWord] = useState(null);
-  const [neighborsMap, setNeighborsMap] = useState(null);
   const [guesses, setGuesses] = useState([]);
   const [input, setInput] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
@@ -470,37 +448,9 @@ export default function SemantiquePage() {
   const inputRef = useRef(null);
   const startTimeRef = useRef(null);
 
-  // 1. Firebase server data
+  // Restaurer l'état depuis localStorage
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const snap = await get(ref(db, `daily/semantic/${todayDate}`));
-        const data = snap.exists() ? snap.val() : MOCK_DATA;
-        const word = (data.word || MOCK_DATA.word).toLowerCase();
-        setTargetWord(word);
-        buildNeighborsMap(word, data.neighbors || MOCK_DATA.neighbors);
-      } catch {
-        setTargetWord(MOCK_DATA.word);
-        buildNeighborsMap(MOCK_DATA.word, MOCK_DATA.neighbors);
-      }
-    }
-    if (todayDate) fetchData();
-  }, [todayDate]);
-
-  function buildNeighborsMap(word, neighbors) {
-    const map = new Map();
-    map.set(word, { score: 1, rank: 0 });
-    neighbors.forEach((n, i) => {
-      const w = n.word.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      map.set(w, { score: n.score, rank: i + 1 });
-      map.set(n.word.toLowerCase(), { score: n.score, rank: i + 1 });
-    });
-    setNeighborsMap(map);
-  }
-
-  // 2. Restaurer état
-  useEffect(() => {
-    if (!loaded || !neighborsMap) return;
+    if (!loaded) return;
     if (todayState === 'inprogress' && progress?.guesses?.length > 0) {
       setGuesses(progress.guesses);
       startTimeRef.current = startTimeRef.current || Date.now();
@@ -509,15 +459,21 @@ export default function SemantiquePage() {
       setFinalScore(progress?.score || 0);
       setGameOver(true);
       setShowResult(true);
+      // Restaurer le mot cible si sauvegardé
+      const saved = typeof window !== 'undefined'
+        ? localStorage.getItem(`lq_sem_target_${todayDate}`)
+        : null;
+      if (saved) setTargetWord(saved);
     } else if (todayState === 'unplayed') {
       startGame();
       startTimeRef.current = Date.now();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded, todayState, neighborsMap]);
+  }, [loaded, todayState]);
 
-  const handleSubmit = useCallback(() => {
-    if (!input.trim() || !neighborsMap || !targetWord || gameOver) return;
+  // Appel API pour chaque essai — le mot cible reste côté serveur
+  const handleSubmit = useCallback(async () => {
+    if (!input.trim() || gameOver || isSubmitting || !todayDate) return;
 
     const raw = input.trim().toLowerCase();
     const normalized = raw.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -529,27 +485,52 @@ export default function SemantiquePage() {
       return;
     }
 
-    const found = neighborsMap.get(normalized) || neighborsMap.get(raw);
-    const newAttemptIndex = guesses.length + 1;
-    const entry = found
-      ? { word: raw, score: found.score, rank: found.rank, attemptIndex: newAttemptIndex }
-      : { word: raw, score: 0, rank: 9999, attemptIndex: newAttemptIndex };
-
-    const newGuesses = [...guesses, entry];
-    setGuesses(newGuesses);
+    setIsSubmitting(true);
     setInput('');
-    setError('');
-    saveProgress(newGuesses, newGuesses.length);
 
-    if (entry.score >= 1) {
-      const timeMs = Date.now() - (startTimeRef.current || Date.now());
-      const score = computeFinalScore(newGuesses.length);
-      setFinalScore(score);
-      setGameOver(true);
-      setTimeout(() => setShowResult(true), 800);
-      completeGame({ solved: true, attempts: newGuesses.length, timeMs, score });
+    try {
+      const res = await fetch('/api/daily/semantic-score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date: todayDate, guess: normalized }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `Erreur ${res.status}`);
+      }
+
+      const { score, rank, solved, targetWord: tw } = await res.json();
+      const newAttemptIndex = guesses.length + 1;
+      const entry = { word: raw, score, rank, attemptIndex: newAttemptIndex };
+      const newGuesses = [...guesses, entry];
+
+      setGuesses(newGuesses);
+      setError('');
+      saveProgress(newGuesses, newGuesses.length);
+
+      if (solved) {
+        const timeMs = Date.now() - (startTimeRef.current || Date.now());
+        const gameScore = computeFinalScore(newGuesses.length);
+        setFinalScore(gameScore);
+        if (tw) {
+          setTargetWord(tw);
+          localStorage.setItem(`lq_sem_target_${todayDate}`, tw);
+        }
+        setGameOver(true);
+        setTimeout(() => setShowResult(true), 800);
+        completeGame({ solved: true, attempts: newGuesses.length, timeMs, score: gameScore });
+      }
+    } catch (err) {
+      console.error('[Sémantique]', err);
+      setError(err.message || 'Service indisponible, réessayez');
+      setTimeout(() => setError(''), 3000);
+      // Remettre le mot dans l'input en cas d'erreur
+      setInput(raw);
+    } finally {
+      setIsSubmitting(false);
     }
-  }, [input, neighborsMap, targetWord, guesses, gameOver, saveProgress, completeGame]);
+  }, [input, gameOver, isSubmitting, guesses, todayDate, saveProgress, completeGame]);
 
   const handleKeyDown = (e) => { if (e.key === 'Enter') handleSubmit(); };
 
@@ -558,13 +539,13 @@ export default function SemantiquePage() {
     ? [...guesses.slice(0, -1)].sort((a, b) => b.score - a.score)
     : [];
 
-  // Loading
-  if (!serverDate || !loaded || !neighborsMap) {
+  // Loading — on attend juste serverDate + useDailyGame (pas de fetch neighbors)
+  if (!serverDate || !loaded) {
     return (
       <div className="semantic-page">
         <div className="wordle-loading">
           <div className="sem-spinner" />
-          <p>Chargement du mot du jour…</p>
+          <p>Chargement…</p>
         </div>
       </div>
     );
@@ -672,7 +653,7 @@ export default function SemantiquePage() {
                   </motion.div>
                 )}
               </AnimatePresence>
-              <div className="semantic-input-bar">
+              <div className={`semantic-input-bar${isSubmitting ? ' submitting' : ''}`}>
                 <Brain className="semantic-input-icon" size={18} />
                 <input
                   ref={inputRef}
@@ -682,7 +663,7 @@ export default function SemantiquePage() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  disabled={gameOver}
+                  disabled={gameOver || isSubmitting}
                   autoComplete="off"
                   autoCorrect="off"
                   spellCheck={false}
@@ -690,9 +671,12 @@ export default function SemantiquePage() {
                 <button
                   className="semantic-submit-btn"
                   onClick={handleSubmit}
-                  disabled={!input.trim() || gameOver}
+                  disabled={!input.trim() || gameOver || isSubmitting}
                 >
-                  <Send size={15} /> Valider
+                  {isSubmitting
+                    ? <span className="sem-btn-spinner" />
+                    : <><Send size={15} /> Valider</>
+                  }
                 </button>
               </div>
             </div>
