@@ -11,6 +11,7 @@ import Leaderboard from "@/components/game/Leaderboard";
 import PlayerManager from "@/components/game/PlayerManager";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import HostDisconnectAlert from "@/components/game/HostDisconnectAlert";
+import BuzzValidationModal from "@/components/game/BuzzValidationModal";
 import { initializePlayer, playSnippet, pause, resume, isPlayerReady, disconnect, preloadPreview, seek, getPlayerState } from "@/lib/deezer/player";
 import { SkipForward, X, Check, Music, Play, Pause, Bell, RefreshCw, Shuffle } from "lucide-react";
 import BlindTestRevealScreen from "@/components/game/BlindTestRevealScreen";
@@ -1105,201 +1106,48 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
       </header>
 
       {/* Buzz Modal */}
-      <AnimatePresence>
-        {state?.lockUid && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              style={{
-                position: 'fixed',
-                inset: 0,
-                background: 'rgba(0, 0, 0, 0.85)',
-                zIndex: 9998
-              }}
-            />
-            <div className="buzz-modal-container" style={{
-              position: 'fixed',
-              inset: 0,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              zIndex: 9999,
-              padding: 20
-            }}>
-              <motion.div
-                className="buzz-card deeztest"
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+      <BuzzValidationModal
+        isOpen={!!state?.lockUid}
+        playerName={lockedName}
+        gameColor={DEEZER_PURPLE}
+        answerValue={currentTrack && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12
+          }}>
+            {currentTrack.albumArt && (
+              <img
+                src={currentTrack.albumArt}
+                alt="Album"
                 style={{
-                  width: '100%',
-                  maxWidth: 400,
-                  backgroundColor: '#1a1625',
-                  border: `2px solid ${DEEZER_PURPLE}`,
-                  borderRadius: 20,
-                  padding: 24,
-                  boxShadow: `0 0 0 4px rgba(162, 56, 255, 0.2), 0 8px 32px rgba(0, 0, 0, 0.9)`
+                  width: 56,
+                  height: 56,
+                  borderRadius: 8,
+                  objectFit: 'cover',
+                  flexShrink: 0
                 }}
-              >
-                <div className="buzz-header" style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  marginBottom: 20
-                }}>
-                  <div className="buzz-icon" style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 16,
-                    background: `linear-gradient(135deg, ${DEEZER_PURPLE}, ${DEEZER_PINK})`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    boxShadow: `0 0 20px rgba(162, 56, 255, 0.5)`
-                  }}>
-                    <Bell size={28} />
-                  </div>
-                  <div className="buzz-info" style={{ flex: 1 }}>
-                    <span className="buzz-name" style={{
-                      display: 'block',
-                      fontFamily: "var(--font-title, 'Bungee'), cursive",
-                      fontSize: '1.3rem',
-                      color: 'white'
-                    }}>{lockedName}</span>
-                    <span className="buzz-label" style={{
-                      fontSize: '0.85rem',
-                      color: 'rgba(255,255,255,0.6)'
-                    }}>a buzzé</span>
-                  </div>
-                  <span className="buzz-points" style={{
-                    fontFamily: "var(--font-title, 'Bungee'), cursive",
-                    fontSize: '1.4rem',
-                    color: DEEZER_LIGHT,
-                    textShadow: `0 0 15px rgba(162, 56, 255, 0.6)`
-                  }}>{pointsEnJeu} pts</span>
-                </div>
-
-                {currentTrack && (
-                  <div className="buzz-answer" style={{
-                    background: 'rgba(162, 56, 255, 0.1)',
-                    border: '1px solid rgba(162, 56, 255, 0.2)',
-                    borderRadius: 12,
-                    padding: 16,
-                    marginBottom: 20
-                  }}>
-                    <div className="track-reveal" style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 12
-                    }}>
-                      {currentTrack.albumArt && (
-                        <img
-                          src={currentTrack.albumArt}
-                          alt="Album"
-                          style={{
-                            width: 56,
-                            height: 56,
-                            borderRadius: 8,
-                            objectFit: 'cover'
-                          }}
-                        />
-                      )}
-                      <div className="track-info">
-                        <span style={{
-                          display: 'block',
-                          fontWeight: 600,
-                          fontSize: '1rem',
-                          color: 'white',
-                          marginBottom: 4
-                        }}>{currentTrack.title}</span>
-                        <span style={{
-                          fontSize: '0.85rem',
-                          color: 'rgba(255,255,255,0.6)'
-                        }}>{currentTrack.artist}</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                <div className="buzz-actions" style={{
-                  display: 'flex',
-                  gap: 12,
-                  marginBottom: 12
-                }}>
-                  <button
-                    className="buzz-btn buzz-btn-wrong"
-                    onClick={wrong}
-                    style={{
-                      flex: 1,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 8,
-                      padding: '14px 20px',
-                      border: 'none',
-                      borderRadius: 12,
-                      background: 'rgba(239, 68, 68, 0.2)',
-                      color: '#f87171',
-                      fontSize: '1rem',
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      transition: 'all 0.2s'
-                    }}
-                  >
-                    <X size={22} />
-                    Faux
-                  </button>
-                  <button
-                    className="buzz-btn buzz-btn-correct"
-                    onClick={validate}
-                    style={{
-                      flex: 1,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 8,
-                      padding: '14px 20px',
-                      border: 'none',
-                      borderRadius: 12,
-                      background: `linear-gradient(135deg, ${DEEZER_PURPLE}, ${DEEZER_PINK})`,
-                      color: 'white',
-                      fontSize: '1rem',
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      boxShadow: `0 4px 15px rgba(162, 56, 255, 0.4)`,
-                      transition: 'all 0.2s'
-                    }}
-                  >
-                    <Check size={22} />
-                    Correct
-                  </button>
-                </div>
-
-                <button
-                  className="buzz-cancel"
-                  onClick={resetBuzzers}
-                  style={{
-                    width: '100%',
-                    padding: '10px',
-                    background: 'transparent',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    borderRadius: 8,
-                    color: 'rgba(255,255,255,0.6)',
-                    fontSize: '0.85rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  Annuler
-                </button>
-              </motion.div>
+              />
+            )}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{
+                fontWeight: 600,
+                fontSize: '1rem',
+                color: 'white',
+                marginBottom: 4
+              }}>{currentTrack.title}</div>
+              <div style={{
+                fontSize: '0.85rem',
+                color: 'rgba(255,255,255,0.6)'
+              }}>{currentTrack.artist}</div>
             </div>
-          </>
+          </div>
         )}
-      </AnimatePresence>
+        points={pointsEnJeu}
+        onCorrect={validate}
+        onWrong={wrong}
+        onCancel={resetBuzzers}
+      />
 
       {/* Reveal Screen - Shown after correct answer */}
       <BlindTestRevealScreen

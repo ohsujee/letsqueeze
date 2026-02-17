@@ -58,7 +58,13 @@ export function AppShell({ children }) {
         const parsed = new URL(url);
         // Build the internal path with query params
         const path = parsed.pathname + parsed.search;
+
         if (path && path !== '/') {
+          // Store deep link in sessionStorage for cold start handling
+          // This ensures the link persists through auth initialization
+          sessionStorage.setItem('lq_pending_deeplink', path);
+
+          // Try immediate navigation (works if app is already running)
           router.push(path);
         }
       } catch {
@@ -70,6 +76,39 @@ export function AppShell({ children }) {
       listener.then(l => l.remove());
     };
   }, [router]);
+
+  // Process pending deep link after app initialization
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return;
+
+    // Wait for auth to be ready (small delay to ensure Firebase is initialized)
+    const timer = setTimeout(() => {
+      const pendingLink = sessionStorage.getItem('lq_pending_deeplink');
+
+      if (pendingLink) {
+        // Check if user has completed onboarding
+        // Note: storage.set() adds 'lq_' prefix, so 'hasSeenOnboarding' becomes 'lq_hasSeenOnboarding'
+        const hasCompletedOnboarding = localStorage.getItem('lq_hasSeenOnboarding') === 'true';
+
+        // Only navigate if:
+        // 1. User has completed onboarding OR
+        // 2. The link is not /join (allow other paths like /home, /profile, etc.)
+        const isJoinLink = pendingLink.startsWith('/join');
+
+        if (hasCompletedOnboarding || !isJoinLink) {
+          // Clear the pending link to avoid re-navigation
+          sessionStorage.removeItem('lq_pending_deeplink');
+
+          // Navigate to the deep link
+          router.push(pendingLink);
+        }
+        // If user hasn't completed onboarding and it's a /join link,
+        // keep the link in sessionStorage - it will be processed after onboarding
+      }
+    }, 1000); // 1 second delay to ensure Firebase auth is ready
+
+    return () => clearTimeout(timer);
+  }, [router, pathname]); // Re-run when pathname changes (e.g., after onboarding)
 
   useEffect(() => {
     const setAppHeight = () => {

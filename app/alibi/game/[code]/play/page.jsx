@@ -672,7 +672,7 @@ export default function AlibiInterrogation() {
                     >
                       <Clock size={48} />
                     </motion.div>
-                    <p className="interro-waiting-text">Préparez-vous à répondre...</p>
+                    <p className="interro-waiting-text">Prépare-toi à répondre...</p>
                   </motion.div>
                 </motion.div>
               )}

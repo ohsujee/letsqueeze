@@ -1,14 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { Share2, X, Copy, Check } from "lucide-react";
 
-export default function ShareModal({ roomCode, joinUrl }) {
+const ShareModal = forwardRef(function ShareModal({ roomCode, joinUrl }, ref) {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  // Expose open/close methods to parent via ref
+  useImperativeHandle(ref, () => ({
+    open: () => setIsOpen(true),
+    close: () => setIsOpen(false),
+  }));
 
   useEffect(() => {
     setMounted(true);
@@ -28,6 +34,10 @@ export default function ShareModal({ roomCode, joinUrl }) {
     }
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   const modalContent = (
     <AnimatePresence mode="wait">
       {isOpen && (
@@ -39,10 +49,10 @@ export default function ShareModal({ roomCode, joinUrl }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            onClick={() => setIsOpen(false)}
+            onClick={handleClose}
           />
 
-          {/* Bottom Sheet */}
+          {/* Bottom Sheet with Swipe-to-Close */}
           <motion.div
             className="share-modal"
             initial={{ y: "100%" }}
@@ -54,12 +64,21 @@ export default function ShareModal({ roomCode, joinUrl }) {
               stiffness: 400,
               mass: 0.8,
             }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0, bottom: 0.5 }}
+            onDragEnd={(e, { offset, velocity }) => {
+              // Close modal if dragged down more than 150px or fast swipe down
+              if (offset.y > 150 || velocity.y > 500) {
+                handleClose();
+              }
+            }}
           >
-            {/* Handle */}
+            {/* Handle - Interactive drag indicator */}
             <div className="modal-handle" />
 
             {/* Title */}
-            <h3 className="modal-title">Inviter des joueurs</h3>
+            <h3 className="modal-title">Invite des joueurs</h3>
 
             {/* QR Code */}
             <div className="qr-container">
@@ -89,7 +108,7 @@ export default function ShareModal({ roomCode, joinUrl }) {
                   </>
                 )}
               </button>
-              <button className="btn-close" onClick={() => setIsOpen(false)}>
+              <button className="btn-close" onClick={handleClose}>
                 <X size={18} />
               </button>
             </div>
@@ -114,4 +133,6 @@ export default function ShareModal({ roomCode, joinUrl }) {
       {mounted && createPortal(modalContent, document.body)}
     </>
   );
-}
+});
+
+export default ShareModal;

@@ -379,6 +379,7 @@ export default function SelectorModal({
                 style={{
                   marginTop: '1.5rem',
                   paddingTop: '1rem',
+                  paddingBottom: 'calc(0.5rem + var(--safe-area-bottom, 0px))',
                   borderTop: `1px solid ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(139, 92, 246, 0.2)'}`,
                   textAlign: 'center'
                 }}

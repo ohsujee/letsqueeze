@@ -60,6 +60,7 @@ export default function Room() {
   const countdownTriggeredRef = useRef(false);
   const [isPlayerMissing, setIsPlayerMissing] = useState(false);
   const [rejoinError, setRejoinError] = useState(null);
+  const shareModalRef = useRef(null);
 
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
@@ -548,6 +549,7 @@ export default function Room() {
 
       {/* Header */}
       <LobbyHeader
+        ref={shareModalRef}
         variant="quiz"
         code={code}
         isHost={isHost}
@@ -580,9 +582,9 @@ export default function Room() {
                   </div>
                   <div className="quiz-card-center">
                     <span className="quiz-card-label">Quiz</span>
-                    <h3 className="quiz-card-title">{quizSelection?.categoryName || 'Choisir un quiz'}</h3>
+                    <h3 className="quiz-card-title">{quizSelection?.categoryName || 'Choisis un quiz'}</h3>
                     <p className="quiz-card-meta">
-                      {hasSelection ? `${selectedThemeNames} • ${totalQuestions} questions` : 'Appuyer pour choisir'}
+                      {hasSelection ? `${selectedThemeNames} • ${totalQuestions} questions` : ''}
                     </p>
                   </div>
                   <div className="quiz-card-right">
@@ -675,7 +677,15 @@ export default function Room() {
                     <div className="empty-state">
                       <span className="empty-icon">👋</span>
                       <p className="empty-text">En attente de joueurs...</p>
-                      <p className="empty-hint">Partagez le code pour inviter</p>
+                      <button
+                        className="btn btn-primary btn-sm empty-share-btn"
+                        onClick={(e) => {
+                          e.currentTarget.blur(); // Remove focus to prevent stuck gray state
+                          shareModalRef.current?.open();
+                        }}
+                      >
+                        Partager le code
+                      </button>
                     </div>
                   ) : (
                     <div className="players-chips">

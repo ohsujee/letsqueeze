@@ -1,5 +1,6 @@
 'use client';
 
+import { forwardRef } from 'react';
 import ExitButton from '@/lib/components/ExitButton';
 import LobbySettings from '@/components/game/LobbySettings';
 import ShareModal from '@/lib/components/ShareModal';
@@ -19,8 +20,9 @@ import { HelpCircle } from 'lucide-react';
  * @param {function} props.onShowHowToPlay - Callback pour ouvrir le modal "Comment jouer"
  * @param {string} props.joinUrl - URL de join pour le partage
  * @param {'gamemaster'|'party'} props.gameMode - Mode de jeu (optionnel)
+ * @param {React.Ref} ref - Ref forwarded to ShareModal
  */
-export default function LobbyHeader({
+const LobbyHeader = forwardRef(function LobbyHeader({
   variant = 'quiz',
   code,
   isHost,
@@ -31,7 +33,7 @@ export default function LobbyHeader({
   onShowHowToPlay,
   joinUrl,
   gameMode
-}) {
+}, ref) {
   // Config par variante
   const roomPrefixMap = {
     quiz: 'rooms',
@@ -80,8 +82,10 @@ export default function LobbyHeader({
             </button>
           )
         )}
-        <ShareModal roomCode={code} joinUrl={joinUrl} gameType={variant} />
+        <ShareModal ref={ref} roomCode={code} joinUrl={joinUrl} gameType={variant} />
       </div>
     </header>
   );
-}
+});
+
+export default LobbyHeader;

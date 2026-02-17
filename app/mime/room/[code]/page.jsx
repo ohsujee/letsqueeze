@@ -53,6 +53,7 @@ export default function MimeLobbyPage() {
   const [hostJoined, setHostJoined] = useState(false);
   const countdownTriggeredRef = useRef(false);
   const roomWasValidRef = useRef(false);
+  const shareModalRef = useRef(null);
 
   // User profile pour le pseudo
   const { profile, loading: profileLoading } = useUserProfile();
@@ -367,6 +368,7 @@ export default function MimeLobbyPage() {
 
       {/* Header */}
       <LobbyHeader
+        ref={shareModalRef}
         variant="mime"
         code={code}
         isHost={isHost}
@@ -400,12 +402,12 @@ export default function MimeLobbyPage() {
                     <h3 className="quiz-card-title">
                       {hasSelection
                         ? `${themeSelection.themeIds.length} thème${themeSelection.themeIds.length > 1 ? 's' : ''}`
-                        : 'Choisir les thèmes'}
+                        : 'Choisis les thèmes'}
                     </h3>
                     <p className="quiz-card-meta">
                       {hasSelection
                         ? `${selectedThemeNames} • ${totalWords} mots`
-                        : 'Appuyer pour choisir'}
+                        : ''}
                     </p>
                   </div>
                   <div className="quiz-card-right">
@@ -426,7 +428,15 @@ export default function MimeLobbyPage() {
                   <div className="empty-state">
                     <span className="empty-icon">👋</span>
                     <p className="empty-text">En attente de joueurs...</p>
-                    <p className="empty-hint">Partagez le code pour inviter</p>
+                    <button
+                      className="btn btn-primary btn-sm empty-share-btn"
+                      onClick={(e) => {
+                        e.currentTarget.blur(); // Remove focus to prevent stuck gray state
+                        shareModalRef.current?.open();
+                      }}
+                    >
+                      Partager le code
+                    </button>
                   </div>
                 ) : (
                   <div className="players-chips">

@@ -676,7 +676,7 @@ export default function AlibiEnd() {
             label={!hostPresent
               ? "L'hote a quitte la partie"
               : isHost
-                ? "Vous pourrez choisir un nouvel alibi"
+                ? "Tu pourras choisir un nouvel alibi"
                 : "Retourne au lobby pour la prochaine partie"
             }
             onNewGame={() => {

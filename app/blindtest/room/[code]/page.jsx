@@ -64,6 +64,7 @@ export default function DeezTestLobby() {
   const [myUid, setMyUid] = useState(null);
   const [isPlayerMissing, setIsPlayerMissing] = useState(false);
   const [rejoinError, setRejoinError] = useState(null);
+  const shareModalRef = useRef(null);
 
   // Deezer state (no auth needed!)
   const [searchQuery, setSearchQuery] = useState("");
@@ -651,6 +652,7 @@ export default function DeezTestLobby() {
 
       {/* Header */}
       <LobbyHeader
+        ref={shareModalRef}
         variant="deeztest"
         code={code}
         isHost={isHost}
@@ -705,8 +707,8 @@ export default function DeezTestLobby() {
                       </>
                     ) : (
                       <>
-                        <h3 className="quiz-card-title">Choisir une playlist</h3>
-                        <p className="quiz-card-meta">Appuyer pour choisir</p>
+                        <h3 className="quiz-card-title">Choisis une playlist</h3>
+                        <p className="quiz-card-meta"></p>
                       </>
                     )}
                   </div>
@@ -770,7 +772,15 @@ export default function DeezTestLobby() {
                     <div className="empty-state">
                       <span className="empty-icon">👋</span>
                       <p className="empty-text">En attente de joueurs...</p>
-                      <p className="empty-hint">Partagez le code pour inviter</p>
+                      <button
+                        className="btn btn-primary btn-sm empty-share-btn"
+                        onClick={(e) => {
+                          e.currentTarget.blur(); // Remove focus to prevent stuck gray state
+                          shareModalRef.current?.open();
+                        }}
+                      >
+                        Partager le code
+                      </button>
                     </div>
                   ) : (
                     <div className="players-chips">

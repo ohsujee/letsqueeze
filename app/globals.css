@@ -2920,6 +2920,23 @@ textarea:focus-visible {
 
 .game-header {
   flex-shrink: 0;
+  position: relative;
+}
+
+/* Étendre le background du header dans la safe area top (status bar, notch, caméra) */
+.game-header::before {
+  content: '';
+  position: absolute;
+  top: calc(-1 * max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px)));
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  border-bottom: inherit;
+  backdrop-filter: inherit;
+  -webkit-backdrop-filter: inherit;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .game-content {
@@ -7267,6 +7284,36 @@ input[type="text"].game-search-input:focus,
   font-family: var(--font-body, 'Inter'), sans-serif;
   font-size: 1.5vh;
   color: var(--text-muted, rgba(255, 255, 255, 0.5));
+  margin-bottom: 1.5vh;
+}
+
+.empty-share-btn {
+  margin-top: 1vh;
+  position: relative;
+  overflow: hidden;
+  /* Fix: Remove pressed state on mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Gold shimmer effect (same as PRO badge) */
+.empty-share-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 80%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: gold-shimmer 3s ease-in-out infinite;
+  pointer-events: none;
 }
 
 /* ===== PLAYER VIEW (Non-Host) ===== */
@@ -7357,7 +7404,13 @@ input[type="text"].game-search-input:focus,
   left: 0;
   right: 0;
   padding: 2vh 0 calc(1.5vh + var(--safe-area-bottom, 0px));
-  background: linear-gradient(to top, var(--bg-primary, #0a0a0f) 70%, transparent);
+  /* Gradient étendu pour couvrir complètement la safe area (boutons nav Android, home indicator iOS) */
+  background: linear-gradient(
+    to top,
+    var(--bg-primary, #0a0a0f) 0%,
+    var(--bg-primary, #0a0a0f) calc(var(--safe-area-bottom, 0px) + 4vh),
+    transparent 100%
+  );
   z-index: 10;
 }
 

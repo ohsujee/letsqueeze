@@ -98,7 +98,7 @@ export default function AlibiSelectorModal({
 
         {/* Header */}
         <div className="alibi-modal-header">
-          <h2 className="alibi-modal-title">Choisir un Alibi</h2>
+          <h2 className="alibi-modal-title">Choisis un Alibi</h2>
           <button className="alibi-modal-close" onClick={onClose}>
             <X size={20} />
           </button>

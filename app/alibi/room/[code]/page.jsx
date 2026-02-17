@@ -97,6 +97,7 @@ export default function AlibiLobby() {
   const [canScrollDownPlayer, setCanScrollDownPlayer] = useState(false);
   const [isPlayerMissing, setIsPlayerMissing] = useState(false);
   const [rejoinError, setRejoinError] = useState(null);
+  const shareModalRef = useRef(null);
 
   // Get user profile for subscription check and pseudo
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
@@ -640,6 +641,7 @@ export default function AlibiLobby() {
 
       {/* Header */}
       <LobbyHeader
+        ref={shareModalRef}
         variant="alibi"
         code={code}
         isHost={isHost}

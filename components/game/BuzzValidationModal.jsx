@@ -92,13 +92,21 @@ export default function BuzzValidationModal({
 
               {/* Answer Section (optional) */}
               {answerValue && (
-                <div style={answerSectionStyle}>
+                <div style={{
+                  ...answerSectionStyle,
+                  background: `${gameColor}1F`,
+                  borderColor: `${gameColor}4D`
+                }}>
                   {answerLabel && (
                     <span style={answerLabelStyle}>{answerLabel}</span>
                   )}
-                  <span style={answerValueStyle}>
+                  <div style={{
+                    ...answerValueStyle,
+                    color: typeof answerValue === 'string' ? gameColor : 'inherit',
+                    textShadow: typeof answerValue === 'string' ? `0 0 12px ${gameColor}80` : 'none'
+                  }}>
                     {answerValue}
-                  </span>
+                  </div>
                 </div>
               )}
 
@@ -108,7 +116,13 @@ export default function BuzzValidationModal({
                   <X size={22} />
                   <span>Faux</span>
                 </button>
-                <button style={btnCorrectStyle} onClick={onCorrect}>
+                <button style={{
+                  ...btnBaseStyle,
+                  background: `linear-gradient(135deg, ${gameColor}33, ${gameColor}1A)`,
+                  borderColor: `${gameColor}66`,
+                  color: gameColor,
+                  boxShadow: `0 4px 15px ${gameColor}40`
+                }} onClick={onCorrect}>
                   <Check size={22} />
                   <span>Correct</span>
                 </button>
@@ -117,7 +131,7 @@ export default function BuzzValidationModal({
               {/* Cancel Button */}
               {onCancel && (
                 <button style={btnCancelStyle} onClick={onCancel}>
-                  Annuler (buzz accidentel)
+                  Annuler le buzz
                 </button>
               )}
             </motion.div>
@@ -212,8 +226,7 @@ const answerSectionStyle = {
   flexDirection: 'column',
   alignItems: 'center',
   gap: '8px',
-  background: 'rgba(34, 197, 94, 0.12)',
-  border: '1px solid rgba(34, 197, 94, 0.3)',
+  border: '1px solid',
   borderRadius: '14px',
   padding: '14px 18px',
   marginBottom: '20px',
@@ -230,8 +243,6 @@ const answerLabelStyle = {
 const answerValueStyle = {
   fontWeight: 700,
   fontSize: '1.1rem',
-  color: '#22c55e',
-  textShadow: '0 0 12px rgba(34, 197, 94, 0.5)',
   textAlign: 'center',
   lineHeight: 1.3,
 };
@@ -294,13 +305,6 @@ const btnWrongStyle = {
   background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1))',
   borderColor: 'rgba(239, 68, 68, 0.4)',
   color: '#f87171',
-};
-
-const btnCorrectStyle = {
-  ...btnBaseStyle,
-  background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1))',
-  borderColor: 'rgba(34, 197, 94, 0.4)',
-  color: '#4ade80',
 };
 
 const btnCancelStyle = {

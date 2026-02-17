@@ -628,7 +628,7 @@ export default function AlibiPrep() {
       <AlibiPhaseTransition
         isVisible={showCountdown}
         title="L'enquête commence"
-        subtitle="Les inspecteurs vont vous questionner..."
+        subtitle="Les inspecteurs vont te questionner..."
         type="interrogation"
         onComplete={handleCountdownComplete}
         duration={3500}

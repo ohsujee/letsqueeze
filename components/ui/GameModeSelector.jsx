@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, PartyPopper, X } from 'lucide-react';
+import { Crown, PartyPopper, X } from 'lucide-react';
 
 /**
  * GameModeSelector - Modal de sélection du mode de jeu
@@ -69,7 +69,7 @@ export default function GameModeSelector({ isOpen, onClose, onSelectMode, game }
                 style={{ '--option-color': themeColor }}
               >
                 <div className="gms-option-icon">
-                  <Mic size={32} />
+                  <Crown size={32} />
                 </div>
                 <div className="gms-option-content">
                   <h3 className="gms-option-title">Game Master</h3>

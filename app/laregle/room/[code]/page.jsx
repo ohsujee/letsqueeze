@@ -54,6 +54,7 @@ export default function LaLoiLobby() {
   const countdownTriggeredRef = useRef(false);
   const [isPlayerMissing, setIsPlayerMissing] = useState(false);
   const [rejoinError, setRejoinError] = useState(null);
+  const shareModalRef = useRef(null);
 
   // Settings
   const [mode, setMode] = useState('meme_piece'); // 'meme_piece' | 'a_distance'
@@ -347,6 +348,7 @@ export default function LaLoiLobby() {
 
       {/* Header */}
       <LobbyHeader
+        ref={shareModalRef}
         variant="laregle"
         code={code}
         isHost={isHost}
