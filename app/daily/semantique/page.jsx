@@ -4,13 +4,20 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Brain, Trophy, BarChart2, HelpCircle, X, Send } from 'lucide-react';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, get } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
 import HowToPlayModal from '@/components/ui/HowToPlayModal';
 
+// ─── Normalisation accents (pour lookup Firebase) ────────────────────────────
+function stripAccents(str) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
 // ─── Système de température ───────────────────────────────────────────────────
+// score = rank/1000 (rank 1–1000, 1000 = mot cible)
+// mots hors top 1000 → score = -0.05 (glacial)
 function toCelsius(score) {
   if (score >= 1) return 100;
   return Math.round(score * 100 * 100) / 100;
@@ -434,10 +441,12 @@ export default function SemantiquePage() {
   const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, loaded } =
     useDailyGame('semantique', { forceDate: serverDate });
 
+  // Scores pré-calculés chargés depuis Firebase au démarrage
+  const [precomputedScores, setPrecomputedScores] = useState(null); // null = loading
+
   const [targetWord, setTargetWord] = useState(null);
   const [guesses, setGuesses] = useState([]);
   const [input, setInput] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
@@ -447,6 +456,14 @@ export default function SemantiquePage() {
   const [showHelp, setShowHelp] = useState(false);
   const inputRef = useRef(null);
   const startTimeRef = useRef(null);
+
+  // Charger les scores pré-calculés depuis Firebase
+  useEffect(() => {
+    if (!todayDate || !loaded) return;
+    get(ref(db, `daily/semantic/${todayDate}/scores`))
+      .then(snap => setPrecomputedScores(snap.exists() ? snap.val() : {}))
+      .catch(() => setPrecomputedScores({}));
+  }, [todayDate, loaded]);
 
   // Restaurer l'état depuis localStorage
   useEffect(() => {
@@ -471,76 +488,66 @@ export default function SemantiquePage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, todayState]);
 
-  // Appel API pour chaque essai — le mot cible reste côté serveur
-  const handleSubmit = useCallback(async () => {
-    if (!input.trim() || gameOver || isSubmitting || !todayDate) return;
+  // Lookup instantané dans les scores pré-calculés (pas d'appel API)
+  const handleSubmit = useCallback(() => {
+    if (!input.trim() || gameOver || !todayDate || !precomputedScores) return;
 
     const raw = input.trim().toLowerCase();
-    const normalized = raw.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const normalized = stripAccents(raw);
 
-    if (guesses.some(g => g.word === raw || g.word === normalized)) {
+    // Vérifier doublon
+    if (guesses.some(g => g.word === raw || stripAccents(g.word) === normalized)) {
       setError('Mot déjà essayé');
       setTimeout(() => setError(''), 1500);
       setInput('');
       return;
     }
 
-    setIsSubmitting(true);
-    setInput('');
+    // Lookup dans Firebase pré-calculé (essayer forme exacte puis sans accent)
+    const rank = precomputedScores[raw] ?? precomputedScores[normalized] ?? null;
 
-    try {
-      const res = await fetch('/api/daily/semantic-score', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ date: todayDate, guess: normalized }),
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || `Erreur ${res.status}`);
-      }
-
-      const { score, rank, solved, targetWord: tw } = await res.json();
-      const newAttemptIndex = guesses.length + 1;
-      const entry = { word: raw, score, rank, attemptIndex: newAttemptIndex };
-      const newGuesses = [...guesses, entry];
-
-      setGuesses(newGuesses);
-      setError('');
-      saveProgress(newGuesses, newGuesses.length);
-
-      if (solved) {
-        const timeMs = Date.now() - (startTimeRef.current || Date.now());
-        const gameScore = computeFinalScore(newGuesses.length);
-        setFinalScore(gameScore);
-        if (tw) {
-          setTargetWord(tw);
-          localStorage.setItem(`lq_sem_target_${todayDate}`, tw);
-        }
-        setGameOver(true);
-        setTimeout(() => setShowResult(true), 800);
-        completeGame({ solved: true, attempts: newGuesses.length, timeMs, score: gameScore });
-      }
-    } catch (err) {
-      console.error('[Sémantique]', err);
-      setError(err.message || 'Service indisponible, réessayez');
-      setTimeout(() => setError(''), 3000);
-      // Remettre le mot dans l'input en cas d'erreur
-      setInput(raw);
-    } finally {
-      setIsSubmitting(false);
+    if (rank === null) {
+      setError('Mot non reconnu');
+      setTimeout(() => setError(''), 2000);
+      setInput('');
+      return;
     }
-  }, [input, gameOver, isSubmitting, guesses, todayDate, saveProgress, completeGame]);
+
+    // score = rank/1000 → compatible avec le système de température existant
+    const score = rank / 1000;
+    const solved = rank === 1000;
+    const newAttemptIndex = guesses.length + 1;
+    const entry = { word: raw, score, rank, attemptIndex: newAttemptIndex };
+    const newGuesses = [...guesses, entry];
+
+    setGuesses(newGuesses);
+    setInput('');
+    setError('');
+    saveProgress(newGuesses, newGuesses.length);
+
+    if (solved) {
+      const timeMs = Date.now() - (startTimeRef.current || Date.now());
+      const gameScore = computeFinalScore(newGuesses.length);
+      setFinalScore(gameScore);
+      setTargetWord(raw); // le mot deviné = mot cible
+      localStorage.setItem(`lq_sem_target_${todayDate}`, raw);
+      setGameOver(true);
+      setTimeout(() => setShowResult(true), 800);
+      completeGame({ solved: true, attempts: newGuesses.length, timeMs, score: gameScore });
+    }
+  }, [input, gameOver, guesses, todayDate, precomputedScores, saveProgress, completeGame]);
 
   const handleKeyDown = (e) => { if (e.key === 'Enter') handleSubmit(); };
+
+  const scoresReady = precomputedScores && Object.keys(precomputedScores).length > 0;
 
   const latestEntry = guesses.length > 0 ? guesses[guesses.length - 1] : null;
   const sortedPrevious = guesses.length > 1
     ? [...guesses.slice(0, -1)].sort((a, b) => b.score - a.score)
     : [];
 
-  // Loading — on attend juste serverDate + useDailyGame (pas de fetch neighbors)
-  if (!serverDate || !loaded) {
+  // Loading — on attend serverDate + useDailyGame + scores Firebase
+  if (!serverDate || !loaded || precomputedScores === null) {
     return (
       <div className="semantic-page">
         <div className="wordle-loading">
@@ -610,8 +617,16 @@ export default function SemantiquePage() {
               )}
             </AnimatePresence>
 
+            {/* Banner si scores pas encore calculés */}
+            {precomputedScores && !scoresReady && !showResult && (
+              <div className="semantic-not-ready">
+                <span>⏳</span>
+                <p>Les scores du jour ne sont pas encore disponibles.<br />Revenez dans quelques minutes.</p>
+              </div>
+            )}
+
             {/* Empty hint */}
-            {guesses.length === 0 && !showResult && (
+            {scoresReady && guesses.length === 0 && !showResult && (
               <div className="semantic-empty-hint">
                 <span>🧠</span>
                 <p>Quel est le mot du jour ?</p>
@@ -653,7 +668,7 @@ export default function SemantiquePage() {
                   </motion.div>
                 )}
               </AnimatePresence>
-              <div className={`semantic-input-bar${isSubmitting ? ' submitting' : ''}`}>
+              <div className="semantic-input-bar">
                 <Brain className="semantic-input-icon" size={18} />
                 <input
                   ref={inputRef}
@@ -663,7 +678,7 @@ export default function SemantiquePage() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  disabled={gameOver || isSubmitting}
+                  disabled={gameOver}
                   autoComplete="off"
                   autoCorrect="off"
                   spellCheck={false}
@@ -671,12 +686,9 @@ export default function SemantiquePage() {
                 <button
                   className="semantic-submit-btn"
                   onClick={handleSubmit}
-                  disabled={!input.trim() || gameOver || isSubmitting}
+                  disabled={!input.trim() || gameOver || !precomputedScores}
                 >
-                  {isSubmitting
-                    ? <span className="sem-btn-spinner" />
-                    : <><Send size={15} /> Valider</>
-                  }
+                  <Send size={15} /> Valider
                 </button>
               </div>
             </div>
