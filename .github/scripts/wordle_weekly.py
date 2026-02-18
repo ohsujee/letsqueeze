@@ -12,7 +12,8 @@ with urllib.request.urlopen(url, timeout=30) as r:
 print(f"{len(words)} mots cibles charges.")
 
 # Init Firebase Admin
-private_key = os.environ['FIREBASE_PRIVATE_KEY'].replace('\\n', '\n')
+# Strip surrounding quotes (if copied from .env.local format) + replace literal \n
+private_key = os.environ['FIREBASE_PRIVATE_KEY'].strip('"\'').replace('\\n', '\n')
 cred = credentials.Certificate({
     "type": "service_account",
     "project_id": os.environ['FIREBASE_PROJECT_ID'],
