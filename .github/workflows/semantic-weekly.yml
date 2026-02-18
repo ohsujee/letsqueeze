@@ -9,59 +9,44 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      - name: Warmup HuggingFace Space
-        run: |
-          echo "Réveil du Space (cold start peut prendre 1–2 min à cause du téléchargement du modèle)..."
-          for i in {1..20}; do
-            STATUS=$(curl -s https://letsqueeze-gigglz-semantic-api.hf.space/health 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('status',''))" 2>/dev/null || echo "")
-            if [ "$STATUS" = "ok" ]; then
-              echo "✅ Space prêt !"
-              break
-            fi
-            echo "Tentative $i/20 — attente 30s..."
-            sleep 30
-          done
-
-      - name: Generate semantic scores for the next 7 days (fully automatic)
+      - name: Generate semantic scores for the next 7 days (VPS)
         env:
-          HF_API_KEY: ${{ secrets.HF_API_KEY }}
-          HF_SPACE_URL: https://letsqueeze-gigglz-semantic-api.hf.space
+          SEMANTIC_API_KEY: ${{ secrets.SEMANTIC_API_KEY }}
+          SEMANTIC_API_URL: http://91.98.127.51:8000
         run: |
           python3 - <<'EOF'
-          import json, os, urllib.request, urllib.error
-          from datetime import datetime, timedelta, timezone
+import json, os, urllib.request, urllib.error
+from datetime import datetime, timedelta, timezone
 
-          api_key = os.environ['HF_API_KEY']
-          base_url = os.environ['HF_SPACE_URL']
+api_key = os.environ['SEMANTIC_API_KEY']
+base_url = os.environ['SEMANTIC_API_URL']
 
-          # Les 7 prochains jours à partir d'aujourd'hui (UTC)
-          today = datetime.now(timezone.utc).date()
-          dates = [(today + timedelta(days=i)).isoformat() for i in range(0, 7)]
+today = datetime.now(timezone.utc).date()
+dates = [(today + timedelta(days=i)).isoformat() for i in range(0, 7)]
 
-          print(f"Calcul des scores pour : {', '.join(dates)}")
-          print("Le mot de chaque jour est sélectionné automatiquement par le HF Space (hash de la date).")
-          print()
+print(f"Calcul des scores pour : {', '.join(dates)}")
+print()
 
-          success = 0
-          for date in dates:
-              url = f"{base_url}/compute/{date}"
-              req = urllib.request.Request(url, method='POST')
-              req.add_header('x-api-key', api_key)
-              req.add_header('Content-Length', '0')
-              try:
-                  with urllib.request.urlopen(req, timeout=600) as r:
-                      result = json.loads(r.read())
-                      word = result.get('word', '?')
-                      written = result.get('scores_written', '?')
-                      print(f"✅ {date} — mot : '{word}' — {written} scores écrits dans Firebase")
-                      success += 1
-              except urllib.error.HTTPError as e:
-                  print(f"❌ {date} — HTTP {e.code}: {e.read().decode()[:300]}")
-              except Exception as e:
-                  print(f"❌ {date} — Erreur : {e}")
+success = 0
+for date in dates:
+    url = f"{base_url}/compute/{date}"
+    req = urllib.request.Request(url, method='POST')
+    req.add_header('x-api-key', api_key)
+    req.add_header('Content-Length', '0')
+    try:
+        with urllib.request.urlopen(req, timeout=600) as r:
+            result = json.loads(r.read())
+            word = result.get('word', '?')
+            written = result.get('scores_written', '?')
+            print(f"✅ {date} — mot : '{word}' — {written} scores écrits dans Firebase")
+            success += 1
+    except urllib.error.HTTPError as e:
+        print(f"❌ {date} — HTTP {e.code}: {e.read().decode()[:300]}")
+    except Exception as e:
+        print(f"❌ {date} — Erreur : {e}")
 
-          print()
-          print(f"Terminé : {success}/{len(dates)} jours calculés avec succès.")
-          if success < len(dates):
-              exit(1)
-          EOF
+print()
+print(f"Terminé : {success}/{len(dates)} jours calculés avec succès.")
+if success < len(dates):
+    exit(1)
+EOF

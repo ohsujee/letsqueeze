@@ -429,6 +429,23 @@ function LbRows({ entries, myUid, subLabel }) {
   );
 }
 
+// ─── Résolution des pseudos depuis Firebase profiles ─────────────────────────
+async function resolveNames(entries) {
+  if (!entries.length) return entries;
+  const results = await Promise.all(
+    entries.map(async (e) => {
+      try {
+        const snap = await get(ref(db, `users/${e.uid}/profile/pseudo`));
+        const pseudo = snap.val();
+        return pseudo ? { ...e, name: pseudo } : e;
+      } catch {
+        return e;
+      }
+    })
+  );
+  return results;
+}
+
 // ─── Leaderboard ──────────────────────────────────────────────────────────────
 function WordleLeaderboard({ todayDate }) {
   const [lbTab, setLbTab] = useState('today');
@@ -450,11 +467,11 @@ function WordleLeaderboard({ todayDate }) {
     const unsub = onValue(
       ref(db, `daily/wordle/${todayDate}/leaderboard`),
       (snap) => {
-        setTodayEntries(
-          snap.exists()
-            ? Object.entries(snap.val()).map(([uid, v]) => ({ uid, ...v })).sort((a, b) => (b.score || 0) - (a.score || 0))
-            : []
-        );
+        const raw = snap.exists()
+          ? Object.entries(snap.val()).map(([uid, v]) => ({ uid, ...v })).sort((a, b) => (b.score || 0) - (a.score || 0))
+          : [];
+        // Résoudre les pseudos actuels puis mettre à jour
+        resolveNames(raw).then(setTodayEntries).catch(() => setTodayEntries(raw));
         setTodayLoading(false);
       },
       (err) => { console.warn('[LB today]', err.message); setTodayLoading(false); }
@@ -479,7 +496,9 @@ function WordleLeaderboard({ todayDate }) {
             agg[uid].days += 1;
           });
         });
-        setWeekEntries(Object.values(agg).sort((a, b) => b.score - a.score));
+        const sorted = Object.values(agg).sort((a, b) => b.score - a.score);
+        const resolved = await resolveNames(sorted);
+        setWeekEntries(resolved);
       } catch (e) {
         console.warn('[LB week]', e.message);
       }

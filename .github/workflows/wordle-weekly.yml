@@ -1,0 +1,71 @@
+name: Assign Wordle Words
+
+on:
+  schedule:
+    - cron: '0 19 * * 0'  # Chaque dimanche à 19h UTC (20h Paris)
+  workflow_dispatch:
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign Wordle words for the next 7 days
+        env:
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          FIREBASE_DATABASE_URL: https://letsqueeze-default-rtdb.europe-west1.firebasedatabase.app
+          FIREBASE_PROJECT_ID: letsqueeze
+        run: |
+          pip install firebase-admin --quiet
+          python3 - <<'EOF'
+import json, os, hashlib, urllib.request
+from datetime import datetime, timedelta, timezone
+import firebase_admin
+from firebase_admin import credentials, db
+
+# Charger la liste des mots cibles depuis GitHub
+url = "https://raw.githubusercontent.com/yogarajah-sujeevan/LetsQueeze/main/public/data/wordle_targets.txt"
+with urllib.request.urlopen(url, timeout=30) as r:
+    words = [w.strip().lower() for w in r.read().decode().splitlines() if w.strip() and len(w.strip()) == 5]
+
+print(f"{len(words)} mots cibles chargés.")
+
+# Init Firebase Admin
+private_key = os.environ['FIREBASE_PRIVATE_KEY'].replace('\\n', '\n')
+cred = credentials.Certificate({
+    "type": "service_account",
+    "project_id": os.environ['FIREBASE_PROJECT_ID'],
+    "private_key": private_key,
+    "client_email": os.environ['FIREBASE_CLIENT_EMAIL'],
+    "token_uri": "https://oauth2.googleapis.com/token",
+})
+firebase_admin.initialize_app(cred, {
+    'databaseURL': os.environ['FIREBASE_DATABASE_URL']
+})
+
+today = datetime.now(timezone.utc).date()
+dates = [(today + timedelta(days=i)).isoformat() for i in range(0, 7)]
+
+success = 0
+for date in dates:
+    # Sélection déterministe par hash de date (reproductible)
+    h = int(hashlib.sha256(date.encode()).hexdigest(), 16)
+    word = words[h % len(words)]
+
+    # Écrire seulement si pas déjà défini
+    ref = db.reference(f'daily/wordle/{date}/word')
+    existing = ref.get()
+    if existing:
+        print(f"⏭  {date} — mot déjà défini : '{existing}' (skip)")
+        success += 1
+        continue
+
+    ref.set(word)
+    print(f"✅ {date} — mot assigné : '{word}'")
+    success += 1
+
+print()
+print(f"Terminé : {success}/{len(dates)} jours assignés.")
+if success < len(dates):
+    exit(1)
+EOF

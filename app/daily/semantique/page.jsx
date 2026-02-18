@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Brain, Trophy, BarChart2, HelpCircle, X, Send } from 'lucide-react';
-import { ref, onValue, get } from 'firebase/database';
+import { ref, get, onValue } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
@@ -205,6 +205,23 @@ function LbRows({ entries, myUid, subLabel }) {
   );
 }
 
+// ─── Résolution des pseudos depuis Firebase profiles ─────────────────────────
+async function resolveNames(entries) {
+  if (!entries.length) return entries;
+  const results = await Promise.all(
+    entries.map(async (e) => {
+      try {
+        const snap = await get(ref(db, `users/${e.uid}/profile/pseudo`));
+        const pseudo = snap.val();
+        return pseudo ? { ...e, name: pseudo } : e;
+      } catch {
+        return e;
+      }
+    })
+  );
+  return results;
+}
+
 // ─── Leaderboard ──────────────────────────────────────────────────────────────
 function SemanticLeaderboard({ todayDate }) {
   const [lbTab, setLbTab] = useState('today');
@@ -225,11 +242,10 @@ function SemanticLeaderboard({ todayDate }) {
     const unsub = onValue(
       ref(db, `daily/semantic/${todayDate}/leaderboard`),
       (snap) => {
-        setTodayEntries(
-          snap.exists()
-            ? Object.entries(snap.val()).map(([uid, v]) => ({ uid, ...v })).sort((a, b) => (b.score || 0) - (a.score || 0))
-            : []
-        );
+        const raw = snap.exists()
+          ? Object.entries(snap.val()).map(([uid, v]) => ({ uid, ...v })).sort((a, b) => (b.score || 0) - (a.score || 0))
+          : [];
+        resolveNames(raw).then(setTodayEntries).catch(() => setTodayEntries(raw));
         setTodayLoading(false);
       },
       () => setTodayLoading(false)
@@ -253,7 +269,9 @@ function SemanticLeaderboard({ todayDate }) {
             agg[uid].days += 1;
           });
         });
-        setWeekEntries(Object.values(agg).sort((a, b) => b.score - a.score));
+        const sorted = Object.values(agg).sort((a, b) => b.score - a.score);
+        const resolved = await resolveNames(sorted);
+        setWeekEntries(resolved);
       } catch (e) {
         console.warn('[SemLB week]', e.message);
       }
@@ -441,8 +459,7 @@ export default function SemantiquePage() {
   const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, loaded } =
     useDailyGame('semantique', { forceDate: serverDate });
 
-  // Scores pré-calculés chargés depuis Firebase au démarrage
-  const [precomputedScores, setPrecomputedScores] = useState(null); // null = loading
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [targetWord, setTargetWord] = useState(null);
   const [guesses, setGuesses] = useState([]);
@@ -456,14 +473,6 @@ export default function SemantiquePage() {
   const [showHelp, setShowHelp] = useState(false);
   const inputRef = useRef(null);
   const startTimeRef = useRef(null);
-
-  // Charger les scores pré-calculés depuis Firebase
-  useEffect(() => {
-    if (!todayDate || !loaded) return;
-    get(ref(db, `daily/semantic/${todayDate}/scores`))
-      .then(snap => setPrecomputedScores(snap.exists() ? snap.val() : {}))
-      .catch(() => setPrecomputedScores({}));
-  }, [todayDate, loaded]);
 
   // Restaurer l'état depuis localStorage
   useEffect(() => {
@@ -488,9 +497,9 @@ export default function SemantiquePage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, todayState]);
 
-  // Lookup instantané dans les scores pré-calculés (pas d'appel API)
-  const handleSubmit = useCallback(() => {
-    if (!input.trim() || gameOver || !todayDate || !precomputedScores) return;
+  // Scoring on-demand via VPS
+  const handleSubmit = useCallback(async () => {
+    if (!input.trim() || gameOver || !todayDate || isSubmitting) return;
 
     const raw = input.trim().toLowerCase();
     const normalized = stripAccents(raw);
@@ -503,51 +512,61 @@ export default function SemantiquePage() {
       return;
     }
 
-    // Lookup dans Firebase pré-calculé (essayer forme exacte puis sans accent)
-    const rank = precomputedScores[raw] ?? precomputedScores[normalized] ?? null;
-
-    if (rank === null) {
-      setError('Mot non reconnu');
-      setTimeout(() => setError(''), 2000);
-      setInput('');
-      return;
-    }
-
-    // score = rank/1000 → compatible avec le système de température existant
-    const score = rank / 1000;
-    const solved = rank === 1000;
-    const newAttemptIndex = guesses.length + 1;
-    const entry = { word: raw, score, rank, attemptIndex: newAttemptIndex };
-    const newGuesses = [...guesses, entry];
-
-    setGuesses(newGuesses);
+    setIsSubmitting(true);
     setInput('');
-    setError('');
-    saveProgress(newGuesses, newGuesses.length);
 
-    if (solved) {
-      const timeMs = Date.now() - (startTimeRef.current || Date.now());
-      const gameScore = computeFinalScore(newGuesses.length);
-      setFinalScore(gameScore);
-      setTargetWord(raw); // le mot deviné = mot cible
-      localStorage.setItem(`lq_sem_target_${todayDate}`, raw);
-      setGameOver(true);
-      setTimeout(() => setShowResult(true), 800);
-      completeGame({ solved: true, attempts: newGuesses.length, timeMs, score: gameScore });
+    try {
+      const res = await fetch(`/api/daily/semantic-score?date=${todayDate}&word=${encodeURIComponent(raw)}`);
+
+      if (res.status === 404) {
+        setError('Mot non reconnu');
+        setTimeout(() => setError(''), 2000);
+        setIsSubmitting(false);
+        return;
+      }
+      if (!res.ok) {
+        setError('Erreur serveur');
+        setTimeout(() => setError(''), 2000);
+        setIsSubmitting(false);
+        return;
+      }
+
+      const { rank, solved } = await res.json();
+      const score = rank / 1000;
+      const newAttemptIndex = guesses.length + 1;
+      const entry = { word: raw, score, rank, attemptIndex: newAttemptIndex };
+      const newGuesses = [...guesses, entry];
+
+      setGuesses(newGuesses);
+      setError('');
+      saveProgress(newGuesses, newGuesses.length);
+
+      if (solved) {
+        const timeMs = Date.now() - (startTimeRef.current || Date.now());
+        const gameScore = computeFinalScore(newGuesses.length);
+        setFinalScore(gameScore);
+        setTargetWord(raw);
+        localStorage.setItem(`lq_sem_target_${todayDate}`, raw);
+        setGameOver(true);
+        setTimeout(() => setShowResult(true), 800);
+        completeGame({ solved: true, attempts: newGuesses.length, timeMs, score: gameScore });
+      }
+    } catch {
+      setError('Connexion impossible');
+      setTimeout(() => setError(''), 2000);
     }
-  }, [input, gameOver, guesses, todayDate, precomputedScores, saveProgress, completeGame]);
+
+    setIsSubmitting(false);
+  }, [input, gameOver, guesses, todayDate, isSubmitting, saveProgress, completeGame]);
 
   const handleKeyDown = (e) => { if (e.key === 'Enter') handleSubmit(); };
-
-  const scoresReady = precomputedScores && Object.keys(precomputedScores).length > 0;
 
   const latestEntry = guesses.length > 0 ? guesses[guesses.length - 1] : null;
   const sortedPrevious = guesses.length > 1
     ? [...guesses.slice(0, -1)].sort((a, b) => b.score - a.score)
     : [];
 
-  // Loading — on attend serverDate + useDailyGame + scores Firebase
-  if (!serverDate || !loaded || precomputedScores === null) {
+  if (!serverDate || !loaded) {
     return (
       <div className="semantic-page">
         <div className="wordle-loading">
@@ -617,16 +636,8 @@ export default function SemantiquePage() {
               )}
             </AnimatePresence>
 
-            {/* Banner si scores pas encore calculés */}
-            {precomputedScores && !scoresReady && !showResult && (
-              <div className="semantic-not-ready">
-                <span>⏳</span>
-                <p>Les scores du jour ne sont pas encore disponibles.<br />Revenez dans quelques minutes.</p>
-              </div>
-            )}
-
             {/* Empty hint */}
-            {scoresReady && guesses.length === 0 && !showResult && (
+            {guesses.length === 0 && !showResult && (
               <div className="semantic-empty-hint">
                 <span>🧠</span>
                 <p>Quel est le mot du jour ?</p>
@@ -686,7 +697,7 @@ export default function SemantiquePage() {
                 <button
                   className="semantic-submit-btn"
                   onClick={handleSubmit}
-                  disabled={!input.trim() || gameOver || !precomputedScores}
+                  disabled={!input.trim() || gameOver || isSubmitting}
                 >
                   <Send size={15} /> Valider
                 </button>
