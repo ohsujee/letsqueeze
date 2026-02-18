@@ -212,49 +212,35 @@ export default function ProfilePage() {
             <AnimatePresence mode="wait">
               {isEditingPseudo ? (
                 <motion.div
-                  className="pseudo-edit-card"
                   key="editing"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.15 }}
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}
                 >
-                  <input
-                    type="text"
-                    className="pseudo-input-large"
-                    value={newPseudo}
-                    onChange={(e) => {
-                      setNewPseudo(e.target.value);
-                      setPseudoError('');
-                    }}
-                    placeholder="Ton pseudo"
-                    maxLength={16}
-                    autoFocus
-                  />
-                  {pseudoError && (
-                    <p className="pseudo-error-inline">{pseudoError}</p>
-                  )}
-                  <div className="pseudo-edit-actions">
-                    <motion.button
-                      className="pseudo-save-btn"
-                      onClick={handleSavePseudo}
-                      disabled={savingPseudo}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Check size={18} />
-                      <span>Enregistrer</span>
-                    </motion.button>
-                    <motion.button
-                      className="pseudo-cancel-btn"
-                      onClick={handleCancelEditPseudo}
-                      disabled={savingPseudo}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      Annuler
-                    </motion.button>
+                  <div className="pseudo-inline-edit">
+                    <input
+                      type="text"
+                      className="pseudo-inline-input"
+                      value={newPseudo}
+                      onChange={(e) => { setNewPseudo(e.target.value); setPseudoError(''); }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleSavePseudo();
+                        if (e.key === 'Escape') handleCancelEditPseudo();
+                      }}
+                      placeholder="Ton pseudo"
+                      maxLength={16}
+                      autoFocus
+                    />
+                    <button className="pseudo-action-btn save" onClick={handleSavePseudo} disabled={savingPseudo}>
+                      <Check size={16} />
+                    </button>
+                    <button className="pseudo-action-btn cancel" onClick={handleCancelEditPseudo} disabled={savingPseudo}>
+                      <X size={16} />
+                    </button>
                   </div>
+                  {pseudoError && <p className="pseudo-error-inline">{pseudoError}</p>}
                 </motion.div>
               ) : (
                 <motion.h1

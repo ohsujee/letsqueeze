@@ -458,6 +458,69 @@ const GAMES_DATA = {
         }
       }
     ]
+  },
+
+  memory: {
+    id: 'memory',
+    title: 'Memory',
+    subtitle: 'Mémorise, rappelle-toi !',
+    accentColor: '#ec4899',
+    accentGradient: 'linear-gradient(135deg, #db2777, #ec4899)',
+    glowColor: 'rgba(236, 72, 153, 0.4)',
+    sections: [
+      {
+        id: 'concept',
+        title: 'Le concept',
+        icon: Target,
+        content: {
+          type: 'intro',
+          text: "Un défi de mémoire pur : mémorise ce que tu vois, puis reproduis-le de mémoire. Chaque round te présente un type de défi différent — cases allumées, formes, chiffres, codes, couleurs… Le jeu s'adapte et s'intensifie au fil des rounds !"
+        }
+      },
+      {
+        id: 'types',
+        title: 'Les types de défis',
+        icon: Zap,
+        content: {
+          type: 'roles',
+          roles: [
+            { name: "Cases allumées", emoji: '🟦', description: "Mémorise quelles cases d'une grille sont allumées, puis reproduis le motif.", color: '#3b82f6' },
+            { name: "Formes", emoji: '🔺', description: "Des formes géométriques apparaissent brièvement. Rappelle-toi lesquelles et dans quel ordre.", color: '#ec4899' },
+            { name: "Chiffres & Codes", emoji: '🔢', description: "Retiens une séquence de chiffres ou un code affiché pendant quelques secondes.", color: '#f97316' },
+            { name: "Et plus encore…", emoji: '🎲', description: "Couleurs, symboles, positions — chaque partie peut te surprendre avec un nouveau type de défi.", color: '#a855f7' }
+          ]
+        }
+      },
+      {
+        id: 'flow',
+        title: 'Déroulement',
+        icon: Play,
+        content: {
+          type: 'steps',
+          steps: [
+            { number: 1, title: "Observe", description: "Le défi s'affiche pendant quelques secondes. Concentre-toi !" },
+            { number: 2, title: "Mémorise", description: "Le défi disparaît. À toi de te souvenir." },
+            { number: 3, title: "Reproduis", description: "Restitue ce que tu as mémorisé avant la fin du timer." },
+            { number: 4, title: "Round suivant", description: "La difficulté augmente progressivement." }
+          ]
+        }
+      },
+      {
+        id: 'scoring',
+        title: 'Les points',
+        icon: Trophy,
+        content: {
+          type: 'scoring',
+          items: [
+            { label: "Réponse parfaite", value: "+100 pts", icon: CheckCircle, color: '#22c55e' },
+            { label: "Réponse partielle", value: "+25 à +75 pts", icon: Zap, color: '#f59e0b' },
+            { label: "Bonus rapidité", value: "jusqu'à +50 pts", icon: Timer, color: '#06b6d4' },
+            { label: "Erreur", value: "0 pt", icon: XCircle, color: '#ef4444' }
+          ],
+          note: "Chaque élément correctement mémorisé rapporte des points. Plus vite tu réponds, plus le bonus est élevé !"
+        }
+      }
+    ]
   }
 };
 

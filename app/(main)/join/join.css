@@ -147,24 +147,37 @@
 .pseudo-input {
   flex: 1;
   min-width: 80px;
-  padding: 6px 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  border-radius: 8px;
-  color: white;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  outline: none;
-  transition: border-color 0.2s;
+  padding: 6px 10px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 2px solid rgba(139, 92, 246, 0.5) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
-.pseudo-input:focus {
-  border-color: var(--quiz-primary, #8b5cf6);
+.pseudo-input:focus,
+.pseudo-input:focus-visible {
+  border-color: rgba(139, 92, 246, 0.9) !important;
+  background: rgba(139, 92, 246, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15) !important;
+  outline: none !important;
 }
 
-.pseudo-input.has-error {
-  border-color: #ef4444;
+.pseudo-input.has-error,
+.pseudo-input.has-error:focus {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.pseudo-input::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .pseudo-action-btn {
@@ -177,6 +190,13 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pseudo-action-btn:focus,
+.pseudo-action-btn:focus-visible {
+  outline: none;
 }
 
 .pseudo-action-btn.save {
@@ -189,12 +209,13 @@
 }
 
 .pseudo-action-btn.cancel {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .pseudo-action-btn.cancel:hover {
-  background: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
 }
 
 .pseudo-action-btn:disabled {

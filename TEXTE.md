@@ -1,224 +1,58 @@
-page.jsx:597 ReferenceError: Share2 is not defined
-    at WordleResultScreen (page.jsx:214:10)
-    at Object.react_stack_bottom_frame (react-dom-client.development.js:28016:20)
-    at renderWithHooks (react-dom-client.development.js:7982:22)
-    at updateFunctionComponent (react-dom-client.development.js:10499:19)
-    at beginWork (react-dom-client.development.js:12134:18)
-    at runWithFiberInDEV (react-dom-client.development.js:984:30)
-    at performUnitOfWork (react-dom-client.development.js:18995:22)
-    at workLoopSync (react-dom-client.development.js:18823:41)
-    at renderRootSync (react-dom-client.development.js:18804:11)
-    at performWorkOnRoot (react-dom-client.development.js:17912:35)
-    at performWorkOnRootViaSchedulerTask (react-dom-client.development.js:20382:7)
-    at MessagePort.performWorkUntilDeadline (scheduler.development.js:45:48)
+Hello,
 
-The above error occurred in the <WordleResultScreen> component. It was handled by the <ErrorBoundary> error boundary.
-onCaughtError @ error-boundary-callbacks.ts:90
-logCaughtError @ react-dom-client.development.js:9770
-runWithFiberInDEV @ react-dom-client.development.js:984
-inst.componentDidCatch.update.callback @ react-dom-client.development.js:9817
-callCallback @ react-dom-client.development.js:7733
-commitCallbacks @ react-dom-client.development.js:7753
-runWithFiberInDEV @ react-dom-client.development.js:984
-commitClassCallbacks @ react-dom-client.development.js:13818
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15058
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15097
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15097
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14986
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14986
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14986
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14986
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15063
-flushLayoutEffects @ react-dom-client.development.js:19568
-commitRoot @ react-dom-client.development.js:19333
-commitRootWhenReady @ react-dom-client.development.js:18176
-performWorkOnRoot @ react-dom-client.development.js:18052
-performWorkOnRootViaSchedulerTask @ react-dom-client.development.js:20382
-performWorkUntilDeadline @ scheduler.development.js:45
-<WordleResultScreen>
-exports.jsxDEV @ react-jsx-dev-runtime.development.js:342
-MotMysterePage @ page.jsx:597
-react_stack_bottom_frame @ react-dom-client.development.js:28016
-renderWithHooksAgain @ react-dom-client.development.js:8082
-renderWithHooks @ react-dom-client.development.js:7994
-updateFunctionComponent @ react-dom-client.development.js:10499
-beginWork @ react-dom-client.development.js:12134
-runWithFiberInDEV @ react-dom-client.development.js:984
-performUnitOfWork @ react-dom-client.development.js:18995
-workLoopSync @ react-dom-client.development.js:18823
-renderRootSync @ react-dom-client.development.js:18804
-performWorkOnRoot @ react-dom-client.development.js:17912
-performWorkOnRootViaSchedulerTask @ react-dom-client.development.js:20382
-performWorkUntilDeadline @ scheduler.development.js:45Understand this error
-ErrorBoundary.jsx:21 ErrorBoundary caught: ReferenceError: Share2 is not defined
-    at WordleResultScreen (page.jsx:214:10)
-    at Object.react_stack_bottom_frame (react-dom-client.development.js:28016:20)
-    at renderWithHooks (react-dom-client.development.js:7982:22)
-    at updateFunctionComponent (react-dom-client.development.js:10499:19)
-    at beginWork (react-dom-client.development.js:12134:18)
-    at runWithFiberInDEV (react-dom-client.development.js:984:30)
-    at performUnitOfWork (react-dom-client.development.js:18995:22)
-    at workLoopSync (react-dom-client.development.js:18823:41)
-    at renderRootSync (react-dom-client.development.js:18804:11)
-    at performWorkOnRoot (react-dom-client.development.js:17912:35)
-    at performWorkOnRootViaSchedulerTask (react-dom-client.development.js:20382:7)
-    at MessagePort.performWorkUntilDeadline (scheduler.development.js:45:48) {componentStack: '\n    at WordleResultScreen (http://localhost:3000/…_modules_next_dist_client_aaee43fe._.js:12983:17)'}
-error @ intercept-console-error.ts:42
-componentDidCatch @ ErrorBoundary.jsx:21
-react_stack_bottom_frame @ react-dom-client.development.js:28071
-inst.componentDidCatch.update.callback @ react-dom-client.development.js:9828
-callCallback @ react-dom-client.development.js:7733
-commitCallbacks @ react-dom-client.development.js:7753
-runWithFiberInDEV @ react-dom-client.development.js:984
-commitClassCallbacks @ react-dom-client.development.js:13818
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15058
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15097
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15097
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14986
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14986
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14986
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14986
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:14981
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15202
-recursivelyTraverseLayoutEffects @ react-dom-client.development.js:16368
-commitLayoutEffectOnFiber @ react-dom-client.development.js:15063
-flushLayoutEffects @ react-dom-client.development.js:19568
-commitRoot @ react-dom-client.development.js:19333
-commitRootWhenReady @ react-dom-client.development.js:18176
-performWorkOnRoot @ react-dom-client.development.js:18052
-performWorkOnRootViaSchedulerTask @ react-dom-client.development.js:20382
-performWorkUntilDeadline @ scheduler.development.js:45Understand this error
-forward-logs-shared.ts:95 [2026-02-17T11:57:37.625Z]  @firebase/database: FIREBASE WARNING: set at /daily/wordle/2026-02-17/leaderboard/gIimzElcsZZeJrBcM6V2IM0aV1N2 failed: permission_denied 
-warn @ forward-logs-shared.ts:95
-defaultLogHandler @ logger.ts:115
-warn @ logger.ts:206
-warn @ util.ts:155
-(anonymous) @ Repo.ts:578
-(anonymous) @ PersistentConnection.ts:618
-onDataMessage_ @ PersistentConnection.ts:650
-onDataMessage_ @ Connection.ts:321
-onPrimaryMessageReceived_ @ Connection.ts:313
-(anonymous) @ Connection.ts:210
-appendFrame_ @ WebSocketConnection.ts:300
-handleIncomingFrame @ WebSocketConnection.ts:352
-mySock.onmessage @ WebSocketConnection.ts:222Understand this warning
-useDailyGame.js:154 [useDailyGame] Firebase write error: Error: PERMISSION_DENIED: Permission denied
-    at Repo.ts:909:23
-    at exceptionGuard (util.ts:540:5)
-    at repoCallOnCompleteCallback (Repo.ts:899:5)
-    at Repo.ts:587:7
-    at PersistentConnection.ts:618:9
-    at PersistentConnection.onDataMessage_ (PersistentConnection.ts:650:9)
-    at Connection.onDataMessage_ (Connection.ts:321:10)
-    at Connection.onPrimaryMessageReceived_ (Connection.ts:313:12)
-    at WebSocketConnection.onMessage (Connection.ts:210:16)
-    at WebSocketConnection.appendFrame_ (WebSocketConnection.ts:300:12)
-    at WebSocketConnection.handleIncomingFrame (WebSocketConnection.ts:352:14)
-    at mySock.onmessage (WebSocketConnection.ts:222:12)
+Thank you for your resubmission. Upon further review, we identified additional issues that need your attention. See below for more information.
+
+If you have any questions, we are here to help. Reply to this message in App Store Connect and let us know.
+
+Review Environment
+Submission ID: 630f6bfa-89ea-40e0-bdd8-cdb4f740e0a6
+Review date: February 18, 2026
+Review Device: iPad Air 11-inch (M3)
+Version reviewed: 1.0
+
+
+Guideline 5.1.1(v) - Data Collection and Storage
+Issue Description
+
+The app supports account creation but does not include an option to initiate account deletion. Apps that support account creation must also offer account deletion to give users more control of the data they've shared while using an app.
+
+Follow these requirements when updating an app to support account deletion:
+
+- Only offering to temporarily deactivate or disable an account is insufficient.
+- If users need to visit a website to finish deleting their account, include a link directly to the website page where they can complete the process.
+- Apps may include confirmation steps to prevent users from accidentally deleting their account. However, only apps in highly-regulated industries may require users to use customer service resources, such as making a phone call or sending an email, to complete account deletion.
+
+Next Steps
+
+Update the app to support account deletion. If the app already supports account deletion, reply to App Review in App Store Connect and identify where to locate this feature.
+
+If the app is unable to offer account deletion or needs to provide additional customer service flows to facilitate and confirm account deletion, either because the app operates in a highly-regulated industry or for some other reason, reply to App Review in App Store Connect and provide additional information or documentation. For questions regarding legal obligations, check with legal counsel.
+
+Resources
+
+Review frequently asked questions and learn more about the account deletion requirements.
+
+
+Guideline 2.1 - Information Needed
+
+The app uses the AppTrackingTransparency framework, but we are unable to locate the App Tracking Transparency permission request when reviewed on iPadOS 26.3.
+
+Next Steps
+
+Explain where we can find the App Tracking Transparency permission request in the app. The request should appear before any data is collected that could be used to track the user.
+
+If App Tracking Transparency is implemented but the permission request is not appearing on devices running the latest operating system, review the available documentation and confirm App Tracking Transparency has been correctly implemented.
+
+If your app does not track users, update your app privacy information in App Store Connect to not declare tracking. You must have the Account Holder or Admin role to update app privacy information.
+
+Resources 
+
+- Tracking is linking data collected from the app with third-party data for advertising purposes, or sharing the collected data with a data broker. Learn more about tracking. 
+- See Frequently Asked Questions about the requirements for apps that track users.
+- Review developer documentation for App Tracking Transparency.
+
+Support
+- Reply to this message in your preferred language if you need assistance. If you need additional support, use the Contact Us module.
+- Consult with fellow developers and Apple engineers on the Apple Developer Forums.
+- Request an App Review Appointment at Meet with Apple to discuss your app's review. Appointments subject to availability during your local business hours on Tuesdays and Thursdays.
+- Provide feedback on this message and your review experience by completing a short survey.

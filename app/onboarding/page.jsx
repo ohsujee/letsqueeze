@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/utils/storage';
 import { signInWithGoogle, signInWithApple, signInAnonymously, auth } from '@/lib/firebase';
@@ -95,6 +95,23 @@ export default function OnboardingPage() {
   const [savingPseudo, setSavingPseudo] = useState(false);
   const [showGuestWarning, setShowGuestWarning] = useState(false);
   const [showPseudoSlide, setShowPseudoSlide] = useState(false);
+  const [visibleHeight, setVisibleHeight] = useState(null);
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
+
+  // Détecte l'ouverture du clavier via visualViewport (iOS + Android)
+  useEffect(() => {
+    if (!showPseudoSlide) return;
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const update = () => {
+      const kbOpen = vv.height < window.innerHeight * 0.75;
+      setVisibleHeight(vv.height);
+      setKeyboardOpen(kbOpen);
+    };
+    vv.addEventListener('resize', update);
+    update();
+    return () => vv.removeEventListener('resize', update);
+  }, [showPseudoSlide]);
 
   const containerRef = useRef(null);
   const x = useMotionValue(0);
@@ -226,18 +243,20 @@ export default function OnboardingPage() {
   if (showPseudoSlide) {
     return (
       <div style={{
-        height: '100dvh',
+        height: visibleHeight ? `${visibleHeight}px` : '100dvh',
         width: '100vw',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '1.5rem',
+        justifyContent: keyboardOpen ? 'flex-start' : 'center',
+        padding: keyboardOpen ? '1.5rem 1.5rem 0' : '1.5rem',
         position: 'fixed',
         top: 0,
         left: 0,
         overflow: 'hidden',
         background: '#0a0a0f',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        transition: 'padding 0.2s ease',
       }}>
         {/* Background */}
         <div style={{
@@ -271,14 +290,14 @@ export default function OnboardingPage() {
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
-            gap: '1.5rem',
+            gap: keyboardOpen ? '1rem' : '1.5rem',
             zIndex: 10,
           }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: EASE }}
         >
-          <Mascot emotion="curious" size={150} />
+          {!keyboardOpen && <Mascot emotion="curious" size={150} />}
 
           <div>
             <h1 style={{

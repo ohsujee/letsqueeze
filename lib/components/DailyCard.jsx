@@ -32,8 +32,12 @@ export default function DailyCard({ game }) {
       whileTap={{ scale: 0.97 }}
       style={{ cursor: 'pointer' }}
     >
-      {/* Gradient background */}
-      <div className="daily-card-bg" style={{ background: game.gradient }} />
+      {/* Background: image or gradient fallback */}
+      <div className="daily-card-bg" style={!game.image ? { background: game.gradient } : {}}>
+        {game.image && (
+          <img src={game.image} alt="" className="daily-card-bg-img" draggable={false} />
+        )}
+      </div>
 
       {/* Overlay */}
       <div className="daily-card-overlay" />
@@ -72,8 +76,6 @@ export default function DailyCard({ game }) {
         </p>
       </div>
 
-      {/* Bottom-right: Solo pill */}
-      <div className="daily-solo-pill">Solo</div>
     </motion.div>
   );
 }

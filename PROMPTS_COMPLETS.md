@@ -416,40 +416,156 @@ STRICT RULES:
 
 ---
 
-Scene composition: Focused card game table from side angle.
-Professional product photography aesthetic with dramatic lighting.
+Scene composition: Memory game show — three individual contestant podiums side by side,
+viewed from the front at eye level. Each podium has its own glowing screen panel
+embedded in the front face, visible and lit for all three players simultaneously.
 
 Key elements:
-- 3-4 simplified figure silhouettes showing intense concentration through body language:
-  players hunched over table leaning close to cards, one with finger hovering inches above
-  card about to flip (tense anticipation), another leaning very far forward studying grid,
-  one with subtle fist pump gesture after successful match (restrained celebration while
-  others still concentrate), creating atmosphere of focused competition
-- Memory card grid (4x4 or 3x5 layout, clean organized placement)
-- 4-6 cards face-up showing matching pairs with simple symbols
-- Remaining cards face-down in clean pattern
-- Brain icon (single, simple) floating above with subtle glow
+- 3 simplified stylized figures standing behind their podiums, clearly distinct silhouettes:
+  left figure with long flowing hair, right figure with short curly hair, center figure with
+  medium hair — varied heights, different body shapes, all clearly recognizable as distinct people.
+  NOT bald silhouettes — hair shape is essential to distinguish the characters.
+- Expressive, fun body language — this is a party game, not a funeral:
+    • Left player: arms raised mid-celebration, just slammed their answer in, pure joy
+    • Center player: face of exaggerated comic concentration — leaning way forward,
+      both fists clenched on the podium, tongue-biting focus but clearly playful
+    • Right player: hand on head in "oh no I forgot!" gesture, body tilted with surprised energy
+- All three podiums have an identically styled glowing screen panel facing the viewer,
+  each showing a 4x4 grid. Center screen has a bold pattern of lit cyan cells (active challenge),
+  left screen shows a completed pattern (winner), right screen shows a scrambled/blank state.
+  Three screens, three podiums — no exceptions.
 
-Background: Deep pink gradient with focused lighting.
-Table: Clean modern surface, minimalist design.
+Background: Deep pink-to-near-black radial gradient with warm spotlight pools on each station.
+Podiums: Clean rectangular columns, dark matte finish with thin neon-pink edge trim.
 
-Card design: Simple geometric symbols (hearts, stars, circles, squares)
-in complementary colors. Cards have clean edges, professional finish.
-Some cards mid-flip showing motion blur effect (2-3 cards max).
+Lighting: Screens cast cyan glow upward across each player's face and hands.
+Warm pink overhead spotlight on each station. Dramatic dark gaps between podiums for depth.
 
-Lighting: Overhead directional light creating focus on cards,
-subtle glow on matching pairs, rim lighting on characters,
-dramatic shadows for depth.
+Mood: Party game energy — fun, expressive, competitive but joyful.
+Like a beloved TV game show where everyone is having a blast despite the pressure.
 
-Atmosphere: Sparkle particles (4-5 small sparkles max) near matching pairs.
+Color palette: Deep pink (#831843), Bright pink (#ec4899), Cyan (#06b6d4), Near-black (#0d0010).
 
-Mood: Concentration game session, premium board game aesthetic,
-sophisticated memory challenge. Like professional board game Kickstarter photography.
+AVOID: Bald/featureless character heads, only one lit screen, brain icon, floating shapes,
+flip cards, people sitting around a table, text or numbers rendered legibly,
+static emotionless poses, horror-movie tension.
+```
 
-Color palette: Deep pink (#831843), Bright pink (#ec4899), Mid-tone rose (#db2777), Cyan accents (#06b6d4).
+---
 
-AVOID: Cluttered cards, text/numbers on cards, excessive sparkles,
-busy patterns, realistic card texture, too many flipping cards.
+---
+
+## DAILY CARDS — FORMAT SPÉCIFIQUE
+
+> Ces cards sont **horizontales et petites** (environ 3:1 de ratio).
+> Pas de personnages. Le visuel = la mécanique du jeu. Doit être lisible à thumbnail.
+> Style: graphic, bold, abstract — pas de scène narrative.
+
+---
+
+## 7. MOT MYSTÈRE (Daily Card)
+
+```
+Art style: Bold graphic illustration for a compact horizontal mobile game card.
+High contrast, strong shapes, immediately readable at small size.
+Abstract and symbolic — no characters, no scene, pure visual metaphor for the game mechanic.
+Rich saturated colors, dramatic lighting from within the graphic elements themselves.
+Clean negative space — the key visual breathes.
+
+Technical: 16:9 aspect ratio, minimum 2400×1350px resolution.
+The composition must use the full height — key visual elements distributed vertically,
+not squeezed into a thin horizontal band. Clear center focal point.
+Every element serves legibility at thumbnail size. No clutter.
+
+STRICT RULES:
+- NO characters or silhouettes
+- NO text, letters, or words — even suggesting letters is forbidden
+- NO busy patterns or textures
+- NO random decorative elements
+
+---
+
+Scene: A Wordle-style letter grid — 5 columns × 5 rows of clean square tiles,
+slightly perspective-angled (15–20° tilt) to give depth. The grid is tall enough to
+fill the vertical space — tiles are large, not miniaturized. The grid occupies 70–80%
+of the frame height so it doesn't look like a thin strip in a wide image.
+
+Tile states creating a readable story:
+- Top two rows: tiles in neutral dark gray (empty/absent states)
+- Third row: mix of yellow-gold tiles (present, wrong position) and gray
+- Bottom row: ALL FIVE TILES bright emerald green — the winning row, the solved word
+
+The green bottom row glows intensely, casting green light downward and onto surrounding tiles.
+Each tile is a clean flat square with subtle rounded corners and a thin inner border.
+Tiles in the winning row slightly enlarged or lifted — celebrating the find.
+
+Background: Deep dark emerald (#022c22) fading to near-black at edges.
+Radial glow of bright #10b981 centered on the green bottom row, spreading outward.
+
+Lighting: The green tiles ARE the light source — no external lighting needed.
+Green glow reflects onto neighboring tiles and background, creating depth purely through light.
+
+Mood: That perfect moment of solving — clean, satisfying, triumphant but restrained.
+Like the Wordle win screen distilled into a single graphic frame.
+
+Color palette: Near-black (#0a0f0d), Deep emerald (#022c22), Mid emerald (#059669),
+Bright emerald (#10b981), Gold-yellow (#fbbf24) for present tiles.
+
+AVOID: Actual letters on tiles, text of any kind, characters, random sparkles,
+cluttered composition, tiles that don't look like a word grid.
+```
+
+---
+
+## 8. SÉMANTIQUE (Daily Card)
+
+```
+Art style: Bold graphic illustration for a compact horizontal mobile game card.
+High contrast, strong shapes, immediately readable at small size.
+Abstract and symbolic — no characters, no scene, pure visual metaphor for temperature and proximity.
+Rich saturated colors, dramatic lighting. Clean negative space.
+
+Technical: 16:9 aspect ratio, minimum 2400×1350px resolution.
+The composition must use the full height — the heat field should expand vertically,
+not be a thin horizontal stripe. Clear center focal point.
+Every element serves legibility at thumbnail size. No clutter.
+
+STRICT RULES:
+- NO characters or silhouettes
+- NO text or words — abstract shapes only
+- NO thermometer icon or literal temperature symbols
+- NO busy patterns or textures
+- NO random decorative elements
+
+---
+
+Scene: A radial heat field — an abstract gradient circle or oval centered in the frame,
+representing the semantic proximity space. The center burns bright orange-white (100°C, the target),
+radiating outward through orange → amber → yellow → cool blue → cold dark blue at the edges.
+
+On this heat field: 6–8 small abstract word-blob shapes (simple rounded rectangles or organic blobs,
+NO text inside) arranged at different distances from the hot center:
+- 1–2 blobs very close to center, glowing orange-hot
+- 2–3 blobs mid-distance, amber/warm
+- 2–3 blobs at the cold edge, blue-gray and dim
+The blobs vary in size slightly — closer ones feel heavier, hotter, more energized.
+
+The hot center itself: a bright starburst or radial pulse of white-orange light,
+suggesting the hidden target word radiating heat outward. Not a specific icon — pure light.
+
+Background: Deep dark (#1a0800) almost black with warm undertone, vignette edges.
+
+Lighting: The heat field is the light source. Hot center casts orange glow on nearby blobs.
+Edge blobs sit in cool shadow. Strong contrast between hot core and cold periphery.
+
+Mood: The thrill of getting warmer — abstract, mysterious, irresistibly compelling.
+Like a heatmap that hides something precious at its burning center.
+
+Color palette: Near-black (#1a0800), Deep orange (#9a3412), Bright orange (#f97316),
+Amber (#fbbf24), Cool blue (#3b82f6), Ice (#bfdbfe).
+
+AVOID: Thermometer icon, literal temperature symbols, text in any form, characters,
+symmetric decorative patterns, busy composition, anything too literal or illustrative.
 ```
 
 ---
