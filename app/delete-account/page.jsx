@@ -1,35 +1,52 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Mail, Trash2, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Trash2, AlertTriangle } from 'lucide-react';
 import { useState } from 'react';
+import { auth, db } from '@/lib/firebase';
+import { deleteUser } from 'firebase/auth';
+import { ref, remove } from 'firebase/database';
 
 export default function DeleteAccountPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState('');
+  const [confirmed, setConfirmed] = useState(false);
 
-  const handleDeleteRequest = () => {
-    if (!email.trim()) {
-      alert("Merci d'entrer ton adresse email de connexion.");
-      return;
+  const handleDeleteAccount = async () => {
+    try {
+      setIsDeleting(true);
+      setError('');
+      const currentUser = auth.currentUser;
+
+      if (!currentUser) {
+        router.push('/login');
+        return;
+      }
+
+      // Supprimer les données utilisateur dans Realtime DB
+      try {
+        await remove(ref(db, `users/${currentUser.uid}`));
+      } catch (e) {
+        console.warn('[deleteAccount] DB cleanup error:', e);
+      }
+
+      // Vider le localStorage
+      localStorage.clear();
+
+      // Supprimer le compte Firebase Auth
+      await deleteUser(currentUser);
+
+      router.push('/onboarding');
+    } catch (err) {
+      console.error('[deleteAccount] Error:', err);
+      if (err.code === 'auth/requires-recent-login') {
+        setError('Pour ta sécurité, déconnecte-toi et reconnecte-toi avant de supprimer ton compte.');
+      } else {
+        setError('Une erreur est survenue. Réessaie.');
+      }
+      setIsDeleting(false);
     }
-    const subject = encodeURIComponent("Demande de suppression de compte Gigglz");
-    const body = encodeURIComponent(`Bonjour,
-
-Je souhaite supprimer définitivement mon compte Gigglz et toutes les données associées.
-
-Email du compte : ${email}
-
-Je comprends que :
-- Mon compte sera supprimé définitivement
-- Toutes mes données (profil, historique de parties, scores) seront effacées
-- Mon abonnement Pro sera annulé (si applicable)
-- Cette action est irréversible
-
-Merci de procéder à la suppression de mon compte.
-
-Cordialement`);
-    window.location.href = `mailto:contact@weareumain.com?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -65,22 +82,25 @@ Cordialement`);
           <li>Ton abonnement Gigglz Pro (si applicable)</li>
         </ul>
 
-        <p className="delay-text">
-          Ta demande sera traitée sous 30 jours maximum.
-        </p>
+        {error && <p className="error-text">{error}</p>}
 
-        <div className="form-section">
-          <label htmlFor="email">Email de ton compte</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="ton@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button className="submit-btn" onClick={handleDeleteRequest}>
-            <Mail size={18} />
-            <span>Envoyer la demande</span>
+        <div className="confirm-section">
+          <label className="confirm-checkbox">
+            <input
+              type="checkbox"
+              checked={confirmed}
+              onChange={(e) => setConfirmed(e.target.checked)}
+            />
+            <span>Je comprends que cette action est irréversible</span>
+          </label>
+
+          <button
+            className="submit-btn"
+            onClick={handleDeleteAccount}
+            disabled={!confirmed || isDeleting}
+          >
+            <Trash2 size={18} />
+            <span>{isDeleting ? 'Suppression en cours…' : 'Supprimer définitivement mon compte'}</span>
           </button>
         </div>
       </main>
@@ -201,7 +221,7 @@ Cordialement`);
           font-family: 'Inter', sans-serif;
           font-size: 0.875rem;
           color: rgba(255, 255, 255, 0.6);
-          margin: 0 0 16px 0;
+          margin: 0 0 24px 0;
           padding-left: 24px;
           text-align: left;
         }
@@ -210,48 +230,39 @@ Cordialement`);
           margin-bottom: 8px;
         }
 
-        .delay-text {
+        .error-text {
           font-family: 'Inter', sans-serif;
-          font-size: 0.8125rem;
-          color: rgba(255, 255, 255, 0.5);
-          margin: 0 0 32px 0;
-          font-style: italic;
+          font-size: 0.875rem;
+          color: #f87171;
+          background: rgba(239, 68, 68, 0.1);
+          border-radius: 8px;
+          padding: 10px 14px;
+          margin: 0 0 20px 0;
         }
 
-        .form-section {
+        .confirm-section {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 16px;
           text-align: left;
         }
 
-        label {
+        .confirm-checkbox {
+          display: flex;
+          align-items: center;
+          gap: 12px;
           font-family: 'Inter', sans-serif;
           font-size: 0.875rem;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.8);
+          color: rgba(255, 255, 255, 0.7);
+          cursor: pointer;
         }
 
-        input {
-          width: 100%;
-          padding: 16px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          color: white;
-          font-family: 'Inter', sans-serif;
-          font-size: 1rem;
-          outline: none;
-          transition: all 0.2s;
-        }
-
-        input::placeholder {
-          color: rgba(255, 255, 255, 0.3);
-        }
-
-        input:focus {
-          border-color: rgba(239, 68, 68, 0.5);
-          background: rgba(255, 255, 255, 0.08);
+        .confirm-checkbox input[type="checkbox"] {
+          width: 18px;
+          height: 18px;
+          flex-shrink: 0;
+          accent-color: #ef4444;
+          cursor: pointer;
         }
 
         .submit-btn {
@@ -270,16 +281,17 @@ Cordialement`);
           font-weight: 600;
           cursor: pointer;
           transition: all 0.2s;
-          margin-top: 8px;
         }
 
-        .submit-btn:hover {
+        .submit-btn:hover:not(:disabled) {
           transform: translateY(-2px);
           box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
         }
 
-        .submit-btn:active {
-          transform: translateY(0);
+        .submit-btn:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+          transform: none;
         }
       `}</style>
     </div>

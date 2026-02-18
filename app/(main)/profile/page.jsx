@@ -2,13 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { onAuthStateChanged, auth, signOutUser, signInWithGoogle, signInWithApple } from '@/lib/firebase';
+import { onAuthStateChanged, auth, signOutUser, signInWithGoogle, signInWithApple, db } from '@/lib/firebase';
+import { deleteUser } from 'firebase/auth';
+import { ref as dbRef, remove } from 'firebase/database';
 import { initializeUserProfile, updateUserPseudo, validatePseudo } from '@/lib/userProfile';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { usePlatform } from '@/lib/hooks/usePlatform';
 import { storage } from '@/lib/utils/storage';
-import { ChevronRight, Wifi, WifiOff, BarChart3, Sparkles, Crown, Infinity, Ban, Package, UserPlus, Zap, ExternalLink, Save, Trophy, Pencil, Check, X, Bell, Volume2, Lightbulb, Globe, Settings, Link2 } from 'lucide-react';
+import { ChevronRight, Wifi, WifiOff, BarChart3, Sparkles, Crown, Infinity, Ban, Package, UserPlus, Zap, ExternalLink, Save, Trophy, Pencil, Check, X, Bell, Volume2, Lightbulb, Globe, Settings, Link2, Trash2 } from 'lucide-react';
 import { openManageSubscriptions } from '@/lib/revenuecat';
 import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -37,6 +39,11 @@ export default function ProfilePage() {
   const [newPseudo, setNewPseudo] = useState('');
   const [pseudoError, setPseudoError] = useState('');
   const [savingPseudo, setSavingPseudo] = useState(false);
+
+  // Delete account state
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isDeletingAccount, setIsDeletingAccount] = useState(false);
+  const [deleteError, setDeleteError] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -69,6 +76,38 @@ export default function ProfilePage() {
       router.push('/login');
     } catch (error) {
       console.error('Sign out error:', error);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      setIsDeletingAccount(true);
+      setDeleteError('');
+      const currentUser = auth.currentUser;
+      if (!currentUser) return;
+
+      // Supprimer les données utilisateur dans Realtime DB
+      try {
+        await remove(dbRef(db, `users/${currentUser.uid}`));
+      } catch (e) {
+        console.warn('[deleteAccount] DB cleanup error:', e);
+      }
+
+      // Vider le localStorage
+      localStorage.clear();
+
+      // Supprimer le compte Firebase Auth
+      await deleteUser(currentUser);
+
+      router.push('/onboarding');
+    } catch (err) {
+      console.error('[deleteAccount] Error:', err);
+      if (err.code === 'auth/requires-recent-login') {
+        setDeleteError('Pour ta sécurité, déconnecte-toi et reconnecte-toi avant de supprimer ton compte.');
+      } else {
+        setDeleteError('Une erreur est survenue. Réessaie.');
+      }
+      setIsDeletingAccount(false);
     }
   };
 
@@ -538,6 +577,16 @@ export default function ProfilePage() {
           Déconnexion
         </button>
 
+        {/* Danger Zone */}
+        {!user?.isAnonymous && (
+          <div className="danger-zone">
+            <button className="btn-delete-account" onClick={() => setShowDeleteModal(true)}>
+              <Trash2 size={14} />
+              Supprimer mon compte
+            </button>
+          </div>
+        )}
+
         {/* Footer */}
         <div className="profile-footer">
           <p className="footer-text">Version {version}</p>
@@ -551,6 +600,44 @@ export default function ProfilePage() {
             <a href="/legal" className="footer-link">Mentions légales</a>
           </div>
         </div>
+
+        {/* Delete Account Modal */}
+        {showDeleteModal && (
+          <div className="delete-modal-overlay" onClick={() => !isDeletingAccount && setShowDeleteModal(false)}>
+            <motion.div
+              className="delete-modal"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              <div className="delete-modal-icon">
+                <Trash2 size={26} />
+              </div>
+              <h3 className="delete-modal-title">Supprimer mon compte</h3>
+              <p className="delete-modal-text">
+                Cette action est <strong>irréversible</strong>. Ton profil, ton historique de parties, tes scores et ton abonnement Pro seront supprimés définitivement.
+              </p>
+              {deleteError && <p className="delete-modal-error">{deleteError}</p>}
+              <div className="delete-modal-actions">
+                <button
+                  className="btn-delete-cancel"
+                  onClick={() => { setShowDeleteModal(false); setDeleteError(''); }}
+                  disabled={isDeletingAccount}
+                >
+                  Annuler
+                </button>
+                <button
+                  className="btn-delete-confirm"
+                  onClick={handleDeleteAccount}
+                  disabled={isDeletingAccount}
+                >
+                  {isDeletingAccount ? 'Suppression…' : 'Supprimer définitivement'}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
 
         {/* Bottom padding for nav */}
         <div className="bottom-padding"></div>
