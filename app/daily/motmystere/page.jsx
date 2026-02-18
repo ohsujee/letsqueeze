@@ -573,7 +573,7 @@ export default function MotMysterePage() {
     return () => unsub();
   }, []);
 
-  const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, loaded } =
+  const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, resetToday, loaded } =
     useDailyGame('motmystere', { forceDate: serverDate });
 
   const [targetWord, setTargetWord] = useState(null);
@@ -642,10 +642,20 @@ export default function MotMysterePage() {
   useEffect(() => {
     if (!loaded) return;
     if (todayState === 'inprogress' && progress) {
+      // Invalider si le mot Firebase a changé depuis la dernière sauvegarde
+      if (targetWord && progress.targetWord !== targetWord) {
+        resetToday();
+        return;
+      }
       setGuesses(progress.guesses || []);
       setFeedbacks((progress.guesses || []).map((g) => computeFeedback(g, targetWord || '')));
       updateLetterStates((progress.guesses || []).map((g) => computeFeedback(g, targetWord || '')), progress.guesses || []);
     } else if (todayState === 'completed' && progress && targetWord) {
+      // Invalider si le mot a changé (inclut les anciens états sans targetWord)
+      if (progress.targetWord !== targetWord) {
+        resetToday();
+        return;
+      }
       const savedGuesses = progress.guesses || [];
       if (savedGuesses.length > 0) {
         const restoredFeedbacks = savedGuesses.map((g) => computeFeedback(g, targetWord));
@@ -659,7 +669,7 @@ export default function MotMysterePage() {
       setShowResult(true);
       setGameOver(true);
     } else if (todayState === 'unplayed') {
-      startGame();
+      startGame(targetWord);
       startTimeRef.current = Date.now();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
