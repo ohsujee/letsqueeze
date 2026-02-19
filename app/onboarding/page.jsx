@@ -3,7 +3,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/utils/storage';
-import { signInWithGoogle, signInWithApple, signInAnonymously, auth } from '@/lib/firebase';
+import { signInWithGoogle, signInWithApple, signInAnonymously, auth, db } from '@/lib/firebase';
+import { ref, get } from 'firebase/database';
 import { usePlatform } from '@/lib/hooks/usePlatform';
 import { initializeUserProfile, updateUserPseudo, validatePseudo } from '@/lib/userProfile';
 import { trackSignup, trackLogin } from '@/lib/analytics';
@@ -165,7 +166,15 @@ export default function OnboardingPage() {
         } else {
           trackLogin('google', result.user.uid);
         }
-        goToPseudoSlide(result.user.displayName);
+        const snap = await get(ref(db, `users/${result.user.uid}/profile/pseudo`));
+        const existingPseudo = snap.val();
+        if (existingPseudo) {
+          localStorage.setItem('lq_cached_pseudo', existingPseudo);
+          completeOnboarding();
+          router.push('/home');
+        } else {
+          goToPseudoSlide(result.user.displayName);
+        }
       }
       setLoadingGoogle(false);
     } catch (err) {
@@ -187,7 +196,15 @@ export default function OnboardingPage() {
         } else {
           trackLogin('apple', result.user.uid);
         }
-        goToPseudoSlide(result.user.displayName);
+        const snap = await get(ref(db, `users/${result.user.uid}/profile/pseudo`));
+        const existingPseudo = snap.val();
+        if (existingPseudo) {
+          localStorage.setItem('lq_cached_pseudo', existingPseudo);
+          completeOnboarding();
+          router.push('/home');
+        } else {
+          goToPseudoSlide(result.user.displayName);
+        }
       }
       setLoadingApple(false);
     } catch (err) {
