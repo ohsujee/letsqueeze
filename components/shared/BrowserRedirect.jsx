@@ -37,7 +37,10 @@ export default function BrowserRedirect() {
     // Native app → never redirect
     if (Capacitor.isNativePlatform()) return;
 
-    // Localhost → never redirect (dev mode)
+    // Dev mode → never redirect
+    if (process.env.NODE_ENV === 'development') return;
+
+    // Localhost → never redirect
     if (typeof window !== 'undefined') {
       const hostname = window.location.hostname;
       if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') {
