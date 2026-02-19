@@ -476,19 +476,20 @@ export default function SemantiquePage() {
   const scrollAreaRef = useRef(null);
   const startTimeRef = useRef(null);
 
-  // Empêcher le scroll de la window quand le clavier s'ouvre
+  // Positionner l'input zone au-dessus du clavier via visualViewport
+  const [inputZoneBottom, setInputZoneBottom] = useState(0);
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv) return;
-    const lock = () => {
-      window.scrollTo(0, 0);
-      if (scrollAreaRef.current) scrollAreaRef.current.scrollTop = 0;
+    const update = () => {
+      const kb = Math.max(0, window.innerHeight - vv.offsetTop - vv.height);
+      setInputZoneBottom(kb);
     };
-    vv.addEventListener('resize', lock);
-    vv.addEventListener('scroll', lock);
+    vv.addEventListener('resize', update);
+    vv.addEventListener('scroll', update);
     return () => {
-      vv.removeEventListener('resize', lock);
-      vv.removeEventListener('scroll', lock);
+      vv.removeEventListener('resize', update);
+      vv.removeEventListener('scroll', update);
     };
   }, []);
 
@@ -635,7 +636,7 @@ export default function SemantiquePage() {
       {activeTab === 'game' && (
         <main className="semantic-main">
           {/* Zone scrollable : date + résultat + guesses */}
-          <div className="semantic-scroll-area" ref={scrollAreaRef}>
+          <div className="semantic-scroll-area" ref={scrollAreaRef} style={!showResult ? { paddingBottom: '80px' } : undefined}>
             <p className="semantic-game-date">
               {new Date(todayDate + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
             </p>
@@ -690,7 +691,7 @@ export default function SemantiquePage() {
 
           {/* Input zone — collée en bas */}
           {!showResult && (
-            <div className="semantic-input-zone">
+            <div className="semantic-input-zone" style={{ bottom: `${inputZoneBottom}px` }}>
               <AnimatePresence>
                 {error && (
                   <motion.div className="semantic-error" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -708,7 +709,6 @@ export default function SemantiquePage() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  onFocus={() => { window.scrollTo(0, 0); if (scrollAreaRef.current) scrollAreaRef.current.scrollTop = 0; }}
                   disabled={gameOver}
                   autoComplete="off"
                   autoCorrect="off"
