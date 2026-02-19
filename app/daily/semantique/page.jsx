@@ -482,8 +482,9 @@ export default function SemantiquePage() {
     const vv = window.visualViewport;
     if (!vv) return;
     const update = () => {
-      const kb = Math.max(0, window.innerHeight - vv.offsetTop - vv.height);
+      const kb = Math.max(0, window.innerHeight - vv.height);
       setInputZoneBottom(kb);
+      if (kb > 0) window.scrollTo({ top: 0, behavior: 'instant' });
     };
     vv.addEventListener('resize', update);
     vv.addEventListener('scroll', update);
