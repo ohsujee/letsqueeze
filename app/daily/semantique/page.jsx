@@ -411,17 +411,17 @@ function SemanticResultBanner({ attempts, score, stats, streak, targetWord, onSh
 }
 
 // ─── GuessRow ─────────────────────────────────────────────────────────────────
-function GuessRow({ entry, isLatestRow = false }) {
+function GuessRow({ entry, isLatestRow = false, flash = false }) {
   const { emoji, cls, barCls } = getTemperature(entry.score);
   const inTop1000 = entry.rank != null && entry.rank > 0 && entry.rank <= 1000;
   const progressPercent = inTop1000 ? Math.round((entry.rank / 1000) * 100) : 0;
 
   return (
     <motion.div
-      className={`semantic-guess-row ${entry.score >= 1 ? 'winner' : ''} ${isLatestRow ? 'latest-row' : ''}`}
+      className={`semantic-guess-row ${entry.score >= 1 ? 'winner' : ''} ${isLatestRow ? 'latest-row' : ''} ${flash ? 'flash-duplicate' : ''}`}
       initial={isLatestRow ? { opacity: 0, y: -6 } : false}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.22 }}
+      animate={flash ? { opacity: [1, 0.3, 1, 0.3, 1], transition: { duration: 0.6 } } : { opacity: 1, y: 0 }}
+      transition={flash ? {} : { duration: 0.22 }}
     >
       <span className="semantic-guess-num">{entry.attemptIndex}</span>
       <span className="semantic-guess-word">{entry.word}</span>
@@ -471,7 +471,9 @@ export default function SemantiquePage() {
   const [activeTab, setActiveTab] = useState('game');
   const [showStats, setShowStats] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [flashEntry, setFlashEntry] = useState(null);
   const inputRef = useRef(null);
+  const scrollAreaRef = useRef(null);
   const startTimeRef = useRef(null);
 
   // Restaurer l'état depuis localStorage
@@ -504,10 +506,11 @@ export default function SemantiquePage() {
     const raw = input.trim().toLowerCase();
     const normalized = stripAccents(raw);
 
-    // Vérifier doublon
-    if (guesses.some(g => g.word === raw || stripAccents(g.word) === normalized)) {
-      setError('Mot déjà essayé');
-      setTimeout(() => setError(''), 1500);
+    // Vérifier doublon → flash l'entrée existante
+    const existing = guesses.find(g => g.word === raw || stripAccents(g.word) === normalized);
+    if (existing) {
+      setFlashEntry(existing);
+      setTimeout(() => setFlashEntry(null), 1800);
       setInput('');
       return;
     }
@@ -531,8 +534,8 @@ export default function SemantiquePage() {
         return;
       }
 
-      const { rank, similarity, solved } = await res.json();
-      const score = similarity ?? (rank != null ? rank / 1000 : -1);
+      const { rank, solved } = await res.json();
+      const score = rank != null ? rank / 1000 : -1;
       const newAttemptIndex = guesses.length + 1;
       const entry = { word: raw, score, rank, attemptIndex: newAttemptIndex };
       const newGuesses = [...guesses, entry];
@@ -616,7 +619,7 @@ export default function SemantiquePage() {
       {activeTab === 'game' && (
         <main className="semantic-main">
           {/* Zone scrollable : date + résultat + guesses */}
-          <div className="semantic-scroll-area">
+          <div className="semantic-scroll-area" ref={scrollAreaRef}>
             <p className="semantic-game-date">
               {new Date(todayDate + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
             </p>
@@ -654,9 +657,9 @@ export default function SemantiquePage() {
                   <span className="semantic-col-emoji" />
                   <span className="semantic-col-prog">‰o Progression</span>
                 </div>
-                {latestEntry && (
+                {(flashEntry || latestEntry) && (
                   <div className="semantic-latest-wrap">
-                    <GuessRow entry={latestEntry} isLatestRow />
+                    <GuessRow entry={flashEntry ?? latestEntry} isLatestRow flash={!!flashEntry} />
                   </div>
                 )}
                 {sortedPrevious.length > 0 && <div className="semantic-list-divider" />}
@@ -689,6 +692,7 @@ export default function SemantiquePage() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
+                  onFocus={() => setTimeout(() => { if (scrollAreaRef.current) scrollAreaRef.current.scrollTop = 0; }, 150)}
                   disabled={gameOver}
                   autoComplete="off"
                   autoCorrect="off"

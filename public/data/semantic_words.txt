@@ -56,7 +56,6 @@ comète
 planète
 météore
 cratère
-geyser
 tourbière
 fumée
 vapeur
