@@ -413,7 +413,7 @@ function SemanticResultBanner({ attempts, score, stats, streak, targetWord, onSh
 // ─── GuessRow ─────────────────────────────────────────────────────────────────
 function GuessRow({ entry, isLatestRow = false }) {
   const { emoji, cls, barCls } = getTemperature(entry.score);
-  const inTop1000 = entry.rank > 0 && entry.rank <= 1000;
+  const inTop1000 = entry.rank != null && entry.rank > 0 && entry.rank <= 1000;
   const progressPercent = inTop1000 ? Math.round((entry.rank / 1000) * 100) : 0;
 
   return (
@@ -531,8 +531,8 @@ export default function SemantiquePage() {
         return;
       }
 
-      const { rank, solved } = await res.json();
-      const score = rank / 1000;
+      const { rank, similarity, solved } = await res.json();
+      const score = similarity ?? (rank != null ? rank / 1000 : -1);
       const newAttemptIndex = guesses.length + 1;
       const entry = { word: raw, score, rank, attemptIndex: newAttemptIndex };
       const newGuesses = [...guesses, entry];
