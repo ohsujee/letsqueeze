@@ -476,6 +476,22 @@ export default function SemantiquePage() {
   const scrollAreaRef = useRef(null);
   const startTimeRef = useRef(null);
 
+  // Empêcher le scroll de la window quand le clavier s'ouvre
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const lock = () => {
+      window.scrollTo(0, 0);
+      if (scrollAreaRef.current) scrollAreaRef.current.scrollTop = 0;
+    };
+    vv.addEventListener('resize', lock);
+    vv.addEventListener('scroll', lock);
+    return () => {
+      vv.removeEventListener('resize', lock);
+      vv.removeEventListener('scroll', lock);
+    };
+  }, []);
+
   // Restaurer l'état depuis localStorage
   useEffect(() => {
     if (!loaded) return;
@@ -692,7 +708,7 @@ export default function SemantiquePage() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  onFocus={() => setTimeout(() => { if (scrollAreaRef.current) scrollAreaRef.current.scrollTop = 0; }, 150)}
+                  onFocus={() => { window.scrollTo(0, 0); if (scrollAreaRef.current) scrollAreaRef.current.scrollTop = 0; }}
                   disabled={gameOver}
                   autoComplete="off"
                   autoCorrect="off"
