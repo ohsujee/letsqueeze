@@ -14,5 +14,5 @@ jobs:
       - name: Generate semantic scores for the next 7 days (VPS)
         env:
           SEMANTIC_API_KEY: ${{ secrets.SEMANTIC_API_KEY }}
-          SEMANTIC_API_URL: http://91.98.127.51:8000
+          SEMANTIC_API_URL: https://punkrecords.gigglz.fun/semantic-api
         run: python3 .github/scripts/semantic_weekly.py
