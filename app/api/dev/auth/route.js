@@ -55,22 +55,8 @@ function getFirebaseAdmin() {
 // ============================================
 
 function isDevelopment(request) {
-  // Check environment
-  if (process.env.NODE_ENV === 'production') {
-    return false;
-  }
-
-  // Check origin/host
-  const host = request.headers.get('host') || '';
-  const origin = request.headers.get('origin') || '';
-
-  const isLocalhost =
-    host.startsWith('localhost') ||
-    host.startsWith('127.0.0.1') ||
-    origin.includes('localhost') ||
-    origin.includes('127.0.0.1');
-
-  return isLocalhost;
+  // Dev server only runs with NODE_ENV=development — that's sufficient
+  return process.env.NODE_ENV === 'development';
 }
 
 // ============================================
