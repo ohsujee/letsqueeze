@@ -13775,6 +13775,7 @@ input[type="text"].game-search-input:focus,
 
 /* Dernière tentative — isolée en haut */
 .semantic-latest-wrap {
+  margin-top: 6px;
   margin-bottom: 4px;
 }
 
