@@ -534,8 +534,8 @@ export default function SemantiquePage() {
         return;
       }
 
-      const { rank, solved } = await res.json();
-      const score = rank != null ? rank / 1000 : -1;
+      const { rank, similarity, solved } = await res.json();
+      const score = similarity ?? (rank != null ? rank / 1000 : 0);
       const newAttemptIndex = guesses.length + 1;
       const entry = { word: raw, score, rank, attemptIndex: newAttemptIndex };
       const newGuesses = [...guesses, entry];
