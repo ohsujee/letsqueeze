@@ -485,7 +485,7 @@ export default function Room() {
   // Loading state
   if (!meta) {
     return (
-      <div className="lobby-container game-page">
+      <div className="lobby-container quiz game-page">
         <div className="lobby-loading">
           <div className="loading-spinner" />
           <p>Chargement...</p>
@@ -495,7 +495,7 @@ export default function Room() {
   }
 
   return (
-    <div className="lobby-container game-page">
+    <div className="lobby-container quiz game-page">
       {/* Modals */}
       <PaywallModal
         isOpen={showPaywall}
