@@ -13868,7 +13868,10 @@ input[type="text"].game-search-input:focus,
 .semantic-prog-bar-fill {
   height: 100%;
   border-radius: 3px;
-  transition: width 0.5s ease;
+  transition: width 0.4s ease;
+}
+.semantic-prog-bar-fill.latest {
+  transition: width 0.7s cubic-bezier(0.25, 0.46, 0.1, 1);
 }
 
 /* Couleurs température (texte) */
@@ -14063,6 +14066,28 @@ input[type="text"].game-search-input:focus,
   background: rgba(249, 115, 22, 0.1);
   border-color: rgba(249, 115, 22, 0.25);
   box-shadow: 0 0 12px rgba(249, 115, 22, 0.12);
+}
+
+/* Mot d'hier */
+.sem-yesterday-word {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 14px;
+  background: rgba(249, 115, 22, 0.08);
+  border: 1px solid rgba(249, 115, 22, 0.20);
+  border-radius: 10px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+  flex-shrink: 0;
+}
+.sem-yesterday-word strong {
+  color: #f97316;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 /* Sous-onglets classement */

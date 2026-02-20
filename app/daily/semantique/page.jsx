@@ -231,11 +231,24 @@ function SemanticLeaderboard({ todayDate }) {
   const [weekLoading, setWeekLoading] = useState(false);
   const [weekFetched, setWeekFetched] = useState(false);
   const [myUid, setMyUid] = useState(null);
+  const [yesterdayWord, setYesterdayWord] = useState(null);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => setMyUid(u?.uid ?? null));
     return () => unsub();
   }, []);
+
+  useEffect(() => {
+    if (!todayDate) return;
+    const d = new Date(todayDate + 'T12:00:00');
+    d.setDate(d.getDate() - 1);
+    const pad = (n) => String(n).padStart(2, '0');
+    const yesterday = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+    fetch(`/api/daily/semantic-word?date=${yesterday}`)
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => { if (data?.word) setYesterdayWord(data.word); })
+      .catch(() => {});
+  }, [todayDate]);
 
   useEffect(() => {
     if (!todayDate) return;
@@ -286,6 +299,11 @@ function SemanticLeaderboard({ todayDate }) {
 
   return (
     <div className="wordle-lb">
+      {yesterdayWord && (
+        <div className="sem-yesterday-word">
+          Le mot d&apos;hier était&nbsp;<strong>{yesterdayWord}</strong>
+        </div>
+      )}
       <div className="sem-lb-tabs">
         <button className={`sem-lb-tab ${lbTab === 'today' ? 'active' : ''}`} onClick={() => setLbTab('today')}>
           Aujourd&apos;hui
@@ -415,6 +433,12 @@ function GuessRow({ entry, isLatestRow = false, flash = false }) {
   const { emoji, cls, barCls } = getTemperature(entry.score);
   const inTop1000 = entry.rank != null && entry.rank > 0 && entry.rank <= 1000;
   const progressPercent = inTop1000 ? Math.round((entry.rank / 1000) * 100) : 0;
+  const [animatedPercent, setAnimatedPercent] = useState(isLatestRow ? 0 : progressPercent);
+  useEffect(() => {
+    if (!isLatestRow) return;
+    const t = setTimeout(() => setAnimatedPercent(progressPercent), 320);
+    return () => clearTimeout(t);
+  }, [isLatestRow, progressPercent]);
 
   return (
     <motion.div
@@ -431,7 +455,7 @@ function GuessRow({ entry, isLatestRow = false, flash = false }) {
         <div className="semantic-progression">
           <span className="semantic-prog-rank">{entry.rank}</span>
           <div className="semantic-prog-bar-track">
-            <div className={`semantic-prog-bar-fill ${barCls}`} style={{ width: `${progressPercent}%` }} />
+            <div className={`semantic-prog-bar-fill ${barCls}${isLatestRow ? ' latest' : ''}`} style={{ width: `${animatedPercent}%` }} />
           </div>
         </div>
       ) : (
@@ -483,8 +507,8 @@ export default function SemantiquePage() {
     if (!vv) return;
     const update = () => {
       const kb = Math.max(0, window.innerHeight - vv.height);
-      setInputZoneBottom(kb);
-      if (kb > 0) window.scrollTo({ top: 0, behavior: 'instant' });
+      setInputZoneBottom(kb > 150 ? kb : 0);
+      if (kb > 150) window.scrollTo({ top: 0, behavior: 'instant' });
     };
     vv.addEventListener('resize', update);
     vv.addEventListener('scroll', update);
@@ -578,6 +602,7 @@ export default function SemantiquePage() {
     }
 
     setIsSubmitting(false);
+    inputRef.current?.focus();
   }, [input, gameOver, guesses, todayDate, isSubmitting, saveProgress, completeGame]);
 
   const handleKeyDown = (e) => { if (e.key === 'Enter') handleSubmit(); };
@@ -717,6 +742,7 @@ export default function SemantiquePage() {
                 />
                 <button
                   className="semantic-submit-btn"
+                  onMouseDown={(e) => e.preventDefault()}
                   onClick={handleSubmit}
                   disabled={!input.trim() || gameOver || isSubmitting}
                 >
