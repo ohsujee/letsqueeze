@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, HelpCircle, Trophy, Medal, BarChart2, X, Grid3X3 } from 'lucide-react';
+import { ArrowLeft, HelpCircle, Trophy, Medal, BarChart2, X, Grid3X3, CornerDownLeft, Delete } from 'lucide-react';
 import { ref, get, onValue } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
@@ -57,7 +57,7 @@ function computeScore(attempts, timeMs) {
 }
 
 // ─── WordleGrid ───────────────────────────────────────────────────────────────
-function WordleGrid({ guesses, feedbacks, currentGuess, attempts }) {
+function WordleGrid({ guesses, feedbacks, currentGuess, attempts, shake }) {
   const rows = Array(MAX_ATTEMPTS).fill(null);
 
   return (
@@ -73,7 +73,12 @@ function WordleGrid({ guesses, feedbacks, currentGuess, attempts }) {
         const feedback = isCompleted ? feedbacks[rowIdx] : null;
 
         return (
-          <div key={rowIdx} className="wordle-row">
+          <motion.div
+            key={rowIdx}
+            className="wordle-row"
+            animate={isCurrent && shake ? { x: [-8, 8, -6, 6, -3, 0] } : {}}
+            transition={{ duration: 0.35 }}
+          >
             {Array(WORD_LENGTH)
               .fill(null)
               .map((_, colIdx) => {
@@ -93,7 +98,7 @@ function WordleGrid({ guesses, feedbacks, currentGuess, attempts }) {
                   </motion.div>
                 );
               })}
-          </div>
+          </motion.div>
         );
       })}
     </div>
@@ -108,14 +113,14 @@ function WordleKeyboard({ letterStates, onKey }) {
         <div key={rowIdx} className="wordle-keyboard-row">
           {row.map((key) => {
             const state = letterStates[key] || '';
-            const isWide = key === 'ENTER' || key === '⌫';
+            const extraClass = key === '⌫' ? 'action-delete' : key === 'ENTER' ? 'action-enter' : '';
             return (
               <button
                 key={key}
-                className={`wordle-key ${state} ${isWide ? 'wide' : ''}`}
+                className={`wordle-key ${state} ${extraClass}`.trim()}
                 onClick={() => onKey(key)}
               >
-                {key}
+                {key === 'ENTER' ? <CornerDownLeft size={18} /> : key === '⌫' ? <Delete size={18} /> : key}
               </button>
             );
           })}
@@ -594,6 +599,13 @@ export default function MotMysterePage() {
   const [elapsedMs, setElapsedMs] = useState(0);
   const startTimeRef = useRef(null);
 
+  // Auto-effacement du toast d'erreur après 1.5s
+  useEffect(() => {
+    if (!wordError) return;
+    const t = setTimeout(() => setWordError(''), 1500);
+    return () => clearTimeout(t);
+  }, [wordError]);
+
   // 1. Charger le mot du jour depuis Firebase
   useEffect(() => {
     async function fetchWord() {
@@ -818,14 +830,30 @@ export default function MotMysterePage() {
         </div>
       </header>
 
-      {/* Tabs */}
+      {/* Tabs — l'erreur s'overlay en absolu, les tabs gardent la hauteur */}
       <div className="wordle-tabs">
-        <button className={`wordle-tab ${activeTab === 'game' ? 'active' : ''}`} onClick={() => setActiveTab('game')}>
-          <Grid3X3 size={14} /> Jeu
-        </button>
-        <button className={`wordle-tab ${activeTab === 'leaderboard' ? 'active' : ''}`} onClick={() => setActiveTab('leaderboard')}>
-          <Trophy size={14} /> Classement
-        </button>
+        <div className="wordle-tabs-content">
+          <button className={`wordle-tab ${activeTab === 'game' ? 'active' : ''}`} onClick={() => setActiveTab('game')}>
+            <Grid3X3 size={14} /> Jeu
+          </button>
+          <button className={`wordle-tab ${activeTab === 'leaderboard' ? 'active' : ''}`} onClick={() => setActiveTab('leaderboard')}>
+            <Trophy size={14} /> Classement
+          </button>
+        </div>
+        <AnimatePresence>
+          {wordError && (
+            <motion.div
+              key={wordError}
+              className="wordle-tabs-error"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
+            >
+              {wordError}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Modals */}
@@ -849,38 +877,18 @@ export default function MotMysterePage() {
         <p className="wordle-game-date">
           {new Date(todayDate + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
         </p>
-        {/* Scrollable content area */}
+        {/* Content area */}
         <div className="wordle-content">
-          {/* Error message - fixed height placeholder, no layout shift */}
-          <div className="wordle-error-wrap">
-            <AnimatePresence>
-              {wordError && (
-                <motion.div
-                  className="wordle-error"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  {wordError}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Grid */}
-          <motion.div
-            animate={shake ? { x: [-8, 8, -8, 8, 0] } : {}}
-            transition={{ duration: 0.4 }}
-          >
+          {/* Board area — size container pour les container queries */}
+          <div className="wordle-board-area">
             <WordleGrid
               guesses={guesses}
               feedbacks={feedbacks}
               currentGuess={currentGuess}
               attempts={guesses.length}
+              shake={shake}
             />
-          </motion.div>
-
+          </div>
         </div>
 
         {/* Keyboard - pinned at bottom while playing */}
