@@ -6348,6 +6348,70 @@ input[type="text"].game-search-input:focus,
   }
 }
 
+/* Blindtest (DeezTest) lobby — responsive tablet */
+@media (min-width: 768px) {
+  .lobby-container.deeztest .lobby-main {
+    max-width: 620px;
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lobby-container.deeztest .lobby-main {
+    max-width: 720px;
+    padding: 0 32px;
+  }
+}
+
+/* Mime lobby — responsive tablet */
+@media (min-width: 768px) {
+  .lobby-container.mime .lobby-main {
+    max-width: 620px;
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lobby-container.mime .lobby-main {
+    max-width: 720px;
+    padding: 0 32px;
+  }
+}
+
+/* La Règle lobby — responsive tablet */
+@media (min-width: 768px) {
+  .laregle-lobby .lobby-main {
+    max-width: 620px;
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .laregle-lobby .lobby-main {
+    max-width: 720px;
+    padding: 0 32px;
+  }
+}
+
+/* Alibi lobby — responsive tablet */
+@media (min-width: 768px) {
+  .alibi-lobby-container .alibi-lobby-main {
+    max-width: 620px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .alibi-lobby-container .alibi-lobby-main {
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+}
+
 /* Host View - Content + Footer structure */
 .lobby-content {
   flex: 1;
