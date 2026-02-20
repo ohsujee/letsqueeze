@@ -343,7 +343,7 @@ export default function PlayerGame() {
             >
               <div className="buzz-notification-icon">🔔</div>
               <div className="buzz-notification-content">
-                <span className="buzz-notification-label">Quelqu'un a buzze !</span>
+                <span className="buzz-notification-label">Quelqu'un a buzzé !</span>
                 <span className="buzz-notification-name">
                   {players.find(p => p.uid === state.lockUid)?.name || 'Joueur'}
                 </span>

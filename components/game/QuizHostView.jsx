@@ -229,7 +229,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
 
         await update(ref(db, `rooms/${code}/state`), {
           buzz: { uid: winner.uid, at: winner.localTime },
-          buzzBanner: `🔔 ${winner.name} a buzze !`,
+          buzzBanner: `🔔 ${winner.name} a buzzé !`,
           pausedAt: serverTimestamp(),
           lockedAt: serverTimestamp()
         });
