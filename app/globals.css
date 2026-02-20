@@ -3646,6 +3646,12 @@ textarea:focus-visible {
   font-family: var(--font-body, 'Inter'), sans-serif;
 }
 
+.login-card .terms-text .terms-link {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .login-footer {
   margin-top: 2rem;
   text-align: center;

@@ -176,7 +176,14 @@ export default function LoginPage() {
               />
 
               <p className="terms-text">
-                En continuant, vous acceptez nos conditions d'utilisation
+                En continuant, vous acceptez nos{' '}
+                <a href="/terms" onClick={(e) => { e.preventDefault(); window.open('/terms', '_blank'); }} className="terms-link">
+                  Conditions d'utilisation
+                </a>
+                {' '}et notre{' '}
+                <a href="/privacy" onClick={(e) => { e.preventDefault(); window.open('/privacy', '_blank'); }} className="terms-link">
+                  Politique de confidentialité
+                </a>
               </p>
             </>
           ) : (

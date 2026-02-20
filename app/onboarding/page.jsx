@@ -705,6 +705,33 @@ export default function OnboardingPage() {
                 >
                   Jouer sans compte
                 </motion.button>
+
+                {/* Terms of Service */}
+                <p style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '0.75rem',
+                  color: 'rgba(255, 255, 255, 0.4)',
+                  textAlign: 'center',
+                  margin: '0.25rem 0 0',
+                  lineHeight: 1.5,
+                }}>
+                  En continuant, vous acceptez nos{' '}
+                  <a
+                    href="/terms"
+                    onClick={(e) => { e.preventDefault(); window.open('/terms', '_blank'); }}
+                    style={{ color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'underline' }}
+                  >
+                    Conditions d'utilisation
+                  </a>
+                  {' '}et notre{' '}
+                  <a
+                    href="/privacy"
+                    onClick={(e) => { e.preventDefault(); window.open('/privacy', '_blank'); }}
+                    style={{ color: 'rgba(255, 255, 255, 0.7)', textDecoration: 'underline' }}
+                  >
+                    Politique de confidentialité
+                  </a>
+                </p>
               </div>
             </div>
           </motion.div>
