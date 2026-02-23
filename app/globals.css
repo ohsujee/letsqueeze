@@ -3759,6 +3759,8 @@ textarea:focus-visible {
   border-radius: 14px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 10; /* Fix iOS: dropdowns passent au-dessus des game cards (transform stacking context) */
 }
 
 /* Search Input - Gaming Style */
