@@ -4177,12 +4177,22 @@ input[type="text"].game-search-input:focus,
 }
 
 /* Modern Header */
+/* Wrapper pour le positionnement des cœurs qui débordent */
+.home-header-wrapper {
+  position: relative;
+  margin-bottom: calc(2rem + 18px); /* espace normal + overflow des cœurs */
+}
+
+.home-header-wrapper--pro {
+  margin-bottom: 2rem; /* Pro : pas de cœurs qui débordent */
+}
+
 .home-header-modern {
   display: grid;
   grid-template-columns: 44px 1fr 44px;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
   padding: 0.875rem 1rem;
   background: rgba(20, 20, 30, 0.6);
   border-radius: 16px;
@@ -4192,6 +4202,7 @@ input[type="text"].game-search-input:focus,
   box-shadow:
     0 4px 20px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: visible;
 }
 
 .avatar-container {
@@ -4360,6 +4371,94 @@ input[type="text"].game-search-input:focus,
       0 0 35px rgba(139, 92, 246, 0.5),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
+}
+
+/* ─── Hearts Anchor — conteneur positionné, flex centre la pill ─── */
+.hearts-anchor {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none; /* laisse passer les clics sauf sur le bouton */
+}
+
+.hearts-anchor > * {
+  pointer-events: all;
+}
+
+/* ─── Hearts Bar — flat gaming style, déborde du bas de la card ─── */
+.hearts-bar {
+  /* Layout */
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+
+  /* Gaming style — même registre que le badge Pro */
+  height: 36px;
+  padding: 0 16px;
+  background: linear-gradient(160deg, #2a0d18, #1a0a12);
+  border: 2px solid #ff2d55;
+  border-radius: 999px;
+  cursor: pointer;
+
+  /* Même offset que le badge Pro (3px) + reflet inset */
+  box-shadow:
+    0 3px 0 #8b1a2a,
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  transition: box-shadow 0.12s ease, transform 0.12s ease;
+}
+
+.hearts-bar:hover {
+  box-shadow:
+    0 4px 0 #8b1a2a,
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hearts-bar:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 1px 0 #8b1a2a,
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hearts-bar--empty {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.5);
+  animation: hearts-pulse 2s ease-in-out infinite;
+}
+
+@keyframes hearts-pulse {
+  0%, 100% { border-color: rgba(255, 45, 85, 0.15); }
+  50%       { border-color: rgba(255, 45, 85, 0.55); }
+}
+
+.hearts-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: nowrap;
+}
+
+.hearts-bar-plus {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #ff2d55;
+  line-height: 1;
+  border: 1.5px solid rgba(255, 45, 85, 0.5);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 /* Pro Badge Circle (Gold Medal - Cartoon Style) */

@@ -8,11 +8,13 @@ import { initializeUserProfile } from '@/lib/userProfile';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { useGameLimits } from '@/lib/hooks/useGameLimits';
+import { useHearts } from '@/lib/hooks/useHearts';
 import { useDevAuth } from '@/lib/hooks/useDevAuth';
 import { storage } from '@/lib/utils/storage';
 import GameCard from '@/lib/components/GameCard';
 import GuestWarningModal from '@/components/ui/GuestWarningModal';
 import GameLimitModal from '@/components/ui/GameLimitModal';
+import HeartsModal from '@/components/ui/HeartsModal';
 import GameModeSelector from '@/components/ui/GameModeSelector';
 import AudioModeSelector from '@/components/ui/AudioModeSelector';
 import CreateOrJoinSelector from '@/components/ui/CreateOrJoinSelector';
@@ -39,6 +41,7 @@ function HomePageContent() {
   const [favorites, setFavorites] = useState([]);
   const [showGuestWarning, setShowGuestWarning] = useState(false);
   const [showGameLimit, setShowGameLimit] = useState(false);
+  const [showHeartsModal, setShowHeartsModal] = useState(false);
   const [showCreateOrJoinSelector, setShowCreateOrJoinSelector] = useState(false);
   const [showModeSelector, setShowModeSelector] = useState(false);
   const [showAudioModeSelector, setShowAudioModeSelector] = useState(false);
@@ -48,6 +51,14 @@ function HomePageContent() {
   const [helpGameId, setHelpGameId] = useState('quiz');
   const { isPro } = useSubscription(user);
   const { profile, cachedPseudo } = useUserProfile();
+  const {
+    heartsRemaining,
+    canPlay: canPlayHearts,
+    canRecharge,
+    consumeHeart,
+    rechargeHearts,
+    isRecharging,
+  } = useHearts({ isPro });
   const [showRejoinBanner, setShowRejoinBanner] = useState(true);
 
   // Search & Filter state
@@ -86,6 +97,7 @@ function HomePageContent() {
   const { isDevAuth, loading: devAuthLoading, error: devAuthError } = useDevAuth();
 
   // Check if player was kicked from a room (show notification)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const wasKicked = sessionStorage.getItem('lq_wasKicked');
     if (wasKicked) {
@@ -95,7 +107,7 @@ function HomePageContent() {
         toast.error('Tu as été exclu de la partie par l\'hôte');
       }, 100);
     }
-  }, [toast]);
+  }, []); // toast est stable au mount, pas besoin de le relancer
 
   useEffect(() => {
     // Load favorites from storage
@@ -113,7 +125,7 @@ function HomePageContent() {
     });
 
     return () => unsubscribe();
-  }, [router]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps — router est stable, mais s'il change la re-subscription crée un loop infini
 
   const handleToggleFavorite = (gameId) => {
     const newFavorites = favorites.includes(gameId)
@@ -126,6 +138,9 @@ function HomePageContent() {
 
   // Actually create the game room and navigate
   const createAndNavigateToGame = async (game, gameMasterMode = 'gamemaster', audioMode = 'single') => {
+    // Consume a heart when actually creating/entering a game (non-Pro only)
+    consumeHeart();
+
     // Local games (like Mime) - no Firebase, direct navigation
     if (game.local) {
       router.push(game.path || `/${game.id}`);
@@ -198,21 +213,10 @@ function HomePageContent() {
       return;
     }
 
-    // Check game limits for non-Pro users
-    if (!isPro) {
-      if (isBlocked) {
-        // No free games and no rewarded games left
-        setPendingGame(game);
-        setShowGameLimit(true);
-        return;
-      }
-
-      if (!canPlayFree && canWatchAdForGame) {
-        // Out of free games but can watch ad
-        setPendingGame(game);
-        setShowGameLimit(true);
-        return;
-      }
+    // Check hearts for non-Pro users (0 hearts = blocked)
+    if (!isPro && !canPlayHearts) {
+      setShowHeartsModal(true);
+      return;
     }
 
     // Show Create or Join selector for all multiplayer games
@@ -278,13 +282,22 @@ function HomePageContent() {
     setSelectedGameMasterMode(null);
   };
 
-  // Handle watching ad for extra game
+  // Handle watching ad for extra game (GameLimitModal, legacy)
   const handleWatchAdForGame = async () => {
     const success = await watchAdForExtraGame();
     if (success && pendingGame) {
       setShowGameLimit(false);
       createAndNavigateToGame(pendingGame);
       setPendingGame(null);
+    }
+  };
+
+  // Handle recharging hearts via rewarded ad
+  const handleRechargeHearts = async () => {
+    const success = await rechargeHearts();
+    if (success) {
+      setShowHeartsModal(false);
+      toast.success('❤ +5 cœurs rechargés !');
     }
   };
 
@@ -367,6 +380,8 @@ function HomePageContent() {
           displayName={profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Joueur'}
           avatarInitial={(profile?.pseudo?.[0] || cachedPseudo?.[0] || user?.displayName?.[0] || 'J').toUpperCase()}
           isPro={isPro}
+          heartsRemaining={heartsRemaining}
+          onHeartsClick={() => setShowHeartsModal(true)}
         />
 
         {/* Rejoin Banner - Show when player has an active game */}
@@ -486,6 +501,17 @@ function HomePageContent() {
         rewardedGamesRemaining={rewardedGamesRemaining}
         isWatchingAd={isWatchingAd}
         isBlocked={isBlocked}
+      />
+
+      {/* Hearts Modal - Info / recharge cœurs */}
+      <HeartsModal
+        isOpen={showHeartsModal}
+        onClose={() => setShowHeartsModal(false)}
+        heartsRemaining={heartsRemaining}
+        canRecharge={canRecharge}
+        isWatchingAd={isRecharging}
+        onWatchAd={handleRechargeHearts}
+        onUpgrade={() => { router.push('/subscribe'); setShowHeartsModal(false); }}
       />
 
       {/* Create or Join Selector - First step for all multiplayer games */}

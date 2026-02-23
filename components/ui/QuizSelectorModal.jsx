@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, Lock, ChevronLeft, CheckSquare, Square } from 'lucide-react';
@@ -16,6 +16,8 @@ export default function QuizSelectorModal({
   const [screen, setScreen] = useState('categories'); // 'categories' | 'themes'
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedThemes, setSelectedThemes] = useState([]);
+  const modalRef = useRef(null);
+  const dragState = useRef({ isDragging: false, startY: 0 });
 
   useEffect(() => {
     setMounted(true);
@@ -26,6 +28,10 @@ export default function QuizSelectorModal({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      if (modalRef.current) {
+        modalRef.current.style.transition = '';
+        modalRef.current.style.transform = '';
+      }
       // If there's a current selection, pre-select it
       if (currentSelection?.categoryId) {
         const cat = categories.find(c => c.id === currentSelection.categoryId);
@@ -58,10 +64,52 @@ export default function QuizSelectorModal({
   }, [isOpen]);
 
   const handleClose = () => {
+    if (modalRef.current) {
+      modalRef.current.style.transition = '';
+      modalRef.current.style.transform = '';
+    }
     setScreen('categories');
     setSelectedCategory(null);
     setSelectedThemes([]);
     onClose();
+  };
+
+  const handleDragPointerDown = (e) => {
+    dragState.current = { isDragging: true, startY: e.clientY };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const handleDragPointerMove = (e) => {
+    if (!dragState.current.isDragging) return;
+    const dy = Math.max(0, e.clientY - dragState.current.startY);
+    if (modalRef.current) {
+      modalRef.current.style.transition = 'none';
+      modalRef.current.style.transform = `translateY(${dy}px)`;
+    }
+  };
+
+  const handleDragPointerUp = (e) => {
+    if (!dragState.current.isDragging) return;
+    dragState.current.isDragging = false;
+    const dy = Math.max(0, e.clientY - dragState.current.startY);
+    if (!modalRef.current) return;
+    if (dy > 100) {
+      modalRef.current.style.transition = 'transform 0.25s ease-in';
+      modalRef.current.style.transform = 'translateY(110%)';
+      setTimeout(handleClose, 250);
+    } else {
+      modalRef.current.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      modalRef.current.style.transform = 'translateY(0)';
+    }
+  };
+
+  const handleDragPointerCancel = () => {
+    if (!dragState.current.isDragging) return;
+    dragState.current.isDragging = false;
+    if (modalRef.current) {
+      modalRef.current.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      modalRef.current.style.transform = 'translateY(0)';
+    }
   };
 
   const handleCategoryClick = (category) => {
@@ -122,9 +170,16 @@ export default function QuizSelectorModal({
     <div className="quiz-modal-wrapper open">
       <div className="quiz-modal-backdrop" onClick={handleClose} />
 
-      <div className="quiz-modal quiz-modal-categories">
+      <div ref={modalRef} className="quiz-modal quiz-modal-categories">
         {/* Handle */}
-        <div className="quiz-modal-handle" />
+        <div
+          className="quiz-modal-handle"
+          style={{ touchAction: 'none', cursor: 'grab' }}
+          onPointerDown={handleDragPointerDown}
+          onPointerMove={handleDragPointerMove}
+          onPointerUp={handleDragPointerUp}
+          onPointerCancel={handleDragPointerCancel}
+        />
 
         {/* Header */}
         <div className="quiz-modal-header">

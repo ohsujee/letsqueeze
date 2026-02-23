@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, auth, signOutUser, signInWithGoogle, signInWithApple, db } from '@/lib/firebase';
 import { deleteUser } from 'firebase/auth';
@@ -28,7 +28,7 @@ export default function ProfilePage() {
   const [hueEffectsEnabled, setHueEffectsEnabled] = useState(true);
   const [hueConnected, setHueConnected] = useState(false);
   const { profile, cachedPseudo, subscription } = useUserProfile();
-  const userWithSubscription = user ? { ...user, subscription } : null;
+  const userWithSubscription = useMemo(() => user ? { ...user, subscription } : null, [user, subscription]);
   const { isPro, isAdmin } = useSubscription(userWithSubscription);
   const { isAndroid } = usePlatform();
   const [connectingGoogle, setConnectingGoogle] = useState(false);
