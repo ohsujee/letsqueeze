@@ -474,9 +474,9 @@ export default function SemantiquePage() {
     const offsetRef = ref(db, '.info/serverTimeOffset');
     const unsub = onValue(offsetRef, (snap) => {
       const offset = snap.val() ?? 0;
-      const date = new Date(Date.now() + offset).toISOString().split('T')[0];
+      const date = new Date(Date.now() + offset).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
       setServerDate(date);
-    }, () => setServerDate(new Date().toISOString().split('T')[0]));
+    }, () => setServerDate(new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' })));
     return () => unsub();
   }, []);
 

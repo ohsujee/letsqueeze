@@ -569,11 +569,11 @@ export default function MotMysterePage() {
     const unsub = onValue(offsetRef, (snap) => {
       const offset = snap.val() ?? 0;
       const serverTs = Date.now() + offset;
-      const date = new Date(serverTs).toISOString().split('T')[0];
+      const date = new Date(serverTs).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
       setServerDate(date);
     }, () => {
       // Fallback to local date on error
-      setServerDate(new Date().toISOString().split('T')[0]);
+      setServerDate(new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' }));
     });
     return () => unsub();
   }, []);
