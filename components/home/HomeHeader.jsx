@@ -40,6 +40,7 @@ export default function HomeHeader({
   avatarInitial,
   isPro,
   heartsRemaining = MAX_HEARTS,
+  heartsVisible = true,
   onHeartsClick,
 }) {
   const isEmpty = heartsRemaining === 0;
@@ -71,7 +72,7 @@ export default function HomeHeader({
       </header>
 
       {/* Cœurs : anchor positionné en absolu, flex centre la pill sans left:50% */}
-      {!isPro && (
+      {!isPro && heartsVisible && (
         <div className="hearts-anchor">
           <motion.button
             className={`hearts-bar${isEmpty ? ' hearts-bar--empty' : ''}`}

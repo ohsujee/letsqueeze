@@ -49,8 +49,9 @@ function HomePageContent() {
   const [selectedGameMasterMode, setSelectedGameMasterMode] = useState(null);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [helpGameId, setHelpGameId] = useState('quiz');
-  const { isPro } = useSubscription(user);
-  const { profile, cachedPseudo } = useUserProfile();
+  const { profile, cachedPseudo, subscription } = useUserProfile();
+  const userWithSubscription = useMemo(() => user ? { ...user, subscription } : null, [user, subscription]);
+  const { isPro, isLoading: subscriptionLoading } = useSubscription(userWithSubscription);
   const {
     heartsRemaining,
     canPlay: canPlayHearts,
@@ -214,7 +215,8 @@ function HomePageContent() {
     }
 
     // Check hearts for non-Pro users (0 hearts = blocked)
-    if (!isPro && !canPlayHearts) {
+    // Ne pas bloquer pendant le chargement de l'abonnement
+    if (!subscriptionLoading && !isPro && !canPlayHearts) {
       setShowHeartsModal(true);
       return;
     }
@@ -381,6 +383,7 @@ function HomePageContent() {
           avatarInitial={(profile?.pseudo?.[0] || cachedPseudo?.[0] || user?.displayName?.[0] || 'J').toUpperCase()}
           isPro={isPro}
           heartsRemaining={heartsRemaining}
+          heartsVisible={!subscriptionLoading}
           onHeartsClick={() => setShowHeartsModal(true)}
         />
 
