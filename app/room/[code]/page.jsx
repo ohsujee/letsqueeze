@@ -34,7 +34,6 @@ import { ChevronRight, Users, Zap } from "lucide-react";
 import LobbyStartButton from "@/components/game/LobbyStartButton";
 import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
 import { storage } from "@/lib/utils/storage";
-import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { GameLaunchCountdown } from "@/components/transitions";
@@ -67,9 +66,6 @@ export default function Room() {
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
-
-  // Interstitial ad (unified hook)
-  useInterstitialAd({ context: 'QuizRoom' });
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });

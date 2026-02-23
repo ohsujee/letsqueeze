@@ -6,9 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { User, Pencil, Check, X, AlertCircle, PlayCircle, SearchX } from "lucide-react";
 import { ROOM_TYPES } from "@/lib/config/rooms";
-import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { isPro } from "@/lib/subscription";
-import { shouldShowInterstitial, markAdShownDuringJoin } from "@/lib/hooks/useInterstitialAd";
 import ATTPromptHandler from "@/components/game/ATTPromptHandler";
 import { LobbyEntryTransition } from "@/components/transitions";
 import { GAME_COLOR_MAP } from "@/lib/config/colors";
@@ -184,31 +182,10 @@ export default function JoinClient({ initialCode = "" }) {
     }
   }
 
-  // Handle transition complete - show ad then navigate
-  const handleTransitionComplete = async () => {
+  // Handle transition complete - navigate to room
+  const handleTransitionComplete = () => {
     if (!transitionConfig) return;
-
-    const path = transitionConfig.path;
-
-    // Check if should show ad (unified logic)
-    if (shouldShowInterstitial(userIsPro)) {
-      try {
-        // Mark that ad was shown during join (so room page doesn't show it again)
-        markAdShownDuringJoin();
-
-        // Init and show interstitial ad
-        await initAdMob();
-        await showInterstitialAd();
-      } catch (err) {
-        console.log('[Join] Interstitial ad error:', err);
-      }
-    }
-
-    // Navigate to room (ad is dismissed or failed)
-    // Don't reset transition state - let it stay visible during navigation
-    // The overlay (z-9999) covers everything while the lobby loads underneath
-    // It disappears naturally when this component unmounts on page change
-    router.push(path);
+    router.push(transitionConfig.path);
   };
 
   // Show entry transition (door opening animation)

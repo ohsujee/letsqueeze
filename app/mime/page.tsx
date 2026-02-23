@@ -8,7 +8,6 @@ import MimeGame from '@/components/game-mime/MimeGame';
 import { MimeTheme, themeInfos } from '@/data/mime-words';
 import ExitButton from '@/lib/components/ExitButton';
 import HowToPlayModal from '@/components/ui/HowToPlayModal';
-import { useInterstitialAd } from '@/lib/hooks/useInterstitialAd';
 import { useGameLimits } from '@/lib/hooks/useGameLimits';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { storage } from '@/lib/utils/storage';
@@ -22,9 +21,6 @@ export default function MimePage() {
   const [selectedThemes, setSelectedThemes] = useState<MimeTheme[]>([]);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const gameRecordedRef = useRef(false);
-
-  // Interstitial ad (unified hook)
-  useInterstitialAd({ context: 'Mime' });
 
   // Game limits for recording completion
   const { isPro } = useSubscription(auth.currentUser);

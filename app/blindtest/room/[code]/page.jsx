@@ -31,7 +31,6 @@ import { ChevronRight, Music, Search, Check, X, Volume2 } from "lucide-react";
 import LobbyStartButton from "@/components/game/LobbyStartButton";
 import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
 import { storage } from "@/lib/utils/storage";
-import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useTeamMode } from "@/lib/hooks/useTeamMode";
 import {
@@ -105,9 +104,6 @@ export default function DeezTestLobby() {
     isHost
   });
 
-
-  // Interstitial ad (unified hook)
-  useInterstitialAd({ context: 'DeezTest' });
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });

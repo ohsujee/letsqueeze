@@ -34,7 +34,6 @@ import { getAlibiManifest } from "@/lib/utils/manifestCache";
 import { ChevronRight, ChevronUp, ChevronDown, Shuffle, RotateCcw, X, UserPlus } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
 import { storage } from "@/lib/utils/storage";
-import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { GameLaunchCountdown } from "@/components/transitions";
@@ -105,9 +104,6 @@ export default function AlibiLobby() {
 
   // Get pseudo from profile or fallback
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Hôte';
-
-  // Interstitial ad (unified hook)
-  useInterstitialAd({ context: 'Alibi' });
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });

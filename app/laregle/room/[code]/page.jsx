@@ -24,7 +24,6 @@ import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePresence } from "@/lib/hooks/usePresence";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
-import { useInterstitialAd } from "@/lib/hooks/useInterstitialAd";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { Search, Users, Clock, Shuffle, Check } from "lucide-react";
@@ -67,9 +66,6 @@ export default function LaLoiLobby() {
   // Get user profile for pseudo
   const { user: currentUser, profile, loading: profileLoading } = useUserProfile();
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
-
-  // Interstitial ad
-  useInterstitialAd({ context: 'LaLoi' });
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });

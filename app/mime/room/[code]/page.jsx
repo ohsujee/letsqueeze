@@ -17,7 +17,6 @@ import { usePlayers } from '@/lib/hooks/usePlayers';
 import { usePlayerCleanup } from '@/lib/hooks/usePlayerCleanup';
 import { useRoomGuard } from '@/lib/hooks/useRoomGuard';
 import { usePresence } from '@/lib/hooks/usePresence';
-import { useInterstitialAd } from '@/lib/hooks/useInterstitialAd';
 import { useWakeLock } from '@/lib/hooks/useWakeLock';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { calculateMimeWords, MIME_CONFIG } from '@/lib/config/rooms';
@@ -58,9 +57,6 @@ export default function MimeLobbyPage() {
   // User profile pour le pseudo
   const { profile, loading: profileLoading } = useUserProfile();
   const userPseudo = profile?.pseudo || 'Hôte';
-
-  // Pub interstitielle
-  useInterstitialAd({ context: 'Mime' });
 
   // Wake lock
   useWakeLock({ enabled: true });
