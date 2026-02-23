@@ -44,6 +44,9 @@ export default function DeezTestPlayerGame() {
   const endTransitionTriggeredRef = useRef(false);
   const prevAskerUidRef = useRef(null);
 
+  // Dérivé de state — déclaré tôt pour éviter TDZ dans les useEffect ci-dessous
+  const revealed = !!state?.revealed;
+
   // Centralized players hook
   const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
 
@@ -340,8 +343,6 @@ export default function DeezTestPlayerGame() {
     const u3 = onValue(ref(db, `rooms_blindtest/${code}/meta/playlist`), s => setPlaylist(s.val()));
     return () => { u1(); u2(); u3(); };
   }, [code, router]);
-
-  const revealed = !!state?.revealed;
 
   // Reveal playback state from Firebase (time-based sync)
   const revealPlayback = state?.revealPlayback || null;
