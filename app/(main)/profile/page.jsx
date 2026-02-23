@@ -27,8 +27,9 @@ export default function ProfilePage() {
   const [notifications, setNotifications] = useState(true);
   const [hueEffectsEnabled, setHueEffectsEnabled] = useState(true);
   const [hueConnected, setHueConnected] = useState(false);
-  const { isPro, isAdmin } = useSubscription(user);
-  const { profile, cachedPseudo } = useUserProfile();
+  const { profile, cachedPseudo, subscription } = useUserProfile();
+  const userWithSubscription = user ? { ...user, subscription } : null;
+  const { isPro, isAdmin } = useSubscription(userWithSubscription);
   const { isAndroid } = usePlatform();
   const [connectingGoogle, setConnectingGoogle] = useState(false);
   const [connectingApple, setConnectingApple] = useState(false);
@@ -319,6 +320,12 @@ export default function ProfilePage() {
                   <div className="pro-status-info">
                     <h2 className="pro-status-title">Gigglz Pro</h2>
                     <p className="pro-status-desc">Tous les avantages débloqués</p>
+                    {isAdmin
+                      ? <p className="pro-status-expiry">Accès à vie ✦</p>
+                      : subscription?.expiresAt
+                        ? <p className="pro-status-expiry">Valide jusqu'au {new Date(subscription.expiresAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                        : null
+                    }
                   </div>
                 </div>
 

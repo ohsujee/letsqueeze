@@ -212,6 +212,13 @@
   margin: 0.25rem 0 0 0;
 }
 
+.pro-status-expiry {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: rgba(251, 191, 36, 0.6);
+  margin: 0.2rem 0 0 0;
+}
+
 .pro-benefits-row {
   display: flex;
   justify-content: space-around;
