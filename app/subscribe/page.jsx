@@ -155,7 +155,6 @@ export default function SubscribePage() {
   return (
     <div className="subscribe-page">
       <div className="subscribe-bg" />
-      <div className="subscribe-glow" />
 
       {/* Header */}
       <header className="subscribe-header">
@@ -206,7 +205,7 @@ export default function SubscribePage() {
             </div>
             <div className="limitation-item">
               <X size={16} className="limitation-icon" />
-              <span>3 parties gratuites/jour par jeu</span>
+              <span>5 cœurs offerts par jour, remis à zéro chaque matin</span>
             </div>
             <div className="limitation-item">
               <X size={16} className="limitation-icon" />
@@ -228,10 +227,11 @@ export default function SubscribePage() {
             onClick={() => setSelectedPlan('annual')}
           >
             <div className="plan-recommended">Recommandé</div>
-            <div className="plan-badge">6 mois offerts</div>
-
             <div className="plan-main">
-              <span className="plan-name">{PRO_PRICING.annual.label}</span>
+              <div className="plan-name-row">
+                <span className="plan-name">{PRO_PRICING.annual.label}</span>
+                <div className="plan-badge">6 mois offerts</div>
+              </div>
               <div className="plan-price-row">
                 <span className="plan-price-amount">{PRO_PRICING.annual.price.toFixed(2).replace('.', ',')}€</span>
                 <span className="plan-price-period">/an</span>
@@ -432,24 +432,6 @@ const styles = `
     z-index: 0;
   }
 
-  .subscribe-glow {
-    position: fixed;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-    animation: pulse 4s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
-    50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
-  }
-
   /* Header */
   .subscribe-header {
     position: sticky;
@@ -490,7 +472,6 @@ const styles = `
     font-weight: 400;
     color: white;
     margin: 0;
-    text-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
   }
 
   /* Content */
@@ -521,7 +502,6 @@ const styles = `
     color: white;
     box-shadow:
       0 4px 0 #6d28d9,
-      0 8px 30px rgba(139, 92, 246, 0.5),
       inset 0 2px 0 rgba(255, 255, 255, 0.2);
   }
 
@@ -531,7 +511,6 @@ const styles = `
     font-weight: 400;
     color: white;
     margin: 0 0 8px 0;
-    text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
   }
 
   .hero-subtitle {
@@ -620,11 +599,10 @@ const styles = `
   .plan-card.selected {
     background: rgba(139, 92, 246, 0.1);
     border-color: #8b5cf6;
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
   }
 
   .plan-card-annual {
-    padding-top: 32px;
+    padding-top: 44px;
   }
 
   .plan-recommended {
@@ -644,11 +622,17 @@ const styles = `
     border-radius: 14px 14px 0 0;
   }
 
+  .plan-name-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
   .plan-badge {
-    position: absolute;
-    top: 32px;
-    right: 16px;
-    padding: 4px 10px;
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
     background: linear-gradient(135deg, #fbbf24, #f59e0b);
     color: #1a1a2e;
     font-family: 'Space Grotesk', sans-serif;
@@ -657,7 +641,7 @@ const styles = `
     text-transform: uppercase;
     letter-spacing: 0.03em;
     border-radius: 999px;
-    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+    box-shadow: 0 2px 0 #b45309;
   }
 
   .plan-main {
@@ -782,7 +766,6 @@ const styles = `
     transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-shadow:
       0 4px 0 #6d28d9,
-      0 8px 24px rgba(139, 92, 246, 0.4),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 
@@ -790,7 +773,6 @@ const styles = `
     transform: translateY(-2px);
     box-shadow:
       0 6px 0 #6d28d9,
-      0 12px 32px rgba(139, 92, 246, 0.5),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 
@@ -798,7 +780,6 @@ const styles = `
     transform: translateY(2px);
     box-shadow:
       0 2px 0 #6d28d9,
-      0 4px 12px rgba(139, 92, 246, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 
@@ -1001,7 +982,7 @@ const styles = `
     justify-content: center;
     color: #1a1a2e;
     box-shadow:
-      0 4px 12px rgba(251, 191, 36, 0.4),
+      0 4px 0 #b45309,
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
@@ -1010,7 +991,6 @@ const styles = `
     font-size: 1.5rem;
     color: #fbbf24;
     margin: 0 0 8px 0;
-    text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
   }
 
   .pro-active-desc {
