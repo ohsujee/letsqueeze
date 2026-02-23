@@ -25,48 +25,34 @@ function getFirebaseAdmin() {
     return admin.apps[0];
   }
 
-  // Vérifier qu'on a les credentials nécessaires
-  const projectId = process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n');
   const databaseURL = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL;
 
-  if (!projectId || !databaseURL) {
-    console.error('[Webhook] Missing Firebase configuration');
+  if (!databaseURL) {
+    console.error('[Webhook] Missing NEXT_PUBLIC_FIREBASE_DATABASE_URL');
     return null;
   }
 
-  // Si on a les credentials service account, les utiliser
-  if (clientEmail && privateKey) {
+  // Priorité : service account base64 (le plus fiable)
+  const serviceAccountBase64 = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
+  if (serviceAccountBase64) {
     try {
+      const serviceAccount = JSON.parse(
+        Buffer.from(serviceAccountBase64, 'base64').toString('utf8')
+      );
       admin.initializeApp({
-        credential: admin.credential.cert({
-          projectId,
-          clientEmail,
-          privateKey,
-        }),
+        credential: admin.credential.cert(serviceAccount),
         databaseURL,
       });
-      console.log('[Webhook] Firebase Admin initialized with service account');
+      console.log('[Webhook] Firebase Admin initialized with base64 service account');
       return admin.apps[0];
     } catch (error) {
-      console.error('[Webhook] Failed to initialize Firebase Admin:', error);
+      console.error('[Webhook] Failed to initialize Firebase Admin from base64:', error);
       return null;
     }
   }
 
-  // Fallback: essayer avec les default credentials (pour GCP)
-  try {
-    admin.initializeApp({
-      credential: admin.credential.applicationDefault(),
-      databaseURL,
-    });
-    console.log('[Webhook] Firebase Admin initialized with default credentials');
-    return admin.apps[0];
-  } catch (error) {
-    console.error('[Webhook] No valid Firebase Admin credentials found');
-    return null;
-  }
+  console.error('[Webhook] Missing FIREBASE_SERVICE_ACCOUNT_BASE64');
+  return null;
 }
 
 // ============================================
