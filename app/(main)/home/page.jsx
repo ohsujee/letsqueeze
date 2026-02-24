@@ -59,7 +59,7 @@ function HomePageContent() {
     consumeHeart,
     rechargeHearts,
     isRecharging,
-  } = useHearts({ isPro });
+  } = useHearts({ isPro, uid: user?.uid ?? null });
   const [showRejoinBanner, setShowRejoinBanner] = useState(true);
 
   // Search & Filter state
