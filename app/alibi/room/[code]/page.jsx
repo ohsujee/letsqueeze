@@ -33,6 +33,7 @@ import { useToast } from "@/lib/hooks/useToast";
 import { getAlibiManifest } from "@/lib/utils/manifestCache";
 import { ChevronRight, ChevronUp, ChevronDown, Shuffle, RotateCcw, X, UserPlus } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
+import { useAutoHowToPlay } from "@/lib/hooks/useAutoHowToPlay";
 import { storage } from "@/lib/utils/storage";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
@@ -83,7 +84,7 @@ export default function AlibiLobby() {
   const [showAlibiSelector, setShowAlibiSelector] = useState(false);
   const [lockedAlibiName, setLockedAlibiName] = useState('');
   const [expandedRole, setExpandedRole] = useState(null);
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const { isOpen: showHowToPlay, isAutoMode: htpAutoMode, close: closeHowToPlay, dismissForever: dismissHowToPlay, openManually: openHowToPlay } = useAutoHowToPlay('alibi');
   const [showCountdown, setShowCountdown] = useState(false);
   const roomWasValidRef = useRef(false);
   const countdownTriggeredRef = useRef(false);
@@ -620,8 +621,10 @@ export default function AlibiLobby() {
       />
       <HowToPlayModal
         isOpen={showHowToPlay}
-        onClose={() => setShowHowToPlay(false)}
+        onClose={closeHowToPlay}
         gameType="alibi"
+        showDismiss={htpAutoMode}
+        onDismissForever={dismissHowToPlay}
       />
       <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
 
@@ -645,7 +648,7 @@ export default function AlibiLobby() {
         hostUid={meta?.hostUid}
         onHostExit={handleHostExit}
         onPlayerExit={handlePlayerExit}
-        onShowHowToPlay={() => setShowHowToPlay(true)}
+        onShowHowToPlay={openHowToPlay}
         joinUrl={joinUrl}
         gameMode={isPartyMode ? 'party' : 'gamemaster'}
       />

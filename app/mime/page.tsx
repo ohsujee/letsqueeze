@@ -8,6 +8,7 @@ import MimeGame from '@/components/game-mime/MimeGame';
 import { MimeTheme, themeInfos } from '@/data/mime-words';
 import ExitButton from '@/lib/components/ExitButton';
 import HowToPlayModal from '@/components/ui/HowToPlayModal';
+import { useAutoHowToPlay } from '@/lib/hooks/useAutoHowToPlay';
 import { useGameLimits } from '@/lib/hooks/useGameLimits';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { storage } from '@/lib/utils/storage';
@@ -19,7 +20,7 @@ export default function MimePage() {
   const router = useRouter();
   const [phase, setPhase] = useState<GamePhase>('lobby');
   const [selectedThemes, setSelectedThemes] = useState<MimeTheme[]>([]);
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const { isOpen: showHowToPlay, isAutoMode: htpAutoMode, close: closeHowToPlay, dismissForever: dismissHowToPlay, openManually: openHowToPlay } = useAutoHowToPlay('mime');
   const gameRecordedRef = useRef(false);
 
   // Game limits for recording completion
@@ -80,8 +81,10 @@ export default function MimePage() {
       {/* Modal How To Play */}
       <HowToPlayModal
         isOpen={showHowToPlay}
-        onClose={() => setShowHowToPlay(false)}
+        onClose={closeHowToPlay}
         gameType="mime"
+        showDismiss={htpAutoMode}
+        onDismissForever={dismissHowToPlay}
       />
 
       {/* Header */}
@@ -100,7 +103,7 @@ export default function MimePage() {
         <div className="header-right">
           <motion.button
             className="help-btn mime"
-            onClick={() => setShowHowToPlay(true)}
+            onClick={openHowToPlay}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Comment jouer"

@@ -28,6 +28,7 @@ import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { Search, Users, Clock, Shuffle, Check } from "lucide-react";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
+import { useAutoHowToPlay } from "@/lib/hooks/useAutoHowToPlay";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import { TROUVE_COLORS, getRandomRulesForVoting } from "@/data/laregle-rules";
 
@@ -46,7 +47,7 @@ export default function LaLoiLobby() {
   const [myUid, setMyUid] = useState(null);
   const [joinUrl, setJoinUrl] = useState("");
   const [hostJoined, setHostJoined] = useState(false);
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const { isOpen: showHowToPlay, isAutoMode: htpAutoMode, close: closeHowToPlay, dismissForever: dismissHowToPlay, openManually: openHowToPlay } = useAutoHowToPlay('laregle');
   const [selectedInvestigators, setSelectedInvestigators] = useState([]);
   const [showCountdown, setShowCountdown] = useState(false);
   const roomWasValidRef = useRef(false);
@@ -327,8 +328,10 @@ export default function LaLoiLobby() {
       {/* How To Play Modal */}
       <HowToPlayModal
         isOpen={showHowToPlay}
-        onClose={() => setShowHowToPlay(false)}
+        onClose={closeHowToPlay}
         gameType="laregle"
+        showDismiss={htpAutoMode}
+        onDismissForever={dismissHowToPlay}
       />
       <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
 
@@ -352,7 +355,7 @@ export default function LaLoiLobby() {
         hostUid={meta?.hostUid}
         onHostExit={handleHostExit}
         onPlayerExit={handlePlayerExit}
-        onShowHowToPlay={() => setShowHowToPlay(true)}
+        onShowHowToPlay={openHowToPlay}
         joinUrl={joinUrl}
       />
 

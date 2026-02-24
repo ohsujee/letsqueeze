@@ -738,7 +738,7 @@ function VerdictInlineSection({ content }) {
 // MAIN MODAL COMPONENT
 // ============================================
 
-export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz' }) {
+export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', showDismiss = false, onDismissForever }) {
   const [activeSection, setActiveSection] = useState(0);
   const game = GAMES_DATA[gameType] || GAMES_DATA.quiz;
 
@@ -835,24 +835,31 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz' }) {
 
             {/* Footer */}
             <div className="htp-footer">
-              <button
-                className="htp-btn-prev"
-                onClick={() => setActiveSection(Math.max(0, activeSection - 1))}
-                disabled={activeSection === 0}
-              >
-                Précédent
-              </button>
-              {activeSection < game.sections.length - 1 ? (
+              <div className="htp-footer-actions">
                 <button
-                  className="htp-btn-next"
-                  onClick={() => setActiveSection(activeSection + 1)}
+                  className="htp-btn-prev"
+                  onClick={() => setActiveSection(Math.max(0, activeSection - 1))}
+                  disabled={activeSection === 0}
                 >
-                  Suivant
-                  <ChevronRight size={18} />
+                  Précédent
                 </button>
-              ) : (
-                <button className="htp-btn-done" onClick={onClose}>
-                  C'est compris !
+                {activeSection < game.sections.length - 1 ? (
+                  <button
+                    className="htp-btn-next"
+                    onClick={() => setActiveSection(activeSection + 1)}
+                  >
+                    Suivant
+                    <ChevronRight size={18} />
+                  </button>
+                ) : (
+                  <button className="htp-btn-done" onClick={onClose}>
+                    C'est compris !
+                  </button>
+                )}
+              </div>
+              {showDismiss && onDismissForever && (
+                <button className="htp-btn-dismiss" onClick={onDismissForever}>
+                  Ne plus afficher
                 </button>
               )}
             </div>
@@ -1273,9 +1280,33 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz' }) {
             /* Footer */
             .htp-footer {
               display: flex;
-              gap: 12px;
+              flex-direction: column;
+              gap: 10px;
               padding: 16px 24px 24px;
               border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .htp-footer-actions {
+              display: flex;
+              gap: 12px;
+            }
+
+            .htp-btn-dismiss {
+              background: none;
+              border: none;
+              color: rgba(255, 255, 255, 0.3);
+              font-family: 'Inter', sans-serif;
+              font-size: 0.8125rem;
+              cursor: pointer;
+              text-align: center;
+              padding: 4px 0;
+              transition: color 0.2s;
+              text-decoration: underline;
+              text-underline-offset: 3px;
+            }
+
+            .htp-btn-dismiss:hover {
+              color: rgba(255, 255, 255, 0.55);
             }
 
             .htp-btn-prev,

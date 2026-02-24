@@ -9,6 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
 import HowToPlayModal from '@/components/ui/HowToPlayModal';
+import { useAutoHowToPlay } from '@/lib/hooks/useAutoHowToPlay';
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 const WORD_LENGTH = 5;
@@ -593,7 +594,7 @@ export default function MotMysterePage() {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [wordError, setWordError] = useState('');
-  const [showHelp, setShowHelp] = useState(false);
+  const { isOpen: showHelp, isAutoMode: htpAutoMode, close: closeHowToPlay, dismissForever: dismissHowToPlay, openManually: openHowToPlay } = useAutoHowToPlay('motmystere');
   const [showStats, setShowStats] = useState(false);
   const [activeTab, setActiveTab] = useState('game');
   const [elapsedMs, setElapsedMs] = useState(0);
@@ -824,7 +825,7 @@ export default function MotMysterePage() {
           <button className="wordle-help-btn" onClick={() => setShowStats(true)} title="Statistiques">
             <BarChart2 size={18} />
           </button>
-          <button className="wordle-help-btn" onClick={() => setShowHelp(true)} title="Comment jouer">
+          <button className="wordle-help-btn" onClick={openHowToPlay} title="Comment jouer">
             <HelpCircle size={18} />
           </button>
         </div>
@@ -857,7 +858,7 @@ export default function MotMysterePage() {
       </div>
 
       {/* Modals */}
-      <HowToPlayModal isOpen={showHelp} onClose={() => setShowHelp(false)} gameType="motmystere" />
+      <HowToPlayModal isOpen={showHelp} onClose={closeHowToPlay} gameType="motmystere" showDismiss={htpAutoMode} onDismissForever={dismissHowToPlay} />
       <WordleStatsModal
         isOpen={showStats}
         onClose={() => setShowStats(false)}

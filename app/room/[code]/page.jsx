@@ -18,6 +18,7 @@ import PaywallModal from "@/components/ui/PaywallModal";
 import QuizSelectorModal from "@/components/ui/QuizSelectorModal";
 import LobbyHeader from "@/components/game/LobbyHeader";
 import HowToPlayModal from "@/components/ui/HowToPlayModal";
+import { useAutoHowToPlay } from "@/lib/hooks/useAutoHowToPlay";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
@@ -50,7 +51,7 @@ export default function Room() {
   const [categories, setCategories] = useState([]);
   const [showPaywall, setShowPaywall] = useState(false);
   const [showQuizSelector, setShowQuizSelector] = useState(false);
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const { isOpen: showHowToPlay, isAutoMode: htpAutoMode, close: closeHowToPlay, dismissForever: dismissHowToPlay, openManually: openHowToPlay } = useAutoHowToPlay('quiz');
   const [lockedQuizName, setLockedQuizName] = useState('');
   const [joinUrl, setJoinUrl] = useState("");
   const roomWasValidRef = useRef(false);
@@ -509,8 +510,10 @@ export default function Room() {
       />
       <HowToPlayModal
         isOpen={showHowToPlay}
-        onClose={() => setShowHowToPlay(false)}
+        onClose={closeHowToPlay}
         gameType="quiz"
+        showDismiss={htpAutoMode}
+        onDismissForever={dismissHowToPlay}
       />
       <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
 
@@ -553,7 +556,7 @@ export default function Room() {
         hostUid={meta?.hostUid}
         onHostExit={handleHostExit}
         onPlayerExit={handlePlayerExit}
-        onShowHowToPlay={() => setShowHowToPlay(true)}
+        onShowHowToPlay={openHowToPlay}
         joinUrl={joinUrl}
         gameMode={meta?.gameMasterMode}
       />

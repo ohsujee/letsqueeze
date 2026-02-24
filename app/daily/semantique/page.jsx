@@ -9,6 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
 import HowToPlayModal from '@/components/ui/HowToPlayModal';
+import { useAutoHowToPlay } from '@/lib/hooks/useAutoHowToPlay';
 
 // ─── Normalisation accents (pour lookup Firebase) ────────────────────────────
 function stripAccents(str) {
@@ -494,7 +495,7 @@ export default function SemantiquePage() {
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('game');
   const [showStats, setShowStats] = useState(false);
-  const [showHelp, setShowHelp] = useState(false);
+  const { isOpen: showHelp, isAutoMode: htpAutoMode, close: closeHowToPlay, dismissForever: dismissHowToPlay, openManually: openHowToPlay } = useAutoHowToPlay('semantique');
   const [flashEntry, setFlashEntry] = useState(null);
   const inputRef = useRef(null);
   const scrollAreaRef = useRef(null);
@@ -635,7 +636,7 @@ export default function SemantiquePage() {
           <button className="sem-help-btn" onClick={() => setShowStats(true)} title="Statistiques">
             <BarChart2 size={18} />
           </button>
-          <button className="sem-help-btn" onClick={() => setShowHelp(true)} title="Comment jouer">
+          <button className="sem-help-btn" onClick={openHowToPlay} title="Comment jouer">
             <HelpCircle size={18} />
           </button>
         </div>
@@ -652,7 +653,7 @@ export default function SemantiquePage() {
       </div>
 
       {/* Modals */}
-      <HowToPlayModal isOpen={showHelp} onClose={() => setShowHelp(false)} gameType="semantique" />
+      <HowToPlayModal isOpen={showHelp} onClose={closeHowToPlay} gameType="semantique" showDismiss={htpAutoMode} onDismissForever={dismissHowToPlay} />
       <SemanticStatsModal isOpen={showStats} onClose={() => setShowStats(false)} stats={stats} streak={streak} />
 
       {/* Leaderboard tab */}
