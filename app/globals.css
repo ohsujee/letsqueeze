@@ -5814,6 +5814,8 @@ input[type="text"].game-search-input:focus,
   justify-content: center;
   gap: 6px;
   background: none;
+  -webkit-touch-callout: none;
+  user-select: none;
   border: none;
   cursor: pointer;
   padding: 10px 20px;

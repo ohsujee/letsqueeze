@@ -530,15 +530,10 @@ export default function SemantiquePage() {
     if (!vv) return;
     const update = () => {
       const kb = Math.max(0, window.innerHeight - vv.height);
-      setInputZoneBottom(kb > 150 ? kb : 0);
-      if (kb > 150) window.scrollTo({ top: 0, behavior: 'instant' });
+      setInputZoneBottom(kb > 50 ? kb : 0);
     };
     vv.addEventListener('resize', update);
-    vv.addEventListener('scroll', update);
-    return () => {
-      vv.removeEventListener('resize', update);
-      vv.removeEventListener('scroll', update);
-    };
+    return () => vv.removeEventListener('resize', update);
   }, []);
 
   // Restaurer l'état depuis localStorage

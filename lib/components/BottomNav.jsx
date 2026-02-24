@@ -28,6 +28,8 @@ export default function BottomNav() {
               href={tab.path}
               className={`nav-tab ${isActive ? 'active' : ''}`}
               prefetch={true}
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
             >
               {isActive && (
                 <motion.div
