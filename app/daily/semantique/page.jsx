@@ -51,6 +51,27 @@ function getStreakFlames(count) {
 
 // ─── Leaderboard helpers ──────────────────────────────────────────────────────
 const RANK_MEDAL = ['🥇', '🥈', '🥉'];
+
+// Sort 3 niveaux : score DESC → attempts ASC → timeMs ASC
+function sortLeaderboard(a, b) {
+  if ((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
+  if ((a.attempts || 0) !== (b.attempts || 0)) return (a.attempts || 0) - (b.attempts || 0);
+  return (a.timeMs || 0) - (b.timeMs || 0);
+}
+
+// Ranking olympique : même score + même attempts → même rang, le suivant saute
+function assignRanks(entries) {
+  const ranks = [];
+  for (let i = 0; i < entries.length; i++) {
+    if (i === 0) { ranks.push(1); continue; }
+    const p = entries[i - 1], c = entries[i];
+    if ((c.score || 0) === (p.score || 0) && (c.attempts || 0) === (p.attempts || 0))
+      ranks.push(ranks[i - 1]);
+    else
+      ranks.push(i + 1);
+  }
+  return ranks;
+}
 const RANK_CLASS = ['gold', 'silver', 'bronze'];
 const SEM_BAR_COLOR = [
   'linear-gradient(90deg,#FFD700,#FFA500)',
@@ -167,8 +188,10 @@ function LbRow({ entry, rank, isMe, subLabel, maxScore, animDelay = 0 }) {
 function LbRows({ entries, myUid, subLabel }) {
   const maxScore = Math.max(...entries.map((e) => e.score || 0), 1);
   const myEntry = myUid ? entries.find((e) => e.uid === myUid) : null;
-  const myRank = myEntry ? entries.findIndex((e) => e.uid === myUid) + 1 : 0;
+  const ranks = assignRanks(entries);
+  const myRank = myEntry ? ranks[entries.findIndex((e) => e.uid === myUid)] : 0;
   const top100 = entries.slice(0, 100);
+  const top100Ranks = ranks.slice(0, 100);
 
   if (entries.length === 0) {
     return (
@@ -193,7 +216,7 @@ function LbRows({ entries, myUid, subLabel }) {
           <LbRow
             key={entry.uid}
             entry={entry}
-            rank={idx + 1}
+            rank={top100Ranks[idx]}
             isMe={entry.uid === myUid}
             subLabel={subLabel}
             maxScore={maxScore}
@@ -256,7 +279,7 @@ function SemanticLeaderboard({ todayDate }) {
       ref(db, `daily/semantic/${todayDate}/leaderboard`),
       (snap) => {
         const raw = snap.exists()
-          ? Object.entries(snap.val()).map(([uid, v]) => ({ uid, ...v })).sort((a, b) => (b.score || 0) - (a.score || 0))
+          ? Object.entries(snap.val()).map(([uid, v]) => ({ uid, ...v })).sort(sortLeaderboard)
           : [];
         resolveNames(raw).then(setTodayEntries).catch(() => setTodayEntries(raw));
         setTodayLoading(false);
@@ -282,7 +305,7 @@ function SemanticLeaderboard({ todayDate }) {
             agg[uid].days += 1;
           });
         });
-        const sorted = Object.values(agg).sort((a, b) => b.score - a.score);
+        const sorted = Object.values(agg).sort(sortLeaderboard);
         const resolved = await resolveNames(sorted);
         setWeekEntries(resolved);
       } catch (e) {
