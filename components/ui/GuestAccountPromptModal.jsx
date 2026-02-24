@@ -217,7 +217,7 @@ export default function GuestAccountPromptModal({ currentUser, isHost, onConnect
       }
     } catch (err) {
       console.error('Google connection error:', err);
-      setError('Erreur de connexion');
+      setError(err.code ? `${err.code}: ${err.message}` : (err.message || 'Erreur de connexion'));
       setLoadingGoogle(false);
     }
   };
@@ -239,7 +239,7 @@ export default function GuestAccountPromptModal({ currentUser, isHost, onConnect
       if (err.code === 'auth/operation-not-allowed') {
         setError('Connexion Apple bientôt disponible !');
       } else {
-        setError('Erreur de connexion');
+        setError(err.code ? `${err.code}: ${err.message}` : (err.message || 'Erreur de connexion'));
       }
       setLoadingApple(false);
     }

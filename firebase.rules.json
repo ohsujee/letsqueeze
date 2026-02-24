@@ -342,6 +342,12 @@
         ".write": "root.child('admins').child(auth.uid).exists()"
       }
     },
+    "debug_logs": {
+      ".read": "root.child('admins').child(auth.uid).exists()",
+      "$logId": {
+        ".write": "auth != null"
+      }
+    },
     "stats": {
       "globalPlayCounts": {
         ".read": true,
