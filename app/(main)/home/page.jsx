@@ -294,10 +294,14 @@ function HomePageContent() {
 
   // Handle recharging hearts via rewarded ad
   const handleRechargeHearts = async () => {
-    const success = await rechargeHearts();
-    if (success) {
+    const result = await rechargeHearts();
+    if (result?.recharged) {
       setShowHeartsModal(false);
-      toast.success('❤ +5 cœurs rechargés !');
+      if (result.adPlayed) {
+        toast.success('❤ +5 cœurs rechargés !');
+      } else {
+        toast.success('❤ +5 cœurs rechargés ! (pub non dispo)');
+      }
     }
   };
 
