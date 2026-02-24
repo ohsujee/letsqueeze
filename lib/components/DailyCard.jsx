@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Share2, Flame } from 'lucide-react';
+import { CheckCircle, Fire } from '@phosphor-icons/react';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
 
 export default function DailyCard({ game }) {
@@ -45,7 +45,7 @@ export default function DailyCard({ game }) {
       {/* Top-left: Streak badge */}
       {loaded && streak.count > 1 && (
         <div className="daily-streak-pill">
-          <Flame size={11} />
+          <Fire weight="fill" size={12} />
           {streak.count}
         </div>
       )}
@@ -64,7 +64,7 @@ export default function DailyCard({ game }) {
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           onClick={handleShare}
         >
-          <CheckCircle2 size={13} />
+          <CheckCircle weight="fill" size={14} />
           Fait !
         </motion.div>
       )}

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { HelpCircle, Heart } from 'lucide-react';
+import { SealQuestion, Heart } from '@phosphor-icons/react';
 import { useCountdownTick, calculateCountdown } from '@/lib/hooks/useCountdownTick';
 
 export default function GameCard({
@@ -96,7 +96,7 @@ export default function GameCard({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
+          <Heart weight={isFavorite ? 'fill' : 'regular'} size={34} />
         </motion.button>
       )}
 
@@ -108,7 +108,7 @@ export default function GameCard({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          <HelpCircle size={18} />
+          <SealQuestion weight="fill" size={34} />
         </motion.button>
       )}
 

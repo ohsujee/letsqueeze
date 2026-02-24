@@ -24,7 +24,7 @@ import HomeHeader from '@/components/home/HomeHeader';
 import GameFilterBar from '@/components/home/GameFilterBar';
 import { useActiveGameCheck } from '@/lib/hooks/usePlayerCleanup';
 import { useToast } from '@/lib/hooks/useToast';
-import { Gamepad2, Heart } from 'lucide-react';
+import { GameController, Heart } from '@phosphor-icons/react';
 import DailyGamesSection from '@/components/home/DailyGamesSection';
 import { genUniqueCode } from '@/lib/utils';
 import { isFounder } from '@/lib/admin';
@@ -420,7 +420,7 @@ function HomePageContent() {
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <h2 className="section-title">
-              <Heart className="title-icon" size={24} fill="var(--brand-rose)" stroke="var(--brand-rose)" />
+              <Heart weight="fill" className="title-icon" size={24} style={{ color: 'var(--brand-rose)' }} />
               Favoris
             </h2>
             <div className="favorites-grid">
@@ -453,7 +453,7 @@ function HomePageContent() {
         >
           {favoriteGames.length > 0 && (
             <h2 className="section-title">
-              <Gamepad2 className="title-icon" size={24} strokeWidth={2.5} />
+              <GameController weight="fill" className="title-icon" size={24} />
               Tous les Jeux
             </h2>
           )}

@@ -4536,6 +4536,23 @@ input[type="text"].game-search-input:focus,
   filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
 }
 
+.daily-progress-counter {
+  margin-left: auto;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 4px 13px;
+  letter-spacing: 0.05em;
+  transition: background 0.3s, color 0.3s;
+}
+.daily-progress-counter.done {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
 /* Favorites Section */
 .favorites-section {
   margin-bottom: 2.5rem;
@@ -6010,16 +6027,26 @@ input[type="text"].game-search-input:focus,
 
 .game-card .card-action-btn.favorite {
   left: 12px;
+  background: transparent;
+  border-color: transparent;
+  padding: 0;
+}
+
+.game-card .card-action-btn.favorite:hover {
+  background: transparent;
 }
 
 .game-card .card-action-btn.favorite.active {
   color: #ef4444;
-  background: rgba(239, 68, 68, 0.25);
-  border-color: rgba(239, 68, 68, 0.4);
+  background: transparent;
+  border-color: transparent;
 }
 
 .game-card .card-action-btn.help {
   right: 12px;
+  background: transparent;
+  border-color: transparent;
+  padding: 0;
 }
 
 /* Heart Animation */
