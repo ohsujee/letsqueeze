@@ -109,6 +109,9 @@ function WordleGrid({ guesses, feedbacks, currentGuess, attempts, shake }) {
 function WordleKeyboard({ letterStates, onKey, onSubmit }) {
   return (
     <div className="wordle-keyboard">
+      <button className="wordle-submit-btn" onClick={onSubmit}>
+        Valider
+      </button>
       {AZERTY_ROWS.map((row, rowIdx) => (
         <div key={rowIdx} className="wordle-keyboard-row">
           {row.map((key) => {
@@ -126,9 +129,6 @@ function WordleKeyboard({ letterStates, onKey, onSubmit }) {
           })}
         </div>
       ))}
-      <button className="wordle-submit-btn" onClick={onSubmit}>
-        Valider
-      </button>
     </div>
   );
 }

@@ -13329,7 +13329,7 @@ input[type="text"].game-search-input:focus,
   align-self: center;
   flex-shrink: 0;
   background: transparent;
-  padding: clamp(8px, 1.5dvh, 14px) 8px clamp(10px, 2dvh, 18px);
+  padding: clamp(12px, 2.5dvh, 20px) 8px clamp(18px, 3.5dvh, 30px);
 }
 
 .wordle-keyboard-row {
@@ -13397,7 +13397,7 @@ input[type="text"].game-search-input:focus,
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 4px;
+  margin-bottom: clamp(6px, 1.5dvh, 12px);
   transition: background 0.1s, border-bottom-width 0.06s, transform 0.06s;
 }
 .wordle-submit-btn:active {
