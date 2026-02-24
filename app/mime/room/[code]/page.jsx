@@ -11,8 +11,6 @@ import LobbyWaitingIndicator from '@/components/game/LobbyWaitingIndicator';
 import { motion, AnimatePresence } from 'framer-motion';
 import LobbyHeader from '@/components/game/LobbyHeader';
 import MimeThemeSelectorModal from '@/components/game-mime/MimeThemeSelectorModal';
-import HowToPlayModal from '@/components/ui/HowToPlayModal';
-import { useAutoHowToPlay } from '@/lib/hooks/useAutoHowToPlay';
 import { GameLaunchCountdown } from '@/components/transitions';
 import { usePlayers } from '@/lib/hooks/usePlayers';
 import { usePlayerCleanup } from '@/lib/hooks/usePlayerCleanup';
@@ -45,7 +43,6 @@ export default function MimeLobbyPage() {
   const [myUid, setMyUid] = useState(null);
   const [isHost, setIsHost] = useState(false);
   const [showThemeSelector, setShowThemeSelector] = useState(false);
-  const { isOpen: showHowToPlay, isAutoMode: htpAutoMode, close: closeHowToPlay, dismissForever: dismissHowToPlay, openManually: openHowToPlay } = useAutoHowToPlay('mime');
   const [themes, setThemes] = useState(MIME_THEMES);
   const [themeSelection, setThemeSelection] = useState(null);
   const [isStarting, setIsStarting] = useState(false);
@@ -345,13 +342,6 @@ export default function MimeLobbyPage() {
         onSelectThemes={handleThemeChange}
         userIsPro={true} // TODO: intégrer useSubscription
       />
-      <HowToPlayModal
-        isOpen={showHowToPlay}
-        onClose={closeHowToPlay}
-        gameType="mime"
-        showDismiss={htpAutoMode}
-        onDismissForever={dismissHowToPlay}
-      />
 
       {/* Countdown de lancement */}
       <AnimatePresence>
@@ -375,7 +365,6 @@ export default function MimeLobbyPage() {
         hostUid={meta?.hostUid}
         onHostExit={handleHostExit}
         onPlayerExit={handlePlayerExit}
-        onShowHowToPlay={openHowToPlay}
         joinUrl={joinUrl}
       />
 

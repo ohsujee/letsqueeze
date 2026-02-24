@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, X, HelpCircle, UserX, WifiOff, Moon, Crown, Users, Sparkles } from 'lucide-react';
 import { ref, remove } from 'firebase/database';
 import { db } from '@/lib/firebase';
+import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 
 // Couleurs par variante (statique - hors composant)
 const VARIANT_COLORS = {
@@ -25,7 +26,6 @@ const VARIANT_COLORS = {
  * @param {string} props.roomPrefix - Préfixe Firebase
  * @param {string} props.hostUid - UID de l'hôte
  * @param {'quiz'|'deeztest'|'alibi'|'laregle'} props.variant - Thème couleur
- * @param {function} props.onShowHowToPlay - Callback pour ouvrir le modal Comment jouer
  * @param {'gamemaster'|'party'} props.gameMode - Mode de jeu (optionnel)
  */
 export default function LobbySettings({
@@ -34,10 +34,10 @@ export default function LobbySettings({
   roomPrefix = 'rooms',
   hostUid,
   variant = 'quiz',
-  onShowHowToPlay,
   gameMode
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { openManually } = useHowToPlay();
   const [confirmKick, setConfirmKick] = useState(null);
 
   const color = useMemo(() => VARIANT_COLORS[variant] || VARIANT_COLORS.quiz, [variant]);
@@ -59,9 +59,9 @@ export default function LobbySettings({
 
   const handleHowToPlay = () => {
     setIsOpen(false);
-    // Petit délai pour laisser la modal se fermer
+    // Petit délai pour laisser la modal settings se fermer
     setTimeout(() => {
-      onShowHowToPlay?.();
+      openManually?.();
     }, 150);
   };
 

@@ -5,6 +5,7 @@ import ExitButton from '@/lib/components/ExitButton';
 import LobbySettings from '@/components/game/LobbySettings';
 import ShareModal from '@/lib/components/ShareModal';
 import { HelpCircle } from 'lucide-react';
+import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 
 /**
  * LobbyHeader - Header unifié pour tous les lobbys de jeux
@@ -17,7 +18,6 @@ import { HelpCircle } from 'lucide-react';
  * @param {string} props.hostUid - UID de l'hôte
  * @param {function} props.onHostExit - Callback quand l'hôte quitte
  * @param {function} props.onPlayerExit - Callback quand un joueur quitte
- * @param {function} props.onShowHowToPlay - Callback pour ouvrir le modal "Comment jouer"
  * @param {string} props.joinUrl - URL de join pour le partage
  * @param {'gamemaster'|'party'} props.gameMode - Mode de jeu (optionnel)
  * @param {React.Ref} ref - Ref forwarded to ShareModal
@@ -30,10 +30,10 @@ const LobbyHeader = forwardRef(function LobbyHeader({
   hostUid,
   onHostExit,
   onPlayerExit,
-  onShowHowToPlay,
   joinUrl,
   gameMode
 }, ref) {
+  const { openManually } = useHowToPlay();
   // Config par variante
   const roomPrefixMap = {
     quiz: 'rooms',
@@ -71,13 +71,12 @@ const LobbyHeader = forwardRef(function LobbyHeader({
             roomPrefix={roomPrefix}
             hostUid={hostUid}
             variant={variant}
-            onShowHowToPlay={onShowHowToPlay}
             gameMode={gameMode}
           />
         ) : (
           /* Help button for non-host players */
-          onShowHowToPlay && (
-            <button className="header-help-btn" onClick={onShowHowToPlay}>
+          openManually && (
+            <button className="header-help-btn" onClick={openManually}>
               <HelpCircle size={22} />
             </button>
           )

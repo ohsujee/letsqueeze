@@ -8,8 +8,7 @@ import { ref, get, onValue } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
-import HowToPlayModal from '@/components/ui/HowToPlayModal';
-import { useAutoHowToPlay } from '@/lib/hooks/useAutoHowToPlay';
+import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 const WORD_LENGTH = 5;
@@ -594,7 +593,7 @@ export default function MotMysterePage() {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [wordError, setWordError] = useState('');
-  const { isOpen: showHelp, isAutoMode: htpAutoMode, close: closeHowToPlay, dismissForever: dismissHowToPlay, openManually: openHowToPlay } = useAutoHowToPlay('motmystere');
+  const { openManually: openHowToPlay } = useHowToPlay();
   const [showStats, setShowStats] = useState(false);
   const [activeTab, setActiveTab] = useState('game');
   const [elapsedMs, setElapsedMs] = useState(0);
@@ -858,7 +857,6 @@ export default function MotMysterePage() {
       </div>
 
       {/* Modals */}
-      <HowToPlayModal isOpen={showHelp} onClose={closeHowToPlay} gameType="motmystere" showDismiss={htpAutoMode} onDismissForever={dismissHowToPlay} />
       <WordleStatsModal
         isOpen={showStats}
         onClose={() => setShowStats(false)}

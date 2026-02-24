@@ -740,14 +740,24 @@ function VerdictInlineSection({ content }) {
 
 export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', showDismiss = false, onDismissForever }) {
   const [activeSection, setActiveSection] = useState(0);
+  const [dismissChecked, setDismissChecked] = useState(false);
   const game = GAMES_DATA[gameType] || GAMES_DATA.quiz;
 
-  // Reset section when modal opens or game changes
+  // Reset section + checkbox when modal opens or game changes
   useEffect(() => {
     if (isOpen) {
       setActiveSection(0);
+      setDismissChecked(false);
     }
   }, [isOpen, gameType]);
+
+  const handleClose = () => {
+    if (dismissChecked && onDismissForever) {
+      onDismissForever();
+    } else {
+      onClose();
+    }
+  };
 
   if (!isOpen || !game) return null;
 
@@ -852,15 +862,20 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
                     <ChevronRight size={18} />
                   </button>
                 ) : (
-                  <button className="htp-btn-done" onClick={onClose}>
-                    C'est compris !
+                  <button className="htp-btn-done" onClick={handleClose}>
+                    Compris !
                   </button>
                 )}
               </div>
               {showDismiss && onDismissForever && (
-                <button className="htp-btn-dismiss" onClick={onDismissForever}>
-                  Ne plus afficher
-                </button>
+                <label className="htp-dismiss-check">
+                  <input
+                    type="checkbox"
+                    checked={dismissChecked}
+                    onChange={e => setDismissChecked(e.target.checked)}
+                  />
+                  <span>Ne plus afficher</span>
+                </label>
               )}
             </div>
           </motion.div>
@@ -1281,7 +1296,7 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
             .htp-footer {
               display: flex;
               flex-direction: column;
-              gap: 10px;
+              gap: 12px;
               padding: 16px 24px 24px;
               border-top: 1px solid rgba(255, 255, 255, 0.05);
             }
@@ -1291,22 +1306,59 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
               gap: 12px;
             }
 
-            .htp-btn-dismiss {
-              background: none;
-              border: none;
-              color: rgba(255, 255, 255, 0.3);
-              font-family: 'Inter', sans-serif;
-              font-size: 0.8125rem;
+            .htp-dismiss-check {
+              display: flex;
+              align-items: center;
+              gap: 10px;
               cursor: pointer;
-              text-align: center;
-              padding: 4px 0;
-              transition: color 0.2s;
-              text-decoration: underline;
-              text-underline-offset: 3px;
+              user-select: none;
             }
 
-            .htp-btn-dismiss:hover {
-              color: rgba(255, 255, 255, 0.55);
+            .htp-dismiss-check input[type="checkbox"] {
+              appearance: none;
+              -webkit-appearance: none;
+              width: 18px;
+              height: 18px;
+              border: 2px solid rgba(255, 255, 255, 0.25);
+              border-radius: 4px;
+              background: transparent;
+              cursor: pointer;
+              flex-shrink: 0;
+              transition: border-color 0.15s, background 0.15s;
+              position: relative;
+            }
+
+            .htp-dismiss-check input[type="checkbox"]:checked {
+              background: rgba(255, 255, 255, 0.15);
+              border-color: rgba(255, 255, 255, 0.6);
+            }
+
+            .htp-dismiss-check input[type="checkbox"]:checked::after {
+              content: '';
+              position: absolute;
+              top: 1px;
+              left: 4px;
+              width: 6px;
+              height: 10px;
+              border: 2px solid white;
+              border-top: none;
+              border-left: none;
+              transform: rotate(45deg);
+            }
+
+            .htp-dismiss-check span {
+              font-family: 'Inter', sans-serif;
+              font-size: 0.8125rem;
+              color: rgba(255, 255, 255, 0.45);
+              transition: color 0.15s;
+            }
+
+            .htp-dismiss-check:hover span {
+              color: rgba(255, 255, 255, 0.7);
+            }
+
+            .htp-dismiss-check input[type="checkbox"]:checked + span {
+              color: rgba(255, 255, 255, 0.8);
             }
 
             .htp-btn-prev,

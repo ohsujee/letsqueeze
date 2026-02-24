@@ -7,8 +7,7 @@ import { Check, HelpCircle } from 'lucide-react';
 import MimeGame from '@/components/game-mime/MimeGame';
 import { MimeTheme, themeInfos } from '@/data/mime-words';
 import ExitButton from '@/lib/components/ExitButton';
-import HowToPlayModal from '@/components/ui/HowToPlayModal';
-import { useAutoHowToPlay } from '@/lib/hooks/useAutoHowToPlay';
+import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 import { useGameLimits } from '@/lib/hooks/useGameLimits';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { storage } from '@/lib/utils/storage';
@@ -20,7 +19,7 @@ export default function MimePage() {
   const router = useRouter();
   const [phase, setPhase] = useState<GamePhase>('lobby');
   const [selectedThemes, setSelectedThemes] = useState<MimeTheme[]>([]);
-  const { isOpen: showHowToPlay, isAutoMode: htpAutoMode, close: closeHowToPlay, dismissForever: dismissHowToPlay, openManually: openHowToPlay } = useAutoHowToPlay('mime');
+  const { openManually: openHowToPlay } = useHowToPlay();
   const gameRecordedRef = useRef(false);
 
   // Game limits for recording completion
@@ -79,13 +78,6 @@ export default function MimePage() {
   return (
     <div className="lobby-container mime game-page">
       {/* Modal How To Play */}
-      <HowToPlayModal
-        isOpen={showHowToPlay}
-        onClose={closeHowToPlay}
-        gameType="mime"
-        showDismiss={htpAutoMode}
-        onDismissForever={dismissHowToPlay}
-      />
 
       {/* Header */}
       <header className="lobby-header mime">

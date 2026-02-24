@@ -16,8 +16,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GameLaunchCountdown } from "@/components/transitions";
 import LobbyHeader from "@/components/game/LobbyHeader";
 import PaywallModal from "@/components/ui/PaywallModal";
-import HowToPlayModal from "@/components/ui/HowToPlayModal";
-import { useAutoHowToPlay } from "@/lib/hooks/useAutoHowToPlay";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePlayers } from "@/lib/hooks/usePlayers";
@@ -56,7 +54,6 @@ export default function DeezTestLobby() {
   const [isHost, setIsHost] = useState(false);
   const [joinUrl, setJoinUrl] = useState("");
   const [showPaywall, setShowPaywall] = useState(false);
-  const { isOpen: showHowToPlay, isAutoMode: htpAutoMode, close: closeHowToPlay, dismissForever: dismissHowToPlay, openManually: openHowToPlay } = useAutoHowToPlay('deeztest');
   const [showPlaylistSelector, setShowPlaylistSelector] = useState(false);
   const [showCountdown, setShowCountdown] = useState(false);
   const countdownTriggeredRef = useRef(false);
@@ -512,13 +509,6 @@ export default function DeezTestLobby() {
         contentType="playlist"
         contentName="Playlists illimitées"
       />
-      <HowToPlayModal
-        isOpen={showHowToPlay}
-        onClose={closeHowToPlay}
-        gameType="deeztest"
-        showDismiss={htpAutoMode}
-        onDismissForever={dismissHowToPlay}
-      />
       <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
 
       {/* Lobby Disconnect Alert */}
@@ -659,7 +649,6 @@ export default function DeezTestLobby() {
         hostUid={meta?.hostUid}
         onHostExit={handleHostExit}
         onPlayerExit={handlePlayerExit}
-        onShowHowToPlay={openHowToPlay}
         joinUrl={joinUrl}
         gameMode={meta?.gameMasterMode}
       />

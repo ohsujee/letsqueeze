@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Capacitor } from '@capacitor/core';
 import { App } from '@capacitor/app';
+import { HowToPlayProvider } from '@/lib/context/HowToPlayContext';
 
 /**
  * AppShell - Wrapper global pour le viewport
@@ -164,7 +165,9 @@ export function AppShell({ children }) {
 
   return (
     <div className="app-shell">
-      {children}
+      <HowToPlayProvider>
+        {children}
+      </HowToPlayProvider>
     </div>
   );
 }
