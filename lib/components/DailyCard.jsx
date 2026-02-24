@@ -28,6 +28,7 @@ export default function DailyCard({ game }) {
       className={`daily-game-card ${loaded ? todayState : 'loading'}`}
       data-game-id={game.id}
       onClick={handleClick}
+      onContextMenu={(e) => e.preventDefault()}
       whileHover={{ y: -6, scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
       style={{ cursor: 'pointer' }}

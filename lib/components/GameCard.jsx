@@ -59,6 +59,7 @@ export default function GameCard({
       className={`game-card ${game.comingSoon ? 'coming-soon' : ''}`}
       data-game={game.id}
       onClick={handleCardClick}
+      onContextMenu={(e) => e.preventDefault()}
       whileHover={game.comingSoon ? { y: -4, scale: 1.01 } : { y: -8, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       style={{ background: image ? undefined : getGradient() }}
