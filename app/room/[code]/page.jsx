@@ -25,6 +25,7 @@ import { usePresence } from "@/lib/hooks/usePresence";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { canAccessPack, isPro } from "@/lib/subscription";
+import { useHearts } from "@/lib/hooks/useHearts";
 import { useToast } from "@/lib/hooks/useToast";
 import { getQuizManifest } from "@/lib/utils/manifestCache";
 import { calculatePartyModeQuestions } from "@/lib/config/rooms";
@@ -61,6 +62,7 @@ export default function Room() {
 
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+  const { consumeHeart } = useHearts({ isPro: userIsPro });
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
@@ -196,6 +198,7 @@ export default function Room() {
 
   const handleStartGame = async () => {
     if (!isHost || !meta?.quizSelection?.themeIds?.length) return;
+    consumeHeart();
 
     try {
       const { themeIds, categoryName } = meta.quizSelection;

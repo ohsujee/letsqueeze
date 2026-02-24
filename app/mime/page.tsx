@@ -10,6 +10,7 @@ import ExitButton from '@/lib/components/ExitButton';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 import { useGameLimits } from '@/lib/hooks/useGameLimits';
 import { useSubscription } from '@/lib/hooks/useSubscription';
+import { useHearts } from '@/lib/hooks/useHearts';
 import { storage } from '@/lib/utils/storage';
 import { auth } from '@/lib/firebase';
 
@@ -25,6 +26,7 @@ export default function MimePage() {
   // Game limits for recording completion
   const { isPro } = useSubscription(auth.currentUser);
   const { recordGamePlayed } = useGameLimits('mime', isPro);
+  const { consumeHeart } = useHearts({ isPro });
 
   const handleToggleTheme = useCallback((theme: MimeTheme) => {
     setSelectedThemes(prev =>
@@ -36,9 +38,10 @@ export default function MimePage() {
 
   const handleStart = useCallback(() => {
     if (selectedThemes.length > 0) {
+      consumeHeart();
       setPhase('playing');
     }
-  }, [selectedThemes]);
+  }, [selectedThemes, consumeHeart]);
 
   const handleBackToLobby = useCallback(() => {
     // Record game as completed (only once per session)

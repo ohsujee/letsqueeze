@@ -17,6 +17,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GameLaunchCountdown } from "@/components/transitions";
 import LobbyHeader from "@/components/game/LobbyHeader";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { isPro } from "@/lib/subscription";
+import { useHearts } from "@/lib/hooks/useHearts";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
@@ -62,8 +64,10 @@ export default function LaLoiLobby() {
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laregle' });
 
   // Get user profile for pseudo
-  const { user: currentUser, profile, loading: profileLoading } = useUserProfile();
+  const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
+  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+  const { consumeHeart } = useHearts({ isPro: userIsPro });
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });
@@ -218,6 +222,7 @@ export default function LaLoiLobby() {
 
   const handleStartGame = async () => {
     if (!isHost || selectedInvestigators.length === 0) return;
+    consumeHeart();
 
     try {
       const updates = {};

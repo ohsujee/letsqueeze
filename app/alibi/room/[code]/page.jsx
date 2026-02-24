@@ -22,6 +22,7 @@ import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { useAlibiGroups } from "@/lib/hooks/useAlibiGroups";
 import { useAlibiGroupRotation } from "@/lib/hooks/useAlibiGroupRotation";
 import { canAccessPack, isPro, PRO_CONTENT } from "@/lib/subscription";
+import { useHearts } from "@/lib/hooks/useHearts";
 import { ALIBI_GROUP_CONFIG } from "@/lib/config/rooms";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
@@ -99,6 +100,7 @@ export default function AlibiLobby() {
   // Get user profile for subscription check and pseudo
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+  const { consumeHeart } = useHearts({ isPro: userIsPro });
 
   // Get pseudo from profile or fallback
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Hôte';
@@ -369,6 +371,7 @@ export default function AlibiLobby() {
 
   const handleStartGame = async () => {
     if (!isHost) return;
+    consumeHeart();
 
     // ========== PARTY MODE ==========
     if (isPartyMode) {

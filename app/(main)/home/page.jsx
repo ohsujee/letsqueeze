@@ -139,10 +139,8 @@ function HomePageContent() {
 
   // Actually create the game room and navigate
   const createAndNavigateToGame = async (game, gameMasterMode = 'gamemaster', audioMode = 'single') => {
-    // Consume a heart when actually creating/entering a game (non-Pro only)
-    consumeHeart();
-
     // Local games (like Mime) - no Firebase, direct navigation
+    // Note: consumeHeart() is called in each game's start handler, not here
     if (game.local) {
       router.push(game.path || `/${game.id}`);
       return;

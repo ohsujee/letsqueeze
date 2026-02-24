@@ -18,6 +18,8 @@ import { useRoomGuard } from '@/lib/hooks/useRoomGuard';
 import { usePresence } from '@/lib/hooks/usePresence';
 import { useWakeLock } from '@/lib/hooks/useWakeLock';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
+import { isPro } from '@/lib/subscription';
+import { useHearts } from '@/lib/hooks/useHearts';
 import { calculateMimeWords, MIME_CONFIG } from '@/lib/config/rooms';
 
 // Thèmes disponibles (chargés depuis /public/data/mime/*.json)
@@ -53,8 +55,10 @@ export default function MimeLobbyPage() {
   const shareModalRef = useRef(null);
 
   // User profile pour le pseudo
-  const { profile, loading: profileLoading } = useUserProfile();
+  const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userPseudo = profile?.pseudo || 'Hôte';
+  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+  const { consumeHeart } = useHearts({ isPro: userIsPro });
 
   // Wake lock
   useWakeLock({ enabled: true });
@@ -228,6 +232,7 @@ export default function MimeLobbyPage() {
   // Lancer la partie
   const handleStartGame = useCallback(async () => {
     if (!isHost || isStarting) return;
+    consumeHeart();
     if (activePlayers.length < MIME_CONFIG.MIN_PLAYERS) {
       alert(`Il faut au moins ${MIME_CONFIG.MIN_PLAYERS} joueurs pour commencer.`);
       return;
