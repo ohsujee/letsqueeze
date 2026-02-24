@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, HelpCircle, Trophy, Medal, BarChart2, X, Grid3X3, CornerDownLeft, Delete } from 'lucide-react';
+import { ArrowLeft, HelpCircle, Trophy, BarChart2, X, Grid3X3, Delete } from 'lucide-react';
 import { ref, get, onValue } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
@@ -16,7 +16,7 @@ const MAX_ATTEMPTS = 6;
 const AZERTY_ROWS = [
   ['A', 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
   ['Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M'],
-  ['ENTER', 'W', 'X', 'C', 'V', 'B', 'N', '⌫'],
+  ['W', 'X', 'C', 'V', 'B', 'N', '⌫'],
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -106,26 +106,29 @@ function WordleGrid({ guesses, feedbacks, currentGuess, attempts, shake }) {
 }
 
 // ─── WordleKeyboard ───────────────────────────────────────────────────────────
-function WordleKeyboard({ letterStates, onKey }) {
+function WordleKeyboard({ letterStates, onKey, onSubmit }) {
   return (
     <div className="wordle-keyboard">
       {AZERTY_ROWS.map((row, rowIdx) => (
         <div key={rowIdx} className="wordle-keyboard-row">
           {row.map((key) => {
             const state = letterStates[key] || '';
-            const extraClass = key === '⌫' ? 'action-delete' : key === 'ENTER' ? 'action-enter' : '';
+            const extraClass = key === '⌫' ? 'action-delete' : '';
             return (
               <button
                 key={key}
                 className={`wordle-key ${state} ${extraClass}`.trim()}
                 onClick={() => onKey(key)}
               >
-                {key === 'ENTER' ? <CornerDownLeft size={18} /> : key === '⌫' ? <Delete size={18} /> : key}
+                {key === '⌫' ? <Delete size={18} /> : key}
               </button>
             );
           })}
         </div>
       ))}
+      <button className="wordle-submit-btn" onClick={onSubmit}>
+        Valider
+      </button>
     </div>
   );
 }
@@ -892,7 +895,7 @@ export default function MotMysterePage() {
 
         {/* Keyboard - pinned at bottom while playing */}
         {!gameOver && (
-          <WordleKeyboard letterStates={letterStates} onKey={handleKey} />
+          <WordleKeyboard letterStates={letterStates} onKey={handleKey} onSubmit={() => handleKey('ENTER')} />
         )}
 
         {/* Result banner - replaces keyboard slot after game */}
