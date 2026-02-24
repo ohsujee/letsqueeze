@@ -123,7 +123,7 @@ function WordleKeyboard({ letterStates, onKey, onSubmit }) {
                 className={`wordle-key ${state} ${extraClass}`.trim()}
                 onClick={() => onKey(key)}
               >
-                {key === '⌫' ? <Delete size={18} /> : key}
+                {key === '⌫' ? <Delete size={24} /> : key}
               </button>
             );
           })}

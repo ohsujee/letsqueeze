@@ -13362,10 +13362,12 @@ input[type="text"].game-search-input:focus,
   justify-content: center;
 }
 
+
 .wordle-key:active {
   transform: translateY(3px);
   border-bottom-width: 1px;
 }
+.wordle-key.action-delete svg { margin-left: -3px; }
 
 /* ⌫ on row 3 — 1.5× wider, distinct color */
 .wordle-key.action-delete {
