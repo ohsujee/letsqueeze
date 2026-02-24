@@ -16,8 +16,6 @@ jobs:
 
       - name: Assign Wordle words for the next 7 days
         env:
-          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          FIREBASE_SERVICE_ACCOUNT_BASE64: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BASE64 }}
           FIREBASE_DATABASE_URL: https://letsqueeze-default-rtdb.europe-west1.firebasedatabase.app
-          FIREBASE_PROJECT_ID: letsqueeze
         run: python3 .github/scripts/wordle_weekly.py

@@ -1,4 +1,4 @@
-import json, os, hashlib, urllib.request
+import base64, json, os, hashlib, urllib.request
 from datetime import datetime, timedelta, timezone
 import firebase_admin
 from firebase_admin import credentials, db
@@ -12,15 +12,8 @@ with urllib.request.urlopen(url, timeout=30) as r:
 print(f"{len(words)} mots cibles charges.")
 
 # Init Firebase Admin
-# Strip surrounding quotes (if copied from .env.local format) + replace literal \n
-private_key = os.environ['FIREBASE_PRIVATE_KEY'].strip('"\'').replace('\\n', '\n')
-cred = credentials.Certificate({
-    "type": "service_account",
-    "project_id": os.environ['FIREBASE_PROJECT_ID'],
-    "private_key": private_key,
-    "client_email": os.environ['FIREBASE_CLIENT_EMAIL'],
-    "token_uri": "https://oauth2.googleapis.com/token",
-})
+service_account = json.loads(base64.b64decode(os.environ['FIREBASE_SERVICE_ACCOUNT_BASE64']))
+cred = credentials.Certificate(service_account)
 firebase_admin.initialize_app(cred, {
     'databaseURL': os.environ['FIREBASE_DATABASE_URL']
 })
