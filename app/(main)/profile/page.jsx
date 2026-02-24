@@ -142,8 +142,15 @@ export default function ProfilePage() {
         storage.remove('guestPromptDismissedAt');
       }
     } catch (err) {
-      console.error('Google connection error:', err);
-      setConnectError('Erreur de connexion Google');
+      console.error('[Auth] Google connection error:', err.code, err.message);
+      const msg = (err.message || '').toLowerCase();
+      if (msg.includes('cancel') || msg.includes('dismiss') || err.code === 'USER_CANCELLED') {
+        // Utilisateur a annulé → pas d'erreur affichée
+      } else if (err.code === 'auth/network-request-failed') {
+        setConnectError('Problème réseau, réessaie.');
+      } else {
+        setConnectError('Erreur de connexion Google');
+      }
       setConnectingGoogle(false);
     }
   };
