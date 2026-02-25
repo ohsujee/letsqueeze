@@ -38,6 +38,9 @@ admin.initializeApp({
 const db = admin.database();
 
 const entries = [
+  // Founders
+  { uid: 'Xjzwibrz2mRDLCNUCwWkjrkK8LS2', date: '2025-09-01' },
+  // Abonnés existants
   { uid: 'wkoRfPsKt3acVh42rO0mEfSprzc2', date: '2026-02-23' },
   { uid: '4igI1swgmoccuYFvkclipWvduvJ3', date: '2026-02-23' },
   { uid: 'df67WkZ7sWaLq7hiE5da64aiFv23', date: '2026-02-23' },
