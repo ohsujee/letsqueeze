@@ -2,6 +2,7 @@
 
 import { useRef, useCallback, useState } from 'react';
 import { Crown, Lock } from '@phosphor-icons/react';
+import EMVChip from './EMVChip';
 import './pro-card.css';
 
 const MONTHS_FR = ['JANV.', 'FÉVR.', 'MARS', 'AVR.', 'MAI', 'JUIN', 'JUIL.', 'AOÛT', 'SEPT.', 'OCT.', 'NOV.', 'DÉC.'];
@@ -88,7 +89,7 @@ export default function ProCard({ pseudo, memberNumber, memberSince, isAdmin = f
 
       {/* Chip EMV + Membre depuis */}
       <div className="pro-card-chip-row">
-        <div className="pro-card-chip" />
+        <EMVChip className="pro-card-chip" />
         {!isLocked && sinceDisplay && (
           <div className="pro-card-since">
             <span className="pro-card-since-label">Depuis</span>
