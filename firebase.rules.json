@@ -364,7 +364,7 @@
         },
         "$date": {
           "word": {
-            ".read": true,
+            ".read": "root.child('admins').child(auth.uid).exists()",
             ".write": "root.child('admins').child(auth.uid).exists()"
           },
           "word_length": {

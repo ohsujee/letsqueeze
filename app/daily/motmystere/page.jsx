@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Question, Trophy, ChartBar, X, GridNine, Backspace } from '@phosphor-icons/react';
-import { ref, get, onValue } from 'firebase/database';
+import { ref, onValue } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
@@ -142,7 +142,7 @@ function getStreakFlames(count) {
 }
 
 // ─── Result (slot clavier) ───────────────────────────────────────────────────
-function WordleResultBanner({ solved, attempts, timeMs, score, targetWord, stats, streak, onShowStats, onShowLeaderboard }) {
+function WordleResultBanner({ solved, attempts, timeMs, score, revealedWord, stats, streak, onShowStats, onShowLeaderboard }) {
   const minutes = Math.floor(timeMs / 60000);
   const seconds = Math.floor((timeMs % 60000) / 1000);
   const timeStr = minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
@@ -167,7 +167,7 @@ function WordleResultBanner({ solved, attempts, timeMs, score, targetWord, stats
             <p className="wres-sub">
               {solved
                 ? `${attempts} essai${attempts > 1 ? 's' : ''} · ${timeStr}`
-                : <>Le mot : <strong>{targetWord?.toUpperCase()}</strong></>
+                : <>Le mot : <strong>{revealedWord?.toUpperCase()}</strong></>
               }
             </p>
           </div>
@@ -607,7 +607,7 @@ export default function MotMysterePage() {
   const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, resetToday, loaded } =
     useDailyGame('motmystere', { forceDate: serverDate });
 
-  const [targetWord, setTargetWord] = useState(null);
+  const [revealedWord, setRevealedWord] = useState(null);
   const [validWords, setValidWords] = useState(null);
   const [guesses, setGuesses] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
@@ -619,6 +619,7 @@ export default function MotMysterePage() {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [wordError, setWordError] = useState('');
+  const checkingRef = useRef(false);
   const { openManually: openHowToPlay } = useHowToPlay();
   const [showStats, setShowStats] = useState(false);
   const [activeTab, setActiveTab] = useState('game');
@@ -632,30 +633,7 @@ export default function MotMysterePage() {
     return () => clearTimeout(t);
   }, [wordError]);
 
-  // 1. Charger le mot du jour depuis Firebase
-  useEffect(() => {
-    async function fetchWord() {
-      try {
-        const snap = await get(ref(db, `daily/wordle/${todayDate}/word`));
-        if (snap.exists()) {
-          setTargetWord(snap.val().toLowerCase());
-        } else {
-          // Fallback: mot déterministe par date
-          const words = ['chien', 'magie', 'brave', 'solde', 'fleur', 'monde', 'arbre', 'poule', 'table', 'noire'];
-          const dayIndex = Math.floor(new Date(todayDate).getTime() / 86400000);
-          setTargetWord(words[dayIndex % words.length]);
-        }
-      } catch (e) {
-        console.warn('[MotMystere] Firebase error, using fallback word:', e);
-        const words = ['chien', 'magie', 'brave', 'solde', 'fleur'];
-        const dayIndex = Math.floor(new Date(todayDate).getTime() / 86400000);
-        setTargetWord(words[dayIndex % words.length]);
-      }
-    }
-    if (todayDate) fetchWord();
-  }, [todayDate]);
-
-  // 2. Charger la liste de mots valides
+  // 1. Charger la liste de mots valides
   useEffect(() => {
     async function loadWords() {
       try {
@@ -680,38 +658,34 @@ export default function MotMysterePage() {
   useEffect(() => {
     if (!loaded) return;
     if (todayState === 'inprogress' && progress) {
-      // Invalider si le mot Firebase a changé depuis la dernière sauvegarde
-      if (targetWord && progress.targetWord !== targetWord) {
-        resetToday();
-        return;
-      }
-      setGuesses(progress.guesses || []);
-      setFeedbacks((progress.guesses || []).map((g) => computeFeedback(g, targetWord || '')));
-      updateLetterStates((progress.guesses || []).map((g) => computeFeedback(g, targetWord || '')), progress.guesses || []);
-    } else if (todayState === 'completed' && progress && targetWord) {
-      // Invalider si le mot a changé (inclut les anciens états sans targetWord)
-      if (progress.targetWord !== targetWord) {
-        resetToday();
-        return;
-      }
       const savedGuesses = progress.guesses || [];
+      const savedFeedbacks = progress.feedbacks || [];
+      setGuesses(savedGuesses);
+      setFeedbacks(savedFeedbacks);
+      updateLetterStates(savedFeedbacks, savedGuesses);
+    } else if (todayState === 'completed' && progress) {
+      const savedGuesses = progress.guesses || [];
+      const savedFeedbacks = progress.feedbacks || [];
       if (savedGuesses.length > 0) {
-        const restoredFeedbacks = savedGuesses.map((g) => computeFeedback(g, targetWord));
         setGuesses(savedGuesses);
-        setFeedbacks(restoredFeedbacks);
-        updateLetterStates(restoredFeedbacks, savedGuesses);
+        setFeedbacks(savedFeedbacks);
+        updateLetterStates(savedFeedbacks, savedGuesses);
       }
       setScore(progress.score || 0);
       setElapsedMs(progress.timeMs || 0);
-      setSolved(progress.solved ?? savedGuesses.length > 0);
+      const wasSolved = progress.solved ?? savedGuesses.length > 0;
+      setSolved(wasSolved);
+      if (!wasSolved && progress.revealedWord) {
+        setRevealedWord(progress.revealedWord);
+      }
       setShowResult(true);
       setGameOver(true);
     } else if (todayState === 'unplayed') {
-      startGame(targetWord);
+      startGame();
       startTimeRef.current = Date.now();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded, todayState, targetWord]);
+  }, [loaded, todayState]);
 
   // Start timer on first load (unplayed)
   useEffect(() => {
@@ -742,8 +716,8 @@ export default function MotMysterePage() {
 
   // ─── Input handling ───────────────────────────────────────────────────────
   const handleKey = useCallback(
-    (key) => {
-      if (gameOver || !targetWord) return;
+    async (key) => {
+      if (gameOver || checkingRef.current) return;
 
       if (key === '⌫' || key === 'BACKSPACE') {
         setCurrentGuess((g) => g.slice(0, -1));
@@ -767,39 +741,59 @@ export default function MotMysterePage() {
           return;
         }
 
-        const fb = computeFeedback(currentGuess, targetWord);
-        const newGuesses = [...guesses, currentGuess];
-        const newFeedbacks = [...feedbacks, fb];
-        const newAttempts = newGuesses.length;
-
-        setGuesses(newGuesses);
-        setFeedbacks(newFeedbacks);
-        setCurrentGuess('');
-        setWordError('');
-        updateLetterStates(newFeedbacks, newGuesses);
-
-        // Save progress
-        saveProgress(newGuesses, newAttempts);
-
-        const isWin = normalize(currentGuess) === normalize(targetWord);
-        const isLoss = !isWin && newAttempts >= MAX_ATTEMPTS;
-
-        if (isWin || isLoss) {
-          const timeMs = Date.now() - (startTimeRef.current || Date.now());
-          const finalScore = isWin ? computeScore(newAttempts, timeMs) : 0;
-          setScore(finalScore);
-          setElapsedMs(timeMs);
-          setSolved(isWin);
-          setGameOver(true);
-
-          setTimeout(() => setShowResult(true), isWin ? 1200 : 600);
-
-          completeGame({
-            solved: isWin,
-            attempts: newAttempts,
-            timeMs,
-            score: finalScore,
+        checkingRef.current = true;
+        try {
+          const newAttempts = guesses.length + 1;
+          const res = await fetch('/api/daily/wordle/check', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ guess: currentGuess, date: todayDate, attemptNumber: newAttempts }),
           });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Erreur API');
+
+          const fb = data.feedback;
+          const newGuesses = [...guesses, currentGuess];
+          const newFeedbacks = [...feedbacks, fb];
+
+          setGuesses(newGuesses);
+          setFeedbacks(newFeedbacks);
+          setCurrentGuess('');
+          setWordError('');
+          updateLetterStates(newFeedbacks, newGuesses);
+
+          saveProgress(newGuesses, newAttempts, newFeedbacks);
+
+          const isWin = data.isWin;
+          const isLoss = !isWin && newAttempts >= MAX_ATTEMPTS;
+
+          if (isWin || isLoss) {
+            const timeMs = Date.now() - (startTimeRef.current || Date.now());
+            const finalScore = isWin ? computeScore(newAttempts, timeMs) : 0;
+            setScore(finalScore);
+            setElapsedMs(timeMs);
+            setSolved(isWin);
+            setGameOver(true);
+
+            if (isLoss && data.revealedWord) {
+              setRevealedWord(data.revealedWord);
+            }
+
+            setTimeout(() => setShowResult(true), isWin ? 1200 : 600);
+
+            completeGame({
+              solved: isWin,
+              attempts: newAttempts,
+              timeMs,
+              score: finalScore,
+              revealedWord: isLoss ? (data.revealedWord || null) : null,
+            });
+          }
+        } catch (err) {
+          setWordError('Erreur réseau, réessaie');
+          console.error('[MotMystere] Check API error:', err);
+        } finally {
+          checkingRef.current = false;
         }
 
         return;
@@ -811,7 +805,7 @@ export default function MotMysterePage() {
         setWordError('');
       }
     },
-    [gameOver, targetWord, currentGuess, guesses, feedbacks, validWords, saveProgress, completeGame]
+    [gameOver, todayDate, currentGuess, guesses, feedbacks, validWords, saveProgress, completeGame]
   );
 
   // Physical keyboard
@@ -827,7 +821,7 @@ export default function MotMysterePage() {
   }, [handleKey]);
 
   // ─── Render ───────────────────────────────────────────────────────────────
-  if (!serverDate || !loaded || !targetWord) {
+  if (!serverDate || !loaded) {
     return (
       <div className="wordle-page">
         <div className="wordle-loading">
@@ -929,7 +923,7 @@ export default function MotMysterePage() {
               attempts={guesses.length}
               timeMs={elapsedMs}
               score={score}
-              targetWord={targetWord}
+              revealedWord={revealedWord}
               stats={stats}
               streak={streak}
               onShowStats={() => setShowStats(true)}
