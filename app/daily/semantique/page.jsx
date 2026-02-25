@@ -8,6 +8,7 @@ import { ref, get, onValue } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
+import { usePostGameAd } from '@/lib/hooks/useInterstitialAd';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 
 // ─── Normalisation accents (pour lookup Firebase) ────────────────────────────
@@ -517,11 +518,13 @@ export default function SemantiquePage() {
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('game');
   const [showStats, setShowStats] = useState(false);
+  const { triggerPostGameAd } = usePostGameAd();
   const { openManually: openHowToPlay } = useHowToPlay();
   const [flashEntry, setFlashEntry] = useState(null);
   const inputRef = useRef(null);
   const scrollAreaRef = useRef(null);
   const startTimeRef = useRef(null);
+  const freshCompletionRef = useRef(false);
 
   // Positionner l'input zone au-dessus du clavier via visualViewport
   const [inputZoneBottom, setInputZoneBottom] = useState(0);
@@ -535,6 +538,13 @@ export default function SemantiquePage() {
     vv.addEventListener('resize', update);
     return () => vv.removeEventListener('resize', update);
   }, []);
+
+  // Pub + switch vers classement après une completion fraîche (pas une restauration)
+  useEffect(() => {
+    if (!showResult || !freshCompletionRef.current) return;
+    triggerPostGameAd(() => setActiveTab('leaderboard'), { delay: 2000 });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showResult]);
 
   // Restaurer l'état depuis localStorage
   useEffect(() => {
@@ -611,6 +621,7 @@ export default function SemantiquePage() {
         setTargetWord(raw);
         localStorage.setItem(`lq_sem_target_${todayDate}`, raw);
         setGameOver(true);
+        freshCompletionRef.current = true;
         setTimeout(() => setShowResult(true), 800);
         completeGame({ solved: true, attempts: newGuesses.length, timeMs, score: gameScore });
       }

@@ -8,6 +8,7 @@ import { ref, onValue } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
+import { usePostGameAd } from '@/lib/hooks/useInterstitialAd';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 
 // ─── Constants ──────────────────────────────────────────────────────────────
@@ -620,9 +621,11 @@ export default function MotMysterePage() {
   const [showResult, setShowResult] = useState(false);
   const [wordError, setWordError] = useState('');
   const checkingRef = useRef(false);
+  const freshCompletionRef = useRef(false);
   const { openManually: openHowToPlay } = useHowToPlay();
   const [showStats, setShowStats] = useState(false);
   const [activeTab, setActiveTab] = useState('game');
+  const { triggerPostGameAd } = usePostGameAd();
   const [elapsedMs, setElapsedMs] = useState(0);
   const startTimeRef = useRef(null);
 
@@ -632,6 +635,13 @@ export default function MotMysterePage() {
     const t = setTimeout(() => setWordError(''), 1500);
     return () => clearTimeout(t);
   }, [wordError]);
+
+  // Pub + switch vers classement après une completion fraîche (pas une restauration)
+  useEffect(() => {
+    if (!showResult || !freshCompletionRef.current) return;
+    triggerPostGameAd(() => setActiveTab('leaderboard'), { delay: 2000 });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showResult]);
 
   // 1. Charger la liste de mots valides
   useEffect(() => {
@@ -779,6 +789,7 @@ export default function MotMysterePage() {
               setRevealedWord(data.revealedWord);
             }
 
+            freshCompletionRef.current = true;
             setTimeout(() => setShowResult(true), isWin ? 1200 : 600);
 
             completeGame({
