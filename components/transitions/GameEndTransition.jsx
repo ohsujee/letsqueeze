@@ -73,6 +73,24 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
       title: "Partie Terminée",
       subtitle: "Qui est le meilleur mimeur ?",
       icon: "theater"
+    },
+    "motmystere": {
+      gradient: ["rgba(16, 185, 129, 0.97)", "rgba(5, 150, 105, 0.97)"],
+      glow: "rgba(16, 185, 129, 0.6)",
+      accent: "#10b981",
+      accentGlow: "#34d399",
+      title: "Voyons le classement !",
+      subtitle: "Compare-toi aux autres joueurs du jour",
+      icon: "trophy"
+    },
+    "semantique": {
+      gradient: ["rgba(249, 115, 22, 0.97)", "rgba(234, 88, 12, 0.97)"],
+      glow: "rgba(249, 115, 22, 0.6)",
+      accent: "#f97316",
+      accentGlow: "#fb923c",
+      title: "Voyons le classement !",
+      subtitle: "Qui est le plus sémantique ?",
+      icon: "trophy"
     }
   };
 

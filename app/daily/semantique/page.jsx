@@ -9,6 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
 import { usePostGameAd } from '@/lib/hooks/useInterstitialAd';
+import { GameEndTransition } from '@/components/transitions';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 
 // ─── Normalisation accents (pour lookup Firebase) ────────────────────────────
@@ -514,17 +515,19 @@ export default function SemantiquePage() {
   const [input, setInput] = useState('');
   const [gameOver, setGameOver] = useState(false);
   const [showResult, setShowResult] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('game');
   const [showStats, setShowStats] = useState(false);
-  const { triggerPostGameAd } = usePostGameAd();
+  const { triggerPostGameAd, triggered: adTriggered } = usePostGameAd();
   const { openManually: openHowToPlay } = useHowToPlay();
   const [flashEntry, setFlashEntry] = useState(null);
   const inputRef = useRef(null);
   const scrollAreaRef = useRef(null);
   const startTimeRef = useRef(null);
   const freshCompletionRef = useRef(false);
+  const transitionTimerRef = useRef(null);
 
   // Positionner l'input zone au-dessus du clavier via visualViewport
   const [inputZoneBottom, setInputZoneBottom] = useState(0);
@@ -539,12 +542,23 @@ export default function SemantiquePage() {
     return () => vv.removeEventListener('resize', update);
   }, []);
 
-  // Pub + switch vers classement après une completion fraîche (pas une restauration)
+  // Transition + pub + switch vers classement après une completion fraîche (pas une restauration)
   useEffect(() => {
     if (!showResult || !freshCompletionRef.current) return;
-    triggerPostGameAd(() => setActiveTab('leaderboard'), { delay: 2000 });
+    transitionTimerRef.current = setTimeout(() => setShowTransition(true), 2000);
+    return () => clearTimeout(transitionTimerRef.current);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showResult]);
+
+  // Premier clic sur "Classement" après completion → annule la transition auto, déclenche la pub
+  const handleShowLeaderboard = useCallback(() => {
+    if (freshCompletionRef.current && !adTriggered.current) {
+      clearTimeout(transitionTimerRef.current);
+      triggerPostGameAd(() => setActiveTab('leaderboard'), { delay: 0 });
+    } else {
+      setActiveTab('leaderboard');
+    }
+  }, [triggerPostGameAd, adTriggered]);
 
   // Restaurer l'état depuis localStorage
   useEffect(() => {
@@ -705,7 +719,7 @@ export default function SemantiquePage() {
                   streak={streak}
                   targetWord={targetWord}
                   onShowStats={() => setShowStats(true)}
-                  onShowLeaderboard={() => setActiveTab('leaderboard')}
+                  onShowLeaderboard={handleShowLeaderboard}
                 />
               )}
             </AnimatePresence>
@@ -781,6 +795,21 @@ export default function SemantiquePage() {
           )}
         </main>
       )}
+
+      <AnimatePresence>
+        {showTransition && (
+          <GameEndTransition
+            variant="semantique"
+            duration={2500}
+            onComplete={() => {
+              triggerPostGameAd(() => {
+                setActiveTab('leaderboard');
+                setShowTransition(false);
+              }, { delay: 0 });
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

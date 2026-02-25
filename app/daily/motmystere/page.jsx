@@ -10,6 +10,7 @@ import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
 import { usePostGameAd } from '@/lib/hooks/useInterstitialAd';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
+import { GameEndTransition } from '@/components/transitions';
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 const WORD_LENGTH = 5;
@@ -619,13 +620,15 @@ export default function MotMysterePage() {
   const [letterStates, setLetterStates] = useState({});
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
   const [wordError, setWordError] = useState('');
   const checkingRef = useRef(false);
   const freshCompletionRef = useRef(false);
+  const transitionTimerRef = useRef(null);
   const { openManually: openHowToPlay } = useHowToPlay();
   const [showStats, setShowStats] = useState(false);
   const [activeTab, setActiveTab] = useState('game');
-  const { triggerPostGameAd } = usePostGameAd();
+  const { triggerPostGameAd, triggered: adTriggered } = usePostGameAd();
   const [elapsedMs, setElapsedMs] = useState(0);
   const startTimeRef = useRef(null);
 
@@ -636,12 +639,23 @@ export default function MotMysterePage() {
     return () => clearTimeout(t);
   }, [wordError]);
 
-  // Pub + switch vers classement après une completion fraîche (pas une restauration)
+  // Transition + pub + switch vers classement après une completion fraîche (pas une restauration)
   useEffect(() => {
     if (!showResult || !freshCompletionRef.current) return;
-    triggerPostGameAd(() => setActiveTab('leaderboard'), { delay: 2000 });
+    transitionTimerRef.current = setTimeout(() => setShowTransition(true), 2000);
+    return () => clearTimeout(transitionTimerRef.current);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showResult]);
+
+  // Premier clic sur "Classement" après completion → annule la transition auto, déclenche la pub
+  const handleShowLeaderboard = useCallback(() => {
+    if (freshCompletionRef.current && !adTriggered.current) {
+      clearTimeout(transitionTimerRef.current);
+      triggerPostGameAd(() => setActiveTab('leaderboard'), { delay: 0 });
+    } else {
+      setActiveTab('leaderboard');
+    }
+  }, [triggerPostGameAd, adTriggered]);
 
   // 1. Charger la liste de mots valides
   useEffect(() => {
@@ -938,11 +952,26 @@ export default function MotMysterePage() {
               stats={stats}
               streak={streak}
               onShowStats={() => setShowStats(true)}
-              onShowLeaderboard={() => setActiveTab('leaderboard')}
+              onShowLeaderboard={handleShowLeaderboard}
             />
           )}
         </AnimatePresence>
       </main>}
+
+      <AnimatePresence>
+        {showTransition && (
+          <GameEndTransition
+            variant="motmystere"
+            duration={2500}
+            onComplete={() => {
+              triggerPostGameAd(() => {
+                setActiveTab('leaderboard');
+                setShowTransition(false);
+              }, { delay: 0 });
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
