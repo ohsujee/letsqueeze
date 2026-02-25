@@ -962,7 +962,7 @@ export default function MotMysterePage() {
         {showTransition && (
           <GameEndTransition
             variant="motmystere"
-            duration={2500}
+            duration={1500}
             onComplete={() => {
               triggerPostGameAd(() => {
                 setActiveTab('leaderboard');

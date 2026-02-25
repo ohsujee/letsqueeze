@@ -800,7 +800,7 @@ export default function SemantiquePage() {
         {showTransition && (
           <GameEndTransition
             variant="semantique"
-            duration={2500}
+            duration={1500}
             onComplete={() => {
               triggerPostGameAd(() => {
                 setActiveTab('leaderboard');
