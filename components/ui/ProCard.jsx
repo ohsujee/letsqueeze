@@ -7,6 +7,7 @@ import './pro-card.css';
 
 const MONTHS_FR = ['JANV.', 'FÉVR.', 'MARS', 'AVR.', 'MAI', 'JUIN', 'JUIL.', 'AOÛT', 'SEPT.', 'OCT.', 'NOV.', 'DÉC.'];
 
+
 function formatMemberSince(timestamp) {
   if (!timestamp) return null;
   const date = new Date(timestamp);
@@ -77,6 +78,7 @@ export default function ProCard({ pseudo, memberNumber, memberSince, isAdmin = f
       }}
     >
       <div className="pro-card-shimmer" />
+      <img src="/images/guilloche-pattern.svg" className="pro-card-guilloche" aria-hidden="true" alt="" />
 
       {/* Top: brand + Giggly */}
       <div className="pro-card-top">
