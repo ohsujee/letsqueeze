@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, auth, signOutUser, signInWithGoogle, signInWithApple, db } from '@/lib/firebase';
 import { deleteUser } from 'firebase/auth';
@@ -40,6 +40,28 @@ export default function ProfilePage() {
   const [newPseudo, setNewPseudo] = useState('');
   const [pseudoError, setPseudoError] = useState('');
   const [savingPseudo, setSavingPseudo] = useState(false);
+
+  // Pro card tilt 3D
+  const cardRef = useRef(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [isTilting, setIsTilting] = useState(false);
+
+  const handleTiltMove = useCallback((e) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const rotateX = (((clientY - rect.top) / rect.height) - 0.5) * -18;
+    const rotateY = (((clientX - rect.left) / rect.width) - 0.5) * 18;
+    setTilt({ x: rotateX, y: rotateY });
+    setIsTilting(true);
+  }, []);
+
+  const handleTiltEnd = useCallback(() => {
+    setTilt({ x: 0, y: 0 });
+    setIsTilting(false);
+  }, []);
 
   // Delete account state
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -313,38 +335,66 @@ export default function ProfilePage() {
         <section className="subscription-section">
           {isPro ? (
             <>
-              <div className="pro-status-card">
+              <div
+                ref={cardRef}
+                className="pro-status-card"
+                onTouchMove={handleTiltMove}
+                onTouchEnd={handleTiltEnd}
+                onMouseMove={handleTiltMove}
+                onMouseLeave={handleTiltEnd}
+                style={{
+                  transform: `perspective(700px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+                  transition: isTilting ? 'none' : 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                }}
+              >
                 <div className="pro-card-shimmer" />
-                <div className="pro-status-header">
-                  <div className="pro-crown-icon">
-                    <Crown size={24} weight="fill" />
+
+                {/* Top: brand + Giggly */}
+                <div className="pro-card-top">
+                  <div className="pro-card-brand">
+                    <Crown size={12} weight="fill" />
+                    <span>GIGGLZ PRO</span>
                   </div>
-                  <div className="pro-status-info">
-                    <h2 className="pro-status-title">Gigglz Pro</h2>
-                    <p className="pro-status-desc">Tous les avantages débloqués</p>
-                    {isAdmin
-                      ? <p className="pro-member-number">N° 000000</p>
-                      : memberNumber != null
-                        ? <p className="pro-member-number">N° {String(memberNumber).padStart(6, '0')}</p>
-                        : null
-                    }
-                    {!isAdmin && subscription?.expiresAt && (
-                      <p className="pro-status-expiry">Valide jusqu'au {new Date(subscription.expiresAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                    )}
+                  <img
+                    src="/images/mascot/giggly-carte.webp"
+                    alt=""
+                    className="pro-card-giggly"
+                  />
+                </div>
+
+                {/* Chip EMV */}
+                <div className="pro-card-chip">
+                  {[...Array(9)].map((_, i) => <div key={i} className="pro-card-chip-cell" />)}
+                </div>
+
+                {/* Bottom: cardholder + numéro */}
+                <div className="pro-card-bottom">
+                  <div className="pro-card-holder">
+                    <span className="pro-card-label">Membre</span>
+                    <span className="pro-card-name">
+                      {(profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Membre').toUpperCase()}
+                    </span>
+                  </div>
+                  <div className="pro-card-number-wrap">
+                    <span className="pro-card-label">Numéro</span>
+                    <span className="pro-card-num">
+                      {isAdmin ? 'N° 000000' : memberNumber != null ? `N° ${String(memberNumber).padStart(6, '0')}` : '—'}
+                    </span>
                   </div>
                 </div>
 
+                {/* Benefits strip */}
                 <div className="pro-benefits-row">
                   <div className="pro-benefit-item">
-                    <Infinity size={18} weight="bold" />
+                    <Infinity size={16} weight="bold" />
                     <span>Illimité</span>
                   </div>
                   <div className="pro-benefit-item">
-                    <Prohibit size={18} weight="bold" />
+                    <Prohibit size={16} weight="bold" />
                     <span>Sans pub</span>
                   </div>
                   <div className="pro-benefit-item">
-                    <Package size={18} weight="fill" />
+                    <Package size={16} weight="fill" />
                     <span>Tous packs</span>
                   </div>
                 </div>

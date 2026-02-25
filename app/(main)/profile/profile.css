@@ -168,6 +168,11 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 0 #8a5c10, 0 8px 28px rgba(184, 134, 42, 0.25);
+  transform-style: preserve-3d;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
 .pro-card-shimmer {
@@ -192,59 +197,99 @@
   55%, 100% { left: 150%; }
 }
 
-.pro-status-header {
+/* Card top row */
+.pro-card-top {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
   position: relative;
   z-index: 2;
 }
 
-.pro-crown-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.18);
+.pro-card-brand {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #2d1a00;
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
-  flex-shrink: 0;
-}
-
-.pro-status-title {
+  gap: 5px;
   font-family: var(--font-title, 'Bungee'), cursive;
-  font-size: 1.125rem;
-  font-weight: 400;
-  color: #1a1000;
-  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(30, 18, 0, 0.85);
+  letter-spacing: 0.06em;
 }
 
-.pro-status-desc {
+.pro-card-giggly {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  margin-top: -14px;
+  margin-right: -8px;
+  opacity: 0.88;
+  pointer-events: none;
+}
+
+/* Chip EMV */
+.pro-card-chip {
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(135deg, #c49a2a, #f0cc60, #c08818);
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 4px;
+  gap: 2px;
+  position: relative;
+  z-index: 2;
+}
+
+.pro-card-chip-cell {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 1px;
+}
+
+.pro-card-chip-cell:nth-child(5) {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+/* Card bottom */
+.pro-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  z-index: 2;
+}
+
+.pro-card-label {
   font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 0.8125rem;
-  color: rgba(40, 25, 0, 0.65);
-  margin: 0.25rem 0 0 0;
-}
-
-.pro-member-number {
-  font-family: 'Courier New', 'Courier', monospace;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: rgba(30, 18, 0, 0.55);
-  margin: 0.2rem 0 0 0;
+  font-size: 0.45rem;
+  letter-spacing: 0.2em;
+  color: rgba(30, 18, 0, 0.5);
   text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
 }
 
+.pro-card-name {
+  font-family: 'Courier New', 'Courier', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #1a1000;
+  letter-spacing: 0.08em;
+}
 
-.pro-status-expiry {
-  font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 0.75rem;
-  color: rgba(40, 25, 0, 0.55);
-  margin: 0.2rem 0 0 0;
+.pro-card-number-wrap {
+  text-align: right;
+}
+
+.pro-card-num {
+  font-family: 'Courier New', 'Courier', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #1a1000;
+  letter-spacing: 0.12em;
+  display: block;
 }
 
 .pro-benefits-row {
