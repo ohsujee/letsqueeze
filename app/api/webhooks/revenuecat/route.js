@@ -90,6 +90,31 @@ async function assignMemberNumber(userId) {
 }
 
 // ============================================
+// MEMBER SINCE ASSIGNMENT
+// ============================================
+
+/**
+ * Enregistre la date du premier abonnement de façon permanente.
+ * Jamais écrasée, même si l'utilisateur se désabonne et se réabonne.
+ */
+async function assignMemberSince(userId, purchasedAtMs) {
+  const app = getFirebaseAdmin();
+  if (!app) return;
+
+  const db = admin.database();
+  const memberSinceRef = db.ref(`users/${userId}/memberSince`);
+
+  const snap = await memberSinceRef.get();
+  if (snap.exists()) {
+    console.log(`[Webhook] User ${userId} already has memberSince ${snap.val()}`);
+    return;
+  }
+
+  await memberSinceRef.set(purchasedAtMs);
+  console.log(`[Webhook] Set memberSince ${purchasedAtMs} for user ${userId}`);
+}
+
+// ============================================
 // EVENT TYPES
 // ============================================
 
@@ -215,9 +240,10 @@ export async function POST(request) {
 
       console.log(`[Webhook] Granted Pro to user ${userId} (${eventType})`);
 
-      // Assigner un numéro de membre permanent (seulement au premier achat)
+      // Assigner numéro + date de membre permanents (seulement au premier achat)
       if (eventType === 'INITIAL_PURCHASE') {
         await assignMemberNumber(userId);
+        await assignMemberSince(userId, event.purchased_at_ms || Date.now());
       }
     }
     else if (PRO_REVOKING_EVENTS.includes(eventType)) {

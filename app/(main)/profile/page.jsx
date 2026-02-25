@@ -28,7 +28,7 @@ export default function ProfilePage() {
   const [notifications, setNotifications] = useState(true);
   const [hueEffectsEnabled, setHueEffectsEnabled] = useState(true);
   const [hueConnected, setHueConnected] = useState(false);
-  const { profile, cachedPseudo, subscription, memberNumber } = useUserProfile();
+  const { profile, cachedPseudo, subscription, memberNumber, memberSince } = useUserProfile();
   const userWithSubscription = useMemo(() => user ? { ...user, subscription } : null, [user, subscription]);
   const { isPro, isAdmin } = useSubscription(userWithSubscription);
   const { isAndroid } = usePlatform();
@@ -317,6 +317,7 @@ export default function ProfilePage() {
               <ProCard
                 pseudo={profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0]}
                 memberNumber={memberNumber}
+                memberSince={memberSince}
                 isAdmin={isAdmin}
               />
 

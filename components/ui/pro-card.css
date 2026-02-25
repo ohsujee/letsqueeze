@@ -83,6 +83,39 @@
   pointer-events: none;
 }
 
+/* Pattern décoratif guilloché */
+.pro-status-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      30deg,
+      transparent 0px,
+      transparent 18px,
+      rgba(0, 0, 0, 0.035) 18px,
+      rgba(0, 0, 0, 0.035) 19px
+    ),
+    repeating-linear-gradient(
+      -30deg,
+      transparent 0px,
+      transparent 18px,
+      rgba(0, 0, 0, 0.035) 18px,
+      rgba(0, 0, 0, 0.035) 19px
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Chip EMV row */
+.pro-card-chip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
 /* Chip EMV */
 .pro-card-chip {
   width: 54px;
@@ -91,7 +124,6 @@
   border-radius: 7px;
   border: 1px solid rgba(0, 0, 0, 0.18);
   position: relative;
-  z-index: 2;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.1);
   overflow: hidden;
 }
@@ -107,6 +139,32 @@
     linear-gradient(90deg, transparent calc(50% - 0.5px), rgba(0,0,0,0.18) calc(50% - 0.5px), rgba(0,0,0,0.18) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
     linear-gradient(transparent calc(33% - 0.5px), rgba(0,0,0,0.18) calc(33% - 0.5px), rgba(0,0,0,0.18) calc(33% + 0.5px), transparent calc(33% + 0.5px)),
     linear-gradient(transparent calc(67% - 0.5px), rgba(0,0,0,0.18) calc(67% - 0.5px), rgba(0,0,0,0.18) calc(67% + 0.5px), transparent calc(67% + 0.5px));
+}
+
+/* Membre depuis */
+.pro-card-since {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.pro-card-since-label {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: rgba(30, 18, 0, 0.5);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.pro-card-since-date {
+  font-family: 'Courier New', 'Courier', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #1a1000;
+  letter-spacing: 0.06em;
+  line-height: 1;
 }
 
 /* Bottom */

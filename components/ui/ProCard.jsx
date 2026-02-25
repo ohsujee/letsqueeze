@@ -4,15 +4,24 @@ import { useRef, useCallback, useState } from 'react';
 import { Crown, Lock } from '@phosphor-icons/react';
 import './pro-card.css';
 
+const MONTHS_FR = ['JANV.', 'FÉVR.', 'MARS', 'AVR.', 'MAI', 'JUIN', 'JUIL.', 'AOÛT', 'SEPT.', 'OCT.', 'NOV.', 'DÉC.'];
+
+function formatMemberSince(timestamp) {
+  if (!timestamp) return null;
+  const date = new Date(timestamp);
+  return `${MONTHS_FR[date.getMonth()]} ${date.getFullYear()}`;
+}
+
 /**
  * Carte Pro réutilisable — style crédit card gold avec tilt 3D
  *
  * @param {string}  pseudo       - Nom du membre affiché sur la carte
  * @param {number}  memberNumber - Numéro de membre (null si pas encore assigné)
+ * @param {number}  memberSince  - Timestamp du premier abonnement
  * @param {boolean} isAdmin      - Affiche N° 000000 (founders)
  * @param {boolean} isLocked     - Mode aperçu : carte désaturée + N° ?????? + cadenas
  */
-export default function ProCard({ pseudo, memberNumber, isAdmin = false, isLocked = false }) {
+export default function ProCard({ pseudo, memberNumber, memberSince, isAdmin = false, isLocked = false }) {
   const cardRef = useRef(null);
   const rafRef = useRef(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -51,6 +60,8 @@ export default function ProCard({ pseudo, memberNumber, isAdmin = false, isLocke
         ? `N° ${String(memberNumber).padStart(6, '0')}`
         : '—';
 
+  const sinceDisplay = formatMemberSince(memberSince);
+
   return (
     <div
       ref={cardRef}
@@ -75,8 +86,16 @@ export default function ProCard({ pseudo, memberNumber, isAdmin = false, isLocke
         <img src="/images/mascot/giggly-carte.webp" alt="" className="pro-card-giggly" />
       </div>
 
-      {/* Chip EMV */}
-      <div className="pro-card-chip" />
+      {/* Chip EMV + Membre depuis */}
+      <div className="pro-card-chip-row">
+        <div className="pro-card-chip" />
+        {!isLocked && sinceDisplay && (
+          <div className="pro-card-since">
+            <span className="pro-card-since-label">Depuis</span>
+            <span className="pro-card-since-date">{sinceDisplay}</span>
+          </div>
+        )}
+      </div>
 
       {/* Bottom: cardholder + numéro */}
       <div className="pro-card-bottom">
