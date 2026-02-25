@@ -12,7 +12,8 @@
   box-shadow: 0 4px 0 #8a5c10, 0 8px 28px rgba(184, 134, 42, 0.25);
 }
 
-.pro-card-scene.locked {
+.pro-card-scene.locked .pro-status-card,
+.pro-card-scene.locked .pro-card-back-face {
   filter: saturate(0.6) brightness(0.92);
 }
 
