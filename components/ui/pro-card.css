@@ -81,7 +81,7 @@
   align-items: center;
   gap: 1.8cqw;
   font-family: var(--font-title, 'Bungee'), cursive;
-  font-size: 3.5cqw;
+  font-size: 5cqw;
   color: rgba(30, 18, 0, 0.85);
   letter-spacing: 0.06em;
 }

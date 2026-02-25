@@ -83,7 +83,7 @@ export default function ProCard({ pseudo, memberNumber, memberSince, isAdmin = f
       {/* Top: brand + Giggly */}
       <div className="pro-card-top">
         <div className="pro-card-brand">
-          <Crown size={12} weight="fill" />
+          <Crown size={16} weight="fill" />
           <span>GIGGLZ PRO</span>
         </div>
         <img src="/images/mascot/giggly-carte.webp" alt="" className="pro-card-giggly" />
