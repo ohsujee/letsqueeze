@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, HelpCircle, Trophy, BarChart2, X, Grid3X3, Delete } from 'lucide-react';
+import { ArrowLeft, Question, Trophy, ChartBar, X, GridNine, Backspace } from '@phosphor-icons/react';
 import { ref, get, onValue } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
@@ -123,7 +123,7 @@ function WordleKeyboard({ letterStates, onKey, onSubmit }) {
                 className={`wordle-key ${state} ${extraClass}`.trim()}
                 onClick={() => onKey(key)}
               >
-                {key === '⌫' ? <Delete size={24} /> : key}
+                {key === '⌫' ? <Backspace size={24} weight="fill" /> : key}
               </button>
             );
           })}
@@ -198,10 +198,10 @@ function WordleResultBanner({ solved, attempts, timeMs, score, targetWord, stats
       {/* CTAs */}
       <div className="wres-actions">
         <button className="wres-btn secondary" onClick={onShowStats}>
-          <BarChart2 size={15} /> Statistiques
+          <ChartBar size={15} weight="fill" /> Statistiques
         </button>
         <button className="wres-btn primary" onClick={onShowLeaderboard}>
-          <Trophy size={15} /> Classement
+          <Trophy size={15} weight="fill" /> Classement
         </button>
       </div>
     </motion.div>
@@ -234,7 +234,7 @@ function WordleStatsModal({ isOpen, onClose, stats, streak, currentAttempts, sol
           >
             <div className="wsm-header">
               <h3 className="wsm-title">Mes statistiques</h3>
-              <button className="wsm-close" onClick={onClose}><X size={16} /></button>
+              <button className="wsm-close" onClick={onClose}><X size={16} weight="fill" /></button>
             </div>
 
             <div className="wsm-stats-row">
@@ -843,15 +843,15 @@ export default function MotMysterePage() {
       {/* Header */}
       <header className="wordle-header">
         <button className="wordle-back-btn" onClick={() => router.push('/home')}>
-          <ArrowLeft size={20} />
+          <ArrowLeft size={20} weight="fill" />
         </button>
         <h1 className="wordle-title">Mot Mystère</h1>
         <div className="wordle-header-actions">
           <button className="wordle-help-btn" onClick={() => setShowStats(true)} title="Statistiques">
-            <BarChart2 size={18} />
+            <ChartBar size={18} weight="fill" />
           </button>
           <button className="wordle-help-btn" onClick={openHowToPlay} title="Comment jouer">
-            <HelpCircle size={18} />
+            <Question size={18} weight="fill" />
           </button>
         </div>
       </header>
@@ -860,10 +860,10 @@ export default function MotMysterePage() {
       <div className="wordle-tabs">
         <div className="wordle-tabs-content">
           <button className={`wordle-tab ${activeTab === 'game' ? 'active' : ''}`} onClick={() => setActiveTab('game')}>
-            <Grid3X3 size={14} /> Jeu
+            <GridNine size={14} weight="fill" /> Jeu
           </button>
           <button className={`wordle-tab ${activeTab === 'leaderboard' ? 'active' : ''}`} onClick={() => setActiveTab('leaderboard')}>
-            <Trophy size={14} /> Classement
+            <Trophy size={14} weight="fill" /> Classement
           </button>
         </div>
         <AnimatePresence>

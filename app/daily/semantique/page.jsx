@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Brain, Trophy, BarChart2, HelpCircle, X, Send } from 'lucide-react';
+import { ArrowLeft, TextT, Trophy, ChartBar, Question, X, PaperPlaneTilt, Lightbulb } from '@phosphor-icons/react';
 import { ref, get, onValue } from 'firebase/database';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
@@ -378,7 +378,7 @@ function SemanticStatsModal({ isOpen, onClose, stats, streak }) {
           >
             <div className="wsm-header">
               <h3 className="wsm-title" style={{ color: '#f97316' }}>Mes statistiques</h3>
-              <button className="wsm-close" onClick={onClose}><X size={16} /></button>
+              <button className="wsm-close" onClick={onClose}><X size={16} weight="fill" /></button>
             </div>
             <div className="wsm-stats-row">
               <div className="wsm-stat"><span className="wsm-stat-val">{stats.played}</span><span className="wsm-stat-lbl">Parties</span></div>
@@ -441,10 +441,10 @@ function SemanticResultBanner({ attempts, score, stats, streak, targetWord, onSh
 
       <div className="wres-actions">
         <button className="sres-btn secondary" onClick={onShowStats}>
-          <BarChart2 size={15} /> Statistiques
+          <ChartBar size={15} weight="fill" /> Statistiques
         </button>
         <button className="sres-btn primary" onClick={onShowLeaderboard}>
-          <Trophy size={15} /> Classement
+          <Trophy size={15} weight="fill" /> Classement
         </button>
       </div>
     </motion.div>
@@ -646,15 +646,15 @@ export default function SemantiquePage() {
       {/* Header */}
       <header className="wordle-header">
         <button className="wordle-back-btn" onClick={() => router.push('/home')}>
-          <ArrowLeft size={20} />
+          <ArrowLeft size={20} weight="fill" />
         </button>
         <h1 className="semantic-title">Sémantique</h1>
         <div className="wordle-header-actions">
           <button className="sem-help-btn" onClick={() => setShowStats(true)} title="Statistiques">
-            <BarChart2 size={18} />
+            <ChartBar size={18} weight="fill" />
           </button>
           <button className="sem-help-btn" onClick={openHowToPlay} title="Comment jouer">
-            <HelpCircle size={18} />
+            <Question size={18} weight="fill" />
           </button>
         </div>
       </header>
@@ -662,10 +662,10 @@ export default function SemantiquePage() {
       {/* Tabs */}
       <div className="sem-tabs">
         <button className={`sem-tab ${activeTab === 'game' ? 'active' : ''}`} onClick={() => setActiveTab('game')}>
-          <Brain size={14} /> Jeu
+          <Lightbulb size={14} weight="fill" /> Jeu
         </button>
         <button className={`sem-tab ${activeTab === 'leaderboard' ? 'active' : ''}`} onClick={() => setActiveTab('leaderboard')}>
-          <Trophy size={14} /> Classement
+          <Trophy size={14} weight="fill" /> Classement
         </button>
       </div>
 
@@ -743,7 +743,7 @@ export default function SemantiquePage() {
                 )}
               </AnimatePresence>
               <div className="semantic-input-bar">
-                <Brain className="semantic-input-icon" size={18} />
+                <TextT className="semantic-input-icon" size={18} weight="fill" />
                 <input
                   ref={inputRef}
                   className="semantic-input"
@@ -763,7 +763,7 @@ export default function SemantiquePage() {
                   onClick={handleSubmit}
                   disabled={!input.trim() || gameOver || isSubmitting}
                 >
-                  <Send size={15} /> Valider
+                  <PaperPlaneTilt size={15} weight="fill" /> Valider
                 </button>
               </div>
             </div>
