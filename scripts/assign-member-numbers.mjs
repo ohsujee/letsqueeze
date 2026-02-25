@@ -84,7 +84,7 @@ async function run() {
     const snap = await memberRef.get();
 
     if (snap.exists()) {
-      console.log(`⏭️  ${uid} → déjà N°${String(snap.val()).padStart(5, '0')} (ignoré)`);
+      console.log(`⏭️  ${uid} → déjà N°${String(snap.val()).padStart(6, '0')} (ignoré)`);
       skipped++;
       continue;
     }
@@ -95,7 +95,7 @@ async function run() {
     if (result.committed) {
       const memberNumber = result.snapshot.val();
       await memberRef.set(memberNumber);
-      console.log(`✅  ${uid} → N°${String(memberNumber).padStart(5, '0')}`);
+      console.log(`✅  ${uid} → N°${String(memberNumber).padStart(6, '0')}`);
       assigned++;
     }
   }

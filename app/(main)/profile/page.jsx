@@ -325,7 +325,7 @@ export default function ProfilePage() {
                     {isAdmin
                       ? <p className="pro-member-number founder">✦ FOUNDER</p>
                       : memberNumber != null
-                        ? <p className="pro-member-number">N° {String(memberNumber).padStart(5, '0')}</p>
+                        ? <p className="pro-member-number">N° {String(memberNumber).padStart(6, '0')}</p>
                         : null
                     }
                     {!isAdmin && subscription?.expiresAt && (
