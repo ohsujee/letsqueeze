@@ -13405,8 +13405,8 @@ input[type="text"].game-search-input:focus,
 /* ⌫ on row 3 — 1.5× wider, distinct color */
 .wordle-key.action-delete {
   width: calc((100% - 54px) / 10 * 1.5);
-  background: #7a5faa;
-  border-bottom-color: #4a3570;
+  background: #ef4444;
+  border-bottom-color: #b91c1c;
 }
 
 .wordle-submit-btn {
