@@ -323,7 +323,7 @@ export default function ProfilePage() {
                     <h2 className="pro-status-title">Gigglz Pro</h2>
                     <p className="pro-status-desc">Tous les avantages débloqués</p>
                     {isAdmin
-                      ? <p className="pro-member-number founder">✦ FOUNDER</p>
+                      ? <p className="pro-member-number">N° 000000</p>
                       : memberNumber != null
                         ? <p className="pro-member-number">N° {String(memberNumber).padStart(6, '0')}</p>
                         : null

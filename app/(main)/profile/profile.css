@@ -239,11 +239,6 @@
   text-transform: uppercase;
 }
 
-.pro-member-number.founder {
-  color: rgba(30, 18, 0, 0.7);
-  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  letter-spacing: 0.12em;
-}
 
 .pro-status-expiry {
   font-family: var(--font-body, 'Inter'), sans-serif;
