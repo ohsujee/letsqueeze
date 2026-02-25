@@ -247,12 +247,6 @@ export default function ProfilePage() {
             <div className="profile-avatar-placeholder">
               {getInitials(user?.displayName)}
             </div>
-            {isPro && (
-              <div className="pro-badge-pill">
-                <Sparkle size={12} weight="fill" />
-                <span>PRO</span>
-              </div>
-            )}
           </div>
 
           <div className="user-info">
@@ -320,6 +314,7 @@ export default function ProfilePage() {
           {isPro ? (
             <>
               <div className="pro-status-card">
+                <div className="pro-card-shimmer" />
                 <div className="pro-status-header">
                   <div className="pro-crown-icon">
                     <Crown size={24} weight="fill" />
@@ -338,11 +333,11 @@ export default function ProfilePage() {
 
                 <div className="pro-benefits-row">
                   <div className="pro-benefit-item">
-                    <Infinity size={18} weight="fill" />
+                    <Infinity size={18} weight="bold" />
                     <span>Illimité</span>
                   </div>
                   <div className="pro-benefit-item">
-                    <Prohibit size={18} weight="fill" />
+                    <Prohibit size={18} weight="bold" />
                     <span>Sans pub</span>
                   </div>
                   <div className="pro-benefit-item">

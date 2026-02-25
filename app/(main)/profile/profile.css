@@ -149,13 +149,47 @@
   margin-bottom: 1rem;
 }
 
-/* Pro Status Card */
+/* Pro Status Card — Gold card style */
 .pro-status-card {
-  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
-  border: 1px solid rgba(251, 191, 36, 0.3);
-  border-radius: 16px;
+  background: linear-gradient(
+    125deg,
+    #b8862a 0%,
+    #e2b84a 20%,
+    #f5d06e 38%,
+    #f8dc80 50%,
+    #e8be50 65%,
+    #c8922a 80%,
+    #ddb040 100%
+  );
+  border: none;
+  border-radius: 20px;
   padding: 1.25rem;
   margin-bottom: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 0 #8a5c10, 0 8px 28px rgba(184, 134, 42, 0.25);
+}
+
+.pro-card-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.38) 50%,
+    transparent 80%
+  );
+  pointer-events: none;
+  animation: card-shimmer 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes card-shimmer {
+  0%       { left: -100%; }
+  55%, 100% { left: 150%; }
 }
 
 .pro-status-header {
@@ -163,39 +197,42 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
 }
 
 .pro-crown-icon {
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  background: rgba(0, 0, 0, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #1a1a2e;
-  box-shadow: 0 3px 0 #b45309;
+  color: #2d1a00;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
 }
 
 .pro-status-title {
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: 1.125rem;
   font-weight: 400;
-  color: #fbbf24;
+  color: #1a1000;
   margin: 0;
 }
 
 .pro-status-desc {
   font-family: var(--font-body, 'Inter'), sans-serif;
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(40, 25, 0, 0.65);
   margin: 0.25rem 0 0 0;
 }
 
 .pro-status-expiry {
   font-family: var(--font-body, 'Inter'), sans-serif;
   font-size: 0.75rem;
-  color: rgba(251, 191, 36, 0.6);
+  color: rgba(40, 25, 0, 0.55);
   margin: 0.2rem 0 0 0;
 }
 
@@ -203,7 +240,9 @@
   display: flex;
   justify-content: space-around;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(251, 191, 36, 0.15);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  position: relative;
+  z-index: 2;
 }
 
 .pro-benefit-item {
@@ -211,7 +250,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.375rem;
-  color: rgba(251, 191, 36, 0.9);
+  color: rgba(30, 18, 0, 0.8);
 }
 
 .pro-benefit-item span {
@@ -220,7 +259,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(30, 18, 0, 0.7);
 }
 
 .btn-manage-sub {
