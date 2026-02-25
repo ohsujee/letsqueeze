@@ -10,6 +10,7 @@ import { initializeUserProfile, updateUserPseudo, validatePseudo } from '@/lib/u
 import { trackSignup, trackLogin } from '@/lib/analytics';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { ChevronRight, X, AlertTriangle } from 'lucide-react';
+import { useToast } from '@/lib/hooks/useToast';
 
 // Images des jeux pour le carousel (WebP optimisées)
 const GAME_IMAGES = [
@@ -86,6 +87,7 @@ function Mascot({ emotion = 'welcome', size = 200 }) {
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const toast = useToast();
   const { isAndroid } = usePlatform();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -176,9 +178,18 @@ export default function OnboardingPage() {
           goToPseudoSlide(result.user.displayName);
         }
       }
+      if (!result || !result.user) {
+        toast.error('Google: aucun résultat reçu (result null)');
+      }
       setLoadingGoogle(false);
     } catch (err) {
       console.error('Google sign-in error:', err);
+      const details = [
+        err.code && `code: ${err.code}`,
+        err.message && `msg: ${err.message}`,
+        !err.code && !err.message && `raw: ${JSON.stringify(err)}`,
+      ].filter(Boolean).join(' | ') || 'erreur inconnue';
+      toast.error(`Google Sign-In: ${details}`, { duration: 15000 });
       setLoadingGoogle(false);
     }
   };

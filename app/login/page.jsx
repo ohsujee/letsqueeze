@@ -59,8 +59,14 @@ export default function LoginPage() {
       }
       // User will be set by onAuthStateChanged
     } catch (err) {
-      setError(err.message);
-      toast.error('Erreur de connexion : ' + err.message);
+      console.error('Google sign-in error:', err);
+      const details = [
+        err.code && `code: ${err.code}`,
+        err.message && `msg: ${err.message}`,
+        !err.code && !err.message && `raw: ${JSON.stringify(err)}`,
+      ].filter(Boolean).join(' | ') || 'erreur inconnue';
+      setError(details);
+      toast.error(`Google Sign-In: ${details}`, { duration: 15000 });
       setLoading(false);
     }
   };
