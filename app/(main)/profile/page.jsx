@@ -27,7 +27,7 @@ export default function ProfilePage() {
   const [notifications, setNotifications] = useState(true);
   const [hueEffectsEnabled, setHueEffectsEnabled] = useState(true);
   const [hueConnected, setHueConnected] = useState(false);
-  const { profile, cachedPseudo, subscription } = useUserProfile();
+  const { profile, cachedPseudo, subscription, memberNumber } = useUserProfile();
   const userWithSubscription = useMemo(() => user ? { ...user, subscription } : null, [user, subscription]);
   const { isPro, isAdmin } = useSubscription(userWithSubscription);
   const { isAndroid } = usePlatform();
@@ -323,11 +323,14 @@ export default function ProfilePage() {
                     <h2 className="pro-status-title">Gigglz Pro</h2>
                     <p className="pro-status-desc">Tous les avantages débloqués</p>
                     {isAdmin
-                      ? <p className="pro-status-expiry">Accès à vie ✦</p>
-                      : subscription?.expiresAt
-                        ? <p className="pro-status-expiry">Valide jusqu'au {new Date(subscription.expiresAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                      ? <p className="pro-member-number founder">✦ FOUNDER</p>
+                      : memberNumber != null
+                        ? <p className="pro-member-number">N° {String(memberNumber).padStart(5, '0')}</p>
                         : null
                     }
+                    {!isAdmin && subscription?.expiresAt && (
+                      <p className="pro-status-expiry">Valide jusqu'au {new Date(subscription.expiresAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                    )}
                   </div>
                 </div>
 

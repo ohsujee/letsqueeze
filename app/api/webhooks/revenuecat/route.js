@@ -56,6 +56,40 @@ function getFirebaseAdmin() {
 }
 
 // ============================================
+// MEMBER NUMBER ASSIGNMENT
+// ============================================
+
+/**
+ * Assigne un numéro de membre permanent à un utilisateur Pro.
+ * Le numéro est assigné une seule fois et conservé à vie,
+ * même si l'utilisateur se désabonne et se réabonne.
+ */
+async function assignMemberNumber(userId) {
+  const app = getFirebaseAdmin();
+  if (!app) return;
+
+  const db = admin.database();
+  const memberRef = db.ref(`users/${userId}/memberNumber`);
+
+  // Vérifier si l'utilisateur a déjà un numéro (à conserver pour toujours)
+  const snap = await memberRef.get();
+  if (snap.exists()) {
+    console.log(`[Webhook] User ${userId} already has member number ${snap.val()}`);
+    return;
+  }
+
+  // Incrémenter le compteur de façon atomique et récupérer le numéro
+  const counterRef = db.ref('meta/memberCounter');
+  const result = await counterRef.transaction((current) => (current || 0) + 1);
+
+  if (result.committed) {
+    const memberNumber = result.snapshot.val();
+    await memberRef.set(memberNumber);
+    console.log(`[Webhook] Assigned member number ${memberNumber} to user ${userId}`);
+  }
+}
+
+// ============================================
 // EVENT TYPES
 // ============================================
 
@@ -180,6 +214,11 @@ export async function POST(request) {
       });
 
       console.log(`[Webhook] Granted Pro to user ${userId} (${eventType})`);
+
+      // Assigner un numéro de membre permanent (seulement au premier achat)
+      if (eventType === 'INITIAL_PURCHASE') {
+        await assignMemberNumber(userId);
+      }
     }
     else if (PRO_REVOKING_EVENTS.includes(eventType)) {
       await updateFirebaseSubscription(userId, {
