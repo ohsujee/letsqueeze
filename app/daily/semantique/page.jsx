@@ -566,8 +566,8 @@ export default function SemantiquePage() {
     const raw = input.trim().toLowerCase();
     const normalized = stripAccents(raw);
 
-    // Vérifier doublon → flash l'entrée existante
-    const existing = guesses.find(g => g.word === raw || stripAccents(g.word) === normalized);
+    // Vérifier doublon → flash l'entrée existante (comparaison exacte, accents préservés)
+    const existing = guesses.find(g => g.word === raw);
     if (existing) {
       setFlashEntry(existing);
       setTimeout(() => setFlashEntry(null), 1800);
