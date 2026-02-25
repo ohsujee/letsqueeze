@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, auth, signOutUser, signInWithGoogle, signInWithApple, db } from '@/lib/firebase';
 import { deleteUser } from 'firebase/auth';
@@ -10,7 +10,8 @@ import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { usePlatform } from '@/lib/hooks/usePlatform';
 import { storage } from '@/lib/utils/storage';
-import { CaretRight, WifiHigh, WifiSlash, ChartBar, Sparkle, Crown, Infinity, Prohibit, Package, UserPlus, Lightning, ArrowSquareOut, FloppyDisk, Trophy, PencilSimple, Check, X, Bell, SpeakerHigh, Lightbulb, Globe, Gear, Link, Trash } from '@phosphor-icons/react';
+import { CaretRight, WifiHigh, WifiSlash, ChartBar, UserPlus, Lightning, ArrowSquareOut, FloppyDisk, Trophy, PencilSimple, Check, X, Bell, SpeakerHigh, Lightbulb, Globe, Gear, Link, Trash } from '@phosphor-icons/react';
+import ProCard from '@/components/ui/ProCard';
 import { openManageSubscriptions } from '@/lib/revenuecat';
 import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -40,28 +41,6 @@ export default function ProfilePage() {
   const [newPseudo, setNewPseudo] = useState('');
   const [pseudoError, setPseudoError] = useState('');
   const [savingPseudo, setSavingPseudo] = useState(false);
-
-  // Pro card tilt 3D
-  const cardRef = useRef(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [isTilting, setIsTilting] = useState(false);
-
-  const handleTiltMove = useCallback((e) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    const rotateX = (((clientY - rect.top) / rect.height) - 0.5) * -18;
-    const rotateY = (((clientX - rect.left) / rect.width) - 0.5) * 18;
-    setTilt({ x: rotateX, y: rotateY });
-    setIsTilting(true);
-  }, []);
-
-  const handleTiltEnd = useCallback(() => {
-    setTilt({ x: 0, y: 0 });
-    setIsTilting(false);
-  }, []);
 
   // Delete account state
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -335,68 +314,11 @@ export default function ProfilePage() {
         <section className="subscription-section">
           {isPro ? (
             <>
-              <div
-                ref={cardRef}
-                className="pro-status-card"
-                onTouchMove={handleTiltMove}
-                onTouchEnd={handleTiltEnd}
-                onMouseMove={handleTiltMove}
-                onMouseLeave={handleTiltEnd}
-                style={{
-                  transform: `perspective(700px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-                  transition: isTilting ? 'none' : 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                }}
-              >
-                <div className="pro-card-shimmer" />
-
-                {/* Top: brand + Giggly */}
-                <div className="pro-card-top">
-                  <div className="pro-card-brand">
-                    <Crown size={12} weight="fill" />
-                    <span>GIGGLZ PRO</span>
-                  </div>
-                  <img
-                    src="/images/mascot/giggly-carte.webp"
-                    alt=""
-                    className="pro-card-giggly"
-                  />
-                </div>
-
-                {/* Chip EMV */}
-                <div className="pro-card-chip" />
-
-                {/* Bottom: cardholder + numéro */}
-                <div className="pro-card-bottom">
-                  <div className="pro-card-holder">
-                    <span className="pro-card-label">Membre</span>
-                    <span className="pro-card-name">
-                      {(profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Membre').toUpperCase()}
-                    </span>
-                  </div>
-                  <div className="pro-card-number-wrap">
-                    <span className="pro-card-label">Numéro</span>
-                    <span className="pro-card-num">
-                      {isAdmin ? 'N° 000000' : memberNumber != null ? `N° ${String(memberNumber).padStart(6, '0')}` : '—'}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Benefits strip */}
-                <div className="pro-benefits-row">
-                  <div className="pro-benefit-item">
-                    <Infinity size={16} weight="bold" />
-                    <span>Illimité</span>
-                  </div>
-                  <div className="pro-benefit-item">
-                    <Prohibit size={16} weight="bold" />
-                    <span>Sans pub</span>
-                  </div>
-                  <div className="pro-benefit-item">
-                    <Package size={16} weight="fill" />
-                    <span>Tous packs</span>
-                  </div>
-                </div>
-              </div>
+              <ProCard
+                pseudo={profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0]}
+                memberNumber={memberNumber}
+                isAdmin={isAdmin}
+              />
 
               <button className="btn-manage-sub" onClick={openManageSubscriptions}>
                 <span>Gérer l'abonnement</span>
@@ -456,45 +378,19 @@ export default function ProfilePage() {
               </div>
             </div>
           ) : (
-            <div className="upgrade-cta-card">
-              <div className="upgrade-cta-content">
-                <div className="upgrade-cta-header">
-                  <div className="upgrade-crown-icon">
-                    <Crown size={28} weight="fill" />
-                  </div>
-                  <div className="upgrade-cta-text">
-                    <h2 className="upgrade-cta-title">Passe à Pro</h2>
-                    <p className="upgrade-cta-desc">Débloque tout le potentiel</p>
-                  </div>
-                </div>
-
-                <div className="upgrade-benefits-list">
-                  <div className="upgrade-benefit">
-                    <div className="upgrade-benefit-icon">
-                      <Infinity size={16} weight="fill" />
-                    </div>
-                    <span>Parties illimitées</span>
-                  </div>
-                  <div className="upgrade-benefit">
-                    <div className="upgrade-benefit-icon">
-                      <Prohibit size={16} weight="fill" />
-                    </div>
-                    <span>Aucune publicité</span>
-                  </div>
-                  <div className="upgrade-benefit">
-                    <div className="upgrade-benefit-icon">
-                      <Package size={16} weight="fill" />
-                    </div>
-                    <span>Tous les packs de jeux</span>
-                  </div>
-                </div>
-
-                <button className="upgrade-cta-btn" onClick={() => router.push('/subscribe')}>
-                  <Lightning size={18} weight="fill" />
-                  <span>Débloquer Pro</span>
-                </button>
-              </div>
-            </div>
+            <>
+              <ProCard
+                pseudo={profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0]}
+                isLocked={true}
+              />
+              <p className="upgrade-tagline">Fini les coupures en pleine soirée.</p>
+              <p className="upgrade-detail">Tout le contenu débloqué · Parties illimitées · Zéro pub</p>
+              <button className="upgrade-cta-btn" onClick={() => router.push('/subscribe')}>
+                <Lightning size={18} weight="fill" />
+                <span>Activer ma carte Pro</span>
+              </button>
+              <p className="upgrade-legal">Résiliable à tout moment</p>
+            </>
           )}
         </section>
 

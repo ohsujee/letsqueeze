@@ -149,180 +149,11 @@
   margin-bottom: 1rem;
 }
 
-/* Pro Status Card — Gold card style */
-.pro-status-card {
-  background: linear-gradient(
-    125deg,
-    #b8862a 0%,
-    #e2b84a 20%,
-    #f5d06e 38%,
-    #f8dc80 50%,
-    #e8be50 65%,
-    #c8922a 80%,
-    #ddb040 100%
-  );
-  border: none;
-  border-radius: 20px;
-  padding: 1.25rem;
-  margin-bottom: 0.75rem;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 0 #8a5c10, 0 8px 28px rgba(184, 134, 42, 0.25);
-  transform-style: preserve-3d;
-  will-change: transform;
-  display: flex;
-  flex-direction: column;
-  gap: 0.875rem;
-  padding: 1.5rem;
-}
-
-.pro-card-shimmer {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 55%;
-  height: 100%;
-  background: linear-gradient(
-    105deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.38) 50%,
-    transparent 80%
-  );
-  pointer-events: none;
-  animation: card-shimmer 4s ease-in-out infinite;
-  z-index: 1;
-}
-
-@keyframes card-shimmer {
-  0%       { left: -100%; }
-  55%, 100% { left: 150%; }
-}
-
-/* Card top row */
-.pro-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  position: relative;
-  z-index: 2;
-}
-
-.pro-card-brand {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-title, 'Bungee'), cursive;
-  font-size: 1.1rem;
-  color: rgba(30, 18, 0, 0.85);
-  letter-spacing: 0.06em;
-}
-
-.pro-card-giggly {
-  width: 88px;
-  height: 88px;
-  object-fit: contain;
-  mix-blend-mode: multiply;
-  margin-top: -18px;
-  margin-right: -10px;
-  opacity: 0.88;
-  pointer-events: none;
-}
-
-/* Chip EMV */
-.pro-card-chip {
-  width: 54px;
-  height: 42px;
-  background: linear-gradient(160deg, #d4aa38 0%, #f5d870 35%, #c49020 65%, #e8c040 100%);
-  border-radius: 7px;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  position: relative;
-  z-index: 2;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.1);
-  overflow: hidden;
-}
-
-/* Contact grid lines */
-.pro-card-chip::before {
-  content: '';
-  position: absolute;
-  top: 7px;
-  left: 7px;
-  right: 7px;
-  bottom: 7px;
-  background:
-    linear-gradient(90deg, transparent calc(50% - 0.5px), rgba(0,0,0,0.18) calc(50% - 0.5px), rgba(0,0,0,0.18) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
-    linear-gradient(transparent calc(33% - 0.5px), rgba(0,0,0,0.18) calc(33% - 0.5px), rgba(0,0,0,0.18) calc(33% + 0.5px), transparent calc(33% + 0.5px)),
-    linear-gradient(transparent calc(67% - 0.5px), rgba(0,0,0,0.18) calc(67% - 0.5px), rgba(0,0,0,0.18) calc(67% + 0.5px), transparent calc(67% + 0.5px));
-}
-
-/* Card bottom */
-.pro-card-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  position: relative;
-  z-index: 2;
-}
-
-.pro-card-label {
-  font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  color: rgba(30, 18, 0, 0.5);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 3px;
-}
-
-.pro-card-name {
-  font-family: 'Courier New', 'Courier', monospace;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #1a1000;
-  letter-spacing: 0.08em;
-}
-
-.pro-card-number-wrap {
-  text-align: right;
-}
-
-.pro-card-num {
-  font-family: 'Courier New', 'Courier', monospace;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #1a1000;
-  letter-spacing: 0.12em;
-  display: block;
-}
-
-.pro-benefits-row {
-  display: flex;
-  justify-content: space-around;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-  position: relative;
-  z-index: 2;
-}
-
-.pro-benefit-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.375rem;
-  color: rgba(30, 18, 0, 0.8);
-}
-
-.pro-benefit-item span {
-  font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: rgba(30, 18, 0, 0.7);
-}
+/* Pro card styles → components/ui/pro-card.css */
 
 .btn-manage-sub {
   width: 100%;
+  margin-top: 0.75rem;
   padding: 0.875rem;
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-secondary, rgba(255, 255, 255, 0.6));
@@ -478,91 +309,42 @@
     0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Upgrade CTA Card */
-.upgrade-cta-card {
-  background: #16161f;
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  border-radius: 20px;
+.upgrade-tagline {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary, #ffffff);
+  text-align: center;
+  margin: 0.875rem 0 0.25rem;
 }
 
-.upgrade-cta-content {
-  padding: 1.5rem;
-}
-
-.upgrade-cta-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-}
-
-.upgrade-crown-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  box-shadow: 0 3px 0 #6d28d9;
-}
-
-.upgrade-cta-title {
-  font-family: var(--font-title, 'Bungee'), cursive;
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: white;
-  margin: 0;
-}
-
-.upgrade-cta-desc {
+.upgrade-detail {
   font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0.25rem 0 0 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-align: center;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.875rem;
 }
 
-.upgrade-benefits-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1.25rem;
-}
-
-.upgrade-benefit {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.upgrade-benefit-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: rgba(139, 92, 246, 0.2);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #a78bfa;
-}
-
-.upgrade-benefit span {
+.upgrade-legal {
   font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 0.9375rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  margin: 0.5rem 0 0;
 }
 
 .upgrade-cta-btn {
+  margin-top: 0;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   padding: 1rem;
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-  color: white;
+  background: linear-gradient(125deg, #b8862a 0%, #e2b84a 20%, #f5d06e 38%, #f8dc80 50%, #e8be50 65%, #c8922a 80%, #ddb040 100%);
+  color: #1a1000;
   border: none;
   border-radius: 12px;
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
@@ -572,17 +354,17 @@
   letter-spacing: 0.05em;
   cursor: pointer;
   transition: all 0.15s ease;
-  box-shadow: 0 4px 0 #6d28d9;
+  box-shadow: 0 4px 0 #8a5c10;
 }
 
 .upgrade-cta-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 5px 0 #6d28d9;
+  box-shadow: 0 5px 0 #8a5c10;
 }
 
 .upgrade-cta-btn:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #6d28d9;
+  box-shadow: 0 2px 0 #8a5c10;
 }
 
 /* Settings Card */
