@@ -172,7 +172,8 @@
   will-change: transform;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.875rem;
+  padding: 1.5rem;
 }
 
 .pro-card-shimmer {
@@ -209,47 +210,49 @@
 .pro-card-brand {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   font-family: var(--font-title, 'Bungee'), cursive;
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   color: rgba(30, 18, 0, 0.85);
   letter-spacing: 0.06em;
 }
 
 .pro-card-giggly {
-  width: 68px;
-  height: 68px;
+  width: 88px;
+  height: 88px;
   object-fit: contain;
   mix-blend-mode: multiply;
-  margin-top: -14px;
-  margin-right: -8px;
+  margin-top: -18px;
+  margin-right: -10px;
   opacity: 0.88;
   pointer-events: none;
 }
 
 /* Chip EMV */
 .pro-card-chip {
-  width: 40px;
-  height: 30px;
-  background: linear-gradient(135deg, #c49a2a, #f0cc60, #c08818);
-  border-radius: 5px;
+  width: 54px;
+  height: 42px;
+  background: linear-gradient(160deg, #d4aa38 0%, #f5d870 35%, #c49020 65%, #e8c040 100%);
+  border-radius: 7px;
   border: 1px solid rgba(0, 0, 0, 0.18);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  padding: 4px;
-  gap: 2px;
   position: relative;
   z-index: 2;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-.pro-card-chip-cell {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 1px;
-}
-
-.pro-card-chip-cell:nth-child(5) {
-  background: rgba(0, 0, 0, 0.22);
+/* Contact grid lines */
+.pro-card-chip::before {
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  right: 7px;
+  bottom: 7px;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 0.5px), rgba(0,0,0,0.18) calc(50% - 0.5px), rgba(0,0,0,0.18) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(transparent calc(33% - 0.5px), rgba(0,0,0,0.18) calc(33% - 0.5px), rgba(0,0,0,0.18) calc(33% + 0.5px), transparent calc(33% + 0.5px)),
+    linear-gradient(transparent calc(67% - 0.5px), rgba(0,0,0,0.18) calc(67% - 0.5px), rgba(0,0,0,0.18) calc(67% + 0.5px), transparent calc(67% + 0.5px));
 }
 
 /* Card bottom */
@@ -263,17 +266,17 @@
 
 .pro-card-label {
   font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 0.45rem;
+  font-size: 0.6rem;
   letter-spacing: 0.2em;
   color: rgba(30, 18, 0, 0.5);
   text-transform: uppercase;
   display: block;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .pro-card-name {
   font-family: 'Courier New', 'Courier', monospace;
-  font-size: 0.72rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #1a1000;
   letter-spacing: 0.08em;
@@ -285,7 +288,7 @@
 
 .pro-card-num {
   font-family: 'Courier New', 'Courier', monospace;
-  font-size: 0.72rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #1a1000;
   letter-spacing: 0.12em;
@@ -311,7 +314,7 @@
 
 .pro-benefit-item span {
   font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.03em;

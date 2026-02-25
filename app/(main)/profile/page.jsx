@@ -363,9 +363,7 @@ export default function ProfilePage() {
                 </div>
 
                 {/* Chip EMV */}
-                <div className="pro-card-chip">
-                  {[...Array(9)].map((_, i) => <div key={i} className="pro-card-chip-cell" />)}
-                </div>
+                <div className="pro-card-chip" />
 
                 {/* Bottom: cardholder + numéro */}
                 <div className="pro-card-bottom">
