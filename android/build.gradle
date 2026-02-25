@@ -22,6 +22,15 @@ allprojects {
         google()
         mavenCentral()
     }
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            // Force androidx.credentials group to 1.3.0 to fix "device doesn't support credential manager"
+            if (details.requested.group == 'androidx.credentials') {
+                details.useVersion '1.3.0'
+                details.because 'Fix Google Sign-In credential manager on some Android devices'
+            }
+        }
+    }
 }
 
 task clean(type: Delete) {
