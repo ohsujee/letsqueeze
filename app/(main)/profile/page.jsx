@@ -10,7 +10,7 @@ import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { usePlatform } from '@/lib/hooks/usePlatform';
 import { storage } from '@/lib/utils/storage';
-import { ChevronRight, Wifi, WifiOff, BarChart3, Sparkles, Crown, Infinity, Ban, Package, UserPlus, Zap, ExternalLink, Save, Trophy, Pencil, Check, X, Bell, Volume2, Lightbulb, Globe, Settings, Link2, Trash2 } from 'lucide-react';
+import { CaretRight, WifiHigh, WifiSlash, ChartBar, Sparkle, Crown, Infinity, Prohibit, Package, UserPlus, Lightning, ArrowSquareOut, FloppyDisk, Trophy, PencilSimple, Check, X, Bell, SpeakerHigh, Lightbulb, Globe, Gear, Link, Trash } from '@phosphor-icons/react';
 import { openManageSubscriptions } from '@/lib/revenuecat';
 import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -249,7 +249,7 @@ export default function ProfilePage() {
             </div>
             {isPro && (
               <div className="pro-badge-pill">
-                <Sparkles size={12} />
+                <Sparkle size={12} weight="fill" />
                 <span>PRO</span>
               </div>
             )}
@@ -281,10 +281,10 @@ export default function ProfilePage() {
                       autoFocus
                     />
                     <button className="pseudo-action-btn save" onClick={handleSavePseudo} disabled={savingPseudo}>
-                      <Check size={16} />
+                      <Check size={16} weight="fill" />
                     </button>
                     <button className="pseudo-action-btn cancel" onClick={handleCancelEditPseudo} disabled={savingPseudo}>
-                      <X size={16} />
+                      <X size={16} weight="fill" />
                     </button>
                   </div>
                   {pseudoError && <p className="pseudo-error-inline">{pseudoError}</p>}
@@ -303,7 +303,7 @@ export default function ProfilePage() {
                     onClick={handleStartEditPseudo}
                     title="Modifier ton pseudo"
                   >
-                    <Pencil size={14} />
+                    <PencilSimple size={14} weight="fill" />
                   </button>
                 </motion.h1>
               )}
@@ -322,7 +322,7 @@ export default function ProfilePage() {
               <div className="pro-status-card">
                 <div className="pro-status-header">
                   <div className="pro-crown-icon">
-                    <Crown size={24} />
+                    <Crown size={24} weight="fill" />
                   </div>
                   <div className="pro-status-info">
                     <h2 className="pro-status-title">Gigglz Pro</h2>
@@ -338,15 +338,15 @@ export default function ProfilePage() {
 
                 <div className="pro-benefits-row">
                   <div className="pro-benefit-item">
-                    <Infinity size={18} />
+                    <Infinity size={18} weight="fill" />
                     <span>Illimité</span>
                   </div>
                   <div className="pro-benefit-item">
-                    <Ban size={18} />
+                    <Prohibit size={18} weight="fill" />
                     <span>Sans pub</span>
                   </div>
                   <div className="pro-benefit-item">
-                    <Package size={18} />
+                    <Package size={18} weight="fill" />
                     <span>Tous packs</span>
                   </div>
                 </div>
@@ -354,16 +354,14 @@ export default function ProfilePage() {
 
               <button className="btn-manage-sub" onClick={openManageSubscriptions}>
                 <span>Gérer l'abonnement</span>
-                <ExternalLink size={16} />
+                <ArrowSquareOut size={16} weight="fill" />
               </button>
             </>
           ) : user?.isAnonymous ? (
             <div className="guest-connect-card">
-              <div className="guest-connect-glow" />
-
               <div className="guest-connect-content">
                 <div className="guest-connect-icon">
-                  <UserPlus size={26} />
+                  <UserPlus size={26} weight="fill" />
                 </div>
 
                 <h2 className="guest-connect-title">Connecte-toi</h2>
@@ -371,15 +369,15 @@ export default function ProfilePage() {
 
                 <div className="guest-connect-benefits">
                   <div className="guest-benefit">
-                    <Save size={15} />
+                    <FloppyDisk size={15} weight="fill" />
                     <span>Sauvegarde ta progression</span>
                   </div>
                   <div className="guest-benefit">
-                    <Trophy size={15} />
+                    <Trophy size={15} weight="fill" />
                     <span>Accède à tes statistiques</span>
                   </div>
                   <div className="guest-benefit">
-                    <Sparkles size={15} />
+                    <Sparkle size={15} weight="fill" />
                     <span>Débloque Pro et plus</span>
                   </div>
                 </div>
@@ -413,12 +411,10 @@ export default function ProfilePage() {
             </div>
           ) : (
             <div className="upgrade-cta-card">
-              <div className="upgrade-cta-glow" />
-
               <div className="upgrade-cta-content">
                 <div className="upgrade-cta-header">
                   <div className="upgrade-crown-icon">
-                    <Crown size={28} />
+                    <Crown size={28} weight="fill" />
                   </div>
                   <div className="upgrade-cta-text">
                     <h2 className="upgrade-cta-title">Passe à Pro</h2>
@@ -429,26 +425,26 @@ export default function ProfilePage() {
                 <div className="upgrade-benefits-list">
                   <div className="upgrade-benefit">
                     <div className="upgrade-benefit-icon">
-                      <Infinity size={16} />
+                      <Infinity size={16} weight="fill" />
                     </div>
                     <span>Parties illimitées</span>
                   </div>
                   <div className="upgrade-benefit">
                     <div className="upgrade-benefit-icon">
-                      <Ban size={16} />
+                      <Prohibit size={16} weight="fill" />
                     </div>
                     <span>Aucune publicité</span>
                   </div>
                   <div className="upgrade-benefit">
                     <div className="upgrade-benefit-icon">
-                      <Package size={16} />
+                      <Package size={16} weight="fill" />
                     </div>
                     <span>Tous les packs de jeux</span>
                   </div>
                 </div>
 
                 <button className="upgrade-cta-btn" onClick={() => router.push('/subscribe')}>
-                  <Zap size={18} />
+                  <Lightning size={18} weight="fill" />
                   <span>Débloquer Pro</span>
                 </button>
               </div>
@@ -459,7 +455,7 @@ export default function ProfilePage() {
         {/* Settings Section */}
         <section className="profile-card">
           <h2 className="profile-card-title">
-            <Settings size={20} />
+            <Gear size={20} weight="fill" />
             Paramètres
           </h2>
           <div className="settings-list">
@@ -470,21 +466,21 @@ export default function ProfilePage() {
             >
               <div className="setting-info">
                 <span className="setting-icon-wrap stats">
-                  <BarChart3 size={18} />
+                  <ChartBar size={18} weight="fill" />
                 </span>
                 <span className="setting-label">Mes statistiques</span>
               </div>
               {user?.isAnonymous ? (
                 <span className="setting-badge">Connecte-toi</span>
               ) : (
-                <ChevronRight size={18} className="setting-chevron" />
+                <CaretRight size={18} weight="fill" className="setting-chevron" />
               )}
             </button>
 
             <div className="setting-item">
               <div className="setting-info">
                 <span className="setting-icon-wrap notifications">
-                  <Bell size={18} />
+                  <Bell size={18} weight="fill" />
                 </span>
                 <span className="setting-label">Notifications</span>
               </div>
@@ -499,7 +495,7 @@ export default function ProfilePage() {
             <div className="setting-item">
               <div className="setting-info">
                 <span className="setting-icon-wrap sound">
-                  <Volume2 size={18} />
+                  <SpeakerHigh size={18} weight="fill" />
                 </span>
                 <span className="setting-label">Effets Sonores</span>
               </div>
@@ -515,7 +511,7 @@ export default function ProfilePage() {
               <div className="setting-item">
                 <div className="setting-info">
                   <span className="setting-icon-wrap hue">
-                    <Lightbulb size={18} />
+                    <Lightbulb size={18} weight="fill" />
                   </span>
                   <span className="setting-label">Effets Philips Hue</span>
                 </div>
@@ -531,7 +527,7 @@ export default function ProfilePage() {
             <div className="setting-item">
               <div className="setting-info">
                 <span className="setting-icon-wrap language">
-                  <Globe size={18} />
+                  <Globe size={18} weight="fill" />
                 </span>
                 <span className="setting-label">Langue</span>
               </div>
@@ -544,7 +540,7 @@ export default function ProfilePage() {
         {!user?.isAnonymous && (
           <section className="profile-card">
             <h2 className="profile-card-title">
-              <Link2 size={20} />
+              <Link size={20} weight="fill" />
               Connexions
             </h2>
 
@@ -562,11 +558,11 @@ export default function ProfilePage() {
                 </div>
                 <div className="connection-status-wrap">
                   {hueConnected ? (
-                    <Wifi size={18} className="connection-wifi connected" />
+                    <WifiHigh size={18} weight="fill" className="connection-wifi connected" />
                   ) : (
-                    <WifiOff size={18} className="connection-wifi" />
+                    <WifiSlash size={18} weight="fill" className="connection-wifi" />
                   )}
-                  <ChevronRight size={18} className="connection-chevron" />
+                  <CaretRight size={18} weight="fill" className="connection-chevron" />
                 </div>
               </button>
 
@@ -595,7 +591,7 @@ export default function ProfilePage() {
         {!user?.isAnonymous && (
           <div className="danger-zone">
             <button className="btn-delete-account" onClick={() => setShowDeleteModal(true)}>
-              <Trash2 size={14} />
+              <Trash size={14} weight="fill" />
               Supprimer mon compte
             </button>
           </div>
@@ -626,7 +622,7 @@ export default function ProfilePage() {
               transition={{ duration: 0.25 }}
             >
               <div className="delete-modal-icon">
-                <Trash2 size={26} />
+                <Trash size={26} weight="fill" />
               </div>
               <h3 className="delete-modal-title">Supprimer mon compte</h3>
               <p className="delete-modal-text">
