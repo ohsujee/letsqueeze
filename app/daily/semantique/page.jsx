@@ -788,17 +788,18 @@ export default function SemantiquePage() {
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   onFocus={() => {
-                    // iOS scrolle automatiquement la liste vers le bas quand l'input reçoit le focus.
-                    // Le timing exact varie → on bloque tout scroll pendant 600ms (animation clavier),
-                    // puis on libère pour permettre le scroll intentionnel de l'utilisateur.
+                    // iOS scrolle la liste vers le bas quand l'input reçoit le focus.
+                    // Solution fiable : on désactive physiquement le scroll (overflow hidden)
+                    // → iOS ne peut pas scroller un élément non-scrollable.
                     const scrollEl = scrollAreaRef.current;
                     if (!scrollEl) return;
-                    const lockScroll = () => { scrollEl.scrollTop = 0; };
-                    scrollEl.addEventListener('scroll', lockScroll);
-                    setTimeout(() => {
-                      scrollEl.removeEventListener('scroll', lockScroll);
-                      scrollEl.scrollTop = 0;
-                    }, 600);
+                    scrollEl.style.overflowY = 'hidden';
+                    scrollEl.scrollTop = 0;
+                  }}
+                  onBlur={() => {
+                    // Clavier fermé → on restaure le scroll normal
+                    const scrollEl = scrollAreaRef.current;
+                    if (scrollEl) scrollEl.style.overflowY = '';
                   }}
                   disabled={gameOver}
                   autoComplete="off"
