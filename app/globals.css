@@ -13861,7 +13861,7 @@ input[type="text"].game-search-input:focus,
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 10;
+  z-index: 100;
   background: var(--bg-primary, #0d0d1a);
   padding: 8px 16px calc(12px + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid rgba(255, 255, 255, 0.06);

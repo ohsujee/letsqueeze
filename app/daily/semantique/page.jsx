@@ -537,16 +537,15 @@ export default function SemantiquePage() {
     const update = () => {
       const el = inputZoneRef.current;
       if (!el) return;
-      // offsetTop : combien la page a défilé vers le haut sur iOS quand le clavier s'ouvre
-      const offsetTop = vv.offsetTop ?? 0;
-      // Espace réellement occupé par le clavier en bas du layout viewport
-      const kb = Math.max(0, window.innerHeight - vv.height - offsetTop);
+      // Hauteur du clavier = différence entre hauteur écran et viewport visible
+      // On ignore vv.offsetTop : pour position:fixed, le scroll document n'a pas d'impact
+      const kb = Math.max(0, window.innerHeight - vv.height);
       el.style.bottom = `${kb}px`;
-      // translateY contre-balance le scroll iOS qui déplace les éléments fixed vers le haut
-      el.style.transform = offsetTop > 0 ? `translateY(${offsetTop}px)` : '';
+      el.style.transform = ''; // Jamais de translateY sur un élément position:fixed
     };
+    update(); // Appel immédiat au montage
     vv.addEventListener('resize', update);
-    vv.addEventListener('scroll', update);  // critique sur iOS
+    vv.addEventListener('scroll', update);
     return () => {
       vv.removeEventListener('resize', update);
       vv.removeEventListener('scroll', update);
@@ -788,6 +787,13 @@ export default function SemantiquePage() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
+                  onFocus={() => {
+                    // iOS scrolle automatiquement la liste vers le bas quand l'input reçoit le focus.
+                    // On annule ce scroll après qu'iOS ait fini (50ms suffisent).
+                    setTimeout(() => {
+                      if (scrollAreaRef.current) scrollAreaRef.current.scrollTop = 0;
+                    }, 50);
+                  }}
                   disabled={gameOver}
                   autoComplete="off"
                   autoCorrect="off"
