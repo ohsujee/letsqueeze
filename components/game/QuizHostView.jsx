@@ -21,6 +21,8 @@ import { hueScenariosService } from "@/lib/hue-module";
 import { GameEndTransition } from "@/components/transitions";
 import QuestionCard from "@/components/game/QuestionCard";
 import HostActionFooter from "@/components/game/HostActionFooter";
+import ReportQuestionModal from "@/components/game/ReportQuestionModal";
+import { push, set } from "firebase/database";
 
 /**
  * QuizHostView - Shared component for Quiz host view
@@ -39,6 +41,8 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   const [conf, setConf] = useState(null);
   const [showEndTransition, setShowEndTransition] = useState(false);
   const endTransitionTriggeredRef = useRef(false);
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [reportSubmitting, setReportSubmitting] = useState(false);
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
@@ -486,6 +490,67 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
 
   const lockedName = state?.lockUid ? (players.find(p => p.uid === state.lockUid)?.name || state.lockUid) : "-";
 
+  async function handleReport({ reportTypes, customText }) {
+    if (!q || reportSubmitting) return;
+    setReportSubmitting(true);
+    try {
+      const questionId = q.id || `q_${qIndex}`;
+      const themeId = meta?.quizId || '';
+
+      // 1. Écrire le report
+      await push(ref(db, 'quiz_reports'), {
+        questionId,
+        themeId,
+        themeTitle: quiz?.title || themeId,
+        questionText: q.question,
+        answerText: q.answer || '',
+        reportTypes,
+        customText: customText || '',
+        roomCode: code,
+        reporterUid: myUid || 'anonymous',
+        timestamp: serverTimestamp(),
+        status: 'open',
+      });
+
+      // 2. Marquer la question indisponible globalement
+      if (q.id) {
+        await set(ref(db, `unavailable_questions/${q.id}`), true);
+      }
+
+      // 3. Trouver une question de remplacement
+      const themeIds = quiz?.id?.split('+') || meta?.quizSelection?.themeIds || [];
+      const usedIds = new Set((quiz?.items || []).map(item => item.id).filter(Boolean));
+      let replacement = null;
+
+      for (const tid of themeIds) {
+        try {
+          const res = await fetch(`/data/quiz/${tid}.json`);
+          const data = await res.json();
+          const candidates = (data?.items || []).filter(item => item.id && !usedIds.has(item.id));
+          if (candidates.length > 0) {
+            replacement = candidates[Math.floor(Math.random() * candidates.length)];
+            break;
+          }
+        } catch (err) {
+          console.warn(`Failed to load theme ${tid}:`, err);
+        }
+      }
+
+      // 4. Remplacer dans Firebase — tous les clients voient la nouvelle question instantanément
+      if (replacement) {
+        await update(ref(db, `rooms/${code}/quiz`), {
+          [`items/${qIndex}`]: replacement,
+        });
+      }
+
+      setShowReportModal(false);
+    } catch (err) {
+      console.error('Erreur signalement:', err);
+    } finally {
+      setReportSubmitting(false);
+    }
+  }
+
   return (
     <div className="host-game-page game-page">
       {/* End transition */}
@@ -550,6 +615,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
           points={pointsEnJeu}
           questionIndex={qIndex}
           isEmpty={!q}
+          onReport={q ? () => setShowReportModal(true) : undefined}
         />
 
         <Leaderboard players={players} mode={meta?.mode} teams={meta?.teams} />
@@ -568,6 +634,14 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
         isHost={isActualHost}
         isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
         hostDisconnectedAt={hostDisconnectedAt}
+      />
+
+      {/* Report modal */}
+      <ReportQuestionModal
+        isOpen={showReportModal}
+        onClose={() => setShowReportModal(false)}
+        onSubmit={handleReport}
+        submitting={reportSubmitting}
       />
 
       {/* Host Disconnect Alert - shown when host is marked as disconnected */}

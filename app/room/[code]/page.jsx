@@ -10,6 +10,7 @@ import {
   update,
   remove,
   set,
+  get,
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
@@ -239,8 +240,13 @@ export default function Room() {
         return;
       }
 
+      // Filtrer les questions signalées comme indisponibles
+      const unavailableSnap = await get(ref(db, 'unavailable_questions'));
+      const unavailable = unavailableSnap.val() || {};
+      const available = allQuestions.filter(q => !q.id || !unavailable[q.id]);
+
       // Mélanger les questions avec Fisher-Yates
-      const shuffled = [...allQuestions];
+      const shuffled = [...(available.length > 0 ? available : allQuestions)];
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];

@@ -509,7 +509,6 @@ export default function SemantiquePage() {
     useDailyGame('semantique', { forceDate: serverDate });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [targetWord, setTargetWord] = useState(null);
   const [guesses, setGuesses] = useState([]);
   const [input, setInput] = useState('');
@@ -530,16 +529,28 @@ export default function SemantiquePage() {
   const transitionTimerRef = useRef(null);
 
   // Positionner l'input zone au-dessus du clavier via visualViewport
-  const [inputZoneBottom, setInputZoneBottom] = useState(0);
+  // Manipulation DOM directe (pas de state) pour éviter les re-renders sur chaque scroll iOS
+  const inputZoneRef = useRef(null);
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv) return;
     const update = () => {
-      const kb = Math.max(0, window.innerHeight - vv.height);
-      setInputZoneBottom(kb > 50 ? kb : 0);
+      const el = inputZoneRef.current;
+      if (!el) return;
+      // offsetTop : combien la page a défilé vers le haut sur iOS quand le clavier s'ouvre
+      const offsetTop = vv.offsetTop ?? 0;
+      // Espace réellement occupé par le clavier en bas du layout viewport
+      const kb = Math.max(0, window.innerHeight - vv.height - offsetTop);
+      el.style.bottom = `${kb}px`;
+      // translateY contre-balance le scroll iOS qui déplace les éléments fixed vers le haut
+      el.style.transform = offsetTop > 0 ? `translateY(${offsetTop}px)` : '';
     };
     vv.addEventListener('resize', update);
-    return () => vv.removeEventListener('resize', update);
+    vv.addEventListener('scroll', update);  // critique sur iOS
+    return () => {
+      vv.removeEventListener('resize', update);
+      vv.removeEventListener('scroll', update);
+    };
   }, []);
 
   // Transition + pub + switch vers classement après une completion fraîche (pas une restauration)
@@ -759,7 +770,7 @@ export default function SemantiquePage() {
 
           {/* Input zone — collée en bas */}
           {!showResult && (
-            <div className="semantic-input-zone" style={{ bottom: `${inputZoneBottom}px` }}>
+            <div ref={inputZoneRef} className="semantic-input-zone">
               <AnimatePresence>
                 {error && (
                   <motion.div className="semantic-error" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>

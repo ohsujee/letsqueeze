@@ -2565,6 +2565,7 @@ textarea:focus-visible {
   max-width: 500px;
   flex: 1;
   min-height: 0;
+  position: relative;
   display: grid;
   /* Points: auto, Question: at least 40% flexible, Answer: max 25% of card */
   grid-template-rows: auto minmax(40%, 1fr) minmax(auto, 25%);
@@ -2702,6 +2703,30 @@ textarea:focus-visible {
   40% { transform: scale(1.2); opacity: 1; }
 }
 
+/* Report button - top-right corner of QuestionCard */
+.question-report-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(251, 191, 36, 0.12);
+  color: rgba(251, 191, 36, 0.5);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.question-report-btn:hover {
+  background: rgba(251, 191, 36, 0.2);
+  color: rgba(251, 191, 36, 0.9);
+}
 
 /* =========================================
    🎮 HOST ACTION FOOTER - Shared between Host & Asker

@@ -348,6 +348,12 @@
         ".read": false
       }
     },
+    "unavailable_questions": {
+      ".read": "auth != null",
+      "$questionId": {
+        ".write": "auth != null"
+      }
+    },
     "debug_logs": {
       ".read": "root.child('admins').child(auth.uid).exists()",
       "$logId": {
