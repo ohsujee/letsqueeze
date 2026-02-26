@@ -712,6 +712,7 @@ export default function SemantiquePage() {
 
       {/* Game tab */}
       {activeTab === 'game' && (
+        <>
         <main className="semantic-main">
           {/* Zone scrollable : date + résultat + guesses */}
           <div className="semantic-scroll-area" ref={scrollAreaRef} style={!showResult ? { paddingBottom: '80px' } : undefined}>
@@ -767,7 +768,11 @@ export default function SemantiquePage() {
             )}
           </div>
 
-          {/* Input zone — collée en bas */}
+        </main>
+
+          {/* Input zone — hors de semantic-main pour éviter que iOS scrolle la liste.
+              position:fixed → la position visuelle est identique, mais iOS ne trouve
+              plus semantic-scroll-area comme ancêtre scrollable. */}
           {!showResult && (
             <div ref={inputZoneRef} className="semantic-input-zone">
               <AnimatePresence>
@@ -787,17 +792,21 @@ export default function SemantiquePage() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
+                  onTouchStart={() => {
+                    // touchstart fire AVANT qu'iOS programme son scroll automatique.
+                    // Double protection avec le déplacement DOM (pas d'ancêtre scrollable).
+                    const scrollEl = scrollAreaRef.current;
+                    if (!scrollEl) return;
+                    scrollEl.style.overflowY = 'hidden';
+                    scrollEl.scrollTop = 0;
+                  }}
                   onFocus={() => {
-                    // iOS scrolle la liste vers le bas quand l'input reçoit le focus.
-                    // Solution fiable : on désactive physiquement le scroll (overflow hidden)
-                    // → iOS ne peut pas scroller un élément non-scrollable.
                     const scrollEl = scrollAreaRef.current;
                     if (!scrollEl) return;
                     scrollEl.style.overflowY = 'hidden';
                     scrollEl.scrollTop = 0;
                   }}
                   onBlur={() => {
-                    // Clavier fermé → on restaure le scroll normal
                     const scrollEl = scrollAreaRef.current;
                     if (scrollEl) scrollEl.style.overflowY = '';
                   }}
@@ -817,7 +826,7 @@ export default function SemantiquePage() {
               </div>
             </div>
           )}
-        </main>
+        </>
       )}
 
       <AnimatePresence>
