@@ -23,6 +23,8 @@ import { useAlibiGroups } from "@/lib/hooks/useAlibiGroups";
 import { useAlibiGroupRotation } from "@/lib/hooks/useAlibiGroupRotation";
 import { canAccessPack, isPro, PRO_CONTENT } from "@/lib/subscription";
 import { useHearts } from "@/lib/hooks/useHearts";
+import { useHeartsLobbyGuard } from "@/lib/hooks/useHeartsLobbyGuard";
+import HeartsModal from "@/components/ui/HeartsModal";
 import { ALIBI_GROUP_CONFIG } from "@/lib/config/rooms";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
@@ -100,7 +102,8 @@ export default function AlibiLobby() {
   // Get user profile for subscription check and pseudo
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
-  const { consumeHeart } = useHearts({ isPro: userIsPro });
+  const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
+  const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 
   // Get pseudo from profile or fallback
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Hôte';
@@ -620,6 +623,9 @@ export default function AlibiLobby() {
         userIsPro={userIsPro}
       />
       <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
+
+      {/* Hearts Guard */}
+      <HeartsModal isOpen={showHeartsModal} heartsRemaining={heartsRemaining} {...heartsModalProps} />
 
       {/* Lobby Disconnect Alert */}
       <LobbyDisconnectAlert

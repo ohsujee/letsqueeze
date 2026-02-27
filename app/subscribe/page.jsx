@@ -62,7 +62,13 @@ export default function SubscribePage() {
     setIsProcessing(false);
 
     if (result.success) {
-      router.refresh();
+      const returnUrl = sessionStorage.getItem('returnAfterSubscribe');
+      if (returnUrl) {
+        sessionStorage.removeItem('returnAfterSubscribe');
+        router.push(returnUrl);
+      } else {
+        router.refresh();
+      }
     } else if (result.error === 'cancelled') {
       // User cancelled - do nothing
     } else {
@@ -79,7 +85,13 @@ export default function SubscribePage() {
     setIsRestoring(false);
 
     if (result.success && result.isPro) {
-      router.refresh();
+      const returnUrl = sessionStorage.getItem('returnAfterSubscribe');
+      if (returnUrl) {
+        sessionStorage.removeItem('returnAfterSubscribe');
+        router.push(returnUrl);
+      } else {
+        router.refresh();
+      }
     } else if (result.success && !result.isPro) {
       setErrorMessage('Aucun abonnement actif trouvé');
     } else {

@@ -20,6 +20,8 @@ import { useWakeLock } from '@/lib/hooks/useWakeLock';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { isPro } from '@/lib/subscription';
 import { useHearts } from '@/lib/hooks/useHearts';
+import { useHeartsLobbyGuard } from '@/lib/hooks/useHeartsLobbyGuard';
+import HeartsModal from '@/components/ui/HeartsModal';
 import { calculateMimeWords, MIME_CONFIG } from '@/lib/config/rooms';
 
 // Thèmes disponibles (chargés depuis /public/data/mime/*.json)
@@ -58,7 +60,8 @@ export default function MimeLobbyPage() {
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userPseudo = profile?.pseudo || 'Hôte';
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
-  const { consumeHeart } = useHearts({ isPro: userIsPro });
+  const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
+  const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 
   // Wake lock
   useWakeLock({ enabled: true });
@@ -338,6 +341,9 @@ export default function MimeLobbyPage() {
 
   return (
     <div className="lobby-container mime game-page">
+      {/* Hearts Guard */}
+      <HeartsModal isOpen={showHeartsModal} heartsRemaining={heartsRemaining} {...heartsModalProps} />
+
       {/* Modals */}
       <MimeThemeSelectorModal
         isOpen={showThemeSelector}

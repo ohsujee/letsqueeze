@@ -51,6 +51,8 @@ export default function HeartsModal({
   canRecharge = true,
   onWatchAd,
   onUpgrade,
+  canClose = true,
+  onGoHome,
 }) {
   if (!isOpen) return null;
 
@@ -79,7 +81,7 @@ export default function HeartsModal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={onClose}
+          onClick={canClose ? onClose : undefined}
         >
           <motion.div
             style={{
@@ -112,25 +114,27 @@ export default function HeartsModal({
                 pointerEvents: 'none',
               }} />
 
-              {/* Close */}
-              <button
-                onClick={onClose}
-                style={{
-                  position: 'absolute',
-                  top: 12, right: 12,
-                  width: 34, height: 34,
-                  borderRadius: '50%',
-                  background: 'rgba(0,0,0,0.3)',
-                  border: 'none',
-                  color: 'rgba(255,255,255,0.85)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <X size={16} />
-              </button>
+              {/* Close — masqué si canClose=false */}
+              {canClose && (
+                <button
+                  onClick={onClose}
+                  style={{
+                    position: 'absolute',
+                    top: 12, right: 12,
+                    width: 34, height: 34,
+                    borderRadius: '50%',
+                    background: 'rgba(0,0,0,0.3)',
+                    border: 'none',
+                    color: 'rgba(255,255,255,0.85)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <X size={16} />
+                </button>
+              )}
 
               {/* Hearts */}
               <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 14 }}>
@@ -253,6 +257,29 @@ export default function HeartsModal({
                 <Crown size={16} />
                 Devenir Pro
               </motion.button>
+
+              {/* Retour accueil — seulement en mode bloquant */}
+              {!canClose && onGoHome && (
+                <button
+                  onClick={onGoHome}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    padding: '12px 16px',
+                    background: 'transparent',
+                    color: 'rgba(255,255,255,0.4)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    borderRadius: 12,
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '0.85rem',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Retour à l'accueil
+                </button>
+              )}
 
             </div>
           </motion.div>

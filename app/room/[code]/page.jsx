@@ -27,6 +27,8 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { canAccessPack, isPro } from "@/lib/subscription";
 import { useHearts } from "@/lib/hooks/useHearts";
+import { useHeartsLobbyGuard } from "@/lib/hooks/useHeartsLobbyGuard";
+import HeartsModal from "@/components/ui/HeartsModal";
 import { useToast } from "@/lib/hooks/useToast";
 import { getQuizManifest } from "@/lib/utils/manifestCache";
 import { calculatePartyModeQuestions } from "@/lib/config/rooms";
@@ -63,7 +65,8 @@ export default function Room() {
 
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
-  const { consumeHeart } = useHearts({ isPro: userIsPro });
+  const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
+  const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
@@ -515,6 +518,9 @@ export default function Room() {
         userIsPro={userIsPro}
       />
       <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
+
+      {/* Hearts Guard */}
+      <HeartsModal isOpen={showHeartsModal} heartsRemaining={heartsRemaining} {...heartsModalProps} />
 
       {/* Lobby Disconnect Alert */}
       <LobbyDisconnectAlert

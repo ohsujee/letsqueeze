@@ -24,6 +24,9 @@ import { usePresence } from "@/lib/hooks/usePresence";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { isPro } from "@/lib/subscription";
+import { useHearts } from "@/lib/hooks/useHearts";
+import { useHeartsLobbyGuard } from "@/lib/hooks/useHeartsLobbyGuard";
+import HeartsModal from "@/components/ui/HeartsModal";
 import { useToast } from "@/lib/hooks/useToast";
 import { usePlaylistHistory } from "@/lib/hooks/usePlaylistHistory";
 import { ChevronRight, Music, Search, Check, X, Volume2 } from "lucide-react";
@@ -75,6 +78,8 @@ export default function DeezTestLobby() {
   // Get user profile for subscription check
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+  const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
+  const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
@@ -313,6 +318,7 @@ export default function DeezTestLobby() {
 
   const handleStartGame = async () => {
     if (!isHost || !selectedPlaylist || isStarting) return;
+    consumeHeart();
 
     setIsStarting(true);
     try {
@@ -510,6 +516,9 @@ export default function DeezTestLobby() {
         contentName="Playlists illimitées"
       />
       <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
+
+      {/* Hearts Guard */}
+      <HeartsModal isOpen={showHeartsModal} heartsRemaining={heartsRemaining} {...heartsModalProps} />
 
       {/* Lobby Disconnect Alert */}
       <LobbyDisconnectAlert

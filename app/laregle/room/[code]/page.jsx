@@ -19,6 +19,8 @@ import LobbyHeader from "@/components/game/LobbyHeader";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { isPro } from "@/lib/subscription";
 import { useHearts } from "@/lib/hooks/useHearts";
+import { useHeartsLobbyGuard } from "@/lib/hooks/useHeartsLobbyGuard";
+import HeartsModal from "@/components/ui/HeartsModal";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
@@ -67,7 +69,8 @@ export default function LaLoiLobby() {
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
-  const { consumeHeart } = useHearts({ isPro: userIsPro });
+  const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
+  const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });
@@ -328,6 +331,9 @@ export default function LaLoiLobby() {
       </AnimatePresence>
 
       <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
+
+      {/* Hearts Guard */}
+      <HeartsModal isOpen={showHeartsModal} heartsRemaining={heartsRemaining} {...heartsModalProps} />
 
       {/* Lobby Disconnect Alert */}
       <LobbyDisconnectAlert
