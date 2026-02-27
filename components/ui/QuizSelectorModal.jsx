@@ -138,7 +138,7 @@ export default function QuizSelectorModal({
     if (!selectedCategory) return;
 
     const availableThemes = selectedCategory.themes
-      .filter((theme, index) => !theme.comingSoon && (userIsPro || index < 3))
+      .filter(theme => !theme.comingSoon && (userIsPro || theme.free))
       .map(theme => theme.id);
 
     // If all are selected, deselect all. Otherwise select all.
@@ -267,7 +267,7 @@ export default function QuizSelectorModal({
                 <div className="quiz-themes-list">
                   {selectedCategory?.themes.map((theme, index) => {
                     const isSelected = selectedThemes.includes(theme.id);
-                    const isLocked = !userIsPro && index >= 3;
+                    const isLocked = !userIsPro && !theme.free;
                     const isComingSoon = theme.comingSoon;
                     const isDisabled = isLocked || isComingSoon;
 
