@@ -7,595 +7,510 @@
       "id": "st001",
       "question": "Jeune fille au crâne rasé dotée de pouvoirs télékinétiques, elle s'est échappée d'un laboratoire gouvernemental secret. Son vrai nom est un numéro et elle adore les gaufres Eggo. Qui est-ce ?",
       "answer": "Eleven (Onze / Jane Hopper / 011)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st002",
       "question": "Dimension parallèle sombre et toxique qui existe en miroir de notre monde dans Stranger Things, elle est remplie de spores flottantes, de vignes organiques et de créatures hostiles. Le portail vers ce lieu s'ouvre au laboratoire de Hawkins. Comment s'appelle cette dimension ?",
       "answer": "Le Monde Inversé (The Upside Down)",
-      "difficulty": "normal",
       "category": "Monde Inversé"
     },
     {
       "id": "st003",
       "question": "Première créature du Monde Inversé à apparaître dans la série, ce prédateur humanoïde sans visage possède une tête qui s'ouvre en pétales. Il enlève Will Byers dans la saison 1 et est nommé d'après un monstre de Donjons & Dragons. Quelle est cette créature ?",
       "answer": "Le Demogorgon",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "st004",
       "question": "Chef de police de Hawkins, cet homme bourru et solitaire devient le père adoptif d'Eleven. Présumé mort dans l'explosion du portail en saison 3, il est en réalité prisonnier dans un camp russe en Sibérie. Qui est-ce ?",
       "answer": "Jim Hopper",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st005",
       "question": "Garçon de 12 ans qui disparaît mystérieusement dans le premier épisode de Stranger Things, il est retrouvé dans le Monde Inversé après avoir survécu seul pendant une semaine. En saison 2, il est possédé par le Mind Flayer. Qui est-ce ?",
       "answer": "Will Byers",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st006",
       "question": "Leader du groupe d'amis et premier à accueillir Eleven, ce garçon aux cheveux noirs est le petit ami d'Eleven. Il utilise un talkie-walkie Supercom pour communiquer avec ses amis et devient le stratège du groupe. Qui est-ce ?",
       "answer": "Mike Wheeler",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st007",
       "question": "Garçon drôle et intelligent portant une casquette, il est passionné par la science et possède un adorable chat appelé Mews. Son amitié avec un bébé Demogorgon nommé D'Artagnan est l'un des arcs les plus touchants de la saison 2. Qui est-ce ?",
       "answer": "Dustin Henderson",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st008",
       "question": "Seul membre noir du groupe principal d'amis dans Stranger Things, il est pragmatique, loyal et utilise un lance-pierres comme arme de prédilection. Il sort avec Max Mayfield à partir de la saison 3. Qui est-ce ?",
       "answer": "Lucas Sinclair",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st009",
       "question": "Petite ville fictive de l'Indiana où se déroule Stranger Things, elle abrite un laboratoire gouvernemental secret et se retrouve régulièrement au centre d'événements surnaturels entre 1983 et 1986. Quelle est cette ville ?",
       "answer": "Hawkins (Indiana)",
-      "difficulty": "normal",
       "category": "Hawkins"
     },
     {
       "id": "st010",
       "question": "Mère de Will et Jonathan Byers, cette femme déterminée refuse de croire que son fils est mort. Elle utilise des guirlandes de Noël et l'alphabet peint sur le mur pour communiquer avec Will piégé dans le Monde Inversé. Qui est-ce ?",
       "answer": "Joyce Byers",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st011",
       "question": "Ancien popular kid et roi du lycée de Hawkins, ce personnage connaît l'une des plus grandes rédemptions de la série. D'abord détestable, il devient un baby-sitter courageux armé d'une batte cloutée et un héros apprécié de tous. Qui est-ce ?",
       "answer": "Steve Harrington",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st012",
       "question": "Scientifique qui dirige le Laboratoire National de Hawkins, il est surnommé 'Papa' par les enfants qu'il utilise comme sujets d'expérience. Il a élevé Eleven en la privant de liberté pour exploiter ses pouvoirs psychiques. Qui est-ce ?",
       "answer": "Dr. Martin Brenner (Papa)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st013",
       "question": "Révélé dans la saison 4 comme le grand antagoniste de toute la série, ce personnage était autrefois un enfant nommé Henry Creel (Numéro Un) au laboratoire de Hawkins. Banni dans le Monde Inversé par Eleven, il y est devenu une entité terrifiante. Qui est-ce ?",
       "answer": "Vecna (Henry Creel / Un / 001)",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "st014",
       "question": "Entité massive du Monde Inversé ressemblant à une araignée géante faite de fumée noire, elle contrôle les créatures du Monde Inversé comme un esprit de ruche. Elle possède Will en saison 2 et crée une armée de chair en saison 3. Quelle est cette créature ?",
       "answer": "Le Mind Flayer (Le Flagelleur Mental / L'Ombre)",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "st015",
       "question": "Chanson de Kate Bush de 1985 qui connaît un immense regain de popularité grâce à la saison 4 de Stranger Things, elle sauve Max Mayfield de l'emprise de Vecna car c'est sa chanson préférée. Quelle est cette chanson ?",
       "answer": "Running Up That Hill (A Deal with God)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "st016",
       "question": "Jeune fille rousse arrivée à Hawkins en saison 2, elle est skateuse et a un beau-frère violent nommé Billy. En saison 4, elle est la cible principale de Vecna et finit dans le coma après un affrontement traumatisant. Qui est-ce ?",
       "answer": "Max Mayfield (Maxine)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st017",
       "question": "Demi-frère de Max Mayfield, ce maître-nageur musclé et charismatique du Starcourt Mall est possédé par le Mind Flayer en saison 3. Il se sacrifie finalement pour sauver Eleven et ses amis. Qui est-ce ?",
       "answer": "Billy Hargrove",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st018",
       "question": "Metaleux passionné de Donjons & Dragons et guitariste du groupe Corroded Coffin, ce personnage de la saison 4 est injustement accusé des meurtres de Vecna. Sa scène de guitare dans le Monde Inversé jouant 'Master of Puppets' est devenue iconique. Qui est-ce ?",
       "answer": "Eddie Munson",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st019",
       "question": "Amie de Steve Harrington découverte en saison 3 quand ils travaillent ensemble au glacier Scoops Ahoy, elle est passionnée de cinéma et parle couramment russe. Elle est l'une des premières à découvrir la base secrète soviétique sous le centre commercial. Qui est-ce ?",
       "answer": "Robin Buckley",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st020",
       "question": "Jeu de rôle sur table qui sert de fil conducteur et de référence constante dans Stranger Things, les garçons y jouent régulièrement dans le sous-sol de Mike. Les créatures de la série sont souvent nommées d'après des monstres de ce jeu. Quel est ce jeu ?",
       "answer": "Donjons & Dragons (Dungeons & Dragons / D&D)",
-      "difficulty": "normal",
       "category": "Hawkins"
     },
     {
       "id": "st021",
       "question": "Centre commercial flambant neuf ouvert à Hawkins en saison 3, il cache en réalité une base secrète soviétique dans ses sous-sols. La bataille finale de la saison s'y déroule et il est détruit dans un 'incendie'. Quel est le nom de ce centre commercial ?",
       "answer": "Starcourt Mall",
-      "difficulty": "normal",
       "category": "Hawkins"
     },
     {
       "id": "st022",
       "question": "Quand Eleven utilise ses pouvoirs télékinétiques de manière intense, un phénomène physique se produit systématiquement sur son visage. Ce signe visuel indique l'effort que ses pouvoirs lui demandent. Quel est ce phénomène ?",
       "answer": "Elle saigne du nez (saignement de nez)",
-      "difficulty": "normal",
       "category": "Pouvoirs"
     },
     {
       "id": "st023",
       "question": "Installation gouvernementale secrète financée par le Département de l'Énergie américain, c'est le lieu où des enfants dotés de pouvoirs psychiques sont élevés et entraînés. Le portail vers le Monde Inversé s'y ouvre accidentellement. Quel est ce lieu ?",
       "answer": "Le Laboratoire National de Hawkins (Hawkins National Laboratory)",
-      "difficulty": "normal",
       "category": "Hawkins"
     },
     {
       "id": "st024",
       "question": "Frère aîné de Will Byers, photographe amateur et introverti, il sort avec Nancy Wheeler malgré sa différence de classe sociale. Il déménage avec sa famille en Californie entre les saisons 3 et 4. Qui est-ce ?",
       "answer": "Jonathan Byers",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st025",
       "question": "Soeur aînée de Mike Wheeler, elle est journaliste en herbe au lycée de Hawkins. D'abord en couple avec Steve puis avec Jonathan, elle enquête avec acharnement sur les disparitions et le laboratoire. Qui est-ce ?",
       "answer": "Nancy Wheeler",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st026",
       "question": "Nourriture préférée d'Eleven qui devient un symbole récurrent de la série, Hopper les utilise pour attirer Eleven hors de la forêt puis en achète régulièrement pour elle. Ce sont des gaufres d'une marque américaine spécifique. Quelle est cette marque ?",
       "answer": "Eggo (gaufres Eggo)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st027",
       "question": "Dans la saison 4, Vecna tue ses victimes en les faisant léviter puis en leur brisant les os et les yeux. Pour échapper à sa malédiction, il faut écouter sa chanson préférée qui crée un lien émotionnel avec le monde réel. Comment les personnages appellent-ils cette technique de sauvetage ?",
       "answer": "La musique (écouter sa chanson préférée / la méthode musicale)",
-      "difficulty": "normal",
       "category": "Pouvoirs"
     },
     {
       "id": "st028",
       "question": "Eddie Munson joue un solo de guitare épique dans le Monde Inversé pour attirer les Demodogs loin de ses amis dans la saison 4. Il joue un morceau de Metallica sorti en 1986, devenu viral après la diffusion de l'épisode. Quel est ce morceau ?",
       "answer": "Master of Puppets",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "st029",
       "question": "Bébé Demogorgon adopté par Dustin en saison 2, il le nourrit en cachette avant de réaliser que la créature grandit dangereusement vite. Dustin lui donne un nom inspiré des Trois Mousquetaires. Quel est ce nom ?",
       "answer": "D'Artagnan (Dart)",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "st030",
       "question": "Dans la saison 1, les garçons construisent un caisson d'isolation sensorielle improvisé dans le gymnase du collège de Hawkins pour qu'Eleven puisse localiser Will dans le Monde Inversé. Avec quel matériau remplissent-ils la piscine pour créer la flottaison ?",
       "answer": "Du sel (de l'eau salée / une solution saline)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st031",
       "question": "Professeur de sciences excentrique au collège de Hawkins, il aide les garçons à comprendre le Monde Inversé en utilisant une analogie avec un acrobate et une puce sur une corde. Il tombe amoureux de Joyce Byers. Qui est-ce ?",
       "answer": "Scott Clarke (Mr. Clarke)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "st032",
       "question": "La saison 1 de Stranger Things se déroule en novembre 1983 et rend hommage aux films et à la culture pop de cette époque. Le personnage de Will disparaît le soir d'une partie de Donjons & Dragons qui a duré particulièrement longtemps. Combien d'heures cette partie a-t-elle duré ?",
       "answer": "10 heures",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st033",
       "question": "Dans la saison 3, un groupe secret de Russes a construit une machine sous le Starcourt Mall pour ouvrir un portail vers le Monde Inversé. Steve et Robin découvrent un message codé en russe. Quel type d'entreprise sert de couverture pour accéder à la base ?",
       "answer": "Une livraison de colis / un entrepôt (ils découvrent l'accès via les quais de livraison du mall)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st034",
       "question": "Lorsque le Mind Flayer possède Will en saison 2, celui-ci dessine compulsivement un réseau de tunnels qui forment une carte gigantesque. Joyce et les autres réalisent que ces dessins représentent un système souterrain qui s'étend sous toute la ville. Comment les personnages surnomment-ils le Mind Flayer au début ?",
       "answer": "Le Shadow Monster (L'Ombre / The Shadow)",
-      "difficulty": "difficile",
       "category": "Créatures"
     },
     {
       "id": "st035",
       "question": "Dans la saison 4, Eleven accepte de participer à un programme secret qui lui fait revivre ses souvenirs d'enfance dans un laboratoire souterrain pour récupérer ses pouvoirs. Quel est le nom de code de ce projet ?",
       "answer": "Projet NINA (Programme NINA)",
-      "difficulty": "difficile",
       "category": "Pouvoirs"
     },
     {
       "id": "st036",
       "question": "Petite amie de Dustin rencontrée dans un camp de science, elle vit dans l'Utah et est une fervente mormone. Dustin la contacte par radio longue portée et elle exige qu'il chante avec elle avant de lui donner le nombre de Planck, crucial pour fermer le portail. Qui est-ce ?",
       "answer": "Suzie (Suzie Bingham)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "st037",
       "question": "Scène mémorable de la saison 3 où Dustin et sa petite amie Suzie chantent un duo au talkie-walkie alors que le monde est en danger. Cette chanson tirée d'un film fantastique de 1984 retarde la communication d'un code vital. Quelle est cette chanson ?",
       "answer": "NeverEnding Story (de Limahl, du film L'Histoire sans fin)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "st038",
       "question": "Dans la saison 2, Eleven quitte Hawkins et retrouve sa 'soeur' Kali, une autre enfant du laboratoire portant le numéro 008. Kali possède le pouvoir de créer des illusions visuelles. Dans quelle grande ville américaine vit Kali avec son gang ?",
       "answer": "Chicago",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "st039",
       "question": "Glacier du Starcourt Mall où Steve et Robin travaillent en saison 3, ils portent un uniforme de marin ridicule. Le nom de ce glacier fait référence à la marine. Quel est le nom de ce glacier ?",
       "answer": "Scoops Ahoy",
-      "difficulty": "normal",
       "category": "Hawkins"
     },
     {
       "id": "st040",
       "question": "Créateurs de Stranger Things, ces deux frères jumeaux ont écrit et réalisé la majeure partie de la série. Ils se sont inspirés des oeuvres de Spielberg, Stephen King et John Carpenter pour créer l'univers de Hawkins. Qui sont-ils ?",
       "answer": "Les frères Duffer (Matt et Ross Duffer)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "st041",
       "question": "Hopper rédige une lettre touchante à Eleven dans la saison 3, qu'il n'arrive jamais à lui lire en personne. Joyce la lit finalement à Eleven après la supposée mort de Hopper. Quel est le thème principal de cette lettre ?",
       "answer": "Accepter le changement et laisser la porte ouverte à 3 pouces (la règle des 3 pouces)",
-      "difficulty": "difficile",
       "category": "Hopper"
     },
     {
       "id": "st042",
       "question": "Dans la saison 1, Eleven découvre pour la première fois un aliment qu'elle adore instantanément chez les garçons, et qui devient un symbole récurrent de son personnage tout au long de la série. Quel est cet aliment ?",
       "answer": "Les gaufres Eggo",
-      "difficulty": "normal",
       "category": "Eleven"
     },
     {
       "id": "st043",
       "question": "Versions canines du Demogorgon apparues en saison 2, ces créatures quadrupèdes sont les formes juvéniles des monstres du Monde Inversé. Elles se déplacent en meute et sont contrôlées par le Mind Flayer. Comment les garçons les surnomment-ils ?",
       "answer": "Les Demodogs",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "st044",
       "question": "Le vrai nom d'Eleven est révélé quand Hopper l'adopte officiellement. Sa mère biologique, Terry Ives, était une cobaye du programme MKUltra qui lui a été enlevée à la naissance. Quel est le vrai nom d'Eleven ?",
       "answer": "Jane Ives (puis Jane Hopper après adoption)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st045",
       "question": "Programme secret de la CIA mené dans les années 1950-70, il impliquait des expériences sur des sujets humains avec du LSD et d'autres drogues. Dans Stranger Things, c'est ce programme qui a donné ses pouvoirs à la mère d'Eleven. Quel est ce programme ?",
       "answer": "MKUltra",
-      "difficulty": "difficile",
       "category": "Hawkins"
     },
     {
       "id": "st046",
       "question": "Dans la saison 4, Vecna crée quatre portails entre Hawkins et le Monde Inversé en tuant quatre victimes. Ces portails finissent par fusionner et déchirent la ville en deux dans le final. Combien de victimes Vecna devait-il tuer pour ouvrir définitivement le passage ?",
       "answer": "Quatre victimes (4 meurtres = 4 portails)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "st047",
       "question": "Dans la saison 4, le capitaine de l'équipe de basketball du lycée de Hawkins lance une véritable croisade contre Eddie Munson et le Hellfire Club après la mort de sa petite amie Chrissy. Fanatique et violent, il poursuit Eddie jusqu'à la maison Creel. Qui est-ce ?",
       "answer": "Jason Carver",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "st048",
       "question": "Petite soeur de Lucas Sinclair, cette fillette sassy et intelligente adore le capitalisme et les glaces gratuites. En saison 3, elle se faufile dans les conduits d'aération du Starcourt Mall et devient une héroïne malgré elle. Qui est-ce ?",
       "answer": "Erica Sinclair",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st049",
       "question": "Henry Creel, avant de devenir Vecna, vivait avec sa famille dans une maison victorienne de Hawkins dans les années 1950. Sa famille a été accusée de meurtre quand Henry a utilisé ses pouvoirs pour tuer sa mère et sa soeur. Son père a été enfermé pour ces crimes. Quel était le nom de famille ?",
       "answer": "Creel (la maison Creel / famille Creel)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st050",
       "question": "Objet de communication essentiel dans Stranger Things, les garçons l'utilisent pour rester en contact entre eux et avec Eleven. La marque exacte utilisée dans la série est un modèle des années 80 très reconnaissable. De quel type d'appareil s'agit-il ?",
       "answer": "Un talkie-walkie (walkie-talkie / Supercom)",
-      "difficulty": "normal",
       "category": "Hawkins"
     },
     {
       "id": "st051",
       "question": "Dans la saison 1, Barb Holland, meilleure amie de Nancy, disparaît lors d'une fête chez Steve Harrington. Elle est capturée par le Demogorgon après être tombée dans la piscine. Sa mort devient un sujet de controverse en saison 2. Pourquoi les fans ont-ils été particulièrement touchés par Barb ?",
       "answer": "Justice for Barb (sa mort a été ignorée/minimisée par les personnages, ce qui a indigné les fans)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st052",
       "question": "Arme emblématique de Steve Harrington dans Stranger Things, il l'utilise pour la première fois contre le Demogorgon en saison 1 puis la garde comme arme de prédilection pour combattre les créatures du Monde Inversé. Quel est cet objet ?",
       "answer": "Une batte de baseball cloutée (bat with nails)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st053",
       "question": "En saison 4, un groupe de jeunes basketteurs du lycée de Hawkins, mené par Jason Carver, lance une chasse aux sorcières contre Eddie Munson et le club Hellfire, les accusant de satanisme et de meurtre. Comment s'appelle le club de D&D dirigé par Eddie ?",
       "answer": "Le Hellfire Club",
-      "difficulty": "normal",
       "category": "Hawkins"
     },
     {
       "id": "st054",
       "question": "Bob Newby, petit ami de Joyce en saison 2 et ancien camarade de classe de Hopper, travaille dans un magasin d'électronique. Homme gentil et courageux, il sacrifie sa vie pour aider le groupe à s'échapper du laboratoire envahi par les Demodogs. Quel est son surnom donné par les fans ?",
       "answer": "Bob the Brain (Bob le super-héros / Bob Newby Superhero)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "st055",
       "question": "Le Monde Inversé est une version gelée dans le temps de Hawkins. Les frères Duffer ont révélé que cette dimension est figée à une date précise qui correspond au moment où le premier portail s'est ouvert. À quelle date le Monde Inversé est-il figé ?",
       "answer": "Le 6 novembre 1983 (la date de la disparition de Will)",
-      "difficulty": "difficile",
       "category": "Monde Inversé"
     },
     {
       "id": "st056",
       "question": "Dans la saison 3, un monstre fait de chair humaine est créé par le Mind Flayer à partir de dizaines d'habitants de Hawkins possédés. Cette créature massive attaque le groupe au Starcourt Mall. Comment les fans ont-ils surnommé cette créature ?",
       "answer": "Le Flayed Monster / Le monstre de chair (The Meat Flayer / Spider Monster)",
-      "difficulty": "difficile",
       "category": "Créatures"
     },
     {
       "id": "st057",
       "question": "En saison 4, Eleven vit en Californie avec la famille Byers et se fait harceler au lycée. Une fille populaire lui casse un projet scolaire (un diorama) sur la tête dans un roller rink. Comment se nomme cette brute ?",
       "answer": "Angela",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st058",
       "question": "Vecna choisit ses victimes en ciblant des personnes souffrant de traumatismes et de culpabilité. Avant de les tuer, il les hante avec des visions terrifiantes. Sa première victime en saison 4 est une pom-pom girl du lycée de Hawkins. Comment s'appelle-t-elle ?",
       "answer": "Chrissy Cunningham",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st059",
       "question": "Dans le flashback de la saison 4, on apprend qu'Henry Creel était un assistant au laboratoire de Hawkins qui portait un dispositif inhibant ses pouvoirs. Eleven lui retire ce dispositif, ignorant sa vraie nature, et il massacre tous les autres enfants. Quel numéro portait Henry au laboratoire ?",
       "answer": "001 (Numéro Un / One)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st060",
       "question": "Après le massacre du laboratoire, Eleven utilise ses pouvoirs pour bannir Henry dans le Monde Inversé. La force de l'impact le transforme physiquement en la créature connue sous le nom de Vecna. Quel effet visuel montre sa transformation ?",
       "answer": "Des éclairs/la foudre le frappe et sa peau se décompose (il est frappé par les éclairs du Monde Inversé qui le défigurent)",
-      "difficulty": "difficile",
       "category": "Pouvoirs"
     },
     {
       "id": "st061",
       "question": "Hopper survit à l'explosion du portail en saison 3 en sautant dans le Monde Inversé. Il est ensuite capturé par les Russes et emprisonné dans un camp de travail en Sibérie. Les prisonniers sont utilisés comme appâts pour quel type de créature ?",
       "answer": "Un Demogorgon (les Russes en gardent un captif dans le camp)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "st062",
       "question": "Argyle, personnage comique de la saison 4, est le meilleur ami de Jonathan en Californie. Il travaille comme livreur de pizza et conduit un van qui sert de moyen de transport au groupe pendant toute la saison. Pour quelle pizzeria travaille-t-il ?",
       "answer": "Surfer Boy Pizza",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st063",
       "question": "Le thème musical principal de Stranger Things, composé par Kyle Dixon et Michael Stein du groupe S U R V I V E, est devenu instantanément reconnaissable grâce à ses synthétiseurs analogiques. Il est joué dans quel style musical typique des années 80 ?",
       "answer": "Synthwave (musique synthétique / synthétiseur / électro 80s)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "st064",
       "question": "En saison 1, le corps d'un faux Will est retrouvé dans une carrière pour faire croire à sa mort. Hopper découvre la supercherie en examinant le corps à la morgue. Comment réalise-t-il que le corps est faux ?",
       "answer": "Le corps est rempli de coton/bourre (c'est un mannequin, pas un vrai corps)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st065",
       "question": "Murray Bauman, journaliste conspirationniste excentrique, devient un allié précieux du groupe. En saison 3, il traduit le message codé russe avec Alexei. En saison 4, il se rend en Russie avec Joyce pour libérer Hopper. Quel est son talent particulièrement utile ?",
       "answer": "Il parle russe couramment",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st066",
       "question": "Scientifique russe sympathique capturé en saison 3, il adore les Slurpees (boissons glacées) et la fête foraine. Il est surnommé 'Smirnoff' par Hopper. Il est tragiquement assassiné par un tueur russe après la fête du 4 juillet. Quel est son vrai nom ?",
       "answer": "Alexei",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st067",
       "question": "Pouvoir principal d'Eleven dans Stranger Things, elle peut déplacer des objets par la pensée, écraser des canettes de Coca-Cola, retourner des camionnettes et même ouvrir des portails dimensionnels. Comment appelle-t-on ce pouvoir ?",
       "answer": "La télékinésie",
-      "difficulty": "normal",
       "category": "Pouvoirs"
     },
     {
       "id": "st068",
       "question": "Eleven possède aussi un pouvoir de vision à distance : en se concentrant dans l'obscurité, elle peut observer et écouter des personnes n'importe où dans le monde. Elle entre dans une sorte de dimension noire et vide. Comment appelle-t-on ce pouvoir ?",
       "answer": "La vision à distance (remote viewing / psychic spying)",
-      "difficulty": "difficile",
       "category": "Pouvoirs"
     },
     {
       "id": "st069",
       "question": "En saison 1, pour ouvrir un portail vers le Monde Inversé, Eleven est forcée par le Dr. Brenner de contacter psychiquement une entité dans le vide. Cette rencontre effrayante provoque l'ouverture du premier portail. Quelle créature entre-t-elle en contact ?",
       "answer": "Le Demogorgon",
-      "difficulty": "normal",
       "category": "Monde Inversé"
     },
     {
       "id": "st070",
       "question": "La saison 1 se déroule en 1983, la saison 2 en 1984, la saison 3 en 1985 et la saison 4 en 1986. Un événement spécifique de la culture américaine sert de toile de fond à la saison 3, avec des feux d'artifice et des célébrations. Quel est cet événement ?",
       "answer": "Le 4 juillet (Fête de l'indépendance / Independence Day)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "st071",
       "question": "En saison 2, Will Byers est possédé par le Mind Flayer et devient son espion involontaire. Il ressent ce que le monstre ressent et déteste la chaleur. Pour libérer Will, Joyce et les autres le réchauffent dans quel lieu ?",
       "answer": "La cabane de Hopper (ils allument des radiateurs et des chauffages autour de lui)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st072",
       "question": "Dans la saison 2, Dustin essaie d'impressionner Max en battant un record sur un jeu d'arcade classique des années 80. Ce jeu donne aussi son nom à un épisode de la série. Quel est ce jeu ?",
       "answer": "Dig Dug (épisode 5 de la saison 2)",
-      "difficulty": "difficile",
       "category": "Hawkins"
     },
     {
       "id": "st073",
       "question": "Hopper laisse des Eggo dans une boîte dans la forêt pour Eleven après sa disparition à la fin de la saison 1. Ce rituel quotidien, qu'il maintient pendant un an, est la façon dont il finit par la retrouver. Quel poème/lettre lit Hopper dans une scène émotionnelle ?",
       "answer": "La lettre de Hopper à Eleven (qu'il n'a jamais réussi à lui lire - le discours du bal de la saison 3)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "st074",
       "question": "La saison 4 de Stranger Things est divisée en deux volumes. Le Volume 2, sorti séparément, contient un épisode final de durée exceptionnelle qui bat les records de la plateforme. Quelle est la durée approximative de cet épisode final ?",
       "answer": "Environ 2h30 (2 heures 30 minutes)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st075",
       "question": "En saison 4, le groupe se divise en plusieurs équipes à travers le monde : une en Californie, une en Russie, une à Hawkins et une dans le Nevada. Un ancien scientifique du Département de l'Énergie aide Eleven à retrouver ses pouvoirs en organisant le programme secret dans un silo souterrain. Quel est le nom de ce personnage qui aide Eleven ?",
       "answer": "Le Dr. Sam Owens",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st076",
       "question": "Sam Owens est un scientifique du Département de l'Énergie qui prend la relève du Dr. Brenner au laboratoire de Hawkins. Contrairement à Brenner, il est bienveillant et aide Joyce et Hopper. Il orchestre le programme NINA pour restaurer les pouvoirs d'Eleven. Quel acteur l'interprète ?",
       "answer": "Paul Reiser",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "st077",
       "question": "Eleven ferme le portail du Monde Inversé à la fin de la saison 2 dans une scène émotionnelle au laboratoire de Hawkins. Avant cela, elle se souvient des mots que Hopper lui a appris et de sa colère. Quel geste fait-elle pour fermer le portail ?",
       "answer": "Elle tend les deux mains vers le portail et utilise toute sa puissance télékinétique pour le refermer",
-      "difficulty": "difficile",
       "category": "Pouvoirs"
     },
     {
       "id": "st078",
       "question": "Le bal de fin d'année de la saison 2, appelé le Snow Ball, est la scène finale de la saison. Eleven y apparaît dans une robe et danse avec Mike sur une chanson romantique. Mais la caméra révèle que le Mind Flayer observe toujours Hawkins depuis le Monde Inversé. Quelle chanson joue pendant leur danse ?",
       "answer": "Every Breath You Take de The Police (ou Time After Time de Cyndi Lauper selon les sources)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st079",
       "question": "Max Mayfield est dans le coma à la fin de la saison 4 après son affrontement avec Vecna. Lucas reste à son chevet à l'hôpital. Eleven essaie de la contacter psychiquement mais découvre que son esprit est vide. Combien de temps le coeur de Max s'est-il arrêté avant qu'Eleven ne la ramène ?",
       "answer": "Une minute (Max meurt cliniquement pendant plus d'une minute avant qu'Eleven ne la ranime)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st080",
       "question": "Stranger Things a été diffusée exclusivement sur une plateforme de streaming américaine à partir de juillet 2016. La série est devenue l'un des plus gros succès de cette plateforme et a relancé la nostalgie des années 80 dans la culture populaire. Quelle est cette plateforme ?",
       "answer": "Netflix",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "st081",
       "question": "Dans la saison 4, Vecna est interprété par un acteur britannique qui joue le rôle sous un maquillage prosthétique impressionnant nécessitant plus de 7 heures de préparation. Il joue aussi le rôle de l'assistant Peter Ballard au laboratoire. Quel est cet acteur ?",
       "answer": "Jamie Campbell Bower",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "st082",
       "question": "Millie Bobby Brown, l'actrice qui joue Eleven, avait seulement 12 ans au début du tournage de la saison 1. Elle est devenue l'une des actrices les plus jeunes à être nommée aux Emmy Awards pour ce rôle. De quelle nationalité est-elle ?",
       "answer": "Britannique (anglaise, née en Espagne)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "st083",
       "question": "Le générique d'ouverture de Stranger Things, avec ses lettres rouges qui s'assemblent sur fond noir, est devenu immédiatement iconique. La police d'écriture utilisée est inspirée des couvertures de livres de Stephen King des années 80. Quel est le nom de cette police ?",
       "answer": "ITC Benguiat",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "st084",
       "question": "Dans la saison 3, un groupe de rats à Hawkins commence à se comporter étrangement avant d'exploser et de fusionner en une masse organique. Ce phénomène est le premier signe que le Mind Flayer est de retour. Quel produit chimique les rats sont-ils attirés à consommer ?",
       "answer": "Des produits chimiques / des fertilisants (ils mangent des produits chimiques industriels)",
-      "difficulty": "difficile",
       "category": "Créatures"
     },
     {
       "id": "st085",
       "question": "Le Monde Inversé a ses propres règles physiques : l'atmosphère est toxique, des particules flottent en permanence, et tout est recouvert d'une matière organique vivante. La température y est significativement plus basse que dans le monde normal. Comment appelle-t-on les particules qui flottent en permanence ?",
       "answer": "Les spores (particules/poussière du Monde Inversé)",
-      "difficulty": "normal",
       "category": "Monde Inversé"
     }
   ]
