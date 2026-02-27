@@ -7,798 +7,684 @@
       "id": "pkb001",
       "question": "Chef du gang de Birmingham et vétéran des tunnels de la Première Guerre mondiale, il dirige sa famille d'une main de fer et devient député travailliste. Il est interprété par Cillian Murphy. Qui est-ce ?",
       "answer": "Tommy Shelby",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb002",
       "question": "Frère aîné du chef des Shelby, ce vétéran de guerre est rongé par la violence et l'addiction. Interprété par Paul Anderson, il est le bras armé du gang et dirige le Garrison Pub. Qui est-ce ?",
       "answer": "Arthur Shelby",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb003",
       "question": "Tante et matriarche du clan, elle a dirigé les opérations du gang pendant que ses neveux étaient au front. Son vrai prénom est Elizabeth et elle est interprétée par Helen McCrory. Qui est-ce ?",
       "answer": "Polly Gray (Tante Polly)",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb004",
       "question": "Seule sœur des frères Shelby, elle épouse un agitateur communiste en secret durant la saison 1. Interprétée par Sophie Rundle, elle prend de plus en plus de responsabilités au fil des saisons. Qui est-ce ?",
       "answer": "Ada Shelby",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb005",
       "question": "Ancien ami de Tommy devenu agitateur politique, ce syndicaliste est un fervent partisan de la révolution bolchevique. Il épouse la sœur de Tommy en secret dans la saison 1 et meurt avant la saison 2. Qui est-ce ?",
       "answer": "Freddie Thorne",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb006",
       "question": "Le fils d'Ada et de Freddie Thorne porte un prénom inspiré d'un célèbre théoricien du communisme, auteur du Capital. Quel est le prénom de cet enfant ?",
       "answer": "Karl",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb007",
       "question": "Envoyé par Winston Churchill pour récupérer des armes volées à Birmingham, cet inspecteur nord-irlandais impitoyable est interprété par Sam Neill. Il est l'antagoniste principal des deux premières saisons. Qui est-ce ?",
       "answer": "Inspector Campbell (Chester Campbell)",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "pkb008",
       "question": "Dans la série, le gang porte le nom d'un type de couvre-chef à visière. Selon la légende populaire, des lames de rasoir seraient cousues dans la visière pour aveugler les ennemis. Quel type de couvre-chef les membres du gang portent-ils ?",
       "answer": "Flat cap (casquette plate)",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb009",
       "question": "Dans la saison 1, le gang met accidentellement la main sur une cargaison d'armes militaires. De quelle usine d'armement de Birmingham proviennent ces armes volées ?",
       "answer": "La BSA (Birmingham Small Arms Factory)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pkb010",
       "question": "Quartier ouvrier de Birmingham où vivent les Shelby, c'est le cœur du territoire du gang. Ce quartier populaire est aussi un lieu réel de la ville. Comment s'appelle-t-il ?",
       "answer": "Small Heath",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pkb011",
       "question": "Pub emblématique de la série qui sert de quartier général au gang, il est le lieu de nombreuses réunions stratégiques et se situe au cœur du territoire des Shelby. Quel est son nom ?",
       "answer": "Le Garrison Pub (The Garrison)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pkb012",
       "question": "Rue fictive de Birmingham où se trouvent la maison et le bureau de paris des Shelby, elle symbolise leurs origines modestes avant leur ascension sociale. Comment s'appelle cette rue ?",
       "answer": "Watery Lane",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pkb013",
       "question": "Chef des Birmingham Boys et roi des bookmakers sur les hippodromes, cet antagoniste de la saison 1 est abattu par Tommy lors de l'affrontement final aux courses de Worcester. Qui est-ce ?",
       "answer": "Billy Kimber",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "pkb014",
       "question": "Tommy donne à l'affrontement final de la saison 1 contre les Birmingham Boys un nom qui évoque un jour sombre et astral. Comment appelle-t-il ce plan décisif pour prendre le contrôle des courses ?",
       "answer": "Black Star Day",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pkb015",
       "question": "Ancien soldat souffrant de crises psychotiques depuis la guerre, ce membre loyal du gang doit son surnom au bruit des obus allemands. Tommy simule son exécution avec de la cervelle de mouton pour tromper les Italiens. Qui est-ce ?",
       "answer": "Danny Whizz-Bang (Daniel Owen)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb016",
       "question": "Pendant la Grande Guerre, Tommy et ses frères ont servi dans une unité spéciale du Royal Engineers chargée de creuser sous les lignes ennemies pour y poser des explosifs. Quel était le rôle de ces soldats appelés 'clay kickers' ?",
       "answer": "Tunnelier (sapper / tunneler)",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb017",
       "question": "Interprété par Tom Hardy, ce chef de gang juif dirige une distillerie clandestine déguisée en boulangerie dans un quartier de Londres. Imprévisible et charismatique, il est tantôt allié, tantôt ennemi des Shelby. Qui est-ce ?",
       "answer": "Alfie Solomons",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb018",
       "question": "Le personnage joué par Tom Hardy dirige son gang depuis un quartier du nord de Londres connu pour ses marchés et ses canaux. C'est là que se trouve sa fameuse boulangerie-distillerie. Quel est ce quartier ?",
       "answer": "Camden Town",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pkb019",
       "question": "Mafieux italo-britannique contrôlant les courses hippiques à Londres dans la saison 2, il dirige le Eden Club. Tommy s'allie aux gangs juifs pour le combattre. Qui est-ce ?",
       "answer": "Darby Sabini",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "pkb020",
       "question": "Agent de Sa Majesté infiltrée auprès de Tommy dans la saison 1, cette Irlandaise tombe véritablement amoureuse de lui. Interprétée par Annabelle Wallis, elle devient sa première épouse. Qui est-ce ?",
       "answer": "Grace Burgess (Grace Shelby)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb021",
       "question": "Dans la saison 2, la course hippique d'Epsom joue un rôle central dans le plan de Tommy pour éliminer l'emprise de Sabini sur les paris. Le cheval de course de Tommy porte un nom lié à sa vie sentimentale. Comment s'appelle ce cheval ?",
       "answer": "Grace's Secret",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pkb022",
       "question": "Riche veuve et propriétaire de chevaux de course, elle entraîne le cheval de Tommy et a une liaison avec lui dans la saison 2. Interprétée par Charlotte Riley, elle réapparaît dans la saison 4. Qui est-ce ?",
       "answer": "May Carleton",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pkb023",
       "question": "Dans le final de la saison 2, Polly se venge de l'inspecteur Campbell en l'abattant dans une cabine téléphonique. Dans quelle partie du corps lui tire-t-elle dessus, dans un acte de justice poétique ?",
       "answer": "L'aine (l'entrejambe)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pkb024",
       "question": "Au début de la saison 3, Tommy épouse la femme qu'il aime et s'installe dans un manoir du Warwickshire. Mais elle est tuée lors d'un gala de charité, touchée par une balle qui lui était destinée. Dans quelle saison meurt-elle ?",
       "answer": "Saison 3 (Series 3)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pkb025",
       "question": "Le somptueux manoir que Tommy acquiert dans la saison 3, situé dans le Warwickshire, devient le symbole de son ascension sociale. Dans la réalité, il est filmé à Arley Hall dans le Cheshire. Quel est le nom de ce manoir dans la série ?",
       "answer": "Arrow House",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pkb026",
       "question": "Duchesse russe exilée, séductrice et manipulatrice, elle a une liaison avec Tommy dans la saison 3 dans le cadre d'un complot impliquant des bijoux russes et un trafic d'armes. Qui est-ce ?",
       "answer": "Tatiana Petrovna",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb027",
       "question": "Prêtre corrompu et agent de la Ligue Économique dans la saison 3, il enlève le fils de Tommy pour faire pression sur lui. Interprété par Paddy Considine, il est finalement tué par les Shelby. Qui est-ce ?",
       "answer": "Father Hughes (Père Hughes)",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "pkb028",
       "question": "Fils de Tommy et Grace, ce bébé est kidnappé par les agents de la Ligue Économique dans la saison 3 pour faire chanter son père. Il porte un prénom classique anglais. Quel est son prénom ?",
       "answer": "Charles (Charlie)",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb029",
       "question": "Bijou maudit offert par un aristocrate russe, Tommy l'offre à sa femme sous forme de collier lors d'un gala de charité. La malédiction rom liée à cette pierre affectera tragiquement sa famille. De quelle pierre précieuse s'agit-il ?",
       "answer": "Un saphir (sapphire)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pkb030",
       "question": "Le plus jeune des frères Shelby, interprété par Joe Cole, est assassiné devant sa maison au début de la saison 4 par des hommes envoyés par la mafia new-yorkaise. Dans quelle saison meurt-il ?",
       "answer": "Saison 4 (Series 4)",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb031",
       "question": "Mafieux italo-américain venu de New York pour venger la mort de son père et de son frère Angel, il est l'antagoniste principal de la saison 4. Interprété par Adrien Brody, il suit les traditions de la vendetta sicilienne. Qui est-ce ?",
       "answer": "Luca Changretta",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "pkb032",
       "question": "Fils de Polly, il a été arraché à sa mère enfant et élevé sous un autre nom par une famille d'accueil dans le Kent. Il retrouve sa mère biologique dans la saison 2 et rejoint l'entreprise familiale. Qui est-ce ?",
       "answer": "Michael Gray",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb033",
       "question": "L'acteur qui interprète Michael Gray est le frère cadet de celui qui joue John Shelby dans la vraie vie. Ils partagent le même nom de famille. Quel est le patronyme de ces deux frères acteurs ?",
       "answer": "Cole (Finn Cole et Joe Cole)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pkb034",
       "question": "Nom donné à l'entreprise légale créée par les Shelby pour blanchir leurs revenus criminels, elle couvre des activités allant de la distillation de gin à la fabrication automobile. Quel est le nom complet de cette société ?",
       "answer": "Shelby Company Limited",
-      "difficulty": "normal",
       "category": "Business"
     },
     {
       "id": "pkb035",
       "question": "À la fin de la saison 4, Tommy obtient par chantage une distinction honorifique du Roi, ce qui lance sa carrière politique. Ce titre, abrégé en trois lettres, signifie 'Officer of the Most Excellent Order of the British Empire'. Quel est-il ?",
       "answer": "OBE",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb036",
       "question": "Tommy est élu député à la fin de la saison 4, représentant une circonscription de sa ville natale pour le parti travailliste. Pour quelle circonscription siège-t-il au Parlement ?",
       "answer": "Birmingham South",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "pkb037",
       "question": "Le cadet de la fratrie Shelby, interprété par Harry Kirton, est le seul acteur du casting principal originaire de Birmingham. Souvent en retrait, il commet une erreur fatale dans la saison 5 en parlant trop. Qui est-ce ?",
       "answer": "Finn Shelby",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb038",
       "question": "Épouse d'un des frères Shelby, issue de la famille Lee, son mariage arrangé dans la saison 1 scelle la paix entre les deux clans romanis. Interprétée par Aimee-Ffion Edwards, elle revient dans la saison 6 après la mort de son mari. Qui est-ce ?",
       "answer": "Esme Shelby (née Lee)",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pkb039",
       "question": "Oncle de Tommy qui tient un chantier naval au bord d'un canal, il sert de couverture pour les opérations clandestines du gang. Interprété par Ned Dennehy, il est un pilier discret mais essentiel de la famille. Qui est-ce ?",
       "answer": "Charlie Strong",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb040",
       "question": "Palefrenier talentueux au grand cœur travaillant dans le chantier de Charlie Strong, Tommy dit de lui qu'il est le meilleur homme de chevaux d'Angleterre. Interprété par Ian Peck, il apparaît dans les 6 saisons. Qui est-ce ?",
       "answer": "Curly",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb041",
       "question": "Ancienne prostituée devenue secrétaire puis épouse de Tommy, elle est la mère de sa fille Ruby. Interprétée par Natasha O'Keeffe, son personnage prend de l'ampleur au fil des saisons. Qui est-ce ?",
       "answer": "Lizzie Stark (Lizzie Shelby)",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pkb042",
       "question": "Politicien fasciste réel, il fonde le British Union of Fascists dans les années 1930. Interprété par Sam Claflin dans les saisons 5 et 6, il devient l'un des ennemis les plus dangereux de Tommy. Qui est-ce ?",
       "answer": "Oswald Mosley",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "pkb043",
       "question": "La saison 5 s'ouvre sur un jour tristement célèbre de l'histoire financière, le 29 octobre 1929, quand la Bourse de New York s'effondre. Quel nom porte ce jour dans l'histoire ?",
       "answer": "Le Mardi Noir (Black Tuesday)",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb044",
       "question": "Syndicaliste et militante communiste réelle, elle mène des grèves ouvrières à Birmingham dans les années 1920-30. Dans la série, elle a une liaison avec Tommy et soutient sa campagne politique. Qui est-ce ?",
       "answer": "Jessie Eden",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb045",
       "question": "Chef du gang écossais des Billy Boys dans la saison 5, il est allié à Oswald Mosley. C'est un antagoniste secondaire violent qui contrôle Glasgow. Qui est-ce ?",
       "answer": "Jimmy McCavern",
-      "difficulty": "difficile",
       "category": "Antagonistes"
     },
     {
       "id": "pkb046",
       "question": "Ancien camarade de tranchées de Tommy, ce tireur d'élite enfermé dans un asile est libéré pour assassiner Mosley. Il est abattu juste avant de pouvoir tirer, mettant fin au plan de la saison 5. Qui est-ce ?",
       "answer": "Barney Thompson",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pkb047",
       "question": "Gitan et combattant redoutable, il est un allié des Shelby dans les saisons 4 et 5. Amant de Polly, interprété par Aidan Gillen, il est assassiné lors de la tentative d'assassinat ratée contre Mosley. Qui est-ce ?",
       "answer": "Aberama Gold",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pkb048",
       "question": "Dans la saison 5, le plan d'assassinat de Tommy échoue car une taupe prévient l'IRA. C'est le plus jeune des frères Shelby qui, sans le vouloir, révèle le plan à un traître. Quel est le nom de cet informateur qui passe un coup de fil fatal ?",
       "answer": "Billy Grade",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pkb049",
       "question": "Épouse américaine de Michael Gray, interprétée par Anya Taylor-Joy, elle manipule son mari pour qu'il prenne le contrôle de l'entreprise familiale des Shelby. Elle apparaît à partir de la saison 5. Qui est-ce ?",
       "answer": "Gina Gray",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pkb050",
       "question": "Épouse d'Arthur Shelby, cette femme pieuse tente de l'éloigner de la violence et du crime. Interprétée par Kate Phillips, elle finit par essayer de tuer son mari dans la saison 5. Qui est-ce ?",
       "answer": "Linda Shelby",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pkb051",
       "question": "Helen McCrory, l'actrice qui incarnait la matriarche du clan Shelby, est décédée en 2021. Le personnage de Polly est donc mort hors-écran au début de la saison 6. De quelle maladie Helen McCrory est-elle décédée dans la vie réelle ?",
       "answer": "Un cancer (cancer du sein)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb052",
       "question": "Fils illégitime de Tommy découvert dans la saison 6, il est né d'une liaison avec une femme romani avant la guerre. Interprété par Conrad Khan, il porte un prénom noble. Quel est son prénom ?",
       "answer": "Duke (Erasmus)",
-      "difficulty": "difficile",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb053",
       "question": "Oncle de Gina Gray dans la saison 6, ce gangster de Boston inspiré de Joseph Kennedy contrôle le trafic d'alcool aux États-Unis. Interprété par James Frecheville, il est un nouvel antagoniste majeur. Qui est-ce ?",
       "answer": "Jack Nelson",
-      "difficulty": "difficile",
       "category": "Antagonistes"
     },
     {
       "id": "pkb054",
       "question": "Fille de Tommy et Lizzie, elle meurt à l'âge de 7 ans dans la saison 6, victime d'une maladie que la famille attribue à une malédiction romani liée à un bijou maudit. Quel est son prénom ?",
       "answer": "Ruby",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb056",
       "question": "La série a été créée par un scénariste né à Birmingham en 1959, qui a grandi en entendant les histoires de ses parents sur les vrais gangsters de Small Heath. Il est aussi co-créateur de 'Who Wants to Be a Millionaire'. Qui est-ce ?",
       "answer": "Steven Knight",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb057",
       "question": "Bien que la série soit située à Birmingham, les scènes de rues de Small Heath ont principalement été tournées dans deux villes du nord-ouest de l'Angleterre. Les rues Powis Street et Admiral Grove d'une de ces villes figurent Watery Lane. Quelle est cette ville ?",
       "answer": "Liverpool",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "pkb058",
       "question": "Musée vivant du Black Country situé près de Birmingham, il a été utilisé pour filmer de nombreuses scènes extérieures de la série, notamment le pont de Canal Street et le chantier de ferraille. Quel est le nom de ce musée ?",
       "answer": "Black Country Living Museum",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "pkb059",
       "question": "Le vrai gang des Peaky Blinders était actif à Birmingham à la fin du XIXe siècle. Selon les historiens, le terme 'peaky' désignait la visière de la casquette, et 'blinder' signifiait en argot de Birmingham une personne bien habillée. En quelle décennie ce gang était-il principalement actif ?",
       "answer": "Les années 1890 (1880s-1900s)",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "pkb060",
       "question": "Organisation secrète britannique pour laquelle le Père Hughes travaille dans la saison 3, elle manipule les Shelby dans un complot impliquant des armes et des aristocrates russes. Quel est le nom de cette ligue ?",
       "answer": "La Ligue Économique (Economic League)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pkb061",
       "question": "La saison 1 de la série débute en 1919, juste après la fin de la Première Guerre mondiale. Un conflit politique majeur en Irlande est au cœur de l'intrigue, avec l'IRA cherchant à acheter les armes volées. De quel conflit s'agit-il ?",
       "answer": "La guerre d'indépendance irlandaise",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb062",
       "question": "Homme d'État britannique occupant le poste de Secrétaire d'État à la Guerre dans la saison 1, il envoie Campbell à Birmingham pour récupérer les armes volées. Il ne paraît pas à l'écran mais son influence est constante. Qui est-ce ?",
       "answer": "Winston Churchill",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb063",
       "question": "Club de nuit londonien tenu par le gang de Sabini dans la saison 2, il est brutalement repris par les frères Shelby qui y envoient Arthur semer la terreur. Quel est le nom de ce club ?",
       "answer": "L'Eden Club",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pkb064",
       "question": "Dans la série, la famille Shelby a des origines romanis par leur mère. Ce patrimoine culturel est central dans l'intrigue, notamment à travers les malédictions et les rituels. Quel terme désigne ce peuple nomade dont les Shelby sont issus ?",
       "answer": "Les Roms (Romani / Gypsies)",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb065",
       "question": "Dans la saison 1, le mariage arrangé entre un frère Shelby et une femme du clan Lee met fin à la guerre entre les deux familles. Quelle famille romani rivale est ainsi liée aux Shelby par cette union ?",
       "answer": "La famille Lee",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb066",
       "question": "Trouble psychologique dont souffrent Tommy et de nombreux vétérans après les horreurs des tranchées, il se manifeste par des cauchemars, des flashbacks et des hallucinations. De quel syndrome souffrent-ils ?",
       "answer": "Le PTSD (syndrome de stress post-traumatique / shell shock)",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb067",
       "question": "Tommy et ses frères ont servi dans une unité numérotée du Royal Engineers spécialisée dans le creusement de tunnels sous les lignes ennemies en France. Quel est le numéro de cette compagnie de tunneliers ?",
       "answer": "La 179e (179th Tunnelling Company)",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "pkb068",
       "question": "À la fin de la saison 5, Tommy est au bord du gouffre après l'échec de son plan contre Mosley. La dernière image de la saison le montre dans un champ, un pistolet contre sa tempe, hurlant de rage. Quelle vision fantomatique le hante régulièrement depuis la saison 3 ?",
       "answer": "Le fantôme de Grace (hallucinations de Grace)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pkb069",
       "question": "La distillerie clandestine d'Alfie Solomons à Camden Town est déguisée en un type de commerce alimentaire pour échapper aux autorités. Ses employés font semblant d'y travailler de la farine. Quel type de commerce sert de couverture ?",
       "answer": "Une boulangerie (bakery)",
-      "difficulty": "normal",
       "category": "Business"
     },
     {
       "id": "pkb070",
       "question": "Le personnage d'Alfie Solomons est tiré d'un vrai gangster juif de l'East End londonien des années 1920. Tommy lui tire dessus à Margate, mais Alfie survit avec des cicatrices au visage. Quel acteur oscarisé, célèbre pour ses rôles dans Mad Max: Fury Road et Inception, incarne ce personnage ?",
       "answer": "Tom Hardy",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb071",
       "question": "Margate est une ville balnéaire du Kent où Alfie se retire après sa supposée mort. Quand Tommy le retrouve là-bas, il découvre que son ancien rival est atteint d'une maladie grave qui défigure son visage. De quelle maladie Alfie souffre-t-il ?",
       "answer": "Un cancer de la peau",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pkb072",
       "question": "Le fils de Tommy et Grace porte le même prénom que l'oncle de Tommy qui tient le chantier naval. Ce choix de prénom montre l'importance de la famille pour Tommy. Quel est ce prénom partagé entre l'oncle et le fils ?",
       "answer": "Charlie (Charles)",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb073",
       "question": "Dans la saison 2, le Garrison Pub est détruit par une explosion pendant que la famille assiste aux funérailles de Freddie Thorne. Qui a commandité cet attentat contre le quartier général des Shelby ?",
       "answer": "Sabini (les Italiens)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pkb074",
       "question": "Dans la saison 3, les Shelby sont impliqués dans un complot pour exfiltrer un trésor de bijoux de Russie et fournir des chars d'assaut à des rebelles combattant les bolcheviks. De quel pays du Caucase sont originaires ces rebelles ?",
       "answer": "La Géorgie (Géorgiens)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pkb075",
       "question": "Grève générale historique qui paralyse le Royaume-Uni pendant 9 jours, elle sert de toile de fond à la fin de la saison 4. Tommy exploite cette crise sociale pour servir ses ambitions politiques. En quelle année a-t-elle eu lieu ?",
       "answer": "1926",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb076",
       "question": "Le vrai Oswald Mosley a fondé un parti politique d'inspiration fasciste dans les années 1930 en Grande-Bretagne. Comment s'appelait cette organisation qui organisait des rassemblements en chemises noires ?",
       "answer": "Le British Union of Fascists (BUF)",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb077",
       "question": "L'acteur irlandais qui interprète Tommy Shelby a remporté l'Oscar du meilleur acteur en 2024 pour son rôle dans un film de Christopher Nolan sur le père de la bombe atomique. Pour quel film a-t-il reçu cette récompense ?",
       "answer": "Oppenheimer",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb078",
       "question": "Quand Michael est élevé par sa famille adoptive dans le Kent, il porte un autre prénom et un autre nom de famille. Ses parents adoptifs l'ont rebaptisé avec un prénom anglais classique. Quel faux nom porte-t-il avant de retrouver Polly ?",
       "answer": "Henry Johnson",
-      "difficulty": "difficile",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb079",
       "question": "L'entreprise des Shelby exerce plusieurs activités légales, dont la production et l'exportation d'un alcool fort typiquement britannique. Quelle boisson spiritueuse l'entreprise distille-t-elle et exporte-t-elle officiellement ?",
       "answer": "Du gin",
-      "difficulty": "normal",
       "category": "Business"
     },
     {
       "id": "pkb080",
       "question": "Dans la saison 4, la famille Changretta envoie à chaque cible Shelby un symbole traditionnel de la vendetta sicilienne pour annoncer qu'elle va mourir. Cet objet religieux sombre est envoyé accompagné d'un message de mort. Quel est cet objet sinistre transmis aux Shelby ?",
       "answer": "Une croix noire (Black Hand / avis de mort)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pkb081",
       "question": "La série compte au total 36 épisodes répartis sur 6 saisons. Chaque saison comporte le même nombre d'épisodes. Combien d'épisodes compte chaque saison ?",
       "answer": "6 épisodes",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "pkb082",
       "question": "Diffusée pour la première fois sur BBC Two un 12 septembre, la série britannique s'est achevée un 3 avril, près d'une décennie plus tard. Sur combien d'années la diffusion de la série s'est-elle étalée ?",
       "answer": "9 ans (2013-2022)",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "pkb083",
       "question": "Le film qui prolonge la série s'intitule 'Peaky Blinders: The Immortal Man'. Il se déroule en 1940, pendant la Seconde Guerre mondiale. Sur quelle plateforme de streaming ce film sera-t-il disponible en mars 2026 ?",
       "answer": "Netflix",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "pkb084",
       "question": "Le film 'The Immortal Man' a été tourné dans un studio construit par Steven Knight dans un quartier historique de Birmingham, ouvert en 2024. Comment s'appelle ce complexe de studios ?",
       "answer": "Digbeth Loc. Studios",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "pkb085",
       "question": "Dans le film 'The Immortal Man', l'actrice suédoise Rebecca Ferguson rejoint le casting aux côtés de Cillian Murphy. Quel acteur irlandais connu pour ses rôles dans 'Saltburn' et 'The Banshees of Inisherin' fait aussi partie du casting ?",
       "answer": "Barry Keoghan",
-      "difficulty": "difficile",
       "category": "Épisodes clés"
     },
     {
       "id": "pkb086",
       "question": "Le personnage de Jack Nelson dans la saison 6 est inspiré d'un vrai magnat américain, père d'un futur président des États-Unis. Ce personnage historique a fait fortune pendant la Prohibition et était ambassadeur au Royaume-Uni. De qui s'agit-il ?",
       "answer": "Joseph Kennedy (Joe Kennedy Sr.)",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "pkb087",
       "question": "L'IRA joue un rôle dans plusieurs saisons de la série. Dans la saison 6, une branche de l'IRA contacte Tommy et révèle que c'est elle qui a fait échouer le plan contre Mosley. Un officier portant un surnom de marin dirige cette faction. Quel est le surnom de cette officière de l'IRA ?",
       "answer": "Captain Swing (Laura McKee)",
-      "difficulty": "difficile",
       "category": "Antagonistes"
     },
     {
       "id": "pkb088",
       "question": "Dans la série, Tommy utilise souvent une substance narcotique ancestrale pour calmer ses démons intérieurs et ses cauchemars de la guerre. Au fil des saisons, sa dépendance s'aggrave considérablement. Quelle substance fume-t-il dans sa pipe chinoise ?",
       "answer": "De l'opium",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb089",
       "question": "La saison 1 se déroule principalement en 1919. La saison 6 se termine au début des années 1930. Sur environ combien d'années s'étale l'histoire racontée dans les 6 saisons de la série ?",
       "answer": "Environ 15 ans (1919-1934)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pkb090",
       "question": "La série est diffusée sur BBC Two pour les deux premières saisons, puis sur une autre chaîne de la BBC à partir de la saison 3. Sur quelle chaîne les saisons 3 à 6 ont-elles été diffusées ?",
       "answer": "BBC One",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "pkb091",
       "question": "Dans la saison 2, Tommy doit exécuter un assassinat commandité par Campbell lors de la grande course hippique d'Epsom. Cette course prestigieuse est l'une des plus célèbres du calendrier hippique anglais. Quel est son nom ?",
       "answer": "Le Derby (Epsom Derby)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pkb092",
       "question": "Polly est arrêtée et condamnée à mort à la fin de la saison 3 après le meurtre d'un inspecteur de police. Tommy négocie sa libération en échange de ses services pour le gouvernement. Comment Polly a-t-elle tué l'inspecteur Campbell ?",
       "answer": "Elle lui a tiré dessus (avec un pistolet)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pkb093",
       "question": "Le personnage de Darby Sabini est basé sur un vrai gangster italo-britannique qui contrôlait les hippodromes de Londres dans les années 1920. Quel était le vrai prénom et nom de ce parrain qui a inspiré le personnage ?",
       "answer": "Charles Sabini",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "pkb094",
       "question": "Dans la saison 5, Tommy siège comme député au Parlement et découvre la montée du fascisme en Grande-Bretagne. Il décide d'éliminer le leader fasciste lors d'un meeting politique à Birmingham. Dans quelle salle ce rassemblement a-t-il lieu ?",
       "answer": "Bingley Hall",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "pkb095",
       "question": "Acteur irlandais connu pour son rôle de Littlefinger dans Game of Thrones, il interprète Aberama Gold dans les saisons 4 et 5. Qui est cet acteur ?",
       "answer": "Aidan Gillen",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pkb096",
       "question": "L'acteur oscarisé qui incarne Luca Changretta dans la saison 4 a remporté l'Oscar du meilleur acteur en 2003 pour un film sur un pianiste polonais pendant la Seconde Guerre mondiale. Qui est cet acteur américain ?",
       "answer": "Adrien Brody",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb097",
       "question": "Tommy souffre de cauchemars récurrents liés à un moment traumatique précis de la guerre : un combat au corps à corps dans un espace extrêmement étroit sous les lignes ennemies. Dans quel type de lieu souterrain ce traumatisme a-t-il eu lieu ?",
       "answer": "Un tunnel (les tunnels sous le no man's land)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb098",
       "question": "Le premier épisode de la série s'ouvre sur Tommy traversant à cheval les rues industrielles de Birmingham, établissant immédiatement le lien entre le gang et le monde équestre. Quel rôle central les chevaux jouent-ils dans les affaires du gang au début de la série ?",
       "answer": "Les paris hippiques (bookmaking / courses de chevaux)",
-      "difficulty": "normal",
       "category": "Business"
     },
     {
       "id": "pkb099",
       "question": "Grace Burgess infiltre le Garrison Pub en se faisant passer pour une serveuse irlandaise dans la saison 1. En réalité, elle travaille secrètement pour le compte de Campbell. Pour quelle organisation travaille-t-elle officiellement ?",
       "answer": "La police (le service de renseignement britannique / la Couronne)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pkb100",
       "question": "Le frère le plus instable de Tommy combat une addiction sévère tout au long de la série. Violent et impulsif, il tente même de se suicider dans la saison 2 après une pendaison ratée. Quelle substance, en plus de l'alcool, alimente principalement sa rage ?",
       "answer": "La cocaïne",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb101",
       "question": "Dans la saison 3, le mariage de Tommy est célébré en grande pompe. Mais le même jour, un incident violent éclate avec la famille Changretta après que Tommy a interdit à Lizzie de voir l'un de leurs membres. Quel était le prénom du jeune Changretta que Lizzie fréquentait ?",
       "answer": "Angel",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pkb102",
       "question": "Le gang tire son nom de ses casquettes à visière plate. Dans la série, les membres utilisent la visière de leur casquette comme une arme en y cousant un objet tranchant pour lacérer le front de leurs adversaires. Quel objet y cousent-ils selon la légende ?",
       "answer": "Des lames de rasoir",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "pkb103",
       "question": "Personnage sensible devenu comptable de l'entreprise Shelby, le fils de Polly est interprété par Finn Cole. Dans la saison 6, il tente de tuer Tommy pour venger la mort de sa mère. Comment se termine cette confrontation entre les deux ?",
       "answer": "Tommy tue Michael",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pkb104",
       "question": "Dans la saison 4, Tommy élabore un plan risqué pour vaincre Luca Changretta en lui tendant un piège. Il utilise les services d'un gangster juif de Camden Town pour attirer le mafieux dans un guet-apens. Qui exécute finalement Luca ?",
       "answer": "Les hommes d'Alfie Solomons (la mafia juive)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pkb105",
       "question": "Ville balnéaire du Kent où Tommy retrouve Alfie Solomons vivant malgré l'avoir cru mort, cette station côtière est le lieu de leur confrontation mémorable dans la saison 5. De quelle ville s'agit-il ?",
       "answer": "Margate",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "pkb106",
       "question": "La série utilise régulièrement de la musique rock contemporaine anachronique pour créer une atmosphère unique. Le groupe Arctic Monkeys, PJ Harvey et Nick Cave figurent sur la bande-son. Quel titre de Nick Cave and the Bad Seeds accompagne le générique d'ouverture emblématique de la série ?",
       "answer": "Red Right Hand",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "pkb107",
       "question": "Dans la saison 6, Esme révèle à Tommy que la malédiction qui a tué sa fille est liée au saphir volé aux Russes. Selon elle, une femme romani avait maudit Tommy en prédisant que s'il avait une fille, elle mourrait au même âge qu'une autre enfant tuée par la pierre. À quel âge cette malédiction frappe-t-elle ?",
       "answer": "7 ans",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pkb108",
       "question": "La Shelby Company Limited est une entreprise aux multiples facettes qui évolue au fil des saisons. En plus de la distillation et des paris, elle se diversifie dans un secteur industriel majeur des années 1920. Quel type de véhicules l'entreprise fabrique-t-elle ?",
       "answer": "Des automobiles (voitures)",
-      "difficulty": "normal",
       "category": "Business"
     },
     {
       "id": "pkb109",
       "question": "Sam Neill, célèbre pour son rôle dans Jurassic Park, interprète l'inspecteur Campbell dans les saisons 1 et 2. De quel pays du Royaume-Uni ce personnage est-il originaire, ce qui explique son zèle anti-IRA ?",
       "answer": "L'Irlande du Nord (Belfast)",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "pkb110",
       "question": "Le nom complet de la matriarche du clan est Elizabeth Pollyanna Gray, née Shelby. Elle est la sœur du père des frères Shelby et a élevé ses neveux après la disparition de leurs parents. Quel lien de parenté a-t-elle exactement avec Tommy ?",
       "answer": "C'est sa tante (la sœur de son père)",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb111",
       "question": "Dans la saison 1, Tommy fonde une alliance avec le clan Lee en organisant un mariage arrangé entre un de ses frères et une femme de cette famille. Ce mariage met fin à une guerre entre les deux clans. Lequel de ses frères épouse Esme Lee ?",
       "answer": "John Shelby",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pkb112",
       "question": "Le film 'The Immortal Man' se déroule en 1940, dans le contexte de la Seconde Guerre mondiale. Tommy sort d'un exil volontaire pour affronter une menace existentielle pour sa famille et son pays. Quel réalisateur, connu pour 'Wild Rose' et 'Heart of Stone', dirige ce film ?",
       "answer": "Tom Harper",
-      "difficulty": "difficile",
       "category": "Épisodes clés"
     },
     {
       "id": "pkb113",
       "question": "Birmingham est célèbre dans la série pour ses canaux industriels et ses usines. Le chantier naval de Charlie Strong, situé au bord d'un canal, sert de lieu de stockage clandestin et de point de passage pour les marchandises du gang. Quel est le terme anglais utilisé pour désigner ce chantier dans la série ?",
       "answer": "Charlie's Yard (le yard)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pkb114",
       "question": "Ada nomme son fils d'après l'auteur du Capital et père du communisme, reflétant les convictions politiques de son mari Freddie. Ce choix de prénom provoque la désapprobation de ses frères. D'après quel penseur révolutionnaire est-il nommé ?",
       "answer": "Karl Marx",
-      "difficulty": "normal",
       "category": "Famille Shelby"
     },
     {
       "id": "pkb115",
       "question": "Dans la saison 5, Michael propose de restructurer l'entreprise familiale avec lui à la tête et la famille de sa femme américaine pour gérer la distribution aux États-Unis. Polly comprend que cette idée vient de l'épouse de Michael et la gifle. Quelle actrice, star de 'Le Jeu de la Dame', interprète cette épouse manipulatrice ?",
       "answer": "Anya Taylor-Joy",
-      "difficulty": "normal",
       "category": "Personnages"
     }
   ]
