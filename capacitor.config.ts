@@ -21,6 +21,9 @@ const config: CapacitorConfig = {
       skipNativeAuth: false,
       providers: ['google.com', 'apple.com']
       // iOS: Uses CLIENT_ID from GoogleService-Info.plist automatically
+    },
+    PushNotifications: {
+      presentationOptions: ['badge', 'sound', 'alert']
     }
   }
 };

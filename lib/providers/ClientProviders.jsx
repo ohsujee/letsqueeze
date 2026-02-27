@@ -8,6 +8,7 @@ import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
 import { AppShell } from '@/components/layout/AppShell';
 import BrowserRedirect from '@/components/shared/BrowserRedirect';
 import { prefetchManifests } from '@/lib/utils/manifestCache';
+import { usePushNotifications } from '@/lib/hooks/usePushNotifications';
 
 /**
  * ClientProviders - Wrapper pour tous les providers côté client
@@ -18,6 +19,9 @@ export function ClientProviders({ children }) {
   useEffect(() => {
     prefetchManifests();
   }, []);
+
+  // Push notifications natives (iOS + Android)
+  usePushNotifications();
 
   return (
     <ErrorBoundary>
