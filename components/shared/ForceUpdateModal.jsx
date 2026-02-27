@@ -4,7 +4,7 @@ import { Capacitor } from '@capacitor/core';
 
 // ⚠️ Remplace par ton App Store ID numérique
 // Visible dans App Store Connect → App Information → Apple ID (ex: 1234567890)
-const IOS_APP_STORE_URL = 'https://apps.apple.com/app/id6740268059';
+const IOS_APP_STORE_URL = 'https://apps.apple.com/app/id6758512562';
 const ANDROID_STORE_URL = 'https://play.google.com/store/apps/details?id=com.gigglz.app';
 
 export function ForceUpdateModal() {
