@@ -89,7 +89,7 @@
       "themes": [
         {"id": "database-rapfr", "title": "Rap FR", "emoji": "🎤", "description": "Rappeurs français, Albums, Classiques", "isNew": true, "free": true},
         {"id": "database-pophits", "title": "Pop & Hits", "emoji": "🌟", "description": "Tubes internationaux, Artistes, Records", "isNew": true, "free": true},
-        {"id": "database-kpop", "title": "K-Pop", "emoji": "💜", "description": "BTS, Blackpink, Groupes, Idoles", "isNew": true, "free": true},
+        {"id": "database-kpop", "title": "K-Pop", "emoji": "💜", "description": "BTS, Blackpink, Groupes, Idoles", "isNew": true},
         {"id": "database-rapus", "title": "Rap US", "emoji": "🔊", "description": "Hip-Hop américain, Légendes, Bangers", "isNew": true}
       ]
     }
