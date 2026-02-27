@@ -7,770 +7,660 @@
       "id": "sqg001",
       "question": "Protagoniste endetté et accro aux courses hippiques, ce chauffeur au chômage accepte de participer à des jeux mortels pour rembourser ses créanciers. Il porte le numéro 456 et remporte la compétition de la saison 1. Qui est-ce ?",
       "answer": "Seong Gi-hun",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg002",
       "question": "Ancien prodige du quartier de Ssangmun-dong diplômé de la prestigieuse université SNU, ce financier a détourné l'argent de ses clients pour spéculer en bourse. Il porte le numéro 218 et se poignarde à la fin du jeu final. Qui est-ce ?",
       "answer": "Cho Sang-woo",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg003",
       "question": "Transfuge nord-coréenne vivant de petits larcins, cette jeune femme participe aux jeux pour faire venir sa mère en Corée du Sud et sortir son frère d'un orphelinat. Elle porte le numéro 067 et meurt égorgée avant la finale. Qui est-ce ?",
       "answer": "Kang Sae-byeok",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg004",
       "question": "Doyen des joueurs, ce vieil homme apparemment sénile se révèle être le milliardaire fondateur des jeux. Il souffre d'une tumeur au cerveau et participe pour revivre des sensations fortes une dernière fois. Qui est-ce ?",
       "answer": "Oh Il-nam",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg005",
       "question": "Dans la saison 1, le tout premier jeu oppose les participants à une poupée animatronique géante qui détecte les mouvements. Ce jeu d'enfants coréen classique est connu sous un nom français bien connu. Quel est ce jeu ?",
       "answer": "Un, deux, trois, soleil (1, 2, 3 soleil)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg006",
       "question": "La poupée géante qui surveille les joueurs lors du premier jeu est un animatronique avec détecteur de mouvement, inspirée d'un personnage de manuels scolaires coréens. Elle porte une robe orange et des couettes. Quel est son nom ?",
       "answer": "Young-hee (Younghee)",
-      "difficulty": "normal",
       "category": "Symboles"
     },
     {
       "id": "sqg007",
       "question": "Le deuxième jeu de la saison 1 consiste à découper une forme dans un biscuit de sucre caramélisé à l'aide d'une aiguille, sans le casser. Ce bonbon traditionnel coréen fait partie de la culture de rue du pays. Comment s'appelle ce biscuit ?",
       "answer": "Dalgona (ppopgi)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg008",
       "question": "Lors de l'épreuve du biscuit caramélisé, les joueurs doivent découper une forme parmi quatre possibles. Trois sont relativement simples, mais la quatrième, avec son manche et sa toile, est réputée la plus complexe à découper. Quelle est cette forme la plus difficile ?",
       "answer": "Le parapluie",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg009",
       "question": "Le troisième jeu de la saison 1 est une épreuve de force collective où deux équipes tirent sur une corde au-dessus du vide. L'équipe perdante chute dans le vide et meurt. Quel est ce jeu classique ?",
       "answer": "Le tir à la corde",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg010",
       "question": "L'épisode 6 de la saison 1 s'intitule d'après un mot coréen signifiant ami d'enfance ou partenaire inséparable. Les joueurs doivent former des binômes puis s'affronter dans un jeu avec de petites sphères. Quel est ce jeu ?",
       "answer": "Les billes (le jeu de billes)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg011",
       "question": "Le cinquième jeu de la saison 1 consiste à traverser un pont suspendu en sautant de panneau en panneau. L'un des deux panneaux de chaque paire est en matériau trempé résistant et l'autre se brise sous le poids du joueur. Quel est ce jeu ?",
       "answer": "Le pont de verre",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg012",
       "question": "Le sixième et dernier jeu de la saison 1 donne son nom à la série entière. Tracé à la craie au sol, il ressemble à un céphalopode et oppose un attaquant à un défenseur dans une arène dessinée. Quel est ce jeu ?",
       "answer": "Le jeu du calamar (Ojingeo geim)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg013",
       "question": "Les gardes qui surveillent les joueurs portent des combinaisons roses et des masques noirs ornés d'un symbole géométrique indiquant leur rang. Les simples ouvriers portent un rond, les soldats un triangle. Quel symbole portent les superviseurs, au sommet de la hiérarchie des gardes ?",
       "answer": "Le carré",
-      "difficulty": "normal",
       "category": "Organisation"
     },
     {
       "id": "sqg014",
       "question": "Chaque joueur éliminé rapporte une somme à la cagnotte commune, visible dans un objet transparent géant suspendu au plafond du dortoir. Cet objet en forme d'animal se remplit progressivement de billets. Quelle est la forme de cet objet ?",
       "answer": "Un cochon (tirelire cochon)",
-      "difficulty": "normal",
       "category": "Symboles"
     },
     {
       "id": "sqg015",
       "question": "Le gain total promis au vainqueur de la compétition est une somme astronomique en wons sud-coréens, soit environ 33 millions de dollars. Ce montant n'est pas un hasard puisqu'il correspond exactement au nombre de participants multiplié par la mise individuelle. À combien s'élève cette cagnotte en milliards de wons ?",
       "answer": "45,6 milliards de wons",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg016",
       "question": "Le contrat que signent les participants contient une clause permettant d'arrêter les jeux si la majorité le décide par un vote. Après le massacre du premier jeu, les survivants votent et les jeux sont interrompus d'une seule voix de majorité. Grâce à quelle clause cela est-il possible ?",
       "answer": "La clause 3 (troisième clause)",
-      "difficulty": "difficile",
       "category": "Saison 1"
     },
     {
       "id": "sqg017",
       "question": "Travailleur pakistanais immigré en Corée du Sud, ce joueur au grand coeur n'a pas reçu son salaire depuis des mois. Trahi par son partenaire qui remplace ses billes par des cailloux lors du jeu de billes, il porte le numéro 199. Qui est-ce ?",
       "answer": "Ali Abdul",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg018",
       "question": "Gangster violent et impulsif criblé de dettes de jeu, ce joueur porte le numéro 101 et forme une alliance de brutes dans le dortoir. Il est entraîné dans le vide lors de l'épreuve du pont par une femme qu'il avait trahie. Qui est-ce ?",
       "answer": "Jang Deok-su",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg019",
       "question": "Femme exubérante et imprévisible portant le numéro 212, elle a une relation avec le gangster du groupe avant d'être trahie par celui-ci. Pour se venger, elle l'agrippe et se laisse tomber avec lui dans le vide durant le jeu du pont. Qui est-ce ?",
       "answer": "Han Mi-nyeo",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg020",
       "question": "Jeune femme portant le numéro 240, elle a été incarcérée pour avoir tué son père violent qui avait assassiné sa mère. Lors du jeu de billes, elle se sacrifie volontairement pour que sa partenaire Sae-byeok puisse survivre. Qui est-ce ?",
       "answer": "Ji-yeong",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg021",
       "question": "Le recruteur des joueurs est un homme élégant en costume qui aborde ses cibles dans les gares. Il propose un jeu de papiers pliés traditionnels coréens et gifle les perdants. Il est interprété par l'acteur star de la série Train to Busan. Quel est le nom de ce jeu de recrutement ?",
       "answer": "Le ddakji",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg022",
       "question": "L'acteur coréen qui incarne le recruteur élégant au ddakji est une star du cinéma, notamment connu pour son rôle principal dans le film de zombies Train to Busan. Il n'apparaît que brièvement mais marque les esprits. Qui est cet acteur ?",
       "answer": "Gong Yoo",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg023",
       "question": "Le dirigeant suprême des jeux sur le terrain porte un masque noir uni et un long manteau noir. Sa véritable identité est révélée dans la saison 1 quand son frère policier le démasque au sommet d'une falaise. Quel est le titre donné à ce personnage mystérieux ?",
       "answer": "Le Front Man",
-      "difficulty": "normal",
       "category": "Organisation"
     },
     {
       "id": "sqg024",
       "question": "Policier infiltré dans l'organisation des jeux, il se déguise en garde pour enquêter sur la disparition de son frère aîné. Découvert par le Front Man au bord d'une falaise, il reçoit une balle et tombe dans la mer. Qui est cet enquêteur ?",
       "answer": "Hwang Jun-ho",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg025",
       "question": "Le Front Man est en réalité le frère aîné du policier infiltré. Ancien vainqueur de la 28e édition des jeux en 2015, il est devenu le bras droit d'Oh Il-nam. Son nom complet est Hwang In-ho et il est interprété par un acteur coréen mondialement connu. Quel acteur joue ce rôle ?",
       "answer": "Lee Byung-hun",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg026",
       "question": "Des milliardaires étrangers viennent assister aux jeux en personne et parier sur la vie des participants. Ils portent des masques dorés en forme d'animaux et s'expriment en anglais. Par quel acronyme ces parieurs richissimes sont-ils désignés ?",
       "answer": "Les VIPs",
-      "difficulty": "normal",
       "category": "Organisation"
     },
     {
       "id": "sqg027",
       "question": "Dans la saison 1, certains gardes corrompus forment un réseau clandestin avec un médecin participant au jeu. Ils récupèrent les corps des joueurs éliminés pour en extraire et revendre des éléments biologiques au marché noir. Quel type de trafic pratiquent-ils ?",
       "answer": "Le trafic d'organes",
-      "difficulty": "normal",
       "category": "Organisation"
     },
     {
       "id": "sqg028",
       "question": "Lors de l'épreuve du tir à la corde, l'équipe de Gi-hun semble condamnée face à des adversaires bien plus forts. Le vieux joueur 001 propose une technique consistant à résister puis à avancer brusquement de quelques pas pour déstabiliser l'adversaire. Combien de pas cette technique requiert-elle ?",
       "answer": "Trois pas",
-      "difficulty": "difficile",
       "category": "Jeux"
     },
     {
       "id": "sqg029",
       "question": "Après avoir remporté les jeux, le protagoniste sombre dans la dépression et ne touche pas à ses gains pendant un an. Quand il décide finalement de se reprendre en main, il se teint les cheveux d'une couleur flamboyante symbolisant sa colère et sa détermination. Quelle est cette couleur ?",
       "answer": "Rouge",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg030",
       "question": "À la fin de la saison 1, le vainqueur des jeux se rend à l'aéroport pour prendre un avion vers Los Angeles et rejoindre sa fille. Mais en voyant un recruteur au ddakji recruter une nouvelle victime, il change d'avis et reste en Corée. Vers quelle ville devait-il s'envoler ?",
       "answer": "Los Angeles",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg031",
       "question": "L'épisode 6 de la saison 1 tire son titre d'un terme coréen affectueux désignant un ami d'enfance avec qui on partage tout. Oh Il-nam utilise ce mot pour expliquer pourquoi il donne ses dernières billes à Gi-hun. Quel est ce terme ?",
       "answer": "Gganbu",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg032",
       "question": "Le créateur, scénariste et réalisateur de la série a conçu le concept dès 2008-2009, mais a été refusé par tous les studios pendant plus de dix ans avant que Netflix ne le produise. Il a remporté un Emmy historique pour la réalisation. Qui est-ce ?",
       "answer": "Hwang Dong-hyuk",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg033",
       "question": "L'acteur principal de la série, qui incarne le joueur 456, a fait l'histoire en devenant le premier acteur asiatique à remporter l'Emmy du meilleur acteur dans une série dramatique en 2022. Son interprétation a été unanimement saluée. Qui est cet acteur ?",
       "answer": "Lee Jung-jae",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg034",
       "question": "La série a été diffusée pour la première fois le 17 septembre 2021 dans plus de 190 pays. En quatre semaines, elle a accumulé 1,65 milliard d'heures de visionnage, devenant le programme le plus regardé de l'histoire de la plateforme. De quelle plateforme s'agit-il ?",
       "answer": "Netflix",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg035",
       "question": "La mère du protagoniste souffre d'une maladie chronique qui s'aggrave tout au long de la saison 1, au point de risquer une amputation. Son fils n'a plus les moyens de payer son assurance ni ses soins. De quelle maladie souffre-t-elle ?",
       "answer": "Le diabète",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg036",
       "question": "Avant de participer aux jeux, Cho Sang-woo était un financier brillant qui a détourné l'argent de ses clients pour investir dans des produits financiers à haut risque. Il a utilisé la maison et le commerce de sa mère comme garantie pour ses opérations illégales. Dans quel type de produits financiers avait-il investi ?",
       "answer": "Les produits dérivés (dérivés et options sur contrats à terme)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "sqg037",
       "question": "Lors de la nuit sanglante dans le dortoir de la saison 1, les joueurs s'entretuent dans le noir pour réduire le nombre de concurrents et augmenter la cagnotte. Mais le joueur 001 crie aux gardes d'intervenir, et le carnage s'arrête. Pourquoi les gardes obéissent-ils au vieil homme ?",
       "answer": "Parce qu'il est le créateur et organisateur des jeux",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg038",
       "question": "Cho Sang-woo se suicide lors du dernier jeu en se plantant un couteau dans le cou. Avant de mourir, il fait une dernière demande à Gi-hun. Il lui demande de s'occuper d'une personne qui lui est chère avec l'argent du prix. De qui s'agit-il ?",
       "answer": "Sa mère",
-      "difficulty": "normal",
       "category": "Morts"
     },
     {
       "id": "sqg039",
       "question": "Après la survie du premier jeu, les participants votent pour arrêter la compétition et rentrent chez eux. Mais écrasés par leurs dettes, la grande majorité d'entre eux accepte de revenir jouer. Quel pourcentage approximatif des survivants revient aux jeux ?",
       "answer": "Environ 93% (187 sur 201 survivants)",
-      "difficulty": "difficile",
       "category": "Saison 1"
     },
     {
       "id": "sqg040",
       "question": "Les escaliers labyrinthiques et colorés empruntés par les joueurs entre les épreuves sont inspirés de l'oeuvre d'un artiste néerlandais célèbre pour ses gravures de perspectives impossibles et d'escaliers infinis. Quel est cet artiste ?",
       "answer": "M.C. Escher (Maurits Cornelis Escher)",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg041",
       "question": "Le bâtiment espagnol qui a principalement inspiré le design coloré et géométrique des décors de la série se trouve à Calpe, dans la province d'Alicante. Conçu par l'architecte Ricardo Bofill en 1973, cet immeuble est devenu emblématique. Comment s'appelle-t-il ?",
       "answer": "La Muralla Roja",
-      "difficulty": "difficile",
       "category": "Production"
     },
     {
       "id": "sqg043",
       "question": "Avant de remporter sa première cagnotte au début du premier épisode, le protagoniste mise sur une course hippique et gagne une somme dont les chiffres préfigurent le montant final du prix des jeux. Ce gain initial aux courses est de 4 560 000 wons. Quel rapport numérique a-t-il avec le prix final ?",
       "answer": "Ce sont les mêmes chiffres (456) avec des zéros supplémentaires",
-      "difficulty": "difficile",
       "category": "Saison 1"
     },
     {
       "id": "sqg044",
       "question": "Le recruteur propose au protagoniste de choisir entre deux couleurs de ddakji avant de jouer. Ces mêmes couleurs rappellent la carte de visite donnée aux futurs participants. Le joueur choisit l'une des deux couleurs, tandis que le recruteur prend l'autre. Quelles sont ces deux couleurs ?",
       "answer": "Bleu et rouge",
-      "difficulty": "normal",
       "category": "Symboles"
     },
     {
       "id": "sqg045",
       "question": "Les corps des joueurs éliminés sont évacués du dortoir dans des conteneurs élégants ornés de rubans roses. Ce mélange de mort et d'esthétique enfantine renforce le caractère glaçant de la série. Quelle forme prennent ces conteneurs funéraires ?",
       "answer": "Des cercueils (noirs avec nœuds roses)",
-      "difficulty": "normal",
       "category": "Symboles"
     },
     {
       "id": "sqg046",
       "question": "Oh Il-nam révèle avoir créé les jeux à l'origine pour parier sur la vie des plus démunis avec d'autres milliardaires qui s'ennuyaient. Il compare cet ennui profond à l'expérience de quelqu'un qui a tout acheté et n'a plus rien à désirer. En quelle année les jeux ont-ils été créés ?",
       "answer": "1988",
-      "difficulty": "difficile",
       "category": "Organisation"
     },
     {
       "id": "sqg047",
       "question": "Le médecin impliqué dans le trafic d'organes collaborait avec des gardes corrompus en échange d'informations sur les jeux à venir, ce qui lui donnait un avantage. Quand le Front Man découvre le réseau, il fait exécuter le médecin et les gardes impliqués. Quel est le numéro de ce joueur médecin ?",
       "answer": "111 (joueur 111)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "sqg048",
       "question": "Le Front Man a participé à et remporté les jeux bien avant de devenir leur dirigeant. Il jouait sous un numéro de joueur lors de cette édition qu'il a gagnée. Sa motivation était de sauver sa femme atteinte d'une cirrhose hépatique. Quelle édition des jeux a-t-il remportée ?",
       "answer": "La 28e (28e édition en 2015)",
-      "difficulty": "difficile",
       "category": "Organisation"
     },
     {
       "id": "sqg049",
       "question": "Dans le jeu de la saison 1, les joueurs dorment dans un immense dortoir avec des lits superposés disposés le long des murs, formant une sorte de gradins autour d'un espace central vide. Ce décor évoque volontairement des arènes de gladiateurs. Combien de joueurs participent en tout à cette édition ?",
       "answer": "456 joueurs",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg050",
       "question": "Sae-byeok a un jeune frère qu'elle tente de protéger et pour qui elle veut gagner le prix. L'enfant vit dans un foyer pour enfants car sa soeur n'a pas les moyens de louer un logement suffisant pour eux deux. Comment s'appelle ce petit frère ?",
       "answer": "Cheol (Kang Cheol)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg051",
       "question": "La série de la saison 1 a marqué l'histoire de la télévision en remportant six récompenses lors d'une cérémonie américaine prestigieuse en 2022, un record pour une série en langue non anglaise. Il s'agit de la plus haute distinction de la télévision américaine. De quelle cérémonie s'agit-il ?",
       "answer": "Les Emmy Awards (Primetime Emmy Awards)",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg052",
       "question": "La saison 2 a été mise en ligne le 26 décembre 2024 et a battu le record du plus grand nombre de vues lors d'une semaine de lancement, dépassant la série Wednesday. Elle compte moins d'épisodes que la première saison. Combien d'épisodes comporte la saison 2 ?",
       "answer": "7 épisodes",
-      "difficulty": "normal",
       "category": "Saison 2"
     },
     {
       "id": "sqg053",
       "question": "Dans la saison 2, Gi-hun retourne volontairement dans les jeux trois ans après les avoir remportés. Son but n'est plus de gagner de l'argent, mais de démanteler l'organisation de l'intérieur et de sauver les participants. Sous quel numéro de joueur revient-il ?",
       "answer": "456 (le même numéro)",
-      "difficulty": "normal",
       "category": "Saison 2"
     },
     {
       "id": "sqg054",
       "question": "Dans la saison 2, le Front Man décide de suivre les traces d'Oh Il-nam en s'infiltrant parmi les joueurs sous une fausse identité. Il prend le numéro 001 et adopte un faux nom pour gagner la confiance de Gi-hun. Quel faux nom utilise-t-il ?",
       "answer": "Oh Young-il",
-      "difficulty": "difficile",
       "category": "Saison 2"
     },
     {
       "id": "sqg055",
       "question": "Rappeur extravagant aux cheveux multicolores, ce joueur de la saison 2 porte le numéro 230. Il a perdu sa fortune en investissant dans une cryptomonnaie frauduleuse et est joué par un ancien membre du groupe de K-pop BIGBANG. Quel est son surnom dans la série ?",
       "answer": "Thanos",
-      "difficulty": "normal",
       "category": "Saison 2"
     },
     {
       "id": "sqg056",
       "question": "L'acteur qui incarne le rappeur Thanos dans la saison 2 est un ancien membre du boys band BIGBANG, connu sous son nom de scène dans le groupe. Son vrai nom est Choi Seung-hyun et son rôle dans la série a fait polémique en Corée du Sud. Quel est son nom de scène ?",
       "answer": "T.O.P",
-      "difficulty": "difficile",
       "category": "Production"
     },
     {
       "id": "sqg057",
       "question": "Nouveau personnage de la saison 2, cette ancienne militaire des forces spéciales est une femme transgenre qui participe aux jeux pour financer sa transition. Elle porte le numéro 120 et meurt en protégeant ses amies. Qui est-ce ?",
       "answer": "Cho Hyun-ju",
-      "difficulty": "normal",
       "category": "Saison 2"
     },
     {
       "id": "sqg058",
       "question": "Mère courage de la saison 2, cette femme âgée portant le numéro 149 participe aux jeux pour rembourser les dettes de son fils, sans savoir que celui-ci est aussi dans la compétition. Survivante de la guerre de Corée, elle accueille les exclus dans son groupe. Qui est-ce ?",
       "answer": "Jang Geum-ja",
-      "difficulty": "difficile",
       "category": "Saison 2"
     },
     {
       "id": "sqg059",
       "question": "Meilleur ami de Gi-hun dans la vie réelle, ce joueur de la saison 2 porte le numéro 390 et a rejoint les jeux après avoir dilapidé sa fortune aux jeux d'argent. Le Front Man le tue devant Gi-hun à la fin de la saison pour le punir de sa rébellion. Qui est-ce ?",
       "answer": "Jung-bae (No Jung-bae)",
-      "difficulty": "normal",
       "category": "Saison 2"
     },
     {
       "id": "sqg060",
       "question": "Influenceur et youtubeur spécialisé en cryptomonnaie dans la saison 2, il est responsable d'avoir fait perdre de l'argent à de nombreuses personnes dont le rappeur Thanos. Il porte le numéro 333. Qui est-ce ?",
       "answer": "Lee Myung-gi",
-      "difficulty": "difficile",
       "category": "Saison 2"
     },
     {
       "id": "sqg061",
       "question": "Le deuxième jeu de la saison 2 se déroule sur une plateforme circulaire tournante. Quand la musique s'arrête, un nombre est annoncé et les joueurs doivent former des groupes de ce nombre exact puis rejoindre une salle. Quel est le nom de ce jeu ?",
       "answer": "Mingle",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg062",
       "question": "Le troisième jeu de la saison 2 est une course en équipes de cinq joueurs attachés ensemble. Ils doivent compléter cinq mini-jeux traditionnels coréens à chaque étape de la course. Comment s'appelle cette épreuve combinée ?",
       "answer": "Le pentathlon à six jambes (Six-Legged Pentathlon)",
-      "difficulty": "difficile",
       "category": "Jeux"
     },
     {
       "id": "sqg063",
       "question": "Dans la saison 2, les joueurs ont la possibilité de voter pour continuer ou arrêter les jeux entre chaque épreuve. Ils votent en plaçant un jeton dans l'urne correspondante. Les deux options sont symbolisées par deux lettres simples. Quelles sont ces deux lettres ?",
       "answer": "O et X (O pour continuer, X pour arrêter)",
-      "difficulty": "normal",
       "category": "Saison 2"
     },
     {
       "id": "sqg064",
       "question": "À la fin de la saison 2, Gi-hun mène une rébellion armée contre les organisateurs avec d'autres joueurs qui veulent quitter les jeux. Mais le Front Man, qui s'était infiltré comme joueur 001, reprend son masque noir et fait échouer le soulèvement. Comment se termine cette rébellion ?",
       "answer": "Elle échoue (le Front Man la réprime)",
-      "difficulty": "normal",
       "category": "Saison 2"
     },
     {
       "id": "sqg065",
       "question": "Dans la scène post-générique de la saison 2, un nouveau robot animatronique est dévoilé aux côtés de Young-hee. Ce garçon avec une casquette est présenté comme le compagnon de la poupée géante et annonce de nouvelles épreuves pour la saison 3. Quel est son nom ?",
       "answer": "Cheol-su",
-      "difficulty": "difficile",
       "category": "Saison 2"
     },
     {
       "id": "sqg066",
       "question": "Le Hwang Dong-hyuk a écrit le scénario original sous forme de film en 2009, mais aucun studio coréen n'a voulu le produire car l'histoire était jugée trop violente et irréaliste. Il a même dû vendre son ordinateur portable pour se nourrir. Combien d'années a-t-il attendu avant de voir sa série produite ?",
       "answer": "Environ 10 ans (plus d'une décennie)",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg067",
       "question": "La première saison de la série est constituée d'épisodes dont la durée varie entre 32 et 63 minutes. La saison a été diffusée intégralement le jour de son lancement. Combien d'épisodes comporte la saison 1 ?",
       "answer": "9 épisodes",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg068",
       "question": "Quand la saison 1 fait l'objet d'un vote pour arrêter les jeux, Oh Il-nam est le dernier à voter. Son vote fait basculer la majorité en faveur de l'arrêt. Mais sachant qu'il est le créateur des jeux, ce geste n'était qu'un calcul car il savait que les joueurs reviendraient d'eux-mêmes. Pour quelle option le vieil homme vote-t-il ?",
       "answer": "Pour arrêter les jeux (en faveur de l'arrêt)",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg069",
       "question": "Les gardes les plus bas dans la hiérarchie portent un cercle sur leur masque. Ils ne sont pas autorisés à parler et leur tâche principale est de nettoyer et de s'occuper des corps des joueurs éliminés. Quel symbole géométrique portent les gardes soldats armés, un rang au-dessus ?",
       "answer": "Le triangle",
-      "difficulty": "normal",
       "category": "Organisation"
     },
     {
       "id": "sqg070",
       "question": "Les joueurs portent des survêtements verts numérotés avec des chaussures blanches, tandis que les gardes portent des combinaisons d'une autre couleur avec des masques noirs. Ce contraste visuel est devenu iconique dans la culture populaire. De quelle couleur sont les combinaisons des gardes ?",
       "answer": "Rose (rose/fuchsia)",
-      "difficulty": "normal",
       "category": "Symboles"
     },
     {
       "id": "sqg072",
       "question": "Sae-byeok est une transfuge qui a fui son pays natal avec sa famille, mais la traversée a été tragique. Son père a été abattu en tentant de passer la frontière et sa mère a été capturée et renvoyée. De quel pays Sae-byeok et sa famille ont-ils fui ?",
       "answer": "La Corée du Nord",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg073",
       "question": "Le Front Man avait participé aux jeux pour sauver une personne qui lui était chère. Sa femme souffrait d'une maladie hépatique grave et il espérait gagner le prix pour payer ses soins. Malheureusement, elle est morte avant la fin des jeux. De quelle maladie souffrait-elle ?",
       "answer": "Une cirrhose hépatique aiguë (cirrhose du foie)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "sqg074",
       "question": "L'acteur qui joue Cho Sang-woo, le rival et ami d'enfance de Gi-hun, était déjà connu en Corée du Sud pour avoir joué dans un drama populaire sur la vie en prison. Il incarne dans la série un homme brillant mais rongé par la culpabilité. Qui est cet acteur ?",
       "answer": "Park Hae-soo",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg075",
       "question": "Gi-hun et Sang-woo ont grandi ensemble dans le même quartier de Séoul. Leurs mères sont restées amies et c'est par ce lien que Gi-hun sait que Sang-woo est devenu un financier prospère. Dans quel quartier ont-ils grandi ensemble ?",
       "answer": "Ssangmun-dong",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "sqg076",
       "question": "Lors du jeu de billes, le vieil homme Oh Il-nam dit souffrir de pertes de mémoire et prétend ne plus se rappeler son propre nom. Mais juste avant d'être emmené par les gardes, il dit à Gi-hun qu'il se souvient enfin de son nom complet. Cette scène prend un sens nouveau quand on découvre sa vraie identité. Pourquoi jouait-il la comédie ?",
       "answer": "Il faisait semblant de perdre la mémoire pour que Gi-hun gagne les billes",
-      "difficulty": "difficile",
       "category": "Saison 1"
     },
     {
       "id": "sqg077",
       "question": "La dernière conversation entre Oh Il-nam mourant et Gi-hun porte sur un pari. Le vieil homme affirme que personne n'aidera un homme ivre effondré dans le froid en bas de chez eux avant minuit. Finalement, quelqu'un vient en aide à l'homme juste avant le délai. Qui gagne ce dernier pari ?",
       "answer": "Gi-hun (quelqu'un aide l'homme, prouvant la bonté humaine)",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg078",
       "question": "Le trafic d'organes est organisé par des gardes corrompus qui font sortir les organes de l'île par voie sous-marine. Des plongeurs les transportent dans des sacs étanches jusqu'à un bateau qui attend à un point de rendez-vous précis. Comment les organes quittent-ils physiquement l'île ?",
       "answer": "Par des tunnels sous-marins (plongeurs dans des tunnels sous l'île)",
-      "difficulty": "difficile",
       "category": "Organisation"
     },
     {
       "id": "sqg079",
       "question": "Le pentathlon de la saison 2 inclut cinq mini-jeux traditionnels coréens. Parmi eux, il y a le ddakji, la pierre volante, les osselets coréens, la toupie et un jeu de volant qu'on frappe avec le pied, similaire au hacky-sack. Comment s'appelle ce dernier mini-jeu ?",
       "answer": "Jegi-chagi (jegi)",
-      "difficulty": "difficile",
       "category": "Jeux"
     },
     {
       "id": "sqg080",
       "question": "Dans la saison 2, avant même le début officiel des jeux, deux complices de Gi-hun qui poursuivent le recruteur sont capturés et forcés de jouer à un jeu mortel combinant pierre-papier-ciseaux et une arme à feu à six chambres dont une seule est chargée. Comment appelle-t-on cette variante meurtrière ?",
       "answer": "La roulette russe",
-      "difficulty": "normal",
       "category": "Saison 2"
     },
     {
       "id": "sqg081",
       "question": "La série aborde frontalement le fléau de l'endettement massif des ménages en Corée du Sud. Des prêts usuraires aux paris sportifs, en passant par les arnaques à la cryptomonnaie dans la saison 2, les joueurs sont tous victimes du même problème structurel. Quel thème socio-économique central la série dénonce-t-elle ?",
       "answer": "La dette (l'endettement / les inégalités économiques)",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg082",
       "question": "Le mannequin et actrice qui incarne Kang Sae-byeok est devenue une star mondiale grâce à la série. Elle a ensuite été engagée pour des campagnes de grandes marques de luxe et a poursuivi sa carrière au cinéma. Qui est cette actrice sud-coréenne ?",
       "answer": "Jung Ho-yeon (HoYeon Jung)",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg083",
       "question": "L'acteur qui interprète le policier Hwang Jun-ho est devenu une star internationale après la série. Il a ensuite joué dans le drama romantique The Worst of Evil. Son personnage survit à sa chute de la falaise dans la saison 1 et revient dans la saison 2. Qui est cet acteur ?",
       "answer": "Wi Ha-joon (Wi Ha-jun)",
-      "difficulty": "difficile",
       "category": "Production"
     },
     {
       "id": "sqg084",
       "question": "Dans la saison 2, l'influenceur crypto Myung-gi a recommandé à ses abonnés d'investir toutes leurs économies dans une cryptomonnaie fictive qui s'est effondrée. Le rappeur Thanos fait partie de ses victimes et le confronte violemment. Comment s'appelle cette cryptomonnaie frauduleuse ?",
       "answer": "Dalmatian coin",
-      "difficulty": "difficile",
       "category": "Saison 2"
     },
     {
       "id": "sqg085",
       "question": "Ali Abdul appelle Sang-woo par un terme honorifique coréen qui signifie grand frère et implique respect et protection. Ce terme de confiance rend la trahison de Sang-woo lors du jeu de billes encore plus déchirante. Quel est ce terme honorifique ?",
       "answer": "Hyung",
-      "difficulty": "difficile",
       "category": "Relations"
     },
     {
       "id": "sqg086",
       "question": "En Corée du Sud, le nom de la poupée du jeu 1-2-3 soleil fait référence à un personnage d'un vieux manuel scolaire pour enfants. La comptine que chante la poupée en coréen est en réalité une phrase poétique qui signifie que la fleur nationale de Corée a fleuri. Quelle est cette fleur nationale ?",
       "answer": "Le mugunghwa (rose de Sharon / hibiscus syriacus)",
-      "difficulty": "difficile",
       "category": "Symboles"
     },
     {
       "id": "sqg087",
       "question": "La compétition de la saison 1 est la 33e édition des jeux organisés depuis leur création. Jun-ho le découvre en fouillant les archives de l'organisation sur l'île, où il trouve des dossiers remontant à plusieurs décennies. Quelle est l'édition à laquelle participe Gi-hun ?",
       "answer": "La 33e édition",
-      "difficulty": "normal",
       "category": "Organisation"
     },
     {
       "id": "sqg088",
       "question": "Pendant le jeu du pont de verre, un joueur parvient à identifier les panneaux de verre trempé en les observant sous la lumière. Pour empêcher cette stratégie, les organisateurs décident d'éteindre toutes les lumières de l'arène. Quel était le métier de ce joueur malin ?",
       "answer": "Artisan verrier (fabricant de verre / vitrier)",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg090",
       "question": "Lors de l'épreuve du pont de verre, les joueurs doivent choisir un dossard numéroté qui détermine leur ordre de passage. Les premiers numéros doivent traverser en éclaireurs, risquant le plus leur vie. Combien de temps les joueurs ont-ils pour traverser le pont ?",
       "answer": "16 minutes",
-      "difficulty": "difficile",
       "category": "Jeux"
     },
     {
       "id": "sqg091",
       "question": "Les VIPs qui parient sur les jeux portent des masques dorés à tête d'animal. On aperçoit notamment un lion, un taureau et un cerf. Leurs masques scintillants contrastent avec la sobriété des masques noirs des gardes. De quel matériau brillant semblent être faits leurs masques ?",
       "answer": "De l'or (masques dorés)",
-      "difficulty": "normal",
       "category": "Organisation"
     },
     {
       "id": "sqg092",
       "question": "L'un des VIPs importune sexuellement le policier infiltré Jun-ho, qui se fait passer pour un serveur masqué dans la salle des VIPs. Cette scène permet à Jun-ho d'accéder aux zones interdites et de découvrir l'ampleur de l'organisation. Dans quelle pièce exclusive Jun-ho se retrouve-t-il piégé avec ce VIP ?",
       "answer": "La salle des VIPs (le salon VIP)",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg093",
       "question": "Le jeu principal de la série, qui donne son nom au show, est un jeu de cour de récréation coréen traditionnel. Le terrain est tracé au sol à la craie et sa forme géométrique ressemble à un céphalopode marin. L'attaquant doit atteindre la tête en partant de la queue. À quel animal ce dessin au sol ressemble-t-il ?",
       "answer": "Un calamar (une seiche / un poulpe)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg094",
       "question": "Ali Abdul sauve la vie de Gi-hun lors du tout premier jeu en le rattrapant in extremis alors qu'il trébuche et s'apprête à être détecté par la poupée. Ce geste généreux marque le début de leur amitié et montre le caractère altruiste du travailleur immigré. Lors de quel jeu Ali sauve-t-il Gi-hun ?",
       "answer": "Un, deux, trois, soleil (le premier jeu)",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "sqg095",
       "question": "Dans la saison 2, une jeune femme enceinte participe aux jeux. Elle porte le numéro 222 et accouche pendant l'une des épreuves, protégée par Hyun-ju et Geum-ja. La naissance de son bébé est un moment de lumière dans l'horreur des jeux. Qui est cette joueuse ?",
       "answer": "Jun-hee (Kim Jun-hee)",
-      "difficulty": "difficile",
       "category": "Saison 2"
     },
     {
       "id": "sqg096",
       "question": "Dans la saison 1, les joueurs qui reviennent après le vote reçoivent un rappel glaçant des règles. L'organisation affiche trois principes fondamentaux sur les murs du dortoir, dont un principe d'équité fondamental. Quel est ce principe central affiché sur les murs ?",
       "answer": "Tous les joueurs sont égaux pendant les jeux",
-      "difficulty": "normal",
       "category": "Organisation"
     },
     {
       "id": "sqg097",
       "question": "Le premier épisode de la saison 2 reprend avec le protagoniste aux cheveux rouges qui a passé trois ans à chercher l'organisation. Il engage des complices pour traquer le recruteur au ddakji dans les gares de Séoul. Combien d'années se sont écoulées entre les deux saisons dans l'intrigue ?",
       "answer": "3 ans (trois ans)",
-      "difficulty": "normal",
       "category": "Saison 2"
     },
     {
       "id": "sqg098",
       "question": "Sang-woo est diplômé de la plus prestigieuse université de Corée du Sud, dont tout le quartier de Ssangmun-dong est fier. Sa mère mentionne cette université avec fierté à plusieurs reprises. De quelle université Sang-woo est-il diplômé ?",
       "answer": "SNU (Seoul National University / Université nationale de Séoul)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "sqg099",
       "question": "La série a été initialement conçue comme un long-métrage de cinéma et non comme une série télévisée. Hwang Dong-hyuk a réécrit le projet en format série quand la plateforme de streaming s'est intéressée au concept vers 2019. Quel format le scénario avait-il à l'origine ?",
       "answer": "Un film (un long-métrage)",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "sqg100",
       "question": "Le tir à la corde de la saison 1 oppose des équipes qui ne se choisissent pas au hasard. Deok-su constitue une équipe de colosses et refuse d'inclure la joueuse 212 sous prétexte qu'elle les affaiblirait. Combien de membres chaque équipe doit-elle compter pour ce jeu ?",
       "answer": "10 (dix joueurs par équipe)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "sqg101",
       "question": "Oh Il-nam porte un masque d'animal quand il regarde les jeux depuis la salle de contrôle des VIPs. Ce masque est différent des masques dorés des autres VIPs et représente un rapace nocturne. Quel animal représente le masque d'Oh Il-nam ?",
       "answer": "Un hibou",
-      "difficulty": "difficile",
       "category": "Symboles"
     },
     {
       "id": "sqg103",
       "question": "L'organisation des jeux se déroule sur une île isolée où les joueurs sont transportés endormis. Les installations souterraines sont immenses, avec des décors colorés de taille gigantesque pour chaque épreuve. Avant d'être emmenés sur l'île, les joueurs sont rendus inconscients grâce à quel moyen ?",
       "answer": "Un gaz soporifique (gaz anesthésiant)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "sqg104",
       "question": "Le terrain du premier jeu de la saison 1 reproduit une campagne coréenne idyllique avec un ciel bleu artificiel, un arbre géant et de l'herbe verte. Cet environnement enfantin contraste brutalement avec le massacre qui s'y déroule. Quelle atmosphère l'organisation cherche-t-elle à recréer ?",
       "answer": "Une cour de récréation / un terrain de jeu pour enfants",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "sqg105",
       "question": "Les joueurs de la saison 1 qui sont éliminés lors du premier jeu sont si nombreux que la tirelire se remplit d'un coup de manière spectaculaire. Sur 456 participants au départ, seuls un peu plus de 200 survivent au jeu de 1-2-3 soleil. Combien de joueurs survivent approximativement à ce premier jeu ?",
       "answer": "201 joueurs",
-      "difficulty": "difficile",
       "category": "Morts"
     },
     {
       "id": "sqg106",
       "question": "La joueuse Ji-yeong, numéro 240, se sacrifie lors du jeu de billes car elle estime n'avoir aucune raison de vivre en dehors des jeux. Contrairement à sa partenaire Sae-byeok, elle n'a plus de famille qui l'attend. Pourquoi avait-elle été emprisonnée avant les jeux ?",
       "answer": "Pour avoir tué son père (qui avait assassiné sa mère)",
-      "difficulty": "difficile",
       "category": "Morts"
     },
     {
       "id": "sqg107",
       "question": "Quand Gi-hun remporte les jeux, il reçoit une carte bancaire dorée contenant l'intégralité de la cagnotte. Mais pendant un an, rongé par la culpabilité et la dépression, il ne dépense presque rien et vit comme un sans-abri. Pendant combien de temps Gi-hun ne touche-t-il pas à ses gains ?",
       "answer": "Un an (environ un an)",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg108",
       "question": "Le personnel de l'organisation est organisé selon une stricte hiérarchie militaire. Les gardes ne peuvent pas retirer leur masque devant les joueurs et n'ont pas le droit de communiquer entre rangs différents sans autorisation. La pénalité pour avoir retiré son masque est immédiate. Quelle est cette pénalité ?",
       "answer": "La mort (exécution immédiate)",
-      "difficulty": "normal",
       "category": "Organisation"
     },
     {
       "id": "sqg109",
       "question": "La série explore le thème de l'égalité à travers les jeux. Sur les murs du dortoir, on peut voir un symbole géométrique composé d'un cercle, d'un triangle et d'un carré superposés. Que représente ce symbole récurrent de la série ?",
       "answer": "Le logo de l'organisation / le symbole des jeux",
-      "difficulty": "normal",
       "category": "Symboles"
     },
     {
       "id": "sqg110",
       "question": "Le dalgona que Gi-hun doit découper en forme de parapluie semble impossible à réussir. Mais il observe un joueur à côté de lui utiliser une technique ingénieuse avec sa bouche pour ramollir le sucre par derrière. Il adopte cette méthode et réussit de justesse. Quel geste sauve Gi-hun lors de cette épreuve ?",
       "answer": "Lécher le dos du biscuit (utiliser sa salive pour ramollir le sucre)",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg111",
       "question": "Dans la saison 2, le vote final après le troisième jeu aboutit à un résultat parfaitement partagé entre les joueurs voulant continuer et ceux voulant partir. C'est le Front Man infiltré comme joueur 001 qui, par son vote stratégique, influence le résultat. Quel est le résultat de ce dernier vote dans la saison 2 ?",
       "answer": "Égalité (50-50 / match nul)",
-      "difficulty": "difficile",
       "category": "Saison 2"
     },
     {
       "id": "sqg113",
       "question": "La mort de la mère de Gi-hun survient pendant qu'il est piégé dans les jeux. Quand il rentre chez lui après le vote d'arrêt, il découvre qu'elle est décédée seule chez elle de complications liées à sa maladie. Cette perte renforce sa détermination à retourner aux jeux. Quand Gi-hun apprend-il la mort de sa mère ?",
       "answer": "Quand il rentre chez lui après le vote d'arrêt des jeux",
-      "difficulty": "normal",
       "category": "Morts"
     },
     {
       "id": "sqg114",
       "question": "Lors du jeu de billes, Sang-woo propose à Ali de jouer à un jeu de pari simple. Il prétend vouloir former une alliance et garde temporairement les billes d'Ali. Mais il les remplace secrètement par de petits objets ronds ramassés au sol pour lui voler la victoire. Par quoi remplace-t-il les billes ?",
       "answer": "Des cailloux (des pierres)",
-      "difficulty": "normal",
       "category": "Saison 1"
     },
     {
       "id": "sqg115",
       "question": "Après la mort d'Oh Il-nam, Gi-hun tient sa promesse et s'occupe des familles des joueurs décédés. Il confie l'argent pour le frère de Sae-byeok et la mère de Sang-woo. Il charge une personne de confiance de veiller sur le petit Cheol. À qui confie-t-il la garde du frère de Sae-byeok ?",
       "answer": "Sang-woo's mother (la mère de Sang-woo / la dame du quartier)",
-      "difficulty": "difficile",
       "category": "Relations"
     }
   ]
