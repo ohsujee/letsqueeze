@@ -9,6 +9,8 @@ import { AppShell } from '@/components/layout/AppShell';
 import BrowserRedirect from '@/components/shared/BrowserRedirect';
 import { prefetchManifests } from '@/lib/utils/manifestCache';
 import { usePushNotifications } from '@/lib/hooks/usePushNotifications';
+import { useForceUpdate } from '@/lib/hooks/useForceUpdate';
+import { ForceUpdateModal } from '@/components/shared/ForceUpdateModal';
 
 /**
  * ClientProviders - Wrapper pour tous les providers côté client
@@ -23,7 +25,12 @@ export function ClientProviders({ children }) {
   // Push notifications natives (iOS + Android)
   usePushNotifications();
 
+  // Force update si version < config/forceUpdateVersion dans Firebase
+  const { forceUpdate } = useForceUpdate();
+
   return (
+    <>
+    {forceUpdate && <ForceUpdateModal />}
     <ErrorBoundary>
       <BrowserRedirect />
       <AppShell>
@@ -36,5 +43,6 @@ export function ClientProviders({ children }) {
         </ThemeProvider>
       </AppShell>
     </ErrorBoundary>
+    </>
   );
 }
