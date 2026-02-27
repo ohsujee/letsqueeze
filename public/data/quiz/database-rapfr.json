@@ -7,735 +7,630 @@
       "id": "rfr001",
       "question": "Ce groupe marseillais, formé en 1989 autour d'Akhenaton et Shurik'n, a sorti en 1997 un album considéré comme le plus grand classique du rap hexagonal. Leur tube de 1994 a atteint la première place des ventes en France. Quel est ce groupe ?",
       "answer": "IAM",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr002",
       "question": "Duo légendaire formé par JoeyStarr et Kool Shen en 1989, ce groupe originaire de Seine-Saint-Denis a marqué les années 90 avec un rap engagé et agressif. Leur troisième album, sorti en 1995, est considéré comme un pilier du genre. Quel est ce groupe ?",
       "answer": "Suprême NTM",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr003",
       "question": "Rappeur sénégalo-tchadien au style poétique et lettré, il a sorti son premier album en 1991 et a popularisé un rap mélodique en France. Son single Caroline et son titre Bouge de là restent des classiques intemporels. Qui est cet artiste ?",
       "answer": "MC Solaar",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr004",
       "question": "Né Élie Yaffa à Boulogne-Billancourt, ce rappeur surnommé le Duc a sorti 10 albums studio entre 2002 et 2021. Il est le fondateur du label 92i et a formé le duo Lunatic avec Ali dans les années 90. Qui est-il ?",
       "answer": "Booba",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr005",
       "question": "Ce duo de frères originaire de la cité des Tarterêts à Corbeil-Essonnes a révolutionné le rap avec un style mélancolique et des clips tournés aux quatre coins du monde. Leur label QLF Records symbolise leur indépendance totale. Quel est ce groupe ?",
       "answer": "PNL",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr006",
       "question": "Rappeur ultra-prolifique originaire du quartier Saint-Jean-du-Désert, il détient le record du nombre d'albums sortis dans le rap hexagonal avec une trentaine de projets depuis 2014. Il cumule plus de 300 certifications. Qui est-il ?",
       "answer": "Jul",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr007",
       "question": "Originaire du Val-d'Oise, ce rappeur est le recordman français des singles certifiés avec plus de 410 certifications. Cinq de ses projets ont atteint le statut de disque de diamant, un exploit inédit dans l'histoire du rap hexagonal. Qui est-il ?",
       "answer": "Ninho",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr008",
       "question": "Ce groupe de 8 rappeurs parisiens, fondé en 2002, a connu un succès phénoménal avec son troisième album sorti en mars 2012 et certifié diamant. Plusieurs de ses membres, dont Gims, Black M et Lefa, ont lancé de brillantes carrières solo. Quel est ce groupe ?",
       "answer": "Sexion d'Assaut",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr009",
       "question": "Rappeur belgo-congolais né William Kalubi à Kinshasa, il a grandi en banlieue de Bruxelles et a été signé sur le label 92i. Ses albums aux titres conceptuels empruntent au vocabulaire médical et philosophique. Qui est-il ?",
       "answer": "Damso",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr010",
       "question": "Ce rappeur marseillais, de son vrai nom Julien Schwarzer, est connu pour ses trilogies d'albums et une mixtape dont le titre fait référence à l'autoroute reliant Lyon à sa ville natale. Son premier projet solo est sorti en novembre 2015. Qui est-il ?",
       "answer": "SCH",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr011",
       "question": "Premier album studio solo du Duc de Boulogne, ce disque sorti le 22 janvier 2002 sur le label 45 Scientific a posé les fondations d'une carrière légendaire. Son titre évoque une pause forcée dans le temps. Quel est cet album ?",
       "answer": "Temps Mort",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr012",
       "question": "Sorti en mars 1997, ce double album du groupe marseillais le plus emblématique est souvent considéré comme le plus grand album du rap hexagonal. Il a remporté le prix du meilleur album de l'année toutes catégories aux Victoires de la Musique 1998. Quel est cet album ?",
       "answer": "L'École du Micro d'Argent",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr013",
       "question": "Certifié double diamant avec plus d'un million de ventes, cet album de PNL sorti en avril 2019 a battu le record de la meilleure première semaine pour un album de rap en France avec 113 214 exemplaires écoulés. Quel est cet album ?",
       "answer": "Deux Frères",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr014",
       "question": "Troisième opus du duo JoeyStarr et Kool Shen, sorti en 1995, cet album a dépassé les 500 000 exemplaires vendus et reste l'un des disques les plus emblématiques du rap hardcore hexagonal. Son titre évoque la capitale française dans le chaos. Quel est cet album ?",
       "answer": "Paris sous les bombes",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr015",
       "question": "Sorti en 2021, cet album de Ninho a fait de lui le premier rappeur à cumuler quatre disques de diamant en France. Son titre d'un seul mot espagnol signifie chef ou patron. Quel est cet album ?",
       "answer": "Jefe",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr016",
       "question": "Cet album de Nekfeu, sorti le 8 juin 2015, lui a valu le prix du Meilleur album urbain aux Victoires de la Musique 2016. Certifié diamant, son titre d'un seul mot de trois lettres évoque un élément ardent. Quel est cet album ?",
       "answer": "Feu",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr017",
       "question": "Sorti le 19 novembre 2021, ce quatrième album solo d'Orelsan a réalisé la meilleure première semaine de l'ère du streaming pour un album de rap avec 138 929 ventes. Son titre d'un seul mot évoque les sociétés humaines. Quel est cet album ?",
       "answer": "Civilisation",
-      "difficulty": "difficile",
       "category": "Albums"
     },
     {
       "id": "rfr018",
       "question": "Unique album du duo Lunatic sorti en octobre 2000, ce disque produit sur le label 45 Scientific est devenu culte dans le rap hexagonal. Certifié disque d'or, son titre de deux mots évoque un regard maléfique. Quel est cet album ?",
       "answer": "Mauvais Oeil",
-      "difficulty": "difficile",
       "category": "Albums"
     },
     {
       "id": "rfr019",
       "question": "Produit intégralement par le quatuor Therapy, ce premier album solo d'un rappeur originaire de Sevran est considéré comme le disque fondateur du mouvement trap en France. Sorti en octobre 2013, son titre de deux mots évoque un métal précieux d'une couleur sombre. Quel est cet album ?",
       "answer": "Or Noir",
-      "difficulty": "difficile",
       "category": "Albums"
     },
     {
       "id": "rfr020",
       "question": "Premier album solo de Gims, sorti en 2013, il a été certifié disque de diamant et a marqué le début d'une série de succès commerciaux colossaux pour l'ancien membre de la Sexion d'Assaut. Son titre d'un mot évoque ce qui est au-dessous du seuil de la conscience. Quel est cet album ?",
       "answer": "Subliminal",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr021",
       "question": "Deuxième album d'Orelsan sorti en 2017, il a été certifié double diamant en janvier 2023 avec plus d'un million de ventes. Son titre de quatre mots suggère la fin d'une célébration. Quel est cet album ?",
       "answer": "La fête est finie",
-      "difficulty": "difficile",
       "category": "Albums"
     },
     {
       "id": "rfr022",
       "question": "Premier album solo de Diam's sorti en 2006, il s'est classé directement numéro 1 en France et a été l'album le plus vendu de l'année, certifié diamant. Il a engendré les tubes La Boulette et Confessions Nocturnes. Quel est cet album ?",
       "answer": "Dans ma bulle",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr023",
       "question": "Premier album solo de Dadju sorti en novembre 2017, il a été certifié double diamant avec plus d'un million de ventes. Son titre associe un mot anglais élégant et un numéro de version. Quel est cet album ?",
       "answer": "Gentleman 2.0",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr024",
       "question": "Parue le 28 mai 1990, cette compilation sur le label Labelle Noir est la toute première compilation de rap hexagonal. Vendue à 100 000 exemplaires, elle révèle au grand public des artistes comme Assassin et NTM. Quelle est cette compilation ?",
       "answer": "Rapattitude",
-      "difficulty": "difficile",
       "category": "Classiques"
     },
     {
       "id": "rfr025",
       "question": "Sorti en 1994, ce single du groupe marseillais mené par Akhenaton est resté 8 semaines en tête des ventes en France. Son clip a été réalisé par Michel Gondry et le morceau sample Give Me the Night de George Benson. Quel est ce titre ?",
       "answer": "Je danse le Mia",
-      "difficulty": "normal",
       "category": "Classiques"
     },
     {
       "id": "rfr026",
       "question": "Premier album du rappeur au style poétique ayant popularisé le rap mélodique en France, sorti en 1991, son titre est un détournement d'un dicton biblique où le dernier mot est remplacé par un terme musical. Quel est cet album ?",
       "answer": "Qui sème le vent récolte le tempo",
-      "difficulty": "difficile",
       "category": "Classiques"
     },
     {
       "id": "rfr027",
       "question": "Second album du groupe Idéal J sorti en 1998, ce disque est considéré comme un classique absolu du rap conscient hexagonal. Porté par un son brut et des textes engagés, son titre de trois mots évoque une lutte permanente. Quel est cet album ?",
       "answer": "Le Combat continue",
-      "difficulty": "difficile",
       "category": "Classiques"
     },
     {
       "id": "rfr028",
       "question": "Premier album de la Fonky Family sorti le 5 décembre 1997, ce disque marseillais s'est vendu à plus de 200 000 exemplaires et est devenu une référence du rap hardcore. Son titre de trois mots commence par une condition spirituelle. Quel est cet album ?",
       "answer": "Si Dieu veut",
-      "difficulty": "normal",
       "category": "Classiques"
     },
     {
       "id": "rfr029",
       "question": "Sorti en 1995, ce double album du groupe fondé par Rockin' Squat et Solo est devenu double disque d'or. Il contient le titre culte L'État assassine. Son titre de deux mots décrit un crime avec préméditation. Quel est cet album ?",
       "answer": "L'Homicide volontaire",
-      "difficulty": "difficile",
       "category": "Classiques"
     },
     {
       "id": "rfr030",
       "question": "Premier album d'un rappeur parisien surnommé le Black Mozart, sorti en avril 1998 sur le label Time Bomb, ce disque sombre et poétique est unanimement salué par la critique. Son titre associe un genre musical italien au nom de scène de l'artiste. Quel est cet album ?",
       "answer": "Opéra Puccino",
-      "difficulty": "difficile",
       "category": "Classiques"
     },
     {
       "id": "rfr031",
       "question": "Ce rappeur né Ibrahima Diakhaté est considéré comme le prince de la drill hexagonale. En 2019, il a lancé une série de cinq freestyles qui l'ont révélé au grand public, avant de sortir sa première mixtape en février 2021 directement numéro 1. Qui est-il ?",
       "answer": "Gazo",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "rfr032",
       "question": "Signé chez 92i, le label du Duc de Boulogne, ce rappeur a sorti un premier album intitulé Ocho en avril 2021. Son titre Bolide allemand, tiré de son second opus, a été le morceau le plus streamé en France sur Spotify et Apple Music en 2023. Qui est-il ?",
       "answer": "SDM",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "rfr033",
       "question": "Ce rappeur a sorti un second album en février 2024 qui a été certifié diamant. Signé chez Believe, il est devenu l'une des figures majeures de la nouvelle scène avec un style entre mélodie et street. Le titre de cet album évoque une construction triangulaire antique. Qui est-il ?",
       "answer": "Werenoi",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "rfr034",
       "question": "Fondateur du collectif 667, ce rappeur franco-sénégalais a sorti en septembre 2020 un premier album dont le titre LMF est une référence au premier épisode de la saga Star Wars. Ce projet a été certifié disque d'or en trois semaines. Qui est-il ?",
       "answer": "Freeze Corleone",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "rfr035",
       "question": "Signé chez Wati B, ce rappeur d'origine malienne a percé avec son album Mélo en mai 2022, certifié platine. Ses singles La Clé et Gasolina ont été certifiés diamant, et il collabore régulièrement avec Niska et Gazo. Qui est-il ?",
       "answer": "Tiakola",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "rfr036",
       "question": "Rappeur originaire d'Evry né en 2000, il a connu un succès fulgurant avec son deuxième album sorti en avril 2019 contenant des feats avec Niska, Maes et Ninho. Le titre de cet album rend hommage au film de Martin Scorsese Les Affranchis. Qui est-il ?",
       "answer": "Koba LaD",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "rfr037",
       "question": "Rappeur de Stains, connu aussi sous le nom de Fianso, il a fédéré une quarantaine d'artistes de Seine-Saint-Denis autour d'un projet collectif sorti en octobre 2018 et certifié disque d'or. Son nom de scène est le verlan de son prénom. Qui est-il ?",
       "answer": "Sofiane",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "rfr038",
       "question": "Rappeur originaire d'Aulnay-sous-Bois, il a percé grâce à son album Commando en 2017, certifié diamant. Son single de la même année est resté 11 semaines numéro 1 du Top Singles français et a été certifié single de diamant. Qui est-il ?",
       "answer": "Niska",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "rfr039",
       "question": "Son deuxième album studio Enna, sorti en août 2020, a été certifié diamant après sa réédition. Le titre de cet album est la contraction des prénoms de son frère Enzo et de sa soeur Léna. Qui est ce rappeur ?",
       "answer": "PLK",
-      "difficulty": "difficile",
       "category": "Nouvelle génération"
     },
     {
       "id": "rfr040",
       "question": "Producteur et beatmaker franco-tunisien d'Asnières-sur-Seine, il a été le cerveau musical du groupe Idéal J et le producteur attitré de la Mafia K'1 Fry. Décédé accidentellement en 2011 à l'âge de 34 ans à Paris, il était aussi signé chez Ed Banger Records. Quel est son nom de scène ?",
       "answer": "DJ Mehdi",
-      "difficulty": "difficile",
       "category": "Producteurs"
     },
     {
       "id": "rfr041",
       "question": "Ce quatuor de compositeurs, formé de 2093, 2031, Loxon et Phantomm, a produit intégralement le premier album de Kaaris et a largement contribué à populariser la trap en France. Mouv' les a classés premiers des producteurs français de la décennie 2010. Quel est leur nom collectif ?",
       "answer": "Therapy",
-      "difficulty": "difficile",
       "category": "Producteurs"
     },
     {
       "id": "rfr042",
       "question": "Ce producteur belge d'origine marocaine a joué un rôle majeur dans l'explosion du rap belge, collaborant étroitement avec Damso sur les albums Lithopédion et QALF. Il s'est ensuite lancé dans une carrière solo avec l'album Passager en 2023. Qui est-il ?",
       "answer": "Prinzly",
-      "difficulty": "difficile",
       "category": "Producteurs"
     },
     {
       "id": "rfr043",
       "question": "DJ et producteur marseillais, Éric Mazel est le scratcheur historique du groupe mené par Akhenaton. Il est aussi connu pour sa compilation Sad Hill sortie en 1997, véritable tremplin pour de nombreux rappeurs de la scène phocéenne. Quel est son nom de scène ?",
       "answer": "DJ Kheops",
-      "difficulty": "normal",
       "category": "Producteurs"
     },
     {
       "id": "rfr044",
       "question": "Fondé par le Duc de Boulogne, ce label a vu passer des artistes comme Damso, SDM, Shay, Benash et Siboy. Son nom combine le numéro du département des Hauts-de-Seine et le mot injection. Quel est ce label ?",
       "answer": "92i",
-      "difficulty": "normal",
       "category": "Labels"
     },
     {
       "id": "rfr045",
       "question": "Fondé par le duo PNL, ce label indépendant porte un nom dont l'acronyme signifie Que la Famille. Il symbolise leur refus total de s'associer à une major et leur volonté de contrôler l'intégralité de leur carrière. Quel est ce label ?",
       "answer": "QLF Records",
-      "difficulty": "normal",
       "category": "Labels"
     },
     {
       "id": "rfr046",
       "question": "Filiale française du mythique label américain fondé par Russell Simmons, cette maison de disques a signé des artistes comme Kaaris, Alonzo, Koba LaD, Dinos et SCH depuis son ouverture en 2011. Quel est ce label ?",
       "answer": "Def Jam France",
-      "difficulty": "normal",
       "category": "Labels"
     },
     {
       "id": "rfr047",
       "question": "Fondé en 2000 par Dawala et le groupe Intouchable, ce label signé chez Sony est à l'origine du succès de la Sexion d'Assaut, Gims, Black M et Dadju. Son nom vient d'une expression bambara signifiant tout le temps. Quel est ce label ?",
       "answer": "Wati B",
-      "difficulty": "normal",
       "category": "Labels"
     },
     {
       "id": "rfr048",
       "question": "Fondé en 2002 au Havre par le rappeur Médine avec ses amis Brav et Alivor, ce label indépendant a pour devise Le Savoir Est Une Arme. Son catalogue défend un rap conscient et engagé. Quel est ce label ?",
       "answer": "Din Records",
-      "difficulty": "normal",
       "category": "Labels"
     },
     {
       "id": "rfr049",
       "question": "Label fondé en 1999 autour de trois groupes de Boulogne-Billancourt dont Lunatic, cette structure a été le socle de la carrière du Duc avant de devenir un véritable empire du rap. Son nom associe le chiffre 45 et un adjectif anglais. Quel est ce label historique ?",
       "answer": "45 Scientific",
-      "difficulty": "difficile",
       "category": "Labels"
     },
     {
       "id": "rfr050",
       "question": "En 2018, Booba a créé ce label sous Capitol France pour signer de jeunes talents comme Bramsito, Dixon et Nadjee. Son nom associe un chiffre et un mot anglais lié aux entreprises. Quel est ce label ?",
       "answer": "7 Corp",
-      "difficulty": "difficile",
       "category": "Labels"
     },
     {
       "id": "rfr051",
       "question": "Ce morceau de Médine sorti en 2017 réunit sept rappeurs parmi lesquels Lino, Ninho, Youssoupha, Seth Gueko et Lartiste dans un posse cut devenu culte. Son titre de deux mots évoque la métropole francilienne. Quel est ce titre ?",
       "answer": "Grand Paris",
-      "difficulty": "normal",
       "category": "Feats"
     },
     {
       "id": "rfr052",
       "question": "Sofiane a fédéré une quarantaine d'artistes du département 93 autour d'un projet collectif sorti en 2018, incluant Kalash Criminel, Ninho et Sadek. Ce disque d'or porte le nom d'un empire associé au numéro du département de Seine-Saint-Denis. Quel est ce projet ?",
       "answer": "93 Empire",
-      "difficulty": "normal",
       "category": "Feats"
     },
     {
       "id": "rfr053",
       "question": "Sur l'album Dans ma bulle en 2006, Diam's a collaboré avec Vitaa pour un duo nocturne devenu un classique incontournable du rap hexagonal. Ce titre de deux mots évoque des aveux faits dans l'obscurité. Quel est ce titre ?",
       "answer": "Confessions Nocturnes",
-      "difficulty": "normal",
       "category": "Feats"
     },
     {
       "id": "rfr054",
       "question": "Sur son premier album Le Poisson Rouge en 2000, Disiz La Peste a réussi l'exploit de réunir sur un même disque deux légendes rivales : le MC de NTM pour un titre et le leader d'IAM pour un autre. Quel est le MC de NTM qui figure sur cet album ?",
       "answer": "JoeyStarr",
-      "difficulty": "difficile",
       "category": "Feats"
     },
     {
       "id": "rfr057",
       "question": "En novembre 2021, cet artiste caennais a battu le record de la meilleure première semaine de ventes dans le rap hexagonal à l'ère du streaming, avec 138 929 ventes en 7 jours pour son quatrième album. Qui est-il ?",
       "answer": "Orelsan",
-      "difficulty": "normal",
       "category": "Records"
     },
     {
       "id": "rfr061",
       "question": "Animée par Fred Musa depuis 1996, cette émission quotidienne diffusée en semaine sur Skyrock est devenue le rendez-vous incontournable du rap hexagonal. Chaque artiste y passe pour présenter son projet en exclusivité. Quelle est cette émission ?",
       "answer": "Planète Rap",
-      "difficulty": "normal",
       "category": "Culture rap"
     },
     {
       "id": "rfr062",
       "question": "Lancé en ligne le 31 octobre 2005 par Fif Tobossi, ce site est devenu le média numéro 1 du rap hexagonal. Son nom est une référence au personnage de Buscapé dans le film La Cité de Dieu. Quel est ce média ?",
       "answer": "Booska-P",
-      "difficulty": "normal",
       "category": "Culture rap"
     },
     {
       "id": "rfr063",
       "question": "Fondé en 1995 autour de Kery James et Manu Key, ce collectif rassemblait des rappeurs de Vitry-sur-Seine, Choisy-le-Roi et Orly dans le Val-de-Marne. Il comptait notamment les membres du groupe 113, Rohff et le producteur DJ Mehdi. Quel est ce collectif ?",
       "answer": "Mafia K'1 Fry",
-      "difficulty": "normal",
       "category": "Culture rap"
     },
     {
       "id": "rfr064",
       "question": "Département des Hauts-de-Seine, ce territoire de la banlieue ouest de Paris est le berceau du rap du Duc de Boulogne, d'Ali et du collectif 92i. Son numéro est devenu un symbole identitaire fort dans le rap hexagonal. Quel est le numéro de ce département ?",
       "answer": "92",
-      "difficulty": "normal",
       "category": "Culture rap"
     },
     {
       "id": "rfr065",
       "question": "Le 1er août 2018, deux rappeurs rivaux et leurs entourages se sont violemment affrontés dans les boutiques du terminal Ouest d'un aéroport parisien, causant d'importants dégâts. Les vidéos de cette rixe ont fait le tour des réseaux sociaux. Dans quel aéroport cet incident a-t-il eu lieu ?",
       "answer": "Orly",
-      "difficulty": "normal",
       "category": "Culture rap"
     },
     {
       "id": "rfr066",
       "question": "Formé en 1994 à Boulogne-Billancourt, ce duo composé de Booba et Ali a sorti un unique album en 2000 avant de se séparer en 2003. Leur nom évoque un état mental instable et dangereux. Quel est ce duo ?",
       "answer": "Lunatic",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr067",
       "question": "Rappeur d'origine haïtienne né en Guadeloupe, co-fondateur du groupe Idéal J en 1991, il est aussi l'un des piliers du collectif Mafia K'1 Fry. Devenu figure du rap conscient, il a multiplié les albums solos engagés. Qui est-il ?",
       "answer": "Kery James",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr068",
       "question": "Trio de Vitry-sur-Seine composé de Rim'K, AP et Mokobé, ce groupe formé en 1994 est l'un des piliers du collectif Mafia K'1 Fry. Leur premier album Les Princes de la ville est sorti en 1999. Quel est le nom de ce groupe, qui porte un nombre ?",
       "answer": "113",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr069",
       "question": "Groupe marseillais formé par Sat, Don Choa, Le Rat Luciano, Menzo, Pone et DJ Djel, ils ont sorti leur premier album en décembre 1997 produit sur la structure Côté Obscur créée par les membres d'IAM. Quel est ce groupe ?",
       "answer": "Fonky Family",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr070",
       "question": "Formé en 1985 par Rockin' Squat et Solo à Paris, ce groupe de rap engagé a sorti un album culte en 1995. Rockin' Squat est le frère de l'acteur Vincent Cassel et le fils de Jean-Pierre Cassel. Quel est ce groupe au nom meurtrier ?",
       "answer": "Assassin",
-      "difficulty": "difficile",
       "category": "Artistes"
     },
     {
       "id": "rfr071",
       "question": "Groupe marseillais formé de quatre amis d'enfance incluant Soprano et Alonzo, ils ont sorti trois albums entre 2002 et 2008. Leur DJ attitré était Sya Styles et leur nom associe un chiffre à une figure de style littéraire. Quel est ce groupe ?",
       "answer": "Psy 4 de la Rime",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr072",
       "question": "Rappeur et chanteur marseillais né Saïd M'Roumbaba, il est passé du rap hardcore avec son groupe à une carrière solo grand public avec des albums comme Le Corbeau et Puisqu'il faut vivre. Il est aussi coach dans l'émission The Voice. Qui est-il ?",
       "answer": "Soprano",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr073",
       "question": "Rappeur franco-congolais et chanteur R&B né Djuna Djanana Junior, il a connu un succès phénoménal en solo après la pause de la Sexion d'Assaut. Son premier album solo, sorti en 2013, a été certifié diamant. Il est aussi le frère aîné de Dadju. Qui est-il ?",
       "answer": "Gims",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr074",
       "question": "Membre de la Sexion d'Assaut, ce rappeur a sorti son premier album solo Les yeux plus gros que le monde en 2014, rapidement certifié diamant. Il est notamment connu pour son titre Sur ma route devenu un hymne populaire. Qui est-il ?",
       "answer": "Black M",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr075",
       "question": "Rappeur du Havre fondateur du label Din Records, il est connu pour son rap engagé et ses textes à forte dimension sociopolitique. En 2017, il a réuni sept rappeurs sur le titre Grand Paris. Qui est-il ?",
       "answer": "Médine",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr076",
       "question": "Rappeur originaire de Sevran, il a été révélé en 2012 par un featuring avec le Duc de Boulogne. Son premier album solo, produit intégralement par le collectif Therapy, est considéré comme l'acte fondateur de la trap hexagonale. Qui est-il ?",
       "answer": "Kaaris",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr077",
       "question": "Rappeur franco-congolais, fils du musicien Tabu Ley Rochereau, il a sorti son troisième album en 2012, certifié platine en sept mois. Son rap est reconnu pour ses textes introspectifs et ses punchlines ciselées. Qui est-il ?",
       "answer": "Youssoupha",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr078",
       "question": "Rappeur d'origine sénégalaise et française, il a sorti son premier album Le Poisson Rouge en 2000, porté par le tube J'pète les plombs vendu à 400 000 exemplaires. Il a ensuite remporté une Victoire de la Musique en 2006. Qui est-il ?",
       "answer": "Disiz",
-      "difficulty": "difficile",
       "category": "Artistes"
     },
     {
       "id": "rfr079",
       "question": "Rappeuse française d'origine chypriote née Mélanie Georgiades, elle est devenue en 2006 la première artiste de rap hexagonal à réaliser le meilleur démarrage et les meilleures ventes annuelles. Elle a pris sa retraite musicale pour se consacrer à sa vie personnelle. Qui est-elle ?",
       "answer": "Diam's",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr080",
       "question": "Surnommé le Black Mozart, ce rappeur parisien au style sombre et poétique a sorti son premier album en 1998. Proche du collectif Time Bomb, il est souvent comparé à Nas pour son rap narratif et introspectif. Qui est-il ?",
       "answer": "Oxmo Puccino",
-      "difficulty": "difficile",
       "category": "Artistes"
     },
     {
       "id": "rfr082",
       "question": "De son vrai nom Ken Samaras, ce rappeur a sorti trois albums solo tous certifiés diamant, un exploit rare dans le rap hexagonal. Issu du collectif 1995 et du S-Crew, il a aussi remporté les Victoires de la Musique en 2016. Qui est-il ?",
       "answer": "Nekfeu",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr083",
       "question": "Membre de NTM de son vrai nom Bruno Lopes, ce rappeur né en 1966 a aussi mené une carrière solo et a été signé chez Def Jam France. Il est connu pour son flow technique et ses engagements politiques assumés. Quel est son nom de scène ?",
       "answer": "Kool Shen",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr084",
       "question": "Né Philippe Fragione à Marseille en 1968, il est le rappeur principal et fondateur du groupe le plus emblématique de la cité phocéenne. Il a aussi mené une carrière solo et d'auteur de polars. Quel est son nom de scène d'inspiration égyptienne ?",
       "answer": "Akhenaton",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr085",
       "question": "La mixtape du rappeur marseillais SCH, sortie en novembre 2015 et certifiée diamant avec plus de 500 000 ventes, porte le nom d'une autoroute reliant Lyon à Marseille, aussi appelée l'autoroute du soleil. Quel est le titre de cette mixtape ?",
       "answer": "A7",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr086",
       "question": "Quatrième album de Damso sorti en septembre 2020, ce projet a été certifié diamant avec plus de 500 000 ventes. Son titre est un acronyme de quatre lettres. Quel est cet album ?",
       "answer": "QALF",
-      "difficulty": "difficile",
       "category": "Albums"
     },
     {
       "id": "rfr087",
       "question": "Cet album de Niska sorti en 2017 a été certifié diamant. Il contenait le single numéro 1 Réseaux ainsi que trois autres singles certifiés diamant. Son titre d'un seul mot évoque une unité militaire d'élite. Quel est cet album ?",
       "answer": "Commando",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr088",
       "question": "Premier album de Lacrim sorti en 2014, il a atteint directement la première place du Top Albums en France. Son titre d'un seul mot est le nom de famille d'un personnage mythique du cinéma, incarné par Marlon Brando. Quel est cet album ?",
       "answer": "Corleone",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr089",
       "question": "Troisième album de Damso sorti en 2018, son titre est un terme médical désignant un fœtus calcifié dans le corps de la mère. Le rappeur a expliqué se sentir mort dans un corps en vie. Quel est cet album ?",
       "answer": "Lithopédion",
-      "difficulty": "difficile",
       "category": "Albums"
     },
     {
       "id": "rfr090",
       "question": "Deuxième album de Damso sorti en 2017, son titre est un terme philosophique signifiant l'identité propre d'un individu, ce qui fait qu'une personne est elle-même. Certifié diamant, il a été salué par la critique. Quel est cet album ?",
       "answer": "Ipséité",
-      "difficulty": "difficile",
       "category": "Albums"
     },
     {
       "id": "rfr091",
       "question": "Ce troisième album de Nekfeu, sorti en 2019 accompagné d'un film du même nom, a été certifié diamant. Il inclut un featuring avec Damso. Son titre poétique de trois mots évoque des astres nomades. Quel est cet album ?",
       "answer": "Les Étoiles Vagabondes",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr092",
       "question": "Album double d'un rappeur de Trappes sorti en 2011, ce projet est divisé en une face sombre et une face lumineuse. Certifié double platine, c'est l'album le plus vendu de sa carrière. Son titre met en scène une opposition entre le nom de scène et le vrai prénom de l'artiste. Quel est cet album ?",
       "answer": "La Fouine vs Laouni",
-      "difficulty": "difficile",
       "category": "Albums"
     },
     {
       "id": "rfr094",
       "question": "Animateur de radio emblématique né à Aubervilliers en 1973, il officie sur Skyrock depuis 1992 et anime l'émission rap la plus influente de France depuis 1996. Son passage est un rite obligé pour tout rappeur hexagonal. Quel est son nom d'antenne ?",
       "answer": "Fred Musa",
-      "difficulty": "difficile",
       "category": "Culture rap"
     },
     {
       "id": "rfr095",
       "question": "Dans le rap hexagonal, cette pratique linguistique consiste à inverser les syllabes d'un mot. Sofiane devient ainsi Fianso, meuf devient feume, et lourd devient relou. Quel est le nom de ce procédé d'argot français ?",
       "answer": "Le verlan",
-      "difficulty": "normal",
       "category": "Culture rap"
     },
     {
       "id": "rfr097",
       "question": "Le titre PNL est un acronyme dont la signification reflète la philosophie de vie du duo. La première lettre correspond au mot Peace, la dernière au mot Lovés, terme argotique désignant l'argent. Que signifie le N dans cet acronyme ?",
       "answer": "N'",
-      "difficulty": "difficile",
       "category": "Culture rap"
     },
     {
       "id": "rfr098",
       "question": "Premier album du rappeur Rohff sorti en 1999, ce disque marque les débuts en solo d'un des piliers du collectif Mafia K'1 Fry. Son titre de quatre mots évoque un principe moral chevaleresque. Quel est cet album ?",
       "answer": "Le Code de l'Honneur",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr099",
       "question": "Le sigle IAM a plusieurs interprétations, dont la plus connue est Invasion Arrivée de Mars. Dans cette lecture, Mars n'est pas la planète rouge mais une métaphore récurrente dans les textes du groupe pour désigner leur ville d'origine. Quelle est cette ville ?",
       "answer": "Marseille",
-      "difficulty": "normal",
       "category": "Culture rap"
     },
     {
       "id": "rfr101",
       "question": "Rappeur originaire du Val-de-Marne, membre du collectif Mafia K'1 Fry et du groupe 113, il a poursuivi une carrière solo prolifique avec des albums comme L'enfant du pays, Famille nombreuse et Mutant. Son prénom est Abdelkarim. Quel est son nom de scène ?",
       "answer": "Rim'K",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr102",
       "question": "Ce rappeur originaire de Saint-Denis, de son vrai nom Housni Mkouboi, est l'un des piliers du collectif Mafia K'1 Fry. Son premier album solo est sorti en 1999, la même année que son ami Kery James. Connu pour son style agressif et ses clashs, il a sorti une dizaine d'albums studio. Qui est-il ?",
       "answer": "Rohff",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr103",
       "question": "Ce rappeur, de son vrai nom Laouni Mouhid, est originaire du Trappes dans les Yvelines. Connu pour ses albums Bourré au son et Aller-retour, il a été l'un des rivaux les plus médiatisés du Duc de Boulogne dans les années 2000-2010. Qui est-il ?",
       "answer": "La Fouine",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr104",
       "question": "Rappeur marseillais spécialisé dans le storytelling, il faisait partie de la Fonky Family aux côtés de Sat, Don Choa et Pone. Connu pour ses textes narratifs détaillés et ses albums solo comme Compte à rebours avant fermeture définitive, il est une légende du rap phocéen. Quel est son surnom animal ?",
       "answer": "Le Rat Luciano",
-      "difficulty": "difficile",
       "category": "Artistes"
     },
     {
       "id": "rfr105",
       "question": "Né Geoffroy Mussard à Marseille, ce rappeur est l'un des deux MC principaux du groupe mené par Akhenaton. Reconnaissable à son flow rapide et technique, il forme un tandem légendaire avec le fondateur du groupe depuis 1989. Quel est son nom de scène ?",
       "answer": "Shurik'n",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr106",
       "question": "En France, la certification diamant récompense un album ayant atteint 500 000 équivalents ventes. Ce seuil prend en compte les ventes physiques, numériques et le streaming. L'organisme qui attribue ces certifications est le syndicat national de l'édition phonographique. Quel est son acronyme de quatre lettres ?",
       "answer": "SNEP",
-      "difficulty": "difficile",
       "category": "Records"
     },
     {
       "id": "rfr107",
       "question": "Ce single de Niska sorti en 2017 est resté 11 semaines consécutives numéro 1 du Top Singles français. Certifié single de diamant, son titre d'un seul mot évoque les plateformes sociales omniprésentes dans nos vies. Quel est ce titre ?",
       "answer": "Réseaux",
-      "difficulty": "normal",
       "category": "Classiques"
     },
     {
       "id": "rfr108",
       "question": "Deuxième album de Gims sorti en août 2015, il est divisé en deux parties nommées Pilule bleue et Pilule rouge, en référence au film Matrix. Certifié diamant, son titre affirme que son organe vital ne s'était pas trompé. Quel est cet album ?",
       "answer": "Mon cœur avait raison",
-      "difficulty": "difficile",
       "category": "Albums"
     },
     {
       "id": "rfr110",
       "question": "Producteur et manager franco-malien né Badiri Diakité en 1974, il a pris les rênes du management de la Sexion d'Assaut en 2006 et a fondé un label dont le nom signifie tout le temps en bambara. Il est considéré comme l'un des managers les plus influents du rap hexagonal. Qui est-il ?",
       "answer": "Dawala",
-      "difficulty": "difficile",
       "category": "Culture rap"
     },
     {
       "id": "rfr111",
       "question": "Troisième album de la Sexion d'Assaut sorti le 5 mars 2012, ce disque s'est vendu à 10 000 exemplaires le jour même de sa sortie et a été certifié diamant. Son titre d'un seul mot désigne le point culminant, le sommet absolu. Quel est cet album ?",
       "answer": "L'Apogée",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr112",
       "question": "Rappeur et frère biologique de Gims, il a sorti son premier album en novembre 2017, certifié double diamant avec plus d'un million de ventes. Les singles Reine et Bob Marley ont été des succès massifs. Qui est-il ?",
       "answer": "Dadju",
-      "difficulty": "normal",
       "category": "Artistes"
     },
     {
       "id": "rfr113",
       "question": "Cette mixtape de Gazo sortie en février 2021 a atteint directement la première place du Top Albums français. Son titre de deux mots associe un genre musical importé de Londres à une nationalité en abrégé. Quel est ce projet ?",
       "answer": "Drill FR",
-      "difficulty": "normal",
       "category": "Albums"
     },
     {
       "id": "rfr114",
       "question": "Le titre LMF de l'album de Freeze Corleone sorti en 2020 est un acronyme qui fait directement référence au premier épisode de la prélogie Star Wars. Quel est le titre complet en français que cet acronyme représente ?",
       "answer": "La Menace Fantôme",
-      "difficulty": "difficile",
       "category": "Albums"
     },
     {
       "id": "rfr115",
       "question": "Deuxième album de Werenoi sorti en février 2024 et certifié diamant, son titre d'un seul mot désigne une construction triangulaire monumentale associée à l'Égypte ancienne. Quel est cet album ?",
       "answer": "Pyramide",
-      "difficulty": "normal",
       "category": "Albums"
     }
   ]
