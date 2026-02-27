@@ -7,805 +7,690 @@
       "id": "jjk001",
       "question": "Petit-fils de Wasuke, ce lycéen au physique exceptionnel avale un doigt maudit pour sauver ses camarades du club d'occultisme. Devenu le réceptacle du roi des fléaux, il intègre l'école d'exorcisme de Tokyo sous la tutelle de l'homme au bandeau. Qui est-ce ?",
       "answer": "Itadori Yuji (Yuji Itadori)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk002",
       "question": "Issu du clan le plus prestigieux d'exorcistes, ce professeur cache ses yeux derrière un bandeau noir et se considère comme le plus puissant de sa génération. Il enseigne à Tokyo et maîtrise le Pouvoir de l'Infini. Qui est-ce ?",
       "answer": "Gojo Satoru (Satoru Gojo)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk003",
       "question": "Fils de l'Assassin d'Exorcistes et héritier de la Technique des Dix Ombres, cet étudiant de première année invoque des shikigamis à partir de ses ombres. Il forme un trio avec un garçon athlète et une fille de la campagne. Qui est-ce ?",
       "answer": "Fushiguro Megumi (Megumi Fushiguro)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk004",
       "question": "Originaire d'un village reculé du Tôhoku, cette exorciste manie un marteau et des clous chargés d'énergie occulte. Sa technique héréditaire utilise des poupées de paille pour frapper à distance. Qui est-ce ?",
       "answer": "Kugisaki Nobara (Nobara Kugisaki)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk005",
       "question": "Ancien roi ayant vécu à l'ère Heian, ce fléau légendaire fut décimé et ses restes dispersés en vingt fragments momifiés. Considéré comme le plus puissant de tous les esprits maudits, il possède quatre bras et deux visages. Qui est-ce ?",
       "answer": "Ryomen Sukuna (Sukuna)",
-      "difficulty": "normal",
       "category": "Fléaux"
     },
     {
       "id": "jjk006",
       "question": "Technique héréditaire du clan de Megumi, elle permet d'invoquer jusqu'à dix shikigamis à partir des ombres en formant des signes avec les mains. Le plus puissant d'entre eux est Makora, un général divin. Quelle est cette technique ?",
       "answer": "Technique des Dix Ombres (Jujutsu des Dix Ombres)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk007",
       "question": "Cette capacité oculaire unique, transmise dans le même clan que le Pouvoir de l'Infini, permet de percevoir l'énergie occulte avec une précision absolue et de réduire sa consommation à presque zéro. Seule une personne par génération peut la posséder. De quoi s'agit-il ?",
       "answer": "Six Eyes (Les Six Yeux)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk008",
       "question": "Né des émotions négatives de l'humanité, ce fléau à l'apparence humaine touche directement l'âme de ses victimes pour déformer leur corps. Il est l'un des principaux antagonistes face aux étudiants de première année et tue Junpei. Qui est-ce ?",
       "answer": "Mahito",
-      "difficulty": "normal",
       "category": "Fléaux"
     },
     {
       "id": "jjk009",
       "question": "Extension du Territoire du professeur au bandeau, elle plonge les adversaires dans un espace d'informations infinies qui paralyse instantanément leur esprit. Même une fraction de seconde dans ce domaine suffit à submerger une conscience humaine. Quelle est-elle ?",
       "answer": "Sphère de l'Espace Infini (Muryôkûshô)",
-      "difficulty": "normal",
       "category": "Extensions du Territoire"
     },
     {
       "id": "jjk010",
       "question": "Ancien meilleur ami du professeur au bandeau, cet exorciste de grade spécial possède la Manipulation des Esprits, qui lui permet d'absorber et de contrôler les fléaux. Désillusionné par les non-exorcistes, il a massacré un village entier. Qui est-ce ?",
       "answer": "Geto Suguru (Suguru Geto)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk011",
       "question": "Ancien salarié reconverti en exorciste de grade 1, ce mentor au caractère stoïque manie un couteau de boucher emballé de bandages. Sa technique divise sa cible selon un ratio précis de sept contre trois pour créer un point faible. Qui est-ce ?",
       "answer": "Nanami Kento (Kento Nanami)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk012",
       "question": "Cette technique héréditaire du clan Gojo manipule l'espace à volonté, créant une barrière invisible autour de l'utilisateur qu'aucune attaque ne peut franchir. Ses applications offensives se déclinent en Bleu, Rouge et Violet. Quelle est-elle ?",
       "answer": "Pouvoir de l'Infini (Limitless)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk013",
       "question": "Fléau incarné par la peur des volcans, il prend la forme d'un cyclope à la tête enflammée. Convaincu de la supériorité des fléaux sur les humains, il affronte le professeur au bandeau à Shibuya et se fait pulvériser par le roi des fléaux. Qui est-ce ?",
       "answer": "Jogo",
-      "difficulty": "normal",
       "category": "Fléaux"
     },
     {
       "id": "jjk014",
       "question": "Cet objet maudit de grade spécial, vestige du moine bouddhiste Genshin, renferme une dimension de poche capable de sceller absolument n'importe qui. Il a été utilisé lors du Drame de Shibuya pour piéger le plus puissant des exorcistes. Quel est cet objet ?",
       "answer": "Prison Realm (Royaume Prison)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk015",
       "question": "Extension du Territoire du roi des fléaux, elle se distingue par l'absence de barrière fermée, permettant à ses attaques de couvrir un rayon de deux cents mètres. Petit autel bouddhiste déformé orné de cornes et de crânes, elle garantit la destruction de tout ce qui s'y trouve. Quelle est-elle ?",
       "answer": "Autel Démoniaque (Fukuma Mizushi)",
-      "difficulty": "normal",
       "category": "Extensions du Territoire"
     },
     {
       "id": "jjk016",
       "question": "Descendant du clan Inumaki, cet étudiant de deuxième année à Tokyo porte un sceau de serpent sur les joues et la langue. Pour éviter de blesser son entourage, il ne communique qu'en utilisant des garnitures d'onigiri. Qui est-ce ?",
       "answer": "Inumaki Toge (Toge Inumaki)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk017",
       "question": "Technique héréditaire de la famille Inumaki, elle permet à l'utilisateur d'injecter de l'énergie occulte dans ses paroles pour forcer quiconque les entend à obéir. Des ordres simples comme 'cours' ou 'meurs' deviennent des armes absolues. Quelle est-elle ?",
       "answer": "Incantation (Cursed Speech)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk018",
       "question": "Cadavre maudit à mutation spontanée doté de trois noyaux, cette créature en noir et blanc n'est pas ce que son apparence suggère. Créé par le directeur de l'école de Tokyo, il possède des émotions et une conscience propre, et étudie en deuxième année. Qui est-ce ?",
       "answer": "Panda",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk019",
       "question": "Directeur de l'école d'exorcisme de Tokyo et créateur de cadavres maudits autonomes, il est le seul à savoir fabriquer des pantins dotés de conscience en superposant trois âmes compatibles. Il est condamné à mort par les instances du jujutsu. Qui est-ce ?",
       "answer": "Yaga Masamichi (Masamichi Yaga)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk020",
       "question": "Exorciste de grade spécial, ce jeune homme possède une quantité d'énergie occulte anormalement élevée et une technique innée de copie. Il était hanté par le spectre de son amie d'enfance décédée, transformée en reine des fléaux. Qui est-ce ?",
       "answer": "Okkotsu Yuta (Yuta Okkotsu)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk021",
       "question": "Fléau né de la peur des forêts et de la nature, il ressemble à un arbre humanoïde avec des branches à la place des yeux. Il cherche à protéger la terre en éradiquant l'humanité et s'allie aux autres fléaux de grade spécial. Qui est-ce ?",
       "answer": "Hanami",
-      "difficulty": "normal",
       "category": "Fléaux"
     },
     {
       "id": "jjk022",
       "question": "Anciennement surnommé l'Assassin d'Exorcistes, cet homme sans la moindre énergie occulte possède un corps surhumain grâce à sa Restriction Céleste. Il tue la Plasma Stellaire sous contrat et bat le futur professeur au bandeau dans leur premier affrontement. Qui est-ce ?",
       "answer": "Toji Fushiguro (Toji Zenin)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk023",
       "question": "Phénomène qui survient quand un exorciste applique son énergie occulte dans un intervalle d'un millionième de seconde après un impact physique. L'énergie flashe en noir et la puissance du coup est élevée à la puissance 2,5. Quel est ce phénomène ?",
       "answer": "Black Flash (Éclair Noir)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk024",
       "question": "Événement majeur se déroulant le 31 octobre 2018, un rideau maudit tombe sur un quartier de Tokyo piégeant civils et exorcistes. L'objectif des fléaux est de sceller le plus puissant exorciste dans un artefact bouddhiste. Quel est le nom de cet événement ?",
       "answer": "Drame de Shibuya (Shibuya Incident)",
-      "difficulty": "normal",
       "category": "Arcs"
     },
     {
       "id": "jjk025",
       "question": "Aîné des neuf Peintures Utérines, ce demi-fléau demi-humain maîtrise la Manipulation des Hématies. Il considère ses huit frères comme sa famille et rejoint le camp du protagoniste en découvrant un lien de sang inattendu. Qui est-ce ?",
       "answer": "Choso",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk026",
       "question": "Exorciste de grade 1 à l'école de Kyoto, ce colosse obsédé par l'idole Takada-chan juge les gens selon leur type de femme idéal. Sa technique lui permet de permuter instantanément la position de deux objets en frappant dans ses mains. Qui est-ce ?",
       "answer": "Todo Aoi (Aoi Todo)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk027",
       "question": "Technique innée de Todo, elle s'active par un claquement de mains et permet d'échanger instantanément la position de deux cibles possédant de l'énergie occulte. Nommée d'après un style de danse, elle est redoutable en combat rapproché. Quelle est-elle ?",
       "answer": "Boogie Woogie",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk028",
       "question": "Les trois grandes familles d'exorcistes du Japon descendent des trois grands esprits vengeurs et exercent une influence politique considérable sur le monde du jujutsu depuis l'ère Heian. L'une possède l'Infini, une autre les Dix Ombres, et la dernière la Manipulation du Sang. Quels sont ces trois clans ?",
       "answer": "Gojo, Zenin et Kamo (Les Trois Clans)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk029",
       "question": "Jumelle aînée de Mai, cette exorciste du clan Zenin est méprisée pour son absence de technique maudite. Elle compense par une maîtrise exceptionnelle des armes et porte des lunettes spéciales pour voir les fléaux. Qui est-ce ?",
       "answer": "Zenin Maki (Maki Zenin)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk030",
       "question": "Condition innée où le corps d'un exorciste échange ses capacités occultes contre des aptitudes physiques surhumaines. Dans sa forme la plus extrême, l'individu n'a absolument aucune énergie maudite mais possède une force et des sens hors norme. Quel est ce phénomène ?",
       "answer": "Restriction Céleste (Heavenly Restriction)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk031",
       "question": "Exorciste millénaire dont l'immortalité doit être renouvelée tous les cinq cents ans par fusion avec un humain compatible. Ses barrières protègent les écoles d'exorcisme et le Japon depuis des siècles, et il réside dans le Pavillon des Étoiles Mortes. Qui est-ce ?",
       "answer": "Maître Tengen (Tengen)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk032",
       "question": "Sorcier ancien qui survit depuis plus d'un millénaire en transplantant son cerveau dans les cadavres d'autres personnes. On le reconnaît à la cicatrice de suture sur son front. Il a successivement occupé le corps du pire exorciste de l'histoire puis celui d'un manipulateur d'esprits. Qui est-ce ?",
       "answer": "Kenjaku",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk033",
       "question": "Technique maudite de Nobara, elle utilise des poupées de paille et des clous pour canaliser l'énergie occulte. En plantant un clou dans une effigie contenant un fragment de l'adversaire, elle peut infliger des dégâts à distance. Quelle est cette technique ?",
       "answer": "Technique Vaudou (Straw Doll Technique)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk034",
       "question": "Extension du Territoire du fléau cyclope à la tête enflammée, elle transforme l'environnement en un paysage volcanique brûlant capable de tuer un exorciste moyen en quelques secondes. La roche en fusion y sert d'attaque garantie. Quelle est-elle ?",
       "answer": "Cercueil Volcanique (Coffin of the Iron Mountain)",
-      "difficulty": "normal",
       "category": "Extensions du Territoire"
     },
     {
       "id": "jjk035",
       "question": "Technique héréditaire du clan Kamo, elle permet de contrôler son propre sang pour l'utiliser comme arme. Ses applications incluent la compression du sang en projectiles, le renforcement physique et le guidage de flèches. Quelle est-elle ?",
       "answer": "Manipulation des Hématies (Blood Manipulation)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk036",
       "question": "Adolescente désignée comme Plasma Stellaire, elle devait fusionner avec Maître Tengen pour renouveler son immortalité. Protégée par deux étudiants de deuxième année en 2006, elle est assassinée par l'Assassin d'Exorcistes avant la fusion. Qui est-ce ?",
       "answer": "Amanai Riko (Riko Amanai)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk037",
       "question": "Application offensive du Pouvoir de l'Infini, cette technique fusionne convergence et divergence pour créer une masse d'énergie qui efface totalement la matière qu'elle touche. Nommée d'après une couleur, c'est la technique secrète du professeur au bandeau. Quelle est-elle ?",
       "answer": "Murasaki (Violet)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "jjk038",
       "question": "Médecin de l'école d'exorcisme de Tokyo et ancienne camarade du professeur au bandeau, elle est l'une des très rares exorcistes capables d'utiliser le Sort d'Inversion pour guérir les blessures d'autrui. Elle soigne les étudiants après chaque mission dangereuse. Qui est-ce ?",
       "answer": "Ieiri Shoko (Shoko Ieiri)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk039",
       "question": "Technique qui consiste à multiplier l'énergie occulte négative par elle-même pour l'inverser en énergie positive. Extrêmement rare et canalisée depuis le cerveau, elle permet de régénérer des blessures et même de guérir d'autres personnes. Quelle est-elle ?",
       "answer": "Sort d'Inversion (Reverse Cursed Technique)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk040",
       "question": "Technique maudite de Mahito qui lui permet de toucher l'âme de ses victimes et de déformer leur corps à volonté. Il peut ainsi transformer des humains en armes grotesques ou se métamorphoser lui-même pour le combat. Quelle est-elle ?",
       "answer": "Altération Absolue (Idle Transfiguration)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk041",
       "question": "Technique maudite de Geto qui lui permet d'absorber les esprits maudits après les avoir vaincus, de les stocker sous forme d'orbes noirs, et de les invoquer au combat. Son application ultime combine des milliers d'esprits en une spirale dévastatrice. Quelle est-elle ?",
       "answer": "Manipulation des Esprits (Cursed Spirit Manipulation)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk042",
       "question": "Extension du Territoire de Megumi, elle projette un espace de ténèbres liquides d'où émergent ses shikigamis. Bien qu'incomplète lors de sa première utilisation, elle permet de multiplier les invocations et d'attaquer depuis toutes les ombres. Quelle est-elle ?",
       "answer": "Jardin des Ombres Chimériques (Chimera Shadow Garden)",
-      "difficulty": "normal",
       "category": "Extensions du Territoire"
     },
     {
       "id": "jjk043",
       "question": "Shikigami le plus puissant de la Technique des Dix Ombres, ce général divin à huit poignées peut s'adapter à tout phénomène après l'avoir subi une fois. Jamais dompté par aucun utilisateur, il est invoqué en dernier recours par un rituel d'exorcisme. Quel est-il ?",
       "answer": "Makora (Mahoraga)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk044",
       "question": "Fléau aquatique de grade spécial, il se présente d'abord sous forme de poulpe inoffensif avant d'évoluer en créature humanoïde. Son Extension du Territoire transporte ses cibles sur une plage tropicale où des nuées de familiers les dévorent. Qui est-ce ?",
       "answer": "Dagon",
-      "difficulty": "normal",
       "category": "Fléaux"
     },
     {
       "id": "jjk045",
       "question": "Exorciste de grade 1, cette femme aux cheveux argentés utilise la Manipulation des Corbeaux pour la reconnaissance et maîtrise l'attaque Bird Strike, un corbeau suicide dont l'énergie est décuplée. Elle est aussi connue pour son amour de l'argent. Qui est-ce ?",
       "answer": "Mei Mei",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk046",
       "question": "Technique de Nanami qui divise n'importe quelle cible selon un ratio de sept contre trois. En frappant le point précis où se situe cette proportion, l'utilisateur crée un point faible et inflige un coup critique garanti. Quelle est-elle ?",
       "answer": "Sort de Division par Dix (Ratio Technique)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk047",
       "question": "Élève de troisième année à Kyoto et héritier du clan Kamo, cet archer combine sa technique héréditaire de Manipulation du Sang avec le tir à l'arc, guidant ses flèches avec précision grâce à son sang. Il affronte Megumi lors de l'Échange Inter-Écoles. Qui est-ce ?",
       "answer": "Kamo Noritoshi (Noritoshi Kamo)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk048",
       "question": "Lors de cet arc, Geto massacre 112 civils d'un village après avoir vu comment les habitants traitaient deux jeunes filles dotées de pouvoirs. Cet événement marque sa rupture définitive avec le monde des exorcistes et sa désertion de l'école de Tokyo. Quel est cet événement ?",
       "answer": "Le massacre du village (Trahison de Geto)",
-      "difficulty": "difficile",
       "category": "Arcs"
     },
     {
       "id": "jjk049",
       "question": "Jeu de survie orchestré par Kenjaku, il contraint tous les détenteurs de techniques maudites à entrer dans l'une des dix colonies au Japon sous peine de perdre leurs pouvoirs. Les joueurs gagnent des points en éliminant leurs adversaires, et cent points permettent d'ajouter une nouvelle règle. Quel est ce jeu ?",
       "answer": "Culling Game (Bataille de la Colonie)",
-      "difficulty": "normal",
       "category": "Arcs"
     },
     {
       "id": "jjk050",
       "question": "Les deux attaques tranchantes du roi des fléaux fonctionnent différemment : la première s'ajuste automatiquement à la résistance de la cible pour trancher les objets chargés d'énergie occulte, tandis que la seconde découpe tout sur son passage de manière inconditionnelle. Quelles sont ces deux techniques ?",
       "answer": "Clivage et Démantèlement (Cleave et Dismantle)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk051",
       "question": "Fidèle serviteur du roi des fléaux depuis l'ère Heian, ce personnage androgyne aux cheveux blancs maîtrise des techniques de glace. Il assiste Kenjaku durant le Drame de Shibuya et retrouve son maître après sa résurrection. Qui est-ce ?",
       "answer": "Uraume",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk052",
       "question": "Étudiant de troisième année suspendu de l'école de Tokyo, cet exorciste au caractère volcanique croit dur comme fer à la fièvre du jeu. Sa technique et son Extension du Territoire sont basées sur un pachinko, et toucher le jackpot lui confère une énergie occulte quasi infinie. Qui est-ce ?",
       "answer": "Hakari Kinji (Kinji Hakari)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk053",
       "question": "Jumelle cadette de Maki, cette étudiante de Kyoto au caractère amer reproche à sa sœur d'avoir quitté le clan. Sa technique maudite de Construction lui permet de créer un objet par jour à partir du néant. Elle se sacrifie pour que sa sœur atteigne son plein potentiel. Qui est-ce ?",
       "answer": "Zenin Mai (Mai Zenin)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk054",
       "question": "Technique de barrières avancée qui permet à un exorciste de manifester son domaine inné dans le monde réel. À l'intérieur, les attaques de l'utilisateur deviennent garanties et ne peuvent pas manquer leur cible. Elle ne peut être utilisée qu'une fois par jour. Comment appelle-t-on cette technique ?",
       "answer": "Extension du Territoire (Domain Expansion)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk055",
       "question": "Créé il y a environ 150 ans par les expériences de Kenjaku, ce groupe de neuf hybrides mi-humains mi-fléaux est né d'une femme possédant le pouvoir de donner naissance à des enfants ressemblant à des esprits maudits. Les trois premiers incarnés sont Choso, Eso et Kechizu. Quel est le nom de ce groupe ?",
       "answer": "Peintures Utérines (Cursed Womb: Death Paintings)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk056",
       "question": "Étudiant de l'école de Kyoto, il est atteint d'une Restriction Céleste qui lui donne un corps extrêmement fragile mais une portée d'énergie occulte couvrant tout le Japon. Il contrôle un robot à distance et trahit ses camarades en espionnant pour les fléaux. Qui est-ce ?",
       "answer": "Muta Kokichi / Mechamaru (Kokichi Muta / Ultimate Mechamaru)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk057",
       "question": "Lors de la Nuit de Shibuya, le plus puissant exorciste active son Extension du Territoire pendant seulement 0,2 seconde pour neutraliser toutes les cibles sur un quai de métro. Mais dans les minutes qui suivent, il est piégé par un artefact bouddhiste activé par Kenjaku. De quel événement précis s'agit-il ?",
       "answer": "Le scellement de Gojo (Scellement au Prison Realm)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "jjk058",
       "question": "Application du Pouvoir de l'Infini qui attire la matière vers un point avec une force d'attraction, similaire à un trou noir localisé. Elle porte le nom d'une couleur froide et peut aussi être utilisée pour la téléportation à courte distance. Quelle est cette technique ?",
       "answer": "Bleu (Blue)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk059",
       "question": "Application inversée du Pouvoir de l'Infini qui génère une puissante force répulsive, repoussant tout ce qui se trouve devant l'utilisateur. Portant le nom d'une couleur chaude, elle est l'opposé de la force d'attraction. Quelle est cette technique ?",
       "answer": "Rouge (Red / Aka)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk060",
       "question": "Spectre d'une jeune fille décédée qui hante l'exorciste de grade spécial aux cheveux noirs. Transformée en reine des fléaux par l'amour de celui qu'elle aimait, elle sert de stockage externe pour les techniques copiées et peut se manifester pendant cinq minutes. Qui est-ce ?",
       "answer": "Rika (Orimoto Rika)",
-      "difficulty": "normal",
       "category": "Fléaux"
     },
     {
       "id": "jjk061",
       "question": "Technique héréditaire du clan Zenin transmise de Naobito à son fils Naoya, elle divise une seconde en vingt-quatre images comme une pellicule de film. L'utilisateur peut tracer ses mouvements sur ces images et les exécuter en un instant, semblant se déplacer à une vitesse surnaturelle. Quelle est-elle ?",
       "answer": "Sorcellerie de Projection (Projection Sorcery)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "jjk062",
       "question": "Technique innée de l'exorciste de grade spécial aux cheveux noirs, elle lui permet de reproduire la technique maudite d'un autre exorciste après que son spectre en a consommé une partie du corps. Il ne peut y accéder que lorsque le spectre est pleinement manifesté ou dans son extension de territoire. Quelle est-elle ?",
       "answer": "Copie (Copy)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "jjk063",
       "question": "Étudiante de l'école de Kyoto qui se déplace en volant sur un balai, elle utilise la Manipulation d'Outils pour le faire léviter. Exorciste de semi-grade 2, elle joue un rôle de soutien et de reconnaissance lors des missions. Qui est-ce ?",
       "answer": "Nishimiya Momo (Momo Nishimiya)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk064",
       "question": "Lycéen ordinaire qui se lie d'amitié avec le protagoniste, il est manipulé par le fléau touchant les âmes puis transformé contre sa volonté en créature monstrueuse. Sa mort tragique devient le catalyseur de la haine du protagoniste envers ce fléau. Qui est-ce ?",
       "answer": "Yoshino Junpei (Junpei Yoshino)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk065",
       "question": "Record détenu conjointement par Nanami et le protagoniste, il consiste à enchaîner quatre frappes consécutives générant un éclair d'énergie noire. Atteindre ce nombre est considéré comme un exploit extraordinaire dans le monde du jujutsu. Quel est ce record ?",
       "answer": "Quatre Black Flash consécutifs",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk066",
       "question": "Exorciste le plus vil de l'histoire du jujutsu, ce membre du clan Kamo a mené des expériences cruelles il y a 150 ans, créant les neuf Peintures Utérines. En réalité, son corps était occupé par un sorcier ancien au cerveau parasite. Quel est le nom historique de ce personnage ?",
       "answer": "Kamo Noritoshi l'Ancêtre (Noritoshi Kamo l'Ancêtre)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk067",
       "question": "Activation avancée de la technique de Nobara, elle consiste à planter un clou dans une poupée de paille liée à l'adversaire pour lui infliger des dégâts à distance. Le lien sympathique entre l'effigie et la cible amplifie les dégâts de manière dévastatrice. Quelle est-elle ?",
       "answer": "Résonance (Resonance)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "jjk068",
       "question": "Ce terme désigne les humains compatibles avec Maître Tengen, choisis pour fusionner avec lui et réinitialiser son immortalité tous les cinq cents ans. Riko Amanai était la dernière en date, protégée par deux étudiants en 2006. Quel est ce titre ?",
       "answer": "Plasma Stellaire (Star Plasma Vessel)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "jjk069",
       "question": "Après la mort de sa jumelle cadette qui emporte toute leur énergie occulte partagée, cette exorciste atteint la forme ultime de sa Restriction Céleste et massacre l'intégralité de son clan. Quel est l'événement déclencheur qui lui permet d'accéder à ce pouvoir absolu ?",
       "answer": "Le sacrifice de Mai (Mai se sacrifie pour Maki)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "jjk070",
       "question": "Père du protagoniste, cet homme ordinaire à lunettes rondes était marié à une femme dont le corps avait été usurpé par Kenjaku. Il est révélé dans le manga comme la réincarnation du frère cadet du roi des fléaux. Qui est-ce ?",
       "answer": "Itadori Jin (Jin Itadori)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk071",
       "question": "Fils de Naobito et membre le plus arrogant du clan Zenin, il méprise ceux qui n'ont pas de technique maudite et hérite de la Sorcellerie de Projection. Tué par Maki, il revient sous forme de fléau vengeur doté d'une Extension du Territoire. Qui est-ce ?",
       "answer": "Zenin Naoya (Naoya Zenin)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk072",
       "question": "Camarade de Nanami à l'école de Tokyo, cet étudiant joyeux et optimiste meurt tragiquement lors d'une mission alors qu'il n'était que de grade 2. Son décès affecte profondément Nanami et influence sa décision de quitter le monde du jujutsu pour devenir salarié. Qui est-ce ?",
       "answer": "Haibara Yu (Yu Haibara)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk073",
       "question": "Lors de l'Échange Inter-Écoles entre Tokyo et Kyoto, les étudiants doivent exorciser des fléaux de grade 2 lâchés dans une zone délimitée. Mais l'événement est perturbé par l'intrusion d'un fléau de grade spécial issu de la nature. Quel est cet événement sportif ?",
       "answer": "Échange Amical Inter-Écoles (Goodwill Event / Kyoto Sister-School Goodwill Event)",
-      "difficulty": "normal",
       "category": "Arcs"
     },
     {
       "id": "jjk074",
       "question": "Exorciste qui partage son corps avec un ange de l'ère Heian, elle possède des ailes et la technique d'Extinction qui annihile toute technique maudite baignée dans sa lumière. C'est grâce à elle que le plus puissant exorciste est libéré de son scellement. Qui est-ce ?",
       "answer": "Kurusu Hana (Hana Kurusu / Angel)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk075",
       "question": "La lumière sacrée invoquée par l'ange de l'ère Heian peut détruire n'importe quel objet maudit ou technique occulte sans discrimination. C'est elle qui brise le sceau de l'artefact bouddhiste emprisonnant le plus puissant exorciste. Quel est le nom de cette technique ?",
       "answer": "Échelle de Jacob (Jacob's Ladder)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "jjk076",
       "question": "Demi-sœur aînée de Megumi par alliance, cette jeune fille est plongée dans le coma par Kenjaku puis utilisée comme réceptacle pour une sorcière de l'ère Heian obsédée par le roi des fléaux. Elle est tuée lors du Culling Game. Qui est-ce ?",
       "answer": "Fushiguro Tsumiki (Tsumiki Fushiguro)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk077",
       "question": "Sorcière de l'ère Heian originaire d'Aizu, elle s'incarne dans le corps de la demi-sœur de Megumi durant le Culling Game. Obsédée par le roi des fléaux depuis un millénaire, elle meurt en combat contre ce dernier après avoir déployé sa technique de création d'insectes. Qui est-ce ?",
       "answer": "Yorozu",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk078",
       "question": "Technique ultime de Geto qui combine des milliers d'esprits maudits absorbés en un tourbillon dévastateur d'énergie condensée. Quand elle inclut des esprits de semi-grade 1 ou supérieur, l'utilisateur peut aussi extraire leurs techniques maudites. Quelle est-elle ?",
       "answer": "Spirale (Uzumaki / Maximum Uzumaki)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk079",
       "question": "Ce système de classement attribue un niveau de compétence aux exorcistes, allant de la classe 4 pour les débutants jusqu'à la classe spéciale pour les plus puissants. La plupart des exorcistes plafonnent à la classe 2, et très peu atteignent le rang supérieur. Quel est ce système ?",
       "answer": "Système de Grades (Système de Classes des Exorcistes)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk080",
       "question": "Considérée comme l'âge d'or de la sorcellerie au Japon, cette période historique a vu naître les exorcistes les plus puissants de tous les temps. Le roi des fléaux et de nombreux sorciers incarnés dans le Culling Game sont originaires de cette époque lointaine. Quelle période est-ce ?",
       "answer": "Ère Heian (Heian Era)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk081",
       "question": "Activation de Nobara durant laquelle elle plante un clou dans son propre corps ou dans une partie de l'adversaire en utilisant sa Technique Vaudou. Un éclair noir d'énergie maudite se propage le long du lien sympathique et inflige des dégâts dévastateurs. Quelle est cette forme avancée ?",
       "answer": "Hairpin (Hairpin / Épingle à Cheveux)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk082",
       "question": "Exorciste de l'école de Kyoto connue pour son épée et son style modeste, elle est amoureuse du pilote du robot mécanique. Malgré sa bonne volonté, elle est souvent qualifiée d'inutile par ses camarades à cause de sa technique de combat basique. Qui est-ce ?",
       "answer": "Miwa Kasumi (Kasumi Miwa)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk083",
       "question": "Deuxième des neuf Peintures Utérines, il possède des ailes et un visage monstrueux dans le dos appelé Décomposition. Il est éliminé lors de l'arc des Peintures Utérines par le protagoniste et Nobara travaillant ensemble. Qui est-ce ?",
       "answer": "Eso",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk084",
       "question": "Le plus jeune des trois Peintures Utérines incarnées, il est le petit frère de Choso et Eso. Doté de la même capacité à convertir son énergie en sang, il est vaincu par le protagoniste et Nobara lors de leur mission commune. Qui est-ce ?",
       "answer": "Kechizu",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk085",
       "question": "Technique de Choso qui compresse son sang en petits orbes rouges avant de les éjecter à une vitesse supersonique en ligne droite, perçant sa cible comme un jet d'eau à haute pression. C'est son attaque la plus puissante à longue distance. Quelle est-elle ?",
       "answer": "Sang Perçant (Piercing Blood)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "jjk086",
       "question": "Pendant le Drame d'octobre 2018, le roi des fléaux prend brièvement le contrôle du corps du protagoniste et déploie son Extension du Territoire pour réduire en cendres une zone entière de la ville. Cet acte cause la mort de milliers de civils et marque un tournant irréversible dans la série. Quel événement majeur en résulte ?",
       "answer": "Le massacre de Shibuya par Sukuna",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "jjk087",
       "question": "Événement planifié par Geto lors du film préquel, il lance une invasion massive d'esprits maudits sur les quartiers de Shinjuku et Kyoto pour distraire les exorcistes pendant qu'il affronte l'exorciste au spectre. Quel est le nom de cet événement ?",
       "answer": "Parade Nocturne des Cent Démons (Night Parade of a Hundred Demons)",
-      "difficulty": "normal",
       "category": "Arcs"
     },
     {
       "id": "jjk088",
       "question": "Groupe religieux qui s'oppose à la fusion du Plasma Stellaire avec Maître Tengen, considérant que son évolution naturelle est sacrée. Il engage l'Assassin d'Exorcistes pour éliminer Riko Amanai et empêcher la cérémonie. Quel est ce groupe ?",
       "answer": "Culte Astral (Q / Star Religious Group)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "jjk089",
       "question": "Le protagoniste découvre pendant l'arc de Shibuya que Choso est en fait son demi-frère, car ils partagent le même parent biologique : un sorcier ancien qui a occupé le corps de sa mère. Cette révélation pousse Choso à changer de camp. Quel est le lien qui les unit ?",
       "answer": "Frères (même père biologique : Kenjaku)",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "jjk090",
       "question": "Question emblématique posée par Todo à chaque personne qu'il rencontre, cette interrogation sur les préférences amoureuses détermine instantanément s'il considère son interlocuteur comme digne d'intérêt ou comme un ennuyeux. Quelle est cette question ?",
       "answer": "Quel est ton type de femme ? (What kind of woman is your type?)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk091",
       "question": "Arc relatant la jeunesse du professeur au bandeau et de son meilleur ami en 2006, ils doivent protéger une adolescente destinée à fusionner avec un être immortel. L'échec de cette mission et la mort de la jeune fille changent leurs destins à jamais. Quel est cet arc ?",
       "answer": "Arc Inventaire Caché (Hidden Inventory Arc / Gojo's Past Arc)",
-      "difficulty": "normal",
       "category": "Arcs"
     },
     {
       "id": "jjk092",
       "question": "Extension du Territoire de Mahito, elle prend la forme d'une main géante au creux de laquelle l'adversaire est prisonnier. À l'intérieur, le fléau peut toucher l'âme de sa cible sans contact physique, rendant toute résistance impossible. Quelle est-elle ?",
       "answer": "Auto-Incarnation de la Perfection (Self-Embodiment of Perfection)",
-      "difficulty": "normal",
       "category": "Extensions du Territoire"
     },
     {
       "id": "jjk093",
       "question": "Dans l'anime, le protagoniste est condamné à mort par les instances du jujutsu après avoir avalé un doigt maudit. Mais son exécution est reportée afin qu'il consomme les dix-neuf fragments restants et serve de réceptacle temporaire. Combien de fragments doit-il ingérer au total avant son exécution ?",
       "answer": "20 doigts (les 20 doigts de Sukuna)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk094",
       "question": "Amie d'enfance de Nobara originaire de Tokyo, cette jeune fille belle et bienveillante s'installe au village avec sa famille. Le harcèlement des villageois envers elle et sa mère pousse Nobara à rêver de quitter la campagne pour la capitale. Qui est-ce ?",
       "answer": "Saori",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk095",
       "question": "Forme ultime du roi des fléaux après avoir pris le contrôle du corps de Megumi, il combine la Technique des Dix Ombres et ses propres capacités de découpe. Il affronte le plus puissant exorciste dans un combat titanesque qui se solde par la mort de ce dernier. De quel combat s'agit-il ?",
       "answer": "Gojo vs Sukuna (Combat du chapitre 221-236)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "jjk096",
       "question": "Dans le manga, le plus puissant exorciste est coupé en deux par le roi des fléaux qui attaque non pas son corps mais l'espace lui-même, contournant ainsi la barrière de l'Infini. Ses derniers moments le montrent retrouvant ses amis décédés dans l'au-delà. Qu'arrive-t-il au professeur au bandeau ?",
       "answer": "La mort de Gojo (Gojo meurt face à Sukuna)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "jjk097",
       "question": "Directeur de l'école d'exorcisme de Kyoto, ce vieil homme conservateur cherche à faire exécuter le réceptacle du roi des fléaux dès le début de la série. Il ordonne même à ses étudiants de l'assassiner pendant l'Échange Inter-Écoles. Qui est-ce ?",
       "answer": "Gakuganji Yoshinobu (Yoshinobu Gakuganji)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk098",
       "question": "Ce combat décisif voit le protagoniste affronter le fléau touchant les âmes dans le métro de Shibuya. Après une série de Black Flash, il semble prendre le dessus, mais c'est Kenjaku qui absorbe finalement le fléau avec la technique de Geto. Quel est ce combat ?",
       "answer": "Yuji vs Mahito (Combat final à Shibuya)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "jjk099",
       "question": "Après sa défaite face au futur professeur au bandeau en 2006, l'Assassin d'Exorcistes est brièvement ressuscité durant le Drame de Shibuya par un fléau. Il massacre tous les adversaires sur son passage, y compris le fléau aquatique, avant que la résurrection ne prenne fin. De quel événement s'agit-il ?",
       "answer": "Le retour de Toji à Shibuya (Résurrection de Toji Fushiguro)",
-      "difficulty": "difficile",
       "category": "Batailles"
     },
     {
       "id": "jjk100",
       "question": "Arme maudite de grade spécial en forme d'épée enveloppée de bandages, elle possède la capacité de s'étendre indéfiniment et de couper presque n'importe quoi. L'Assassin d'Exorcistes la transporte dans un serpent maudit caché dans ses entrailles. Quelle est cette arme ?",
       "answer": "Épée de l'Âme Inversée (Inverted Spear of Heaven)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "jjk101",
       "question": "Technique qui consiste à recouvrir l'utilisateur d'une fine membrane de territoire pour neutraliser les coups assurés adverses. Version améliorée du Territoire Simple, elle est utilisée par certains exorcistes comme contre-mesure face aux Extensions du Territoire. Quelle est-elle ?",
       "answer": "Prolongement du Territoire (Domain Amplification)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "jjk102",
       "question": "Gardienne de Riko Amanai et employée de la résidence Amanai, cette femme est kidnappée par Kenjaku pour forcer les étudiants de l'école de Tokyo à agir rapidement. Le professeur au bandeau la sauve en Okinawa avant de poursuivre sa mission. Qui est-ce ?",
       "answer": "Kuroi Misato (Misato Kuroi)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk103",
       "question": "Technique de Mei Mei qui consiste à pousser un corbeau à effectuer une attaque suicide dont l'énergie occulte est décuplée au moment de l'impact. Aucun humain à l'exception du professeur au bandeau n'a jamais réussi à l'éviter. Quelle est-elle ?",
       "answer": "Bird Strike (Frappe de l'Oiseau)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "jjk104",
       "question": "Étudiante adoptive de Geto après le massacre du village, cette fillette fait partie d'un duo de jumelles recueillies par le manipulateur d'esprits. Elle et sa sœur sont présentes lors de la Parade Nocturne et restent fidèles à leur père adoptif. Qui sont-elles ?",
       "answer": "Nanako et Mimiko",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk105",
       "question": "En plus de ses attaques tranchantes, le roi des fléaux possède une troisième technique offensive basée sur le feu. Cette capacité pyrokinétique lui permet de calciner ses adversaires à distance et surprend même les exorcistes les plus expérimentés. Quelle est-elle ?",
       "answer": "Flamme (Fire Arrow / Technique de Flamme de Sukuna)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "jjk106",
       "question": "Compétiteur du Culling Game et exorciste puissant de l'ère Heian, ce personnage affronte l'exorciste de grade spécial aux cheveux noirs dans une colonie. Son corps est finalement consommé par le spectre pour permettre la copie de techniques adverses. Qui est-ce ?",
       "answer": "Uro Takako (Takako Uro)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk107",
       "question": "Idole populaire adulée par Todo, cette grande femme est connue pour sa phrase déclarant que les garçons stupides sont parfaits. L'obsession de Todo pour elle est telle qu'il refuse d'arriver en retard à ses concerts, quelles que soient les circonstances. Qui est-ce ?",
       "answer": "Takada Nobuko (Nobuko Takada / Takada-chan)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk108",
       "question": "Après la fin du combat entre le plus puissant exorciste et le roi des fléaux, une coalition d'exorcistes lance un assaut coordonné. Le protagoniste, l'exorciste aux armes, l'exorciste de grade spécial et d'autres unissent leurs forces pour la bataille finale. Quel est le nom de cet arc ?",
       "answer": "Arc de la Bataille de Shinjuku (Shinjuku Showdown Arc)",
-      "difficulty": "difficile",
       "category": "Arcs"
     },
     {
       "id": "jjk109",
       "question": "Dans le système de grades des exorcistes, ce niveau est le plus élevé et regroupe seulement quatre personnes dans l'ère moderne : le professeur au bandeau, le manipulateur d'esprits, l'exorciste au spectre et une légende vivante. Quel est ce grade ?",
       "answer": "Grade Spécial (Special Grade / Classe S)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk110",
       "question": "Exorciste de Kyoto considéré comme le plus puissant de grade 1 après le scellement de son homologue, il combat sans technique maudite en se reposant uniquement sur son sabre et ses compétences physiques. Il admet être largement dépassé par les sorciers de l'ère Heian. Qui est-ce ?",
       "answer": "Kusakabe Atsuya (Atsuya Kusakabe)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "jjk111",
       "question": "Cet élément symbolique du décor apparaît dans l'anime lors du premier épisode : le protagoniste y découvre un doigt momifié sous le sceau protecteur de l'école. La nuit, des fléaux attirés par l'objet attaquent ses camarades du club d'occultisme. Quel est le nom de ce club ?",
       "answer": "Club de Recherches Occultes (Occult Research Club)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk112",
       "question": "Grand-père du protagoniste, ce vieil homme bourru élève son petit-fils seul et lui dit sur son lit de mort de mourir entouré de gens. Ce conseil devient le credo moral du protagoniste tout au long de la série. Qui est-ce ?",
       "answer": "Itadori Wasuke (Wasuke Itadori)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "jjk113",
       "question": "Lors du Culling Game, les joueurs qui accumulent cent points peuvent ajouter une nouvelle règle au jeu. Le protagoniste et ses alliés exploitent cette mécanique pour tenter de libérer des innocents piégés dans les colonies. Combien de points faut-il pour ajouter une règle ?",
       "answer": "100 points",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk114",
       "question": "Le professeur au bandeau est scellé pendant dix-neuf jours dans le monde réel, mais à l'intérieur de l'artefact, le temps ne s'écoule pas. Il maintient sa santé mentale en utilisant sa technique maudite en continu, et est finalement libéré grâce à la lumière sacrée de l'ange. Combien de jours dure le scellement ?",
       "answer": "19 jours",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "jjk115",
       "question": "Les deux écoles d'exorcisme du Japon sont situées dans deux grandes villes et forment la prochaine génération d'exorcistes. Elles s'affrontent chaque année lors d'un échange amical supervisé par les instances du jujutsu. Quelles sont ces deux écoles ?",
       "answer": "École de Tokyo et École de Kyoto (Tokyo Jujutsu High et Kyoto Jujutsu High)",
-      "difficulty": "normal",
       "category": "Lore"
     }
   ]
