@@ -62,6 +62,7 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  serverExternalPackages: ['firebase'],
 
   // Security headers for all routes
   async headers() {
