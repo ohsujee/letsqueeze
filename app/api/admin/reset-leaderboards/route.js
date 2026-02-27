@@ -26,8 +26,7 @@ function getFirebaseAdmin() {
 }
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const key = searchParams.get('key');
+  const key = request.headers.get('x-api-key');
 
   if (!key || key !== process.env.SEMANTIC_API_KEY) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

@@ -287,12 +287,8 @@ export async function POST(request) {
  * Endpoint de test
  */
 export async function GET() {
-  const app = getFirebaseAdmin();
-
   return NextResponse.json({
     status: 'ok',
     message: 'RevenueCat webhook endpoint is active',
-    webhookSecretConfigured: !!REVENUECAT_WEBHOOK_SECRET,
-    firebaseAdminReady: !!app,
   });
 }

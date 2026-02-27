@@ -86,6 +86,7 @@ export async function POST(request) {
       revealedWord: isLoss ? word : null,
     });
   } catch (err) {
-    return Response.json({ error: err.message }, { status: 500 });
+    console.error('[wordle/check]', err);
+    return Response.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
