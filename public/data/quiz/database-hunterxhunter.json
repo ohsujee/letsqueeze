@@ -7,805 +7,690 @@
       "id": "hxh001",
       "question": "Originaire de l'île de la Baleine, ce garçon de 12 ans est élevé par sa tante Mito après l'abandon de son père. Lors de l'examen des Hunters, il se lie d'amitié avec un ancien assassin, un médecin en herbe et un homme aux yeux rouges. Qui est-ce ?",
       "answer": "Gon Freecss",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh002",
       "question": "Troisième enfant de la famille d'assassins la plus redoutée au monde, il s'enfuit de chez lui pour participer à l'examen des Hunters. Son meilleur ami est un garçon aux cheveux verts qui cherche son père. Qui est-ce ?",
       "answer": "Killua Zoldyck (Kirua Zoldik)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh003",
       "question": "Dernier survivant du clan aux yeux écarlates, il devient Hunter pour traquer les voleurs qui ont massacré les siens. Il se spécialise dans le Nen des chaînes et rejoint les Zodiaques sous le nom de code du Rat. Qui est-ce ?",
       "answer": "Kurapika (Kurapica)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh004",
       "question": "Souvent pris pour un homme d'âge mûr malgré ses 19 ans, il veut devenir Hunter pour financer ses études de médecine. Son type de Nen est l'Émission et il frappe Ging Freecss lors de l'élection du 13e président. Qui est-ce ?",
       "answer": "Léolio Paradinaito (Leorio Paradinight)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh005",
       "question": "Magicien psychopathe et combattant de génie, ce personnage au visage peint d'un trèfle et d'une étoile est obsédé par les adversaires puissants. Son aura ressemble à du chewing-gum élastique et collant. Qui est-ce ?",
       "answer": "Hisoka Morow (Hisoka Morrow)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh006",
       "question": "Ce système d'énergie vitale repose sur le contrôle de l'aura et se divise en six catégories. Ses quatre principes de base sont le Ten, le Zetsu, le Ren et le Hatsu. Comment s'appelle ce système de pouvoir ?",
       "answer": "Nen",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh007",
       "question": "Pour déterminer son affinité de Nen, un apprenti place une feuille sur un verre d'eau et projette son aura. Si le volume d'eau augmente, le pratiquant appartient à cette catégorie qui renforce le corps et les objets. De quelle catégorie s'agit-il ?",
       "answer": "Renforcement (Enhancement)",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh008",
       "question": "Lors du test de divination par l'eau, si le goût de l'eau change, le pratiquant appartient à cette catégorie de Nen. Elle permet de modifier les propriétés de son aura, comme l'électricité ou le chewing-gum. De quelle catégorie s'agit-il ?",
       "answer": "Transmutation (Transformation)",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh009",
       "question": "Cette catégorie de Nen permet de projeter son aura loin de son corps. Lors du test de l'eau, elle se manifeste par un changement de couleur du liquide. Le personnage au poing à distance en est un utilisateur typique. De quelle catégorie s'agit-il ?",
       "answer": "Émission (Emission)",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh010",
       "question": "Si des impuretés apparaissent dans le verre lors du test de divination par l'eau, le pratiquant de Nen appartient à cette catégorie. Elle permet de créer des objets à partir de son aura, comme des chaînes ou un livre. De quelle catégorie s'agit-il ?",
       "answer": "Matérialisation (Conjuration)",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh011",
       "question": "Si la feuille sur le verre d'eau se met à bouger pendant le test de divination, le pratiquant appartient à cette catégorie de Nen. Elle permet de contrôler des objets ou des êtres vivants avec son aura. De quelle catégorie s'agit-il ?",
       "answer": "Manipulation",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh012",
       "question": "La plus rare des six catégories de Nen, elle produit un effet unique lors du test de l'eau. Le chef de la Brigade Fantôme et le dernier survivant du clan Kurta en mode yeux écarlates en sont des exemples. De quelle catégorie s'agit-il ?",
       "answer": "Spécialisation (Specialization)",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh013",
       "question": "Ce groupe de bandits de classe A, composé de 13 membres tatoués d'une araignée numérotée dans le dos, est originaire de Meteor City. Leur chef peut voler les capacités Nen des autres grâce à un livre matérialisé. Quel est ce groupe ?",
       "answer": "Brigade Fantôme (Genei Ryodan)",
-      "difficulty": "normal",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh014",
       "question": "Chef et fondateur de la Brigade Fantôme, ce Spécialiste matérialise un livre appelé Bandit's Secret pour voler les capacités Nen de ses victimes. Il affronte Hisoka dans un combat mémorable à la Tour Céleste. Qui est-ce ?",
       "answer": "Kuroro Lucilfer (Chrollo Lucilfer)",
-      "difficulty": "normal",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh015",
       "question": "Membre le plus puissant physiquement de la Brigade Fantôme, ce colosse est un Renforçateur qui concentre toute son aura dans un coup de poing dévastateur. Il est le premier Spider tué par le dernier survivant du clan Kurta. Qui est-ce ?",
       "answer": "Uvôguine (Uvogin)",
-      "difficulty": "normal",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh016",
       "question": "Membre numéro 1 de la Brigade Fantôme, ce sabreur utilise un katana et maintient un En de 4 mètres de rayon autour de lui. Il était le meilleur ami d'un colosse Renforçateur tué par un utilisateur de chaînes. Qui est-ce ?",
       "answer": "Nobunaga Hazama",
-      "difficulty": "normal",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh017",
       "question": "Cette membre de la Brigade Fantôme matérialise un aspirateur nommé Blinky capable d'aspirer tout sauf les êtres vivants et les objets en Nen. Elle s'occupe de nettoyer les scènes de crime du groupe. Qui est-ce ?",
       "answer": "Shizuku Murasaki",
-      "difficulty": "difficile",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh018",
       "question": "Interrogateur attitré de la Brigade Fantôme, ce petit combattant ultra-rapide peut transmuter la douleur accumulée en chaleur destructrice. Sa technique défensive crée une armure et son attaque offensive prend la forme d'un soleil miniature. Qui est-ce ?",
       "answer": "Feitan Portor",
-      "difficulty": "difficile",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh019",
       "question": "Spécialiste du Nen au sein de la Brigade Fantôme, cette femme pouvait lire les souvenirs de quiconque par simple contact physique. Elle s'est sacrifiée en tirant ses balles mémorielles sur ses camarades pour leur transmettre des informations vitales. Qui est-ce ?",
       "answer": "Pakunoda",
-      "difficulty": "difficile",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh020",
       "question": "Renforçateur au sein de la Brigade Fantôme et membre numéro 5, il augmente la puissance de son poing en faisant tourner son bras comme une hélice. Plus il fait de rotations, plus l'impact est dévastateur. Qui est-ce ?",
       "answer": "Phinks Magcub",
-      "difficulty": "difficile",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh021",
       "question": "Spécialiste des fils et couturière de la Brigade Fantôme, elle peut recoudre des blessures et des membres sectionnés avec une précision chirurgicale. Hisoka fait appel à elle après son combat contre un combattant de la Tour Céleste. Qui est-ce ?",
       "answer": "Machi Komacine",
-      "difficulty": "difficile",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh022",
       "question": "Composé de cinq phases et supervisé par un président différent à chaque édition, cet examen annuel a un taux de réussite extrêmement faible. Gon et ses amis y participent lors de la 287e session. De quel examen s'agit-il ?",
       "answer": "L'examen des Hunters (Hunter Exam)",
-      "difficulty": "normal",
       "category": "Examen Hunter"
     },
     {
       "id": "hxh023",
       "question": "Examinateur silencieux de la première épreuve du 287e examen, cet homme à la moustache guide les candidats dans une course d'endurance à travers un tunnel interminable menant au marais de Swindler. Qui est-ce ?",
       "answer": "Satotz",
-      "difficulty": "normal",
       "category": "Examen Hunter"
     },
     {
       "id": "hxh024",
       "question": "Hunter Gastronomique chargée de la deuxième épreuve du 287e examen, cette femme exigeante recale tous les candidats lors de l'épreuve de cuisine. Le président Netero intervient pour proposer un nouveau défi impliquant des œufs. Qui est-ce ?",
       "answer": "Menchi",
-      "difficulty": "normal",
       "category": "Examen Hunter"
     },
     {
       "id": "hxh025",
       "question": "La troisième épreuve du 287e examen se déroule dans une tour que les candidats doivent descendre en 72 heures en relevant des défis. Cette structure piégée met à l'épreuve l'intelligence et la coopération. Comment s'appelle cet endroit ?",
       "answer": "Trick Tower (la Tour des Épreuves)",
-      "difficulty": "normal",
       "category": "Examen Hunter"
     },
     {
       "id": "hxh026",
       "question": "Lors de la quatrième épreuve du 287e examen, les candidats sont lâchés sur une île pendant sept jours. Chacun doit voler le badge de sa cible pour accumuler six points. Comment s'appelle cette île ?",
       "answer": "Zevil Island (l'île de Zevil)",
-      "difficulty": "normal",
       "category": "Examen Hunter"
     },
     {
       "id": "hxh027",
       "question": "Ninja originaire du pays de Jappon, ce candidat de l'examen domine physiquement le fils de Ging mais finit par abandonner face à sa détermination inébranlable. Il recherche un parchemin secret de ninjutsu. Qui est-ce ?",
       "answer": "Hanzo",
-      "difficulty": "difficile",
       "category": "Examen Hunter"
     },
     {
       "id": "hxh028",
       "question": "Lors de la phase finale du 287e examen, le fils aîné Zoldyck infiltre le tournoi sous un faux nom, son visage déformé par d'innombrables aiguilles de Nen le rendant méconnaissable. Il les retire devant tous les candidats, révélant sa véritable identité. Sous quel pseudonyme était-il inscrit ?",
       "answer": "Gittarackur",
-      "difficulty": "normal",
       "category": "Examen Hunter"
     },
     {
       "id": "hxh029",
       "question": "Cette arène de combat de 251 étages attire des combattants du monde entier. C'est ici que deux jeunes Hunters apprennent les bases du Nen auprès du maître Wing pour survivre au-delà du 200e étage. Comment s'appelle ce lieu ?",
       "answer": "Heavens Arena (la Tour Céleste)",
-      "difficulty": "normal",
       "category": "Arcs"
     },
     {
       "id": "hxh030",
       "question": "Professeur de Nen à la Tour Céleste, cet homme calme et posé enseigne les principes fondamentaux du Nen à deux jeunes Hunters. Son élève Zushi pratique le Kung-fu et sert de premier exemple de contrôle d'aura. Qui est ce maître ?",
       "answer": "Wing",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh031",
       "question": "Combattant de la Tour Céleste, cet homme crée un double matérialisé pour compléter sa technique du Poing du Tigre. Le magicien au visage peint le ridiculise en révélant la faiblesse de son choix de capacité Nen. Qui est-ce ?",
       "answer": "Kastro",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "hxh032",
       "question": "Créé par Ging Freecss et dix de ses amis, ce jeu vidéo de réalité virtuelle nécessite l'utilisation du Nen. Les joueurs doivent collecter 100 cartes à slots désignés pour remporter la partie. Comment s'appelle ce jeu ?",
       "answer": "Greed Island",
-      "difficulty": "normal",
       "category": "Arcs"
     },
     {
       "id": "hxh033",
       "question": "Hunter Double Étoile et Archéologue, il est le père absent du héros principal et l'un des créateurs d'un célèbre jeu de cartes en réalité virtuelle. Ancien membre des Zodiaques sous le code du Sanglier, il est considéré comme l'un des cinq meilleurs utilisateurs de Nen. Qui est-ce ?",
       "answer": "Ging Freecss (Jin Freecss)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh034",
       "question": "Game Master de Greed Island et ancien criminel recruté par le père de Gon, cet homme massif utilise 14 constructions de Nen en forme de diables pour combattre. Un match de balle au prisonnier contre lui devient légendaire. Qui est-ce ?",
       "answer": "Razor",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh035",
       "question": "Surnommé le Bombardier, cet antagoniste de l'arc Greed Island pose des bombes de Nen sur ses victimes en les touchant. Pour les désamorcer, il faut le toucher et prononcer une phrase précise. Qui est-ce ?",
       "answer": "Genthru",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "hxh036",
       "question": "Hunter Double Étoile spécialisée dans les pierres précieuses, cette femme de 57 ans utilise le Nen pour garder une apparence de petite fille. Elle entraîne deux jeunes Hunters sur Greed Island et matérialise une masseuse nommée Cookie. Qui est-ce ?",
       "answer": "Biscuit Krueger (Bisky)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh037",
       "question": "Cette ville accueille chaque année en septembre les plus grandes enchères au monde, dont la vente aux enchères Southernpiece. C'est ici que le survivant du clan Kurta affronte pour la première fois la Brigade Fantôme. Quelle est cette ville ?",
       "answer": "York Shin City (Yorknew City)",
-      "difficulty": "normal",
       "category": "Arcs"
     },
     {
       "id": "hxh038",
       "question": "Fille d'un mafieux, cette jeune Spécialiste du Nen peut prédire l'avenir sous forme de poèmes grâce à une écriture automatique. Le chef de la Brigade Fantôme lui vole cette capacité. Qui est-ce ?",
       "answer": "Neon Nostrade",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh039",
       "question": "Défigurée après avoir entendu un seul mouvement de la Sonate des Ténèbres, cette Music Hunter possède une ouïe surhumaine capable de détecter les mensonges par les battements de cœur. Elle travaille comme garde du corps avec le survivant du clan Kurta. Qui est-ce ?",
       "answer": "Melody (Senritsu)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh040",
       "question": "Insecte géant échoué sur les côtes du pays de NGL, cette créature dévore des humains pour donner naissance à des soldats hybrides de plus en plus puissants. Son objectif ultime est de produire un roi parfait. De quelle créature s'agit-il ?",
       "answer": "La Reine des Chimera Ants (Chimera Ant Queen)",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh041",
       "question": "Fils de la Reine des fourmis-chimères, ce roi naît prématurément en déchirant le ventre de sa mère. Doté d'une puissance inégalée, il conquiert la République de Gorteau-Est et développe une fascination pour une joueuse aveugle. Qui est-ce ?",
       "answer": "Meruem",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh042",
       "question": "Première née des trois gardes royaux du roi des fourmis-chimères, cette créature féline possède un Nen si puissant qu'il surpasse celui de certains Hunters d'élite. Elle peut soigner et contrôler des marionnettes humaines. Qui est-ce ?",
       "answer": "Neferupitou (Pitou)",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh043",
       "question": "Garde royal du roi des fourmis ressemblant à un papillon, il est obsédé par la pureté de son roi et considère l'influence humaine comme une menace. Il peut se diviser en minuscules versions de lui-même et produire des écailles de manipulation. Qui est-ce ?",
       "answer": "Shaiapouf (Pouf)",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh044",
       "question": "Le plus jeune des trois gardes royaux, ce colosse rouge peut reconfigurer son corps à volonté, changeant de forme pour s'adapter au combat. Il est le seul garde royal composé uniquement d'ADN d'animaux magiques. Qui est-ce ?",
       "answer": "Menthuthuyoupi (Youpi)",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh045",
       "question": "Championne du monde d'un jeu de plateau fictif originaire de Gorteau-Est, cette jeune fille aveugle change profondément le roi des fourmis-chimères par ses parties quotidiennes. Elle meurt aux côtés du roi, empoisonnée par la même arme. Qui est-ce ?",
       "answer": "Komugi",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh046",
       "question": "Ce jeu de plateau fictif originaire de Gorteau-Est est décrit comme le plus complexe au monde. La championne aveugle de ce jeu bat même le roi des fourmis-chimères, qui finit par en tomber amoureux au fil de leurs parties. Quel est ce jeu ?",
       "answer": "Gungi",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh047",
       "question": "Arme interdite miniature implantée dans la poitrine du président de l'association des Hunters, cette bombe au poison est activée comme ultime recours contre le roi des fourmis. Son nom évoque une fleur. Comment s'appelle cette arme ?",
       "answer": "Rose Miniature (Miniature Rose / Poor Man's Rose)",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh048",
       "question": "Président de l'Association des Hunters et considéré comme le plus puissant Hunter vivant, ce vieil homme a perfectionné sa technique de prière et de frappe pendant des décennies. Il sacrifie sa vie dans un combat contre le roi des fourmis. Qui est-ce ?",
       "answer": "Isaac Netero",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh049",
       "question": "Capacité Nen du président de l'Association des Hunters, cette technique matérialise une statue géante dorée aux multiples bras qui reproduit les mouvements de prière de son utilisateur. Son attaque la plus dévastatrice canalise toute son aura résiduelle. Comment s'appelle cette technique ?",
       "answer": "Hyakushiki Kannon (100-Type Guanyin Bodhisattva)",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh050",
       "question": "Cette famille d'assassins légendaire vit au sommet d'un volcan éteint appelé Kukuroo dans la République de Padokea. Leur domaine est protégé par des portes à épreuves dont le poids augmente à chaque battant. Quelle est cette famille ?",
       "answer": "Famille Zoldyck (Zoldik)",
-      "difficulty": "normal",
       "category": "Zoldyck"
     },
     {
       "id": "hxh051",
       "question": "Chef actuel de la famille d'assassins la plus redoutée au monde, il a combattu le chef de la Brigade Fantôme aux côtés de son propre père. C'est lui qui a ordonné l'implantation d'une aiguille dans le cerveau de son troisième fils. Qui est-ce ?",
       "answer": "Silva Zoldyck (Silva Zoldik)",
-      "difficulty": "normal",
       "category": "Zoldyck"
     },
     {
       "id": "hxh052",
       "question": "Grand-père de la famille Zoldyck et Transmuteur, ce vieil assassin transforme son aura en dragons. Sa technique la plus spectaculaire fragmente son dragon en centaines de projectiles qui pleuvent depuis le ciel. Qui est-ce ?",
       "answer": "Zeno Zoldyck (Zeno Zoldik)",
-      "difficulty": "difficile",
       "category": "Zoldyck"
     },
     {
       "id": "hxh053",
       "question": "Fils aîné de la famille Zoldyck, ce Manipulateur utilise des aiguilles de Nen pour modifier son apparence et contrôler autrui. Il participe au 287e examen sous le pseudonyme de Gittarackur avec un visage méconnaissable couvert d'aiguilles. Qui est-ce ?",
       "answer": "Illumi Zoldyck (Irumi Zoldik)",
-      "difficulty": "normal",
       "category": "Zoldyck"
     },
     {
       "id": "hxh054",
       "question": "Deuxième enfant de la famille Zoldyck, ce jeune homme obèse est passionné d'informatique et de technologie. Il ne quitte jamais le domaine familial et passe son temps devant ses écrans. Qui est-ce ?",
       "answer": "Milluki Zoldyck (Miruki Zoldik)",
-      "difficulty": "normal",
       "category": "Zoldyck"
     },
     {
       "id": "hxh055",
       "question": "Quatrième enfant de la famille Zoldyck, cette personne abrite en elle une entité mystérieuse capable d'exaucer n'importe quel souhait. Seul le troisième fils peut formuler des demandes sans conséquence néfaste. Qui est-ce ?",
       "answer": "Alluka Zoldyck (Aruka Zoldik)",
-      "difficulty": "normal",
       "category": "Zoldyck"
     },
     {
       "id": "hxh056",
       "question": "Entité mystérieuse résidant dans le corps du quatrième enfant Zoldyck, elle peut exaucer n'importe quel vœu, mais celui qui refuse quatre de ses demandes consécutives mourra avec la personne qu'il aime le plus. Comment s'appelle cette entité ?",
       "answer": "Nanika",
-      "difficulty": "normal",
       "category": "Zoldyck"
     },
     {
       "id": "hxh057",
       "question": "Plus jeune enfant de la famille Zoldyck, ce garçon discret rejoint la Brigade Fantôme en tant que nouveau membre numéro 4 après le départ d'Hisoka. Il utilise la Manipulation avec des éventails en papier. Qui est-ce ?",
       "answer": "Kalluto Zoldyck (Karuto Zoldik)",
-      "difficulty": "difficile",
       "category": "Zoldyck"
     },
     {
       "id": "hxh058",
       "question": "Capacité Nen signature du magicien Hisoka, elle confère à son aura les propriétés du chewing-gum : à la fois élastique et collante. Elle porte le nom de la marque de bonbons préférée de son utilisateur enfant. Comment s'appelle cette technique ?",
       "answer": "Bungee Gum",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh059",
       "question": "Seconde capacité du magicien Hisoka, cette technique applique une texture visuelle sur une surface plane, permettant de modifier l'apparence d'objets comme des cartes ou des bandages. Elle perd son effet au contact physique. Comment s'appelle-t-elle ?",
       "answer": "Texture Surprise",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh060",
       "question": "Capacité Nen du chef de la Brigade Fantôme, ce livre matérialisé permet de voler les capacités d'autrui sous quatre conditions strictes, dont le toucher de la couverture et un délai d'une heure. Comment s'appelle ce livre ?",
       "answer": "Skill Hunter (Bandit's Secret)",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh061",
       "question": "Quand le dernier survivant du clan Kurta active volontairement ses yeux écarlates, son type de Nen passe de Matérialisation à Spécialisation. Cette capacité lui permet de maîtriser toutes les catégories à 100%, mais raccourcit sa durée de vie. Comment s'appelle-t-elle ?",
       "answer": "Emperor Time",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh062",
       "question": "Le survivant du clan Kurta possède cinq chaînes, une à chaque doigt. Celle de son majeur peut emprisonner un ennemi et couper son accès au Nen, mais elle ne fonctionne que contre les membres de la Brigade Fantôme. Comment s'appelle cette chaîne ?",
       "answer": "Chain Jail (la Chaîne du Jugement)",
-      "difficulty": "difficile",
       "category": "Nen"
     },
     {
       "id": "hxh063",
       "question": "Transmuteur du Nen, le troisième fils Zoldyck transforme son aura en électricité grâce à sa résistance naturelle au courant. Sa technique ultime combine deux modes : l'un booste ses réflexes, l'autre sa vitesse de déplacement. Comment s'appelle cette technique ?",
       "answer": "Kanmuru (Godspeed)",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh064",
       "question": "Ce Beast Hunter utilise une pipe géante et manipule la fumée grâce au Nen. Il peut créer des soldats de fumée pour l'espionnage et le combat, et enfermer ses adversaires dans une prison hermétique. Comment s'appelle sa capacité principale ?",
       "answer": "Deep Purple",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh065",
       "question": "Hunter Étoile Unique spécialisé dans les créatures marines, cet homme à la pipe géante et aux lunettes de soleil fait partie de l'équipe d'extermination des fourmis-chimères. Il est le maître de Knuckle Bine et Shoot McMahon. Qui est-ce ?",
       "answer": "Morel Mackernasey",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "hxh066",
       "question": "Élève de Morel et Beast Hunter, ce combattant au grand cœur utilise un Nen d'Émission qui prête de l'aura à ses adversaires avec intérêts. Quand la dette dépasse l'aura du débiteur, celui-ci est forcé en Zetsu pendant 30 jours. Qui est-ce ?",
       "answer": "Knuckle Bine",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "hxh067",
       "question": "La capacité de Knuckle matérialise une petite créature indestructible qui se pose sur l'adversaire et affiche un compteur de dette en aura. Quand la dette dépasse les capacités de la cible, elle déclenche une faillite. Comment s'appelle cette mascotte ?",
       "answer": "Hakoware (A.P.R.)",
-      "difficulty": "difficile",
       "category": "Nen"
     },
     {
       "id": "hxh068",
       "question": "Partenaire de Knuckle et Manipulateur, ce Hunter timide contrôle trois mains flottantes pour frapper à distance. Sa seconde capacité peut voler des parties du corps de ses victimes et les enfermer dans une cage d'oiseau. Qui est-ce ?",
       "answer": "Shoot McMahon",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "hxh069",
       "question": "Ancien élève de Ging Freecss, ce Hunter matérialise une arme aléatoire grâce à une roulette de 1 à 9 portée par un clown. Un numéro secret n'apparaît que lorsqu'il a une volonté de survie absolue. Qui est-ce ?",
       "answer": "Kite (Kaito)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh070",
       "question": "Capacité Nen de l'élève de Ging, cette roulette aléatoire matérialise une arme différente selon le numéro tiré, sans possibilité de choisir. Cette restriction volontaire augmente la puissance de chaque arme individuelle. Comment s'appelle cette capacité ?",
       "answer": "Crazy Slots",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh071",
       "question": "Fourmi-chimère capable de rendre son corps transparent et d'arrêter sa propre respiration, il aide l'équipe d'extermination lors de l'invasion du palais de Gorteau-Est. Sa capacité exige qu'il retienne son souffle pour maintenir l'invisibilité. Qui est-ce ?",
       "answer": "Meleoron",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh072",
       "question": "Après la mort de son mentor aux mains d'une garde royale, le fils de Ging conclut un pacte de Nen sacrifiant tout son potentiel futur. Son corps se transforme en version adulte surpuissante, mais il perd ensuite tout accès au Nen. Quel terme désigne cette transformation ?",
       "answer": "Vœu (Vow / Limitation Transformation)",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh073",
       "question": "Ces douze Hunters triés sur le volet par le président Netero portent des noms de code inspirés du zodiaque chinois. Après la mort du président, ils supervisent l'élection de son successeur et l'expédition vers le Continent Noir. Comment s'appelle ce groupe ?",
       "answer": "Les Zodiaques (Zodiacs)",
-      "difficulty": "normal",
       "category": "Associations"
     },
     {
       "id": "hxh074",
       "question": "Triple Étoile Hunter et ancien vice-président de l'Association, cet homme charismatique au sourire permanent porte le nom de code du Rat au sein des Zodiaques. Il remporte l'élection du 13e président mais cède immédiatement le poste. Qui est-ce ?",
       "answer": "Pariston Hill",
-      "difficulty": "difficile",
       "category": "Associations"
     },
     {
       "id": "hxh075",
       "question": "Fils illégitime du président Netero, cet homme organise une expédition vers un territoire inexploré et dangereux avec le financement du Roi de Kakin. Son père lui avait interdit de s'y rendre jusqu'à sa propre mort. Qui est-ce ?",
       "answer": "Beyond Netero",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "hxh076",
       "question": "Territoire immense et largement inexploré situé au-delà du monde connu, il abrite des créatures et des ressources inimaginables mais aussi cinq menaces cataclysmiques. Le roi de Kakin finance une expédition pour s'y rendre. Comment s'appelle ce lieu ?",
       "answer": "Le Continent Noir (Dark Continent)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "hxh077",
       "question": "Décharge géante servant de ville aux marginaux du monde, cet endroit n'est reconnu par aucun gouvernement et ses habitants n'ont aucune existence officielle. C'est le lieu de naissance de la majorité des membres de la Brigade Fantôme. Comment s'appelle cette ville ?",
       "answer": "Meteor City",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "hxh078",
       "question": "Au sein de la Brigade Fantôme, les conflits entre membres sont toujours résolus de la même manière : une face montre une araignée, l'autre une toile. Quel objet est utilisé pour trancher ces disputes ?",
       "answer": "Une pièce de monnaie (un pile ou face)",
-      "difficulty": "difficile",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh079",
       "question": "Première technique de base du Nen, elle consiste à garder ses nœuds d'aura ouverts tout en maintenant un flux d'énergie autour du corps, créant un voile protecteur. Comment s'appelle cette technique ?",
       "answer": "Ten",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh080",
       "question": "Cette technique de base du Nen stoppe complètement le flux d'aura hors du corps, rendant l'utilisateur indétectable par les autres pratiquants. Elle est utile pour se cacher mais rend vulnérable aux attaques. Comment s'appelle-t-elle ?",
       "answer": "Zetsu",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh081",
       "question": "Troisième principe de base du Nen, cette technique consiste en une explosion d'aura vers l'extérieur qui renforce la puissance offensive et défensive de l'utilisateur. C'est une version amplifiée du Ten. Comment s'appelle-t-elle ?",
       "answer": "Ren",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh082",
       "question": "Technique avancée du Nen, elle permet de concentrer son aura dans une partie spécifique du corps pour en augmenter les capacités. On l'utilise notamment dans les yeux pour voir l'aura dissimulée des autres. Comment s'appelle-t-elle ?",
       "answer": "Gyo",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh083",
       "question": "Technique avancée de détection, elle consiste à déployer son aura autour de soi en une sphère pour détecter tout mouvement à l'intérieur. Le sabreur de la Brigade Fantôme maintient la sienne sur un rayon de 4 mètres. Comment s'appelle cette technique ?",
       "answer": "En",
-      "difficulty": "difficile",
       "category": "Nen"
     },
     {
       "id": "hxh084",
       "question": "Dans le système de Nen, des conditions volontaires imposées sur une capacité en augmentent considérablement la puissance. Le survivant du clan Kurta s'est imposé de n'utiliser certaines chaînes que contre la Brigade Fantôme, sous peine de mort. Comment appelle-t-on ces restrictions ?",
       "answer": "Serments et Restrictions (Vows and Limitations)",
-      "difficulty": "difficile",
       "category": "Nen"
     },
     {
       "id": "hxh085",
       "question": "Cousine de Ging et mère adoptive du héros principal, cette femme de l'île de la Baleine obtient la garde légale de l'enfant devant un tribunal. Elle accepte de le laisser partir à condition qu'il attrape un poisson légendaire. Qui est-ce ?",
       "answer": "Mito Freecss",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "hxh086",
       "question": "Ce poisson légendaire de l'île de la Baleine est réputé impossible à attraper. Le fils de Ging réussit cet exploit en utilisant la canne à pêche de son père, ce qui convainc sa mère adoptive de le laisser passer l'examen. Quel est le nom de ce poisson ?",
       "answer": "Le Maître du Marais (Master of the Swamp)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "hxh087",
       "question": "Le 287e examen des Hunters débute avec 405 candidats. Parmi eux, le fils de Ging porte le numéro 405, le dernier inscrit. Il attrape le regard du magicien qui porte quant à lui le numéro 44. Quel numéro porte le fils de Ging lors de cet examen ?",
       "answer": "405",
-      "difficulty": "normal",
       "category": "Examen Hunter"
     },
     {
       "id": "hxh088",
       "question": "Ce pays isolé interdit toute technologie et tout produit artificiel sur son territoire. La Reine des fourmis-chimères s'échoue sur ses côtes et commence à dévorer ses habitants pour produire des soldats hybrides. Comment s'appelle ce pays ?",
       "answer": "NGL (Neo-Green Life)",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh089",
       "question": "Fondateur et ancien roi du NGL, cet homme est dévoré par les fourmis-chimères mais renaît en tant que fourmi tout en conservant sa mémoire humaine grâce à sa haine envers l'humanité. Il disparaît ensuite en direction de Meteor City. Qui est-ce ?",
       "answer": "Gyro",
-      "difficulty": "normal",
       "category": "Chimères"
     },
     {
       "id": "hxh090",
       "question": "Cette petite île isolée est le lieu de naissance du héros principal. Entourée de nature sauvage, c'est ici que Gon développe ses sens aiguisés en grandissant parmi les animaux avant de partir pour l'examen des Hunters. Comment s'appelle cette île ?",
       "answer": "Whale Island (l'île de la Baleine)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "hxh091",
       "question": "L'arc du 287e examen se conclut par un tournoi spécial où les vainqueurs sont éliminés et les perdants avancent. Un seul candidat ne réussit pas car il enfreint la seule règle absolue. Quelle est cette règle interdite pendant la phase finale ?",
       "answer": "Tuer son adversaire (interdiction de tuer)",
-      "difficulty": "normal",
       "category": "Examen Hunter"
     },
     {
       "id": "hxh092",
       "question": "Technique signature d'Uvôguine, ce coup de poing concentre toute l'aura du Renforçateur dans un seul direct du droit, produisant une explosion comparable à un petit missile. Il l'utilise contre les Shadow Beasts dans l'arc de York Shin. Comment s'appelle cette attaque ?",
       "answer": "Big Bang Impact",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh093",
       "question": "Après la victoire de Pariston à l'élection du 13e président, celui-ci démissionne immédiatement et nomme une successeure. Cette Disease Hunter portant le nom de code du Chien au sein des Zodiaques devient alors présidente. Qui est-ce ?",
       "answer": "Cheadle Yorkshire",
-      "difficulty": "normal",
       "category": "Associations"
     },
     {
       "id": "hxh094",
       "question": "Apprentie de Knov et Hunter utilisant une boule de cristal alimentée par son propre sang, cette femme est capturée et transformée en fourmi-chimère. Elle conserve sa volonté et retourne sa loyauté contre les fourmis. Qui est-ce ?",
       "answer": "Palm Siberia",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "hxh095",
       "question": "Ce type de Hunter se spécialise dans la traque et la capture des criminels les plus dangereux du monde. Kurapika en devient un pour poursuivre la Brigade Fantôme, et Saiyu du Zodiaque exerce aussi cette spécialité. Quel est ce type de Hunter ?",
       "answer": "Blacklist Hunter (Hunter de la Liste Noire)",
-      "difficulty": "normal",
       "category": "Associations"
     },
     {
       "id": "hxh096",
       "question": "L'attaque ultime du président Netero, utilisée en dernier recours contre le roi des fourmis, canalise toute son aura résiduelle en un seul rayon dévastateur émis par sa statue dorée. Comment s'appelle cette technique désespérée ?",
       "answer": "Zero Hand (Main Zéro)",
-      "difficulty": "normal",
       "category": "Nen"
     },
     {
       "id": "hxh097",
       "question": "Capacité Nen de Feitan, cette technique défensive crée une armure autour de son corps lorsqu'il est blessé et en colère. La douleur accumulée se transforme en une attaque de chaleur dont l'intensité dépend des dégâts reçus. Comment s'appelle cette capacité ?",
       "answer": "Pain Packer",
-      "difficulty": "difficile",
       "category": "Nen"
     },
     {
       "id": "hxh098",
       "question": "Lors de l'arc de York Shin, le survivant du clan Kurta capture le colosse de la Brigade grâce à sa chaîne du majeur. Il obtient des informations en menaçant les Spiders et impose une condition Nen mortelle au chef de la Brigade. De quel arc s'agit-il ?",
       "answer": "Arc de York Shin City (Yorknew City Arc)",
-      "difficulty": "normal",
       "category": "Arcs"
     },
     {
       "id": "hxh099",
       "question": "Après l'arc de York Shin, le chef de la Brigade Fantôme se retrouve privé de ses capacités Nen par les chaînes de Kurapika. Il engage une exorciste nommée Abengane pour lever cette restriction. Qui cherche-t-il à cette fin dans l'arc suivant ?",
       "answer": "Un exorciste de Nen (Nen Exorcist)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "hxh100",
       "question": "Publié pour la première fois en 1998 dans le magazine Weekly Shonen Jump, ce manga est célèbre pour ses longues pauses dues aux problèmes de santé de son auteur. Ce mangaka est aussi le créateur de Yu Yu Hakusho. Qui est l'auteur de ce manga ?",
       "answer": "Yoshihiro Togashi",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "hxh101",
       "question": "L'auteur de Hunter x Hunter est marié à une célèbre mangaka connue pour avoir créé l'une des séries de magical girls les plus populaires au monde, mettant en scène une guerrière en costume de marin. Qui est cette mangaka ?",
       "answer": "Naoko Takeuchi",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "hxh102",
       "question": "Les yeux des membres de ce clan deviennent écarlates sous l'effet d'émotions intenses. Si le porteur meurt dans cet état, la couleur persiste, ce qui en fait des trésors recherchés par les collectionneurs. Quel est ce clan ?",
       "answer": "Clan Kurta",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "hxh103",
       "question": "La capacité de Léolio lui permet de frapper un objet proche et de faire jaillir son poing à distance à travers un portail d'aura. Cette technique d'Émission imite le principe de l'échographie médicale. Comment fonctionne cette capacité ?",
       "answer": "Remote Punch (le Poing à Distance / Warp Punch)",
-      "difficulty": "difficile",
       "category": "Nen"
     },
     {
       "id": "hxh104",
       "question": "Membre de la Brigade Fantôme portant le numéro 7, ce géant au visage cousu n'a jamais prononcé une parole inutile. C'est un Émetteur capable de projeter des balles d'aura dévastatrices. Il fait partie des membres fondateurs aux côtés du chef. Qui est-ce ?",
       "answer": "Franklin Bordeau",
-      "difficulty": "difficile",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh105",
       "question": "Hunter utilisant un téléphone portable comme medium pour sa capacité de Manipulation, ce membre numéro 6 de la Brigade Fantôme peut contrôler les gens en les touchant avec une antenne. Il est tué par Hisoka dans le manga. Qui est-ce ?",
       "answer": "Shalnark",
-      "difficulty": "difficile",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh106",
       "question": "Le plus petit membre de la Brigade Fantôme, ce Matérialiseur peut créer des copies parfaites de n'importe quel objet inanimé, mais ses copies disparaissent après 24 heures. Il est tué par Hisoka dans le manga. Qui est-ce ?",
       "answer": "Kortopi",
-      "difficulty": "difficile",
       "category": "Brigade Fantôme"
     },
     {
       "id": "hxh107",
       "question": "Après leur match au 287e examen, le magicien remet une carte avec un numéro au fils de Ging. Ce numéro permet de le joindre quand le garçon sera devenu assez fort pour l'affronter. Par quel système de communication les personnages se contactent-ils ?",
       "answer": "Le téléphone portable (avec Texture Surprise sur la carte)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "hxh108",
       "question": "Lors de l'arc de l'examen, les candidats pénètrent dans un restaurant qui sert de point d'entrée secret. Ils doivent commander un plat spécifique pour accéder au lieu de l'examen. Ce restaurant se trouve dans la ville de Dolle, au pied de la montagne des Cèdres. Quel est le nom du cuisinier examinateur de la deuxième épreuve, partenaire de Menchi ?",
       "answer": "Buhara",
-      "difficulty": "difficile",
       "category": "Examen Hunter"
     },
     {
       "id": "hxh109",
       "question": "Technique avancée de Nen utilisée par le chef de la Brigade Fantôme, ce marque-page permet d'utiliser deux capacités volées simultanément au lieu d'une seule, sans avoir à tenir le livre ouvert à la bonne page. Comment s'appelle cette amélioration ?",
       "answer": "Bookmark (le Marque-page)",
-      "difficulty": "difficile",
       "category": "Nen"
     },
     {
       "id": "hxh110",
       "question": "Membre de l'équipe d'extermination des fourmis-chimères, ce Hunter utilise des portails dimensionnels pour se téléporter. Il crée des salles cachées dans une autre dimension pour servir de base d'opérations. Son stress face aux fourmis le fait vieillir prématurément. Qui est-ce ?",
       "answer": "Knov",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "hxh111",
       "question": "Dans l'univers de Hunter x Hunter, ce titre honorifique est décerné aux Hunters ayant accompli des exploits exceptionnels. Il existe trois niveaux, du simple au triple, le président Netero étant le plus haut gradé. Comment s'appelle ce système de distinction ?",
       "answer": "Le système d'Étoiles (Star System)",
-      "difficulty": "normal",
       "category": "Associations"
     },
     {
       "id": "hxh112",
       "question": "Lors de l'invasion du palais de Gorteau-Est, le grand-père Zoldyck utilise sa technique de Transmutation la plus dévastatrice pour fragmenter son aura en centaines de projectiles afin de séparer le roi des fourmis de ses gardes. Quelle technique utilise-t-il ?",
       "answer": "Dragon Dive",
-      "difficulty": "difficile",
       "category": "Batailles"
     },
     {
       "id": "hxh113",
       "question": "Fourmi-chimère en forme de pieuvre, il se lie d'amitié avec le troisième fils Zoldyck qui lui montre de la compassion au lieu de le tuer. Il rejoint les Hunters et utilise sa capacité à habiter des cadavres pour infiltrer le palais de Gorteau-Est. Qui est-ce ?",
       "answer": "Ikalgo",
-      "difficulty": "difficile",
       "category": "Chimères"
     },
     {
       "id": "hxh114",
       "question": "Ce royaume finance l'expédition vers le Continent Noir à bord du Black Whale. Le roi organise simultanément une guerre de succession entre ses quatorze princes, chacun protégé par une créature de Nen appelée bête gardienne. Quel est ce royaume ?",
       "answer": "Kakin (Empire de Kakin)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "hxh115",
       "question": "Dans l'arc Greed Island, les joueurs disposent d'un classeur avec 100 emplacements désignés pour les cartes à collectionner, plus 45 emplacements libres. Combien de cartes à slots désignés faut-il collecter pour remporter la partie ?",
       "answer": "100",
-      "difficulty": "normal",
       "category": "Arcs"
     }
   ]
