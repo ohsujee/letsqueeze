@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, auth, signOutUser, signInWithGoogle, signInWithApple, db } from '@/lib/firebase';
 import { deleteUser } from 'firebase/auth';
-import { ref as dbRef, remove } from 'firebase/database';
+import { ref as dbRef, remove, set } from 'firebase/database';
 import { initializeUserProfile, updateUserPseudo, validatePseudo } from '@/lib/userProfile';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
@@ -35,6 +35,14 @@ export default function ProfilePage() {
   const [connectingGoogle, setConnectingGoogle] = useState(false);
   const [connectingApple, setConnectingApple] = useState(false);
   const [connectError, setConnectError] = useState(null);
+
+  // Auto-assign memberSince pour les founders (bypass webhook RevenueCat)
+  useEffect(() => {
+    if (isAdmin && !memberSince && user?.metadata?.creationTime) {
+      const ts = new Date(user.metadata.creationTime).getTime();
+      set(dbRef(db, `users/${user.uid}/memberSince`), ts);
+    }
+  }, [isAdmin, memberSince, user]);
 
   // Pseudo editing state
   const [isEditingPseudo, setIsEditingPseudo] = useState(false);

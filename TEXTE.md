@@ -1,36 +1,199 @@
-FAQ
-Puis-je avoir une page spéciale pour moi le jour J ?
 
-C’est une question fréquente et je dois donner la même réponse à tout le monde : désolé, ça ne pourra pas se faire. Techniquement, ce n’est pas aussi facile que ça en a l’air, et le fait que cette requête survienne assez souvent en ferait une corvée supplémentaire.
+== Gathering artifacts ==
 
-Le site met quelquefois du temps à répondre, pourquoi ?
+== Publishing artifacts ==
 
-Cela devrait s’être amélioré grâce à un fournisseur plus stable et des optimisations du site, mais il reste quelques facteurs à considérer :
+Publishing artifact App.ipa
+Publishing artifact App.app.dSYM.zip
+Publishing artifact AppAuth.framework.dSYM.zip
+Publishing artifact Capacitor.framework.dSYM.zip
+Publishing artifact CapacitorApp.framework.dSYM.zip
+Publishing artifact CapacitorCommunityInAppReview.framework.dSYM.zip
+Publishing artifact Cordova.framework.dSYM.zip
+Publishing artifact FirebaseAppCheckInterop.framework.dSYM.zip
+Publishing artifact FirebaseAuth.framework.dSYM.zip
+Publishing artifact FirebaseAuthInterop.framework.dSYM.zip
+Publishing artifact FirebaseCore.framework.dSYM.zip
+Publishing artifact FirebaseCoreExtension.framework.dSYM.zip
+Publishing artifact FirebaseCoreInternal.framework.dSYM.zip
+Publishing artifact GTMAppAuth.framework.dSYM.zip
+Publishing artifact GTMSessionFetcher.framework.dSYM.zip
+Publishing artifact GoogleSignIn.framework.dSYM.zip
+Publishing artifact GoogleUtilities.framework.dSYM.zip
+Publishing artifact PurchasesHybridCommon.framework.dSYM.zip
+Publishing artifact RecaptchaInterop.framework.dSYM.zip
+Publishing artifact RevenueCat.framework.dSYM.zip
+Publishing artifact RevenuecatPurchasesCapacitor.framework.dSYM.zip
+Publishing artifact letsqueeze_41_artifacts.zip
+Publishing App.ipa to App Store Connect
+> app-store-connect publish --path /Users/builder/clone/ios/App/build/ios/ipa/App.ipa --key-id ******** --issuer-id ******** --private-key @env:APP_STORE_CONNECT_PUBLISHER_PRIVATE_KEY
 
-L’algorithme est consommateur de CPU, il n'y a pas de magie : il faut faire ces calculs de proximité syntaxique et sur une page wikipédia avec de nombreux mots, ça peut prendre un certain temps, surtout en début de journée.
-Évitez le rush de midi sur pédantix : dans les premières minutes, il y a beaucoup de joueurs et une réponse peut prendre quelques secondes.
-Certaines personnes peu scrupuleuses prennent un malin plaisir à exercer leur bot sur le site. Ça ne sert que leur ego et ça ralentit tout le monde.
-Comment marche l’algorithme derrière cémantix ?
+Publish "/Users/builder/clone/ios/App/build/ios/ipa/App.ipa" to App Store Connect
+App name: Gigglz
+Bundle identifier: com.gigglz.app
+Certificate expires: 2027-02-07T00:07:20.000+0000
+Distribution type: App Store
+Min OS version: 14.0
+Provisioned devices: N/A
+Provisions all devices: No
+Supported platforms: iPhoneOS
+Version code: 13
+Version: 1.0.1
 
-Imaginez que l’on vous envoie sur une île déserte avec un livre pour toute distraction, et que ce livre est écrit dans une langue que vous ne connaissez pas. Disons l’Hawaïen (si vous connaissez cette langue, choisissez-en une autre). A votre retour, on vous demande de résumer l’histoire que vous avez lue. Vous n’en aurez aucune idée : le livre ne contient pas d’image et rien ne peut vous faire comprendre le sens des mots, il n’y a pas de pierre de Rosette sur l’ile. Tout ce que vous pourrez dire est que le livre contient des mots : des ensembles de lettres séparés par des espaces.
-Pourtant, vous serez surpris de réaliser que vous pouvez répondre à quelques questions concernant la langue. Par exemple, si on vous demande quel mot irait bien avec kumulāʻau, vous direz hua. Si on vous demande par quoi on pourrait remplacer manu dans une phrase, vous pourriez dire holoholona. Ainsi, sans même connaître le sens de ces mots, vous pouvez les associer, et votre interlocuteur a de bonnes chances d’être satisfait de vos réponses. Vous avez simplement observé la fréquence de certaines séquences de mots ainsi que la position de ces mots dans ces séquences et pouvez donc en déduire des associations avec un certain degré de confiance.
-Ce que l’algorithme fait derrière cémantix est exactement ça : il ne connaît pas le français, il n’a pas de dictionnaire ni de livre de grammaire lui permettant de comprendre un texte, une phrase ou même un mot. Il ne sait pas ce qu’est un nom, un verbe ou un adjectif (ou un adverbe), ni ce qu’est un synonyme ou un antonyme, une racine grecque ou latine. Tout ce qu’on lui fournit est un corpus de textes assez grand pour que statistiquement, les associations de mots qu’il forme aient une bonne chance d’être correctes. Statistiquement, il est toujours possible qu’il donne des résultats qui semblent illogiques pour un humain. Ce qui est logique, c’est qu’il a tiré son information de textes existants, et il y a toujours une raison pour laquelle l’association a été faite, même si elle ne semble pas évidente au premier coup d’oeil.
+Upload "/Users/builder/clone/ios/App/build/ios/ipa/App.ipa" to App Store Connect
+Running altool at path '/Applications/Xcode-26.2.app/Contents/SharedFrameworks/ContentDelivery.framework/Resources/altool'...
 
-Comment se font les associations ?
+26.10.1 (171001)
+Running altool at path '/Applications/Xcode-26.2.app/Contents/SharedFrameworks/ContentDelivery.framework/Resources/altool'...
+
+2026-02-26 17:42:30.256 ERROR: [ContentDelivery.Uploader.100D7AE10] 
+=======================================
+UPLOAD FAILED with 2 errors
+=======================================
+{
+  "os-version" : "Version 26.2 (Build 25C56)",
+  "product-errors" : [
+    {
+      "code" : 409,
+      "message" : "Validation failed",
+      "underlying-errors" : [
+        {
+          "code" : -19241,
+          "message" : "Validation failed",
+          "underlying-errors" : [
+
+          ],
+          "user-info" : {
+            "NSLocalizedDescription" : "Validation failed",
+            "NSLocalizedFailureReason" : "Invalid Pre-Release Train. The train version '1.0.1' is closed for new build submissions",
+            "code" : "STATE_ERROR.VALIDATION_ERROR",
+            "detail" : "Invalid Pre-Release Train. The train version '1.0.1' is closed for new build submissions",
+            "id" : "8242bffc-efcd-479e-932c-92584c3f37cf",
+            "status" : "409",
+            "title" : "Validation failed"
+          }
+        }
+      ],
+      "user-info" : {
+        "NSLocalizedDescription" : "Validation failed",
+        "NSLocalizedFailureReason" : "Invalid Pre-Release Train. The train version '1.0.1' is closed for new build submissions (ID: 8242bffc-efcd-479e-932c-92584c3f37cf)",
+        "NSUnderlyingError" : "Error Domain=IrisAPI Code=-19241 \"Validation failed\" UserInfo={status=409, detail=Invalid Pre-Release Train. The train version '1.0.1' is closed for new build submissions, id=8242bffc-efcd-479e-932c-92584c3f37cf, code=STATE_ERROR.VALIDATION_ERROR, title=Validation failed, NSLocalizedFailureReason=Invalid Pre-Release Train. The train version '1.0.1' is closed for new build submissions, NSLocalizedDescription=Validation failed}",
+        "iris-code" : "STATE_ERROR.VALIDATION_ERROR"
+      }
+    },
+    {
+      "code" : 409,
+      "message" : "Validation failed",
+      "underlying-errors" : [
+        {
+          "code" : -19241,
+          "message" : "Validation failed",
+          "underlying-errors" : [
+
+          ],
+          "user-info" : {
+            "NSLocalizedDescription" : "Validation failed",
+            "NSLocalizedFailureReason" : "This bundle is invalid. The value for key CFBundleShortVersionString [1.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring",
+            "code" : "STATE_ERROR.VALIDATION_ERROR",
+            "detail" : "This bundle is invalid. The value for key CFBundleShortVersionString [1.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring",
+            "id" : "a2122791-89a2-4746-b95f-3d17c5e09ef8",
+            "status" : "409",
+            "title" : "Validation failed"
+          }
+        }
+      ],
+      "user-info" : {
+        "NSLocalizedDescription" : "Validation failed",
+        "NSLocalizedFailureReason" : "This bundle is invalid. The value for key CFBundleShortVersionString [1.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring (ID: a2122791-89a2-4746-b95f-3d17c5e09ef8)",
+        "NSUnderlyingError" : "Error Domain=IrisAPI Code=-19241 \"Validation failed\" UserInfo={status=409, detail=This bundle is invalid. The value for key CFBundleShortVersionString [1.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring, id=a2122791-89a2-4746-b95f-3d17c5e09ef8, code=STATE_ERROR.VALIDATION_ERROR, title=Validation failed, NSLocalizedFailureReason=This bundle is invalid. The value for key CFBundleShortVersionString [1.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring, NSLocalizedDescription=Validation failed}",
+        "iris-code" : "STATE_ERROR.VALIDATION_ERROR"
+      }
+    }
+  ],
+  "tool-path" : "/Applications/Xcode-26.2.app/Contents/SharedFrameworks/ContentDelivery.framework/Resources",
+  "tool-version" : "26.10.1 (171001)"
+}
+
+Running altool at path '/Applications/Xcode-26.2.app/Contents/SharedFrameworks/ContentDelivery.framework/Resources/altool'...
+
+2026-02-26 17:42:30.256 ERROR: [ContentDelivery.Uploader.100D7AE10] 
+=======================================
+UPLOAD FAILED with 2 errors
+=======================================
+{
+  "os-version" : "Version 26.2 (Build 25C56)",
+  "product-errors" : [
+    {
+      "code" : 409,
+      "message" : "Validation failed",
+      "underlying-errors" : [
+        {
+          "code" : -19241,
+          "message" : "Validation failed",
+          "underlying-errors" : [
+
+          ],
+          "user-info" : {
+            "NSLocalizedDescription" : "Validation failed",
+            "NSLocalizedFailureReason" : "Invalid Pre-Release Train. The train version '1.0.1' is closed for new build submissions",
+            "code" : "STATE_ERROR.VALIDATION_ERROR",
+            "detail" : "Invalid Pre-Release Train. The train version '1.0.1' is closed for new build submissions",
+            "id" : "8242bffc-efcd-479e-932c-92584c3f37cf",
+            "status" : "409",
+            "title" : "Validation failed"
+          }
+        }
+      ],
+      "user-info" : {
+        "NSLocalizedDescription" : "Validation failed",
+        "NSLocalizedFailureReason" : "Invalid Pre-Release Train. The train version '1.0.1' is closed for new build submissions (ID: 8242bffc-efcd-479e-932c-92584c3f37cf)",
+        "NSUnderlyingError" : "Error Domain=IrisAPI Code=-19241 \"Validation failed\" UserInfo={status=409, detail=Invalid Pre-Release Train. The train version '1.0.1' is closed for new build submissions, id=8242bffc-efcd-479e-932c-92584c3f37cf, code=STATE_ERROR.VALIDATION_ERROR, title=Validation failed, NSLocalizedFailureReason=Invalid Pre-Release Train. The train version '1.0.1' is closed for new build submissions, NSLocalizedDescription=Validation failed}",
+        "iris-code" : "STATE_ERROR.VALIDATION_ERROR"
+      }
+    },
+    {
+      "code" : 409,
+      "message" : "Validation failed",
+      "underlying-errors" : [
+        {
+          "code" : -19241,
+          "message" : "Validation failed",
+          "underlying-errors" : [
+
+          ],
+          "user-info" : {
+            "NSLocalizedDescription" : "Validation failed",
+            "NSLocalizedFailureReason" : "This bundle is invalid. The value for key CFBundleShortVersionString [1.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring",
+            "code" : "STATE_ERROR.VALIDATION_ERROR",
+            "detail" : "This bundle is invalid. The value for key CFBundleShortVersionString [1.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring",
+            "id" : "a2122791-89a2-4746-b95f-3d17c5e09ef8",
+            "status" : "409",
+            "title" : "Validation failed"
+          }
+        }
+      ],
+      "user-info" : {
+        "NSLocalizedDescription" : "Validation failed",
+        "NSLocalizedFailureReason" : "This bundle is invalid. The value for key CFBundleShortVersionString [1.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring (ID: a2122791-89a2-4746-b95f-3d17c5e09ef8)",
+        "NSUnderlyingError" : "Error Domain=IrisAPI Code=-19241 \"Validation failed\" UserInfo={status=409, detail=This bundle is invalid. The value for key CFBundleShortVersionString [1.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring, id=a2122791-89a2-4746-b95f-3d17c5e09ef8, code=STATE_ERROR.VALIDATION_ERROR, title=Validation failed, NSLocalizedFailureReason=This bundle is invalid. The value for key CFBundleShortVersionString [1.0.1] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.1]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring, NSLocalizedDescription=Validation failed}",
+        "iris-code" : "STATE_ERROR.VALIDATION_ERROR"
+      }
+    }
+  ],
+  "tool-path" : "/Applications/Xcode-26.2.app/Contents/SharedFrameworks/ContentDelivery.framework/Resources",
+  "tool-version" : "26.10.1 (171001)"
+}
+
+Failed to upload archive at "/Users/builder/clone/ios/App/build/ios/ipa/App.ipa":
+Validation failed
+Validation failed
+Failed to publish /Users/builder/clone/ios/App/build/ios/ipa/App.ipa
+
+Failed to publish App.ipa to App Store Connect.
+
+Build failed :|
 
 
-Voici un exemple en deux phrases :
-
-Alice va promener son petit chien.
-Bob va nourrir son gros chien.
-Si ces phrases se répètent un certain nombre de fois dans un texte, on peut naturellement conclure que “petit et chien”, “gros et chien” sont associés car physiquement proches dans la phrase, mais aussi “petit et gros” car bien qu’ils ne soient pas proches physiquement (ils n’apparaissent pas dans la même phrase), ils sont interchangeables grâce à la proximité du mot chien, ce qui doit les associer bien qu’ils veuillent dire le contraire. Par contre, on ne verra jamais la phrase “Charlotte lance la balle à son chien canin”, ce qui fait que chien et canin ne sont pas proches, tout du moins rarement physiquement. Seule une interchangeabilité pourrait le faire (par exemple, David lance la balle à son compagnon canin). Selon le même principe, “promener et nourrir” doivent être associés, ce qui peut paraître surprenant, de même qu’“Alice et Bob”, mais après tout, peut-être le sont-ils 😊. Il faut se rappeler que tout est une question de statistiques, la fréquence de ces associations dans le texte leur donne un ordre de préférence.
-
-Comment sont calculées les températures ?
-
-C’est en 2013 qu’une équipe d’ingénieurs de chez Google a eu l’idée de représenter les mots d’un texte dans un espace multi-dimensionnel (on parle ici de centaines de dimensions) en suivant les règles d’association décrites plus haut et en considérant leur position relative par rapport aux autres mots. Chaque mot se voit attribuer un vecteur dans chaque dimension de cet espace, ce qui constitue ainsi un système de coordonnées. Ce modèle est connu sous le nom de word2vec. Une fois que cela est fait, il est facile de calculer la “distance” entre deux mots, quels qu’ils soient. Cette distance est la température affichée dans cémantix.
-
-Comment s’opère le choix des mots ?
-
-La liste des mots proches du mot secret est entièrement déterminée par l’algorithme, sans aucune intervention humaine. En revanche, le choix du modèle de word2vec a une influence car plusieurs paramètres entrent en jeu : le choix du corpus (la base de textes), l’algorithme d’association des mots, le nombre de dimensions, la taille du voisinage d’un mot dans un texte, la lemmatisation du texte (le procédé visant à ramener les variations d’un mot : féminin, pluriel, ou conjugaisons d’un verbe, à son dénominateur commun comme le ferait un dictionnaire). Des modèles différents peuvent donner des résultats étonnamment différents, même s’ils utilisent le même corpus. D’expérience, il n’y a pas de modèle “parfait”, et les résultats peuvent toujours réserver quelques surprises aux joueurs.
-Le choix du mot secret est aléatoire, à une exception près. Les mots secrets sont tous des mots relativement courants de la langue française, tout le monde devrait les connaître. Si un mot se rapporte à l’actualité, s’il est similaire à un autre mot du jour, s’il peut paraître offensif ou orienté, s’il semble trop facile ou trop difficile à trouver, c’est une coïncidence.
+Publishing failed :|
+Failed to publish App.ipa to App Store Connect.
 

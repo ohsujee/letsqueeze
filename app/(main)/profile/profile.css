@@ -149,11 +149,16 @@
   margin-bottom: 1rem;
 }
 
+.subscription-section .pro-card-scene {
+  width: clamp(280px, 82%, 420px);
+  margin: 1.25rem auto 1.25rem;
+}
+
 /* Pro card styles → components/ui/pro-card.css */
 
 .btn-manage-sub {
-  width: 100%;
-  margin-top: 0.75rem;
+  width: clamp(280px, 82%, 420px);
+  margin: 0 auto;
   padding: 0.875rem;
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-secondary, rgba(255, 255, 255, 0.6));
@@ -315,7 +320,7 @@
   font-weight: 700;
   color: var(--text-primary, #ffffff);
   text-align: center;
-  margin: 0.875rem 0 0.25rem;
+  margin: 0 0 0.25rem;
 }
 
 .upgrade-detail {
@@ -337,7 +342,10 @@
 
 .upgrade-cta-btn {
   margin-top: 0;
-  width: 100%;
+  width: clamp(280px, 82%, 420px);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   align-items: center;
   justify-content: center;
