@@ -7,777 +7,666 @@
       "id": "pb001",
       "question": "Ingénieur en structure diplômé de Loyola University à Chicago, il se fait volontairement incarcérer à Fox River après avoir simulé un braquage de banque. Son corps est recouvert de tatouages dissimulant les plans de la prison. Qui est-ce ?",
       "answer": "Michael Scofield",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb002",
       "question": "Accusé à tort du meurtre de Terrence Steadman, cet homme est condamné à la peine de mort et attend son exécution dans le couloir de la mort de Fox River. Son petit frère met tout en oeuvre pour le faire évader. Qui est-ce ?",
       "answer": "Lincoln Burrows",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb003",
       "question": "Médecin de la prison de Fox River, elle soigne les détenus à l'infirmerie et développe une relation avec un prisonnier qui prétend être diabétique de type 1 pour la voir quotidiennement. Elle devient une alliée clé de l'évasion. Qui est-ce ?",
       "answer": "Sara Tancredi",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb004",
       "question": "Chef d'un groupe suprémaciste blanc à Fox River, ce criminel originaire de l'Alabama a été condamné pour enlèvements, viols et meurtres. Il perd sa main gauche lors de l'évasion, tranchée par un mafieux italien. Qui est-ce ?",
       "answer": "Theodore \"T-Bag\" Bagwell",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb005",
       "question": "Codétenu et compagnon de cellule du héros principal à Fox River, ce Portoricain de Chicago a braqué un magasin d'alcool pour acheter une bague de fiançailles à sa petite amie Maricruz. Il rejoint le plan d'évasion par fidélité. Qui est-ce ?",
       "answer": "Fernando Sucre",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb006",
       "question": "Agent spécial du FBI introduit dans la saison 2, il est chargé de traquer les huit évadés de Fox River. Ancien militaire des forces spéciales, il lutte contre une addiction aux benzodiazépines et des visions de Shales. Qui est-ce ?",
       "answer": "Alexander Mahone",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb007",
       "question": "Don de la mafia de Chicago emprisonné à Fox River, il contrôle les PI (Prison Industries) et les détails de travail des détenus. Il cherche désespérément à retrouver un témoin nommé Fibonacci placé sous protection. Qui est-ce ?",
       "answer": "John Abruzzi",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb008",
       "question": "Ancien premier sergent de l'armée américaine stationné au Koweït, il a été renvoyé de manière déshonorante après avoir dénoncé la torture de prisonniers. Son surnom vient du billet de 100 dollars, car il partage son prénom avec le personnage imprimé dessus. Qui est-ce ?",
       "answer": "Benjamin Miles \"C-Note\" Franklin",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb009",
       "question": "Capitaine des agents pénitentiaires à Fox River, ce gardien corrompu accepte des pots-de-vin et maltraite les détenus. Il finit par être lui-même emprisonné à Sona au Panama lors de la saison 3. Qui est-ce ?",
       "answer": "Brad Bellick",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb010",
       "question": "Ce vieil homme est le détenu le plus ancien de Fox River. Il prétend être un simple prisonnier, mais possède en réalité un secret lié à un célèbre détournement d'avion de 1971 et à une somme de cinq millions de dollars enterrée dans l'Utah. Qui est-ce ?",
       "answer": "Charles Westmoreland",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb011",
       "question": "Agent des services secrets américains, il est assigné à la protection de la vice-présidente Caroline Reynolds. Diplômé de West Point et ancien des forces spéciales, il exécute les basses besognes de la conspiration avant de se retourner contre elle. Qui est-ce ?",
       "answer": "Paul Kellerman",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb012",
       "question": "Directeur de Fox River pendant dix-huit ans, ce fonctionnaire bienveillant construit une réplique du Taj Mahal pour l'anniversaire de mariage de sa femme Judy. Il fait confiance à un détenu ingénieur pour l'aider dans ce projet. Qui est-ce ?",
       "answer": "Henry Pope",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb013",
       "question": "Avocate et ex-petite amie de Lincoln Burrows, elle tente de prouver son innocence en découvrant la conspiration orchestrée par la vice-présidente. Elle est la première personnage principal à être tuée dans la série. Qui est-ce ?",
       "answer": "Veronica Donovan",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb014",
       "question": "Jeune pickpocket de Boston emprisonné à Fox River pour avoir volé une carte de baseball rare sans connaître sa valeur réelle, il est le plus naïf des évadés. Il est tué de sang froid par un agent du FBI lors de la saison 2. Qui est-ce ?",
       "answer": "David \"Tweener\" Apolskis",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb015",
       "question": "Ancien détenu de l'aile psychiatrique de Fox River, cet homme possède un doctorat en mathématiques de Harvard. Diagnostiqué avec un trouble schizoaffectif, il a tué ses deux parents avant d'être interné. Il s'évade avec le groupe lors de la saison 1. Qui est-ce ?",
       "answer": "Charles \"Haywire\" Patoshik",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pb016",
       "question": "Ancienne militaire et agent de haut rang de la Compagnie, elle se fait d'abord appeler Susan B. Anthony lors de la saison 3 au Panama. Elle est chargée de superviser l'évasion de James Whistler depuis Sona. Qui est-ce ?",
       "answer": "Gretchen Morgan",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb017",
       "question": "Fils de Lincoln Burrows, cet adolescent vit dans les banlieues de Chicago avec sa mère après la séparation de ses parents. Il est kidnappé par la Compagnie lors de la saison 3 pour faire pression sur les frères. Comment s'appelle-t-il ?",
       "answer": "L.J. Burrows (Lincoln Burrows Jr.)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb018",
       "question": "Père biologique de Michael et Lincoln, cet homme a travaillé comme analyste puis assassin pour la Compagnie avant de devenir un dissident cherchant à l'exposer. Sa trahison est à l'origine de toute la conspiration. Qui est-ce ?",
       "answer": "Aldo Burrows",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb019",
       "question": "Dans la série, le personnage principal dissimule les plans de Fox River dans ses tatouages corporels. La partie située sur son torse représente les passages souterrains, tandis que la partie dorsale offre une vue aérienne de l'établissement. Quel métier exerce-t-il, ce qui lui a permis d'accéder aux plans originaux ?",
       "answer": "Ingénieur en structure (structural engineer)",
-      "difficulty": "normal",
       "category": "Tatouage"
     },
     {
       "id": "pb020",
       "question": "Les tatouages du héros contiennent un code-barres dont les premiers chiffres renvoient à la Route 38 d'un État du Midwest, le nombre 12 indique la distance en miles jusqu'à un pont, et un autre nombre correspond à une fréquence radio. De quel État américain est cette route ?",
       "answer": "Illinois",
-      "difficulty": "difficile",
       "category": "Tatouage"
     },
     {
       "id": "pb021",
       "question": "Sur le poignet du héros principal, un tatouage indique 'R.I.P.' suivi d'un nom. Ce message fait référence à une tombe dans un cimetière d'une petite ville où sont cachés des vêtements, des clés de voiture et un faux passeport en cas d'échec du plan principal. Dans quelle ville se trouve ce cimetière ?",
       "answer": "Oswego",
-      "difficulty": "difficile",
       "category": "Tatouage"
     },
     {
       "id": "pb022",
       "question": "La prison fictive de Fox River est un pénitencier de sécurité maximale situé dans l'Illinois. Le tournage de la série s'est déroulé dans un véritable établissement pénitentiaire fermé en 2002. Dans quelle ville de l'Illinois se trouve cette prison historique ?",
       "answer": "Joliet",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pb023",
       "question": "Dans la saison 3, les personnages principaux sont transférés dans une prison panaméenne dirigée entièrement par les détenus, les gardiens n'y entrant plus depuis une émeute sanglante. La nourriture et l'eau sont fournies mais la loi interne est celle du plus fort. Comment s'appelle cette prison ?",
       "answer": "Sona",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pb024",
       "question": "Dans la saison 5, on retrouve le héros présumé mort depuis sept ans, enfermé dans une prison au Yémen sous une fausse identité. Cette prison porte le nom d'une île de la mythologie grecque où Ulysse fut retenu captif. Comment s'appelle-t-elle ?",
       "answer": "Ogygia",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pb025",
       "question": "Charles Westmoreland révèle avant de mourir que l'argent de son braquage légendaire est enterré sous un silo dans un ranch appelé Double K Ranch. Cet endroit se trouve dans un État de l'ouest américain connu pour ses paysages désertiques et le Grand Lac Salé. Dans quel État se trouve ce trésor ?",
       "answer": "Utah",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pb026",
       "question": "Dans le téléfilm final, Sara est arrêtée et incarcérée dans un établissement pénitentiaire pour femmes situé en Floride. Le héros doit concevoir un dernier plan d'évasion pour la libérer depuis cette prison. Dans quelle ville de Floride se situe cet établissement ?",
       "answer": "Miami-Dade",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "pb027",
       "question": "Le cabinet d'architectes prestigieux où travaillait le héros avant son incarcération se trouve au centre-ville de Chicago. C'est grâce à ce poste qu'il a pu accéder aux plans de la prison. Comment s'appelle ce cabinet ?",
       "answer": "Middleton, Maxwell and Schaum",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "pb028",
       "question": "Lors de la saison 1, le héros simule un braquage armé dans un bâtiment financier de Chicago sans intention de voler quoi que ce soit. Il refuse ensuite de se défendre au tribunal et écope de cinq ans de prison. Quel type d'établissement a-t-il braqué ?",
       "answer": "Une banque",
-      "difficulty": "normal",
       "category": "Évasions"
     },
     {
       "id": "pb029",
       "question": "Pour accéder quotidiennement à l'infirmerie de Fox River et exécuter son plan, le héros fait croire au médecin de la prison qu'il souffre d'une maladie chronique nécessitant des injections quotidiennes d'insuline. Quelle maladie prétend-il avoir ?",
       "answer": "Diabète de type 1",
-      "difficulty": "normal",
       "category": "Plans"
     },
     {
       "id": "pb030",
       "question": "Le directeur de Fox River construit un modèle réduit d'un célèbre monument indien en marbre blanc pour les noces d'or de sa femme. Il demande l'aide d'un détenu ingénieur pour stabiliser la structure. Quel monument est-ce ?",
       "answer": "Le Taj Mahal",
-      "difficulty": "normal",
       "category": "Fox River"
     },
     {
       "id": "pb031",
       "question": "À Fox River, un mafieux italien contrôle un programme de travail qui permet aux détenus d'acquérir des compétences en aménagement paysager et dans divers métiers industriels. Ce programme est essentiel au plan d'évasion car il permet aux détenus de se déplacer dans la prison. Comment s'appelle ce programme ?",
       "answer": "PI (Prison Industries)",
-      "difficulty": "normal",
       "category": "Fox River"
     },
     {
       "id": "pb032",
       "question": "Lincoln Burrows est condamné à mort pour le meurtre d'un homme dont la soeur occupait le poste le plus important de l'exécutif américain. La victime supposée était en réalité vivante et cachée dans le cadre d'une vaste conspiration. Qui est cette victime présumée ?",
       "answer": "Terrence Steadman",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb033",
       "question": "La conspiration au coeur de la série implique une femme politique qui accède à la plus haute fonction exécutive des États-Unis. Elle utilise le faux meurtre de son frère pour maintenir son pouvoir et manipuler le système judiciaire. Qui est cette politicienne ?",
       "answer": "Caroline Reynolds",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb034",
       "question": "Le groupe d'évadés de la saison 1 est composé de huit détenus qui s'échappent de Fox River lors du final de la première saison. Bien que deux autres détenus devaient participer, l'un est mortellement blessé et l'autre est rattrapé pendant la fuite. Quel nom médiatique est donné à ce groupe ?",
       "answer": "The Fox River Eight (les Huit de Fox River)",
-      "difficulty": "normal",
       "category": "Évasions"
     },
     {
       "id": "pb036",
       "question": "Charles Westmoreland est en réalité le responsable d'un célèbre détournement d'avion de 1971. Ce pirate de l'air avait sauté en parachute avec une rançon et n'avait jamais été identifié. Sous quelle identité criminelle célèbre est-il connu dans le monde réel ?",
       "answer": "D.B. Cooper",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb037",
       "question": "L'organisation secrète qui tire les ficelles dans toute la série est un consortium d'alliances corporatives extrêmement puissantes qui influencent la politique, les affaires et les agences gouvernementales dans le monde entier. Quel est le nom de cette organisation ?",
       "answer": "The Company (la Compagnie)",
-      "difficulty": "normal",
       "category": "The Company"
     },
     {
       "id": "pb038",
       "question": "Le chef suprême de la Compagnie est un général qui, par peur d'être espionné ou enregistré, communique exclusivement par des notes manuscrites sur un bloc-notes. Ce comportement lui vaut un surnom dans la série. Quel est ce surnom ?",
       "answer": "Pad Man",
-      "difficulty": "normal",
       "category": "The Company"
     },
     {
       "id": "pb039",
       "question": "Le leader de la Compagnie est un militaire de haut rang dont la fille Emily est née de sa relation avec une de ses agents féminins. Il orchestre l'incarcération du héros à Sona pour l'obliger à faire évader un autre détenu. Quel est son nom ?",
       "answer": "Général Jonathan Krantz",
-      "difficulty": "normal",
       "category": "The Company"
     },
     {
       "id": "pb040",
       "question": "Dans la saison 4, l'équipe doit récupérer un appareil portable contenant toutes les données de la Compagnie. Cet appareil est divisé en six cartes électroniques et nécessite un décodeur pour être déverrouillé. Son nom fait référence à un monstre marin à six têtes de la mythologie grecque. Comment s'appelle-t-il ?",
       "answer": "Scylla",
-      "difficulty": "normal",
       "category": "The Company"
     },
     {
       "id": "pb041",
       "question": "Derrière la couverture de données personnelles, Scylla contient en réalité des formules et des instructions pour des inventions révolutionnaires, notamment des prototypes de cellules solaires et de nouveaux vaccins. De quel type d'énergie s'agit-il principalement ?",
       "answer": "L'énergie solaire",
-      "difficulty": "difficile",
       "category": "The Company"
     },
     {
       "id": "pb042",
       "question": "La Compagnie fait croire à la mort de Terrence Steadman pour piéger Lincoln Burrows. Le véritable objectif de ce stratagème est d'attirer un homme qui avait trahi la Compagnie en révélant ses activités illégales. Cet homme est le père biologique des deux frères. Quel est le nom de famille de ce père ?",
       "answer": "Burrows (Aldo Burrows)",
-      "difficulty": "difficile",
       "category": "The Company"
     },
     {
       "id": "pb043",
       "question": "L'entreprise fictive dirigée par Terrence Steadman servait de couverture aux activités de la Compagnie. Aldo Burrows tentait d'exposer la corruption de cette société au grand jour. Quel est le nom de cette entreprise ?",
       "answer": "EcoField",
-      "difficulty": "difficile",
       "category": "The Company"
     },
     {
       "id": "pb044",
       "question": "Agent du Département de la Sécurité intérieure dans la saison 4, il recrute les anciens évadés pour récupérer Scylla. Après avoir obtenu l'appareil, il trahit l'équipe et tente de le revendre au plus offrant pour son profit personnel. Qui est-ce ?",
       "answer": "Donald Self",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "pb045",
       "question": "Dans la saison 3, la prison de Sona est dirigée de l'intérieur par un baron de la drogue panaméen qui règne au sommet de la hiérarchie carcérale. Son rôle est comparable à celui d'Abruzzi dans la première saison. Il est finalement étouffé avec un oreiller par un codétenu. Qui est-ce ?",
       "answer": "Lechero (Norman St. John)",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "pb046",
       "question": "Dans la saison 5, le principal antagoniste est un agent de la CIA qui a orchestré la disparition du héros et dirige un groupe clandestin appelé 21 Void. Il a épousé Sara pendant les sept années d'absence de son premier mari. Son nom de code est inspiré du dieu grec de la mer. Quel est ce nom de code ?",
       "answer": "Poseidon",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "pb047",
       "question": "L'homme derrière le nom de code Poseidon a épousé Sara Tancredi et vit avec elle et son fils. Quand sa véritable identité est révélée dans l'épisode 'Wine Dark Sea', les personnages découvrent qu'il dirige une organisation clandestine liée à la CIA. Quel est le vrai nom de cet homme ?",
       "answer": "Jacob Anton Ness",
-      "difficulty": "difficile",
       "category": "Antagonistes"
     },
     {
       "id": "pb048",
       "question": "Le père de Sara Tancredi était gouverneur de l'Illinois et avait été surnommé 'Frontier Justice' suivi de son prénom pour sa politique sécuritaire. Il est retrouvé mort dans sa résidence officielle, assassiné par des agents. Quel est le prénom de ce gouverneur ?",
       "answer": "Frank (Frank Tancredi)",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pb049",
       "question": "Fernando Sucre braque un magasin d'alcool pour pouvoir acheter un bijou destiné à sa petite amie. Son cousin Hector, lui aussi amoureux de la jeune femme, le dénonce à la police. Quel objet voulait-il offrir avec l'argent du braquage ?",
       "answer": "Une bague de fiançailles",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pb050",
       "question": "Le cousin de Fernando Sucre est aussi amoureux de Maricruz et tente de l'épouser pendant que Fernando est en prison. Il est également celui qui l'a dénoncé à la police. Quel est le prénom de ce cousin traître ?",
       "answer": "Hector",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pb051",
       "question": "Dans la série, le héros principal est diagnostiqué avec une condition psychologique qui l'empêche de filtrer les informations de son environnement. Associée à une grande intelligence, cette condition le rend extrêmement perceptif, mais elle pourrait mener à la folie chez une personne moins douée. Quel est le nom de cette condition ?",
       "answer": "Low latent inhibition (inhibition latente basse)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pb052",
       "question": "Dans la saison 4, le héros principal souffre de maux de tête violents et de saignements de nez de plus en plus fréquents. À l'hôpital, on lui diagnostique une tumeur cérébrale, la même pathologie qui a tué sa mère. Quel est le nom médical de cette tumeur ?",
       "answer": "Hamartome hypothalamique (hypothalamic hamartoma)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pb053",
       "question": "La petite amie de Sucre, d'origine portoricaine, accepte sa demande en mariage lors d'une visite conjugale à Fox River. La lettre de proposition a été rédigée avec l'aide de son compagnon de cellule. Comment s'appelle cette femme ?",
       "answer": "Maricruz Delgado",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pb054",
       "question": "Dans la saison 3, un prisonnier de Sona prétend être un simple pêcheur australien originaire de Kalbarri. En réalité, il travaille secrètement pour la Compagnie et c'est lui que le héros doit faire évader en échange de la libération de ses proches. Qui est-ce ?",
       "answer": "James Whistler",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb055",
       "question": "Dans la saison 4, la mère du héros principal réapparaît vivante sous le nom de Christina Hampton alors qu'on la croyait morte d'un cancer. Elle se révèle être une ancienne cadre de la Compagnie devenue antagoniste qui cherche à s'emparer de Scylla. Quel est son vrai nom ?",
       "answer": "Christina Rose Scofield",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb057",
       "question": "Dans la saison 2, l'agent du FBI chargé de la traque des évadés est hanté par le fantôme d'un homme qu'il a tué et enterré dans son jardin. Ces hallucinations le poussent à consommer des médicaments de manière abusive. Quel est le nom de cet homme qui le hante ?",
       "answer": "Oscar Shales",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb058",
       "question": "Paul Kellerman témoigne au tribunal en faveur de Sara Tancredi, permettant son acquittement ainsi que celui de Lincoln. Ce retournement survient après que sa soeur l'a convaincu de se repentir. En quelle qualité Kellerman travaillait-il pour le gouvernement ?",
       "answer": "Agent des services secrets (Secret Service)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb059",
       "question": "Dans le téléfilm The Final Break, Sara est arrêtée pour le meurtre de la mère du héros. Le héros conçoit un plan d'évasion impliquant la chapelle de la prison et un tunnel d'évacuation d'urgence. Sachant qu'il est condamné par sa tumeur, il se sacrifie en provoquant un court-circuit électrique. Comment meurt-il ?",
       "answer": "Par électrocution (en reliant deux câbles électriques)",
-      "difficulty": "normal",
       "category": "Évasions"
     },
     {
       "id": "pb060",
       "question": "Charles Westmoreland révèle sur son lit de mort qu'il n'a pas volé un million mais une somme bien plus importante lors de son détournement aérien légendaire. Il montre un billet de cent dollars dont le numéro de série correspond à ceux du butin. Quelle somme a-t-il réellement dérobée ?",
       "answer": "Cinq millions de dollars",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb061",
       "question": "Le trésor de Westmoreland est enterré sous un silo dans un ranch de l'Utah. Les évadés réussissent à déterrer l'argent, mais un criminel rusé les trompe et s'enfuit avec la totalité du butin. Quel est le nom de ce ranch ?",
       "answer": "Double K Ranch",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "pb062",
       "question": "Dans la saison 5, le héros présumé mort réapparaît dans une prison yéménite sous une fausse identité liée au terrorisme. Ce faux nom était cousu dans la veste avec laquelle il avait supposément été enterré. Quelle est cette fausse identité ?",
       "answer": "Kaniel Outis",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb063",
       "question": "La saison 5 révèle que le héros n'est pas vraiment mort mais a été contraint de travailler pour un agent renégat de la CIA, faisant évader des terroristes et dissidents politiques à travers le monde. Ce pacte était la seule façon de garantir la liberté de ses proches. Combien d'épisodes compte cette saison revival ?",
       "answer": "9 épisodes",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb064",
       "question": "Dans la saison 5, le compagnon de cellule du héros à Ogygia est un jeune homme nommé Whip qui l'aide dans son plan d'évasion. Il se révèle être le fils illégitime d'un des personnages les plus redoutables de la série, un criminel originaire de l'Alabama. De quel personnage Whip est-il le fils ?",
       "answer": "T-Bag (Theodore Bagwell)",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pb065",
       "question": "Dans la saison 5, le personnage le plus cruel de Fox River reçoit une main cybernétique révolutionnaire financée par un bienfaiteur anonyme utilisant le pseudonyme 'Outis'. Cette prothèse robotique lui redonne cinq doigts fonctionnels. De quelle main s'agit-il ?",
       "answer": "La main gauche",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb066",
       "question": "Dans la saison 2, des coordonnées géographiques sont cachées dans les tatouages du héros. L'agent du FBI réalise que les mots 'Bolshoi Booze', lus à l'envers, forment en réalité des coordonnées menant au lieu de rendez-vous avec un passeur. Quel pays est la destination finale des frères à la fin de la saison 2 ?",
       "answer": "Le Panama",
-      "difficulty": "normal",
       "category": "Évasions"
     },
     {
       "id": "pb067",
       "question": "Wentworth Miller, l'acteur qui incarne le héros principal, est né en Angleterre de parents américains. Sa performance dans la première saison lui a valu une nomination aux Golden Globes en 2005. Dans quelle ville du comté d'Oxfordshire est-il né ?",
       "answer": "Chipping Norton",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pb068",
       "question": "L'acteur qui incarne Lincoln Burrows dans la série est un Australien qui a rejoint le casting trois jours seulement avant le début du tournage. Il s'est présenté le premier jour avec le crâne rasé, impressionnant le créateur de la série. Qui est cet acteur ?",
       "answer": "Dominic Purcell",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb069",
       "question": "Le créateur de la série a imaginé un héros brillant qui se fait emprisonner volontairement pour sauver son frère du couloir de la mort. Le concept repose sur un tatouage intégral du haut du corps qui nécessitait plus de quatre heures d'application de maquillage spécial par jour. Qui est le créateur de la série ?",
       "answer": "Paul Scheuring",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb070",
       "question": "La série débute par un épisode pilote diffusé le 29 août 2005 sur une chaîne américaine. Le double épisode pilote a attiré environ 10,5 millions de téléspectateurs, propulsant la série au septième rang des programmes les plus regardés cette semaine-là. Sur quelle chaîne la série a-t-elle été diffusée ?",
       "answer": "Fox",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb071",
       "question": "Le témoin dont le témoignage a fait condamner le mafieux John Abruzzi est entré dans le programme de protection des témoins. Abruzzi est prêt à tout pour le retrouver et utilise le plan d'évasion comme monnaie d'échange pour obtenir des informations sur sa localisation. Quel est le nom de ce témoin ?",
       "answer": "Otto Fibonacci",
-      "difficulty": "difficile",
       "category": "Fox River"
     },
     {
       "id": "pb073",
       "question": "Dans la série, les tatouages du héros contiennent une citation codée en arabe attribuée à un célèbre empereur et stratège militaire français. Cette citation dit en substance qu'il ne faut jamais interrompre son ennemi quand il commet une erreur. De quel personnage historique est cette citation ?",
       "answer": "Napoléon (Bonaparte)",
-      "difficulty": "difficile",
       "category": "Tatouage"
     },
     {
       "id": "pb074",
       "question": "Le héros de la série est diplômé magna cum laude d'une université de Chicago, où il a obtenu une licence puis un master en génie civil. Cette formation lui a donné les compétences nécessaires pour concevoir son plan d'évasion. De quelle université est-il diplômé ?",
       "answer": "Loyola University",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pb075",
       "question": "Le gouverneur Frank Tancredi a été pressenti pour devenir le numéro deux du gouvernement américain, nominé par la présidente Caroline Reynolds. Cependant, sa nomination a été annulée avant le vote de confirmation. À quel poste avait-il été nommé ?",
       "answer": "Vice-président des États-Unis",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pb076",
       "question": "Le jeune pickpocket David Apolskis est emprisonné à Fox River pour avoir volé un objet de collection sans savoir qu'il valait une fortune. La police a découvert cet objet rare dans son appartement de Boston. De quel type d'objet de collection s'agissait-il ?",
       "answer": "Une carte de baseball (carte Honus Wagner)",
-      "difficulty": "normal",
       "category": "Fox River"
     },
     {
       "id": "pb077",
       "question": "Haywire, le détenu atteint de troubles psychiatriques, s'enfuit après l'évasion de Fox River et tente de rejoindre un pays européen dont il a vu une image dans une peinture volée. Pourchassé par le FBI, il se réfugie au sommet d'un silo à grains. Quel pays européen voulait-il rejoindre ?",
       "answer": "La Hollande (les Pays-Bas)",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pb079",
       "question": "Dans la saison 1, le héros fabrique une petite grue en papier, un objet qui devient un symbole récurrent dans la série. Cette technique de pliage japonaise reflète sa minutie et sa patience. Quel est le nom de cet art du pliage de papier ?",
       "answer": "L'origami",
-      "difficulty": "normal",
       "category": "Plans"
     },
     {
       "id": "pb080",
       "question": "C-Note est renvoyé de l'armée de manière déshonorante après avoir refusé de garder le silence sur la torture de prisonniers dans un centre de détention au Moyen-Orient. Cet événement fictif est directement inspiré d'un véritable scandale de maltraitance dans une prison irakienne. Quel scandale réel a inspiré cette intrigue ?",
       "answer": "Le scandale d'Abu Ghraib (Abou Ghraib)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pb081",
       "question": "La saison 3 ne compte que treize épisodes au lieu des vingt-deux habituels. La production a été interrompue prématurément à cause d'un conflit social majeur à Hollywood qui a touché toute l'industrie télévisuelle américaine en 2007-2008. Quel événement a causé ce raccourcissement ?",
       "answer": "La grève des scénaristes (Writers Guild of America strike)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb082",
       "question": "Lors de la tentative d'évasion depuis Fox River, Charles Westmoreland est mortellement blessé et ne peut pas s'enfuir avec le groupe. Un autre détenu, Manche Sanchez, est rattrapé pendant la fuite. Combien de détenus réussissent finalement à s'évader ?",
       "answer": "8 (huit)",
-      "difficulty": "normal",
       "category": "Évasions"
     },
     {
       "id": "pb083",
       "question": "Dans la saison 4, l'équipe assemblée par le Département de la Sécurité intérieure pour récupérer Scylla comprend les frères, Sucre, Mahone, un ancien gardien de prison, un hacker nommé Roland Glenn et Sara. Quel département fédéral a mandaté cette mission ?",
       "answer": "Le Département de la Sécurité intérieure (Homeland Security)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb084",
       "question": "L'acteur qui interprète le mafieux John Abruzzi est un acteur suédois connu pour ses rôles dans Fargo et d'autres films hollywoodiens. Sa prestation à Fox River en fait l'un des personnages les plus mémorables de la saison 1. Qui est cet acteur ?",
       "answer": "Peter Stormare",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb085",
       "question": "L'actrice qui incarne Sara Tancredi est également connue pour son rôle de Lori Grimes dans la série de zombies The Walking Dead. Elle joue le médecin de Fox River qui tombe amoureuse d'un détenu. Qui est cette actrice ?",
       "answer": "Sarah Wayne Callies",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb086",
       "question": "L'acteur qui incarne le terrifiant T-Bag a été unanimement salué par la critique pour sa prestation, faisant de son personnage l'un des plus grands vilains de l'histoire de la télévision. Il apparaît dans les cinq saisons de la série. Qui est cet acteur ?",
       "answer": "Robert Knepper",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb087",
       "question": "L'actrice qui incarne Veronica Donovan, l'avocate qui défend Lincoln Burrows, est également célèbre pour son rôle de Teresa Lisbon dans la série policière The Mentalist. Qui est cette actrice ?",
       "answer": "Robin Tunney",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb088",
       "question": "Dans la saison 3, le leader de Sona a gagné son surnom en se déguisant en livreur de lait pour rendre justice après le viol de sa mère par un homme riche. En espagnol, son surnom signifie littéralement 'laitier'. Quel est ce surnom ?",
       "answer": "Lechero",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb089",
       "question": "Lincoln Burrows est fréquemment surnommé par un diminutif affectueux utilisé par son frère et ses proches tout au long de la série. Ce surnom est dérivé de la première syllabe de son prénom. Quel est ce surnom ?",
       "answer": "Linc",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pb090",
       "question": "Sara et le héros ont un fils ensemble. Le couple décide de ne pas l'appeler comme son père et utilise plutôt un diminutif. Dans la saison 5, cet enfant vit avec Sara et Jacob Anton Ness, qui se fait passer pour un bon père de famille. Par quel diminutif l'enfant est-il appelé ?",
       "answer": "Mike",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pb091",
       "question": "Dans la saison 5, un dirigeant d'ISIL emprisonné à Ogygia représente une menace constante pour les protagonistes. Ce personnage violent est sur le point d'être libéré de l'isolement quand l'évasion est planifiée. Quel est le nom de ce terroriste ?",
       "answer": "Abu Ramal",
-      "difficulty": "difficile",
       "category": "Antagonistes"
     },
     {
       "id": "pb092",
       "question": "Dans la saison 2, Kellerman tente de se suicider après avoir réalisé qu'il a consacré sa vie à une cause mensongère. C'est un appel téléphonique à un membre de sa famille qui le convainc de se racheter en témoignant au tribunal. Quel est le lien de parenté de la personne qui le sauve ?",
       "answer": "Sa soeur (Kristine)",
-      "difficulty": "difficile",
       "category": "Relations"
     },
     {
       "id": "pb093",
       "question": "Au début de la série, le héros principal détruit toutes les notes dans son bureau avant de simuler un braquage. La destruction de ces documents fait partie de son plan pour ne laisser aucune trace de ses préparatifs. Dans quelle grande ville américaine se déroule le début de l'intrigue ?",
       "answer": "Chicago",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pb094",
       "question": "Dans la saison 2, la vice-présidente Reynolds est contrainte d'accorder un pardon présidentiel aux frères après que le héros la fait chanter avec un enregistrement compromettant. Cet enregistrement suggère une relation incestueuse entre elle et son frère. Quel type de document légal le héros obtient-il ?",
       "answer": "Un pardon présidentiel (presidential pardon)",
-      "difficulty": "normal",
       "category": "Plans"
     },
     {
       "id": "pb095",
       "question": "L'évasion de Fox River passe par un réseau de tuyaux et de tunnels souterrains sous la prison. Le plan nécessite d'accéder à un local technique situé derrière un mur de la cellule du héros, qu'il dissimule avec un poster. Par quelle pièce de la prison le héros accède-t-il régulièrement pour avancer son plan ?",
       "answer": "L'infirmerie",
-      "difficulty": "normal",
       "category": "Évasions"
     },
     {
       "id": "pb096",
       "question": "Dans la série, un système de combat rituel est utilisé à Sona pour régler les différends entre détenus. Les combats se déroulent dans une arène improvisée sous les acclamations des prisonniers, et sont souvent mortels. Quel est le nom de ce système de combat ?",
       "answer": "Les combats de Sona (fights)",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "pb097",
       "question": "La saison 2 de la série suit les huit évadés à travers les États-Unis puis bien au-delà des frontières nationales. Les intrigues se déploient entre la fuite, la chasse menée par le FBI et les manipulations de la Compagnie. Dans quelle région du monde l'action se termine-t-elle à la fin de cette saison ?",
       "answer": "En Amérique centrale (au Panama)",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb098",
       "question": "La saison 4 se déroule principalement dans une grande ville de la côte ouest américaine où l'équipe traque les détenteurs des six cartes de Scylla. Cette ville sert de base d'opérations pour toute la saison. Dans quelle ville se passe l'essentiel de la saison 4 ?",
       "answer": "Los Angeles",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pb099",
       "question": "Westmoreland explique que sa blessure au genou causée par le saut en parachute l'a empêché de conduire correctement après le détournement d'avion. Il a volé une voiture mais conduit de manière erratique, causant un accident mortel. Pour quel crime a-t-il été finalement emprisonné à Fox River ?",
       "answer": "Homicide involontaire (vehicular manslaughter)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pb100",
       "question": "L'évasion de Fox River implique de percer un trou dans le mur de la cellule du héros pour accéder aux tunnels souterrains. Un vieux détenu fournit un outil essentiel caché dans sa cellule pendant des années. En quelle saison a lieu cette grande évasion ?",
       "answer": "Saison 1",
-      "difficulty": "normal",
       "category": "Évasions"
     },
     {
       "id": "pb101",
       "question": "Lors de la première évasion, le héros utilise une substance chimique pour dissoudre les boulons d'un grillage. Ses connaissances en chimie et en ingénierie lui permettent de surmonter de nombreux obstacles imprévus lors de l'exécution de son plan. Combien de saisons la série originale a-t-elle compté avant le revival ?",
       "answer": "4 saisons",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb102",
       "question": "Kellerman est un militaire décoré diplômé de la plus prestigieuse académie militaire américaine. Après une brillante carrière dans les Rangers puis les Forces spéciales, il rejoint les services secrets pour protéger la vice-présidente. De quelle académie est-il diplômé ?",
       "answer": "West Point",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pb103",
       "question": "L'agent Mahone est présenté comme l'égal intellectuel du héros principal, capable de déchiffrer les indices cachés dans ses tatouages. Avant de rejoindre le FBI, il a servi dans les forces armées pendant un conflit majeur au Moyen-Orient. Dans quel conflit a-t-il servi ?",
       "answer": "La Guerre du Golfe",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pb104",
       "question": "Dans la saison 1, un détenu de Fox River est transféré depuis une section spéciale pour devenir le compagnon de cellule du héros. Il reconnaît les plans de la prison cachés dans les tatouages, obligeant le héros à le faire transférer à nouveau. De quelle section de la prison vient-il ?",
       "answer": "L'aile psychiatrique (Psych Ward)",
-      "difficulty": "normal",
       "category": "Fox River"
     },
     {
       "id": "pb105",
       "question": "Gretchen Morgan se présente d'abord sous un faux nom lors de la saison 3 au Panama. Ce pseudonyme est celui d'une célèbre suffragette et militante américaine pour le droit de vote des femmes. Quel faux nom utilise-t-elle ?",
       "answer": "Susan B. Anthony",
-      "difficulty": "difficile",
       "category": "Antagonistes"
     },
     {
       "id": "pb106",
       "question": "Dans la saison 5, le groupe clandestin dirigé par l'antagoniste principal a des liens profonds avec la CIA. Ce groupe porte un nom composé d'un chiffre et d'un mot anglais signifiant 'vide'. Quel est le nom de cette organisation ?",
       "answer": "21 Void",
-      "difficulty": "difficile",
       "category": "The Company"
     },
     {
       "id": "pb107",
       "question": "Lincoln Burrows n'a pas terminé ses études secondaires et a eu de nombreux problèmes avec la justice avant son incarcération. Contrairement à son frère brillant, il est décrit comme impulsif et protecteur. Quel est le lien de parenté exact entre les deux protagonistes ?",
       "answer": "Frères (Lincoln est le frère aîné de Michael)",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "pb108",
       "question": "Scylla tire son nom d'un monstre de la mythologie grecque. Ce monstre terrifiant possède plusieurs têtes et vit d'un côté d'un détroit étroit, le nombre de ses têtes correspondant exactement au nombre de cartes composant l'appareil dans la série. Combien de têtes possède ce monstre mythologique ?",
       "answer": "6 (six)",
-      "difficulty": "normal",
       "category": "The Company"
     },
     {
       "id": "pb109",
       "question": "Dans la saison 1, l'évasion est rendue possible grâce à la connaissance précise de la structure de la prison. Le héros a eu accès aux plans architecturaux originaux de l'établissement grâce à son emploi dans un cabinet d'architectes qui avait travaillé sur la construction de Fox River. Quel type de plans a-t-il tatoué sur son corps ?",
       "answer": "Les plans architecturaux (blueprints) de la prison",
-      "difficulty": "normal",
       "category": "Tatouage"
     },
     {
       "id": "pb110",
       "question": "L'acteur qui incarne l'agent Mahone est un acteur américain également connu pour ses rôles dans des films comme Black Hawk Down et The Dark Knight. Sa prestation est considérée comme l'une des meilleures de la série. Qui est cet acteur ?",
       "answer": "William Fichtner",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "pb111",
       "question": "Le fils de Lincoln, adolescent au début de la série, vit dans les banlieues de Chicago avec sa mère après le divorce de ses parents. La Compagnie le kidnappe à plusieurs reprises pour exercer une pression sur les frères. Quel acteur interprète ce personnage ?",
       "answer": "Marshall Allman",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pb112",
       "question": "L'acteur qui joue le rôle de Warden Pope est un vétéran d'Hollywood connu pour ses nombreux rôles au cinéma et à la télévision. Il incarne un directeur de prison juste mais naïf qui se fait manipuler par un détenu ingénieur. Qui est cet acteur ?",
       "answer": "Stacy Keach",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pb113",
       "question": "Dans la saison 5, le héros et son compagnon de cellule Whip tentent de s'échapper de la prison yéménite d'Ogygia pendant que Lincoln et C-Note cherchent un mystérieux personnage surnommé le 'Cheikh de la Lumière' dans les rues de la capitale du Yémen. Dans quelle ville se déroule cette saison ?",
       "answer": "Sanaa (Sana'a)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "pb114",
       "question": "Le personnage de David 'Whip' Martin est interprété par un acteur britannique dans la saison 5. Ce jeune homme est le compagnon de cellule du héros à Ogygia et l'aide à planifier leur évasion. Quel acteur interprète ce rôle ?",
       "answer": "Augustus Prew",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "pb115",
       "question": "Dans la saison 4, la mère du héros réapparaît sous un faux nom de famille. Elle se révèle être une ancienne cadre de la Compagnie qui n'est pas la mère biologique de Lincoln, faisant de lui un fils adoptif. Sous quel faux nom de famille se cache-t-elle ?",
       "answer": "Hampton (Christina Hampton)",
-      "difficulty": "difficile",
       "category": "Personnages"
     }
   ]

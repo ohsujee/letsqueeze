@@ -7,595 +7,510 @@
       "id": "bb001",
       "question": "Professeur de chimie au lycée de 50 ans, il apprend qu'il a un cancer du poumon en phase terminale et décide de fabriquer de la méthamphétamine pour assurer l'avenir financier de sa famille. Son alter ego criminel porte le nom d'Heisenberg. Qui est-ce ?",
       "answer": "Walter White",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb002",
       "question": "Ancien élève de Walter White devenu petit dealer, il devient son partenaire de cuisine de meth. Il ponctue ses phrases de 'Yo' et 'Bitch' et possède un grand coeur malgré ses fréquentations. Qui est-ce ?",
       "answer": "Jesse Pinkman",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb003",
       "question": "Beau-frère de Walter White et agent de la DEA, il collectionne les minéraux (pas des cailloux !) et passe des années à traquer Heisenberg sans savoir qu'il vit sous son propre toit. Qui est-ce ?",
       "answer": "Hank Schrader",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb004",
       "question": "Propriétaire d'une chaîne de fast-food spécialisée dans le poulet frit, il est en réalité l'un des plus grands barons de la drogue du sud-ouest américain. Toujours impeccable et souriant en public, il cache une cruauté implacable. Qui est-ce ?",
       "answer": "Gus Fring (Gustavo Fring)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb005",
       "question": "Avocat véreux spécialisé dans la défense des criminels, il exerce sous un faux nom inspiré d'un jeu de mots anglais signifiant 'C'est tout bon, mec'. Il apparaît pour la première fois dans la saison 2 de Breaking Bad. Qui est-ce ?",
       "answer": "Saul Goodman (Jimmy McGill)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb006",
       "question": "Ancien policier devenu homme de main et 'nettoyeur' pour Gus Fring, il est connu pour son calme imperturbable et son efficacité redoutable. Il adore sa petite-fille Kaylee plus que tout au monde. Qui est-ce ?",
       "answer": "Mike Ehrmantraut",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb007",
       "question": "Dans Breaking Bad, cette chaîne de restaurants de poulet frit sert de couverture à un empire de drogue. Son logo jaune et rouge cache un laboratoire souterrain ultra-moderne de production de méthamphétamine. Quel est le nom de cette enseigne ?",
       "answer": "Los Pollos Hermanos",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "bb008",
       "question": "Dans Breaking Bad, la méthamphétamine produite par Walter White se distingue par sa pureté exceptionnelle de 99,1% et par une couleur inhabituelle qui devient sa signature sur le marché. De quelle couleur est cette drogue ?",
       "answer": "Bleue (blue meth)",
-      "difficulty": "normal",
       "category": "Chimie"
     },
     {
       "id": "bb009",
       "question": "Dealer psychopathe et violent, il est le premier gros client de Walter et Jesse. Connu pour ses accès de rage incontrôlables amplifiés par sa propre consommation de meth, il finit par être abattu par Hank. Qui est-ce ?",
       "answer": "Tuco Salamanca",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb010",
       "question": "Dans Breaking Bad, Walter White prononce cette réplique culte face à sa femme Skyler pour lui faire comprendre qu'il n'est plus une victime mais une menace : 'I am the one who knocks'. Comment traduit-on généralement cette phrase en français ?",
       "answer": "C'est moi qui frappe à la porte (Je suis celui qui frappe)",
-      "difficulty": "normal",
       "category": "Répliques cultes"
     },
     {
       "id": "bb011",
       "question": "Femme de Walter White, elle découvre progressivement les activités criminelles de son mari. Elle blanchit l'argent de la drogue via un car wash et a une aventure avec son patron Ted Beneke. Qui est-ce ?",
       "answer": "Skyler White",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb012",
       "question": "Ces deux cousins jumeaux mexicains, tueurs à gages du cartel de Juárez, sont reconnaissables à leurs costumes impeccables, leurs bottes à bouts argentés et leur silence quasi permanent. Ils viennent à Albuquerque pour venger la mort de Tuco. Comment sont-ils surnommés ?",
       "answer": "Les Cousins Salamanca (The Twins)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb013",
       "question": "Considéré par beaucoup comme le meilleur épisode de toute la série, cet épisode de la saison 5 porte le nom d'un poème de Shelley sur la chute des empires. Hank y est tué et Walter perd sa famille. Quel est le titre de cet épisode ?",
       "answer": "Ozymandias (S05E14)",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb014",
       "question": "Dans la scène emblématique de confrontation entre Walter et Hank, Walter prononce cette phrase menaçante après que Hank lui dit de faire attention. Walter répond calmement en demandant à Hank de prononcer son nom de criminel. Quelle est cette réplique ?",
       "answer": "Say my name (Dis mon nom)",
-      "difficulty": "normal",
       "category": "Répliques cultes"
     },
     {
       "id": "bb015",
       "question": "Dans Breaking Bad, Walter et Skyler achètent ce commerce pour blanchir l'argent de la drogue. C'est un établissement de lavage automobile situé à Albuquerque où Walter avait autrefois travaillé comme employé humilié. Quel est ce commerce ?",
       "answer": "A1A Car Wash (le car wash / la station de lavage)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "bb016",
       "question": "Partenaire fidèle de Hank à la DEA, cet agent d'origine hispanique l'accompagne dans presque toutes ses enquêtes. Il survit à une fusillade au Mexique où il est grièvement blessé. Qui est-ce ?",
       "answer": "Steven Gomez (Gomie)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "bb017",
       "question": "Dans le dernier épisode de Breaking Bad, Walter utilise un ingénieux système automatisé caché dans le coffre de sa voiture pour éliminer le gang de Jack Welker. Quel type d'arme utilise-t-il ?",
       "answer": "Une mitrailleuse M60 (montée sur un système pivotant automatique)",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb018",
       "question": "Personnage récurrent de Better Call Saul et Breaking Bad, ce vieux patriarche de la famille Salamanca est paralysé dans un fauteuil roulant et ne peut communiquer qu'en sonnant une clochette. Il se sacrifie pour tuer Gus Fring. Qui est-ce ?",
       "answer": "Hector Salamanca (Tio)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb019",
       "question": "Dans Breaking Bad, Walter White choisit son pseudonyme criminel en référence à un célèbre physicien allemand, auteur du principe d'incertitude en mécanique quantique. Quel est ce pseudonyme ?",
       "answer": "Heisenberg",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb020",
       "question": "Cette scène iconique de la saison 1 montre Walter White en sous-vêtements dans le désert, un pistolet à la main, filmé par une caméra au sol alors qu'un camping-car approche au loin. C'est la toute première scène de la série. Dans quel véhicule cuisine-t-il initialement la meth ?",
       "answer": "Un camping-car (RV / Winnebago / Fleetwood Bounder)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "bb021",
       "question": "Dans la saison 2, la petite amie de Jesse meurt étouffée dans son sommeil après une overdose. Walter assiste à la scène sans intervenir, la laissant mourir. Cette mort provoquera indirectement une catastrophe aérienne. Qui est cette jeune femme ?",
       "answer": "Jane Margolis",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb022",
       "question": "Élément chimique de numéro atomique 35, il apparaît dans le générique de Breaking Bad où les lettres 'Br' et 'Ba' sont stylisées comme des symboles du tableau périodique. Quels sont les deux éléments chimiques représentés dans le titre ?",
       "answer": "Brome (Br) et Baryum (Ba)",
-      "difficulty": "difficile",
       "category": "Chimie"
     },
     {
       "id": "bb023",
       "question": "Jeune homme en apparence poli et serviable, il travaille d'abord dans une entreprise de dératisation puis rejoint le gang de Jack Welker. Il tue une personne innocente sans aucun remords, choquant même Walter et Jesse. Qui est-ce ?",
       "answer": "Todd Alquist",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb024",
       "question": "Femme d'affaires méticuleuse qui boit toujours du thé au jasmin avec du Stevia, elle prend le relais de la distribution de meth après Gus Fring. Nerveuse et obsédée par le contrôle, elle est empoisonnée par Walter dans le dernier épisode. Qui est-ce ?",
       "answer": "Lydia Rodarte-Quayle",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "bb025",
       "question": "Dans un épisode mémorable de la saison 1, Walter et Jesse doivent se débarrasser d'un corps en le dissolvant dans de l'acide. Jesse ignore les instructions de Walter et utilise une baignoire au lieu du conteneur recommandé, avec des conséquences désastreuses. Quel acide est utilisé ?",
       "answer": "L'acide fluorhydrique (HF)",
-      "difficulty": "difficile",
       "category": "Chimie"
     },
     {
       "id": "bb026",
       "question": "Le fils de Walter et Skyler White est atteint de paralysie cérébrale. Passionné de petit-déjeuner, il crée un site web pour collecter des fonds pour son père malade. Il change temporairement son prénom pour 'Flynn'. Quel est son vrai prénom ?",
       "answer": "Walter White Jr. (Walt Jr.)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb027",
       "question": "Dans Breaking Bad, Gus Fring meurt dans une explosion à la maison de retraite Casa Tranquila. Il sort de la chambre en ajustant sa cravate, révélant que la moitié de son visage a été arrachée. Qui a déclenché la bombe qui l'a tué ?",
       "answer": "Hector Salamanca (avec l'aide de Walter White)",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb028",
       "question": "Dans la saison 5, Walter, Jesse et Mike doivent détruire le disque dur de l'ordinateur de Gus Fring, stocké comme preuve à la police. Ils utilisent un aimant industriel géant monté dans un camion garé à côté du bâtiment des scellés. Le plan fonctionne mais le camion se renverse. Quel objet est découvert derrière le cadre photo brisé à cause de l'aimant ?",
       "answer": "Les numéros de comptes bancaires offshore de Gus Fring (cachés dans le cadre photo)",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb029",
       "question": "Ville du Nouveau-Mexique où se déroule l'intégralité de Breaking Bad, elle est connue pour ses paysages désertiques, ses couchers de soleil orangés et sa Route 66. Le créateur Vince Gilligan a choisi cette ville pour les avantages fiscaux du tournage. Quelle est cette ville ?",
       "answer": "Albuquerque",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "bb030",
       "question": "Dans la saison 5, Hank découvre enfin l'identité d'Heisenberg en trouvant un livre dédicacé sur les toilettes de Walter. Ce recueil de poèmes de Walt Whitman contient une dédicace de Gale Boetticher. Que dit cette dédicace ?",
       "answer": "To my other favorite W.W. (À mon autre W.W. préféré)",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb031",
       "question": "Chimiste brillant et passionné de café, il est engagé par Gus Fring pour le super-lab. Grand admirateur de Walter White, il lui dédie un poème de Walt Whitman. Son meurtre par Jesse est l'un des moments les plus tragiques de la série. Qui est-ce ?",
       "answer": "Gale Boetticher",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb032",
       "question": "Méthode de synthèse utilisée par Walter White pour produire sa méthamphétamine d'une pureté exceptionnelle, elle implique l'utilisation de méthylamine comme précurseur au lieu de la pseudoéphédrine. Comment appelle-t-on cette méthode en chimie ?",
       "answer": "La synthèse P2P (par méthylamine / phénylacétone)",
-      "difficulty": "difficile",
       "category": "Chimie"
     },
     {
       "id": "bb033",
       "question": "Meilleur ami de Jesse Pinkman, ce personnage au comportement étrange et à l'humour absurde porte un prénom d'animal. Il est connu pour ses théories farfelues sur Star Trek et se fait arrêter en vendant de la meth dans un coin de rue. Qui est-ce ?",
       "answer": "Badger (Brandon Mayhew)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb034",
       "question": "L'autre meilleur ami de Jesse, maigre et portant un bonnet, il est souvent vu avec Badger. Son vrai nom est rarement mentionné dans la série. Son ami dealer Combo est assassiné. Quel est son surnom ?",
       "answer": "Skinny Pete",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb035",
       "question": "Dans la saison 4, Walter fait tournoyer un revolver sur une table pour décider de son prochain mouvement. Le revolver pointe deux fois vers une plante sur sa terrasse, lui donnant l'idée d'empoisonner Brock. Quelle plante toxique utilise-t-il ?",
       "answer": "Le muguet (Lily of the Valley)",
-      "difficulty": "difficile",
       "category": "Chimie"
     },
     {
       "id": "bb036",
       "question": "Ce dealer de rue travaillant pour Gus Fring utilise un enfant nommé Tomás pour vendre de la drogue, ce qui pousse Jesse à vouloir se venger. L'enfant est finalement tué par ces dealers. Comment Jesse réagit-il ?",
       "answer": "Il tue les deux dealers (provoquant la rupture avec Gus)",
-      "difficulty": "difficile",
       "category": "Jesse"
     },
     {
       "id": "bb037",
       "question": "Dans Breaking Bad, Walter cache son argent dans un garde-meuble avant de l'enterrer dans le désert. Lors de la scène culte de la saison 5, Skyler lui montre l'énorme pile d'argent qu'elle ne peut plus compter. Environ combien d'argent Walter a-t-il accumulé à son apogée ?",
       "answer": "80 millions de dollars",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb038",
       "question": "Sœur de Skyler White et femme de Hank, elle est cleptomane et vole régulièrement dans les magasins. Elle porte souvent du violet, couleur associée à la royauté et au deuil. Qui est-ce ?",
       "answer": "Marie Schrader",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb039",
       "question": "Entreprise chimique co-fondée par Walter White, Gretchen et Elliott Schwartz avant le début de la série, Walter a revendu ses parts pour seulement 5 000 dollars, ratant une fortune de plusieurs milliards. Quel est le nom de cette entreprise ?",
       "answer": "Gray Matter Technologies",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb040",
       "question": "Dans l'épisode 'Fly' (saison 3), Walter devient obsédé par un insecte qui contamine le laboratoire souterrain de Gus Fring. Cet épisode minimaliste et controversé, réalisé par Rian Johnson, se passe entièrement dans un seul lieu. Quel est cet insecte ?",
       "answer": "Une mouche (a fly)",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb041",
       "question": "Le laboratoire souterrain de Gus Fring où Walter et Jesse produisent la meth bleue est caché sous quel type d'installation industrielle, accessible par un monte-charge dissimulé ?",
       "answer": "Une blanchisserie industrielle (Lavandería Brillante)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "bb042",
       "question": "Dans Better Call Saul, on découvre que le vrai nom de Saul Goodman est Jimmy McGill. Son frère aîné, brillant avocat souffrant d'hypersensibilité électromagnétique autoproclamée, est son principal antagoniste. Qui est ce frère ?",
       "answer": "Chuck McGill (Charles McGill)",
-      "difficulty": "normal",
       "category": "Better Call Saul"
     },
     {
       "id": "bb043",
       "question": "Dans Better Call Saul, cette avocate efficace et intègre est la partenaire romantique et professionnelle de Jimmy McGill. Elle finit par quitter le droit après les conséquences de leurs arnaques sur Howard Hamlin. Qui est-ce ?",
       "answer": "Kim Wexler",
-      "difficulty": "normal",
       "category": "Better Call Saul"
     },
     {
       "id": "bb044",
       "question": "Gus Fring et son partenaire se rendent au Mexique pour proposer leur meth au cartel. Le chef du cartel, Don Eladio, fait assassiner le partenaire de Gus sous ses yeux au bord de la piscine. Comment s'appelait ce partenaire chimiste ?",
       "answer": "Max Arciniega",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "bb045",
       "question": "Le dernier épisode de Breaking Bad s'intitule 'Felina', qui est un anagramme de 'finale'. La chanson 'Baby Blue' de Badfinger accompagne la dernière scène de Walter dans le laboratoire. Que fait Walter dans cette ultime scène avant de mourir ?",
       "answer": "Il caresse un équipement du laboratoire de meth (il meurt entouré de ce qu'il aimait vraiment)",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb046",
       "question": "Dans la saison 2, un ours en peluche rose à moitié brûlé, avec un œil manquant, tombe dans la piscine des White. Cet objet provient d'une catastrophe aérienne causée indirectement par Walter. Quel était le métier du père de Jane, responsable de la collision ?",
       "answer": "Contrôleur aérien (Donald Margolis)",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb047",
       "question": "Walter White intimide Tuco Salamanca en lançant un cristal explosif au sol, provoquant une explosion dans son repaire. Quel composé chimique utilise-t-il pour cette démonstration de force ?",
       "answer": "Le fulminate de mercure",
-      "difficulty": "difficile",
       "category": "Chimie"
     },
     {
       "id": "bb048",
       "question": "Dans la série, Jesse Pinkman vit dans une maison héritée de sa tante. Le numéro de cette maison est devenu emblématique et les fans viennent souvent la visiter à Albuquerque. Walter lance une pizza entière sur le toit de sa propre maison lors d'une scène culte. De quel geste s'agit-il devenu viral ?",
       "answer": "Lancer la pizza sur le toit (pizza toss)",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb049",
       "question": "Chef de gang néo-nazi et oncle de Todd, il capture Jesse Pinkman pour le forcer à cuisiner de la meth. Il tue Hank et Steven Gomez dans le désert et vole la majeure partie de l'argent de Walter. Qui est-ce ?",
       "answer": "Jack Welker",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb050",
       "question": "Dans Breaking Bad, Walter dissout les corps de ses victimes en utilisant des conteneurs en plastique spéciaux. Quel type de conteneur résiste à l'acide fluorhydrique, contrairement à une baignoire en céramique comme Jesse l'apprend à ses dépens ?",
       "answer": "Un conteneur en polyéthylène (plastique)",
-      "difficulty": "difficile",
       "category": "Chimie"
     },
     {
       "id": "bb051",
       "question": "Walter White prononce cette réplique terrifiante à Skyler quand elle craint pour sa sécurité : « I am not in danger, Skyler. I am the... ». Quel mot complète cette phrase culte ?",
       "answer": "Danger (I am the danger)",
-      "difficulty": "normal",
       "category": "Répliques cultes"
     },
     {
       "id": "bb052",
       "question": "Dans la saison 3, les jumeaux Salamanca attaquent Hank sur un parking. Malgré un avertissement anonyme une minute avant, Hank est grièvement blessé. Qui lui a envoyé cet appel d'avertissement pour le sauver ?",
       "answer": "Gus Fring",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb053",
       "question": "Le nom 'Breaking Bad' est une expression argotique du sud des États-Unis qui signifie basculer du bon côté vers le mauvais, devenir hors-la-loi. L'acteur principal, Bryan Cranston, était surtout connu avant pour un rôle de père comique. Dans quelle sitcom jouait-il ?",
       "answer": "Malcolm in the Middle (Malcolm)",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb054",
       "question": "Dans Better Call Saul, ce personnage est un dealer de drogue calme et méthodique originaire du quartier de Walter White. Il devient l'un des principaux distributeurs de Gus Fring avant les événements de Breaking Bad. Qui est-ce ?",
       "answer": "Nacho Varga (Ignacio Varga)",
-      "difficulty": "normal",
       "category": "Better Call Saul"
     },
     {
       "id": "bb055",
       "question": "Ce cabinet d'avocats d'Albuquerque, cofondé par deux associés dont l'un porte le même nom que le cabinet, est le principal employeur de Jimmy McGill et Kim Wexler dans Better Call Saul. Quel est le nom de ce cabinet ?",
       "answer": "HHM (Hamlin, Hamlin & McGill)",
-      "difficulty": "normal",
       "category": "Better Call Saul"
     },
     {
       "id": "bb056",
       "question": "Avocat séduisant aux cheveux blonds parfaits et associé principal de HHM dans Better Call Saul, il est manipulé par Jimmy et Kim avec des conséquences tragiques dans la saison 6. Il conduit une Jaguar et porte toujours des costumes impeccables. Qui est-ce ?",
       "answer": "Howard Hamlin",
-      "difficulty": "normal",
       "category": "Better Call Saul"
     },
     {
       "id": "bb057",
       "question": "Dans l'épisode pilote, Walter force Jesse à collaborer en menaçant de le dénoncer à la DEA via son beau-frère Hank. Lors de leur première cuisson, Walter fabrique la meth en utilisant un procédé chimique dans un camping-car au milieu du désert. Quel surnom Jesse donnait-il à Walter au lycée ?",
       "answer": "Mr. White",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb058",
       "question": "Le film El Camino, sorti en 2019, fait suite au dernier épisode de Breaking Bad. Il suit la fuite de Jesse Pinkman après sa libération du compound de Jack Welker. Vers quel État Jesse s'enfuit-il finalement pour commencer une nouvelle vie ?",
       "answer": "L'Alaska",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb059",
       "question": "Dans la saison 5, Walter prononce la phrase 'Tread lightly' (marche doucement) à Hank après que celui-ci découvre qu'il est Heisenberg. Cette confrontation dans le garage de Hank est l'un des moments les plus tendus de la série. Que faisait Hank juste avant cette scène ?",
       "answer": "Il fermait la porte du garage (après avoir confronté Walt dans le garage)",
-      "difficulty": "difficile",
       "category": "Répliques cultes"
     },
     {
       "id": "bb060",
       "question": "Dans Breaking Bad, Gus Fring empoisonne tout le cartel de Don Eladio lors d'une scène mémorable au Mexique. Il offre une bouteille de tequila rare empoisonnée après en avoir bu lui-même une gorgée (il se fait vomir ensuite). Quel alcool empoisonné utilise-t-il ?",
       "answer": "De la tequila (Zafiro Añejo)",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb061",
       "question": "Dans Breaking Bad, Jesse est retenu captif par le gang de Jack Welker et forcé de cuisiner de la meth. Il est enchaîné et vit dans une fosse. À quel personnage, une jeune femme et son fils, Todd menace-t-il de s'en prendre si Jesse tente de fuir ?",
       "answer": "Andrea Cantillo et son fils Brock",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "bb062",
       "question": "Walter White a 50 ans au début de la série et fête son anniversaire dans le tout premier épisode. Sa plaque d'immatriculation et plusieurs indices font référence à ce nombre. À la fin de la série, quel âge a Walter White quand il meurt ?",
       "answer": "52 ans",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "bb063",
       "question": "Créateur et showrunner de Breaking Bad et Better Call Saul, cet ancien scénariste de X-Files a conçu Walter White comme un 'Mr. Chips devenant Scarface'. Il est réputé pour son perfectionnisme et sa narration visuelle. Qui est-ce ?",
       "answer": "Vince Gilligan",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb064",
       "question": "Dans la saison 1, Jesse utilise le pseudonyme 'Cap'n Cook' comme nom de dealer avant de s'associer avec Walter. Sa meth était reconnaissable à un ingrédient ajouté qui lui donnait un goût particulier. Quel ingrédient ajoutait-il ?",
       "answer": "Du piment en poudre (chili powder)",
-      "difficulty": "difficile",
       "category": "Chimie"
     },
     {
       "id": "bb065",
       "question": "L'épisode 'Face Off' (saison 4) se termine par la révélation que Walter a empoisonné le fils de la petite amie de Jesse. La caméra fait un zoom arrière sur une plante dans le jardin de Walter. Quel était le but de Walter en empoisonnant Brock ?",
       "answer": "Retourner Jesse contre Gus Fring (manipuler Jesse pour qu'il l'aide à tuer Gus)",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb066",
       "question": "Dans Breaking Bad, Jesse Pinkman prononce souvent un mot caractéristique à la fin de ses phrases, devenu l'un des catchphrases les plus célèbres de la télévision. Aaron Paul a même reçu des Emmys pour son interprétation. Quel est ce mot emblématique ?",
       "answer": "Bitch (Yeah, science bitch!)",
-      "difficulty": "normal",
       "category": "Répliques cultes"
     },
     {
       "id": "bb067",
       "question": "Saul Goodman emploie deux hommes de main pour ses missions délicates. L'un est un rouquin débrouillard, l'autre un garde du corps imposant et nonchalant qui refuse de bouger d'une chaise au poste de police. Comment s'appellent ces deux acolytes ?",
       "answer": "Patrick Kuby et Huell Babineaux",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "bb068",
       "question": "Dans Better Call Saul, la série se déroule partiellement dans le futur (après Breaking Bad) où Jimmy/Saul vit sous une nouvelle identité et travaille dans un fast-food du Nebraska. Sous quel nom vit-il et quel restaurant emploie-t-il ?",
       "answer": "Gene Takavic, manager d'un Cinnabon",
-      "difficulty": "difficile",
       "category": "Better Call Saul"
     },
     {
       "id": "bb069",
       "question": "La couleur des vêtements dans Breaking Bad est intentionnelle et symbolique. Walter passe du beige/vert (innocence) au noir (mal). Quelle couleur est systématiquement associée à Marie Schrader tout au long de la série ?",
       "answer": "Le violet (le mauve)",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb070",
       "question": "Dans la saison 2, Walter laisse mourir Jane en ne la retournant pas alors qu'elle s'étouffe. L'acteur Bryan Cranston a révélé qu'il a puisé dans ses émotions de père pour jouer cette scène difficile. Quelle substance Jane et Jesse avaient-ils consommée ce soir-là ?",
       "answer": "De l'héroïne",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb071",
       "question": "Walter White adopte un accessoire vestimentaire noir iconique quand il devient Heisenberg, qu'il porte incliné sur la tête comme un gangster des années 50. Quel est cet accessoire devenu culte ?",
       "answer": "Un chapeau pork pie (pork pie hat)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb072",
       "question": "Dans la saison 5, Walter convainc Jesse de l'aider à voler 1 000 gallons de méthylamine d'un train de marchandises. Cette opération baptisée 'le casse du train' se passe dans un épisode palpitant. Mais ce vol se termine par un acte horrible commis par Todd. Que fait Todd ?",
       "answer": "Il tue un enfant (Drew Sharp) qui avait assisté au vol depuis son vélo",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb073",
       "question": "Dans Better Call Saul, cet homme discret et méthodique est un 'fixer' (nettoyeur) engagé par Gus Fring. Il apparaît rarement mais résout les situations les plus délicates avec une efficacité chirurgicale. Son nom est aussi celui d'un aspirateur. Qui est-ce ?",
       "answer": "Le Disparu (The Disappearer / Ed Galbraith, le vacuum cleaner guy)",
-      "difficulty": "difficile",
       "category": "Better Call Saul"
     },
     {
       "id": "bb074",
       "question": "Le couple Elliott et Gretchen Schwartz, anciens associés de Walter, dirige Gray Matter Technologies, une entreprise valant des milliards. Dans le dernier épisode, Walter les utilise pour transmettre son argent restant à sa famille. Comment les convainc-t-il ?",
       "answer": "En leur faisant croire que deux tueurs à gages les surveillent (ce sont en fait Badger et Skinny Pete avec des pointeurs laser)",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb075",
       "question": "Expression favorite de Jesse Pinkman quand il est enthousiasmé par la science, cette phrase est devenue virale sur internet et l'un des mèmes les plus populaires de Breaking Bad. Complétez : 'Yeah, ... bitch!'",
       "answer": "Science (Yeah, science bitch!)",
-      "difficulty": "normal",
       "category": "Répliques cultes"
     },
     {
       "id": "bb076",
       "question": "Dans Better Call Saul, Lalo Salamanca est un membre charismatique et dangereux de la famille Salamanca. Toujours souriant et jovial, il est pourtant l'un des antagonistes les plus terrifiants de l'univers. Qui finit par le tuer dans la saison 6 ?",
       "answer": "Gus Fring",
-      "difficulty": "difficile",
       "category": "Better Call Saul"
     },
     {
       "id": "bb077",
       "question": "Dans la saison 5, après la mort de Hank, Walter est en cavale et se réfugie dans une cabane isolée dans quel État américain, vivant seul pendant des mois avant de revenir à Albuquerque pour son plan final ?",
       "answer": "Le New Hampshire",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "bb078",
       "question": "Breaking Bad a remporté de nombreux Emmy Awards au cours de ses 5 saisons (2008-2013). Bryan Cranston a remporté l'Emmy du meilleur acteur dans un drame un nombre record de fois pour ce rôle. Combien de fois l'a-t-il remporté ?",
       "answer": "quatre fois (2008, 2009, 2010, 2014)",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb079",
       "question": "Walter White utilise le pseudonyme 'Heisenberg' en référence au physicien Werner Heisenberg. Ce choix est symbolique car le principe d'Heisenberg stipule qu'on ne peut pas connaître simultanément la position et la vitesse d'une particule. Comment s'appelle ce principe ?",
       "answer": "Le principe d'incertitude (d'Heisenberg)",
-      "difficulty": "normal",
       "category": "Chimie"
     },
     {
       "id": "bb080",
       "question": "Dans la scène finale de la série, la chanson 'Baby Blue' du groupe Badfinger accompagne les derniers instants de Walter White. Il meurt dans le laboratoire de meth du gang de Jack, touché par une balle perdue de son propre système automatique. Quel est le titre du tout dernier épisode ?",
       "answer": "Felina (S05E16)",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb081",
       "question": "Dans la saison 1, Walter et Jesse séquestrent un dealer nommé Krazy-8 dans le sous-sol de Jesse. Walter hésite pendant des jours avant de le tuer. Il découvre que Krazy-8 a caché un objet pour l'attaquer. Quel objet Krazy-8 avait-il dissimulé ?",
       "answer": "Un morceau d'assiette cassée (un tesson)",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb082",
       "question": "Garde du corps imposant et loyal de Saul Goodman, cet homme de peu de mots est connu pour sa corpulence et son calme. Dans une scène mémorable, il refuse de bouger d'une chaise au poste de police pendant des heures. Qui est-ce ?",
       "answer": "Huell Babineaux",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "bb083",
       "question": "Dans Breaking Bad, le processus de fabrication de la meth de Walter White implique une réaction chimique complexe. La couleur bleue de sa meth est due à un catalyseur spécifique lié à sa méthode unique. Walter affirme que la pureté de son produit atteint quel pourcentage exact ?",
       "answer": "99,1%",
-      "difficulty": "normal",
       "category": "Chimie"
     },
     {
       "id": "bb084",
       "question": "Dans un épisode marquant de la saison 4, Gus Fring entre dans le laboratoire après avoir tranché la gorge de son propre homme, Victor, devant Walter et Jesse, pour leur envoyer un message. Quel instrument utilise Gus pour tuer Victor ?",
       "answer": "Un cutter (un couteau à lame rétractable / box cutter)",
-      "difficulty": "normal",
       "category": "Épisodes marquants"
     },
     {
       "id": "bb085",
       "question": "Dans Better Call Saul, la transformation de Jimmy McGill en Saul Goodman est progressive. Le moment symbolique où il adopte officiellement ce nom est lié à une décision professionnelle majeure. Que signifie 'Saul Goodman' quand on le prononce rapidement en anglais ?",
       "answer": "It's all good, man (C'est tout bon, mec)",
-      "difficulty": "normal",
       "category": "Better Call Saul"
     }
   ]

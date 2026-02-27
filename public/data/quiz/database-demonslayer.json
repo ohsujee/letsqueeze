@@ -7,763 +7,654 @@
       "id": "ds001",
       "question": "Porteur de boucles d'oreilles hanafuda héritées de son père, ce charbonnier découvre sa famille massacrée par un démon en rentrant chez lui. Seule sa petite soeur survit mais transformée en démone, il rejoint alors les Pourfendeurs pour trouver un remède. Qui est-ce ?",
       "answer": "Kamado Tanjirō (Tanjirô Kamado)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds002",
       "question": "Transformée en démone la nuit du massacre de sa famille, cette jeune fille porte un bambou dans la bouche pour ne pas mordre les humains. Elle restaure son énergie sans consommer de sang humain et finit par conquérir le soleil. Qui est-ce ?",
       "answer": "Kamado Nezuko (Nezuko Kamado)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds003",
       "question": "Formé par un ancien Pilier du Tonnerre, ce pourfendeur peureux ne maîtrise qu'une seule forme de son souffle mais l'exécute à la perfection lorsqu'il s'évanouit. Il a été recruté après que son maître a remboursé ses dettes. Qui est-ce ?",
       "answer": "Agatsuma Zenitsu (Zenitsu Agatsuma)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds004",
       "question": "Élevé par des sangliers sauvages sur une montagne, ce pourfendeur au visage étonnamment féminin porte un masque de sanglier et manie deux épées ébréchées. Il a inventé son propre style de combat inspiré de la nature. Qui est-ce ?",
       "answer": "Hashibira Inosuke (Inosuke Hashibira)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds005",
       "question": "Né durant l'ère Heian, cet humain frêle a été transformé en démon par un traitement expérimental à base de Lys Araignée Bleu. Capable de changer d'apparence à volonté, il est le créateur de tous les démons et le responsable du massacre de la famille Kamado. Qui est-ce ?",
       "answer": "Kibutsuji Muzan (Muzan Kibutsuji)",
-      "difficulty": "normal",
       "category": "Démons"
     },
     {
       "id": "ds006",
       "question": "Premier Pilier rencontré dans la série, il porte un haori bicolore composé des moitiés de ceux de sa soeur Tsutako et de son ami Sabito, tous deux tués par des démons. Il a créé une onzième forme inédite de son souffle. Qui est-ce ?",
       "answer": "Tomioka Giyū (Giyû Tomioka)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds007",
       "question": "Fils d'un ancien Pilier devenu alcoolique après la mort de sa femme, ce guerrier s'est entraîné seul avec seulement trois volumes d'instructions. Il meurt héroïquement dans le Train de l'Infini face à la Lune Supérieure 3. Qui est-ce ?",
       "answer": "Rengoku Kyōjurō (Kyôjurô Rengoku)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds008",
       "question": "Trop petite et frêle pour décapiter un démon, cette Pilier compense par une vitesse surhumaine et une expertise en poisons. Soeur cadette d'une ancienne Pilier tuée par la Lune Supérieure 2, elle adopte le sourire permanent de sa défunte aînée. Qui est-ce ?",
       "answer": "Kochō Shinobu (Shinobu Kochô)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds009",
       "question": "Plus jeune Pilier de l'histoire à seulement quatorze ans, il a atteint ce rang après deux mois d'entraînement. Descendant de la Lune Supérieure 1, il a perdu la mémoire après la mort de son frère jumeau Yuichiro lors d'une attaque de démon. Qui est-ce ?",
       "answer": "Tokitō Muichirō (Muichirô Tokitô)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds010",
       "question": "Ancien shinobi issu d'un clan en déclin, ce Pilier flamboyant possède trois épouses kunoichi : Makio, Suma et Hinatsuru. Il prend sa retraite après avoir perdu un oeil et une main lors du combat contre la Lune Supérieure 6. Qui est-ce ?",
       "answer": "Uzui Tengen (Tengen Uzui)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds011",
       "question": "Dotée de muscles huit fois plus denses qu'un humain ordinaire, cette Pilier a rejoint les Pourfendeurs dans l'espoir de trouver un mari aussi fort qu'elle. Ancienne élève du Pilier de la Flamme, elle a développé son propre souffle. Qui est-ce ?",
       "answer": "Kanroji Mitsuri (Mitsuri Kanroji)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds012",
       "question": "Couvert de cicatrices, ce Pilier au tempérament explosif possède un sang rare qui enivre les démons. Il a tué sa propre mère après que celle-ci s'est transformée en démone pour protéger son petit frère. Qui est-ce ?",
       "answer": "Shinazugawa Sanemi (Sanemi Shinazugawa)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds013",
       "question": "Aveugle depuis l'enfance à cause d'une fièvre, ce Pilier est considéré comme le plus puissant des neuf actuels. Il manie une arme non conventionnelle composée d'une hache et d'un fléau à pointes reliés par une chaîne. Qui est-ce ?",
       "answer": "Himejima Gyōmei (Gyômei Himejima)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds014",
       "question": "Né dans une famille qui vénérait un Démon-Serpent femelle, ce Pilier a eu la bouche tranchée à douze ans pour ressembler au démon. Il possède une hétérochromie, un oeil jaune et un turquoise, et est accompagné d'un serpent blanc nommé Kaburamaru. Qui est-ce ?",
       "answer": "Iguro Obanai (Obanai Iguro)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds015",
       "question": "Ancien Pilier de l'Eau et formateur au Mont Sagiri, ce cultivateur porte un masque de tengu rouge qui dissimule son visage doux. Il sculpte des masques de renard protecteurs pour chacun de ses apprentis avant la Sélection Finale. Qui est-ce ?",
       "answer": "Urokodaki Sakonji (Sakonji Urokodaki)",
-      "difficulty": "normal",
       "category": "Pourfendeurs"
     },
     {
       "id": "ds016",
       "question": "Frère jumeau aîné de Yoriichi, cet ancien pourfendeur de l'ère Sengoku a trahi l'humanité en devenant un démon par jalousie envers son cadet. Possédant six yeux et le rang le plus élevé parmi les Lunes, il maîtrise un souffle unique avec seize formes. Qui est-ce ?",
       "answer": "Kokushibō (Kokushibô)",
-      "difficulty": "normal",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds017",
       "question": "Chef du Culte du Paradis Éternel, ce démon charismatique aux yeux dorés est incapable de ressentir la moindre émotion authentique. Il a tué la mère d'Inosuke après qu'elle a découvert qu'il dévorait ses fidèles, et a également assassiné Kanae Kocho. Qui est-ce ?",
       "answer": "Dōma (Dôma)",
-      "difficulty": "normal",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds018",
       "question": "Autrefois nommé Hakuji, cet humain a massacré soixante-sept personnes à mains nues après que ses ennemis ont empoisonné sa fiancée Koyuki et son maître Keizo. Devenu démon, il refuse de tuer ou de manger des femmes, et ne cesse de chercher des combattants dignes de lui. Qui est-ce ?",
       "answer": "Akaza",
-      "difficulty": "normal",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds019",
       "question": "Ce vieux démon peureux est capable de se diviser en quatre clones représentant chacun une émotion : la colère, le plaisir, le chagrin et la joie. Ces quatre entités peuvent fusionner en une forme encore plus puissante incarnant la haine. Qui est-ce ?",
       "answer": "Hantengu",
-      "difficulty": "normal",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds020",
       "question": "Démon grotesque sortant d'un vase en porcelaine, il se considère comme un artiste incompris et peut se téléporter d'un pot à l'autre. Ses pouvoirs sont liés aux poissons et il est vaincu par le Pilier de la Brume au Village des Forgerons. Qui est-ce ?",
       "answer": "Gyokko",
-      "difficulty": "normal",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds021",
       "question": "Ce duo frère-soeur partage le rang de Lune Supérieure 6. La soeur se cache parmi les humains en tant qu'oiran dans le quartier des plaisirs de Yoshiwara, tandis que son frère aîné vit en elle, armé de faucilles empoisonnées. Qui sont-ils ?",
       "answer": "Gyūtarō et Daki (Gyûtarô et Daki)",
-      "difficulty": "normal",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds022",
       "question": "Seule Lune Inférieure épargnée par Muzan lors de la réunion des Lunes, ce démon sadique utilise la somnokinésie pour piéger ses victimes dans des rêves agréables. Il fusionne ensuite avec un train transportant plus de deux cents passagers. Qui est-ce ?",
       "answer": "Enmu",
-      "difficulty": "normal",
       "category": "Lunes Inférieures"
     },
     {
       "id": "ds023",
       "question": "Démon-araignée d'apparence enfantine à la peau d'un blanc pâle, il a créé une fausse famille de démons sur le Mont Natagumo. À l'origine un enfant malade transformé par Muzan, il tue ses propres parents par accident avant de chercher désespérément des liens familiaux. Qui est-ce ?",
       "answer": "Rui",
-      "difficulty": "normal",
       "category": "Lunes Inférieures"
     },
     {
       "id": "ds024",
       "question": "Ancien démon détenteur d'un rang inférieur, il a été expulsé des Douze Lunes pour sa faiblesse. Équipé de six tambours sur le corps, chacun produisant un effet différent dans son manoir, il rêvait autrefois d'être reconnu comme écrivain. Qui est-ce ?",
       "answer": "Kyōgai (Kyôgai)",
-      "difficulty": "normal",
       "category": "Lunes Inférieures"
     },
     {
       "id": "ds025",
       "question": "Démone alliée des Pourfendeurs, cette docteure a consacré sa vie à la recherche sur les démons. Anciennement transformée par Muzan lui-même, elle développe un médicament crucial pour le combat final. Qui est-ce ?",
       "answer": "Tamayo",
-      "difficulty": "normal",
       "category": "Démons"
     },
     {
       "id": "ds026",
       "question": "Démon amoureux de Tamayo depuis plus de deux cents ans, il est l'un des seuls démons non créés par Muzan. Son pouvoir sanguinaire lui permet de créer des illusions visuelles et de se rendre invisible. Qui est-ce ?",
       "answer": "Yushirō (Yushirô)",
-      "difficulty": "normal",
       "category": "Démons"
     },
     {
       "id": "ds027",
       "question": "Créateur du tout premier style de souffle, ce pourfendeur de l'ère Sengoku est considéré comme le combattant le plus puissant de tous les temps. Il a failli tuer Muzan à lui seul et a confié ses boucles d'oreilles à son ami Sumiyoshi avant de disparaître. Qui est-ce ?",
       "answer": "Tsugikuni Yoriichi (Yoriichi Tsugikuni)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds028",
       "question": "Style de souffle ancestral et premier jamais créé, il comporte douze formes distinctes qui, enchaînées en boucle continue, forment une treizième technique ultime conçue pour détruire les douze organes vitaux de Muzan. Quel est ce souffle ?",
       "answer": "Hi no Kokyū (Souffle du Soleil)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds029",
       "question": "Transmise de génération en génération dans la famille Kamado sous forme de danse rituelle exécutée du coucher au lever du soleil, cette technique est en réalité une version préservée du Souffle du Soleil original. Quel est son nom ?",
       "answer": "Hinokami Kagura (Danse du Dieu du Feu)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "ds030",
       "question": "Composé de dix formes standards plus une onzième créée par Giyu Tomioka, ce style de combat est l'un des cinq souffles primaires dérivés du Souffle du Soleil. Il est enseigné par Urokodaki au Mont Sagiri. Quel est ce souffle ?",
       "answer": "Mizu no Kokyū (Souffle de l'Eau)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds031",
       "question": "Style de souffle dont la neuvième forme porte le nom de famille de son utilisateur le plus célèbre, ce souffle primaire est lié aux flammes et a été transmis dans une famille de Piliers. Quel est ce souffle ?",
       "answer": "Honō no Kokyū (Souffle de la Flamme)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds032",
       "question": "Souffle possédant six formes standard, il a inspiré la création d'une septième forme inédite par un élève qui ne maîtrisait que la première. Son ancien maître a pratiqué le seppuku après la trahison de son autre disciple. Quel est ce souffle ?",
       "answer": "Kaminari no Kokyū (Souffle du Tonnerre)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds033",
       "question": "Inventé par un pourfendeur sauvage élevé dans les montagnes, ce style de combat personnel n'a été enseigné par aucun maître. Il serait un dérivé lointain du Souffle du Vent et repose sur un sens du toucher extrêmement développé. Quel est ce souffle ?",
       "answer": "Kedamono no Kokyū (Souffle de la Bête)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds034",
       "question": "Épreuve d'entrée dans le Corps des Pourfendeurs, elle se déroule sur une montagne couverte de glycines toxiques pour les démons. Les candidats doivent survivre sept nuits parmi des démons piégés au sommet. Comment s'appelle cette épreuve ?",
       "answer": "Saishū Senbetsu (Sélection Finale)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds035",
       "question": "Chef du Corps des Pourfendeurs, cet homme frappé d'une malédiction familiale liée à Muzan ne peut pas vivre au-delà de trente ans. Son corps se détériore constamment, mais sa voix apaisante inspire le respect de tous les Piliers. Qui est-ce ?",
       "answer": "Ubuyashiki Kagaya (Kagaya Ubuyashiki)",
-      "difficulty": "normal",
       "category": "Pourfendeurs"
     },
     {
       "id": "ds036",
       "question": "Meilleur ami de Giyu Tomioka, ce disciple d'Urokodaki a sauvé de nombreux candidats lors de la Sélection Finale avant d'être tué par le Démon aux Mains. Son sacrifice hante Giyu qui se considère indigne d'être Pilier. Qui est-ce ?",
       "answer": "Sabito",
-      "difficulty": "normal",
       "category": "Pourfendeurs"
     },
     {
       "id": "ds037",
       "question": "Forgées dans un minerai spécial qui absorbe la lumière du soleil, ces lames changent de couleur en fonction de leur porteur. Seules armes capables de décapiter définitivement un démon, elles sont fabriquées au Village des Forgerons. Comment s'appellent-elles ?",
       "answer": "Nichirin Tō (Lames Nichirin)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds038",
       "question": "Considérée comme un mauvais présage par les forgerons car aucune information n'existait sur elle, cette couleur de lame Nichirin est en réalité liée au Souffle du Soleil. Le héros principal porte une lame de cette couleur. Quelle est cette couleur ?",
       "answer": "Noir (lame noire)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds039",
       "question": "Ancienne Pilier des Fleurs et soeur aînée de Shinobu, cette jeune femme douce rêvait de cohabitation pacifique entre humains et démons. Elle est tuée à dix-sept ans par la Lune Supérieure 2, mais décrit son apparence à sa soeur avant de mourir. Qui est-ce ?",
       "answer": "Kochō Kanae (Kanae Kochô)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds040",
       "question": "Vendue comme esclave par ses parents abusifs, cette jeune fille est adoptée par les soeurs Kocho. Incapable de prendre des décisions seule, elle utilise une pièce de monnaie offerte par sa soeur aînée adoptive pour faire ses choix. Qui est-ce ?",
       "answer": "Tsuyuri Kanao (Kanao Tsuyuri)",
-      "difficulty": "normal",
       "category": "Pourfendeurs"
     },
     {
       "id": "ds041",
       "question": "Frère cadet du Pilier du Vent, ce pourfendeur possède la capacité unique de manger de la chair de démon pour acquérir temporairement des pouvoirs démoniaques. Incapable d'utiliser un style de souffle, il se concentre grâce aux chants bouddhistes. Qui est-ce ?",
       "answer": "Shinazugawa Genya (Genya Shinazugawa)",
-      "difficulty": "normal",
       "category": "Pourfendeurs"
     },
     {
       "id": "ds042",
       "question": "Ancien Pilier du Tonnerre devenu formateur après avoir perdu une jambe au combat à trente-cinq ans, il a entraîné deux disciples dont l'un a trahi l'humanité. Accablé de honte, il se fait seppuku sans assistant. Qui est-ce ?",
       "answer": "Kuwajima Jigorō (Jigorô Kuwajima)",
-      "difficulty": "normal",
       "category": "Piliers"
     },
     {
       "id": "ds043",
       "question": "Ancien condisciple de Zenitsu, ce pourfendeur a maîtrisé toutes les formes du Souffle du Tonnerre sauf la première. Convaincu par la Lune Supérieure 1, il accepte le sang de Muzan et devient le nouveau détenteur du rang Supérieur 6. Qui est-ce ?",
       "answer": "Kaigaku",
-      "difficulty": "difficile",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds044",
       "question": "Technique inventée par Zenitsu lui-même, cette septième forme du Souffle du Tonnerre prend la forme d'un dragon d'éclairs. Il l'utilise pour vaincre son ancien condisciple devenu démon dans la Forteresse Dimensionnelle Infinie. Quel est son nom ?",
       "answer": "Honoikazuchi no Kami (Tonnerre Flamboyant)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "ds045",
       "question": "Créée par Giyu Tomioka, cette onzième forme du Souffle de l'Eau arrête tous les mouvements de l'utilisateur pour annuler toute attaque entrante. Elle représente une surface d'eau parfaitement immobile. Quel est son nom ?",
       "answer": "Nagi (Calme Plat)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "ds046",
       "question": "Technique secrète du Souffle de la Flamme portant le nom de famille de ses utilisateurs, cette neuvième forme est si puissante qu'elle laisse une empreinte brûlée dans le sol. Elle est utilisée une dernière fois face à la Lune Supérieure 3. Quel est son nom ?",
       "answer": "Rengoku (Neuvième Forme : Rengoku)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "ds047",
       "question": "Père du héros principal, cet homme malade mais d'une force phénoménale a tué un ours sauvage de deux mètres à mains nues. Il exécutait la Danse du Dieu du Feu chaque nuit du coucher au lever du soleil malgré sa fragilité. Qui est-ce ?",
       "answer": "Kamado Tanjūrō (Tanjûrô Kamado)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds048",
       "question": "Ami de Yoriichi à l'ère Sengoku, cet ancêtre de la famille Kamado a mémorisé les douze formes du Souffle du Soleil après que le pourfendeur les a exécutées devant lui. Il reçoit également les boucles d'oreilles hanafuda en cadeau. Qui est-ce ?",
       "answer": "Kamado Sumiyoshi (Sumiyoshi Kamado)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "ds049",
       "question": "Montagne où se déroule la Sélection Finale, elle est recouverte de glycines de la base au sommet, piégeant les démons au sommet. Les candidats y survivent sept nuits pour intégrer le Corps des Pourfendeurs. Quel est le nom de cette montagne ?",
       "answer": "Mont Fujikasane",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds050",
       "question": "Démon ayant tué treize disciples d'Urokodaki dont Sabito et Makomo, il est reconnaissable à ses innombrables bras. Piégé sur le Mont Fujikasane depuis quarante-sept ans, il voue une haine profonde au formateur au masque de tengu. Qui est-ce ?",
       "answer": "Teoni (Démon aux Mains)",
-      "difficulty": "normal",
       "category": "Démons"
     },
     {
       "id": "ds051",
       "question": "Style de souffle le plus ancien avec seize formes développées au fil des siècles, il est maîtrisé par un ancien pourfendeur devenu la Lune Supérieure 1. Inspiré par son frère jumeau, il n'a jamais réussi à égaler le souffle original. Quel est ce souffle ?",
       "answer": "Tsuki no Kokyū (Souffle de la Lune)",
-      "difficulty": "difficile",
       "category": "Souffles"
     },
     {
       "id": "ds052",
       "question": "Dérivé du Souffle de la Flamme, ce style de combat unique ne peut être utilisé que par une seule personne en raison de sa constitution musculaire exceptionnelle. L'arme utilisée est une lame flexible maniée comme un fouet. Quel est ce souffle ?",
       "answer": "Koi no Kokyū (Souffle de l'Amour)",
-      "difficulty": "difficile",
       "category": "Souffles"
     },
     {
       "id": "ds053",
       "question": "Démon joueur de biwa qui contrôle la Forteresse Dimensionnelle Infinie en grattant les cordes de son instrument. Après la mort de Hantengu, elle est promue au rang de Lune Supérieure 4 remplaçante. Qui est-ce ?",
       "answer": "Nakime",
-      "difficulty": "difficile",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds054",
       "question": "Espace dimensionnel instable composé de salles et d'escaliers en perpétuel mouvement, ce lieu sert de repaire à Muzan lors du combat final. Il est contrôlé par un démon au biwa qui peut en modifier la structure à volonté. Quel est cet endroit ?",
       "answer": "Mugen Jō (Forteresse Dimensionnelle Infinie)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "ds055",
       "question": "Plante dont les fleurs sont toxiques pour les démons, elle pousse en abondance sur le Mont Fujikasane pour empêcher les démons de s'échapper. Elle est aussi utilisée pour fabriquer du poison anti-démon. Quelle est cette plante ?",
       "answer": "Fuji (Glycine)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds056",
       "question": "Clan maudit depuis mille ans à cause de son lien de sang avec le premier démon, ses membres masculins meurent tous avant trente ans. Pour compenser, ils épousent des prêtresses qui leur apportent une longévité légèrement prolongée. Quel est ce clan ?",
       "answer": "Ubuyashiki (Famille Ubuyashiki)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds057",
       "question": "Marque mystérieuse apparaissant sur la peau des pourfendeurs lorsque leur rythme cardiaque dépasse deux cents battements par minute et leur température corporelle trente-neuf degrés. Elle décuple leur force mais réduit leur espérance de vie. Comment l'appelle-t-on ?",
       "answer": "Marque des Pourfendeurs (Demon Slayer Mark)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "ds058",
       "question": "Arc de l'anime où le héros se rend chez des artisans pour faire réparer son arme, il y affronte les Lunes Supérieures 4 et 5 aux côtés des Piliers de la Brume et de l'Amour. C'est aussi là que Nezuko conquiert le soleil. Quel est cet arc ?",
       "answer": "Arc du Village des Forgerons",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds059",
       "question": "Quartier de divertissement de Tokyo à l'ère Edo, ce lieu sert de terrain de chasse à la Lune Supérieure 6 pendant plus d'un siècle. Le Pilier du Son y infiltre trois de ses épouses en mission de reconnaissance. Quel est ce lieu ?",
       "answer": "Yoshiwara (quartier des plaisirs)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds060",
       "question": "Disciple d'Urokodaki au masque de renard orné de fleurs, cette jeune fille fantôme aide le héros à perfectionner sa technique au Mont Sagiri. Tuée par le Démon aux Mains lors de la Sélection Finale, son esprit trouve enfin le repos quand le héros venge sa mort. Qui est-ce ?",
       "answer": "Makomo",
-      "difficulty": "normal",
       "category": "Pourfendeurs"
     },
     {
       "id": "ds061",
       "question": "Née sous le nom d'Ume dans les bas-fonds du quartier des plaisirs, cette démone se cache sous l'identité de Warabihime, une oiran de la Maison Kyogoku. Ses ceintures obi tranchantes comme des lames lui servent d'armes. Qui est-ce ?",
       "answer": "Daki",
-      "difficulty": "normal",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds062",
       "question": "Ancien collecteur de dettes aux bas-fonds de Yoshiwara, ce démon à l'apparence cadavérique manie des faucilles de chair empoisonnées. Il vit à l'intérieur du corps de sa soeur et ne se révèle que lorsqu'elle est en danger. Qui est-ce ?",
       "answer": "Gyūtarō (Gyûtarô)",
-      "difficulty": "normal",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds063",
       "question": "Pouvoir sanguinaire de Nezuko, cette technique lui permet d'enflammer son propre sang pour produire des flammes roses qui ne brûlent que les démons et les malédictions démoniaques. Elle s'avère cruciale pour neutraliser le poison de certains ennemis. Quel est ce pouvoir ?",
       "answer": "Bakketsu (Sang Explosif)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "ds064",
       "question": "Clone de Hantengu représentant la colère, il porte le kanji correspondant sur sa langue et peut générer de l'électricité avec son khakkhara. Il tente de coordonner les trois autres clones émotionnels lors du combat au Village des Forgerons. Qui est-ce ?",
       "answer": "Sekido",
-      "difficulty": "difficile",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds065",
       "question": "Forme fusionnée des quatre clones émotionnels de Hantengu, cette entité incarnant la haine cumule tous leurs pouvoirs. Son apparence est celle d'un jeune homme et il peut utiliser l'électricité, le vent, les ondes sonores et le bois. Qui est-ce ?",
       "answer": "Zōhakuten (Zôhakuten)",
-      "difficulty": "difficile",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds066",
       "question": "Pouvoir sanguinaire de la Lune Supérieure 2, il permet de générer de la glace mortelle capable de geler les poumons de ses adversaires en quelques secondes. Ce démon peut aussi absorber les corps de ses victimes et créer des statues de glace. Quel est ce pouvoir lié à ?",
       "answer": "Dōma (technique de glace de Dôma)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "ds067",
       "question": "Après la mort de la Lune Inférieure 5 sur le Mont Natagumo, Muzan convoque les cinq Lunes Inférieures restantes dans une réunion terrifiante. Furieux de leur faiblesse, il les élimine presque toutes sur place. Combien de Lunes Inférieures tue-t-il lors de cette purge ?",
       "answer": "Quatre (4 Lunes Inférieures)",
-      "difficulty": "normal",
       "category": "Lunes Inférieures"
     },
     {
       "id": "ds068",
       "question": "Train reliant la gare d'Asakusa dans lequel plus de deux cents passagers sont plongés dans un sommeil magique par un démon. Le Pilier de la Flamme y affronte la Lune Supérieure 3 dans un combat mortel à l'aube. Quel est le nom de ce train ?",
       "answer": "Mugen Ressha (Train de l'Infini)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds069",
       "question": "Durant l'arc du Train de l'Infini, un démon utilise ses pouvoirs de sommeil pour piéger le héros dans un rêve heureux où sa famille est encore vivante. Le héros doit se suicider dans le rêve pour se réveiller, un acte qu'il répète plusieurs fois. Combien de fois le héros se tranche-t-il la gorge dans ses rêves pour s'en échapper ?",
       "answer": "Plus de deux cents fois (innombrables fois)",
-      "difficulty": "difficile",
       "category": "Batailles"
     },
     {
       "id": "ds070",
       "question": "Soeur aînée de Giyu, elle s'est sacrifiée la veille de son propre mariage en cachant son frère alors que des démons attaquaient. Sa mort a poussé Giyu à devenir pourfendeur et à se battre pour honorer sa mémoire. Qui est-ce ?",
       "answer": "Tsutako Tomioka (Tsutako)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds071",
       "question": "Kotoha Hashibira, une femme qui fuyait un mari violent, a rejoint ce culte religieux avec son bébé. Quand elle a découvert que le gourou dévorait ses fidèles, elle a jeté son enfant dans une rivière pour le sauver avant d'être tuée. Quel est ce culte ?",
       "answer": "Manseikai Kyō (Culte du Paradis Éternel)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "ds072",
       "question": "Style de souffle utilisant des techniques basées sur le son et les vibrations, il est un dérivé du Souffle du Tonnerre. Son utilisateur manie deux énormes couperet reliés par une chaîne et se proclame le plus flamboyant des Piliers. Quel est ce souffle ?",
       "answer": "Oto no Kokyū (Souffle du Son)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds073",
       "question": "Style de souffle dont les techniques portent des noms de phénomènes atmosphériques, il est l'un des cinq souffles primaires et est maîtrisé par le Pilier le plus colérique. Son utilisateur possède un sang si rare qu'il enivre les démons. Quel est ce souffle ?",
       "answer": "Kaze no Kokyū (Souffle du Vent)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds074",
       "question": "Style de souffle basé sur la solidité et la terre, il est maîtrisé par le Pilier le plus puissant qui est aveugle. Son utilisateur ne manie pas de katana mais une hache et un fléau à pointes reliés par une chaîne en minerai Nichirin. Quel est ce souffle ?",
       "answer": "Iwa no Kokyū (Souffle du Rocher)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds075",
       "question": "Style de souffle aux mouvements fluides et imprévisibles, il est un dérivé du Souffle du Vent. Son plus jeune utilisateur a créé une septième forme secrète qui altère la perception de vitesse de l'adversaire. Quel est ce souffle ?",
       "answer": "Kasumi no Kokyū (Souffle de la Brume)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds076",
       "question": "Style de souffle utilisant des techniques sinueuses inspirées des reptiles, son utilisateur manie une lame Nichirin tordue. Ce souffle est pratiqué par un Pilier au visage bandé et accompagné d'un serpent blanc. Quel est ce souffle ?",
       "answer": "Hebi no Kokyū (Souffle du Serpent)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds077",
       "question": "Style de souffle basé sur les mouvements des insectes, il est unique car ses techniques ne cherchent pas à décapiter mais à injecter du poison mortel via une lame fine comme une aiguille. Son utilisateur est la plus rapide des Piliers. Quel est ce souffle ?",
       "answer": "Mushi no Kokyū (Souffle de l'Insecte)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds078",
       "question": "Style de souffle enseigné par Kanae Kocho et appris par sa soeur adoptive en l'observant en secret. Ses techniques portent des noms de fleurs et il est considéré comme un dérivé du Souffle de l'Eau. Quel est ce souffle ?",
       "answer": "Hana no Kokyū (Souffle de la Fleur)",
-      "difficulty": "normal",
       "category": "Souffles"
     },
     {
       "id": "ds079",
       "question": "Couleur de lame Nichirin associée au Souffle de l'Eau, elle est la première couleur de lame montrée dans la série, portée par le tout premier Pilier rencontré par le héros. Elle symbolise la fluidité et la sérénité de l'eau. Quelle est cette couleur ?",
       "answer": "Bleu (lame bleue)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds080",
       "question": "Frère jumeau de Muichiro Tokito, il a été tué par un démon lorsque les jumeaux avaient onze ans. De personnalité froide et protectrice, il insultait constamment ceux qui approchaient sa famille. Sa mort a radicalement changé la personnalité de son frère. Qui est-ce ?",
       "answer": "Tokitō Yūichirō (Yûichirô Tokitô)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds081",
       "question": "Père du Pilier de la Flamme, cet ancien Pilier a sombré dans l'alcoolisme après la mort de sa femme Ruka. Il a abandonné l'entraînement de ses fils et refuse de reconnaître la valeur du sacrifice de son aîné. Qui est-ce ?",
       "answer": "Rengoku Shinjurō (Shinjurô Rengoku)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds082",
       "question": "Petit frère du Pilier de la Flamme, il est timide et manque de confiance en lui. Après la mort de son aîné, il transmet au héros le message de leur père concernant la Danse du Dieu du Feu. Qui est-ce ?",
       "answer": "Rengoku Senjurō (Senjurô Rengoku)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds083",
       "question": "Mère du héros et de Nezuko, cette femme douce élevait seule ses six enfants après la mort de son mari. Elle est tuée lors du massacre perpétré par Muzan alors que le héros était parti vendre du charbon au village. Qui est-ce ?",
       "answer": "Kamado Kie (Kie Kamado)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds084",
       "question": "Clan de démons araignées vivant sur une montagne, ils forment une fausse famille dysfonctionnelle sous la domination de la Lune Inférieure 5. Le héros y affronte pour la première fois un membre des Douze Lunes. Quel est le nom de ce clan ?",
       "answer": "Famille Araignée (du Mont Natagumo)",
-      "difficulty": "normal",
       "category": "Démons"
     },
     {
       "id": "ds085",
       "question": "Montagne où le héros est entraîné par Urokodaki, il y tranche un rocher géant à la fin de son apprentissage. Les esprits de Sabito et Makomo l'aident secrètement à perfectionner ses techniques avant la Sélection Finale. Comment s'appelle cette montagne ?",
       "answer": "Mont Sagiri",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds086",
       "question": "Technique d'entraînement intense utilisée par les Piliers avant le combat final, elle consiste en un programme physique extrême incluant combat à l'épée, endurance et résistance. Chaque Pilier fait passer les pourfendeurs dans une discipline spécifique. Comment s'appelle cet entraînement ?",
       "answer": "Hashira Geiko (Entraînement des Piliers)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds087",
       "question": "Dernier démon à apparaître dans la série, il est créé involontairement lorsque Muzan injecte tout son sang dans le héros principal au moment de sa mort. Ce nouveau roi des démons est finalement sauvé grâce au médicament de Tamayo. Comment appelle-t-on cette transformation ?",
       "answer": "Roi des Démons (Tanjirō démoniaque)",
-      "difficulty": "difficile",
       "category": "Batailles"
     },
     {
       "id": "ds090",
       "question": "Fiancée de Hakuji avant qu'il ne devienne Akaza, cette jeune fille alitée a été empoisonnée par des rivaux de son père. Sa mort et celle de son père Keizo ont provoqué la rage meurtrière qui a conduit Hakuji à massacrer soixante-sept personnes. Qui est-ce ?",
       "answer": "Koyuki",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "ds091",
       "question": "Serpent blanc qui accompagne toujours le Pilier du Serpent, il guide les mouvements de son maître au combat et l'aide à compenser sa vision réduite. Obanai ne se sépare jamais de ce compagnon fidèle. Quel est son nom ?",
       "answer": "Kaburamaru",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "ds094",
       "question": "Lors du combat contre Muzan, cette capacité permet aux pourfendeurs de teinter temporairement leurs lames en rouge cramoisi, augmentant drastiquement leur pouvoir de coupe et empêchant la régénération des démons. Comment appelle-t-on ces lames ?",
       "answer": "Nichirin Akatō (Lames Nichirin Rouges)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "ds095",
       "question": "Parmi les neuf frères et soeurs du Pilier du Son, seuls deux ont survécu à l'entraînement brutal de leur père shinobi. Son frère cadet est devenu comme leur père, froid et insensible. Combien de frères et soeurs le Pilier du Son avait-il au départ ?",
       "answer": "Neuf (9 frères et soeurs dont Tengen)",
-      "difficulty": "difficile",
       "category": "Piliers"
     },
     {
       "id": "ds096",
       "question": "Première forme du Souffle du Tonnerre, cette technique consiste en une charge à vitesse foudroyante suivie d'une frappe unique dévastatrice. Son utilisateur le plus célèbre l'a perfectionnée au point de pouvoir l'enchaîner plusieurs fois de suite. Quel est son nom ?",
       "answer": "Hekireki Issen (Frappe Foudroyante)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "ds097",
       "question": "Nom de la famille d'où provient le tout premier démon, ce clan noble est lié par le sang à la famille qui dirige les Pourfendeurs depuis mille ans. Cette parenté est à l'origine de la malédiction des Ubuyashiki. Quel est ce lien familial ?",
       "answer": "Kibutsuji (même lignée que les Ubuyashiki)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "ds098",
       "question": "Durant l'arc du quartier des plaisirs, la Lune Supérieure 6 féminine utilise cette identité d'oiran pour se cacher parmi les humains à la Maison Kyogoku. Elle dévore les courtisanes les plus belles pour maintenir sa propre beauté. Quel est son nom de couverture ?",
       "answer": "Warabihime",
-      "difficulty": "normal",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds099",
       "question": "Mère d'Inosuke, cette femme a fui un mari violent pour rejoindre un culte religieux avec son bébé. En découvrant la vraie nature du gourou, elle a jeté son enfant dans une rivière pour le sauver avant d'être dévorée. Qui est-ce ?",
       "answer": "Hashibira Kotoha (Kotoha Hashibira)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "ds100",
       "question": "Maître d'arts martiaux ayant recueilli le jeune Hakuji après le suicide de son père, il lui enseigne le combat et lui demande de prendre soin de sa fille malade. Empoisonné par un dojo rival, sa mort est l'élément déclencheur de la transformation de Hakuji. Qui est-ce ?",
       "answer": "Keizo",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "ds101",
       "question": "Lors de la Sélection Finale, les candidats qui survivent sept nuits reçoivent le droit de choisir un minerai spécial. Ce minerai est ensuite confié à un artisan qui forge l'arme personnelle du nouveau pourfendeur. Comment appelle-t-on ces artisans ?",
       "answer": "Katanakaji (Forgerons de sabres)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds102",
       "question": "Au début de la série, le héros porte sa soeur démone dans une boîte spéciale sur son dos pour la protéger du soleil. Ce contenant est fabriqué dans un bois extrêmement léger et résistant. Quel est le nom de ce bois ?",
       "answer": "Kiribako (boîte en bois de paulownia)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "ds104",
       "question": "Trois femmes kunoichi mariées au Pilier du Son selon la tradition polygame de son clan shinobi, elles s'infiltrent dans le quartier des plaisirs en tant qu'espionnes. Citez leurs trois prénoms.",
       "answer": "Makio, Suma et Hinatsuru",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "ds105",
       "question": "Clone de Hantengu incarnant le plaisir, ce démon décontracté utilise un éventail en forme de feuille pour générer de puissantes rafales de vent. Il est le plus insouciant des quatre manifestations émotionnelles. Qui est-ce ?",
       "answer": "Karaku",
-      "difficulty": "normal",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds106",
       "question": "Montagne où la Lune Inférieure 5 a établi son repaire avec sa fausse famille de démons araignées. C'est sur cette montagne que le héros affronte pour la première fois un membre des Douze Lunes Démoniaques. Quel est le nom de cette montagne ?",
       "answer": "Mont Natagumo",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "ds107",
       "question": "Pouvoir sanguinaire de Rui, la Lune Inférieure 5, il lui permet de créer des fils à partir de ses propres cellules. Ces fils sont si résistants et tranchants qu'ils peuvent couper une lame Nichirin ordinaire. Quel type de fils sont-ils ?",
       "answer": "Fils d'acier (fils d'araignée de sang)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "ds108",
       "question": "Forme secrète du Souffle de la Brume créée par son plus jeune utilisateur, elle altère la perception de l'adversaire en alternant entre une vitesse illusoirement lente et une vélocité invisible. C'est grâce à cette technique qu'il vainc la Lune Supérieure 5. Quel est son nom ?",
       "answer": "Obscure Clouds (Nuages Obscurs)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "ds109",
       "question": "Le véritable nom du Souffle du Soleil dans la famille Kamado est une danse rituelle exécutée chaque année pour invoquer la protection divine. Le père du héros la pratiquait malgré sa maladie, du coucher au lever du soleil, portant les boucles d'oreilles héritées de ses ancêtres. Quel est l'objectif originel de cette danse ?",
       "answer": "Offrande au dieu du feu (rituel de protection)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "ds110",
       "question": "Composé de neuf guerriers d'élite, ce groupe constitue la force de combat principale du Corps des Pourfendeurs de Démons. Chacun de ses membres maîtrise un style de souffle différent et porte le titre de Pilier. Comment appelle-t-on ce groupe ?",
       "answer": "Hashira (les Piliers)",
-      "difficulty": "normal",
       "category": "Pourfendeurs"
     },
     {
       "id": "ds111",
       "question": "Groupe composé de douze démons les plus puissants sous les ordres de Muzan, ils sont divisés en six rangs supérieurs et six rangs inférieurs. Leur numéro de rang est gravé dans leurs yeux. Comment appelle-t-on ce groupe ?",
       "answer": "Jūnikizuki (Douze Lunes Démoniaques)",
-      "difficulty": "normal",
       "category": "Démons"
     },
     {
       "id": "ds112",
       "question": "La Lune Supérieure 2 a autrefois transformé le duo frère-soeur de la Lune Supérieure 6 en démons alors qu'il occupait lui-même le rang 6. Il a progressivement gravi les échelons pour atteindre le rang 2 au fil des siècles. Quel rang Doma occupait-il lorsqu'il transforma Gyutaro et Daki ?",
       "answer": "Lune Supérieure 6 (rang 6)",
-      "difficulty": "difficile",
       "category": "Lunes Supérieures"
     },
     {
       "id": "ds113",
       "question": "Avant de devenir démon, le père de Hakuji se pendait en laissant une lettre expliquant qu'il refusait les médicaments obtenus malhonnêtement. Son fils avait volé trois fois pour payer ses soins et portait des tatouages de criminel sur les bras. Pourquoi le père s'est-il suicidé ?",
       "answer": "Pour libérer son fils du fardeau (refus des médicaments volés)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "ds114",
       "question": "Dans la bataille finale, Kagaya Ubuyashiki se fait exploser avec sa famille pour tenter de tuer Muzan, retardant le roi des démons suffisamment longtemps pour que Tamayo lui injecte son médicament. Quel est l'objectif principal de ce médicament ?",
       "answer": "Rendre Muzan humain (médicament d'humanisation)",
-      "difficulty": "difficile",
       "category": "Batailles"
     }
   ]

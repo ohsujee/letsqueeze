@@ -7,805 +7,690 @@
       "id": "zld001",
       "question": "Porteur de la Triforce du Courage, ce jeune Hylien venu de la Forêt Kokiri est souvent vêtu d'une tunique verte. Il manie l'Epée de Légende pour sauver le royaume d'Hyrule dans chaque opus de la saga. Qui est ce héros silencieux ?",
       "answer": "Link",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld002",
       "question": "Unique mâle Gerudo né en un siècle, ce roi des voleurs du désert convoite la Triforce pour régner sur Hyrule. Sous sa forme bestiale porcine, il devient une incarnation du Mal récurrente dans la saga. Qui est cet antagoniste principal ?",
       "answer": "Ganondorf",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld003",
       "question": "Composée de trois triangles d'or laissés par les déesses Din, Nayru et Farore, cette relique sacrée exauce le voeu de celui qui la touche. Elle se divise en Courage, Sagesse et Force. Quel est le nom de cet artefact divin ?",
       "answer": "La Triforce",
-      "difficulty": "normal",
       "category": "Triforce"
     },
     {
       "id": "zld004",
       "question": "Forgée à partir de l'Epée de la Déesse dans Skyward Sword, cette lame légendaire est la seule arme capable de repousser le Mal. Son nom français la désigne comme une arme de mythe et de prophétie. Quelle est cette épée ?",
       "answer": "L'Epée de Légende (Master Sword)",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld005",
       "question": "Sorti en 1998 sur Nintendo 64, ce jeu révolutionnaire introduit le Z-targeting et un monde en 3D pour la première fois dans la saga. Le héros y voyage entre son enfance et l'âge adulte grâce à un instrument magique. Quel est ce jeu ?",
       "answer": "Ocarina of Time",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld006",
       "question": "Instrument bleu à vent obtenu dans le Temple du Temps, il permet de jouer des mélodies magiques comme le Chant du Temps ou le Chant des Tempêtes. Le titre du jeu dans lequel il apparaît porte son nom. Quel est cet objet ?",
       "answer": "L'Ocarina du Temps",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld007",
       "question": "Petite fée bleue envoyée par l'Arbre Mojo, elle accompagne le héros tout au long d'Ocarina of Time en criant 'Hey! Listen!' pour attirer son attention. Son nom vient du mot 'navigation'. Qui est cette compagne ailée ?",
       "answer": "Navi",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld008",
       "question": "Gardien sacré de la Forêt Kokiri, ce grand arbre parlant envoie une fée au héros et lui confie sa première quête. Empoisonné par une malédiction de Ganondorf, il meurt après avoir révélé le destin du jeune garçon. Qui est ce protecteur végétal ?",
       "answer": "L'Arbre Mojo (Deku Tree)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld009",
       "question": "Amie d'enfance du héros dans la Forêt Kokiri, cette jeune fille aux cheveux verts devient la Sage de la Forêt dans Ocarina of Time. Elle enseigne au héros une mélodie joyeuse qui porte son nom. Qui est cette Kokiri ?",
       "answer": "Saria",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld010",
       "question": "Jument alezane rencontrée poulain au Ranch Lon Lon, elle devient la monture fidèle du héros dans Ocarina of Time. Malon lui apprend une chanson pour l'appeler. Comment s'appelle cette jument emblématique ?",
       "answer": "Epona",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld011",
       "question": "Situé au coeur de la Citadelle d'Hyrule dans Ocarina of Time, ce lieu sacré abrite la Porte du Temps et le piédestal de l'Epée de Légende. En y jouant le Chant du Temps, le héros accède au Royaume Sacré. Quel est cet édifice ?",
       "answer": "Le Temple du Temps",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "zld012",
       "question": "Jeu culte sorti en 2000 sur Nintendo 64, cette suite directe d'Ocarina of Time impose un compte à rebours de trois jours avant la chute d'une lune menaçante. Le héros y utilise des masques de transformation. Quel est ce jeu ?",
       "answer": "Majora's Mask",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld013",
       "question": "Lutin espiègle corrompu par un masque maléfique, il vole l'Ocarina du Temps et provoque la chute de la lune sur Termina. Autrefois simple enfant des bois, il est devenu une menace pour le monde entier. Qui est ce personnage tragique ?",
       "answer": "Skull Kid",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld014",
       "question": "Dernier masque obtenu dans Majora's Mask, il transforme le héros en une forme adulte et surpuissante. Son nom français évoque une divinité démoniaque, et il ne peut être porté que durant les combats de boss. Quel est ce masque ?",
       "answer": "Le Masque du Dieu Démon (Fierce Deity's Mask)",
-      "difficulty": "difficile",
       "category": "Objets"
     },
     {
       "id": "zld015",
       "question": "Sorti en 2002 sur GameCube avec un style cel-shading novateur, ce jeu se déroule sur une Grande Mer parsemée d'îles. Le héros y navigue à bord du Lion Rouge, un voilier parlant. Quel est ce jeu ?",
       "answer": "The Wind Waker",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld016",
       "question": "Voilier rouge et blanc doté de la parole, il guide le héros à travers la Grande Mer dans The Wind Waker. Il s'avère être en réalité le roi Daphnès Nohansen Hyrule, transformé en bateau. Quel est le nom de cette embarcation ?",
       "answer": "Le Lion Rouge (King of Red Lions)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "zld017",
       "question": "Instrument sacré de The Wind Waker, ce petit bâton magique permet de diriger le vent et de jouer des mélodies. Le héros l'obtient sur l'Île du Dragon et le titre du jeu porte son nom en anglais. Quel est cet objet ?",
       "answer": "La Baguette du Vent (Wind Waker)",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld018",
       "question": "Jeune Piaf harpiste dans The Wind Waker, elle devient la Sage du Temple de la Terre. Son nom inspira celui de la Créature Divine Vah'Medoh dans Breath of the Wild, un siècle plus tard. Qui est cette musicienne ailée ?",
       "answer": "Médolie (Medli)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "zld019",
       "question": "Sorti en 2006 sur Wii et GameCube, ce jeu plonge Hyrule dans un monde de Crépuscule. Le héros s'y transforme en loup et est accompagné par une mystérieuse créature du Royaume du Crépuscule. Quel est ce jeu ?",
       "answer": "Twilight Princess",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld020",
       "question": "Princesse du Crépuscule transformée en diablotin par un usurpateur, elle chevauche le héros sous sa forme lupine et le guide dans sa quête. Elle brise le Miroir des Ombres à la fin de l'aventure. Qui est ce personnage ?",
       "answer": "Midna",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld021",
       "question": "Usurpateur du trône du Crépuscule dans Twilight Princess, ce Twili au masque inquiétant a plongé Hyrule dans les ténèbres. Il tire en réalité son pouvoir de Ganondorf. Qui est ce tyran ?",
       "answer": "Zant",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "zld022",
       "question": "Sorti en 2011 sur Wii, ce jeu se situe au tout début de la chronologie et raconte la création de l'Epée de Légende. Le héros y vit sur une île flottante au-dessus des nuages et chevauche un oiseau géant. Quel est ce jeu ?",
       "answer": "Skyward Sword",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld023",
       "question": "Esprit féminin résidant dans l'Epée de la Déesse dans Skyward Sword, elle guide le héros avec une précision analytique et dépourvue d'émotion. Son nom français évoque le monde des fées. Qui est cette entité ?",
       "answer": "Fay (Fi)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "zld024",
       "question": "Ile flottante au-dessus des nuages dans Skyward Sword, elle abrite une académie de chevaliers et constitue le lieu de départ de l'aventure. Les habitants y vivent sans connaître l'existence de la Terre en dessous. Quel est ce lieu ?",
       "answer": "Célesbourg (Skyloft)",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "zld025",
       "question": "Grands oiseaux colorés chevauchés par les habitants de Célesbourg dans Skyward Sword, chaque chevalier en possède un unique qui lui est lié. Celui du héros se distingue par son plumage pourpre, une couleur extrêmement rare. Quel est le nom de ces montures ?",
       "answer": "Les Célestriers (Loftwings)",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld026",
       "question": "Seigneur autoproclamé des démons dans Skyward Sword, cet antagoniste flamboyant traque la réincarnation de la déesse Hylia. Il se révèle être l'esprit maléfique de l'épée de son maître, l'Avatar du Néant. Qui est ce villain excentrique ?",
       "answer": "Ghirahim",
-      "difficulty": "difficile",
       "category": "Boss"
     },
     {
       "id": "zld027",
       "question": "Sorti en 2017 sur Nintendo Switch, ce jeu en monde ouvert a révolutionné la saga avec une liberté d'exploration totale. Le héros s'y réveille après un sommeil de cent ans dans un Hyrule en ruines. Quel est ce jeu ?",
       "answer": "Breath of the Wild",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld028",
       "question": "Zone de départ de Breath of the Wild, ce lieu surélevé abrite le Sanctuaire de la Renaissance où le héros se réveille. Un vieil homme mystérieux y enseigne les bases de la survie avant de révéler sa vraie identité. Quel est cet endroit ?",
       "answer": "Le Plateau du Prélude (Great Plateau)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "zld029",
       "question": "Objet clé de Breath of the Wild, cette tablette technologique Sheikah permet d'afficher la carte, de se téléporter et d'utiliser des pouvoirs comme les Bombes ou Polaris. Elle ressemble à une tablette numérique moderne. Quel est cet outil ?",
       "answer": "La Tablette Sheikah (Sheikah Slate)",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld030",
       "question": "Quatre machines géantes construites par les Sheikahs il y a dix mille ans, elles représentent chacune un animal différent. Corrompues par le Fléau, elles furent pilotées par des guerriers d'élite tombés au combat. Quel est le nom générique de ces machines ?",
       "answer": "Les Créatures Divines (Divine Beasts)",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld031",
       "question": "Quatre guerriers d'élite choisis pour piloter les Créatures Divines dans Breath of the Wild, ils ont été vaincus par le Fléau il y a un siècle. Mipha, Daruk, Revali et Urbosa composent ce groupe d'élite. Quel est leur titre collectif ?",
       "answer": "Les Prodiges (Champions)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld032",
       "question": "Princesse Zora et Prodige pilotant la Créature Divine Vah'Ruta dans Breath of the Wild, elle possédait un don de guérison unique. Son pouvoir permet au héros de se relever automatiquement après une défaite. Qui est cette guerrière aquatique ?",
       "answer": "Mipha",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld033",
       "question": "Prodige Goron pilotant Vah'Rudania dans Breath of the Wild, ce colosse jovial protégeait ses amis grâce à un bouclier de force indestructible. Son pouvoir de protection est transmis au héros après sa libération. Qui est ce guerrier de la montagne ?",
       "answer": "Daruk",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld034",
       "question": "Prodige Piaf arrogant pilotant Vah'Medoh dans Breath of the Wild, cet archer d'élite maîtrise les courants ascendants. Rival du héros, il est le plus orgueilleux des quatre guerriers choisis pour affronter le Fléau. Qui est ce tireur ailé ?",
       "answer": "Revali",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld035",
       "question": "Prodige Gerudo pilotant Vah'Naboris dans Breath of the Wild, cette cheffe guerrière maîtrise la foudre. Grande et imposante, elle entretient une relation amicale et protectrice avec la princesse d'Hyrule. Qui est cette combattante du désert ?",
       "answer": "Urbosa",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld036",
       "question": "Forme monstrueuse de Ganon dans Breath of the Wild, cette entité de Malice a dévasté Hyrule il y a un siècle. Scellée dans le Château d'Hyrule par la princesse, elle menace de s'en libérer. Quel est le nom de cette menace ?",
       "answer": "Ganon, le Fléau (Calamity Ganon)",
-      "difficulty": "normal",
       "category": "Boss"
     },
     {
       "id": "zld037",
       "question": "Sorti en 2023 sur Nintendo Switch, cette suite directe de Breath of the Wild introduit des îles célestes et un monde souterrain. Le héros y obtient un bras mystérieux doté de pouvoirs Zonai. Quel est ce jeu ?",
       "answer": "Tears of the Kingdom",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld038",
       "question": "Pouvoir principal de Tears of the Kingdom, il permet de saisir et déplacer des objets à distance pour les assembler entre eux. Essentiel pour la construction de véhicules et de mécanismes, c'est le plus utilisé du jeu. Quel est ce pouvoir ?",
       "answer": "Emprise (Ultrahand)",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld039",
       "question": "Pouvoir de Tears of the Kingdom permettant d'attacher un matériau à une arme ou un bouclier pour créer des combinaisons inédites. Il transforme une simple branche en arme redoutable selon l'objet fusionné. Quel est ce pouvoir ?",
       "answer": "Amalgame (Fuse)",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld040",
       "question": "Pouvoir de Tears of the Kingdom qui inverse le mouvement d'un objet pour le faire revenir à sa position précédente. Il permet notamment de remonter sur les îles célestes en utilisant des rochers qui en tombent. Quel est ce pouvoir ?",
       "answer": "Rétrospective (Recall)",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld041",
       "question": "Pouvoir de Tears of the Kingdom permettant de traverser verticalement la matière solide au-dessus du héros. Idéal pour traverser les plafonds et sortir des grottes, son nom évoque une montée furtive. Quel est ce pouvoir ?",
       "answer": "Infiltration (Ascend)",
-      "difficulty": "difficile",
       "category": "Objets"
     },
     {
       "id": "zld042",
       "question": "Civilisation antique de Tears of the Kingdom, ce peuple venu du ciel a apporté une technologie avancée à Hyrule. Rauru, leur premier roi, a fondé le royaume. Quel est le nom de cette race mystérieuse aux longues oreilles ?",
       "answer": "Les Zonais (Zonai)",
-      "difficulty": "difficile",
       "category": "Créatures"
     },
     {
       "id": "zld043",
       "question": "Premier jeu de la saga sorti en 1986 sur NES au Japon, il propose un monde ouvert avec huit donjons à explorer librement. Le créateur s'est inspiré de ses explorations de grottes dans la campagne de Kyoto. Quel est ce jeu fondateur ?",
       "answer": "The Legend of Zelda (NES)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld044",
       "question": "Game designer japonais né en 1952, il a créé la saga en s'inspirant de ses aventures d'enfance dans les grottes et forêts près de Kyoto. Il est également le père de Mario et de Donkey Kong. Qui est ce créateur légendaire ?",
       "answer": "Shigeru Miyamoto",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "zld045",
       "question": "Producteur japonais devenu le gardien de la saga après avoir dirigé Ocarina of Time, il supervise chaque épisode depuis plus de vingt ans. Il a dirigé la conception des donjons avant de devenir producteur de la série. Qui est ce développeur ?",
       "answer": "Eiji Aonuma",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "zld046",
       "question": "Compositeur japonais né en 1961 à Nagoya, il a créé le thème principal emblématique de la saga ainsi que toutes les musiques de Super Mario Bros. Il a composé le thème d'Hyrule en dernière minute pour éviter des problèmes de droits avec le Boléro de Ravel. Qui est ce musicien ?",
       "answer": "Koji Kondo",
-      "difficulty": "difficile",
       "category": "Musique"
     },
     {
       "id": "zld047",
       "question": "Sorti en 1991 sur Super Nintendo, ce troisième épisode introduit le Monde des Ténèbres et la quête des descendants des Sept Sages. Le héros y obtient pour la première fois l'Epée de Légende dans les Bois Perdus. Quel est ce jeu ?",
       "answer": "A Link to the Past",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld048",
       "question": "Sorcier maléfique servant Ganon dans A Link to the Past, il s'est infiltré à la cour d'Hyrule en se faisant passer pour un guérisseur. Il enlève les descendantes des Sept Sages pour ouvrir un passage vers le Monde des Ténèbres. Qui est ce manipulateur ?",
       "answer": "Agahnim",
-      "difficulty": "difficile",
       "category": "Boss"
     },
     {
       "id": "zld049",
       "question": "Dimension parallèle sombre dans A Link to the Past, ce monde corrompu transforme ceux qui y pénètrent sans protection en créatures. Autrefois le Royaume Sacré, il a été souillé par le voeu de Ganon. Quel est ce lieu ?",
       "answer": "Le Monde des Ténèbres (Dark World)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "zld050",
       "question": "Sorti sur Game Boy en 1993, ce jeu se déroule sur une île mystérieuse née du rêve d'une baleine géante ailée. Le héros doit réveiller cette créature en collectant huit instruments de musique, ce qui fera disparaître l'île. Quel est ce jeu ?",
       "answer": "Link's Awakening",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld051",
       "question": "Baleine géante ailée endormie au sommet d'une montagne dans Link's Awakening, toute l'île est le fruit de son sommeil. La réveiller signifie la fin de ce monde onirique et de tous ses habitants. Quelle est cette créature ?",
       "answer": "Le Poisson-Rêve (Wind Fish)",
-      "difficulty": "difficile",
       "category": "Créatures"
     },
     {
       "id": "zld052",
       "question": "Île tropicale où se déroule Link's Awakening, elle n'existe que dans le rêve d'une créature endormie. Ses habitants ignorent que leur monde disparaîtra au réveil de cette entité. Quel est le nom de cette île illusoire ?",
       "answer": "L'Île Cocolint (Koholint Island)",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "zld053",
       "question": "Peuple de femmes guerrières vivant dans le désert, un seul homme naît parmi elles tous les cent ans et devient leur roi selon la tradition. Ganondorf est le plus célèbre de ces rois. Quelle est cette race ?",
       "answer": "Les Gerudos",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld054",
       "question": "Peuple aquatique élégant vivant près des lacs et rivières d'Hyrule, leurs princesses Ruto et Mipha ont joué un rôle crucial dans la saga. Ils possèdent des nageoires, des écailles et peuvent respirer sous l'eau. Quelle est cette race ?",
       "answer": "Les Zoras",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld055",
       "question": "Peuple robuste vivant dans les montagnes volcaniques, ils se nourrissent de rochers et résistent à la chaleur extrême. Darunia et Daruk sont parmi leurs représentants les plus connus. Quelle est cette race de colosses ?",
       "answer": "Les Gorons",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld056",
       "question": "Petits êtres végétaux descendants des Kokiris, ils vivent dans les forêts et se cachent à travers tout Hyrule. Dans Breath of the Wild, leurs graines sont cachées dans 900 puzzles disséminés dans le monde. Quelle est cette race ?",
       "answer": "Les Korogus (Koroks)",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld057",
       "question": "Peuple d'oiseaux humanoïdes capables de voler, ils vivent dans des villages perchés en altitude. Revali et Tulin sont parmi leurs guerriers les plus remarquables dans la saga. Quelle est cette race aviaire ?",
       "answer": "Les Piafs (Rito)",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld058",
       "question": "Peuple de l'ombre au service de la famille royale d'Hyrule, ils sont reconnaissables à leur oeil rouge emblématique. Impa est leur représentante la plus célèbre, et leur technologie ancienne protège le royaume. Quelle est cette tribu ?",
       "answer": "Les Sheikahs",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld059",
       "question": "Dans Ocarina of Time, la princesse d'Hyrule se déguise en guerrier Sheikah pour échapper à Ganondorf pendant sept ans. Ce personnage mystérieux enseigne au héros des mélodies de téléportation. Sous quel nom se cache-t-elle ?",
       "answer": "Sheik",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld060",
       "question": "Sage de la Lumière et chef des Six Sages dans Ocarina of Time, il attend le héros dans le Royaume Sacré après le voyage temporel de sept ans. Il confie au héros le Médaillon de la Lumière. Qui est ce sage vénérable ?",
       "answer": "Rauru",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "zld061",
       "question": "Chef des Gorons et Sage du Feu dans Ocarina of Time, ce colosse amical surnomme le héros 'frère'. Il l'aide à accéder au Temple du Feu au coeur du Mont du Péril. Qui est ce guerrier volcanique ?",
       "answer": "Darunia",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld062",
       "question": "Princesse Zora et Sage de l'Eau dans Ocarina of Time, elle est capricieuse et têtue dans son enfance. Avalée par le seigneur Jabu-Jabu, elle est sauvée par le héros. Qui est cette princesse aquatique ?",
       "answer": "Ruto",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld063",
       "question": "Sage de l'Ombre et nourrice de la princesse d'Hyrule, cette guerrière Sheikah apparaît dans de nombreux épisodes de la saga. Dans Ocarina of Time, elle ouvre le Puits de Cocorico et veille sur le village. Qui est cette protectrice ?",
       "answer": "Impa",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld064",
       "question": "Sage de l'Esprit dans Ocarina of Time, cette guerrière Gerudo refuse de servir Ganondorf et se rebelle contre lui. Elle est la seule Sage issue du peuple du désert. Qui est cette combattante indépendante ?",
       "answer": "Nabooru",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "zld065",
       "question": "Donjon aquatique d'Ocarina of Time réputé pour sa difficulté, il oblige le héros à monter et descendre le niveau d'eau à trois reprises. Considéré comme l'un des donjons les plus frustrants de la saga, il abrite le Sage de l'Eau. Quel est ce temple ?",
       "answer": "Le Temple de l'Eau (Water Temple)",
-      "difficulty": "normal",
       "category": "Donjons"
     },
     {
       "id": "zld066",
       "question": "Premier donjon adulte d'Ocarina of Time, ce temple hanté se trouve dans les Bois Perdus. Le héros y affronte le Spectre de Ganon, un cavalier fantomatique qui sort de tableaux. Quel est ce lieu ?",
       "answer": "Le Temple de la Forêt (Forest Temple)",
-      "difficulty": "normal",
       "category": "Donjons"
     },
     {
       "id": "zld067",
       "question": "Mélodie d'Ocarina of Time apprise auprès du musicien du moulin de Cocorico, elle provoque une pluie torrentielle quand elle est jouée. Un paradoxe temporel entoure son origine, car le héros l'apprend de quelqu'un qui l'a apprise du héros. Quelle est cette chanson ?",
       "answer": "Le Chant des Tempêtes (Song of Storms)",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "zld068",
       "question": "Mélodie enseignée par la princesse d'Hyrule dans Ocarina of Time, elle permet d'ouvrir la Porte du Temps et de déplacer les blocs marqués du symbole de la Triforce. C'est l'un des airs les plus importants du jeu. Quelle est cette chanson ?",
       "answer": "Le Chant du Temps (Song of Time)",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "zld069",
       "question": "Warp mélodique d'Ocarina of Time permettant de se téléporter au Temple du Feu, cet air au rythme entraînant est enseigné par Sheik dans le cratère du Mont du Péril. Son nom évoque une danse célèbre. Quelle est cette mélodie ?",
       "answer": "Le Boléro du Feu (Bolero of Fire)",
-      "difficulty": "difficile",
       "category": "Musique"
     },
     {
       "id": "zld070",
       "question": "Publié en 2011, ce livre officiel de Nintendo révèle pour la première fois la chronologie complète de la saga. Il documente que la timeline se divise en trois branches après les événements d'Ocarina of Time. Quel est ce livre ?",
       "answer": "Hyrule Historia",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "zld071",
       "question": "Après les événements d'Ocarina of Time, la chronologie officielle se divise en trois branches selon le destin du héros. L'une mène à The Wind Waker, l'autre à Majora's Mask, et la dernière à A Link to the Past. En combien de branches se divise cette timeline ?",
       "answer": "Trois (3 branches)",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "zld072",
       "question": "Donjon optionnel de Breath of the Wild situé sous le Château d'Hyrule, le héros peut y trouver la tunique de la Garde Royale et la hallebarde royale. C'est aussi le chemin le plus court vers le boss final. Quel est ce lieu ?",
       "answer": "Le Château d'Hyrule",
-      "difficulty": "normal",
       "category": "Donjons"
     },
     {
       "id": "zld073",
       "question": "Créature Divine en forme d'éléphant mécanique dans Breath of the Wild, elle menace le Domaine Zora d'une pluie incessante. Son nom rend hommage à une princesse Zora d'Ocarina of Time. Quelle est cette machine ?",
       "answer": "Vah'Ruta",
-      "difficulty": "normal",
       "category": "Donjons"
     },
     {
       "id": "zld074",
       "question": "Créature Divine en forme de lézard mécanique dans Breath of the Wild, elle rôde sur le Mont Eldin et menace les Gorons. Son nom rend hommage au chef Goron et Sage du Feu d'Ocarina of Time. Quelle est cette machine ?",
       "answer": "Vah'Rudania",
-      "difficulty": "normal",
       "category": "Donjons"
     },
     {
       "id": "zld075",
       "question": "Créature Divine en forme d'aigle mécanique dans Breath of the Wild, elle survole le Village Piaf et empêche quiconque d'y voler. Son nom rend hommage à une harpiste Piaf de The Wind Waker. Quelle est cette machine ?",
       "answer": "Vah'Medoh",
-      "difficulty": "difficile",
       "category": "Donjons"
     },
     {
       "id": "zld076",
       "question": "Créature Divine en forme de chameau mécanique dans Breath of the Wild, elle déclenche des tempêtes de foudre dans le désert Gerudo. Son nom rend hommage à une Sage Gerudo d'Ocarina of Time. Quelle est cette machine ?",
       "answer": "Vah'Naboris",
-      "difficulty": "difficile",
       "category": "Donjons"
     },
     {
       "id": "zld077",
       "question": "Dans Breath of the Wild, 120 de ces structures Sheikahs anciennes sont dispersées à travers Hyrule. Chacune contient une épreuve gardée par un moine qui récompense le héros d'un Orbe. Quel est le nom générique de ces structures ?",
       "answer": "Les Sanctuaires (Shrines)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "zld078",
       "question": "Korogu géant portant des maracas dans Breath of the Wild, il échange des graines contre des emplacements d'inventaire supplémentaires. Voyageur et danseur, il attend le héros à divers endroits d'Hyrule. Qui est ce personnage jovial ?",
       "answer": "Noïa (Hestu)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "zld079",
       "question": "Petit homme de 35 ans obsédé par les fées, il vend des cartes à des prix exorbitants en flottant sous un ballon rouge. Apparu dans Majora's Mask puis dans The Wind Waker, il se croit être une fée. Qui est ce personnage excentrique ?",
       "answer": "Tingle",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld080",
       "question": "Fée accompagnant le héros dans Majora's Mask après avoir été séparée de son frère Tael, elle produit un tintement distinctif pour attirer l'attention. Elle aide le héros à retrouver son Ocarina et à sauver Termina. Qui est cette fée ?",
       "answer": "Taya (Tatl)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "zld081",
       "question": "Monde parallèle menacé par la chute d'une lune grimaçante dans Majora's Mask, ses habitants vivent un cycle de trois jours avant la catastrophe. Le héros doit y sauver quatre régions en portant divers masques. Quel est ce monde ?",
       "answer": "Termina",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "zld082",
       "question": "Artefact maléfique central du jeu portant son nom sur Nintendo 64, il possède celui qui le porte et lui confère un pouvoir destructeur immense. Volé au Vendeur de Masques par Skull Kid, il est l'antagoniste principal de cette aventure se déroulant à Termina. Quel est ce masque ?",
       "answer": "Le Masque de Majora (Majora's Mask)",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld083",
       "question": "Dans Majora's Mask, trois masques de transformation permettent au héros de changer de forme. Le masque Goron le rend puissant et roulant, le masque Zora lui permet de nager, et le troisième le transforme en une petite créature végétale. Quelle est cette dernière forme ?",
       "answer": "Mojo (Deku)",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld084",
       "question": "Seul lien entre le monde de la Lumière et le Royaume du Crépuscule, cet artefact sacré a été créé par les déesses. Midna le brise à la fin de l'aventure pour sceller les deux mondes à jamais, dans un geste d'adieu déchirant. Quel est cet objet ?",
       "answer": "Le Miroir des Ombres (Mirror of Twilight)",
-      "difficulty": "difficile",
       "category": "Objets"
     },
     {
       "id": "zld085",
       "question": "Dans Twilight Princess, quand le héros entre dans une zone de Crépuscule, il se transforme en un animal à quatre pattes. Midna chevauche cette forme et utilise un champ d'énergie pour attaquer les ennemis. En quel animal se transforme-t-il ?",
       "answer": "Un loup (Link Loup)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld086",
       "question": "Peuple d'enfants éternels vivant dans une forêt protégée par l'Arbre Mojo dans Ocarina of Time, chacun possède une fée gardienne. Le héros a grandi parmi eux sans savoir qu'il était en réalité d'une autre race. Quelle est cette communauté ?",
       "answer": "Les Kokiris",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld087",
       "question": "Ranch situé au centre de la Plaine d'Hyrule dans Ocarina of Time, il est tenu par le fermier Talon et sa fille Malon. Le héros y remporte une course à cheval contre le méchant Ingo pour libérer sa jument. Quel est ce lieu ?",
       "answer": "Le Ranch Lon Lon",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "zld088",
       "question": "Dans The Wind Waker, le héros vit sur une petite île paisible avec sa grand-mère et sa soeur Arielle avant que celle-ci soit enlevée. C'est le point de départ de toute l'aventure maritime. Quel est le nom de cette île ?",
       "answer": "L'Île de l'Aurore (Outset Island)",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "zld089",
       "question": "Sorti en 2013 sur Nintendo 3DS, ce jeu est une suite spirituelle de A Link to the Past se déroulant à Hyrule et Lorule. Le héros y acquiert la capacité de se fondre dans les murs en devenant une peinture. Quel est ce jeu ?",
       "answer": "A Link Between Worlds",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "zld090",
       "question": "Capacité unique du héros dans A Link Between Worlds, elle lui permet de se transformer en peinture murale pour se déplacer le long des parois. Cette mécanique innovante a redéfini l'exploration des donjons. Quel est le nom français de ce pouvoir ?",
       "answer": "Le Pouvoir Mural (Wall Merge)",
-      "difficulty": "difficile",
       "category": "Objets"
     },
     {
       "id": "zld091",
       "question": "Grande Fée protectrice récurrente dans la saga, elle apparaît dans des fontaines cachées et offre au héros des améliorations magiques. Son rire caractéristique et son apparition spectaculaire sont devenus emblématiques. Quel type de créature est-elle ?",
       "answer": "Une Grande Fée",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld092",
       "question": "Ennemis squelettiques récurrents de la saga, ils apparaissent la nuit dans la Plaine d'Hyrule et se relèvent après avoir été abattus si le héros ne détruit pas leur corps rapidement. Quelles sont ces créatures mortes-vivantes ?",
       "answer": "Les Stalfos",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld093",
       "question": "Créatures gélatineuses omniprésentes dans la saga, elles existent en plusieurs couleurs correspondant à leur puissance. Les bleues sont faibles, les rouges résistantes au feu, et les jaunes électriques. Quels sont ces ennemis ?",
       "answer": "Les Chuchus (ou Gelées)",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld094",
       "question": "Créatures porcines agressives présentes dans presque tous les épisodes de la saga, elles servent souvent de sbires à Ganon. Dans Breath of the Wild, elles construisent des campements et portent des armes variées. Quels sont ces monstres récurrents ?",
       "answer": "Les Bokoblins",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld095",
       "question": "Gardiens mécaniques de l'ancienne technologie Sheikah dans Breath of the Wild, ces machines à pattes de pieuvre tirent des rayons laser dévastateurs. Corrompus par le Fléau, ils terrorisent les plaines d'Hyrule. Quels sont ces robots ?",
       "answer": "Les Gardiens (Guardians)",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld096",
       "question": "Boss arachnide géant affronté dans plusieurs donjons de la saga, cette araignée géante cuirassée possède un oeil vulnérable sur son dos. Elle apparaît notamment dans l'Arbre Mojo et dans A Link to the Past. Quel est ce boss ?",
       "answer": "Gohma",
-      "difficulty": "normal",
       "category": "Boss"
     },
     {
       "id": "zld097",
       "question": "Roi reptilien géant des Dodongos, ce boss cracheur de feu est affronté dans la Caverne Dodongo d'Ocarina of Time. Le héros doit lui lancer des bombes dans la gueule quand il l'ouvre pour rugir. Quel est ce boss ?",
       "answer": "King Dodongo (Roi Dodongo)",
-      "difficulty": "normal",
       "category": "Boss"
     },
     {
       "id": "zld098",
       "question": "Dragon des ombres et boss du Temple de l'Ombre dans Ocarina of Time, cette créature spectrale aux mains géantes frappe depuis les ténèbres. Il faut utiliser la Longue-Vue de Vérité pour révéler son corps invisible. Quel est ce boss ?",
       "answer": "Bongo Bongo",
-      "difficulty": "difficile",
       "category": "Boss"
     },
     {
       "id": "zld099",
       "question": "Prince Zora devenu roi dans Tears of the Kingdom, il est le frère cadet de Mipha et devient le Sage de l'Eau. Grand et noble, il combat aux côtés du héros avec un pouvoir de bulle protectrice. Qui est ce personnage ?",
       "answer": "Sidon",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld100",
       "question": "Jeune archer Piaf dans Tears of the Kingdom, il est le fils de Teba et devient le Sage du Vent. Son pouvoir crée des bourrasques qui propulsent le héros dans les airs. Qui est ce jeune guerrier ailé ?",
       "answer": "Tulin",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld101",
       "question": "Jeune cheffe Gerudo dans Tears of the Kingdom, elle maîtrise la foudre et devient la Sage de la Foudre. Courageuse malgré son jeune âge, elle dirige son peuple face aux menaces du désert. Qui est cette dirigeante ?",
       "answer": "Riju",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld102",
       "question": "Goron devenu président d'une entreprise minière dans Tears of the Kingdom, il est le descendant spirituel de Daruk. Manipulé par un masque maléfique au début du jeu, il devient ensuite le Sage du Feu. Qui est ce colosse ?",
       "answer": "Yunobo",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "zld103",
       "question": "Sage de l'Esprit et ancienne Zonai dans Tears of the Kingdom, elle a survécu des millénaires sous forme spectrale. Le héros construit un Golem mécanique pour lui servir de corps physique. Qui est cette sage antique ?",
       "answer": "Mineru",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "zld104",
       "question": "Artefacts en forme de larme dans Tears of the Kingdom, ces pierres d'origine Zonai amplifient les pouvoirs innés de leur porteur. Chaque Sage en possède une, et Ganondorf en vole une pour devenir le Roi Démon. Quel est le nom de ces pierres ?",
       "answer": "Les Pierres Occultes (Secret Stones)",
-      "difficulty": "difficile",
       "category": "Objets"
     },
     {
       "id": "zld105",
       "question": "Forêt mystérieuse et labyrinthique présente dans de nombreux épisodes, quiconque s'y perd est transformé en Skull Kid ou en Stalfos. C'est là que repose l'Epée de Légende dans A Link to the Past et Breath of the Wild. Quel est ce lieu ?",
       "answer": "Les Bois Perdus (Lost Woods)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "zld106",
       "question": "Village protégé au pied d'une montagne dans Ocarina of Time, il est habité par les Sheikahs et renferme un puits menant à un donjon obscur. Son cimetière abrite la Tombe Royale et le Chant du Soleil. Quel est ce village ?",
       "answer": "Le Village Cocorico (Kakariko Village)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "zld107",
       "question": "Lac immense au sud d'Hyrule dans Ocarina of Time, le Temple de l'Eau se trouve au fond de ses profondeurs. Un laboratoire de recherche se dresse sur ses rives, et le Pont de Hylia le traverse. Quel est ce plan d'eau ?",
       "answer": "Le Lac Hylia",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "zld108",
       "question": "Montagne volcanique active dans Ocarina of Time, elle abrite les Gorons dans un village creusé dans la roche. Le Temple du Feu se trouve dans son cratère bouillonnant. Quel est ce sommet dangereux ?",
       "answer": "Le Mont du Péril (Death Mountain)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "zld109",
       "question": "Dans Breath of the Wild, 900 graines cachées par des êtres végétaux sont disséminées dans tout Hyrule, chacune obtenue en résolvant un mini-puzzle environnemental. La récompense pour les avoir toutes trouvées est volontairement décevante. Quel est le nombre exact de ces graines ?",
       "answer": "900 (Noix Korogu)",
-      "difficulty": "difficile",
       "category": "Objets"
     },
     {
       "id": "zld110",
       "question": "Créature mécanique en forme de centaure dans Breath of the Wild, elle patrouille dans les plaines et les montagnes. Considérée comme l'un des combats les plus difficiles du jeu, elle existe en version mineure, majeure et suprême. Quel est cet ennemi redoutable ?",
       "answer": "Le Lynel",
-      "difficulty": "normal",
       "category": "Créatures"
     },
     {
       "id": "zld111",
       "question": "Dans Skyward Sword, l'Epée de Légende est créée en forgeant l'Epée de la Déesse dans trois flammes sacrées. Ce jeu se situe au tout début de la chronologie officielle et raconte l'origine de la lutte éternelle entre le Bien et le Mal. Quel est le nom du démon originel que le héros affronte à la fin ?",
       "answer": "L'Avatar du Néant (Demise)",
-      "difficulty": "difficile",
       "category": "Boss"
     },
     {
       "id": "zld112",
       "question": "Petite soeur du héros dans The Wind Waker, elle est enlevée par un oiseau géant au début du jeu, déclenchant toute l'aventure. Son kidnapping pousse le héros à quitter son île natale. Qui est cette jeune fille ?",
       "answer": "Arielle (Aryll)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "zld113",
       "question": "Mélodie emblématique de la saga jouée dans les plaines d'Hyrule depuis le premier épisode sur NES, ce thème musical a été composé par Koji Kondo en dernière minute. Son compositeur voulait initialement utiliser le Boléro de Ravel. Quel est ce morceau iconique ?",
       "answer": "Le Thème principal de Zelda (Overworld Theme)",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "zld114",
       "question": "Objet récurrent en forme de coeur coupé en deux, le héros doit en collecter quatre morceaux pour augmenter sa jauge de vie d'une unité. Cachés dans des coffres, des mini-jeux ou des quêtes annexes, ils récompensent l'exploration. Quels sont ces objets ?",
       "answer": "Les Quarts de Coeur (Pieces of Heart)",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "zld115",
       "question": "Jeu musical développé par Koei Tecmo sorti en 2020 sur Switch, ce spin-off de type musou se déroule cent ans avant Breath of the Wild. On y incarne les Prodiges dans leur combat contre le Fléau. Quel est le titre français de ce jeu ?",
       "answer": "Hyrule Warriors : L'Ère du Fléau (Age of Calamity)",
-      "difficulty": "difficile",
       "category": "Jeux"
     }
   ]

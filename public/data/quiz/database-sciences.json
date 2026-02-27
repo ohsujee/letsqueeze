@@ -3,105 +3,605 @@
   "title": "Sciences",
   "lang": "fr",
   "items": [
-    {"id": "cg-sci001", "question": "Né à Ulm en 1879, ce physicien théoricien a reçu le prix Nobel en 1921 pour ses travaux sur l'effet photoélectrique. Réfugié aux États-Unis pour fuir le nazisme, il est mondialement célèbre pour sa théorie de la relativité et son équation E=mc². Qui est-ce ?", "answer": "Albert Einstein", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci002", "question": "Polonaise naturalisée française, cette physicienne a reçu deux prix Nobel dans deux disciplines différentes : physique en 1903 et chimie en 1911. Elle a découvert le polonium et le radium avec son mari Pierre. Qui est-ce ?", "answer": "Marie Curie", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci003", "question": "En 1928, ce médecin écossais découvre par accident qu'une moisissure détruit les bactéries dans ses boîtes de Pétri. Cette découverte révolutionnaire donnera naissance au premier antibiotique, la pénicilline. Qui est-ce ?", "answer": "Alexander Fleming", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci004", "question": "Auteur de 'L'Origine des espèces' publié en 1859, ce naturaliste britannique a développé la théorie de l'évolution par sélection naturelle après son voyage aux îles Galápagos. Qui est-ce ?", "answer": "Charles Darwin", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci005", "question": "Inventeur américain surnommé 'le sorcier de Menlo Park', il a déposé plus de 1000 brevets dont celui de l'ampoule électrique et du phonographe. Fondateur de General Electric, il a révolutionné l'éclairage moderne. Qui est-ce ?", "answer": "Thomas Edison", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci006", "question": "Quatrième planète du système solaire en partant du Soleil, cette sphère céleste de couleur rouille est explorée par les rovers Curiosity et Perseverance. Voisine de la Terre, elle porte le nom du dieu romain de la guerre. Quelle est cette planète ?", "answer": "Mars", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci007", "question": "Composée de deux atomes d'hydrogène et un atome d'oxygène, cette molécule essentielle à la vie couvre 71% de la surface terrestre. Sa formule chimique est connue de tous les écoliers. Quelle est cette formule ?", "answer": "H2O (l'eau)", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci008", "question": "Découverte en 2012 au CERN par les équipes ATLAS et CMS, cette particule élémentaire explique pourquoi les autres particules ont une masse. Elle porte le nom du physicien britannique qui l'avait théorisée en 1964. Quelle est cette particule ?", "answer": "Le boson de Higgs", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci009", "question": "Célèbre pour ses anneaux spectaculaires composés de glace et de roche, cette géante gazeuse est la sixième planète du système solaire. Son satellite Titan possède une atmosphère dense. Quelle est cette planète ?", "answer": "Saturne", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci010", "question": "Représentant 78% de l'atmosphère terrestre, ce gaz incolore et inodore porte le symbole N. Essentiel aux engrais, il est aussi utilisé sous forme liquide pour la congélation rapide. Quel est ce gaz ?", "answer": "L'azote", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci011", "question": "Plus grand organe du corps humain avec une surface totale d'environ 2 mètres carrés, cette enveloppe protectrice régule la température et protège des infections. Quel est cet organe ?", "answer": "La peau", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci012", "question": "Cette constante physique fondamentale équivaut à environ 300 000 kilomètres par seconde dans le vide. Représentée par la lettre 'c', elle est au cœur de la théorie de la relativité. Quelle est cette vitesse ?", "answer": "La vitesse de la lumière", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci013", "question": "Créateur du tableau périodique des éléments en 1869, ce chimiste russe a classé les 63 éléments connus à l'époque et prédit l'existence d'éléments encore non découverts. Qui est-ce ?", "answer": "Dmitri Mendeleïev", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci014", "question": "Contenant environ 86 milliards de neurones, cet organe de 1,4 kg contrôle toutes les fonctions du corps humain. Divisé en deux hémisphères, il est protégé par le crâne. Quel est cet organe ?", "answer": "Le cerveau", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci015", "question": "Plus grande planète du système solaire, cette géante gazeuse possède une Grande Tache Rouge, une tempête qui fait rage depuis plus de 300 ans. Elle compte 95 satellites naturels dont Ganymède. Quelle est cette planète ?", "answer": "Jupiter", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci016", "question": "Auteur des Principia Mathematica publiés en 1687, ce physicien anglais a formulé les trois lois du mouvement et la loi de la gravitation universelle. La légende raconte qu'une pomme tombant d'un arbre lui inspira ses réflexions sur la gravité. Qui est-ce ?", "answer": "Isaac Newton", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci017", "question": "Né à Pise en 1564, ce savant italien a perfectionné la lunette astronomique et découvert les quatre lunes de Jupiter. Défenseur de l'héliocentrisme, il fut condamné par l'Inquisition en 1633 et ne fut réhabilité par l'Église qu'en 1992. Qui est-ce ?", "answer": "Galilée", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci018", "question": "Ce chimiste et microbiologiste français a inventé la pasteurisation et développé le premier vaccin contre la rage, qu'il administra pour la première fois au jeune Joseph Meister en 1885. L'institut qui porte son nom fut inauguré en 1888 à Paris. Qui est-ce ?", "answer": "Louis Pasteur", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci019", "question": "En 1953, ces deux scientifiques ont publié dans la revue Nature la structure en double hélice de l'ADN, découverte fondamentale qui leur valut le prix Nobel de médecine en 1962 avec Maurice Wilkins. Qui sont ces deux chercheurs, l'un américain et l'autre britannique ?", "answer": "Watson et Crick", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci020", "question": "Atteint de la maladie de Charcot dès l'âge de 21 ans, ce physicien britannique est devenu célèbre pour ses travaux sur les trous noirs et son best-seller Une brève histoire du temps. Il a théorisé que les trous noirs émettent un rayonnement qui porte son nom. Qui est-ce ?", "answer": "Stephen Hawking", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci021", "question": "Guillotiné en 1794 pendant la Terreur, ce chimiste français a énoncé la loi de conservation de la masse avec la célèbre formule 'Rien ne se perd, rien ne se crée, tout se transforme'. Il a aussi nommé l'oxygène et publié le premier Traité élémentaire de chimie. Qui est-ce ?", "answer": "Antoine Lavoisier", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci022", "question": "Ce mathématicien grec du VIe siècle avant J.-C. a fondé une école à Crotone en Italie du Sud. Son théorème, qui établit que dans un triangle rectangle le carré de l'hypoténuse égale la somme des carrés des deux autres côtés, est enseigné dans toutes les écoles. Qui est-ce ?", "answer": "Pythagore", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci023", "question": "Mathématicien italien du XIIIe siècle né à Pise, il a introduit la numération indo-arabe en Europe avec son Liber Abaci. Sa célèbre suite, où chaque terme est la somme des deux précédents (1, 1, 2, 3, 5, 8, 13...), apparaît dans de nombreux phénomènes naturels. Qui est-ce ?", "answer": "Fibonacci", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci024", "question": "Mathématicien suisse du XVIIIe siècle considéré comme le plus prolifique de l'histoire, il a laissé son nom à une identité reliant les cinq constantes fondamentales des mathématiques : e^(iπ) + 1 = 0. Il a aussi introduit la notation f(x) pour les fonctions. Qui est-ce ?", "answer": "Leonhard Euler", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci025", "question": "Ce savant grec de Syracuse, qui vécut au IIIe siècle avant J.-C., aurait crié 'Eurêka !' en découvrant dans son bain le principe de la poussée des corps immergés. Il est aussi l'inventeur de la vis sans fin qui porte son nom. Qui est-ce ?", "answer": "Archimède", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci026", "question": "Informaticien britannique né en 1955, il a inventé le World Wide Web en 1989 alors qu'il travaillait au CERN à Genève. Il a créé le premier navigateur web et le protocole HTTP, révolutionnant ainsi l'accès à l'information mondiale. Qui est-ce ?", "answer": "Tim Berners-Lee", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci027", "question": "Prêtre catholique et physicien belge, il a proposé en 1927 la théorie de l'expansion de l'univers et l'hypothèse de l'atome primitif, fondements de ce qu'on appellera plus tard le Big Bang. Il est mort en 1966 peu après la découverte du rayonnement fossile confirmant sa théorie. Qui est-ce ?", "answer": "Georges Lemaître", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci028", "question": "Battant environ 100 000 fois par jour et pompant 5 litres de sang par minute, cet organe musculaire situé dans la cage thoracique assure la circulation sanguine dans tout l'organisme. Divisé en quatre cavités, il peut battre plus de 3 milliards de fois au cours d'une vie. Quel est cet organe ?", "answer": "Le coeur", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci029", "question": "Contenant toute l'information génétique d'un organisme, cette molécule en double hélice est présente dans le noyau de nos cellules, répartie sur 23 paires de chromosomes chez l'humain. Ses quatre bases (A, T, G, C) s'apparient selon des règles précises. Quelle est cette molécule ?", "answer": "L'ADN", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci030", "question": "Surnommée la 'centrale énergétique' de la cellule, cette organite produit l'ATP par phosphorylation oxydative. Chaque cellule humaine peut en contenir jusqu'à 1000, et les cellules musculaires en sont particulièrement riches. Quelle est cette structure cellulaire ?", "answer": "La mitochondrie", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci031", "question": "Découvert en 1774 par Joseph Priestley en chauffant de l'oxyde de mercure, cet élément chimique de symbole O et de numéro atomique 8 est essentiel à la respiration. Il représente environ 21% de l'atmosphère terrestre. Quel est cet élément ?", "answer": "L'oxygène", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci032", "question": "Représentant le rapport entre la circonférence d'un cercle et son diamètre, cette constante mathématique irrationnelle vaut environ 3,14159. Archimède fut le premier à en calculer une approximation rigoureuse en utilisant des polygones réguliers. Quelle est cette constante ?", "answer": "Pi", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci033", "question": "Planète la plus proche du Soleil à environ 58 millions de kilomètres, elle connaît la plus grande amplitude thermique du système solaire, oscillant entre 427°C le jour et -173°C la nuit. Dépourvue d'atmosphère, elle porte le nom du messager des dieux romains. Quelle est cette planète ?", "answer": "Mercure", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci034", "question": "Notre galaxie spirale barrée contient entre 200 et 400 milliards d'étoiles, dont le Soleil situé à environ 27 000 années-lumière du centre. Son nom vient de la bande blanchâtre observable dans le ciel nocturne, et son trou noir central s'appelle Sagittarius A*. Quelle est cette galaxie ?", "answer": "La Voie lactée", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci035", "question": "Ingénieur serbo-américain rival de Thomas Edison, il a développé le courant alternatif et remporté la 'guerre des courants' en électrifiant l'exposition universelle de Chicago en 1893 et les chutes du Niagara en 1896. Une célèbre marque de voitures électriques porte son nom. Qui est-ce ?", "answer": "Nikola Tesla", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci036", "question": "Processus métabolique convertissant des sucres en gaz, alcools ou acides en l'absence d'oxygène. Utilisé depuis l'Antiquité pour produire du pain, du vin ou des yaourts, il est réalisé par des levures ou des bactéries. Quel est ce processus ?", "answer": "La fermentation", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci037", "question": "Région de l'espace où la gravité est si intense que rien, pas même la lumière, ne peut s'en échapper, cet objet astrophysique est délimité par un horizon des événements. Stephen Hawking a théorisé qu'il émet un rayonnement. Comment appelle-t-on cet objet ?", "answer": "Un trou noir", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci038", "question": "Le 21 juillet 1969, cet astronaute américain est devenu le premier homme à marcher sur la Lune lors de la mission Apollo 11, prononçant les mots célèbres 'Un petit pas pour l'homme, un bond de géant pour l'humanité'. Qui est-ce ?", "answer": "Neil Armstrong", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci039", "question": "Premier élément du tableau périodique avec le numéro atomique 1, cet atome le plus léger de l'univers est composé d'un seul proton et d'un seul électron. C'est l'élément le plus abondant du cosmos. Quel est cet élément chimique ?", "answer": "L'hydrogène", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci040", "question": "Gaz noble de numéro atomique 2, cet élément est le deuxième plus abondant de l'univers après l'hydrogène. Utilisé pour gonfler les ballons et refroidir les équipements scientifiques, il modifie la voix quand on l'inhale. Quel est cet élément chimique ?", "answer": "L'hélium", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci041", "question": "Ces cellules sanguines en forme de disque biconcave, dépourvues de noyau, transportent l'oxygène des poumons vers les tissus grâce à l'hémoglobine qu'elles contiennent. Elles représentent 99% des cellules du sang et vivent environ 120 jours. Quelles sont ces cellules ?", "answer": "Les globules rouges (ou hématies)", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci042", "question": "Surnommée l'étoile du berger bien qu'elle soit une planète, elle est l'astre le plus brillant du ciel après le Soleil et la Lune. Son atmosphère dense de CO2 crée un effet de serre extrême, portant sa température à 465°C, plus chaude que Mercure. Quelle est cette planète ?", "answer": "Vénus", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci043", "question": "Moine et botaniste austro-hongrois du XIXe siècle, il a découvert les lois de l'hérédité en croisant des plants de petits pois pendant neuf ans. Ses travaux, ignorés de son vivant, furent redécouverts en 1900 et font de lui le père de la génétique. Qui est-ce ?", "answer": "Gregor Mendel", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci044", "question": "Cette accélération, notée g et valant environ 9,81 m/s² au niveau de la mer, détermine la vitesse à laquelle les objets tombent vers la Terre. Elle varie légèrement selon la latitude, étant plus forte aux pôles qu'à l'équateur. Comment appelle-t-on cette accélération ?", "answer": "L'accélération de la pesanteur (ou gravité terrestre)", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci045", "question": "Élément radioactif de symbole U et de numéro atomique 92, il est utilisé comme combustible dans les centrales nucléaires. Son isotope 235 est fissile et peut libérer une grande quantité d'énergie par fission nucléaire. Quel est cet élément ?", "answer": "L'uranium", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci046", "question": "Organe le plus volumineux du corps humain pesant environ 1,5 kg, il assure plus de 300 fonctions vitales dont la détoxification, la production de bile et la régulation du glucose sanguin. Il peut se régénérer partiellement après une ablation. Quel est cet organe ?", "answer": "Le foie", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci047", "question": "Mathématicien britannique considéré comme le père de l'informatique, il a conçu pendant la Seconde Guerre mondiale une machine permettant de décrypter les codes de la machine Enigma allemande. Son test d'intelligence artificielle porte encore son nom aujourd'hui. Qui est-ce ?", "answer": "Alan Turing", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci048", "question": "Ce système biologique complexe comprenant les globules blancs, les anticorps et les lymphocytes protège l'organisme contre les agents pathogènes comme les virus et les bactéries. Il possède une mémoire qui lui permet de reconnaître les antigènes déjà rencontrés. Quel est ce système ?", "answer": "Le système immunitaire", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci049", "question": "Nombres entiers supérieurs à 1 qui n'ont pas d'autres diviseurs que 1 et eux-mêmes, leur ensemble est infini selon un théorème démontré par Euclide. Les exemples incluent 2, 3, 5, 7, 11, 13... Comment appelle-t-on ces nombres ?", "answer": "Les nombres premiers", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci050", "question": "Huitième et dernière planète du système solaire, elle fut découverte en 1846 par Johann Galle grâce aux calculs mathématiques d'Urbain Le Verrier. Sa couleur bleue est due au méthane de son atmosphère. Quelle est cette planète ?", "answer": "Neptune", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci051", "question": "Élément chimique de symbole C et de numéro atomique 6, il est à la base de toute la chimie organique et de la vie. Sa capacité à former quatre liaisons covalentes lui permet de créer des chaînes et des structures moléculaires complexes. Quel est cet élément ?", "answer": "Le carbone", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci052", "question": "Cet organe du système digestif sécrète chaque jour 2 à 3 litres de suc gastrique contenant de l'acide chlorhydrique et de la pepsine. Son pH très acide (entre 1 et 3) permet de décomposer les protéines alimentaires. Quel est cet organe ?", "answer": "L'estomac", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci053", "question": "Unité de mesure de l'énergie dans le système international, elle équivaut au travail d'une force d'un newton sur une distance d'un mètre. Elle porte le nom d'un physicien anglais qui a établi l'équivalence entre chaleur et travail mécanique. Quelle est cette unité ?", "answer": "Le joule", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci054", "question": "Ce phénomène naturel se produit lorsqu'un noyau atomique lourd, comme l'uranium-235 ou le plutonium-239, se scinde en noyaux plus légers en libérant une grande quantité d'énergie et des neutrons. Il est exploité dans les centrales nucléaires. Comment appelle-t-on ce phénomène ?", "answer": "La fission nucléaire", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci055", "question": "Ce physicien allemand a énoncé en 1927 le principe selon lequel il est impossible de connaître simultanément avec précision la position et la vitesse d'une particule. Ce principe fondamental de la mécanique quantique porte son nom. Qui est-ce ?", "answer": "Werner Heisenberg", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci056", "question": "Cristallographe britannique morte à 37 ans d'un cancer, elle a produit la célèbre Photo 51, image de diffraction aux rayons X qui a permis à Watson et Crick de découvrir la structure de l'ADN. Elle n'a pas partagé leur prix Nobel, décerné après sa mort. Qui est-ce ?", "answer": "Rosalind Franklin", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci057", "question": "Ce gaz à effet de serre, de formule CO2, est rejeté lors de la respiration et de la combustion des combustibles fossiles. Les plantes l'absorbent pendant la photosynthèse. Son augmentation dans l'atmosphère contribue au réchauffement climatique. Quel est ce gaz ?", "answer": "Le dioxyde de carbone (ou gaz carbonique)", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci058", "question": "Cette planète naine, découverte en 1930 par Clyde Tombaugh et reclassifiée en 2006, orbite au-delà de Neptune dans la ceinture de Kuiper. Elle possède un grand satellite nommé Charon et porte le nom du dieu romain des Enfers. Quelle est cette planète naine ?", "answer": "Pluton", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci059", "question": "Particule subatomique de charge négative qui orbite autour du noyau atomique, elle fut découverte en 1897 par J.J. Thomson grâce à ses expériences sur les rayons cathodiques. Son flux constitue le courant électrique. Quelle est cette particule ?", "answer": "L'électron", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci060", "question": "Cette hormone, produite par le pancréas, régule le taux de glucose dans le sang en permettant aux cellules de l'absorber. Sa découverte en 1921 par Banting et Best a révolutionné le traitement du diabète. Quelle est cette hormone ?", "answer": "L'insuline", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci061", "question": "Ce télescope spatial, lancé en 1990 et nommé en hommage à un astronome américain, a révolutionné notre vision de l'univers avec ses images spectaculaires de galaxies, nébuleuses et planètes lointaines. Il orbite à environ 540 km d'altitude. Quel est ce télescope ?", "answer": "Le télescope Hubble", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci062", "question": "Cette théorie, formulée par Einstein en 1905, établit que la vitesse de la lumière est constante dans le vide et que l'espace et le temps sont liés. Elle aboutit à la célèbre équation E=mc². Comment s'appelle cette théorie ?", "answer": "La relativité restreinte", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci063", "question": "Ces ondes électromagnétiques, découvertes par Wilhelm Röntgen en 1895, permettent de voir à travers les tissus mous du corps et sont utilisées en imagerie médicale. Leur découverte lui valut le premier prix Nobel de physique en 1901. Quelles sont ces ondes ?", "answer": "Les rayons X", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci064", "question": "Cette structure en spirale, présente dans le noyau des cellules, est composée d'ADN enroulé autour de protéines appelées histones. L'humain en possède 46, organisés en 23 paires, dont une paire détermine le sexe. Quelles sont ces structures ?", "answer": "Les chromosomes", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci065", "question": "Ce processus cellulaire permet la duplication exacte de l'ADN avant la division cellulaire. Chaque brin de la double hélice sert de modèle pour créer un nouveau brin complémentaire. Comment appelle-t-on ce processus ?", "answer": "La réplication de l'ADN", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci066", "question": "Ce satellite naturel de la Terre, distant d'environ 384 000 km, influence les marées et met 27,3 jours à effectuer une rotation complète sur elle-même, durée identique à sa révolution autour de la Terre. C'est pourquoi elle nous montre toujours la même face. Quel est ce satellite ?", "answer": "La Lune", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci067", "question": "Ce métal précieux de symbole Au et de numéro atomique 79 est l'un des métaux les plus malléables et ductiles. Résistant à la corrosion, il est utilisé en joaillerie, en électronique et comme réserve de valeur monétaire depuis l'Antiquité. Quel est ce métal ?", "answer": "L'or", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci068", "question": "Cette force fondamentale de la nature, décrite par Newton puis Einstein, maintient les planètes en orbite autour du Soleil et nous retient au sol. Elle est proportionnelle aux masses des objets et inversement proportionnelle au carré de leur distance. Quelle est cette force ?", "answer": "La gravité (ou gravitation)", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci069", "question": "Ce principe fondamental de la physique, formalisé au milieu du XIXe siècle par des scientifiques comme Julius Robert Mayer, James Joule et Hermann von Helmholtz, constitue la première loi de la thermodynamique. Il stipule que l'énergie d'un système isolé reste constante : elle ne peut être ni créée ni détruite, seulement transformée. Comment appelle-t-on ce principe ?", "answer": "La conservation de l'énergie", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci070", "question": "Cette protéine contenue dans les globules rouges donne au sang sa couleur rouge. Composée de quatre sous-unités contenant chacune un atome de fer, elle peut transporter jusqu'à quatre molécules d'oxygène. Quelle est cette protéine ?", "answer": "L'hémoglobine", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci071", "question": "Ce phénomène physique se produit lorsque la lumière change de direction en passant d'un milieu à un autre de densité différente, comme de l'air à l'eau. Il explique pourquoi une paille dans un verre d'eau semble brisée. Comment appelle-t-on ce phénomène ?", "answer": "La réfraction", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci072", "question": "Ce physicien danois a proposé en 1913 un modèle de l'atome où les électrons gravitent sur des orbites bien définies autour du noyau. Ce modèle, qui expliquait le spectre de l'hydrogène, lui valut le prix Nobel de physique en 1922. Qui est-ce ?", "answer": "Niels Bohr", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci073", "question": "Cette molécule, de formule NaCl, est composée d'un atome de sodium et d'un atome de chlore. Essentielle à de nombreuses fonctions biologiques, elle est présente dans l'eau de mer et est communément utilisée pour assaisonner les aliments. Quelle est cette molécule ?", "answer": "Le chlorure de sodium (ou sel de table)", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci074", "question": "Ce rover de la NASA, dont le nom signifie 'persévérance' en anglais, s'est posé sur Mars en février 2021 dans le cratère Jezero. Sa mission est de rechercher des traces de vie ancienne et de collecter des échantillons. Quel est ce rover ?", "answer": "Perseverance", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci075", "question": "Cette unité de distance astronomique correspond à la distance parcourue par la lumière en un an, soit environ 9 461 milliards de kilomètres. Elle est utilisée pour mesurer les distances entre les étoiles et les galaxies. Quelle est cette unité ?", "answer": "L'année-lumière", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci076", "question": "Ce phénomène quantique, qualifié par Einstein d'action fantôme à distance, lie deux particules de telle sorte que la mesure de l'une affecte instantanément l'autre, quelle que soit la distance les séparant. Comment appelle-t-on ce phénomène ?", "answer": "L'intrication quantique", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci077", "question": "Cette structure anatomique, longue d'environ 6 à 7 mètres chez l'adulte, est le site principal d'absorption des nutriments dans le système digestif. Ses villosités intestinales augmentent considérablement sa surface d'absorption. Quelle est cette structure ?", "answer": "L'intestin grêle", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci078", "question": "Ce chimiste britannique a découvert l'électron en 1897 en étudiant les rayons cathodiques. Il a proposé le modèle atomique dit 'en pudding aux raisins' où les électrons sont dispersés dans une sphère positive. Qui est-ce ?", "answer": "J.J. Thomson (Joseph John Thomson)", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci079", "question": "Cette théorie cosmologique, confirmée par l'observation du fond diffus cosmologique en 1964, décrit l'origine de l'univers il y a environ 13,8 milliards d'années à partir d'un état extrêmement dense et chaud. Comment s'appelle cette théorie ?", "answer": "Le Big Bang", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci080", "question": "Ce muscle strié squelettique situé sous les poumons joue un rôle essentiel dans la respiration. Sa contraction provoque l'inspiration en augmentant le volume de la cage thoracique. Quel est ce muscle ?", "answer": "Le diaphragme", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci081", "question": "Cet élément chimique de symbole Fe et de numéro atomique 26 est le métal le plus utilisé dans l'industrie. Il est essentiel au transport de l'oxygène dans le sang via l'hémoglobine et donne sa couleur rouille aux objets oxydés. Quel est cet élément ?", "answer": "Le fer", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci082", "question": "Phénomène physique caractérisé par le changement de fréquence d'une onde lorsque la source est en mouvement par rapport à l'observateur. On l'entend quand une sirène d'ambulance passe devant nous (le son change de grave à aigu). Quel est cet effet ?", "answer": "L'effet Doppler", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci083", "question": "Ce physicien néo-zélandais a découvert le noyau atomique en 1911 grâce à son expérience de diffusion de particules alpha sur une feuille d'or. Il est considéré comme le père de la physique nucléaire. Qui est-ce ?", "answer": "Ernest Rutherford", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci084", "question": "Ces deux organes en forme de haricot filtrent environ 180 litres de sang par jour pour produire l'urine et éliminer les déchets métaboliques. Ils régulent aussi l'équilibre hydrique et électrolytique du corps. Quels sont ces organes ?", "answer": "Les reins", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci085", "question": "Cette unité de mesure de la puissance électrique équivaut à un joule par seconde. Elle porte le nom de l'ingénieur écossais qui a perfectionné la machine à vapeur au XVIIIe siècle. Quelle est cette unité ?", "answer": "Le watt", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci086", "question": "Ce processus biologique permet aux cellules de se diviser en deux cellules filles identiques. Il comprend plusieurs phases : prophase, métaphase, anaphase et télophase. Comment appelle-t-on ce type de division cellulaire ?", "answer": "La mitose", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci087", "question": "Cette particule élémentaire, constituant avec le proton le noyau atomique, est électriquement neutre et a une masse légèrement supérieure à celle du proton. Elle fut découverte par James Chadwick en 1932. Quelle est cette particule ?", "answer": "Le neutron", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci088", "question": "Ce gaz rare de symbole Ar et de numéro atomique 18 représente environ 0,93% de l'atmosphère terrestre. Inerte chimiquement, il est utilisé dans les ampoules à incandescence et le soudage. Quel est ce gaz ?", "answer": "L'argon", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci089", "question": "Cette glande endocrine située à la base du cerveau, de la taille d'un petit pois, régule de nombreuses autres glandes et est surnommée le 'chef d'orchestre' du système hormonal. Elle sécrète notamment l'hormone de croissance. Quelle est cette glande ?", "answer": "L'hypophyse", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci090", "question": "Ce phénomène lumineux atmosphérique se produit lorsque des particules chargées du vent solaire interagissent avec la haute atmosphère terrestre près des pôles. Au nord, on l'appelle aurore boréale. Comment appelle-t-on ce phénomène au sud ?", "answer": "L'aurore australe", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci091", "question": "Cette planète géante gazeuse, septième du système solaire, tourne sur elle-même couchée avec un axe de rotation incliné à 98 degrés. Découverte par William Herschel en 1781, elle porte le nom du dieu grec du ciel. Quelle est cette planète ?", "answer": "Uranus", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci092", "question": "Physicien autrichien célèbre pour son expérience de pensée imaginant un chat enfermé dans une boîte, qui serait à la fois mort et vivant tant qu'on ne l'a pas observé. Il a reçu le Nobel en 1933. Qui est-ce ?", "answer": "Erwin Schrödinger", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci093", "question": "Cette molécule, de formule O3, forme une couche dans la stratosphère qui protège la Terre des rayons ultraviolets nocifs du Soleil. Sa destruction par les CFC a créé un 'trou' au-dessus de l'Antarctique. Quelle est cette molécule ?", "answer": "L'ozone", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci094", "question": "Ce type de liaison chimique se forme lorsque deux atomes partagent des électrons. Elle est caractéristique des molécules organiques et des composés comme l'eau (H2O) ou le méthane (CH4). Comment appelle-t-on ce type de liaison ?", "answer": "La liaison covalente", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci095", "question": "Cette structure cellulaire, composée d'ARN et de protéines, est le site de la synthèse des protéines dans la cellule. Elle traduit l'information génétique de l'ARN messager en chaînes d'acides aminés. Quelle est cette structure ?", "answer": "Le ribosome", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci096", "question": "Ce scientifique écossais a unifié l'électricité, le magnétisme et l'optique dans ses équations de l'électromagnétisme en 1865. Il a prédit l'existence des ondes radio avant leur découverte expérimentale par Hertz. Qui est-ce ?", "answer": "James Clerk Maxwell", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci097", "question": "Cette technique d'imagerie médicale, inventée par Godfrey Hounsfield et Allan Cormack, utilise des rayons X et un ordinateur pour produire des images en coupe du corps. Son sigle signifie en anglais 'Computed Tomography'. Comment appelle-t-on cette technique ?", "answer": "Le scanner (ou tomodensitométrie)", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci098", "question": "Ce type de réaction nucléaire, qui alimente le Soleil et les étoiles, combine des noyaux légers d'hydrogène pour former de l'hélium en libérant une énergie colossale. Les chercheurs tentent de la reproduire sur Terre avec le projet ITER. Quelle est cette réaction ?", "answer": "La fusion nucléaire", "difficulty": "difficile", "category": "Sciences"},
-    {"id": "cg-sci099", "question": "Ce système de positionnement par satellite, développé initialement par l'armée américaine, utilise une constellation de satellites pour permettre de déterminer sa position n'importe où sur Terre avec une précision de quelques mètres. Quel est ce système ?", "answer": "Le GPS (Global Positioning System)", "difficulty": "normal", "category": "Sciences"},
-    {"id": "cg-sci100", "question": "Cette loi de la thermodynamique stipule qu'il est impossible d'atteindre le zéro absolu (-273,15°C ou 0 Kelvin). À cette température théorique, toute agitation moléculaire cesserait. Comment appelle-t-on cette loi ?", "answer": "Le troisième principe de la thermodynamique", "difficulty": "difficile", "category": "Sciences"}
+    {
+      "id": "cg-sci001",
+      "question": "Né à Ulm en 1879, ce physicien théoricien a reçu le prix Nobel en 1921 pour ses travaux sur l'effet photoélectrique. Réfugié aux États-Unis pour fuir le nazisme, il est mondialement célèbre pour sa théorie de la relativité et son équation E=mc². Qui est-ce ?",
+      "answer": "Albert Einstein",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci002",
+      "question": "Polonaise naturalisée française, cette physicienne a reçu deux prix Nobel dans deux disciplines différentes : physique en 1903 et chimie en 1911. Elle a découvert le polonium et le radium avec son mari Pierre. Qui est-ce ?",
+      "answer": "Marie Curie",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci003",
+      "question": "En 1928, ce médecin écossais découvre par accident qu'une moisissure détruit les bactéries dans ses boîtes de Pétri. Cette découverte révolutionnaire donnera naissance au premier antibiotique, la pénicilline. Qui est-ce ?",
+      "answer": "Alexander Fleming",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci004",
+      "question": "Auteur de 'L'Origine des espèces' publié en 1859, ce naturaliste britannique a développé la théorie de l'évolution par sélection naturelle après son voyage aux îles Galápagos. Qui est-ce ?",
+      "answer": "Charles Darwin",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci005",
+      "question": "Inventeur américain surnommé 'le sorcier de Menlo Park', il a déposé plus de 1000 brevets dont celui de l'ampoule électrique et du phonographe. Fondateur de General Electric, il a révolutionné l'éclairage moderne. Qui est-ce ?",
+      "answer": "Thomas Edison",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci006",
+      "question": "Quatrième planète du système solaire en partant du Soleil, cette sphère céleste de couleur rouille est explorée par les rovers Curiosity et Perseverance. Voisine de la Terre, elle porte le nom du dieu romain de la guerre. Quelle est cette planète ?",
+      "answer": "Mars",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci007",
+      "question": "Composée de deux atomes d'hydrogène et un atome d'oxygène, cette molécule essentielle à la vie couvre 71% de la surface terrestre. Sa formule chimique est connue de tous les écoliers. Quelle est cette formule ?",
+      "answer": "H2O (l'eau)",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci008",
+      "question": "Découverte en 2012 au CERN par les équipes ATLAS et CMS, cette particule élémentaire explique pourquoi les autres particules ont une masse. Elle porte le nom du physicien britannique qui l'avait théorisée en 1964. Quelle est cette particule ?",
+      "answer": "Le boson de Higgs",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci009",
+      "question": "Célèbre pour ses anneaux spectaculaires composés de glace et de roche, cette géante gazeuse est la sixième planète du système solaire. Son satellite Titan possède une atmosphère dense. Quelle est cette planète ?",
+      "answer": "Saturne",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci010",
+      "question": "Représentant 78% de l'atmosphère terrestre, ce gaz incolore et inodore porte le symbole N. Essentiel aux engrais, il est aussi utilisé sous forme liquide pour la congélation rapide. Quel est ce gaz ?",
+      "answer": "L'azote",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci011",
+      "question": "Plus grand organe du corps humain avec une surface totale d'environ 2 mètres carrés, cette enveloppe protectrice régule la température et protège des infections. Quel est cet organe ?",
+      "answer": "La peau",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci012",
+      "question": "Cette constante physique fondamentale équivaut à environ 300 000 kilomètres par seconde dans le vide. Représentée par la lettre 'c', elle est au cœur de la théorie de la relativité. Quelle est cette vitesse ?",
+      "answer": "La vitesse de la lumière",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci013",
+      "question": "Créateur du tableau périodique des éléments en 1869, ce chimiste russe a classé les 63 éléments connus à l'époque et prédit l'existence d'éléments encore non découverts. Qui est-ce ?",
+      "answer": "Dmitri Mendeleïev",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci014",
+      "question": "Contenant environ 86 milliards de neurones, cet organe de 1,4 kg contrôle toutes les fonctions du corps humain. Divisé en deux hémisphères, il est protégé par le crâne. Quel est cet organe ?",
+      "answer": "Le cerveau",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci015",
+      "question": "Plus grande planète du système solaire, cette géante gazeuse possède une Grande Tache Rouge, une tempête qui fait rage depuis plus de 300 ans. Elle compte 95 satellites naturels dont Ganymède. Quelle est cette planète ?",
+      "answer": "Jupiter",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci016",
+      "question": "Auteur des Principia Mathematica publiés en 1687, ce physicien anglais a formulé les trois lois du mouvement et la loi de la gravitation universelle. La légende raconte qu'une pomme tombant d'un arbre lui inspira ses réflexions sur la gravité. Qui est-ce ?",
+      "answer": "Isaac Newton",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci017",
+      "question": "Né à Pise en 1564, ce savant italien a perfectionné la lunette astronomique et découvert les quatre lunes de Jupiter. Défenseur de l'héliocentrisme, il fut condamné par l'Inquisition en 1633 et ne fut réhabilité par l'Église qu'en 1992. Qui est-ce ?",
+      "answer": "Galilée",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci018",
+      "question": "Ce chimiste et microbiologiste français a inventé la pasteurisation et développé le premier vaccin contre la rage, qu'il administra pour la première fois au jeune Joseph Meister en 1885. L'institut qui porte son nom fut inauguré en 1888 à Paris. Qui est-ce ?",
+      "answer": "Louis Pasteur",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci019",
+      "question": "En 1953, ces deux scientifiques ont publié dans la revue Nature la structure en double hélice de l'ADN, découverte fondamentale qui leur valut le prix Nobel de médecine en 1962 avec Maurice Wilkins. Qui sont ces deux chercheurs, l'un américain et l'autre britannique ?",
+      "answer": "Watson et Crick",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci020",
+      "question": "Atteint de la maladie de Charcot dès l'âge de 21 ans, ce physicien britannique est devenu célèbre pour ses travaux sur les trous noirs et son best-seller Une brève histoire du temps. Il a théorisé que les trous noirs émettent un rayonnement qui porte son nom. Qui est-ce ?",
+      "answer": "Stephen Hawking",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci021",
+      "question": "Guillotiné en 1794 pendant la Terreur, ce chimiste français a énoncé la loi de conservation de la masse avec la célèbre formule 'Rien ne se perd, rien ne se crée, tout se transforme'. Il a aussi nommé l'oxygène et publié le premier Traité élémentaire de chimie. Qui est-ce ?",
+      "answer": "Antoine Lavoisier",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci022",
+      "question": "Ce mathématicien grec du VIe siècle avant J.-C. a fondé une école à Crotone en Italie du Sud. Son théorème, qui établit que dans un triangle rectangle le carré de l'hypoténuse égale la somme des carrés des deux autres côtés, est enseigné dans toutes les écoles. Qui est-ce ?",
+      "answer": "Pythagore",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci023",
+      "question": "Mathématicien italien du XIIIe siècle né à Pise, il a introduit la numération indo-arabe en Europe avec son Liber Abaci. Sa célèbre suite, où chaque terme est la somme des deux précédents (1, 1, 2, 3, 5, 8, 13...), apparaît dans de nombreux phénomènes naturels. Qui est-ce ?",
+      "answer": "Fibonacci",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci024",
+      "question": "Mathématicien suisse du XVIIIe siècle considéré comme le plus prolifique de l'histoire, il a laissé son nom à une identité reliant les cinq constantes fondamentales des mathématiques : e^(iπ) + 1 = 0. Il a aussi introduit la notation f(x) pour les fonctions. Qui est-ce ?",
+      "answer": "Leonhard Euler",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci025",
+      "question": "Ce savant grec de Syracuse, qui vécut au IIIe siècle avant J.-C., aurait crié 'Eurêka !' en découvrant dans son bain le principe de la poussée des corps immergés. Il est aussi l'inventeur de la vis sans fin qui porte son nom. Qui est-ce ?",
+      "answer": "Archimède",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci026",
+      "question": "Informaticien britannique né en 1955, il a inventé le World Wide Web en 1989 alors qu'il travaillait au CERN à Genève. Il a créé le premier navigateur web et le protocole HTTP, révolutionnant ainsi l'accès à l'information mondiale. Qui est-ce ?",
+      "answer": "Tim Berners-Lee",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci027",
+      "question": "Prêtre catholique et physicien belge, il a proposé en 1927 la théorie de l'expansion de l'univers et l'hypothèse de l'atome primitif, fondements de ce qu'on appellera plus tard le Big Bang. Il est mort en 1966 peu après la découverte du rayonnement fossile confirmant sa théorie. Qui est-ce ?",
+      "answer": "Georges Lemaître",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci028",
+      "question": "Battant environ 100 000 fois par jour et pompant 5 litres de sang par minute, cet organe musculaire situé dans la cage thoracique assure la circulation sanguine dans tout l'organisme. Divisé en quatre cavités, il peut battre plus de 3 milliards de fois au cours d'une vie. Quel est cet organe ?",
+      "answer": "Le coeur",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci029",
+      "question": "Contenant toute l'information génétique d'un organisme, cette molécule en double hélice est présente dans le noyau de nos cellules, répartie sur 23 paires de chromosomes chez l'humain. Ses quatre bases (A, T, G, C) s'apparient selon des règles précises. Quelle est cette molécule ?",
+      "answer": "L'ADN",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci030",
+      "question": "Surnommée la 'centrale énergétique' de la cellule, cette organite produit l'ATP par phosphorylation oxydative. Chaque cellule humaine peut en contenir jusqu'à 1000, et les cellules musculaires en sont particulièrement riches. Quelle est cette structure cellulaire ?",
+      "answer": "La mitochondrie",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci031",
+      "question": "Découvert en 1774 par Joseph Priestley en chauffant de l'oxyde de mercure, cet élément chimique de symbole O et de numéro atomique 8 est essentiel à la respiration. Il représente environ 21% de l'atmosphère terrestre. Quel est cet élément ?",
+      "answer": "L'oxygène",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci032",
+      "question": "Représentant le rapport entre la circonférence d'un cercle et son diamètre, cette constante mathématique irrationnelle vaut environ 3,14159. Archimède fut le premier à en calculer une approximation rigoureuse en utilisant des polygones réguliers. Quelle est cette constante ?",
+      "answer": "Pi",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci033",
+      "question": "Planète la plus proche du Soleil à environ 58 millions de kilomètres, elle connaît la plus grande amplitude thermique du système solaire, oscillant entre 427°C le jour et -173°C la nuit. Dépourvue d'atmosphère, elle porte le nom du messager des dieux romains. Quelle est cette planète ?",
+      "answer": "Mercure",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci034",
+      "question": "Notre galaxie spirale barrée contient entre 200 et 400 milliards d'étoiles, dont le Soleil situé à environ 27 000 années-lumière du centre. Son nom vient de la bande blanchâtre observable dans le ciel nocturne, et son trou noir central s'appelle Sagittarius A*. Quelle est cette galaxie ?",
+      "answer": "La Voie lactée",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci035",
+      "question": "Ingénieur serbo-américain rival de Thomas Edison, il a développé le courant alternatif et remporté la 'guerre des courants' en électrifiant l'exposition universelle de Chicago en 1893 et les chutes du Niagara en 1896. Une célèbre marque de voitures électriques porte son nom. Qui est-ce ?",
+      "answer": "Nikola Tesla",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci036",
+      "question": "Processus métabolique convertissant des sucres en gaz, alcools ou acides en l'absence d'oxygène. Utilisé depuis l'Antiquité pour produire du pain, du vin ou des yaourts, il est réalisé par des levures ou des bactéries. Quel est ce processus ?",
+      "answer": "La fermentation",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci037",
+      "question": "Région de l'espace où la gravité est si intense que rien, pas même la lumière, ne peut s'en échapper, cet objet astrophysique est délimité par un horizon des événements. Stephen Hawking a théorisé qu'il émet un rayonnement. Comment appelle-t-on cet objet ?",
+      "answer": "Un trou noir",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci038",
+      "question": "Le 21 juillet 1969, cet astronaute américain est devenu le premier homme à marcher sur la Lune lors de la mission Apollo 11, prononçant les mots célèbres 'Un petit pas pour l'homme, un bond de géant pour l'humanité'. Qui est-ce ?",
+      "answer": "Neil Armstrong",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci039",
+      "question": "Premier élément du tableau périodique avec le numéro atomique 1, cet atome le plus léger de l'univers est composé d'un seul proton et d'un seul électron. C'est l'élément le plus abondant du cosmos. Quel est cet élément chimique ?",
+      "answer": "L'hydrogène",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci040",
+      "question": "Gaz noble de numéro atomique 2, cet élément est le deuxième plus abondant de l'univers après l'hydrogène. Utilisé pour gonfler les ballons et refroidir les équipements scientifiques, il modifie la voix quand on l'inhale. Quel est cet élément chimique ?",
+      "answer": "L'hélium",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci041",
+      "question": "Ces cellules sanguines en forme de disque biconcave, dépourvues de noyau, transportent l'oxygène des poumons vers les tissus grâce à l'hémoglobine qu'elles contiennent. Elles représentent 99% des cellules du sang et vivent environ 120 jours. Quelles sont ces cellules ?",
+      "answer": "Les globules rouges (ou hématies)",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci042",
+      "question": "Surnommée l'étoile du berger bien qu'elle soit une planète, elle est l'astre le plus brillant du ciel après le Soleil et la Lune. Son atmosphère dense de CO2 crée un effet de serre extrême, portant sa température à 465°C, plus chaude que Mercure. Quelle est cette planète ?",
+      "answer": "Vénus",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci043",
+      "question": "Moine et botaniste austro-hongrois du XIXe siècle, il a découvert les lois de l'hérédité en croisant des plants de petits pois pendant neuf ans. Ses travaux, ignorés de son vivant, furent redécouverts en 1900 et font de lui le père de la génétique. Qui est-ce ?",
+      "answer": "Gregor Mendel",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci044",
+      "question": "Cette accélération, notée g et valant environ 9,81 m/s² au niveau de la mer, détermine la vitesse à laquelle les objets tombent vers la Terre. Elle varie légèrement selon la latitude, étant plus forte aux pôles qu'à l'équateur. Comment appelle-t-on cette accélération ?",
+      "answer": "L'accélération de la pesanteur (ou gravité terrestre)",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci045",
+      "question": "Élément radioactif de symbole U et de numéro atomique 92, il est utilisé comme combustible dans les centrales nucléaires. Son isotope 235 est fissile et peut libérer une grande quantité d'énergie par fission nucléaire. Quel est cet élément ?",
+      "answer": "L'uranium",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci046",
+      "question": "Organe le plus volumineux du corps humain pesant environ 1,5 kg, il assure plus de 300 fonctions vitales dont la détoxification, la production de bile et la régulation du glucose sanguin. Il peut se régénérer partiellement après une ablation. Quel est cet organe ?",
+      "answer": "Le foie",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci047",
+      "question": "Mathématicien britannique considéré comme le père de l'informatique, il a conçu pendant la Seconde Guerre mondiale une machine permettant de décrypter les codes de la machine Enigma allemande. Son test d'intelligence artificielle porte encore son nom aujourd'hui. Qui est-ce ?",
+      "answer": "Alan Turing",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci048",
+      "question": "Ce système biologique complexe comprenant les globules blancs, les anticorps et les lymphocytes protège l'organisme contre les agents pathogènes comme les virus et les bactéries. Il possède une mémoire qui lui permet de reconnaître les antigènes déjà rencontrés. Quel est ce système ?",
+      "answer": "Le système immunitaire",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci049",
+      "question": "Nombres entiers supérieurs à 1 qui n'ont pas d'autres diviseurs que 1 et eux-mêmes, leur ensemble est infini selon un théorème démontré par Euclide. Les exemples incluent 2, 3, 5, 7, 11, 13... Comment appelle-t-on ces nombres ?",
+      "answer": "Les nombres premiers",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci050",
+      "question": "Huitième et dernière planète du système solaire, elle fut découverte en 1846 par Johann Galle grâce aux calculs mathématiques d'Urbain Le Verrier. Sa couleur bleue est due au méthane de son atmosphère. Quelle est cette planète ?",
+      "answer": "Neptune",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci051",
+      "question": "Élément chimique de symbole C et de numéro atomique 6, il est à la base de toute la chimie organique et de la vie. Sa capacité à former quatre liaisons covalentes lui permet de créer des chaînes et des structures moléculaires complexes. Quel est cet élément ?",
+      "answer": "Le carbone",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci052",
+      "question": "Cet organe du système digestif sécrète chaque jour 2 à 3 litres de suc gastrique contenant de l'acide chlorhydrique et de la pepsine. Son pH très acide (entre 1 et 3) permet de décomposer les protéines alimentaires. Quel est cet organe ?",
+      "answer": "L'estomac",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci053",
+      "question": "Unité de mesure de l'énergie dans le système international, elle équivaut au travail d'une force d'un newton sur une distance d'un mètre. Elle porte le nom d'un physicien anglais qui a établi l'équivalence entre chaleur et travail mécanique. Quelle est cette unité ?",
+      "answer": "Le joule",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci054",
+      "question": "Ce phénomène naturel se produit lorsqu'un noyau atomique lourd, comme l'uranium-235 ou le plutonium-239, se scinde en noyaux plus légers en libérant une grande quantité d'énergie et des neutrons. Il est exploité dans les centrales nucléaires. Comment appelle-t-on ce phénomène ?",
+      "answer": "La fission nucléaire",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci055",
+      "question": "Ce physicien allemand a énoncé en 1927 le principe selon lequel il est impossible de connaître simultanément avec précision la position et la vitesse d'une particule. Ce principe fondamental de la mécanique quantique porte son nom. Qui est-ce ?",
+      "answer": "Werner Heisenberg",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci056",
+      "question": "Cristallographe britannique morte à 37 ans d'un cancer, elle a produit la célèbre Photo 51, image de diffraction aux rayons X qui a permis à Watson et Crick de découvrir la structure de l'ADN. Elle n'a pas partagé leur prix Nobel, décerné après sa mort. Qui est-ce ?",
+      "answer": "Rosalind Franklin",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci057",
+      "question": "Ce gaz à effet de serre, de formule CO2, est rejeté lors de la respiration et de la combustion des combustibles fossiles. Les plantes l'absorbent pendant la photosynthèse. Son augmentation dans l'atmosphère contribue au réchauffement climatique. Quel est ce gaz ?",
+      "answer": "Le dioxyde de carbone (ou gaz carbonique)",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci058",
+      "question": "Cette planète naine, découverte en 1930 par Clyde Tombaugh et reclassifiée en 2006, orbite au-delà de Neptune dans la ceinture de Kuiper. Elle possède un grand satellite nommé Charon et porte le nom du dieu romain des Enfers. Quelle est cette planète naine ?",
+      "answer": "Pluton",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci059",
+      "question": "Particule subatomique de charge négative qui orbite autour du noyau atomique, elle fut découverte en 1897 par J.J. Thomson grâce à ses expériences sur les rayons cathodiques. Son flux constitue le courant électrique. Quelle est cette particule ?",
+      "answer": "L'électron",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci060",
+      "question": "Cette hormone, produite par le pancréas, régule le taux de glucose dans le sang en permettant aux cellules de l'absorber. Sa découverte en 1921 par Banting et Best a révolutionné le traitement du diabète. Quelle est cette hormone ?",
+      "answer": "L'insuline",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci061",
+      "question": "Ce télescope spatial, lancé en 1990 et nommé en hommage à un astronome américain, a révolutionné notre vision de l'univers avec ses images spectaculaires de galaxies, nébuleuses et planètes lointaines. Il orbite à environ 540 km d'altitude. Quel est ce télescope ?",
+      "answer": "Le télescope Hubble",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci062",
+      "question": "Cette théorie, formulée par Einstein en 1905, établit que la vitesse de la lumière est constante dans le vide et que l'espace et le temps sont liés. Elle aboutit à la célèbre équation E=mc². Comment s'appelle cette théorie ?",
+      "answer": "La relativité restreinte",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci063",
+      "question": "Ces ondes électromagnétiques, découvertes par Wilhelm Röntgen en 1895, permettent de voir à travers les tissus mous du corps et sont utilisées en imagerie médicale. Leur découverte lui valut le premier prix Nobel de physique en 1901. Quelles sont ces ondes ?",
+      "answer": "Les rayons X",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci064",
+      "question": "Cette structure en spirale, présente dans le noyau des cellules, est composée d'ADN enroulé autour de protéines appelées histones. L'humain en possède 46, organisés en 23 paires, dont une paire détermine le sexe. Quelles sont ces structures ?",
+      "answer": "Les chromosomes",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci065",
+      "question": "Ce processus cellulaire permet la duplication exacte de l'ADN avant la division cellulaire. Chaque brin de la double hélice sert de modèle pour créer un nouveau brin complémentaire. Comment appelle-t-on ce processus ?",
+      "answer": "La réplication de l'ADN",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci066",
+      "question": "Ce satellite naturel de la Terre, distant d'environ 384 000 km, influence les marées et met 27,3 jours à effectuer une rotation complète sur elle-même, durée identique à sa révolution autour de la Terre. C'est pourquoi elle nous montre toujours la même face. Quel est ce satellite ?",
+      "answer": "La Lune",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci067",
+      "question": "Ce métal précieux de symbole Au et de numéro atomique 79 est l'un des métaux les plus malléables et ductiles. Résistant à la corrosion, il est utilisé en joaillerie, en électronique et comme réserve de valeur monétaire depuis l'Antiquité. Quel est ce métal ?",
+      "answer": "L'or",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci068",
+      "question": "Cette force fondamentale de la nature, décrite par Newton puis Einstein, maintient les planètes en orbite autour du Soleil et nous retient au sol. Elle est proportionnelle aux masses des objets et inversement proportionnelle au carré de leur distance. Quelle est cette force ?",
+      "answer": "La gravité (ou gravitation)",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci069",
+      "question": "Ce principe fondamental de la physique, formalisé au milieu du XIXe siècle par des scientifiques comme Julius Robert Mayer, James Joule et Hermann von Helmholtz, constitue la première loi de la thermodynamique. Il stipule que l'énergie d'un système isolé reste constante : elle ne peut être ni créée ni détruite, seulement transformée. Comment appelle-t-on ce principe ?",
+      "answer": "La conservation de l'énergie",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci070",
+      "question": "Cette protéine contenue dans les globules rouges donne au sang sa couleur rouge. Composée de quatre sous-unités contenant chacune un atome de fer, elle peut transporter jusqu'à quatre molécules d'oxygène. Quelle est cette protéine ?",
+      "answer": "L'hémoglobine",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci071",
+      "question": "Ce phénomène physique se produit lorsque la lumière change de direction en passant d'un milieu à un autre de densité différente, comme de l'air à l'eau. Il explique pourquoi une paille dans un verre d'eau semble brisée. Comment appelle-t-on ce phénomène ?",
+      "answer": "La réfraction",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci072",
+      "question": "Ce physicien danois a proposé en 1913 un modèle de l'atome où les électrons gravitent sur des orbites bien définies autour du noyau. Ce modèle, qui expliquait le spectre de l'hydrogène, lui valut le prix Nobel de physique en 1922. Qui est-ce ?",
+      "answer": "Niels Bohr",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci073",
+      "question": "Cette molécule, de formule NaCl, est composée d'un atome de sodium et d'un atome de chlore. Essentielle à de nombreuses fonctions biologiques, elle est présente dans l'eau de mer et est communément utilisée pour assaisonner les aliments. Quelle est cette molécule ?",
+      "answer": "Le chlorure de sodium (ou sel de table)",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci074",
+      "question": "Ce rover de la NASA, dont le nom signifie 'persévérance' en anglais, s'est posé sur Mars en février 2021 dans le cratère Jezero. Sa mission est de rechercher des traces de vie ancienne et de collecter des échantillons. Quel est ce rover ?",
+      "answer": "Perseverance",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci075",
+      "question": "Cette unité de distance astronomique correspond à la distance parcourue par la lumière en un an, soit environ 9 461 milliards de kilomètres. Elle est utilisée pour mesurer les distances entre les étoiles et les galaxies. Quelle est cette unité ?",
+      "answer": "L'année-lumière",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci076",
+      "question": "Ce phénomène quantique, qualifié par Einstein d'action fantôme à distance, lie deux particules de telle sorte que la mesure de l'une affecte instantanément l'autre, quelle que soit la distance les séparant. Comment appelle-t-on ce phénomène ?",
+      "answer": "L'intrication quantique",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci077",
+      "question": "Cette structure anatomique, longue d'environ 6 à 7 mètres chez l'adulte, est le site principal d'absorption des nutriments dans le système digestif. Ses villosités intestinales augmentent considérablement sa surface d'absorption. Quelle est cette structure ?",
+      "answer": "L'intestin grêle",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci078",
+      "question": "Ce chimiste britannique a découvert l'électron en 1897 en étudiant les rayons cathodiques. Il a proposé le modèle atomique dit 'en pudding aux raisins' où les électrons sont dispersés dans une sphère positive. Qui est-ce ?",
+      "answer": "J.J. Thomson (Joseph John Thomson)",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci079",
+      "question": "Cette théorie cosmologique, confirmée par l'observation du fond diffus cosmologique en 1964, décrit l'origine de l'univers il y a environ 13,8 milliards d'années à partir d'un état extrêmement dense et chaud. Comment s'appelle cette théorie ?",
+      "answer": "Le Big Bang",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci080",
+      "question": "Ce muscle strié squelettique situé sous les poumons joue un rôle essentiel dans la respiration. Sa contraction provoque l'inspiration en augmentant le volume de la cage thoracique. Quel est ce muscle ?",
+      "answer": "Le diaphragme",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci081",
+      "question": "Cet élément chimique de symbole Fe et de numéro atomique 26 est le métal le plus utilisé dans l'industrie. Il est essentiel au transport de l'oxygène dans le sang via l'hémoglobine et donne sa couleur rouille aux objets oxydés. Quel est cet élément ?",
+      "answer": "Le fer",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci082",
+      "question": "Phénomène physique caractérisé par le changement de fréquence d'une onde lorsque la source est en mouvement par rapport à l'observateur. On l'entend quand une sirène d'ambulance passe devant nous (le son change de grave à aigu). Quel est cet effet ?",
+      "answer": "L'effet Doppler",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci083",
+      "question": "Ce physicien néo-zélandais a découvert le noyau atomique en 1911 grâce à son expérience de diffusion de particules alpha sur une feuille d'or. Il est considéré comme le père de la physique nucléaire. Qui est-ce ?",
+      "answer": "Ernest Rutherford",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci084",
+      "question": "Ces deux organes en forme de haricot filtrent environ 180 litres de sang par jour pour produire l'urine et éliminer les déchets métaboliques. Ils régulent aussi l'équilibre hydrique et électrolytique du corps. Quels sont ces organes ?",
+      "answer": "Les reins",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci085",
+      "question": "Cette unité de mesure de la puissance électrique équivaut à un joule par seconde. Elle porte le nom de l'ingénieur écossais qui a perfectionné la machine à vapeur au XVIIIe siècle. Quelle est cette unité ?",
+      "answer": "Le watt",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci086",
+      "question": "Ce processus biologique permet aux cellules de se diviser en deux cellules filles identiques. Il comprend plusieurs phases : prophase, métaphase, anaphase et télophase. Comment appelle-t-on ce type de division cellulaire ?",
+      "answer": "La mitose",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci087",
+      "question": "Cette particule élémentaire, constituant avec le proton le noyau atomique, est électriquement neutre et a une masse légèrement supérieure à celle du proton. Elle fut découverte par James Chadwick en 1932. Quelle est cette particule ?",
+      "answer": "Le neutron",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci088",
+      "question": "Ce gaz rare de symbole Ar et de numéro atomique 18 représente environ 0,93% de l'atmosphère terrestre. Inerte chimiquement, il est utilisé dans les ampoules à incandescence et le soudage. Quel est ce gaz ?",
+      "answer": "L'argon",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci089",
+      "question": "Cette glande endocrine située à la base du cerveau, de la taille d'un petit pois, régule de nombreuses autres glandes et est surnommée le 'chef d'orchestre' du système hormonal. Elle sécrète notamment l'hormone de croissance. Quelle est cette glande ?",
+      "answer": "L'hypophyse",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci090",
+      "question": "Ce phénomène lumineux atmosphérique se produit lorsque des particules chargées du vent solaire interagissent avec la haute atmosphère terrestre près des pôles. Au nord, on l'appelle aurore boréale. Comment appelle-t-on ce phénomène au sud ?",
+      "answer": "L'aurore australe",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci091",
+      "question": "Cette planète géante gazeuse, septième du système solaire, tourne sur elle-même couchée avec un axe de rotation incliné à 98 degrés. Découverte par William Herschel en 1781, elle porte le nom du dieu grec du ciel. Quelle est cette planète ?",
+      "answer": "Uranus",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci092",
+      "question": "Physicien autrichien célèbre pour son expérience de pensée imaginant un chat enfermé dans une boîte, qui serait à la fois mort et vivant tant qu'on ne l'a pas observé. Il a reçu le Nobel en 1933. Qui est-ce ?",
+      "answer": "Erwin Schrödinger",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci093",
+      "question": "Cette molécule, de formule O3, forme une couche dans la stratosphère qui protège la Terre des rayons ultraviolets nocifs du Soleil. Sa destruction par les CFC a créé un 'trou' au-dessus de l'Antarctique. Quelle est cette molécule ?",
+      "answer": "L'ozone",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci094",
+      "question": "Ce type de liaison chimique se forme lorsque deux atomes partagent des électrons. Elle est caractéristique des molécules organiques et des composés comme l'eau (H2O) ou le méthane (CH4). Comment appelle-t-on ce type de liaison ?",
+      "answer": "La liaison covalente",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci095",
+      "question": "Cette structure cellulaire, composée d'ARN et de protéines, est le site de la synthèse des protéines dans la cellule. Elle traduit l'information génétique de l'ARN messager en chaînes d'acides aminés. Quelle est cette structure ?",
+      "answer": "Le ribosome",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci096",
+      "question": "Ce scientifique écossais a unifié l'électricité, le magnétisme et l'optique dans ses équations de l'électromagnétisme en 1865. Il a prédit l'existence des ondes radio avant leur découverte expérimentale par Hertz. Qui est-ce ?",
+      "answer": "James Clerk Maxwell",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci097",
+      "question": "Cette technique d'imagerie médicale, inventée par Godfrey Hounsfield et Allan Cormack, utilise des rayons X et un ordinateur pour produire des images en coupe du corps. Son sigle signifie en anglais 'Computed Tomography'. Comment appelle-t-on cette technique ?",
+      "answer": "Le scanner (ou tomodensitométrie)",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci098",
+      "question": "Ce type de réaction nucléaire, qui alimente le Soleil et les étoiles, combine des noyaux légers d'hydrogène pour former de l'hélium en libérant une énergie colossale. Les chercheurs tentent de la reproduire sur Terre avec le projet ITER. Quelle est cette réaction ?",
+      "answer": "La fusion nucléaire",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci099",
+      "question": "Ce système de positionnement par satellite, développé initialement par l'armée américaine, utilise une constellation de satellites pour permettre de déterminer sa position n'importe où sur Terre avec une précision de quelques mètres. Quel est ce système ?",
+      "answer": "Le GPS (Global Positioning System)",
+      "category": "Sciences"
+    },
+    {
+      "id": "cg-sci100",
+      "question": "Cette loi de la thermodynamique stipule qu'il est impossible d'atteindre le zéro absolu (-273,15°C ou 0 Kelvin). À cette température théorique, toute agitation moléculaire cesserait. Comment appelle-t-on cette loi ?",
+      "answer": "Le troisième principe de la thermodynamique",
+      "category": "Sciences"
+    }
   ]
 }

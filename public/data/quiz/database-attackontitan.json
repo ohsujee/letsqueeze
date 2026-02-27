@@ -7,770 +7,660 @@
       "id": "aot001",
       "question": "Seul survivant du massacre de sa famille lors de la chute du mur Maria, ce soldat intègre la 104ème brigade d'entraînement où il termine 5ème. Habité par une rage inextinguible contre les géants, il rejoint le Bataillon d'Exploration et découvre qu'il possède lui-même un pouvoir de transformation. Qui est-ce ?",
       "answer": "Eren Jäger (Eren Yeager)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot002",
       "question": "Adoptée par la famille du protagoniste après le meurtre de ses parents, cette combattante prodige termine première de la 104ème brigade d'entraînement. Elle porte en permanence une écharpe offerte par un être cher et est considérée comme l'une des soldates les plus redoutables de l'humanité. Qui est-ce ?",
       "answer": "Mikasa Ackerman",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot003",
       "question": "Physiquement chétif mais doté d'une intelligence stratégique exceptionnelle, ce soldat obtient les meilleurs résultats aux examens théoriques de la 104ème brigade. Il hérite plus tard du pouvoir du Titan Colossal et devient le 15ème commandant du Bataillon d'Exploration. Qui est-ce ?",
       "answer": "Armin Arlelt (Armin Arlert)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot004",
       "question": "Surnommé le soldat le plus puissant de l'humanité, ce caporal-chef du Bataillon d'Exploration a grandi dans la ville souterraine, élevé par son oncle. Son agilité et sa maîtrise de l'équipement tridimensionnel sont inégalées, et il commande une escouade tactique d'élite. Qui est-ce ?",
       "answer": "Livaï Ackerman (Levi Ackerman)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot005",
       "question": "Treizième commandant du Bataillon d'Exploration, ce stratège charismatique perd son bras droit lors de la tentative de récupération d'un prisonnier face au Titan Cuirassé. Il mène une ultime charge suicidaire lors de la bataille de Shiganshina et meurt après avoir confié le commandement à son successeur. Qui est-ce ?",
       "answer": "Erwin Smith",
-      "difficulty": "normal",
       "category": "Bataillon"
     },
     {
       "id": "aot006",
       "question": "Passionnée par l'étude scientifique des géants, cette cheffe de la 4ème escouade du Bataillon d'Exploration en devient la 14ème commandante après la mort de son prédécesseur. Elle se sacrifie en affrontant seule une horde de Titans Colossaux pour permettre à ses camarades de fuir pendant le Grand Terrassement. Qui est-ce ?",
       "answer": "Hansi Zoë (Hange Zoë)",
-      "difficulty": "normal",
       "category": "Bataillon"
     },
     {
       "id": "aot007",
       "question": "Classé 2ème de la 104ème brigade, ce guerrier infiltré de Mahr souffre d'un trouble dissociatif de l'identité, oscillant entre sa personnalité de soldat loyal et celle d'agent ennemi. Il possède un titan dont le corps est recouvert d'une armure de durcissement quasi impénétrable. Qui est-ce ?",
       "answer": "Reiner Braun",
-      "difficulty": "normal",
       "category": "Mahr"
     },
     {
       "id": "aot008",
       "question": "Classé 3ème de la 104ème brigade, ce guerrier discret et réservé est en réalité l'infiltré responsable de la destruction du mur Maria en l'an 845. Son titan mesure 60 mètres de haut et peut émettre des jets de vapeur brûlante. Qui est-ce ?",
       "answer": "Bertolt Hoover (Berthold Hoover)",
-      "difficulty": "normal",
       "category": "Mahr"
     },
     {
       "id": "aot009",
       "question": "Quatrième de la 104ème brigade et experte en combat au corps à corps enseigné par son père, cette guerrière infiltrée de Mahr se fait capturer après sa défaite contre le Bataillon d'Exploration. Elle s'enferme alors dans un cristal de durcissement pour éviter tout interrogatoire. Qui est-ce ?",
       "answer": "Annie Leonhart (Annie Leonhart)",
-      "difficulty": "normal",
       "category": "Mahr"
     },
     {
       "id": "aot010",
       "question": "Demi-frère aîné du protagoniste, ce guerrier de Mahr est le fils de Grisha et de Dina Fritz. Capitaine de l'Unité des Guerriers, il conçoit un plan de stérilisation de tous les Eldiens qu'il appelle son plan d'euthanasie. Qui est-ce ?",
       "answer": "Sieg Jäger (Zeke Yeager)",
-      "difficulty": "normal",
       "category": "Mahr"
     },
     {
       "id": "aot011",
       "question": "Agent double infiltré dans l'armée de Mahr pendant des décennies, cet homme surnommé la Chouette dirige secrètement la Résistance Eldienne. Il transmet son pouvoir de titan à Grisha Jäger sur les quais de Paradis, lui confiant la mission de reprendre le Titan Originel. Qui est-ce ?",
       "answer": "Eren Kruger",
-      "difficulty": "difficile",
       "category": "Mahr"
     },
     {
       "id": "aot012",
       "question": "Unique parmi les neuf pouvoirs primordiaux, ce titan permet à ses détenteurs successifs de recevoir les mémoires non seulement du passé mais aussi du futur, ce qui les pousse inlassablement à avancer vers la liberté. Ce pouvoir transcende le temps et a été utilisé pour influencer des événements passés. De quel titan s'agit-il ?",
       "answer": "Titan Assaillant (Attack Titan)",
-      "difficulty": "difficile",
       "category": "Titans"
     },
     {
       "id": "aot013",
       "question": "Construits il y a un siècle par le 145ème roi Fritz à l'aide du pouvoir du Titan Originel, ces trois remparts concentriques protègent les derniers Eldiens de Paradis. Ils portent les noms des trois filles d'Ymir Fritz et sont en réalité composés de Titans Colossaux pétrifiés. Comment se nomment ces structures ?",
       "answer": "Les Murs Maria, Rose et Sina (Sheena)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "aot014",
       "question": "Plus haut officier de la Garnison de protection du sud des murs, ce commandant chauve et moustachu ordonne à un jeune titan métamorphe de colmater la brèche du district de Trost avec un rocher géant. Son plan audacieux sauve le district et marque le premier succès de l'humanité contre les géants. Qui est-ce ?",
       "answer": "Dot Pixis",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot015",
       "question": "Ancien commandant du Bataillon d'Exploration devenu instructeur, cet homme au crâne rasé et à la voix intimidante est chargé de former les recrues de la 104ème brigade. Il connaissait personnellement Grisha Jäger et se sacrifie aux côtés de Théo Magath lors de la bataille finale. Qui est-ce ?",
       "answer": "Keith Shadis (Keith Shardiz)",
-      "difficulty": "difficile",
       "category": "Bataillon"
     },
     {
       "id": "aot016",
       "question": "Surnommée la fille patate pour avoir mangé en plein rassemblement devant l'instructeur, cette archère talentueuse de la 104ème brigade est originaire du village de Dauper. Classée 9ème, elle rejoint le Bataillon et périt dans un dirigeable, abattue par une jeune candidate guerrière de Mahr. Qui est-ce ?",
       "answer": "Sasha Braus (Sasha Blouse)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot017",
       "question": "Sixième de la 104ème brigade, ce soldat au caractère abrasif rêvait initialement d'intégrer les Brigades Spéciales pour vivre en sécurité à l'intérieur du mur Sina. La mort de son meilleur ami Marco le pousse finalement à rejoindre le Bataillon d'Exploration, où il devient un leader naturel. Qui est-ce ?",
       "answer": "Jean Kirschtein (Jean Kirstein)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot018",
       "question": "Huitième de la 104ème brigade, ce soldat originaire du village de Ragako découvre avec horreur que tous les habitants de son village natal ont été transformés en titans purs. Sa propre mère est retrouvée immobilisée sur le toit de leur maison, incapable de marcher. Qui est-ce ?",
       "answer": "Conny Springer (Connie Springer)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot019",
       "question": "Septième de la 104ème brigade et meilleur ami de Jean, ce soldat aux taches de rousseur est retrouvé mort dans les rues de Trost après la bataille. On découvre bien plus tard qu'il avait surpris le secret de deux guerriers infiltrés et qu'il a été réduit au silence. Qui est-ce ?",
       "answer": "Marco Bott",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot020",
       "question": "Dixième de la 104ème brigade sous une fausse identité, cette jeune fille est en réalité la fille illégitime du véritable roi des murs. Après la chute de son père, elle est couronnée reine et décide de reprendre le nom de sa véritable famille. Qui est-ce ?",
       "answer": "Historia Reiss (Christa Lenz)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot021",
       "question": "Ancienne prêtresse d'un culte religieux eldien déportée par Mahr sur l'île de Paradis et transformée en titan pur, cette jeune femme erre pendant 60 ans avant de dévorer un guerrier porteur du Titan Mâchoire. Elle retrouve forme humaine et rejoint la 104ème brigade sous un seul prénom. Qui est-ce ?",
       "answer": "Ymir",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot022",
       "question": "Esclave qui obtint le pouvoir des titans il y a près de 2000 ans en fusionnant avec une créature mystérieuse, cette femme fut contrainte par le roi Fritz de servir l'Empire Eldien. Ses trois filles dévorèrent son corps après sa mort, divisant son pouvoir en neuf titans primordiaux. Qui est-ce ?",
       "answer": "Ymir Fritz",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot023",
       "question": "Médecin eldien originaire de Mahr, cet homme rejoint la Résistance après que sa sœur Faye ait été tuée par des soldats. Il infiltre les murs de Paradis, fonde une famille, et massacre la famille royale Reiss pour voler le pouvoir du Titan Originel qu'il transmet ensuite à son fils. Qui est-ce ?",
       "answer": "Grisha Jäger (Grisha Yeager)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot024",
       "question": "Première épouse de Grisha Jäger et descendante de la lignée royale Fritz, cette femme est transformée en titan pur par les autorités de Mahr. Son titan souriant erre pendant des années sur l'île de Paradis jusqu'à dévorer la mère du protagoniste lors de la chute du mur Maria. Qui est-ce ?",
       "answer": "Dina Fritz",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot025",
       "question": "Composée de Petra Ralle, Erd Gin, Gunther Schultz et Auruo Bossard, cette unité d'élite du Bataillon d'Exploration est placée sous le commandement du soldat le plus puissant de l'humanité. Tous ses membres périssent en affrontant le Titan Féminin dans la forêt des arbres géants. De quelle unité s'agit-il ?",
       "answer": "Escouade Tactique de Livaï (Levi Squad)",
-      "difficulty": "normal",
       "category": "Bataillon"
     },
     {
       "id": "aot026",
       "question": "Ce titan primordial de 60 mètres de haut est le plus grand des neuf. Il peut générer des explosions de vapeur brûlante et libérer une énergie considérable lors de sa transformation. Bertolt Hoover puis Armin Arlelt en sont les détenteurs connus sur l'île de Paradis. De quel titan s'agit-il ?",
       "answer": "Titan Colossal (Colossus Titan)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot027",
       "question": "Recouvert d'une armure de plaques durcies quasi indestructible, ce titan primordial est détenu par un guerrier infiltré qui termine 2ème de la 104ème brigade. Son blindage le rend extrêmement résistant mais réduit considérablement sa vitesse de déplacement. De quel titan s'agit-il ?",
       "answer": "Titan Cuirassé (Armored Titan)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot028",
       "question": "Ce titan primordial à l'apparence simiesque possède la capacité de lancer des projectiles avec une précision dévastatrice. Son détenteur, porteur de sang royal, peut également transformer des Eldiens en titans purs grâce à son cri, à condition qu'ils aient ingéré son liquide céphalo-rachidien. De quel titan s'agit-il ?",
       "answer": "Titan Bestial (Beast Titan)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot029",
       "question": "Le plus petit et le plus agile des neuf titans primordiaux, ce titan est doté de mâchoires et de griffes capables de broyer n'importe quelle matière, y compris le cristal de durcissement. Marcel Galliard, Ymir, puis son frère Porco en sont des détenteurs successifs. De quel titan s'agit-il ?",
       "answer": "Titan Mâchoire (Jaw Titan)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot030",
       "question": "Ce titan primordial à forme quadrupède excelle dans l'endurance et le transport logistique sur les champs de bataille. Sa détentrice, une guerrière de Mahr, peut maintenir sa transformation pendant deux mois consécutifs, au point d'oublier comment marcher sur deux jambes. De quel titan s'agit-il ?",
       "answer": "Titan Charrette (Cart Titan)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot031",
       "question": "Seul titan primordial exclusivement féminin, il est capable de reproduire partiellement les capacités des autres titans en ingérant des fragments de leurs détenteurs. Sa détentrice, classée 4ème de la 104ème brigade, est envoyée capturer le Titan Originel mais échoue et s'emprisonne dans un cocon de cristal. De quel titan s'agit-il ?",
       "answer": "Titan Féminin (Female Titan)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot032",
       "question": "Ce titan primordial permet à son détenteur de créer des armes et des structures à partir de cristal durci. Contrairement aux autres titans, le corps du métamorphe ne se situe pas dans la nuque mais à l'extérieur, protégé dans un cocon de cristal relié par un câble. De quel titan s'agit-il ?",
       "answer": "Titan Marteau d'Armes (War Hammer Titan)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot033",
       "question": "Le plus puissant des neuf titans primordiaux, il permet à son détenteur de sang royal de contrôler tous les titans purs, de modifier les mémoires et même la biologie des Sujets d'Ymir. Frieda Reiss, Grisha Jäger, puis son fils en sont les derniers détenteurs. De quel titan s'agit-il ?",
       "answer": "Titan Originel (Founding Titan)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot034",
       "question": "Gardé secret pendant un siècle par le clan Teyber, ce titan primordial est en réalité détenu par la sœur cadette de Willy, et non par Willy lui-même. Lors de la bataille de Liberio, le protagoniste le dévore en utilisant les mâchoires de Porco Galliard pour briser le cristal protecteur. Qui détient ce pouvoir avant qu'il ne soit volé ?",
       "answer": "Lara Teyber (Lara Tybur)",
-      "difficulty": "difficile",
       "category": "Mahr"
     },
     {
       "id": "aot035",
       "question": "Chef charismatique du clan Teyber et noble eldien influent à Mahr, cet homme organise un grand spectacle théâtral à Liberio pour révéler la véritable histoire du roi Fritz. Il déclare la guerre à l'île de Paradis mais est tué quelques secondes plus tard par le protagoniste en pleine transformation. Qui est-ce ?",
       "answer": "Willy Teyber (Willy Tybur)",
-      "difficulty": "difficile",
       "category": "Mahr"
     },
     {
       "id": "aot036",
       "question": "Guerrière de Mahr détentrice du Titan Charrette, cette jeune femme très intelligente marche parfois à quatre pattes après de longues transformations. Elle rejoint l'alliance contre le Grand Terrassement et joue un rôle crucial dans la bataille finale. Qui est-ce ?",
       "answer": "Peak Finger (Pieck Finger)",
-      "difficulty": "normal",
       "category": "Mahr"
     },
     {
       "id": "aot037",
       "question": "Frère aîné de Marcel, ce guerrier de Mahr hérite du Titan Mâchoire après avoir dévoré Ymir qui s'est livrée volontairement. Fier et impulsif, il périt lors de la bataille de Shiganshina en se sacrifiant pour que le protagoniste puisse briser le cristal de Lara Teyber. Qui est-ce ?",
       "answer": "Porco Galliard",
-      "difficulty": "normal",
       "category": "Mahr"
     },
     {
       "id": "aot038",
       "question": "Premier des guerriers de Mahr à périr lors de la mission d'infiltration de Paradis en l'an 845, ce détenteur du Titan Mâchoire est dévoré par un titan pur avant même d'atteindre les murs. Il avait manipulé la sélection des guerriers pour protéger son frère cadet. Qui est-ce ?",
       "answer": "Marcel Galliard",
-      "difficulty": "difficile",
       "category": "Mahr"
     },
     {
       "id": "aot039",
       "question": "Désigné comme successeur du Titan Bestial avant que les événements ne le rattrapent, ce candidat guerrier de Mahr est le frère aîné de Falco. Il meurt brûlé par l'explosion de la transformation de son propre frère, refusant de le lâcher jusqu'au bout. Qui est-ce ?",
       "answer": "Kord Gleis (Colt Grice)",
-      "difficulty": "difficile",
       "category": "Mahr"
     },
     {
       "id": "aot040",
       "question": "Jeune candidat guerrier de Mahr qui hérite du Titan Mâchoire après Porco Galliard, ce garçon développe une forme unique dotée d'ailes grâce au liquide céphalo-rachidien du Titan Bestial qu'il avait ingéré. Son titan est le premier de l'histoire capable de voler. Qui est-ce ?",
       "answer": "Falco Gleis (Falco Grice)",
-      "difficulty": "normal",
       "category": "Mahr"
     },
     {
       "id": "aot041",
       "question": "Jeune candidate guerrière de Mahr et cousine de Reiner, cette fillette fanatique abat une soldate du Bataillon d'Exploration en s'infiltrant dans leur dirigeable après l'attaque de Liberio. Le dernier mot de sa victime est viande. Qui est cette tireuse ?",
       "answer": "Gaby Braun (Gabi Braun)",
-      "difficulty": "normal",
       "category": "Mahr"
     },
     {
       "id": "aot042",
       "question": "Véritable roi des murs caché derrière une fausse monarchie, ce noble obèse tente de faire dévorer son propre fils par sa fille illégitime pour récupérer le Titan Originel. Il se transforme en un titan pur gigantesque et difforme en léchant le liquide rachidien, mais est finalement vaincu. Qui est-ce ?",
       "answer": "Rhodes Reiss (Rod Reiss)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot043",
       "question": "Fille aînée de Rod Reiss et dernière détentrice du Titan Originel avant Grisha Jäger, cette jeune femme rendait secrètement visite à sa demi-sœur Historia en effaçant ses souvenirs à chaque fois. Elle est tuée avec toute sa famille lorsque Grisha attaque la chapelle souterraine des Reiss. Qui est-ce ?",
       "answer": "Frieda Reiss",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "aot044",
       "question": "Oncle maternel de Livaï, ce tueur redoutable surnommé l'Éventreur a grandi dans la ville souterraine avant de devenir le garde du corps personnel du roi Uri Reiss. Il commande la Brigade Anti-Personnel et cherche à s'emparer du pouvoir du Titan Originel avant de mourir en transmettant un sérum à son neveu. Qui est-ce ?",
       "answer": "Kenny Ackerman",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot045",
       "question": "Mère de Livaï et sœur cadette de Kenny, cette femme du clan Ackerman travaillait dans un bordel de la ville souterraine. Elle meurt de maladie alors que son fils est encore enfant, laissant Kenny le prendre en charge et lui enseigner l'art du combat. Qui est-ce ?",
       "answer": "Kuchel Ackerman",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "aot046",
       "question": "Ce roi pacifiste, 145ème souverain d'Eldia, abandonne les conflits du continent et emmène son peuple sur l'île de Paradis. Il utilise le Titan Originel pour ériger trois murs concentriques à partir de Titans Colossaux pétrifiés et efface la mémoire de ses sujets concernant le monde extérieur. Qui est-ce ?",
       "answer": "Karl Fritz",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot047",
       "question": "Déclenché par le protagoniste à l'aide du pouvoir du Titan Originel, cet événement cataclysmique libère des centaines de milliers de Titans Colossaux emprisonnés dans les murs. Ils marchent à travers les océans pour écraser toute civilisation en dehors de l'île de Paradis. Comment appelle-t-on cet événement ?",
       "answer": "Le Grand Terrassement (The Rumbling)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot048",
       "question": "Limitation fatale pesant sur tout détenteur d'un titan primordial, cette règle stipule qu'aucun héritier ne peut vivre plus longtemps que la fondatrice originelle, qui mourut exactement treize ans après avoir obtenu ses pouvoirs. Son corps s'affaiblit progressivement jusqu'à la mort. Comment appelle-t-on cette règle ?",
       "answer": "La Malédiction d'Ymir (Curse of Ymir)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot049",
       "question": "Soldate du Bataillon d'Exploration rescapée d'une expédition désastreuse, cette femme consigne ses derniers moments dans un carnet avant d'être tuée par un titan qui la confond avec quelqu'un d'autre et prononce le mot Ymir. Son journal est retrouvé des années plus tard par Livaï. Qui est-ce ?",
       "answer": "Ilse Langnar",
-      "difficulty": "difficile",
       "category": "Bataillon"
     },
     {
       "id": "aot050",
       "question": "Conflit majeur ayant opposé les huit maisons nobles d'Eldia entre elles pour le contrôle des titans primordiaux, cet événement est exploité par le peuple de Mahr et la famille Teyber pour renverser l'Empire Eldien. Le 145ème roi Fritz profite du chaos pour fuir vers l'île de Paradis. Comment appelle-t-on ce conflit ?",
       "answer": "La Grande Guerre des Titans (Great Titan War)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "aot051",
       "question": "Puissante nation militariste qui domine le continent et opprime les Eldiens en les parquant dans des zones d'internement, cet empire utilise des guerriers eldiens transformés en titans comme armes de guerre. Ses forces attaquent l'île de Paradis pour récupérer le Titan Originel. De quelle nation s'agit-il ?",
       "answer": "Mahr (Marley)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "aot052",
       "question": "District situé au sud du mur Maria, cette ville est le lieu de naissance du protagoniste et de ses amis. C'est là que le Titan Colossal défonce la porte extérieure en l'an 845, provoquant l'invasion des titans et la chute du mur Maria. Quel est ce district ?",
       "answer": "District de Shiganshina",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "aot053",
       "question": "District situé au sud du mur Rose, cette ville subit la deuxième attaque majeure des titans infiltrés. Le protagoniste y utilise pour la première fois son pouvoir de transformation pour colmater la brèche avec un rocher géant, marquant la première victoire de l'humanité. Quel est ce district ?",
       "answer": "District de Trost",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "aot054",
       "question": "Grande ville portuaire de Mahr où vivent les Eldiens dans une zone d'internement, ce lieu accueille le discours de Willy Teyber déclarant la guerre à Paradis. Le protagoniste y lance une attaque dévastatrice en se transformant sous la scène du théâtre, tuant des civils et des soldats. Quel est ce lieu ?",
       "answer": "Liberio (Revelio)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "aot055",
       "question": "Village natal de Conny Springer, cette bourgade isolée est le site d'une expérience cruelle menée par le détenteur du Titan Bestial. Tous ses habitants sont transformés en titans purs après avoir inhalé un brouillard contenant du liquide céphalo-rachidien, sans qu'aucune trace de violence ne soit visible. Quel est ce village ?",
       "answer": "Ragako",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "aot056",
       "question": "Ressource naturelle cristalline unique à l'île de Paradis, cette pierre sert de combustible gazeux pour propulser l'équipement tridimensionnel des soldats. Stockée dans des réservoirs en bambou de fer, elle est aussi convoitée par Mahr pour ses applications énergétiques. De quelle ressource s'agit-il ?",
       "answer": "Roche Explosive Gelée (Iceburst Stone)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "aot057",
       "question": "Système de harnais équipé de câbles et de grappins propulsés par du gaz comprimé, cet appareil permet aux soldats de se déplacer en trois dimensions pour combattre les géants. Sa maîtrise est l'élément central de la formation des recrues et la condition de survie en terrain urbain ou forestier. De quel équipement s'agit-il ?",
       "answer": "Équipement de manœuvre tridimensionnelle (Omni-Directional Mobility Gear)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "aot058",
       "question": "Membre de l'escouade tactique de Livaï, cette soldate aux cheveux roux clairs est tuée par le Titan Féminin dans la forêt des arbres géants. Trop choquée pour esquiver l'attaque, elle est écrasée contre un arbre sous les yeux de ses coéquipiers. Qui est-ce ?",
       "answer": "Petra Ralle (Petra Ral)",
-      "difficulty": "normal",
       "category": "Bataillon"
     },
     {
       "id": "aot059",
       "question": "Membre de l'escouade tactique de Livaï connu pour son habitude agaçante d'imiter le comportement et la façon de parler de son capitaine, ce soldat se mord constamment la langue. Il tente une attaque désespérée contre le Titan Féminin après la mort de ses camarades mais est tué à son tour. Qui est-ce ?",
       "answer": "Auruo Bossard (Oluo Bozado)",
-      "difficulty": "difficile",
       "category": "Bataillon"
     },
     {
       "id": "aot060",
       "question": "Mère du protagoniste, cette femme est piégée sous les décombres de sa maison lors de la chute du district de Shiganshina. Incapable de fuir, elle est dévorée par un titan souriant sous les yeux de ses enfants, cet événement devenant le moteur de toute l'histoire. Qui est-ce ?",
       "answer": "Carla Jäger (Carla Yeager)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot061",
       "question": "Trois branches militaires protègent l'humanité derrière les murs : le Bataillon d'Exploration combat les titans à l'extérieur, la Garnison défend les murs, et une troisième branche stationne à l'intérieur du mur Sina pour protéger le roi. Seuls les 10 meilleurs diplômés peuvent y postuler. Quelle est cette branche d'élite ?",
       "answer": "Brigades Spéciales (Military Police Brigade)",
-      "difficulty": "normal",
       "category": "Bataillon"
     },
     {
       "id": "aot062",
       "question": "Commandant des Brigades Spéciales et ancien camarade de promotion d'Erwin Smith, cet officier privilégie la sécurité de sa famille au-dessus de tout. Il finit par être transformé en titan pur après avoir ingéré involontairement du liquide céphalo-rachidien contaminé dans du vin. Qui est-ce ?",
       "answer": "Nile Dawk (Nile Dok)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "aot063",
       "question": "Forteresse côtière du Moyen-Orient assiégée par les forces de Mahr, cette bataille marque l'ouverture de la saison 4 et la première apparition des guerriers en plein conflit continental. Le Titan Bestial y bombarde une flotte navale tandis que les candidats guerriers chargent les tranchées ennemies. Quelle est cette bataille ?",
       "answer": "Bataille de la Forteresse de Slava (Battle of Fort Slava)",
-      "difficulty": "difficile",
       "category": "Batailles"
     },
     {
       "id": "aot064",
       "question": "Lors de cette bataille cruciale pour reprendre le district natal du protagoniste, le commandant du Bataillon lance une charge suicidaire à cheval contre le Titan Bestial pour permettre à Livaï de l'atteindre. Des centaines de soldats périssent, et le choix de sauver Armin plutôt que le commandant est déchirant. De quelle bataille s'agit-il ?",
       "answer": "Bataille de Shiganshina",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "aot065",
       "question": "Lors de la bataille de Trost, un officier supérieur de la Garnison tente de faire exécuter le protagoniste métamorphe avant que le commandant Pixis n'intervienne. Ce dernier conçoit alors un stratagème audacieux pour sauver le district en exploitant le pouvoir de transformation du jeune soldat. Quel est ce stratagème ?",
       "answer": "Utiliser le titan d'Eren pour boucher la brèche avec le rocher géant (Opération de reconquête de Trost)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "aot066",
       "question": "Organisation religieuse influente à l'intérieur des murs, ce culte vénère les murs comme des objets sacrés et s'oppose violemment à toute tentative de les modifier ou de les explorer. Ils cachent le secret que les murs sont en réalité constitués de titans pétrifiés. De quel groupe s'agit-il ?",
       "answer": "Le Culte du Mur (Wall Cult / Culte des Murs)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot067",
       "question": "Soeur cadette de Grisha Jäger, cette petite fille eldienne de Mahr est tuée par un officier qui la fait dévorer par ses chiens après qu'elle ait franchi la limite de la zone d'internement. Sa mort pousse son frère à rejoindre la Résistance Eldienne. Qui est-ce ?",
       "answer": "Faye Jäger (Faye Yeager)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "aot068",
       "question": "Officier de Mahr responsable de la mort de la sœur de Grisha, cet homme sadique prend plaisir à torturer les Eldiens et les jette du haut du mur pour les transformer en titans purs. C'est lui qui révèle à Grisha la vérité sur la mort de sa sœur des années plus tôt. Qui est-ce ?",
       "answer": "Gross",
-      "difficulty": "difficile",
       "category": "Mahr"
     },
     {
       "id": "aot069",
       "question": "Clan de guerriers aux capacités physiques surhumaines ayant autrefois servi de gardes du corps à la famille royale Fritz, cette lignée fut persécutée après avoir refusé de suivre l'idéologie du 145ème roi. Ses membres sont immunisés contre le pouvoir d'effacement de mémoire du Titan Originel. De quel clan s'agit-il ?",
       "answer": "Clan Ackerman",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot070",
       "question": "Désignant tous les humains descendants d'Ymir Fritz et susceptibles de se transformer en titans, ce terme regroupe aussi bien les Eldiens de Mahr que ceux de l'île de Paradis. Seuls ces individus sont affectés par le pouvoir du Titan Originel et par la malédiction d'Ymir. Comment les appelle-t-on ?",
       "answer": "Sujets d'Ymir (Subjects of Ymir)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot071",
       "question": "Ce plan imaginé par le demi-frère du protagoniste consiste à utiliser le Titan Originel pour modifier la biologie de tous les Eldiens afin de les rendre stériles, éliminant ainsi la menace des titans en une génération sans violence directe. Comment appelle-t-on ce plan ?",
       "answer": "Plan d'euthanasie de Sieg (Zeke's Euthanasia Plan)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot072",
       "question": "Dimension mystique où réside la conscience d'Ymir Fritz depuis près de 2000 ans, cet espace infini est rempli de sable et d'un arbre lumineux. C'est là que sont façonnés les corps des titans et que le protagoniste active le pouvoir du Titan Originel en contactant son demi-frère. Comment appelle-t-on cet endroit ?",
       "answer": "Les Chemins (The Paths / Coordinate)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot073",
       "question": "Technique essentielle de combat contre les géants, cette méthode consiste à trancher profondément la nuque d'un titan sur une zone de 10 centimètres de haut et un mètre de large, seul point faible permettant de le tuer définitivement. Comment appelle-t-on cette zone critique ?",
       "answer": "La nuque du titan (Nape of the Titan)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "aot074",
       "question": "En l'an 845, un titan de 60 mètres apparaît subitement devant la porte du district de Shiganshina et la défonce d'un coup de pied, tandis qu'un titan blindé enfonce la porte intérieure. Ces deux attaques combinées provoquent la perte du territoire entre les deux murs les plus extérieurs. Quel mur tombe ce jour-là ?",
       "answer": "Le Mur Maria",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot075",
       "question": "Après la reprise du district de Shiganshina, le protagoniste et ses amis atteignent enfin le sous-sol de la maison familiale où se trouvent trois livres laissés par le père de famille. Ces écrits révèlent l'existence du monde extérieur, de Mahr et de la véritable histoire des Eldiens. Qu'est-ce qui est découvert dans ce sous-sol ?",
       "answer": "Les journaux de Grisha (Grisha's journals / les livres de Grisha)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot076",
       "question": "Groupe formé dans les derniers chapitres de l'histoire réunissant d'anciens ennemis mortels, cette coalition inclut Mikasa, Armin, Jean, Conny, Livaï, Reiner, Annie, Peak et Falco. Leur objectif commun est de stopper le Grand Terrassement et de sauver le monde de la destruction totale. Comment appelle-t-on ce groupe ?",
       "answer": "L'Alliance (The Alliance / Coalition Anti-Terrassement)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot077",
       "question": "Bras droit d'Erwin Smith et chef de section au sein du Bataillon d'Exploration, ce soldat barbu et expérimenté participe à la plupart des grandes batailles. Il accompagne Livaï dans la traque de Kenny Ackerman et survit jusqu'à la bataille finale contre le Grand Terrassement. Qui est-ce ?",
       "answer": "Mike Zacharias (Miche Zacharias)",
-      "difficulty": "difficile",
       "category": "Bataillon"
     },
     {
       "id": "aot079",
       "question": "Commandant en chef de l'armée de Mahr, cet officier finit par reconnaître ses torts envers les Eldiens et s'allie aux soldats de Paradis contre le Grand Terrassement. Il se sacrifie aux côtés de l'ancien instructeur de la 104ème brigade en faisant exploser le navire des Jägeristes. Qui est-ce ?",
       "answer": "Théo Magath (Theo Magath)",
-      "difficulty": "difficile",
       "category": "Mahr"
     },
     {
       "id": "aot080",
       "question": "Mouvement nationaliste radical de l'île de Paradis fondé par des partisans du protagoniste, ce groupe milite pour la suprématie des Eldiens et soutient le Grand Terrassement. Ses membres prennent le contrôle de l'armée en emprisonnant les officiers loyalistes. Comment s'appelle ce mouvement ?",
       "answer": "Les Jägeristes (Yeagerists)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot081",
       "question": "Ancien camarade de promotion d'Erwin au sein du Bataillon d'Exploration, cet officier en devient le leader des Jägeristes sur l'île de Paradis. Il est abattu par Gaby Braun d'une balle dans la gorge lors de la bataille du port, alors qu'il tentait d'empêcher l'Alliance de partir. Qui est-ce ?",
       "answer": "Floch Forster",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "aot082",
       "question": "Réseau de voies mystiques invisibles reliant tous les Sujets d'Ymir entre eux et au Titan Originel, ce système permet la transmission des mémoires entre détenteurs de titans et la construction des corps titanesques par Ymir Fritz dans sa dimension de sable. Comment appelle-t-on ce réseau ?",
       "answer": "Les Chemins (The Paths)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot083",
       "question": "Technique de durcissement utilisée par certains titans primordiaux, cette capacité permet de cristalliser la peau du titan pour créer une armure quasi impénétrable ou des structures solides. Annie Leonhart l'utilise pour s'enfermer dans un cocon protecteur pendant quatre ans. Comment appelle-t-on cette capacité ?",
       "answer": "Le durcissement (Hardening)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "aot084",
       "question": "Pour synchroniser les horloges entre les différents clients sur un champ de bataille, les soldats de Paradis utilisent un décalage temporel calculé à partir des serveurs centraux. Dans l'anime, le Bataillon d'Exploration utilise des fusées de couleur pour communiquer pendant les expéditions. Quelle couleur de fusée signale la présence d'un déviant ?",
       "answer": "Noir (Black flare)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "aot085",
       "question": "Titan de 15 mètres au sourire permanent et aux proportions difformes, cette créature erre sur l'île de Paradis pendant 20 ans avant de dévorer la mère du protagoniste lors de la chute de Shiganshina. On découvre plus tard qu'il s'agit de la première épouse de Grisha, transformée en titan pur par Mahr. Comment est surnommé ce titan ?",
       "answer": "Le Titan Souriant (Smiling Titan)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot086",
       "question": "Prêtre fanatique du Culte du Mur, cet homme refuse d'abord de révéler le secret des murs malgré les menaces. Livaï le suspend par-dessus le vide pour le faire parler, et il finit par orienter le Bataillon vers une certaine recrue de la 104ème brigade qui pourrait détenir des réponses. Qui est ce prêtre ?",
       "answer": "Nick (Pasteur Nick)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "aot087",
       "question": "Sang bleu coulant dans les veines d'une famille noble et de la famille Reiss, cette ascendance est la seule à pouvoir activer pleinement le pouvoir du Titan Originel. Un détenteur non issu de cette ascendance qui possède ce titan ne peut utiliser ses pouvoirs qu'en touchant physiquement un membre de cette lignée. De quelle lignée s'agit-il ?",
       "answer": "La lignée royale Fritz (Royal bloodline / sang royal)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot088",
       "question": "Arbre sous lequel le protagoniste faisait souvent la sieste pendant son enfance à Shiganshina, ce lieu devient son lieu de sépulture après sa mort. Un oiseau y vient tirer sur l'écharpe de son amie d'enfance, symbolisant son esprit libre. Dans les dernières pages du manga, cet arbre a grandi de manière immense. De quel lieu symbolique s'agit-il ?",
       "answer": "L'arbre sur la colline de Shiganshina (L'arbre d'Eren)",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "aot089",
       "question": "Île située au large du continent de Mahr, ce territoire est le dernier bastion des Eldiens protégés par les trois murs. Riche en ressources naturelles convoitées, elle est considérée par le monde extérieur comme une menace existentielle à cause des titans enfermés dans ses remparts. De quelle île s'agit-il ?",
       "answer": "L'île de Paradis (Paradis Island)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "aot090",
       "question": "Promotion militaire célèbre dont sont issus la plupart des personnages principaux, cette brigade d'entraînement forme ses recrues pendant trois ans avant de leur permettre de choisir entre le Bataillon, la Garnison ou les Brigades Spéciales. Seuls les dix meilleurs du classement accèdent à cette dernière option. De quelle promotion s'agit-il ?",
       "answer": "104ème Brigade d'entraînement (104th Training Corps)",
-      "difficulty": "normal",
       "category": "Bataillon"
     },
     {
       "id": "aot091",
       "question": "Capacité unique du détenteur du Titan Bestial porteur de sang royal, ce pouvoir permet de transformer en titans purs tous les Eldiens ayant ingéré son liquide céphalo-rachidien. Il lui suffit de pousser un hurlement pour déclencher la transformation simultanée de toutes les victimes contaminées. Comment appelle-t-on cette capacité ?",
       "answer": "Le Cri du Titan Bestial (Scream of the Beast Titan)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "aot092",
       "question": "Liquide biologique extrait de la moelle épinière d'un détenteur de titan, cette substance est le seul moyen de transformer un Eldien ordinaire en titan pur. Injectée ou ingérée, elle provoque la transformation de la personne, qui ne retrouvera forme humaine qu'en dévorant un détenteur de pouvoir primordial. De quelle substance s'agit-il ?",
       "answer": "Le liquide céphalo-rachidien de titan (Titan spinal fluid)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "aot094",
       "question": "Titan anormal qui ne suit pas les schémas comportementaux habituels, ce type de géant ignore les humains à proximité pour foncer vers des objectifs éloignés ou se déplace de manière imprévisible. Le premier rencontré dans la série court de manière erratique et dépasse les formations du Bataillon. Comment désigne-t-on ce type de titan ?",
       "answer": "Titan Déviant (Abnormal Titan)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot095",
       "question": "Héros légendaire de Mahr censé avoir vaincu l'Empire Eldien aux côtés de la famille Teyber lors de la Grande Guerre des Titans, cette figure est célébrée dans tout le pays comme un symbole de la libération. Willy Teyber révèle cependant que sa victoire n'est qu'un mythe arrangé pour masquer la fuite volontaire du roi Fritz. Qui est ce héros ?",
       "answer": "Helos",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "aot096",
       "question": "Brassard distinctif que les Eldiens de Mahr sont obligés de porter en permanence pour être identifiés, cet accessoire symbolise leur statut de citoyens de seconde classe. Les candidats guerriers portent une version différente qui indique leur statut privilégié. De quel accessoire s'agit-il ?",
       "answer": "Le brassard eldien (Eldian armband)",
-      "difficulty": "normal",
       "category": "Mahr"
     },
     {
       "id": "aot097",
       "question": "Roi qui régnait sur la famille Fritz lorsque Ymir obtint ses pouvoirs il y a près de 2000 ans, ce souverain cruel l'utilisa comme arme de guerre et de travaux forcés. Il la prit comme concubine et, après sa mort, ordonna à ses trois filles de dévorer le corps de leur mère pour préserver le pouvoir des titans. Qui est-ce ?",
       "answer": "Le Roi Fritz (King Fritz / Fritz l'Ancien)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "aot098",
       "question": "Forêt immense aux arbres de plus de 80 mètres de haut située à l'intérieur du mur Maria, ce lieu est choisi par Erwin pour tendre un piège au Titan Féminin lors de la 57ème expédition. Le Bataillon y capture temporairement le titan grâce à des pièges à câbles avant qu'il ne parvienne à s'échapper. Quel est ce lieu ?",
       "answer": "La Forêt des Arbres Géants (Forest of Giant Trees)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "aot099",
       "question": "Vaste caverne souterraine située sous la chapelle de la famille Reiss, ce lieu est le site où le Titan Originel est transmis de génération en génération. C'est là que Grisha massacre la famille royale et que Rod Reiss tente plus tard de forcer Historia à dévorer le protagoniste. Quel est ce lieu ?",
       "answer": "La chapelle souterraine des Reiss (Reiss Chapel / Caverne des Reiss)",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "aot100",
       "question": "Alliance militaire ayant mené une guerre de quatre ans contre Mahr, cette coalition de nations est finalement vaincue lors de la bataille de la Forteresse de Slava grâce à la puissance des guerriers titans. Sa défaite convainc Mahr que les titans deviennent obsolètes face aux technologies militaires modernes. De quelle alliance s'agit-il ?",
       "answer": "L'Alliance du Moyen-Orient (Mid-East Allied Forces)",
-      "difficulty": "difficile",
       "category": "Mahr"
     },
     {
       "id": "aot101",
       "question": "Acte par lequel un Sujet d'Ymir sous forme de titan pur dévore un détenteur de titan primordial pour en absorber le pouvoir et retrouver forme humaine, ce processus est le seul moyen de transmettre les neuf pouvoirs originels. Le détenteur doit être extrait de sa nuque et ingéré. Comment appelle-t-on ce processus ?",
       "answer": "La transmission par ingestion (Inheritance / transfert de pouvoir titan)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot102",
       "question": "Entité née de la fusion entre le protagoniste et le Titan Originel lors du Grand Terrassement, cette forme colossale ressemble à un squelette géant surmonté du buste du Titan Assaillant. Elle avance à la tête de centaines de milliers de Titans Colossaux, écrasant tout sur son passage. De quelle forme s'agit-il ?",
       "answer": "La forme finale d'Eren / Titan Originel d'Eren (Eren's Founding Titan form)",
-      "difficulty": "normal",
       "category": "Titans"
     },
     {
       "id": "aot103",
       "question": "Ami d'enfance d'Eren et Armin, ce garçon meurt lors de la chute de Shiganshina quand sa mère est dévorée sous ses yeux. Plus exactement, c'est le protagoniste qui perd sa mère ce jour-là, tandis que le père de ce garçon le confie aux autorités avec un morceau de pain. Cet ami n'est jamais revu. Qui est-ce ?",
       "answer": "Hannes",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "aot105",
       "question": "Frère d'Uri et père de Frieda et Historia, ce noble est le véritable roi des murs caché derrière la famille royale de façade. Il avait une relation secrète avec une servante nommée Alma, dont est née sa fille illégitime qui deviendra plus tard reine. Quel est le nom de cette famille noble ?",
       "answer": "Famille Reiss (Reiss family)",
-      "difficulty": "normal",
       "category": "Lore"
     },
     {
       "id": "aot106",
       "question": "Ancien roi des murs et frère de Rod, cet homme possédait le Titan Originel avant de le transmettre à sa nièce Frieda. Il est connu pour avoir rencontré Kenny Ackerman, s'être excusé pour la persécution de son clan et l'avoir pris à son service comme garde du corps. Qui est-ce ?",
       "answer": "Uri Reiss",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "aot108",
       "question": "Organisée par le Bataillon d'Exploration sous le commandement d'Erwin, cette mission fatale dans la forêt des arbres géants vise à capturer un titan intelligent soupçonné de se cacher parmi les soldats. C'est durant cette expédition que l'escouade tactique de Livaï est décimée. De quelle mission s'agit-il ?",
       "answer": "La 57ème expédition extra-muros (57th Exterior Scouting Mission)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "aot109",
       "question": "Capacité exclusive du Titan Originel activable uniquement par un détenteur de sang royal, ce pouvoir permet d'effacer ou de modifier les souvenirs de tous les Sujets d'Ymir simultanément. Le 145ème roi l'utilisa pour faire oublier à son peuple l'existence du monde extérieur. Comment appelle-t-on ce pouvoir ?",
       "answer": "La manipulation des mémoires (Memory manipulation / Altération mémorielle)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "aot110",
       "question": "Voeu inscrit dans le Titan Originel par le 145ème roi Fritz, cette contrainte force tout héritier de sang royal à renoncer à la guerre et à accepter la destruction de son peuple plutôt que de se battre. Frieda Reiss est incapable de résister à Grisha à cause de cette influence. Comment appelle-t-on cette contrainte ?",
       "answer": "Le Voeu de non-agression du Roi Fritz (King Fritz's Vow Renouncing War)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "aot111",
       "question": "Créature géante apparue dans l'arbre où Ymir Fritz s'est réfugiée il y a 2000 ans, cet être attaché à une colonne vertébrale est la source originelle du pouvoir des titans. Résidant dans une flaque d'eau sous un grand arbre, il fusionne avec Ymir pour créer le premier titan. De quelle entité s'agit-il ?",
       "answer": "La créature originelle / Le ver lumineux (Hallucigenia / Source of all living matter)",
-      "difficulty": "difficile",
       "category": "Lore"
     },
     {
       "id": "aot112",
       "question": "Stratagème utilisé par les guerriers de Mahr pour contaminer secrètement les officiers de Paradis, ce plan consiste à mélanger le liquide céphalo-rachidien du Titan Bestial dans une boisson alcoolisée distribuée aux hauts gradés de l'armée. Un seul cri suffit ensuite pour les transformer en titans purs. Quelle boisson est utilisée ?",
       "answer": "Le vin (Wine)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "aot113",
       "question": "Couple formé pendant la dernière saison de l'anime, cette relation unit un jeune candidat guerrier de Mahr capable de voler sous forme de titan et une jeune tireuse impulsive cousine du Titan Cuirassé. Leur rapprochement symbolise la réconciliation entre les deux camps. Qui sont ces deux personnages ?",
       "answer": "Falco Gleis et Gaby Braun (Falco Grice et Gabi Braun)",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "aot114",
       "question": "Après quatre années de cristallisation volontaire, cette guerrière de Mahr est libérée lorsque le pouvoir du Titan Originel s'affaiblit. Elle retrouve son père adoptif qui l'avait entraînée depuis l'enfance et rejoint l'Alliance contre le Grand Terrassement, combattant aux côtés de ses anciens ennemis. Qui est-ce ?",
       "answer": "Annie Leonhart",
-      "difficulty": "normal",
       "category": "Personnages"
     }
   ]

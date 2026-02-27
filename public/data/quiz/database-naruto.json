@@ -7,1064 +7,912 @@
       "id": "nar001",
       "question": "Jinchuuriki de Kurama depuis sa naissance, ce ninja du village de Konoha est le fils de Minato Namikaze et Kushina Uzumaki. Il maîtrise le Multi-clonage et le Rasengan, et rêve de devenir Hokage. Qui est-ce ?",
       "answer": "Naruto Uzumaki",
-      "difficulty": "normal",
       "category": "Personnages principaux"
     },
     {
       "id": "nar002",
       "question": "Scellé dans un nouveau-né le jour de l'attaque de Konoha, ce démon renard possède neuf queues et un chakra orange dévastateur. Son vrai nom est Kurama, révélé bien plus tard dans la série. De quelle créature s'agit-il ?",
       "answer": "Kyubi (le démon renard à neuf queues)",
-      "difficulty": "normal",
       "category": "Bijuu"
     },
     {
       "id": "nar003",
       "question": "Fondé par Hashirama Senju et Madara Uchiha, ce village caché est protégé par des ninjas portant un bandeau orné d'une feuille. C'est le lieu de naissance du héros blond. Quel est ce village ?",
       "answer": "Konoha (village caché de la feuille)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "nar004",
       "question": "Dernier survivant de son clan avec son frère aîné, ce ninja possède le Sharingan et a déserté Konoha pour rejoindre Orochimaru. Rival et meilleur ami du héros, il cherche à venger sa famille. Qui est-ce ?",
       "answer": "Sasuke Uchiha",
-      "difficulty": "normal",
       "category": "Personnages principaux"
     },
     {
       "id": "nar005",
       "question": "Médic-ninja formée par Tsunade, cette kunoichi aux cheveux roses possède une force surhumaine. Coéquipière de l'équipe 7, elle crie 'Shannaro!' quand elle frappe. Qui est-ce ?",
       "answer": "Sakura Haruno",
-      "difficulty": "normal",
       "category": "Personnages principaux"
     },
     {
       "id": "nar006",
       "question": "Toujours en retard avec des excuses improbables, ce jounin masqué lit les romans Icha Icha en public. Ancien élève du 4ème Hokage, il possède un Sharingan transplanté. Qui est-ce ?",
       "answer": "Kakashi Hatake",
-      "difficulty": "normal",
       "category": "Senseis"
     },
     {
       "id": "nar007",
       "question": "Servi par Teuchi dans son restaurant Ichiraku, ce plat de nouilles dans un bouillon est le repas préféré du héros blond. Il en mange plusieurs bols d'affilée après chaque mission. Quel est ce plat ?",
       "answer": "Les ramens",
-      "difficulty": "normal",
       "category": "Détails"
     },
     {
       "id": "nar008",
       "question": "Considérée comme un kinjutsu car elle divise le chakra de l'utilisateur, cette technique crée des clones physiques solides. Le héros la maîtrise malgré son jeune âge. Quelle est cette technique ?",
       "answer": "Kage Bunshin no Jutsu (Multi-clonage)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "nar009",
       "question": "Titre suprême du village de Konoha, cette fonction est symbolisée par un visage sculpté sur la montagne. C'est le rêve ultime du héros depuis son enfance. Quel est ce titre ?",
       "answer": "Hokage",
-      "difficulty": "normal",
       "category": "Titres"
     },
     {
       "id": "nar010",
       "question": "Sannin légendaire aux cheveux blancs, cet ermite pervers écrit la série de romans Icha Icha. Il a entraîné le héros et lui a appris le Rasengan. Qui est-ce ?",
       "answer": "Jiraiya",
-      "difficulty": "normal",
       "category": "Sannins"
     },
     {
       "id": "nar011",
       "question": "Reconnaissable à ses pupilles rouges ornées de virgules noires, ce kekkei genkai héréditaire permet de copier les techniques adverses. Un massacre nocturne a décimé presque tous ses porteurs. Quel est ce clan ?",
       "answer": "Le clan Uchiha",
-      "difficulty": "normal",
       "category": "Clans"
     },
     {
       "id": "nar012",
       "question": "Organisation criminelle composée de dix ninjas déserteurs de rang S, ses membres portent des capes noires ornées de nuages rouges. Leur objectif est de capturer tous les démons à queues. Quelle est cette organisation ?",
       "answer": "L'Akatsuki",
-      "difficulty": "normal",
       "category": "Organisations"
     },
     {
       "id": "nar013",
       "question": "Portant un masque en spirale orange, ce membre de l'Akatsuki se fait passer pour un idiot. Partenaire de Deidara, son identité réelle est l'un des plus grands mystères de la série. Qui est-ce ?",
       "answer": "Tobi (Obito Uchiha)",
-      "difficulty": "normal",
       "category": "Akatsuki"
     },
     {
       "id": "nar014",
       "question": "Vivant sur le Mont Myoboku, ces créatures peuvent être invoquées par contrat. Le héros les convoque après son entraînement avec Jiraiya, notamment le gigantesque Gamabunta. Quelles sont ces créatures ?",
       "answer": "Les crapauds",
-      "difficulty": "normal",
       "category": "Invocations"
     },
     {
       "id": "nar015",
       "question": "Surnommé ainsi car même le Byakugan de Neji ne pouvait anticiper son style de combat, ce ninja combat de manière chaotique et imprévisible. Ce surnom appartient au héros de la série. Quel est ce surnom ?",
       "answer": "Le ninja le plus imprévisible",
-      "difficulty": "normal",
       "category": "Surnoms"
     },
     {
       "id": "nar016",
       "question": "Ayant massacré tout son clan en une seule nuit sur ordre secret de Konoha, ce prodige a éveillé son Mangekyo Sharingan par ce crime. Il n'a épargné que son petit frère. Qui est-ce ?",
       "answer": "Itachi Uchiha",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "nar017",
       "question": "Sphère de chakra concentré qui ne nécessite aucun signe, cette technique a été créée par le 4ème Hokage. Le héros y ajoute plus tard son affinité vent pour créer le Rasenshuriken. Quelle est cette technique ?",
       "answer": "Rasengan",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "nar018",
       "question": "Surnommé l'Éclair Jaune de Konoha pour sa vitesse fulgurante, ce ninja a scellé Kurama dans son propre fils nouveau-né. Quatrième à porter le titre suprême du village, il est mort cette nuit-là. Qui est-ce ?",
       "answer": "Minato Namikaze (4ème Hokage)",
-      "difficulty": "difficile",
       "category": "Hokages"
     },
     {
       "id": "nar019",
       "question": "Ce démon renard est scellé dans le héros depuis sa naissance, a été capturé puis libéré lors de l'attaque du village, et son vrai nom n'est révélé que bien plus tard dans la série quand il devient l'allié de son jinchuuriki. Quel est son vrai nom ?",
       "answer": "Kurama",
-      "difficulty": "difficile",
       "category": "Bijuu"
     },
     {
       "id": "nar020",
       "question": "Ninja déserteur de Kiri à la peau bleue, ce membre de l'Akatsuki manie Samehada, une épée vivante qui dévore le chakra. Il était le partenaire d'Itachi Uchiha. Qui est-ce ?",
       "answer": "Kisame Hoshigaki",
-      "difficulty": "difficile",
       "category": "Akatsuki"
     },
     {
       "id": "nar021",
       "question": "Incapable d'utiliser le ninjutsu ou le genjutsu, ce ninja en combinaison verte aux sourcils épais ne maîtrise que le taijutsu. Élève dévoué de Gai-sensei, il peut ouvrir les huit portes. Qui est-ce ?",
       "answer": "Rock Lee",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "nar022",
       "question": "Dojutsu héréditaire du clan Hyuga, ces yeux blancs sans pupilles permettent une vision à 360 degrés et de voir les points de chakra. Hinata et Neji en sont les porteurs les plus connus. Quel est ce dojutsu ?",
       "answer": "Le Byakugan",
-      "difficulty": "normal",
       "category": "Dojutsu"
     },
     {
       "id": "nar023",
       "question": "Jinchuuriki du démon Shukaku, ce ninja de Suna contrôle le sable et porte le kanji 'Amour' tatoué sur le front. Ancien antagoniste devenu allié, il devient plus tard Kazekage. Qui est-ce ?",
       "answer": "Gaara",
-      "difficulty": "normal",
       "category": "Jinchuuriki"
     },
     {
       "id": "nar024",
       "question": "Transformé en marionnette lui-même, ce membre de l'Akatsuki aux cheveux roux possède une collection de 298 pantins humains. Petit-fils de Chiyo, il a créé les marionnettes de Kankuro. Qui est-ce ?",
       "answer": "Sasori",
-      "difficulty": "normal",
       "category": "Akatsuki"
     },
     {
       "id": "nar025",
       "question": "Technique de téléportation instantanée créée par le 4ème Hokage, elle nécessite des kunais spéciaux marqués d'un sceau. C'est grâce à elle que Minato était surnommé l'Éclair Jaune. Quelle est cette technique ?",
       "answer": "Hiraishin no Jutsu (Dieu du Tonnerre Volant)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "nar026",
       "question": "Village caché du désert symbolisé par un sablier, il est dirigé par le Kazekage. Les trois enfants du 4ème Kazekage - Gaara, Temari et Kankuro - en sont originaires. Quel est ce village ?",
       "answer": "Suna (village caché du sable)",
-      "difficulty": "normal",
       "category": "Villages"
     },
     {
       "id": "nar027",
       "question": "Membre immortel de l'Akatsuki aux cheveux blancs plaqués, ce fanatique du culte de Jashin effectue des rituels sanglants dans un cercle. Il utilise sa propre douleur pour tuer ses ennemis. Qui est-ce ?",
       "answer": "Hidan",
-      "difficulty": "normal",
       "category": "Akatsuki"
     },
     {
       "id": "nar028",
       "question": "Jounin excentrique en combinaison verte obsédé par la jeunesse, ce maître de taijutsu est le rival éternel de Kakashi. Il a entraîné Rock Lee, Neji et Tenten. Qui est-ce ?",
       "answer": "Might Guy (Maito Gai)",
-      "difficulty": "normal",
       "category": "Senseis"
     },
     {
       "id": "nar029",
       "question": "Démon tanuki à une queue scellé dans Gaara depuis sa naissance, cette créature contrôle le sable et provoque l'insomnie de son hôte. Il a été extrait par l'Akatsuki. Quel est ce bijuu ?",
       "answer": "Shukaku (Ichibi)",
-      "difficulty": "normal",
       "category": "Bijuu"
     },
     {
       "id": "nar030",
       "question": "Clan de Konoha reconnu pour son intelligence stratégique et ses techniques d'ombres paralysantes, ses membres ont un QI de génie. Shikamaru en est le représentant le plus célèbre. Quel est ce clan ?",
       "answer": "Le clan Nara",
-      "difficulty": "normal",
       "category": "Clans"
     },
     {
       "id": "nar031",
       "question": "Apposé sur la nuque par Orochimaru lors de l'examen Chunin, ce sceau maudit donne un pouvoir énorme mais corrompt l'utilisateur. Sasuke en a été marqué dans la Forêt de la Mort. Quel est ce sceau ?",
       "answer": "Le sceau maudit du Ciel",
-      "difficulty": "normal",
       "category": "Sceaux"
     },
     {
       "id": "nar032",
       "question": "Petite-fille du Premier Hokage et Sannin légendaire, cette femme blonde à la force surhumaine est une experte en ninjutsu médical. Elle devient la 5ème Hokage. Qui est-ce ?",
       "answer": "Tsunade",
-      "difficulty": "normal",
       "category": "Sannins"
     },
     {
       "id": "nar033",
       "question": "Serpent géant violet au caractère arrogant, cette invocation était le partenaire d'Orochimaru. Surnommé le 'serpent colossal le plus puissant', il a été tué par Sasuke lors de l'explosion de Deidara. Quelle est cette créature ?",
       "answer": "Manda",
-      "difficulty": "normal",
       "category": "Invocations"
     },
     {
       "id": "nar034",
       "question": "Objectif principal de l'Akatsuki, ce plan consiste à extraire les bijuu de leurs jinchuuriki et les sceller dans une statue géante. Le but final est d'activer un genjutsu mondial. Quel est cet objectif ?",
       "answer": "Capturer les neuf démons à queues",
-      "difficulty": "normal",
       "category": "Intrigue"
     },
     {
       "id": "nar035",
       "question": "Artiste de l'Akatsuki aux cheveux blonds attachés, ce déserteur d'Iwa crée des sculptures d'argile explosive. Sa philosophie est que l'art est une explosion. Qui est-ce ?",
       "answer": "Deidara",
-      "difficulty": "normal",
       "category": "Akatsuki"
     },
     {
       "id": "nar036",
       "question": "Kinjutsu créé par le 2ème Hokage, cette technique ressuscite les morts dans des corps immortels contrôlés par l'invocateur. Orochimaru et Kabuto l'utilisent durant les guerres. Quelle est cette technique ?",
       "answer": "Edo Tensei (Réincarnation des âmes)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "nar037",
       "question": "Kunoichi aux cheveux roux de sang et aux chaînes de chakra dorées, elle était l'ancienne jinchuuriki de Kurama. Originaire d'Uzushio, elle est la mère du héros. Qui est-ce ?",
       "answer": "Kushina Uzumaki",
-      "difficulty": "difficile",
       "category": "Famille"
     },
     {
       "id": "nar038",
       "question": "Dojutsu aux cercles concentriques violets plus puissant que le Sharingan, il permet de maîtriser les six chemins et de contrôler la gravité. Nagato et Sasuke l'ont éveillé. Quel est ce dojutsu ?",
       "answer": "Le Rinnegan",
-      "difficulty": "difficile",
       "category": "Dojutsu"
     },
     {
       "id": "nar039",
       "question": "Utilisant six corps percés de piercings noirs, ce leader de l'Akatsuki aux cheveux orange prétend être un dieu. Son vrai corps, Nagato, est paralysé et caché. Qui est-ce ?",
       "answer": "Pain",
-      "difficulty": "difficile",
       "category": "Akatsuki"
     },
     {
       "id": "nar041",
       "question": "Village caché dans les montagnes sous le symbole de la foudre, il est dirigé par le Raikage. Killer Bee, le jinchuuriki de Hachibi, en est le ninja le plus excentrique. Quel est ce village ?",
       "answer": "Kumo (village caché des nuages)",
-      "difficulty": "normal",
       "category": "Villages"
     },
     {
       "id": "nar042",
       "question": "Village caché dans la brume connu pour ses sept épéistes légendaires, il avait autrefois une tradition de graduation sanglante. Zabuza et Kisame en sont originaires. Quel est ce village ?",
       "answer": "Kiri (village caché de la brume)",
-      "difficulty": "normal",
       "category": "Villages"
     },
     {
       "id": "nar043",
       "question": "Village caché dans les montagnes rocheuses sous le symbole de la terre, il est dirigé par le Tsuchikage. Deidara en a déserté après avoir volé un kinjutsu. Quel est ce village ?",
       "answer": "Iwa (village caché de la roche)",
-      "difficulty": "normal",
       "category": "Villages"
     },
     {
       "id": "nar044",
       "question": "Clan de Konoha aux yeux blancs sans pupilles, ses membres maîtrisent le Juken et peuvent voir les tenketsus. Divisé entre branche principale et secondaire, Hinata en est l'héritière. Quel est ce clan ?",
       "answer": "Le clan Hyuga",
-      "difficulty": "normal",
       "category": "Clans"
     },
     {
       "id": "nar045",
       "question": "Clan de Konoha dont les membres hébergent des insectes parasites dans leur corps, ils portent des lunettes noires et des vêtements couvrants. Shino en est le représentant de la génération du héros. Quel est ce clan ?",
       "answer": "Le clan Aburame",
-      "difficulty": "normal",
       "category": "Clans"
     },
     {
       "id": "nar046",
       "question": "Clan de Konoha spécialisé dans le combat avec des partenaires canins, ses membres ont un odorat surhumain et des marques rouges sur les joues. Kiba et Akamaru en sont les représentants. Quel est ce clan ?",
       "answer": "Le clan Inuzuka",
-      "difficulty": "normal",
       "category": "Clans"
     },
     {
       "id": "nar047",
       "question": "Clan de Konoha dont les membres utilisent des pilules pour décupler leur taille et leur force, ils ont une corpulence généreuse. Choji en est le représentant le plus connu. Quel est ce clan ?",
       "answer": "Le clan Akimichi",
-      "difficulty": "normal",
       "category": "Clans"
     },
     {
       "id": "nar048",
       "question": "Clan de Konoha spécialisé dans les techniques de transfert mental et d'interrogatoire, ses membres travaillent souvent avec les Nara et Akimichi. Ino en est la représentante. Quel est ce clan ?",
       "answer": "Le clan Yamanaka",
-      "difficulty": "normal",
       "category": "Clans"
     },
     {
       "id": "nar049",
       "question": "Ancien clan aux cheveux roux reconnu pour sa longévité et sa maîtrise des sceaux, leur village Uzushio a été détruit par peur de leur puissance. Le héros en porte le nom. Quel est ce clan ?",
       "answer": "Le clan Uzumaki",
-      "difficulty": "normal",
       "category": "Clans"
     },
     {
       "id": "nar050",
       "question": "Clan fondateur de Konoha avec les Uchiha, ses membres descendent du fils cadet du Sage des Six Chemins. Le Premier Hokage maîtrisait le Mokuton. Quel est ce clan ?",
       "answer": "Le clan Senju",
-      "difficulty": "normal",
       "category": "Clans"
     },
     {
       "id": "nar051",
       "question": "Clan presque éteint dont les membres peuvent transformer leurs os en armes, leur danse macabre est une technique de combat mortelle. Kimimaro en était le dernier survivant. Quel est ce clan ?",
       "answer": "Le clan Kaguya",
-      "difficulty": "difficile",
       "category": "Clans"
     },
     {
       "id": "nar052",
       "question": "Clan exterminé par peur de leur kekkei genkai permettant de créer des miroirs de glace, Haku en était l'un des derniers survivants. Ce pouvoir combine l'eau et le vent. Quel est ce clan ?",
       "answer": "Le clan Yuki",
-      "difficulty": "difficile",
       "category": "Clans"
     },
     {
       "id": "nar053",
       "question": "Technique de feu emblématique du clan Uchiha, elle consiste à accumuler du chakra dans la poitrine et le recracher sous forme d'une énorme boule de feu. Quelle est cette technique ?",
       "answer": "Katon - Goukakyuu no Jutsu (Boule de feu suprême)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "nar054",
       "question": "Technique de foudre concentrée dans la paume qui produit un son de mille oiseaux, elle a été créée par Kakashi. Sasuke en fait sa technique signature après l'avoir apprise. Quelle est cette technique ?",
       "answer": "Chidori",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "nar055",
       "question": "Flammes noires inextinguibles invoquées par le Mangekyo Sharingan, elles brûlent pendant sept jours et sept nuits. Itachi les utilise contre son frère lors de leur combat final. Quelle est cette technique ?",
       "answer": "Amaterasu",
-      "difficulty": "normal",
       "category": "Dojutsu"
     },
     {
       "id": "nar056",
       "question": "Guerrier spectral géant fait de chakra qui entoure l'utilisateur, cette technique défensive et offensive ultime du Mangekyo Sharingan prend différentes formes selon le porteur. Quelle est cette technique ?",
       "answer": "Susanoo",
-      "difficulty": "normal",
       "category": "Dojutsu"
     },
     {
       "id": "nar057",
       "question": "Technique spatio-temporelle du Mangekyo Sharingan d'Obito permettant de se téléporter dans une dimension parallèle, elle rend son utilisateur intangible. Kakashi l'utilise aussi avec son oeil gauche. Quelle est cette technique ?",
       "answer": "Kamui",
-      "difficulty": "normal",
       "category": "Dojutsu"
     },
     {
       "id": "nar058",
       "question": "Évolution ultime du Rasengan combinée avec l'affinité vent du héros, cette technique en forme de shuriken géant tranche au niveau cellulaire. Elle était initialement interdite car elle blessait aussi l'utilisateur. Quelle est cette technique ?",
       "answer": "Rasenshuriken",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "nar059",
       "question": "Technique permettant de repousser ou attirer tout objet en manipulant la gravité, elle est l'un des pouvoirs du chemin Deva du Rinnegan. Pain l'utilise pour détruire Konoha. Quelles sont ces techniques ?",
       "answer": "Shinra Tensei et Bansho Ten'in",
-      "difficulty": "difficile",
       "category": "Dojutsu"
     },
     {
       "id": "nar060",
       "question": "Style de combat du clan Hyuga utilisant les 64 points du Hakke pour frapper les tenketsus et bloquer le chakra adverse, cette technique de paume souple est mortelle. Quel est ce style ?",
       "answer": "Juken (Poing souple)",
-      "difficulty": "difficile",
       "category": "Taijutsu"
     },
     {
       "id": "nar061",
       "question": "Maito Gai et Rock Lee maîtrisent un système de taijutsu extrême qui consiste à ouvrir des points de limitation du chakra dans le corps, la dernière porte causant la mort de l'utilisateur. Combien de portes ce système comporte-t-il ?",
       "answer": "8 portes (Hachimon)",
-      "difficulty": "difficile",
       "category": "Taijutsu"
     },
     {
       "id": "nar062",
       "question": "Technique interdite du Mangekyo Sharingan permettant de réécrire la réalité au prix d'un oeil, elle transforme une illusion en vérité. Danzo l'utilisait avec ses multiples Sharingans. Quelle est cette technique ?",
       "answer": "Izanagi",
-      "difficulty": "difficile",
       "category": "Dojutsu"
     },
     {
       "id": "nar063",
       "question": "Technique du chemin extérieur du Rinnegan permettant une résurrection véritable au prix de la vie de l'utilisateur, Nagato l'utilise pour ramener tous les habitants de Konoha. Quelle est cette technique ?",
       "answer": "Gedo Rinne Tensei",
-      "difficulty": "difficile",
       "category": "Dojutsu"
     },
     {
       "id": "nar064",
       "question": "Genjutsu ultime du Mangekyo Sharingan d'Itachi créant un monde de torture mentale où 72 heures passent en une seconde, cette illusion peut briser l'esprit de la victime. Quelle est cette technique ?",
       "answer": "Tsukuyomi",
-      "difficulty": "difficile",
       "category": "Genjutsu"
     },
     {
       "id": "nar065",
       "question": "Genjutsu planétaire projeté sur la lune pour piéger toute l'humanité dans un rêve éternel, c'est l'objectif final du plan Oeil de Lune de Madara et Obito. Quelle est cette technique ?",
       "answer": "Mugen Tsukuyomi",
-      "difficulty": "difficile",
       "category": "Genjutsu"
     },
     {
       "id": "nar067",
       "question": "Premier antagoniste majeur de la série, ce ninja déserteur de Kiri surnommé le Démon du Brouillard manie l'épée Kubikiribocho. Son lien avec Haku est tragique. Qui est-ce ?",
       "answer": "Zabuza Momochi",
-      "difficulty": "normal",
       "category": "Antagonistes"
     },
     {
       "id": "nar068",
       "question": "Meilleur ami d'Itachi surnommé le Mirage, il possédait le Mangekyo Sharingan le plus puissant pour le genjutsu (Kotoamatsukami). Il s'est suicidé pour protéger le village. Qui est-ce ?",
       "answer": "Shisui Uchiha",
-      "difficulty": "difficile",
       "category": "Uchiha"
     },
     {
       "id": "nar069",
       "question": "Troisième Tsuchikage d'Iwa, ce petit vieillard souffre du dos mais possède le Kekkei Tota (Jinton) capable de désintégrer la matière. Il a porté l'île-tortue sur son dos. Qui est-ce ?",
       "answer": "Onoki",
-      "difficulty": "difficile",
       "category": "Kages"
     },
     {
       "id": "nar070",
       "question": "Grand-mère de Sasori et marionnettiste légendaire de Suna, elle se sacrifie pour ressusciter Gaara après son extraction. Elle a combattu Hanzo la Salamandre autrefois. Qui est-ce ?",
       "answer": "Chiyo",
-      "difficulty": "normal",
       "category": "Suna"
     },
     {
       "id": "nar071",
       "question": "Fils du 3ème Hokage et sensei de l'équipe 10, ce fumeur invétéré manie des poings américains tranchants. Il est tué par Hidan en protégeant ses élèves. Qui est-ce ?",
       "answer": "Asuma Sarutobi",
-      "difficulty": "normal",
       "category": "Senseis"
     },
     {
       "id": "nar072",
       "question": "Ancien ninja de Taki possédant cinq coeurs volés à d'autres ninjas, ce membre masqué de l'Akatsuki était obsédé par l'argent. Partenaire d'Hidan, il utilisait des masques élémentaires. Qui est-ce ?",
       "answer": "Kakuzu",
-      "difficulty": "normal",
       "category": "Akatsuki"
     },
     {
       "id": "nar073",
       "question": "Créature mi-blanche mi-noire servant d'espion à l'Akatsuki, cet être végétal peut se fondre dans le sol et les arbres. Il est en réalité la volonté de Kaguya. Qui est-ce ?",
       "answer": "Zetsu",
-      "difficulty": "normal",
       "category": "Akatsuki"
     },
     {
       "id": "nar074",
       "question": "Kunoichi de l'équipe de Kakashi et Obito, elle est devenue involontairement l'hôte de Sanbi. Elle s'est jetée sur l'éclair de Kakashi pour protéger le village, traumatisant Obito. Qui est-ce ?",
       "answer": "Rin Nohara",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "nar075",
       "question": "Fondateur originel de l'Akatsuki et ami d'enfance de Nagato, son corps a été utilisé pour créer Tendo, le chemin Deva de Pain. Il voulait la paix par la compréhension mutuelle. Qui est-ce ?",
       "answer": "Yahiko",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "nar076",
       "question": "Kunoichi aux cheveux bleus maîtrisant l'origami comme arme, cet Ange de l'Akatsuki était l'amie d'enfance de Nagato et Yahiko. Elle a tenté de tuer Obito avec 600 milliards de parchemins explosifs. Qui est-ce ?",
       "answer": "Konan",
-      "difficulty": "normal",
       "category": "Akatsuki"
     },
     {
       "id": "nar077",
       "question": "Légendaire fondateur du clan Uchiha et co-fondateur de Konoha, ce ninja aux cheveux longs a combattu Hashirama à la Vallée de la Fin. Ressuscité par Kabuto, il était le vrai cerveau derrière l'Akatsuki. Qui est-ce ?",
       "answer": "Madara Uchiha",
-      "difficulty": "normal",
       "category": "Légendes"
     },
     {
       "id": "nar078",
       "question": "Objectif ultime de l'Akatsuki consistant à capturer les neuf démons et les sceller dans une statue géante pour lancer un genjutsu lunaire piégeant l'humanité dans un rêve. Quel est ce plan ?",
       "answer": "Le plan Oeil de Lune (Mugen Tsukuyomi)",
-      "difficulty": "difficile",
       "category": "Intrigue"
     },
     {
       "id": "nar079",
       "question": "Trois orphelins de la guerre d'Ame ayant fondé l'Akatsuki originale avec un idéal de paix, ils ont été manipulés par Danzo et Hanzo. Yahiko est mort en se jetant sur le kunai de Nagato. Qui sont-ils ?",
       "answer": "Yahiko, Nagato et Konan",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "nar080",
       "question": "Organisation secrète de Konoha dirigée par un conseiller borgne et bandé, elle a orchestré le massacre des Uchiha et manipulé de nombreux événements. Son chef voulait devenir Hokage. Quelle est cette organisation ?",
       "answer": "La Racine (dirigée par Danzo)",
-      "difficulty": "difficile",
       "category": "Organisations"
     },
     {
       "id": "nar081",
       "question": "Chaque membre de l'Akatsuki porte une bague unique à un doigt spécifique, symbolisant sa position dans l'organisation. Lors des réunions, ils projettent des hologrammes. Combien sont-ils au complet ?",
       "answer": "10 membres",
-      "difficulty": "normal",
       "category": "Akatsuki"
     },
     {
       "id": "nar082",
       "question": "Démon chat à deux queues fait de flammes bleues, scellé dans Yugito Nii de Kumo. Elle a été capturée par Hidan et Kakuzu. Quel est ce bijuu ?",
       "answer": "Matatabi (Nibi)",
-      "difficulty": "difficile",
       "category": "Bijuu"
     },
     {
       "id": "nar083",
       "question": "Membre de l'ANBU et seul survivant des expériences d'Orochimaru capable d'utiliser le Mokuton. Il remplace Kakashi comme capitaine de l'équipe 7 et surveille Naruto. Qui est-ce ?",
       "answer": "Yamato (Tenzo)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "nar084",
       "question": "Statue démoniaque géante à dix doigts utilisée pour sceller les bijuu capturés, elle est en réalité l'enveloppe vide du Juubi. Les membres de l'Akatsuki l'invoquent pour les extractions. Quelle est cette statue ?",
       "answer": "Gedo Mazo",
-      "difficulty": "difficile",
       "category": "Objets"
     },
     {
       "id": "nar085",
       "question": "Ancien coéquipier de Kakashi et Rin écrasé sous un rocher lors d'une mission, ce ninja a donné son Sharingan à Kakashi avant de 'mourir'. Sauvé par Madara, il est devenu le vrai Tobi. Qui est-ce ?",
       "answer": "Obito Uchiha",
-      "difficulty": "difficile",
       "category": "Révélations"
     },
     {
       "id": "nar086",
       "question": "Premier Hokage fondateur de Konoha et chef du clan Senju, ce ninja légendaire pouvait créer des forêts grâce au Mokuton. Il a vaincu Madara à la Vallée de la Fin. Qui est-ce ?",
       "answer": "Hashirama Senju",
-      "difficulty": "normal",
       "category": "Hokages"
     },
     {
       "id": "nar087",
       "question": "Deuxième Hokage et frère cadet d'Hashirama, ce ninja aux cheveux blancs a créé de nombreuses techniques dont l'Edo Tensei et le Hiraishin. Il a fondé l'Académie et la Police de Konoha. Qui est-ce ?",
       "answer": "Tobirama Senju",
-      "difficulty": "normal",
       "category": "Hokages"
     },
     {
       "id": "nar088",
       "question": "Troisième Hokage surnommé le Professeur car il maîtrisait toutes les techniques de Konoha, ce vieil homme a combattu Orochimaru lors de l'invasion. Élève des deux premiers Hokages, il est mort en scellant son ancien élève. Qui est-ce ?",
       "answer": "Hiruzen Sarutobi",
-      "difficulty": "normal",
       "category": "Hokages"
     },
     {
       "id": "nar089",
       "question": "Quatrième Hokage surnommé l'Éclair Jaune pour sa technique de téléportation, ce ninja blond a scellé Kurama dans son fils nouveau-né. Il est mort en protégeant le village. Qui est-ce ?",
       "answer": "Minato Namikaze",
-      "difficulty": "normal",
       "category": "Hokages"
     },
     {
       "id": "nar090",
       "question": "Cinquième Hokage et petite-fille du Premier, cette Sannin légendaire blonde a une peur panique du sang malgré ses talents médicaux. Elle a accepté le poste après la mort du Troisième. Qui est-ce ?",
       "answer": "Tsunade",
-      "difficulty": "normal",
       "category": "Hokages"
     },
     {
       "id": "nar091",
       "question": "Sixième Hokage portant toujours un masque sur le visage, cet ancien ANBU possède un Sharingan transplanté. Élève du Quatrième et sensei de l'équipe 7, il lit des romans érotiques en public. Qui est-ce ?",
       "answer": "Kakashi Hatake",
-      "difficulty": "normal",
       "category": "Hokages"
     },
     {
       "id": "nar092",
       "question": "Septième Hokage ayant réalisé son rêve d'enfance, ce ninja blond est le jinchuuriki de Kurama et le héros de la 4ème Grande Guerre Ninja. Marié à Hinata, il a deux enfants. Qui est-ce ?",
       "answer": "Naruto Uzumaki",
-      "difficulty": "normal",
       "category": "Hokages"
     },
     {
       "id": "nar093",
       "question": "Sannin légendaire obsédé par l'immortalité et les techniques interdites, ce ninja serpent aux yeux jaunes a déserté Konoha après des expériences sur des humains. Il a créé le village d'Oto. Qui est-ce ?",
       "answer": "Orochimaru",
-      "difficulty": "normal",
       "category": "Sannins"
     },
     {
       "id": "nar094",
       "question": "Bijuu à huit queues ressemblant à un taureau-pieuvre, il est scellé dans un rappeur de Kumo qui compose des rimes. Killer Bee et lui sont en parfaite harmonie. Quel est ce bijuu ?",
       "answer": "Gyuki (Hachibi)",
-      "difficulty": "normal",
       "category": "Bijuu"
     },
     {
       "id": "nar096",
       "question": "Créature ancestrale composée des neuf bijuu réunis, ce monstre à dix queues est la forme originale du chakra sur Terre. Kaguya en était la jinchuuriki originale. Quel est ce monstre ?",
       "answer": "Juubi (Dix-Queues)",
-      "difficulty": "difficile",
       "category": "Bijuu"
     },
     {
       "id": "nar097",
       "question": "Sage légendaire ayant créé le ninjutsu et divisé le Juubi en neuf parties, il est considéré comme le père de tous les ninjas. Ses deux fils ont fondé les clans Uchiha et Senju. Qui est-ce ?",
       "answer": "Hagoromo Otsutsuki (Sage des Six Chemins)",
-      "difficulty": "difficile",
       "category": "Légendes"
     },
     {
       "id": "nar098",
       "question": "Déesse extraterrestre ayant mangé le fruit de l'arbre divin, elle est la mère du Sage des Six Chemins et l'ancêtre de tout le chakra. Scellée dans la lune, elle est ressuscitée par Zetsu Noir. Qui est-ce ?",
       "answer": "Kaguya Otsutsuki",
-      "difficulty": "difficile",
       "category": "Légendes"
     },
     {
       "id": "nar099",
       "question": "Guerre mondiale opposant l'Alliance Shinobi aux forces de Madara, Obito et l'armée de Zetsu Blancs, elle a vu la résurrection de nombreux ninjas légendaires par l'Edo Tensei. Quelle est cette guerre ?",
       "answer": "La 4ème Grande Guerre Ninja",
-      "difficulty": "normal",
       "category": "Événements"
     },
     {
       "id": "nar100",
       "question": "Lieu du combat final entre Hashirama et Madara, cette cascade géante avec deux statues des fondateurs est aussi l'endroit où Naruto et Sasuke se sont affrontés deux fois. Quel est ce lieu ?",
       "answer": "La Vallée de la Fin",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "nar101",
       "question": "Examen permettant aux Genin de devenir Chunin, il se déroule en plusieurs étapes dont un test écrit, une survie en forêt et des combats. C'est durant cet examen qu'Orochimaru a marqué Sasuke. Quel est cet examen ?",
       "answer": "L'Examen Chunin",
-      "difficulty": "normal",
       "category": "Événements"
     },
     {
       "id": "nar102",
       "question": "Forêt dangereuse de Konoha remplie de créatures géantes où se déroule la deuxième épreuve de l'Examen Chunin, les équipes doivent y survivre cinq jours. Orochimaru y a attaqué l'équipe 7. Quel est ce lieu ?",
       "answer": "La Forêt de la Mort",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "nar103",
       "question": "Groupe de cinq ninjas d'Oto au service d'Orochimaru ayant reçu le sceau maudit, ils ont aidé Sasuke à déserter Konoha. Leur leader aux os était le plus puissant. Quel est ce groupe ?",
       "answer": "Les Cinq du Son",
-      "difficulty": "normal",
       "category": "Groupes"
     },
     {
       "id": "nar104",
       "question": "Équipe de récupération formée par Shikamaru pour ramener Sasuke après sa désertion, elle comprenait Naruto, Neji, Choji et Kiba. Chacun a dû affronter un membre des Cinq du Son. Quelle est cette mission ?",
       "answer": "La mission de récupération de Sasuke",
-      "difficulty": "normal",
       "category": "Missions"
     },
     {
       "id": "nar105",
       "question": "Technique d'invocation nécessitant un contrat signé avec du sang, elle permet d'appeler des animaux géants en combat. Le héros invoque des crapauds, Orochimaru des serpents, et Tsunade des limaces. Quelle est cette technique ?",
       "answer": "Kuchiyose no Jutsu (Invocation)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "nar106",
       "question": "Mode de combat permettant d'absorber l'énergie naturelle pour décupler sa puissance, il donne des traits animaux à l'utilisateur. Le héros a appris cette technique au Mont Myoboku. Quel est ce mode ?",
       "answer": "Le Mode Ermite (Sennin Mode)",
-      "difficulty": "normal",
       "category": "Transformations"
     },
     {
       "id": "nar107",
       "question": "Transformation obtenue en combinant le chakra du bijuu avec celui de son hôte, elle enveloppe le jinchuuriki d'un manteau de chakra. Le héros l'obtient après s'être lié d'amitié avec Kurama. Quel est ce mode ?",
       "answer": "Le Mode Bijuu (Kurama Mode)",
-      "difficulty": "normal",
       "category": "Transformations"
     },
     {
       "id": "nar108",
       "question": "Forme ultime du héros combinant le Mode Ermite, le chakra de Kurama et les pouvoirs du Sage des Six Chemins, elle lui donne des capacités divines. Il l'obtient après avoir rencontré Hagoromo. Quel est ce mode ?",
       "answer": "Six Paths Sage Mode",
-      "difficulty": "difficile",
       "category": "Transformations"
     },
     {
       "id": "nar109",
       "question": "Œil obtenu par Sasuke grâce au Sage des Six Chemins, cet œil unique avec six tomoe lui permet d'ouvrir des portails dimensionnels et de voir les choses invisibles. Quel est ce dojutsu ?",
       "answer": "Le Rinnegan (de Sasuke)",
-      "difficulty": "difficile",
       "category": "Dojutsu"
     },
     {
       "id": "nar110",
       "question": "Évolution du Sharingan obtenue en vivant un traumatisme émotionnel intense, elle débloque des techniques uniques comme Amaterasu et Tsukuyomi. Son utilisation rend progressivement aveugle. Quel est ce dojutsu ?",
       "answer": "Le Mangekyo Sharingan",
-      "difficulty": "normal",
       "category": "Dojutsu"
     },
     {
       "id": "nar111",
       "question": "Version améliorée du Mangekyo obtenue en transplantant les yeux d'un proche, elle annule la cécité progressive. Sasuke l'a obtenue avec les yeux d'Itachi. Quel est ce dojutsu ?",
       "answer": "Le Mangekyo Sharingan Éternel",
-      "difficulty": "difficile",
       "category": "Dojutsu"
     },
     {
       "id": "nar112",
       "question": "Fils du héros et de Hinata portant une marque mystérieuse sur la main, ce jeune ninja turbulent veut surpasser son père. Son prénom vient du cousin décédé de sa mère. Qui est-ce ?",
       "answer": "Boruto Uzumaki",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "nar113",
       "question": "Fille du héros et de Hinata ayant hérité du Byakugan, cette jeune fille calme admire son père. Son prénom signifie 'tournesol' en japonais. Qui est-ce ?",
       "answer": "Himawari Uzumaki",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "nar114",
       "question": "Fille de Sasuke et Sakura portant des lunettes rouges caractéristiques, cette jeune Uchiha a éveillé son Sharingan. Elle admire le Septième Hokage et veut devenir comme lui. Qui est-ce ?",
       "answer": "Sarada Uchiha",
-      "difficulty": "normal",
       "category": "Nouvelle génération"
     },
     {
       "id": "nar115",
       "question": "Clone artificiel de l'organisation Kara créé à partir de l'ADN de Jigen, ce garçon pâle aux cheveux blancs devient le coéquipier de Boruto. Il possède le Karma. Qui est-ce ?",
       "answer": "Kawaki",
-      "difficulty": "difficile",
       "category": "Nouvelle génération"
     },
     {
       "id": "nar116",
       "question": "Kunoichi aux cheveux noirs et aux yeux blancs, cette héritière timide du clan Hyuga a toujours admiré le héros en secret. Elle lui avoue ses sentiments lors de l'attaque de Pain. Qui est-ce ?",
       "answer": "Hinata Hyuga",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "nar117",
       "question": "Génie du clan Hyuga de la branche secondaire, ce ninja aux longs cheveux portait le sceau de l'oiseau en cage. D'abord hostile au héros, il est mort en le protégeant durant la guerre. Qui est-ce ?",
       "answer": "Neji Hyuga",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "nar118",
       "question": "Stratège de génie au QI de plus de 200 mais extrêmement paresseux, ce ninja du clan Nara trouve tout 'galère'. Il a vengé son maître Asuma en piégeant Hidan. Qui est-ce ?",
       "answer": "Shikamaru Nara",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "nar119",
       "question": "Ninja corpulent du clan Akimichi pouvant décupler sa taille, ce bon vivant est le meilleur ami de Shikamaru. Il a failli mourir en utilisant les trois pilules secrètes. Qui est-ce ?",
       "answer": "Choji Akimichi",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "nar120",
       "question": "Kunoichi blonde du clan Yamanaka spécialisée dans les techniques mentales, elle était amoureuse de Sasuke et rivale de Sakura. Son père Inoichi était chef du département d'interrogatoire. Qui est-ce ?",
       "answer": "Ino Yamanaka",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "nar121",
       "question": "Combat légendaire entre le héros et son rival à la Vallée de la Fin dans Naruto Shippuden, ils utilisent chacun leur technique ultime (Rasengan vs Chidori) pour la dernière fois. Leur affrontement détruit les statues de Hashirama et Madara. Quel est cet événement ?",
       "answer": "Le combat final Naruto vs Sasuke",
-      "difficulty": "normal",
       "category": "Combats"
     },
     {
       "id": "nar122",
       "question": "Transformation ultime du héros obtenue en sacrifiant la force vitale de Kurama, elle fonctionne comme une réaction nucléaire en consommant le chakra du bijuu. Utilisée contre Isshiki Otsutsuki, elle a coûté la vie à Kurama. Quel est ce mode ?",
       "answer": "Le Baryon Mode",
-      "difficulty": "difficile",
       "category": "Transformations"
     },
     {
       "id": "nar123",
       "question": "Ouverture de la huitième porte par Gai-sensei lors de la 4ème guerre ninja, cette technique lui donne une puissance surpassant celle des Kages mais le condamne à mort. Il l'utilise contre Madara qui le déclare le plus fort en taijutsu. Quelle est cette porte ?",
       "answer": "La Porte de la Mort (8ème porte)",
-      "difficulty": "normal",
       "category": "Combats"
     },
     {
       "id": "nar124",
       "question": "Fils aîné du Sage des Six Chemins ayant hérité de ses yeux et du pouvoir spirituel, il est l'ancêtre du clan Uchiha. Sa rivalité avec son frère cadet Ashura se perpétue à travers les générations. Qui est-ce ?",
       "answer": "Indra Otsutsuki",
-      "difficulty": "difficile",
       "category": "Légendes"
     },
     {
       "id": "nar125",
       "question": "Fils cadet du Sage des Six Chemins ayant hérité de son corps et du pouvoir physique, il est l'ancêtre du clan Senju. Sa philosophie d'amour et de coopération s'oppose à celle de son frère. Qui est-ce ?",
       "answer": "Ashura Otsutsuki",
-      "difficulty": "difficile",
       "category": "Légendes"
     },
     {
       "id": "nar126",
       "question": "Réunion des cinq Kages convoquée face à la menace de l'Akatsuki, Danzo y représente Konoha en l'absence de Tsunade. Sasuke y fait irruption et attaque tout le monde, et Tobi y déclare la 4ème Grande Guerre Ninja. Quel est cet événement ?",
       "answer": "Le Sommet des Cinq Kages",
-      "difficulty": "normal",
       "category": "Événements"
     },
     {
       "id": "nar127",
       "question": "Surnommé le talk-no-jutsu par les fans, ce talent unique du héros consiste à convaincre ses ennemis par la parole et l'empathie. Nagato, Obito, Gaara et Zabuza en ont été les victimes. De quoi s'agit-il ?",
       "answer": "La capacité de Naruto à changer le coeur de ses ennemis (talk-no-jutsu)",
-      "difficulty": "normal",
       "category": "Détails"
     },
     {
       "id": "nar128",
       "question": "Bijuu à trois queues ressemblant à une tortue géante, il a été scellé dans Rin Nohara puis libéré après sa mort. Recapturé par Deidara et Tobi, il est un bijuu qui a eu pour jinchuuriki Yagura, le 4e Mizukage, et brièvement Rin Nohara. Quel est ce bijuu ?",
       "answer": "Isobu (Sanbi)",
-      "difficulty": "difficile",
       "category": "Bijuu"
     },
     {
       "id": "nar129",
       "question": "Bijuu à quatre queues ressemblant à un singe de lave rouge, il était scellé dans Roshi, un ninja d'Iwa. Son pouvoir combine la terre et le feu pour créer de la lave. Quel est ce bijuu ?",
       "answer": "Son Goku (Yonbi)",
-      "difficulty": "difficile",
       "category": "Bijuu"
     },
     {
       "id": "nar130",
       "question": "Bijuu à cinq queues ressemblant à un cheval-dauphin blanc, il était scellé dans Han, un ninja d'Iwa utilisant la vapeur. Il est l'un des bijuu les plus calmes et pacifiques. Quel est ce bijuu ?",
       "answer": "Kokuo (Gobi)",
-      "difficulty": "difficile",
       "category": "Bijuu"
     },
     {
       "id": "nar131",
       "question": "Bijuu à six queues ressemblant à une limace géante, il était scellé dans Utakata, un ninja de Kiri qui utilisait des bulles de savon comme arme. Quel est ce bijuu ?",
       "answer": "Saiken (Rokubi)",
-      "difficulty": "difficile",
       "category": "Bijuu"
     },
     {
       "id": "nar132",
       "question": "Bijuu à sept queues ressemblant à un scarabée ailé, il était scellé dans Fuu, une kunoichi de Taki au caractère joyeux. C'est le seul bijuu capable de voler naturellement. Quel est ce bijuu ?",
       "answer": "Chomei (Nanabi)",
-      "difficulty": "difficile",
       "category": "Bijuu"
     },
     {
       "id": "nar133",
       "question": "Technique interdite du Mangekyo Sharingan fonctionnant comme le contraire d'Izanagi, elle crée une boucle de destinée piégeant l'adversaire. Itachi l'a programmée pour protéger Sasuke en cas de contrôle par Kabuto. Quelle est cette technique ?",
       "answer": "Izanami",
-      "difficulty": "difficile",
       "category": "Dojutsu"
     },
     {
       "id": "nar134",
       "question": "Genjutsu ultime de Shisui Uchiha capable de manipuler la volonté d'une personne sans qu'elle s'en rende compte, il est considéré comme le genjutsu le plus puissant. Danzo a volé l'oeil de Shisui pour l'obtenir. Quelle est cette technique ?",
       "answer": "Kotoamatsukami",
-      "difficulty": "difficile",
       "category": "Dojutsu"
     },
     {
       "id": "nar135",
       "question": "Moment iconique où Hinata se jette devant Pain pour protéger le héros piégé sous des barres de chakra, elle lui avoue ses sentiments en disant 'Je t'aime'. La rage du héros libère la forme à six queues de Kurama. Quel est cet épisode ?",
       "answer": "La confession d'Hinata (arc Pain)",
-      "difficulty": "normal",
       "category": "Moments iconiques"
     },
     {
       "id": "nar136",
       "question": "Moment où le héros rencontre sa mère pour la première fois dans son subconscient lors du combat pour contrôler Kurama, elle lui raconte l'histoire de l'attaque du Renard et de ses parents. Il la remercie d'être sa mère. Quel est ce moment ?",
       "answer": "La rencontre avec Kushina",
-      "difficulty": "normal",
       "category": "Moments iconiques"
     },
     {
       "id": "nar137",
       "question": "Technique de Sakura acquise après trois ans d'entraînement avec Tsunade, elle accumule du chakra dans un sceau sur son front pendant des mois puis le libère d'un coup, décuplant sa force et activant la régénération. Quelle est cette technique ?",
       "answer": "Byakugo (Sceau des Cent Forces)",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "nar138",
       "question": "Membre de l'ANBU Racine spécialisé dans les techniques de dessin à l'encre, ce garçon pâle au sourire artificiel remplace Sasuke dans l'équipe 7. Il apprend progressivement les émotions humaines. Qui est-ce ?",
       "answer": "Sai",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "nar139",
       "question": "Fille du sensei Asuma Sarutobi née après sa mort, elle porte le même nom qu'une pièce de shogi. Shikamaru a promis de la protéger et de devenir son maître. Comment s'appelle-t-elle ?",
       "answer": "Mirai Sarutobi",
-      "difficulty": "difficile",
       "category": "Nouvelle génération"
     },
     {
       "id": "nar140",
       "question": "Quatrième Raikage à la vitesse fulgurante rivalisant avec l'Éclair Jaune, ce géant musclé a perdu son bras en combattant Sasuke au Sommet des Kages. Son attaque signature est le Lariat. Qui est-ce ?",
       "answer": "Ay (4ème Raikage)",
-      "difficulty": "normal",
       "category": "Kages"
     },
     {
       "id": "nar141",
       "question": "Cinquième Mizukage de Kiri aux deux kekkei genkai (Yoton et Futton), cette femme coquette rêvait de se marier. Elle a aidé à réformer le village surnommé autrefois le Village de la Brume Sanglante. Qui est-ce ?",
       "answer": "Mei Terumi",
-      "difficulty": "normal",
       "category": "Kages"
     },
     {
       "id": "nar142",
       "question": "Duo capable de fusionner leurs corps, le plus bizarre du Quartet du Son, ces jumeaux siamois du village d'Oto pouvaient se séparer et se recombiner à volonté. Ils ont affronté Kiba et Akamaru lors de la mission de récupération de Sasuke. Qui sont-ils ?",
       "answer": "Sakon et Ukon",
-      "difficulty": "difficile",
       "category": "Antagonistes"
     },
     {
       "id": "nar143",
       "question": "Technique de Shikamaru perfectionnée durant la guerre, elle permet de lier son ombre à celle de l'ennemi pour le contrôler complètement. Combinée avec son intelligence de QI 200, elle en fait un stratège redoutable. Quelle est cette technique de base ?",
       "answer": "Kagemane no Jutsu (Manipulation des ombres)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "nar144",
       "question": "Ninja marionnettiste de Suna et frère aîné de Gaara, il utilise des marionnettes créées par Sasori dont Karasu, Kuroari et Sanshouo. Après la guerre, il devient conseiller du Kazekage. Qui est-ce ?",
       "answer": "Kankuro",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "nar145",
       "question": "Kunoichi de Suna et sœur aînée de Gaara, elle manie un éventail géant et maîtrise les techniques de vent. Elle épouse Shikamaru après la guerre et devient mère de Shikadai. Qui est-ce ?",
       "answer": "Temari",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "nar146",
       "question": "Jinchuuriki de Hachibi et frère adoptif du Raikage, ce rappeur excentrique combine ses rimes avec un style de combat à huit sabres. Il est le premier jinchuuriki à avoir parfaitement maîtrisé son bijuu. Qui est-ce ?",
       "answer": "Killer Bee",
-      "difficulty": "normal",
       "category": "Jinchuuriki"
     },
     {
       "id": "nar147",
       "question": "Sceau de marque extraterrestre apparaissant sur le corps de Boruto et Kawaki, il est impliqué par les Otsutsuki pour prendre le contrôle du corps de l'hôte et s'y réincarner. Jigen et Momoshiki l'utilisent. Quel est ce sceau ?",
       "answer": "Le Karma",
-      "difficulty": "difficile",
       "category": "Boruto"
     },
     {
       "id": "nar148",
       "question": "Leader de l'organisation Kara et vaisseau de l'Otsutsuki Isshiki, ce moine aux bâtonnets noirs dans le corps peut réduire n'importe quel objet avec le Sukunahikona. Il est l'antagoniste principal de Boruto. Qui est-ce ?",
       "answer": "Jigen (Isshiki Otsutsuki)",
-      "difficulty": "difficile",
       "category": "Boruto"
     },
     {
       "id": "nar149",
       "question": "Combat devenu légendaire entre Kakashi et Obito dans la dimension du Kamui, ils s'affrontent en taijutsu pur dans un flashback de leur jeunesse. Considéré par les fans comme l'une des meilleures chorégraphies de toute la série. Quel est ce combat ?",
       "answer": "Kakashi vs Obito (épisode 375)",
-      "difficulty": "normal",
       "category": "Combats"
     },
     {
       "id": "nar150",
       "question": "Technique utilisée par Nagato pour détruire entièrement Konoha d'un seul mouvement, créant un cratère géant. C'est l'application la plus puissante de la répulsion gravitationnelle du chemin Deva. Quelle est cette technique ?",
       "answer": "Shinra Tensei (Almighty Push) massif",
-      "difficulty": "difficile",
       "category": "Techniques"
     },
     {
       "id": "nar151",
       "question": "Formation légendaire de Konoha composée de Ino, Shikamaru et Choji, leurs pères formaient le même trio. Leur combinaison permet des attaques coordonnées mêlant contrôle mental, ombres et force brute. Quel est ce trio ?",
       "answer": "La formation Ino-Shika-Cho",
-      "difficulty": "normal",
       "category": "Groupes"
     },
     {
       "id": "nar152",
       "question": "Sept épéistes légendaires de Kiri maniant chacun une épée unique, ils incluent Zabuza (Kubikiribocho) et Kisame (Samehada). Leur réputation de tueurs impitoyables a fait la légende de Kiri. Quel est ce groupe ?",
       "answer": "Les Sept Épéistes de la Brume",
-      "difficulty": "normal",
       "category": "Groupes"
     },
     {
       "id": "nar153",
       "question": "Technique de Naruto combinant le mode Ermite et le Rasenshuriken, il lance deux shurikens de chakra naturel capables de détruire un chemin de Pain. C'est l'attaque qui renverse le combat lors de l'invasion de Pain. Quelle est cette technique ?",
       "answer": "Senpou: Rasenshuriken (Rasenshuriken mode Ermite)",
-      "difficulty": "normal",
       "category": "Techniques"
     },
     {
       "id": "nar154",
       "question": "Créature divine à dix queues scellée dans la lune par le Sage des Six Chemins, elle est la forme originale de Kaguya Otsutsuki fusionnée avec l'Arbre Divin. Obito et Madara ont chacun tenté de devenir son jinchuuriki. Quel est son autre nom ?",
       "answer": "Shinju (l'Arbre Divin / Juubi)",
-      "difficulty": "difficile",
       "category": "Légendes"
     },
     {
       "id": "nar155",
       "question": "Moment émouvant où Itachi tapote le front de son petit frère en disant 'Pardonne-moi Sasuke, ce sera la dernière fois', révélant qu'il l'a toujours aimé et protégé. Cette scène se répète lors de leurs adieux après l'Edo Tensei. Quel est ce geste ?",
       "answer": "Le tapotement de front d'Itachi",
-      "difficulty": "normal",
       "category": "Moments iconiques"
     }
   ]

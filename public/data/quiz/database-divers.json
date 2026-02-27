@@ -7,700 +7,600 @@
       "id": "div001",
       "question": "Dans un jeu de cartes standard de 52 cartes, quel est le seul Roi qui est représenté de profil et sans moustache ?",
       "answer": "Le Roi de Cœur",
-      "difficulty": "difficile",
       "category": "Jeux"
     },
     {
       "id": "div002",
       "question": "Quel code de détresse international en morse est constitué de trois points, trois traits, trois points (... --- ...) ?",
       "answer": "S.O.S",
-      "difficulty": "normal",
       "category": "Communication"
     },
     {
       "id": "div003",
       "question": "Dans le jeu d'échecs, quelle est la seule pièce qui a le droit de sauter par-dessus les autres pièces ?",
       "answer": "Le Cavalier",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "div004",
       "question": "Quelle est la monnaie officielle utilisée au Royaume-Uni ?",
       "answer": "La Livre Sterling (Pound)",
-      "difficulty": "normal",
       "category": "Société"
     },
     {
       "id": "div005",
       "question": "Dans l'alphabet phonétique de l'OTAN utilisé par l'armée et l'aviation, quel mot désigne la lettre A ?",
       "answer": "Alpha",
-      "difficulty": "normal",
       "category": "Communication"
     },
     {
       "id": "div006",
       "question": "Quelle marque de voiture de luxe a pour logo un cheval cabré sur fond jaune ?",
       "answer": "Ferrari",
-      "difficulty": "normal",
       "category": "Marques"
     },
     {
       "id": "div007",
       "question": "Quel cocktail cubain est composé de rhum, de menthe fraîche, de citron vert, de sucre de canne et d'eau gazeuse ?",
       "answer": "Le Mojito",
-      "difficulty": "normal",
       "category": "Vie quotidienne"
     },
     {
       "id": "div008",
       "question": "Selon la superstition populaire, combien d'années de malheur s'attire-t-on si l'on brise un miroir ?",
       "answer": "7 ans",
-      "difficulty": "normal",
       "category": "Croyances"
     },
     {
       "id": "div009",
       "question": "Quel est le nom de l'alphabet utilisé par les personnes aveugles ou malvoyantes, basé sur des points en relief ?",
       "answer": "Le Braille",
-      "difficulty": "normal",
       "category": "Communication"
     },
     {
       "id": "div010",
       "question": "Dans le jeu Monopoly (version classique), quelle est la couleur des deux propriétés les plus chères (Rue de la Paix et Champs-Élysées) ?",
       "answer": "Bleu foncé",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "div011",
       "question": "Quel signe du zodiaque est représenté par une balance ? C'est le seul signe qui est un objet et non un être vivant.",
       "answer": "La Balance",
-      "difficulty": "normal",
       "category": "Astrologie"
     },
     {
       "id": "div012",
       "question": "Dans la mythologie du Père Noël, quel est le nom du renne qui a le nez rouge et qui guide le traîneau ?",
       "answer": "Rodolphe (Rudolph)",
-      "difficulty": "normal",
       "category": "Traditions"
     },
     {
       "id": "div013",
       "question": "Quelle est la devise nationale de la France, inscrite sur les mairies et les pièces de monnaie ?",
       "answer": "Liberté, Égalité, Fraternité",
-      "difficulty": "normal",
       "category": "Société"
     },
     {
       "id": "div014",
       "question": "Quel outil permet de mesurer la pression atmosphérique et de prévoir les changements de temps ?",
       "answer": "Le baromètre",
-      "difficulty": "normal",
       "category": "Objets"
     },
     {
       "id": "div015",
       "question": "Dans le code de la route, quelle est la forme d'un panneau 'Stop' ?",
       "answer": "Octogonale (8 côtés)",
-      "difficulty": "normal",
       "category": "Société"
     },
     {
       "id": "div016",
       "question": "Quel célèbre guide publie chaque année le livre des records du monde validés ?",
       "answer": "Le Guinness Book",
-      "difficulty": "normal",
       "category": "Culture"
     },
     {
       "id": "div017",
       "question": "Quelle marque de sport est reconnaissable à ses trois bandes parallèles ?",
       "answer": "Adidas",
-      "difficulty": "normal",
       "category": "Marques"
     },
     {
       "id": "div018",
       "question": "Comment appelle-t-on la peur panique des araignées ?",
       "answer": "L'arachnophobie",
-      "difficulty": "normal",
       "category": "Psychologie"
     },
     {
       "id": "div019",
       "question": "Quel mot désigne un mot qui se lit de la même façon de gauche à droite et de droite à gauche (ex: Radar, Kayak) ?",
       "answer": "Un palindrome",
-      "difficulty": "normal",
       "category": "Langue"
     },
     {
       "id": "div020",
       "question": "Quel métal constitue la médaille remise au troisième d'une compétition olympique ?",
       "answer": "Le bronze",
-      "difficulty": "normal",
       "category": "Traditions"
     },
     {
       "id": "div021",
       "question": "Dans un jeu de Cluedo, quel est le nom du colonel, personnage jouable représenté par la couleur jaune ?",
       "answer": "Colonel Moutarde",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "div022",
       "question": "Quelle marque de boisson énergisante utilise le slogan '...donne des ailes' ?",
       "answer": "Red Bull",
-      "difficulty": "normal",
       "category": "Marques"
     },
     {
       "id": "div023",
       "question": "Quel est le nom de la barre chocolatée fourrée de nougat, de caramel et de cacahuètes, vendue par Mars ?",
       "answer": "Snickers",
-      "difficulty": "normal",
       "category": "Vie quotidienne"
     },
     {
       "id": "div024",
       "question": "Comment appelle-t-on le petit marteau utilisé par les juges au tribunal ou lors des ventes aux enchères ?",
       "answer": "Un maillet",
-      "difficulty": "difficile",
       "category": "Objets"
     },
     {
       "id": "div025",
       "question": "Quel grade militaire se situe juste au-dessus du capitaine et juste en-dessous du lieutenant-colonel ?",
       "answer": "Commandant (ou Major)",
-      "difficulty": "difficile",
       "category": "Société"
     },
     {
       "id": "div026",
       "question": "De quelle couleur est la boîte noire d'un avion ?",
       "answer": "Orange (pour être visible)",
-      "difficulty": "normal",
       "category": "Transports"
     },
     {
       "id": "div027",
       "question": "Dans l'alphabet phonétique de l'OTAN, quel mot désigne la lettre W ?",
       "answer": "Whisky",
-      "difficulty": "normal",
       "category": "Communication"
     },
     {
       "id": "div028",
       "question": "Quel est le seul jour de la semaine qui compte toujours 8 lettres en français ?",
       "answer": "Dimanche",
-      "difficulty": "difficile",
       "category": "Langue"
     },
     {
       "id": "div029",
       "question": "Quelle entreprise de meubles suédoise est célèbre pour ses produits en kit et ses boulettes de viande ?",
       "answer": "IKEA",
-      "difficulty": "normal",
       "category": "Marques"
     },
     {
       "id": "div030",
       "question": "Combien y a-t-il de cases au total sur un échiquier classique ?",
       "answer": "64 cases",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "div031",
       "question": "Quel nom donne-t-on au 40e anniversaire de mariage ?",
       "answer": "Noces d'émeraude",
-      "difficulty": "difficile",
       "category": "Traditions"
     },
     {
       "id": "div032",
       "question": "Quelle est la devise monétaire utilisée au Japon ?",
       "answer": "Le Yen",
-      "difficulty": "normal",
       "category": "Société"
     },
     {
       "id": "div033",
       "question": "Quel célèbre paquebot a fait naufrage en 1912 après avoir heurté un iceberg ?",
       "answer": "Le Titanic",
-      "difficulty": "normal",
       "category": "Histoire/Société"
     },
     {
       "id": "div034",
       "question": "Quelle est la couleur du ruban symbolisant la lutte contre le cancer du sein ?",
       "answer": "Rose",
-      "difficulty": "normal",
       "category": "Société"
     },
     {
       "id": "div035",
       "question": "Quel est le nom de l'hymne national de la France ?",
       "answer": "La Marseillaise",
-      "difficulty": "normal",
       "category": "Société"
     },
     {
       "id": "div036",
       "question": "Dans un jeu de Scrabble français, quelles sont les deux lettres qui valent le plus de points (10 points) ?",
       "answer": "K, W, X, Y et Z (il en faut au moins deux)",
-      "difficulty": "difficile",
       "category": "Jeux"
     },
     {
       "id": "div037",
       "question": "Selon la Bible, combien y a-t-il de péchés capitaux ?",
       "answer": "7",
-      "difficulty": "normal",
       "category": "Religion"
     },
     {
       "id": "div038",
       "question": "Quel est le nom de la mascotte publicitaire de la marque Michelin, faite de pneus empilés ?",
       "answer": "Bibendum",
-      "difficulty": "normal",
       "category": "Marques"
     },
     {
       "id": "div039",
       "question": "Quelle pierre précieuse est la plus dure sur l'échelle de Mohs (dureté 10) ?",
       "answer": "Le diamant",
-      "difficulty": "normal",
       "category": "Minéraux"
     },
     {
       "id": "div040",
       "question": "Comment appelle-t-on un polygone à 6 côtés ?",
       "answer": "Un hexagone",
-      "difficulty": "normal",
       "category": "Géométrie"
     },
     {
       "id": "div041",
       "question": "Quelle boisson est obtenue par la fermentation du jus de pomme ?",
       "answer": "Le cidre",
-      "difficulty": "normal",
       "category": "Boissons"
     },
     {
       "id": "div042",
       "question": "Dans le jeu Pierre-Papier-Ciseaux, que bat la Pierre ?",
       "answer": "Les Ciseaux",
-      "difficulty": "facile",
       "category": "Jeux"
     },
     {
       "id": "div043",
       "question": "Quelle est la langue officielle la plus parlée au Brésil ?",
       "answer": "Le portugais",
-      "difficulty": "normal",
       "category": "Société"
     },
     {
       "id": "div044",
       "question": "Quel objet utilise-t-on pour s'orienter en indiquant le Nord magnétique ?",
       "answer": "Une boussole",
-      "difficulty": "facile",
       "category": "Objets"
     },
     {
       "id": "div045",
       "question": "Quel saint patron des amoureux fête-t-on le 14 février ?",
       "answer": "Saint Valentin",
-      "difficulty": "facile",
       "category": "Traditions"
     },
     {
       "id": "div046",
       "question": "Quel animal est l'emblème de la marque de voitures Lamborghini ?",
       "answer": "Un taureau",
-      "difficulty": "normal",
       "category": "Marques"
     },
     {
       "id": "div047",
       "question": "Combien de trous y a-t-il sur un parcours de golf standard ?",
       "answer": "18 trous",
-      "difficulty": "normal",
       "category": "Sports/Loisirs"
     },
     {
       "id": "div048",
       "question": "Quelle est la capitale mondiale de la mode et du luxe, où se trouve la Tour Eiffel ?",
       "answer": "Paris",
-      "difficulty": "facile",
       "category": "Société"
     },
     {
       "id": "div049",
       "question": "Quel liquide coule dans les veines des dieux de la mythologie grecque, leur conférant l'immortalité ?",
       "answer": "L'Ichor",
-      "difficulty": "difficile",
       "category": "Mythologie"
     },
     {
       "id": "div050",
       "question": "Comment appelle-t-on la période de 4 semaines qui précède Noël dans la tradition chrétienne ?",
       "answer": "L'Avent",
-      "difficulty": "normal",
       "category": "Traditions"
     },
     {
       "id": "div051",
       "question": "Quelle marque américaine est célèbre pour sa virgule (Swoosh) et son slogan 'Just Do It' ?",
       "answer": "Nike",
-      "difficulty": "normal",
       "category": "Marques"
     },
     {
       "id": "div052",
       "question": "Dans le jeu vidéo Tetris, combien de carrés composent chaque pièce (appelée tétromino) qui tombe du haut de l'écran ?",
       "answer": "4 carrés",
-      "difficulty": "normal",
       "category": "Jeux Vidéo"
     },
     {
       "id": "div053",
       "question": "Quel célèbre soda américain a été inventé par le pharmacien John Pemberton en 1886 ?",
       "answer": "Coca-Cola",
-      "difficulty": "normal",
       "category": "Marques"
     },
     {
       "id": "div054",
       "question": "Dans les Simpsons, quel est le nom du patron de la centrale nucléaire, un homme riche et avare ?",
       "answer": "Charles Montgomery Burns (M. Burns)",
-      "difficulty": "normal",
       "category": "Pop Culture"
     },
     {
       "id": "div055",
       "question": "Quelle est la substance la plus dure du corps humain, qui recouvre la couronne des dents ?",
       "answer": "L'émail",
-      "difficulty": "normal",
       "category": "Corps humain"
     },
     {
       "id": "div056",
       "question": "Quel est le nom de la poupée mannequin la plus célèbre du monde, créée par Mattel en 1959 ?",
       "answer": "Barbie",
-      "difficulty": "facile",
       "category": "Jouets"
     },
     {
       "id": "div057",
       "question": "Quelle fête chrétienne célèbre la résurrection du Christ et est associée aux œufs en chocolat ?",
       "answer": "Pâques",
-      "difficulty": "normal",
       "category": "Traditions"
     },
     {
       "id": "div058",
       "question": "Quelle célèbre marque de luxe française est connue pour ses semelles de chaussures rouges ?",
       "answer": "Louboutin",
-      "difficulty": "normal",
       "category": "Mode"
     },
     {
       "id": "div059",
       "question": "Dans quel pays se trouve le siège du Père Noël, plus précisément en Laponie ?",
       "answer": "La Finlande",
-      "difficulty": "normal",
       "category": "Traditions"
     },
     {
       "id": "div060",
       "question": "Quel célèbre agent secret britannique porte le matricule 007 et travaille pour le MI6 ?",
       "answer": "James Bond",
-      "difficulty": "facile",
       "category": "Pop Culture"
     },
     {
       "id": "div061",
       "question": "Combien de jours compte une année bissextile ?",
       "answer": "366 jours",
-      "difficulty": "normal",
       "category": "Temps"
     },
     {
       "id": "div062",
       "question": "Quelle marque de bonbons utilise le slogan 'C'est beau la vie, pour les grands et les petits' ?",
       "answer": "Haribo",
-      "difficulty": "normal",
       "category": "Marques"
     },
     {
       "id": "div063",
       "question": "Quelle est la couleur obtenue en mélangeant du bleu et du jaune ?",
       "answer": "Le vert",
-      "difficulty": "facile",
       "category": "Couleurs"
     },
     {
       "id": "div064",
       "question": "Quel super-héros a pour faiblesse la kryptonite, une pierre radioactive de sa planète natale ?",
       "answer": "Superman",
-      "difficulty": "normal",
       "category": "Pop Culture"
     },
     {
       "id": "div065",
       "question": "Combien d'étoiles dorées figurent sur le drapeau de l'Union européenne ?",
       "answer": "12 étoiles",
-      "difficulty": "normal",
       "category": "Société"
     },
     {
       "id": "div066",
       "question": "Quelle entreprise a pour logo une pomme croquée ?",
       "answer": "Apple",
-      "difficulty": "facile",
       "category": "Marques"
     },
     {
       "id": "div067",
       "question": "Dans le dessin animé, qui est le meilleur ami de Bob l'Éponge, une étoile de mer rose un peu bête ?",
       "answer": "Patrick Étoile",
-      "difficulty": "normal",
       "category": "Pop Culture"
     },
     {
       "id": "div068",
       "question": "Quelle expression latine attribuée à Jules César signifie 'Je suis venu, j'ai vu, j'ai vaincu' ?",
       "answer": "Veni, vidi, vici",
-      "difficulty": "normal",
       "category": "Langue"
     },
     {
       "id": "div069",
       "question": "Quel célèbre détective belge aux moustaches soignées est le héros de nombreux romans d'Agatha Christie ?",
       "answer": "Hercule Poirot",
-      "difficulty": "normal",
       "category": "Littérature/Cinéma"
     },
     {
       "id": "div070",
       "question": "À quelle température l'eau bout-elle à une pression atmosphérique normale (niveau de la mer) ?",
       "answer": "100 degrés Celsius",
-      "difficulty": "normal",
       "category": "Physique"
     },
     {
       "id": "div071",
       "question": "Quelle célèbre récompense cinématographique américaine est une statuette dorée représentant un homme tenant une épée ?",
       "answer": "L'Oscar",
-      "difficulty": "normal",
       "category": "Cinéma"
     },
     {
       "id": "div072",
       "question": "Dans le jeu de Poker, quelle est la main la plus forte possible (As, Roi, Dame, Valet, 10 de la même couleur) ?",
       "answer": "La Quinte Flush Royale",
-      "difficulty": "difficile",
       "category": "Jeux"
     },
     {
       "id": "div073",
       "question": "Quelle ville est surnommée 'La Grosse Pomme' (The Big Apple) ?",
       "answer": "New York",
-      "difficulty": "normal",
       "category": "Géographie/Culture"
     },
     {
       "id": "div074",
       "question": "Quel petit cube coloré, inventé par un architecte hongrois en 1974, est le casse-tête le plus vendu au monde ?",
       "answer": "Le Rubik's Cube",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "div075",
       "question": "Quelle marque de luxe a pour emblème deux 'C' entrelacés ?",
       "answer": "Chanel",
-      "difficulty": "normal",
       "category": "Mode"
     },
     {
       "id": "div076",
       "question": "Quel est le nom du chien reporter qui accompagne Tintin dans toutes ses aventures ?",
       "answer": "Milou",
-      "difficulty": "facile",
       "category": "BD"
     },
     {
       "id": "div077",
       "question": "Quel est le plus grand océan du monde, couvrant un tiers de la surface de la Terre ?",
       "answer": "L'océan Pacifique",
-      "difficulty": "normal",
       "category": "Géographie"
     },
     {
       "id": "div078",
       "question": "Quel ingrédient principal constitue le tofu ?",
       "answer": "Le soja",
-      "difficulty": "normal",
       "category": "Alimentation"
     },
     {
       "id": "div079",
       "question": "Dans la mythologie romaine, qui est le dieu du vin et de la fête (équivalent de Dionysos) ?",
       "answer": "Bacchus",
-      "difficulty": "normal",
       "category": "Mythologie"
     },
     {
       "id": "div080",
       "question": "Quel est l'oiseau symbole de la paix ?",
       "answer": "La colombe",
-      "difficulty": "facile",
       "category": "Symboles"
     },
     {
       "id": "div081",
       "question": "Quelle célèbre pâte à tartiner à la noisette et au cacao est fabriquée par l'entreprise Ferrero ?",
       "answer": "Nutella",
-      "difficulty": "facile",
       "category": "Marques"
     },
     {
       "id": "div082",
       "question": "Combien de secondes y a-t-il dans une heure ?",
       "answer": "3600 secondes",
-      "difficulty": "normal",
       "category": "Temps"
     },
     {
       "id": "div083",
       "question": "Quel est le nom du célèbre parc d'attractions situé à Marne-la-Vallée, près de Paris ?",
       "answer": "Disneyland Paris",
-      "difficulty": "facile",
       "category": "Loisirs"
     },
     {
       "id": "div084",
       "question": "Quelle chaîne de fast-food a pour mascotte un clown aux cheveux rouges et une combinaison jaune ?",
       "answer": "McDonald's",
-      "difficulty": "facile",
       "category": "Marques"
     },
     {
       "id": "div085",
       "question": "Quel animal mythologique renaît de ses cendres ?",
       "answer": "Le Phénix",
-      "difficulty": "normal",
       "category": "Mythologie"
     },
     {
       "id": "div086",
       "question": "Dans le système solaire, quelle planète est célèbre pour ses anneaux visibles ?",
       "answer": "Saturne",
-      "difficulty": "facile",
       "category": "Astronomie"
     },
     {
       "id": "div087",
       "question": "Quel est le nom du méchant principal dans la saga Star Wars, vêtu tout en noir ?",
       "answer": "Dark Vador (Darth Vader)",
-      "difficulty": "facile",
       "category": "Cinéma"
     },
     {
       "id": "div088",
       "question": "Quelle ville italienne est célèbre pour ses canaux et ses gondoles ?",
       "answer": "Venise",
-      "difficulty": "normal",
       "category": "Géographie/Tourisme"
     },
     {
       "id": "div089",
       "question": "Quel fruit tombe sur la tête d'Isaac Newton, lui inspirant la loi de la gravitation universelle ?",
       "answer": "Une pomme",
-      "difficulty": "normal",
       "category": "Science/Légende"
     },
     {
       "id": "div090",
       "question": "Comment appelle-t-on le petit de la chèvre ?",
       "answer": "Le chevreau",
-      "difficulty": "normal",
       "category": "Animaux"
     },
     {
       "id": "div091",
       "question": "Quel réseau social utilisait un petit oiseau bleu comme logo avant d'être renommé X ?",
       "answer": "Twitter",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "div092",
       "question": "Quelle couleur obtient-on en mélangeant du rouge et du blanc ?",
       "answer": "Le rose",
-      "difficulty": "facile",
       "category": "Couleurs"
     },
     {
       "id": "div093",
       "question": "Quel est le plus long fleuve qui traverse la France ?",
       "answer": "La Loire",
-      "difficulty": "normal",
       "category": "Géographie"
     },
     {
       "id": "div094",
       "question": "Dans quel sport utilise-t-on un volant et une raquette ?",
       "answer": "Le badminton",
-      "difficulty": "normal",
       "category": "Sport"
     },
     {
       "id": "div095",
       "question": "Quel célèbre peintre a coupé une partie de son oreille ?",
       "answer": "Vincent van Gogh",
-      "difficulty": "normal",
       "category": "Art"
     },
     {
       "id": "div096",
       "question": "Quel est le nom de la petite brique de construction en plastique d'origine danoise ?",
       "answer": "LEGO",
-      "difficulty": "normal",
       "category": "Jouets"
     },
     {
       "id": "div097",
       "question": "Combien de côtés possède un triangle ?",
       "answer": "3",
-      "difficulty": "facile",
       "category": "Géométrie"
     },
     {
       "id": "div098",
       "question": "Quelle est la capitale de l'Espagne ?",
       "answer": "Madrid",
-      "difficulty": "normal",
       "category": "Géographie"
     },
     {
       "id": "div099",
       "question": "Quel célèbre sorcier a une cicatrice en forme d'éclair sur le front ?",
       "answer": "Harry Potter",
-      "difficulty": "facile",
       "category": "Littérature/Cinéma"
     },
     {
       "id": "div100",
       "question": "Quelle voiture de luxe britannique a pour emblème une statuette appelée 'Spirit of Ecstasy' ?",
       "answer": "Rolls-Royce",
-      "difficulty": "difficile",
       "category": "Marques"
     }
   ]

@@ -7,777 +7,666 @@
       "id": "pxr001",
       "question": "Premier long-métrage entièrement réalisé en images de synthèse, ce film de 1995 raconte la rivalité entre un cow-boy et une figurine d'astronaute dans la chambre d'un garçon prénommé Andy. Quel est ce film révolutionnaire ?",
       "answer": "Toy Story",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr002",
       "question": "Dans le premier film de la saga des jouets, ce cow-boy au lasso est le favori d'Andy jusqu'à l'arrivée d'un ranger de l'espace. Son nom complet, révélé par le réalisateur Lee Unkrich, inclut le patronyme 'Pride'. Qui est ce personnage ?",
       "answer": "Woody (Sheriff Woody Pride)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr003",
       "question": "Ranger de l'espace convaincu d'être un vrai héros galactique, ce jouet arrive dans la chambre d'Andy le jour de son anniversaire et devient le rival puis le meilleur ami du cow-boy. Sa réplique culte est 'Vers l'infini et au-delà'. Qui est-il ?",
       "answer": "Buzz Lightyear (Buzz l'Éclair)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr004",
       "question": "Double oscarisé pour ses doublages et ses rôles dramatiques, cet acteur américain prête sa voix au cow-boy de la saga des jouets depuis le tout premier film en 1995. Il a aussi joué dans Forrest Gump et Seul au monde. Qui est-il ?",
       "answer": "Tom Hanks",
-      "difficulty": "normal",
       "category": "Voix"
     },
     {
       "id": "pxr005",
       "question": "Sorti en 1998, ce film d'animation met en scène une fourmi inventive nommée Flik qui recrute par erreur des artistes de cirque pour défendre sa colonie contre des sauterelles. Son intrigue s'inspire d'une fable d'Ésope. Quel est ce film ?",
       "answer": "A Bug's Life (1001 Pattes)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr006",
       "question": "Chef de la bande de sauterelles qui terrorise la colonie de fourmis dans le deuxième long-métrage du studio, ce méchant charismatique est doublé en VO par Kevin Spacey. Il impose un tribut de nourriture chaque saison. Qui est-il ?",
       "answer": "Hopper (Tilt)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr007",
       "question": "Dans cette usine du monde des monstres, l'énergie est produite grâce aux cris des enfants humains. Le meilleur employé est un grand monstre bleu et violet accompagné de son assistant vert à un seul œil. Quel est ce film sorti en 2001 ?",
       "answer": "Monsters, Inc. (Monstres et Cie)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr008",
       "question": "Grand monstre bleu et violet, champion de la peur à l'usine de son monde, il s'attache à une petite fille humaine qu'il surnomme 'Boo' et découvre que le rire produit dix fois plus d'énergie que les cris. Qui est-ce ?",
       "answer": "Jacques Sullivan (Sulley)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr009",
       "question": "Petit monstre vert sphérique doté d'un seul œil énorme, il est le meilleur ami et assistant du champion de la peur dans l'usine de monstres. Billy Crystal lui prête sa voix en VO. Qui est ce personnage ?",
       "answer": "Bob Razowski (Mike Wazowski)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr010",
       "question": "Poisson-clown surprotecteur, il traverse l'océan depuis la Grande Barrière de Corail jusqu'à Sydney pour retrouver son fils capturé par un plongeur dentiste. Son périple le mène à travers le Courant Est-Australien. Qui est ce père courageux ?",
       "answer": "Marin (Marlin)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr011",
       "question": "Sorti en 2003, ce film suit un poisson-clown qui traverse l'océan avec une compagne amnésique pour retrouver son fils retenu dans l'aquarium d'un cabinet dentaire au 42 Wallaby Way, Sydney. Quel est ce film ?",
       "answer": "Finding Nemo (Le Monde de Nemo)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr012",
       "question": "Poisson chirurgien bleu souffrant de pertes de mémoire à court terme, elle accompagne un père poisson-clown dans sa quête à travers l'océan. Sa devise 'Just keep swimming' est devenue culte. Ellen DeGeneres lui prête sa voix en VO. Qui est-elle ?",
       "answer": "Dory",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr013",
       "question": "Tortue de mer âgée de 150 ans, elle surfe sur le Courant Est-Australien avec son fils Squiz et aide un poisson-clown à poursuivre sa route vers Sydney. Son attitude décontractée cache une grande sagesse. Qui est-elle ?",
       "answer": "Crush",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr014",
       "question": "Famille de super-héros contrainte de vivre incognito dans une banlieue tranquille, elle doit reprendre du service pour affronter un ancien fan devenu super-vilain. Brad Bird a réalisé ce film sorti en 2004. Quel est son titre ?",
       "answer": "The Incredibles (Les Indestructibles)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr015",
       "question": "Créatrice de costumes de super-héros, petite femme à lunettes avec un carré noir strict, elle refuse catégoriquement d'inclure des capes dans ses créations. Brad Bird lui prête sa propre voix en VO. Qui est cette styliste légendaire ?",
       "answer": "Edna Mode",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr016",
       "question": "Ancien fan numéro un de M. Indestructible, rejeté par son idole étant enfant, il devient un super-vilain technologique cherchant à se venger de tous les super-héros. Sa cape lui sera fatale à la fin du film. Qui est-il ?",
       "answer": "Syndrome (Buddy Pine)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr017",
       "question": "Sorti en 2006 et réalisé par John Lasseter, ce film suit une voiture de course arrogante qui se retrouve coincée dans une petite ville oubliée le long de la Route 66, où elle apprend l'humilité et l'amitié. Quel est ce film ?",
       "answer": "Cars (Cars : Quatre Roues)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr018",
       "question": "Voiture de course rouge au numéro 95, elle rêve de remporter la Piston Cup mais se retrouve coincée dans une petite ville désertée de la Route 66, où elle rencontre une Porsche 911 et un vieux Hudson Hornet. Qui est-elle ?",
       "answer": "Flash McQueen (Lightning McQueen)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr019",
       "question": "Petite ville fictive située sur la Route 66, entre Kingman et Flagstaff, elle a été oubliée après la construction de l'Interstate 40 en 1966. Un bolide de course y atterrit par hasard et la fait revivre. Quel est le nom de cette ville ?",
       "answer": "Radiator Springs",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr020",
       "question": "Réalisé par Brad Bird en 2007, ce film met en scène un rat qui rêve de devenir chef cuisinier dans un grand restaurant parisien. Il contrôle un jeune commis en tirant sur ses cheveux sous sa toque. Quel est ce film ?",
       "answer": "Ratatouille",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr021",
       "question": "Rat au palais raffiné qui rêve de haute gastronomie dans la capitale française, il forme une alliance improbable avec un garçon de cuisine maladroit pour cuisiner dans un prestigieux restaurant. Patton Oswalt lui prête sa voix en VO. Qui est-il ?",
       "answer": "Rémy",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr022",
       "question": "Célèbre chef fictif dont la devise 'Tout le monde peut cuisiner' inspire un rat à poursuivre sa passion culinaire, il apparaît sous forme de fantôme pour guider le petit rongeur. Son restaurant parisien porte son nom. Qui est-il ?",
       "answer": "Auguste Gusteau",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr023",
       "question": "Sorti en 2008 et réalisé par Andrew Stanton, ce film suit un petit robot solitaire chargé de compacter les déchets sur une Terre abandonnée, qui tombe amoureux d'une sonde spatiale blanche venue chercher des traces de végétation. Quel est ce film ?",
       "answer": "WALL-E",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr024",
       "question": "Sonde spatiale blanche et futuriste envoyée sur Terre pour détecter toute forme de vie végétale, elle porte le nom d'Évaluatrice de Végétation Extra-Terrestre. Sa mission réussie déclenche le retour de l'humanité. Qui est-elle ?",
       "answer": "EVE",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr025",
       "question": "Dans un film de 2008, un petit robot compacteur de déchets regarde en boucle un VHS d'une comédie musicale de 1969 avec Barbra Streisand, dont la chanson 'Put On Your Sunday Clothes' ouvre le film. Quelle est cette comédie musicale ?",
       "answer": "Hello, Dolly!",
-      "difficulty": "difficile",
       "category": "Films"
     },
     {
       "id": "pxr026",
       "question": "Vaisseau spatial géant de la compagnie Buy n Large abritant l'humanité depuis 700 ans, il est dirigé par un pilote automatique qui refuse de retourner sur Terre en raison de la directive secrète A113. Quel est le nom de ce vaisseau ?",
       "answer": "L'Axiom",
-      "difficulty": "difficile",
       "category": "Films"
     },
     {
       "id": "pxr027",
       "question": "Réalisé par Pete Docter en 2009, ce film raconte l'aventure d'un veuf grincheux de 78 ans qui s'envole vers l'Amérique du Sud en attachant des milliers de ballons à sa maison pour tenir une promesse faite à sa défunte épouse. Quel est ce film ?",
       "answer": "Up (Là-Haut)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr028",
       "question": "Veuf grincheux de 78 ans, ancien vendeur de ballons, il s'envole vers les chutes de son rêve d'enfance pour honorer la mémoire de sa femme. Ed Asner lui prête sa voix en VO. Qui est ce personnage ?",
       "answer": "Carl Fredricksen",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr029",
       "question": "Jeune scout de la Wilderness Explorer accidentellement embarqué dans un voyage en maison volante vers l'Amérique du Sud, il cherche à obtenir son dernier badge d'aide aux personnes âgées. Qui est ce garçon enthousiaste ?",
       "answer": "Russell",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr030",
       "question": "Dans un film de 2009, une séquence d'ouverture de quatre minutes et demie, sans dialogue, retrace toute la vie d'un couple de l'enfance à la vieillesse, sur la musique de Michael Giacchino. Cette scène a fait pleurer le public à Cannes. Quel est le titre de ce morceau ?",
       "answer": "Married Life",
-      "difficulty": "difficile",
       "category": "Musique"
     },
     {
       "id": "pxr031",
       "question": "Cascade légendaire d'Amérique du Sud, destination de rêve d'un vieil homme et de sa défunte épouse depuis leur enfance, elle est le but du voyage en maison volante dans un film de 2009. Quel est le nom de cette cascade ?",
       "answer": "Paradise Falls (les Chutes du Paradis)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr032",
       "question": "Golden retriever doté d'un collier traducteur qui lui permet de parler, il prononce la célèbre phrase 'I just met you and I love you' dans un film de 2009. Son collier est une invention du vieil explorateur Charles Muntz. Qui est-il ?",
       "answer": "Dug (Doug)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr033",
       "question": "Troisième volet de la saga des jouets sorti en 2010, Andy part à l'université et ses jouets se retrouvent dans une garderie dirigée par un ours en peluche rose à l'odeur de fraise. Quel est le nom de cette garderie ?",
       "answer": "Sunnyside (Garderie Sunnyside)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr034",
       "question": "Ours en peluche rose parfumé à la fraise, il règne en tyran sur une garderie après avoir été remplacé par sa propriétaire Daisy. Sous ses airs câlins, il refuse d'aider les jouets face à un incinérateur. Qui est ce méchant ?",
       "answer": "Lotso (Gros Ours Câlin)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr035",
       "question": "Sorti en 2012, ce film se déroule dans les Highlands écossais médiévaux et met en scène une princesse rousse et archère qui, en cherchant à changer son destin, transforme accidentellement sa mère en ours à cause d'un gâteau ensorcelé. Quel est ce film ?",
       "answer": "Brave (Rebelle)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr036",
       "question": "Princesse écossaise aux longs cheveux roux bouclés, experte en tir à l'arc, elle refuse le mariage arrangé imposé par sa mère et suit des feux follets bleus dans la forêt pour trouver une sorcière. Qui est-elle ?",
       "answer": "Mérida",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr037",
       "question": "Préquelle sortie en 2013, ce film raconte comment un cyclope vert studieux et un monstre bleu et violet fainéant se sont rencontrés à l'université avant de devenir les meilleurs amis du monde. Quel est ce film ?",
       "answer": "Monsters University (Monstres Academy)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr038",
       "question": "Fraternité de monstres ratés et marginaux dans un film de 2013, ses membres s'allient à deux futurs héros pour participer aux Jeux de la Peur et prouver leur valeur face à la redoutable doyenne Hardscrabble. Quel est le nom de cette fraternité ?",
       "answer": "Oozma Kappa",
-      "difficulty": "difficile",
       "category": "Films"
     },
     {
       "id": "pxr039",
       "question": "Sorti en 2015, ce film explore l'intérieur de la tête d'une fillette de 11 ans prénommée Riley, où cinq émotions colorées gèrent son comportement depuis un quartier général cérébral. Quel est ce film ?",
       "answer": "Inside Out (Vice-Versa)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr040",
       "question": "Émotion jaune et pétillante, elle dirige le quartier général dans la tête d'une fillette et veut que chaque souvenir soit heureux. Son optimisme la pousse à minimiser le rôle essentiel d'une autre émotion bleue. Qui est-elle ?",
       "answer": "Joie (Joy)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr041",
       "question": "Émotion bleue en forme de larme dans la tête d'une fillette, longtemps considérée comme inutile par ses collègues, elle s'avère indispensable pour permettre à l'enfant d'exprimer sa détresse et recevoir du réconfort. Qui est-elle ?",
       "answer": "Tristesse (Sadness)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr042",
       "question": "Suite sortie en 2024, ce film introduit de nouvelles émotions dans la tête de Riley devenue adolescente. L'une d'elles, orange et nerveuse, prend le contrôle du quartier général avec des listes et des plans obsessionnels. Quelle est cette nouvelle émotion principale ?",
       "answer": "Anxiété (Anxiety)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr043",
       "question": "Devenu en 2024 le film d'animation le plus rentable de l'histoire avec près de 1,7 milliard de dollars au box-office mondial, cette suite explore l'adolescence de Riley avec quatre nouvelles émotions. Quel est ce film ?",
       "answer": "Inside Out 2 (Vice-Versa 2)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr044",
       "question": "Parmi les quatre nouvelles émotions introduites dans la suite de 2024, l'une d'elles, incarnée par l'actrice française Adèle Exarchopoulos en VO, représente le désintérêt typiquement adolescent et passe son temps sur son téléphone. Quelle est cette émotion ?",
       "answer": "Ennui",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "pxr045",
       "question": "Sorti en 2017 et réalisé par Lee Unkrich, ce film se déroule au Mexique durant la fête des morts et suit un garçon de 12 ans passionné de musique qui se retrouve dans le Pays des Morts. Quel est ce film ?",
       "answer": "Coco",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr046",
       "question": "Chanson phare du film sur le Jour des Morts, écrite par Kristen Anderson-Lopez et Robert Lopez, elle a remporté l'Oscar de la meilleure chanson originale en 2018. Originellement composée comme une berceuse d'un père pour sa fille. Quel est son titre ?",
       "answer": "Remember Me",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "pxr047",
       "question": "Star de la musique mexicaine adulée par un jeune garçon passionné de guitare, ce personnage s'avère être un imposteur qui a volé les chansons de son ancien partenaire et l'a empoisonné. Benjamin Bratt lui prête sa voix. Qui est-il ?",
       "answer": "Ernesto de la Cruz",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr048",
       "question": "Sorti en 2020 et réalisé par Pete Docter, ce film suit un professeur de musique afro-américain passionné de jazz qui, après un accident, se retrouve dans un monde métaphysique où les âmes se préparent avant de naître. Quel est ce film ?",
       "answer": "Soul (Soul)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr049",
       "question": "Professeur de musique au collège et pianiste de jazz passionné, il tombe dans une bouche d'égout le jour où il obtient enfin son grand concert et se retrouve dans l'au-delà. Jamie Foxx lui prête sa voix en VO. Qui est-il ?",
       "answer": "Joe Gardner",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr050",
       "question": "Âme cynique portant le numéro 22 dans un monde métaphysique, elle refuse catégoriquement de naître sur Terre et n'a jamais trouvé son 'étincelle'. Tina Fey lui prête sa voix en VO. Qui est ce personnage ?",
       "answer": "22",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr051",
       "question": "Dans un film de 2020, les nouvelles âmes trouvent leur personnalité et leurs passions avant de naître dans un lieu lumineux peuplé de conseillers nommés Jerry. L'étincelle d'une âme n'est pas un but de vie mais un signe qu'elle est prête à vivre. Quel est ce lieu ?",
       "answer": "Le Grand Avant (The Great Before)",
-      "difficulty": "difficile",
       "category": "Films"
     },
     {
       "id": "pxr052",
       "question": "Sorti en 2021 et réalisé par Enrico Casarosa, ce film se déroule sur la Riviera italienne dans les années 1950 et suit deux jeunes monstres marins qui prennent forme humaine hors de l'eau pour explorer la ville de Portorosso. Quel est ce film ?",
       "answer": "Luca",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr053",
       "question": "Expression italienne devenue culte dans un film de 2021, un jeune monstre marin l'utilise pour faire taire sa voix intérieure de peur. Composée de deux mots en italien, elle est répétée comme un mantra pour surmonter ses angoisses et oser se lancer. Quelle est cette expression ?",
       "answer": "Silenzio Bruno",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr054",
       "question": "Sorti en 2022, ce film se déroule à Toronto en 2002 et raconte l'histoire d'une adolescente sino-canadienne de 13 ans qui se transforme en panda roux géant chaque fois qu'elle ressent une émotion forte. Quel est ce film ?",
       "answer": "Turning Red (Alerte Rouge)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr055",
       "question": "Adolescente sino-canadienne de 13 ans vivant à Toronto, elle découvre qu'une malédiction héréditaire la transforme en panda roux géant de deux mètres quarante sous le coup des émotions. Domee Shi a réalisé ce film, une première au studio. Qui est-elle ?",
       "answer": "Mei Lee (Meilin Lee)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr056",
       "question": "Sorti en 2023, ce film romantique met en scène deux éléments opposés — le feu et l'eau — qui tombent amoureux dans une métropole où cohabitent feu, eau, terre et air, malgré le dicton local selon lequel les éléments ne se mélangent pas. Quel est ce film ?",
       "answer": "Elemental (Élémentaire)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr057",
       "question": "Jeune femme de feu au caractère bien trempé dans un film de 2023, fille d'immigrants de Fireland, elle rêve de reprendre la boutique familiale mais tombe amoureuse d'un garçon d'eau transparent et émotif. Qui est-elle ?",
       "answer": "Ember (Ember Lumen)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr058",
       "question": "Suite sortie en 2016 du film sur les poissons-clowns, ce long-métrage suit le poisson chirurgien bleu amnésique qui part à la recherche de ses parents au Marine Life Institute de Morro Bay, en Californie. Quel est ce film ?",
       "answer": "Finding Dory (Le Monde de Dory)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr059",
       "question": "Poulpe grognon à sept tentacules — d'où son surnom de 'septopus' — dans un film de 2016, il est un as du camouflage au Marine Life Institute et rêve de finir ses jours dans un aquarium à Cleveland. Ed O'Neill lui prête sa voix. Qui est-il ?",
       "answer": "Hank",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr060",
       "question": "Sorti en 2022, ce film raconte l'histoire du vrai ranger de l'espace ayant inspiré le jouet de la saga des jouets. Coincé dans une boucle temporelle sur une planète hostile, il est accompagné d'un chat robot nommé Sox. Quel est ce film ?",
       "answer": "Lightyear (Buzz l'Éclair)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr061",
       "question": "Chat robot roux et blanc au collier bleu dans un film de 2022, il est offert comme compagnon de soutien émotionnel à un ranger de l'espace. Malgré ses circuits, il ronronne quand on le caresse et se laisse distraire par les lasers. Qui est-il ?",
       "answer": "Sox",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr062",
       "question": "Sorti en 2020, ce film de fantasy urbaine suit deux frères elfes adolescents qui utilisent un bâton de sorcier légué par leur père défunt pour tenter de le ramener à la vie pendant 24 heures. Tom Holland et Chris Pratt prêtent leurs voix. Quel est ce film ?",
       "answer": "Onward (En Avant)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr063",
       "question": "Quatrième volet de la saga des jouets sorti en 2019, il introduit un jouet bricolé à partir d'une fourchette en plastique qui traverse une crise existentielle, ne comprenant pas pourquoi il est un jouet et non un déchet. Qui est ce personnage ?",
       "answer": "Forky (Fourchette)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr064",
       "question": "Bergère en porcelaine disparue dans le troisième volet, elle revient dans le quatrième opus transformée en aventurière indépendante qui vit en liberté loin des enfants. Annie Potts reprend son rôle vocal depuis le premier film. Qui est-elle ?",
       "answer": "Bo Peep (la Bergère)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr065",
       "question": "Sorti en 2015, ce film imagine un monde où les dinosaures n'ont jamais disparu et suit un jeune Apatosaure peureux qui se lie d'amitié avec un petit garçon des cavernes durant un périple pour retrouver sa famille. Quel est ce film ?",
       "answer": "The Good Dinosaur (Le Voyage d'Arlo)",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr066",
       "question": "Animateur américain diplômé de CalArts, il a réalisé les deux premiers films de la saga des jouets ainsi que les deux premiers films automobiles du studio. Ses camarades de promotion incluaient Tim Burton et Brad Bird. Qui est-il ?",
       "answer": "John Lasseter",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "pxr067",
       "question": "Réalisateur de quatre longs-métrages du studio — dont un film de monstres, un film de ballons, un film d'émotions et un film de jazz —, il est devenu directeur créatif du studio en 2018. Qui est-il ?",
       "answer": "Pete Docter",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "pxr068",
       "question": "Réalisateur et scénariste ayant signé un film de poissons en 2003, un film de robot en 2008 et la suite du film de poissons en 2016, il prête aussi sa voix à une tortue de mer surfeur dans ses propres films. Qui est-il ?",
       "answer": "Andrew Stanton",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "pxr069",
       "question": "Réalisateur ayant signé un film de super-héros en 2004, un film de rat cuisinier en 2007 et la suite du film de super-héros en 2018, il a aussi doublé lui-même une styliste de costumes dans ses propres films. Qui est-il ?",
       "answer": "Brad Bird",
-      "difficulty": "normal",
       "category": "Production"
     },
     {
       "id": "pxr070",
       "question": "Court-métrage de deux minutes réalisé par John Lasseter en 1986, il met en scène une grande lampe de bureau et une petite qui joue avec une balle. Premier film du studio, il a été le premier CGI nommé aux Oscars. Quel est ce court-métrage ?",
       "answer": "Luxo Jr.",
-      "difficulty": "normal",
       "category": "Courts-métrages"
     },
     {
       "id": "pxr071",
       "question": "Court-métrage de 1988 réalisé par John Lasseter, il met en scène un petit jouet en fer-blanc terrifié par un bébé humain. Premier film en images de synthèse à remporter un Oscar du meilleur court-métrage d'animation. Quel est son titre ?",
       "answer": "Tin Toy",
-      "difficulty": "difficile",
       "category": "Courts-métrages"
     },
     {
       "id": "pxr072",
       "question": "Court-métrage de 1997 mettant en scène un vieil homme jouant aux échecs contre lui-même dans un parc, il a remporté l'Oscar du meilleur court-métrage d'animation et a été diffusé avant le deuxième film d'insectes du studio. Quel est son titre ?",
       "answer": "Geri's Game (Le Jeu de Geri)",
-      "difficulty": "difficile",
       "category": "Courts-métrages"
     },
     {
       "id": "pxr073",
       "question": "Court-métrage de 2000 montrant un groupe de petits oiseaux perchés sur un fil électrique qui se moquent d'un grand oiseau maladroit, il a remporté l'Oscar du meilleur court-métrage d'animation. Quel est son titre ?",
       "answer": "For the Birds (Drôles d'oiseaux sur une ligne à haute tension)",
-      "difficulty": "difficile",
       "category": "Courts-métrages"
     },
     {
       "id": "pxr074",
       "question": "Court-métrage de 2018 réalisé par Domee Shi, il raconte l'histoire d'une mère sino-canadienne dont un dumpling prend vie et devient son fils adoptif. Premier court du studio réalisé par une femme, il a remporté l'Oscar. Quel est son titre ?",
       "answer": "Bao",
-      "difficulty": "difficile",
       "category": "Courts-métrages"
     },
     {
       "id": "pxr075",
       "question": "Court-métrage poétique de 2011 réalisé par Enrico Casarosa, il suit trois générations — grand-père, père et fils — sur un bateau qui accoste au pied d'une échelle menant à la surface de la Lune pour la balayer. Quel est ce court-métrage ?",
       "answer": "La Luna",
-      "difficulty": "difficile",
       "category": "Courts-métrages"
     },
     {
       "id": "pxr076",
       "question": "Co-fondateur du studio et pionnier de l'infographie, ce scientifique a inventé le texture mapping et le z-buffer pendant sa thèse à l'Université de l'Utah. Il a reçu le prix Turing de l'ACM en 2019. Qui est-il ?",
       "answer": "Ed Catmull (Edwin Catmull)",
-      "difficulty": "difficile",
       "category": "Histoire du studio"
     },
     {
       "id": "pxr077",
       "question": "En 1986, le co-fondateur d'Apple a racheté la division informatique de Lucasfilm pour 10 millions de dollars, créant ainsi le studio d'animation qui allait révolutionner le cinéma. Vingt ans plus tard, Disney le rachètera pour 7,4 milliards. Qui est cet investisseur visionnaire ?",
       "answer": "Steve Jobs",
-      "difficulty": "normal",
       "category": "Histoire du studio"
     },
     {
       "id": "pxr078",
       "question": "Logiciel de rendu 3D développé par le studio à partir de 1981, il est utilisé dans la quasi-totalité des films nommés aux Oscars des effets visuels. Son développement a valu le prix Turing à ses créateurs. Quel est ce logiciel ?",
       "answer": "RenderMan",
-      "difficulty": "difficile",
       "category": "Technologie"
     },
     {
       "id": "pxr079",
       "question": "Référence récurrente présente dans presque tous les films du studio, ce code fait référence à une salle de classe de CalArts où ont étudié de nombreux animateurs. Dans un film de robot, il désigne la directive secrète du pilote automatique. Quel est ce code ?",
       "answer": "A113",
-      "difficulty": "normal",
       "category": "Easter Eggs"
     },
     {
       "id": "pxr080",
       "question": "Véhicule de livraison jaune portant une fusée et un globe terrestre sur son toit, il apparaît dans pratiquement chaque film du studio sous des formes variées — parfois comme une Piaggio Ape italienne ou un simple autocollant. Quel est ce véhicule ?",
       "answer": "Le camion Pizza Planet (Pizza Planet Truck)",
-      "difficulty": "normal",
       "category": "Easter Eggs"
     },
     {
       "id": "pxr081",
       "question": "Balle jaune ornée d'une étoile bleue et d'une bande rouge, elle apparaît pour la première fois dans un court-métrage de lampes de bureau de 1986 et fait un caméo dans presque chaque film du studio depuis. Quel est cet objet ?",
       "answer": "La balle Luxo (Luxo Ball)",
-      "difficulty": "normal",
       "category": "Easter Eggs"
     },
     {
       "id": "pxr082",
       "question": "Théorie populaire formulée par Jon Negroni en 2013, elle postule que tous les films du studio se déroulent dans un même univers, avec notamment l'idée que la petite fille du film de monstres serait devenue la sorcière du film écossais. Quel est le nom de cette théorie ?",
       "answer": "La théorie de l'univers connecté (The Pixar Theory)",
-      "difficulty": "difficile",
       "category": "Easter Eggs"
     },
     {
       "id": "pxr083",
       "question": "Dans le cottage de la sorcière d'un film écossais de 2012, on peut apercevoir une sculpture en bois représentant un grand monstre bleu et violet issu d'un autre film du studio. Cette sculpture alimente une célèbre théorie de fans. De quel monstre s'agit-il ?",
       "answer": "Sulley (Jacques Sullivan)",
-      "difficulty": "difficile",
       "category": "Easter Eggs"
     },
     {
       "id": "pxr084",
       "question": "Acteur américain considéré comme le porte-bonheur du studio, il a doublé un personnage dans chacun des 22 premiers films, du cochon-tirelire de la saga des jouets au Yéti du film de monstres universitaires. Qui est-il ?",
       "answer": "John Ratzenberger",
-      "difficulty": "difficile",
       "category": "Voix"
     },
     {
       "id": "pxr085",
       "question": "Cochon-tirelire rose sarcastique et amateur de télévision, il fait partie du groupe de jouets d'Andy depuis le premier film en 1995. John Ratzenberger lui prête sa voix dans tous ses apparitions. Qui est-il ?",
       "answer": "Hamm (Bayonne)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr086",
       "question": "Compositeur américain ayant signé la musique de neuf films du studio, dont toute la saga des jouets, le film de monstres et les trois films automobiles, il est aussi connu pour la chanson 'You've Got a Friend in Me'. Qui est-il ?",
       "answer": "Randy Newman",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "pxr087",
       "question": "Compositeur américain oscarisé pour la musique d'un film de ballons en 2009, il a aussi signé les bandes originales du film de super-héros, du film d'émotions et du film de jazz du studio. Il compose aussi pour la saga Jurassic World. Qui est-il ?",
       "answer": "Michael Giacchino",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "pxr088",
       "question": "Compositeur ayant signé la musique de trois films du studio -- un film de poissons en 2003, un film de robot en 2008 et la suite du film de poissons en 2016 --, il est issu d'une illustre famille de compositeurs hollywoodiens et est le fils d'Alfred, lauréat de neuf Oscars. Qui est-il ?",
       "answer": "Thomas Newman",
-      "difficulty": "difficile",
       "category": "Musique"
     },
     {
       "id": "pxr089",
       "question": "Chanson emblématique composée par Randy Newman pour le premier film du studio en 1995, elle célèbre l'amitié entre un cow-boy et son propriétaire, et revient dans chaque opus de la saga. Elle a été nommée aux Oscars. Quel est son titre ?",
       "answer": "You've Got a Friend in Me (Je suis ton ami)",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "pxr090",
       "question": "Le studio a remporté onze fois l'Oscar du meilleur film d'animation, un record absolu. Son premier sacre dans cette catégorie créée en 2001 était pour un film de poissons en 2004. Quatre de ces victoires furent consécutives, de 2007 à 2010. Quels sont les quatre films de cette série record ?",
       "answer": "Ratatouille, WALL-E, Up (Là-Haut), Toy Story 3",
-      "difficulty": "difficile",
       "category": "Récompenses"
     },
     {
       "id": "pxr092",
       "question": "Avant de devenir un studio d'animation, l'entreprise a été fondée en 1979 comme division informatique d'une célèbre société de cinéma créée par le réalisateur de Star Wars. Quelle société a ainsi donné naissance au futur studio d'animation ?",
       "answer": "Lucasfilm",
-      "difficulty": "normal",
       "category": "Histoire du studio"
     },
     {
       "id": "pxr093",
       "question": "En janvier 2006, un géant du divertissement a racheté le studio d'animation pour 7,4 milliards de dollars en actions, faisant de l'ancien propriétaire du studio le plus grand actionnaire individuel de l'acquéreur. Quelle entreprise a fait cette acquisition ?",
       "answer": "The Walt Disney Company (Disney)",
-      "difficulty": "normal",
       "category": "Histoire du studio"
     },
     {
       "id": "pxr094",
       "question": "Première femme à réaliser seule un long-métrage pour le studio, elle a d'abord signé le court-métrage oscarisé sur un dumpling vivant en 2018 avant de diriger un film de panda roux en 2022. Qui est cette réalisatrice ?",
       "answer": "Domee Shi",
-      "difficulty": "difficile",
       "category": "Production"
     },
     {
       "id": "pxr097",
       "question": "Dans le film de super-héros de 2004, la styliste explique pourquoi elle refuse les capes en citant cinq héros morts à cause d'elles : Dynaguy, Thunderhead, Stratogale, Meta Man et un cinquième héros aquatique. Qui est ce dernier héros cité ?",
       "answer": "Splashdown",
-      "difficulty": "difficile",
       "category": "Films"
     },
     {
       "id": "pxr098",
       "question": "Dans un film de poissons-clowns de 2003, un poisson amnésique retient l'adresse exacte du cabinet dentaire où est retenu le petit poisson capturé, la répétant comme un mantra tout au long du voyage. Quelle est cette adresse devenue culte ?",
       "answer": "42 Wallaby Way, Sydney",
-      "difficulty": "normal",
       "category": "Films"
     },
     {
       "id": "pxr099",
       "question": "Poupée parlante des années 1950 au mécanisme vocal cassé dans un film de jouets de 2019, elle cherche désespérément à obtenir la boîte vocale d'un cow-boy pour enfin être aimée d'un enfant. Christina Hendricks lui prête sa voix. Qui est-elle ?",
       "answer": "Gabby Gabby",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr100",
       "question": "Dans un film de super-héros de 2018, le bébé de la famille révèle une multitude de pouvoirs allant des rayons laser aux transformations en monstre, en passant par la téléportation et la combustion spontanée. Il combat aussi un raton laveur. Qui est ce bébé surpuissant ?",
       "answer": "Jack-Jack (Jack-Jack Parr)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr101",
       "question": "Critique gastronomique redouté dont la critique élogieuse sauve un restaurant parisien à la fin d'un film de 2007, il est doublé en VO par Peter O'Toole. Son nom de famille évoque ironiquement la facilité. Qui est-il ?",
       "answer": "Anton Ego",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr102",
       "question": "Oiseau géant multicolore et incapable de voler, mesurant quatre mètres de haut, il est poursuivi par un vieil explorateur dans un film de 2009. Malgré son prénom masculin, c'est en réalité une femelle qui cherche ses œufs. Qui est cet oiseau ?",
       "answer": "Kevin",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr103",
       "question": "Vieille dépanneuse rouillée au crochet de remorquage tordu, meilleur ami d'un bolide de course rouge, il est le personnage le plus attachant d'une petite ville de la Route 66. Larry the Cable Guy lui prête sa voix en VO. Qui est-il ?",
       "answer": "Martin (Tow Mater)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr104",
       "question": "Voiture bleu marine de 1951, médecin et juge d'une petite ville de la Route 66, ce personnage cache un passé glorieux de champion de course sous une carrosserie poussiéreuse. Paul Newman, dans son dernier rôle vocal, lui prête sa voix. Qui est-il ?",
       "answer": "Doc Hudson",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr106",
       "question": "Acteur français ayant doublé le cow-boy de la saga des jouets en VF, il prête sa voix à ce personnage depuis le premier film en 1995. Il est aussi connu comme le doubleur attitré de certaines stars américaines. Qui est-il ?",
       "answer": "Jean-Philippe Puymartin",
-      "difficulty": "difficile",
       "category": "Voix"
     },
     {
       "id": "pxr107",
       "question": "Doubleur français emblématique, il prête sa voix au ranger de l'espace de la saga des jouets en VF. Il est aussi connu pour être la voix française du Génie dans un film Disney de 1992. Qui est-il ?",
       "answer": "Richard Darbois",
-      "difficulty": "difficile",
       "category": "Voix"
     },
     {
       "id": "pxr108",
       "question": "Dans un film de 2001, la petite fille humaine qui s'introduit dans le monde des monstres ne dit qu'un seul vrai mot compréhensible tout au long du film, qu'elle utilise comme surnom pour le grand monstre bleu. Quel est ce mot ?",
       "answer": "Kitty (Minou)",
-      "difficulty": "difficile",
       "category": "Films"
     },
     {
       "id": "pxr109",
       "question": "Dans un film de rat cuisinier de 2007, le restaurant fictif où se déroule l'action porte le nom du chef fantôme qui inspire le héros. Le vrai nom du jeune commis humain qui sert de marionnette au rat signifie 'petite pâte' en italien. Qui est ce commis ?",
       "answer": "Alfredo Linguini",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr110",
       "question": "Monstre violet caméléon capable de se rendre invisible, il est le rival du héros bleu dans l'usine de monstres et complote pour aspirer les cris des enfants avec une machine. Steve Buscemi lui prête sa voix en VO. Qui est-il ?",
       "answer": "Randall Boggs (Léon Bogue)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr111",
       "question": "Court-métrage de 1984 considéré comme la toute première production de l'équipe qui deviendra le studio, il met en scène deux personnages en images de synthèse dans une forêt. Réalisé par John Lasseter chez Lucasfilm, il a été présenté au SIGGRAPH. Quel est son titre ?",
       "answer": "The Adventures of André and Wally B.",
-      "difficulty": "difficile",
       "category": "Courts-métrages"
     },
     {
       "id": "pxr112",
       "question": "En 2014, un court-métrage de lampes de bureau de 1986 et un court-métrage de jouet en fer-blanc de 1988 ont été sélectionnés pour préservation au National Film Registry de la Bibliothèque du Congrès américain. Pour quelle raison officielle les films sont-ils sélectionnés ?",
       "answer": "Culturellement, historiquement ou esthétiquement significatifs",
-      "difficulty": "difficile",
       "category": "Récompenses"
     },
     {
       "id": "pxr113",
       "question": "Cow-girl énergique à la tresse rousse et au chapeau marron, elle rejoint le groupe de jouets dans le deuxième opus de la saga en 1999 après avoir été abandonnée par sa propriétaire Emily. Joan Cusack lui prête sa voix en VO. Qui est-elle ?",
       "answer": "Jessie",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr114",
       "question": "Super-héroïne capable d'étirer son corps jusqu'à 30 mètres et de se transformer en parachute ou en bateau, elle est aussi mère de trois enfants dans un film de 2004. Holly Hunter lui prête sa voix en VO. Qui est-elle ?",
       "answer": "Elastigirl (Helen Parr)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "pxr115",
       "question": "Dans un film de jouets de 2019, un cow-boy décide de quitter ses amis pour vivre en liberté comme jouet errant avec une ancienne bergère en porcelaine. C'est la première fois dans la saga qu'il choisit de ne plus appartenir à un enfant. Quel est ce film ?",
       "answer": "Toy Story 4",
-      "difficulty": "normal",
       "category": "Films"
     }
   ]

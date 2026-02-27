@@ -7,1050 +7,900 @@
       "id": "mcu001",
       "question": "Ce milliardaire génie fabrique sa première armure dans une grotte en Afghanistan, possède un arc réacteur dans la poitrine et prononce la réplique culte « I am Iron Man » à la fin de son premier film. Qui est-ce ?",
       "answer": "Tony Stark / Iron Man",
-      "difficulty": "normal",
       "category": "Iron Man"
     },
     {
       "id": "mcu002",
       "question": "Ce soldat chétif de Brooklyn reçoit un sérum de super-soldat pendant la Seconde Guerre mondiale, porte un bouclier en vibranium et se retrouve congelé dans la glace pendant près de 70 ans. Qui est-ce ?",
       "answer": "Steve Rogers / Captain America",
-      "difficulty": "normal",
       "category": "Captain America"
     },
     {
       "id": "mcu003",
       "question": "Ce dieu asgardien manie un marteau enchanté appelé Mjolnir, est le fils d'Odin et a un frère adoptif qui est le dieu de la malice. Qui est-ce ?",
       "answer": "Thor",
-      "difficulty": "normal",
       "category": "Thor"
     },
     {
       "id": "mcu004",
       "question": "Ce titan violet originaire de la planète Titan est obsédé par l'équilibre de l'univers, collecte les six Pierres d'Infinité et élimine la moitié de toute vie d'un claquement de doigts. Qui est-ce ?",
       "answer": "Thanos",
-      "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "mcu005",
       "question": "Ce jeune héros de Queens obtient ses pouvoirs après la morsure d'une araignée, considère Tony Stark comme son mentor et prononce la déchirante réplique « I don't feel so good » en se désintégrant. Qui est-ce ?",
       "answer": "Peter Parker / Spider-Man",
-      "difficulty": "normal",
       "category": "Spider-Man"
     },
     {
       "id": "mcu006",
       "question": "Cette espionne russe a été formée dans la Red Room, est une des membres fondatrices des Avengers et se sacrifie sur la planète Vormir pour obtenir la Pierre de l'Âme. Qui est-ce ?",
       "answer": "Natasha Romanoff / Veuve Noire",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu007",
       "question": "Ce dieu asgardien de la malice est le frère adoptif de Thor, mène l'invasion de New York avec une armée de Chitauris et possède un sceptre contenant une Pierre d'Infinité. Qui est-ce ?",
       "answer": "Loki",
-      "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "mcu008",
       "question": "Ce scientifique se transforme en géant vert quand il est en colère, fusionne son intellect avec sa force brute pour devenir « Professeur Hulk » et réalise le snap qui ramène tout le monde dans Endgame. Qui est-ce ?",
       "answer": "Bruce Banner / Hulk",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu009",
       "question": "Ce roi du Wakanda porte un costume en vibranium tissé de nanotechnologie, hérite du titre de protecteur de sa nation après la mort de son père et affronte son cousin Erik Killmonger. Qui est-ce ?",
       "answer": "T'Challa / Black Panther",
-      "difficulty": "normal",
       "category": "Black Panther"
     },
     {
       "id": "mcu010",
       "question": "Cet ancien neurochirurgien arrogant perd l'usage de ses mains dans un accident de voiture, se rend à Kamar-Taj pour apprendre les arts mystiques et devient le Sorcier Suprême. Qui est-ce ?",
       "answer": "Stephen Strange / Doctor Strange",
-      "difficulty": "normal",
       "category": "Doctor Strange"
     },
     {
       "id": "mcu011",
       "question": "Ce film de 2012 réunit pour la première fois Iron Man, Captain America, Thor, Hulk, Veuve Noire et Oeil de Faucon pour défendre New York contre une invasion extraterrestre menée par Loki. Quel est ce film ?",
       "answer": "Avengers (2012)",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu012",
       "question": "Cette Pierre d'Infinité est de couleur bleue, permet de se téléporter n'importe où dans l'univers et était contenue dans le Tesseract. Quelle est cette pierre ?",
       "answer": "La Pierre de l'Espace",
-      "difficulty": "normal",
       "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu013",
       "question": "Cet archer expert ne rate jamais sa cible, est agent du SHIELD, a une famille secrète dans une ferme et adopte l'identité de Ronin après le snap de Thanos. Qui est-ce ?",
       "answer": "Clint Barton / Oeil de Faucon",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu014",
       "question": "Ce groupe de hors-la-loi cosmiques est composé d'un demi-humain fan de musique des années 80, d'une guerrière verte, d'un colosse littéral, d'un raton laveur et d'un arbre qui ne dit que « I am Groot ». Quel est ce groupe ?",
       "answer": "Les Gardiens de la Galaxie",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu015",
       "question": "Dans ce film de 2018, Thanos réussit à rassembler les six Pierres d'Infinité et élimine la moitié de la vie dans l'univers d'un claquement de doigts, dans une fin choc pour le MCU. Quel est ce film ?",
       "answer": "Avengers: Infinity War",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu016",
       "question": "Ce personnage est un android créé par Ultron à partir du vibranium et de la Pierre de l'Esprit, tombe amoureux de Wanda Maximoff et est tué par Thanos qui lui arrache la pierre du front. Qui est-ce ?",
       "answer": "Vision",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu017",
       "question": "Cette Pierre d'Infinité est de couleur jaune, confère des pouvoirs psychiques et était enchâssée dans le front de Vision. Quelle est cette pierre ?",
       "answer": "La Pierre de l'Esprit",
-      "difficulty": "normal",
       "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu018",
       "question": "Cet acteur incarne Tony Stark / Iron Man depuis 2008, a relancé sa carrière grâce à ce rôle et prononce la dernière réplique « I am Iron Man » dans Avengers: Endgame. Qui est cet acteur ?",
       "answer": "Robert Downey Jr.",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu019",
       "question": "Ce film de 2019 conclut la saga de l'Infinité, utilise le voyage dans le temps via le royaume quantique et se termine par la scène iconique des portails et le sacrifice de Tony Stark. Quel est ce film ?",
       "answer": "Avengers: Endgame",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu020",
       "question": "Ce soldat est le meilleur ami de Steve Rogers, perd son bras en tombant d'un train, est transformé en assassin par Hydra sous le nom de code Soldat de l'Hiver et reçoit un bras en vibranium au Wakanda. Qui est-ce ?",
       "answer": "Bucky Barnes / Soldat de l'Hiver",
-      "difficulty": "normal",
       "category": "Captain America"
     },
     {
       "id": "mcu021",
       "question": "Ce directeur borgne du SHIELD porte un cache-œil, a lancé l'Initiative Avengers et apparaît dans les scènes post-génériques de nombreux films Marvel. Qui est-ce ?",
       "answer": "Nick Fury",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu022",
       "question": "Ce personnage mi-humain mi-céleste est le leader des Gardiens de la Galaxie, adore la musique des années 70-80 sur son Walkman et découvre que son père est le Céleste Ego. Qui est-ce ?",
       "answer": "Peter Quill / Star-Lord",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu023",
       "question": "Cette guerrière verte est la fille adoptive de Thanos, sœur de Nebula et tombe amoureuse de Star-Lord. Elle est sacrifiée par Thanos sur Vormir pour obtenir la Pierre de l'Âme. Qui est-ce ?",
       "answer": "Gamora",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu024",
       "question": "Dans Avengers: Endgame, Steve Rogers prouve qu'il est digne en soulevant cet objet mythique lors de la bataille finale contre Thanos, à la surprise de Thor qui s'exclame « I knew it! ». Quel est cet objet ?",
       "answer": "Mjolnir",
-      "difficulty": "normal",
       "category": "Captain America"
     },
     {
       "id": "mcu025",
       "question": "Ce film de 2016 oppose Iron Man et Captain America autour des Accords de Sokovie, divisant les Avengers en deux camps et introduisant Spider-Man et Black Panther dans le MCU. Quel est ce film ?",
       "answer": "Captain America: Civil War",
-      "difficulty": "normal",
       "category": "Captain America"
     },
     {
       "id": "mcu026",
       "question": "Cette Pierre d'Infinité est de couleur rouge, permet de manipuler la réalité elle-même et était cachée sous forme d'Éther dans un lieu secret, retrouvée accidentellement par Jane Foster lors de la Convergence dans Thor: Le Monde des ténèbres. Quelle est cette pierre ?",
       "answer": "La Pierre de Réalité",
-      "difficulty": "difficile",
       "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu027",
       "question": "Ce colosse aux tatouages est connu pour prendre toutes les métaphores au sens littéral, cherche à venger sa famille tuée par Ronan et fait partie des Gardiens de la Galaxie. Qui est-ce ?",
       "answer": "Drax le Destructeur",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu028",
       "question": "Cette intelligence artificielle créée par Tony Stark et Bruce Banner à partir de la Pierre de l'Esprit se retourne contre ses créateurs, veut provoquer l'extinction de l'humanité et soulève la ville de Sokovie dans les airs. Qui est-ce ?",
       "answer": "Ultron",
-      "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "mcu029",
       "question": "Ce film de 2017 voit Thor perdre son marteau Mjolnir, être capturé sur la planète Sakaar où il combat Hulk dans une arène de gladiateurs et affronter sa sœur Hela, déesse de la mort. Quel est ce film ?",
       "answer": "Thor: Ragnarok",
-      "difficulty": "normal",
       "category": "Thor"
     },
     {
       "id": "mcu030",
       "question": "Cet acteur australien incarne Thor depuis 2011, est connu pour sa transformation physique impressionnante et joue un Thor en surpoids dépressif dans Avengers: Endgame. Qui est cet acteur ?",
       "answer": "Chris Hemsworth",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu031",
       "question": "Cette Pierre d'Infinité est de couleur verte, permet de manipuler le temps et était protégée par le Sorcier Suprême dans l'Œil d'Agamotto. Quelle est cette pierre ?",
       "answer": "La Pierre du Temps",
-      "difficulty": "normal",
       "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu032",
       "question": "Ce héros peut rétrécir à la taille d'une fourmi ou devenir géant grâce aux particules Pym, est un ancien cambrioleur et découvre le royaume quantique en se rétrécissant au niveau subatomique. Qui est-ce ?",
       "answer": "Scott Lang / Ant-Man / Homme-Fourmi",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu033",
       "question": "Cette sorcière originaire de Sokovie possède des pouvoirs de télékinésie et de manipulation mentale, perd son frère Pietro et crée une réalité alternative dans la série WandaVision. Qui est-ce ?",
       "answer": "Wanda Maximoff / Sorcière Rouge",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu034",
       "question": "Dans Avengers: Infinity War, Doctor Strange examine 14 000 605 futurs possibles et révèle aux Avengers qu'il n'y a qu'un seul scénario où ils gagnent contre Thanos. Combien de futurs victorieux a-t-il trouvé ?",
       "answer": "Un seul (1)",
-      "difficulty": "normal",
       "category": "Doctor Strange"
     },
     {
       "id": "mcu035",
       "question": "Ce cousin de T'Challa a grandi à Oakland, est un ancien agent des forces spéciales américaines et veut utiliser le vibranium du Wakanda pour armer les opprimés du monde entier. Qui est-ce ?",
       "answer": "Erik Killmonger",
-      "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "mcu036",
       "question": "Ce film de 2021 voit trois versions de Spider-Man issues de différents univers se réunir pour combattre des méchants du multivers, après qu'un sort de Doctor Strange a mal tourné. Quel est ce film ?",
       "answer": "Spider-Man: No Way Home",
-      "difficulty": "normal",
       "category": "Spider-Man"
     },
     {
       "id": "mcu037",
       "question": "Cet acteur américain incarne Steve Rogers / Captain America de 2011 à 2019 et prend sa retraite du rôle dans Avengers: Endgame quand son personnage vieillit après avoir vécu sa vie dans le passé. Qui est cet acteur ?",
       "answer": "Chris Evans",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu038",
       "question": "Ce personnage est un raton laveur génétiquement modifié, expert en armes et en mécanique, surnommé « sweet rabbit » par Thor et révèle son vrai nom Rocket dans Les Gardiens de la Galaxie Vol. 3. Qui est-ce ?",
       "answer": "Rocket Raccoon",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu039",
       "question": "Cette Pierre d'Infinité est de couleur orange, nécessite le sacrifice d'un être aimé pour l'obtenir et se trouve sur la planète Vormir, gardée par Red Skull. Quelle est cette pierre ?",
       "answer": "La Pierre de l'Âme",
-      "difficulty": "difficile",
       "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu040",
       "question": "Cette ancienne mentore de Doctor Strange est le Sorcier Suprême avant lui, cache le fait qu'elle puise son pouvoir dans la Dimension Noire et meurt en tombant d'un immeuble lors de l'attaque de Kaecilius. Qui est-ce ?",
       "answer": "L'Ancien / The Ancient One",
-      "difficulty": "difficile",
       "category": "Doctor Strange"
     },
     {
       "id": "mcu041",
       "question": "Ce méchant est le patron du département de récupération de matériel extraterrestre, construit un costume ailé à partir de technologie Chitauri et est le père de la petite amie de Peter Parker dans Homecoming. Qui est-ce ?",
       "answer": "Adrian Toomes / Le Vautour",
-      "difficulty": "difficile",
       "category": "Méchants"
     },
     {
       "id": "mcu042",
       "question": "Dans Avengers: Endgame, Captain America prononce enfin cette réplique tant attendue lors de la bataille finale quand tous les héros arrivent par les portails. Quelle est cette réplique ?",
       "answer": "Avengers, Assemble!",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu043",
       "question": "Ce personnage est un arbre humanoïde qui ne peut répéter qu'une seule et même phrase, se sacrifie pour protéger ses amis à la fin du premier Gardiens de la Galaxie et renaît sous forme de bébé. Qui est-ce ?",
       "answer": "Groot",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu044",
       "question": "Ce film de 2008 est le tout premier film du MCU et lance l'univers cinématographique avec la transformation d'un marchand d'armes milliardaire en super-héros après sa captivité en Afghanistan. Quel est ce film ?",
       "answer": "Iron Man (2008)",
-      "difficulty": "normal",
       "category": "Iron Man"
     },
     {
       "id": "mcu045",
       "question": "Cette Pierre d'Infinité est de couleur violette, confère une puissance destructrice immense et est la première pierre que Thanos obtient en détruisant la planète Xandar. Quelle est cette pierre ?",
       "answer": "La Pierre du Pouvoir",
-      "difficulty": "difficile",
       "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu046",
       "question": "Ce méchant se fait passer pour un héros grâce à des illusions holographiques créées par des drones, est un ancien employé rancunier de Stark Industries et trompe Spider-Man dans Far From Home. Qui est-ce ?",
       "answer": "Quentin Beck / Mysterio",
-      "difficulty": "difficile",
       "category": "Méchants"
     },
     {
       "id": "mcu047",
       "question": "Ce film de 2013 voit Tony Stark affronter le Mandarin, détruire toutes ses armures dans l'opération « Clean Slate Protocol » et se faire retirer les éclats de métal de sa poitrine. Quel est ce film ?",
       "answer": "Iron Man 3",
-      "difficulty": "difficile",
       "category": "Iron Man"
     },
     {
       "id": "mcu048",
       "question": "Ce personnage est le valet et chauffeur fidèle de Tony Stark, chef de la sécurité de Stark Industries et apparaît dans de nombreux films du MCU depuis Iron Man en 2008. Qui est-ce ?",
       "answer": "Happy Hogan",
-      "difficulty": "difficile",
       "category": "Iron Man"
     },
     {
       "id": "mcu049",
       "question": "Cette déesse asgardienne de la mort est la sœur aînée de Thor, a été emprisonnée par Odin et détruit Mjolnir d'une seule main à son retour dans Thor: Ragnarok. Qui est-ce ?",
       "answer": "Hela",
-      "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "mcu050",
       "question": "Cet acteur britannique incarne le Doctor Strange, est également célèbre pour son rôle de Sherlock Holmes dans la série BBC et rejoint le MCU en 2016. Qui est cet acteur ?",
       "answer": "Benedict Cumberbatch",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu051",
       "question": "Ce militaire et ami de Tony Stark pilote l'armure War Machine, est paralysé après une chute lors de la bataille de l'aéroport dans Civil War et se relève grâce à des appareils Stark. Qui est-ce ?",
       "answer": "James Rhodes / War Machine",
-      "difficulty": "normal",
       "category": "Iron Man"
     },
     {
       "id": "mcu052",
       "question": "Ce film de 2014 est le premier MCU dans l'espace, mélange aventure cosmique et humour, et est célèbre pour sa bande originale « Awesome Mix Vol. 1 » remplie de tubes des années 70. Quel est ce film ?",
       "answer": "Les Gardiens de la Galaxie (2014)",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu053",
       "question": "Cette IA sert d'assistante personnelle à Tony Stark dans ses armures, remplaçant JARVIS après que celui-ci est devenu Vision. Elle porte un prénom féminin irlandais. Qui est-ce ?",
       "answer": "F.R.I.D.A.Y.",
-      "difficulty": "difficile",
       "category": "Iron Man"
     },
     {
       "id": "mcu054",
       "question": "Ce film de 2019 révèle les origines de Carol Danvers comme pilote de l'armée de l'air, se déroule dans les années 90 et montre comment Nick Fury a perdu son œil à cause d'un Flerken. Quel est ce film ?",
       "answer": "Captain Marvel",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu055",
       "question": "Ce gardien de la Bifrost d'Asgard possède une vision qui porte sur les neuf royaumes, porte une armure dorée et se sacrifie pour envoyer Hulk sur Terre via le Bifrost au début d'Infinity War. Qui est-ce ?",
       "answer": "Heimdall",
-      "difficulty": "difficile",
       "category": "Thor"
     },
     {
       "id": "mcu056",
       "question": "Cette planète désolée est gardée par Red Skull, exilé là par le Tesseract, et exige le sacrifice d'un être aimé pour obtenir la Pierre de l'Âme. Natasha et Gamora y ont toutes deux perdu la vie. Quelle est cette planète ?",
       "answer": "Vormir",
-      "difficulty": "difficile",
       "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu057",
       "question": "Ce métal fictif extraterrestre est le plus résistant de la Terre, compose le bouclier de Captain America et les technologies du Wakanda. Comment s'appelle-t-il ?",
       "answer": "Le vibranium",
-      "difficulty": "normal",
       "category": "Black Panther"
     },
     {
       "id": "mcu058",
       "question": "Ce personnage est la sœur de T'Challa, génie scientifique du Wakanda, conçoit les gadgets et armures de Black Panther et plaisante en disant que les anciens étaient « trop traditionnels ». Qui est-ce ?",
       "answer": "Shuri",
-      "difficulty": "normal",
       "category": "Black Panther"
     },
     {
       "id": "mcu059",
       "question": "Dans Avengers: Endgame, Thor déprimé vit reclus dans cette ville de pêcheurs norvégiens avec Korg et Miek, boit de la bière et joue à Fortnite. Quel est le nom de cette ville ?",
       "answer": "New Asgard (Tønsberg)",
-      "difficulty": "difficile",
       "category": "Thor"
     },
     {
       "id": "mcu060",
       "question": "Cet acteur britannique est le plus jeune à incarner Spider-Man au cinéma, fait ses débuts dans le MCU dans Captain America: Civil War en 2016 et est connu pour spoiler accidentellement des scènes Marvel en interview. Qui est cet acteur ?",
       "answer": "Tom Holland",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu061",
       "question": "Ce super-héros est un ancien parachutiste militaire équipé d'ailes mécaniques, devient le meilleur ami de Steve Rogers et hérite du bouclier de Captain America à la fin d'Endgame. Qui est-ce ?",
       "answer": "Sam Wilson / Le Faucon",
-      "difficulty": "normal",
       "category": "Captain America"
     },
     {
       "id": "mcu062",
       "question": "Ce Gardien de la Galaxie est une empathique aux antennes qui peut ressentir et influencer les émotions des autres, rejoint l'équipe dans le Vol. 2 et endort temporairement Thanos sur Titan. Qui est-ce ?",
       "answer": "Mantis",
-      "difficulty": "difficile",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu063",
       "question": "Ce film de 2015 voit les Avengers affronter une intelligence artificielle qui veut l'extinction humaine, introduit les jumeaux Maximoff et Vision, et se termine par la création d'une nouvelle équipe d'Avengers. Quel est ce film ?",
       "answer": "Avengers: L'Ère d'Ultron",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu064",
       "question": "Cette guerrière asgardienne rencontrée sur Sakaar est devenue alcoolique après la mort de ses sœurs d'armes, aide Thor à s'échapper et devient la reine de New Asgard dans Endgame. Qui est-ce ?",
       "answer": "Valkyrie / Brunnhilde",
-      "difficulty": "difficile",
       "category": "Thor"
     },
     {
       "id": "mcu065",
       "question": "Ce grand maître excentrique gouverne la planète Sakaar, organise des combats de gladiateurs et est interprété par Jeff Goldblum dans Thor: Ragnarok. Qui est-ce ?",
       "answer": "Le Grand Maître / Grandmaster",
-      "difficulty": "difficile",
       "category": "Thor"
     },
     {
       "id": "mcu066",
       "question": "Cette actrice américaine incarne Natasha Romanoff / Veuve Noire depuis Iron Man 2 en 2010, obtient enfin son film solo en 2021 et est l'une des actrices les mieux payées au monde. Qui est-ce ?",
       "answer": "Scarlett Johansson",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu067",
       "question": "Ce personnage est l'intelligence artificielle créée par Tony Stark, basée sur la personnalité de son majordome Edwin Jarvis, et finit par devenir le corps de Vision. Comment s'appelle cette IA ?",
       "answer": "J.A.R.V.I.S.",
-      "difficulty": "normal",
       "category": "Iron Man"
     },
     {
       "id": "mcu068",
       "question": "Dans Spider-Man: Homecoming, Peter Parker refuse de rejoindre les Avengers et décline le costume high-tech de Tony Stark, prouvant sa maturité. Mais quel nom est donné à l'IA intégrée dans son costume Spider-Man ?",
       "answer": "Karen",
-      "difficulty": "difficile",
       "category": "Spider-Man"
     },
     {
       "id": "mcu069",
       "question": "Ce film de 2018 se déroule au Wakanda et montre T'Challa affronter Killmonger pour le trône, avec un discours final puissant sur l'ouverture du Wakanda au monde. Quel est ce film ?",
       "answer": "Black Panther (2018)",
-      "difficulty": "normal",
       "category": "Black Panther"
     },
     {
       "id": "mcu070",
       "question": "Steve Rogers prononce régulièrement cette réplique emblématique quand il refuse d'abandonner un combat, que ce soit face à des voyous dans une ruelle de Brooklyn ou contre Thanos. Quelle est cette réplique ?",
       "answer": "I can do this all day",
-      "difficulty": "normal",
       "category": "Captain America"
     },
     {
       "id": "mcu071",
       "question": "Thanos prononce cette célèbre réplique pour justifier son plan d'éliminer la moitié de toute vie : « Perfectly balanced, as all things should be ». Sur quelle planète est-il né ?",
       "answer": "Titan",
-      "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "mcu072",
       "question": "Cette arme forgée par les nains de Nidavellir pour Thor dans Infinity War est une hache capable d'invoquer le Bifrost et assez puissante pour blesser Thanos même avec le Gantelet complet. Quel est son nom ?",
       "answer": "Stormbreaker",
-      "difficulty": "normal",
       "category": "Thor"
     },
     {
       "id": "mcu073",
       "question": "Ce personnage Kree de peau bleue est un fanatique religieux, utilise un marteau universel et est le principal antagoniste du premier film des Gardiens de la Galaxie. Qui est-ce ?",
       "answer": "Ronan l'Accusateur",
-      "difficulty": "difficile",
       "category": "Méchants"
     },
     {
       "id": "mcu074",
       "question": "Cette actrice oscarisée incarne Pepper Potts, la femme de Tony Stark, du premier Iron Man à Endgame, et enfile même sa propre armure « Rescue » lors de la bataille finale. Qui est-ce ?",
       "answer": "Gwyneth Paltrow",
-      "difficulty": "difficile",
       "category": "Acteurs"
     },
     {
       "id": "mcu075",
       "question": "Ce nain géant roi de Nidavellir, interprété par Peter Dinklage, a été forcé par Thanos de forger le Gantelet de l'Infinité et aide Thor à créer Stormbreaker. Qui est-ce ?",
       "answer": "Eitri",
-      "difficulty": "difficile",
       "category": "Thor"
     },
     {
       "id": "mcu076",
       "question": "Ce héros rocheux de Sakaar parle avec un accent néo-zélandais très calme, organise une révolution ratée, adore les jeux vidéo et est interprété par le réalisateur Taika Waititi lui-même. Qui est-ce ?",
       "answer": "Korg",
-      "difficulty": "normal",
       "category": "Thor"
     },
     {
       "id": "mcu077",
       "question": "Dans Avengers: Endgame, les héros voyagent dans le temps pour récupérer les Pierres d'Infinité à différentes époques. Ils appellent ce plan le « Time Heist ». Quel héros propose cette idée en revenant du royaume quantique ?",
       "answer": "Scott Lang / Ant-Man",
-      "difficulty": "difficile",
       "category": "Avengers"
     },
     {
       "id": "mcu078",
       "question": "Ce film est le premier de la Phase 4 du MCU sorti au cinéma, se déroule après Endgame et suit Natasha Romanoff dans une aventure liée à son passé avec la Red Room et le méchant Taskmaster. Quel est ce film ?",
       "answer": "Black Widow (2021)",
-      "difficulty": "difficile",
       "category": "Phases"
     },
     {
       "id": "mcu079",
       "question": "Cet acteur interprète Loki dans le MCU depuis 2011, est devenu une icône grâce à ce rôle de dieu de la malice charmeur et a obtenu sa propre série sur Disney+. Qui est cet acteur ?",
       "answer": "Tom Hiddleston",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu080",
       "question": "Cette petite sœur adoptive de Natasha Romanoff a été formée dans la Red Room, porte un gilet vert tactique, libère les autres Veuves et prend le relais en tant que nouvelle Veuve Noire après le sacrifice de Natasha sur Vormir. Qui est-ce ?",
       "answer": "Yelena Belova",
-      "difficulty": "difficile",
       "category": "Avengers"
     },
     {
       "id": "mcu081",
       "question": "Ce film marque la première apparition de Spider-Man dans le MCU en solo, le voit combattre le Vautour et se déroule principalement à New York et Washington DC lors d'un voyage scolaire. Quel est ce film ?",
       "answer": "Spider-Man: Homecoming",
-      "difficulty": "normal",
       "category": "Spider-Man"
     },
     {
       "id": "mcu082",
       "question": "Dans Thor: Ragnarok, Thor et Hulk s'affrontent dans une arène de gladiateurs. Quand Thor voit Hulk arriver, il s'écrie joyeusement une phrase devenue culte. Que dit-il ?",
       "answer": "He's a friend from work!",
-      "difficulty": "difficile",
       "category": "Thor"
     },
     {
       "id": "mcu083",
       "question": "Ce réalisateur néo-zélandais a réinventé la franchise Thor avec Ragnarok en y ajoutant humour et couleurs, a également réalisé Love and Thunder et joue le rôle de Korg. Qui est-ce ?",
       "answer": "Taika Waititi",
-      "difficulty": "difficile",
       "category": "Acteurs"
     },
     {
       "id": "mcu084",
       "question": "Cette nation africaine fictive est la plus avancée technologiquement au monde grâce au vibranium, se cache derrière une illusion de pays du tiers-monde et est protégée par les Dora Milaje. Quelle est cette nation ?",
       "answer": "Le Wakanda",
-      "difficulty": "normal",
       "category": "Black Panther"
     },
     {
       "id": "mcu085",
       "question": "Ce général de l'armée américaine poursuit Bruce Banner pour récupérer le sérum du super-soldat, devient Secrétaire d'État et pousse les Accords de Sokovie dans Civil War. Qui est-ce ?",
       "answer": "Thaddeus « Thunderbolt » Ross",
-      "difficulty": "difficile",
       "category": "Avengers"
     },
     {
       "id": "mcu086",
       "question": "Cette organisation secrète a infiltré le SHIELD depuis sa création, est dirigée par le principe « coupez une tête, deux autres repoussent » et révèle son existence dans Captain America: Le Soldat de l'Hiver. Quelle est cette organisation ?",
       "answer": "Hydra",
-      "difficulty": "normal",
       "category": "Captain America"
     },
     {
       "id": "mcu087",
       "question": "Ce film de 2019 se déroule en Europe, voit Peter Parker affronter Mysterio et se termine par la révélation de l'identité secrète de Spider-Man au monde entier par J. Jonah Jameson. Quel est ce film ?",
       "answer": "Spider-Man: Far From Home",
-      "difficulty": "normal",
       "category": "Spider-Man"
     },
     {
       "id": "mcu088",
       "question": "Ce personnage est la fille de Hank Pym, porte le costume de la Guêpe avec des ailes et des blasters, et est la partenaire romantique et de combat de Scott Lang. Qui est-ce ?",
       "answer": "Hope van Dyne / La Guêpe",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu089",
       "question": "Ce scientifique est le créateur original des particules Pym et du costume d'Ant-Man, père de Hope van Dyne et ancien agent du SHIELD qui refuse de donner sa technologie à Stark. Qui est-ce ?",
       "answer": "Hank Pym",
-      "difficulty": "difficile",
       "category": "Avengers"
     },
     {
       "id": "mcu090",
       "question": "Dans Avengers: Endgame, cette scène emblématique montre tous les héros revenant par des portails magiques de Doctor Strange pour la bataille finale. Un héros dit alors « On your left » à Captain America. Qui dit cette réplique ?",
       "answer": "Sam Wilson / Le Faucon",
-      "difficulty": "difficile",
       "category": "Avengers"
     },
     {
       "id": "mcu091",
       "question": "Ce garde du corps du Wakanda dirige les Dora Milaje, les guerrières d'élite qui protègent le roi, et est d'une loyauté sans faille envers T'Challa. Qui est-ce ?",
       "answer": "Okoye",
-      "difficulty": "normal",
       "category": "Black Panther"
     },
     {
       "id": "mcu092",
       "question": "Cette fille de Thanos à la peau bleue et aux implants cybernétiques rivalise avec sa sœur Gamora, finit par se retourner contre son père et rejoint les Gardiens de la Galaxie. Qui est-ce ?",
       "answer": "Nebula",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu093",
       "question": "Ce film se déroule dans les années 1940, montre les origines de Steve Rogers comme super-soldat, sa lutte contre Red Skull et Hydra, et se termine par son crash dans la glace arctique. Quel est ce film ?",
       "answer": "Captain America: First Avenger",
-      "difficulty": "normal",
       "category": "Captain America"
     },
     {
       "id": "mcu094",
       "question": "Ce personnage est la petite amie de Thor, astrophysicienne brillante, découvre l'Éther dans Thor 2 et devient la Mighty Thor en maniant Mjolnir reconstruit dans Thor: Love and Thunder. Qui est-ce ?",
       "answer": "Jane Foster",
-      "difficulty": "normal",
       "category": "Thor"
     },
     {
       "id": "mcu095",
       "question": "Cet acteur joue T'Challa / Black Panther dans le MCU, est décédé en 2020 du cancer du côlon à l'âge de 43 ans et a tourné plusieurs films Marvel tout en luttant secrètement contre la maladie. Qui est cet acteur ?",
       "answer": "Chadwick Boseman",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu096",
       "question": "Ce film de 2014 révèle qu'Hydra a infiltré le SHIELD, montre le retour de Bucky Barnes en tant que Soldat de l'Hiver et se termine par la chute du SHIELD. Quel est ce film ?",
       "answer": "Captain America: Le Soldat de l'Hiver",
-      "difficulty": "normal",
       "category": "Captain America"
     },
     {
       "id": "mcu097",
       "question": "Ce méchant est le crâne rouge nazi, ennemi juré de Captain America pendant la Seconde Guerre mondiale, est téléporté par le Tesseract et devient le gardien de la Pierre de l'Âme sur Vormir. Qui est-ce ?",
       "answer": "Red Skull / Johann Schmidt",
-      "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "mcu098",
       "question": "Ce personnage est le meilleur ami de Peter Parker, découvre son identité de Spider-Man, l'aide à combattre Mysterio et joue un rôle clé dans chaque film de la trilogie MCU Spider-Man. Qui est-ce ?",
       "answer": "Ned Leeds",
-      "difficulty": "normal",
       "category": "Spider-Man"
     },
     {
       "id": "mcu099",
       "question": "Ce méchant scientifique d'Iron Man 3 a créé le virus Extremis qui donne des pouvoirs régénératifs et une chaleur intense, a financé le faux Mandarin Trevor Slattery et est un scientifique que Tony Stark avait humilié en l'ignorant lors d'une fête du Nouvel An. Qui est-ce ?",
       "answer": "Aldrich Killian",
-      "difficulty": "difficile",
       "category": "Méchants"
     },
     {
       "id": "mcu100",
       "question": "Ce producteur légendaire, co-créateur de Marvel Comics, est célèbre pour ses caméos dans presque chaque film Marvel et est décédé en novembre 2018. Son dernier caméo dans Endgame le montre rajeuni dans les années 1970. Qui est-ce ?",
       "answer": "Stan Lee",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu101",
       "question": "Ce Céleste est le père biologique de Peter Quill, se présente sous forme d'une planète vivante et veut absorber tout l'univers dans un plan appelé « l'Expansion » dans Les Gardiens de la Galaxie Vol. 2. Qui est-ce ?",
       "answer": "Ego",
-      "difficulty": "difficile",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu102",
       "question": "Dans Avengers: Infinity War, la bataille finale pour protéger Vision se déroule dans ce pays africain. Les Avengers, aidés par l'armée locale, affrontent les Outriders de Thanos. Dans quel pays se déroule cette bataille ?",
       "answer": "Le Wakanda",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu103",
       "question": "Dans Avengers: Infinity War, Thanos obtient la première Pierre d'Infinité en attaquant le vaisseau des réfugiés asgardiens au tout début du film, tuant la moitié des survivants et étranglant Loki. Quelle pierre récupère-t-il sur ce vaisseau ?",
       "answer": "La Pierre de l'Espace (le Tesseract)",
-      "difficulty": "normal",
       "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu104",
       "question": "Ce film de 2022 explore le multivers, voit Doctor Strange affronter la Sorcière Rouge corrompue par le Darkhold et introduit le personnage d'America Chavez qui peut ouvrir des portails entre les univers. Quel est ce film ?",
       "answer": "Doctor Strange in the Multiverse of Madness",
-      "difficulty": "normal",
       "category": "Doctor Strange"
     },
     {
       "id": "mcu105",
       "question": "Dans Iron Man, Tony Stark construit sa première armure rudimentaire dans une grotte avec l'aide de ce scientifique prisonnier qui se sacrifie pour lui. Ce personnage prononce la phrase « Don't waste your life ». Qui est-ce ?",
       "answer": "Ho Yinsen",
-      "difficulty": "difficile",
       "category": "Iron Man"
     },
     {
       "id": "mcu106",
       "question": "Ce personnage est un agent du SHIELD toujours souriant, fan de Captain America, meurt apparemment dans Avengers (2012) tué par Loki, et revient en tant que directeur du SHIELD dans la série Agents of SHIELD. Qui est-ce ?",
       "answer": "Phil Coulson",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu107",
       "question": "Ce film de la Phase 4 se déroule après Endgame, explore le deuil de Shuri après la mort de T'Challa, introduit Namor et le royaume sous-marin de Talocan, et voit Shuri devenir la nouvelle Black Panther. Quel est ce film ?",
       "answer": "Black Panther: Wakanda Forever",
-      "difficulty": "normal",
       "category": "Black Panther"
     },
     {
       "id": "mcu108",
       "question": "Ce super-héros cosmique est une ancienne pilote de l'US Air Force qui obtient ses pouvoirs d'une explosion d'énergie Kree, peut voler et tirer des photons, et est l'une des héroïnes les plus puissantes du MCU. Qui est-ce ?",
       "answer": "Carol Danvers / Captain Marvel",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu109",
       "question": "Dans Spider-Man: No Way Home, trois acteurs différents incarnent Spider-Man ensemble à l'écran. Tom Holland est le Spider-Man du MCU. Quels sont les deux autres acteurs qui reprennent leur rôle ?",
       "answer": "Tobey Maguire et Andrew Garfield",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu110",
       "question": "Ce livre ancien de magie noire corrompt quiconque le lit, est utilisé par Wanda dans WandaVision et Multiverse of Madness, et est finalement détruit dans toutes les dimensions par Doctor Strange. Quel est ce livre ?",
       "answer": "Le Darkhold",
-      "difficulty": "difficile",
       "category": "Doctor Strange"
     },
     {
       "id": "mcu111",
       "question": "Ce Gantelet doré a été forgé par les nains de Nidavellir pour contenir les six Pierres d'Infinité. Thanos l'utilise pour le snap, et Tony Stark en crée une version nanotechnologique dans Endgame. Quel est cet objet ?",
       "answer": "Le Gantelet de l'Infinité",
-      "difficulty": "normal",
       "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu112",
       "question": "Ce jeune héros de Sokovie possède une super-vitesse, est le frère jumeau de Wanda Maximoff et meurt en protégeant Oeil de Faucon et un enfant des tirs d'Ultron dans Age of Ultron. Qui est-ce ?",
       "answer": "Pietro Maximoff / Vif-Argent / Quicksilver",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu113",
       "question": "Ce personnage interprété par Josh Brolin prononce la réplique « I am inevitable » juste avant de claquer des doigts, mais découvre que les pierres ne sont plus dans son gantelet car Tony Stark les a récupérées. Qui est-ce ?",
       "answer": "Thanos",
-      "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "mcu114",
       "question": "Dans Avengers: Endgame, les funérailles de Tony Stark réunissent presque tous les héros du MCU. Quel objet flotte sur l'eau pendant la cérémonie, portant l'inscription « Proof that Tony Stark has a heart » ?",
       "answer": "Son premier arc réacteur (dans un cadre/bouquet de fleurs)",
-      "difficulty": "difficile",
       "category": "Iron Man"
     },
     {
       "id": "mcu115",
       "question": "Ce film se déroule dans le royaume quantique, introduit Kang le Conquérant comme nouveau grand méchant du MCU et montre Scott Lang et sa famille piégés dans un monde microscopique. Quel est ce film ?",
       "answer": "Ant-Man and the Wasp: Quantumania",
-      "difficulty": "normal",
       "category": "Phases"
     },
     {
       "id": "mcu116",
       "question": "Ce méchant conquérant du temps existe en d'innombrables variantes à travers le multivers, est présenté comme la grande menace de la Phase 5 du MCU et est interprété par Jonathan Majors. Qui est-ce ?",
       "answer": "Kang le Conquérant",
-      "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "mcu117",
       "question": "Ce pays fictif d'Europe de l'Est est le lieu de naissance de Wanda et Pietro Maximoff, est détruit quand Ultron soulève sa capitale dans les airs et donne son nom aux Accords qui divisent les Avengers. Quel est ce pays ?",
       "answer": "La Sokovie",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu118",
       "question": "Cet acteur américain joue Nick Fury dans le MCU depuis Iron Man en 2008, est reconnaissable à son cache-œil et apparaît dans plus d'une dizaine de films Marvel. Qui est cet acteur ?",
       "answer": "Samuel L. Jackson",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu119",
       "question": "Ce film de 2022 voit Thor affronter Gorr le Boucher des Dieux, retrouver Jane Foster devenue Mighty Thor et adopter la fille de Gorr, Love, à la fin du film. Quel est ce film ?",
       "answer": "Thor: Love and Thunder",
-      "difficulty": "normal",
       "category": "Thor"
     },
     {
       "id": "mcu120",
       "question": "Cette entité démoniaque de la Dimension Noire menace de dévorer la Terre, affronte Doctor Strange dans une boucle temporelle infinie et finit par accepter de partir quand Strange se condamne à mourir éternellement. Qui est-ce ?",
       "answer": "Dormammu",
-      "difficulty": "difficile",
       "category": "Doctor Strange"
     },
     {
       "id": "mcu121",
       "question": "Dans Captain America: Civil War, les Avengers se divisent en deux camps. D'un côté Team Iron Man qui soutient les Accords de Sokovie, de l'autre Team Cap qui les refuse. Dans quel aéroport a lieu la bataille mémorable entre les deux équipes ?",
       "answer": "L'aéroport de Leipzig-Halle (Allemagne)",
-      "difficulty": "difficile",
       "category": "Avengers"
     },
     {
       "id": "mcu122",
       "question": "Ce chat roux nommé Goose dans Captain Marvel n'est pas un simple félin : il peut déployer des tentacules dimensionnels, avaler le Tesseract entier et c'est lui qui crève l'œil de Nick Fury. Quelle espèce extraterrestre est-ce en réalité ?",
       "answer": "Un Flerken",
-      "difficulty": "difficile",
       "category": "Avengers"
     },
     {
       "id": "mcu123",
       "question": "Dans Spider-Man: No Way Home, ce méchant iconique au masque vert et au planeur revient du multivers, manipule Peter Parker en se faisant passer pour un allié avant de tuer Tante May. Qui est-ce ?",
       "answer": "Le Bouffon Vert / Norman Osborn",
-      "difficulty": "normal",
       "category": "Méchants"
     },
     {
       "id": "mcu124",
       "question": "Ce membre de l'Ordre Noir de Thanos possède des pouvoirs de télékinésie redoutables, torture Doctor Strange pour obtenir la Pierre du Temps et est éjecté dans l'espace par Spider-Man et Iron Man à bord du vaisseau. Qui est-ce ?",
       "answer": "Ebony Maw",
-      "difficulty": "difficile",
       "category": "Méchants"
     },
     {
       "id": "mcu125",
       "question": "Ce producteur est le président de Marvel Studios, architecte du MCU depuis Iron Man en 2008 et apparaît souvent aux événements Marvel pour annoncer les futurs films et séries. Qui est-ce ?",
       "answer": "Kevin Feige",
-      "difficulty": "difficile",
       "category": "Acteurs"
     },
     {
       "id": "mcu126",
       "question": "Dans Avengers: Infinity War, Thanos arrive sur Titan et affronte un groupe de héros. Star-Lord ruine le plan en frappant Thanos de colère quand il apprend la mort de cette personne. Qui est la personne dont la mort provoque la colère de Star-Lord ?",
       "answer": "Gamora",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu127",
       "question": "Ce film de 2023 conclut la trilogie des Gardiens de la Galaxie, explore le passé tragique de Rocket, introduit Adam Warlock et se termine par le départ de Peter Quill vers la Terre. Quel est ce film ?",
       "answer": "Les Gardiens de la Galaxie Vol. 3",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu128",
       "question": "Cette armure d'Iron Man est la toute première, construite dans une grotte avec des moyens rudimentaires. Grise et imposante, elle permet à Tony Stark de s'échapper de ses ravisseurs en Afghanistan. Quel est son numéro ?",
       "answer": "Mark I",
-      "difficulty": "normal",
       "category": "Iron Man"
     },
     {
       "id": "mcu129",
       "question": "Ce portail arc-en-ciel relie les neuf royaumes dans la mythologie asgardienne, est contrôlé par Heimdall et est détruit puis reconstruit plusieurs fois au cours de la saga Thor. Quel est son nom ?",
       "answer": "Le Bifrost",
-      "difficulty": "normal",
       "category": "Thor"
     },
     {
       "id": "mcu130",
       "question": "Ce super-héros mutant maya de Talocan possède des ailes aux chevilles, une lance en vibranium et défie le Wakanda après la mort de T'Challa, inondant la capitale wakandaise dans Black Panther: Wakanda Forever. Qui est-ce ?",
       "answer": "Namor / K'uk'ulkan",
-      "difficulty": "difficile",
       "category": "Black Panther"
     },
     {
       "id": "mcu131",
       "question": "Dans Avengers: Endgame, Tony Stark utilise les Pierres d'Infinité pour éliminer Thanos et son armée, mais l'énergie le tue. Quelle est sa dernière réplique avant de claquer des doigts ?",
       "answer": "I am Iron Man",
-      "difficulty": "normal",
       "category": "Iron Man"
     },
     {
       "id": "mcu132",
       "question": "Ce roi d'Asgard est le père de Thor et Loki, possède la lance Gungnir, a enfermé Hela pendant des millénaires et meurt paisiblement en Norvège dans Thor: Ragnarok. Qui est-ce ?",
       "answer": "Odin",
-      "difficulty": "normal",
       "category": "Thor"
     },
     {
       "id": "mcu133",
       "question": "Ce méchant de Thor: Love and Thunder a perdu sa fille et fait le vœu d'exterminer tous les dieux, manie la Necrosword qui corrompt son porteur et peut invoquer des monstres d'ombre. Il kidnappe les enfants de New Asgard. Qui est-ce ?",
       "answer": "Gorr le Boucher des Dieux",
-      "difficulty": "difficile",
       "category": "Méchants"
     },
     {
       "id": "mcu134",
       "question": "Cet acteur nommé aux Oscars joue Thanos grâce à la capture de mouvement, est également connu pour ses rôles dans No Country for Old Men et Deadpool 2. Qui est cet acteur ?",
       "answer": "Josh Brolin",
-      "difficulty": "difficile",
       "category": "Acteurs"
     },
     {
       "id": "mcu135",
       "question": "Dans Black Panther, cette plante sacrée confère les pouvoirs de Black Panther à celui qui l'ingère lors du rituel de succession. Killmonger ordonne de brûler toutes les réserves mais Nakia en sauve une pour sauver T'Challa. Quelle est cette plante ?",
       "answer": "L'Herbe en forme de Cœur (Heart-Shaped Herb)",
-      "difficulty": "difficile",
       "category": "Black Panther"
     },
     {
       "id": "mcu136",
       "question": "Ce vrai Mandarin possède les dix anneaux depuis plus de mille ans, est le père de Shang-Chi, a fondé l'organisation criminelle des Dix Anneaux et cherche à ouvrir un portail vers Ta Lo pour retrouver sa femme décédée. Qui est-ce ?",
       "answer": "Xu Wenwu",
-      "difficulty": "difficile",
       "category": "Méchants"
     },
     {
       "id": "mcu137",
       "question": "Ce personnage est un sorcier maléfique qui trahit Kamar-Taj, cherche à puiser dans la Dimension Noire pour obtenir la vie éternelle et est le principal antagoniste du premier Doctor Strange. Qui est-ce ?",
       "answer": "Kaecilius",
-      "difficulty": "difficile",
       "category": "Méchants"
     },
     {
       "id": "mcu138",
       "question": "Ce personnage est la petite amie de Peter Parker dans les films MCU Spider-Man, est surnommée « MJ », découvre l'identité de Spider-Man et oublie tout à la fin de No Way Home. Qui est-ce ?",
       "answer": "Michelle Jones-Watson / MJ",
-      "difficulty": "normal",
       "category": "Spider-Man"
     },
     {
       "id": "mcu139",
       "question": "Cet acteur américain incarne Hulk dans le MCU depuis Avengers (2012), remplaçant Edward Norton, et est connu pour avoir accidentellement diffusé en direct une avant-première Thor: Ragnarok sur Instagram. Qui est cet acteur ?",
       "answer": "Mark Ruffalo",
-      "difficulty": "normal",
       "category": "Acteurs"
     },
     {
       "id": "mcu140",
       "question": "Ce sorcier est l'acolyte de Doctor Strange, protège le Sanctuaire de Hong Kong, combat avec un bâton et apporte un soutien comique dans les films Doctor Strange. Qui est-ce ?",
       "answer": "Wong",
-      "difficulty": "normal",
       "category": "Doctor Strange"
     },
     {
       "id": "mcu141",
       "question": "Dans Avengers: Endgame, les héros retournent à la bataille de New York de 2012 pour récupérer plusieurs Pierres d'Infinité. Tony Stark et Scott Lang échouent à récupérer le Tesseract quand ce personnage s'échappe avec dans une variante temporelle. Qui s'échappe avec le Tesseract ?",
       "answer": "Loki",
-      "difficulty": "difficile",
       "category": "Avengers"
     },
     {
       "id": "mcu142",
       "question": "Cet agent de la CIA, allié du Wakanda, est interprété par Martin Freeman, aide T'Challa lors de la traque de Klaue et joue un rôle clé dans la bataille finale contre Killmonger en pilotant un vaisseau. Qui est-ce ?",
       "answer": "Everett Ross",
-      "difficulty": "difficile",
       "category": "Black Panther"
     },
     {
       "id": "mcu143",
       "question": "Ce chef de la tribu Jabari, retirée dans les montagnes du Wakanda, défie T'Challa pour le trône lors du rituel des chutes, perd le combat mais revient aider le Wakanda contre Killmonger dans la bataille finale. Qui est-ce ?",
       "answer": "M'Baku",
-      "difficulty": "difficile",
       "category": "Black Panther"
     },
     {
       "id": "mcu144",
       "question": "Ce personnage se présente comme le Mandarin, terroriste menaçant dans Iron Man 3, mais on découvre que c'est en fait un acteur britannique alcoolique engagé par Aldrich Killian pour servir de façade. Qui est cet acteur fictif ?",
       "answer": "Trevor Slattery",
-      "difficulty": "difficile",
       "category": "Iron Man"
     },
     {
       "id": "mcu145",
       "question": "Dans Captain America: Le Soldat de l'Hiver, Steve Rogers découvre que le SHIELD a été infiltré par Hydra. Quel personnage, joué par Robert Redford, se révèle être un dirigeant secret d'Hydra au sein du SHIELD ?",
       "answer": "Alexander Pierce",
-      "difficulty": "difficile",
       "category": "Captain America"
     },
     {
       "id": "mcu146",
       "question": "Ce personnage adolescent joué par Xochitl Gomez peut ouvrir des portails en forme d'étoile entre les dimensions, est poursuivie par la Sorcière Rouge à travers le multivers et devient une alliée clé de Doctor Strange. Qui est-ce ?",
       "answer": "America Chavez",
-      "difficulty": "difficile",
       "category": "Doctor Strange"
     },
     {
       "id": "mcu147",
       "question": "Dans le MCU, Mjolnir porte une inscription qui dit que seul celui qui est digne peut le soulever. Dans Avengers: Age of Ultron, quel personnage synthétique soulève Mjolnir pour la première fois, prouvant qu'il est digne de confiance ?",
       "answer": "Vision",
-      "difficulty": "normal",
       "category": "Avengers"
     },
     {
       "id": "mcu148",
       "question": "Ce personnage bleu et or est créé par les Souverains pour détruire les Gardiens de la Galaxie, émerge d'un cocon doré et rejoint finalement les Gardiens dans le Vol. 3. Qui est-ce ?",
       "answer": "Adam Warlock",
-      "difficulty": "difficile",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu149",
       "question": "Ce ravageur à la crête rouge est le père adoptif de Peter Quill, manie une flèche Yaka contrôlée par le sifflement et se sacrifie dans l'espace pour sauver Peter à la fin des Gardiens de la Galaxie Vol. 2. Qui est-ce ?",
       "answer": "Yondu Udonta",
-      "difficulty": "normal",
       "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu150",
       "question": "Ce film de 2021 introduit Xu Shang-Chi, un héros maître des arts martiaux qui affronte son père Xu Wenwu, le vrai Mandarin et détenteur des dix anneaux depuis mille ans. Quel est ce film ?",
       "answer": "Shang-Chi et la Légende des Dix Anneaux",
-      "difficulty": "normal",
       "category": "Phases"
     }
   ]

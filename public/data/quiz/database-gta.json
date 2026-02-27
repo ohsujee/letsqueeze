@@ -7,798 +7,684 @@
       "id": "gta001",
       "question": "Ce protagoniste muet est trahi et laissé pour mort par sa petite amie lors d'un braquage de banque au début du jeu. Arrêté puis libéré lors d'une embuscade du cartel colombien pendant son transfert en prison, il gravit les échelons du crime dans une métropole inspirée de New York. Qui est ce personnage ?",
       "answer": "Claude",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta002",
       "question": "Cet ancien membre de la mafia Forelli est envoyé en Floride après quinze ans de prison pour superviser un deal de drogue qui tourne mal. Doublé par Ray Liotta, il finit par bâtir son propre empire criminel dans une ville baignée par le soleil des années 80. Qui est-ce ?",
       "answer": "Tommy Vercetti",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta003",
       "question": "Ce membre des Grove Street Families revient dans sa ville natale après cinq ans d'absence à la suite de l'assassinat de sa mère Beverly. Doublé par Young Maylay, il doit reconquérir les territoires de son gang tout en étant manipulé par des policiers corrompus. Qui est-ce ?",
       "answer": "Carl Johnson (CJ)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta004",
       "question": "Cet ex-soldat d'Europe de l'Est arrive en Amérique attiré par les mensonges de son cousin qui prétend vivre le rêve américain avec des voitures de sport et des jacuzzis. En réalité, son cousin possède une petite compagnie de taxis minable et croule sous les dettes. Qui est cet immigrant désabusé ?",
       "answer": "Niko Bellic",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta005",
       "question": "Ce braqueur de banques à la retraite vit dans un quartier luxueux sous une fausse identité grâce à un accord avec le FBI, mais sa famille dysfonctionnelle et son ennui le poussent à replonger dans le crime. Doublé par Ned Luke, il est l'un des trois protagonistes jouables du cinquième opus principal. Qui est-ce ?",
       "answer": "Michael De Santa",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta006",
       "question": "Ce criminel canadien dirige une entreprise de trafic de méthamphétamine depuis un petit village désertique. Connu pour son comportement imprévisible et violent, il est doublé par Steven Ogg et retrouve son ancien partenaire qu'il croyait mort depuis dix ans. Qui est-ce ?",
       "answer": "Trevor Philips",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta007",
       "question": "Ce jeune homme du quartier de Strawberry essaie de sortir de la petite délinquance et finit par rejoindre deux braqueurs plus expérimentés. Doublé par Shawn Fonteno, il sert souvent de médiateur entre ses deux associés au tempérament explosif. Qui est-ce ?",
       "answer": "Franklin Clinton",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta008",
       "question": "Cette ville fictive inspirée de Miami est le cadre principal de deux jeux de la saga, dont l'action du premier se déroule en 1986 dans une ambiance saturée de néons, de costumes pastel et de musique synthpop. Quelle est cette ville ?",
       "answer": "Vice City",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta009",
       "question": "Cette métropole fictive est la version parodique de New York et sert de décor principal au troisième opus sorti en 2001 ainsi qu'au quatrième opus de 2008. Composée de plusieurs îles reliées par des ponts, elle est l'une des villes les plus récurrentes de la franchise. Quelle est-elle ?",
       "answer": "Liberty City",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta010",
       "question": "Cette ville fictive inspirée de Los Angeles apparaît dans le jeu de 2004 et revient dans le cinquième opus sorti en 2013, où elle est le cœur de l'État fictif homonyme. Ses collines de Vinewood et sa tour Maze Bank dominent le paysage. Quelle est cette ville ?",
       "answer": "Los Santos",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta011",
       "question": "Dans le jeu de 2004, l'État fictif comprend trois grandes villes : l'une inspirée de Los Angeles, une autre de San Francisco, et la dernière de Las Vegas. Quelle est la ville inspirée de San Francisco, reconnaissable à ses collines et son pont emblématique ?",
       "answer": "San Fierro",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta012",
       "question": "Dans le jeu de 2004, cette ville du désert regorge de casinos et de néons, inspirée directement de Las Vegas. Le joueur y accomplit des missions liées aux triades et au monde du jeu clandestin. Quelle est cette ville fictive ?",
       "answer": "Las Venturas",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta013",
       "question": "Ce personnage est le frère aîné de CJ et le leader des Grove Street Families. Farouchement opposé à la drogue, il refuse de voir son gang en vendre malgré les difficultés financières, ce qui affaiblit sa position face aux gangs rivaux. Quel est son prénom ?",
       "answer": "Sweet",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta014",
       "question": "Ce membre imposant des Grove Street Families trahit secrètement son gang en pactisant avec les Ballas et le Loco Syndicate pour le trafic de crack. Sa commande gargantuesque dans un fast-food est devenue l'un des mèmes les plus célèbres du jeu vidéo. Qui est ce traître ?",
       "answer": "Big Smoke",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta015",
       "question": "Ce policier corrompu du LSPD dirige l'unité C.R.A.S.H. et force CJ à exécuter ses basses œuvres en le menaçant de le faire accuser d'un meurtre. Il est doublé par un acteur hollywoodien légendaire, connu pour ses rôles dans Pulp Fiction et Les Indestructibles. Qui est cet officier ?",
       "answer": "Frank Tenpenny",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta016",
       "question": "Quel acteur américain, célèbre pour ses rôles dans Pulp Fiction et de nombreux blockbusters, prête sa voix au policier corrompu Frank Tenpenny dans le jeu sorti en 2004 ?",
       "answer": "Samuel L. Jackson",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta017",
       "question": "Cet acteur italo-américain, star des Affranchis de Martin Scorsese, prête sa voix au protagoniste du jeu sorti en 2002, faisant de ce personnage le premier héros parlant de la série. Il est décédé en mai 2022. De quel acteur s'agit-il ?",
       "answer": "Ray Liotta",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta018",
       "question": "Ce cousin du protagoniste de GTA IV lui a promis une vie de rêve en Amérique, mais ne possède en réalité qu'un petit appartement infesté de cafards et une modeste compagnie de taxis. Grand amateur de bowling, il invite régulièrement le joueur à sortir. Qui est-ce ?",
       "answer": "Roman Bellic",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta019",
       "question": "Ce génie du crime souffrant d'une maladie dégénérative qui le contraint à utiliser un fauteuil roulant est l'architecte de tous les braquages du cinquième opus. Socialement maladroit et vivant entouré d'écrans, il est un vieil ami de Michael et Trevor. Qui est-ce ?",
       "answer": "Lester Crest",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta020",
       "question": "Ce gangster incompétent mais attachant est le meilleur ami de Franklin. Membre des Families, il se met constamment dans des situations dangereuses par excès de confiance et naïveté. Son personnage a inspiré de nombreux mèmes sur Internet. Qui est-ce ?",
       "answer": "Lamar Davis",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta021",
       "question": "Dans le jeu de 2002, ce baron de la drogue d'origine cubaine dirige le commerce de stupéfiants de toute la ville. Il est responsable de l'embuscade qui a fait échouer le deal initial entre les Forelli et les Vance, volant à la fois la drogue et l'argent. Qui est-ce ?",
       "answer": "Ricardo Diaz",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta022",
       "question": "Ce pilote d'hélicoptère rejoint le protagoniste de Vice City pour venger la mort de son frère Victor, tué lors du deal initial. Il finit cependant par trahir son allié en s'associant avec le boss mafieux Sonny Forelli lors du final du jeu. Qui est ce traître ?",
       "answer": "Lance Vance",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta023",
       "question": "Dans le jeu de 2002, cet avocat nerveux et cocaïnomane est le premier contact du protagoniste en ville. Doublé par William Fichtner, il est largement inspiré du personnage de Dave Kleinfeld dans le film Carlito's Way. Qui est-ce ?",
       "answer": "Ken Rosenberg",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta024",
       "question": "Ce jeu sorti en octobre 2001 sur PlayStation 2 a révolutionné l'industrie en proposant pour la première fois un monde ouvert en 3D dans lequel le joueur peut se déplacer librement. Développé par DMA Design à Édimbourg, il a défini le genre du sandbox moderne. Quel est ce jeu ?",
       "answer": "GTA III",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta025",
       "question": "Ce jeu sorti en 2002 se déroule en 1986 dans une ville côtière inspirée de Miami. Son ambiance s'inspire fortement des films Scarface et de la série Miami Vice, avec une bande-son composée exclusivement de tubes des années 80. Quel est ce jeu ?",
       "answer": "GTA Vice City",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta026",
       "question": "Ce jeu sorti en octobre 2004 propose pour la première fois un État entier composé de trois grandes villes et de vastes zones rurales. Avec ses 101 missions principales, c'est l'épisode comptant le plus de missions dans la série. Quel est ce jeu ?",
       "answer": "GTA San Andreas",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta027",
       "question": "Ce jeu sorti en 2008 marque un tournant réaliste pour la série avec une histoire sombre sur l'immigration et le rêve américain désenchanté. Son protagoniste est un vétéran de guerre d'Europe de l'Est qui cherche un homme ayant trahi son unité militaire. Quel est ce jeu ?",
       "answer": "GTA IV",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta028",
       "question": "Ce jeu sorti le 17 septembre 2013 est le premier de la série à proposer trois protagonistes jouables. Avec un budget de développement et marketing estimé à 265 millions de dollars, il était à sa sortie le produit de divertissement le plus coûteux jamais réalisé. Quel est ce jeu ?",
       "answer": "GTA V",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta029",
       "question": "Ce jeu sorti en 2013 a généré plus de 800 millions de dollars de revenus en seulement 24 heures après sa sortie, puis a franchi la barre du milliard en trois jours seulement, battant tous les records de l'industrie du divertissement. En combien de jours a-t-il atteint le milliard de dollars ?",
       "answer": "3 jours",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta030",
       "question": "Depuis sa sortie en 2013, le cinquième opus principal de la franchise a dépassé les 200 millions de copies vendues, faisant de lui le deuxième jeu vidéo le plus vendu de tous les temps derrière un célèbre jeu de construction en blocs. Quel est ce jeu qui le devance ?",
       "answer": "Minecraft",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta031",
       "question": "L'annonce du sixième opus de la série a révélé deux protagonistes formant un duo criminel romantique inspiré de Bonnie et Clyde. L'action se déroulera dans un État fictif basé sur la Floride. Quel est le nom de cet État fictif ?",
       "answer": "Leonida",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta032",
       "question": "Le sixième opus de la franchise marquera l'histoire en introduisant la première protagoniste féminine jouable majeure de la série. Cette ancienne détenue d'origine latine forme un duo avec Jason Duval. Quel est le prénom de cette protagoniste ?",
       "answer": "Lucia",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta033",
       "question": "Dans le cinquième opus, le joueur peut choisir entre trois fins possibles lors de la dernière mission. L'option C, considérée comme canonique, permet aux trois protagonistes de survivre et de se retourner contre tous leurs ennemis. Quel est le nom de cette option ?",
       "answer": "Deathwish",
-      "difficulty": "normal",
       "category": "Missions"
     },
     {
       "id": "gta035",
       "question": "Dans le jeu de 2004, un personnage hippie surnommé « The Truth » envoie CJ infiltrer une base militaire secrète dans le désert, parodiant la célèbre Zone 51. CJ en ressort avec un appareil volant expérimental unique dans la série. Quel est le nom de cette base militaire fictive ?",
       "answer": "Area 69",
-      "difficulty": "difficile",
       "category": "Missions"
     },
     {
       "id": "gta036",
       "question": "Dans le jeu de 2004, CJ vole un appareil expérimental dans une base militaire secrète du désert. Cet équipement portable permet de voler librement dans les airs et est devenu l'un des véhicules les plus emblématiques de la série. De quel appareil s'agit-il ?",
       "answer": "Le jetpack",
-      "difficulty": "normal",
       "category": "Véhicules"
     },
     {
       "id": "gta037",
       "question": "Dans le cinquième opus, Michael doit infiltrer le siège d'un réseau social parodiant Facebook pour y piéger un prototype de téléphone. Lors de la keynote de présentation, le fondateur du réseau répond à un appel sur le prototype piégé qui lui explose au visage. Quel est le nom de ce réseau social fictif ?",
       "answer": "LifeInvader",
-      "difficulty": "normal",
       "category": "Missions"
     },
     {
       "id": "gta038",
       "question": "Le dernier braquage du mode histoire du cinquième opus consiste à pénétrer dans les coffres de la Union Depository pour y dérober une quantité massive de lingots d'or. Chaque protagoniste peut potentiellement repartir avec plus de 40 millions de dollars. Quel est le nom de ce braquage ?",
       "answer": "The Big Score",
-      "difficulty": "normal",
       "category": "Missions"
     },
     {
       "id": "gta039",
       "question": "Cette supercar apparaissant dans presque chaque épisode depuis le troisième opus est l'un des véhicules les plus anciens et les plus emblématiques de la franchise. Inspirée de la Lamborghini Murciélago dans les jeux récents, elle est fabriquée par Pegassi. Quel est son nom ?",
       "answer": "Infernus",
-      "difficulty": "normal",
       "category": "Véhicules"
     },
     {
       "id": "gta040",
       "question": "Ce véhicule blindé militaire présent depuis le troisième opus est un char d'assaut lourdement armé avec un canon de 120 mm. Symbole de destruction pure, il est souvent obtenu en atteignant le niveau de recherche maximal ou en le volant dans une base militaire. Quel est son nom ?",
       "answer": "Rhino",
-      "difficulty": "normal",
       "category": "Véhicules"
     },
     {
       "id": "gta041",
       "question": "Cet avion de chasse à décollage vertical apparaît pour la première fois dans le jeu de 2004, puis revient dans le mode en ligne du cinquième opus. Sa capacité de vol stationnaire et sa puissance de feu en font un engin redouté dans le ciel. Quel est son nom ?",
       "answer": "Hydra",
-      "difficulty": "normal",
       "category": "Véhicules"
     },
     {
       "id": "gta042",
       "question": "Cette moto volante équipée de missiles à tête chercheuse est devenue l'un des véhicules les plus controversés du mode en ligne, utilisée massivement pour harceler les autres joueurs. Ajoutée en 2018 avec la mise à jour After Hours, elle a été nerféee à plusieurs reprises. Quel est son nom ?",
       "answer": "Oppressor Mk II",
-      "difficulty": "normal",
       "category": "GTA Online"
     },
     {
       "id": "gta043",
       "question": "Ce mode multijoueur lancé en 2013 parallèlement au cinquième opus est devenu un phénomène mondial avec des mises à jour régulières pendant plus d'une décennie. Le joueur y crée un personnage original et accumule richesse et propriétés dans un monde partagé. Comment s'appelle ce mode ?",
       "answer": "GTA Online",
-      "difficulty": "normal",
       "category": "GTA Online"
     },
     {
       "id": "gta044",
       "question": "Ce braquage du mode en ligne, sorti en décembre 2020, a marqué l'histoire en étant le premier à pouvoir être réalisé entièrement en solo. Se déroulant sur une île privée dans les Caraïbes, il implique de voler des documents compromettants à un baron de la drogue. Quel est le nom de cette île ?",
       "answer": "Cayo Perico",
-      "difficulty": "normal",
       "category": "GTA Online"
     },
     {
       "id": "gta045",
       "question": "Ce braquage du mode en ligne, sorti en décembre 2019, consiste à dévaliser un établissement de jeux et de divertissement au cœur de Los Santos. Le joueur peut choisir entre trois approches différentes et doit posséder une salle d'arcade pour le planifier. Quel est le nom de cet établissement ?",
       "answer": "The Diamond Casino",
-      "difficulty": "normal",
       "category": "GTA Online"
     },
     {
       "id": "gta046",
       "question": "Dans le jeu de 2002, cette station de radio diffuse du hard rock et du heavy metal des années 80, avec des groupes comme Judas Priest, Iron Maiden et Mötley Crüe. Elle est devenue l'une des stations les plus emblématiques de toute la franchise. Quelle est cette station ?",
       "answer": "V-Rock",
-      "difficulty": "normal",
       "category": "Radio"
     },
     {
       "id": "gta047",
       "question": "Dans le jeu de 2002, cette station de radio diffuse de la pop synthétique et du soft rock des années 80, avec des titres de Michael Jackson, Hall & Oates et Wang Chung. Parfaite pour cruiser le long de l'océan dans une voiture de sport blanche. Quelle est cette station ?",
       "answer": "Flash FM",
-      "difficulty": "difficile",
       "category": "Radio"
     },
     {
       "id": "gta048",
       "question": "Dans le cinquième opus, cette station de radio classique est animée par le chanteur de « Danger Zone » et « Footloose », qui joue son propre rôle sous le surnom de « Captain Loggins ». Elle diffuse du rock classique et de la pop rock. Quelle est cette station ?",
       "answer": "Los Santos Rock Radio",
-      "difficulty": "difficile",
       "category": "Radio"
     },
     {
       "id": "gta049",
       "question": "Le présentateur de la station Los Santos Rock Radio dans le cinquième opus est un chanteur américain célèbre des années 80, connu pour le titre « Danger Zone » utilisé dans le film Top Gun. Qui est cet artiste qui joue son propre rôle ?",
       "answer": "Kenny Loggins",
-      "difficulty": "normal",
       "category": "Radio"
     },
     {
       "id": "gta050",
       "question": "Ce studio de développement britannique basé à Édimbourg était à l'origine connu sous le nom de DMA Design. Racheté par Take-Two Interactive, il a été renommé en 2002 et est depuis le développeur principal de la franchise. Quel est son nom actuel ?",
       "answer": "Rockstar North",
-      "difficulty": "normal",
       "category": "Rockstar"
     },
     {
       "id": "gta051",
       "question": "Ces deux frères britanniques, nés à Londres, sont les cofondateurs de l'éditeur qui publie la franchise depuis 1998. L'aîné, né en 1971, en est le président, tandis que le cadet, né en 1973, a quitté l'entreprise en 2020 après avoir co-écrit les scénarios de la série. Quel est leur nom de famille ?",
       "answer": "Houser",
-      "difficulty": "normal",
       "category": "Rockstar"
     },
     {
       "id": "gta052",
       "question": "L'éditeur de la franchise a été fondé en décembre 1998 en tant que filiale de Take-Two Interactive. Basé à New York, ce studio est devenu l'un des plus prestigieux de l'industrie grâce à des séries comme les aventures criminelles en monde ouvert et les westerns. Quel est le nom de cet éditeur ?",
       "answer": "Rockstar Games",
-      "difficulty": "normal",
       "category": "Rockstar"
     },
     {
       "id": "gta053",
       "question": "En 2005, un moddeur a découvert du contenu sexuel caché dans les fichiers du jeu de 2004, provoquant un immense scandale. Le jeu a été reclassifié « Adults Only » par l'ESRB et retiré de nombreux magasins. Quel est le nom de ce mod controversé ?",
       "answer": "Hot Coffee",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta054",
       "question": "Suite à la découverte de contenu caché dans le jeu de 2004, l'organisme américain de classification des jeux vidéo a reclassifié le titre de « Mature » à « Adults Only », provoquant son retrait des rayons. Quel est le sigle de cet organisme de classification ?",
       "answer": "ESRB",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta055",
       "question": "Dans le cinquième opus, cette secte parodique est obsédée par la déité « Kifflom » et recrute Michael à travers une série de missions absurdes incluant des dons d'argent exorbitants, le port obligatoire d'une robe et une marche de huit kilomètres dans le désert. Quel est le nom de cette secte ?",
       "answer": "Epsilon Program",
-      "difficulty": "difficile",
       "category": "Easter Eggs"
     },
     {
       "id": "gta056",
       "question": "Dans le cinquième opus, le fantôme d'une femme apparaît au sommet d'une montagne entre 23h et minuit, flottant au-dessus d'une tache de sang. Son mari, un ancien cascadeur devenu candidat au poste de gouverneur, est suspecté de l'avoir poussée dans le vide. Quel est le nom de famille de cette femme ?",
       "answer": "Cranley-Evans",
-      "difficulty": "difficile",
       "category": "Easter Eggs"
     },
     {
       "id": "gta057",
       "question": "Dans le cinquième opus, un mur peint au sommet de la plus haute montagne de l'État affiche une carte mystérieuse avec des symboles étranges. Quand le joueur atteint 100% de complétion et revient par temps de pluie, un OVNI apparaît au-dessus du sommet. Quel est le nom de cette montagne ?",
       "answer": "Mount Chiliad",
-      "difficulty": "normal",
       "category": "Easter Eggs"
     },
     {
       "id": "gta058",
       "question": "Ce rottweiler appartient à Lamar Davis mais vit chez Franklin pendant la majeure partie du jeu. Le joueur peut le promener, jouer à la balle avec lui et même prendre son contrôle lors de certaines missions pour pister des cibles. Quel est le nom de ce chien ?",
       "answer": "Chop",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta059",
       "question": "Dans le cinquième opus, la femme de Michael est une ancienne strip-teaseuse avec qui il a eu deux enfants : une fille aspirant à la célébrité et un fils accro aux jeux vidéo et à l'herbe. Quel est le prénom de cette épouse ?",
       "answer": "Amanda",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta060",
       "question": "Dans le quatrième opus, deux extensions narratives racontent des histoires parallèles à celle de Niko Bellic, toutes liées par un lot de diamants volés. L'une suit le vice-président d'un gang de motards, l'autre le videur d'un nightclub. Quel est le nom du motard protagoniste de la première extension ?",
       "answer": "Johnny Klebitz",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta061",
       "question": "La seconde extension du quatrième opus suit un ancien dealer devenu le garde du corps et bras droit d'un propriétaire de boîtes de nuit. Ce protagoniste d'origine dominicaine doit aider son patron à survivre à ses dettes, ses addictions et des tentatives d'assassinat. Quel est son nom ?",
       "answer": "Luis Lopez",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta062",
       "question": "Le jeu de 2002 s'inspire fortement d'un film de Brian De Palma sorti en 1983 avec Al Pacino, dans lequel un réfugié cubain bâtit un empire de la drogue à Miami. Le manoir du protagoniste du jeu est d'ailleurs calqué sur celui du héros de ce film. Quel est le titre de ce film ?",
       "answer": "Scarface",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta063",
       "question": "Dans le jeu de 2004, les deux gangs rivaux qui s'affrontent pour le contrôle de Los Santos portent respectivement le vert et le violet. Le gang en vert, basé dans le quartier de Grove Street, est dirigé par Sweet, le frère aîné de CJ. Quel est le nom du gang rival en violet ?",
       "answer": "Ballas",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta064",
       "question": "Dans le jeu de 2004, l'unité de police anticriminelle qui manipule CJ porte un acronyme signifiant « Community Resources Against Street Hoodlums ». Dirigée par Tenpenny et Pulaski, elle est ironiquement plus corrompue que les criminels qu'elle est censée combattre. Quel est cet acronyme ?",
       "answer": "C.R.A.S.H.",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta065",
       "question": "Dans la série, le système de recherche policière est représenté par des étoiles dont le nombre augmente avec la gravité des crimes commis. Plus le niveau est élevé, plus la réponse policière est agressive. Quel est le nombre maximum d'étoiles dans le cinquième opus ?",
       "answer": "5",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta066",
       "question": "L'entreprise criminelle de Trevor dans le cinquième opus est spécialisée dans le trafic d'armes et la production d'une drogue de synthèse cristalline fabriquée dans un ancien magasin de spiritueux par un homme surnommé « Chef ». Quelle substance est fabriquée ?",
       "answer": "Méthamphétamine (crystal meth)",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta067",
       "question": "Dans le cinquième opus, Trevor vit dans une caravane au milieu du désert dans un petit village de Blaine County, entouré de ses acolytes Ron et Wade. Quel est le nom de cette bourgade fictive ?",
       "answer": "Sandy Shores",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta068",
       "question": "Dans le cinquième opus, ce milliardaire et investisseur est le principal actionnaire de la société militaire privée Merryweather Security. Antagoniste principal du jeu, il ordonne à Franklin de tuer un de ses associés dans l'option de fin A. Qui est-ce ?",
       "answer": "Devin Weston",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta069",
       "question": "Dans le cinquième opus, cet agent du FIB exploite Michael et ses associés pour mener des opérations secrètes contre une agence rivale. Présentateur d'une émission de télévision patriotique, il est l'un des antagonistes secondaires éliminés dans l'option Deathwish. Qui est-ce ?",
       "answer": "Steve Haines",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta070",
       "question": "Le développement du cinquième opus a mobilisé une équipe d'environ 1 000 personnes pendant plusieurs années. Le budget combiné de développement et de marketing a été estimé à environ 265 millions de dollars, ce qui en faisait le jeu le plus cher jamais produit à l'époque. Quel était le coût estimé de développement seul, en millions ?",
       "answer": "137 millions de dollars",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "gta071",
       "question": "Dans le cinquième opus, la plus haute tour de Los Santos est le siège d'une banque fictive. Inspirée de la US Bank Tower de Los Angeles, elle culmine à plus de 300 mètres et peut être achetée comme bureau dans le mode en ligne pour quatre millions de dollars. Quel est le nom de cette tour ?",
       "answer": "Maze Bank Tower",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta072",
       "question": "Dans le cinquième opus, le quartier huppé de Vinewood est une parodie d'un célèbre quartier de Los Angeles connu pour son industrie cinématographique et son panneau géant sur la colline. Quel quartier réel est parodié ?",
       "answer": "Hollywood",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta073",
       "question": "Dans le jeu de 2002, le protagoniste peut acheter un nightclub qui deviendra l'une de ses propriétés génératrices de revenus. Inspiré directement du Babylon Club dans Scarface, ce club est situé à Washington Beach. Quel est son nom ?",
       "answer": "Malibu Club",
-      "difficulty": "difficile",
       "category": "Missions"
     },
     {
       "id": "gta074",
       "question": "Le jeu sorti en 2006 sur PSP est un préquel de Vice City dont l'action se déroule en 1984. Son protagoniste est un soldat américain qui sombre dans la criminalité pour payer les soins médicaux de son frère malade, et qui meurt lors de l'introduction du jeu de 2002. Quel est son nom ?",
       "answer": "Victor Vance",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta075",
       "question": "Dans le jeu de 2004, ce leader aveugle des Mountain Cloud Boys, une branche des triades chinoises de San Fierro, devient un allié précieux de CJ. Expert en courses automobiles malgré sa cécité, il est affectueusement surnommé par les joueurs. Quel est son surnom ?",
       "answer": "Woozie",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta076",
       "question": "Dans le jeu de 2004, le petit ami de la sœur de CJ est le chef du gang des Varrios Los Aztecas. D'abord regardé avec méfiance par la famille Johnson, il devient un allié fidèle et révèle la trahison d'un membre clé du gang à CJ. Quel est son nom ?",
       "answer": "Cesar Vialpando",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta077",
       "question": "Dans le cinquième opus, le troisième braquage de l'histoire implique de braquer une banque dans une petite ville côtière du comté de Blaine pour financer une opération du FIB. L'équipe doit combattre l'armée avec un bulldozer blindé pour s'enfuir. Quel est le nom de cette mission ?",
       "answer": "The Paleto Score",
-      "difficulty": "difficile",
       "category": "Missions"
     },
     {
       "id": "gta078",
       "question": "Dans le cinquième opus, la base militaire de Fort Zancudo est une zone interdite fortement gardée. Y pénétrer déclenche instantanément le niveau de recherche maximal et l'intervention de l'armée. Cette base est la version fictive de quelle vraie base californienne ?",
       "answer": "Fort Irwin / Vandenberg Air Force Base",
-      "difficulty": "difficile",
       "category": "Villes"
     },
     {
       "id": "gta079",
       "question": "Le jeu de 2002 a été le premier de la série à utiliser des acteurs professionnels de Hollywood pour le doublage. Outre Ray Liotta, on pouvait entendre des voix de stars comme Burt Reynolds, Dennis Hopper et le rappeur dont le studio s'appelle Aftermath. Quel rappeur a participé au doublage ?",
       "answer": "Ice-T",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta080",
       "question": "Dans le cinquième opus, la société militaire privée engagée par Devin Weston fournit des mercenaires lourdement armés que le joueur affronte à plusieurs reprises. Cette compagnie est une parodie de Blackwater, la célèbre société militaire privée américaine. Quel est son nom fictif ?",
       "answer": "Merryweather Security",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta081",
       "question": "Dans le jeu de 2001, le protagoniste est trahi par une femme d'origine hispanique qui le laisse pour mort lors d'un braquage. Cette même femme est la petite amie de CJ dans le jeu de 2004 avant de le quitter pour retrouver un homme silencieux de la côte ouest. Quel est son nom ?",
       "answer": "Catalina",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta082",
       "question": "Depuis le troisième opus sorti en 2001, chaque jeu de la série inclut de nombreuses stations de radio que le joueur peut écouter dans les véhicules. Ces stations diffusent un mélange de musique sous licence et de publicités parodiques. Quel est le nom du fast-food fictif récurrent parodiant KFC ?",
       "answer": "Cluckin' Bell",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta083",
       "question": "Dans le jeu de 2002, un colonel d'un pays non précisé organise une fête sur son yacht où le protagoniste fait la connaissance de plusieurs contacts importants. Ce militaire aide Tommy dans ses premières missions avant de quitter la ville en bateau pour échapper à des poursuites. Quel est son nom ?",
       "answer": "Colonel Cortez",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta084",
       "question": "Dans le jeu de 2002, le boss mafieux qui a envoyé le protagoniste en Floride vient finalement lui réclamer son dû et attaquer son manoir lors de la mission finale. Tommy découvre alors que son allié Lance l'a trahi au profit de ce parrain. Quel est le nom complet de ce boss mafieux ?",
       "answer": "Sonny Forelli",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta085",
       "question": "Dans le jeu de 2004, ce membre des Grove Street Families participe aux premières missions aux côtés de CJ. Fumeur de PCP chronique et portant toujours des lunettes noires, il trahit le gang avec Big Smoke pour le compte du Loco Syndicate. Comment s'appelle ce traître ?",
       "answer": "Ryder",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta086",
       "question": "Le cinquième opus de la série se déroule dans un État fictif qui porte le même nom que le jeu sorti en 2004. Cependant, dans le cinquième opus, seule la ville principale et le comté rural environnant sont explorables, contrairement aux trois villes du jeu précédent. Quel est le nom de cet État ?",
       "answer": "San Andreas",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta087",
       "question": "Le comté rural du cinquième opus comprend des déserts, des forêts et le plus haut sommet de l'État. On y trouve les villages de Sandy Shores, Grapeseed et Paleto Bay, ainsi que la base militaire de Fort Zancudo. Quel est le nom de ce comté ?",
       "answer": "Blaine County",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta088",
       "question": "L'acteur canadien qui interprète Trevor Philips par la voix et la capture de mouvement est devenu célèbre grâce à ce rôle avant de poursuivre sa carrière à la télévision, notamment dans The Walking Dead et Westworld. Qui est cet acteur ?",
       "answer": "Steven Ogg",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta089",
       "question": "L'acteur américain qui double Franklin Clinton dans le cinquième opus avait déjà tenu un petit rôle dans le jeu de 2004, avant d'être choisi pour incarner l'un des trois héros principaux. Qui est cet acteur ?",
       "answer": "Shawn Fonteno",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta090",
       "question": "Dans le cinquième opus, l'entreprise fictive LifeInvader parodie Facebook. Son fondateur est assassiné en direct à la télévision lorsque son prototype de téléphone piégé par Michael explose lors d'une keynote. Quel événement fait chuter le cours de bourse de cette entreprise de manière permanente ?",
       "answer": "L'assassinat de Jay Norris",
-      "difficulty": "difficile",
       "category": "Missions"
     },
     {
       "id": "gta091",
       "question": "Le premier trailer du sixième opus, diffusé fin 2023, a battu le record de la vidéo la plus vue en 24 heures sur YouTube, surpassant même les bandes-annonces de films à gros budget. Le second trailer sorti en mai 2025 a révélé le nom du co-protagoniste masculin. Quel est le nom complet de ce personnage ?",
       "answer": "Jason Duval",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta092",
       "question": "Dans le jeu de 2004, un personnage excentrique prénommé « The Truth » est un hippie conspirationniste qui cultive du cannabis et croit aux extraterrestres. Il est doublé par un acteur hollywoodien de légende, fils du célèbre Henry et sœur de Jane. Quel est le nom de cet acteur ?",
       "answer": "Peter Fonda",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta093",
       "question": "Dans le cinquième opus, Trevor vit entouré de deux acolytes qu'il a essentiellement kidnappés et manipulés psychologiquement. L'un est un conspirationniste nerveux qui gère les contacts radio, l'autre un jeune homme naïf qui cherche son cousin. Quel est le nom du conspirationniste ?",
       "answer": "Ron Jakowski",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta094",
       "question": "Le mode en ligne du cinquième opus a introduit en 2019 un établissement de jeux d'argent au cœur de Los Santos, où les joueurs peuvent jouer à la roulette, au blackjack et aux machines à sous avec leur monnaie virtuelle. Comment s'appelle cet endroit ?",
       "answer": "The Diamond Casino & Resort",
-      "difficulty": "normal",
       "category": "GTA Online"
     },
     {
       "id": "gta095",
       "question": "Dans le mode en ligne du cinquième opus, le braquage de Cayo Perico nécessite l'achat d'un véhicule unique servant de base d'opérations mobile. Ce sous-marin armé permet de planifier le braquage et de se rendre sur l'île. Quel est son nom ?",
       "answer": "Kosatka",
-      "difficulty": "difficile",
       "category": "GTA Online"
     },
     {
       "id": "gta096",
       "question": "La société mère de Rockstar Games est un éditeur américain de jeux vidéo coté en bourse, qui possède également les studios 2K Games. Fondée en 1993, cette entreprise tire une part significative de ses revenus de la franchise criminelle. Quel est son nom ?",
       "answer": "Take-Two Interactive",
-      "difficulty": "normal",
       "category": "Rockstar"
     },
     {
       "id": "gta097",
       "question": "Le premier jeu de la franchise, sorti en 1997, proposait une vue aérienne du dessus et se déroulait dans trois villes. Initialement développé sous un autre nom par DMA Design, il a été rebaptisé avant sa sortie grâce à l'intervention des frères Houser. Quel était le titre de travail original du jeu ?",
       "answer": "Race'n'Chase",
-      "difficulty": "difficile",
       "category": "Histoire"
     },
     {
       "id": "gta098",
       "question": "Dans le jeu de 2004, la sœur de CJ sort avec le leader d'un gang hispanique malgré les réticences initiales de la famille. Étudiante en commerce, elle reproche constamment à ses frères leur mode de vie criminel. Quel est son prénom ?",
       "answer": "Kendl",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta099",
       "question": "Le cinquième opus de la saga permet pour la première fois de basculer entre trois protagonistes à tout moment en pleine partie grâce à un système de sélection radial. Chaque personnage possède une capacité spéciale unique : le ralenti au tir, la conduite en bullet time et la rage destructrice. Quelle est la capacité spéciale de Franklin ?",
       "answer": "Ralentir le temps en conduisant (Driving Focus)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta100",
       "question": "Dans le jeu de 2004, CJ peut modifier radicalement son apparence physique en allant à la salle de sport, en mangeant trop ou en se faisant couper les cheveux. C'est la première fois dans la série que le physique du protagoniste change selon les actions du joueur. Quelle caractéristique augmente si CJ mange excessivement au fast-food ?",
       "answer": "Sa masse grasse (il grossit)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta101",
       "question": "Le sixième opus de la franchise est annoncé pour sortir en novembre 2026 sur PlayStation 5 et Xbox Series X/S après plusieurs reports. L'action se déroulera principalement dans une version modernisée de Vice City au sein de l'État fictif de Leonida. Quel État américain réel inspire Leonida ?",
       "answer": "La Floride",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta102",
       "question": "Dans le cinquième opus, Michael est un fan de cinéma classique qui fréquente régulièrement les salles obscures. Son thérapeute, le Dr. Friedlander, tente de l'aider à gérer sa dépression et ses conflits familiaux moyennant des honoraires exorbitants. Quel est le quartier huppé de Los Santos où vit Michael avec sa famille ?",
       "answer": "Rockford Hills",
-      "difficulty": "difficile",
       "category": "Villes"
     },
     {
       "id": "gta103",
       "question": "Dans le quatrième opus, Niko recherche depuis des années l'un de deux hommes ayant trahi son unité militaire pendant la guerre, causant la mort de presque tous ses camarades. Cette quête de vengeance est le fil conducteur principal de l'histoire. Quel est le nom du traître que Niko finit par retrouver ?",
       "answer": "Darko Brevic",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta104",
       "question": "Dans le cinquième opus, le personnage de Trevor est né dans un pays frontalier des États-Unis. Il a grandi dans cinq États différents, deux pays, quatorze maisons différentes, avec huit pères et une mère qu'il décrit comme « une fleur magnifique et abîmée ». Dans quel pays est-il né ?",
       "answer": "Le Canada",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta105",
       "question": "Dans le jeu de 2002, l'action se situe à une époque précise facilement reconnaissable grâce aux costumes pastel, aux voitures à l'esthétique rétro et à la bande-son composée de tubes de A Flock of Seagulls, Blondie et Michael Jackson. En quelle année se déroule l'intrigue ?",
       "answer": "1986",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta106",
       "question": "Le nom même de la franchise est une expression anglaise utilisée dans le jargon policier américain pour désigner le vol de véhicule automobile. Cette infraction est d'ailleurs l'une des premières actions possibles dans chaque épisode de la série. Que signifie littéralement « Grand Theft Auto » en français ?",
       "answer": "Vol de véhicule (vol de voiture qualifié)",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta107",
       "question": "Dans le cinquième opus, le nom de famille original de Michael avant son entrée dans le programme de protection des témoins est révélé au cours de l'histoire. Trevor le connaissait sous ce nom quand ils braquaient des banques ensemble dans le Midwest. Quel est ce nom de famille original ?",
       "answer": "Townley",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta108",
       "question": "La seconde extension du quatrième opus porte le nom de son deutéragoniste, un propriétaire de boîtes de nuit de Liberty City endetté et aux prises avec la drogue. Luis Lopez, le protagoniste, est son garde du corps et associé. Quel est le surnom de cet homme d'affaires de la vie nocturne ?",
       "answer": "Gay Tony",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "gta109",
       "question": "Dans le cinquième opus, une mission emblématique implique de faire tomber un gratte-ciel en le percutant avec un engin de chantier pour le faire s'effondrer sur la maison du patron de la vie privée de la fille de Michael. Cette destruction spectaculaire est un moment marquant du début du jeu. Quel type d'engin Michael utilise-t-il ?",
       "answer": "Un bulldozer (un tractopelle)",
-      "difficulty": "normal",
       "category": "Missions"
     },
     {
       "id": "gta110",
       "question": "Le jeu de 2004 est le premier de la série à proposer la natation : dans les épisodes précédents, le protagoniste se noyait instantanément au contact de l'eau profonde. CJ peut également plonger sous l'eau, avec une jauge d'oxygène limitée. Que se passait-il dans les jeux précédents quand le personnage tombait dans l'eau ?",
       "answer": "Il mourait instantanément (il se noyait)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "gta111",
       "question": "Dans le mode en ligne du cinquième opus, les premiers braquages multijoueurs ont été ajoutés en mars 2015, soit plus d'un an après le lancement du mode. Le premier braquage disponible est un simple casse d'une petite banque nommée Fleeca. Combien de joueurs minimum faut-il pour réaliser ce premier braquage ?",
       "answer": "2 joueurs",
-      "difficulty": "normal",
       "category": "GTA Online"
     },
     {
       "id": "gta112",
       "question": "Dans le cinquième opus, les collines au nord de Los Santos abritent un célèbre panneau géant visible de loin, parodiant le vrai panneau « Hollywood ». La zone résidentielle en contrebas est un quartier de stars et de millionnaires. Quel est le nom complet de ces collines ?",
       "answer": "Vinewood Hills",
-      "difficulty": "normal",
       "category": "Villes"
     },
     {
       "id": "gta113",
       "question": "Le duo protagoniste du sixième opus est décrit comme un couple criminel romantique inspiré de deux célèbres hors-la-loi américains des années 1930. Jason et Lucia partagent une relation amoureuse tout en menant une vie de crime dans l'État de Leonida. De quel couple historique s'inspirent-ils ?",
       "answer": "Bonnie and Clyde",
-      "difficulty": "normal",
       "category": "Histoire"
     },
     {
       "id": "gta114",
       "question": "Dans le jeu de 2004, le personnage de OG Loc est un rappeur amateur sorti de prison qui rêve de devenir célèbre. Jaloux du succès du vrai rappeur Madd Dogg, il tente par tous les moyens de saboter sa carrière et de voler ses textes. Pour quelle enseigne de restauration rapide OG Loc travaille-t-il ?",
       "answer": "Burger Shot",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "gta115",
       "question": "Dans le jeu de 2004, l'une des missions les plus difficiles et les plus frustrantes de l'histoire du jeu vidéo consiste à suivre un train en moto pendant que Big Smoke tente de tirer sur des membres de gang sur les wagons. Cette mission est devenue un mème avec la célèbre réplique de Big Smoke. Quelle phrase culte prononce-t-il en cas d'échec ?",
       "answer": "All you had to do was follow the damn train, CJ!",
-      "difficulty": "normal",
       "category": "Missions"
     }
   ]
