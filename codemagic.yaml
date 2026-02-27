@@ -7,6 +7,7 @@ workflows:
     environment:
       groups:
         - ios_credentials
+        - FB
       vars:
         XCODE_WORKSPACE: "App.xcworkspace"
         XCODE_SCHEME: "App"
