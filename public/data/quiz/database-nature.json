@@ -7,350 +7,300 @@
       "id": "cg-nat001",
       "question": "Plus grand mammifère marin pesant jusqu'à 200 tonnes pour 30 mètres de long, ce cétacé se nourrit de krill. Son chant peut parcourir des milliers de kilomètres sous l'eau. Quel est cet animal ?",
       "answer": "La baleine bleue",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat002",
       "question": "Félin le plus rapide du monde pouvant atteindre 120 km/h en quelques secondes, il chasse dans les savanes africaines. Son pelage tacheté et ses larmes noires le distinguent du léopard. Quel est cet animal ?",
       "answer": "Le guépard",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat003",
       "question": "Primate d'Afrique centrale partageant 98% de notre ADN, il utilise des outils et vit en groupes sociaux complexes. Menacé par la déforestation et le braconnage. Quel est cet animal ?",
       "answer": "Le chimpanzé",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat004",
       "question": "Insecte pollinisateur essentiel à l'écosystème, il produit du miel et de la cire. Organisé en colonies avec une reine, des ouvrières et des faux-bourdons, il est menacé par les pesticides. Quel est cet insecte ?",
       "answer": "L'abeille",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat005",
       "question": "Seul mammifère capable de voler véritablement grâce à ses ailes membraneuses, il utilise l'écholocation pour chasser la nuit. Certaines espèces pollinisent les fleurs. Quel est cet animal ?",
       "answer": "La chauve-souris",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat006",
       "question": "Mollusque à huit bras doté de trois cœurs et d'un sang bleu, il est considéré comme l'invertébré le plus intelligent. Capable de changer de couleur et de s'échapper de son aquarium. Quel est cet animal ?",
       "answer": "La pieuvre (ou poulpe)",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat007",
       "question": "Amphibien mexicain à l'étonnant sourire permanent, il possède la capacité de régénérer ses membres, son cœur et même son cerveau. En danger critique d'extinction dans la nature. Quel est cet animal ?",
       "answer": "L'axolotl",
-      "difficulty": "difficile",
       "category": "Nature"
     },
     {
       "id": "cg-nat008",
       "question": "Phénomène lumineux visible près des pôles, il se forme quand les particules solaires entrent en collision avec l'atmosphère. Vertes, rouges ou violettes, ces lumières dansent dans le ciel nocturne. Quel est ce phénomène ?",
       "answer": "Les aurores boréales (ou australes)",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat009",
       "question": "Plus petit oiseau du monde avec 5 cm et 2 grammes, il peut battre des ailes jusqu'à 80 fois par seconde et voler en marche arrière. Son bec fin lui permet de boire le nectar des fleurs. Quel est cet oiseau ?",
       "answer": "Le colibri",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat010",
       "question": "Plus grand poisson du monde pouvant atteindre 18 mètres, ce requin se nourrit uniquement de plancton et de petits poissons. Malgré sa taille, il est totalement inoffensif pour l'homme. Quel est cet animal ?",
       "answer": "Le requin-baleine",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat011",
       "question": "Mammifère semi-aquatique d'Australie, il possède un bec de canard, une queue de castor et pond des œufs. C'est l'un des rares mammifères venimeux. Quel est cet animal étrange ?",
       "answer": "L'ornithorynque",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat012",
       "question": "Arbre emblématique de la savane africaine et de Madagascar, il possède un tronc énorme capable de stocker des milliers de litres d'eau. On l'appelle parfois 'l'arbre à l'envers'. Quel est cet arbre ?",
       "answer": "Le baobab",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat013",
       "question": "Oiseau incapable de voler vivant exclusivement dans l'hémisphère sud, principalement en Antarctique. Le mâle couve l'œuf sur ses pattes pendant l'hiver polaire. À ne pas confondre avec le pingouin. Quel est cet animal ?",
       "answer": "Le manchot (Empereur)",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat014",
       "question": "Grand singe aux poils roux originaire des forêts de Bornéo et Sumatra. Son nom signifie 'homme de la forêt' en malais. Il est menacé par la culture de l'huile de palme. Quel est cet animal ?",
       "answer": "L'orang-outan",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat015",
       "question": "Processus biologique par lequel les plantes vertes utilisent l'énergie solaire pour transformer le dioxyde de carbone et l'eau en matière organique, rejetant de l'oxygène. Quel est ce processus ?",
       "answer": "La photosynthèse",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat016",
       "question": "Mammifère d'Amérique du Sud célèbre pour sa lenteur extrême. Il passe sa vie suspendu aux arbres la tête en bas et des algues poussent parfois dans sa fourrure. Quel est cet animal ?",
       "answer": "Le paresseux",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat017",
       "question": "Plus grand reptile vivant, ce prédateur redoutable peut dépasser les 6 mètres de long. Il possède la mâchoire la plus puissante du règne animal. Quel est cet animal ?",
       "answer": "Le crocodile marin",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat018",
       "question": "Petit poisson marin dont le mâle a la particularité de porter les œufs dans une poche ventrale jusqu'à l'éclosion. Sa tête rappelle celle d'un cheval. Quel est cet animal ?",
       "answer": "L'hippocampe",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat019",
       "question": "Phénomène météorologique violent caractérisé par une colonne d'air tourbillonnante en contact avec le sol et un nuage d'orage. Les États-Unis ont une 'allée' qui leur est dédiée. Quel est ce phénomène ?",
       "answer": "La tornade",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat020",
       "question": "Marsupial australien qui se nourrit presque exclusivement de feuilles d'eucalyptus. Il dort jusqu'à 20 heures par jour et possède des empreintes digitales proches de celles de l'homme. Quel est cet animal ?",
       "answer": "Le koala",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat021",
       "question": "Plante carnivore capable de capturer des insectes grâce à ses feuilles en forme de mâchoires qui se referment en une fraction de seconde au moindre contact. Quelle est cette plante ?",
       "answer": "La dionée (ou attrape-mouche)",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat022",
       "question": "Mammifère marin noir et blanc, c'est le plus grand membre de la famille des dauphins. Surnommée 'baleine tueuse', elle chasse en groupe de manière coordonnée. Quel est cet animal ?",
       "answer": "L'orque (ou épaulard)",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat023",
       "question": "Plus grand oiseau vivant, incapable de voler mais courant très vite (jusqu'à 70 km/h). Elle pond les plus gros œufs du monde animal. Quel est cet oiseau ?",
       "answer": "L'autruche",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat024",
       "question": "Roche en fusion qui se trouve sous la surface de la Terre. Lorsqu'elle sort d'un volcan lors d'une éruption, elle change de nom pour devenir de la lave. Quel est ce terme ?",
       "answer": "Le magma",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat025",
       "question": "Animal le plus grand et le plus lourd vivant sur la terre ferme. Il possède une trompe, de grandes oreilles et une mémoire légendaire. Quel est cet animal ?",
       "answer": "L'éléphant d'Afrique",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat026",
       "question": "Papillon célèbre pour sa migration de plusieurs milliers de kilomètres entre le Canada et le Mexique. Ses ailes sont orange et noires. Quel est ce papillon ?",
       "answer": "Le monarque",
-      "difficulty": "difficile",
       "category": "Nature"
     },
     {
       "id": "cg-nat027",
       "question": "Cétacé de l'Arctique surnommé la 'licorne des mers' à cause de la longue défense torsadée qui pousse sur la tête des mâles. Quel est cet animal ?",
       "answer": "Le narval",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat028",
       "question": "Arbre géant de Californie pouvant vivre plus de 3000 ans. Le 'Général Sherman' est le spécimen le plus volumineux du monde. Quel est cet arbre ?",
       "answer": "Le séquoia géant",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat029",
       "question": "Reptile capable de changer de couleur pour communiquer ou réguler sa température (et non pour se camoufler). Ses yeux peuvent bouger indépendamment l'un de l'autre. Quel est cet animal ?",
       "answer": "Le caméléon",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat030",
       "question": "Oiseau de proie capable de plonger à plus de 300 km/h pour attraper ses proies en vol, ce qui en fait l'animal le plus rapide du règne animal. Quel est cet oiseau ?",
       "answer": "Le faucon pèlerin",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat031",
       "question": "Insecte vivant en colonies gigantesques, capable de construire des monticules de terre (termitières) de plusieurs mètres de haut. Il se nourrit de bois et de cellulose. Quel est cet insecte ?",
       "answer": "Le termite",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat032",
       "question": "Mammifère noir et blanc originaire de Chine, il se nourrit presque exclusivement de bambou. Symbole du WWF, il a un 'faux pouce' pour saisir les tiges. Quel est cet animal ?",
       "answer": "Le panda géant",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat033",
       "question": "Onde océanique provoquée par un séisme sous-marin ou une éruption volcanique. En arrivant sur les côtes, elle forme une vague destructrice. Le terme est japonais. Quel est ce phénomène ?",
       "answer": "Le tsunami",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat034",
       "question": "Seul mammifère au monde recouvert d'écailles. Il se roule en boule pour se protéger. C'est l'animal le plus braconné au monde. Quel est cet animal ?",
       "answer": "Le pangolin",
-      "difficulty": "difficile",
       "category": "Nature"
     },
     {
       "id": "cg-nat035",
       "question": "Plante à la croissance la plus rapide au monde (certaines espèces poussent d'un mètre par jour). Techniquement, ce n'est pas un arbre mais une herbe géante. Quelle est cette plante ?",
       "answer": "Le bambou",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat036",
       "question": "Grand ours blanc de l'Arctique, c'est le plus grand carnivore terrestre. Sa peau est noire sous sa fourrure translucide pour absorber la chaleur. Quel est cet animal ?",
       "answer": "L'ours polaire",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat037",
       "question": "Phénomène naturel de décharge électrique lors d'un orage, accompagné du tonnerre. Il frappe la Terre environ 100 fois par seconde. Quel est ce phénomène ?",
       "answer": "La foudre (ou l'éclair)",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat038",
       "question": "Mammifère marin herbivore surnommé 'vache de mer'. Il vit dans les eaux chaudes côtières et aurait inspiré le mythe des sirènes. Quel est cet animal ?",
       "answer": "Le lamantin (ou dugong)",
-      "difficulty": "difficile",
       "category": "Nature"
     },
     {
       "id": "cg-nat039",
       "question": "Araignée venimeuse reconnaissable à la tache rouge en forme de sablier sur son abdomen. Son nom vient du fait que la femelle mange parfois le mâle après l'accouplement. Quelle est cette araignée ?",
       "answer": "La veuve noire",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat040",
       "question": "Formation géologique calcaire qui pend du plafond des grottes, formée par l'eau ruisselante chargée de minéraux. À ne pas confondre avec celle qui monte du sol. Quel est son nom ?",
       "answer": "La stalactite",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat041",
       "question": "Marsupial australien célèbre pour son saut et sa poche ventrale. Les mères y portent leur bébé appelé 'joey'. C'est l'emblème de l'Australie. Quel est cet animal ?",
       "answer": "Le kangourou",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat042",
       "question": "Insecte religieux dont la femelle dévore souvent la tête du mâle pendant ou après l'accouplement. Ses pattes avant sont repliées comme pour prier. Quel est cet insecte ?",
       "answer": "La mante religieuse",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat043",
       "question": "Mammifère au long cou pouvant atteindre 5,5 mètres, ce qui lui permet de manger les feuilles d'acacia. Sa langue est bleue et mesure 50 cm. Quel est cet animal ?",
       "answer": "La girafe",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat044",
       "question": "Champignon vénéneux célèbre pour son chapeau rouge à pois blancs. Souvent représenté dans les contes et les jeux vidéo (Mario), il est toxique et hallucinogène. Quel est ce champignon ?",
       "answer": "L'amanite tue-mouches",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat045",
       "question": "Crustacé vivant souvent dans une coquille vide de gastéropode pour protéger son abdomen mou. Il doit changer de coquille en grandissant. Quel est cet animal ?",
       "answer": "Le bernard-l'ermite",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat046",
       "question": "Mouvement périodique du niveau de la mer dû à l'attraction gravitationnelle de la Lune et du Soleil. En France, celles du Mont Saint-Michel sont spectaculaires. Quel est ce phénomène ?",
       "answer": "La marée",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat047",
       "question": "Rongeur bâtisseur capable de construire des barrages et des huttes sur les rivières. Il possède une queue plate et des dents oranges qui poussent en continu. Quel est cet animal ?",
       "answer": "Le castor",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat048",
       "question": "Oiseau mythique de l'île Maurice, aujourd'hui disparu. Incapable de voler et n'ayant peur de rien, il a été exterminé par les colons au XVIIe siècle. Quel est cet animal ?",
       "answer": "Le dodo",
-      "difficulty": "normal",
       "category": "Nature"
     },
     {
       "id": "cg-nat049",
       "question": "Mammifère volant d'Australie qui plane d'arbre en arbre grâce à une membrane de peau. Ce petit marsupial adore le sucre. Quel est cet animal ?",
       "answer": "Le phalanger volant (ou Sugar Glider)",
-      "difficulty": "difficile",
       "category": "Nature"
     },
     {
       "id": "cg-nat050",
       "question": "Fleur japonaise emblématique du printemps, sa floraison (Hanami) est une fête nationale. Elle ne dure que quelques jours. De quel arbre provient-elle ?",
       "answer": "Le cerisier (Sakura)",
-      "difficulty": "normal",
       "category": "Nature"
     }
   ]
