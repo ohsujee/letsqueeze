@@ -7,350 +7,300 @@
       "id": "cg-tech001",
       "question": "Entreprise américaine fondée par Steve Jobs, Steve Wozniak et Ron Wayne en 1976, elle révolutionne l'informatique avec le Macintosh puis les smartphones avec l'iPhone. Basée à Cupertino. Quelle est cette entreprise ?",
       "answer": "Apple",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech002",
       "question": "Moteur de recherche dominant avec plus de 90% des parts de marché mondial, il est créé par Larry Page et Sergey Brin en 1998. Devenu Alphabet en 2015, il possède YouTube et Android. Quelle est cette entreprise ?",
       "answer": "Google",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech003",
       "question": "Réseau social fondé par Mark Zuckerberg en 2004 à Harvard, il compte aujourd'hui 3 milliards d'utilisateurs. Renommé Meta en 2021, il possède Instagram et WhatsApp. Quel était son nom original ?",
       "answer": "Facebook",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech004",
       "question": "Entrepreneur sud-africain à la tête de Tesla et SpaceX, il a racheté Twitter (devenu X) en 2022. Neuralink et The Boring Company font aussi partie de ses projets. Qui est-ce ?",
       "answer": "Elon Musk",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech005",
       "question": "Cryptomonnaie décentralisée créée en 2009 par le mystérieux Satoshi Nakamoto, elle repose sur la technologie blockchain. Son symbole est ₿ et son cours a atteint des sommets historiques. Quelle est cette monnaie ?",
       "answer": "Le Bitcoin",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech006",
       "question": "Application de messagerie instantanée créée en 2009 et rachetée par Facebook en 2014 pour 19 milliards de dollars. La double coche bleue indique que le message a été lu. Quelle est cette application ?",
       "answer": "WhatsApp",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech007",
       "question": "Intelligence artificielle conversationnelle lancée par OpenAI en novembre 2022, elle utilise le modèle GPT. Capable de rédiger, coder et converser, elle a atteint 100 millions d'utilisateurs en 2 mois. Quel est son nom ?",
       "answer": "ChatGPT",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech008",
       "question": "Plateforme de vidéos courtes chinoise au logo en forme de note de musique, elle compte plus d'un milliard d'utilisateurs. Son algorithme addictif et ses danses virales ont conquis les jeunes. Quelle est cette application ?",
       "answer": "TikTok",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech009",
       "question": "Console de jeux vidéo japonaise créée par Sony en 1994, elle a révolutionné le gaming avec ses manettes DualShock. La PS5 est la dernière génération. Quelle est cette console ?",
       "answer": "PlayStation",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech010",
       "question": "Système d'exploitation mobile développé par Google et lancé en 2008, il équipe 70% des smartphones mondiaux. Son logo est un petit robot vert. Quel est ce système ?",
       "answer": "Android",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech011",
       "question": "Milliardaire américain cofondateur de Microsoft en 1975 avec Paul Allen. Longtemps l'homme le plus riche du monde, il se consacre aujourd'hui à sa fondation humanitaire. Qui est-ce ?",
       "answer": "Bill Gates",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech012",
       "question": "Système d'exploitation le plus utilisé au monde sur ordinateur personnel, lancé par Microsoft en 1985. Sa version 95 a révolutionné l'interface graphique avec le menu Démarrer. Quel est ce système ?",
       "answer": "Windows",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech013",
       "question": "Encyclopédie en ligne gratuite et universelle lancée en 2001 par Jimmy Wales et Larry Sanger. Rédigée collaborativement par des bénévoles, elle existe dans plus de 300 langues. Quel est ce site ?",
       "answer": "Wikipédia",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech014",
       "question": "Plateforme de streaming de séries et films fondée en 1997. D'abord service de location de DVD par la poste, elle a produit des succès comme Stranger Things et Squid Game. Quelle est cette entreprise ?",
       "answer": "Netflix",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech015",
       "question": "Entreprise japonaise de jeux vidéo fondée en 1889 (fabriquant alors des cartes à jouer). Créatrice de Mario, Zelda et Pokémon, elle a sorti la Game Boy et la Switch. Quelle est cette entreprise ?",
       "answer": "Nintendo",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech016",
       "question": "Fondateur d'Amazon en 1994, il a débuté en vendant des livres en ligne depuis son garage. Il possède également le Washington Post et la société spatiale Blue Origin. Qui est-ce ?",
       "answer": "Jeff Bezos",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech017",
       "question": "Région de la baie de San Francisco en Californie, pôle mondial des industries de pointe. Elle tire son nom de l'élément chimique principal utilisé dans les puces électroniques. Quel est ce lieu ?",
       "answer": "La Silicon Valley",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech018",
       "question": "Site d'hébergement de vidéos créé en 2005 par trois anciens employés de PayPal et racheté par Google. La toute première vidéo mise en ligne s'intitule 'Me at the zoo'. Quel est ce site ?",
       "answer": "YouTube",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech019",
       "question": "Dispositif de pointage pour ordinateur inventé par Douglas Engelbart dans les années 60. Son nom vient de sa ressemblance avec un petit rongeur en raison du fil qui ressemblait à une queue. Quel est cet objet ?",
       "answer": "La souris",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech020",
       "question": "Système d'exploitation libre et open-source dont le noyau a été créé par Linus Torvalds en 1991. Sa mascotte est un manchot nommé Tux. Quel est ce système ?",
       "answer": "Linux",
-      "difficulty": "difficile",
       "category": "Technologie"
     },
     {
       "id": "cg-tech021",
       "question": "Géant sud-coréen de l'électronique, premier concurrent d'Apple sur le marché des smartphones avec sa gamme Galaxy. C'est aussi un leader mondial des téléviseurs et des puces mémoire. Quelle est cette marque ?",
       "answer": "Samsung",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech022",
       "question": "Langage informatique utilisé pour structurer les pages web. Ses balises permettent de définir les titres, paragraphes et liens. Son acronyme signifie HyperText Markup Language. Quel est ce langage ?",
       "answer": "HTML",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech023",
       "question": "Plateforme suédoise de streaming musical lancée en 2008. Leader mondial du secteur, elle a révolutionné la consommation de musique face au piratage. Quelle est cette application ?",
       "answer": "Spotify",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech024",
       "question": "Crainte informatique mondiale liée au passage à l'an 2000. On pensait que les ordinateurs ne sauraient pas gérer le changement de date, provoquant un chaos planétaire. Comment appelle-t-on cet événement ?",
       "answer": "Le bug de l'an 2000",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech025",
       "question": "Petit visage ou symbole utilisé dans les messages électroniques pour exprimer une émotion. Inventés au Japon à la fin des années 90, ils sont devenus un langage universel. Comment les appelle-t-on ?",
       "answer": "Les émojis",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech026",
       "question": "Technologie de communication sans fil à courte portée permettant de relier des appareils (casques, téléphones). Son logo combine les runes d'un roi viking surnommé 'Dent bleue'. Quelle est cette technologie ?",
       "answer": "Le Bluetooth",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech027",
       "question": "Support de stockage magnétique souple inventé par IBM, très utilisé dans les années 80 et 90. Bien qu'obsolète, il reste le symbole universel pour l'action 'Sauvegarder' dans les logiciels. Quel est cet objet ?",
       "answer": "La disquette",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech028",
       "question": "Réseau social centré sur la photo et la vidéo, racheté par Facebook en 2012 pour un milliard de dollars. Il a popularisé les 'Stories' et les filtres. Quelle est cette application ?",
       "answer": "Instagram",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech029",
       "question": "Superordinateur d'IBM célèbre pour avoir battu le champion du monde d'échecs Garry Kasparov en 1997. C'était une première historique pour l'intelligence artificielle. Quel est son nom ?",
       "answer": "Deep Blue",
-      "difficulty": "difficile",
       "category": "Technologie"
     },
     {
       "id": "cg-tech030",
       "question": "Agence spatiale américaine créée en 1958, responsable du programme Apollo et de l'exploration de Mars. Son logo est surnommé 'Meatball' (la boulette de viande). Quel est son acronyme ?",
       "answer": "NASA",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech031",
       "question": "Disposition des touches sur les claviers d'ordinateurs majoritairement utilisée dans les pays anglophones. Son nom vient des six premières lettres de la rangée supérieure. Quelle est cette disposition ?",
       "answer": "QWERTY",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech032",
       "question": "Plus petite unité d'une image numérique. C'est un point de couleur qui, assemblé avec des millions d'autres, forme l'image sur un écran. La contraction de 'Picture Element'. Qu'est-ce que c'est ?",
       "answer": "Un pixel",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech033",
       "question": "Entreprise californienne de VTC (Voiture de Transport avec Chauffeur) qui a bouleversé le marché des taxis mondialement. Son nom est devenu un verbe pour désigner la 'plateformisation' de l'économie. Quelle est cette entreprise ?",
       "answer": "Uber",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech034",
       "question": "Jeu vidéo d'arcade sorti en 1980 mettant en scène un personnage jaune rond mangeant des pac-gommes dans un labyrinthe tout en évitant des fantômes. Quel est ce jeu ?",
       "answer": "Pac-Man",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech035",
       "question": "Terme désignant l'ensemble des serveurs distants accessibles par Internet pour stocker des données ou utiliser des logiciels, plutôt que sur son propre disque dur. Cela signifie 'nuage' en anglais. Quel est ce terme ?",
       "answer": "Le Cloud",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech036",
       "question": "Standard de connexion informatique universel permettant de brancher des périphériques (clés, souris, imprimantes) à chaud. Son logo est un trident. Que signifie l'acronyme USB ?",
       "answer": "Universal Serial Bus",
-      "difficulty": "difficile",
       "category": "Technologie"
     },
     {
       "id": "cg-tech037",
       "question": "Plateforme communautaire de location de logements entre particuliers fondée en 2008. Elle permet de louer une chambre ou un appartement entier partout dans le monde. Quelle est cette entreprise ?",
       "answer": "Airbnb",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech038",
       "question": "Marque de voitures électriques dirigée par Elon Musk, elle a popularisé l'automobile électrique haut de gamme avec ses modèles S, 3, X et Y. Elle porte le nom d'un célèbre inventeur. Quelle est cette marque ?",
       "answer": "Tesla",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech039",
       "question": "Technique frauduleuse sur Internet consistant à se faire passer pour un tiers de confiance (banque, impôts) par email pour voler des données personnelles. On l'appelle aussi hameçonnage. Quel est le terme anglais ?",
       "answer": "Le phishing",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech040",
       "question": "Premier satellite artificiel de l'histoire, lancé par l'URSS le 4 octobre 1957. Son 'bip-bip' a marqué le début de la conquête spatiale. Quel est son nom ?",
       "answer": "Sputnik 1",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech041",
       "question": "Jeu de construction de type 'bac à sable' créé par Markus Persson (Notch). Avec ses blocs cubiques et ses graphismes pixelisés, c'est le jeu le plus vendu de l'histoire. Quel est ce jeu ?",
       "answer": "Minecraft",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech042",
       "question": "Suite bureautique de Microsoft comprenant Word, Excel et PowerPoint. C'est la référence mondiale pour le traitement de texte et les tableurs dans les entreprises. Quel est son nom ?",
       "answer": "Microsoft Office (ou Office 365)",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech043",
       "question": "Réseau informatique mondial accessible au public. Issu du projet militaire ARPANET, il connecte des milliards d'appareils. On le confond souvent avec le Web, qui n'est qu'une de ses applications. Qu'est-ce que c'est ?",
       "answer": "Internet",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech044",
       "question": "Entreprise aérospatiale fondée par Elon Musk, elle a révolutionné le secteur avec ses fusées réutilisables Falcon 9. Son objectif ultime est la colonisation de Mars. Quelle est cette entreprise ?",
       "answer": "SpaceX",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech045",
       "question": "Format de fichier audio compressé qui a révolutionné l'industrie musicale à la fin des années 90 en permettant de stocker et partager facilement de la musique. Quel est ce format ?",
       "answer": "Le MP3",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech046",
       "question": "Navigateur web open-source développé par la fondation Mozilla, dont le logo est un renard roux (ou panda roux) enroulé autour de la Terre. Quel est ce navigateur ?",
       "answer": "Firefox",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech047",
       "question": "Type de code-barres en deux dimensions constitué de modules noirs dans un carré blanc. Scanné avec un smartphone, il renvoie souvent vers un site web. Son nom signifie 'Quick Response'. Qu'est-ce que c'est ?",
       "answer": "Le QR Code",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech048",
       "question": "Technologie permettant de superposer des éléments virtuels au monde réel via un écran ou des lunettes, utilisée dans le jeu Pokémon GO. À ne pas confondre avec la réalité virtuelle. Quelle est cette technologie ?",
       "answer": "La réalité augmentée",
-      "difficulty": "normal",
       "category": "Technologie"
     },
     {
       "id": "cg-tech049",
       "question": "Loi empirique formulée en 1965 par le cofondateur d'Intel, prédisant que le nombre de transistors sur une puce de silicium doublerait tous les deux ans environ. Quelle est cette loi ?",
       "answer": "La loi de Moore",
-      "difficulty": "difficile",
       "category": "Technologie"
     },
     {
       "id": "cg-tech050",
       "question": "Composant électronique semi-conducteur inventé en 1947, il agit comme un interrupteur ou un amplificateur. C'est la brique fondamentale de tous les processeurs modernes. Quel est ce composant ?",
       "answer": "Le transistor",
-      "difficulty": "difficile",
       "category": "Technologie"
     }
   ]
