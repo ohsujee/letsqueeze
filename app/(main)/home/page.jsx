@@ -7,13 +7,11 @@ import { onAuthStateChanged, auth, db, ref, set, signInWithGoogle, signInWithApp
 import { initializeUserProfile } from '@/lib/userProfile';
 import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
-import { useGameLimits } from '@/lib/hooks/useGameLimits';
 import { useHearts } from '@/lib/hooks/useHearts';
 import { useDevAuth } from '@/lib/hooks/useDevAuth';
 import { storage } from '@/lib/utils/storage';
 import GameCard from '@/lib/components/GameCard';
 import GuestWarningModal from '@/components/ui/GuestWarningModal';
-import GameLimitModal from '@/components/ui/GameLimitModal';
 import HeartsModal from '@/components/ui/HeartsModal';
 import GameModeSelector from '@/components/ui/GameModeSelector';
 import AudioModeSelector from '@/components/ui/AudioModeSelector';
@@ -40,7 +38,6 @@ function HomePageContent() {
   const [user, setUser] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [showGuestWarning, setShowGuestWarning] = useState(false);
-  const [showGameLimit, setShowGameLimit] = useState(false);
   const [showHeartsModal, setShowHeartsModal] = useState(false);
   const [showCreateOrJoinSelector, setShowCreateOrJoinSelector] = useState(false);
   const [showModeSelector, setShowModeSelector] = useState(false);
@@ -82,17 +79,6 @@ function HomePageContent() {
 
   // Toast notifications
   const toast = useToast();
-
-  // Game limits for quiz (most common game type)
-  const {
-    canPlayFree,
-    canWatchAdForGame,
-    isBlocked,
-    rewardedGamesRemaining,
-    isWatchingAd,
-    watchAdForExtraGame,
-    recordGamePlayed,
-  } = useGameLimits('quiz', isPro);
 
   // Dev auth bypass - allows ?devAuth=UID to auto-login (localhost only)
   const { isDevAuth, loading: devAuthLoading, error: devAuthError } = useDevAuth();
@@ -282,16 +268,6 @@ function HomePageContent() {
     setSelectedGameMasterMode(null);
   };
 
-  // Handle watching ad for extra game (GameLimitModal, legacy)
-  const handleWatchAdForGame = async () => {
-    const success = await watchAdForExtraGame();
-    if (success && pendingGame) {
-      setShowGameLimit(false);
-      createAndNavigateToGame(pendingGame);
-      setPendingGame(null);
-    }
-  };
-
   // Handle recharging hearts via rewarded ad
   const handleRechargeHearts = async () => {
     const result = await rechargeHearts();
@@ -307,7 +283,6 @@ function HomePageContent() {
 
   // Handle upgrade to Pro
   const handleUpgradeToPro = () => {
-    setShowGameLimit(false);
     setPendingGame(null);
     router.push('/subscribe');
   };
@@ -492,20 +467,6 @@ function HomePageContent() {
         onSignInGoogle={handleGuestWarningGoogle}
         onSignInApple={handleGuestWarningApple}
         context="home"
-      />
-
-      {/* Game Limit Modal - Shows when free games exhausted */}
-      <GameLimitModal
-        isOpen={showGameLimit}
-        onClose={() => {
-          setShowGameLimit(false);
-          setPendingGame(null);
-        }}
-        onWatchAd={handleWatchAdForGame}
-        onUpgrade={handleUpgradeToPro}
-        rewardedGamesRemaining={rewardedGamesRemaining}
-        isWatchingAd={isWatchingAd}
-        isBlocked={isBlocked}
       />
 
       {/* Hearts Modal - Info / recharge cœurs */}

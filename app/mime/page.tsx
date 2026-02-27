@@ -8,8 +8,8 @@ import MimeGame from '@/components/game-mime/MimeGame';
 import { MimeTheme, themeInfos } from '@/data/mime-words';
 import ExitButton from '@/lib/components/ExitButton';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
-import { useGameLimits } from '@/lib/hooks/useGameLimits';
 import { useSubscription } from '@/lib/hooks/useSubscription';
+import { incrementLifetimeGamesCount } from '@/lib/utils/lifetimeGames';
 import { useHearts } from '@/lib/hooks/useHearts';
 import { storage } from '@/lib/utils/storage';
 import { auth } from '@/lib/firebase';
@@ -23,9 +23,7 @@ export default function MimePage() {
   const { openManually: openHowToPlay } = useHowToPlay();
   const gameRecordedRef = useRef(false);
 
-  // Game limits for recording completion
   const { isPro } = useSubscription(auth.currentUser);
-  const { recordGamePlayed } = useGameLimits('mime', isPro);
   const { consumeHeart } = useHearts({ isPro });
 
   const handleToggleTheme = useCallback((theme: MimeTheme) => {
@@ -46,22 +44,22 @@ export default function MimePage() {
   const handleBackToLobby = useCallback(() => {
     // Record game as completed (only once per session)
     if (!gameRecordedRef.current) {
-      recordGamePlayed();
+      incrementLifetimeGamesCount();
       gameRecordedRef.current = true;
       storage.set('returnedFromGame', true);
     }
     setPhase('lobby');
-  }, [recordGamePlayed]);
+  }, []);
 
   const handleBackToHome = useCallback(() => {
     // Record game if we were playing
     if (phase === 'playing' && !gameRecordedRef.current) {
-      recordGamePlayed();
+      incrementLifetimeGamesCount();
       gameRecordedRef.current = true;
       storage.set('returnedFromGame', true);
     }
     router.push('/home');
-  }, [router, phase, recordGamePlayed]);
+  }, [router, phase]);
 
   const canStart = selectedThemes.length > 0;
   const totalWords = selectedThemes.reduce((acc, theme) => {
