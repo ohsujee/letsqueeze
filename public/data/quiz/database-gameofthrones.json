@@ -7,630 +7,540 @@
       "id": "got001",
       "question": "Bâtard de Ned Stark élevé à Winterfell, il rejoint la Garde de Nuit et est exilé au-delà du Mur à la fin de la série. Tué puis ressuscité par Melisandre, il découvre qu'il est en réalité le fils de Rhaegar Targaryen et Lyanna Stark. Qui est-ce ?",
       "answer": "Jon Snow (Aegon Targaryen)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got002",
       "question": "Dernière Targaryen connue au début de la série, elle naît en exil à Peyredragon et est vendue en mariage à un chef Dothraki. Mère de trois dragons, elle libère les esclaves de la Baie des Serfs avant de marcher sur Westeros. Qui est-ce ?",
       "answer": "Daenerys Targaryen (Khaleesi / Mère des Dragons)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got003",
       "question": "Plus petit membre de la famille Lannister, il est réputé pour son intelligence, son humour acerbe et son amour du vin. Accusé à tort du meurtre de Joffrey, il tue son propre père avec une arbalète sur les toilettes. Qui est-ce ?",
       "answer": "Tyrion Lannister",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got004",
       "question": "Devise la plus célèbre de Game of Thrones, ces trois mots sont les mots de la Maison Stark de Winterfell. Ils servent à la fois d'avertissement et de promesse sur la menace qui vient du Nord. Quelle est cette devise ?",
       "answer": "Winter is Coming (L'Hiver vient)",
-      "difficulty": "normal",
       "category": "Maisons"
     },
     {
       "id": "got005",
       "question": "Seigneur de Winterfell et Main du Roi, cet homme honorable est décapité publiquement sur les marches du Grand Septuaire de Baelor sur ordre du roi Joffrey, sous les yeux de ses filles. Sa mort dans la saison 1 a choqué les spectateurs. Qui est-ce ?",
       "answer": "Ned Stark (Eddard Stark)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got006",
       "question": "Événement le plus traumatisant de Game of Thrones, ce massacre a lieu lors du mariage d'Edmure Tully aux Jumeaux. Robb Stark, sa femme enceinte Talisa et sa mère Catelyn y sont assassinés par Walder Frey et Roose Bolton. Comment s'appelle cet événement ?",
       "answer": "Les Noces Rouges (The Red Wedding)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "got007",
       "question": "Reine cruelle et manipulatrice, elle est prête à tout pour protéger ses enfants et maintenir les Lannister au pouvoir. Elle fait exploser le Grand Septuaire de Baelor avec du feu grégeois pour éliminer tous ses ennemis d'un coup. Qui est-ce ?",
       "answer": "Cersei Lannister",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got008",
       "question": "Jeune fille qui part de Winterfell avec une liste de noms de personnes à tuer. Elle s'entraîne avec les Hommes sans Visage à Braavos, sert de cupbearer à Tywin Lannister, et porte finalement le coup fatal au Roi de la Nuit. Qui est-ce ?",
       "answer": "Arya Stark",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got009",
       "question": "Trône emblématique de Game of Thrones, il est forgé avec les épées des ennemis vaincus par Aegon le Conquérant, fondues par le souffle de son dragon Balerion. Il est situé dans la salle du trône du Donjon Rouge à Port-Réal. Quel est ce trône ?",
       "answer": "Le Trône de Fer (The Iron Throne)",
-      "difficulty": "normal",
       "category": "Trône de Fer"
     },
     {
       "id": "got010",
       "question": "Les trois dragons de Daenerys naissent dans les flammes du bûcher funéraire de Khal Drogo. Le plus grand et le plus noir est sa monture personnelle. Le vert porte le nom du frère de Daenerys et le crème celui de son mari. Comment s'appelle le dragon noir ?",
       "answer": "Drogon",
-      "difficulty": "normal",
       "category": "Dragons"
     },
     {
       "id": "got011",
       "question": "Construction colossale de glace de plus de 200 mètres de haut et de 500 kilomètres de long, elle sépare les Sept Couronnes des terres sauvages du Nord. Gardée par la Garde de Nuit, elle est finalement détruite par le dragon Viserion transformé. Qu'est-ce que c'est ?",
       "answer": "Le Mur (The Wall)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "got012",
       "question": "Chef suprême des Marcheurs Blancs, cette créature millénaire aux yeux bleus glacials transforme les bébés en Marcheurs et peut ressusciter les morts en masse. Il est finalement tué par Arya Stark avec une dague en acier valyrien. Qui est-ce ?",
       "answer": "Le Roi de la Nuit (The Night King)",
-      "difficulty": "normal",
       "category": "Marcheurs Blancs"
     },
     {
       "id": "got013",
       "question": "Devise de la Maison Lannister, souvent citée dans la série, elle signifie que les Lannister honorent toujours leurs promesses, qu'il s'agisse de récompenses ou de vengeances. Tyrion la prononce à plusieurs reprises. Quelle est cette devise ?",
       "answer": "A Lannister always pays his debts (Un Lannister paie toujours ses dettes)",
-      "difficulty": "normal",
       "category": "Répliques"
     },
     {
       "id": "got014",
       "question": "Fille aînée de Ned Stark, d'abord naïve et rêvant de devenir reine, elle subit les pires épreuves : fiançailles forcées avec Joffrey et mariage forcé avec Ramsay Bolton, manipulation par Littlefinger. Elle finit par devenir Reine du Nord. Qui est-ce ?",
       "answer": "Sansa Stark",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got015",
       "question": "Serviteur géant et loyal de la Maison Stark, il ne peut prononcer qu'un seul mot qui est en réalité la contraction de 'Hold the door'. La révélation de l'origine de son handicap dans la saison 6 est l'un des moments les plus émouvants de la série. Qui est-ce ?",
       "answer": "Hodor (Wylis)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got016",
       "question": "Grande bataille de la saison 6 opposant Jon Snow et les forces Stark aux armées de Ramsay Bolton pour reprendre Winterfell. Jon est presque piétiné par ses propres troupes avant l'arrivée de la cavalerie du Val. Comment s'appelle cette bataille ?",
       "answer": "La Bataille des Bâtards (Battle of the Bastards)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "got017",
       "question": "Prêtresse rouge du Dieu de Lumière R'hllor, cette femme mystérieuse et séduisante vit depuis des siècles grâce à sa magie. Elle enfante une ombre meurtrière, brûle Shireen et ressuscite Jon Snow. Qui est-ce ?",
       "answer": "Melisandre (la Femme Rouge / Melisandre d'Asshai)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got018",
       "question": "Eunuque et maître des chuchoteurs (espions) au Conseil Restreint, il sert successivement plusieurs rois et reines. Originaire de Lys, il a été castré par un sorcier dans son enfance. Il finit par soutenir Daenerys. Qui est-ce ?",
       "answer": "Varys (l'Araignée)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got019",
       "question": "Ancien petit noble devenu l'un des hommes les plus puissants de Westeros grâce à ses intrigues, il dirige des bordels et manipule tout le monde. Sa devise secrète est 'Chaos is a ladder'. Il est exécuté par Arya après que Sansa découvre ses trahisons. Qui est-ce ?",
       "answer": "Petyr Baelish (Littlefinger)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got020",
       "question": "Capitale des Sept Couronnes où se trouve le Donjon Rouge et le Trône de Fer, cette immense cité portuaire est détruite par Daenerys et Drogon dans l'avant-dernier épisode de la série. Quel est le nom français de King's Landing ?",
       "answer": "Port-Réal",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "got021",
       "question": "Ancien chevalier exilé qui sert de conseiller et protecteur à Daenerys, il est secrètement amoureux d'elle. Atteint de léprose (grisécaille), il trouve un remède grâce à Samwell Tarly. Qui est-ce ?",
       "answer": "Jorah Mormont (Ser Jorah)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got022",
       "question": "Plus grand et plus féroce guerrier de Westeros, surnommé 'La Montagne', il est le frère aîné de Sandor Clegane. Il écrase le crâne d'Oberyn Martell lors d'un combat par procuration et est transformé en zombie par Qyburn. Qui est-ce ?",
       "answer": "Gregor Clegane (La Montagne / The Mountain)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got023",
       "question": "Frère cadet de Gregor Clegane, il est défiguré par les flammes quand son frère lui a plaqué le visage dans le feu étant enfant. D'abord garde du corps de Joffrey, il devient un allié d'Arya. Il affronte son frère dans le 'Cleganebowl'. Qui est-ce ?",
       "answer": "Sandor Clegane (Le Limier / The Hound)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got024",
       "question": "Forteresse ancestrale de la Maison Stark, ce château du Nord est l'un des plus anciens de Westeros. Ses murs sont chauffés par des sources chaudes naturelles et il possède un bois sacré avec un barral. Quel est ce château ?",
       "answer": "Winterfell",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "got025",
       "question": "Frère jumeau et amant de Cersei Lannister, ce chevalier est surnommé le Régicide pour avoir tué le Roi Fou Aerys Targaryen. Il perd sa main droite en captivité et connaît une rédemption morale au fil des saisons. Qui est-ce ?",
       "answer": "Jaime Lannister",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got026",
       "question": "Patriarche impitoyable de la Maison Lannister et Main du Roi, il est le stratège le plus redouté de Westeros. Il orchestre les Noces Rouges et humilie constamment Tyrion. Il meurt sur les toilettes, tué par une arbalète. Qui est-ce ?",
       "answer": "Tywin Lannister",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got027",
       "question": "Roi sadique et cruel, fils incestueux de Cersei et Jaime Lannister, il ordonne l'exécution de Ned Stark et terrorise ses sujets. Il meurt empoisonné lors de son propre mariage par Olenna Tyrell et Littlefinger. Qui est-ce ?",
       "answer": "Joffrey Baratheon",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got028",
       "question": "Matriarche de la Maison Tyrell surnommée 'La Reine des Épines' pour sa langue acérée, elle empoisonne Joffrey lors des Noces Pourpres (Purple Wedding)... Pourpres parce que Joffrey vire au pourpre en mourant. Elle avoue son crime à Jaime avant de mourir. Qui est-ce ?",
       "answer": "Olenna Tyrell (Lady Olenna)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got029",
       "question": "Fils cadet de Balon Greyjoy, il est capturé par Ramsay Bolton qui le torture et le renomme 'Reek'. Il est castré, torturé psychologiquement et transformé en serviteur soumis avant de retrouver son identité et de sauver Sansa. Qui est-ce ?",
       "answer": "Theon Greyjoy",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got030",
       "question": "Bâtard sadique de Roose Bolton, il est le personnage le plus cruel de la série. Il torture Theon, viole Sansa lors de leur nuit de noces et écorche ses ennemis vifs. Il meurt dévoré par ses propres chiens après la Bataille des Bâtards. Qui est-ce ?",
       "answer": "Ramsay Bolton (Ramsay Snow)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got031",
       "question": "Meilleur ami de Jon Snow à la Garde de Nuit, ce jeune homme doux et peureux rêve de devenir mestre. Il découvre le point faible des Marcheurs Blancs et soigne Jorah Mormont de la grisécaille. Il est élu Grand Mestre à la fin. Qui est-ce ?",
       "answer": "Samwell Tarly (Sam)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got032",
       "question": "Matériau rare et mortel pour les Marcheurs Blancs, ces armes ont été forgées dans les volcans de l'ancienne Valyria avec du feu de dragon. L'épée des Stark 'Ice' et la dague qui tue le Roi de la Nuit en sont faites. De quel matériau s'agit-il ?",
       "answer": "L'acier valyrien (Valyrian steel)",
-      "difficulty": "normal",
       "category": "Marcheurs Blancs"
     },
     {
       "id": "got033",
       "question": "Autre substance mortelle pour les Marcheurs Blancs, Sam Tarly en utilise un poignard pour tuer un Marcheur pour la première fois. Les Enfants de la Forêt l'utilisaient aussi. Cette matière volcanique a des propriétés magiques. De quoi s'agit-il ?",
       "answer": "Le verredragon (dragonglass / obsidienne)",
-      "difficulty": "normal",
       "category": "Marcheurs Blancs"
     },
     {
       "id": "got034",
       "question": "Chef des Sauvageons (Peuple Libre) au-delà du Mur, ce guerrier roux tombe amoureux de Jon Snow... non, de Brienne de Torth en la regardant avec des yeux émerveillés. Il devient un allié de Jon et combat les Marcheurs Blancs. Qui est-ce ?",
       "answer": "Tormund Giantsbane (Tormund Fléau-d'Ogres)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got035",
       "question": "Femme chevalier de grande taille, elle est l'une des guerrières les plus honorables de Westeros. Elle jure fidélité successivement à Renly, Catelyn puis Sansa. Elle est adoubée chevalier par Jaime avant la Bataille de Winterfell. Qui est-ce ?",
       "answer": "Brienne de Torth (Brienne of Tarth)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got036",
       "question": "Ville libre d'Essos où Arya Stark s'entraîne au sein d'un groupe d'assassins mystiques. Dans le Temple du Dieu Multiface, elle apprend à changer de visage mais refuse de renoncer à son identité. Quelle est cette ville ?",
       "answer": "Braavos",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "got037",
       "question": "Organisation d'assassins religieux basée à Braavos dans la Demeure du Noir et du Blanc, ils servent le Dieu Multiface et offrent le 'don de la mort'. Jaqen H'ghar en est le membre le plus connu. Comment s'appelle cette organisation ?",
       "answer": "Les Hommes sans Visage (The Faceless Men)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got038",
       "question": "Assassin mystérieux rencontré par Arya à Harrenhal, il parle toujours de lui à la troisième personne et change de visage. Il offre à Arya trois morts en échange de sa vie sauvée, puis l'envoie à Braavos avec une pièce de fer. Qui est-ce ?",
       "answer": "Jaqen H'ghar",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got039",
       "question": "Khal des Dothrakis et premier mari de Daenerys, ce guerrier imposant n'a jamais perdu un combat. Daenerys tombe amoureuse de lui malgré leur mariage arrangé. Il meurt d'une infection après une blessure à cause d'un sortilège raté de Mirri Maz Duur. Qui est-ce ?",
       "answer": "Khal Drogo",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got040",
       "question": "Substance hautement inflammable de couleur verte inventée par les pyromanciens de Westeros, elle brûle même sur l'eau et est presque impossible à éteindre. Tyrion l'utilise pour détruire la flotte de Stannis à la Bataille de la Néra. Quel est son nom ?",
       "answer": "Le feu grégeois (wildfire / feu sauvage)",
-      "difficulty": "difficile",
       "category": "Batailles"
     },
     {
       "id": "got041",
       "question": "Frère de Robert et prétendant au Trône de Fer, il est conseillé par Melisandre et pratique la magie de R'hllor. Il brûle sa propre fille Shireen comme sacrifice. Il est finalement vaincu par les Bolton et exécuté par Brienne. Qui est-ce ?",
       "answer": "Stannis Baratheon",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got042",
       "question": "Prince de Dorne charismatique surnommé 'la Vipère Rouge', il vient à Port-Réal pour venger sa soeur Elia, assassinée par la Montagne. Lors de son combat judiciaire pour Tyrion, il domine la Montagne mais son excès de confiance lui coûte la vie. Qui est-ce ?",
       "answer": "Oberyn Martell (la Vipère Rouge / The Red Viper)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got043",
       "question": "Maison noble dont le blason est un lion d'or sur champ cramoisi et dont le siège est Castral Roc, elle est la famille la plus riche de Westeros grâce à ses mines d'or. Sa devise officielle est 'Hear Me Roar' mais tout le monde retient l'officieuse. Quelle est cette maison ?",
       "answer": "La Maison Lannister",
-      "difficulty": "normal",
       "category": "Maisons"
     },
     {
       "id": "got044",
       "question": "Ce personnage est le frère aîné de Robert Baratheon par la loi, seigneur de Peyredragon, suit la prêtresse rouge Mélisandre et croit être Azor Ahai réincarné. Qui est-ce ?",
       "answer": "Stannis Baratheon",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got045",
       "question": "Maison noble dont le blason est un dragon à trois têtes rouge sur champ noir, elle a conquis Westeros il y a 300 ans grâce à trois dragons. Après la rébellion de Robert, seuls Daenerys et Viserys survivent en exil. Quelle est la devise de cette maison ?",
       "answer": "Fire and Blood (Feu et Sang)",
-      "difficulty": "normal",
       "category": "Maisons"
     },
     {
       "id": "got046",
       "question": "Groupe de guerrières privées qui protègent Daenerys, elles sont composées d'anciennes esclaves libérées dans la Baie des Serfs. Leur devise est 'Valar Morghulis'. Mais l'armée principale de Daenerys est composée de soldats-esclaves eunuques. Comment s'appellent ces soldats ?",
       "answer": "Les Immaculés (The Unsullied)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got047",
       "question": "Chef des Immaculés et garde du corps de Daenerys, cet ancien esclave choisit son propre nom de liberté : Ver Gris. Il tombe amoureux de Missandei malgré sa condition. Quel est son nom ?",
       "answer": "Ver Gris (Grey Worm)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got048",
       "question": "Conseillère et traductrice de Daenerys, cette jeune femme originaire de Naath parle 19 langues. Son exécution par la Montagne sur ordre de Cersei provoque la rage de Daenerys et précipite sa descente vers la folie. Qui est-ce ?",
       "answer": "Missandei",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got049",
       "question": "Bataille épique de la saison 8 entre les vivants et les Marcheurs Blancs, elle se déroule à Winterfell dans l'obscurité quasi totale. L'épisode, le plus long de la série, a été critiqué pour sa noirceur visuelle. Comment s'appelle cette bataille ?",
       "answer": "La Bataille de Winterfell (La Longue Nuit / The Long Night)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "got050",
       "question": "Expression en haut valyrien signifiant 'Tous les hommes doivent mourir', elle est utilisée comme salutation par les Hommes sans Visage de Braavos. La réponse rituelle est 'Valar Dohaeris' (Tous les hommes doivent servir). Quelle est cette expression ?",
       "answer": "Valar Morghulis",
-      "difficulty": "normal",
       "category": "Répliques"
     },
     {
       "id": "got051",
       "question": "Les loups-garous des enfants Stark portent chacun un nom significatif. Le loup de Jon Snow s'appelle Ghost (Fantôme) car il est albinos et silencieux. Comment s'appellent les loups de Sansa et Arya respectivement ?",
       "answer": "Lady (Sansa) et Nymeria (Arya)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got052",
       "question": "Organisation militaire millénaire qui garde le Mur et protège le royaume des menaces du Nord. Ses membres portent le noir et prononcent un serment de célibat à vie. Jon Snow en devient le Lord Commandant. Comment s'appelle cette organisation ?",
       "answer": "La Garde de Nuit (The Night's Watch)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "got053",
       "question": "Deuxième plus jeune fils de Ned et Catelyn Stark, ce garçon possède le pouvoir de 'verdevision' qui lui permet de voir le passé, le présent et le futur. Il devient le Corbeau à Trois Yeux et finit par être couronné roi de Westeros. Qui est-ce ?",
       "answer": "Bran Stark (Brandon Stark)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got054",
       "question": "Deuxième fils de Ned Stark, il est précipité d'une tour par Jaime Lannister dans le tout premier épisode après avoir surpris Cersei et Jaime ensemble. Il survit mais reste paralysé. Quel âge avait-il approximativement quand il est poussé ?",
       "answer": "10 ans",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got055",
       "question": "Mercenaire charismatique et séducteur qui dirige une compagnie de mercenaires appelée les Seconds Fils, il tombe amoureux de Daenerys en Essos. Après avoir basculé d'un camp à l'autre, il reste en Essos pour gouverner la Baie des Serfs. Qui est-ce ?",
       "answer": "Daario Naharis",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got056",
       "question": "Ancien contrebandier devenu chevalier puis Main du Roi, il est le conseiller le plus loyal de Stannis Baratheon. Il perd les bouts de ses doigts comme punition pour sa contrebande passée et porte les os dans un sachet autour du cou. Qui est-ce ?",
       "answer": "Davos Mervault (Davos Seaworth / le Chevalier Oignon)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got057",
       "question": "Sauvageonne rousse guerrière qui tombe amoureuse de Jon Snow quand il infiltre les Sauvageons au-delà du Mur. Elle lui demande toujours s'il sait quelque chose, ce à quoi elle répond toujours par la négative. Qui est-ce ?",
       "answer": "Ygritte",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got058",
       "question": "Réplique culte prononcée à plusieurs reprises par Ygritte à Jon Snow dans Game of Thrones, elle est devenue l'une des phrases les plus célèbres de la série et un mème internet populaire. Quelle est cette réplique ?",
       "answer": "You know nothing, Jon Snow (Tu ne sais rien, Jon Snow)",
-      "difficulty": "normal",
       "category": "Répliques"
     },
     {
       "id": "got059",
       "question": "Troisième dragon de Daenerys, de couleur crème et or, il porte le nom du frère aîné de Daenerys tué par Khal Drogo. Il est tué par le Roi de la Nuit au-delà du Mur puis ressuscité en dragon de glace zombie. Quel est son nom ?",
       "answer": "Viserion",
-      "difficulty": "normal",
       "category": "Dragons"
     },
     {
       "id": "got060",
       "question": "Deuxième dragon de Daenerys, de couleur verte et bronze, il porte le nom du prince Targaryen père de Jon Snow. Il est tué par Euron Greyjoy avec un scorpion géant dans la saison 8. Quel est son nom ?",
       "answer": "Rhaegal",
-      "difficulty": "normal",
       "category": "Dragons"
     },
     {
       "id": "got061",
       "question": "Mercenaire au franc-parler, vendeur d'épée expert en combat, il accompagne Tyrion dans ses aventures en Essos. Il se présente comme un simple combattant mais cache un sens de l'honneur. Interprété par Jerome Flynn, il a aussi un talent de chanteur. Qui est-ce ?",
       "answer": "Bronn (Ser Bronn de la Néra)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got062",
       "question": "Maison noble dont le blason est un homme écorché sur champ rose, connue pour sa cruauté, elle trahit les Stark lors des Noces Rouges. Roose Bolton est assassiné par son fils Ramsay qui prend le contrôle du Nord. Quelle est la devise de cette maison ?",
       "answer": "Our Blades Are Sharp (Nos lames sont acérées) - devise non officielle : A Naked Man Has Few Secrets (Un homme nu a peu de secrets)",
-      "difficulty": "difficile",
       "category": "Maisons"
     },
     {
       "id": "got063",
       "question": "Dans le dernier épisode de Game of Thrones, Daenerys est tuée par Jon Snow après avoir détruit Port-Réal. Drogon fond le Trône de Fer avec son souffle de dragon puis s'envole avec le corps de Daenerys. Qui est finalement choisi comme nouveau roi ?",
       "answer": "Bran Stark (Bran le Brisé / Bran the Broken)",
-      "difficulty": "normal",
       "category": "Trône de Fer"
     },
     {
       "id": "got064",
       "question": "Dans la saison 6, Cersei fait exploser le Grand Septuaire de Baelor avec du feu grégeois, tuant d'un coup le Grand Moineau, Margaery Tyrell, Loras Tyrell et des centaines d'autres. Son fils Tommen se suicide après avoir vu l'explosion. Comment meurt Tommen ?",
       "answer": "Il se jette par la fenêtre du Donjon Rouge (il se suicide en sautant)",
-      "difficulty": "difficile",
       "category": "Épisodes marquants"
     },
     {
       "id": "got065",
       "question": "Margaery Tyrell, belle-fille successivement de Joffrey, puis de Tommen, est une manipulatrice habile qui joue le jeu du pouvoir mieux que quiconque. Elle utilise sa beauté et sa générosité pour gagner l'amour du peuple. Quel était le nom de son premier mari royal assassiné ?",
       "answer": "Renly Baratheon",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got066",
       "question": "Pirate sanguinaire et capitaine du 'Silence', il est le frère de Balon Greyjoy et l'oncle de Theon et Yara. Il devient une menace majeure en tuant le dragon Rhaegal d'un tir de scorpion et en offrant sa flotte à Cersei. Qui est-ce ?",
       "answer": "Euron Greyjoy",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got067",
       "question": "Soeur de Theon Greyjoy et capitaine des Fer-Nés, cette guerrière intrépide soutient Daenerys contre son oncle Euron. Elle est capturée puis libérée par Theon. Dans les livres, elle s'appelle Asha. Quel est son nom dans la série ?",
       "answer": "Yara Greyjoy",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got068",
       "question": "Ancien mestre de la Garde de Nuit à Châteaunoir, ce vieillard aveugle est en réalité un Targaryen, arrière-grand-oncle du Roi Fou. Il refuse le trône et choisit de servir. Il meurt de vieillesse en prononçant le nom de son frère Egg. Qui est-ce ?",
       "answer": "Mestre Aemon (Aemon Targaryen)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got069",
       "question": "Game of Thrones est basée sur une saga de livres de fantasy dont le premier tome est paru en 1996. L'auteur, souvent critiqué pour la lenteur de son écriture, n'a toujours pas publié le sixième tome. Comment s'appelle cette saga littéraire ?",
       "answer": "A Song of Ice and Fire (Le Trône de Fer / Une chanson de glace et de feu)",
-      "difficulty": "normal",
       "category": "Trône de Fer"
     },
     {
       "id": "got070",
       "question": "Auteur de la saga littéraire dont est tirée la série Game of Thrones, il est connu pour tuer sans pitié ses personnages les plus aimés. Il porte souvent un béret de marin et des bretelles. Qui est cet auteur américain ?",
       "answer": "George R.R. Martin",
-      "difficulty": "normal",
       "category": "Trône de Fer"
     },
     {
       "id": "got071",
       "question": "Petite fille courageuse de la Maison Mormont, elle impressionne tout le monde par son autorité malgré son jeune âge lors de la réunion des seigneurs du Nord. Elle meurt héroïquement en tuant un géant zombie lors de la Bataille de Winterfell. Qui est-ce ?",
       "answer": "Lyanna Mormont",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got072",
       "question": "À la fin de la saison 5, Jon Snow est assassiné par ses propres frères de la Garde de Nuit, mené par Alliser Thorne et Olly. Chacun le poignarde en disant 'For the Watch'. Qui le ressuscite ensuite ?",
       "answer": "Melisandre (la Prêtresse Rouge)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got073",
       "question": "Ancien forgeron et bâtard de Robert Baratheon, il est le seul de ses bâtards à survivre au massacre ordonné par Cersei. Arya en tombe amoureuse. Il forge des armes en verredragon pour la Bataille de Winterfell. Qui est-ce ?",
       "answer": "Gendry (Gendry Baratheon)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got074",
       "question": "L'épisode 'The Rains of Castamere' (saison 3, épisode 9) tire son nom de la chanson des Lannister qui raconte la destruction de la Maison Reyne de Castamere. Cette chanson est jouée pendant les Noces Rouges. Qui a détruit la Maison Reyne ?",
       "answer": "Tywin Lannister",
-      "difficulty": "difficile",
       "category": "Batailles"
     },
     {
       "id": "got075",
       "question": "Les Enfants de la Forêt ont créé les Marcheurs Blancs il y a des milliers d'années comme arme contre les Premiers Hommes, mais leur création leur a échappé. Comment le tout premier Marcheur Blanc est-il devenu le Roi de la Nuit ?",
       "answer": "En recevant un poignard de verredragon dans le cœur",
-      "difficulty": "difficile",
       "category": "Marcheurs Blancs"
     },
     {
       "id": "got076",
       "question": "Corbeau à Trois Yeux avant Bran, ce vieillard vit dans les racines d'un arbre-coeur au-delà du Mur depuis des siècles. Il entraîne Bran à utiliser ses pouvoirs de verdevision. Dans la série, il est d'abord interprété comme un vieil homme fusionné avec l'arbre. Qui est-ce ?",
       "answer": "Brynden Rivers (Bloodraven / le Corbeau à Trois Yeux / The Three-Eyed Raven)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got077",
       "question": "Phrase prononcée par Littlefinger à Varys dans la saison 3, elle résume sa philosophie de vie et son ambition sans limites. Il voit le désordre non pas comme un gouffre mais comme une opportunité d'ascension. Quelle est cette célèbre réplique ?",
       "answer": "Chaos is a ladder (Le chaos est une échelle)",
-      "difficulty": "normal",
       "category": "Répliques"
     },
     {
       "id": "got078",
       "question": "La Maison Baratheon a pour blason un cerf couronné noir sur champ or. Robert Baratheon renverse les Targaryen grâce à sa rébellion et devient roi. Quel événement a déclenché la rébellion de Robert ?",
       "answer": "L'enlèvement (supposé) de Lyanna Stark par Rhaegar Targaryen",
-      "difficulty": "normal",
       "category": "Maisons"
     },
     {
       "id": "got079",
       "question": "Merveilleuse scène de la saison 6 où la révélation de la véritable identité de Jon Snow est faite via un flashback. Lyanna Stark, mourante, murmure un secret à son frère Ned dans une tour de Dorne. Comment s'appelle cette tour ?",
       "answer": "La Tour de la Joie (Tower of Joy)",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "got080",
       "question": "Dague en acier valyrien qui a failli tuer Bran au début de la série, envoyée par un assassin. Cette même dague est utilisée par Arya Stark pour tuer le Roi de la Nuit dans le final de la Bataille de Winterfell. Elle change de main au dernier moment. Quel geste fait Arya ?",
       "answer": "Elle lâche la dague de sa main droite et la rattrape de la main gauche pour poignarder le Roi de la Nuit",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "got081",
       "question": "La Longue Nuit est une période légendaire de l'histoire de Westeros où les Marcheurs Blancs ont failli détruire l'humanité. Un héros mythique les a repoussés et Brandon le Bâtisseur a ensuite construit le Mur. Comment s'appelle ce héros légendaire ?",
       "answer": "Azor Ahai (Le Prince Promis / The Prince That Was Promised)",
-      "difficulty": "difficile",
       "category": "Marcheurs Blancs"
     },
     {
       "id": "got082",
       "question": "Podrick Payne, écuyer timide et loyal, sert successivement Tyrion puis Brienne de Torth. Il est connu pour un talent mystérieux qui impressionne tout le monde à Port-Réal mais n'est jamais explicitement montré. Il chante aussi magnifiquement. Pour quel 'talent' est-il célèbre ?",
       "answer": "Ses talents au lit (les prostituées refusent son argent tellement il les a satisfaites)",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "got083",
       "question": "Conflit opposant les Sept Couronnes de Westeros dans les premières saisons, plusieurs rois revendiquent simultanément le Trône de Fer après la mort de Robert Baratheon : Joffrey, Stannis, Renly, Robb Stark et Balon Greyjoy. Comment appelle-t-on ce conflit ?",
       "answer": "La Guerre des Cinq Rois (War of the Five Kings)",
-      "difficulty": "normal",
       "category": "Batailles"
     },
     {
       "id": "got084",
       "question": "Forteresse insulaire ancestrale des Targaryen, c'est là que Daenerys est née pendant une tempête qui lui vaut son surnom. Stannis Baratheon en fait sa base pendant la Guerre des Cinq Rois. Comment s'appelle cette île-forteresse ?",
       "answer": "Peyredragon (Dragonstone)",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "got085",
       "question": "La scène d'ouverture du tout premier épisode de Game of Thrones montre trois membres de la Garde de Nuit au-delà du Mur qui découvrent les corps mutilés de Sauvageons. Un seul survit et s'enfuit vers le sud, où il est exécuté par Ned Stark pour désertion. Pourquoi Ned l'exécute-t-il lui-même ?",
       "answer": "Parce que dans le Nord, celui qui prononce la sentence doit manier l'épée (The man who passes the sentence should swing the sword)",
-      "difficulty": "normal",
       "category": "Répliques"
     },
     {
       "id": "got086",
       "question": "Ce roi buveur et corpulent est blessé mortellement lors d'une partie de chasse dans la forêt du Roi, après avoir bu trop de vin. Son écuyer Lancel Lannister lui a servi du vin fortifié sur ordre de Cersei. Quel animal le blesse mortellement ?",
       "answer": "Un sanglier",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got087",
       "question": "Syrio Forel est le maître d'armes braavosi engagé par Ned Stark pour entraîner Arya à l'escrime. Il lui enseigne la 'danse de l'eau', un style de combat avec des épées fines. Il affronte les Lannister avec une épée en bois pour protéger Arya. Quelle est sa phrase emblématique ?",
       "answer": "Not today (Pas aujourd'hui) - en réponse à 'Que dit-on au Dieu de la Mort ?'",
-      "difficulty": "normal",
       "category": "Répliques"
     },
     {
       "id": "got088",
       "question": "Game of Thrones a été diffusée de 2011 à 2019 sur une chaîne câblée américaine. La série a remporté 59 Emmy Awards, un record pour une série dramatique. Sur quelle chaîne a-t-elle été diffusée ?",
       "answer": "HBO",
-      "difficulty": "normal",
       "category": "Trône de Fer"
     },
     {
       "id": "got089",
       "question": "La main de Jaime Lannister est coupée par les hommes de Roose Bolton dans la saison 3. Cet événement transforme profondément le personnage qui ne peut plus se battre comme avant. Il se fait fabriquer une prothèse. De quelle main est-il amputé ?",
       "answer": "La main droite (sa main d'épée)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "got090",
       "question": "La série dérivée de Game of Thrones, sortie en 2022, se déroule environ 200 ans avant les événements de la série originale et raconte la guerre civile des Targaryen pour le Trône de Fer, connue comme la Danse des Dragons. Quel est le titre de cette série ?",
       "answer": "House of the Dragon",
-      "difficulty": "normal",
       "category": "Trône de Fer"
     }
   ]
