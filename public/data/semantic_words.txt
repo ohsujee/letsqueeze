@@ -825,7 +825,6 @@ saison
 midi
 minuit
 aurore
-crépuscule
 latitude
 longitude
 équateur

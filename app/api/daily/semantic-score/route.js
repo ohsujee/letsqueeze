@@ -50,6 +50,9 @@ export async function GET(request) {
       if (res.status === 404) {
         return Response.json({ error: 'Mot non reconnu' }, { status: 404 });
       }
+      if (res.status === 422) {
+        return Response.json({ error: 'inflected' }, { status: 422 });
+      }
       if (!res.ok) {
         return Response.json({ error: 'Erreur serveur' }, { status: 500 });
       }

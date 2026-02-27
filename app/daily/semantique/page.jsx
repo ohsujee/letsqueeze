@@ -621,6 +621,12 @@ export default function SemantiquePage() {
         setIsSubmitting(false);
         return;
       }
+      if (res.status === 422) {
+        setError('Essaie au singulier');
+        setTimeout(() => setError(''), 2500);
+        setIsSubmitting(false);
+        return;
+      }
       if (!res.ok) {
         setError('Erreur serveur');
         setTimeout(() => setError(''), 2000);
