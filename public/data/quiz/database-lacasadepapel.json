@@ -7,784 +7,672 @@
       "id": "cdp001",
       "question": "Dans cette série espagnole devenue un phénomène mondial sur Netflix, un groupe de braqueurs en combinaisons rouges et masques de peintre surréaliste prend d'assaut la Fabrique nationale de la Monnaie à Madrid. Quel est le titre original de cette série créée par Álex Pina ?",
       "answer": "La Casa de Papel",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp002",
       "question": "Cerveau derrière le braquage de la Fabrique nationale de la Monnaie, cet homme à lunettes au regard calculateur se présente sous le faux nom de Salva pour séduire l'inspectrice chargée de l'affaire. Quel est le vrai nom complet de ce mastermind ?",
       "answer": "Sergio Marquina",
-      "difficulty": "normal",
       "category": "Le Professeur"
     },
     {
       "id": "cdp003",
       "question": "Narratrice de la série depuis le tout premier épisode, cette braqueuse impulsive et passionnée tombe amoureuse du plus jeune membre de l'équipe. Elle porte le nom d'une capitale d'Asie de l'Est. Quel est son pseudonyme ?",
       "answer": "Tokyo",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp004",
       "question": "Capitaine de la bande lors du premier braquage, ce personnage charismatique et impitoyable souffre d'une maladie dégénérative incurable. Demi-frère du cerveau de l'opération, il porte le nom d'une capitale européenne divisée par un mur. Quel est son pseudonyme ?",
       "answer": "Berlin",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp005",
       "question": "Le capitaine de la bande lors du premier braquage, connu pour son élégance et son cynisme, est le demi-frère du cerveau de l'opération. Son vrai nom complet, Andrés, se termine par un patronyme aristocratique espagnol. Quel est son nom de famille ?",
       "answer": "De Fonollosa",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp006",
       "question": "Plus jeune membre de la bande et génie de l'informatique, ce braqueur entretient une relation amoureuse avec la narratrice de la série. Sa capture par Interpol au début de la partie 3 déclenche le deuxième braquage. Quel est son pseudonyme ?",
       "answer": "Rio",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp007",
       "question": "Responsable de l'impression des billets pendant le premier braquage, cette femme au caractère bien trempé lance son célèbre cri de guerre pour motiver les otages à travailler. Son pseudonyme est celui d'une capitale d'Afrique de l'Est. Quel est-il ?",
       "answer": "Nairobi",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp008",
       "question": "Ancien mineur et père aimant, ce braqueur a élevé seul son fils après le départ de sa femme toxicomane. Il meurt touché par des balles de la police lors de la fuite à travers le tunnel. Son pseudonyme est celui d'une capitale russe. Qui est-il ?",
       "answer": "Moscou",
-      "difficulty": "normal",
       "category": "Morts"
     },
     {
       "id": "cdp009",
       "question": "Fils de Moscou et membre de la bande originale, ce braqueur au rire nerveux et communicatif tombe amoureux d'une otage qu'il était censé exécuter. Il porte le nom d'une ville du Colorado. Quel est son pseudonyme ?",
       "answer": "Denver",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp010",
       "question": "Colosse d'origine serbe, ce braqueur silencieux est le cousin d'un autre membre de l'équipe. Il est grièvement blessé à la tête lors d'une tentative de révolte des otages et ne s'en remet jamais. Son pseudonyme est celui d'une capitale nordique. Qui est-il ?",
       "answer": "Oslo",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp011",
       "question": "Cousin d'Oslo et comme lui d'origine serbe, ce braqueur au grand cœur doit prendre la décision déchirante d'abréger les souffrances de son cousin après sa blessure mortelle. Il porte le nom de la capitale finlandaise. Quel est son pseudonyme ?",
       "answer": "Helsinki",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp012",
       "question": "Inspectrice de la police madrilène chargée des négociations lors du premier braquage, cette femme est la mère d'une petite fille prénommée Paula et vit avec sa mère atteinte de démence. Elle finit par tomber amoureuse du cerveau de l'opération. Qui est-elle ?",
       "answer": "Raquel Murillo",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp013",
       "question": "Après avoir rejoint le camp des braqueurs par amour pour le cerveau de l'opération, l'ancienne inspectrice Raquel Murillo adopte à son tour un pseudonyme de ville pour le deuxième braquage. De quel nom de capitale s'agit-il ?",
       "answer": "Lisbonne",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp014",
       "question": "Directeur de la Fabrique nationale de la Monnaie et otage particulièrement détesté, cet homme lâche et manipulateur est surnommé Arturito par les braqueurs. Il était l'amant de sa secrétaire avant le braquage. Quel est son nom complet ?",
       "answer": "Arturo Román",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp015",
       "question": "Secrétaire du directeur de la Fabrique de la Monnaie et prise en otage lors du premier braquage, cette femme tombe amoureuse de son ravisseur et rejoint la bande sous un pseudonyme de ville évoquant le syndrome dont elle semble souffrir. Quel est son vrai nom ?",
       "answer": "Mónica Gaztambide",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp016",
       "question": "Ancienne otage devenue braqueuse après être tombée amoureuse du fils de Moscou, cette femme adopte un pseudonyme qui fait directement référence au syndrome psychologique liant un otage à son ravisseur. Quel pseudonyme choisit-elle ?",
       "answer": "Stockholm",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp017",
       "question": "Chant de résistance italien d'origine paysanne, popularisé par les partisans antifascistes pendant la Seconde Guerre mondiale, cette chanson est devenue l'hymne emblématique de la série après une scène mémorable entre le cerveau de l'opération et son demi-frère. Quelle est cette chanson ?",
       "answer": "Bella Ciao",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "cdp018",
       "question": "Pour se fondre dans la masse et empêcher la police de distinguer les braqueurs des otages, tout le monde à l'intérieur de la Fabrique porte le même déguisement : une combinaison de peintre et un masque représentant un artiste espagnol célèbre. De quel artiste s'agit-il ?",
       "answer": "Salvador Dalí",
-      "difficulty": "normal",
       "category": "Plans"
     },
     {
       "id": "cdp019",
       "question": "Pendant cinq mois avant le braquage, le groupe de huit criminels s'entraîne et planifie minutieusement l'opération dans une propriété rurale isolée. Dans quelle région d'Espagne se trouve cette maison de préparation ?",
       "answer": "Tolède",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "cdp020",
       "question": "Le plan initial du premier braquage consistait à imprimer des billets intraçables en restant retranchés dans la Fabrique pendant plusieurs jours, sans verser de sang ni voler personne. Quel montant maximal les braqueurs visaient-ils à imprimer ?",
       "answer": "2,4 milliards d'euros",
-      "difficulty": "difficile",
       "category": "Braquages"
     },
     {
       "id": "cdp021",
       "question": "Bien que l'objectif initial fût d'imprimer 2,4 milliards d'euros, la bande a finalement quitté la Fabrique avec un butin inférieur au milliard. Quel montant exact les braqueurs ont-ils réussi à emporter lors du premier braquage ?",
       "answer": "984 millions d'euros",
-      "difficulty": "difficile",
       "category": "Braquages"
     },
     {
       "id": "cdp022",
       "question": "Dans le premier braquage, 67 personnes sont retenues en otage à l'intérieur de la Fabrique de la Monnaie, dont des employés, des agents de sécurité et un groupe de lycéens. L'une de ces élèves est la fille d'un ambassadeur au service du Royaume-Uni. Comment s'appelle-t-elle ?",
       "answer": "Alison Parker",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp023",
       "question": "Le cerveau du braquage se rapproche de l'inspectrice en fréquentant régulièrement un café-restaurant proche du commissariat, se faisant passer pour un citoyen ordinaire. Quel est le nom de cet établissement devenu un lieu culte de la série ?",
       "answer": "Le Hanoï",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "cdp024",
       "question": "Sous-inspecteur de police et collègue de longue date de Raquel Murillo, cet homme secrètement amoureux d'elle finit dans un coma artificiel après un grave accident de voiture survenu pendant le braquage. Quel est son nom ?",
       "answer": "Ángel Rubio",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp025",
       "question": "Pour approcher l'inspectrice Murillo sans éveiller ses soupçons, le cerveau du braquage utilise une fausse identité. Sous quel prénom se présente-t-il lorsqu'il la rencontre au café ?",
       "answer": "Salva (Salvador Martín)",
-      "difficulty": "normal",
       "category": "Le Professeur"
     },
     {
       "id": "cdp026",
       "question": "Le cerveau de l'opération a hérité l'idée du braquage de la Fabrique de la Monnaie d'un membre de sa famille, mort abattu en sortant d'une banque qu'il venait de braquer. Ce parent dépensait l'argent volé pour payer les soins de son fils aux États-Unis. Quel est le prénom de ce parent ?",
       "answer": "Jesús (Jesús Marquina)",
-      "difficulty": "difficile",
       "category": "Le Professeur"
     },
     {
       "id": "cdp027",
       "question": "Le capitaine de la bande lors du premier braquage souffre d'une maladie dégénérative fictive inventée pour la série. Cette pathologie neurodégénérative incurable, héritée de sa mère, affecte progressivement ses fonctions motrices. Quel est le nom de cette maladie ?",
       "answer": "La myopathie de Helmer",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp028",
       "question": "Séducteur invétéré et amateur de grands crus, le capitaine de la bande lors du premier braquage a connu de nombreux mariages tous soldés par des échecs. Combien de fois a-t-il été marié au total ?",
       "answer": "5 fois",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp029",
       "question": "À la fin de la partie 2, le capitaine de la bande se sacrifie héroïquement en tenant les forces de l'ordre à distance avec une mitrailleuse, permettant à ses coéquipiers de s'enfuir par un tunnel souterrain. Quel est le vrai nom complet de ce héros tragique ?",
       "answer": "Andrés de Fonollosa",
-      "difficulty": "normal",
       "category": "Morts"
     },
     {
       "id": "cdp030",
       "question": "Le père de Denver, ancien mineur reconverti dans le braquage, est mortellement touché par des tirs de la police alors que les braqueurs s'échappent par le tunnel. Quel est le vrai nom de ce personnage ?",
       "answer": "Agustín Ramos",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp031",
       "question": "Le capitaine de l'équipe lors du premier braquage et le cerveau de l'opération partagent un lien familial révélé au cours de la série. Ils ont le même père mais des mères différentes. Quel lien de parenté unit ces deux personnages ?",
       "answer": "Demi-frères",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "cdp032",
       "question": "Dans les flashbacks de la partie 3, on voit le capitaine de la bande originale épouser une pianiste talentueuse lors d'une cérémonie somptueuse. Cette femme jouera un rôle crucial dans la saison 5 en s'emparant de l'or avec le fils de son ex-mari. Comment s'appelle-t-elle ?",
       "answer": "Tatiana",
-      "difficulty": "difficile",
       "category": "Relations"
     },
     {
       "id": "cdp033",
       "question": "Lors du braquage de la Fabrique de la Monnaie, un braqueur subit un traumatisme crânien irréversible après qu'un otage lui a asséné un violent coup à la tête. Son cousin prend alors la décision déchirante de mettre fin à ses souffrances. Quel est le vrai nom de cette victime ?",
       "answer": "Radko Dragić",
-      "difficulty": "difficile",
       "category": "Morts"
     },
     {
       "id": "cdp034",
       "question": "La narratrice de la série vivait dans la clandestinité après un braquage raté au cours duquel son compagnon de l'époque avait été tué. Recrutée par le cerveau de l'opération, elle rejoint la bande sous un pseudonyme de ville asiatique. Quel est le vrai nom complet de cette braqueuse impulsive ?",
       "answer": "Silene Oliveira",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp035",
       "question": "Le plus jeune braqueur de la bande, expert en informatique et en technologies, est surnommé du nom d'une ville brésilienne. Quel est son vrai nom complet ?",
       "answer": "Aníbal Cortés",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp036",
       "question": "La série a d'abord été diffusée sur une chaîne de télévision espagnole en 2017, en deux parties de quinze épisodes de 70 minutes, avant d'être rachetée et redécoupée par Netflix. Sur quelle chaîne la série a-t-elle été diffusée à l'origine ?",
       "answer": "Antena 3",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp037",
       "question": "Pour sa distribution internationale, Netflix a renommé la série espagnole avec un titre anglais plus explicite. Quel est ce titre anglais sous lequel la série est connue dans le monde anglophone ?",
       "answer": "Money Heist",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp038",
       "question": "Né à Buenos Aires et installé en Sicile, ce personnage est le meilleur ami du capitaine de la bande originale et dirige les opérations à l'intérieur de la Banque d'Espagne lors du deuxième braquage. Son vrai nom est Martín Berrote. Quel est son pseudonyme ?",
       "answer": "Palerme",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp039",
       "question": "Le commandant des opérations à l'intérieur de la Banque d'Espagne est secrètement amoureux de son meilleur ami, le capitaine du premier braquage. Ce sentiment non réciproque le consume et menace le plan. Quel est le vrai nom complet de ce personnage d'origine argentine ?",
       "answer": "Martín Berrote",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp040",
       "question": "Homme de main du cerveau de l'opération, ce personnage taciturne opère exclusivement à l'extérieur de la banque. Il se déplace en vélo dans Madrid et brouille les signaux des appels téléphoniques. Son vrai prénom est Yakov. Quel est son pseudonyme ?",
       "answer": "Marseille",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp041",
       "question": "Soudeur de métier recruté pour le deuxième braquage, cet homme imposant aux sept enfants disséminés à travers le monde tombe amoureux de la responsable de l'imprimerie. Son vrai nom est Santiago López. Quel est son pseudonyme ?",
       "answer": "Bogota",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp042",
       "question": "Personnage transgenre introduit dans la partie 4, cette ancienne amie d'enfance du fils de Moscou est la filleule de ce dernier. Infiltrée parmi les otages de la Banque d'Espagne, elle agit comme une taupe pour le compte des braqueurs. Quel est son pseudonyme ?",
       "answer": "Manille (Manila)",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp043",
       "question": "Inspectrice remplaçant Raquel Murillo lors du braquage de la Banque d'Espagne, cette femme enceinte de huit mois se distingue par son intelligence redoutable et ses méthodes sans scrupules. Elle a supervisé la torture du plus jeune braqueur. Comment s'appelle-t-elle ?",
       "answer": "Alicia Sierra",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp044",
       "question": "Chef de la sécurité du gouverneur de la Banque d'Espagne, cet ancien béret vert ayant servi en Irak et au Liban se libère de sa captivité et traque les braqueurs à l'intérieur du bâtiment. Il est directement responsable de la mort de deux membres de la bande. Quel est son nom complet ?",
       "answer": "César Gandía",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp045",
       "question": "Après le premier braquage, la narratrice et le plus jeune membre de la bande se cachent sur un petit îlot paradisiaque au large du Panama. L'utilisation imprudente d'un téléphone satellite permet à Europol de localiser et capturer l'un d'entre eux. Dans quel archipel se trouvait leur cachette ?",
       "answer": "Guna Yala",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "cdp046",
       "question": "Le deuxième grand braquage de la série vise une institution financière bien plus prestigieuse que la Fabrique de la Monnaie. L'objectif est d'en extraire les réserves d'or du pays pour négocier la libération d'un membre capturé. Quel bâtiment est la cible ?",
       "answer": "La Banque d'Espagne",
-      "difficulty": "normal",
       "category": "Braquages"
     },
     {
       "id": "cdp047",
       "question": "Lors du braquage de la Banque d'Espagne, le plan prévoit de faire fondre les réserves d'or nationales pour les évacuer sous une autre forme. Quelle quantité d'or les braqueurs cherchent-ils à dérober ?",
       "answer": "90 tonnes",
-      "difficulty": "normal",
       "category": "Braquages"
     },
     {
       "id": "cdp048",
       "question": "À la fin de la série, le cerveau de l'opération remplace les véritables lingots par des copies fabriquées dans un métal moins noble, trompant ainsi les autorités lors de la restitution officielle. En quel métal sont fabriqués ces faux lingots ?",
       "answer": "Laiton",
-      "difficulty": "difficile",
       "category": "Plans"
     },
     {
       "id": "cdp049",
       "question": "Le colonel chargé de la gestion politique du braquage de la Banque d'Espagne accepte finalement un marché avec le cerveau de l'opération : faire croire que les braqueurs sont morts et que l'or a été récupéré. Quel est le nom de ce colonel ?",
       "answer": "Tamayo",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp050",
       "question": "Dans l'épisode final de la partie 5, les braqueurs simulent leur propre mort grâce à un accord avec les autorités. Des cercueils drapés de rouge sont présentés à la presse tandis que la bande s'enfuit avec de nouvelles identités. Comment le cerveau obtient-il cet accord ?",
       "answer": "En menaçant de révéler que l'or a été remplacé par du laiton",
-      "difficulty": "difficile",
       "category": "Plans"
     },
     {
       "id": "cdp051",
       "question": "Blessée par les tirs d'un commando militaire lors de la partie 5, la narratrice de la série se sacrifie en dégoupillant plusieurs grenades accrochées à sa poitrine. Quel est le vrai nom complet de cette braqueuse dont la mort met fin à la narration ?",
       "answer": "Silene Oliveira (Tokyo)",
-      "difficulty": "normal",
       "category": "Morts"
     },
     {
       "id": "cdp052",
       "question": "Attirée à la fenêtre par la promesse de revoir son fils dont elle a perdu la garde, cette braqueuse est touchée par un tir de sniper orchestré par l'inspectrice. Elle survit à cette blessure mais sera tuée plus tard par le chef de la sécurité. Quel est son vrai nom complet ?",
       "answer": "Ágata Jiménez",
-      "difficulty": "normal",
       "category": "Morts"
     },
     {
       "id": "cdp053",
       "question": "Le fils de la responsable de l'imprimerie lui a été retiré par les services sociaux après son arrestation. L'inspectrice Sierra utilise cet enfant comme piège pour l'attirer à la fenêtre et la faire tirer par un sniper. Quel est le prénom de ce petit garçon ?",
       "answer": "Axel",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "cdp054",
       "question": "Le vrai nom de la responsable de l'imprimerie lors du premier braquage est Ágata Jiménez. Quelle actrice espagnole, aussi connue pour son rôle de Saray dans Vis a vis, l'interprète dans la série ?",
       "answer": "Alba Flores",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp055",
       "question": "Actrice espagnole devenue une star internationale grâce à son rôle de narratrice et braqueuse impulsive, elle est connue pour ses cheveux noirs caractéristiques dans la série. Qui interprète le rôle de Silene Oliveira ?",
       "answer": "Úrsula Corberó",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp056",
       "question": "Acteur espagnol au regard intense, il incarne le cerveau du braquage et est devenu l'un des acteurs les plus reconnaissables de la télévision espagnole. Qui joue le rôle du mastermind à lunettes ?",
       "answer": "Álvaro Morte",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp057",
       "question": "Acteur espagnol au charisme magnétique, il incarne le capitaine de la bande lors du premier braquage et est apprécié pour son jeu tout en élégance et en cruauté. Son personnage a obtenu son propre spin-off sur Netflix en 2023. Qui est cet acteur ?",
       "answer": "Pedro Alonso",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp058",
       "question": "L'actrice basque née le 18 juin 1974 incarne une inspectrice de police qui finit par changer de camp et adopter un nom de ville comme pseudonyme pour le deuxième braquage. Qui est cette actrice ?",
       "answer": "Itziar Ituño",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp059",
       "question": "Le bébé né de la relation entre la secrétaire de la Fabrique et le directeur Arturo Román est élevé par un braqueur après la fuite de sa mère avec la bande. Quel est le prénom donné à cet enfant, qui porte le nom d'une ville américaine ?",
       "answer": "Cincinnati",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "cdp061",
       "question": "La chanson italienne devenue l'hymne de la série est entonnée pour la première fois dans un flashback montrant les deux demi-frères trinquant ensemble dans la maison de préparation. Lors de quelle partie de la série cette scène mythique a-t-elle lieu ?",
       "answer": "La partie 1 (saison 1)",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "cdp062",
       "question": "Le personnage qui a obtenu sa propre série dérivée sur Netflix sortie le 29 décembre 2023 y monte un plan audacieux de vol de bijoux à Paris valant 44 millions d'euros. Quel montant de bijoux ce braquage parisien vise-t-il ?",
       "answer": "44 millions d'euros",
-      "difficulty": "difficile",
       "category": "Saisons"
     },
     {
       "id": "cdp063",
       "question": "Le premier braquage de la série vise un bâtiment officiel madrilène chargé de produire les billets et les timbres du pays. Cet établissement gouvernemental est une institution financière stratégique sous autorité de l'État espagnol. Quel est le nom complet de cette institution ?",
       "answer": "La Fabrique nationale de la Monnaie et du Timbre",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "cdp064",
       "question": "Lors des flashbacks de la partie 3, une chanson romantique italienne des années 70 accompagne la scène de mariage du capitaine avec Tatiana. Les convives dansent et chantent en chœur ce titre interprété par Umberto Tozzi. Quelle est cette chanson ?",
       "answer": "Ti Amo",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "cdp065",
       "question": "Le fils du capitaine de la bande originale apparaît dans la saison 5 comme un jeune homme brillant et vengeur. Il s'empare de l'or de la Banque d'Espagne avec l'ancienne femme de son père. Quel est le prénom de ce personnage ?",
       "answer": "Rafael",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp066",
       "question": "Acteur serbe vivant en Espagne, il interprète le rôle du colosse au grand cœur cousin d'Oslo. Polyvalent et physiquement imposant, il incarne la force brute de l'équipe. Qui est cet acteur ?",
       "answer": "Darko Perić",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp067",
       "question": "Le véritable nom d'Helsinki est Mirko Dragić, et celui de son cousin est Radko Dragić. De quelle nationalité sont ces deux membres de la bande ?",
       "answer": "Serbe",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp068",
       "question": "Pendant la préparation du braquage dans la propriété de Tolède, le cerveau de l'opération impose une règle absolue aux membres de la bande. Chacun doit choisir un pseudonyme appartenant à une catégorie précise pour protéger son identité. Quelle catégorie de noms est imposée ?",
       "answer": "Des noms de villes",
-      "difficulty": "normal",
       "category": "Plans"
     },
     {
       "id": "cdp069",
       "question": "Lors de la préparation du premier braquage à Tolède, le cerveau de l'opération interdit strictement toute relation sentimentale entre les membres du groupe. Combien de mois dure cette phase d'entraînement intensif ?",
       "answer": "5 mois",
-      "difficulty": "normal",
       "category": "Plans"
     },
     {
       "id": "cdp070",
       "question": "Le capitaine de la bande prend un traitement quotidien pour retarder la progression de sa maladie dégénérative pendant le braquage de la Fabrique de la Monnaie. Quel est le nom de ce médicament fictif ?",
       "answer": "Retroxil",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp071",
       "question": "Au début de la partie 3, un membre de la bande est capturé par les autorités internationales après avoir utilisé imprudemment un téléphone satellite sur une île au Panama. Quel est le vrai nom complet de ce braqueur ?",
       "answer": "Aníbal Cortés (Rio)",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp072",
       "question": "Le deuxième braquage est déclenché par la volonté de sauver un membre capturé et torturé illégalement par les autorités espagnoles. Quel braqueur la bande cherche-t-elle à libérer en attaquant la Banque d'Espagne ?",
       "answer": "Rio (Aníbal Cortés)",
-      "difficulty": "normal",
       "category": "Braquages"
     },
     {
       "id": "cdp073",
       "question": "La mère de l'inspectrice Raquel Murillo, qui vit avec elle et sa petite-fille Paula, souffre d'une maladie neurodégénérative qui affecte sa mémoire et son comportement. Comment s'appelle cette mère ?",
       "answer": "Mariví",
-      "difficulty": "difficile",
       "category": "Relations"
     },
     {
       "id": "cdp074",
       "question": "Lors du premier braquage, une lycéenne prise en otage joue un rôle stratégique car son père est un diplomate britannique de haut rang. Le cerveau de l'opération avait planifié sa présence lors de la visite scolaire. Quel est le métier de son père ?",
       "answer": "Ambassadeur du Royaume-Uni en Espagne",
-      "difficulty": "normal",
       "category": "Plans"
     },
     {
       "id": "cdp075",
       "question": "Les combinaisons que portent les braqueurs et qu'ils imposent aussi aux otages sont d'une couleur vive et reconnaissable entre toutes. Quelle est la couleur de ces combinaisons devenues iconiques ?",
       "answer": "Rouge",
-      "difficulty": "normal",
       "category": "Plans"
     },
     {
       "id": "cdp076",
       "question": "Lors du premier braquage, un jeune braqueur reçoit l'ordre d'exécuter une otage parce qu'elle a vu le visage d'un membre de la bande. Il tire volontairement à côté et la cache, tombant amoureux d'elle. Quel est le vrai prénom de ce braqueur fils de Moscou ?",
       "answer": "Daniel (Ramos)",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "cdp077",
       "question": "L'ancien béret vert retenu dans la Banque d'Espagne parvient à s'échapper de sa captivité et sème la terreur parmi les braqueurs. Il assassine froidement la braqueuse responsable de l'imprimerie d'une balle dans la tête. De quelle manière les braqueurs parviennent-ils finalement à le maîtriser ?",
       "answer": "Helsinki le neutralise au corps à corps",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp078",
       "question": "Acteur espagnol connu pour son rôle dans la série Vis a vis avant de rejoindre le casting, il incarne le fils de Moscou au rire nerveux légendaire. Qui est l'acteur qui joue le rôle du braqueur au pseudonyme américain ?",
       "answer": "Jaime Lorente",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp079",
       "question": "Jeune acteur espagnol au visage angélique, il a aussi joué dans la série Élite sur Netflix et incarne le plus jeune hacker de la bande. Qui interprète le personnage dont le pseudonyme évoque une grande ville brésilienne ?",
       "answer": "Miguel Herrán",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp080",
       "question": "L'actrice qui joue l'inspectrice Sierra est aussi chanteuse dans la vie réelle. D'origine espagnole et jordanienne, elle était déjà célèbre pour son rôle dans la série Vis a vis. Qui est cette actrice ?",
       "answer": "Najwa Nimri",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp081",
       "question": "La série a été créée par un showrunner espagnol qui a aussi créé Vis a vis et le spin-off consacré au capitaine de la bande. Quel est le nom du créateur de la série originale ?",
       "answer": "Álex Pina",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp082",
       "question": "Après que l'inspectrice Raquel Murillo découvre la vraie identité du cerveau de l'opération, elle est déchirée entre son devoir et ses sentiments. Finalement, elle choisit de ne pas le dénoncer et de le rejoindre. Combien de temps après le premier braquage la retrouve-t-on à ses côtés ?",
       "answer": "Environ 2 ans",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp083",
       "question": "Lors de la scène finale de la partie 2, les braqueurs s'échappent de la Fabrique grâce à un passage souterrain creusé secrètement pendant des mois. Pendant combien d'heures au total le premier braquage a-t-il duré ?",
       "answer": "128 heures",
-      "difficulty": "normal",
       "category": "Braquages"
     },
     {
       "id": "cdp084",
       "question": "Le commandant militaire envoyé pour neutraliser les braqueurs à l'intérieur de la Banque d'Espagne lors de la saison 5 finit par se rendre et négocier. Quel est le nom de ce major de l'armée espagnole ?",
       "answer": "Sagasta",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp085",
       "question": "Dans la saison 5, l'ancienne femme du capitaine de la bande originale et son fils s'emparent de l'or véritable de la Banque d'Espagne avant que la bande ne puisse le récupérer. Le cerveau de l'opération parvient à convaincre le jeune homme de rendre l'or grâce à un simple message écrit. Qui a volé l'or en premier ?",
       "answer": "Tatiana et Rafael",
-      "difficulty": "difficile",
       "category": "Braquages"
     },
     {
       "id": "cdp086",
       "question": "L'hymne de résistance chanté par les braqueurs est à l'origine un chant populaire italien repris par les partisans antifascistes. Ce chant parle d'un homme qui part combattre l'envahisseur et demande à être enterré sous une fleur. De quel pays ce chant est-il originaire ?",
       "answer": "L'Italie",
-      "difficulty": "normal",
       "category": "Musique"
     },
     {
       "id": "cdp087",
       "question": "Pendant le premier braquage, les otages sont forcés de porter les mêmes combinaisons et masques que les braqueurs. Cette stratégie rend impossible l'identification des coupables depuis l'extérieur. Combien d'otages sont retenus au total dans la Fabrique de la Monnaie ?",
       "answer": "67 otages",
-      "difficulty": "normal",
       "category": "Braquages"
     },
     {
       "id": "cdp088",
       "question": "Combien de braqueurs composent l'équipe originale recrutée par le cerveau de l'opération pour le premier casse de la Fabrique de la Monnaie ?",
       "answer": "8 braqueurs",
-      "difficulty": "normal",
       "category": "Plans"
     },
     {
       "id": "cdp089",
       "question": "Le cerveau du braquage explique à sa bande que leur opération n'est pas un vol, car ils ne prennent l'argent de personne. Ils impriment simplement de nouveaux billets, comme le fait la Banque centrale européenne pour renflouer les banques privées. Quel concept économique utilise-t-il pour justifier leur acte ?",
       "answer": "L'injection de liquidités (la planche à billets)",
-      "difficulty": "difficile",
       "category": "Le Professeur"
     },
     {
       "id": "cdp090",
       "question": "Dans la partie 4, l'inspectrice Sierra accouche dans des conditions extrêmes alors qu'elle vient de capturer le cerveau de l'opération. Elle le tient en joue avec une arme pendant sa propre délivrance. Quel est le prénom du bébé qu'elle met au monde ?",
       "answer": "Victoria",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp091",
       "question": "Après le premier braquage, Denver et son amoureuse se cachent avec leur bébé dans un pays d'Asie du Sud-Est sous de fausses identités. Dans quel pays vivent-ils avant d'être rappelés pour le deuxième braquage ?",
       "answer": "L'Indonésie",
-      "difficulty": "normal",
       "category": "Lieux"
     },
     {
       "id": "cdp092",
       "question": "Le cerveau du braquage a souffert d'une grave maladie dans son enfance, ce qui a poussé son père à commettre des braquages pour financer ses soins à l'étranger. Dans quel pays le jeune Sergio a-t-il été soigné ?",
       "answer": "Les États-Unis",
-      "difficulty": "normal",
       "category": "Le Professeur"
     },
     {
       "id": "cdp093",
       "question": "Le plan de braquer la Banque d'Espagne pour dérober ses réserves d'or n'a pas été conçu par le cerveau habituel de l'opération. Ce projet pharaonique est à l'origine l'idée du capitaine de la bande originale, qui l'avait imaginé avec son meilleur ami argentin. Qui est cet ami ?",
       "answer": "Palerme (Martín Berrote)",
-      "difficulty": "normal",
       "category": "Plans"
     },
     {
       "id": "cdp094",
       "question": "Le capitaine de la bande lors du premier braquage souffre de la même maladie dégénérative que sa mère. Dans la série, il sait qu'il va mourir, ce qui influence sa décision de participer au braquage. Quel est son état de santé au moment du casse ?",
       "answer": "En phase terminale",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp095",
       "question": "Lorsque l'inspectrice Raquel Murillo découvre que Salva et le cerveau du braquage ne font qu'un, elle est déchirée entre son devoir et ses sentiments. Dans quelle ville italienne la retrouve-t-on vivant paisiblement avec lui après le premier braquage ?",
       "answer": "Palermo (en Sicile)",
-      "difficulty": "difficile",
       "category": "Lieux"
     },
     {
       "id": "cdp096",
       "question": "Le duo père-fils composé de Moscou et Denver partage le même nom de famille, Ramos. L'ancien mineur, décédé lors de la fuite par le tunnel, avait un prénom hispanique traditionnel. Quel est le prénom du père de Denver ?",
       "answer": "Agustín",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp098",
       "question": "À la fin de la partie 5, le cerveau de l'opération négocie avec le colonel pour que tous les braqueurs survivants soient déclarés morts officiellement. Les membres de la bande reçoivent de nouvelles identités et sont libres. Comment les autorités présentent-elles la fin du braquage au public ?",
       "answer": "Elles annoncent que les braqueurs ont été tués et que l'or a été récupéré",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp099",
       "question": "La braqueuse responsable de l'imprimerie meurt d'une balle dans la tête tirée par le chef de la sécurité dans la partie 4. Cette mort est l'une des plus marquantes de la série. Dans quelle partie de la série ce personnage avait-il été blessé par un sniper pour la première fois ?",
       "answer": "La partie 3 (saison 3)",
-      "difficulty": "normal",
       "category": "Morts"
     },
     {
       "id": "cdp100",
       "question": "L'acteur qui interprète le personnage taciturne opérant à l'extérieur de la banque est un polyglotte capable de jouer dans sept langues différentes. De quelle nationalité est cet acteur nommé Luka Peroš ?",
       "answer": "Croate",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp101",
       "question": "Le soudeur recruté pour le braquage de la Banque d'Espagne possède une particularité familiale hors du commun : il a des enfants éparpillés aux quatre coins du monde, conçus avec différentes femmes. Combien d'enfants a-t-il ?",
       "answer": "7 enfants",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp102",
       "question": "Le personnage transgenre infiltré parmi les otages de la Banque d'Espagne est la filleule de Moscou et amie d'enfance de son fils. Son vrai prénom est Julia. Quelle actrice espagnole interprète ce rôle ?",
       "answer": "Belén Cuesta",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp103",
       "question": "Dans la partie 5, la narratrice de la série se sacrifie en retenant l'assaut d'un commando militaire pour permettre à ses compagnons de fuir. Elle dégoupille plusieurs grenades attachées à sa poitrine. Combien de grenades porte-t-elle lors de cette scène finale ?",
       "answer": "5 grenades",
-      "difficulty": "normal",
       "category": "Morts"
     },
     {
       "id": "cdp104",
       "question": "Le mari de l'inspectrice Sierra est décédé peu avant le début du braquage de la Banque d'Espagne. Il a été emporté rapidement par une maladie grave. De quelle maladie est-il mort ?",
       "answer": "Un cancer du pancréas",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp105",
       "question": "Le directeur de la Fabrique de la Monnaie, pris en otage lors du premier braquage, revient dans les saisons suivantes comme un personnage de plus en plus détestable. De quel surnom affectueux et moqueur les braqueurs l'affublent-ils ?",
       "answer": "Arturito",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp106",
       "question": "Lors des cinq mois de préparation dans la propriété de Tolède, le cerveau du braquage interdit formellement toute relation amoureuse entre les membres de la bande. Quels deux personnages brisent cette règle en premier, mettant le plan en danger ?",
       "answer": "Tokyo et Rio",
-      "difficulty": "normal",
       "category": "Relations"
     },
     {
       "id": "cdp107",
       "question": "Le cerveau de l'opération dirige le premier braquage depuis un lieu secret situé à l'extérieur de la Fabrique, communiquant par téléphone avec le capitaine à l'intérieur. Quelle est la durée maximale prévue du braquage dans le plan original ?",
       "answer": "11 jours",
-      "difficulty": "normal",
       "category": "Le Professeur"
     },
     {
       "id": "cdp109",
       "question": "L'actrice María Pedraza, qui joue le rôle de la fille de l'ambassadeur prise en otage lors du premier braquage, est aussi connue pour être danseuse classique de formation. Dans quelle autre série Netflix espagnole a-t-elle joué un rôle majeur ?",
       "answer": "Élite",
-      "difficulty": "normal",
       "category": "Personnages"
     },
     {
       "id": "cdp110",
       "question": "Le commandant argentin des opérations lors du deuxième braquage est écarté du pouvoir par un coup d'État interne. Furieux, il sabote le braquage en libérant le chef de la sécurité de sa cellule. Quel personnage dangereux est ainsi remis en liberté dans la banque ?",
       "answer": "Gandía",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp111",
       "question": "Pendant le spin-off consacré au capitaine de la bande, l'action se déroule dans une grande capitale européenne où il monte un plan audacieux de vol de bijoux avec une nouvelle équipe. Dans quelle ville se passe cette série dérivée ?",
       "answer": "Paris",
-      "difficulty": "normal",
       "category": "Saisons"
     },
     {
       "id": "cdp112",
       "question": "Le cerveau du braquage est un homme méthodique et obsédé par le temps. Il possède un objet symbolique qui représente sa précision et son héritage familial, objet qu'il consulte régulièrement pendant les opérations. De quel type d'objet s'agit-il ?",
       "answer": "Une montre à gousset",
-      "difficulty": "normal",
       "category": "Le Professeur"
     },
     {
       "id": "cdp113",
       "question": "L'inspectrice Sierra, après avoir été destituée et abandonnée par les autorités, traque seule le cerveau de l'opération et le retrouve à la fin de la partie 4. Au lieu de le livrer à la police, elle finit par changer de camp. Quelle est la raison principale qui la pousse à s'allier aux braqueurs ?",
       "answer": "Le gouvernement l'a trahie et utilisée comme bouc émissaire",
-      "difficulty": "normal",
       "category": "Épisodes clés"
     },
     {
       "id": "cdp114",
       "question": "Le personnage de Moscou a été interprété par un acteur andalou célèbre en Espagne pour son rôle dans la série Los hombres de ce même prénom. Comment s'appelle cet acteur au patronyme surprenant ?",
       "answer": "Paco Tous",
-      "difficulty": "difficile",
       "category": "Personnages"
     },
     {
       "id": "cdp115",
       "question": "L'acteur d'origine libanaise qui incarne le soudeur dans les parties 3 à 5 est aussi connu comme ancien boxeur professionnel. Qui est cet acteur au physique imposant ?",
       "answer": "Hovik Keuchkerian",
-      "difficulty": "difficile",
       "category": "Personnages"
     }
   ]
