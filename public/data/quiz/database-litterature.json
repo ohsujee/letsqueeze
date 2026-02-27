@@ -3,105 +3,605 @@
   "title": "Littérature",
   "lang": "fr",
   "items": [
-    {"id": "cg-lit001", "question": "Écrivain français du XIXe siècle, il est l'auteur des Misérables et de Notre-Dame de Paris. Exilé à Guernesey pendant le Second Empire, il est panthéonisé en 1885. Qui est-ce ?", "answer": "Victor Hugo", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit002", "question": "Auteure britannique créatrice de l'univers Harry Potter, elle est devenue la première auteure milliardaire. Ses 7 romans ont été vendus à plus de 500 millions d'exemplaires. Qui est-ce ?", "answer": "J.K. Rowling", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit003", "question": "Aviateur et écrivain français disparu en mer en 1944, il est l'auteur du Petit Prince, conte philosophique traduit dans 300 langues. Le renard y enseigne que 'l'essentiel est invisible pour les yeux'. Qui est-ce ?", "answer": "Antoine de Saint-Exupéry", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit004", "question": "Professeur d'Oxford et philologue britannique, il a créé l'univers de la Terre du Milieu avec Le Seigneur des Anneaux et Le Hobbit. Ses langues elfiques sont d'une complexité remarquable. Qui est-ce ?", "answer": "J.R.R. Tolkien", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit005", "question": "Dramaturge anglais né à Stratford-upon-Avon en 1564, il a écrit Hamlet, Roméo et Juliette et Macbeth. 'Être ou ne pas être' est sa réplique la plus célèbre. Qui est-ce ?", "answer": "William Shakespeare", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit006", "question": "Auteur britannique de romans policiers, elle a créé les détectives Hercule Poirot et Miss Marple. Avec 2 milliards de livres vendus, elle est l'écrivaine la plus lue après la Bible. Qui est-ce ?", "answer": "Agatha Christie", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit007", "question": "Écrivain britannique auteur de 1984 et La Ferme des animaux, ses œuvres dénoncent le totalitarisme. Le terme 'Big Brother' vient de son roman dystopique. Qui est-ce ?", "answer": "George Orwell", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit008", "question": "Médecin écossais créateur de Sherlock Holmes, il publie la première aventure du détective consultant en 1887. Watson est le narrateur fidèle des enquêtes au 221B Baker Street. Qui est-ce ?", "answer": "Arthur Conan Doyle", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit009", "question": "Écrivain russe auteur de Guerre et Paix et Anna Karénine, ses romans épiques dépeignent la société russe du XIXe siècle. Il meurt dans une gare en 1910 après avoir fui son domicile. Qui est-ce ?", "answer": "Léon Tolstoï", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit010", "question": "Écrivain français du XXe siècle, il est l'auteur d'À la recherche du temps perdu en 7 volumes. L'épisode de la madeleine trempée dans le thé est devenu emblématique de la mémoire involontaire. Qui est-ce ?", "answer": "Marcel Proust", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit011", "question": "Dramaturge français du XVIIe siècle mort sur scène en jouant Le Malade imaginaire, il a créé des comédies comme Tartuffe et L'Avare. La langue française est souvent appelée 'la langue de...' qui ?", "answer": "Molière", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit012", "question": "Romancier français du XIXe siècle, il a écrit 91 romans formant La Comédie humaine, fresques de la société de son époque. Le Père Goriot et Eugénie Grandet figurent parmi ses chefs-d'œuvre. Qui est-ce ?", "answer": "Honoré de Balzac", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit013", "question": "Chef de file du naturalisme, il a écrit les 20 romans des Rougon-Macquart sous le Second Empire. Il s'est rendu dans les mines du Nord pour écrire Germinal. Qui est-ce ?", "answer": "Émile Zola", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit014", "question": "Prix Nobel de littérature 1957 à 44 ans, il a développé la philosophie de l'absurde dans Le Mythe de Sisyphe. L'Étranger est le troisième roman francophone le plus lu au monde. Qui est-ce ?", "answer": "Albert Camus", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit015", "question": "Philosophe existentialiste ayant refusé le prix Nobel en 1964, il a écrit La Nausée et L'Être et le Néant. Sa pièce Huis clos affirme que 'l'enfer, c'est les autres'. Qui est-ce ?", "answer": "Jean-Paul Sartre", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit016", "question": "Romancier français qui a passé 5 ans à écrire Madame Bovary, il fut poursuivi pour outrage à la morale en 1857 mais acquitté. Emma Bovary incarne le bovarysme. Qui est-ce ?", "answer": "Gustave Flaubert", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit017", "question": "Poète français dont le recueil Les Fleurs du Mal fut condamné en 1857, six poèmes en furent retirés. Il a traduit les œuvres d'Edgar Allan Poe. Qui est-ce ?", "answer": "Charles Baudelaire", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit018", "question": "Poète français surnommé 'le voyant', il a écrit Une saison en enfer après une relation tumultueuse avec Verlaine. Il a cessé d'écrire à 20 ans. Qui est-ce ?", "answer": "Arthur Rimbaud", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit019", "question": "Poète symboliste français auteur des Fêtes galantes et de Sagesse, il a tiré sur Rimbaud à Bruxelles en 1873. Il a inventé l'expression 'poètes maudits'. Qui est-ce ?", "answer": "Paul Verlaine", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit020", "question": "Écrivain américain ayant vécu à Cuba, il a reçu le Nobel en 1954 pour Le Vieil Homme et la Mer. Son style elliptique a révolutionné la narration moderne. Qui est-ce ?", "answer": "Ernest Hemingway", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit021", "question": "Écrivain américain surnommé 'le roi de l'âge du jazz', il a dépeint les années folles dans Gatsby le Magnifique. Marié à Zelda, il incarne la Génération perdue. Qui est-ce ?", "answer": "Francis Scott Fitzgerald", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit022", "question": "Écrivain américain inventeur du détective Auguste Dupin, il est le père du roman policier et de l'horreur. Son poème Le Corbeau répète 'Nevermore'. Qui est-ce ?", "answer": "Edgar Allan Poe", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit023", "question": "Romancier anglais de l'ère victorienne, il a dénoncé la misère sociale dans Oliver Twist et David Copperfield. Un Chant de Noël est son œuvre la plus populaire. Qui est-ce ?", "answer": "Charles Dickens", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit024", "question": "Romancière anglaise du XIXe siècle, elle a écrit Orgueil et Préjugés sans mentionner son nom sur la couverture. Elizabeth Bennet y affronte l'orgueil de Mr Darcy. Qui est-ce ?", "answer": "Jane Austen", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit025", "question": "Écrivain irlandais emprisonné pour homosexualité sous l'ère victorienne, il a écrit Le Portrait de Dorian Gray. Sa pièce L'Importance d'être Constant est un chef-d'œuvre d'esprit. Qui est-ce ?", "answer": "Oscar Wilde", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit026", "question": "Écrivain russe condamné à mort puis gracié, envoyé au bagne sibérien, il a écrit Crime et Châtiment et Les Frères Karamazov. Freud le considérait comme un maître psychologue. Qui est-ce ?", "answer": "Fiodor Dostoïevski", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit027", "question": "Écrivain tchèque de langue allemande mort à 40 ans de tuberculose, il a demandé que ses œuvres soient brûlées. Gregor Samsa se transforme en insecte dans La Métamorphose. Qui est-ce ?", "answer": "Franz Kafka", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit028", "question": "Écrivain colombien prix Nobel 1982, il a popularisé le réalisme magique avec Cent ans de solitude. La famille Buendía vit dans le village fictif de Macondo. Qui est-ce ?", "answer": "Gabriel García Márquez", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit029", "question": "Écrivain japonais ancien propriétaire d'un club de jazz, son style mêle réalisme magique et nostalgie. 1Q84 et Kafka sur le rivage sont parmi ses œuvres les plus célèbres. Qui est-ce ?", "answer": "Haruki Murakami", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit030", "question": "Poète chilien prix Nobel 1971, candidat à la présidence en 1970, il est mort 12 jours après le coup d'État de Pinochet. Vingt poèmes d'amour est son recueil le plus célèbre. Qui est-ce ?", "answer": "Pablo Neruda", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit031", "question": "Dessinateur belge créateur de Tintin en 1929, il a développé le style de la 'ligne claire'. Les aventures du reporter se déroulent avec Milou et le capitaine Haddock. Qui est-ce ?", "answer": "Hergé", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit032", "question": "Duo de créateurs d'Astérix en 1959, l'un était scénariste et l'autre dessinateur. Leur Gaulois résistant aux Romains s'est vendu à 370 millions d'exemplaires. Qui sont-ils ?", "answer": "Goscinny et Uderzo", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit033", "question": "Philosophe et féministe française, compagne de Sartre pendant 51 ans, elle a écrit Le Deuxième Sexe en 1949. 'On ne naît pas femme, on le devient' est sa phrase célèbre. Qui est-ce ?", "answer": "Simone de Beauvoir", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit034", "question": "Écrivain français pseudonyme de Marie-Henri Beyle, il a écrit Le Rouge et le Noir inspiré d'un fait divers. Julien Sorel y incarne l'ambition sociale sous la Restauration. Qui est-ce ?", "answer": "Stendhal", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit035", "question": "Écrivain argentin fasciné par les labyrinthes et l'infini, il a imaginé La Bibliothèque de Babel contenant tous les livres possibles. Son recueil Fictions est un classique du fantastique. Qui est-ce ?", "answer": "Jorge Luis Borges", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit036", "question": "Premier lauréat français du prix Nobel de littérature en 1901, il était aussi le tout premier Nobel de littérature décerné. Poète parnassien, il a écrit Stances et Poèmes. Qui est-ce ?", "answer": "Sully Prudhomme", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit037", "question": "Écrivain français prix Nobel 1952, catholique fervent, il a situé ses romans dans les Landes. Thérèse Desqueyroux est son personnage le plus célèbre. Qui est-ce ?", "answer": "François Mauriac", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit038", "question": "Auteur français prix Nobel 2014 pour son exploration de la mémoire et de l'identité, il a écrit une trentaine de romans dont Dora Bruder. Son style est qualifié de 'petite musique'. Qui est-ce ?", "answer": "Patrick Modiano", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit039", "question": "Écrivaine française prix Nobel 2022 pour son œuvre autobiographique, elle a écrit Les Années et La Place. Son style est qualifié d'écriture 'plate' ou 'blanche'. Qui est-ce ?", "answer": "Annie Ernaux", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit040", "question": "Écrivain provençal prix Nobel 1904, il a écrit en occitan et milité pour le régionalisme. Mirèio est son chef-d'œuvre épique célébrant la Provence. Qui est-ce ?", "answer": "Frédéric Mistral", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit041", "question": "Médecin et écrivain russe, maître de la nouvelle et du théâtre. Ses pièces comme La Mouette, Oncle Vania et La Cerisaie peignent avec mélancolie le déclin de l'aristocratie russe. Qui est-ce ?", "answer": "Anton Tchekhov", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit042", "question": "Romancière française du XIXe siècle au pseudonyme masculin, elle a écrit La Mare au diable et La Petite Fadette. Elle est aussi célèbre pour sa vie libre, ses tenues masculines et sa liaison avec Musset et Chopin. Qui est-ce ?", "answer": "George Sand", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit043", "question": "Romancière française, mime et actrice, elle est célèbre pour sa série des Claudine et pour Gigi. Première femme à recevoir des funérailles nationales en France, elle aimait passionnément les chats. Qui est-ce ?", "answer": "Colette", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit044", "question": "Poète français précurseur du surréalisme, il a écrit Alcools et Calligrammes, des poèmes dont la disposition graphique forme un dessin. Blessé à la tête pendant la guerre, il meurt de la grippe espagnole. Qui est-ce ?", "answer": "Guillaume Apollinaire", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit045", "question": "Écrivain américain prix Nobel 1962, il a décrit la Grande Dépression et la misère des ouvriers agricoles dans Les Raisins de la colère et Des Souris et des Hommes. Qui est-ce ?", "answer": "John Steinbeck", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit046", "question": "Écrivain irlandais auteur de Ulysse, roman expérimental se déroulant en une journée à Dublin. Le monologue de Molly Bloom est devenu légendaire. Qui est-ce ?", "answer": "James Joyce", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit047", "question": "Romancière britannique auteure de Mrs Dalloway et La Promenade au phare, pionnière du flux de conscience. Membre du groupe de Bloomsbury, elle souffrait de troubles mentaux. Qui est-ce ?", "answer": "Virginia Woolf", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit048", "question": "Écrivain américain créateur de la saga Yoknapatawpha County dans le Mississippi, prix Nobel 1949. Le Bruit et la Fureur utilise le flux de conscience. Qui est-ce ?", "answer": "William Faulkner", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit049", "question": "Poète et dramaturge espagnol fusillé par les franquistes en 1936, il a écrit Noces de sang et La Maison de Bernarda Alba. Le Romancero gitano célèbre l'Andalousie. Qui est-ce ?", "answer": "Federico García Lorca", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit050", "question": "Écrivain russe prix Nobel 1958 contraint de refuser le prix, il a écrit Le Docteur Jivago sur la révolution russe. Le roman fut d'abord publié en Italie. Qui est-ce ?", "answer": "Boris Pasternak", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit051", "question": "Écrivain russe dissident expulsé d'URSS en 1974, prix Nobel 1970, il a dénoncé le Goulag. L'Archipel du Goulag a révélé l'horreur des camps soviétiques. Qui est-ce ?", "answer": "Alexandre Soljenitsyne", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit052", "question": "Dramaturge irlandais prix Nobel 1969, fondateur du théâtre de l'absurde avec En attendant Godot. Vladimir et Estragon attendent indéfiniment. Qui est-ce ?", "answer": "Samuel Beckett", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit053", "question": "Dramaturge français d'origine roumaine, figure de l'absurde avec Ionesco. La Cantatrice chauve et Rhinocéros dénoncent le conformisme. Qui est-ce ?", "answer": "Eugène Ionesco", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit054", "question": "Écrivain italien auteur du Nom de la rose, inspiré par Borges. Sémioticien de renom, il a théorisé l'œuvre ouverte. Le moine Guillaume de Baskerville y enquête. Qui est-ce ?", "answer": "Umberto Eco", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit055", "question": "Écrivain portugais prix Nobel 1998, auteur de L'Aveuglement et Le Dieu manchot. Athée convaincu, il a exploré l'histoire du Portugal. Qui est-ce ?", "answer": "José Saramago", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit056", "question": "Romancière britannique auteure de Jane Eyre, elle a publié sous le pseudonyme masculin Currer Bell. Ses sœurs Emily et Anne étaient aussi écrivaines. Qui est-ce ?", "answer": "Charlotte Brontë", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit057", "question": "Romancière anglaise auteure des Hauts de Hurlevent, unique roman passionné entre Catherine et Heathcliff. Sœur de Charlotte, elle est morte à 30 ans. Qui est-ce ?", "answer": "Emily Brontë", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit058", "question": "Poète américain leader de la Beat Generation, auteur de Howl qui a fait scandale en 1956. Il a influencé la contre-culture des années 60. Qui est-ce ?", "answer": "Allen Ginsberg", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit059", "question": "Écrivain américain de la Beat Generation, auteur de Sur la route écrit en trois semaines sur un rouleau de papier. Dean Moriarty y incarne la liberté. Qui est-ce ?", "answer": "Jack Kerouac", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit060", "question": "Écrivain américain créateur de Moby Dick, chef-d'œuvre incompris de son vivant. Le capitaine Achab y pourchasse la baleine blanche obsessionnellement. Qui est-ce ?", "answer": "Herman Melville", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit061", "question": "Écrivain américain auteur des Aventures de Tom Sawyer et Huckleberry Finn, né Samuel Clemens. Son pseudonyme vient du jargon des pilotes du Mississippi. Qui est-ce ?", "answer": "Mark Twain", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit062", "question": "Romancier français du XIXe siècle, auteur du Comte de Monte-Cristo et des Trois Mousquetaires. D'Artagnan y rejoint Athos, Porthos et Aramis. Qui est-ce ?", "answer": "Alexandre Dumas", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit063", "question": "Romancier français auteur de Vingt mille lieues sous les mers et Le Tour du monde en 80 jours, père de la science-fiction. Le capitaine Nemo commande le Nautilus. Qui est-ce ?", "answer": "Jules Verne", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit064", "question": "Écrivain américain maître de l'horreur contemporain, auteur de Shining, Ça et Carrie. Ses romans ont été adaptés des dizaines de fois au cinéma. Qui est-ce ?", "answer": "Stephen King", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit065", "question": "Romancière américaine auteure de Ne tirez pas sur l'oiseau moqueur, unique roman prix Pulitzer 1961. Atticus Finch y défend un Noir accusé injustement. Qui est-ce ?", "answer": "Harper Lee", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit066", "question": "Écrivain américain auteur de L'Attrape-cœurs, reclus pendant 50 ans après son succès. Holden Caulfield y incarne l'adolescence révoltée. Qui est-ce ?", "answer": "J.D. Salinger", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit067", "question": "Dramaturge américain prix Nobel 1936, auteur de Long voyage vers la nuit. Ses pièces explorent le dysfonctionnement familial américain. Qui est-ce ?", "answer": "Eugene O'Neill", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit068", "question": "Dramaturge américain auteur de Mort d'un commis voyageur et Les Sorcières de Salem. Willy Loman y incarne l'échec du rêve américain. Qui est-ce ?", "answer": "Arthur Miller", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit069", "question": "Dramaturge américain auteur de Un tramway nommé Désir et La Chatte sur un toit brûlant. Blanche DuBois y affronte la brutalité de Stanley. Qui est-ce ?", "answer": "Tennessee Williams", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit070", "question": "Romancière américaine prix Nobel 1993, première femme afro-américaine Nobel, auteure de Beloved. Ses romans explorent l'histoire de l'esclavage. Qui est-ce ?", "answer": "Toni Morrison", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit071", "question": "Écrivain britannique prix Nobel 2017, auteur de Les Vestiges du jour et Auprès de moi toujours. Né au Japon, il explore la mémoire et le regret. Qui est-ce ?", "answer": "Kazuo Ishiguro", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit072", "question": "Écrivain indien britannique auteur des Versets sataniques, condamné à mort par une fatwa de Khomeini en 1989. Les Enfants de minuit a reçu le Booker Prize. Qui est-ce ?", "answer": "Salman Rushdie", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit073", "question": "Écrivain sud-africain prix Nobel 2003, auteur de Disgrâce et En attendant les barbares. Ses romans critiquent l'apartheid et le colonialisme. Qui est-ce ?", "answer": "J.M. Coetzee", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit074", "question": "Écrivain turc prix Nobel 2006, auteur de Neige et Mon nom est Rouge. Ses romans mêlent Orient et Occident à Istanbul. Qui est-ce ?", "answer": "Orhan Pamuk", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit075", "question": "Écrivain péruvien prix Nobel 2010, auteur de La Ville et les Chiens et La Fête au Bouc. Candidat malheureux à la présidence du Pérou en 1990. Qui est-ce ?", "answer": "Mario Vargas Llosa", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit076", "question": "Poète français chef de file du mouvement romantique, auteur des Méditations poétiques en 1820. Le Lac évoque son amour pour Julie Charles. Qui est-ce ?", "answer": "Alphonse de Lamartine", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit077", "question": "Poète et dramaturge romantique français, auteur de Lorenzaccio et Les Caprices de Marianne. Amant de George Sand, il est le 'poète de la jeunesse'. Qui est-ce ?", "answer": "Alfred de Musset", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit078", "question": "Poète romantique français auteur des Destinées et Cinq-Mars. Sa poésie philosophique explore le silence de Dieu. Il est le créateur du poème La Mort du loup. Qui est-ce ?", "answer": "Alfred de Vigny", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit079", "question": "Écrivain français fondateur du surréalisme avec le premier Manifeste en 1924. Nadja est son récit d'une rencontre mystérieuse. Il a théorisé l'écriture automatique. Qui est-ce ?", "answer": "André Breton", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit080", "question": "Poète surréaliste français auteur de Capitale de la douleur, résistant pendant l'Occupation. 'Liberté, j'écris ton nom' est son poème le plus célèbre. Qui est-ce ?", "answer": "Paul Éluard", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit081", "question": "Poète surréaliste français ayant rejoint le Parti communiste, auteur des Yeux d'Elsa. Il a chanté la Résistance et son amour pour Elsa Triolet. Qui est-ce ?", "answer": "Louis Aragon", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit082", "question": "Écrivain français auteur du Hussard sur le toit et de Regain, chantre de la Provence. Ses romans célèbrent la nature et les paysans des Alpes. Qui est-ce ?", "answer": "Jean Giono", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit083", "question": "Romancière française auteure de Bonjour Tristesse à 18 ans, icône des années 50. Ses romans explorent l'ennui et les amours de la bourgeoisie. Qui est-ce ?", "answer": "Françoise Sagan", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit084", "question": "Écrivain français fondateur du Nouveau Roman avec La Jalousie et Les Gommes. Il a théorisé la mort du personnage traditionnel. Qui est-ce ?", "answer": "Alain Robbe-Grillet", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit085", "question": "Romancière française du Nouveau Roman prix Nobel 1985, auteure de L'Amant et Moderato cantabile. Elle a aussi réalisé des films. Qui est-ce ?", "answer": "Marguerite Duras", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit086", "question": "Écrivain français auteur de Voyage au bout de la nuit en 1932, roman au style oral révolutionnaire. Bardamu y traverse la guerre et la misère humaine. Qui est-ce ?", "answer": "Louis-Ferdinand Céline", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit087", "question": "Dessinateur belge créateur de Spirou et Fantasio, du Marsupilami et de Gaston Lagaffe. Son style dynamique a influencé toute la BD franco-belge. Qui est-ce ?", "answer": "André Franquin", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit088", "question": "Auteur de BD français créateur de Blueberry et illustrateur d'Alien pour Ridley Scott. Son western graphique est considéré comme un chef-d'œuvre. Qui est-ce ?", "answer": "Jean Giraud (Mœbius)", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit089", "question": "Auteur de BD français créateur de Valérian et Laureline en 1967, dont s'est inspiré Star Wars. Mézières en était le dessinateur. Qui est-ce ?", "answer": "Pierre Christin", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit090", "question": "Écrivain chinois prix Nobel 2012, auteur de Beaux seins, belles fesses. Il utilise le réalisme magique pour décrire la Chine rurale. Qui est-ce ?", "answer": "Mo Yan", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit091", "question": "Romancier français auteur de Bel-Ami et de contes fantastiques, disciple de Flaubert. Il est devenu fou avant de mourir à 42 ans. Qui est-ce ?", "answer": "Guy de Maupassant", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit092", "question": "Poète grec prix Nobel 1963, diplomate de carrière, auteur de Mythologie. Il a chanté la Méditerranée et la Grèce antique. Qui est-ce ?", "answer": "Giorgos Séféris", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit093", "question": "Écrivain égyptien prix Nobel 1988, auteur de la Trilogie du Caire. Premier arabophone Nobel, il a peint la société égyptienne du XXe siècle. Qui est-ce ?", "answer": "Naguib Mahfouz", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit094", "question": "Écrivain français d'origine libanaise prix Goncourt 1993 pour Le Rocher de Tanios. Ses romans explorent l'identité et le Moyen-Orient. Qui est-ce ?", "answer": "Amin Maalouf", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit095", "question": "Romancier britannique auteur du Meilleur des mondes, dystopie sur une société de consommation et de conditionnement. Le soma y endort les consciences. Qui est-ce ?", "answer": "Aldous Huxley", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit096", "question": "Écrivain tchèque français auteur de L'Insoutenable Légèreté de l'être, exilé après 1968. Il explore la condition humaine entre légèreté et pesanteur. Qui est-ce ?", "answer": "Milan Kundera", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit097", "question": "Écrivain américain d'origine russe, prolifique auteur de science-fiction. Il a formulé les Trois lois de la robotique et écrit le cycle de Fondation et Les Robots. Qui est-ce ?", "answer": "Isaac Asimov", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit098", "question": "Poète chilien prix Nobel 1945, première femme latino-américaine Nobel. Institutrice engagée, ses Sonnets de la mort pleurent son amour suicidé. Qui est-ce ?", "answer": "Gabriela Mistral", "difficulty": "difficile", "category": "Littérature"},
-    {"id": "cg-lit099", "question": "Romancier américain créateur du mythe de Cthulhu, maître de l'horreur cosmique. Ses nouvelles ont inspiré Lovecraft Country et d'innombrables jeux. Qui est-ce ?", "answer": "H.P. Lovecraft", "difficulty": "normal", "category": "Littérature"},
-    {"id": "cg-lit100", "question": "Romancière britannique auteure de Frankenstein en 1818 à 19 ans, considéré comme le premier roman de science-fiction. Victor y crée une créature monstrueuse. Qui est-ce ?", "answer": "Mary Shelley", "difficulty": "normal", "category": "Littérature"}
+    {
+      "id": "cg-lit001",
+      "question": "Écrivain français du XIXe siècle, il est l'auteur des Misérables et de Notre-Dame de Paris. Exilé à Guernesey pendant le Second Empire, il est panthéonisé en 1885. Qui est-ce ?",
+      "answer": "Victor Hugo",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit002",
+      "question": "Auteure britannique créatrice de l'univers Harry Potter, elle est devenue la première auteure milliardaire. Ses 7 romans ont été vendus à plus de 500 millions d'exemplaires. Qui est-ce ?",
+      "answer": "J.K. Rowling",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit003",
+      "question": "Aviateur et écrivain français disparu en mer en 1944, il est l'auteur du Petit Prince, conte philosophique traduit dans 300 langues. Le renard y enseigne que 'l'essentiel est invisible pour les yeux'. Qui est-ce ?",
+      "answer": "Antoine de Saint-Exupéry",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit004",
+      "question": "Professeur d'Oxford et philologue britannique, il a créé l'univers de la Terre du Milieu avec Le Seigneur des Anneaux et Le Hobbit. Ses langues elfiques sont d'une complexité remarquable. Qui est-ce ?",
+      "answer": "J.R.R. Tolkien",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit005",
+      "question": "Dramaturge anglais né à Stratford-upon-Avon en 1564, il a écrit Hamlet, Roméo et Juliette et Macbeth. 'Être ou ne pas être' est sa réplique la plus célèbre. Qui est-ce ?",
+      "answer": "William Shakespeare",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit006",
+      "question": "Auteur britannique de romans policiers, elle a créé les détectives Hercule Poirot et Miss Marple. Avec 2 milliards de livres vendus, elle est l'écrivaine la plus lue après la Bible. Qui est-ce ?",
+      "answer": "Agatha Christie",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit007",
+      "question": "Écrivain britannique auteur de 1984 et La Ferme des animaux, ses œuvres dénoncent le totalitarisme. Le terme 'Big Brother' vient de son roman dystopique. Qui est-ce ?",
+      "answer": "George Orwell",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit008",
+      "question": "Médecin écossais créateur de Sherlock Holmes, il publie la première aventure du détective consultant en 1887. Watson est le narrateur fidèle des enquêtes au 221B Baker Street. Qui est-ce ?",
+      "answer": "Arthur Conan Doyle",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit009",
+      "question": "Écrivain russe auteur de Guerre et Paix et Anna Karénine, ses romans épiques dépeignent la société russe du XIXe siècle. Il meurt dans une gare en 1910 après avoir fui son domicile. Qui est-ce ?",
+      "answer": "Léon Tolstoï",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit010",
+      "question": "Écrivain français du XXe siècle, il est l'auteur d'À la recherche du temps perdu en 7 volumes. L'épisode de la madeleine trempée dans le thé est devenu emblématique de la mémoire involontaire. Qui est-ce ?",
+      "answer": "Marcel Proust",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit011",
+      "question": "Dramaturge français du XVIIe siècle mort sur scène en jouant Le Malade imaginaire, il a créé des comédies comme Tartuffe et L'Avare. La langue française est souvent appelée 'la langue de...' qui ?",
+      "answer": "Molière",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit012",
+      "question": "Romancier français du XIXe siècle, il a écrit 91 romans formant La Comédie humaine, fresques de la société de son époque. Le Père Goriot et Eugénie Grandet figurent parmi ses chefs-d'œuvre. Qui est-ce ?",
+      "answer": "Honoré de Balzac",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit013",
+      "question": "Chef de file du naturalisme, il a écrit les 20 romans des Rougon-Macquart sous le Second Empire. Il s'est rendu dans les mines du Nord pour écrire Germinal. Qui est-ce ?",
+      "answer": "Émile Zola",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit014",
+      "question": "Prix Nobel de littérature 1957 à 44 ans, il a développé la philosophie de l'absurde dans Le Mythe de Sisyphe. L'Étranger est le troisième roman francophone le plus lu au monde. Qui est-ce ?",
+      "answer": "Albert Camus",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit015",
+      "question": "Philosophe existentialiste ayant refusé le prix Nobel en 1964, il a écrit La Nausée et L'Être et le Néant. Sa pièce Huis clos affirme que 'l'enfer, c'est les autres'. Qui est-ce ?",
+      "answer": "Jean-Paul Sartre",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit016",
+      "question": "Romancier français qui a passé 5 ans à écrire Madame Bovary, il fut poursuivi pour outrage à la morale en 1857 mais acquitté. Emma Bovary incarne le bovarysme. Qui est-ce ?",
+      "answer": "Gustave Flaubert",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit017",
+      "question": "Poète français dont le recueil Les Fleurs du Mal fut condamné en 1857, six poèmes en furent retirés. Il a traduit les œuvres d'Edgar Allan Poe. Qui est-ce ?",
+      "answer": "Charles Baudelaire",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit018",
+      "question": "Poète français surnommé 'le voyant', il a écrit Une saison en enfer après une relation tumultueuse avec Verlaine. Il a cessé d'écrire à 20 ans. Qui est-ce ?",
+      "answer": "Arthur Rimbaud",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit019",
+      "question": "Poète symboliste français auteur des Fêtes galantes et de Sagesse, il a tiré sur Rimbaud à Bruxelles en 1873. Il a inventé l'expression 'poètes maudits'. Qui est-ce ?",
+      "answer": "Paul Verlaine",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit020",
+      "question": "Écrivain américain ayant vécu à Cuba, il a reçu le Nobel en 1954 pour Le Vieil Homme et la Mer. Son style elliptique a révolutionné la narration moderne. Qui est-ce ?",
+      "answer": "Ernest Hemingway",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit021",
+      "question": "Écrivain américain surnommé 'le roi de l'âge du jazz', il a dépeint les années folles dans Gatsby le Magnifique. Marié à Zelda, il incarne la Génération perdue. Qui est-ce ?",
+      "answer": "Francis Scott Fitzgerald",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit022",
+      "question": "Écrivain américain inventeur du détective Auguste Dupin, il est le père du roman policier et de l'horreur. Son poème Le Corbeau répète 'Nevermore'. Qui est-ce ?",
+      "answer": "Edgar Allan Poe",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit023",
+      "question": "Romancier anglais de l'ère victorienne, il a dénoncé la misère sociale dans Oliver Twist et David Copperfield. Un Chant de Noël est son œuvre la plus populaire. Qui est-ce ?",
+      "answer": "Charles Dickens",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit024",
+      "question": "Romancière anglaise du XIXe siècle, elle a écrit Orgueil et Préjugés sans mentionner son nom sur la couverture. Elizabeth Bennet y affronte l'orgueil de Mr Darcy. Qui est-ce ?",
+      "answer": "Jane Austen",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit025",
+      "question": "Écrivain irlandais emprisonné pour homosexualité sous l'ère victorienne, il a écrit Le Portrait de Dorian Gray. Sa pièce L'Importance d'être Constant est un chef-d'œuvre d'esprit. Qui est-ce ?",
+      "answer": "Oscar Wilde",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit026",
+      "question": "Écrivain russe condamné à mort puis gracié, envoyé au bagne sibérien, il a écrit Crime et Châtiment et Les Frères Karamazov. Freud le considérait comme un maître psychologue. Qui est-ce ?",
+      "answer": "Fiodor Dostoïevski",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit027",
+      "question": "Écrivain tchèque de langue allemande mort à 40 ans de tuberculose, il a demandé que ses œuvres soient brûlées. Gregor Samsa se transforme en insecte dans La Métamorphose. Qui est-ce ?",
+      "answer": "Franz Kafka",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit028",
+      "question": "Écrivain colombien prix Nobel 1982, il a popularisé le réalisme magique avec Cent ans de solitude. La famille Buendía vit dans le village fictif de Macondo. Qui est-ce ?",
+      "answer": "Gabriel García Márquez",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit029",
+      "question": "Écrivain japonais ancien propriétaire d'un club de jazz, son style mêle réalisme magique et nostalgie. 1Q84 et Kafka sur le rivage sont parmi ses œuvres les plus célèbres. Qui est-ce ?",
+      "answer": "Haruki Murakami",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit030",
+      "question": "Poète chilien prix Nobel 1971, candidat à la présidence en 1970, il est mort 12 jours après le coup d'État de Pinochet. Vingt poèmes d'amour est son recueil le plus célèbre. Qui est-ce ?",
+      "answer": "Pablo Neruda",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit031",
+      "question": "Dessinateur belge créateur de Tintin en 1929, il a développé le style de la 'ligne claire'. Les aventures du reporter se déroulent avec Milou et le capitaine Haddock. Qui est-ce ?",
+      "answer": "Hergé",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit032",
+      "question": "Duo de créateurs d'Astérix en 1959, l'un était scénariste et l'autre dessinateur. Leur Gaulois résistant aux Romains s'est vendu à 370 millions d'exemplaires. Qui sont-ils ?",
+      "answer": "Goscinny et Uderzo",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit033",
+      "question": "Philosophe et féministe française, compagne de Sartre pendant 51 ans, elle a écrit Le Deuxième Sexe en 1949. 'On ne naît pas femme, on le devient' est sa phrase célèbre. Qui est-ce ?",
+      "answer": "Simone de Beauvoir",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit034",
+      "question": "Écrivain français pseudonyme de Marie-Henri Beyle, il a écrit Le Rouge et le Noir inspiré d'un fait divers. Julien Sorel y incarne l'ambition sociale sous la Restauration. Qui est-ce ?",
+      "answer": "Stendhal",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit035",
+      "question": "Écrivain argentin fasciné par les labyrinthes et l'infini, il a imaginé La Bibliothèque de Babel contenant tous les livres possibles. Son recueil Fictions est un classique du fantastique. Qui est-ce ?",
+      "answer": "Jorge Luis Borges",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit036",
+      "question": "Premier lauréat français du prix Nobel de littérature en 1901, il était aussi le tout premier Nobel de littérature décerné. Poète parnassien, il a écrit Stances et Poèmes. Qui est-ce ?",
+      "answer": "Sully Prudhomme",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit037",
+      "question": "Écrivain français prix Nobel 1952, catholique fervent, il a situé ses romans dans les Landes. Thérèse Desqueyroux est son personnage le plus célèbre. Qui est-ce ?",
+      "answer": "François Mauriac",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit038",
+      "question": "Auteur français prix Nobel 2014 pour son exploration de la mémoire et de l'identité, il a écrit une trentaine de romans dont Dora Bruder. Son style est qualifié de 'petite musique'. Qui est-ce ?",
+      "answer": "Patrick Modiano",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit039",
+      "question": "Écrivaine française prix Nobel 2022 pour son œuvre autobiographique, elle a écrit Les Années et La Place. Son style est qualifié d'écriture 'plate' ou 'blanche'. Qui est-ce ?",
+      "answer": "Annie Ernaux",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit040",
+      "question": "Écrivain provençal prix Nobel 1904, il a écrit en occitan et milité pour le régionalisme. Mirèio est son chef-d'œuvre épique célébrant la Provence. Qui est-ce ?",
+      "answer": "Frédéric Mistral",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit041",
+      "question": "Médecin et écrivain russe, maître de la nouvelle et du théâtre. Ses pièces comme La Mouette, Oncle Vania et La Cerisaie peignent avec mélancolie le déclin de l'aristocratie russe. Qui est-ce ?",
+      "answer": "Anton Tchekhov",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit042",
+      "question": "Romancière française du XIXe siècle au pseudonyme masculin, elle a écrit La Mare au diable et La Petite Fadette. Elle est aussi célèbre pour sa vie libre, ses tenues masculines et sa liaison avec Musset et Chopin. Qui est-ce ?",
+      "answer": "George Sand",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit043",
+      "question": "Romancière française, mime et actrice, elle est célèbre pour sa série des Claudine et pour Gigi. Première femme à recevoir des funérailles nationales en France, elle aimait passionnément les chats. Qui est-ce ?",
+      "answer": "Colette",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit044",
+      "question": "Poète français précurseur du surréalisme, il a écrit Alcools et Calligrammes, des poèmes dont la disposition graphique forme un dessin. Blessé à la tête pendant la guerre, il meurt de la grippe espagnole. Qui est-ce ?",
+      "answer": "Guillaume Apollinaire",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit045",
+      "question": "Écrivain américain prix Nobel 1962, il a décrit la Grande Dépression et la misère des ouvriers agricoles dans Les Raisins de la colère et Des Souris et des Hommes. Qui est-ce ?",
+      "answer": "John Steinbeck",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit046",
+      "question": "Écrivain irlandais auteur de Ulysse, roman expérimental se déroulant en une journée à Dublin. Le monologue de Molly Bloom est devenu légendaire. Qui est-ce ?",
+      "answer": "James Joyce",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit047",
+      "question": "Romancière britannique auteure de Mrs Dalloway et La Promenade au phare, pionnière du flux de conscience. Membre du groupe de Bloomsbury, elle souffrait de troubles mentaux. Qui est-ce ?",
+      "answer": "Virginia Woolf",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit048",
+      "question": "Écrivain américain créateur de la saga Yoknapatawpha County dans le Mississippi, prix Nobel 1949. Le Bruit et la Fureur utilise le flux de conscience. Qui est-ce ?",
+      "answer": "William Faulkner",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit049",
+      "question": "Poète et dramaturge espagnol fusillé par les franquistes en 1936, il a écrit Noces de sang et La Maison de Bernarda Alba. Le Romancero gitano célèbre l'Andalousie. Qui est-ce ?",
+      "answer": "Federico García Lorca",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit050",
+      "question": "Écrivain russe prix Nobel 1958 contraint de refuser le prix, il a écrit Le Docteur Jivago sur la révolution russe. Le roman fut d'abord publié en Italie. Qui est-ce ?",
+      "answer": "Boris Pasternak",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit051",
+      "question": "Écrivain russe dissident expulsé d'URSS en 1974, prix Nobel 1970, il a dénoncé le Goulag. L'Archipel du Goulag a révélé l'horreur des camps soviétiques. Qui est-ce ?",
+      "answer": "Alexandre Soljenitsyne",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit052",
+      "question": "Dramaturge irlandais prix Nobel 1969, fondateur du théâtre de l'absurde avec En attendant Godot. Vladimir et Estragon attendent indéfiniment. Qui est-ce ?",
+      "answer": "Samuel Beckett",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit053",
+      "question": "Dramaturge français d'origine roumaine, figure de l'absurde avec Ionesco. La Cantatrice chauve et Rhinocéros dénoncent le conformisme. Qui est-ce ?",
+      "answer": "Eugène Ionesco",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit054",
+      "question": "Écrivain italien auteur du Nom de la rose, inspiré par Borges. Sémioticien de renom, il a théorisé l'œuvre ouverte. Le moine Guillaume de Baskerville y enquête. Qui est-ce ?",
+      "answer": "Umberto Eco",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit055",
+      "question": "Écrivain portugais prix Nobel 1998, auteur de L'Aveuglement et Le Dieu manchot. Athée convaincu, il a exploré l'histoire du Portugal. Qui est-ce ?",
+      "answer": "José Saramago",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit056",
+      "question": "Romancière britannique auteure de Jane Eyre, elle a publié sous le pseudonyme masculin Currer Bell. Ses sœurs Emily et Anne étaient aussi écrivaines. Qui est-ce ?",
+      "answer": "Charlotte Brontë",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit057",
+      "question": "Romancière anglaise auteure des Hauts de Hurlevent, unique roman passionné entre Catherine et Heathcliff. Sœur de Charlotte, elle est morte à 30 ans. Qui est-ce ?",
+      "answer": "Emily Brontë",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit058",
+      "question": "Poète américain leader de la Beat Generation, auteur de Howl qui a fait scandale en 1956. Il a influencé la contre-culture des années 60. Qui est-ce ?",
+      "answer": "Allen Ginsberg",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit059",
+      "question": "Écrivain américain de la Beat Generation, auteur de Sur la route écrit en trois semaines sur un rouleau de papier. Dean Moriarty y incarne la liberté. Qui est-ce ?",
+      "answer": "Jack Kerouac",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit060",
+      "question": "Écrivain américain créateur de Moby Dick, chef-d'œuvre incompris de son vivant. Le capitaine Achab y pourchasse la baleine blanche obsessionnellement. Qui est-ce ?",
+      "answer": "Herman Melville",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit061",
+      "question": "Écrivain américain auteur des Aventures de Tom Sawyer et Huckleberry Finn, né Samuel Clemens. Son pseudonyme vient du jargon des pilotes du Mississippi. Qui est-ce ?",
+      "answer": "Mark Twain",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit062",
+      "question": "Romancier français du XIXe siècle, auteur du Comte de Monte-Cristo et des Trois Mousquetaires. D'Artagnan y rejoint Athos, Porthos et Aramis. Qui est-ce ?",
+      "answer": "Alexandre Dumas",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit063",
+      "question": "Romancier français auteur de Vingt mille lieues sous les mers et Le Tour du monde en 80 jours, père de la science-fiction. Le capitaine Nemo commande le Nautilus. Qui est-ce ?",
+      "answer": "Jules Verne",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit064",
+      "question": "Écrivain américain maître de l'horreur contemporain, auteur de Shining, Ça et Carrie. Ses romans ont été adaptés des dizaines de fois au cinéma. Qui est-ce ?",
+      "answer": "Stephen King",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit065",
+      "question": "Romancière américaine auteure de Ne tirez pas sur l'oiseau moqueur, unique roman prix Pulitzer 1961. Atticus Finch y défend un Noir accusé injustement. Qui est-ce ?",
+      "answer": "Harper Lee",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit066",
+      "question": "Écrivain américain auteur de L'Attrape-cœurs, reclus pendant 50 ans après son succès. Holden Caulfield y incarne l'adolescence révoltée. Qui est-ce ?",
+      "answer": "J.D. Salinger",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit067",
+      "question": "Dramaturge américain prix Nobel 1936, auteur de Long voyage vers la nuit. Ses pièces explorent le dysfonctionnement familial américain. Qui est-ce ?",
+      "answer": "Eugene O'Neill",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit068",
+      "question": "Dramaturge américain auteur de Mort d'un commis voyageur et Les Sorcières de Salem. Willy Loman y incarne l'échec du rêve américain. Qui est-ce ?",
+      "answer": "Arthur Miller",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit069",
+      "question": "Dramaturge américain auteur de Un tramway nommé Désir et La Chatte sur un toit brûlant. Blanche DuBois y affronte la brutalité de Stanley. Qui est-ce ?",
+      "answer": "Tennessee Williams",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit070",
+      "question": "Romancière américaine prix Nobel 1993, première femme afro-américaine Nobel, auteure de Beloved. Ses romans explorent l'histoire de l'esclavage. Qui est-ce ?",
+      "answer": "Toni Morrison",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit071",
+      "question": "Écrivain britannique prix Nobel 2017, auteur de Les Vestiges du jour et Auprès de moi toujours. Né au Japon, il explore la mémoire et le regret. Qui est-ce ?",
+      "answer": "Kazuo Ishiguro",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit072",
+      "question": "Écrivain indien britannique auteur des Versets sataniques, condamné à mort par une fatwa de Khomeini en 1989. Les Enfants de minuit a reçu le Booker Prize. Qui est-ce ?",
+      "answer": "Salman Rushdie",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit073",
+      "question": "Écrivain sud-africain prix Nobel 2003, auteur de Disgrâce et En attendant les barbares. Ses romans critiquent l'apartheid et le colonialisme. Qui est-ce ?",
+      "answer": "J.M. Coetzee",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit074",
+      "question": "Écrivain turc prix Nobel 2006, auteur de Neige et Mon nom est Rouge. Ses romans mêlent Orient et Occident à Istanbul. Qui est-ce ?",
+      "answer": "Orhan Pamuk",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit075",
+      "question": "Écrivain péruvien prix Nobel 2010, auteur de La Ville et les Chiens et La Fête au Bouc. Candidat malheureux à la présidence du Pérou en 1990. Qui est-ce ?",
+      "answer": "Mario Vargas Llosa",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit076",
+      "question": "Poète français chef de file du mouvement romantique, auteur des Méditations poétiques en 1820. Le Lac évoque son amour pour Julie Charles. Qui est-ce ?",
+      "answer": "Alphonse de Lamartine",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit077",
+      "question": "Poète et dramaturge romantique français, auteur de Lorenzaccio et Les Caprices de Marianne. Amant de George Sand, il est le 'poète de la jeunesse'. Qui est-ce ?",
+      "answer": "Alfred de Musset",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit078",
+      "question": "Poète romantique français auteur des Destinées et Cinq-Mars. Sa poésie philosophique explore le silence de Dieu. Il est le créateur du poème La Mort du loup. Qui est-ce ?",
+      "answer": "Alfred de Vigny",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit079",
+      "question": "Écrivain français fondateur du surréalisme avec le premier Manifeste en 1924. Nadja est son récit d'une rencontre mystérieuse. Il a théorisé l'écriture automatique. Qui est-ce ?",
+      "answer": "André Breton",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit080",
+      "question": "Poète surréaliste français auteur de Capitale de la douleur, résistant pendant l'Occupation. 'Liberté, j'écris ton nom' est son poème le plus célèbre. Qui est-ce ?",
+      "answer": "Paul Éluard",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit081",
+      "question": "Poète surréaliste français ayant rejoint le Parti communiste, auteur des Yeux d'Elsa. Il a chanté la Résistance et son amour pour Elsa Triolet. Qui est-ce ?",
+      "answer": "Louis Aragon",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit082",
+      "question": "Écrivain français auteur du Hussard sur le toit et de Regain, chantre de la Provence. Ses romans célèbrent la nature et les paysans des Alpes. Qui est-ce ?",
+      "answer": "Jean Giono",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit083",
+      "question": "Romancière française auteure de Bonjour Tristesse à 18 ans, icône des années 50. Ses romans explorent l'ennui et les amours de la bourgeoisie. Qui est-ce ?",
+      "answer": "Françoise Sagan",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit084",
+      "question": "Écrivain français fondateur du Nouveau Roman avec La Jalousie et Les Gommes. Il a théorisé la mort du personnage traditionnel. Qui est-ce ?",
+      "answer": "Alain Robbe-Grillet",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit085",
+      "question": "Romancière française du Nouveau Roman prix Nobel 1985, auteure de L'Amant et Moderato cantabile. Elle a aussi réalisé des films. Qui est-ce ?",
+      "answer": "Marguerite Duras",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit086",
+      "question": "Écrivain français auteur de Voyage au bout de la nuit en 1932, roman au style oral révolutionnaire. Bardamu y traverse la guerre et la misère humaine. Qui est-ce ?",
+      "answer": "Louis-Ferdinand Céline",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit087",
+      "question": "Dessinateur belge créateur de Spirou et Fantasio, du Marsupilami et de Gaston Lagaffe. Son style dynamique a influencé toute la BD franco-belge. Qui est-ce ?",
+      "answer": "André Franquin",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit088",
+      "question": "Auteur de BD français créateur de Blueberry et illustrateur d'Alien pour Ridley Scott. Son western graphique est considéré comme un chef-d'œuvre. Qui est-ce ?",
+      "answer": "Jean Giraud (Mœbius)",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit089",
+      "question": "Auteur de BD français créateur de Valérian et Laureline en 1967, dont s'est inspiré Star Wars. Mézières en était le dessinateur. Qui est-ce ?",
+      "answer": "Pierre Christin",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit090",
+      "question": "Écrivain chinois prix Nobel 2012, auteur de Beaux seins, belles fesses. Il utilise le réalisme magique pour décrire la Chine rurale. Qui est-ce ?",
+      "answer": "Mo Yan",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit091",
+      "question": "Romancier français auteur de Bel-Ami et de contes fantastiques, disciple de Flaubert. Il est devenu fou avant de mourir à 42 ans. Qui est-ce ?",
+      "answer": "Guy de Maupassant",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit092",
+      "question": "Poète grec prix Nobel 1963, diplomate de carrière, auteur de Mythologie. Il a chanté la Méditerranée et la Grèce antique. Qui est-ce ?",
+      "answer": "Giorgos Séféris",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit093",
+      "question": "Écrivain égyptien prix Nobel 1988, auteur de la Trilogie du Caire. Premier arabophone Nobel, il a peint la société égyptienne du XXe siècle. Qui est-ce ?",
+      "answer": "Naguib Mahfouz",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit094",
+      "question": "Écrivain français d'origine libanaise prix Goncourt 1993 pour Le Rocher de Tanios. Ses romans explorent l'identité et le Moyen-Orient. Qui est-ce ?",
+      "answer": "Amin Maalouf",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit095",
+      "question": "Romancier britannique auteur du Meilleur des mondes, dystopie sur une société de consommation et de conditionnement. Le soma y endort les consciences. Qui est-ce ?",
+      "answer": "Aldous Huxley",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit096",
+      "question": "Écrivain tchèque français auteur de L'Insoutenable Légèreté de l'être, exilé après 1968. Il explore la condition humaine entre légèreté et pesanteur. Qui est-ce ?",
+      "answer": "Milan Kundera",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit097",
+      "question": "Écrivain américain d'origine russe, prolifique auteur de science-fiction. Il a formulé les Trois lois de la robotique et écrit le cycle de Fondation et Les Robots. Qui est-ce ?",
+      "answer": "Isaac Asimov",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit098",
+      "question": "Poète chilien prix Nobel 1945, première femme latino-américaine Nobel. Institutrice engagée, ses Sonnets de la mort pleurent son amour suicidé. Qui est-ce ?",
+      "answer": "Gabriela Mistral",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit099",
+      "question": "Romancier américain créateur du mythe de Cthulhu, maître de l'horreur cosmique. Ses nouvelles ont inspiré Lovecraft Country et d'innombrables jeux. Qui est-ce ?",
+      "answer": "H.P. Lovecraft",
+      "category": "Littérature"
+    },
+    {
+      "id": "cg-lit100",
+      "question": "Romancière britannique auteure de Frankenstein en 1818 à 19 ans, considéré comme le premier roman de science-fiction. Victor y crée une créature monstrueuse. Qui est-ce ?",
+      "answer": "Mary Shelley",
+      "category": "Littérature"
+    }
   ]
 }
