@@ -7,805 +7,690 @@
       "id": "pkm001",
       "question": "Ce petit rongeur électrique au pelage jaune et aux joues rouges est devenu la mascotte mondiale de la franchise. Il refuse de rentrer dans sa Poké Ball et accompagne son dresseur depuis le tout premier épisode de l'anime. Quel est ce Pokémon ?",
       "answer": "Pikachu",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm002",
       "question": "Ce dragon cracheur de feu est la dernière évolution du starter Feu de la région de Kanto. Avec ses ailes déployées et sa flamme au bout de la queue, il est l'un des Pokémon les plus emblématiques de la première génération. Quel est ce Pokémon ?",
       "answer": "Dracaufeu (Charizard)",
-      "difficulty": "normal",
       "category": "Évolutions"
     },
     {
       "id": "pkm003",
       "question": "Ce Pokémon légendaire de type Psy a été créé artificiellement à partir de l'ADN d'un autre Pokémon fabuleux. Considéré comme l'un des plus puissants de la première génération, il est le boss final de la Caverne Azurée. Quel est ce Pokémon ?",
       "answer": "Mewtwo",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm004",
       "question": "Ce dresseur originaire de Bourg Palette a reçu son premier Pokémon en retard du Professeur Chen. Il a parcouru toutes les régions du monde et a finalement remporté le titre de Maître dans l'anime après plus de 25 ans d'aventures. Qui est-ce ?",
       "answer": "Sacha (Ash Ketchum)",
-      "difficulty": "normal",
       "category": "Anime"
     },
     {
       "id": "pkm005",
       "question": "Lancé le 6 juillet 2016, ce jeu mobile en réalité augmentée développé par Niantic a provoqué un phénomène culturel mondial. En un mois, il avait généré 160 millions de dollars et dépassé Twitter en utilisateurs quotidiens. Quel est ce jeu ?",
       "answer": "Pokémon GO",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "pkm006",
       "question": "Ce Pokémon de type Normal est célèbre pour son appétit insatiable et sa tendance à bloquer les routes en dormant. Dans les jeux, il faut utiliser une Poké Flûte pour le réveiller et pouvoir passer. Quel est ce Pokémon ?",
       "answer": "Ronflex (Snorlax)",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm007",
       "question": "Ce Pokémon rose de type Normal peut se transformer en n'importe quel autre Pokémon en copiant son apparence et ses capacités. Il est très recherché par les éleveurs pour la reproduction. Quel est ce Pokémon ?",
       "answer": "Métamorph (Ditto)",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm008",
       "question": "Ce Pokémon de type Eau est considéré comme le plus faible de tous : il ne connaît que Trempette, une attaque totalement inutile. Pourtant, au niveau 20, il évolue en un redoutable serpent de mer. Quel est ce Pokémon pathétique ?",
       "answer": "Magicarpe (Magikarp)",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm009",
       "question": "Ce trio de criminels récurrents de l'anime tente sans relâche de voler le Pikachu du héros. Composé d'une femme aux cheveux rouges, d'un homme aux cheveux violets et d'un chat parlant, ils se présentent toujours avec leur devise. Quelle est cette équipe ?",
       "answer": "La Team Rocket (Jessie, James et Miaouss)",
-      "difficulty": "normal",
       "category": "Anime"
     },
     {
       "id": "pkm010",
       "question": "Ce Pokémon fabuleux de la première génération serait l'ancêtre de tous les Pokémon. Extrêmement rare, il possède l'ADN de toutes les espèces et peut apprendre n'importe quelle capacité. Quel est ce Pokémon ?",
       "answer": "Mew",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm011",
       "question": "Ce Pokémon de type Normal possède la particularité unique de pouvoir évoluer en 8 formes différentes selon les conditions : pierre d'évolution, bonheur, ou proximité d'un lieu spécial. Quel est ce Pokémon aux multiples évolutions ?",
       "answer": "Évoli (Eevee)",
-      "difficulty": "normal",
       "category": "Évolutions"
     },
     {
       "id": "pkm012",
       "question": "Cette massive tortue bleue équipée de deux canons à eau sur sa carapace est l'évolution finale du starter Eau de Kanto. Elle peut projeter des jets d'eau assez puissants pour percer l'acier. Quel est ce Pokémon ?",
       "answer": "Tortank (Blastoise)",
-      "difficulty": "normal",
       "category": "Évolutions"
     },
     {
       "id": "pkm013",
       "question": "Ce Pokémon de type Plante et Poison porte une énorme fleur sur son dos qui s'est développée à partir d'une graine plantée à la naissance. C'est l'évolution finale du tout premier Pokémon du Pokédex national. Quel est ce Pokémon ?",
       "answer": "Florizarre (Venusaur)",
-      "difficulty": "normal",
       "category": "Évolutions"
     },
     {
       "id": "pkm014",
       "question": "Inspirée de la région du Kantō au Japon, cette toute première région explorée dans les jeux vidéo abrite le Professeur Chen, le Bourg Palette et la Ligue Indigo. Quelle est cette région ?",
       "answer": "Kanto",
-      "difficulty": "normal",
       "category": "Régions"
     },
     {
       "id": "pkm015",
       "question": "Ce scientifique est le tout premier Professeur rencontré dans la franchise. Basé à Bourg Palette, il confie aux jeunes dresseurs leur premier Pokémon et leur Pokédex. Son nom est inspiré d'un arbre. Qui est-ce ?",
       "answer": "Professeur Chen (Professor Oak)",
-      "difficulty": "normal",
       "category": "Dresseurs"
     },
     {
       "id": "pkm016",
       "question": "Ces trois oiseaux légendaires de Kanto représentent respectivement la glace, la foudre et le feu. Ils nichent dans les Îles Écume, la Centrale et la Route Victoire. Artikodin, Électhor et Sulfura forment quel trio célèbre ?",
       "answer": "Les Oiseaux Légendaires de Kanto",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm017",
       "question": "Ce champion d'arène est le premier adversaire des dresseurs dans les jeux Kanto. Spécialiste du type Roche, il utilise notamment un Racaillou et un Onix dans son arène d'Argenta. Qui est ce champion ?",
       "answer": "Pierre (Brock)",
-      "difficulty": "normal",
       "category": "Dresseurs"
     },
     {
       "id": "pkm018",
       "question": "Cette championne d'arène de type Eau dirige l'arène d'Azuria. Dans l'anime, elle devient la première compagne de voyage du héros et rêve de devenir la plus grande dresseuse de Pokémon Eau. Qui est-elle ?",
       "answer": "Ondine (Misty)",
-      "difficulty": "normal",
       "category": "Dresseurs"
     },
     {
       "id": "pkm019",
       "question": "Ce Pokémon fantôme de la première génération est connu pour son sourire malicieux et sa capacité à traverser les murs. Évolution de Spectrum par échange, il a obtenu une Méga-Évolution en sixième génération. Quel est ce Pokémon ?",
       "answer": "Ectoplasma (Gengar)",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm020",
       "question": "Ce Pokémon Dragon de type Dragon et Vol est l'évolution finale de Minidraco. Malgré son apparence bonhomme et ronde, il est extrêmement puissant et peut voler à une vitesse supersonique. Quel est ce Pokémon ?",
       "answer": "Dracolosse (Dragonite)",
-      "difficulty": "normal",
       "category": "Évolutions"
     },
     {
       "id": "pkm021",
       "question": "Cette région inspirée de la zone du Kansai au Japon a été introduite dans les jeux Or et Argent. Elle abrite la Tour Cendrée, les ruines d'Alpha et trois bêtes légendaires qui parcourent ses routes. Quelle est cette région ?",
       "answer": "Johto",
-      "difficulty": "normal",
       "category": "Régions"
     },
     {
       "id": "pkm022",
       "question": "Ce trio de bêtes légendaires de Johto parcourt les routes sans relâche depuis l'incendie de la Tour Cendrée. Ressuscités par un oiseau arc-en-ciel, ils représentent la foudre, le feu et le vent du nord. Quel Pokémon représente la foudre dans ce trio ?",
       "answer": "Raikou",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm023",
       "question": "Ce gardien des mers de type Psy et Vol réside au fond des océans dans les Îles Tourbillon. Présenté comme le trio master des oiseaux légendaires de Kanto, il est la mascotte de Pokémon Argent. Quel est ce Pokémon ?",
       "answer": "Lugia",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm024",
       "question": "Cet oiseau arc-en-ciel de type Feu et Vol vit au sommet de la Tour Ferraille à Johto. Selon la légende, il a ressuscité trois Pokémon morts dans l'incendie de la Tour Cendrée. Il est la mascotte de Pokémon Or. Quel est ce Pokémon ?",
       "answer": "Ho-Oh",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm025",
       "question": "Ce starter de type Feu de Johto est une petite souris aux flammes sur le dos. Son évolution finale, un blaireau volcanique, est l'un des starters les plus appréciés des fans. Quel est ce Pokémon de départ ?",
       "answer": "Héricendre (Cyndaquil)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm026",
       "question": "Ce Pokémon fabuleux de type Psy et Plante peut voyager dans le temps. Gardien de la forêt de Bois-aux-Chênes à Johto, il apparaît dans le deuxième film. Quel est ce Pokémon ?",
       "answer": "Celebi",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm027",
       "question": "Ce Pokémon de type Eau ressemble à un élégant chien et fait partie du trio des bêtes légendaires de Johto. Associé au vent du nord et à la pureté de l'eau, il est la mascotte de Pokémon Cristal. Quel est ce Pokémon ?",
       "answer": "Suicune",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm028",
       "question": "Inspirée de l'île de Kyūshū au Japon, cette région tropicale de la troisième génération est marquée par le conflit entre la terre et la mer. Elle abrite le Mont Chimnée et la Grotte Originelle. Quelle est cette région ?",
       "answer": "Hoenn",
-      "difficulty": "normal",
       "category": "Régions"
     },
     {
       "id": "pkm029",
       "question": "Ce Pokémon Dragon et Vol de type légendaire vit dans la couche d'ozone et veille sur l'équilibre entre la terre et la mer à Hoenn. Sa Méga-Évolution ne nécessite aucune Méga-Gemme. Quel est ce Pokémon ?",
       "answer": "Rayquaza",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm030",
       "question": "Ce Pokémon de type Sol est un continent vivant qui peut provoquer des éruptions volcaniques et agrandir les terres. Il est la mascotte de Pokémon Rubis et le rival éternel de la créature des océans. Quel est ce Pokémon ?",
       "answer": "Groudon",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm031",
       "question": "Ce Pokémon de type Eau est un léviathan qui peut provoquer des tempêtes et élever le niveau des mers. Mascotte de Pokémon Saphir, il est en conflit permanent avec la créature des continents. Quel est ce Pokémon ?",
       "answer": "Kyogre",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm032",
       "question": "Ce starter de type Feu de Hoenn est un petit poussin qui évolue en un puissant combattant martial bipède. Son évolution finale est de type Feu et Combat, et fut le premier Pokémon à recevoir une Méga-Évolution. Quel est ce Pokémon de départ ?",
       "answer": "Poussifeu (Torchic)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm033",
       "question": "Ce gecko de type Plante est le starter Plante de la région de Hoenn. Rapide et agile, il évolue en un reptile élancé capable de trancher le vent avec les feuilles de ses bras. Quel est ce Pokémon de départ ?",
       "answer": "Arcko (Treecko)",
-      "difficulty": "difficile",
       "category": "Starters"
     },
     {
       "id": "pkm034",
       "question": "Inspirée de l'île d'Hokkaidō au Japon, cette région froide de la quatrième génération est connue pour le Mont Couronné en son centre et ses lacs abritant des Pokémon légendaires. Quelle est cette région ?",
       "answer": "Sinnoh",
-      "difficulty": "normal",
       "category": "Régions"
     },
     {
       "id": "pkm035",
       "question": "Ce Pokémon légendaire de type Acier et Dragon contrôle le temps lui-même. Mascotte de Pokémon Diamant, il réside au Sommet du Mont Couronné dans la région de Sinnoh. Quel est ce Pokémon ?",
       "answer": "Dialga",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm036",
       "question": "Ce Pokémon légendaire de type Eau et Dragon contrôle l'espace et les dimensions. Mascotte de Pokémon Perle, il forme un duo cosmique avec le maître du temps à Sinnoh. Quel est ce Pokémon ?",
       "answer": "Palkia",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm037",
       "question": "Banni dans le Monde Distorsion pour sa violence, ce Pokémon de type Spectre et Dragon représente l'antimatière. Il apparaît comme antagoniste principal dans Pokémon Platine. Quel est ce Pokémon ?",
       "answer": "Giratina",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm038",
       "question": "Ce Pokémon fabuleux de type Normal est considéré comme le créateur de l'univers Pokémon tout entier. Selon la mythologie de Sinnoh, il est né d'un œuf dans le néant originel et a façonné le temps, l'espace et l'antimatière. Quel est ce Pokémon ?",
       "answer": "Arceus",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm039",
       "question": "Cette Maître de la Ligue de Sinnoh est considérée comme l'une des dresseuses les plus puissantes de la franchise. Reconnaissable à ses longs cheveux blonds et son manteau noir, son Pokémon signature est un Carchacrok. Qui est-elle ?",
       "answer": "Cynthia",
-      "difficulty": "normal",
       "category": "Dresseurs"
     },
     {
       "id": "pkm040",
       "question": "Ce petit pingouin de type Eau est le starter Eau de la région de Sinnoh. Fier et orgueilleux, il évolue en un majestueux empereur des mers de type Eau et Acier. Quel est ce Pokémon de départ ?",
       "answer": "Tiplouf (Piplup)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm041",
       "question": "Ce Pokémon de type Combat et Acier est capable de percevoir et contrôler l'Aura, une énergie invisible qui émane de tout être vivant. Très populaire, il a été mis en avant dans un film et dans Super Smash Bros. Quel est ce Pokémon ?",
       "answer": "Lucario",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm042",
       "question": "Inspirée des États-Unis et plus particulièrement de New York, cette région de la cinquième génération se distingue par ses 156 nouveaux Pokémon exclusifs au lancement. C'est la première région non inspirée du Japon. Quelle est cette région ?",
       "answer": "Unys (Unova)",
-      "difficulty": "normal",
       "category": "Régions"
     },
     {
       "id": "pkm043",
       "question": "Ce Pokémon légendaire de type Dragon et Feu représente la vérité dans la mythologie d'Unys. Entièrement blanc, il est la mascotte de Pokémon Noir et forme un duo avec son opposé bleu et électrique. Quel est ce Pokémon ?",
       "answer": "Reshiram",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm044",
       "question": "Ce Pokémon légendaire de type Dragon et Électrik représente l'idéal dans la mythologie d'Unys. Entièrement noir, il est la mascotte de Pokémon Blanc et s'oppose au dragon de la vérité. Quel est ce Pokémon ?",
       "answer": "Zekrom",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm045",
       "question": "Ce starter de type Eau de la cinquième génération est une petite loutre qui combat avec le coquillage sur son ventre. Originaire d'Unys, il a aussi été proposé comme starter dans Légendes Pokémon Arceus. Quel est ce Pokémon de départ ?",
       "answer": "Moustillon (Oshawott)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm046",
       "question": "Inspirée de la France et plus particulièrement de Paris, cette région de la sixième génération a introduit le type Fée et les Méga-Évolutions. La Tour Prismatique trône en son centre. Quelle est cette région ?",
       "answer": "Kalos",
-      "difficulty": "normal",
       "category": "Régions"
     },
     {
       "id": "pkm047",
       "question": "Ce mécanisme introduit dans Pokémon X et Y permet à certains Pokémon d'accéder temporairement à une forme plus puissante en combat grâce à une gemme spéciale. Ce phénomène a été étudié par le Professeur Platane. De quoi s'agit-il ?",
       "answer": "La Méga-Évolution",
-      "difficulty": "normal",
       "category": "Combats"
     },
     {
       "id": "pkm048",
       "question": "Ce starter de type Eau de Kalos est une petite grenouille qui évolue en un ninja aquatique extrêmement populaire. Son évolution finale a été élue Pokémon de l'année en 2020 et possède une forme spéciale liée au héros de l'anime. Quel est ce Pokémon de départ ?",
       "answer": "Grenousse (Froakie)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm049",
       "question": "Ce Pokémon légendaire de type Fée ressemble à un cerf majestueux aux bois multicolores en forme de X. Mascotte de Pokémon X, il représente la vie et peut la donner éternellement. Quel est ce Pokémon ?",
       "answer": "Xerneas",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm050",
       "question": "Ce 18ème type a été introduit dans la sixième génération pour contrebalancer la puissance du type Dragon. Des Pokémon comme Gardevoir et Rondoudou ont été reclassés pour l'inclure. Quel est ce type ?",
       "answer": "Le type Fée",
-      "difficulty": "normal",
       "category": "Types"
     },
     {
       "id": "pkm051",
       "question": "Cet archipel tropical inspiré d'Hawaï a été introduit dans la septième génération. À la place des arènes traditionnelles, les dresseurs y affrontent des Épreuves et des Pokémon Dominants. Quelle est cette région ?",
       "answer": "Alola",
-      "difficulty": "normal",
       "category": "Régions"
     },
     {
       "id": "pkm052",
       "question": "Ce starter de type Feu d'Alola est un petit chat noir et rouge qui évolue en un imposant catcheur félin de type Feu et Ténèbres. Son évolution finale apparaît dans Super Smash Bros. Ultimate. Quel est ce Pokémon de départ ?",
       "answer": "Flamiaou (Litten)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm053",
       "question": "Inspirée de l'Angleterre, cette région de la huitième génération a introduit le phénomène Dynamax et les Terres Sauvages en monde ouvert. Les matchs d'arène s'y déroulent dans de véritables stades. Quelle est cette région ?",
       "answer": "Galar",
-      "difficulty": "normal",
       "category": "Régions"
     },
     {
       "id": "pkm054",
       "question": "Ce mécanisme de combat introduit dans Pokémon Épée et Bouclier permet aux Pokémon de devenir géants pendant trois tours. Exclusif à la région de Galar, il remplace les Méga-Évolutions et les Capacités Z. De quoi s'agit-il ?",
       "answer": "Le Dynamax",
-      "difficulty": "normal",
       "category": "Combats"
     },
     {
       "id": "pkm055",
       "question": "Ce starter de type Feu de Galar est un lapin énergique qui adore courir. Son évolution finale, un attaquant de type Feu, est inspiré d'un footballeur professionnel, en référence à la culture sportive anglaise. Quel est ce Pokémon de départ ?",
       "answer": "Flambino (Scorbunny)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm056",
       "question": "Ce Pokémon légendaire de type Fée et Acier brandit une épée dans sa gueule et est la mascotte de Pokémon Épée. Protecteur de Galar aux côtés de son partenaire au bouclier, il prend une forme spéciale grâce aux Herbes du Changement. Quel est ce Pokémon ?",
       "answer": "Zacian",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm057",
       "question": "Inspirée de la péninsule Ibérique, cette région de la neuvième génération propose un monde totalement ouvert pour la première fois. Les trois scénarios peuvent y être menés en parallèle. Quelle est cette région ?",
       "answer": "Paldea",
-      "difficulty": "normal",
       "category": "Régions"
     },
     {
       "id": "pkm058",
       "question": "Ce mécanisme de combat introduit dans Pokémon Écarlate et Violet transforme les Pokémon en cristal et peut changer leur type. Chaque Pokémon possède un Téra-type qui peut différer de son type habituel. De quoi s'agit-il ?",
       "answer": "La Téracristallisation",
-      "difficulty": "normal",
       "category": "Combats"
     },
     {
       "id": "pkm059",
       "question": "Ce Pokémon légendaire de type Combat et Dragon ressemble à une moto ancienne et peut transporter le joueur sur terre, sur mer et dans les airs. Mascotte de Pokémon Écarlate, il viendrait du passé lointain. Quel est ce Pokémon ?",
       "answer": "Koraidon",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm060",
       "question": "Ce Pokémon légendaire de type Électrik et Dragon ressemble à une moto futuriste et sert de monture au joueur dans Pokémon Violet. Contrairement à son homologue du passé, il viendrait du futur. Quel est ce Pokémon ?",
       "answer": "Miraidon",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm061",
       "question": "Ce starter de type Plante de Paldea est un chaton végétal qui évolue en un élégant magicien de type Plante et Ténèbres. Son design final s'inspire d'un prestidigitateur masqué. Quel est ce Pokémon de départ ?",
       "answer": "Poussacha (Sprigatito)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm062",
       "question": "Ce starter de type Feu de Paldea est un petit crocodile pimenté qui adore manger. Son évolution finale, de type Feu et Spectre, est un imposant chanteur de flamenco inspiré de la culture espagnole. Quel est ce Pokémon de départ ?",
       "answer": "Chochodile (Fuecoco)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm063",
       "question": "Ce Pokémon de type Eau et Vol ressemble à un plongeur de transport marin au long cou. Dans les premiers jeux, il était offert dans la Tour Pokémon de Lavanville et servait de moyen de locomotion sur l'eau. Quel est ce Pokémon ?",
       "answer": "Lokhlass (Lapras)",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm064",
       "question": "Ce serpent de mer de type Eau et Vol est l'évolution du Pokémon le plus faible. Sa transformation est l'une des plus spectaculaires de la franchise : d'un poisson inutile à un monstre destructeur. Quel est ce Pokémon ?",
       "answer": "Léviator (Gyarados)",
-      "difficulty": "normal",
       "category": "Évolutions"
     },
     {
       "id": "pkm065",
       "question": "Ce Pokémon de type Feu est un renard à six queues de la première génération. Il évolue grâce à une Pierre Feu en un majestueux renard à neuf queues doté de pouvoirs mystiques. Quel est ce Pokémon ?",
       "answer": "Goupix (Vulpix)",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm066",
       "question": "Ce Pokémon de type Feu est un grand chien légendaire de la première génération, reconnu comme l'un des plus majestueux. Classé comme Pokémon Légendaire dans le Pokédex, il évolue de Caninos grâce à une Pierre Feu. Quel est ce Pokémon ?",
       "answer": "Arcanin (Arcanine)",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm067",
       "question": "Ce Pokémon Psy et Fée de la troisième génération protège son dresseur au péril de sa vie en créant des trous noirs miniatures. Élégant et gracieux, il a reçu une Méga-Évolution en sixième génération. Quel est ce Pokémon ?",
       "answer": "Gardevoir",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm068",
       "question": "Tous les professeurs Pokémon des jeux principaux portent des noms inspirés d'une même catégorie de végétaux. Chen, Orme, Seko, Sorbier, Platane, Euphorbe et Magnolia suivent cette règle. Quelle est cette catégorie ?",
       "answer": "Les arbres",
-      "difficulty": "normal",
       "category": "Dresseurs"
     },
     {
       "id": "pkm069",
       "question": "Ce Pokémon fabuleux de type Acier et Psy dort pendant mille ans et se réveille sept jours pour exaucer les vœux inscrits sur les papiers posés sur sa tête. Il est le Pokémon fabuleux de la troisième génération. Quel est ce Pokémon ?",
       "answer": "Jirachi",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm070",
       "question": "Ce Pokémon extraterrestre de type Psy peut changer de forme entre Attaque, Défense, Vitesse et Normal. Apparu avec un météorite dans la troisième génération, son ADN mute constamment. Quel est ce Pokémon ?",
       "answer": "Deoxys",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm071",
       "question": "Cette évolution d'Évoli de type Eau est obtenue grâce à une Pierre Eau. Reconnaissable à sa queue de sirène et sa collerette blanche, elle est l'une des premières évolitions découvertes dans la première génération. Quel est ce Pokémon ?",
       "answer": "Aquali (Vaporeon)",
-      "difficulty": "normal",
       "category": "Évolutions"
     },
     {
       "id": "pkm072",
       "question": "Cette évolution d'Évoli de type Fée a été introduite en sixième génération. Reconnaissable à ses rubans roses et ses yeux bleus, elle est la huitième et dernière évolition découverte à ce jour. Quel est ce Pokémon ?",
       "answer": "Nymphali (Sylveon)",
-      "difficulty": "normal",
       "category": "Évolutions"
     },
     {
       "id": "pkm073",
       "question": "Ce Pokémon fabuleux de type Ténèbres hante les rêves des dormeurs et provoque d'horribles cauchemars. Apparu dans la quatrième génération, il est l'ennemi naturel du Pokémon Cresselia. Quel est ce Pokémon ?",
       "answer": "Darkrai",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm074",
       "question": "Le chef de la Team Rocket est aussi secrètement le champion d'arène de Jadielle, spécialisé dans le type Sol. Il est le dernier champion à affronter dans les jeux Kanto avant la Ligue. Qui est ce personnage ?",
       "answer": "Giovanni",
-      "difficulty": "normal",
       "category": "Dresseurs"
     },
     {
       "id": "pkm075",
       "question": "Ce dresseur légendaire de Kanto est considéré comme le plus puissant de tous les temps dans les jeux. On le retrouve au sommet du Mont Argenté dans Or et Argent, avec un Pokémon électrique niveau 81. Qui est ce dresseur mystérieux ?",
       "answer": "Red",
-      "difficulty": "difficile",
       "category": "Dresseurs"
     },
     {
       "id": "pkm076",
       "question": "Ce Maître de la Ligue Pokémon de Kanto est un spécialiste du type Dragon. Ancien membre du Conseil des 4, il a pris la tête de la Ligue Indigo après le départ de son prédécesseur. Qui est-il ?",
       "answer": "Peter (Lance)",
-      "difficulty": "difficile",
       "category": "Dresseurs"
     },
     {
       "id": "pkm077",
       "question": "Ce Pokémon de type Glace et Vol de Kanto est le premier oiseau légendaire du Pokédex. Il vit dans les Îles Écume et peut geler l'humidité de l'air pour créer de la neige sur son passage. Quel est ce Pokémon ?",
       "answer": "Artikodin (Articuno)",
-      "difficulty": "normal",
       "category": "Légendaires"
     },
     {
       "id": "pkm078",
       "question": "Ce starter de type Plante de Sinnoh est une petite tortue portant un arbuste sur sa carapace. Son évolution finale, de type Plante et Sol, est un titanesque tortue-continent avec un arbre sur le dos. Quel est ce Pokémon de départ ?",
       "answer": "Tortipouss (Turtwig)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm079",
       "question": "Ce starter de type Feu de la cinquième génération est un petit cochon de feu originaire d'Unys. Son évolution finale, de type Feu et Combat, est un imposant sanglier enflammé bipède. Quel est ce Pokémon de départ ?",
       "answer": "Gruikui (Tepig)",
-      "difficulty": "difficile",
       "category": "Starters"
     },
     {
       "id": "pkm080",
       "question": "Ce starter de type Plante de la cinquième génération est un petit serpent vert originaire d'Unys. Élégant et rapide, son évolution finale est un majestueux serpent royal de type Plante. Quel est ce Pokémon de départ ?",
       "answer": "Vipélierre (Snivy)",
-      "difficulty": "difficile",
       "category": "Starters"
     },
     {
       "id": "pkm081",
       "question": "Dans l'anime, cette coordinatrice aux cheveux bleus voyage avec le héros à travers Sinnoh. Sa partenaire est un petit pingouin bleu de type Eau qu'elle a reçu du Professeur Sorbier. Qui est cette compagne de voyage ?",
       "answer": "Aurore (Dawn)",
-      "difficulty": "normal",
       "category": "Anime"
     },
     {
       "id": "pkm082",
       "question": "Dans l'anime, cette dresseuse originaire de Kalos a rencontré le héros dans un camp d'été étant enfants. Reconnaissable à son chapeau rose, elle participe aux Pokémon Showcases et voyage à travers Kalos. Qui est-elle ?",
       "answer": "Serena",
-      "difficulty": "normal",
       "category": "Anime"
     },
     {
       "id": "pkm083",
       "question": "Ce trio de golems légendaires de Hoenn est composé de créatures de type Roche, Glace et Acier, scellées dans des cavernes. Ils ont été créés par un titan gigantesque endormi dans un temple. Quel est le golem de type Roche du trio ?",
       "answer": "Regirock",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm084",
       "question": "Ce titan colossal de type Normal a créé les trois golems de Hoenn. Endormi dans le Temple de Floraville à Sinnoh, il ne peut être réveillé qu'en amenant ses trois créations devant lui. Quel est ce Pokémon ?",
       "answer": "Regigigas",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm085",
       "question": "Ce Pokémon de type Ténèbres apparaît uniquement pour prévenir les catastrophes naturelles, ce qui lui vaut d'être injustement considéré comme un porteur de malheur. Il possède une faux sur le côté de la tête. Quel est ce Pokémon ?",
       "answer": "Absol",
-      "difficulty": "difficile",
       "category": "Pokémon"
     },
     {
       "id": "pkm086",
       "question": "Ce Pokémon de type Psy a la particularité de posséder un pendule qu'il balance constamment pour hypnotiser ses adversaires. Reconnaissable à son museau pointu, il est l'un des premiers Pokémon Psy rencontrés à Kanto. Quel est ce Pokémon ?",
       "answer": "Soporifik (Drowzee)",
-      "difficulty": "difficile",
       "category": "Pokémon"
     },
     {
       "id": "pkm087",
       "question": "Ce starter de type Plante de Kalos est un petit hérisson châtaigne qui évolue en un imposant guerrier blindé de type Plante et Combat. Il est le starter Plante de la sixième génération. Quel est ce Pokémon de départ ?",
       "answer": "Marisson (Chespin)",
-      "difficulty": "difficile",
       "category": "Starters"
     },
     {
       "id": "pkm088",
       "question": "Ce starter de type Plante d'Alola est un petit hibou à nœud papillon de feuilles. Son évolution finale, de type Plante et Spectre, est un archer fantomatique maniant une flèche de plume. Quel est ce Pokémon de départ ?",
       "answer": "Brindibou (Rowlet)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm089",
       "question": "Ce starter de type Eau de Galar est un petit lézard timide et craintif qui pleure souvent. Son évolution finale, un agent secret reptilien de type Eau, est inspiré de l'espionnage britannique. Quel est ce Pokémon de départ ?",
       "answer": "Larméléon (Sobble)",
-      "difficulty": "difficile",
       "category": "Starters"
     },
     {
       "id": "pkm090",
       "question": "Ce Pokémon de type Eau est le starter Eau de Johto, un petit crocodile bleu aux grandes mâchoires. Son évolution finale est un imposant alligator bipède connu pour sa force de morsure. Quel est ce Pokémon de départ ?",
       "answer": "Kaiminus (Totodile)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm091",
       "question": "Ce Pokémon de type Plante est le starter Plante de Johto. Doté d'une feuille sur la tête, il évolue en un gracieux dinosaure floral dont le parfum a des propriétés apaisantes. Quel est ce Pokémon de départ ?",
       "answer": "Germignon (Chikorita)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm092",
       "question": "Ce Professeur de la région de Kalos, basé à Illumis, est le premier à avoir étudié en profondeur le phénomène des Méga-Évolutions. Son nom est celui d'un arbre à feuilles caduques. Qui est-il ?",
       "answer": "Professeur Platane (Professor Sycamore)",
-      "difficulty": "difficile",
       "category": "Dresseurs"
     },
     {
       "id": "pkm093",
       "question": "Ce Professeur de la région d'Alola étudie les capacités des Pokémon et est reconnaissable à son torse musclé toujours exposé sous sa blouse de laboratoire ouverte. Son nom est celui d'une plante tropicale. Qui est-il ?",
       "answer": "Professeur Euphorbe (Professor Kukui)",
-      "difficulty": "difficile",
       "category": "Dresseurs"
     },
     {
       "id": "pkm094",
       "question": "Ce duo de Pokémon légendaires de la septième génération représente le soleil et la lune. Ils évoluent tous deux à partir d'un petit Pokémon nébuleux de type Psy et sont les mascottes de Pokémon Soleil et Lune. Quel Pokémon représente le soleil ?",
       "answer": "Solgaleo",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm095",
       "question": "Ce Pokémon de type Psy et Spectre représente la lune et est la mascotte de Pokémon Lune. Ressemblant à une chauve-souris cosmique, il évolue à partir du même Pokémon nébuleux que son homologue solaire. Quel est ce Pokémon ?",
       "answer": "Lunala",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm096",
       "question": "Ce Pokémon légendaire de type Dragon, Glace est le troisième membre du trio de dragons d'Unys. Il peut absorber les pouvoirs des deux autres dragons pour devenir plus puissant sous ses formes Blanc ou Noir. Quel est ce Pokémon ?",
       "answer": "Kyurem",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm097",
       "question": "Les premiers jeux Pokémon sortis au Japon en 1996 puis en Europe en 1999 existent en deux versions complémentaires où certains Pokémon sont exclusifs à chaque cartouche. Quels sont les noms de ces deux premières versions ?",
       "answer": "Pokémon Rouge et Bleu (Red and Blue)",
-      "difficulty": "normal",
       "category": "Jeux"
     },
     {
       "id": "pkm098",
       "question": "Ce Pokémon de type Électrik et Acier de la deuxième génération est la pré-évolution du rongeur jaune le plus célèbre de la franchise. Petit et mignon, il évolue par bonheur. Quel est ce Pokémon ?",
       "answer": "Pichu",
-      "difficulty": "normal",
       "category": "Évolutions"
     },
     {
       "id": "pkm099",
       "question": "Dans l'univers Pokémon, il existe exactement 18 types différents qui définissent les forces et faiblesses de chaque créature. Le dernier type ajouté en sixième génération est efficace contre le type Dragon. Combien de types existe-t-il au total ?",
       "answer": "18 types",
-      "difficulty": "normal",
       "category": "Types"
     },
     {
       "id": "pkm100",
       "question": "Ce Pokémon de type Insecte et Acier est l'un des plus petits légendaires. Originaire de Kalos, il peut prendre trois formes différentes : 10%, 50% et parfaite, selon le nombre de cellules qu'il a rassemblées. Quel est ce Pokémon ?",
       "answer": "Zygarde",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm101",
       "question": "Cette championne d'arène de Johto spécialisée dans le type Acier dirige l'arène d'Oliville. Douce et réservée, elle prend soin du phare de la ville et utilise un Steelix comme Pokémon principal. Qui est-elle ?",
       "answer": "Jasmine",
-      "difficulty": "difficile",
       "category": "Dresseurs"
     },
     {
       "id": "pkm102",
       "question": "Ce starter de type Eau de Hoenn est un petit poisson-grenouille bleu aux grandes joues. Son évolution finale, de type Eau et Sol, est un colosse amphibien résistant à l'électricité. Quel est ce Pokémon de départ ?",
       "answer": "Gobou (Mudkip)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm103",
       "question": "Ce Pokémon fabuleux de type Feu et Acier est le créateur volcanique de la mythologie de Sinnoh. Il aurait forgé les trois gardiens des lacs dans sa fournaise. Bien qu'important dans le lore, il n'est disponible que par événement. Quel est ce Pokémon ?",
       "answer": "Heatran",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm104",
       "question": "Ce champion d'arène de Kanto est un militaire américain spécialisé dans le type Électrik. Il dirige l'arène de Carmin-sur-Mer et est reconnaissable à son style vestimentaire de sergent. Qui est ce champion ?",
       "answer": "Major Bob (Lt. Surge)",
-      "difficulty": "difficile",
       "category": "Dresseurs"
     },
     {
       "id": "pkm105",
       "question": "Ce Pokémon de type Normal et Vol de Kanto est l'un des tout premiers rencontrés dans les hautes herbes. Petit oiseau marron très commun, il évolue en Roucoups puis en un rapace majestueux. Quel est ce Pokémon ?",
       "answer": "Roucool (Pidgey)",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm106",
       "question": "Ce Pokémon de type Psy de la première génération tient une cuillère tordue dans sa main et possède un QI de plus de 5000. Il est l'un des Pokémon Psy les plus puissants de Kanto. Quel est ce Pokémon ?",
       "answer": "Alakazam",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm107",
       "question": "Ce Pokémon de type Spectre et Poison de la première génération est la première forme de la lignée fantôme de Kanto. Composé de gaz toxique, il est souvent aperçu dans la Tour Pokémon de Lavanville. Quel est ce Pokémon ?",
       "answer": "Fantominus (Gastly)",
-      "difficulty": "difficile",
       "category": "Pokémon"
     },
     {
       "id": "pkm108",
       "question": "Ce Pokémon fabuleux de type Psy et Feu de la cinquième génération est le Pokémon de la Victoire. Portant le numéro 000 dans le Pokédex d'Unys, il porte chance à son dresseur. Quel est ce Pokémon ?",
       "answer": "Victini",
-      "difficulty": "difficile",
       "category": "Légendaires"
     },
     {
       "id": "pkm109",
       "question": "Ce Pokémon de type Eau de la première génération est un canard constamment pris de maux de tête. Quand sa migraine devient insupportable, il développe de puissants pouvoirs psychiques. Quel est ce Pokémon ?",
       "answer": "Psykokwak (Psyduck)",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm110",
       "question": "Ce Pokémon de type Roche et Sol de la première génération est un serpent géant fait de rochers. Long de plus de 8 mètres, il est le Pokémon signature du premier champion d'arène de Kanto. Quel est ce Pokémon ?",
       "answer": "Onix",
-      "difficulty": "normal",
       "category": "Pokémon"
     },
     {
       "id": "pkm111",
       "question": "Ce starter de type Feu de Kalos est un petit renard roux aux grandes oreilles. Son évolution finale, de type Feu et Psy, est une élégante magicienne brandissant une branche enflammée. Quel est ce Pokémon de départ ?",
       "answer": "Feunnec (Fennekin)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm112",
       "question": "Ce Pokémon de type Plante et Poison de Kanto porte le numéro 001 dans le Pokédex national. Reconnaissable au bulbe sur son dos, c'est le tout premier Pokémon du Pokédex et l'un des trois starters originaux. Quel est ce Pokémon ?",
       "answer": "Bulbizarre (Bulbasaur)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm113",
       "question": "Cette forme spéciale de Dynamax, exclusive à certains Pokémon de Galar, modifie leur apparence et leur donne accès à une capacité unique. Le dragon cracheur de feu de Kanto possède l'une des formes les plus populaires. De quoi s'agit-il ?",
       "answer": "Le Gigamax",
-      "difficulty": "difficile",
       "category": "Combats"
     },
     {
       "id": "pkm114",
       "question": "Ce starter de type Eau de Kanto est une petite tortue bleue à carapace marron. Joyeuse et fidèle, elle évolue en un intermédiaire à longues oreilles puis en un blindé aquatique armé de canons. Quel est ce Pokémon de départ ?",
       "answer": "Carapuce (Squirtle)",
-      "difficulty": "normal",
       "category": "Starters"
     },
     {
       "id": "pkm115",
       "question": "Ce starter de type Feu de Kanto est une petite salamandre dont la flamme au bout de la queue reflète son état de santé. Premier Pokémon choisi par de nombreux joueurs en 1996, il porte le numéro 004 du Pokédex. Quel est ce Pokémon de départ ?",
       "answer": "Salamèche (Charmander)",
-      "difficulty": "normal",
       "category": "Starters"
     }
   ]
