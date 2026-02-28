@@ -23,7 +23,7 @@ import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
-import { getPlaylistTracks, formatTracksForGame, getRandomUnplayedTrack } from "@/lib/deezer/api";
+import { getAllPlaylistTracks, formatTracksForGame, getRandomUnplayedTrack } from "@/lib/deezer/api";
 import { usePlaylistHistory } from "@/lib/hooks/usePlaylistHistory";
 
 const DEEZER_PURPLE = '#A238FF';
@@ -119,20 +119,17 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     setPlayerError("Rafraîchissement des URLs...");
 
     try {
-      const freshTracks = await getPlaylistTracks(playlist.id, 100);
+      const freshTracks = await getAllPlaylistTracks(playlist.id);
       const formattedTracks = formatTracksForGame(freshTracks);
 
-      // Match tracks by ID to preserve order
+      // Match tracks by ID to preserve order — only refresh the URL, never swap the song
       const refreshedTracks = playlist.tracks.map(oldTrack => {
         const fresh = formattedTracks.find(t => t.id === oldTrack.id);
         if (fresh) {
           return { ...oldTrack, previewUrl: fresh.previewUrl };
         }
-        // If track not found, try to find a replacement
-        const replacement = formattedTracks.find(t =>
-          !playlist.tracks.some(pt => pt.id === t.id)
-        );
-        return replacement ? { ...replacement } : oldTrack;
+        // Track not found in fresh list — keep original (don't substitute a different song)
+        return oldTrack;
       });
 
       // Update Firebase with fresh URLs using set() for the tracks array
