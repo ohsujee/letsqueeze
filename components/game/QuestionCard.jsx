@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { FitText } from '@/lib/hooks/useFitText';
-import { Warning } from '@phosphor-icons/react';
+import { Flag } from '@phosphor-icons/react';
 
 /**
  * QuestionCard - Carte de question partagée entre Host et Asker (Party Mode)
@@ -39,17 +39,6 @@ export default function QuestionCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      {/* Bouton signalement */}
-      {onReport && (
-        <button
-          className="question-report-btn"
-          onClick={onReport}
-          title="Signaler un problème avec cette question"
-        >
-          <Warning size={20} weight="fill" />
-        </button>
-      )}
-
       {/* Points en jeu */}
       <div className="points-badge">
         <span className="points-value">{points}</span>
@@ -67,6 +56,14 @@ export default function QuestionCard({
       <div className="answer-box">
         <span className="answer-value">{answer}</span>
       </div>
+
+      {/* Signalement */}
+      {onReport && (
+        <button className="question-report-link" onClick={onReport}>
+          <Flag size={11} weight="fill" />
+          Signaler un problème avec la question
+        </button>
+      )}
     </motion.div>
   );
 }

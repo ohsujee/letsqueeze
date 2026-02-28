@@ -2567,8 +2567,8 @@ textarea:focus-visible {
   min-height: 0;
   position: relative;
   display: grid;
-  /* Points: auto, Question: at least 40% flexible, Answer: max 25% of card */
-  grid-template-rows: auto minmax(40%, 1fr) minmax(auto, 25%);
+  /* Points: auto, Question: at least 40% flexible, Answer: max 25% of card, Report: auto */
+  grid-template-rows: auto minmax(40%, 1fr) minmax(auto, 25%) auto;
   gap: 4px;
   background: rgba(20, 20, 30, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -2703,29 +2703,25 @@ textarea:focus-visible {
   40% { transform: scale(1.2); opacity: 1; }
 }
 
-/* Report button - top-right corner of QuestionCard */
-.question-report-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+/* Report link - bottom of QuestionCard */
+.question-report-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  gap: 5px;
+  background: none;
   border: none;
-  background: rgba(251, 191, 36, 0.12);
-  color: rgba(251, 191, 36, 0.5);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  padding: 0;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.68rem;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  padding: 6px 0 2px;
+  transition: color 0.2s;
   flex-shrink: 0;
 }
 
-.question-report-btn:hover {
-  background: rgba(251, 191, 36, 0.2);
-  color: rgba(251, 191, 36, 0.9);
+.question-report-link:hover {
+  color: rgba(251, 191, 36, 0.75);
 }
 
 /* =========================================
