@@ -12,8 +12,8 @@ class ViewController: CAPBridgeViewController {
         webView?.scrollView.contentInsetAdjustmentBehavior = .never
     }
 
-    override func webViewConfiguration(for instanceDescriptor: InstanceDescriptor) -> WKWebViewConfiguration {
-        let config = super.webViewConfiguration(for: instanceDescriptor)
+    override func webViewConfiguration(for instanceConfiguration: InstanceConfiguration) -> WKWebViewConfiguration {
+        let config = super.webViewConfiguration(for: instanceConfiguration)
         // Autorise la lecture audio sans geste utilisateur préalable (nécessaire pour
         // la synchronisation audio du BlindTest en mode "tous les téléphones")
         config.mediaTypesRequiringUserActionForPlayback = []
