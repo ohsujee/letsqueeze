@@ -11,6 +11,7 @@ import { prefetchManifests } from '@/lib/utils/manifestCache';
 import { usePushNotifications } from '@/lib/hooks/usePushNotifications';
 import { useForceUpdate } from '@/lib/hooks/useForceUpdate';
 import { ForceUpdateModal } from '@/components/shared/ForceUpdateModal';
+import { useGlobalPresence } from '@/lib/hooks/useGlobalPresence';
 
 /**
  * ClientProviders - Wrapper pour tous les providers côté client
@@ -24,6 +25,9 @@ export function ClientProviders({ children }) {
 
   // Push notifications natives (iOS + Android)
   usePushNotifications();
+
+  // Présence globale — écrit presence/{uid} dans Firebase RTDB
+  useGlobalPresence();
 
   // Force update si version < config/forceUpdateVersion dans Firebase
   const { forceUpdate } = useForceUpdate();
