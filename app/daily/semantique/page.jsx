@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, Component } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, TextT, Trophy, ChartBar, Question, X, PaperPlaneTilt, Lightbulb } from '@phosphor-icons/react';
@@ -81,6 +81,23 @@ const SEM_BAR_COLOR = [
   'linear-gradient(90deg,#CD7F32,#B8860B)',
   'linear-gradient(90deg,#f97316,#ea580c)',
 ];
+
+// ─── Error Boundary pour le leaderboard ──────────────────────────────────────
+class LeaderboardErrorBoundary extends Component {
+  constructor(props) { super(props); this.state = { hasError: false }; }
+  static getDerivedStateFromError() { return { hasError: true }; }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="wordle-lb-empty">
+          <span style={{ fontSize: '2rem' }}>⚠️</span>
+          <p>Erreur de chargement du classement</p>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 const DAY_LABELS = ['lu', 'ma', 'me', 'je', 've', 'sa', 'di'];
 
@@ -188,14 +205,7 @@ function LbRow({ entry, rank, isMe, subLabel, maxScore, animDelay = 0 }) {
 }
 
 function LbRows({ entries, myUid, subLabel }) {
-  const maxScore = Math.max(...entries.map((e) => e.score || 0), 1);
-  const myEntry = myUid ? entries.find((e) => e.uid === myUid) : null;
-  const ranks = assignRanks(entries);
-  const myRank = myEntry ? ranks[entries.findIndex((e) => e.uid === myUid)] : 0;
-  const top100 = entries.slice(0, 100);
-  const top100Ranks = ranks.slice(0, 100);
-
-  if (entries.length === 0) {
+  if (!entries || entries.length === 0) {
     return (
       <div className="wordle-lb-empty">
         <span style={{ fontSize: '2rem' }}>🧠</span>
@@ -203,6 +213,12 @@ function LbRows({ entries, myUid, subLabel }) {
       </div>
     );
   }
+  const maxScore = entries.reduce((max, e) => Math.max(max, e.score || 0), 1);
+  const myEntry = myUid ? entries.find((e) => e.uid === myUid) : null;
+  const ranks = assignRanks(entries);
+  const myRank = myEntry ? ranks[entries.findIndex((e) => e.uid === myUid)] : 0;
+  const top100 = entries.slice(0, 100);
+  const top100Ranks = ranks.slice(0, 100);
 
   return (
     <>
@@ -257,6 +273,8 @@ function SemanticLeaderboard({ todayDate }) {
   const [weekFetched, setWeekFetched] = useState(false);
   const [myUid, setMyUid] = useState(null);
   const [yesterdayWord, setYesterdayWord] = useState(null);
+  const mountedRef = useRef(true);
+  useEffect(() => { return () => { mountedRef.current = false; }; }, []);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => setMyUid(u?.uid ?? null));
@@ -280,13 +298,19 @@ function SemanticLeaderboard({ todayDate }) {
     const unsub = onValue(
       ref(db, `daily/semantic/${todayDate}/leaderboard`),
       (snap) => {
-        const raw = snap.exists()
-          ? Object.entries(snap.val()).map(([uid, v]) => ({ uid, ...v })).sort(sortLeaderboard)
-          : [];
-        resolveNames(raw).then(setTodayEntries).catch(() => setTodayEntries(raw));
-        setTodayLoading(false);
+        try {
+          const raw = snap.exists()
+            ? Object.entries(snap.val()).map(([uid, v]) => ({ uid, ...v })).sort(sortLeaderboard)
+            : [];
+          resolveNames(raw)
+            .then(resolved => { if (mountedRef.current) setTodayEntries(resolved); })
+            .catch(() => { if (mountedRef.current) setTodayEntries(raw); });
+          if (mountedRef.current) setTodayLoading(false);
+        } catch {
+          if (mountedRef.current) setTodayLoading(false);
+        }
       },
-      () => setTodayLoading(false)
+      () => { if (mountedRef.current) setTodayLoading(false); }
     );
     return () => unsub();
   }, [todayDate]);
@@ -309,12 +333,14 @@ function SemanticLeaderboard({ todayDate }) {
         });
         const sorted = Object.values(agg).sort(sortLeaderboard);
         const resolved = await resolveNames(sorted);
-        setWeekEntries(resolved);
+        if (mountedRef.current) setWeekEntries(resolved);
       } catch (e) {
         console.warn('[SemLB week]', e.message);
       }
-      setWeekLoading(false);
-      setWeekFetched(true);
+      if (mountedRef.current) {
+        setWeekLoading(false);
+        setWeekFetched(true);
+      }
     }
     fetchWeek();
   }, [lbTab, todayDate, weekFetched]);
@@ -714,7 +740,11 @@ export default function SemantiquePage() {
       <SemanticStatsModal isOpen={showStats} onClose={() => setShowStats(false)} stats={stats} streak={streak} />
 
       {/* Leaderboard tab */}
-      {activeTab === 'leaderboard' && <SemanticLeaderboard todayDate={todayDate} />}
+      {activeTab === 'leaderboard' && (
+        <LeaderboardErrorBoundary>
+          <SemanticLeaderboard todayDate={todayDate} />
+        </LeaderboardErrorBoundary>
+      )}
 
       {/* Game tab */}
       {activeTab === 'game' && (
