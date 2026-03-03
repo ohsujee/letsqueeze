@@ -1,6 +1,7 @@
 import UIKit
 import Capacitor
 import FirebaseCore
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -10,6 +11,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Initialize Firebase
         FirebaseApp.configure()
+
+        // Configure AVAudioSession pour autoriser la lecture audio programmatique
+        // sans geste utilisateur (nécessaire pour la sync audio BlindTest côté non-asker)
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+        try? AVAudioSession.sharedInstance().setActive(true)
+
         return true
     }
 
