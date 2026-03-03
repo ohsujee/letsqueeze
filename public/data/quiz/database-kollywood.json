@@ -737,7 +737,7 @@
     },
     {
       "id": "kol123",
-      "question": "Acteur vétéran connu pour ses rôles de méchant (Sathya) puis de père comique (Santhosh Subramaniam). Il est célèbre pour son accent malayalam et ses cris. Qui est-ce ?",
+      "question": "Il a brillé aux côtés de Kamal Haasan dans Thenali, puis marqué Thuppakki dans le rôle d'un officier militaire. Acteur malayalam primé du Padma Shri, il est connu pour ses talents d'imitateur et son accent comique en tamoul. Qui est-ce ?",
       "answer": "Jayaram",
       "category": "Acteurs"
     },
@@ -815,7 +815,7 @@
     },
     {
       "id": "kol137",
-      "question": "Film de 2022. Sai Pallavi y joue une professeure de danse et Dhanush un livreur de nourriture. Le film est une comédie romantique touchante. Quel est ce film ?",
+      "question": "Film tamoul de 2022 réalisé par Mithran Jawahar. Dhanush y incarne un livreur en conflit avec son père depuis un drame familial. Sa meilleure amie d'enfance est jouée par Nithya Menen. Quel est ce film ?",
       "answer": "Thiruchitrambalam",
       "category": "Romance"
     },
@@ -1853,8 +1853,8 @@
     },
     {
       "id": "kol317",
-      "question": "Réalisateur qui a introduit le 'Cine-poem'. Ses films (Paruthiveeran, Ameer) sont bruts. Il a joué le rôle de Rajan dans Vada Chennai. Qui est-ce ?",
-      "answer": "Ameer",
+      "question": "Ce réalisateur tamoul a dirigé Mounam Pesiyadhe avec Suriya avant de signer Paruthiveeran, film multi-récompensé aux National Film Awards. Il est aussi connu pour son rôle de Rajan dans Vada Chennai. Qui est-ce ?",
+      "answer": "Ameer Sultan",
       "category": "Réalisateurs"
     },
     {
@@ -2417,7 +2417,7 @@
     },
     {
       "id": "kol414",
-      "question": "Film d'horreur de 2015. Arulnithi joue dans ce thriller où un collier hanté tue ceux qui le portent. 'Demonte Colony'. Quel est ce film ?",
+      "question": "Film d'horreur tamoul de 2015 réalisé par R. Ajay Gnanamuthu pour ses débuts. Quatre amis explorent un manoir maudit de Chennai et découvrent un collier de diamants ensorcelé qui tue quiconque tente de le dérober. Quel est ce film ?",
       "answer": "Demonte Colony",
       "category": "Horreur"
     },
@@ -2429,7 +2429,7 @@
     },
     {
       "id": "kol416",
-      "question": "Chanson du film Indian (1996). Kamal Haasan et Manisha Koirala. La chanson parle de téléphones et de communication moderne pour l'époque. 'Telephone Manipol...'. Quel est le titre ?",
+      "question": "A.R. Rahman a signé la bande originale du film Tamil Indian (1996) réalisé par Shankar. Parmi les titres phares, un duo de Hariharan et Harini évoque avec humour les téléphones et la communication moderne. Quel est le nom de cette chanson ?",
       "answer": "Telephone Manipol",
       "category": "Musique"
     },
