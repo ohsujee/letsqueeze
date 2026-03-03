@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import { auth, db, ref, set, get, signInAnonymously, onAuthStateChanged } from "@/lib/firebase";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
+import { useHearts } from "@/lib/hooks/useHearts";
+import { useHeartsLobbyGuard } from "@/lib/hooks/useHeartsLobbyGuard";
+import HeartsModal from "@/components/ui/HeartsModal";
 import { User, Pencil, Check, X, AlertCircle, PlayCircle, SearchX } from "lucide-react";
 import { ROOM_TYPES } from "@/lib/config/rooms";
 import { isPro } from "@/lib/subscription";
@@ -43,6 +46,10 @@ export default function JoinClient({ initialCode = "" }) {
 
   // Check if user is Pro
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+
+  // Hearts system
+  const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
+  const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 
   // Get pseudo from hook (profile.pseudo > cachedPseudo > displayName > 'Joueur')
   const pseudo = profile?.pseudo || cachedPseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
@@ -126,6 +133,7 @@ export default function JoinClient({ initialCode = "" }) {
 
   async function join() {
     if (!code || !pseudo || !auth.currentUser || joining) return;
+    if (!userIsPro && !canPlay) return;
 
     setJoining(true);
     setError("");
@@ -166,6 +174,9 @@ export default function JoinClient({ initialCode = "" }) {
       const playerData = foundRoomType.playerSchema(uid, pseudo);
       await set(ref(db, `${foundRoomType.prefix}/${roomCode}/players/${uid}`), playerData);
 
+      // Consume 1 heart on successful join
+      consumeHeart();
+
       // Show entry transition (ad will be shown when transition completes)
       setTransitionConfig({
         gameId: foundRoomType.id,
@@ -204,6 +215,13 @@ export default function JoinClient({ initialCode = "" }) {
     <div className="join-container">
       {/* ATT Prompt for players (GDPR + ATT) */}
       <ATTPromptHandler enabled={true} context="join" delay={0} />
+
+      {/* Hearts blocking modal */}
+      <HeartsModal
+        isOpen={showHeartsModal}
+        heartsRemaining={heartsRemaining}
+        {...heartsModalProps}
+      />
 
       <main className="join-content">
         <div className="join-header">
