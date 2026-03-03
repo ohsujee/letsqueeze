@@ -1,23 +1,21 @@
 /* ===== PRO CARD — Gold card component ===== */
 
-/* ── Wrapper externe (perspective + ombre, ne tourne PAS) ── */
+/* ── Wrapper perspective uniquement (pas de propriétés visuelles) ── */
 .pro-card-outer {
-  container-type: inline-size;
-  aspect-ratio: 85.6 / 54;
-  border-radius: 5.8cqw;
-  box-shadow: 0 4px 0 #8a5c10, 0 8px 28px rgba(184, 134, 42, 0.25);
   perspective: 700px;
-  position: relative;
 }
 
-/* ── Scène 3D (tourne) ── */
+/* ── Scène 3D (conteneur externe) ── */
 .pro-card-scene {
-  position: absolute;
-  inset: 0;
+  container-type: inline-size;
+  position: relative;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   will-change: transform;
   touch-action: none;
+  aspect-ratio: 85.6 / 54;
+  border-radius: 5.8cqw;
+  box-shadow: 0 4px 0 #8a5c10, 0 8px 28px rgba(184, 134, 42, 0.25);
 }
 
 .pro-card-scene.locked .pro-status-card,
