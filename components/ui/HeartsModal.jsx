@@ -255,7 +255,7 @@ export default function HeartsModal({
                 whileTap={{ y: 3, boxShadow: '0 1px 0 #b45309' }}
               >
                 <Crown size={16} />
-                Devenir Pro
+                Jouer sans limite
               </motion.button>
 
               {/* Retour accueil — seulement en mode bloquant */}

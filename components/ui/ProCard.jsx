@@ -59,7 +59,7 @@ export default function ProCard({ pseudo, memberNumber, memberSince, isAdmin = f
     const el = sceneRef.current;
     if (!el) return;
     el.style.transition = transition;
-    el.style.transform  = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    el.style.transform  = `rotateX(${rx}deg) rotateY(${ry}deg)`;
   }, []);
 
   // Physique — décélère sur l'axe du flick, snap à la face avant
@@ -82,8 +82,8 @@ export default function ProCard({ pseudo, memberNumber, memberSince, isAdmin = f
         if (el) {
           el.style.transition = 'none';
           el.style.transform  = currentAxis === 'y'
-            ? `perspective(700px) rotateX(0deg) rotateY(${normalized}deg)`
-            : `perspective(700px) rotateX(${normalized}deg) rotateY(0deg)`;
+            ? `rotateX(0deg) rotateY(${normalized}deg)`
+            : `rotateX(${normalized}deg) rotateY(0deg)`;
         }
         // Frame suivante : courte animation ease-out vers la face avant
         flipRafRef.current = requestAnimationFrame(() => {
@@ -96,8 +96,8 @@ export default function ProCard({ pseudo, memberNumber, memberSince, isAdmin = f
           if (!el2) return;
           el2.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
           el2.style.transform  = currentAxis === 'y'
-            ? `perspective(700px) rotateX(0deg) rotateY(${nearestFront}deg)`
-            : `perspective(700px) rotateX(${nearestFront}deg) rotateY(0deg)`;
+            ? `rotateX(0deg) rotateY(${nearestFront}deg)`
+            : `rotateX(${nearestFront}deg) rotateY(0deg)`;
         });
         return;
       }
@@ -246,6 +246,7 @@ export default function ProCard({ pseudo, memberNumber, memberSince, isAdmin = f
   const sigDisplay   = pseudo || 'Membre';
 
   return (
+    <div className={`pro-card-outer${isLocked ? ' locked' : ''}`}>
     <div
       ref={sceneRef}
       className={`pro-card-scene${isLocked ? ' locked' : ''}`}
@@ -256,7 +257,7 @@ export default function ProCard({ pseudo, memberNumber, memberSince, isAdmin = f
       onMouseMove={handleTiltMove}
       onMouseUp={handleTiltEnd}
       onMouseLeave={handleTiltEnd}
-      style={{ transform: 'perspective(700px) rotateX(0deg) rotateY(0deg)', transition: 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
+      style={{ transform: 'rotateX(0deg) rotateY(0deg)', transition: 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
     >
 
       {/* ── FACE AVANT ── */}
@@ -333,6 +334,7 @@ export default function ProCard({ pseudo, memberNumber, memberSince, isAdmin = f
         </div>
       </div>
 
+    </div>
     </div>
   );
 }

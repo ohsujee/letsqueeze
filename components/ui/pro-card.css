@@ -1,15 +1,23 @@
 /* ===== PRO CARD — Gold card component ===== */
 
-/* ── Scène 3D (conteneur externe) ── */
-.pro-card-scene {
+/* ── Wrapper externe (perspective + ombre, ne tourne PAS) ── */
+.pro-card-outer {
   container-type: inline-size;
-  position: relative;
-  transform-style: preserve-3d;
-  will-change: transform;
-  touch-action: none;
   aspect-ratio: 85.6 / 54;
   border-radius: 5.8cqw;
   box-shadow: 0 4px 0 #8a5c10, 0 8px 28px rgba(184, 134, 42, 0.25);
+  perspective: 700px;
+  position: relative;
+}
+
+/* ── Scène 3D (tourne) ── */
+.pro-card-scene {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+  touch-action: none;
 }
 
 .pro-card-scene.locked .pro-status-card,
@@ -33,7 +41,7 @@
   border-radius: 5.8cqw;
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  clip-path: inset(0 round 5.8cqw);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   user-select: none;
@@ -59,7 +67,7 @@
   border-radius: 5.8cqw;
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  clip-path: inset(0 round 5.8cqw);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: rotateY(180deg);

@@ -495,7 +495,8 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
     setReportSubmitting(true);
     try {
       const questionId = q.id || `q_${qIndex}`;
-      const themeId = meta?.quizId || '';
+      const rawThemeId = quiz?.id || meta?.quizId || '';
+      const themeId = rawThemeId.split('+')[0];
 
       // 1. Écrire le report
       await push(ref(db, 'quiz_reports'), {

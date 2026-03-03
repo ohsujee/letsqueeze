@@ -1,6 +1,7 @@
-# PUNK RECORDS — Plan Dashboard Admin
+# PUNK RECORDS — État des lieux
 
 > punkrecords.gigglz.fun — Dashboard de gestion interne Gigglz
+> *Dernière mise à jour : 2026-02-28*
 
 ---
 
@@ -14,109 +15,138 @@ Browser
         └── /vscode/    → code-server (port 8080)         [auth required]
 ```
 
-**Stack:**
-- Next.js 15 (App Router) + Tailwind CSS + shadcn/ui
-- Firebase Admin SDK (service account déjà sur le VPS)
-- Recharts (graphiques)
+**Stack :**
+- Next.js 15 (App Router) + Tailwind CSS
+- Firebase Admin SDK (service account sur le VPS)
 - Déployé sur VPS `/opt/punkrecords`, port 3001, service systemd
 
----
-
-## Sections & Onglets
-
-### 1. Dashboard (/)
-Métriques temps réel et historiques.
-
-**Bloc "Utilisateurs"**
-- Total users inscrits
-- Nouveaux inscrits : aujourd'hui / 7j / 30j / 3m / 1an
-- Graphique courbe d'inscription dans le temps
-
-**Bloc "Activité en cours"**
-- Rooms ouvertes en ce moment (Quiz, DeezTest, Alibi, La Règle)
-- Nombre de joueurs connectés en temps réel
-
-**Bloc "Jeux Daily"**
-- Plays aujourd'hui : Mot Mystère, Sémantique
-- Records du jour (leaderboard top 3)
-
-**Bloc "Stats globales jeux"**
-- Parties jouées par jeu (7j / 30j / 3m / 1an)
-- Graphique barres : comparaison des jeux
-- Temps moyen de session (si disponible)
-
-**Filtres globaux:** Aujourd'hui | 7j | 30j | 3m | 1an
+**Déploiement :**
+```bash
+scp <fichiers> punkrecords:/opt/punkrecords/...
+ssh punkrecords "cd /opt/punkrecords && npm run build"
+ssh punkrecords "cp -r .next/static .next/standalone/.next/static"
+ssh punkrecords "cp .env.local .next/standalone/.env.local"
+ssh punkrecords "systemctl restart punkrecords"
+```
+> Note : le `GITHUB_TOKEN` est injecté via systemd (ne nécessite pas d'être dans standalone)
 
 ---
 
-### 2. Utilisateurs (/users)
-- Liste paginée des utilisateurs
+## Sections disponibles
+
+### ✅ Dashboard (/dashboard)
+Métriques Firebase temps réel :
+- Total users inscrits, nouveaux inscrits (aujourd'hui / 7j / 30j)
+- Rooms ouvertes en ce moment par jeu
+- Parties jouées par jeu
+
+---
+
+### ✅ Utilisateurs (/users)
+- Liste paginée des utilisateurs Firebase
 - Recherche par pseudo / email / UID
-- Détail : date inscription, jeux joués, abonnement (Pro/Free), streak
+- Détail : date inscription, abonnement (Pro/Free)
 
 ---
 
-### 3. Jeux (/games)
-- Stats détaillées par jeu
-- Rooms créées / terminées / abandonnées
-- Distribution des scores
-- Questions les plus ratées (Quiz)
+### ✅ Notifications (/notifications)
+- Envoi de push notifications aux joueurs
+- Historique des notifications envoyées
+- Planification de notifications
 
 ---
 
-### 4. Revenus (/revenue) — Phase 2
-- **RevenueCat** : MRR, ARR, nouveaux abonnés, churns (7j / 30j / 3m / 1an)
-- **AdMob** : impressions, revenus estimés (données J-1, périodes custom)
-- Graphiques combinés revenus totaux
+### ✅ Simulateur de revenus (/revenue-simulator)
+- Simulation des revenus (abonnements + pubs)
 
 ---
 
-### 5. Quiz Editor (/quiz) — Phase 2
-- Liste des packs de quiz (depuis public/data/quiz/*.json)
-- Interface d'édition des questions/réponses
-- Validation auto (pas de réponse dans la question, format correct)
-- Commit Git automatique à la sauvegarde
+### ✅ Quiz Editor (/quiz)
+
+#### Page principale — Labels & Free/Pro
+- Lecture du `manifest.json` **directement depuis GitHub** (source unique de vérité)
+- Toggle des labels par thème : `free` (jouable sans Pro), `isNew` (badge Nouveau)
+- Comptage : thèmes Free / Pro only, total questions
+- **Sauvegarder & Déployer** = commit `manifest.json` sur GitHub → Vercel redéploie automatiquement
+- Toast de confirmation en bas à droite (auto-dismiss 5s)
+
+**Règle importante :** le manifest est géré exclusivement via cet éditeur.
+Ne jamais modifier `manifest.json` via la route deploy (qui gère uniquement les fichiers de questions).
+
+#### Page thème — Éditeur de questions (/quiz/[themeId])
+- Lecture des questions depuis le VPS (`/opt/letsqueeze/public/data/quiz/`)
+- Édition inline question/réponse avec sauvegarde par question
+- Vérification IA (Claude) : score qualité, suggestions de reformulation
+- Diff mot à mot entre version originale et suggestion
+- Accepter / Rejeter les suggestions IA
+- **Déployer sur GitHub** = commit unique (Git Data API) de tous les fichiers modifiés → Vercel redéploie
+
+**Architecture données quiz :**
+| Fichier | Source de vérité | Géré par |
+|---------|-----------------|----------|
+| `manifest.json` | GitHub | Éditeur labels (/quiz) |
+| `database-*.json` | VPS `/opt/letsqueeze/public/data/quiz/` | Éditeur questions (/quiz/[themeId]) |
 
 ---
 
-### 6. VS Code (/vscode)
-- Iframe embarqué de code-server
-- Terminal complet sur le VPS
+### ✅ Tickets (/tickets)
+- Signalements de questions reçus depuis le jeu (Firebase `quiz_reports/`)
+- Lien direct vers la question dans l'éditeur (`?q=questionId&ticketId=xxx`)
+- Résolution automatique du ticket lors de la sauvegarde de la question
+- Statuts : open / resolved / rejected
 
 ---
 
-## Design
+### ✅ Workspace (/workspace)
+- Terminal et éditeur de fichiers sur le VPS
 
-- **Thème :** Dark, inspiré linear.app — sidebar gauche, contenu à droite
-- **Couleurs :** Fond `#0a0a0a`, sidebar `#111`, accents violet `#8b5cf6` (couleur Gigglz)
-- **Font :** Geist (Next.js default) ou Inter
-- **Composants :** shadcn/ui (cards, badges, tables, charts)
+### ✅ Claude (/claude)
+- Interface Claude directement dans le dashboard
+
+### ✅ VS Code (/vscode)
+- code-server embarqué (terminal complet sur le VPS)
+
+---
+
+## Variables d'environnement (VPS)
+
+| Variable | Où | Usage |
+|----------|----|-------|
+| `GITHUB_TOKEN` | systemd + `.env.local` | Lecture/écriture GitHub API (manifest + deploy) |
+| `SA_PATH` | `.env.local` | Chemin service account Firebase Admin |
+| `NEXT_PUBLIC_FIREBASE_DATABASE_URL` | `.env.local` | Firebase Realtime DB |
+| `GITHUB_CLIENT_SECRET` | `.env.local` | OAuth GitHub (auth dashboard) |
+
+> Le `GITHUB_TOKEN` est un Personal Access Token classic avec scope `repo`.
+> Il est injecté dans systemd → **persistant même après rebuild**.
+
+---
+
+## Sources de données Firebase
+
+| Data | Chemin Firebase |
+|------|-----------------|
+| Profils users | `users/{uid}/profile/` |
+| Rooms Quiz | `rooms/{code}/` |
+| Rooms DeezTest | `rooms_deeztest/{code}/` |
+| Rooms Alibi | `rooms_alibi/{code}/` |
+| Rooms La Règle | `rooms_laregle/{code}/` |
+| Signalements questions | `quiz_reports/{id}/` |
+| Questions masquées | `unavailable_questions/{questionId}/` |
 
 ---
 
 ## Roadmap
 
-| Phase | Contenu | Status |
-|-------|---------|--------|
-| 1 | Dashboard Firebase (users, rooms, daily games) | 🔨 En cours |
-| 2 | Revenus (RevenueCat + AdMob) | ⏳ À faire |
-| 3 | Quiz Editor | ⏳ À faire |
-| 4 | Page Utilisateurs détaillée | ⏳ À faire |
-
----
-
-## Sources de Données Firebase
-
-| Data | Chemin Firebase |
-|------|-----------------|
-| Profils users | `users/{uid}/profile/` |
-| Rooms Quiz actives | `rooms/{code}/` |
-| Rooms DeezTest | `rooms_deeztest/{code}/` |
-| Rooms Alibi | `rooms_alibi/{code}/` |
-| Rooms La Règle | `rooms_laregle/{code}/` |
-| Mot Mystère daily | `daily_motmystere/{date}/leaderboard/` |
-| Sémantique daily | `daily_semantique/{date}/leaderboard/` |
-
----
-
-*Créé le 2026-02-19*
+| Section | Status |
+|---------|--------|
+| Dashboard Firebase | ✅ Fait |
+| Utilisateurs | ✅ Fait |
+| Notifications | ✅ Fait |
+| Simulateur revenus | ✅ Fait |
+| Quiz Editor (labels) | ✅ Fait |
+| Quiz Editor (questions) | ✅ Fait |
+| Tickets | ✅ Fait (lien sidebar à ajouter si absent) |
+| Revenus (RevenueCat + AdMob) | ⏳ À faire |
+| Stats détaillées par jeu | ⏳ À faire |
+| Page utilisateur détaillée | ⏳ À faire |
