@@ -903,7 +903,19 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
 
     const next = qIndex + 1;
     if (next >= total) {
-      await update(ref(db, `rooms_blindtest/${code}/state`), { phase: "ended" });
+      await update(ref(db, `rooms_blindtest/${code}/state`), {
+        phase: "ended",
+        lockUid: null,
+        buzzBanner: "",
+        buzz: null,
+        revealed: false,
+        pausedAt: null,
+        lockedAt: null,
+        revealPlayback: null,
+        revealWinner: null,
+        audioSync: null,
+        revealAudioSync: null,
+      });
       return;
     }
 
