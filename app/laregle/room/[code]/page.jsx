@@ -66,9 +66,9 @@ export default function LaLoiLobby() {
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laregle' });
 
   // Get user profile for pseudo
-  const { user: currentUser, profile, subscription, isFounder: userIsFounder, loading: profileLoading } = useUserProfile();
+  const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
-  const userIsPro = currentUser ? isPro({ ...currentUser, subscription, isFounder: userIsFounder }) : false;
+  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
   const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
   const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 

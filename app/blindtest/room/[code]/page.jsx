@@ -76,8 +76,8 @@ export default function DeezTestLobby() {
   const searchTimeoutRef = useRef(null);
 
   // Get user profile for subscription check
-  const { user: currentUser, profile, subscription, isFounder: userIsFounder, loading: profileLoading } = useUserProfile();
-  const userIsPro = currentUser ? isPro({ ...currentUser, subscription, isFounder: userIsFounder }) : false;
+  const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
+  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
   const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
   const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 

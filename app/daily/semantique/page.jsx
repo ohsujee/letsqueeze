@@ -519,17 +519,15 @@ function GuessRow({ entry, isLatestRow = false, flash = false }) {
 // ─── Page principale ──────────────────────────────────────────────────────────
 export default function SemantiquePage() {
   const router = useRouter();
-  const localDate = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
-  const [serverDate, setServerDate] = useState(localDate);
+  const [serverDate, setServerDate] = useState(null);
 
-  // Refine with Firebase server time to handle edge cases (timezone drift, midnight boundary)
   useEffect(() => {
     const offsetRef = ref(db, '.info/serverTimeOffset');
     const unsub = onValue(offsetRef, (snap) => {
       const offset = snap.val() ?? 0;
       const date = new Date(Date.now() + offset).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
       setServerDate(date);
-    }, () => { /* keep local date on error */ });
+    }, () => setServerDate(new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' })));
     return () => unsub();
   }, []);
 

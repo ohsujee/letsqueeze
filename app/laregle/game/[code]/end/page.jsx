@@ -117,8 +117,8 @@ export default function LaLoiEndPage() {
   const confettiTriggeredRef = useRef(false);
 
   // Get user profile for Pro check
-  const { user: currentUser, subscription, isFounder: userIsFounder, loading: profileLoading } = useUserProfile();
-  const userIsPro = currentUser ? isPro({ ...currentUser, subscription, isFounder: userIsFounder }) : false;
+  const { user: currentUser, subscription, loading: profileLoading } = useUserProfile();
+  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
 
   // Centralized players hook (live data)
   const { players: livePlayers } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laregle' });
