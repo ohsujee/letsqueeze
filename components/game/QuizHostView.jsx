@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
-  auth, db, ref, onValue, update, runTransaction, serverTimestamp
+  auth, db, ref, onValue, update, runTransaction, serverTimestamp, increment
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from "framer-motion";
 import ExitButton from "@/lib/components/ExitButton";
@@ -48,7 +48,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
 
   // Server time sync (300ms tick for score updates)
-  const { serverNow } = useServerTime(300);
+  const { serverNow, offset: serverOffset } = useServerTime(300);
 
   const myUid = auth.currentUser?.uid;
 
@@ -163,6 +163,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   const buzzWindowTimeout = useRef(null);
   const buzzCache = useRef({});
   const isResolving = useRef(false);
+  const isValidatingRef = useRef(false);
 
   useEffect(() => {
     if (state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current) {
@@ -339,63 +340,75 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   }
 
   async function validate() {
-    if (!canControl || !q || !state?.lockUid || !conf) return;
+    if (isValidatingRef.current || !canControl || !q || !state?.lockUid || !conf) return;
+    isValidatingRef.current = true;
 
-    hueScenariosService.trigger('gigglz', 'goodAnswer');
-    playCorrect();
+    try {
+      hueScenariosService.trigger('gigglz', 'goodAnswer');
+      playCorrect();
 
-    // Petit délai pour laisser le son jouer
-    await new Promise(resolve => setTimeout(resolve, 300));
+      // Petit délai pour laisser le son jouer
+      await new Promise(resolve => setTimeout(resolve, 300));
 
-    const uid = state.lockUid;
-    const pts = pointsEnJeu;
+      const uid = state.lockUid;
+      const pts = pointsEnJeu;
+      const next = (state.currentIndex || 0) + 1;
 
-    await runTransaction(ref(db, `rooms/${code}/players/${uid}/score`), (cur) => (cur || 0) + pts);
+      // Tout dans un seul update atomique : score + reset état
+      const updates = {};
 
-    if (meta?.mode === "équipes") {
-      const player = players.find(p => p.uid === uid);
-      const teamId = player?.teamId;
-      if (teamId) {
-        await runTransaction(ref(db, `rooms/${code}/meta/teams/${teamId}/score`), (cur) => (cur || 0) + pts);
+      // Score du joueur (increment atomique côté serveur)
+      updates[`rooms/${code}/players/${uid}/score`] = increment(pts);
+
+      if (meta?.mode === "équipes") {
+        const player = players.find(p => p.uid === uid);
+        const teamId = player?.teamId;
+        if (teamId) {
+          updates[`rooms/${code}/meta/teams/${teamId}/score`] = increment(pts);
+        }
       }
-    }
 
-    const next = (state.currentIndex || 0) + 1;
-    if (next >= total) {
-      await update(ref(db, `rooms/${code}/state`), { phase: "ended" });
-      return;
-    }
+      if (next >= total) {
+        updates[`rooms/${code}/state/phase`] = "ended";
+        await update(ref(db), updates);
+        return;
+      }
 
-    const updates = {};
-    players.forEach(p => {
-      updates[`rooms/${code}/players/${p.uid}/blockedUntil`] = 0;
-    });
-    updates[`rooms/${code}/state/currentIndex`] = next;
-    updates[`rooms/${code}/state/revealed`] = false;
-    updates[`rooms/${code}/state/lockUid`] = null;
-    updates[`rooms/${code}/state/pausedAt`] = null;
-    updates[`rooms/${code}/state/lockedAt`] = null;
-    updates[`rooms/${code}/state/elapsedAcc`] = 0;
-    updates[`rooms/${code}/state/lastRevealAt`] = 0;
-    updates[`rooms/${code}/state/buzzBanner`] = "";
-    updates[`rooms/${code}/state/buzz`] = null;
+      // Reset état pour la question suivante
+      players.forEach(p => {
+        updates[`rooms/${code}/players/${p.uid}/blockedUntil`] = 0;
+      });
+      updates[`rooms/${code}/state/currentIndex`] = next;
+      updates[`rooms/${code}/state/revealed`] = false;
+      updates[`rooms/${code}/state/lockUid`] = null;
+      updates[`rooms/${code}/state/pausedAt`] = null;
+      updates[`rooms/${code}/state/lockedAt`] = null;
+      updates[`rooms/${code}/state/elapsedAcc`] = 0;
+      updates[`rooms/${code}/state/lastRevealAt`] = 0;
+      updates[`rooms/${code}/state/buzzBanner`] = "";
+      updates[`rooms/${code}/state/buzz`] = null;
 
-    isResolving.current = false;
+      isResolving.current = false;
 
-    await update(ref(db), updates);
-    await import('firebase/database').then(m =>
-      m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
-    ).catch(() => {});
+      await update(ref(db), updates);
+      await import('firebase/database').then(m =>
+        m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
+      ).catch(() => {});
 
-    // Party Mode: advance to next asker
-    if (onAdvanceAsker) {
-      await onAdvanceAsker();
+      // Party Mode: advance to next asker
+      if (onAdvanceAsker) {
+        await onAdvanceAsker();
+      }
+    } finally {
+      isValidatingRef.current = false;
     }
   }
 
   async function wrong() {
-    if (!canControl || !state?.lockUid || !conf) return;
+    if (isValidatingRef.current || !canControl || !state?.lockUid || !conf) return;
+    isValidatingRef.current = true;
 
+    try {
     hueScenariosService.trigger('gigglz', 'badAnswer');
     playWrong();
 
@@ -414,7 +427,8 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
     }
 
     const updates = {};
-    const until = serverNow + ms;
+    // Timestamp frais (Date.now() + offset) plutôt que serverNow périmé (React state, 300ms stale)
+    const until = Date.now() + serverOffset + ms;
 
     if (meta?.mode === "équipes") {
       const player = players.find(p => p.uid === uid);
@@ -445,6 +459,10 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
     await import('firebase/database').then(m =>
       m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
     ).catch(() => {});
+
+    } finally {
+      isValidatingRef.current = false;
+    }
   }
 
   async function skip() {

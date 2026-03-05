@@ -14,9 +14,7 @@ import { WifiOff, ChevronDown, ChevronUp, User } from 'lucide-react';
  */
 export default function Leaderboard({ players = [], currentPlayerUid = null, mode = 'individuel', teams = {}, gameColor = '#8b5cf6' }) {
   const prevPositionsRef = useRef({});
-  const prevScoresRef = useRef({});
   const listRef = useRef(null);
-  const [displayScores, setDisplayScores] = useState({});
   const [positionChanges, setPositionChanges] = useState({});
   const [canScrollUp, setCanScrollUp] = useState(false);
   const [canScrollDown, setCanScrollDown] = useState(false);
@@ -169,56 +167,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
     prevPositionsRef.current = newPositions;
   }, [sorted, teamsArray, isTeamMode]);
 
-  // Animate scores (for both players and teams)
-  useEffect(() => {
-    const newScores = {};
-    const intervals = [];
-
-    // Add player scores
-    players.forEach(p => {
-      newScores[p.uid] = p.score || 0;
-    });
-
-    // Add team scores in team mode
-    if (isTeamMode) {
-      teamsArray.forEach(t => {
-        newScores[`team_${t.id}`] = t.score || 0;
-      });
-    }
-
-    Object.keys(newScores).forEach(key => {
-      const target = newScores[key];
-      const current = prevScoresRef.current[key] ?? target;
-
-      if (current !== target) {
-        const diff = target - current;
-        const steps = 3; // Fast animation for better score sync across devices
-        const stepValue = diff / steps;
-        let step = 0;
-
-        const interval = setInterval(() => {
-          step++;
-          if (step >= steps) {
-            setDisplayScores(prev => ({ ...prev, [key]: target }));
-            clearInterval(interval);
-          } else {
-            setDisplayScores(prev => ({
-              ...prev,
-              [key]: Math.round(current + stepValue * step)
-            }));
-          }
-        }, 50); // 50ms intervals - total ~150ms for minimal sync delay
-        intervals.push(interval);
-      }
-    });
-
-    prevScoresRef.current = newScores;
-
-    // Cleanup intervals on unmount or dependency change
-    return () => {
-      intervals.forEach(clearInterval);
-    };
-  }, [players, teamsArray, isTeamMode]);
 
   // Check if list is scrollable and update indicators
   const checkScroll = useCallback(() => {
@@ -326,7 +274,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                 const isMyTeam = team.id === myTeamId;
                 const isLeader = i === 0;
                 const posChange = positionChanges[`team_${team.id}`];
-                const animatedScore = displayScores[`team_${team.id}`] ?? team.score ?? 0;
+                const animatedScore = team.score ?? 0;
                 const progressPercent = maxTeamScore > 0 ? (animatedScore / maxTeamScore) * 100 : 0;
                 const teamTheme = (team.name || '').toLowerCase().replace('équipe ', '').replace('team ', '');
 
@@ -373,7 +321,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                 const isDisconnected = p.status === 'disconnected' || p.status === 'left';
                 const rankClass = i === 0 ? 'first' : i === 1 ? 'second' : i === 2 ? 'third' : '';
                 const posChange = positionChanges[p.uid];
-                const animatedScore = displayScores[p.uid] ?? p.score ?? 0;
+                const animatedScore = p.score ?? 0;
                 const playerTeam = getPlayerTeam(p);
 
                 return (

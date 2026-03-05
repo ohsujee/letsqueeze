@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
-  auth, db, ref, onValue, update, runTransaction, serverTimestamp, set
+  auth, db, ref, onValue, update, runTransaction, serverTimestamp, set, increment
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from "framer-motion";
 import { GameEndTransition } from "@/components/transitions";
@@ -45,6 +45,7 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   const [playlist, setPlaylist] = useState(null);
   const [showEndTransition, setShowEndTransition] = useState(false);
   const endTransitionTriggeredRef = useRef(false);
+  const isValidatingRef = useRef(false);
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
@@ -516,8 +517,10 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
 
   // Validate correct answer
   async function validate() {
-    if (!canControl || !currentTrack || !state?.lockUid) return;
+    if (isValidatingRef.current || !canControl || !currentTrack || !state?.lockUid) return;
+    isValidatingRef.current = true;
 
+    try {
     playCorrect();
 
     // Marquer la track comme jouée dans l'historique
@@ -530,39 +533,39 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     const winner = players.find(p => p.uid === uid);
     const levelLabel = currentSnippet !== null ? SNIPPET_LEVELS[currentSnippet]?.label : '?';
 
-    // Update scores
-    await runTransaction(ref(db, `rooms_blindtest/${code}/players/${uid}/score`), (cur) => (cur || 0) + pts);
-    await runTransaction(ref(db, `rooms_blindtest/${code}/players/${uid}/correctAnswers`), (cur) => (cur || 0) + 1);
-
-    if (meta?.mode === "équipes") {
-      const player = players.find(p => p.uid === uid);
-      const teamId = player?.teamId;
-      if (teamId) {
-        await runTransaction(ref(db, `rooms_blindtest/${code}/meta/teams/${teamId}/score`), (cur) => (cur || 0) + pts);
-      }
-    }
-
     const winnerInfo = {
       name: winner?.name || 'Joueur',
       points: pts,
       level: levelLabel
     };
 
-    // Clear buzz state, show reveal to all players, sync winner + playback
-    await update(ref(db, `rooms_blindtest/${code}/state`), {
-      revealed: true,
-      buzzBanner: "",
-      buzz: null,
-      pausedAt: null,
-      lockedAt: null,
-      // lockUid kept so players see winner name
-      revealWinner: winnerInfo,
-      revealPlayback: {
-        startedAt: Date.now(),
-        startProgress: 0,
-        paused: false
+    // Tout dans un seul update atomique : scores + reveal state
+    const updates = {};
+    updates[`rooms_blindtest/${code}/players/${uid}/score`] = increment(pts);
+    updates[`rooms_blindtest/${code}/players/${uid}/correctAnswers`] = increment(1);
+
+    if (meta?.mode === "équipes") {
+      const player = players.find(p => p.uid === uid);
+      const teamId = player?.teamId;
+      if (teamId) {
+        updates[`rooms_blindtest/${code}/meta/teams/${teamId}/score`] = increment(pts);
       }
-    });
+    }
+
+    updates[`rooms_blindtest/${code}/state/revealed`] = true;
+    updates[`rooms_blindtest/${code}/state/buzzBanner`] = "";
+    updates[`rooms_blindtest/${code}/state/buzz`] = null;
+    updates[`rooms_blindtest/${code}/state/pausedAt`] = null;
+    updates[`rooms_blindtest/${code}/state/lockedAt`] = null;
+    // lockUid kept so players see winner name
+    updates[`rooms_blindtest/${code}/state/revealWinner`] = winnerInfo;
+    updates[`rooms_blindtest/${code}/state/revealPlayback`] = {
+      startedAt: Date.now(),
+      startProgress: 0,
+      paused: false
+    };
+
+    await update(ref(db), updates);
 
     // Show reveal screen locally
     setRevealWinner(winnerInfo);
@@ -573,6 +576,10 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
 
     // Start playing full preview
     startRevealPlayback();
+
+    } finally {
+      isValidatingRef.current = false;
+    }
   }
 
   // Reveal screen playback functions
@@ -845,12 +852,15 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
 
   // Wrong answer
   async function wrong() {
-    if (!canControl || !state?.lockUid) return;
+    if (isValidatingRef.current || !canControl || !state?.lockUid) return;
+    isValidatingRef.current = true;
 
+    try {
     playWrong();
 
     const uid = state.lockUid;
-    const until = serverNow + LOCKOUT_MS;
+    // Timestamp frais (Date.now() + offset) plutôt que serverNow périmé (React state, 300ms stale)
+    const until = Date.now() + serverOffset + LOCKOUT_MS;
     const levelToReplay = currentSnippet;
 
     await runTransaction(ref(db, `rooms_blindtest/${code}/players/${uid}/score`), (cur) => Math.max(0, (cur || 0) - WRONG_PENALTY));
@@ -894,6 +904,10 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
 
     if (levelToReplay !== null && currentTrack) {
       await playLevel(levelToReplay);
+    }
+
+    } finally {
+      isValidatingRef.current = false;
     }
   }
 
