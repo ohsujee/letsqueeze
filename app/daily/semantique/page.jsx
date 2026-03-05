@@ -855,8 +855,6 @@ export default function SemantiquePage() {
                   }}
                   disabled={gameOver}
                   autoComplete="off"
-                  autoCorrect="off"
-                  spellCheck={false}
                 />
                 <button
                   className="semantic-submit-btn"
