@@ -9,9 +9,11 @@ import {
   onValue,
   update,
   set,
+  serverTimestamp,
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
+import { useToast } from "@/lib/hooks/useToast";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Clock, CheckCircle, XCircle, Users, AlertTriangle, Eye } from 'lucide-react';
 import ExitButton from "@/lib/components/ExitButton";
@@ -129,9 +131,13 @@ export default function AlibiInterrogation() {
     }
     return questions;
   }, [isPartyMode, accusedGroup, questions]);
+  const toast = useToast();
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questionState, setQuestionState] = useState("waiting");
   const [timeLeft, setTimeLeft] = useState(30);
+  const [startedAt, setStartedAt] = useState(null);
+  const [serverOffset, setServerOffset] = useState(0);
   const [allAnswered, setAllAnswered] = useState(false);
   const [myAnswer, setMyAnswer] = useState("");
   const [showEndTransition, setShowEndTransition] = useState(false);
@@ -165,6 +171,13 @@ export default function AlibiInterrogation() {
   const handleEndTransitionComplete = () => {
     router.replace(`/alibi/game/${code}/end`);
   };
+
+  // Server time offset for accurate timer computation
+  useEffect(() => {
+    const offsetRef = ref(db, '.info/serverTimeOffset');
+    const unsub = onValue(offsetRef, snap => setServerOffset(snap.val() || 0));
+    return () => unsub();
+  }, []);
 
   // Auth - only set myUid
   useEffect(() => {
@@ -252,12 +265,7 @@ export default function AlibiInterrogation() {
       const data = snap.val() || {};
       setCurrentQuestion(data.currentQuestion || 0);
       setQuestionState(data.state || "waiting");
-
-      const shouldListenToTimer = !isHost || data.state !== "answering";
-      if (shouldListenToTimer) {
-        setTimeLeft(data.timeLeft || 30);
-      }
-
+      setStartedAt(data.startedAt || null);
       setResponses(data.responses || {});
       setVerdict(data.verdict || null);
     });
@@ -279,27 +287,28 @@ export default function AlibiInterrogation() {
     };
   }, [code, router, isHost]);
 
-  // Timer (host only)
+  // Check if I can control (inspector in Game Master Mode OR inspector group in Party Mode)
+  const canControl = useMemo(() => {
+    if (isPartyMode) {
+      return myRole === 'inspector';
+    }
+    return myTeam === 'inspectors';
+  }, [isPartyMode, myRole, myTeam]);
+
+  // Timer - calculé depuis le timestamp serveur, tourne sur tous les clients
   useEffect(() => {
-    if (!isHost || questionState !== "answering" || allAnswered) {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
+    if (questionState !== "answering" || !startedAt) {
       return;
     }
 
-    if (!timerRef.current) {
-      timerRef.current = setInterval(() => {
-        setTimeLeft(prevTime => {
-          const newTime = prevTime - 1;
-          if (newTime >= 0) {
-            update(ref(db, `rooms_alibi/${code}/interrogation`), { timeLeft: newTime });
-          }
-          return newTime;
-        });
-      }, 1000);
-    }
+    const tick = () => {
+      const serverNow = Date.now() + serverOffset;
+      const elapsed = Math.floor((serverNow - startedAt) / 1000);
+      setTimeLeft(Math.max(0, 30 - elapsed));
+    };
+
+    tick(); // mise à jour immédiate
+    timerRef.current = setInterval(tick, 500);
 
     return () => {
       if (timerRef.current) {
@@ -307,11 +316,11 @@ export default function AlibiInterrogation() {
         timerRef.current = null;
       }
     };
-  }, [questionState, isHost, allAnswered, code]);
+  }, [questionState, startedAt, serverOffset]);
 
-  // Timeout detection
+  // Timeout - déclenché par l'inspecteur (canControl), pas uniquement l'hôte
   useEffect(() => {
-    if (!isHost || questionState !== "answering") {
+    if (!canControl || questionState !== "answering") {
       timeoutTriggeredRef.current = false;
       return;
     }
@@ -324,21 +333,12 @@ export default function AlibiInterrogation() {
         timerRef.current = null;
       }
 
-      // Timeout = verdict, les inspecteurs doivent cliquer pour continuer
       update(ref(db, `rooms_alibi/${code}/interrogation`), {
         state: "verdict",
         verdict: "timeout"
       });
     }
-  }, [timeLeft, allAnswered, questionState, isHost, code, currentQuestion]);
-
-  // Check if I can control (inspector in Game Master Mode OR inspector group in Party Mode)
-  const canControl = useMemo(() => {
-    if (isPartyMode) {
-      return myRole === 'inspector';
-    }
-    return myTeam === 'inspectors';
-  }, [isPartyMode, myRole, myTeam]);
+  }, [timeLeft, allAnswered, questionState, canControl, code, currentQuestion]);
 
   // Actions INSPECTEURS
   const startQuestion = async () => {
@@ -346,17 +346,21 @@ export default function AlibiInterrogation() {
 
     hueScenariosService.trigger('alibi', 'roundStart');
 
-    await set(ref(db, `rooms_alibi/${code}/interrogation`), {
-      currentQuestion,
-      state: "answering",
-      timeLeft: 30,
-      responses: {},
-      verdict: null,
-      // Party Mode: track which group is being interrogated
-      ...(isPartyMode && { targetGroupId: accusedGroup?.id })
-    });
+    try {
+      await set(ref(db, `rooms_alibi/${code}/interrogation`), {
+        currentQuestion,
+        state: "answering",
+        startedAt: serverTimestamp(),
+        responses: {},
+        verdict: null,
+        ...(isPartyMode && { targetGroupId: accusedGroup?.id })
+      });
+    } catch (err) {
+      console.error('[Alibi] startQuestion failed:', err);
+      toast.error('Impossible de lancer le timer. Réessaie.');
+      return;
+    }
 
-    setTimeLeft(30);
     setHasAnswered(false);
     setMyAnswer("");
   };
@@ -445,6 +449,7 @@ export default function AlibiInterrogation() {
       setAllAnswered(false);
       timeoutTriggeredRef.current = false;
       setTimeLeft(30);
+      setStartedAt(null);
     }
   }, [currentQuestion, questionState]);
 
