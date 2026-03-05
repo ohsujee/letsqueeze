@@ -581,14 +581,23 @@ export default function SemantiquePage() {
       }
     };
 
+    // Sur iPad, vv.resize ne fire pas toujours lors des réouvertures suivantes du clavier
+    // (notre window.scrollTo pendant l'animation perturbe le cycle iOS).
+    // vv.scroll fire lui, et en différant update() d'une frame via rAF,
+    // vv.height est déjà à sa valeur finale → kb correct.
+    const onVvScroll = () => {
+      resetDocScroll();
+      requestAnimationFrame(update);
+    };
+
     update(); // Position initiale
-    vv.addEventListener('resize', update);             // Clavier ouvre/ferme → repositionne
-    vv.addEventListener('scroll', resetDocScroll);     // iOS pan le visual viewport → reset scroll
-    window.addEventListener('scroll', resetDocScroll); // iOS scroll le document → reset immédiat
+    vv.addEventListener('resize', update);         // Clavier ouvre/ferme → repositionne (chemin principal)
+    vv.addEventListener('scroll', onVvScroll);     // iOS pan → reset scroll + update position (fallback)
+    window.addEventListener('scroll', resetDocScroll); // iOS scroll document → reset immédiat
 
     return () => {
       vv.removeEventListener('resize', update);
-      vv.removeEventListener('scroll', resetDocScroll);
+      vv.removeEventListener('scroll', onVvScroll);
       window.removeEventListener('scroll', resetDocScroll);
     };
   }, []);
