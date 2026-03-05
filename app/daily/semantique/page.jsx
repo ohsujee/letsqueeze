@@ -571,20 +571,19 @@ export default function SemantiquePage() {
     };
 
     // Reset le scroll document qu'iOS force (WKScrollView contentOffset).
-    // CSS overflow:hidden ne bloque pas ce scroll car iOS l'applique au niveau UIKit,
-    // en dessous du moteur web. Ce listener fire à chaque tentative de scroll iOS
-    // et remet immédiatement le contentOffset à zéro.
+    // NE PAS appeler update() ici : window.scrollTo(0,0) déclenche lui-même un scroll event,
+    // et à ce moment vv.height n'est pas encore mis à jour → kb=0 → input zone masquée.
+    // Le positionnement est géré exclusivement par vv.resize.
     const resetDocScroll = () => {
       if (window.scrollY !== 0) window.scrollTo({ top: 0, behavior: 'instant' });
       if (scrollAreaRef.current && scrollAreaRef.current.scrollTop !== 0) {
         scrollAreaRef.current.scrollTop = 0;
       }
-      update();
     };
 
     update(); // Position initiale
-    vv.addEventListener('resize', update);        // Clavier ouvre/ferme → repositionne
-    vv.addEventListener('scroll', resetDocScroll); // iOS pan le visual viewport → reset
+    vv.addEventListener('resize', update);             // Clavier ouvre/ferme → repositionne
+    vv.addEventListener('scroll', resetDocScroll);     // iOS pan le visual viewport → reset scroll
     window.addEventListener('scroll', resetDocScroll); // iOS scroll le document → reset immédiat
 
     return () => {
