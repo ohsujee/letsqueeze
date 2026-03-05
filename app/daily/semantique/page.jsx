@@ -561,7 +561,9 @@ export default function SemantiquePage() {
     const vv = window.visualViewport;
     if (!vv) return;
 
-    // Repositionne l'input zone en fonction de la hauteur du clavier
+    // Repositionne l'input zone selon la hauteur du clavier.
+    // vv.resize est le seul déclencheur : pas de window.scroll listener qui se battrait
+    // avec iOS et empêcherait vv.resize de fire correctement sur les réouvertures.
     const update = () => {
       const el = inputZoneRef.current;
       if (!el) return;
@@ -570,35 +572,16 @@ export default function SemantiquePage() {
       el.style.transform = '';
     };
 
-    // Reset le scroll document qu'iOS force (WKScrollView contentOffset).
-    // NE PAS appeler update() ici : window.scrollTo(0,0) déclenche lui-même un scroll event,
-    // et à ce moment vv.height n'est pas encore mis à jour → kb=0 → input zone masquée.
-    // Le positionnement est géré exclusivement par vv.resize.
-    const resetDocScroll = () => {
-      if (window.scrollY !== 0) window.scrollTo({ top: 0, behavior: 'instant' });
-      if (scrollAreaRef.current && scrollAreaRef.current.scrollTop !== 0) {
-        scrollAreaRef.current.scrollTop = 0;
-      }
-    };
+    update();
+    vv.addEventListener('resize', update);
+    return () => vv.removeEventListener('resize', update);
+  }, []);
 
-    // Sur iPad, vv.resize ne fire pas toujours lors des réouvertures suivantes du clavier
-    // (notre window.scrollTo pendant l'animation perturbe le cycle iOS).
-    // vv.scroll fire lui, et en différant update() d'une frame via rAF,
-    // vv.height est déjà à sa valeur finale → kb correct.
-    const onVvScroll = () => {
-      resetDocScroll();
-      requestAnimationFrame(update);
-    };
-
-    update(); // Position initiale
-    vv.addEventListener('resize', update);         // Clavier ouvre/ferme → repositionne (chemin principal)
-    vv.addEventListener('scroll', onVvScroll);     // iOS pan → reset scroll + update position (fallback)
-    window.addEventListener('scroll', resetDocScroll); // iOS scroll document → reset immédiat
-
+  // Sécurité : restaurer body si le composant démonte clavier ouvert
+  useEffect(() => {
     return () => {
-      vv.removeEventListener('resize', update);
-      vv.removeEventListener('scroll', onVvScroll);
-      window.removeEventListener('scroll', resetDocScroll);
+      document.body.style.position = '';
+      document.body.style.width = '';
     };
   }, []);
 
@@ -853,20 +836,30 @@ export default function SemantiquePage() {
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   onTouchStart={() => {
-                    // touchstart fire AVANT qu'iOS programme son scroll automatique.
-                    // Double protection avec le déplacement DOM (pas d'ancêtre scrollable).
+                    // Verrouille body en position:fixed AVANT qu'iOS démarre son animation.
+                    // Quand body est fixed, iOS peut changer le contentOffset de la WKScrollView
+                    // mais le contenu ne bouge pas visuellement → header reste visible,
+                    // pas de guerre window.scrollTo qui perturberait vv.resize.
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100%';
                     const scrollEl = scrollAreaRef.current;
                     if (!scrollEl) return;
                     scrollEl.style.overflowY = 'hidden';
                     scrollEl.scrollTop = 0;
                   }}
                   onFocus={() => {
+                    // Backup si onTouchStart n'a pas fire (clavier externe, etc.)
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100%';
                     const scrollEl = scrollAreaRef.current;
                     if (!scrollEl) return;
                     scrollEl.style.overflowY = 'hidden';
                     scrollEl.scrollTop = 0;
                   }}
                   onBlur={() => {
+                    document.body.style.position = '';
+                    document.body.style.width = '';
+                    if (window.scrollY !== 0) window.scrollTo({ top: 0, behavior: 'instant' });
                     const scrollEl = scrollAreaRef.current;
                     if (scrollEl) scrollEl.style.overflowY = '';
                   }}
