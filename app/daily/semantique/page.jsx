@@ -560,23 +560,37 @@ export default function SemantiquePage() {
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv) return;
+
+    // Repositionne l'input zone en fonction de la hauteur du clavier
     const update = () => {
       const el = inputZoneRef.current;
       if (!el) return;
-      // Hauteur du clavier = différence entre hauteur écran et viewport visible
-      // On ignore vv.offsetTop : pour position:fixed, le scroll document n'a pas d'impact
       const kb = Math.max(0, window.innerHeight - vv.height);
       el.style.bottom = `${kb}px`;
-      el.style.transform = ''; // Jamais de translateY sur un élément position:fixed
-      // Reset le scroll document qu'iOS force (WKScrollView contentOffset) quand le clavier s'ouvre
-      if (kb > 0) window.scrollTo({ top: 0, behavior: 'instant' });
+      el.style.transform = '';
     };
-    update(); // Appel immédiat au montage
-    vv.addEventListener('resize', update);
-    vv.addEventListener('scroll', update);
+
+    // Reset le scroll document qu'iOS force (WKScrollView contentOffset).
+    // CSS overflow:hidden ne bloque pas ce scroll car iOS l'applique au niveau UIKit,
+    // en dessous du moteur web. Ce listener fire à chaque tentative de scroll iOS
+    // et remet immédiatement le contentOffset à zéro.
+    const resetDocScroll = () => {
+      if (window.scrollY !== 0) window.scrollTo({ top: 0, behavior: 'instant' });
+      if (scrollAreaRef.current && scrollAreaRef.current.scrollTop !== 0) {
+        scrollAreaRef.current.scrollTop = 0;
+      }
+      update();
+    };
+
+    update(); // Position initiale
+    vv.addEventListener('resize', update);        // Clavier ouvre/ferme → repositionne
+    vv.addEventListener('scroll', resetDocScroll); // iOS pan le visual viewport → reset
+    window.addEventListener('scroll', resetDocScroll); // iOS scroll le document → reset immédiat
+
     return () => {
       vv.removeEventListener('resize', update);
-      vv.removeEventListener('scroll', update);
+      vv.removeEventListener('scroll', resetDocScroll);
+      window.removeEventListener('scroll', resetDocScroll);
     };
   }, []);
 
