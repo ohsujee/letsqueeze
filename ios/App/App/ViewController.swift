@@ -13,6 +13,11 @@ class ViewController: CAPBridgeViewController {
         webView?.scrollView.contentInsetAdjustmentBehavior = .never
         webView?.scrollView.isScrollEnabled = false
 
+        // KVO sur contentOffset : iOS appelle scrollRectToVisible: quand un input reçoit
+        // le focus, ce qui change contentOffset même si isScrollEnabled = false.
+        // On force le retour à zéro pour que le header reste visible.
+        webView?.scrollView.addObserver(self, forKeyPath: "contentOffset", options: [.new], context: nil)
+
         // Notifications clavier UIKit → event JS 'native-keyboard-show/hide'.
         // Plus fiable que visualViewport : fire AVANT l'animation avec la hauteur finale exacte,
         // pas de valeurs intermédiaires, pas de race condition.
@@ -53,7 +58,16 @@ class ViewController: CAPBridgeViewController {
         """) { _, _ in }
     }
 
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "contentOffset", let scrollView = object as? UIScrollView {
+            if scrollView.contentOffset.y != 0 {
+                scrollView.contentOffset = .zero
+            }
+        }
+    }
+
     deinit {
+        webView?.scrollView.removeObserver(self, forKeyPath: "contentOffset")
         NotificationCenter.default.removeObserver(self)
     }
 
