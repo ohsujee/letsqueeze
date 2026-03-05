@@ -136,6 +136,7 @@ export default function DeezTestPlayerGame() {
 
   const audioPlayerRef = useRef(null);
   const audioSyncTimeoutRef = useRef(null);
+  const audioStopIntervalRef = useRef(null);
   // Ref pour accéder à l'offset serveur dans le callback Firebase sans re-subscribe
   const serverOffsetRef = useRef(offset);
   serverOffsetRef.current = offset;
@@ -174,9 +175,9 @@ export default function DeezTestPlayerGame() {
         audio.preload = 'auto';
         audioPlayerRef.current = audio;
 
-        // Attendre que l'audio soit prêt
+        // Attendre que l'audio soit prêt (canplay = plus rapide que canplaythrough sur iOS)
         await new Promise((resolve, reject) => {
-          audio.addEventListener('canplaythrough', resolve, { once: true });
+          audio.addEventListener('canplay', resolve, { once: true });
           audio.addEventListener('error', reject, { once: true });
           setTimeout(() => reject(new Error('Audio load timeout')), 2000);
         });
@@ -189,13 +190,24 @@ export default function DeezTestPlayerGame() {
             audio.currentTime = PREVIEW_START_OFFSET_SEC;
             await audio.play();
 
-            // Timer de durée démarre APRÈS que l'audio joue réellement
-            // (même comportement que playSnippet côté asker)
+            // Stop basé sur currentTime (pas setTimeout) pour garantir la durée exacte
+            // même si iOS démarre l'audio avec un léger délai après play()
             if (duration) {
-              setTimeout(() => {
-                audio.pause();
-                audio.currentTime = 0;
-              }, duration);
+              const targetTime = PREVIEW_START_OFFSET_SEC + duration / 1000;
+              if (audioStopIntervalRef.current) clearInterval(audioStopIntervalRef.current);
+              audioStopIntervalRef.current = setInterval(() => {
+                if (audioPlayerRef.current !== audio) {
+                  clearInterval(audioStopIntervalRef.current);
+                  audioStopIntervalRef.current = null;
+                  return;
+                }
+                if (audio.currentTime >= targetTime || audio.ended) {
+                  clearInterval(audioStopIntervalRef.current);
+                  audioStopIntervalRef.current = null;
+                  audio.pause();
+                  audio.currentTime = 0;
+                }
+              }, 50);
             }
           } catch (err) {
             console.error('[Audio Sync] Play error:', err);
@@ -212,6 +224,10 @@ export default function DeezTestPlayerGame() {
       if (audioSyncTimeoutRef.current) {
         clearTimeout(audioSyncTimeoutRef.current);
       }
+      if (audioStopIntervalRef.current) {
+        clearInterval(audioStopIntervalRef.current);
+        audioStopIntervalRef.current = null;
+      }
       if (audioPlayerRef.current) {
         audioPlayerRef.current.pause();
         audioPlayerRef.current = null;
@@ -222,6 +238,10 @@ export default function DeezTestPlayerGame() {
   // Cleanup audio quand quelqu'un buzz
   useEffect(() => {
     if (state?.lockUid && audioPlayerRef.current) {
+      if (audioStopIntervalRef.current) {
+        clearInterval(audioStopIntervalRef.current);
+        audioStopIntervalRef.current = null;
+      }
       audioPlayerRef.current.pause();
       audioPlayerRef.current.currentTime = 0;
     }
@@ -270,9 +290,9 @@ export default function DeezTestPlayerGame() {
           audio.preload = 'auto';
           revealAudioPlayerRef.current = audio;
 
-          // Attendre que l'audio soit prêt
+          // Attendre que l'audio soit prêt (canplay = plus rapide que canplaythrough sur iOS)
           await new Promise((resolve, reject) => {
-            audio.addEventListener('canplaythrough', resolve, { once: true });
+            audio.addEventListener('canplay', resolve, { once: true });
             audio.addEventListener('error', reject, { once: true });
             setTimeout(() => reject(new Error('Reveal audio load timeout')), 2000);
           });
