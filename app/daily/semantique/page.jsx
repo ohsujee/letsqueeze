@@ -568,6 +568,8 @@ export default function SemantiquePage() {
       const kb = Math.max(0, window.innerHeight - vv.height);
       el.style.bottom = `${kb}px`;
       el.style.transform = ''; // Jamais de translateY sur un élément position:fixed
+      // Reset le scroll document qu'iOS force (WKScrollView contentOffset) quand le clavier s'ouvre
+      if (kb > 0) window.scrollTo({ top: 0, behavior: 'instant' });
     };
     update(); // Appel immédiat au montage
     vv.addEventListener('resize', update);
