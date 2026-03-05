@@ -554,48 +554,41 @@ export default function SemantiquePage() {
   const freshCompletionRef = useRef(false);
   const transitionTimerRef = useRef(null);
   const inputZoneRef = useRef(null);
-  const vvTimerRef = useRef(null);   // debounce vv.resize
-  const focusTimerRef = useRef(null); // fallback après animation clavier
+  const nativeKbActiveRef = useRef(false); // true quand iOS natif gère le clavier
 
-  // Positionner l'input zone au-dessus du clavier via visualViewport.
-  // Problème : vv.resize fire parfois sur des valeurs intermédiaires de vv.height
-  // (clavier en cours d'animation) → input zone mal positionnée.
-  // Solution : debounce 80ms pour attendre que vv.height se stabilise.
-  // vv.scroll en fallback pour les cas où vv.resize ne fire pas (iPad).
+  // Positionnement de l'input zone au-dessus du clavier.
+  //
+  // iOS natif (Capacitor) : ViewController.swift envoie 'native-keyboard-show/hide'
+  //   via UIKeyboardWillShowNotification → hauteur finale exacte, avant animation.
+  //   isScrollEnabled=false empêche le document de scroller → header toujours visible.
+  //
+  // Android / web : fallback visualViewport resize (Android redimensionne le WebView).
   useEffect(() => {
-    const vv = window.visualViewport;
-    if (!vv) return;
-
-    const applyPosition = () => {
+    const applyKb = (kb) => {
       const el = inputZoneRef.current;
       if (!el) return;
-      const kb = Math.max(0, window.innerHeight - vv.height);
-      el.style.bottom = `${kb}px`;
+      el.style.bottom = `${Math.max(0, kb)}px`;
       el.style.transform = '';
     };
 
-    const debouncedApply = () => {
-      clearTimeout(vvTimerRef.current);
-      vvTimerRef.current = setTimeout(applyPosition, 80);
-    };
+    // iOS natif
+    const onNativeShow = (e) => { nativeKbActiveRef.current = true; applyKb(e.detail.height); };
+    const onNativeHide = () => { nativeKbActiveRef.current = false; applyKb(0); };
+    window.addEventListener('native-keyboard-show', onNativeShow);
+    window.addEventListener('native-keyboard-hide', onNativeHide);
 
-    applyPosition(); // position initiale (clavier fermé, kb=0)
-    vv.addEventListener('resize', debouncedApply); // clavier ouvre/ferme
-    vv.addEventListener('scroll', debouncedApply); // fallback iOS pan
+    // Fallback Android/web
+    const vv = window.visualViewport;
+    const onVvResize = vv ? () => {
+      if (nativeKbActiveRef.current) return; // iOS natif a déjà la bonne valeur
+      applyKb(window.innerHeight - vv.height);
+    } : null;
+    if (vv && onVvResize) vv.addEventListener('resize', onVvResize);
 
     return () => {
-      clearTimeout(vvTimerRef.current);
-      vv.removeEventListener('resize', debouncedApply);
-      vv.removeEventListener('scroll', debouncedApply);
-    };
-  }, []);
-
-  // Sécurité : restaurer body si le composant démonte clavier ouvert
-  useEffect(() => {
-    return () => {
-      document.body.style.position = '';
-      document.body.style.width = '';
-      clearTimeout(focusTimerRef.current);
+      window.removeEventListener('native-keyboard-show', onNativeShow);
+      window.removeEventListener('native-keyboard-hide', onNativeHide);
+      if (vv && onVvResize) vv.removeEventListener('resize', onVvResize);
     };
   }, []);
 
@@ -849,44 +842,14 @@ export default function SemantiquePage() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  onTouchStart={() => {
-                    // Verrouille body en position:fixed AVANT qu'iOS démarre son animation.
-                    // Quand body est fixed, iOS peut changer le contentOffset de la WKScrollView
-                    // mais le contenu ne bouge pas visuellement → header reste visible,
-                    // pas de guerre window.scrollTo qui perturberait vv.resize.
-                    document.body.style.position = 'fixed';
-                    document.body.style.width = '100%';
+                  onFocus={() => {
+                    // Garde la liste en haut (empêche iOS de scroller semantic-scroll-area)
                     const scrollEl = scrollAreaRef.current;
                     if (!scrollEl) return;
                     scrollEl.style.overflowY = 'hidden';
                     scrollEl.scrollTop = 0;
                   }}
-                  onFocus={() => {
-                    // Backup si onTouchStart n'a pas fire (clavier externe, etc.)
-                    document.body.style.position = 'fixed';
-                    document.body.style.width = '100%';
-                    const scrollEl = scrollAreaRef.current;
-                    if (scrollEl) {
-                      scrollEl.style.overflowY = 'hidden';
-                      scrollEl.scrollTop = 0;
-                    }
-                    // Fallback garanti : après l'animation clavier (~250ms iOS),
-                    // on force la position correcte quelle que soit la valeur
-                    // intermédiaire que vv.resize aurait pu fournir.
-                    clearTimeout(focusTimerRef.current);
-                    focusTimerRef.current = setTimeout(() => {
-                      const vv = window.visualViewport;
-                      const el = inputZoneRef.current;
-                      if (!vv || !el) return;
-                      const kb = Math.max(0, window.innerHeight - vv.height);
-                      el.style.bottom = `${kb}px`;
-                    }, 350);
-                  }}
                   onBlur={() => {
-                    document.body.style.position = '';
-                    document.body.style.width = '';
-                    if (window.scrollY !== 0) window.scrollTo({ top: 0, behavior: 'instant' });
-                    clearTimeout(focusTimerRef.current);
                     const scrollEl = scrollAreaRef.current;
                     if (scrollEl) scrollEl.style.overflowY = '';
                   }}
