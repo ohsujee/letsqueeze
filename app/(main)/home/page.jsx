@@ -25,7 +25,6 @@ import { useToast } from '@/lib/hooks/useToast';
 import { GameController, Heart } from '@phosphor-icons/react';
 import DailyGamesSection from '@/components/home/DailyGamesSection';
 import { genUniqueCode } from '@/lib/utils';
-import { isFounder } from '@/lib/admin';
 import { getVisibleGames, filterByPlayerCount, sortGames, searchGames, applyRemoteConfig } from '@/lib/config/games';
 import { useRemoteConfig } from '@/lib/hooks/useRemoteConfig';
 import { useGlobalPlayCounts } from '@/lib/hooks/useGlobalPlayCounts';
@@ -46,8 +45,8 @@ function HomePageContent() {
   const [selectedGameMasterMode, setSelectedGameMasterMode] = useState(null);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [helpGameId, setHelpGameId] = useState('quiz');
-  const { profile, cachedPseudo, subscription } = useUserProfile();
-  const userWithSubscription = useMemo(() => user ? { ...user, subscription } : null, [user, subscription]);
+  const { profile, cachedPseudo, subscription, isFounder: userIsFounderFromDB } = useUserProfile();
+  const userWithSubscription = useMemo(() => user ? { ...user, subscription, isFounder: userIsFounderFromDB } : null, [user, subscription, userIsFounderFromDB]);
   const { isPro, isLoading: subscriptionLoading } = useSubscription(userWithSubscription);
   const {
     heartsRemaining,
@@ -324,7 +323,7 @@ function HomePageContent() {
   };
 
   // Filter out founders-only games for non-founders, then apply Remote Config overrides
-  const userIsFounder = isFounder(user);
+  const userIsFounder = userIsFounderFromDB;
 
   // Memoize visible games (only recalculate when user or config changes)
   const visibleGames = useMemo(() => {

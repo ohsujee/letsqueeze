@@ -6,13 +6,14 @@ import { getUserStats, formatStats } from '@/lib/services/statsService';
 import { ArrowLeft, Trophy, Target, Flame } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getVisibleGames } from '@/lib/config/games';
-import admin from '@/lib/admin';
 import { useAuthProtect } from '@/lib/hooks/useAuthProtect';
+import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
 export default function StatsPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuthProtect();
+  const { isFounder: userIsFounder } = useUserProfile();
   const [stats, setStats] = useState(null);
   const [statsLoading, setStatsLoading] = useState(true);
 
@@ -32,7 +33,6 @@ export default function StatsPage() {
   const loading = authLoading || statsLoading;
 
   // Get visible games based on founder status (must be before any early return)
-  const userIsFounder = admin.isFounder(user);
   const visibleGames = getVisibleGames(userIsFounder);
 
   // Map stats to each visible game (must be before any early return)
