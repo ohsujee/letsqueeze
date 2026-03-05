@@ -347,7 +347,7 @@ export default function DeezTestLobby() {
 
       if (isPartyMode) {
         // Get active players (including host who was just added)
-        activePlayers = [...players.filter(p => p.status !== 'disconnected' && p.status !== 'left')];
+        activePlayers = [...players.filter(p => p.status !== 'left')];
 
         // Add host if not in players list yet (just added above)
         if (myUid && !activePlayers.find(p => p.uid === myUid)) {

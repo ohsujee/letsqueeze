@@ -50,7 +50,8 @@ export default function PlayerGame() {
     currentAskerUid,
     isCurrentAsker,
     canBuzz,
-    advanceToNextAsker
+    advanceToNextAsker,
+    handleAskerDisconnect
   } = useAskerRotation({
     roomCode: code,
     roomPrefix: 'rooms',
@@ -221,6 +222,12 @@ export default function PlayerGame() {
   }, [state?.currentIndex, state?.lockUid]);
 
   const isMyTurn = state?.lockUid === me?.uid;
+
+  // Party Mode: Si le poseur actuel a quitté, passer au suivant (host uniquement pour éviter race conditions)
+  useEffect(() => {
+    if (!isPartyMode || !isActualHost || !currentAskerUid) return;
+    handleAskerDisconnect();
+  }, [players, currentAskerUid]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Party Mode: Show transition when asker changes (including first asker)
   useEffect(() => {
