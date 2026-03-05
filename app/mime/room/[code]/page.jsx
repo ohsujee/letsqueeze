@@ -57,9 +57,9 @@ export default function MimeLobbyPage() {
   const shareModalRef = useRef(null);
 
   // User profile pour le pseudo
-  const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
+  const { user: currentUser, profile, subscription, isFounder: userIsFounder, loading: profileLoading } = useUserProfile();
   const userPseudo = profile?.pseudo || 'Hôte';
-  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+  const userIsPro = currentUser ? isPro({ ...currentUser, subscription, isFounder: userIsFounder }) : false;
   const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
   const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 

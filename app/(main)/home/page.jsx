@@ -47,7 +47,8 @@ function HomePageContent() {
   const [helpGameId, setHelpGameId] = useState('quiz');
   const { profile, cachedPseudo, subscription, isFounder: userIsFounderFromDB } = useUserProfile();
   const userWithSubscription = useMemo(() => user ? { ...user, subscription, isFounder: userIsFounderFromDB } : null, [user, subscription, userIsFounderFromDB]);
-  const { isPro, isLoading: subscriptionLoading } = useSubscription(userWithSubscription);
+  const { isPro: subscriptionIsPro, isLoading: subscriptionLoading } = useSubscription(userWithSubscription);
+  const isPro = subscriptionIsPro || userIsFounderFromDB;
   const {
     heartsRemaining,
     canPlay: canPlayHearts,

@@ -32,7 +32,7 @@ export default function JoinClient({ initialCode = "" }) {
   const [user, setUser] = useState(null);
   const [joining, setJoining] = useState(false);
   const [error, setError] = useState("");
-  const { user: currentUser, profile, subscription, loading: profileLoading, refresh: refreshProfile, cachedPseudo } = useUserProfile();
+  const { user: currentUser, profile, subscription, isFounder: userIsFounder, loading: profileLoading, refresh: refreshProfile, cachedPseudo } = useUserProfile();
 
   // Pseudo editing state
   const [isEditingPseudo, setIsEditingPseudo] = useState(false);
@@ -45,7 +45,7 @@ export default function JoinClient({ initialCode = "" }) {
   const [transitionConfig, setTransitionConfig] = useState(null);
 
   // Check if user is Pro
-  const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
+  const userIsPro = currentUser ? isPro({ ...currentUser, subscription, isFounder: userIsFounder }) : false;
 
   // Hearts system
   const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
