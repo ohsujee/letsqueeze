@@ -553,18 +553,20 @@ export default function SemantiquePage() {
   const startTimeRef = useRef(null);
   const freshCompletionRef = useRef(false);
   const transitionTimerRef = useRef(null);
-
-  // Positionner l'input zone au-dessus du clavier via visualViewport
-  // Manipulation DOM directe (pas de state) pour éviter les re-renders sur chaque scroll iOS
   const inputZoneRef = useRef(null);
+  const vvTimerRef = useRef(null);   // debounce vv.resize
+  const focusTimerRef = useRef(null); // fallback après animation clavier
+
+  // Positionner l'input zone au-dessus du clavier via visualViewport.
+  // Problème : vv.resize fire parfois sur des valeurs intermédiaires de vv.height
+  // (clavier en cours d'animation) → input zone mal positionnée.
+  // Solution : debounce 80ms pour attendre que vv.height se stabilise.
+  // vv.scroll en fallback pour les cas où vv.resize ne fire pas (iPad).
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv) return;
 
-    // Repositionne l'input zone selon la hauteur du clavier.
-    // vv.resize est le seul déclencheur : pas de window.scroll listener qui se battrait
-    // avec iOS et empêcherait vv.resize de fire correctement sur les réouvertures.
-    const update = () => {
+    const applyPosition = () => {
       const el = inputZoneRef.current;
       if (!el) return;
       const kb = Math.max(0, window.innerHeight - vv.height);
@@ -572,9 +574,20 @@ export default function SemantiquePage() {
       el.style.transform = '';
     };
 
-    update();
-    vv.addEventListener('resize', update);
-    return () => vv.removeEventListener('resize', update);
+    const debouncedApply = () => {
+      clearTimeout(vvTimerRef.current);
+      vvTimerRef.current = setTimeout(applyPosition, 80);
+    };
+
+    applyPosition(); // position initiale (clavier fermé, kb=0)
+    vv.addEventListener('resize', debouncedApply); // clavier ouvre/ferme
+    vv.addEventListener('scroll', debouncedApply); // fallback iOS pan
+
+    return () => {
+      clearTimeout(vvTimerRef.current);
+      vv.removeEventListener('resize', debouncedApply);
+      vv.removeEventListener('scroll', debouncedApply);
+    };
   }, []);
 
   // Sécurité : restaurer body si le composant démonte clavier ouvert
@@ -582,6 +595,7 @@ export default function SemantiquePage() {
     return () => {
       document.body.style.position = '';
       document.body.style.width = '';
+      clearTimeout(focusTimerRef.current);
     };
   }, []);
 
@@ -852,14 +866,27 @@ export default function SemantiquePage() {
                     document.body.style.position = 'fixed';
                     document.body.style.width = '100%';
                     const scrollEl = scrollAreaRef.current;
-                    if (!scrollEl) return;
-                    scrollEl.style.overflowY = 'hidden';
-                    scrollEl.scrollTop = 0;
+                    if (scrollEl) {
+                      scrollEl.style.overflowY = 'hidden';
+                      scrollEl.scrollTop = 0;
+                    }
+                    // Fallback garanti : après l'animation clavier (~250ms iOS),
+                    // on force la position correcte quelle que soit la valeur
+                    // intermédiaire que vv.resize aurait pu fournir.
+                    clearTimeout(focusTimerRef.current);
+                    focusTimerRef.current = setTimeout(() => {
+                      const vv = window.visualViewport;
+                      const el = inputZoneRef.current;
+                      if (!vv || !el) return;
+                      const kb = Math.max(0, window.innerHeight - vv.height);
+                      el.style.bottom = `${kb}px`;
+                    }, 350);
                   }}
                   onBlur={() => {
                     document.body.style.position = '';
                     document.body.style.width = '';
                     if (window.scrollY !== 0) window.scrollTo({ top: 0, behavior: 'instant' });
+                    clearTimeout(focusTimerRef.current);
                     const scrollEl = scrollAreaRef.current;
                     if (scrollEl) scrollEl.style.overflowY = '';
                   }}
