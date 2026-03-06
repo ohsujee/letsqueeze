@@ -106,7 +106,7 @@ export default function AlibiLobby() {
   const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 
   // Get pseudo from profile or fallback
-  const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Hôte';
+  const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
 
   // Keep screen awake during game
   useWakeLock({ enabled: true });

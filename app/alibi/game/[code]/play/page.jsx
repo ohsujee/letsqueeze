@@ -288,18 +288,18 @@ export default function AlibiInterrogation() {
   }, [code, router, isHost]);
 
   // Qui CONTRÔLE (peut écrire Firebase)
-  // GMM: seulement l'hôte (game master) — Firebase rules n'autorisent que hostUid
+  // GMM: membres de l'équipe inspecteurs (pas seulement l'hôte)
   // Party Mode: membres du groupe inspecteur
   const canControl = useMemo(() => {
     if (isPartyMode) return myRole === 'inspector';
-    return isHost;
-  }, [isPartyMode, myRole, isHost]);
+    return myTeam === 'inspectors';
+  }, [isPartyMode, myRole, myTeam]);
 
-  // Qui VOIT la vue inspecteur (lecture seule pour non-hôtes en GMM)
+  // Qui VOIT la vue inspecteur — basé sur le rôle/team, pas sur le statut d'hôte
   const canSeeInspectorView = useMemo(() => {
     if (isPartyMode) return myRole === 'inspector';
-    return isHost || myTeam === 'inspectors';
-  }, [isPartyMode, myRole, isHost, myTeam]);
+    return myTeam === 'inspectors';
+  }, [isPartyMode, myRole, myTeam]);
 
   // Timer - calculé depuis le timestamp serveur, tourne sur tous les clients
   useEffect(() => {
