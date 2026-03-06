@@ -12,6 +12,7 @@ import { usePostGameAd } from '@/lib/hooks/useInterstitialAd';
 import { GameEndTransition } from '@/components/transitions';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 import SuspiciousResultModal from '@/components/ui/SuspiciousResultModal';
+import ScoreUpdateModal from '@/components/ui/ScoreUpdateModal';
 
 // ─── Normalisation accents (pour lookup Firebase) ────────────────────────────
 function stripAccents(str) {
@@ -42,7 +43,7 @@ function getTemperature(score) {
 }
 
 function computeFinalScore(attempts) {
-  return Math.max(100, Math.floor(5000 / attempts));
+  return Math.max(100, Math.round(5000 / (1 + 0.05 * (attempts - 1))));
 }
 
 function getStreakFlames(count) {
@@ -719,6 +720,7 @@ export default function SemantiquePage() {
   const nativeKbActiveRef = useRef(false); // true quand iOS natif gère le clavier
 
   // ─── Anti-cheat / mode alternatif ────────────────────────────────────────
+  const [showScoreUpdateModal, setShowScoreUpdateModal] = useState(false);
   const [showSuspiciousModal, setShowSuspiciousModal] = useState(false);
   const [suspiciousCompleteParams, setSuspiciousCompleteParams] = useState(null);
   const [unranked, setUnranked] = useState(false);
@@ -784,6 +786,13 @@ export default function SemantiquePage() {
       setActiveTab('leaderboard');
     }
   }, [triggerPostGameAd, adTriggered]);
+
+  // One-time score update modal
+  useEffect(() => {
+    if (!loaded) return;
+    const seen = localStorage.getItem('lq_sem_score_v2_seen');
+    if (!seen) setShowScoreUpdateModal(true);
+  }, [loaded]);
 
   // Restaurer l'état depuis localStorage
   useEffect(() => {
@@ -1062,6 +1071,15 @@ export default function SemantiquePage() {
           <Trophy size={14} weight="fill" /> Classement
         </button>
       </div>
+
+      {/* Modal nouveau système de points (one-time) */}
+      <ScoreUpdateModal
+        isOpen={showScoreUpdateModal}
+        onClose={() => {
+          localStorage.setItem('lq_sem_score_v2_seen', '1');
+          setShowScoreUpdateModal(false);
+        }}
+      />
 
       {/* Modal anti-triche */}
       <SuspiciousResultModal
