@@ -354,9 +354,9 @@ const GAMES_DATA = {
             { label: 'Trouvé en 1 essai', value: '6 000 pts', icon: Zap, color: '#10b981' },
             { label: 'Trouvé en 2 essais', value: '5 000 pts', icon: Zap, color: '#10b981' },
             { label: 'Trouvé en 6 essais', value: '1 000 pts', icon: Zap, color: '#f59e0b' },
-            { label: 'Bonus rapidité', value: '+3 000 pts max', icon: Timer, color: '#06b6d4' }
+            { label: 'Bonus rapidité', value: '+999 pts max', icon: Timer, color: '#06b6d4' }
           ],
-          note: 'Un timer invisible démarre à ton premier essai. Plus tu es rapide, plus le bonus est élevé !'
+          note: 'Le nombre d\'essais est toujours dominant. Le bonus temps ajoute jusqu\'à 999 pts si tu trouves très rapidement.'
         }
       }
     ]
@@ -402,10 +402,10 @@ const GAMES_DATA = {
           type: 'scoring',
           items: [
             { label: 'Trouvé en 1 essai', value: '5 000 pts', icon: Zap, color: '#f97316' },
-            { label: 'Trouvé en 10 essais', value: '500 pts', icon: Zap, color: '#f97316' },
-            { label: 'Trouvé en 50 essais', value: '100 pts', icon: Zap, color: '#f59e0b' },
+            { label: 'Trouvé en 10 essais', value: '~3 450 pts', icon: Zap, color: '#f97316' },
+            { label: 'Trouvé en 50 essais', value: '~1 450 pts', icon: Zap, color: '#f59e0b' },
           ],
-          note: 'Formule : 5000 ÷ nombre d\'essais. Moins d\'essais = plus de points !'
+          note: 'La formule est plus généreuse qu\'avant : même en prenant 50 essais, tu gardes plus de 1 000 pts !'
         }
       }
     ]
