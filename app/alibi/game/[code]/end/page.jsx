@@ -668,22 +668,24 @@ export default function AlibiEnd() {
           </motion.div>
 
         </main>
-      </div>
 
-      {/* Footer fixe en bas, hors de la zone scrollable */}
-      <EndScreenFooter
-        gameColor="#f59e0b"
-        label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
-        onNewGame={() => {
-          if (!hostPresent) {
-            router.push('/home');
-          } else if (isHost) {
-            handleReturnToLobby();
-          } else {
-            router.push(`/alibi/room/${code}`);
-          }
-        }}
-      />
+        {/* Footer sticky en bas du scroll container */}
+        <div className="alibi-end-footer-wrap">
+          <EndScreenFooter
+            gameColor="#f59e0b"
+            label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+            onNewGame={() => {
+              if (!hostPresent) {
+                router.push('/home');
+              } else if (isHost) {
+                handleReturnToLobby();
+              } else {
+                router.push(`/alibi/room/${code}`);
+              }
+            }}
+          />
+        </div>
+      </div>
 
       <style jsx global>{`
           /* ===== ALIBI END SCREEN - Style Guide Compliant ===== */
@@ -714,9 +716,12 @@ export default function AlibiEnd() {
           .alibi-end-container {
             flex: 1 !important;
             min-height: 0 !important;
-            position: relative !important;
-            z-index: 1 !important;
             overflow-y: auto !important;
+          }
+
+          .alibi-end-footer-wrap {
+            position: sticky !important;
+            bottom: 0 !important;
           }
 
           .alibi-end-content {
