@@ -297,19 +297,45 @@ const BAR_COLOR = [
   'linear-gradient(90deg,#10b981,#059669)',
 ];
 
-// Renvoie les jours de la semaine jusqu'à aujourd'hui (pour le fetch)
-function getWeekDates(todayStr) {
+// Renvoie les jours de la semaine pour un offset donné (0 = semaine en cours, -1 = semaine passée…)
+function getWeekDatesForOffset(todayStr, offset) {
   const today = new Date(todayStr + 'T12:00:00');
   const dow = today.getDay();
   const monday = new Date(today);
-  monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1));
+  monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1) + offset * 7);
   const dates = [];
   for (let i = 0; i < 7; i++) {
     const d = new Date(monday);
     d.setDate(monday.getDate() + i);
-    if (d <= today) dates.push(d.toISOString().split('T')[0]);
+    if (offset < 0 || d <= today) dates.push(d.toISOString().split('T')[0]);
   }
   return dates;
+}
+
+// Date absolue pour un offset en jours (0 = aujourd'hui, -1 = hier…)
+function getDateForOffset(todayStr, offset) {
+  const d = new Date(todayStr + 'T12:00:00');
+  d.setDate(d.getDate() + offset);
+  return d.toISOString().split('T')[0];
+}
+
+// Label "lundi 3 mars 2026"
+function getDayLabel(dateStr) {
+  return new Date(dateStr + 'T12:00:00').toLocaleDateString('fr-FR', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+  });
+}
+
+// Label "3 mars – 9 mars" pour une semaine donnée
+function getWeekLabel(todayStr, offset) {
+  const today = new Date(todayStr + 'T12:00:00');
+  const dow = today.getDay();
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1) + offset * 7);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  const fmt = (d) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+  return `${fmt(monday)} – ${fmt(sunday)}`;
 }
 
 // Renvoie toujours les 7 jours Lun→Dim (pour la frise)
@@ -332,45 +358,42 @@ const DAY_LABELS = ['lu', 'ma', 'me', 'je', 've', 'sa', 'di'];
 // Ligne bg : left = center(col 0) = 7.143%, right = 7.143%
 // Ligne verte : left = 7.143%, width = todayIdx/7 × 100%
 
-function WeekProgressBar({ todayDate }) {
+function WeekProgressBar({ todayDate, weekOffset = 0 }) {
   const allDates = getFullWeekDates(todayDate);
-  const todayIdx = allDates.indexOf(todayDate);
-  // width de la ligne verte = distance entre centre col 0 et centre col todayIdx
-  const fillPct = (todayIdx / 7) * 100;
+  const isPastWeek = weekOffset < 0;
+  const todayIdx = isPastWeek ? 6 : allDates.indexOf(todayDate);
+  // scaleX : rapport sur 6 intervalles entre les 7 pips
+  const scaleX = todayIdx > 0 ? todayIdx / 6 : 0;
 
   return (
     <div className="week-bar">
-      {/* Rangée des pips */}
       <div className="week-bar-pips">
-        {/* Ligne de fond : centre col 0 → centre col 6 */}
         <div className="week-bar-line-bg" />
-        {/* Ligne verte : centre col 0 → centre col aujourd'hui */}
         {todayIdx > 0 && (
           <motion.div
             className="week-bar-line-filled"
-            initial={{ width: '0%' }}
-            animate={{ width: `${fillPct}%` }}
-            transition={{ duration: 0.65, ease: 'easeOut', delay: 0.15 }}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX }}
+            transition={{ duration: 0.55, ease: 'easeOut', delay: 0.1 }}
           />
         )}
         {allDates.map((date, i) => {
-          const state = date < todayDate ? 'past' : date === todayDate ? 'today' : 'future';
+          const state = isPastWeek ? 'past' : (date < todayDate ? 'past' : date === todayDate ? 'today' : 'future');
           return (
             <div key={date} className="week-bar-cell">
               <motion.div
                 className={`week-bar-pip ${state}`}
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ delay: i * 0.06, type: 'spring', stiffness: 280, damping: 18 }}
+                transition={{ delay: i * 0.05, duration: 0.2, ease: 'easeOut' }}
               />
             </div>
           );
         })}
       </div>
-      {/* Rangée des labels — même grille, alignement garanti */}
       <div className="week-bar-lbls">
         {allDates.map((date, i) => {
-          const state = date < todayDate ? 'past' : date === todayDate ? 'today' : 'future';
+          const state = isPastWeek ? 'past' : (date < todayDate ? 'past' : date === todayDate ? 'today' : 'future');
           return <span key={date} className={`week-bar-lbl ${state}`}>{DAY_LABELS[i]}</span>;
         })}
       </div>
@@ -384,10 +407,11 @@ function LbRow({ entry, rank, isMe, subLabel, maxScore, animDelay = 0 }) {
   const rowClass = isMe ? 'me' : (RANK_CLASS[rank - 1] || '');
   return (
     <motion.div
+      layout
       className={`wordle-lb-row ${rowClass}`}
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: animDelay, duration: 0.22 }}
+      transition={{ delay: animDelay, duration: 0.22, layout: { duration: 0.25, ease: 'easeOut' } }}
     >
       <div className="wordle-lb-row-top">
         {rank <= 3
@@ -483,11 +507,21 @@ async function resolveNames(entries) {
 function WordleLeaderboard({ todayDate }) {
   const [lbTab, setLbTab] = useState('today');
   const [todayEntries, setTodayEntries] = useState([]);
-  const [weekEntries, setWeekEntries] = useState([]);
   const [todayLoading, setTodayLoading] = useState(true);
+  const [dayOffset, setDayOffset] = useState(0);
+  const [dayDirection, setDayDirection] = useState(0);
+  const [dayCache, setDayCache] = useState({});
+  const [dayLoading, setDayLoading] = useState(false);
+  const [weekOffset, setWeekOffset] = useState(0);
+  const [weekDirection, setWeekDirection] = useState(0);
+  const [weekCache, setWeekCache] = useState({});
   const [weekLoading, setWeekLoading] = useState(false);
-  const [weekFetched, setWeekFetched] = useState(false);
   const [myUid, setMyUid] = useState(auth.currentUser?.uid ?? null);
+
+  const dayEntries = dayOffset === 0 ? todayEntries : (dayCache[dayOffset] || []);
+  const dayAlreadyFetched = dayOffset === 0 || dayOffset in dayCache;
+  const weekEntries = weekCache[weekOffset] || [];
+  const weekAlreadyFetched = weekOffset in weekCache;
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => setMyUid(u?.uid ?? null));
@@ -503,22 +537,47 @@ function WordleLeaderboard({ todayDate }) {
         const raw = snap.exists()
           ? Object.entries(snap.val()).map(([uid, v]) => ({ uid, ...v })).sort(sortLeaderboard)
           : [];
-        // Résoudre les pseudos actuels puis mettre à jour
-        resolveNames(raw).then(setTodayEntries).catch(() => setTodayEntries(raw));
+        // Afficher immédiatement avec les noms stockés, puis silencieusement résoudre les pseudos
+        setTodayEntries(raw);
         setTodayLoading(false);
+        resolveNames(raw).then(setTodayEntries).catch(() => {});
       },
       (err) => { console.warn('[LB today]', err.message); setTodayLoading(false); }
     );
     return () => unsub();
   }, [todayDate]);
 
-  // Cette semaine — fetch à la demande
+  // Jour passé — fetch one-shot, mis en cache par offset
   useEffect(() => {
-    if (lbTab !== 'week' || weekFetched || !todayDate) return;
+    if (lbTab !== 'today' || dayOffset === 0 || dayAlreadyFetched || !todayDate) return;
+    async function fetchDay() {
+      setDayLoading(true);
+      try {
+        const date = getDateForOffset(todayDate, dayOffset);
+        const snap = await get(ref(db, `daily/wordle/${date}/leaderboard`));
+        const raw = snap.exists()
+          ? Object.entries(snap.val()).map(([uid, v]) => ({ uid, ...v })).sort(sortLeaderboard)
+          : [];
+        setDayCache(prev => ({ ...prev, [dayOffset]: raw }));
+        resolveNames(raw)
+          .then(resolved => setDayCache(prev => ({ ...prev, [dayOffset]: resolved })))
+          .catch(() => {});
+      } catch (e) {
+        console.warn('[LB day]', e.message);
+        setDayCache(prev => ({ ...prev, [dayOffset]: [] }));
+      }
+      setDayLoading(false);
+    }
+    fetchDay();
+  }, [lbTab, todayDate, dayOffset, dayAlreadyFetched]);
+
+  // Semaine — fetch à la demande, mis en cache par offset
+  useEffect(() => {
+    if (lbTab !== 'week' || weekAlreadyFetched || !todayDate) return;
     async function fetchWeek() {
       setWeekLoading(true);
       try {
-        const dates = getWeekDates(todayDate);
+        const dates = getWeekDatesForOffset(todayDate, weekOffset);
         const snaps = await Promise.all(dates.map((d) => get(ref(db, `daily/wordle/${d}/leaderboard`))));
         const agg = {};
         snaps.forEach((snap) => {
@@ -531,18 +590,15 @@ function WordleLeaderboard({ todayDate }) {
         });
         const sorted = Object.values(agg).sort(sortLeaderboard);
         const resolved = await resolveNames(sorted);
-        setWeekEntries(resolved);
+        setWeekCache(prev => ({ ...prev, [weekOffset]: resolved }));
       } catch (e) {
         console.warn('[LB week]', e.message);
+        setWeekCache(prev => ({ ...prev, [weekOffset]: [] }));
       }
       setWeekLoading(false);
-      setWeekFetched(true);
     }
     fetchWeek();
-  }, [lbTab, todayDate, weekFetched]);
-
-  const isLoading = lbTab === 'today' ? todayLoading : weekLoading;
-  const entries = lbTab === 'today' ? todayEntries : weekEntries;
+  }, [lbTab, todayDate, weekOffset, weekAlreadyFetched]);
 
   return (
     <div className="wordle-lb">
@@ -562,25 +618,121 @@ function WordleLeaderboard({ todayDate }) {
         </button>
       </div>
 
-      {/* Week progress frise */}
+      {/* Navigation semaine */}
       {lbTab === 'week' && todayDate && (
-        <WeekProgressBar todayDate={todayDate} />
+        <div className="lb-week-nav">
+          <button
+            className="lb-week-nav-btn"
+            onClick={() => { setWeekDirection(-1); setWeekOffset(o => o - 1); }}
+            disabled={weekOffset <= -4}
+          >‹</button>
+          <span className="lb-week-nav-label">
+            {weekOffset === 0 ? 'Cette semaine' : getWeekLabel(todayDate, weekOffset)}
+          </span>
+          <button
+            className="lb-week-nav-btn"
+            onClick={() => { setWeekDirection(1); setWeekOffset(o => o + 1); }}
+            disabled={weekOffset >= 0}
+          >›</button>
+        </div>
       )}
 
-      {isLoading ? (
-        <div className="wordle-lb-loading">
-          <div className="wordle-spinner" />
-          <p>Chargement…</p>
-        </div>
-      ) : (
-        <LbRows
-          entries={entries}
-          myUid={myUid}
-          subLabel={lbTab === 'today'
-            ? (e) => `${e.attempts} essai${e.attempts > 1 ? 's' : ''}`
-            : (e) => `${e.days} jour${e.days > 1 ? 's' : ''} joué${e.days > 1 ? 's' : ''}`
-          }
-        />
+      {/* Contenu aujourd'hui */}
+      {lbTab === 'today' && (
+        <>
+          {todayDate && (
+            <div className="lb-week-nav">
+              <button
+                className="lb-week-nav-btn"
+                onClick={() => { setDayDirection(-1); setDayOffset(o => o - 1); }}
+                disabled={dayOffset <= -7}
+              >‹</button>
+              <span className="lb-week-nav-label">
+                {dayOffset === 0 ? 'Aujourd\'hui' : getDayLabel(getDateForOffset(todayDate, dayOffset))}
+              </span>
+              <button
+                className="lb-week-nav-btn"
+                onClick={() => { setDayDirection(1); setDayOffset(o => o + 1); }}
+                disabled={dayOffset >= 0}
+              >›</button>
+            </div>
+          )}
+          <AnimatePresence mode="wait" custom={dayDirection}>
+            <motion.div
+              key={dayOffset}
+              custom={dayDirection}
+              variants={{
+                enter: (dir) => ({ x: dir * -50, opacity: 0 }),
+                center: { x: 0, opacity: 1 },
+                exit: (dir) => ({ x: dir * 50, opacity: 0 }),
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+            >
+              {(dayOffset === 0 ? todayLoading : dayLoading) ? (
+                <div className="wordle-lb-loading">
+                  <div className="wordle-spinner" />
+                  <p>Chargement…</p>
+                </div>
+              ) : (
+                <LbRows
+                  entries={dayEntries}
+                  myUid={myUid}
+                  subLabel={(e) => `${e.attempts} essai${e.attempts > 1 ? 's' : ''}`}
+                />
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </>
+      )}
+
+      {/* Contenu semaine avec animation directionnelle */}
+      {lbTab === 'week' && (
+        <>
+          {todayDate && (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={weekOffset}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <WeekProgressBar todayDate={todayDate} weekOffset={weekOffset} />
+              </motion.div>
+            </AnimatePresence>
+          )}
+          <AnimatePresence mode="wait" custom={weekDirection}>
+            <motion.div
+              key={weekOffset}
+              custom={weekDirection}
+              variants={{
+                enter: (dir) => ({ x: dir * -50, opacity: 0 }),
+                center: { x: 0, opacity: 1 },
+                exit: (dir) => ({ x: dir * 50, opacity: 0 }),
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+            >
+              {weekLoading ? (
+                <div className="wordle-lb-loading">
+                  <div className="wordle-spinner" />
+                  <p>Chargement…</p>
+                </div>
+              ) : (
+                <LbRows
+                  entries={weekEntries}
+                  myUid={myUid}
+                  subLabel={(e) => `${e.days} jour${e.days > 1 ? 's' : ''} joué${e.days > 1 ? 's' : ''}`}
+                />
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </>
       )}
     </div>
   );

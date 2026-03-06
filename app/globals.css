@@ -13039,6 +13039,46 @@ input[type="text"].game-search-input:focus,
   line-height: 1.6;
 }
 
+/* Navigation semaine (leaderboard) */
+.lb-week-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 4px 2px;
+}
+.lb-week-nav-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.lb-week-nav-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+.lb-week-nav-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+.lb-week-nav-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  flex: 1;
+}
+
 /* Week progress bar (frise)
    Principe : 2 rangées en CSS Grid 7 colonnes égales (repeat(7, 1fr)).
    Les pips et labels sont dans la même grille → alignement exact garanti.
@@ -13077,15 +13117,16 @@ input[type="text"].game-search-input:focus,
   z-index: 0;
 }
 
-/* Ligne verte : même left, width animée */
+/* Ligne verte : span complet pip0→pip6, scaleX animé depuis la gauche */
 .week-bar-line-filled {
   position: absolute;
-  top: 50%;
+  top: calc(50% - 1px);
   left: 7.143%;
+  width: 85.714%; /* (6/7)*100 — distance centre pip0 → centre pip6 */
   height: 2px;
   background: #10b981;
   border-radius: 1px;
-  transform: translateY(-50%);
+  transform-origin: left center;
   z-index: 0;
 }
 
