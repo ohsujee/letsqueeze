@@ -673,12 +673,7 @@ export default function AlibiEnd() {
       {/* Footer fixe en bas, hors de la zone scrollable */}
       <EndScreenFooter
         gameColor="#f59e0b"
-        label={!hostPresent
-          ? "L'hote a quitte la partie"
-          : isHost
-            ? "Tu pourras choisir un nouvel alibi"
-            : "Retourne au lobby pour la prochaine partie"
-        }
+        label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
         onNewGame={() => {
           if (!hostPresent) {
             router.push('/home');
@@ -688,7 +683,6 @@ export default function AlibiEnd() {
             router.push(`/alibi/room/${code}`);
           }
         }}
-        buttonText={!hostPresent ? "Retour a l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
       />
 
       <style jsx global>{`
