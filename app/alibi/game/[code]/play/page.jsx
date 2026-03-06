@@ -1034,7 +1034,7 @@ export default function AlibiInterrogation() {
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(245, 158, 11, 0.2);
-          padding-top: 0;
+          padding-top: max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px));
         }
 
         .interro-header-content {
