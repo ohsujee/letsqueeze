@@ -438,9 +438,9 @@ function SemanticLeaderboard({ todayDate }) {
               key={dayOffset}
               custom={dayDirection}
               variants={{
-                enter: (dir) => ({ x: dir * -50, opacity: 0 }),
+                enter: (dir) => ({ x: dir * 50, opacity: 0 }),
                 center: { x: 0, opacity: 1 },
-                exit: (dir) => ({ x: dir * 50, opacity: 0 }),
+                exit: (dir) => ({ x: dir * -50, opacity: 0 }),
               }}
               initial="enter"
               animate="center"
@@ -507,9 +507,9 @@ function SemanticLeaderboard({ todayDate }) {
               key={weekOffset}
               custom={weekDirection}
               variants={{
-                enter: (dir) => ({ x: dir * -50, opacity: 0 }),
+                enter: (dir) => ({ x: dir * 50, opacity: 0 }),
                 center: { x: 0, opacity: 1 },
-                exit: (dir) => ({ x: dir * 50, opacity: 0 }),
+                exit: (dir) => ({ x: dir * -50, opacity: 0 }),
               }}
               initial="enter"
               animate="center"
