@@ -806,6 +806,13 @@ export default function SemantiquePage() {
             setGameOver(true);
             setAltMode(true);
           } catch {}
+        } else if (progress.guesses.length === 1 && progress.guesses[0].score >= 1) {
+          // Résultat suspect sans session alt en cours → re-montrer la modal
+          const gameScore = computeFinalScore(1);
+          setSuspiciousCompleteParams({ solved: true, attempts: 1, timeMs: 0, score: gameScore });
+          setGameOver(true);
+          setGuesses([]); // masquer le guess suspect
+          setTimeout(() => setShowSuspiciousModal(true), 500);
         }
       }
     } else if (todayState === 'completed') {

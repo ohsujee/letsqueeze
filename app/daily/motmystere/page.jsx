@@ -889,6 +889,15 @@ export default function MotMysterePage() {
             setGameOver(true);
             setAltMode(true);
           } catch {}
+        } else if (savedGuesses.length === 1 && savedFeedbacks[0]?.every(f => f === 'correct')) {
+          // Résultat suspect sans session alt en cours → re-montrer la modal
+          const timeMs = Date.now() - (progress.startedAt || Date.now());
+          const gameScore = computeScore(1, timeMs);
+          setSuspiciousCompleteParams({ solved: true, attempts: 1, timeMs, score: gameScore });
+          setGameOver(true);
+          setGuesses([]); // masquer le guess suspect
+          setFeedbacks([]);
+          setTimeout(() => setShowSuspiciousModal(true), 500);
         }
       }
     } else if (todayState === 'completed' && progress) {
