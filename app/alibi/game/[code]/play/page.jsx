@@ -287,13 +287,19 @@ export default function AlibiInterrogation() {
     };
   }, [code, router, isHost]);
 
-  // Check if I can control (inspector in Game Master Mode OR inspector group in Party Mode)
+  // Qui CONTRÔLE (peut écrire Firebase)
+  // GMM: seulement l'hôte (game master) — Firebase rules n'autorisent que hostUid
+  // Party Mode: membres du groupe inspecteur
   const canControl = useMemo(() => {
-    if (isPartyMode) {
-      return myRole === 'inspector';
-    }
-    return myTeam === 'inspectors';
-  }, [isPartyMode, myRole, myTeam]);
+    if (isPartyMode) return myRole === 'inspector';
+    return isHost;
+  }, [isPartyMode, myRole, isHost]);
+
+  // Qui VOIT la vue inspecteur (lecture seule pour non-hôtes en GMM)
+  const canSeeInspectorView = useMemo(() => {
+    if (isPartyMode) return myRole === 'inspector';
+    return isHost || myTeam === 'inspectors';
+  }, [isPartyMode, myRole, isHost, myTeam]);
 
   // Timer - calculé depuis le timestamp serveur, tourne sur tous les clients
   useEffect(() => {
@@ -410,7 +416,7 @@ export default function AlibiInterrogation() {
           await update(ref(db, `rooms_alibi/${code}/interrogation`), {
             currentQuestion: 0,
             state: "waiting",
-            timeLeft: 30,
+            startedAt: null,
             responses: {},
             verdict: null
           });
@@ -420,7 +426,7 @@ export default function AlibiInterrogation() {
         await update(ref(db, `rooms_alibi/${code}/interrogation`), {
           currentQuestion: currentQuestion + 1,
           state: "waiting",
-          timeLeft: 30,
+          startedAt: null,
           responses: {},
           verdict: null
         });
@@ -433,7 +439,7 @@ export default function AlibiInterrogation() {
         await update(ref(db, `rooms_alibi/${code}/interrogation`), {
           currentQuestion: currentQuestion + 1,
           state: "waiting",
-          timeLeft: 30,
+          startedAt: null,
           responses: {},
           verdict: null
         });
@@ -576,7 +582,7 @@ export default function AlibiInterrogation() {
           {questionState === "waiting" && (
             <>
               {/* INSPECTORS / Inspector Group - Waiting */}
-              {canControl && (
+              {canSeeInspectorView && (
                 <motion.div
                   className="interro-waiting"
                   initial={{ opacity: 0, y: 20 }}
@@ -621,18 +627,20 @@ export default function AlibiInterrogation() {
                     <p className="interro-question-text">{currentQuestionData?.text}</p>
                   </motion.div>
 
-                  <motion.button
-                    className="interro-btn-start"
-                    onClick={startQuestion}
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    <Clock size={20} />
-                    <span>Lancer le timer (30s)</span>
-                  </motion.button>
+                  {canControl && (
+                    <motion.button
+                      className="interro-btn-start"
+                      onClick={startQuestion}
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <Clock size={20} />
+                      <span>Lancer le timer (30s)</span>
+                    </motion.button>
+                  )}
                 </motion.div>
               )}
 
@@ -801,7 +809,7 @@ export default function AlibiInterrogation() {
               )}
 
               {/* INSPECTORS / Inspector Group - Answering */}
-              {canControl && (
+              {canSeeInspectorView && (
                 <motion.div
                   className="interro-answering"
                   initial={{ opacity: 0, y: 20 }}
@@ -884,7 +892,7 @@ export default function AlibiInterrogation() {
 
                   {/* Judgment buttons */}
                   <AnimatePresence>
-                    {allAnswered && (
+                    {allAnswered && canControl && (
                       <motion.div
                         className="interro-judgment"
                         initial={{ opacity: 0, y: 20 }}
