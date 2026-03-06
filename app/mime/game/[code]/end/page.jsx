@@ -146,6 +146,7 @@ export default function MimeEndPage() {
       </main>
 
       {/* Footer */}
+      <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 10, paddingBottom: 'var(--safe-area-bottom, env(safe-area-inset-bottom, 0px))' }}>
       <EndScreenFooter
         gameColor={MIME_GREEN}
         label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
@@ -163,6 +164,7 @@ export default function MimeEndPage() {
           }
         }}
       />
+      </div>
 
       <style jsx>{`
         /* ===== LAYOUT ===== */
@@ -199,7 +201,8 @@ export default function MimeEndPage() {
           margin: 0 auto;
           width: 100%;
           min-height: 0;
-          overflow: hidden;
+          overflow-y: auto;
+          padding-bottom: 80px;
         }
 
         /* ===== HEADER ===== */
