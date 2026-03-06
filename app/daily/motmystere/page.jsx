@@ -1128,6 +1128,7 @@ export default function MotMysterePage() {
         setAltFeedbacks(newFeedbacks);
         setAltCurrentGuess('');
         updateAltLetterStates(newFeedbacks, newGuesses);
+        saveProgress(guesses, newGuesses.length);
 
         const uid = auth.currentUser?.uid;
         const altKey = uid && todayDate ? `lq_mot_alt_${todayDate}_${uid}` : null;
@@ -1166,7 +1167,7 @@ export default function MotMysterePage() {
     if (/^[A-Za-zÀ-ÿ]$/.test(key) && altCurrentGuess.length < WORD_LENGTH) {
       setAltCurrentGuess(g => g + key.toUpperCase());
     }
-  }, [altGameOver, altCurrentGuess, altGuesses, altFeedbacks, altToken, validWords, writeLeaderboard, suspiciousCompleteParams, completeGame, todayDate]);
+  }, [altGameOver, altCurrentGuess, altGuesses, altFeedbacks, altToken, validWords, writeLeaderboard, suspiciousCompleteParams, completeGame, todayDate, saveProgress, guesses, feedbacks]);
 
   // Physical keyboard (après handleAltKey pour éviter TDZ)
   useEffect(() => {

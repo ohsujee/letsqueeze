@@ -990,6 +990,7 @@ export default function SemantiquePage() {
 
       setAltGuesses(newGuesses);
       setError('');
+      saveProgress(guesses, newGuesses.length);
 
       const uid = auth.currentUser?.uid;
       const altKey = uid && todayDate ? `lq_sem_alt_${todayDate}_${uid}` : null;
@@ -1020,7 +1021,7 @@ export default function SemantiquePage() {
 
     setIsSubmitting(false);
     inputRef.current?.focus();
-  }, [input, altGameOver, altGuesses, todayDate, isSubmitting, altToken, writeLeaderboard, suspiciousCompleteParams, completeGame]);
+  }, [input, altGameOver, altGuesses, todayDate, isSubmitting, altToken, writeLeaderboard, suspiciousCompleteParams, completeGame, saveProgress, guesses]);
 
 
   if (!serverDate || !loaded) {
