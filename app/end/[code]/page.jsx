@@ -260,6 +260,7 @@ export default function EndPage(){
       </main>
 
       {/* Footer fixe */}
+      <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 10, paddingBottom: 'var(--safe-area-bottom, env(safe-area-inset-bottom, 0px))' }}>
       <EndScreenFooter
         gameColor="#8b5cf6"
         label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
@@ -277,6 +278,7 @@ export default function EndPage(){
           }
         }}
       />
+      </div>
 
       <style jsx>{`
         /* ===== LAYOUT - Une seule page ===== */
@@ -310,7 +312,8 @@ export default function EndPage(){
           margin: 0 auto;
           width: 100%;
           min-height: 0;
-          overflow: hidden;
+          overflow-y: auto;
+          padding-bottom: 80px;
         }
 
         /* ===== HEADER ===== */
