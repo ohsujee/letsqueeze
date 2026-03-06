@@ -38,7 +38,7 @@ export default function ScoreUpdateModal({ isOpen, onClose }) {
             {/* Mascotte + Title */}
             <div style={{ textAlign: 'center', marginBottom: '20px' }}>
               <img
-                src="/images/mascot/giggly-happy.webp"
+                src="/images/mascot/giggly-excited.webp"
                 alt="Giggly"
                 style={{ width: 90, height: 90, objectFit: 'contain', display: 'block', margin: '0 auto 8px' }}
               />
