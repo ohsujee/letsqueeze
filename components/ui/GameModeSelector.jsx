@@ -72,7 +72,10 @@ export default function GameModeSelector({ isOpen, onClose, onSelectMode, game }
                   <Crown size={32} />
                 </div>
                 <div className="gms-option-content">
-                  <h3 className="gms-option-title">Game Master</h3>
+                  <div className="gms-option-title-row">
+                    <h3 className="gms-option-title">Game Master</h3>
+                    <span className="gms-player-pill">3+ joueurs</span>
+                  </div>
                   <p className="gms-option-desc">
                     Tu animes le jeu mais ne joues pas
                   </p>
@@ -91,7 +94,10 @@ export default function GameModeSelector({ isOpen, onClose, onSelectMode, game }
                   <PartyPopper size={32} />
                 </div>
                 <div className="gms-option-content">
-                  <h3 className="gms-option-title">Party Mode</h3>
+                  <div className="gms-option-title-row">
+                    <h3 className="gms-option-title">Party Mode</h3>
+                    <span className="gms-player-pill party">4+ joueurs</span>
+                  </div>
                   <p className="gms-option-desc">
                     Chacun pose une question à tour de rôle
                   </p>
@@ -240,12 +246,38 @@ export default function GameModeSelector({ isOpen, onClose, onSelectMode, game }
               min-width: 0;
             }
 
+            .gms-option-title-row {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin: 0 0 4px 0;
+            }
+
             .gms-option-title {
               font-family: var(--font-display, 'Space Grotesk'), sans-serif;
               font-size: 1.1rem;
               font-weight: 700;
               color: white;
-              margin: 0 0 4px 0;
+              margin: 0;
+            }
+
+            .gms-player-pill {
+              font-family: var(--font-body, 'Inter'), sans-serif;
+              font-size: 0.7rem;
+              font-weight: 600;
+              color: rgba(167, 139, 250, 0.9);
+              background: rgba(139, 92, 246, 0.15);
+              border: 1px solid rgba(139, 92, 246, 0.3);
+              border-radius: 20px;
+              padding: 2px 7px;
+              white-space: nowrap;
+              flex-shrink: 0;
+            }
+
+            .gms-player-pill.party {
+              color: rgba(251, 191, 36, 0.9);
+              background: rgba(245, 158, 11, 0.15);
+              border-color: rgba(245, 158, 11, 0.3);
             }
 
             .gms-option-desc {
