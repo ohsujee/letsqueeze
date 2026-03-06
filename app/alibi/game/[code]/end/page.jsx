@@ -6,13 +6,13 @@ import {
   auth,
   db,
   ref,
+  get,
   onValue,
   update,
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
-import BottomNav from "@/lib/components/BottomNav";
 import { EndScreenFooter } from "@/components/transitions";
 import { hueScenariosService } from "@/lib/hue-module";
 import { recordAlibiGame } from "@/lib/services/statsService";
@@ -321,20 +321,21 @@ export default function AlibiEnd() {
   // Computed: is host still present?
   const hostPresent = roomExists && meta && !meta.closed;
 
+  // Lecture unique du score (get évite les re-fires qui tuent l'animation)
+  useEffect(() => {
+    if (!code || isPartyMode) return;
+
+    get(ref(db, `rooms_alibi/${code}/score`)).then((snap) => {
+      const s = snap.val() || { correct: 0, total: 10 };
+      setScore(s);
+      setTimeout(() => setIsLoaded(true), 100);
+    });
+  }, [code, isPartyMode]);
+
+  // Listener d'état séparé pour la redirection lobby
   useEffect(() => {
     if (!code) return;
 
-    // Game Master Mode: listen to global score
-    const scoreUnsub = onValue(ref(db, `rooms_alibi/${code}/score`), (snap) => {
-      const s = snap.val() || { correct: 0, total: 10 };
-      setScore(s);
-      // Party Mode loaded when we have groups, Game Master Mode loaded when we have score
-      if (!isPartyMode) {
-        setTimeout(() => setIsLoaded(true), 100);
-      }
-    });
-
-    // Redirection automatique quand l'hôte retourne au lobby (seulement si l'hôte est présent)
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
       const state = snap.val();
       if (state?.phase === "lobby" && hostPresent) {
@@ -342,11 +343,8 @@ export default function AlibiEnd() {
       }
     });
 
-    return () => {
-      scoreUnsub();
-      stateUnsub();
-    };
-  }, [code, router, hostPresent, isPartyMode]);
+    return () => stateUnsub();
+  }, [code, router, hostPresent]);
 
   // Party Mode: set loaded when groups have scores
   useEffect(() => {
@@ -485,7 +483,7 @@ export default function AlibiEnd() {
     }, 50);
 
     return () => clearInterval(timer);
-  }, [score, isSuccess]); // Plus de confettiTriggered dans les deps !
+  }, [score]); // score stable grâce au get() - pas de re-fire
 
   const getMessage = () => {
     if (percentage === 100) return "Parfait ! Alibi béton !";
@@ -509,7 +507,6 @@ export default function AlibiEnd() {
             onGoHome={() => router.push('/home')}
             hostPresent={hostPresent}
           />
-          <BottomNav />
         </div>
       </div>
     );
@@ -670,31 +667,31 @@ export default function AlibiEnd() {
             </AnimatePresence>
           </motion.div>
 
-          {/* End Screen Footer */}
-          <EndScreenFooter
-            gameColor="#f59e0b"
-            label={!hostPresent
-              ? "L'hote a quitte la partie"
-              : isHost
-                ? "Tu pourras choisir un nouvel alibi"
-                : "Retourne au lobby pour la prochaine partie"
-            }
-            onNewGame={() => {
-              if (!hostPresent) {
-                router.push('/home');
-              } else if (isHost) {
-                handleReturnToLobby();
-              } else {
-                router.push(`/alibi/room/${code}`);
-              }
-            }}
-            buttonText={!hostPresent ? "Retour a l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
-          />
         </main>
+      </div>
 
-        <BottomNav />
+      {/* Footer fixe en bas, hors de la zone scrollable */}
+      <EndScreenFooter
+        gameColor="#f59e0b"
+        label={!hostPresent
+          ? "L'hote a quitte la partie"
+          : isHost
+            ? "Tu pourras choisir un nouvel alibi"
+            : "Retourne au lobby pour la prochaine partie"
+        }
+        onNewGame={() => {
+          if (!hostPresent) {
+            router.push('/home');
+          } else if (isHost) {
+            handleReturnToLobby();
+          } else {
+            router.push(`/alibi/room/${code}`);
+          }
+        }}
+        buttonText={!hostPresent ? "Retour a l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+      />
 
-        <style jsx global>{`
+      <style jsx global>{`
           /* ===== ALIBI END SCREEN - Style Guide Compliant ===== */
 
           .alibi-end-screen {
@@ -725,7 +722,6 @@ export default function AlibiEnd() {
             min-height: 0 !important;
             position: relative !important;
             z-index: 1 !important;
-            padding-bottom: 100px !important;
             overflow-y: auto !important;
           }
 
@@ -915,7 +911,6 @@ export default function AlibiEnd() {
             }
           }
         `}</style>
-      </div>
     </div>
   );
 }
