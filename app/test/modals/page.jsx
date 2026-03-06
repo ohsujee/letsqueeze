@@ -4,6 +4,7 @@ import { useState } from 'react';
 import SuspiciousResultModal from '@/components/ui/SuspiciousResultModal';
 import InboxNotifModal from '@/components/ui/InboxNotifModal';
 import ScoreUpdateModal from '@/components/ui/ScoreUpdateModal';
+import WordleScoreUpdateModal from '@/components/ui/WordleScoreUpdateModal';
 
 const MODALS = [
   { id: 'suspicious', label: 'SuspiciousResultModal', desc: 'Apparaît après un 1er essai réussi (bouton pub actif)' },
@@ -11,6 +12,7 @@ const MODALS = [
   { id: 'inbox-sem', label: 'InboxNotifModal — Sémantique', desc: 'Notification admin après suppression leaderboard' },
   { id: 'inbox-wordle', label: 'InboxNotifModal — Mot Mystère', desc: 'Notification admin après suppression leaderboard' },
   { id: 'score-update', label: 'ScoreUpdateModal', desc: 'Annonce one-time du nouveau système de points Sémantique' },
+  { id: 'wordle-score-update', label: 'WordleScoreUpdateModal', desc: 'Annonce one-time du nouveau système de points Mot Mystère' },
 ];
 
 export default function ModalsPreviewPage() {
@@ -18,9 +20,11 @@ export default function ModalsPreviewPage() {
 
   return (
     <div style={{
-      minHeight: '100vh',
+      flex: 1,
+      minHeight: 0,
+      overflowY: 'auto',
       background: '#0d1117',
-      padding: '40px 24px',
+      padding: '40px 24px 80px',
       fontFamily: 'var(--font-body, Inter, sans-serif)',
     }}>
       <div style={{ maxWidth: 480, margin: '0 auto' }}>
@@ -95,6 +99,12 @@ export default function ModalsPreviewPage() {
       {/* ScoreUpdateModal */}
       <ScoreUpdateModal
         isOpen={open === 'score-update'}
+        onClose={() => setOpen(null)}
+      />
+
+      {/* WordleScoreUpdateModal */}
+      <WordleScoreUpdateModal
+        isOpen={open === 'wordle-score-update'}
         onClose={() => setOpen(null)}
       />
     </div>

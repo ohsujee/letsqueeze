@@ -12,6 +12,8 @@ import { usePostGameAd } from '@/lib/hooks/useInterstitialAd';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 import { GameEndTransition } from '@/components/transitions';
 import SuspiciousResultModal from '@/components/ui/SuspiciousResultModal';
+import WordleScoreUpdateModal from '@/components/ui/WordleScoreUpdateModal';
+import { showRewardedAd } from '@/lib/admob';
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 const WORD_LENGTH = 5;
@@ -56,7 +58,9 @@ function computeFeedback(guess, target) {
 }
 
 function computeScore(attempts, timeMs) {
-  return Math.floor((7 - attempts) * 1000 + Math.max(0, 300000 - timeMs) / 100);
+  const attemptBase = (7 - attempts) * 1000;
+  const timeBonus = Math.round(999 * Math.exp(-timeMs / 173287));
+  return attemptBase + timeBonus;
 }
 
 // ─── WordleGrid ───────────────────────────────────────────────────────────────
@@ -797,6 +801,13 @@ export default function MotMysterePage() {
   const [elapsedMs, setElapsedMs] = useState(0);
   const startTimeRef = useRef(null);
 
+  // ─── Modale one-time nouveau système de score ─────────────────────────────
+  const [showScoreUpdateModal, setShowScoreUpdateModal] = useState(false);
+  useEffect(() => {
+    const seen = localStorage.getItem('lq_wordle_score_v2_seen');
+    if (!seen) setShowScoreUpdateModal(true);
+  }, []);
+
   // ─── Anti-cheat / mode alternatif ────────────────────────────────────────
   const [showSuspiciousModal, setShowSuspiciousModal] = useState(false);
   const [suspiciousCompleteParams, setSuspiciousCompleteParams] = useState(null);
@@ -1075,6 +1086,14 @@ export default function MotMysterePage() {
   const handlePlayAlternative = useCallback(async () => {
     setIsLoadingAlt(true);
     try {
+      // Rewarded ad obligatoire avant de débloquer le mot alternatif
+      const adResult = await showRewardedAd();
+      if (!adResult.success && adResult.error === 'not_completed') {
+        // L'utilisateur a fermé la pub sans la regarder → on bloque
+        setIsLoadingAlt(false);
+        return;
+      }
+
       const uid = auth.currentUser?.uid;
       const res = await fetch(`/api/daily/wordle/alternative?date=${todayDate}${uid ? `&uid=${uid}` : ''}`);
       const { token } = await res.json();
@@ -1255,6 +1274,15 @@ export default function MotMysterePage() {
         }}
         onPlayAlternative={handlePlayAlternative}
         isWatchingAd={isLoadingAlt}
+      />
+
+      {/* Modale one-time nouveau système de score */}
+      <WordleScoreUpdateModal
+        isOpen={showScoreUpdateModal}
+        onClose={() => {
+          localStorage.setItem('lq_wordle_score_v2_seen', '1');
+          setShowScoreUpdateModal(false);
+        }}
       />
 
       {/* Modals */}
