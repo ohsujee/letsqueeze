@@ -410,6 +410,21 @@ export async function POST(request) {
         });
       }
 
+      case 'setupAlibiEnd': {
+        // Setup complet pour tester la page de fin Alibi
+        const { hostUid, correct = 7, total = 10 } = body;
+        if (!hostUid) return NextResponse.json({ error: 'hostUid required' }, { status: 400 });
+        await db.ref(`${prefix}/${roomCode}`).set({
+          meta: { hostUid, code: roomCode, createdAt: Date.now(), closed: false },
+          state: { phase: 'end' },
+          score: { correct, total },
+          players: {
+            [hostUid]: { uid: hostUid, name: 'DevHost', team: 'inspectors', score: 0, status: 'active', joinedAt: Date.now() }
+          }
+        });
+        return NextResponse.json({ success: true, action: 'setupAlibiEnd', roomCode, correct, total });
+      }
+
       default:
         return NextResponse.json({ error: `Unknown action: ${action}` }, { status: 400 });
     }

@@ -717,11 +717,16 @@ export default function AlibiEnd() {
             flex: 1 !important;
             min-height: 0 !important;
             overflow-y: auto !important;
+            padding-bottom: 80px !important;
           }
 
           .alibi-end-footer-wrap {
-            position: sticky !important;
+            position: fixed !important;
             bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            padding-bottom: var(--safe-area-bottom, env(safe-area-inset-bottom, 0px)) !important;
+            z-index: 10 !important;
           }
 
           .alibi-end-content {
