@@ -1,41 +1,81 @@
+import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
+
+let _semanticWordsCache = null;
+function getSemanticWords() {
+  if (_semanticWordsCache) return _semanticWordsCache;
+  try {
+    const text = fs.readFileSync(path.join(process.cwd(), 'public/data/semantic_words.txt'), 'utf8');
+    _semanticWordsCache = text.split('\n').map(w => w.trim().toLowerCase()).filter(Boolean);
+    return _semanticWordsCache;
+  } catch {
+    return [];
+  }
+}
+
+function getSemanticWordForDate(words, dateStr) {
+  const hash = crypto.createHash('sha256').update(dateStr).digest();
+  const n = hash.readUInt32BE(0);
+  return words[n % words.length];
+}
+
+function getKey() {
+  const secret = process.env.ALT_WORD_SECRET || process.env.SEMANTIC_API_KEY || 'gigglz_alt_fallback_key_2026';
+  return crypto.scryptSync(secret, 'gigglz_alt_salt', 32);
+}
+
+function encryptWord(word) {
+  const key = getKey();
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+  const encrypted = Buffer.concat([cipher.update(word, 'utf8'), cipher.final()]);
+  return Buffer.concat([iv, encrypted]).toString('base64url');
+}
+
 /**
- * GET /api/daily/semantic-alternative?date=YYYY-MM-DD
- * Returns { alternativeDate } — the date of the word used as alternative
- * (today - 365 days, already revealed)
+ * GET /api/daily/semantic-alternative?date=YYYY-MM-DD&uid=xxx
+ * Returns { token } — encrypted alternative word, unique per user via HMAC
  */
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const date = searchParams.get('date');
+  const uid = searchParams.get('uid') || null;
 
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return Response.json({ error: 'Missing or invalid date' }, { status: 400 });
   }
 
-  const apiUrl = process.env.SEMANTIC_API_URL;
-  const apiKey = process.env.SEMANTIC_API_KEY;
-
-  if (!apiUrl || !apiKey) {
-    return Response.json({ error: 'API not configured' }, { status: 503 });
+  const words = getSemanticWords();
+  if (!words.length) {
+    return Response.json({ error: 'Word list unavailable' }, { status: 503 });
   }
 
-  // Alternative = mot d'il y a 365 jours (déjà révélé)
-  const d = new Date(date + 'T12:00:00');
-  d.setDate(d.getDate() - 365);
-  const alternativeDate = d.toISOString().split('T')[0];
-
-  // Vérifier que ce mot existe sur le VPS
-  try {
-    const res = await fetch(`${apiUrl}/word/${alternativeDate}`, {
-      headers: { 'x-api-key': apiKey },
-    });
-    if (!res.ok) {
-      // Si erreur VPS, essayer -364
-      const d2 = new Date(date + 'T12:00:00');
-      d2.setDate(d2.getDate() - 364);
-      return Response.json({ alternativeDate: d2.toISOString().split('T')[0] });
-    }
-    return Response.json({ alternativeDate });
-  } catch {
-    return Response.json({ alternativeDate });
+  // Exclure les mots des 60 prochains jours
+  const excludedWords = new Set();
+  const today = new Date(date + 'T12:00:00');
+  for (let i = 0; i < 60; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    excludedWords.add(getSemanticWordForDate(words, d.toISOString().split('T')[0]));
   }
+
+  const pool = words.filter(w => !excludedWords.has(w));
+  const candidates = pool.length > 0 ? pool : words;
+
+  // Sélection déterministe par HMAC(uid+date) — unique par utilisateur
+  let index;
+  if (uid) {
+    const hmac = crypto.createHmac('sha256', getKey());
+    hmac.update(`sem:${uid}:${date}`);
+    const digest = hmac.digest();
+    index = digest.readUInt32BE(0) % candidates.length;
+  } else {
+    const hash = crypto.createHash('sha256').update(`sem:anon:${date}`).digest();
+    index = hash.readUInt32BE(0) % candidates.length;
+  }
+
+  const altWord = candidates[index];
+  const token = encryptWord(altWord);
+  return Response.json({ token });
 }

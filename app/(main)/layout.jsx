@@ -2,6 +2,13 @@
 
 import BottomNav from '@/lib/components/BottomNav';
 import PageTransition from '@/components/layout/PageTransition';
+import InboxNotifModal from '@/components/ui/InboxNotifModal';
+import { useInbox } from '@/lib/hooks/useInbox';
+
+function InboxNotifHandler() {
+  const { pendingNotif, dismiss } = useInbox();
+  return <InboxNotifModal notification={pendingNotif} onClose={dismiss} />;
+}
 
 export default function MainLayout({ children }) {
   return (
@@ -12,6 +19,7 @@ export default function MainLayout({ children }) {
         </PageTransition>
       </div>
       <BottomNav />
+      <InboxNotifHandler />
 
       <style jsx>{`
         .main-layout {

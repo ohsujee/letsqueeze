@@ -11,6 +11,7 @@ import { useDailyGame } from '@/lib/hooks/useDailyGame';
 import { usePostGameAd } from '@/lib/hooks/useInterstitialAd';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 import { GameEndTransition } from '@/components/transitions';
+import SuspiciousResultModal from '@/components/ui/SuspiciousResultModal';
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 const WORD_LENGTH = 5;
@@ -144,7 +145,7 @@ function getStreakFlames(count) {
 }
 
 // ─── Result (slot clavier) ───────────────────────────────────────────────────
-function WordleResultBanner({ solved, attempts, timeMs, score, revealedWord, stats, streak, onShowStats, onShowLeaderboard }) {
+function WordleResultBanner({ solved, attempts, timeMs, score, revealedWord, stats, streak, onShowStats, onShowLeaderboard, unranked = false }) {
   const minutes = Math.floor(timeMs / 60000);
   const seconds = Math.floor((timeMs % 60000) / 1000);
   const timeStr = minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
@@ -175,12 +176,24 @@ function WordleResultBanner({ solved, attempts, timeMs, score, revealedWord, sta
           </div>
         </div>
         {solved && (
-          <div className="wres-score">
-            <span className="wres-score-val">{score.toLocaleString('fr-FR')}</span>
-            <span className="wres-score-lbl">pts</span>
-          </div>
+          unranked ? (
+            <div className="wres-score" style={{ textAlign: 'right' }}>
+              <span className="wres-score-val" style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)' }}>Non classé</span>
+            </div>
+          ) : (
+            <div className="wres-score">
+              <span className="wres-score-val">{score.toLocaleString('fr-FR')}</span>
+              <span className="wres-score-lbl">pts</span>
+            </div>
+          )
         )}
       </div>
+
+      {unranked && (
+        <p style={{ margin: '0 0 12px', fontSize: '0.8rem', color: 'rgba(255,255,255,0.45)', textAlign: 'center', lineHeight: 1.5 }}>
+          Tu n&apos;es pas dans le classement pour cette partie.
+        </p>
+      )}
 
       {/* Stats en ligne */}
       <div className="wres-stats-row">
@@ -202,7 +215,7 @@ function WordleResultBanner({ solved, attempts, timeMs, score, revealedWord, sta
         <button className="wres-btn secondary" onClick={onShowStats}>
           <ChartBar size={15} weight="fill" /> Statistiques
         </button>
-        <button className="wres-btn primary" onClick={onShowLeaderboard}>
+        <button className="wres-btn primary" onClick={onShowLeaderboard} disabled={unranked} style={unranked ? { opacity: 0.4, cursor: 'default' } : {}}>
           <Trophy size={15} weight="fill" /> Classement
         </button>
       </div>
@@ -758,7 +771,7 @@ export default function MotMysterePage() {
     return () => unsub();
   }, []);
 
-  const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, resetToday, loaded } =
+  const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, writeLeaderboard, resetToday, loaded } =
     useDailyGame('motmystere', { forceDate: serverDate });
 
   const [revealedWord, setRevealedWord] = useState(null);
@@ -783,6 +796,26 @@ export default function MotMysterePage() {
   const { triggerPostGameAd, triggered: adTriggered } = usePostGameAd();
   const [elapsedMs, setElapsedMs] = useState(0);
   const startTimeRef = useRef(null);
+
+  // ─── Anti-cheat / mode alternatif ────────────────────────────────────────
+  const [showSuspiciousModal, setShowSuspiciousModal] = useState(false);
+  const [suspiciousCompleteParams, setSuspiciousCompleteParams] = useState(null);
+  const [unranked, setUnranked] = useState(false);
+  const [isLoadingAlt, setIsLoadingAlt] = useState(false);
+  const [altMode, setAltMode] = useState(false);
+  const [altToken, setAltToken] = useState(null);
+  const [altGuesses, setAltGuesses] = useState([]);
+  const [altFeedbacks, setAltFeedbacks] = useState([]);
+  const [altCurrentGuess, setAltCurrentGuess] = useState('');
+  const [altLetterStates, setAltLetterStates] = useState({});
+  const [altGameOver, setAltGameOver] = useState(false);
+  const [altSolved, setAltSolved] = useState(false);
+  const [altScore, setAltScore] = useState(0);
+  const [altRevealedWord, setAltRevealedWord] = useState(null);
+  const [altElapsedMs, setAltElapsedMs] = useState(0);
+  const [altShowResult, setAltShowResult] = useState(false);
+  const altStartTimeRef = useRef(null);
+  const altCheckingRef = useRef(false);
 
   // Auto-effacement du toast d'erreur après 1.5s
   useEffect(() => {
@@ -839,6 +872,25 @@ export default function MotMysterePage() {
       setGuesses(savedGuesses);
       setFeedbacks(savedFeedbacks);
       updateLetterStates(savedFeedbacks, savedGuesses);
+      // Restaurer le mode alternatif si une session alt était en cours
+      const uid = auth.currentUser?.uid;
+      if (uid && todayDate) {
+        const altKey = `lq_mot_alt_${todayDate}_${uid}`;
+        const stored = localStorage.getItem(altKey);
+        if (stored) {
+          try {
+            const { token, guesses: altGs, feedbacks: altFbs, startTime, suspiciousParams } = JSON.parse(stored);
+            setAltToken(token);
+            setAltGuesses(altGs || []);
+            setAltFeedbacks(altFbs || []);
+            if (altGs?.length > 0 && altFbs?.length > 0) updateAltLetterStates(altFbs, altGs);
+            altStartTimeRef.current = startTime;
+            setSuspiciousCompleteParams(suspiciousParams);
+            setGameOver(true);
+            setAltMode(true);
+          } catch {}
+        }
+      }
     } else if (todayState === 'completed' && progress) {
       const savedGuesses = progress.guesses || [];
       const savedFeedbacks = progress.feedbacks || [];
@@ -853,6 +905,10 @@ export default function MotMysterePage() {
       setSolved(wasSolved);
       if (!wasSolved && progress.revealedWord) {
         setRevealedWord(progress.revealedWord);
+      }
+      const uid = auth.currentUser?.uid;
+      if (uid && todayDate && localStorage.getItem(`lq_mot_unranked_${todayDate}_${uid}`)) {
+        setUnranked(true);
       }
       setShowResult(true);
       setGameOver(true);
@@ -955,16 +1011,22 @@ export default function MotMysterePage() {
               setRevealedWord(data.revealedWord);
             }
 
-            freshCompletionRef.current = true;
-            setTimeout(() => setShowResult(true), isWin ? 1200 : 600);
+            const suspicious = isWin && newAttempts === 1;
 
-            completeGame({
-              solved: isWin,
-              attempts: newAttempts,
-              timeMs,
-              score: finalScore,
-              revealedWord: isLoss ? (data.revealedWord || null) : null,
-            });
+            if (suspicious) {
+              setSuspiciousCompleteParams({ solved: true, attempts: newAttempts, timeMs, score: finalScore });
+              setTimeout(() => setShowSuspiciousModal(true), 1200);
+            } else {
+              completeGame({
+                solved: isWin,
+                attempts: newAttempts,
+                timeMs,
+                score: finalScore,
+                revealedWord: isLoss ? (data.revealedWord || null) : null,
+              });
+              freshCompletionRef.current = true;
+              setTimeout(() => setShowResult(true), isWin ? 1200 : 600);
+            }
           }
         } catch (err) {
           setWordError('Erreur réseau, réessaie');
@@ -985,17 +1047,130 @@ export default function MotMysterePage() {
     [gameOver, todayDate, currentGuess, guesses, feedbacks, validWords, saveProgress, completeGame]
   );
 
-  // Physical keyboard
+  // ─── Logique mode alternatif ─────────────────────────────────────────────
+
+  function updateAltLetterStates(allFeedbacks, allGuesses) {
+    const priority = { correct: 3, present: 2, absent: 1 };
+    const states = {};
+    allGuesses.forEach((guess, gi) => {
+      const fb = allFeedbacks[gi] || [];
+      normalize(guess).split('').forEach((letter, li) => {
+        const cur = states[letter];
+        const next = fb[li];
+        if (!cur || (priority[next] || 0) > (priority[cur] || 0)) states[letter] = next;
+      });
+    });
+    setAltLetterStates(states);
+  }
+
+  const handlePlayAlternative = useCallback(async () => {
+    setIsLoadingAlt(true);
+    try {
+      const uid = auth.currentUser?.uid;
+      const res = await fetch(`/api/daily/wordle/alternative?date=${todayDate}${uid ? `&uid=${uid}` : ''}`);
+      const { token } = await res.json();
+      const startTime = Date.now();
+      setAltToken(token);
+      setAltMode(true);
+      setShowSuspiciousModal(false);
+      altStartTimeRef.current = startTime;
+      if (uid && todayDate) {
+        localStorage.setItem(`lq_mot_alt_${todayDate}_${uid}`, JSON.stringify({
+          token, guesses: [], feedbacks: [], startTime, suspiciousParams: suspiciousCompleteParams,
+        }));
+      }
+    } catch {
+      setShowSuspiciousModal(false);
+    }
+    setIsLoadingAlt(false);
+  }, [todayDate, suspiciousCompleteParams]);
+
+  const handleAltKey = useCallback(async (key) => {
+    if (altGameOver || altCheckingRef.current) return;
+
+    if (key === '⌫' || key === 'BACKSPACE') {
+      setAltCurrentGuess(g => g.slice(0, -1));
+      return;
+    }
+
+    if (key === 'ENTER') {
+      if (altCurrentGuess.length < WORD_LENGTH) return;
+
+      const normalized = normalize(altCurrentGuess);
+      if (validWords && validWords.size > 0 && !validWords.has(altCurrentGuess.toLowerCase()) && !validWords.has(normalized.toLowerCase())) {
+        return;
+      }
+
+      altCheckingRef.current = true;
+      try {
+        const newAttempts = altGuesses.length + 1;
+        const res = await fetch('/api/daily/wordle/alternative', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ guess: altCurrentGuess, token: altToken, attemptNumber: newAttempts }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Erreur API');
+
+        const fb = data.feedback;
+        const newGuesses = [...altGuesses, altCurrentGuess];
+        const newFeedbacks = [...altFeedbacks, fb];
+        setAltGuesses(newGuesses);
+        setAltFeedbacks(newFeedbacks);
+        setAltCurrentGuess('');
+        updateAltLetterStates(newFeedbacks, newGuesses);
+
+        const uid = auth.currentUser?.uid;
+        const altKey = uid && todayDate ? `lq_mot_alt_${todayDate}_${uid}` : null;
+        if (altKey) {
+          const stored = localStorage.getItem(altKey);
+          if (stored) {
+            try {
+              localStorage.setItem(altKey, JSON.stringify({ ...JSON.parse(stored), guesses: newGuesses, feedbacks: newFeedbacks }));
+            } catch {}
+          }
+        }
+
+        if (data.isWin || data.isLoss) {
+          const timeMs = Date.now() - (altStartTimeRef.current || Date.now());
+          const finalScore = data.isWin ? computeScore(newAttempts, timeMs) : 0;
+          setAltScore(finalScore);
+          setAltElapsedMs(timeMs);
+          setAltSolved(data.isWin);
+          setAltGameOver(true);
+          if (data.isLoss && data.revealedWord) setAltRevealedWord(data.revealedWord);
+          setTimeout(() => setAltShowResult(true), data.isWin ? 1200 : 600);
+          if (data.isWin) {
+            writeLeaderboard({ score: finalScore, attempts: newAttempts, solved: true, timeMs });
+          }
+          if (suspiciousCompleteParams) completeGame({ ...suspiciousCompleteParams, skipLeaderboard: true });
+          if (altKey) localStorage.removeItem(altKey);
+        }
+      } catch (err) {
+        console.error('[MotMystere alt]', err);
+      } finally {
+        altCheckingRef.current = false;
+      }
+      return;
+    }
+
+    if (/^[A-Za-zÀ-ÿ]$/.test(key) && altCurrentGuess.length < WORD_LENGTH) {
+      setAltCurrentGuess(g => g + key.toUpperCase());
+    }
+  }, [altGameOver, altCurrentGuess, altGuesses, altFeedbacks, altToken, validWords, writeLeaderboard, suspiciousCompleteParams, completeGame, todayDate]);
+
+  // Physical keyboard (après handleAltKey pour éviter TDZ)
   useEffect(() => {
     const handler = (e) => {
       if (e.ctrlKey || e.altKey || e.metaKey) return;
-      if (e.key === 'Backspace') handleKey('BACKSPACE');
-      else if (e.key === 'Enter') handleKey('ENTER');
-      else handleKey(e.key);
+      const fn = altMode ? handleAltKey : handleKey;
+      if (e.key === 'Backspace') fn('BACKSPACE');
+      else if (e.key === 'Enter') fn('ENTER');
+      else fn(e.key);
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [handleKey]);
+  }, [handleKey, handleAltKey, altMode]);
 
   // ─── Render ───────────────────────────────────────────────────────────────
   if (!serverDate || !loaded) {
@@ -1053,6 +1228,25 @@ export default function MotMysterePage() {
         </AnimatePresence>
       </div>
 
+      {/* Modal anti-triche */}
+      <SuspiciousResultModal
+        isOpen={showSuspiciousModal}
+        onAccept={() => {
+          setShowSuspiciousModal(false);
+          const uid = auth.currentUser?.uid;
+          if (uid && todayDate) {
+            localStorage.removeItem(`lq_mot_alt_${todayDate}_${uid}`);
+            localStorage.setItem(`lq_mot_unranked_${todayDate}_${uid}`, '1');
+          }
+          if (suspiciousCompleteParams) completeGame({ ...suspiciousCompleteParams, skipLeaderboard: true });
+          setUnranked(true);
+          freshCompletionRef.current = true;
+          setTimeout(() => setShowResult(true), 300);
+        }}
+        onPlayAlternative={handlePlayAlternative}
+        isWatchingAd={isLoadingAlt}
+      />
+
       {/* Modals */}
       <WordleStatsModal
         isOpen={showStats}
@@ -1072,40 +1266,63 @@ export default function MotMysterePage() {
       {activeTab === 'game' && <main className="wordle-main">
         <p className="wordle-game-date">
           {new Date(todayDate + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
+          {altMode && <span style={{ marginLeft: 8, fontSize: '0.7rem', color: '#f97316', fontWeight: 700 }}>MOT ALTERNATIF</span>}
         </p>
         {/* Content area */}
         <div className="wordle-content">
-          {/* Board area — size container pour les container queries */}
           <div className="wordle-board-area">
             <WordleGrid
-              guesses={guesses}
-              feedbacks={feedbacks}
-              currentGuess={currentGuess}
-              attempts={guesses.length}
+              guesses={altMode ? altGuesses : guesses}
+              feedbacks={altMode ? altFeedbacks : feedbacks}
+              currentGuess={altMode ? altCurrentGuess : currentGuess}
+              attempts={altMode ? altGuesses.length : guesses.length}
               shake={shake}
             />
           </div>
         </div>
 
-        {/* Keyboard - pinned at bottom while playing */}
-        {!gameOver && (
-          <WordleKeyboard letterStates={letterStates} onKey={handleKey} onSubmit={() => handleKey('ENTER')} />
+        {/* Keyboard */}
+        {altMode ? (
+          !altGameOver && (
+            <WordleKeyboard letterStates={altLetterStates} onKey={handleAltKey} onSubmit={() => handleAltKey('ENTER')} />
+          )
+        ) : (
+          !gameOver && (
+            <WordleKeyboard letterStates={letterStates} onKey={handleKey} onSubmit={() => handleKey('ENTER')} />
+          )
         )}
 
-        {/* Result banner - replaces keyboard slot after game */}
+        {/* Result banner */}
         <AnimatePresence>
-          {showResult && (
-            <WordleResultBanner
-              solved={solved}
-              attempts={guesses.length}
-              timeMs={elapsedMs}
-              score={score}
-              revealedWord={revealedWord}
-              stats={stats}
-              streak={streak}
-              onShowStats={() => setShowStats(true)}
-              onShowLeaderboard={handleShowLeaderboard}
-            />
+          {altMode ? (
+            altShowResult && (
+              <WordleResultBanner
+                solved={altSolved}
+                attempts={altGuesses.length}
+                timeMs={altElapsedMs}
+                score={altScore}
+                revealedWord={altRevealedWord}
+                stats={stats}
+                streak={streak}
+                onShowStats={() => setShowStats(true)}
+                onShowLeaderboard={handleShowLeaderboard}
+              />
+            )
+          ) : (
+            showResult && (
+              <WordleResultBanner
+                solved={solved}
+                attempts={guesses.length}
+                timeMs={elapsedMs}
+                score={score}
+                revealedWord={revealedWord}
+                stats={stats}
+                streak={streak}
+                onShowStats={() => setShowStats(true)}
+                onShowLeaderboard={handleShowLeaderboard}
+                unranked={unranked}
+              />
+            )
           )}
         </AnimatePresence>
       </main>}

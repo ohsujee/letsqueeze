@@ -13,15 +13,6 @@ export default function DailyCard({ game }) {
     router.push(game.route);
   };
 
-  const handleShare = (e) => {
-    e.stopPropagation();
-    const text = `Je joue à ${game.name} chaque jour sur Gigglz ! 🎮`;
-    if (navigator.share) {
-      navigator.share({ title: `Gigglz - ${game.name}`, text, url: window.location.origin + game.route }).catch(() => {});
-    } else {
-      navigator.clipboard.writeText(text).catch(() => {});
-    }
-  };
 
   return (
     <motion.div
@@ -63,7 +54,6 @@ export default function DailyCard({ game }) {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          onClick={handleShare}
         >
           <CheckCircle weight="fill" size={14} />
           Fait !

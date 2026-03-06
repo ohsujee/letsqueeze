@@ -11,6 +11,7 @@ import { useDailyGame } from '@/lib/hooks/useDailyGame';
 import { usePostGameAd } from '@/lib/hooks/useInterstitialAd';
 import { GameEndTransition } from '@/components/transitions';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
+import SuspiciousResultModal from '@/components/ui/SuspiciousResultModal';
 
 // ─── Normalisation accents (pour lookup Firebase) ────────────────────────────
 function stripAccents(str) {
@@ -573,7 +574,7 @@ function SemanticStatsModal({ isOpen, onClose, stats, streak }) {
 }
 
 // ─── Result Banner ────────────────────────────────────────────────────────────
-function SemanticResultBanner({ attempts, score, stats, streak, targetWord, onShowStats, onShowLeaderboard }) {
+function SemanticResultBanner({ attempts, score, stats, streak, targetWord, onShowStats, onShowLeaderboard, unranked = false }) {
   const winPct = stats.played > 0 ? Math.round((stats.won / stats.played) * 100) : 0;
   const flames = getStreakFlames(streak.count);
 
@@ -596,11 +597,23 @@ function SemanticResultBanner({ attempts, score, stats, streak, targetWord, onSh
             </p>
           </div>
         </div>
-        <div className="sres-score">
-          <span className="sres-score-val">{score.toLocaleString('fr-FR')}</span>
-          <span className="sres-score-lbl">pts</span>
-        </div>
+        {unranked ? (
+          <div className="sres-score" style={{ textAlign: 'right' }}>
+            <span className="sres-score-val" style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)' }}>Non classé</span>
+          </div>
+        ) : (
+          <div className="sres-score">
+            <span className="sres-score-val">{score.toLocaleString('fr-FR')}</span>
+            <span className="sres-score-lbl">pts</span>
+          </div>
+        )}
       </div>
+
+      {unranked && (
+        <p style={{ margin: '0 0 12px', fontSize: '0.8rem', color: 'rgba(255,255,255,0.45)', textAlign: 'center', lineHeight: 1.5 }}>
+          Tu n&apos;es pas dans le classement pour cette partie.
+        </p>
+      )}
 
       <div className="wres-stats-row">
         <span className="wres-stat-chip">
@@ -620,7 +633,7 @@ function SemanticResultBanner({ attempts, score, stats, streak, targetWord, onSh
         <button className="sres-btn secondary" onClick={onShowStats}>
           <ChartBar size={15} weight="fill" /> Statistiques
         </button>
-        <button className="sres-btn primary" onClick={onShowLeaderboard}>
+        <button className="sres-btn primary" onClick={onShowLeaderboard} disabled={unranked} style={unranked ? { opacity: 0.4, cursor: 'default' } : {}}>
           <Trophy size={15} weight="fill" /> Classement
         </button>
       </div>
@@ -680,7 +693,7 @@ export default function SemantiquePage() {
     return () => unsub();
   }, []);
 
-  const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, loaded } =
+  const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, writeLeaderboard, loaded } =
     useDailyGame('semantique', { forceDate: serverDate });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -704,6 +717,19 @@ export default function SemantiquePage() {
   const transitionTimerRef = useRef(null);
   const inputZoneRef = useRef(null);
   const nativeKbActiveRef = useRef(false); // true quand iOS natif gère le clavier
+
+  // ─── Anti-cheat / mode alternatif ────────────────────────────────────────
+  const [showSuspiciousModal, setShowSuspiciousModal] = useState(false);
+  const [suspiciousCompleteParams, setSuspiciousCompleteParams] = useState(null);
+  const [unranked, setUnranked] = useState(false);
+  const [isLoadingAlt, setIsLoadingAlt] = useState(false);
+  const [altMode, setAltMode] = useState(false);
+  const [altToken, setAltToken] = useState(null);
+  const [altGuesses, setAltGuesses] = useState([]);
+  const [altGameOver, setAltGameOver] = useState(false);
+  const [altFinalScore, setAltFinalScore] = useState(0);
+  const [altShowResult, setAltShowResult] = useState(false);
+  const altStartTimeRef = useRef(null);
 
   // Positionnement de l'input zone au-dessus du clavier.
   //
@@ -765,16 +791,37 @@ export default function SemantiquePage() {
     if (todayState === 'inprogress' && progress?.guesses?.length > 0) {
       setGuesses(progress.guesses);
       startTimeRef.current = startTimeRef.current || Date.now();
+      // Restaurer le mode alternatif si une session alt était en cours
+      const uid = auth.currentUser?.uid;
+      if (uid && todayDate) {
+        const altKey = `lq_sem_alt_${todayDate}_${uid}`;
+        const stored = localStorage.getItem(altKey);
+        if (stored) {
+          try {
+            const { token, guesses: altGs, startTime, suspiciousParams } = JSON.parse(stored);
+            setAltToken(token);
+            setAltGuesses(altGs || []);
+            altStartTimeRef.current = startTime;
+            setSuspiciousCompleteParams(suspiciousParams);
+            setGameOver(true);
+            setAltMode(true);
+          } catch {}
+        }
+      }
     } else if (todayState === 'completed') {
       if (progress?.guesses) setGuesses(progress.guesses);
       setFinalScore(progress?.score || 0);
       setGameOver(true);
-      setShowResult(true);
       // Restaurer le mot cible si sauvegardé
       const saved = typeof window !== 'undefined'
         ? localStorage.getItem(`lq_sem_target_${todayDate}`)
         : null;
       if (saved) setTargetWord(saved);
+      const uid = auth.currentUser?.uid;
+      if (uid && todayDate && localStorage.getItem(`lq_sem_unranked_${todayDate}_${uid}`)) {
+        setUnranked(true);
+      }
+      setShowResult(true);
     } else if (todayState === 'unplayed') {
       startGame();
       startTimeRef.current = Date.now();
@@ -840,9 +887,17 @@ export default function SemantiquePage() {
         setTargetWord(raw);
         localStorage.setItem(`lq_sem_target_${todayDate}`, raw);
         setGameOver(true);
-        freshCompletionRef.current = true;
-        setTimeout(() => setShowResult(true), 800);
-        completeGame({ solved: true, attempts: newGuesses.length, timeMs, score: gameScore });
+
+        const suspicious = newGuesses.length === 1;
+
+        if (suspicious) {
+          setSuspiciousCompleteParams({ solved: true, attempts: newGuesses.length, timeMs, score: gameScore });
+          setTimeout(() => setShowSuspiciousModal(true), 800);
+        } else {
+          completeGame({ solved: true, attempts: newGuesses.length, timeMs, score: gameScore });
+          freshCompletionRef.current = true;
+          setTimeout(() => setShowResult(true), 800);
+        }
       }
     } catch {
       setError('Connexion impossible');
@@ -853,12 +908,113 @@ export default function SemantiquePage() {
     inputRef.current?.focus();
   }, [input, gameOver, guesses, todayDate, isSubmitting, saveProgress, completeGame]);
 
-  const handleKeyDown = (e) => { if (e.key === 'Enter') handleSubmit(); };
+  const handleKeyDown = (e) => { if (e.key === 'Enter') altMode ? handleAltSubmit() : handleSubmit(); };
 
-  const latestEntry = guesses.length > 0 ? guesses[guesses.length - 1] : null;
-  const sortedPrevious = guesses.length > 1
-    ? [...guesses.slice(0, -1)].sort((a, b) => b.score - a.score)
-    : [];
+  // ─── Handlers mode alternatif ─────────────────────────────────────────────
+
+  const handlePlayAlternative = useCallback(async () => {
+    setIsLoadingAlt(true);
+    try {
+      const uid = auth.currentUser?.uid;
+      const res = await fetch(`/api/daily/semantic-alternative?date=${todayDate}${uid ? `&uid=${uid}` : ''}`);
+      const { token } = await res.json();
+      const startTime = Date.now();
+      setAltToken(token);
+      setAltMode(true);
+      setShowSuspiciousModal(false);
+      altStartTimeRef.current = startTime;
+      if (uid && todayDate) {
+        localStorage.setItem(`lq_sem_alt_${todayDate}_${uid}`, JSON.stringify({
+          token, guesses: [], startTime, suspiciousParams: suspiciousCompleteParams,
+        }));
+      }
+    } catch {
+      setShowSuspiciousModal(false);
+    }
+    setIsLoadingAlt(false);
+  }, [todayDate, suspiciousCompleteParams]);
+
+  const handleAltSubmit = useCallback(async () => {
+    if (!input.trim() || altGameOver || !todayDate || isSubmitting) return;
+
+    const raw = input.trim().toLowerCase();
+    const existing = altGuesses.find(g => g.word === raw);
+    if (existing) {
+      setFlashEntry(existing);
+      setTimeout(() => setFlashEntry(null), 1800);
+      setInput('');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setInput('');
+
+    try {
+      const res = await fetch('/api/daily/semantic-alternative-score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date: todayDate, word: raw, token: altToken }),
+      });
+
+      if (res.status === 404) {
+        setError('Mot non reconnu');
+        setTimeout(() => setError(''), 2000);
+        setIsSubmitting(false);
+        return;
+      }
+      if (res.status === 422) {
+        setError('Essaie au singulier');
+        setTimeout(() => setError(''), 2500);
+        setIsSubmitting(false);
+        return;
+      }
+      if (!res.ok) {
+        setError('Erreur serveur');
+        setTimeout(() => setError(''), 2000);
+        setIsSubmitting(false);
+        return;
+      }
+
+      const { rank, similarity, solved } = await res.json();
+      const score = similarity ?? (rank != null ? rank / 1000 : 0);
+      const newAttemptIndex = altGuesses.length + 1;
+      const entry = { word: raw, score, rank, attemptIndex: newAttemptIndex };
+      const newGuesses = [...altGuesses, entry];
+
+      setAltGuesses(newGuesses);
+      setError('');
+
+      const uid = auth.currentUser?.uid;
+      const altKey = uid && todayDate ? `lq_sem_alt_${todayDate}_${uid}` : null;
+      if (altKey) {
+        const stored = localStorage.getItem(altKey);
+        if (stored) {
+          try {
+            localStorage.setItem(altKey, JSON.stringify({ ...JSON.parse(stored), guesses: newGuesses }));
+          } catch {}
+        }
+      }
+
+      if (solved) {
+        const timeMs = Date.now() - (altStartTimeRef.current || Date.now());
+        const gameScore = computeFinalScore(newGuesses.length);
+        setAltFinalScore(gameScore);
+        setTargetWord(raw);
+        setAltGameOver(true);
+        setTimeout(() => setAltShowResult(true), 800);
+        writeLeaderboard({ score: gameScore, attempts: newGuesses.length, solved: true, timeMs });
+        if (suspiciousCompleteParams) completeGame({ ...suspiciousCompleteParams, skipLeaderboard: true });
+        if (altKey) localStorage.removeItem(altKey);
+      }
+    } catch {
+      setError('Connexion impossible');
+      setTimeout(() => setError(''), 2000);
+    }
+
+    setIsSubmitting(false);
+    inputRef.current?.focus();
+  }, [input, altGameOver, altGuesses, todayDate, isSubmitting, altToken, writeLeaderboard, suspiciousCompleteParams, completeGame]);
+
 
   if (!serverDate || !loaded) {
     return (
@@ -899,6 +1055,25 @@ export default function SemantiquePage() {
         </button>
       </div>
 
+      {/* Modal anti-triche */}
+      <SuspiciousResultModal
+        isOpen={showSuspiciousModal}
+        onAccept={() => {
+          setShowSuspiciousModal(false);
+          const uid = auth.currentUser?.uid;
+          if (uid && todayDate) {
+            localStorage.removeItem(`lq_sem_alt_${todayDate}_${uid}`);
+            localStorage.setItem(`lq_sem_unranked_${todayDate}_${uid}`, '1');
+          }
+          if (suspiciousCompleteParams) completeGame({ ...suspiciousCompleteParams, skipLeaderboard: true });
+          setUnranked(true);
+          freshCompletionRef.current = true;
+          setTimeout(() => setShowResult(true), 300);
+        }}
+        onPlayAlternative={handlePlayAlternative}
+        isWatchingAd={isLoadingAlt}
+      />
+
       {/* Modals */}
       <SemanticStatsModal isOpen={showStats} onClose={() => setShowStats(false)} stats={stats} streak={streak} />
 
@@ -921,15 +1096,16 @@ export default function SemantiquePage() {
 
             {/* Result banner */}
             <AnimatePresence>
-              {showResult && (
+              {(altMode ? altShowResult : showResult) && (
                 <SemanticResultBanner
-                  attempts={guesses.length}
-                  score={finalScore}
+                  attempts={altMode ? altGuesses.length : guesses.length}
+                  score={altMode ? altFinalScore : finalScore}
                   stats={stats}
                   streak={streak}
                   targetWord={targetWord}
                   onShowStats={() => setShowStats(true)}
                   onShowLeaderboard={handleShowLeaderboard}
+                  unranked={!altMode && unranked}
                 />
               )}
             </AnimatePresence>
@@ -943,7 +1119,7 @@ export default function SemantiquePage() {
             )}
 
             {/* Table des guesses */}
-            {guesses.length > 0 && (
+            {(altMode ? altGuesses : guesses).length > 0 && (
               <div className="semantic-table-wrap">
                 <div className="semantic-table-header">
                   <span className="semantic-col-num">N°</span>
@@ -952,17 +1128,26 @@ export default function SemantiquePage() {
                   <span className="semantic-col-emoji" />
                   <span className="semantic-col-prog">‰o Progression</span>
                 </div>
-                {(flashEntry || latestEntry) && (
-                  <div className="semantic-latest-wrap">
-                    <GuessRow entry={flashEntry ?? latestEntry} isLatestRow flash={!!flashEntry} />
-                  </div>
-                )}
-                {sortedPrevious.length > 0 && <div className="semantic-list-divider" />}
-                <div className="semantic-guesses">
-                  {sortedPrevious.map((entry) => (
-                    <GuessRow key={`${entry.word}-${entry.attemptIndex}`} entry={entry} />
-                  ))}
-                </div>
+                {(() => {
+                  const activeGuesses = altMode ? altGuesses : guesses;
+                  const latest = activeGuesses.length > 0 ? activeGuesses[activeGuesses.length - 1] : null;
+                  const previous = activeGuesses.length > 1 ? [...activeGuesses.slice(0, -1)].sort((a, b) => b.score - a.score) : [];
+                  return (
+                    <>
+                      {(flashEntry || latest) && (
+                        <div className="semantic-latest-wrap">
+                          <GuessRow entry={flashEntry ?? latest} isLatestRow flash={!!flashEntry} />
+                        </div>
+                      )}
+                      {previous.length > 0 && <div className="semantic-list-divider" />}
+                      <div className="semantic-guesses">
+                        {previous.map((entry) => (
+                          <GuessRow key={`${entry.word}-${entry.attemptIndex}`} entry={entry} />
+                        ))}
+                      </div>
+                    </>
+                  );
+                })()}
               </div>
             )}
           </div>
@@ -972,7 +1157,7 @@ export default function SemantiquePage() {
           {/* Input zone — hors de semantic-main pour éviter que iOS scrolle la liste.
               position:fixed → la position visuelle est identique, mais iOS ne trouve
               plus semantic-scroll-area comme ancêtre scrollable. */}
-          {!showResult && (
+          {!(altMode ? altShowResult : showResult) && (
             <div ref={inputZoneRef} className="semantic-input-zone">
               <AnimatePresence>
                 {error && (
@@ -1002,14 +1187,14 @@ export default function SemantiquePage() {
                     const scrollEl = scrollAreaRef.current;
                     if (scrollEl) scrollEl.style.overflowY = '';
                   }}
-                  disabled={gameOver}
+                  disabled={altMode ? altGameOver : gameOver}
                   autoComplete="off"
                 />
                 <button
                   className="semantic-submit-btn"
                   onMouseDown={(e) => e.preventDefault()}
-                  onClick={handleSubmit}
-                  disabled={!input.trim() || gameOver || isSubmitting}
+                  onClick={altMode ? handleAltSubmit : handleSubmit}
+                  disabled={!input.trim() || (altMode ? altGameOver : gameOver) || isSubmitting}
                 >
                   <PaperPlaneTilt size={15} weight="fill" /> Valider
                 </button>
