@@ -739,6 +739,10 @@ export default function SemantiquePage() {
   //   via UIKeyboardWillShowNotification → hauteur finale exacte, avant animation.
   //   isScrollEnabled=false empêche le document de scroller → header toujours visible.
   //
+  // Sur iPad, keyboardWillShow peut se déclencher deux fois : une fois avec la bonne
+  //   hauteur, une fois avec height=0 (keyboard frame en transition). On ignore height=0.
+  //   visualViewport sert de filet de sécurité et corrige la position si besoin.
+  //
   // Android / web : fallback visualViewport resize (Android redimensionne le WebView).
   useEffect(() => {
     const applyKb = (kb) => {
@@ -748,17 +752,23 @@ export default function SemantiquePage() {
       el.style.transform = '';
     };
 
-    // iOS natif
-    const onNativeShow = (e) => { nativeKbActiveRef.current = true; applyKb(e.detail.height); };
+    // iOS natif — ignore les events avec height=0 (quirk iPad : double notification)
+    const onNativeShow = (e) => {
+      nativeKbActiveRef.current = true;
+      window.scrollTo(0, 0); // empêche iOS de scroller la WebView
+      if (e.detail.height > 0) applyKb(e.detail.height);
+    };
     const onNativeHide = () => { nativeKbActiveRef.current = false; applyKb(0); };
     window.addEventListener('native-keyboard-show', onNativeShow);
     window.addEventListener('native-keyboard-hide', onNativeHide);
 
-    // Fallback Android/web
+    // visualViewport : filet de sécurité pour iOS (corrige un height=0 natif manqué)
+    // et source principale sur Android/web
     const vv = window.visualViewport;
     const onVvResize = vv ? () => {
-      if (nativeKbActiveRef.current) return; // iOS natif a déjà la bonne valeur
-      applyKb(window.innerHeight - vv.height);
+      const kbHeight = window.innerHeight - vv.height;
+      if (kbHeight > 0) applyKb(kbHeight);
+      else if (!nativeKbActiveRef.current) applyKb(0);
     } : null;
     if (vv && onVvResize) vv.addEventListener('resize', onVvResize);
 

@@ -150,10 +150,23 @@ export function AppShell({ children }) {
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
+    // iOS : forcer window.scrollTo(0,0) quand le clavier apparaît.
+    // Même avec isScrollEnabled=false dans ViewController.swift, iOS peut décaler
+    // la WebView via scrollRectToVisible. Ce reset JS est le filet de sécurité.
+    const handleNativeKbShow = () => window.scrollTo(0, 0);
+    window.addEventListener('native-keyboard-show', handleNativeKbShow);
+
+    // iOS : empêcher tout scroll résiduel sur le document (overflow:hidden sur app-shell
+    // garantit que window.scrollY doit toujours être 0)
+    const handleScroll = () => { if (window.scrollY !== 0) window.scrollTo(0, 0); };
+    window.addEventListener('scroll', handleScroll, { passive: false });
+
     return () => {
       window.removeEventListener('resize', setAppHeight);
       window.removeEventListener('orientationchange', setAppHeight);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('native-keyboard-show', handleNativeKbShow);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
