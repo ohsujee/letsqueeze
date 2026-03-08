@@ -1218,6 +1218,20 @@ export default function SemantiquePage() {
                     if (!scrollEl) return;
                     scrollEl.style.overflowY = 'hidden';
                     scrollEl.scrollTop = 0;
+                    // Filet de sécurité : poll visualViewport au cas où native-keyboard-show
+                    // a renvoyé height=0 (bug iPad double-notification keyboardWillShow)
+                    const vv = window.visualViewport;
+                    if (vv) {
+                      [150, 300, 500].forEach(delay => {
+                        setTimeout(() => {
+                          const kbHeight = window.innerHeight - vv.height;
+                          const el = inputZoneRef.current;
+                          if (!el || kbHeight <= 50) return;
+                          const currentBottom = parseFloat(el.style.bottom || '0');
+                          if (currentBottom < kbHeight - 10) el.style.bottom = `${kbHeight}px`;
+                        }, delay);
+                      });
+                    }
                   }}
                   onBlur={() => {
                     const scrollEl = scrollAreaRef.current;
