@@ -1,283 +1,393 @@
 # Système Anti-Triche — Daily Games (Sémantique & Mot Mystère)
 
-## Pourquoi ce système
+> Roadmap complète incluant la Phase 1 (déjà implémentée) et la Phase 2 (multi-jours).
 
-Les deux jeux daily récompensent massivement le 1er essai :
-- **Sémantique** : 5000 pts (formule `5000 / attempts`)
-- **Mot Mystère** : ~9000 pts (formule `(7 - attempts) * 1000 + bonus temps`)
+---
 
-Trouver le mot du premier coup est statistiquement quasi-impossible de façon légitime :
-- Sémantique : 1 mot parmi des dizaines de milliers de candidats possibles
+## Philosophie
+
+- ❌ Pas de ban de compte
+- ❌ Pas de message agressif ou culpabilisant
+- ❌ Pas de suppression silencieuse sans explication
+- ✅ Détection progressive sur plusieurs jours (statistiques impossibles à simuler)
+- ✅ Deuxième chance : après avertissement + reset, on surveille à nouveau
+- ✅ Approche légère et fun côté UX, béton côté architecture
+- ✅ Score de suspicion jamais exposé au joueur (il ajusterait son comportement)
+
+---
+
+---
+
+# PHASE 1 — Détection 1 essai (IMPLÉMENTÉE ✅)
+
+## Pourquoi
+
+Trouver le mot du premier coup est statistiquement quasi-impossible :
+- Sémantique : 1 mot parmi des dizaines de milliers
 - Mot Mystère : 1 mot parmi des milliers de mots de 5 lettres français
 
-Des joueurs se font souffler le mot (amis, groupe de discussion, etc.). L'objectif n'est **pas de punir** mais de maintenir un environnement équitable, avec une approche légère et fun.
+## Déclenchement
 
----
+`attempts === 1 && solved === true`
 
-## Approche choisie
-
-### Ce qu'on NE fait PAS
-- ❌ Ban du compte
-- ❌ Message agressif ou culpabilisant
-- ❌ Suppression silencieuse sans explication
-
-### Ce qu'on fait
-- ✅ Modal fun et légère qui apparaît après un 1er essai réussi
-- ✅ Exclusion du leaderboard pour cette partie
-- ✅ Streak et stats personnelles préservées (pas de pénalité locale)
-- ✅ Option de jouer un mot alternatif pour quand même se classer
-- ✅ Outil admin pour gérer les cas existants
-
----
-
-## UX — La modale "As-tu demandé à un ami ?"
-
-### Déclenchement
-Apparaît **uniquement** si `attempts === 1 && solved === true`, à la place de l'écran de fin normal.
-
-### Texte de la modale
-
-**Titre :**
-> Oulà, première tentative ? 🎯
-
-**Corps :**
-> C'est statistiquement quasi-impossible de trouver le mot du premier coup...
-> Tu aurais eu de l'aide ? 😏
->
-> Pas de jugement — mais pour garder le classement équitable pour tout le monde,
-> ton résultat ne sera pas affiché aujourd'hui.
->
-> *(Si c'était vraiment toi, toutes nos excuses — tu es juste un génie absolu.)*
-
-**Boutons :**
+## UX — Modal "Oulà, première tentative ?"
 
 | Bouton | Action |
 |--------|--------|
-| 🎲 **Jouer un autre mot** | Lance une partie avec un mot alternatif, permet de se classer |
-| **Je comprends** | Ferme la modal, game terminée sans leaderboard |
+| 🎲 Jouer un autre mot | Pub rewarded obligatoire → mot alternatif → peut se classer |
+| Je comprends | Game terminée, non classé ce jour |
+
+## Architecture
+
+- `completeGame({ skipLeaderboard: true })` → streak/stats locaux OK, pas d'écriture leaderboard
+- `writeLeaderboard()` → utilisé uniquement après victoire sur le mot alternatif
+- Mot alternatif Sémantique : date - 365 jours via VPS
+- Mot alternatif Mot Mystère : token chiffré AES-256-CBC via `/api/daily/wordle/alternative`
+
+## Fichiers concernés (tous ✅ déjà créés)
+
+| Fichier | Statut |
+|---------|--------|
+| `lib/hooks/useDailyGame.js` | ✅ `skipLeaderboard` + `writeLeaderboard` |
+| `app/daily/semantique/page.jsx` | ✅ Détection + modal + flow alternatif |
+| `app/daily/motmystere/page.jsx` | ✅ Détection + modal + flow alternatif |
+| `components/ui/SuspiciousResultModal.jsx` | ✅ Modal fun |
+| `components/ui/InboxNotifModal.jsx` | ✅ Modal notification admin |
+| `lib/hooks/useInbox.js` | ✅ Écoute Firebase inbox |
+| `app/api/daily/semantic-alternative/route.js` | ✅ |
+| `app/api/daily/wordle/alternative/route.js` | ✅ GET token + POST check |
+| `firebase.rules.json` | ✅ Règles inbox |
+| `app/(main)/layout.jsx` | ✅ useInbox + InboxNotifModal montés |
+| Punkrecords `app/anticheat/page.jsx` | ✅ Vue admin |
+| Punkrecords `app/api/admin/leaderboard-entry/route.js` | ✅ GET suspect + DELETE + notify |
 
 ---
 
-## Architecture technique
+---
 
-### Détection
+# PHASE 2 — Détection multi-jours (À IMPLÉMENTER)
 
-Dans chaque page de jeu, **avant** l'appel à `completeGame()` :
-```javascript
-if (attempts === 1 && solved) {
-  completeGame({ solved, attempts, timeMs, score, skipLeaderboard: true });
-  // → streak/stats locaux mis à jour, mais PAS d'écriture leaderboard Firebase
-  setShowSuspiciousModal(true);
-  return;
-}
-// Flow normal
-completeGame({ solved, attempts, timeMs, score });
+## Le problème
+
+Un tricheur qui comprend la Phase 1 soumet volontairement un mauvais mot en 1er essai, puis la réponse en 2e. Résultat : 2 essais, non détecté.
+
+La vraie preuve : **des statistiques impossibles sur plusieurs jours.**
+
+Un joueur honnête, même très bon, a des mauvais jours. Un tricheur qui cherche la réponse tous les jours aura une distribution anormalement homogène et bonne. Statistiquement impossible à maintenir honnêtement.
+
+**Données de référence (recherche arXiv 2309.02110) :**
+- Solver optimal Wordle : 3.42 essais en moyenne (plancher humain atteignable)
+- Probabilité de résoudre en ≤ 2 essais : ~8-10% par jour pour un très bon joueur
+- 10 jours consécutifs à ≤ 2 essais : (0.10)^10 = 0.000000001% → impossible honnêtement
+
+---
+
+## Structure Firebase (nouveau)
+
+### Données anti-triche par joueur (écriture admin uniquement)
+
+```
+users/{uid}/anti_cheat/{gameId}/
+├── suspicionScore: 0-100        ← score cumulé
+├── flagged: boolean             ← true si >= 75
+├── warningPending: boolean      ← true = modale à afficher au prochain lancement
+├── warningShownAt: timestamp    ← date du dernier avertissement
+├── resetAt: timestamp           ← date du dernier reset après avertissement
+├── gamesAnalyzed: number        ← nb de parties prises en compte
+├── avgAttempts: number          ← moyenne essais sur fenêtre
+├── winRate: number              ← taux de victoire sur fenêtre
+├── zScore: number               ← écarts-types au-dessus de la population
+├── lastUpdated: timestamp
+└── history/{date}/              ← historique des parties analysées
+    ├── attempts: number
+    ├── solved: boolean
+    └── score: number
 ```
 
-### `useDailyGame.js` — ajout `skipLeaderboard`
+### Leaderboard — nouveau champ
 
-Paramètre optionnel dans `completeGame()` :
+```
+daily/{wordle|semantic}/{date}/leaderboard/{uid}/
+└── unranked: boolean    ← true = retiré du classement (mais entrée conservée pour audit)
+```
+
+### Admin — joueurs flagués
+
+```
+admin/flagged_players/{uid}/
+├── gameId: string
+├── suspicionScore: number
+├── flaggedAt: timestamp
+├── avgAttempts: number
+└── winRate: number
+```
+
+---
+
+## Signaux de suspicion
+
+### Mot Mystère (Wordle)
+
+Population de référence : moyenne 4.0 essais, écart-type 1.2
+
+| Signal | Condition | Poids |
+|--------|-----------|-------|
+| Taux de victoire | > 95% sur ≥ 10 parties | +30 |
+| Moyenne essais (z-score) | z > 3.0 (avg < 0.4) sur ≥ 10 parties | +30 |
+| Moyenne essais (z-score modéré) | z > 2.0 sur ≥ 10 parties | +15 |
+| Taux 1 essai | > 2% des parties | +30 |
+| Taux 1 essai (modéré) | > 1% des parties | +15 |
+| Jamais > 4 essais | 0 partie à 5-6 essais ou perdue sur ≥ 10 parties | +10 |
+
+**Seuil de déclenchement : ≥ 75 sur ≥ 10 parties**
+
+### Sémantique
+
+Population de référence : moyenne ~20 essais, écart-type ~15
+
+| Signal | Condition | Poids |
+|--------|-----------|-------|
+| Taux de victoire | > 90% sur ≥ 10 parties | +30 |
+| Moyenne essais | < 5 sur ≥ 10 parties | +40 |
+| Moyenne essais (modéré) | < 10 sur ≥ 10 parties | +20 |
+| Absence de mots "glaciaux" | 0 essai avec rang > 1000 sur ≥ 3 jours consécutifs | +30 |
+| Jamais > 15 essais | 0 mauvaise journée sur ≥ 10 parties | +20 |
+
+**Seuil de déclenchement : ≥ 75 sur ≥ 10 parties**
+
+> **Pourquoi 10 parties minimum ?** En dessous, un joueur chanceux peut atteindre ces scores légitimement. Sur 10 parties, la probabilité que ce soit de la chance devient < 0.001%.
+
+---
+
+## Calibration — Ne pas flaguer les vrais bons joueurs
+
+- Moyenne ≤ 3.0 essais sur Wordle → suspect (le solver optimal humain est 3.42)
+- Moyenne ≤ 2.5 essais sur Wordle → très suspect
+- Jamais utiliser le timing seul comme signal (peut être rapide pour des raisons légitimes)
+- Fenêtre glissante de 30 jours (pas de pénalité à vie)
+
+---
+
+## Cycle de suspicion (réversible)
+
+```
+Partie complétée
+  → Calcul suspicion (VPS nightly ou API route)
+  → score < 75 → surveillance silencieuse
+
+  → score ≥ 75 ET gamesAnalyzed ≥ 10
+      → jours flagués : unranked: true dans leaderboard
+      → admin/flagged_players/{uid} mis à jour
+      → users/{uid}/anti_cheat/{gameId}/warningPending: true
+
+  → Joueur ouvre Sémantique ou Mot Mystère
+      → client lit warningPending
+      → affiche SuspicionWarningModal (nouveau)
+      → warningPending: false + suspicionScore: 0 + resetAt: now
+      → monitoring repart de zéro
+
+  → Si ça recommence → nouveau cycle
+  → Si ça s'arrête → suspicion reste à 0 → joueur "blanchi"
+```
+
+---
+
+## Sécurité Firebase — Fix critique
+
+### Problème actuel
+
+`writeLeaderboard()` dans `useDailyGame.js` écrit **directement depuis le client** vers Firebase. N'importe qui peut injecter un score depuis la console navigateur :
 ```javascript
-const completeGame = useCallback(async ({
-  solved, attempts, timeMs, score, revealedWord,
-  skipLeaderboard = false   // ← NOUVEAU, défaut false = comportement inchangé
-}) => {
-  // ... sauvegarde locale (localStorage, streak, stats) → inchangé ...
+firebase.database().ref('daily/wordle/2026-03-07/leaderboard/uid').set({score: 99999})
+```
 
-  if (!skipLeaderboard && user) {
-    // écriture leaderboard Firebase (code actuel)
+### Solution : API route serveur + règles Firebase restrictives
+
+**Étape 1 — Nouvelle API route (LetsQueeze)**
+
+`POST /api/daily/submit-result`
+1. Vérifie le token Firebase (identité)
+2. Rejoue les guesses côté serveur pour vérifier `solved` et `attempts`
+3. Calcule le score côté serveur (jamais faire confiance au client)
+4. Stocke les guesses pour audit dans `users/{uid}/daily/{gameId}/{date}/guesses`
+5. Écrit le leaderboard via Firebase Admin SDK
+6. Met à jour le suspicion score en asynchrone
+
+**Étape 2 — Règles Firebase**
+
+```json
+"daily": {
+  "wordle": {
+    "$date": {
+      "leaderboard": {
+        ".read": "auth != null",
+        ".write": false
+      }
+    }
+  },
+  "semantic": {
+    "$date": {
+      "leaderboard": {
+        ".read": "auth != null",
+        ".write": false
+      }
+    }
   }
-}, [...]);
+}
 ```
 
-Nouvelle fonction `writeLeaderboard()` pour les parties alternatives (écrit uniquement dans le leaderboard, sans toucher streak/stats).
-
-**Impact sur le jeu normal : zéro.** Le défaut est `false`.
+> L'écriture se fait uniquement via Admin SDK (depuis l'API route Next.js), qui bypass les règles Firebase.
 
 ---
 
-## Mot alternatif
+## Architecture du calcul de suspicion
 
-### Pourquoi proposer un mot alternatif
-Pour ne pas frustrer les joueurs légitimes (génie ou chance réelle) et leur donner la possibilité de se classer quand même.
+### Option A — VPS Scheduler (recommandée)
 
-### Sémantique — Source du mot alternatif
-Le VPS dispose de tous les mots jusqu'à 3 ans à l'avance.
+Le VPS Punkrecords a déjà un `scheduler.js` avec cron jobs configurables via Firebase.
+Ajouter un schedule dans `notifications/schedules/anticheat_daily` :
 
-**Endpoint VPS confirmé :** `GET /word/{date}` (avec auth)
-
-**Approche :** Utiliser le mot d'une date passée (ex: il y a 365 jours) comme mot alternatif. Ce mot est déjà "révélé" (date passée) donc acceptable comme alternative. Le scoring sémantique continue de fonctionner normalement avec cette date alternative.
-
-**Nouvelle route Next.js :** `GET /api/daily/semantic-alternative?date=YYYY-MM-DD`
-- Calcule `alternativeDate = today - 365 jours`
-- Appelle `SEMANTIC_API_URL/word/{alternativeDate}` côté serveur pour vérifier
-- Retourne `{ alternativeDate }`
-- Le jeu utilise ce `alternativeDate` pour tous les appels scoring
-
-### Mot Mystère — Source du mot alternatif
-Les mots sont dans Firebase `daily/wordle/{date}/word` (géré admin).
-
-**Approche :** Liste de fallback de ~15 mots côté serveur, exclure le mot du jour.
-
-**Nouvelle route Next.js :**
-- `GET /api/daily/wordle/alternative?date=YYYY-MM-DD` → retourne `{ token }` (mot alternatif chiffré AES-256-CBC avec `ALT_WORD_SECRET` ou fallback sur `SEMANTIC_API_KEY`)
-- `POST /api/daily/wordle/alternative { guess, token, attemptNumber }` → valide le guess (token chiffré côté serveur pour éviter l'inspection réseau)
-
-### Flow alternatif en jeu
-
-1. Joueur clique "Jouer un autre mot"
-2. Appel à l'API alternative → reçoit le mot/date alternatif (ou token chiffré)
-3. État du jeu resetté en mémoire (guesses, attempts) sans toucher Firebase
-4. Jeu repart normalement avec ce mot
-5. Victoire → `writeLeaderboard()` → dans le leaderboard avec le vrai nombre d'essais
-
-**Important :** Les guesses alt sont dans un state séparé (`altGuesses`, `altFeedbacks`, etc.). Si le joueur ferme et rouvre l'app, le mode alternatif est perdu — le jeu affiche juste l'écran de fin normal (sans leaderboard, puisque `completeGame` a déjà été appelé avec `skipLeaderboard: true`). C'est comportement acceptable.
-
----
-
-## Gestion des cas existants (admin)
-
-### Vue Punkrecords — Anti-Triche
-
-**Nouvelle page** `app/anticheat/page.jsx` dans Punkrecords :
-- Affiche les leaderboards du jour (Sémantique + Mot Mystère)
-- Filtrés sur `attempts === 1 && solved === true`
-- Colonnes : Jeu, Heure, Pseudo, UID, Score, Actions
-- Deux boutons par ligne :
-  - **"Supprimer + Notifier"** → supprime leaderboard + écrit notification Firebase inbox
-  - **"Supprimer seulement"** → supprime sans notification
-
-### API admin ciblée
-
-**Nouvelle route :** `GET /api/admin/leaderboard-entry?game=wordle|semantic&date=YYYY-MM-DD`
-→ Retourne les entrées suspectes
-
-**Nouvelle route :** `DELETE /api/admin/leaderboard-entry`
 ```json
 {
-  "game": "wordle",
-  "date": "2026-03-02",
-  "uid": "xxx",
-  "notify": true
+  "enabled": true,
+  "cron": "0 2 * * *",
+  "target": "internal",
+  "action": "recalculate_suspicion"
 }
 ```
-Actions :
-1. Supprime `daily/{game}/{date}/leaderboard/{uid}` dans Firebase
-2. Si `notify: true` → écrit `users/{uid}/inbox/{notifId}` avec la notification (via firebase-admin, bypass des règles)
+
+Le scheduler appelle `/api/anticheat/recalculate` (Punkrecords) à 2h du matin :
+1. Lit tous les users ayant joué dans les 30 derniers jours
+2. Pour chaque user, calcule le suspicion score
+3. Met à jour `users/{uid}/anti_cheat/{gameId}` via firebase-admin
+4. Si score ≥ 75 : marque les entrées leaderboard comme `unranked`, écrit `warningPending`
+
+**Avantages :** firebase-admin déjà configuré sur le VPS, scheduler déjà en place, aucune Cloud Function nécessaire, calcul asynchrone sans impact sur l'UX.
+
+### Option B — API route Next.js (fallback)
+
+Calculer en fin de partie dans `POST /api/daily/submit-result`.
+Inconvénient : limité à la fenêtre de 30s des API routes Vercel, et Firebase Admin SDK à configurer côté Vercel.
+
+**→ Privilégier l'Option A.**
 
 ---
 
-## Notifications in-game
+## UX — SuspicionWarningModal (nouveau composant)
 
-### Règles Firebase (à ajouter dans `firebase.rules.json`)
-```json
-"inbox": {
-  ".read": "auth != null && auth.uid == $uid",
-  "$notifId": {
-    ".write": "auth != null && auth.uid == $uid"
-  }
-}
-```
-> L'admin écrit via firebase-admin (service account) qui bypass les règles.
+S'affiche au lancement de Sémantique ou Mot Mystère si `warningPending === true`.
 
-Structure d'une notification :
-```json
-{
-  "type": "anticheat",
-  "game": "semantique",
-  "date": "2026-03-02",
-  "read": false,
-  "createdAt": 1709452340000
-}
-```
+**Ton :** neutre, non accusateur, respectueux.
 
-### Hook `useInbox.js` (nouveau)
-- Écoute `users/{uid}/inbox/` (onValue)
-- Si notification non lue de type `anticheat` → déclenche l'affichage de la modale
-- Marque comme `read: true` dans Firebase immédiatement (affichée une seule fois)
-- Monté dans `app/(main)/layout.jsx`
-
-### Modale notification in-game (`InboxNotifModal.jsx`)
-
-> **Hey, on a revu le classement 👀**
+> **Hey, on a revu ton classement 👀**
 >
-> On a détecté un résultat inhabituel sur ta partie de [Sémantique / Mot Mystère]
-> du [date] et on a préféré la retirer du classement pour garder le jeu équitable.
+> On a détecté des performances inhabituelles sur tes dernières parties.
+> Pour garder le jeu équitable, tes scores des jours concernés ont été retirés du classement.
 >
-> Si tu penses que c'est une erreur, pas de souci — écris-nous !
+> Si tu penses que c'est une erreur, écris-nous !
+
+- Bouton : "J'ai compris" → `warningPending: false`, reset suspicion score à 0
+- **Ne jamais mentionner les critères de détection**
+- **Ne jamais dire "tu triches"**
+- Email de contact visible pour contestation
+
+---
+
+## Leaderboard public — Filtrage
+
+Les entrées avec `unranked: true` :
+- Exclues du classement public (ne s'affichent pas)
+- Conservées dans Firebase pour audit admin
+- Côté client : le joueur concerné voit "Non classé" sur son propre écran
 
 ---
 
 ## Fichiers à créer / modifier
 
-### LetsQueeze
+### LetsQueeze (Vercel)
 
-| Fichier | Action | Statut |
-|---------|--------|--------|
-| `lib/hooks/useDailyGame.js` | MODIFIER | Ajout param `skipLeaderboard` + fonction `writeLeaderboard` |
-| `app/daily/semantique/page.jsx` | MODIFIER | Détection 1 essai + modal + flow alternatif |
-| `app/daily/motmystere/page.jsx` | MODIFIER | Idem |
-| `components/ui/SuspiciousResultModal.jsx` | **CRÉÉ** ✅ | Modal fun anti-triche |
-| `components/ui/InboxNotifModal.jsx` | **CRÉÉ** ✅ | Modal notification admin |
-| `lib/hooks/useInbox.js` | **CRÉÉ** ✅ | Écoute Firebase inbox |
-| `app/api/daily/semantic-alternative/route.js` | **CRÉÉ** ✅ | Mot alternatif VPS |
-| `app/api/daily/wordle/alternative/route.js` | **CRÉÉ** ✅ | Mot alternatif Wordle (GET token + POST check) |
-| `firebase.rules.json` | **MODIFIÉ** ✅ | Ajout règles inbox (pas encore déployé) |
-| `app/(main)/layout.jsx` | MODIFIER | Monter `useInbox` + `InboxNotifModal` |
+| Fichier | Action | Priorité |
+|---------|--------|----------|
+| `app/api/daily/submit-result/route.js` | **CRÉER** | 🔴 Critique (sécurité) |
+| `firebase.rules.json` | **MODIFIER** — interdire écriture client leaderboard | 🔴 Critique |
+| `lib/hooks/useDailyGame.js` | **MODIFIER** — remplacer `writeLeaderboard` par appel API | 🔴 Critique |
+| `components/ui/SuspicionWarningModal.jsx` | **CRÉER** | 🟡 Phase 2 |
+| `lib/hooks/useInbox.js` | **MODIFIER** — ajouter écoute `warningPending` | 🟡 Phase 2 |
+| `app/daily/motmystere/page.jsx` | **MODIFIER** — lire `warningPending` au lancement | 🟡 Phase 2 |
+| `app/daily/semantique/page.jsx` | **MODIFIER** — idem | 🟡 Phase 2 |
 
-### Punkrecords (VPS)
+### Punkrecords VPS
 
-| Fichier | Action | Statut |
-|---------|--------|--------|
-| `app/anticheat/page.jsx` | **CRÉÉ** ✅ | Vue admin leaderboards 1 essai |
-| `app/api/admin/leaderboard-entry/route.js` | **CRÉÉ** ✅ | GET suspect + DELETE ciblé + notify |
-| `components/Sidebar.jsx` | **MODIFIÉ** ✅ | Lien "Anti-Triche" ajouté |
+| Fichier | Action | Priorité |
+|---------|--------|----------|
+| `app/api/anticheat/recalculate/route.js` | **CRÉER** — calcul nightly suspicion scores | 🟡 Phase 2 |
+| `app/anticheat/page.jsx` | **MODIFIER** — ajouter vue multi-jours + joueurs flagués | 🟡 Phase 2 |
+| `scheduler.js` | **MODIFIER** — ajouter action `recalculate_suspicion` | 🟡 Phase 2 |
 
 ---
 
-## Compatibilité — Zéro impact sur le jeu normal
+## Ordre d'implémentation recommandé
 
-| Changement | Impact sur joueurs normaux (2+ essais) |
-|------------|----------------------------------------|
-| `skipLeaderboard` dans useDailyGame | Aucun (défaut = `false`) |
-| Détection dans les pages | Aucun (condition ultra-spécifique) |
-| Nouveaux composants modaux | Aucun (pas montés si condition non remplie) |
-| Nouvelles routes API | Aucun (nouvelles routes, rien de modifié) |
-| Firebase inbox rules | Additif seulement |
-| Punkrecords | Déploiement séparé |
+### Sprint 1 — Sécurité (critique, faire en premier)
+1. Créer `POST /api/daily/submit-result` avec validation serveur-side des guesses
+2. Modifier `useDailyGame.js` pour appeler cette API au lieu d'écrire directement
+3. Mettre à jour `firebase.rules.json` — interdire écriture client sur leaderboard
+4. `firebase deploy --only database`
+5. Tester : vérifier qu'un score injecté depuis la console est refusé
 
----
+### Sprint 2 — Collecte de données
+6. Dans `submit-result`, stocker les guesses pour audit (`users/{uid}/daily/{gameId}/{date}/guesses`)
+7. Dans `submit-result`, écrire l'historique anti-triche `users/{uid}/anti_cheat/{gameId}/history/{date}`
 
-## Ordre d'implémentation (à faire)
+### Sprint 3 — Calcul suspicion (VPS)
+8. Créer `/api/anticheat/recalculate` sur Punkrecords
+9. Ajouter le schedule dans Firebase `notifications/schedules/anticheat_daily` (cron 2h du matin)
+10. Modifier `scheduler.js` pour gérer l'action `recalculate_suspicion`
+11. Tester sur des données réelles
 
-1. `useDailyGame.js` → param `skipLeaderboard` + `writeLeaderboard`
-2. Détection + `SuspiciousResultModal` dans `app/daily/semantique/page.jsx`
-3. Idem dans `app/daily/motmystere/page.jsx`
-4. Flow "Jouer un autre mot" dans les deux pages (APIs alternative déjà créées ✅)
-5. `app/(main)/layout.jsx` → monter `useInbox` + `InboxNotifModal`
-6. `firebase deploy --only database` → déployer les règles inbox
-7. Déployer Punkrecords sur VPS (anticheat page + API déjà créées ✅)
-8. `git push` LetsQueeze → Vercel déploie
+### Sprint 4 — UX avertissement
+12. Créer `SuspicionWarningModal.jsx`
+13. Modifier `useInbox.js` pour écouter `warningPending`
+14. Afficher la modale dans Sémantique et Mot Mystère
+15. Gérer le reset du score suspicion après affichage
 
----
-
-## Tests de validation
-
-- [ ] Jouer Sémantique, entrer le bon mot directement → modale apparaît, absent du leaderboard, streak/stats OK
-- [ ] Idem Mot Mystère
-- [ ] Cliquer "Je comprends" → game proprement terminée
-- [ ] Cliquer "Jouer un autre mot" → nouveau jeu se lance avec autre mot, victoire → dans leaderboard
-- [ ] 2 essais et + → flow totalement inchangé, zéro modal
-- [ ] Admin : supprimer entrée via Punkrecords → disparaît du leaderboard Firebase
-- [ ] Admin : supprimer + notifier → `InboxNotifModal` apparaît au prochain lancement de l'app
+### Sprint 5 — Admin visibility (Punkrecords)
+16. Mettre à jour la page anticheat pour afficher les joueurs flagués multi-jours
+17. Ajouter action "Débloquer manuellement" (reset suspicion score depuis admin)
 
 ---
 
-## Variables d'environnement requises
+## Tests de validation Phase 2
+
+- [ ] Simuler 10 parties avec avg 2 essais → suspicion score ≥ 75 calculé correctement
+- [ ] Leaderboard : entrées concernées passent à `unranked: true`
+- [ ] Joueur ouvre le jeu → `SuspicionWarningModal` apparaît
+- [ ] Joueur clique "J'ai compris" → modal ne réapparaît pas, suspicion reset à 0
+- [ ] Joueur joue normalement après reset → suspicion recalculé depuis zéro
+- [ ] Faux positif : joueur légitime avec 15+ parties et avg 3.5 → pas flagué
+- [ ] Injection score depuis console navigateur → refusée par règles Firebase
+- [ ] Admin Punkrecords : voir la liste des joueurs flagués + débloquer manuellement
+
+---
+
+## Variables d'environnement
 
 | Variable | Où | Usage |
 |----------|----|-------|
-| `ALT_WORD_SECRET` | Vercel | Clé de chiffrement AES du token wordle alternatif (optionnel, fallback sur `SEMANTIC_API_KEY`) |
+| `ALT_WORD_SECRET` | Vercel | Clé AES token mot alternatif Wordle |
 | `SEMANTIC_API_URL` | Vercel (déjà présent) | VPS sémantique |
 | `SEMANTIC_API_KEY` | Vercel (déjà présent) | Auth VPS |
-| `FIREBASE_SERVICE_ACCOUNT_BASE64` | Vercel (déjà présent) | Admin Firebase pour route wordle/alternative |
+| `FIREBASE_SERVICE_ACCOUNT_BASE64` | Vercel (déjà présent) | Admin Firebase |
+| `SA_PATH` | VPS (déjà présent) | Service account Punkrecords |
+| `NEXT_PUBLIC_FIREBASE_DATABASE_URL` | VPS (déjà présent) | Firebase URL |
+| `ANTICHEAT_API_KEY` | VPS (à créer) | Auth de la route `/api/anticheat/recalculate` |
+
+---
+
+## Notes architecture VPS (Punkrecords)
+
+- `scheduler.js` → lit `notifications/schedules` dans Firebase, crée des cron jobs à la volée
+- `firebase-admin.js` → Firebase Admin SDK configuré avec service account `/opt/punkrecords-sa.json`
+- Le scheduler tourne en continu avec le serveur Next.js
+- Ajouter une action dans le scheduler en modifiant comment il dispatch les appels API internes
+- La route `/api/anticheat/recalculate` doit être protégée par un header `x-api-key` (même pattern que `/api/admin/reset-leaderboards`)
