@@ -74,7 +74,7 @@ export default function GameModeSelector({ isOpen, onClose, onSelectMode, game }
                 <div className="gms-option-content">
                   <div className="gms-option-title-row">
                     <h3 className="gms-option-title">Game Master</h3>
-                    <span className="gms-player-pill">3+ joueurs</span>
+                    {game?.id === 'alibi' && <span className="gms-player-pill">3+ joueurs</span>}
                   </div>
                   <p className="gms-option-desc">
                     Tu animes le jeu mais ne joues pas
@@ -96,7 +96,7 @@ export default function GameModeSelector({ isOpen, onClose, onSelectMode, game }
                 <div className="gms-option-content">
                   <div className="gms-option-title-row">
                     <h3 className="gms-option-title">Party Mode</h3>
-                    <span className="gms-player-pill party">4+ joueurs</span>
+                    {game?.id === 'alibi' && <span className="gms-player-pill party">4+ joueurs</span>}
                   </div>
                   <p className="gms-option-desc">
                     Chacun pose une question à tour de rôle
