@@ -163,7 +163,7 @@ class ViewController: CAPBridgeViewController {
 
     // MARK: - White Screen Recovery
 
-    override func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         // iOS 18.x : race condition au lancement — WKWebContent process tué avant que
         // la navigation soit complète. Capacitor fait reload() sur about:blank → écran blanc.
         // On recharge directement l'URL de production au lieu de laisser reload() agir.
