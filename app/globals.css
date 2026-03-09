@@ -13897,7 +13897,10 @@ input[type="text"].game-search-input:focus,
   position: fixed;
   left: 0;
   right: 0;
-  bottom: env(safe-area-inset-bottom, 0px);
+  /* --keyboard-height : setté par ViewController.swift via evaluateJavaScript avant l'animation clavier.
+     env(safe-area-inset-bottom) : safe area physique quand clavier fermé (iPhone notch, etc.).
+     max() prend le plus grand des deux → zone collée au clavier ou au safe area selon le contexte. */
+  bottom: max(var(--keyboard-height, 0px), env(safe-area-inset-bottom, 0px));
   z-index: 100;
   background: var(--bg-primary, #0d0d1a);
   padding: 8px 16px 12px;
