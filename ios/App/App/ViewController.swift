@@ -1,6 +1,7 @@
 import UIKit
 import Capacitor
 import WebKit
+import MediaPlayer
 
 class ViewController: CAPBridgeViewController {
 
@@ -13,6 +14,30 @@ class ViewController: CAPBridgeViewController {
         // Tout le scroll de l'app passe par CSS overflow:auto (scroll views séparés).
         webView?.scrollView.contentInsetAdjustmentBehavior = .never
         webView?.scrollView.isScrollEnabled = false
+
+        // Évite le flash blanc au lancement avant que le dark theme JS se charge.
+        webView?.isOpaque = false
+        webView?.backgroundColor = UIColor(red: 0.04, green: 0.04, blue: 0.06, alpha: 1) // #0a0a0f
+
+        // Empêche l'écran de se verrouiller pendant l'app.
+        // Complète le hook JS useWakeLock (navigator.wakeLock) pour iOS 15.x
+        // qui ne supporte pas la Web Wake Lock API.
+        UIApplication.shared.isIdleTimerDisabled = true
+
+        // Désactive les contrôles "Now Playing" sur l'écran de verrouillage.
+        // WKWebView enregistre automatiquement l'audio BlindTest comme source
+        // Now Playing → iOS affiche un faux lecteur Spotify. On supprime ça.
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [:]
+        let cc = MPRemoteCommandCenter.shared()
+        cc.playCommand.isEnabled = false
+        cc.pauseCommand.isEnabled = false
+        cc.stopCommand.isEnabled = false
+        cc.nextTrackCommand.isEnabled = false
+        cc.previousTrackCommand.isEnabled = false
+        cc.changePlaybackRateCommand.isEnabled = false
+        cc.seekForwardCommand.isEnabled = false
+        cc.seekBackwardCommand.isEnabled = false
+        cc.changePlaybackPositionCommand.isEnabled = false
 
         // Une seule notification couvre TOUS les états clavier :
         // show, hide, floating iPad, hardware keyboard, rotation, QuickType bar.
@@ -134,5 +159,16 @@ class ViewController: CAPBridgeViewController {
         // Autorise la lecture audio sans geste utilisateur (nécessaire pour le BlindTest)
         config.mediaTypesRequiringUserActionForPlayback = []
         return config
+    }
+
+    // MARK: - White Screen Recovery
+
+    override func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        // iOS 18.x : race condition au lancement — WKWebContent process tué avant que
+        // la navigation soit complète. Capacitor fait reload() sur about:blank → écran blanc.
+        // On recharge directement l'URL de production au lieu de laisser reload() agir.
+        if let url = URL(string: "https://app.gigglz.fun") {
+            webView.load(URLRequest(url: url))
+        }
     }
 }

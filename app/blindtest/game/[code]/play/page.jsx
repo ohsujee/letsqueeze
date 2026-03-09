@@ -134,6 +134,21 @@ export default function DeezTestPlayerGame() {
   const audioMode = meta?.audioMode || 'single';
   const shouldPlayAudio = audioMode === 'all' && !amIAsker; // Joueurs jouent l'audio (pas l'asker)
 
+  // Supprime le widget "Now Playing" sur l'écran de verrouillage iOS.
+  // WKWebView enregistre automatiquement new Audio() comme source Now Playing →
+  // iOS affiche des contrôles musique sur le lock screen. On neutralise ça.
+  useEffect(() => {
+    if (!shouldPlayAudio) return;
+    const clearMediaSession = () => {
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = null;
+        navigator.mediaSession.playbackState = 'none';
+      }
+    };
+    clearMediaSession();
+    return clearMediaSession;
+  }, [shouldPlayAudio]);
+
   const audioPlayerRef = useRef(null);
   const audioSyncTimeoutRef = useRef(null);
   const audioStopIntervalRef = useRef(null);
