@@ -717,7 +717,6 @@ export default function SemantiquePage() {
   const freshCompletionRef = useRef(false);
   const transitionTimerRef = useRef(null);
   const inputZoneRef = useRef(null);
-  const nativeKbActiveRef = useRef(false); // true quand iOS natif gère le clavier
 
   // ─── Anti-cheat / mode alternatif ────────────────────────────────────────
   const [showScoreUpdateModal, setShowScoreUpdateModal] = useState(false);
@@ -733,51 +732,6 @@ export default function SemantiquePage() {
   const [altShowResult, setAltShowResult] = useState(false);
   const altStartTimeRef = useRef(null);
 
-  // Positionnement de l'input zone au-dessus du clavier.
-  //
-  // iOS natif (Capacitor) : ViewController.swift envoie 'native-keyboard-show/hide'
-  //   via UIKeyboardWillShowNotification → hauteur finale exacte, avant animation.
-  //   isScrollEnabled=false empêche le document de scroller → header toujours visible.
-  //
-  // Sur iPad, keyboardWillShow peut se déclencher deux fois : une fois avec la bonne
-  //   hauteur, une fois avec height=0 (keyboard frame en transition). On ignore height=0.
-  //   visualViewport sert de filet de sécurité et corrige la position si besoin.
-  //
-  // Android / web : fallback visualViewport resize (Android redimensionne le WebView).
-  useEffect(() => {
-    const applyKb = (kb) => {
-      const el = inputZoneRef.current;
-      if (!el) return;
-      el.style.bottom = `${Math.max(0, kb)}px`;
-      el.style.transform = '';
-    };
-
-    // iOS natif — ignore les events avec height=0 (quirk iPad : double notification)
-    const onNativeShow = (e) => {
-      nativeKbActiveRef.current = true;
-      window.scrollTo(0, 0); // empêche iOS de scroller la WebView
-      if (e.detail.height > 0) applyKb(e.detail.height);
-    };
-    const onNativeHide = () => { nativeKbActiveRef.current = false; applyKb(0); };
-    window.addEventListener('native-keyboard-show', onNativeShow);
-    window.addEventListener('native-keyboard-hide', onNativeHide);
-
-    // visualViewport : filet de sécurité pour iOS (corrige un height=0 natif manqué)
-    // et source principale sur Android/web
-    const vv = window.visualViewport;
-    const onVvResize = vv ? () => {
-      const kbHeight = window.innerHeight - vv.height;
-      if (kbHeight > 0) applyKb(kbHeight);
-      else if (!nativeKbActiveRef.current) applyKb(0);
-    } : null;
-    if (vv && onVvResize) vv.addEventListener('resize', onVvResize);
-
-    return () => {
-      window.removeEventListener('native-keyboard-show', onNativeShow);
-      window.removeEventListener('native-keyboard-hide', onNativeHide);
-      if (vv && onVvResize) vv.removeEventListener('resize', onVvResize);
-    };
-  }, []);
 
   // Transition + pub + switch vers classement après une completion fraîche (pas une restauration)
   useEffect(() => {
@@ -1218,20 +1172,6 @@ export default function SemantiquePage() {
                     if (!scrollEl) return;
                     scrollEl.style.overflowY = 'hidden';
                     scrollEl.scrollTop = 0;
-                    // Filet de sécurité : poll visualViewport au cas où native-keyboard-show
-                    // a renvoyé height=0 (bug iPad double-notification keyboardWillShow)
-                    const vv = window.visualViewport;
-                    if (vv) {
-                      [150, 300, 500].forEach(delay => {
-                        setTimeout(() => {
-                          const kbHeight = window.innerHeight - vv.height;
-                          const el = inputZoneRef.current;
-                          if (!el || kbHeight <= 50) return;
-                          const currentBottom = parseFloat(el.style.bottom || '0');
-                          if (currentBottom < kbHeight - 10) el.style.bottom = `${kbHeight}px`;
-                        }, delay);
-                      });
-                    }
                   }}
                   onBlur={() => {
                     const scrollEl = scrollAreaRef.current;
