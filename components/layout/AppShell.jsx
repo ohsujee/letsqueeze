@@ -6,6 +6,38 @@ import { Capacitor } from '@capacitor/core';
 import { App } from '@capacitor/app';
 import { HowToPlayProvider } from '@/lib/context/HowToPlayContext';
 
+// Référence module-level pour l'AudioContext iOS (persist entre re-renders)
+let _iosAudioCtx = null;
+
+function unlockAudioOnFirstTouch() {
+  try {
+    // 1. Silent HTMLMediaElement — lève la restriction iOS sur new Audio().play()
+    const silent = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA');
+    silent.play().catch(() => {});
+
+    // 2. AudioContext — réchauffe le process WKWebContent pour tous les sons futurs
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    _iosAudioCtx = ctx;
+    ctx.resume().then(() => {
+      const buf = ctx.createBuffer(1, 1, 22050);
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      src.connect(ctx.destination);
+      src.start(0);
+    }).catch(() => {});
+  } catch (e) {}
+}
+
+function resumeAudioContext() {
+  try {
+    if (_iosAudioCtx && _iosAudioCtx.state === 'suspended') {
+      _iosAudioCtx.resume().catch(() => {});
+    }
+  } catch (e) {}
+}
+
 /**
  * AppShell - Wrapper global pour le viewport
  *
@@ -146,6 +178,12 @@ export function AppShell({ children }) {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
         setTimeout(setAppHeight, 50);
+        // iOS : réactiver le process audio WKWebContent après retour d'arrière-plan.
+        // WebKit Bug 237878 : AudioContext se suspend automatiquement après backgrounding.
+        // Sans ça, new Audio().play() échoue silencieusement après un switch d'app.
+        if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios') {
+          resumeAudioContext();
+        }
       }
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -161,12 +199,22 @@ export function AppShell({ children }) {
     const handleScroll = () => { if (window.scrollY !== 0) window.scrollTo(0, 0); };
     window.addEventListener('scroll', handleScroll, { passive: false });
 
+    // iOS : activer le process audio WKWebContent sur le premier tap utilisateur.
+    // mediaTypesRequiringUserActionForPlayback=[] (ViewController.swift) supprime la
+    // restriction de geste pour HTMLMediaElement, mais iOS 18 peut ignorer ce flag.
+    // Ce "warm-up" garantit que new Audio().play() depuis des callbacks Firebase
+    // fonctionne sur tous les téléphones sans action supplémentaire du joueur.
+    if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios') {
+      document.addEventListener('touchstart', unlockAudioOnFirstTouch, { once: true, passive: true });
+    }
+
     return () => {
       window.removeEventListener('resize', setAppHeight);
       window.removeEventListener('orientationchange', setAppHeight);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('native-keyboard-show', handleNativeKbShow);
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('touchstart', unlockAudioOnFirstTouch);
     };
   }, []);
 
