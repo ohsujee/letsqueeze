@@ -144,8 +144,6 @@ export function AppShell({ children }) {
   }, [router, pathname]); // Re-run when pathname changes (e.g., after onboarding)
 
   useEffect(() => {
-    const isIOSNative = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios';
-
     const setAppHeight = () => {
       // Calcule la vraie hauteur visible (sans barre d'adresse, etc.)
       const vh = window.innerHeight;
@@ -170,29 +168,10 @@ export function AppShell({ children }) {
     setSafeAreaFallback();
 
     // Update on resize and orientation change
-    // iOS Capacitor : pas de barre d'adresse → resize ne vient que du clavier.
-    // On ignore resize pour éviter que --app-height change à l'ouverture du clavier.
-    // Seul orientationchange met à jour (rotation d'écran).
-    if (!isIOSNative) {
-      window.addEventListener('resize', setAppHeight);
-    }
+    window.addEventListener('resize', setAppHeight);
     window.addEventListener('orientationchange', () => {
       // Delay pour laisser le temps au navigateur de recalculer
-      setTimeout(() => {
-        setAppHeight();
-        // Recapturer la safe area physique après rotation (peut changer)
-        if (isIOSNative) {
-          // Retirer l'inline pour laisser env() se recalculer avec la nouvelle orientation
-          document.documentElement.style.removeProperty('--safe-area-bottom');
-          requestAnimationFrame(() => {
-            const appShellEl = document.querySelector('.app-shell');
-            if (appShellEl) {
-              const newSafe = getComputedStyle(appShellEl).paddingBottom;
-              document.documentElement.style.setProperty('--safe-area-bottom', newSafe);
-            }
-          });
-        }
-      }, 100);
+      setTimeout(setAppHeight, 100);
     });
 
     // Recalcul quand l'app revient au premier plan (Android)
@@ -209,26 +188,9 @@ export function AppShell({ children }) {
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // iOS : figer --safe-area-bottom à sa VRAIE valeur pixel au montage.
-    //
-    // POURQUOI : Swift anime additionalSafeAreaInsets.bottom à chaque ouverture clavier,
-    // ce qui gonfle env(safe-area-inset-bottom) de ~34px à ~334px.
-    //
-    // PIÈGE : getPropertyValue('--safe-area-bottom') retourne le TOKEN brut
-    // "env(safe-area-inset-bottom, 0px)" — PAS la valeur résolue "34px".
-    // Donc le remettre en inline style ne fige RIEN (c'est toujours la ref dynamique env()).
-    //
-    // FIX : lire la valeur RÉSOLUE en pixels depuis le paddingBottom calculé de .app-shell
-    // (qui utilise var(--safe-area-bottom)), puis figer cette valeur pixel en inline style.
-    if (isIOSNative) {
-      const appShellEl = document.querySelector('.app-shell');
-      if (appShellEl) {
-        const resolvedSafeBottom = getComputedStyle(appShellEl).paddingBottom; // "34px"
-        document.documentElement.style.setProperty('--safe-area-bottom', resolvedSafeBottom);
-      }
-    }
-
     // iOS : forcer window.scrollTo(0,0) quand le clavier apparaît.
+    // Même avec isScrollEnabled=false dans ViewController.swift, iOS peut décaler
+    // la WebView via scrollRectToVisible. Ce reset JS est le filet de sécurité.
     const handleNativeKbShow = () => window.scrollTo(0, 0);
     window.addEventListener('native-keyboard-show', handleNativeKbShow);
 
@@ -247,7 +209,7 @@ export function AppShell({ children }) {
     }
 
     return () => {
-      if (!isIOSNative) window.removeEventListener('resize', setAppHeight);
+      window.removeEventListener('resize', setAppHeight);
       window.removeEventListener('orientationchange', setAppHeight);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('native-keyboard-show', handleNativeKbShow);

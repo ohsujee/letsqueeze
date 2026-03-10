@@ -11919,7 +11919,7 @@ input[type="text"].game-search-input:focus,
 
 .mime-modal-footer {
   padding: 16px 20px;
-  padding-bottom: calc(16px + var(--safe-area-bottom, 0px));
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(0, 0, 0, 0.3);
 }
@@ -13806,7 +13806,6 @@ input[type="text"].game-search-input:focus,
   flex-direction: column;
   flex: 1;
   min-height: 0;
-  overflow: hidden;
   background: var(--bg-primary, #0d0d1a);
   color: var(--text-primary, #fff);
 }
@@ -13899,7 +13898,7 @@ input[type="text"].game-search-input:focus,
   flex-shrink: 0;
   background: var(--bg-primary, #0d0d1a);
   padding: 8px 16px;
-  padding-bottom: max(12px, var(--safe-area-bottom, 12px));
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 12px));
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
   flex-direction: column;
