@@ -267,7 +267,7 @@ const GAMES_DATA = {
         content: {
           type: 'steps',
           steps: [
-            { number: 1, title: "Les enquêteurs sortent", description: "Ils quittent la pièce ou ferment les yeux" },
+            { number: 1, title: "Mise à l'écart", description: "Les enquêteurs s'éloignent pendant que les joueurs choisissent la règle sur leur téléphone" },
             { number: 2, title: "Choix de la règle", description: "Les joueurs choisissent une règle secrète" },
             { number: 3, title: "Discussion libre", description: "Les enquêteurs reviennent et observent" },
             { number: 4, title: "3 tentatives", description: "Pour deviner la règle secrète" }
