@@ -1,72 +1,85 @@
-# Correction Clavier Sémantique — iOS 1.0.3 (build 18)
+# Clavier Sémantique — État au build 1.0.5+
 
-## Problème
+## Problème résumé
 
-Sur iOS/iPad, quand le clavier s'ouvre dans le jeu Sémantique :
-1. Le header ("Sémantique") disparaissait — toute la page remontait
-2. La zone de saisie restait bloquée derrière le clavier au lieu de se positionner au-dessus
+Sur iOS, quand le clavier s'ouvre dans le jeu Sémantique :
+1. **Zone input** : reste bloquée derrière le clavier (fixé côté JS)
+2. **Blink** : le header + contenu descend puis remonte au moment de l'ouverture du clavier
 
-## Cause racine
+---
 
-iOS WKWebView utilise une `UIScrollView` native sous le moteur web. Quand un input
-reçoit le focus, iOS modifie le `contentOffset` de cette scroll view au niveau UIKit,
-**en dehors du contrôle CSS** (`overflow: hidden` n'empêche pas ça).
+## Architecture actuelle (live)
 
-Côté JS, `visualViewport.resize` fired parfois sur des valeurs intermédiaires pendant
-l'animation du clavier → positionnement instable.
+### JS — `app/daily/semantique/page.jsx`
 
-## Solution implémentée (v1.0.3)
-
-### Natif — ViewController.swift
-
-**`isScrollEnabled = false`** sur le WKScrollView principal :
-- iOS ne peut plus changer le `contentOffset` → page ne scrolle plus
-- Les `overflow: auto` CSS (semantic-scroll-area, etc.) ne sont pas affectés
-
-**UIKeyboardWillShowNotification / WillHide** :
-- Fire AVANT l'animation avec la hauteur finale exacte (pas d'intermédiaire)
-- Envoie un event JS `native-keyboard-show` / `native-keyboard-hide` avec la hauteur
-- Gère le clavier flottant iPad : si le clavier n'est pas ancré en bas → height = 0
-
-**Info.plist** :
-- `armv7` → `arm64` (architecture correcte, armv7 obsolète depuis iPhone 5s)
-- `ITSAppUsesNonExemptEncryption = false` (évite la question annuelle Apple)
-
-### JS — page.jsx (semantique)
-
-Architecture propre en deux couches :
-
+Deux couches :
 ```
-iOS natif  → 'native-keyboard-show' event → applyKb(height) exacte
+iOS natif  → 'native-keyboard-show' event → applyKb(height)
 Android/web → visualViewport.resize fallback → applyKb(innerHeight - vv.height)
 ```
 
-- Plus de body-lock (`position: fixed` sur body)
-- Plus de `window.scrollTo` qui se battait avec iOS
-- Plus de debounce/timers multiples
-- `onFocus` garde juste le lock de `scrollAreaRef` (empêche la liste de scroller)
+- `nativeKbActiveRef` : true quand iOS natif gère (empêche conflit avec vv fallback)
+- Guard `height > 0` : ignore les events iPad avec frame intermédiaire
+- `window.scrollTo(0, 0)` dans `onNativeShow` : reset immédiat
+- `onFocus` polls [150/300/500ms] : filet de sécurité si height=0 au premier event
 
-## Fichiers modifiés
+### Natif — `ViewController.swift` (build 1.0.5)
 
-| Fichier | Changement |
-|---------|-----------|
-| `ios/App/App/ViewController.swift` | `isScrollEnabled = false` + keyboard notifications |
-| `ios/App/App/Info.plist` | `arm64`, `ITSAppUsesNonExemptEncryption` |
-| `ios/App/App.xcodeproj/project.pbxproj` | Build 17→18, version 1.0.2→1.0.3 |
-| `app/daily/semantique/page.jsx` | Simplification, écoute `native-keyboard-show/hide` |
+- `isScrollEnabled = false` sur WKScrollView
+- `contentInsetAdjustmentBehavior = .never`
+- `keyboardWillChangeFrame` (unique, couvre tous les états clavier)
+- `additionalSafeAreaInsets` animé (inefficace pour le blink — voir ci-dessous)
+- `evaluateJavaScript` dispatche `native-keyboard-show/hide` avec hauteur
 
-## A vérifier quand la MAJ est installée
+---
 
-- [ ] Header reste visible quand le clavier s'ouvre
-- [ ] Zone de saisie au-dessus du clavier, collée au bord supérieur
-- [ ] Fonctionne à chaque ouverture/fermeture du clavier
-- [ ] Clavier flottant iPad : zone de saisie reste en bas (pas décalée)
-- [ ] La liste de guesses reste en haut (dernière tentative visible)
+## Le blink — cause et fix
+
+**Cause** : iOS appelle `scrollRectToVisible` de façon synchrone dans le thread natif quand un `<input>` reçoit le focus. Cela change le `contentOffset` du WKScrollView AVANT que le moindre JS s'exécute. Résultat : le header/contenu descend d'un frame puis remonte.
+
+**Pourquoi `additionalSafeAreaInsets` n'a pas marché** : avec `contentInsetAdjustmentBehavior = .never`, les safe area insets additionnels ne se propagent pas vers `env(safe-area-inset-bottom)` en CSS. iOS ne voit donc pas l'input "au-dessus du clavier" et continue d'appeler `scrollRectToVisible`.
+
+**Fix codé et prêt** (`ViewController.swift`) :
+
+```swift
+// Dans viewDidLoad :
+webView?.scrollView.addObserver(self, forKeyPath: "contentOffset", options: [.new], context: nil)
+
+// Méthode :
+override func observeValue(forKeyPath keyPath: String?, ...) {
+    if keyPath == "contentOffset",
+       let sv = webView?.scrollView,
+       sv.contentOffset != .zero {
+        sv.layer.removeAllAnimations()   // annule la CA animation
+        sv.setContentOffset(.zero, animated: false)  // reset synchrone
+        return
+    }
+    super.observeValue(...)
+}
+
+// deinit :
+webView?.scrollView.removeObserver(self, forKeyPath: "contentOffset")
+```
+
+C'est l'équivalent exact de `scrollView.delegate = self` + `scrollViewDidScroll` reset (cf. capacitor/issues/1366). Intercepte dans le thread natif, avant le premier paint → zéro blink.
+
+---
+
+## À faire pour builder
+
+Seul fichier natif modifié (pas encore buildé) : `ios/App/App/ViewController.swift`
+
+1. `npx cap sync`
+2. Build Xcode / CodeMagic
+3. Submit App Store
+
+---
+
+## Checklist de validation post-build
+
+- [ ] Header reste visible quand le clavier s'ouvre (pas de bounce)
+- [ ] Zone de saisie au-dessus du clavier
+- [ ] Fonctionne à chaque ouverture/fermeture
+- [ ] Clavier flottant iPad : zone reste en bas
+- [ ] La liste reste en haut au focus
 - [ ] Android : comportement inchangé
-
-## Historique des tentatives précédentes (pour mémoire)
-
-1. `contentInsetAdjustmentBehavior = .never` → bloque contentInset mais pas contentOffset
-2. `window.scrollTo(0,0)` dans vv.resize → trop tardif, 1 seule fois
-3. body-lock `position: fixed` → partiellement efficace mais vv.resize instable
-4. Debounce 80ms + timeout 350ms → atténue mais ne résout pas le timing

@@ -48,6 +48,26 @@ class ViewController: CAPBridgeViewController {
             name: UIResponder.keyboardWillChangeFrameNotification,
             object: nil
         )
+
+        // KVO : annule le scroll automatique que iOS déclenche via scrollRectToVisible
+        // quand un <input> reçoit le focus (contourne isScrollEnabled = false).
+        // Résultat : zéro blink — la page ne remonte plus d'1 frame puis redescend.
+        webView?.scrollView.addObserver(self, forKeyPath: "contentOffset", options: [.new], context: nil)
+    }
+
+    // MARK: - Anti-blink KVO
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "contentOffset",
+           let sv = webView?.scrollView,
+           sv.contentOffset != .zero {
+            // Annule l'animation Core Animation qui déplace le contentOffset,
+            // puis remet à zéro immédiatement (synchrone, sans animation).
+            sv.layer.removeAllAnimations()
+            sv.setContentOffset(.zero, animated: false)
+            return
+        }
+        super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
     }
 
     // MARK: - Keyboard
@@ -149,6 +169,7 @@ class ViewController: CAPBridgeViewController {
     // MARK: - Cleanup
 
     deinit {
+        webView?.scrollView.removeObserver(self, forKeyPath: "contentOffset")
         NotificationCenter.default.removeObserver(self)
     }
 
