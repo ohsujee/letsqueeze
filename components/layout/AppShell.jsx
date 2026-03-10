@@ -178,7 +178,17 @@ export function AppShell({ children }) {
     }
     window.addEventListener('orientationchange', () => {
       // Delay pour laisser le temps au navigateur de recalculer
-      setTimeout(setAppHeight, 100);
+      setTimeout(() => {
+        setAppHeight();
+        // Recapturer la safe area physique après rotation (peut changer)
+        if (isIOSNative) {
+          document.documentElement.style.removeProperty('--safe-area-bottom');
+          requestAnimationFrame(() => {
+            const newSafe = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-bottom').trim() || '0px';
+            document.documentElement.style.setProperty('--safe-area-bottom', newSafe);
+          });
+        }
+      }, 100);
     });
 
     // Recalcul quand l'app revient au premier plan (Android)
@@ -195,32 +205,21 @@ export function AppShell({ children }) {
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
+    // iOS : figer --safe-area-bottom DÉFINITIVEMENT au montage.
+    // Swift anime additionalSafeAreaInsets.bottom à chaque ouverture clavier, ce qui
+    // gonfle env(safe-area-inset-bottom) de ~34px à ~334px. Tout CSS utilisant env()
+    // directement ou via --safe-area-bottom (défini comme env() dans theme.css) est affecté.
+    // En figeant la valeur physique en inline style dès le montage, on coupe la propagation
+    // de l'animation Swift vers le CSS pour TOUTE la session.
+    // Recapturé uniquement sur orientationchange (rotation d'écran).
+    if (isIOSNative) {
+      const physicalSafeBottom = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-bottom').trim() || '0px';
+      document.documentElement.style.setProperty('--safe-area-bottom', physicalSafeBottom);
+    }
+
     // iOS : forcer window.scrollTo(0,0) quand le clavier apparaît.
-    // Même avec isScrollEnabled=false dans ViewController.swift, iOS peut décaler
-    // la WebView via scrollRectToVisible. Ce reset JS est le filet de sécurité.
-    //
-    // AUSSI : figer --safe-area-bottom à sa valeur physique (avant clavier).
-    // Swift anime additionalSafeAreaInsets.bottom → env(safe-area-inset-bottom) gonfle
-    // de ~34px à ~334px → .app-shell padding-bottom explose → tout le contenu remonte.
-    // On capture la valeur initiale et on la fige en inline sur :root pendant le clavier.
-    // Capturer la safe area physique au montage (clavier fermé, valeur fiable).
-    // Swift anime additionalSafeAreaInsets.bottom à l'ouverture du clavier ce qui
-    // gonfle env(safe-area-inset-bottom) → .app-shell padding-bottom explose → header bouge.
-    // On fige cette valeur pendant toute la durée du clavier.
-    const physicalSafeBottom = isIOSNative
-      ? getComputedStyle(document.documentElement).getPropertyValue('--safe-area-bottom').trim() || '0px'
-      : null;
-    const handleNativeKbShow = () => {
-      window.scrollTo(0, 0);
-      if (physicalSafeBottom) {
-        document.documentElement.style.setProperty('--safe-area-bottom', physicalSafeBottom);
-      }
-    };
-    const handleNativeKbHide = () => {
-      document.documentElement.style.removeProperty('--safe-area-bottom');
-    };
+    const handleNativeKbShow = () => window.scrollTo(0, 0);
     window.addEventListener('native-keyboard-show', handleNativeKbShow);
-    window.addEventListener('native-keyboard-hide', handleNativeKbHide);
 
     // iOS : empêcher tout scroll résiduel sur le document (overflow:hidden sur app-shell
     // garantit que window.scrollY doit toujours être 0)
@@ -241,7 +240,6 @@ export function AppShell({ children }) {
       window.removeEventListener('orientationchange', setAppHeight);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('native-keyboard-show', handleNativeKbShow);
-      window.removeEventListener('native-keyboard-hide', handleNativeKbHide);
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('touchstart', unlockAudioOnFirstTouch);
     };
