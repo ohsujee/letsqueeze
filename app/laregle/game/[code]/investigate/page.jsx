@@ -17,14 +17,15 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
+import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useToast } from "@/lib/hooks/useToast";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
-import { Clock, Send, AlertCircle, CheckCircle, XCircle, Pause, Play } from "lucide-react";
+import GameStatusBanners from "@/components/game/GameStatusBanners";
+import { Clock, Pause, Play } from "lucide-react";
 import ExitButton from "@/lib/components/ExitButton";
-import { TROUVE_COLORS } from "@/data/laregle-rules";
+import PlayerBanner from "@/components/game/PlayerBanner";
 
-const CYAN_PRIMARY = TROUVE_COLORS.primary;
-const CYAN_LIGHT = TROUVE_COLORS.light;
+const ACCENT = '#00e5ff';
 
 export default function LaLoiInvestigatePage() {
   const { code } = useParams();
@@ -55,15 +56,17 @@ export default function LaLoiInvestigatePage() {
   const myPlayer = players.find(p => p.uid === myUid);
 
   // Room guard
-  useRoomGuard({
+  const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_laregle',
     playerUid: myUid,
-    isHost: false
+    isHost
   });
 
+  // Keep screen awake
+  useWakeLock({ enabled: true });
+
   // Host disconnect - gère la grace period si l'hôte perd sa connexion
-  // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
   useHostDisconnect({
     roomCode: code,
     roomPrefix: 'rooms_laregle',
@@ -253,10 +256,18 @@ export default function LaLoiInvestigatePage() {
       setTimeLeft(remaining);
 
       // Host on investigate page handles timer end - go directly to ended
+      // Award +5 to civilians since investigators failed to find the rule in time
       if (remaining <= 0 && isHost && currentPhase === 'playing') {
-        update(ref(db, `rooms_laregle/${code}/state`), {
-          phase: 'ended',
-          foundByInvestigators: false
+        const scoreUpdates = {};
+        players.forEach(p => {
+          if (p.role !== 'investigator') {
+            scoreUpdates[`rooms_laregle/${code}/players/${p.uid}/score`] = (p.score || 0) + 5;
+          }
+        });
+        update(ref(db), {
+          [`rooms_laregle/${code}/state/phase`]: 'ended',
+          [`rooms_laregle/${code}/state/foundByInvestigators`]: false,
+          ...scoreUpdates
         });
       }
     };
@@ -264,7 +275,7 @@ export default function LaLoiInvestigatePage() {
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [timerEndAt, timerPaused, timeLeftWhenPaused, currentPhase, isHost, code]);
+  }, [timerEndAt, timerPaused, timeLeftWhenPaused, currentPhase, isHost, code, players]);
 
   // Toggle timer pause (host only)
   const handleTogglePause = async () => {
@@ -383,18 +394,27 @@ export default function LaLoiInvestigatePage() {
   // Loading
   if (!meta || !state) {
     return (
-      <div className="trouve-investigate game-page">
-        <div className="loading">
-          <div className="spinner" />
+      <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', background: '#04060f' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', color: 'rgba(255,255,255,0.6)' }}>
+          <div style={{ width: '40px', height: '40px', border: `3px solid ${ACCENT}33`, borderTopColor: ACCENT, borderRadius: '50%', animation: 'invSpin 1s linear infinite' }} />
           <p>Chargement...</p>
         </div>
-        <style jsx>{styles}</style>
+        <style>{`
+          @keyframes invSpin { to { transform: rotate(360deg); } }
+        `}</style>
       </div>
     );
   }
 
   return (
-    <div className="trouve-investigate game-page">
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', background: '#04060f', position: 'relative' }}>
+      {/* Background glow */}
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none',
+        background: `radial-gradient(ellipse at 50% 0%, ${ACCENT}12 0%, transparent 55%),
+                     radial-gradient(ellipse at 80% 90%, ${ACCENT}07 0%, transparent 45%)`,
+      }} />
+
       {/* End Transition */}
       <AnimatePresence>
         {showEndTransition && (
@@ -406,8 +426,16 @@ export default function LaLoiInvestigatePage() {
       </AnimatePresence>
 
       {/* Header */}
-      <header className="investigate-header">
-        <div className="header-left">
+      <header style={{
+        position: 'relative', zIndex: 10,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '12px 16px',
+        background: 'rgba(4,6,15,0.9)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: `1px solid ${ACCENT}22`,
+        flexShrink: 0,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <ExitButton
             variant="header"
             confirmMessage="Voulez-vous vraiment quitter la partie ?"
@@ -416,169 +444,649 @@ export default function LaLoiInvestigatePage() {
               router.push('/home');
             }}
           />
-          <span className="role-badge">🔍 Enquêteur</span>
+          <span style={{
+            fontFamily: "var(--font-title, 'Bungee'), sans-serif",
+            fontSize: '0.85rem',
+            letterSpacing: '0.06em',
+            color: '#eef2ff',
+            textShadow: `0 0 14px ${ACCENT}99`,
+          }}>
+            🔍 Enqueteur
+          </span>
         </div>
-        {state.phase === 'playing' && (
-          <button
-            className={`timer ${timeLeft <= 30 ? 'warning' : ''} ${timeLeft <= 10 ? 'danger' : ''} ${timerPaused ? 'paused' : ''} ${isHost ? 'clickable' : ''}`}
-            onClick={handleTogglePause}
-            disabled={!isHost}
-          >
-            <Clock size={18} />
-            <span>{formatTime(timeLeft)}</span>
-            {isHost && (
-              <span className="pause-indicator">
-                {timerPaused ? <Play size={14} /> : <Pause size={14} />}
-              </span>
-            )}
-          </button>
-        )}
+
+        {/* Timer (playing & guessing phases) */}
+        <AnimatePresence>
+          {(state.phase === 'playing' || state.phase === 'guessing') && (
+            isHost ? (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                onClick={handleTogglePause}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '7px',
+                  padding: '7px 14px',
+                  background: timerPaused
+                    ? 'rgba(251,191,36,0.12)'
+                    : timeLeft <= 30
+                      ? 'rgba(239,68,68,0.12)'
+                      : `${ACCENT}12`,
+                  border: `1px solid ${timerPaused ? 'rgba(251,191,36,0.35)' : timeLeft <= 30 ? 'rgba(239,68,68,0.35)' : ACCENT + '35'}`,
+                  borderRadius: '10px',
+                  fontFamily: "var(--font-title, 'Bungee'), sans-serif",
+                  fontSize: '1.1rem',
+                  color: timerPaused ? '#fbbf24' : timeLeft <= 30 ? '#f87171' : ACCENT,
+                  cursor: 'pointer',
+                }}
+              >
+                <Clock size={16} />
+                <span>{formatTime(timeLeft)}</span>
+                <span style={{ opacity: 0.6, display: 'flex', alignItems: 'center' }}>
+                  {timerPaused ? <Play size={12} /> : <Pause size={12} />}
+                </span>
+              </motion.button>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '7px',
+                  padding: '7px 14px',
+                  background: timerPaused
+                    ? 'rgba(251,191,36,0.08)'
+                    : timeLeft <= 30
+                      ? 'rgba(239,68,68,0.1)'
+                      : `${ACCENT}0a`,
+                  border: `1px solid ${timerPaused ? 'rgba(251,191,36,0.2)' : timeLeft <= 30 ? 'rgba(239,68,68,0.25)' : ACCENT + '25'}`,
+                  borderRadius: '10px',
+                  fontFamily: "var(--font-title, 'Bungee'), sans-serif",
+                  fontSize: '1.1rem',
+                  color: timerPaused ? 'rgba(251,191,36,0.6)' : timeLeft <= 30 ? '#f87171' : `${ACCENT}cc`,
+                  opacity: timerPaused ? 0.6 : 1,
+                }}
+              >
+                <Clock size={16} />
+                <span>{formatTime(timeLeft)}</span>
+                {timerPaused && (
+                  <span style={{ fontSize: '0.6rem', color: 'rgba(251,191,36,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", fontWeight: 700, letterSpacing: '0.06em' }}>
+                    PAUSE
+                  </span>
+                )}
+              </motion.div>
+            )
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Main Content */}
-      <main className="investigate-main">
-        {/* PHASE: CHOOSING (Waiting Room) */}
-        {state.phase === 'choosing' && (
-          <div className="waiting-phase">
-            <div className="waiting-card">
-              <div className="waiting-animation">
-                <div className={`waiting-circle ${state.revealPhase ? 'revealing' : ''}`} />
-                <span className="waiting-icon">{state.revealPhase ? '✨' : '🔍'}</span>
-              </div>
-              <h2>
-                {state.revealPhase === 'winner'
-                  ? 'Règle choisie !'
-                  : state.revealPhase
-                    ? 'Sélection en cours...'
-                    : 'Salle d\'attente'}
-              </h2>
-              <p>
-                {state.revealPhase === 'winner'
-                  ? 'La partie va commencer...'
-                  : state.revealPhase
-                    ? 'Les joueurs ont voté, la règle va être révélée !'
-                    : 'Les joueurs choisissent une règle secrète...'}
-              </p>
+      <main style={{
+        flex: 1, minHeight: 0, overflowY: 'auto',
+        padding: `16px 16px ${state.phase === 'playing' ? '96px' : '16px'}`,
+        position: 'relative', zIndex: 1,
+      }}>
+        <div style={{ maxWidth: '480px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '14px' }}>
 
-              <div className="waiting-tips">
-                <h3>Pendant ce temps, prépare-toi !</h3>
-                <ul>
-                  <li>Tu pourras poser des questions aux joueurs</li>
-                  <li>Observe leurs réponses et comportements</li>
-                  <li>Tu auras 3 essais pour deviner la règle</li>
-                </ul>
+          {/* PHASE: CHOOSING (Waiting Room) */}
+          {state.phase === 'choosing' && (
+            <>
+              {/* Instruction strip */}
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '9px',
+                padding: '9px 14px',
+                background: 'rgba(0,229,255,0.05)',
+                borderLeft: '2px solid rgba(0,229,255,0.45)',
+                borderRadius: '10px',
+              }}>
+                <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>🔍</span>
+                <span style={{ fontSize: '0.82rem', color: 'rgba(238,242,255,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.4 }}>
+                  Pose des questions, observe les comportements, devine la regle.
+                </span>
               </div>
 
-              {otherInvestigators.length > 0 && (
-                <div className="co-investigators">
-                  <span className="co-label">Co-enquêteur{otherInvestigators.length > 1 ? 's' : ''} :</span>
-                  <div className="co-names">
-                    {otherInvestigators.map(p => (
-                      <span key={p.uid} className="co-name">{p.name}</span>
-                    ))}
+              {/* Waiting card */}
+              <div style={{
+                background: 'rgba(8,14,32,0.92)',
+                border: '1px solid rgba(0,229,255,0.1)',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 2px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+              }}>
+                {/* Header */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '11px 16px',
+                  borderBottom: '1px solid rgba(255,255,255,0.06)',
+                }}>
+                  <span style={{
+                    fontSize: '0.68rem', fontWeight: 700,
+                    color: 'rgba(238,242,255,0.3)',
+                    textTransform: 'uppercase', letterSpacing: '0.1em',
+                    fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                  }}>
+                    Prepare-toi
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                    <span style={{ fontSize: '0.68rem', color: 'rgba(238,242,255,0.25)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                      {state.revealPhase
+                        ? 'Selection en cours...'
+                        : 'Les joueurs choisissent...'}
+                    </span>
+                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: ACCENT, animation: 'invPulse 1.5s ease-in-out infinite' }} />
                   </div>
                 </div>
-              )}
-            </div>
-          </div>
-        )}
 
-        {/* PHASE: PLAYING */}
-        {state.phase === 'playing' && (
-          <div className="playing-phase">
-            {/* Attempts indicator */}
-            <div className="attempts-bar">
-              <span className="attempts-label">Essais restants</span>
-              <div className="attempts-dots">
-                {[0, 1, 2].map(i => (
-                  <span
-                    key={i}
-                    className={`attempt-dot ${i < (state.guessAttempts || 0) ? 'used' : 'available'}`}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="instruction-card">
-              <h2>🎭 Trouve la règle !</h2>
-              <p>
-                Les joueurs suivent une règle secrète dans leurs réponses.
-                Pose des questions et observe pour la découvrir !
-              </p>
-            </div>
-
-            <div className="players-section">
-              <h3>Joueurs à interroger</h3>
-              <div className="players-grid">
-                {gamePlayers.map(player => (
-                  <div key={player.uid} className="player-card">
-                    <div className="player-avatar">
-                      {player.name?.charAt(0)?.toUpperCase()}
-                    </div>
-                    <span className="player-name">{player.name}</span>
+                {/* Waiting status */}
+                <div style={{
+                  margin: '10px 12px 0',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                  padding: '10px 14px',
+                  background: `${ACCENT}08`,
+                  border: `1px solid ${ACCENT}20`,
+                  borderRadius: '10px',
+                }}>
+                  <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
+                    {[0, 1, 2].map(i => (
+                      <div key={i} style={{
+                        width: '5px', height: '5px', borderRadius: '50%',
+                        background: ACCENT,
+                        animation: 'invPulse 1.2s ease-in-out infinite',
+                        animationDelay: `${i * 0.22}s`,
+                      }} />
+                    ))}
                   </div>
-                ))}
+                  <span style={{ fontSize: '0.8rem', color: 'rgba(238,242,255,0.5)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                    {state.revealPhase === 'winner'
+                      ? 'Regle choisie ! La partie va commencer...'
+                      : state.revealPhase
+                        ? 'Les joueurs ont vote, la regle va etre revelee !'
+                        : 'Les joueurs choisissent une regle secrete'}
+                  </span>
+                </div>
+
+                {/* Tips */}
+                <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {[
+                    { icon: '💬', text: 'Pose des questions ouvertes aux joueurs' },
+                    { icon: '👁️', text: 'Observe leurs reponses et comportements' },
+                    { icon: '🎯', text: 'Tu auras 3 essais pour deviner la regle' },
+                  ].map((tip, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <span style={{ fontSize: '1.1rem', flexShrink: 0, lineHeight: 1 }}>{tip.icon}</span>
+                      <span style={{ fontSize: '0.83rem', color: 'rgba(238,242,255,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.4 }}>{tip.text}</span>
+                    </div>
+                  ))}
+
+                  {otherInvestigators.length > 0 && (
+                    <div style={{ paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <span style={{ fontSize: '0.7rem', color: 'rgba(238,242,255,0.3)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                        Co-enqueteur{otherInvestigators.length > 1 ? 's' : ''} :
+                      </span>
+                      {otherInvestigators.map(p => (
+                        <span key={p.uid} style={{ padding: '3px 10px', background: `${ACCENT}15`, borderRadius: '6px', fontSize: '0.72rem', color: ACCENT, fontWeight: 600, fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                          {p.name}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            </>
+          )}
 
-            {/* Propose guess button */}
-            <div className="propose-section">
-              <motion.button
-                className="propose-btn"
-                onClick={handleProposeGuess}
-                disabled={attemptsLeft <= 0}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Proposer une règle
-              </motion.button>
-              <p className="propose-hint">
-                Dis ta réponse à voix haute, les joueurs voteront
-              </p>
-            </div>
-          </div>
-        )}
+          {/* PHASE: REVEALING */}
 
-        {/* PHASE: GUESSING (Waiting for votes) */}
-        {state.phase === 'guessing' && (
-          <div className="guessing-phase">
-            <div className="guess-pending">
-              <div className="pending-icon">🎤</div>
-              <h2>Proposition en cours</h2>
-              <p className="pending-instruction">
-                Dis ta réponse à voix haute !
-              </p>
-              <div className="voting-status">
-                <div className="spinner small" />
-                <span>En attente des votes des joueurs...</span>
-              </div>
-              <div className="vote-progress">
-                {(() => {
-                  const voteCount = Object.keys(state.guessVotes || {}).length;
-                  const totalVoters = gamePlayers.length;
-                  return `${voteCount}/${totalVoters} ont voté`;
-                })()}
+          {/* PHASE: PLAYING */}
+          {state.phase === 'playing' && (
+            <>
+              {/* Instruction strip */}
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '9px',
+                padding: '9px 14px',
+                background: 'rgba(0,229,255,0.05)',
+                borderLeft: '2px solid rgba(0,229,255,0.45)',
+                borderRadius: '10px',
+              }}>
+                <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>🔍</span>
+                <span style={{ fontSize: '0.82rem', color: 'rgba(238,242,255,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.4 }}>
+                  Pose des questions, observe les reponses, devine la regle.
+                </span>
               </div>
 
-              {/* Cancel button - only if no votes yet */}
-              {Object.keys(state.guessVotes || {}).length === 0 && (
-                <motion.button
-                  className="cancel-btn"
-                  onClick={handleCancelGuess}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Annuler
-                </motion.button>
-              )}
-            </div>
-          </div>
-        )}
+              {/* Suspects card */}
+              <div style={{
+                background: 'rgba(8,14,32,0.92)',
+                border: '1px solid rgba(0,229,255,0.1)',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 2px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+              }}>
+                {/* Header : label + attempts */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '11px 16px',
+                  borderBottom: '1px solid rgba(255,255,255,0.06)',
+                }}>
+                  <span style={{
+                    fontSize: '0.68rem', fontWeight: 700,
+                    color: 'rgba(238,242,255,0.3)',
+                    textTransform: 'uppercase', letterSpacing: '0.1em',
+                    fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                  }}>
+                    Suspects
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '0.68rem', color: 'rgba(238,242,255,0.28)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                      {attemptsLeft} essai{attemptsLeft !== 1 ? 's' : ''} restant{attemptsLeft !== 1 ? 's' : ''}
+                    </span>
+                    <div style={{ display: 'flex', gap: '5px' }}>
+                      {[0, 1, 2].map(i => (
+                        <div key={i} style={{
+                          width: '9px', height: '9px',
+                          borderRadius: '50%',
+                          background: i < (state.guessAttempts || 0) ? 'rgba(239,68,68,0.2)' : ACCENT,
+                          border: i < (state.guessAttempts || 0) ? '1px solid rgba(239,68,68,0.4)' : 'none',
+                          boxShadow: i < (state.guessAttempts || 0) ? 'none' : `0 0 6px ${ACCENT}80`,
+                          transition: 'all 0.3s ease',
+                        }} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
 
+                {/* Player rows with PlayerBanner */}
+                <div style={{ padding: '8px 10px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {gamePlayers.map(player => (
+                    <PlayerBanner key={player.uid} player={player} accentColor={ACCENT} accentDark="#00b8d9" />
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* PHASE: GUESSING (Waiting for votes) — handled by bottom sheet modal */}
+          {state.phase === 'guessing' && (
+            <>
+              {/* Instruction strip */}
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '9px',
+                padding: '9px 14px',
+                background: 'rgba(0,229,255,0.05)',
+                borderLeft: '2px solid rgba(0,229,255,0.45)',
+                borderRadius: '10px',
+              }}>
+                <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>🔍</span>
+                <span style={{ fontSize: '0.82rem', color: 'rgba(238,242,255,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.4 }}>
+                  Pose des questions, observe les reponses, devine la regle.
+                </span>
+              </div>
+
+              {/* Suspects card (same as playing) */}
+              <div style={{
+                background: 'rgba(8,14,32,0.92)',
+                border: '1px solid rgba(0,229,255,0.1)',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 2px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+              }}>
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '11px 16px',
+                  borderBottom: '1px solid rgba(255,255,255,0.06)',
+                }}>
+                  <span style={{
+                    fontSize: '0.68rem', fontWeight: 700,
+                    color: 'rgba(238,242,255,0.3)',
+                    textTransform: 'uppercase', letterSpacing: '0.1em',
+                    fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                  }}>
+                    Suspects
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '0.68rem', color: 'rgba(238,242,255,0.28)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                      {attemptsLeft} essai{attemptsLeft !== 1 ? 's' : ''} restant{attemptsLeft !== 1 ? 's' : ''}
+                    </span>
+                    <div style={{ display: 'flex', gap: '5px' }}>
+                      {[0, 1, 2].map(i => (
+                        <div key={i} style={{
+                          width: '9px', height: '9px',
+                          borderRadius: '50%',
+                          background: i < (state.guessAttempts || 0) ? 'rgba(239,68,68,0.2)' : ACCENT,
+                          border: i < (state.guessAttempts || 0) ? '1px solid rgba(239,68,68,0.4)' : 'none',
+                          boxShadow: i < (state.guessAttempts || 0) ? 'none' : `0 0 6px ${ACCENT}80`,
+                          transition: 'all 0.3s ease',
+                        }} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div style={{ padding: '8px 10px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {gamePlayers.map(player => {
+                    const vote = state.guessVotes?.[player.uid];
+                    return (
+                      <div key={player.uid} style={{ display: 'grid' }}>
+                        <div style={{ gridArea: '1/1', opacity: vote !== undefined ? 0.72 : 1, transition: 'opacity 0.25s ease' }}>
+                          <PlayerBanner player={player} accentColor={ACCENT} accentDark="#00b8d9" />
+                        </div>
+                        <div style={{
+                          gridArea: '1/1', zIndex: 2, pointerEvents: 'none',
+                          paddingTop: '10px', paddingRight: '10px',
+                          display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
+                        }}>
+                          <AnimatePresence mode="wait">
+                            {vote !== undefined ? (
+                              <motion.div
+                                key={vote ? 'correct' : 'wrong'}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.8 }}
+                                transition={{ duration: 0.18 }}
+                                style={{
+                                  display: 'flex', alignItems: 'center', gap: '5px',
+                                  padding: '4px 10px',
+                                  background: vote ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)',
+                                  border: `1px solid ${vote ? 'rgba(34,197,94,0.35)' : 'rgba(239,68,68,0.35)'}`,
+                                  borderRadius: '8px',
+                                }}
+                              >
+                                <span style={{ fontSize: '0.65rem', fontWeight: 700, color: vote ? '#4ade80' : '#f87171', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                                  {vote ? 'Oui' : 'Non'}
+                                </span>
+                              </motion.div>
+                            ) : (
+                              <motion.span
+                                key="pending"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                style={{ color: 'rgba(238,242,255,0.2)', fontSize: '1.1rem', letterSpacing: '-1px', lineHeight: 1 }}
+                              >
+                                ···
+                              </motion.span>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </>
+          )}
+
+        </div>
       </main>
+
+      {/* Fixed bottom button: "J'ai devine la regle !" */}
+      <AnimatePresence>
+        {state.phase === 'playing' && (
+          <motion.div
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 320 }}
+            style={{
+              position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 15,
+              padding: '12px 16px 24px',
+              background: 'linear-gradient(to top, rgba(4,6,15,1) 50%, rgba(4,6,15,0) 100%)',
+            }}
+          >
+            <div style={{ maxWidth: '480px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {attemptsLeft > 0 && (
+                <p style={{
+                  fontSize: '0.75rem', color: 'rgba(238,242,255,0.4)',
+                  margin: 0, textAlign: 'center',
+                  fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                }}>
+                  Dis ta reponse a voix haute — les joueurs voteront
+                </p>
+              )}
+              <motion.button
+                whileHover={{ scale: attemptsLeft > 0 ? 1.015 : 1 }}
+                whileTap={{ scale: 0.97 }}
+                disabled={attemptsLeft <= 0}
+                onClick={handleProposeGuess}
+                style={{
+                  width: '100%',
+                  padding: '17px 24px',
+                  border: 'none',
+                  borderRadius: '14px',
+                  background: attemptsLeft <= 0
+                    ? 'rgba(238,242,255,0.06)'
+                    : 'linear-gradient(135deg, #c084fc, #a855f7)',
+                  color: attemptsLeft <= 0 ? 'rgba(238,242,255,0.25)' : '#0a0a0f',
+                  fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                  fontSize: '0.95rem',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  cursor: attemptsLeft <= 0 ? 'not-allowed' : 'pointer',
+                  boxShadow: attemptsLeft <= 0 ? 'none' : '0 4px 24px rgba(168,85,247,0.35)',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                {attemptsLeft <= 0 ? "Plus d'essais" : "J'ai devine la regle !"}
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Guess Modal — bottom sheet (guessing phase) */}
+      <AnimatePresence>
+        {state.phase === 'guessing' && (
+          <>
+            <motion.div
+              key="guess-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                position: 'fixed', inset: 0, zIndex: 50,
+                background: 'rgba(4,6,15,0.82)',
+                backdropFilter: 'blur(5px)',
+              }}
+            />
+            <motion.div
+              key="guess-sheet"
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 320 }}
+              style={{
+                position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 51,
+                background: '#0c1228',
+                borderTop: `1px solid ${ACCENT}25`,
+                borderRadius: '20px 20px 0 0',
+                paddingBottom: '32px',
+                maxHeight: '75vh',
+                overflowY: 'auto',
+              }}
+            >
+              {/* Handle */}
+              <div style={{ display: 'flex', justifyContent: 'center', padding: '12px 0 8px' }}>
+                <div style={{ width: '36px', height: '4px', borderRadius: '2px', background: 'rgba(255,255,255,0.15)' }} />
+              </div>
+
+              <div style={{ padding: '0 16px 4px' }}>
+                {/* Title row */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                  <p style={{
+                    margin: 0,
+                    fontFamily: "var(--font-title, 'Bungee'), sans-serif",
+                    fontSize: '0.95rem',
+                    color: '#eef2ff',
+                    letterSpacing: '0.04em',
+                    textShadow: `0 0 16px ${ACCENT}55`,
+                  }}>
+                    Les joueurs votent
+                  </p>
+                </div>
+
+                {/* Votes card */}
+                <div style={{
+                  background: 'rgba(8,14,32,0.92)',
+                  border: '1px solid rgba(0,229,255,0.1)',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 2px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+                }}>
+                  {/* Header */}
+                  <div style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '11px 16px',
+                    borderBottom: '1px solid rgba(255,255,255,0.06)',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{
+                        fontSize: '0.68rem', fontWeight: 700,
+                        color: 'rgba(238,242,255,0.3)',
+                        textTransform: 'uppercase', letterSpacing: '0.1em',
+                        fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                      }}>
+                        Votes
+                      </span>
+                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: ACCENT, animation: 'invPulse 1.5s ease-in-out infinite' }} />
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '0.68rem', color: 'rgba(238,242,255,0.28)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                        {attemptsLeft} essai{attemptsLeft !== 1 ? 's' : ''} restant{attemptsLeft !== 1 ? 's' : ''}
+                      </span>
+                      <div style={{ display: 'flex', gap: '5px' }}>
+                        {[0, 1, 2].map(i => (
+                          <div key={i} style={{
+                            width: '9px', height: '9px',
+                            borderRadius: '50%',
+                            background: i < (state.guessAttempts || 0) ? 'rgba(239,68,68,0.2)' : ACCENT,
+                            border: i < (state.guessAttempts || 0) ? '1px solid rgba(239,68,68,0.4)' : 'none',
+                            boxShadow: i < (state.guessAttempts || 0) ? 'none' : `0 0 6px ${ACCENT}80`,
+                            transition: 'all 0.3s ease',
+                          }} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Per-player vote rows */}
+                  <div style={{ padding: '8px 10px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    {gamePlayers.map(player => {
+                      const vote = state.guessVotes?.[player.uid];
+                      return (
+                        <div key={player.uid} style={{ display: 'grid' }}>
+                          <div style={{ gridArea: '1/1', opacity: vote !== undefined ? 0.72 : 1, transition: 'opacity 0.25s ease' }}>
+                            <PlayerBanner player={player} accentColor={ACCENT} accentDark="#00b8d9" />
+                          </div>
+                          <div style={{
+                            gridArea: '1/1', zIndex: 2, pointerEvents: 'none',
+                            paddingTop: '10px', paddingRight: '10px',
+                            display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
+                          }}>
+                            <AnimatePresence mode="wait">
+                              {vote !== undefined ? (
+                                <motion.div
+                                  key={vote ? 'correct' : 'wrong'}
+                                  initial={{ opacity: 0, scale: 0.8 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  exit={{ opacity: 0, scale: 0.8 }}
+                                  transition={{ duration: 0.18 }}
+                                  style={{
+                                    display: 'flex', alignItems: 'center', gap: '5px',
+                                    padding: '4px 10px',
+                                    background: vote ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)',
+                                    border: `1px solid ${vote ? 'rgba(34,197,94,0.35)' : 'rgba(239,68,68,0.35)'}`,
+                                    borderRadius: '8px',
+                                  }}
+                                >
+                                  <span style={{ fontSize: '0.65rem', fontWeight: 700, color: vote ? '#4ade80' : '#f87171', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                                    {vote ? 'Oui' : 'Non'}
+                                  </span>
+                                </motion.div>
+                              ) : (
+                                <motion.span
+                                  key="pending"
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  exit={{ opacity: 0 }}
+                                  style={{ color: 'rgba(238,242,255,0.2)', fontSize: '1.1rem', letterSpacing: '-1px', lineHeight: 1 }}
+                                >
+                                  ···
+                                </motion.span>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Vote progress */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                  marginTop: '14px',
+                  padding: '12px 14px',
+                  background: 'rgba(8,14,32,0.6)',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  borderRadius: '12px',
+                }}>
+                  <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
+                    {[0, 1, 2].map(i => (
+                      <div key={i} style={{
+                        width: '5px', height: '5px', borderRadius: '50%',
+                        background: ACCENT,
+                        animation: 'invPulse 1.2s ease-in-out infinite',
+                        animationDelay: `${i * 0.22}s`,
+                      }} />
+                    ))}
+                  </div>
+                  <span style={{ fontSize: '0.78rem', color: 'rgba(238,242,255,0.4)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                    En attente —{' '}
+                    <span style={{ color: ACCENT, fontWeight: 700 }}>
+                      {Object.keys(state.guessVotes || {}).length}/{gamePlayers.length}
+                    </span>
+                    {' '}ont vote
+                  </span>
+                </div>
+
+                {/* Cancel button - only if no votes yet */}
+                {Object.keys(state.guessVotes || {}).length === 0 && (
+                  <motion.button
+                    onClick={handleCancelGuess}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    style={{
+                      width: '100%', marginTop: '12px',
+                      padding: '14px',
+                      background: 'rgba(238,242,255,0.06)',
+                      border: '1px solid rgba(238,242,255,0.1)',
+                      borderRadius: '14px',
+                      fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                      fontSize: '0.9rem', fontWeight: 700,
+                      color: 'rgba(238,242,255,0.7)',
+                      cursor: 'pointer',
+                      letterSpacing: '0.04em',
+                    }}
+                  >
+                    Annuler
+                  </motion.button>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Status banners */}
+      <GameStatusBanners
+        isHost={isHost}
+        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
+        hostDisconnectedAt={hostDisconnectedAt}
+      />
 
       {/* Disconnect alert overlay */}
       <DisconnectAlert
@@ -588,660 +1096,10 @@ export default function LaLoiInvestigatePage() {
         onReconnect={markActive}
       />
 
-      <style jsx>{styles}</style>
+      <style>{`
+        @keyframes invSpin { to { transform: rotate(360deg); } }
+        @keyframes invPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.75); } }
+      `}</style>
     </div>
   );
 }
-
-const styles = `
-  .trouve-investigate {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    background: var(--bg-primary, #0a0a0f);
-  }
-
-  .trouve-investigate::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
-      var(--bg-primary, #0a0a0f);
-    pointer-events: none;
-  }
-
-  .loading {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid rgba(168, 85, 247, 0.2);
-    border-top-color: #a855f7;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  .spinner.small {
-    width: 24px;
-    height: 24px;
-    border-width: 2px;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  /* Header */
-  .investigate-header {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    background: rgba(10, 10, 15, 0.9);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(168, 85, 247, 0.2);
-  }
-
-  .header-left, .header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .role-badge {
-    padding: 6px 12px;
-    background: rgba(168, 85, 247, 0.2);
-    border: 1px solid rgba(168, 85, 247, 0.3);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #c084fc;
-  }
-
-  .timer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: rgba(168, 85, 247, 0.15);
-    border: 1px solid rgba(168, 85, 247, 0.3);
-    border-radius: 10px;
-    font-family: var(--font-title, 'Bungee'), cursive;
-    font-size: 1.2rem;
-    color: #c084fc;
-    cursor: default;
-    transition: all 0.2s ease;
-  }
-
-  .timer.clickable {
-    cursor: pointer;
-  }
-
-  .timer.clickable:hover {
-    background: rgba(168, 85, 247, 0.25);
-    border-color: rgba(168, 85, 247, 0.5);
-  }
-
-  .timer.clickable:active {
-    transform: scale(0.98);
-  }
-
-  .timer.paused {
-    background: rgba(251, 191, 36, 0.2);
-    border-color: rgba(251, 191, 36, 0.4);
-    animation: pausePulse 1.5s ease-in-out infinite;
-  }
-
-  .pause-indicator {
-    display: flex;
-    align-items: center;
-    margin-left: 4px;
-    opacity: 0.7;
-  }
-
-  .timer.clickable:hover .pause-indicator {
-    opacity: 1;
-  }
-
-  @keyframes pausePulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
-
-  .timer.warning {
-    background: rgba(251, 191, 36, 0.15);
-    border-color: rgba(251, 191, 36, 0.3);
-    color: #fbbf24;
-  }
-
-  .timer.danger {
-    background: rgba(239, 68, 68, 0.15);
-    border-color: rgba(239, 68, 68, 0.3);
-    color: #f87171;
-    animation: pulse 0.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
-
-  /* Attempts bar - below header */
-  .attempts-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 8px 16px;
-    background: rgba(6, 182, 212, 0.08);
-    border: 1px solid rgba(6, 182, 212, 0.15);
-    border-radius: 10px;
-    margin-bottom: 12px;
-  }
-
-  .attempts-label {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .attempts-dots {
-    display: flex;
-    gap: 6px;
-  }
-
-  .attempt-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-  }
-
-  .attempt-dot.available {
-    background: #06b6d4;
-    box-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
-  }
-
-  .attempt-dot.used {
-    background: rgba(239, 68, 68, 0.3);
-    border: 1px solid rgba(239, 68, 68, 0.5);
-  }
-
-  /* Main */
-  .investigate-main {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* WAITING PHASE */
-  .waiting-phase {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .waiting-card {
-    text-align: center;
-    padding: 32px 24px;
-    background: rgba(20, 20, 30, 0.8);
-    border: 1px solid rgba(168, 85, 247, 0.25);
-    border-radius: 16px;
-  }
-
-  .waiting-animation {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 20px;
-  }
-
-  .waiting-circle {
-    position: absolute;
-    inset: 0;
-    border: 3px solid rgba(168, 85, 247, 0.2);
-    border-top-color: #a855f7;
-    border-radius: 50%;
-    animation: spin 2s linear infinite;
-  }
-
-  .waiting-circle.revealing {
-    border-color: rgba(6, 182, 212, 0.3);
-    border-top-color: ${CYAN_LIGHT};
-    animation: spin 1s linear infinite;
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
-  }
-
-  .waiting-icon {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-  }
-
-  .waiting-card h2 {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.4rem;
-    color: #ffffff;
-    margin: 0 0 8px 0;
-  }
-
-  .waiting-card > p {
-    color: rgba(255, 255, 255, 0.6);
-    margin: 0 0 24px 0;
-  }
-
-  .waiting-tips {
-    text-align: left;
-    padding: 16px;
-    background: rgba(168, 85, 247, 0.1);
-    border-radius: 12px;
-  }
-
-  .waiting-tips h3 {
-    font-size: 0.9rem;
-    color: #c084fc;
-    margin: 0 0 12px 0;
-  }
-
-  .waiting-tips ul {
-    margin: 0;
-    padding-left: 20px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .waiting-tips li {
-    margin-bottom: 8px;
-  }
-
-  .co-investigators {
-    margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .co-label {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
-  }
-
-  .co-names {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 8px;
-  }
-
-  .co-name {
-    padding: 4px 12px;
-    background: rgba(168, 85, 247, 0.2);
-    border-radius: 6px;
-    font-size: 0.85rem;
-    color: #c084fc;
-  }
-
-  /* PLAYING PHASE */
-  .playing-phase {
-    max-width: 500px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .instruction-card {
-    padding: 20px;
-    background: rgba(168, 85, 247, 0.1);
-    border: 1px solid rgba(168, 85, 247, 0.25);
-    border-radius: 14px;
-    text-align: center;
-  }
-
-  .instruction-card h2 {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.3rem;
-    color: #ffffff;
-    margin: 0 0 8px 0;
-  }
-
-  .instruction-card p {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0;
-  }
-
-  .players-section {
-    background: rgba(20, 20, 30, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    padding: 16px;
-  }
-
-  .players-section h3 {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 0 12px 0;
-  }
-
-  .players-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .player-card {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background: rgba(6, 182, 212, 0.1);
-    border: 1px solid rgba(6, 182, 212, 0.2);
-    border-radius: 10px;
-  }
-
-  .player-avatar {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: ${CYAN_PRIMARY};
-    border-radius: 50%;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #0a0a0f;
-  }
-
-  .player-name {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  /* Propose section */
-  .propose-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding: 20px;
-    background: rgba(20, 20, 30, 0.8);
-    border: 1px solid rgba(168, 85, 247, 0.25);
-    border-radius: 16px;
-  }
-
-  .propose-btn {
-    width: 100%;
-    padding: 20px 32px;
-    border: none;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #c084fc, #a855f7);
-    color: #0a0a0f;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    text-align: center;
-    cursor: pointer;
-    box-shadow:
-      0 4px 20px rgba(168, 85, 247, 0.4),
-      0 0 30px rgba(168, 85, 247, 0.2);
-    transition: all 0.2s ease;
-  }
-
-  .propose-btn:hover:not(:disabled) {
-    box-shadow:
-      0 6px 25px rgba(168, 85, 247, 0.5),
-      0 0 40px rgba(168, 85, 247, 0.3);
-  }
-
-  .propose-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-
-  .propose-hint {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
-    text-align: center;
-    margin: 0;
-  }
-
-  /* GUESSING PHASE */
-  .guessing-phase {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .guess-pending {
-    text-align: center;
-    padding: 32px 24px;
-    background: rgba(20, 20, 30, 0.8);
-    border: 1px solid rgba(168, 85, 247, 0.25);
-    border-radius: 16px;
-  }
-
-  .pending-icon {
-    font-size: 3.5rem;
-    margin-bottom: 16px;
-    filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
-  }
-
-  .guess-pending h2 {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.3rem;
-    color: #ffffff;
-    margin: 0 0 8px 0;
-  }
-
-  .pending-instruction {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 0 24px 0;
-  }
-
-  .voting-status {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9rem;
-    margin-bottom: 12px;
-  }
-
-  .vote-progress {
-    font-family: var(--font-mono, 'Roboto Mono'), monospace;
-    font-size: 0.85rem;
-    color: #c084fc;
-    padding: 8px 16px;
-    background: rgba(168, 85, 247, 0.15);
-    border-radius: 8px;
-  }
-
-  .cancel-btn {
-    margin-top: 20px;
-    padding: 12px 32px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    color: rgba(255, 255, 255, 0.6);
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .cancel-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  /* REVEAL PHASE */
-  .reveal-phase {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    max-width: 500px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 20px 0;
-  }
-
-  .reveal-result {
-    width: 100%;
-    text-align: center;
-    padding: 32px 24px;
-    border-radius: 20px;
-  }
-
-  .reveal-result.won {
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.08));
-    border: 2px solid rgba(34, 197, 94, 0.4);
-    box-shadow: 0 0 40px rgba(34, 197, 94, 0.2);
-  }
-
-  .reveal-result.lost {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.08));
-    border: 2px solid rgba(239, 68, 68, 0.4);
-    box-shadow: 0 0 40px rgba(239, 68, 68, 0.2);
-  }
-
-  .reveal-icon {
-    font-size: 4rem;
-    display: block;
-    margin-bottom: 16px;
-    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
-  }
-
-  .reveal-result h2 {
-    font-family: var(--font-title, 'Bungee'), cursive;
-    font-size: 1.4rem;
-    color: #ffffff;
-    margin: 0 0 8px 0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  }
-
-  .reveal-subtitle {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0;
-  }
-
-  .reveal-rule {
-    width: 100%;
-    text-align: center;
-    padding: 24px;
-    background: rgba(6, 182, 212, 0.1);
-    border: 2px solid rgba(6, 182, 212, 0.3);
-    border-radius: 16px;
-    box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
-  }
-
-  .reveal-label {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .reveal-text {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: ${CYAN_LIGHT};
-    margin: 12px 0 0 0;
-    line-height: 1.4;
-    text-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
-  }
-
-  .reveal-actions {
-    width: 100%;
-  }
-
-  .your-guesses {
-    width: 100%;
-    background: rgba(20, 20, 30, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 16px;
-    padding: 16px;
-  }
-
-  .your-guesses h3 {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
-    margin: 0 0 12px 0;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .waiting-host {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9rem;
-  }
-
-  .next-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 18px 24px;
-    border: none;
-    border-radius: 14px;
-    background: linear-gradient(135deg, ${CYAN_LIGHT}, ${CYAN_PRIMARY});
-    color: #0a0a0f;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow:
-      0 4px 20px rgba(6, 182, 212, 0.4),
-      0 0 40px rgba(6, 182, 212, 0.2);
-    transition: all 0.2s ease;
-  }
-
-  .next-btn:hover {
-    box-shadow:
-      0 6px 25px rgba(6, 182, 212, 0.5),
-      0 0 50px rgba(6, 182, 212, 0.3);
-  }
-`;

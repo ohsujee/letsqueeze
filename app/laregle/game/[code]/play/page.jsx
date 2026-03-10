@@ -11,7 +11,7 @@ import {
   set,
   onAuthStateChanged,
 } from "@/lib/firebase";
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { GameEndTransition } from "@/components/transitions";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
@@ -35,6 +35,7 @@ import {
 const CYAN_PRIMARY = TROUVE_COLORS.primary;
 const CYAN_LIGHT = TROUVE_COLORS.light;
 const CYAN_DARK = TROUVE_COLORS.dark;
+const ACCENT = '#00e5ff';
 const MAX_REROLLS = 3;
 
 export default function LaLoiPlayPage() {
@@ -112,6 +113,19 @@ export default function LaLoiPlayPage() {
     playerUid: myUid,
     inactivityTimeout: 30000
   });
+
+  // Hold-to-reveal: global listeners to ensure rule re-hides even if mouseup/touchend fires outside
+  useEffect(() => {
+    const hide = () => setIsRuleRevealed(false);
+    window.addEventListener('mouseup', hide);
+    window.addEventListener('touchend', hide);
+    window.addEventListener('touchcancel', hide);
+    return () => {
+      window.removeEventListener('mouseup', hide);
+      window.removeEventListener('touchend', hide);
+      window.removeEventListener('touchcancel', hide);
+    };
+  }, []);
 
   // DB listeners
   useEffect(() => {
@@ -518,21 +532,34 @@ export default function LaLoiPlayPage() {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  // Non-investigator players (for team display)
+  const civilPlayers = useMemo(() => {
+    return players.filter(p => p.role !== 'investigator');
+  }, [players]);
+
   // Loading
   if (!meta || !state) {
     return (
-      <div className="trouve-play game-page">
-        <div className="loading">
-          <div className="spinner" />
-          <p>Chargement...</p>
+      <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', background: '#04060f', position: 'relative' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', color: 'rgba(255,255,255,0.6)' }}>
+          <div style={{ width: '40px', height: '40px', border: `3px solid rgba(0,229,255,0.2)`, borderTopColor: ACCENT, borderRadius: '50%', animation: 'lrSpin 1s linear infinite' }} />
+          <p style={{ margin: 0, fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>Chargement...</p>
         </div>
-        <style jsx>{styles}</style>
+        <style>{`@keyframes lrSpin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
   }
 
   return (
-    <div className="trouve-play game-page">
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', background: '#04060f', position: 'relative' }}>
+
+      {/* Background glow */}
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none',
+        background: `radial-gradient(ellipse at 50% 0%, ${ACCENT}12 0%, transparent 55%),
+                     radial-gradient(ellipse at 80% 90%, ${ACCENT}07 0%, transparent 45%)`,
+      }} />
+
       {/* End Transition */}
       <AnimatePresence>
         {showEndTransition && (
@@ -544,8 +571,17 @@ export default function LaLoiPlayPage() {
       </AnimatePresence>
 
       {/* Header */}
-      <header className="play-header">
-        <div className="header-left">
+      <header style={{
+        position: 'relative', zIndex: 10,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '12px 16px',
+        background: 'rgba(4,6,15,0.9)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: `1px solid ${ACCENT}22`,
+        flexShrink: 0,
+      }}>
+        {/* Left: exit + role */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <ExitButton
             variant="header"
             confirmMessage="Voulez-vous vraiment quitter la partie ?"
@@ -554,334 +590,805 @@ export default function LaLoiPlayPage() {
               router.push('/home');
             }}
           />
-          <span className="role-badge">🎭 Joueur</span>
+          <span style={{
+            fontFamily: "var(--font-title, 'Bungee'), sans-serif",
+            fontSize: '0.85rem',
+            letterSpacing: '0.06em',
+            color: '#eef2ff',
+            textShadow: '0 0 14px rgba(192,132,252,0.8)',
+          }}>
+            🎭 Joueur
+          </span>
         </div>
-        {state.phase === 'playing' && (
-          <button
-            className={`timer ${timeLeft <= 30 ? 'warning' : ''} ${timeLeft <= 10 ? 'danger' : ''} ${state.timerPaused ? 'paused' : ''} ${isHost ? 'clickable' : ''}`}
-            onClick={handleTogglePause}
-            disabled={!isHost}
-          >
-            {state.timerPaused ? <Pause size={18} /> : <Clock size={18} />}
-            <span>{formatTime(timeLeft)}</span>
-            {isHost && (
-              <span className="pause-hint">
-                {state.timerPaused ? <Play size={14} /> : <Pause size={14} />}
-              </span>
-            )}
-          </button>
-        )}
+
+        {/* Right: timer (playing & guessing phases) */}
+        <AnimatePresence>
+          {(state.phase === 'playing' || state.phase === 'guessing') && (
+            isHost ? (
+              /* Host: interactive timer with pause/play */
+              <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                onClick={handleTogglePause}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '7px',
+                  padding: '7px 14px',
+                  background: timerPaused
+                    ? 'rgba(251,191,36,0.12)'
+                    : timeLeft <= 30
+                      ? 'rgba(239,68,68,0.12)'
+                      : `${ACCENT}12`,
+                  border: `1px solid ${timerPaused ? 'rgba(251,191,36,0.35)' : timeLeft <= 30 ? 'rgba(239,68,68,0.35)' : ACCENT + '35'}`,
+                  borderRadius: '10px',
+                  fontFamily: "var(--font-title, 'Bungee'), sans-serif",
+                  fontSize: '1.1rem',
+                  color: timerPaused ? '#fbbf24' : timeLeft <= 30 ? '#f87171' : ACCENT,
+                  cursor: 'pointer',
+                }}
+              >
+                <Clock size={16} />
+                <span>{formatTime(timeLeft)}</span>
+                <span style={{ opacity: 0.6, display: 'flex', alignItems: 'center' }}>
+                  {timerPaused ? <Play size={12} /> : <Pause size={12} />}
+                </span>
+              </motion.button>
+            ) : (
+              /* Player: read-only timer */
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '7px',
+                  padding: '7px 14px',
+                  background: timerPaused
+                    ? 'rgba(251,191,36,0.08)'
+                    : timeLeft <= 30
+                      ? 'rgba(239,68,68,0.1)'
+                      : `${ACCENT}0a`,
+                  border: `1px solid ${timerPaused ? 'rgba(251,191,36,0.2)' : timeLeft <= 30 ? 'rgba(239,68,68,0.25)' : ACCENT + '25'}`,
+                  borderRadius: '10px',
+                  fontFamily: "var(--font-title, 'Bungee'), sans-serif",
+                  fontSize: '1.1rem',
+                  color: timerPaused ? 'rgba(251,191,36,0.6)' : timeLeft <= 30 ? '#f87171' : `${ACCENT}cc`,
+                  opacity: timerPaused ? 0.6 : 1,
+                }}
+              >
+                <Clock size={16} />
+                <span>{formatTime(timeLeft)}</span>
+                {timerPaused && (
+                  <span style={{ fontSize: '0.6rem', color: 'rgba(251,191,36,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", fontWeight: 700, letterSpacing: '0.06em' }}>
+                    PAUSE
+                  </span>
+                )}
+              </motion.div>
+            )
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Main Content */}
-      <main className="play-main">
-        {/* PHASE: CHOOSING */}
-        {state.phase === 'choosing' && (
-          <div className={`choosing-phase ${revealPhase === 'winner' ? 'winner-mode' : ''}`}>
-            {/* Normal voting UI */}
-            <AnimatePresence>
-              {revealPhase !== 'winner' && (
-                <motion.div
-                  className="phase-title"
-                  initial={{ opacity: 1 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <span className="phase-icon">🗳️</span>
-                  <h2>{revealPhase ? 'Sélection en cours...' : 'Choisissez une règle'}</h2>
-                  <p className="phase-subtitle">
-                    {revealPhase ? 'La règle va être révélée !' : 'Les enquêteurs attendent...'}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+      <main style={{
+        flex: 1, minHeight: 0, overflowY: 'auto',
+        padding: '16px 16px 16px',
+        position: 'relative', zIndex: 1,
+      }}>
+        <div style={{ maxWidth: '480px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '14px' }}>
 
-            {/* Winner display (centered) */}
-            <AnimatePresence>
-              {revealPhase === 'winner' && winningRuleId && (
-                <motion.div
-                  className="winner-display"
-                  initial={{ opacity: 0, scale: 0.85, y: 30 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 25,
-                    mass: 1,
-                    delay: 0.15
-                  }}
-                >
-                  <div className="winner-label">
-                    <span className="winner-icon">✨</span>
-                    <span>Règle choisie</span>
-                    <span className="winner-icon">✨</span>
-                  </div>
-                  {(() => {
-                    const winnerRule = state.ruleOptions?.find(r => r.id === winningRuleId);
-                    const diffInfo = winnerRule ? getDifficultyInfo(winnerRule.difficulty) : null;
-                    return winnerRule ? (
-                      <div className="winner-card">
-                        <div className="rule-header">
-                          <span className="rule-category">{getCategoryDisplayName(winnerRule.category)}</span>
-                          <span className="rule-difficulty" style={{ color: diffInfo?.color }}>
-                            {'⭐'.repeat(diffInfo?.stars || 1)}
-                          </span>
-                        </div>
-                        <p className="rule-text">{winnerRule.text}</p>
-                      </div>
-                    ) : null;
-                  })()}
-                  <p className="winner-hint">Mémorisez cette règle !</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          {/* PHASE: CHOOSING */}
+          {state.phase === 'choosing' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
 
-            {/* Rules list (hidden in winner mode) */}
-            <AnimatePresence mode="wait">
-              {revealPhase !== 'winner' && (
-                <motion.div
-                  className="rules-list"
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{
-                    duration: 0.4,
-                    ease: [0.4, 0, 0.2, 1]
-                  }}
-                >
-                  {state.ruleOptions?.map((rule, idx) => {
-                    const diffInfo = getDifficultyInfo(rule.difficulty);
-                    const cardState = getCardState(rule.id);
-                    const isSelected = preVote === rule.id;
-                    const voteCount = voteCounts[rule.id] || 0;
-                    const isWinner = rule.id === winningRuleId;
-
-                    return (
-                      <motion.button
-                        key={rule.id}
-                        className={`rule-card ${cardState}`}
-                        onClick={() => handlePreVote(rule.id)}
-                        disabled={hasValidated || !!revealPhase}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{
-                          opacity: cardState === 'fading' || cardState === 'dimmed' ? 0.3 : cardState === 'hidden' ? 0 : 1,
-                          y: 0,
-                          scale: cardState === 'glowing' ? 1.02 : cardState === 'flash' ? 1.03 : 1,
-                        }}
-                        exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 30,
-                          mass: 0.8
-                        }}
-                        whileTap={!hasValidated && !revealPhase ? { scale: 0.98 } : {}}
-                      >
-                        <div className="rule-header">
-                          <span className="rule-category">{getCategoryDisplayName(rule.category)}</span>
-                          <span className="rule-difficulty" style={{ color: diffInfo.color }}>
-                            {'⭐'.repeat(diffInfo.stars)}
-                          </span>
-                        </div>
-                        <p className="rule-text">{rule.text}</p>
-                        <div className="rule-footer">
-                          <div className="footer-left">
-                            {isSelected && !hasValidated && <Check size={18} className="check-icon" />}
-                            {hasValidated && myValidatedVote === rule.id && (
-                              <span className="validated-badge">
-                                <Check size={14} /> Validé
-                              </span>
-                            )}
-                          </div>
-                          <span className="vote-count">{voteCount}</span>
-                        </div>
-                      </motion.button>
-                    );
-                  })}
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Vote validate button (everyone can vote) */}
-            <AnimatePresence>
-              {!revealPhase && (
-                <motion.div
-                  className="player-validate-section"
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {!hasValidated ? (
-                    <motion.button
-                      className="validate-btn"
-                      onClick={handleValidateVote}
-                      disabled={!preVote}
-                      whileHover={{ scale: preVote ? 1.02 : 1 }}
-                      whileTap={{ scale: preVote ? 0.98 : 1 }}
-                    >
-                      <Check size={18} />
-                      {preVote ? 'Valider mon vote' : 'Sélectionne une règle'}
-                    </motion.button>
-                  ) : (
-                    <div className="vote-confirmed">
-                      <Check size={18} />
-                      <span>Vote enregistré !</span>
+              {/* Normal voting UI */}
+              <AnimatePresence>
+                {revealPhase !== 'winner' && (
+                  <motion.div
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {/* Instruction strip */}
+                    <div style={{
+                      display: 'flex', alignItems: 'center', gap: '9px',
+                      padding: '9px 14px',
+                      background: `${ACCENT}07`,
+                      borderLeft: `2px solid ${ACCENT}45`,
+                      borderRadius: '10px',
+                      marginBottom: '14px',
+                    }}>
+                      <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>🗳️</span>
+                      <span style={{ fontSize: '0.82rem', color: 'rgba(238,242,255,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.4 }}>
+                        {revealPhase ? 'Sélection en cours...' : "Choisis une règle \u2014 l'enquêteur devra la deviner !"}
+                      </span>
                     </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-            <AnimatePresence>
-              {!revealPhase && (
-                <motion.div
-                  className="choosing-actions"
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="vote-status">
-                    {totalVotes}/{playersCount} ont voté
-                  </div>
+              {/* Winner display (centered) */}
+              <AnimatePresence>
+                {revealPhase === 'winner' && winningRuleId && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.85, y: 30 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 25, mass: 1, delay: 0.15 }}
+                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', padding: '24px 0' }}
+                  >
+                    <div style={{
+                      display: 'flex', alignItems: 'center', gap: '12px',
+                      fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                      fontSize: '1.1rem', fontWeight: 700,
+                      color: ACCENT,
+                      textTransform: 'uppercase', letterSpacing: '0.1em',
+                    }}>
+                      <span style={{ fontSize: '1.5rem', animation: 'lrSparkle 1s ease-in-out infinite' }}>✨</span>
+                      <span>Règle choisie</span>
+                      <span style={{ fontSize: '1.5rem', animation: 'lrSparkle 1s ease-in-out infinite' }}>✨</span>
+                    </div>
+                    {(() => {
+                      const winnerRule = state.ruleOptions?.find(r => r.id === winningRuleId);
+                      const diffInfo = winnerRule ? getDifficultyInfo(winnerRule.difficulty) : null;
+                      return winnerRule ? (
+                        <div style={{
+                          width: '100%', padding: '20px',
+                          background: `linear-gradient(135deg, ${ACCENT}20, ${ACCENT}10)`,
+                          border: `2px solid ${ACCENT}`,
+                          borderRadius: '16px',
+                          boxShadow: `0 0 50px ${ACCENT}40, 0 0 100px ${ACCENT}20, 0 20px 60px rgba(0,0,0,0.4), inset 0 0 30px ${ACCENT}10`,
+                          animation: 'lrWinnerGlow 3s ease-in-out infinite',
+                        }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                            <span style={{
+                              fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                              fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em',
+                              color: ACCENT,
+                              padding: '3px 10px', background: `${ACCENT}18`, borderRadius: '6px',
+                            }}>
+                              {getCategoryDisplayName(winnerRule.category)}
+                            </span>
+                            <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)' }}>
+                              {'★'.repeat(diffInfo?.stars || 1)}{'☆'.repeat(3 - (diffInfo?.stars || 1))}
+                            </span>
+                          </div>
+                          <p style={{
+                            fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                            fontSize: '1.1rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.5, margin: 0, textAlign: 'center',
+                          }}>
+                            {winnerRule.text}
+                          </p>
+                        </div>
+                      ) : null;
+                    })()}
+                    <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', margin: 0 }}>
+                      Mémorisez cette règle !
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-                  {isHost && (
-                    <div className="host-actions">
+              {/* Rules list (hidden in winner mode) */}
+              <AnimatePresence mode="wait">
+                {revealPhase !== 'winner' && (
+                  <motion.div
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
+                  >
+                    {state.ruleOptions?.map((rule, idx) => {
+                      const diffInfo = getDifficultyInfo(rule.difficulty);
+                      const cardState = getCardState(rule.id);
+                      const isSelected = preVote === rule.id;
+                      const voteCount = voteCounts[rule.id] || 0;
+
+                      return (
+                        <motion.button
+                          key={rule.id}
+                          onClick={() => handlePreVote(rule.id)}
+                          disabled={hasValidated || !!revealPhase}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{
+                            opacity: cardState === 'fading' || cardState === 'dimmed' ? 0.3 : cardState === 'hidden' ? 0 : 1,
+                            y: 0,
+                            scale: cardState === 'glowing' ? 1.02 : cardState === 'flash' ? 1.03 : 1,
+                          }}
+                          exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 30, mass: 0.8 }}
+                          whileTap={!hasValidated && !revealPhase ? { scale: 0.98 } : {}}
+                          style={{
+                            width: '100%',
+                            padding: '16px 18px',
+                            textAlign: 'left',
+                            background: isSelected ? `${ACCENT}12` : 'rgba(8,14,32,0.92)',
+                            border: `1.5px solid ${isSelected ? ACCENT + '50' : 'rgba(255,255,255,0.08)'}`,
+                            borderRadius: '14px',
+                            cursor: hasValidated || revealPhase ? 'default' : 'pointer',
+                            opacity: hasValidated && !isSelected && !myValidatedVote ? 0.4 : undefined,
+                            transition: 'all 0.25s ease',
+                            boxShadow: isSelected
+                              ? `0 0 20px ${ACCENT}15, inset 0 1px 0 rgba(255,255,255,0.04)`
+                              : cardState === 'glowing'
+                                ? `0 0 40px ${ACCENT}50, 0 0 80px ${ACCENT}30, 0 8px 32px ${ACCENT}40, inset 0 0 20px ${ACCENT}10`
+                                : cardState === 'flash'
+                                  ? `0 0 30px ${ACCENT}60, 0 0 60px ${ACCENT}30`
+                                  : 'inset 0 1px 0 rgba(255,255,255,0.03)',
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                            {/* Radio selector */}
+                            <div style={{
+                              width: '20px', height: '20px',
+                              borderRadius: '50%',
+                              border: `2px solid ${isSelected ? ACCENT : 'rgba(255,255,255,0.2)'}`,
+                              background: isSelected ? ACCENT : 'transparent',
+                              flexShrink: 0,
+                              marginTop: '2px',
+                              display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              transition: 'all 0.2s ease',
+                            }}>
+                              {isSelected && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#04060f' }} />}
+                            </div>
+                            <div style={{ flex: 1 }}>
+                              <p style={{ margin: '0 0 6px', fontSize: '0.9rem', color: '#fff', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", fontWeight: 600, lineHeight: 1.4 }}>
+                                {rule.text}
+                              </p>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                  <span style={{
+                                    fontSize: '0.68rem', fontWeight: 700,
+                                    color: isSelected ? ACCENT : 'rgba(255,255,255,0.3)',
+                                    textTransform: 'uppercase', letterSpacing: '0.06em',
+                                    fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                                  }}>
+                                    {getCategoryDisplayName(rule.category)}
+                                  </span>
+                                  <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)' }}>
+                                    {'★'.repeat(diffInfo.stars)}{'☆'.repeat(3 - diffInfo.stars)}
+                                  </span>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                  {hasValidated && myValidatedVote === rule.id && (
+                                    <span style={{
+                                      display: 'flex', alignItems: 'center', gap: '3px',
+                                      fontSize: '0.65rem', fontWeight: 600, color: '#34d399',
+                                      padding: '2px 8px', background: 'rgba(34,211,153,0.15)', border: '1px solid rgba(34,211,153,0.3)', borderRadius: '5px',
+                                      fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                                    }}>
+                                      <Check size={12} /> Validé
+                                    </span>
+                                  )}
+                                  <span style={{
+                                    fontFamily: "var(--font-mono, 'Roboto Mono'), monospace",
+                                    fontSize: '0.75rem', fontWeight: 700, color: ACCENT,
+                                    minWidth: '24px', height: '24px',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    background: `${ACCENT}20`, border: `1px solid ${ACCENT}30`, borderRadius: '6px',
+                                  }}>
+                                    {voteCount}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.button>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Vote validate button */}
+              <AnimatePresence mode="wait">
+                {!revealPhase && (
+                  <motion.div
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {!hasValidated ? (
                       <motion.button
-                        className="reroll-btn"
-                        onClick={handleReroll}
-                        disabled={state.rerollsUsed >= MAX_REROLLS}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        key="validate"
+                        initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
+                        whileHover={{ scale: preVote ? 1.02 : 1 }}
+                        whileTap={{ scale: 0.97 }}
+                        disabled={!preVote}
+                        onClick={handleValidateVote}
+                        style={{
+                          width: '100%',
+                          padding: '16px',
+                          border: 'none',
+                          borderRadius: '14px',
+                          background: preVote
+                            ? `linear-gradient(135deg, ${ACCENT}, ${ACCENT}cc)`
+                            : 'rgba(255,255,255,0.06)',
+                          color: preVote ? '#04060f' : 'rgba(255,255,255,0.3)',
+                          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                          fontSize: '0.95rem',
+                          fontWeight: 700,
+                          cursor: preVote ? 'pointer' : 'not-allowed',
+                          transition: 'all 0.2s ease',
+                          boxShadow: preVote ? `0 4px 20px ${ACCENT}40` : 'none',
+                        }}
                       >
-                        <RefreshCw size={16} />
-                        Re-roll ({MAX_REROLLS - (state.rerollsUsed || 0)} restants)
+                        {preVote ? 'Valider mon vote' : 'Sélectionne une règle'}
                       </motion.button>
-
-                      <motion.button
-                        className="confirm-btn"
-                        onClick={handleConfirmRule}
-                        disabled={totalVotes === 0}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                    ) : (
+                      <motion.div
+                        key="confirmed"
+                        initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+                        style={{
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                          padding: '12px 16px',
+                          background: 'rgba(34,211,153,0.15)',
+                          border: '1px solid rgba(34,211,153,0.3)',
+                          borderRadius: '14px',
+                          color: '#34d399',
+                          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                          fontSize: '0.9rem', fontWeight: 600,
+                        }}
                       >
                         <Check size={18} />
-                        Confirmer
-                      </motion.button>
+                        <span>Vote enregistré !</span>
+                      </motion.div>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Vote status & host actions */}
+              <AnimatePresence>
+                {!revealPhase && (
+                  <motion.div
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
+                  >
+                    {/* Waiting status */}
+                    <div style={{
+                      display: 'flex', alignItems: 'center', gap: '10px',
+                      padding: '12px 14px',
+                      background: 'rgba(8,14,32,0.92)',
+                      border: '1px solid rgba(255,255,255,0.06)',
+                      borderRadius: '14px',
+                      boxShadow: '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)',
+                    }}>
+                      <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
+                        {[0, 1, 2].map(i => (
+                          <div key={i} style={{
+                            width: '5px', height: '5px', borderRadius: '50%',
+                            background: ACCENT,
+                            animation: 'lrPulse 1.2s ease-in-out infinite',
+                            animationDelay: `${i * 0.22}s`,
+                          }} />
+                        ))}
+                      </div>
+                      <span style={{ flex: 1, fontSize: '0.82rem', color: 'rgba(238,242,255,0.5)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                        En attente —{' '}
+                        <span style={{ color: ACCENT, fontWeight: 700 }}>{totalVotes}/{playersCount}</span>
+                        {' '}ont choisi
+                      </span>
                     </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        )}
 
-        {/* PHASE: PLAYING */}
-        {state.phase === 'playing' && state.currentRule && (
-          <div className="playing-phase">
-            {/* Attempts indicator */}
-            <div className="attempts-bar">
-              <span className="attempts-label">Essais restants</span>
-              <div className="attempts-dots">
-                {[0, 1, 2].map(i => (
-                  <span
-                    key={i}
-                    className={`attempt-dot ${i < (state.guessAttempts || 0) ? 'used' : 'available'}`}
-                  />
-                ))}
-              </div>
+                    {isHost && (
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <motion.button
+                          onClick={handleReroll}
+                          disabled={state.rerollsUsed >= MAX_REROLLS}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          style={{
+                            flex: 1,
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px',
+                            padding: '10px 12px',
+                            border: '1px solid rgba(255,255,255,0.15)',
+                            borderRadius: '12px',
+                            background: 'rgba(255,255,255,0.05)',
+                            backdropFilter: 'blur(8px)',
+                            color: 'rgba(255,255,255,0.9)',
+                            fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                            fontSize: '0.75rem', fontWeight: 600,
+                            cursor: state.rerollsUsed >= MAX_REROLLS ? 'not-allowed' : 'pointer',
+                            opacity: state.rerollsUsed >= MAX_REROLLS ? 0.4 : 1,
+                          }}
+                        >
+                          <RefreshCw size={16} />
+                          Re-roll ({MAX_REROLLS - (state.rerollsUsed || 0)} restants)
+                        </motion.button>
+
+                        <motion.button
+                          onClick={handleConfirmRule}
+                          disabled={totalVotes === 0}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          style={{
+                            flex: 1.5,
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px',
+                            padding: '10px 14px',
+                            border: 'none',
+                            borderRadius: '12px',
+                            background: `linear-gradient(135deg, ${ACCENT}, ${ACCENT}cc)`,
+                            color: '#04060f',
+                            fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                            fontSize: '0.8rem', fontWeight: 700,
+                            textTransform: 'uppercase', letterSpacing: '0.05em',
+                            cursor: totalVotes === 0 ? 'not-allowed' : 'pointer',
+                            opacity: totalVotes === 0 ? 0.4 : 1,
+                            boxShadow: totalVotes > 0 ? `0 3px 12px ${ACCENT}40, 0 0 15px ${ACCENT}20` : 'none',
+                          }}
+                        >
+                          <Check size={18} />
+                          Confirmer
+                        </motion.button>
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
+          )}
 
-            <div className="rule-display">
-              <div className="rule-label">
-                <span className="secret-icon">🤫</span>
-                La règle secrète
-              </div>
+          {/* PHASE: PLAYING */}
+          {state.phase === 'playing' && state.currentRule && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+
+              {/* Rule card — hold-to-reveal */}
               <div
-                className={`rule-box ${isRuleRevealed ? 'revealed' : 'blurred'}`}
+                style={{
+                  padding: '20px',
+                  background: `${ACCENT}0a`,
+                  border: `2px solid ${isRuleRevealed ? ACCENT + '70' : ACCENT + '35'}`,
+                  borderRadius: '16px',
+                  boxShadow: isRuleRevealed ? `0 0 40px ${ACCENT}25` : `0 0 30px ${ACCENT}15`,
+                  transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                  userSelect: 'none',
+                  WebkitUserSelect: 'none',
+                  WebkitTouchCallout: 'none',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  touchAction: 'none',
+                }}
                 onMouseDown={() => setIsRuleRevealed(true)}
                 onMouseUp={() => setIsRuleRevealed(false)}
                 onMouseLeave={() => setIsRuleRevealed(false)}
                 onTouchStart={() => setIsRuleRevealed(true)}
                 onTouchEnd={() => setIsRuleRevealed(false)}
+                onTouchCancel={() => setIsRuleRevealed(false)}
+                onContextMenu={e => e.preventDefault()}
               >
-                <p className="rule-main-text">{state.currentRule.text}</p>
-                <div className="blur-overlay">
-                  <span className="reveal-hint">👆 Maintenir pour révéler</span>
+                <p style={{ fontSize: '0.7rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 14px', pointerEvents: 'none' }}>
+                  🤫 Ta règle secrète
+                </p>
+
+                {/* Content + overlay stacked */}
+                <div style={{ position: 'relative' }}>
+                  {/* Content — blurred when hidden */}
+                  <div style={{
+                    filter: isRuleRevealed ? 'none' : 'blur(12px)',
+                    transition: 'filter 0.15s ease',
+                    pointerEvents: 'none',
+                  }}>
+                    <p style={{ fontSize: '1.05rem', color: '#fff', margin: '0 0 12px', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", fontWeight: 600, lineHeight: 1.5 }}>
+                      {state.currentRule.text}
+                    </p>
+                    {state.currentRule.category && (
+                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                        <span style={{ fontSize: '0.68rem', color: ACCENT, background: `${ACCENT}15`, padding: '3px 10px', borderRadius: '6px', fontWeight: 700 }}>
+                          {getCategoryDisplayName(state.currentRule.category)}
+                        </span>
+                        {state.currentRule.difficulty && (
+                          <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)', padding: '3px 0' }}>
+                            {'★'.repeat(getDifficultyInfo(state.currentRule.difficulty).stars)}{'☆'.repeat(3 - getDifficultyInfo(state.currentRule.difficulty).stars)}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Overlay hint — centered on blurred content */}
+                  <AnimatePresence>
+                    {!isRuleRevealed && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.15 }}
+                        style={{
+                          position: 'absolute', inset: 0,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                          pointerEvents: 'none',
+                        }}
+                      >
+                        <span style={{ fontSize: '1rem' }}>👆</span>
+                        <span style={{
+                          fontSize: '0.8rem', fontWeight: 600,
+                          color: 'rgba(238,242,255,0.85)',
+                          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                        }}>
+                          Maintiens pour voir
+                        </span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
-            </div>
 
-            <div className="tips-card">
-              <h3>📝 Rappels</h3>
-              <ul>
-                <li>Reste naturel dans tes réponses</li>
-                <li>Si tu te trompes, continue comme si de rien n'était</li>
-                <li>Ne révèle JAMAIS la règle directement !</li>
-              </ul>
-            </div>
-
-            <div className="waiting-investigators">
-              <div className="pulse-dot" />
-              <span>Les enquêteurs posent des questions...</span>
-            </div>
-          </div>
-        )}
-
-        {/* PHASE: GUESSING */}
-        {state.phase === 'guessing' && (
-          <div className="guessing-phase">
-            <motion.div
-              className="guess-card"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            >
-              <div className="guess-badge">
-                <span>🎤</span>
-                Proposition en cours
+              {/* Instruction strip */}
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '9px',
+                padding: '9px 14px',
+                background: `${ACCENT}07`,
+                borderLeft: `2px solid ${ACCENT}45`,
+                borderRadius: '10px',
+              }}>
+                <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>🤫</span>
+                <span style={{ fontSize: '0.82rem', color: 'rgba(238,242,255,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.4 }}>
+                  Réponds en <strong style={{ color: '#eef2ff' }}>respectant la règle</strong> sans la révéler !
+                </span>
               </div>
 
-              <h2 className="guess-title">L'enquêteur a une idée !</h2>
-              <p className="guess-subtitle">Écoute sa proposition à voix haute</p>
-
-              <div className="rule-box-reminder">
-                <span className="reminder-label">La vraie règle</span>
-                <p className="reminder-rule">{state.currentRule?.text}</p>
+              {/* Attempts indicator */}
+              <div style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
+                padding: '8px 16px',
+                background: `${ACCENT}08`,
+                border: `1px solid ${ACCENT}18`,
+                borderRadius: '10px',
+              }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                  Essais restants
+                </span>
+                <div style={{ display: 'flex', gap: '6px' }}>
+                  {[0, 1, 2].map(i => (
+                    <div key={i} style={{
+                      width: '11px', height: '11px',
+                      borderRadius: '50%',
+                      background: i < (state.guessAttempts || 0) ? 'rgba(239,68,68,0.35)' : ACCENT,
+                      border: i < (state.guessAttempts || 0) ? '1px solid rgba(239,68,68,0.5)' : 'none',
+                      boxShadow: i < (state.guessAttempts || 0) ? 'none' : `0 0 8px ${ACCENT}70`,
+                      transition: 'all 0.3s ease',
+                    }} />
+                  ))}
+                </div>
               </div>
 
-              {!state.guessVotes?.[myUid] ? (
-                <>
-                  <p className="vote-prompt">A-t-il trouvé ?</p>
-                  <div className="vote-actions">
+              {/* Team card */}
+              <div style={{
+                background: 'rgba(8,14,32,0.92)',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 2px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+              }}>
+                <div style={{
+                  padding: '11px 16px',
+                  borderBottom: '1px solid rgba(255,255,255,0.06)',
+                }}>
+                  <span style={{
+                    fontSize: '0.68rem', fontWeight: 700,
+                    color: 'rgba(238,242,255,0.3)',
+                    textTransform: 'uppercase', letterSpacing: '0.1em',
+                    fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                  }}>
+                    Ton équipe
+                  </span>
+                </div>
+                <div style={{ padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {civilPlayers.map(p => (
+                    <div key={p.uid} style={{
+                      display: 'flex', alignItems: 'center', gap: '10px',
+                      padding: '8px 12px',
+                      background: 'rgba(255,255,255,0.03)',
+                      borderRadius: '10px',
+                    }}>
+                      <div style={{
+                        width: '28px', height: '28px', borderRadius: '50%',
+                        background: `${ACCENT}20`, border: `1px solid ${ACCENT}35`,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: '0.7rem', fontWeight: 700, color: ACCENT,
+                        fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                      }}>
+                        {(p.name || '?')[0].toUpperCase()}
+                      </div>
+                      <span style={{
+                        fontSize: '0.85rem', fontWeight: 600, color: 'rgba(238,242,255,0.8)',
+                        fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                      }}>
+                        {p.name}
+                        {p.uid === myUid && <span style={{ color: `${ACCENT}80`, fontSize: '0.7rem', marginLeft: '6px' }}>(toi)</span>}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Waiting for investigators */}
+              <div style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                padding: '11px',
+                background: 'rgba(8,14,32,0.6)',
+                border: '1px solid rgba(255,255,255,0.05)',
+                borderRadius: '12px',
+              }}>
+                {[0, 1, 2].map(i => (
+                  <div key={i} style={{
+                    width: '5px', height: '5px', borderRadius: '50%', background: ACCENT,
+                    animation: 'lrPulse 1.2s ease-in-out infinite',
+                    animationDelay: `${i * 0.22}s`,
+                  }} />
+                ))}
+                <span style={{ fontSize: '0.78rem', color: 'rgba(238,242,255,0.35)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", marginLeft: '4px' }}>
+                  Les enquêteurs posent des questions...
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* PHASE: GUESSING */}
+          {state.phase === 'guessing' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+
+              {/* Guess notification card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                style={{
+                  padding: '20px',
+                  background: 'rgba(8,14,32,0.92)',
+                  border: `1px solid ${ACCENT}20`,
+                  borderRadius: '16px',
+                  boxShadow: `0 2px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)`,
+                  textAlign: 'center',
+                }}
+              >
+                {/* Header */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px' }}>
+                  <span style={{ fontSize: '1.6rem', flexShrink: 0 }}>🎤</span>
+                  <div style={{ textAlign: 'left' }}>
+                    <p style={{ margin: '0 0 2px', fontFamily: "var(--font-title, 'Bungee'), sans-serif", fontSize: '0.95rem', color: '#eef2ff', letterSpacing: '0.04em' }}>
+                      L'enquêteur propose
+                    </p>
+                    <p style={{ color: 'rgba(255,255,255,0.4)', margin: 0, fontSize: '0.78rem', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                      Est-ce que c'est la bonne règle ?
+                    </p>
+                  </div>
+                </div>
+
+                {/* Rule reminder */}
+                <div style={{
+                  padding: '12px 14px',
+                  background: `${ACCENT}0a`,
+                  border: `1px solid ${ACCENT}20`,
+                  borderRadius: '12px',
+                  marginBottom: '16px',
+                  textAlign: 'left',
+                }}>
+                  <p style={{ fontSize: '0.65rem', fontWeight: 700, color: ACCENT, textTransform: 'uppercase', letterSpacing: '0.06em', margin: '0 0 5px', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                    La vraie règle
+                  </p>
+                  <p style={{ margin: 0, fontSize: '0.88rem', color: 'rgba(255,255,255,0.85)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.5 }}>
+                    {state.currentRule?.text}
+                  </p>
+                </div>
+
+                {/* Vote buttons or confirmation */}
+                {!state.guessVotes?.[myUid] ? (
+                  <div style={{ display: 'flex', gap: '10px' }}>
                     <motion.button
-                      className="vote-btn success"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.96 }}
                       onClick={() => handleGuessVote(true)}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      style={{
+                        flex: 1, padding: '16px',
+                        background: 'rgba(34,197,94,0.1)',
+                        border: '1.5px solid rgba(34,197,94,0.3)',
+                        borderRadius: '14px',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '9px',
+                        cursor: 'pointer',
+                      }}
                     >
-                      <Check size={20} />
-                      Oui
+                      <ThumbsUp size={20} style={{ color: '#4ade80', flexShrink: 0 }} />
+                      <span style={{ fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", fontSize: '0.95rem', fontWeight: 700, color: '#4ade80' }}>Oui !</span>
                     </motion.button>
                     <motion.button
-                      className="vote-btn danger"
-                      onClick={() => handleGuessVote(false)}
                       whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      whileTap={{ scale: 0.96 }}
+                      onClick={() => handleGuessVote(false)}
+                      style={{
+                        flex: 1, padding: '16px',
+                        background: 'rgba(239,68,68,0.1)',
+                        border: '1.5px solid rgba(239,68,68,0.3)',
+                        borderRadius: '14px',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '9px',
+                        cursor: 'pointer',
+                      }}
                     >
-                      <X size={20} />
-                      Non
+                      <ThumbsDown size={20} style={{ color: '#f87171', flexShrink: 0 }} />
+                      <span style={{ fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", fontSize: '0.95rem', fontWeight: 700, color: '#f87171' }}>Non !</span>
                     </motion.button>
                   </div>
-                </>
-              ) : (
-                <div className="vote-submitted">
-                  <div className="submitted-icon">
-                    <Check size={20} />
-                  </div>
-                  <span>Vote enregistré</span>
-                  <p className="submitted-hint">En attente des autres joueurs...</p>
-                </div>
-              )}
-            </motion.div>
-          </div>
-        )}
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ type: 'spring', damping: 22, stiffness: 280 }}
+                    style={{
+                      borderRadius: '18px', overflow: 'hidden',
+                      background: state.guessVotes[myUid] === true ? 'rgba(34,197,94,0.06)' : 'rgba(239,68,68,0.06)',
+                      border: `1px solid ${state.guessVotes[myUid] === true ? 'rgba(34,197,94,0.2)' : 'rgba(239,68,68,0.2)'}`,
+                      boxShadow: state.guessVotes[myUid] === true
+                        ? '0 0 32px rgba(34,197,94,0.1), inset 0 1px 0 rgba(255,255,255,0.04)'
+                        : '0 0 32px rgba(239,68,68,0.08), inset 0 1px 0 rgba(255,255,255,0.04)',
+                    }}
+                  >
+                    <div style={{ padding: '24px 20px 20px', textAlign: 'center' }}>
+                      <motion.div
+                        initial={{ scale: 0, rotate: -15 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ delay: 0.08, type: 'spring', stiffness: 260, damping: 16 }}
+                        style={{ position: 'relative', display: 'inline-block', marginBottom: '14px' }}
+                      >
+                        <motion.div
+                          animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0.85, 0.5] }}
+                          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+                          style={{
+                            position: 'absolute', inset: -12, borderRadius: '50%',
+                            background: state.guessVotes[myUid] === true
+                              ? 'radial-gradient(circle, rgba(34,197,94,0.55) 0%, transparent 70%)'
+                              : 'radial-gradient(circle, rgba(239,68,68,0.45) 0%, transparent 70%)',
+                            filter: 'blur(8px)',
+                          }}
+                        />
+                        <span style={{ fontSize: '2.6rem', lineHeight: 1, display: 'block', position: 'relative' }}>
+                          {state.guessVotes[myUid] === true ? '✅' : '❌'}
+                        </span>
+                      </motion.div>
+                      <motion.p
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.18 }}
+                        style={{
+                          fontFamily: "var(--font-title, 'Bungee'), sans-serif",
+                          fontSize: '1.5rem', letterSpacing: '0.05em', margin: '0 0 6px',
+                          color: state.guessVotes[myUid] === true ? '#4ade80' : '#f87171',
+                          textShadow: state.guessVotes[myUid] === true
+                            ? '0 0 20px rgba(34,197,94,0.6), 0 0 40px rgba(34,197,94,0.25)'
+                            : '0 0 20px rgba(239,68,68,0.55), 0 0 40px rgba(239,68,68,0.2)',
+                        }}
+                      >
+                        {state.guessVotes[myUid] === true ? 'OUI !' : 'NON !'}
+                      </motion.p>
+                      <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.28 }}
+                        style={{ margin: 0, fontSize: '0.8rem', color: 'rgba(238,242,255,0.45)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}
+                      >
+                        {state.guessVotes[myUid] === true ? "Tu penses que c'est la bonne règle" : "Tu penses que ce n'est pas la bonne règle"}
+                      </motion.p>
+                    </div>
+                    <div style={{ height: '1px', background: state.guessVotes[myUid] === true ? 'rgba(34,197,94,0.12)' : 'rgba(239,68,68,0.12)', margin: '0 16px' }} />
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.4 }}
+                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px 16px', gap: '10px' }}
+                    >
+                      <div style={{ display: 'flex', gap: '4px' }}>
+                        {[0, 1, 2].map(i => (
+                          <div key={i} style={{ width: '5px', height: '5px', borderRadius: '50%', background: ACCENT, animation: 'lrPulse 1.2s ease-in-out infinite', animationDelay: `${i * 0.22}s` }} />
+                        ))}
+                      </div>
+                      <span style={{ fontSize: '0.78rem', color: 'rgba(238,242,255,0.4)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                        En attente des autres joueurs...
+                      </span>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </motion.div>
+            </div>
+          )}
 
+        </div>
       </main>
 
       {/* Disconnect Alert */}
@@ -899,1142 +1406,16 @@ export default function LaLoiPlayPage() {
         hostDisconnectedAt={hostDisconnectedAt}
       />
 
-      <style jsx>{styles}</style>
+      {/* Animations */}
+      <style>{`
+        @keyframes lrSpin { to { transform: rotate(360deg); } }
+        @keyframes lrPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.75); } }
+        @keyframes lrSparkle { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.2); } }
+        @keyframes lrWinnerGlow {
+          0%, 100% { box-shadow: 0 0 40px rgba(0,229,255,0.35), 0 0 80px rgba(0,229,255,0.15), 0 20px 60px rgba(0,0,0,0.4); }
+          50% { box-shadow: 0 0 55px rgba(0,229,255,0.45), 0 0 100px rgba(0,229,255,0.25), 0 22px 65px rgba(0,0,0,0.45); }
+        }
+      `}</style>
     </div>
   );
 }
-
-const styles = `
-  .trouve-play {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    background: var(--bg-primary, #0a0a0f);
-  }
-
-  .trouve-play::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
-      var(--bg-primary, #0a0a0f);
-    pointer-events: none;
-  }
-
-  .loading {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid rgba(6, 182, 212, 0.2);
-    border-top-color: ${CYAN_PRIMARY};
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  .spinner.small {
-    width: 24px;
-    height: 24px;
-    border-width: 2px;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  /* Header */
-  .play-header {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    background: rgba(10, 10, 15, 0.9);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(6, 182, 212, 0.2);
-  }
-
-  .header-left, .header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .game-icon {
-    font-size: 1.3rem;
-  }
-
-  .role-badge {
-    padding: 6px 12px;
-    background: rgba(6, 182, 212, 0.2);
-    border: 1px solid rgba(6, 182, 212, 0.3);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: ${CYAN_LIGHT};
-  }
-
-  .timer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: rgba(6, 182, 212, 0.15);
-    border: 1px solid rgba(6, 182, 212, 0.3);
-    border-radius: 10px;
-    font-family: var(--font-title, 'Bungee'), cursive;
-    font-size: 1.2rem;
-    color: ${CYAN_LIGHT};
-    cursor: default;
-    transition: all 0.2s ease;
-  }
-
-  .timer.clickable {
-    cursor: pointer;
-  }
-
-  .timer.clickable:hover {
-    background: rgba(6, 182, 212, 0.25);
-    border-color: rgba(6, 182, 212, 0.5);
-  }
-
-  .timer.paused {
-    background: rgba(168, 85, 247, 0.2);
-    border-color: rgba(168, 85, 247, 0.4);
-    color: #a855f7;
-    animation: paused-pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes paused-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
-
-  .timer .pause-hint {
-    display: flex;
-    align-items: center;
-    opacity: 0.5;
-    margin-left: 4px;
-  }
-
-  .timer.clickable:hover .pause-hint {
-    opacity: 1;
-  }
-
-  .timer.warning {
-    background: rgba(251, 191, 36, 0.15);
-    border-color: rgba(251, 191, 36, 0.3);
-    color: #fbbf24;
-  }
-
-  .timer.warning.clickable:hover {
-    background: rgba(251, 191, 36, 0.25);
-  }
-
-  .timer.danger {
-    background: rgba(239, 68, 68, 0.15);
-    border-color: rgba(239, 68, 68, 0.3);
-    color: #f87171;
-    animation: pulse 0.5s ease-in-out infinite;
-  }
-
-  .timer.danger.clickable:hover {
-    background: rgba(239, 68, 68, 0.25);
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
-
-  /* Attempts bar - below header */
-  .attempts-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 8px 16px;
-    background: rgba(6, 182, 212, 0.08);
-    border: 1px solid rgba(6, 182, 212, 0.15);
-    border-radius: 10px;
-    margin-bottom: 12px;
-  }
-
-  .attempts-label {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .attempts-dots {
-    display: flex;
-    gap: 6px;
-  }
-
-  .attempt-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-  }
-
-  .attempt-dot.available {
-    background: ${CYAN_PRIMARY};
-    box-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
-  }
-
-  .attempt-dot.used {
-    background: rgba(239, 68, 68, 0.3);
-    border: 1px solid rgba(239, 68, 68, 0.5);
-  }
-
-  /* Main */
-  .play-main {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 10px 12px;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-  }
-
-  /* CHOOSING PHASE - fills parent and distributes space to cards */
-  .choosing-phase {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    margin: 0 auto;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .choosing-phase.winner-mode {
-    justify-content: center;
-    align-items: center;
-  }
-
-  .phase-title {
-    flex-shrink: 0;
-    text-align: center;
-    margin-bottom: 8px;
-  }
-
-  .phase-icon {
-    font-size: 1.5rem;
-    display: block;
-    margin-bottom: 2px;
-    filter: drop-shadow(0 0 12px rgba(6, 182, 212, 0.5));
-  }
-
-  .phase-title h2 {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .phase-subtitle {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: 2px;
-  }
-
-  .rules-list {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 6px 4px;
-    margin: 0 -4px;
-    padding-left: 8px;
-    padding-right: 8px;
-    overflow: hidden;
-  }
-
-  /* Winner display (centered) */
-  .winner-display {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding: 24px;
-    width: 100%;
-    max-width: 400px;
-  }
-
-  .winner-label {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: ${CYAN_LIGHT};
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .winner-icon {
-    font-size: 1.5rem;
-    animation: sparkle 1s ease-in-out infinite;
-  }
-
-  @keyframes sparkle {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.2); }
-  }
-
-  .winner-card {
-    width: 100%;
-    padding: 20px;
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.1));
-    border: 2px solid ${CYAN_PRIMARY};
-    border-radius: 16px;
-    box-shadow:
-      0 0 50px rgba(6, 182, 212, 0.4),
-      0 0 100px rgba(6, 182, 212, 0.2),
-      0 20px 60px rgba(0, 0, 0, 0.4),
-      inset 0 0 30px rgba(6, 182, 212, 0.1);
-    animation: winner-glow 3s ease-in-out infinite;
-  }
-
-  @keyframes winner-glow {
-    0%, 100% {
-      box-shadow:
-        0 0 40px rgba(6, 182, 212, 0.35),
-        0 0 80px rgba(6, 182, 212, 0.15),
-        0 20px 60px rgba(0, 0, 0, 0.4);
-    }
-    50% {
-      box-shadow:
-        0 0 55px rgba(6, 182, 212, 0.45),
-        0 0 100px rgba(6, 182, 212, 0.25),
-        0 22px 65px rgba(0, 0, 0, 0.45);
-    }
-  }
-
-  .winner-card .rule-header {
-    margin-bottom: 12px;
-  }
-
-  .winner-card .rule-text {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    text-align: center;
-  }
-
-  .winner-hint {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
-    font-style: italic;
-    margin: 0;
-  }
-
-  .rule-card {
-    flex: 1;
-    min-height: 0;
-    position: relative;
-    padding: clamp(6px, 8%, 16px) clamp(8px, 5%, 14px);
-    background: var(--bg-card, rgba(20, 20, 30, 0.8));
-    border: 2px solid var(--border-primary, rgba(255, 255, 255, 0.1));
-    border-radius: var(--radius-lg, 14px);
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    backdrop-filter: blur(8px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-    container-type: size;
-    container-name: rulecard;
-  }
-
-  .rule-card:hover {
-    border-color: rgba(6, 182, 212, 0.4);
-    background: rgba(6, 182, 212, 0.08);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 20px rgba(6, 182, 212, 0.15);
-  }
-
-  .rule-card.selected {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(6, 182, 212, 0.08));
-    border-color: ${CYAN_PRIMARY};
-    box-shadow:
-      0 0 20px rgba(6, 182, 212, 0.3),
-      0 4px 15px rgba(6, 182, 212, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-
-  .rule-card:disabled {
-    cursor: default;
-  }
-
-  /* Animation states for rule cards */
-  .rule-card.glowing {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(6, 182, 212, 0.15));
-    border-color: ${CYAN_LIGHT};
-    box-shadow:
-      0 0 40px rgba(6, 182, 212, 0.5),
-      0 0 80px rgba(6, 182, 212, 0.3),
-      0 8px 32px rgba(6, 182, 212, 0.4),
-      inset 0 0 20px rgba(6, 182, 212, 0.1);
-    animation: soft-glow 2s ease-in-out infinite;
-  }
-
-  @keyframes soft-glow {
-    0%, 100% {
-      box-shadow:
-        0 0 35px rgba(6, 182, 212, 0.4),
-        0 0 70px rgba(6, 182, 212, 0.2),
-        0 8px 30px rgba(6, 182, 212, 0.3);
-    }
-    50% {
-      box-shadow:
-        0 0 50px rgba(6, 182, 212, 0.5),
-        0 0 90px rgba(6, 182, 212, 0.3),
-        0 10px 35px rgba(6, 182, 212, 0.4);
-    }
-  }
-
-  .rule-card.fading {
-    opacity: 0.3;
-    filter: grayscale(0.5);
-    pointer-events: none;
-  }
-
-  .rule-card.flash {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(6, 182, 212, 0.2));
-    border-color: ${CYAN_LIGHT};
-    box-shadow:
-      0 0 30px rgba(6, 182, 212, 0.6),
-      0 0 60px rgba(6, 182, 212, 0.3);
-    animation: flash-pulse 0.2s ease-in-out;
-  }
-
-  @keyframes flash-pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.015); opacity: 0.95; }
-  }
-
-  .rule-card.dimmed {
-    opacity: 0.5;
-    filter: grayscale(0.3);
-  }
-
-  .rule-card.winner {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(6, 182, 212, 0.2));
-    border-color: ${CYAN_LIGHT};
-    border-width: 3px;
-    box-shadow:
-      0 0 50px rgba(6, 182, 212, 0.6),
-      0 0 100px rgba(6, 182, 212, 0.4),
-      0 15px 50px rgba(6, 182, 212, 0.5),
-      inset 0 0 30px rgba(6, 182, 212, 0.15);
-  }
-
-  .rule-card.hidden {
-    pointer-events: none;
-  }
-
-  .rule-header {
-    flex-shrink: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: clamp(4px, 6cqh, 8px);
-  }
-
-  .rule-category {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: clamp(0.5rem, 10cqh, 0.75rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: ${CYAN_LIGHT};
-    padding: clamp(2px, 3cqh, 4px) clamp(4px, 5cqh, 8px);
-    background: rgba(6, 182, 212, 0.15);
-    border: 1px solid rgba(6, 182, 212, 0.25);
-    border-radius: 5px;
-  }
-
-  .rule-difficulty {
-    font-size: clamp(0.6rem, 12cqh, 1rem);
-    letter-spacing: -2px;
-  }
-
-  .rule-text {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    align-items: center;
-    font-family: var(--font-body, 'Inter'), sans-serif;
-    font-size: clamp(0.8rem, 18cqh, 1.1rem);
-    font-weight: 500;
-    color: #ffffff;
-    line-height: 1.3;
-    margin: 0;
-    overflow: hidden;
-  }
-
-  .rule-footer {
-    flex-shrink: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: clamp(4px, 6cqh, 8px);
-  }
-
-  .footer-left {
-    display: flex;
-    align-items: center;
-    gap: clamp(4px, 5cqh, 8px);
-  }
-
-  .validated-badge {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: clamp(0.55rem, 9cqh, 0.7rem);
-    font-weight: 600;
-    color: #34d399;
-    padding: clamp(2px, 3cqh, 4px) clamp(5px, 6cqh, 10px);
-    background: rgba(34, 211, 153, 0.15);
-    border: 1px solid rgba(34, 211, 153, 0.3);
-    border-radius: 5px;
-  }
-
-  .vote-count {
-    font-family: var(--font-mono, 'Roboto Mono'), monospace;
-    font-size: clamp(0.6rem, 10cqh, 0.85rem);
-    font-weight: 700;
-    color: ${CYAN_LIGHT};
-    min-width: clamp(20px, 22cqh, 30px);
-    height: clamp(20px, 22cqh, 30px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(6, 182, 212, 0.2);
-    border: 1px solid rgba(6, 182, 212, 0.3);
-    border-radius: 6px;
-  }
-
-  .check-icon {
-    color: ${CYAN_LIGHT};
-    filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.6));
-    width: clamp(14px, 15cqh, 20px);
-    height: clamp(14px, 15cqh, 20px);
-  }
-
-  /* Player validate section */
-  .player-validate-section {
-    flex-shrink: 0;
-    padding: 8px 0;
-  }
-
-  .validate-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 12px 16px;
-    border: none;
-    border-radius: var(--radius-lg, 12px);
-    background: linear-gradient(135deg, ${CYAN_LIGHT}, ${CYAN_PRIMARY});
-    color: #0a0a0f;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow:
-      0 3px 12px rgba(6, 182, 212, 0.4),
-      0 0 15px rgba(6, 182, 212, 0.2);
-  }
-
-  .validate-btn:hover:not(:disabled) {
-    box-shadow:
-      0 5px 16px rgba(6, 182, 212, 0.5),
-      0 0 20px rgba(6, 182, 212, 0.3);
-  }
-
-  .validate-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.5);
-    box-shadow: none;
-  }
-
-  .vote-confirmed {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 16px;
-    background: rgba(34, 211, 153, 0.15);
-    border: 1px solid rgba(34, 211, 153, 0.3);
-    border-radius: var(--radius-lg, 12px);
-    color: #34d399;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-
-  .choosing-actions {
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-top: 8px;
-  }
-
-  .vote-status {
-    text-align: center;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  .host-actions {
-    display: flex;
-    gap: 8px;
-  }
-
-  .reroll-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 10px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--radius-lg, 12px);
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    color: rgba(255, 255, 255, 0.9);
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .reroll-btn:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.25);
-  }
-
-  .reroll-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-
-  .confirm-btn {
-    flex: 1.5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 10px 14px;
-    border: none;
-    border-radius: var(--radius-lg, 12px);
-    background: linear-gradient(135deg, ${CYAN_LIGHT}, ${CYAN_PRIMARY});
-    color: #0a0a0f;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow:
-      0 3px 12px rgba(6, 182, 212, 0.4),
-      0 0 15px rgba(6, 182, 212, 0.2);
-  }
-
-  .confirm-btn:hover:not(:disabled) {
-    box-shadow:
-      0 5px 16px rgba(6, 182, 212, 0.5),
-      0 0 20px rgba(6, 182, 212, 0.3);
-  }
-
-  .confirm-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-
-  /* PLAYING PHASE */
-  .playing-phase {
-    flex: 1;
-    min-height: 0;
-    max-width: 500px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    overflow-y: auto;
-  }
-
-  .rule-display {
-    text-align: center;
-  }
-
-  .rule-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 12px;
-  }
-
-  .secret-icon {
-    font-size: 1.2rem;
-  }
-
-  .rule-box {
-    position: relative;
-    padding: 24px;
-    background: rgba(6, 182, 212, 0.1);
-    border: 2px solid ${CYAN_PRIMARY};
-    border-radius: 16px;
-    box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-    transition: all 0.3s ease;
-    overflow: hidden;
-  }
-
-  .rule-box.blurred .rule-main-text {
-    filter: blur(12px);
-    opacity: 0.5;
-    transition: all 0.3s ease;
-  }
-
-  .rule-box.revealed .rule-main-text {
-    filter: blur(0);
-    opacity: 1;
-    transition: all 0.2s ease;
-  }
-
-  .rule-box.revealed {
-    border-color: ${CYAN_LIGHT};
-    box-shadow: 0 0 40px rgba(6, 182, 212, 0.4);
-  }
-
-  .blur-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(6, 182, 212, 0.05);
-    opacity: 1;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .rule-box.revealed .blur-overlay {
-    opacity: 0;
-  }
-
-  .reveal-hint {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: ${CYAN_LIGHT};
-    padding: 10px 18px;
-    background: rgba(10, 10, 15, 0.9);
-    border: 1px solid rgba(6, 182, 212, 0.4);
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    animation: hint-pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes hint-pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.02); opacity: 0.85; }
-  }
-
-  .rule-main-text {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #ffffff;
-    line-height: 1.4;
-    margin: 0;
-    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-  }
-
-  .tips-card {
-    padding: 16px;
-    background: rgba(20, 20, 30, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-  }
-
-  .tips-card h3 {
-    font-size: 0.9rem;
-    color: #ffffff;
-    margin: 0 0 10px 0;
-  }
-
-  .tips-card ul {
-    margin: 0;
-    padding-left: 20px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .tips-card li {
-    margin-bottom: 6px;
-  }
-
-  .waiting-investigators {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 16px;
-    background: rgba(6, 182, 212, 0.1);
-    border-radius: 10px;
-    color: ${CYAN_LIGHT};
-    font-size: 0.9rem;
-  }
-
-  .pulse-dot {
-    width: 10px;
-    height: 10px;
-    background: ${CYAN_PRIMARY};
-    border-radius: 50%;
-    animation: pulse-scale 1.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse-scale {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.3); opacity: 0.7; }
-  }
-
-  /* GUESSING PHASE */
-  .guessing-phase {
-    flex: 1;
-    min-height: 0;
-    max-width: 500px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
-
-  .guess-card {
-    width: 100%;
-    padding: 24px 20px;
-    background: var(--bg-card, rgba(20, 20, 30, 0.8));
-    border: 1px solid rgba(6, 182, 212, 0.2);
-    border-radius: 16px;
-    backdrop-filter: blur(12px);
-    text-align: center;
-  }
-
-  .guess-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: rgba(6, 182, 212, 0.15);
-    border: 1px solid rgba(6, 182, 212, 0.3);
-    border-radius: 20px;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: ${CYAN_LIGHT};
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 16px;
-  }
-
-  .guess-title {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 6px 0;
-  }
-
-  .guess-subtitle {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0 0 20px 0;
-  }
-
-  .rule-box-reminder {
-    padding: 16px;
-    background: rgba(6, 182, 212, 0.08);
-    border: 1px solid rgba(6, 182, 212, 0.2);
-    border-radius: 12px;
-    margin-bottom: 20px;
-  }
-
-  .rule-box-reminder .reminder-label {
-    display: block;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 8px;
-  }
-
-  .reminder-rule {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: ${CYAN_LIGHT};
-    margin: 0;
-    line-height: 1.4;
-  }
-
-  .vote-prompt {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
-    margin: 0 0 14px 0;
-  }
-
-  .vote-actions {
-    display: flex;
-    gap: 12px;
-  }
-
-  .vote-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 16px 20px;
-    border: none;
-    border-radius: 12px;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .vote-btn.success {
-    background: linear-gradient(135deg, #34d399, #10b981);
-    color: #0a0a0f;
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-  }
-
-  .vote-btn.success:hover {
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-  }
-
-  .vote-btn.danger {
-    background: linear-gradient(135deg, #f87171, #ef4444);
-    color: #ffffff;
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-  }
-
-  .vote-btn.danger:hover {
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-  }
-
-  .vote-submitted {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 20px;
-    background: rgba(34, 197, 94, 0.1);
-    border: 1px solid rgba(34, 197, 94, 0.25);
-    border-radius: 12px;
-  }
-
-  .submitted-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(34, 197, 94, 0.2);
-    border-radius: 50%;
-    color: #34d399;
-  }
-
-  .vote-submitted > span {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #34d399;
-  }
-
-  .submitted-hint {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0;
-  }
-
-  /* REVEAL PHASE */
-  .reveal-phase {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-    max-width: 500px;
-    margin: 0 auto;
-    width: 100%;
-    text-align: center;
-    padding: 20px 0;
-  }
-
-  .reveal-result {
-    width: 100%;
-    padding: 32px 24px;
-    border-radius: 20px;
-  }
-
-  .reveal-result.found {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.08));
-    border: 2px solid rgba(239, 68, 68, 0.4);
-    box-shadow: 0 0 40px rgba(239, 68, 68, 0.2);
-  }
-
-  .reveal-result.not-found {
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.08));
-    border: 2px solid rgba(34, 197, 94, 0.4);
-    box-shadow: 0 0 40px rgba(34, 197, 94, 0.2);
-  }
-
-  .reveal-icon {
-    font-size: 4rem;
-    display: block;
-    margin-bottom: 16px;
-    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
-  }
-
-  .reveal-result h2 {
-    font-family: var(--font-title, 'Bungee'), cursive;
-    font-size: 1.4rem;
-    color: #ffffff;
-    margin: 0 0 8px 0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  }
-
-  .reveal-subtitle {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0;
-  }
-
-  .reveal-rule {
-    width: 100%;
-    padding: 24px;
-    background: rgba(6, 182, 212, 0.1);
-    border: 2px solid rgba(6, 182, 212, 0.3);
-    border-radius: 16px;
-    box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
-  }
-
-  .reveal-label {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .reveal-text {
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: ${CYAN_LIGHT};
-    margin: 12px 0 0 0;
-    line-height: 1.4;
-    text-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
-  }
-
-  .reveal-actions {
-    width: 100%;
-  }
-
-  .next-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 18px 24px;
-    border: none;
-    border-radius: 14px;
-    background: linear-gradient(135deg, ${CYAN_LIGHT}, ${CYAN_PRIMARY});
-    color: #0a0a0f;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow:
-      0 4px 20px rgba(6, 182, 212, 0.4),
-      0 0 40px rgba(6, 182, 212, 0.2);
-    transition: all 0.2s ease;
-  }
-
-  .next-btn:hover {
-    box-shadow:
-      0 6px 25px rgba(6, 182, 212, 0.5),
-      0 0 50px rgba(6, 182, 212, 0.3);
-  }
-
-  .waiting-host {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 16px;
-    color: rgba(255, 255, 255, 0.6);
-  }
-`;

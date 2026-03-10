@@ -6,7 +6,7 @@ import {
   auth, db, ref, onValue, update, set,
   signInAnonymously, onAuthStateChanged,
 } from "@/lib/firebase";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import LobbyStartButton from '@/components/game/LobbyStartButton';
 import { GameLaunchCountdown } from "@/components/transitions";
 import LobbyHeader from "@/components/game/LobbyHeader";
@@ -25,9 +25,9 @@ import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
-import { Users, Clock, Shuffle, House, Globe, MagnifyingGlass, ArrowRight, HandPointing } from '@phosphor-icons/react';
+import { Users, Clock, Shuffle, House, Globe, MagnifyingGlass, ArrowRight, Info, CaretDown } from '@phosphor-icons/react';
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
-import { TROUVE_COLORS, getRandomRulesForVoting } from "@/data/laregle-rules";
+import { getRandomRulesForVoting } from "@/data/laregle-rules";
 
 const ACCENT = '#00e5ff';
 const ACCENT_DARK = '#00b8d9';
@@ -50,6 +50,8 @@ export default function LaLoiLobby() {
   const [isPlayerMissing, setIsPlayerMissing] = useState(false);
   const [rejoinError, setRejoinError] = useState(null);
   const shareModalRef = useRef(null);
+  const listRef = useRef(null);
+  const [canScrollDown, setCanScrollDown] = useState(false);
 
   const [mode, setMode] = useState('meme_piece');
   const [timerMinutes, setTimerMinutes] = useState(5);
@@ -65,6 +67,14 @@ export default function LaLoiLobby() {
 
   useWakeLock({ enabled: true });
   useATTPromptInLobby(isHost);
+
+  const checkScroll = () => {
+    const el = listRef.current;
+    if (!el) return;
+    setCanScrollDown(el.scrollHeight - el.scrollTop - el.clientHeight > 8);
+  };
+
+  useEffect(() => { checkScroll(); }, [players.length]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && code) setJoinUrl(`${window.location.origin}/join?code=${code}`);
@@ -105,7 +115,6 @@ export default function LaLoiLobby() {
       if (m && !m.closed) {
         setMeta(m);
         roomWasValidRef.current = true;
-        // Joueurs uniquement : ne pas �craser l'�tat local de l'h�te (�vite double re-render)
         if (!isHostRef.current) {
           if (m.mode) setMode(m.mode);
           if (m.timerMinutes) setTimerMinutes(m.timerMinutes);
@@ -138,6 +147,8 @@ export default function LaLoiLobby() {
     }
   }, [players.length, nbInvestigators]);
 
+  const maxInvestigators = Math.max(1, players.length - 1);
+
   const toggleInvestigator = (uid) => {
     setSelectedInvestigators(prev => {
       if (prev.includes(uid)) return prev.filter(id => id !== uid);
@@ -149,6 +160,12 @@ export default function LaLoiLobby() {
   const handleRandomInvestigators = () => {
     const shuffled = [...players].sort(() => Math.random() - 0.5);
     setSelectedInvestigators(shuffled.slice(0, nbInvestigators).map(p => p.uid));
+  };
+
+  const handleSetCount = (delta) => {
+    const next = Math.max(1, Math.min(maxInvestigators, nbInvestigators + delta));
+    setNbInvestigators(next);
+    setSelectedInvestigators(prev => prev.slice(0, next));
   };
 
   const handleStartGame = async () => {
@@ -195,22 +212,63 @@ export default function LaLoiLobby() {
     if (isHost && code) update(ref(db, `rooms_laregle/${code}/meta`), { timerMinutes: newTimer });
   };
 
-  const canStart = isHost && players.length >= 2 && selectedInvestigators.length > 0;
+  const canStart = isHost && players.length >= 2 && selectedInvestigators.length >= nbInvestigators;
+  const stillNeedInvestigators = selectedInvestigators.length < nbInvestigators;
+
+  const startIcon = canStart
+    ? <ArrowRight size={20} weight="bold" />
+    : stillNeedInvestigators
+      ? <MagnifyingGlass size={18} weight="bold" />
+      : <Users size={20} weight="bold" />;
+  const startLabel = canStart
+    ? 'Commencer'
+    : stillNeedInvestigators
+      ? `Choisis ${nbInvestigators - selectedInvestigators.length} enquêteur${nbInvestigators - selectedInvestigators.length > 1 ? 's' : ''}`
+      : '2 joueurs minimum';
 
   if (!meta) {
     return (
-      <div className="laregle-lobby game-page">
-        <div className="lobby-loading">
-          <div className="loading-ring" />
-          <p>Chargement...</p>
-        </div>
-        <style jsx>{pageStyles}</style>
+      <div style={{
+        flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column',
+        background: '#04060f', alignItems: 'center', justifyContent: 'center', gap: '14px',
+      }}>
+        <div style={{
+          width: 30, height: 30,
+          border: '2px solid #1e1e30', borderTopColor: ACCENT,
+          borderRadius: '50%', animation: 'spin 0.9s linear infinite',
+        }} />
+        <p style={{ color: '#5a5a72', fontSize: '0.85rem' }}>Chargement...</p>
+        <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
   }
 
   return (
-    <div className="laregle-lobby game-page">
+    <div style={{
+      flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column',
+      background: '#04060f', position: 'relative', overflow: 'hidden',
+      fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+    }}>
+
+      {/* ── Background layers ── */}
+      <div aria-hidden style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: 'radial-gradient(circle, rgba(0,229,255,0.055) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }} />
+        <div style={{
+          position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
+          width: '90%', height: '280px',
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(0,229,255,0.09) 0%, transparent 70%)',
+        }} />
+        <div style={{
+          position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)',
+          width: '60%', height: '120px',
+          background: 'radial-gradient(ellipse at 50% 100%, rgba(0,229,255,0.05) 0%, transparent 70%)',
+        }} />
+      </div>
+
       <AnimatePresence>
         {showCountdown && (
           <GameLaunchCountdown
@@ -234,110 +292,361 @@ export default function LaLoiLobby() {
         error={rejoinError} gameColor={ACCENT}
       />
 
-      <LobbyHeader
-        ref={shareModalRef} variant="laregle" code={code} isHost={isHost}
-        players={players} hostUid={meta?.hostUid}
-        onHostExit={handleHostExit} onPlayerExit={handlePlayerExit} joinUrl={joinUrl}
-      />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <LobbyHeader
+          ref={shareModalRef} variant="laregle" code={code} isHost={isHost}
+          players={players} hostUid={meta?.hostUid}
+          onHostExit={handleHostExit} onPlayerExit={handlePlayerExit} joinUrl={joinUrl}
+        />
+      </div>
 
-      <main className="lobby-main">
-        <div className="lobby-content">
+      {/* ── Main content ── */}
+      <main style={{
+        flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden',
+        padding: '16px 16px 8px',
+        position: 'relative', zIndex: 1,
+        display: 'flex', flexDirection: 'column', gap: '16px',
+      }}>
 
-          {/* Settings */}
-          <motion.div
-            className="settings-panel"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="setting-row">
-              <span className="setting-label">Mode</span>
-              <div className="setting-options">
-                {isHost ? (
-                  <>
-                    <button className={`opt-btn${mode === 'meme_piece' ? ' active' : ''}`} onClick={() => handleModeChange('meme_piece')}>
-                      <House size={14} weight="bold" />Même pièce
-                    </button>
-                    <button className={`opt-btn${mode === 'a_distance' ? ' active' : ''}`} onClick={() => handleModeChange('a_distance')}>
-                      <Globe size={14} weight="bold" />À distance
-                    </button>
-                  </>
-                ) : (
-                  <span className="setting-value">
-                    {mode === 'meme_piece' ? <><House size={13} weight="bold" />Même pièce</> : <><Globe size={13} weight="bold" />À distance</>}
-                  </span>
-                )}
-              </div>
-            </div>
+        {/* ── Settings panel (host) ── */}
+        <AnimatePresence>
+          {isHost && (
+            <LayoutGroup>
+              <motion.div
+                key="settings"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  background: 'rgba(8,14,32,0.92)',
+                  border: '1px solid rgba(0,229,255,0.12)',
+                  borderRadius: '16px',
+                  padding: '14px 16px',
+                  boxShadow: '0 2px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+                  flexShrink: 0,
+                }}
+              >
+                {/* Mode selector — segmented control with sliding pill */}
+                <div style={{
+                  position: 'relative', display: 'flex',
+                  borderRadius: '12px',
+                  background: 'rgba(0,0,0,0.3)',
+                  border: '1px solid rgba(238,242,255,0.07)',
+                  padding: '4px', gap: '4px',
+                  marginBottom: '14px',
+                }}>
+                  {[
+                    { val: 'meme_piece', label: 'Présentiel', icon: <House size={14} weight="bold" /> },
+                    { val: 'a_distance', label: 'À distance', icon: <Globe size={14} weight="bold" /> },
+                  ].map(({ val, label, icon }) => {
+                    const active = mode === val;
+                    return (
+                      <motion.button
+                        key={val}
+                        onClick={() => handleModeChange(val)}
+                        whileTap={{ scale: 0.97 }}
+                        style={{
+                          flex: 1, position: 'relative', zIndex: 1,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          gap: '7px', padding: '10px 12px', borderRadius: '9px',
+                          border: 'none', background: 'transparent',
+                          color: active ? ACCENT : 'rgba(238,242,255,0.4)',
+                          fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer',
+                          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                          textShadow: active ? `0 0 12px ${ACCENT}80` : 'none',
+                          transition: 'color 0.2s ease, text-shadow 0.2s ease',
+                        }}
+                      >
+                        {active && (
+                          <motion.div
+                            layoutId="mode-pill"
+                            style={{
+                              position: 'absolute', inset: 0, borderRadius: '9px',
+                              background: 'rgba(0,229,255,0.1)',
+                              border: '1px solid rgba(0,229,255,0.3)',
+                              zIndex: -1,
+                            }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                          />
+                        )}
+                        {icon}
+                        {label}
+                      </motion.button>
+                    );
+                  })}
+                </div>
 
-            <div className="setting-divider" />
+                <div style={{ height: '1px', background: 'rgba(238,242,255,0.05)', marginBottom: '14px' }} />
 
-            <div className="setting-row">
-              <span className="setting-label"><Clock size={13} weight="bold" />Timer</span>
-              <div className="setting-options">
-                {isHost ? (
-                  [3, 5, 7, 10].map(mins => (
-                    <button key={mins} className={`opt-btn opt-btn-sm${timerMinutes === mins ? ' active' : ''}`} onClick={() => handleTimerChange(mins)}>
-                      {mins}m
-                    </button>
-                  ))
-                ) : (
-                  <span className="setting-value">{timerMinutes} min</span>
-                )}
-              </div>
-            </div>
-
-            {isHost && (
-              <>
-                <div className="setting-divider" />
-                <div className="setting-row">
-                  <span className="setting-label"><MagnifyingGlass size={13} weight="bold" />Enquêteurs</span>
-                  <div className="setting-options">
-                    <div className="stepper">
-                      <button className="stepper-btn" onClick={() => { const v = Math.max(1, nbInvestigators - 1); setNbInvestigators(v); setSelectedInvestigators(prev => prev.slice(0, v)); }} disabled={nbInvestigators <= 1}>−</button>
-                      <span className="stepper-value">{nbInvestigators}</span>
-                      <button className="stepper-btn" onClick={() => setNbInvestigators(prev => prev + 1)} disabled={players.length <= 1 || nbInvestigators >= players.length - 1}>+</button>
-                    </div>
+                {/* Timer row — Bungee cards */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  marginBottom: '14px',
+                }}>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '6px',
+                    fontSize: '0.8rem', fontWeight: 700, color: '#eef2ff',
+                  }}>
+                    <Clock size={13} weight="bold" color={ACCENT} />
+                    Timer
+                  </div>
+                  <div style={{ display: 'flex', gap: '5px' }}>
+                    {[3, 5, 7, 10].map(mins => {
+                      const active = timerMinutes === mins;
+                      return (
+                        <motion.button
+                          key={mins}
+                          onClick={() => handleTimerChange(mins)}
+                          whileHover={{ y: -2 }}
+                          whileTap={{ scale: 0.92 }}
+                          style={{
+                            position: 'relative', width: '44px',
+                            display: 'flex', flexDirection: 'column',
+                            alignItems: 'center', justifyContent: 'center',
+                            gap: '1px', padding: '7px 0 8px',
+                            borderRadius: '10px',
+                            border: active ? `1px solid ${ACCENT}55` : '1px solid rgba(238,242,255,0.08)',
+                            background: active ? 'rgba(0,229,255,0.1)' : 'rgba(238,242,255,0.03)',
+                            cursor: 'pointer', overflow: 'hidden',
+                            transition: 'border-color 0.15s ease, background 0.15s ease',
+                          }}
+                        >
+                          <span style={{
+                            fontFamily: "var(--font-title, 'Bungee'), cursive", fontSize: '1rem', lineHeight: 1,
+                            color: active ? ACCENT : 'rgba(238,242,255,0.5)',
+                            textShadow: active ? `0 0 10px ${ACCENT}88` : 'none',
+                            transition: 'color 0.15s ease, text-shadow 0.15s ease',
+                          }}>{mins}</span>
+                          <span style={{
+                            fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.05em',
+                            color: active ? `${ACCENT}bb` : 'rgba(238,242,255,0.3)',
+                            textTransform: 'uppercase',
+                            transition: 'color 0.15s ease',
+                          }}>min</span>
+                          {active && (
+                            <motion.div
+                              layoutId="timer-bar"
+                              style={{
+                                position: 'absolute', bottom: 0, left: 0, right: 0,
+                                height: '2px',
+                                background: `linear-gradient(90deg, transparent, ${ACCENT}99, transparent)`,
+                                boxShadow: `0 0 4px ${ACCENT}55`,
+                              }}
+                              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                            />
+                          )}
+                        </motion.button>
+                      );
+                    })}
                   </div>
                 </div>
-              </>
-            )}
-          </motion.div>
 
-          {/* Players */}
-          <div className="lrl-players-wrapper">
-            <div className="players-header">
-              <div className="players-title-row">
-                <Users size={15} weight="bold" />
-                <span className="players-title">Joueurs</span>
-                <span className="players-count">{players.length}</span>
-              </div>
-              {isHost && (
-                <button className="random-btn" onClick={handleRandomInvestigators} disabled={players.length < 2}>
-                  <Shuffle size={13} weight="bold" />Aléatoire
-                </button>
-              )}
+                <div style={{ height: '1px', background: 'rgba(238,242,255,0.05)', marginBottom: '14px' }} />
+
+                {/* Investigators stepper */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                }}>
+                  <div>
+                    <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#eef2ff', marginBottom: '2px' }}>
+                      Enquêteurs
+                    </div>
+                    <div style={{ fontSize: '0.7rem', color: 'rgba(238,242,255,0.35)' }}>
+                      Rôle assigné par l'hôte
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <button
+                      onClick={() => handleSetCount(-1)}
+                      disabled={nbInvestigators <= 1}
+                      style={{
+                        width: 30, height: 30, borderRadius: '50%',
+                        border: '1px solid rgba(238,242,255,0.1)',
+                        background: 'rgba(238,242,255,0.06)',
+                        color: nbInvestigators <= 1 ? 'rgba(238,242,255,0.2)' : '#eef2ff',
+                        fontSize: '1.1rem', fontWeight: 300,
+                        cursor: nbInvestigators <= 1 ? 'not-allowed' : 'pointer',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'all 0.15s ease', lineHeight: 1, paddingBottom: '1px',
+                      }}
+                    >−</button>
+                    <span style={{
+                      fontFamily: "var(--font-title, 'Bungee'), cursive",
+                      fontSize: '1.4rem', color: ACCENT,
+                      minWidth: '24px', textAlign: 'center',
+                      textShadow: `0 0 16px ${ACCENT}66`,
+                    }}>{nbInvestigators}</span>
+                    <button
+                      onClick={() => handleSetCount(1)}
+                      disabled={nbInvestigators >= maxInvestigators}
+                      style={{
+                        width: 30, height: 30, borderRadius: '50%',
+                        border: '1px solid rgba(238,242,255,0.1)',
+                        background: 'rgba(238,242,255,0.06)',
+                        color: nbInvestigators >= maxInvestigators ? 'rgba(238,242,255,0.2)' : '#eef2ff',
+                        fontSize: '1.1rem', fontWeight: 300,
+                        cursor: nbInvestigators >= maxInvestigators ? 'not-allowed' : 'pointer',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'all 0.15s ease', lineHeight: 1, paddingBottom: '1px',
+                      }}
+                    >+</button>
+                  </div>
+                </div>
+              </motion.div>
+            </LayoutGroup>
+          )}
+        </AnimatePresence>
+
+        {/* Settings display (player view) */}
+        {!isHost && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={{
+              background: 'rgba(8,14,32,0.92)',
+              border: '1px solid rgba(0,229,255,0.12)',
+              borderRadius: '16px',
+              padding: '14px 16px',
+              boxShadow: '0 2px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+              flexShrink: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '0.85rem', fontWeight: 700, color: '#ffffff' }}>
+              {mode === 'meme_piece' ? <House size={14} weight="bold" /> : <Globe size={14} weight="bold" />}
+              {mode === 'meme_piece' ? 'Même pièce' : 'À distance'}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 700, color: 'rgba(238,242,255,0.6)' }}>
+              <Clock size={13} weight="bold" />
+              {timerMinutes} min
+            </div>
+          </motion.div>
+        )}
+
+        {/* ── Players section ── */}
+        <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+
+          {/* Section header */}
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            marginBottom: '12px', flexShrink: 0,
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{
+                fontSize: '0.65rem', fontWeight: 700,
+                letterSpacing: '0.13em',
+                color: 'rgba(238,242,255,0.35)',
+                textTransform: 'uppercase',
+              }}>Joueurs</span>
+              <div style={{
+                padding: '2px 9px',
+                background: 'rgba(0,229,255,0.1)',
+                border: '1px solid rgba(0,229,255,0.25)',
+                borderRadius: '6px',
+                fontFamily: "var(--font-title, 'Bungee'), cursive",
+                fontSize: '0.7rem',
+                color: ACCENT,
+                letterSpacing: '0.04em',
+              }}>{players.length}</div>
             </div>
 
             {isHost && (
-              <div className="hint-callout">
-                <HandPointing size={18} weight="fill" />
-                <span>Appuie sur un joueur pour le désigner enquêteur</span>
-              </div>
+              <motion.button
+                onClick={handleRandomInvestigators}
+                disabled={players.length < 2}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '5px',
+                  padding: '5px 10px', borderRadius: '8px',
+                  border: '1px solid rgba(238,242,255,0.1)',
+                  background: 'rgba(238,242,255,0.04)',
+                  color: 'rgba(238,242,255,0.5)',
+                  fontSize: '0.72rem', fontWeight: 700, cursor: 'pointer',
+                  fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                  letterSpacing: '0.04em',
+                  opacity: players.length < 2 ? 0.3 : 1,
+                }}
+              >
+                <Shuffle size={12} weight="bold" />
+                Aléatoire
+              </motion.button>
             )}
           </div>
 
-          <div className="lrl-players">
-            <div className="players-list">
+          {/* Hint callout */}
+          <AnimatePresence initial={false}>
+            {isHost && !canStart && (
+              <motion.div
+                key="hint"
+                initial={{ opacity: 0, maxHeight: 0, marginBottom: 0 }}
+                animate={{ opacity: 1, maxHeight: '80px', marginBottom: '12px' }}
+                exit={{ opacity: 0, maxHeight: 0, marginBottom: 0 }}
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                style={{ overflow: 'hidden', flexShrink: 0 }}
+              >
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  padding: '9px 12px',
+                  background: 'rgba(0,229,255,0.05)',
+                  borderLeft: '2px solid rgba(0,229,255,0.45)',
+                  borderRadius: '10px',
+                }}>
+                  <Info size={14} color={`${ACCENT}bb`} weight="bold" style={{ flexShrink: 0 }} />
+                  <span style={{
+                    fontSize: '0.78rem', color: `${ACCENT}cc`, fontWeight: 600, lineHeight: 1.3,
+                  }}>
+                    {stillNeedInvestigators
+                      ? `Sélectionne ${nbInvestigators - selectedInvestigators.length} enquêteur${nbInvestigators - selectedInvestigators.length > 1 ? 's' : ''} dans la liste`
+                      : 'Il faut au moins 2 joueurs pour démarrer'}
+                  </span>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Player view hint */}
+          {!isHost && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '8px',
+                padding: '9px 12px',
+                background: 'rgba(238,242,255,0.04)',
+                border: '1px solid rgba(238,242,255,0.07)',
+                borderRadius: '10px',
+                marginBottom: '12px', flexShrink: 0,
+              }}
+            >
+              <span style={{ fontSize: '0.9rem' }}>⏳</span>
+              <span style={{ fontSize: '0.78rem', color: 'rgba(238,242,255,0.45)', fontWeight: 600 }}>
+                En attente que l'hôte démarre la partie…
+              </span>
+            </motion.div>
+          )}
+
+          {/* Players list */}
+          <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
+            <div
+              ref={listRef}
+              onScroll={checkScroll}
+              style={{
+                height: '100%', overflowY: 'auto', overflowX: 'visible',
+                WebkitOverflowScrolling: 'touch',
+                display: 'flex', flexDirection: 'column', gap: '0px',
+              }}
+            >
               {[...players].sort((a, b) => a.uid === myUid ? -1 : b.uid === myUid ? 1 : 0).map((player, index) => (
                 <motion.div
                   key={player.uid}
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05, duration: 0.25 }}
-                  whileHover={isHost ? { y: -2, scale: 1.01 } : {}}
-                  whileTap={isHost ? { scale: 0.98 } : {}}
-                  style={{ cursor: isHost ? 'pointer' : 'default', overflow: 'visible' }}
+                  transition={{ delay: index * 0.05, duration: 0.2 }}
+                  whileHover={isHost ? { y: -1, scale: 1.005 } : {}}
+                  whileTap={isHost ? { scale: 0.99 } : {}}
+                  style={{ overflow: 'visible', cursor: isHost ? 'pointer' : 'default' }}
                 >
                   <PlayerBanner
                     player={player}
@@ -351,400 +660,73 @@ export default function LaLoiLobby() {
                 </motion.div>
               ))}
             </div>
-          </div>
 
+            {/* Scroll fade + chevron */}
+            <AnimatePresence>
+              {canScrollDown && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  style={{
+                    position: 'absolute', bottom: 0, left: 0, right: 0,
+                    height: '56px',
+                    background: 'linear-gradient(to bottom, transparent, rgba(4,6,15,0.96))',
+                    pointerEvents: 'none',
+                    display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+                    paddingBottom: '4px', zIndex: 2,
+                  }}
+                >
+                  <motion.div
+                    animate={{ y: [0, 3, 0] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+                    style={{ color: `${ACCENT}66` }}
+                  >
+                    <CaretDown size={14} weight="bold" />
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </main>
 
-      {isHost && (
-        <footer className="lobby-footer">
+      {/* ── Footer ── */}
+      <div style={{
+        position: 'relative', zIndex: 2,
+        padding: '12px 16px 16px',
+        borderTop: '1px solid rgba(238,242,255,0.05)',
+        flexShrink: 0,
+        display: 'flex', flexDirection: 'column', gap: '10px',
+        background: 'rgba(4,6,15,0.8)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+      }}>
+        {isHost && (
           <LobbyStartButton
             gameColor={ACCENT}
-            icon={canStart ? <ArrowRight size={20} weight="bold" /> : players.length < 2 ? <Users size={20} weight="bold" /> : <MagnifyingGlass size={18} weight="bold" />}
-            label={canStart ? 'Commencer' : players.length < 2 ? '2 joueurs minimum' : 'Choisis un enquêteur'}
+            icon={startIcon}
+            label={startLabel}
             disabled={!canStart}
             onClick={handleStartGame}
           />
-        </footer>
-      )}
+        )}
 
-      <style jsx>{pageStyles}</style>
+        {!isHost && (
+          <div style={{
+            padding: '14px',
+            background: 'rgba(238,242,255,0.03)',
+            border: '1px solid rgba(238,242,255,0.07)',
+            borderRadius: '14px',
+            textAlign: 'center',
+          }}>
+            <div style={{ fontSize: '0.75rem', color: 'rgba(238,242,255,0.35)', fontWeight: 600 }}>
+              Partage le code pour inviter des amis
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
-
-const pageStyles = `
-  .laregle-lobby {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    background: #0d0d14;
-    position: relative;
-  }
-
-  .laregle-lobby::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    background:
-      radial-gradient(ellipse at 15% 85%, rgba(0, 229, 255, 0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 15%, rgba(0, 184, 217, 0.08) 0%, transparent 50%),
-      #0d0d14;
-    pointer-events: none;
-  }
-
-  .laregle-lobby > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  .lobby-loading {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    color: #5a5a72;
-    font-size: 0.85rem;
-  }
-
-  .loading-ring {
-    width: 30px;
-    height: 30px;
-    border: 2px solid #1e1e30;
-    border-top-color: #00e5ff;
-    border-radius: 50%;
-    animation: spin 0.9s linear infinite;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-
-  .lobby-main {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 14px 16px;
-  }
-
-  .lobby-content {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 480px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  /* ── Settings panel ── */
-  .settings-panel {
-    flex-shrink: 0;
-    position: relative;
-    background: rgba(20, 20, 30, 0.85);
-    border: 1.5px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    overflow: hidden;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
-    padding: 4px 0;
-  }
-
-  .setting-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 10px 16px;
-    min-height: 48px;
-  }
-
-  .setting-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    flex-shrink: 0;
-  }
-
-  .setting-value {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #ffffff;
-  }
-
-  .setting-divider {
-    height: 1px;
-    background: rgba(255,255,255,0.05);
-    margin: 0 16px;
-  }
-
-  .setting-options {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .opt-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    border: 1.5px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    background: rgba(255,255,255,0.05);
-    color: rgba(255,255,255,0.5);
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-    touch-action: manipulation;
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    transition: all 0.18s ease;
-    white-space: nowrap;
-  }
-
-  .opt-btn:hover:not(.active) {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.25);
-    transform: translateY(-1px);
-  }
-
-  .opt-btn:active { transform: scale(0.94); }
-
-  .opt-btn.active {
-    background: linear-gradient(135deg, rgba(0,229,255,0.3), rgba(0,229,255,0.15));
-    border-color: #00e5ff;
-    color: #00e5ff;
-    box-shadow: 0 0 14px rgba(0,229,255,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
-    text-shadow: 0 0 8px rgba(0,229,255,0.4);
-  }
-
-  .opt-btn-sm {
-    padding: 7px 11px;
-    min-width: 40px;
-    justify-content: center;
-  }
-
-  /* Stepper */
-  .stepper {
-    display: flex;
-    align-items: center;
-    background: rgba(255,255,255,0.03);
-    border: 1.5px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    gap: 0;
-    outline: none;
-  }
-
-  .stepper-btn {
-    width: 36px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    background: transparent;
-    color: rgba(255,255,255,0.5);
-    font-size: 1.2rem;
-    font-weight: 700;
-    cursor: pointer;
-    touch-action: manipulation;
-    transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
-  }
-
-  .stepper-btn:hover:not(:disabled) {
-    background: rgba(0,229,255,0.1);
-    color: #00e5ff;
-  }
-
-  .stepper-btn:active:not(:disabled) { transform: scale(0.88); }
-
-  .stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-  .stepper-value {
-    min-width: 34px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,229,255,0.08);
-    border: none !important;
-    font-size: 1rem;
-    font-weight: 800;
-    color: #00e5ff;
-    text-shadow: 0 0 8px rgba(0,229,255,0.4);
-  }
-
-  /* ── Players section ── */
-  .lrl-players-wrapper {
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0 4px;
-  }
-
-  .lrl-players {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    overflow-x: visible;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: auto;
-    padding: 2px 2px 4px;
-  }
-
-  .players-header {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .players-title-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #ffffff;
-  }
-
-  .players-title {
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #ffffff;
-  }
-
-  /* Badge count : bloc solide coloré */
-  .players-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 24px;
-    height: 22px;
-    padding: 0 7px;
-    border-radius: 6px;
-    background: #00e5ff;
-    color: #0a0a0f;
-    font-size: 0.75rem;
-    font-weight: 800;
-  }
-
-  .hint-callout {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    background: linear-gradient(135deg, #00e5ff, #00b8d9);
-    border-radius: 12px;
-    color: #0a0a0f;
-    font-size: 0.82rem;
-    font-weight: 700;
-    border: 1.5px solid rgba(0,229,255,0.6);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 0 16px rgba(0,229,255,0.15);
-  }
-
-  .random-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 12px;
-    border: none;
-    border-radius: 10px;
-    background: #2e2e2e;
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    cursor: pointer;
-    touch-action: manipulation;
-    transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
-  }
-
-  .random-btn:hover:not(:disabled) {
-    background: #00e5ff;
-    color: #0a0a0f;
-  }
-
-  .random-btn:active:not(:disabled) { transform: scale(0.94); }
-  .random-btn:disabled { opacity: 0.25; cursor: not-allowed; }
-
-  .players-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    overflow: visible;
-  }
-
-  /* ── Footer ── */
-  .lobby-footer {
-    position: relative;
-    z-index: 10;
-    padding: 14px 16px;
-    background: #0d0d14;
-    border-top: 2px solid #333333;
-  }
-
-  /* Bouton start : flat gaming avec ombre 0-blur */
-  .start-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 16px 20px;
-    border: none;
-    border-radius: 14px;
-    cursor: pointer;
-    font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-    font-size: 1rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    white-space: nowrap;
-    color: #0a0a0f;
-    background: #00e5ff;
-    touch-action: manipulation;
-    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
-  }
-
-  .start-btn:hover:not(.disabled) { background: #33eeff; }
-
-  .start-btn:active:not(.disabled) {
-    transform: scale(0.97);
-  }
-
-  .start-btn.disabled {
-    background: #252538;
-    color: #c4c4d8;
-    cursor: not-allowed;
-  }
-
-`;
-
-
-
-
-
