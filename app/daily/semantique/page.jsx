@@ -713,6 +713,7 @@ export default function SemantiquePage() {
   const [flashEntry, setFlashEntry] = useState(null);
   const inputRef = useRef(null);
   const scrollAreaRef = useRef(null);
+  const semanticMainRef = useRef(null);
   const startTimeRef = useRef(null);
   const freshCompletionRef = useRef(false);
   const transitionTimerRef = useRef(null);
@@ -730,19 +731,16 @@ export default function SemantiquePage() {
   // Android / web : fallback visualViewport resize (Android redimensionne le WebView).
   useEffect(() => {
     const applyKb = (kb) => {
-      const el = inputZoneRef.current;
-      if (!el) return;
-      el.style.bottom = `${Math.max(0, kb)}px`;
-      el.style.transform = '';
-      // Ajuste le paddingBottom de la liste pour qu'elle ne passe pas derrière l'input zone
-      const scrollEl = scrollAreaRef.current;
-      if (scrollEl) {
-        if (kb > 0) {
-          const inputH = el.offsetHeight || 72;
-          scrollEl.style.paddingBottom = `${inputH + 8}px`;
-        } else {
-          scrollEl.style.paddingBottom = '';
-        }
+      const mainEl = semanticMainRef.current;
+      if (!mainEl) return;
+      if (kb > 0) {
+        // Réduit semantic-main à la hauteur visible (windowHeight - clavier)
+        // → l'input zone reste le bas naturel du flex, la scroll area se réduit
+        mainEl.style.height = `${window.innerHeight - kb}px`;
+        mainEl.style.flex = 'none';
+      } else {
+        mainEl.style.height = '';
+        mainEl.style.flex = '';
       }
     };
 
@@ -1139,9 +1137,9 @@ export default function SemantiquePage() {
       {/* Game tab */}
       {activeTab === 'game' && (
         <>
-        <main className="semantic-main">
+        <main className="semantic-main" ref={semanticMainRef}>
           {/* Zone scrollable : date + résultat + guesses */}
-          <div className="semantic-scroll-area" ref={scrollAreaRef} style={!showResult ? { paddingBottom: '80px' } : undefined}>
+          <div className="semantic-scroll-area" ref={scrollAreaRef}>
             <p className="semantic-game-date">
               {new Date(todayDate + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
             </p>
@@ -1204,11 +1202,8 @@ export default function SemantiquePage() {
             )}
           </div>
 
-        </main>
-
-          {/* Input zone — hors de semantic-main pour éviter que iOS scrolle la liste.
-              position:fixed → la position visuelle est identique, mais iOS ne trouve
-              plus semantic-scroll-area comme ancêtre scrollable. */}
+          {/* Input zone — dans semantic-main, dernier enfant flex.
+              applyKb réduit la hauteur de main → layout naturel sans position:fixed. */}
           {!(altMode ? altShowResult : showResult) && (
             <div ref={inputZoneRef} className="semantic-input-zone">
               <AnimatePresence>
@@ -1241,10 +1236,14 @@ export default function SemantiquePage() {
                       [150, 300, 500].forEach(delay => {
                         setTimeout(() => {
                           const kbHeight = window.innerHeight - vv.height;
-                          const el = inputZoneRef.current;
-                          if (!el || kbHeight <= 50) return;
-                          const currentBottom = parseFloat(el.style.bottom || '0');
-                          if (currentBottom < kbHeight - 10) el.style.bottom = `${kbHeight}px`;
+                          const mainEl = semanticMainRef.current;
+                          if (!mainEl || kbHeight <= 50) return;
+                          const currentH = mainEl.style.height ? parseFloat(mainEl.style.height) : 0;
+                          const expectedH = window.innerHeight - kbHeight;
+                          if (!currentH || currentH > expectedH + 10) {
+                            mainEl.style.height = `${expectedH}px`;
+                            mainEl.style.flex = 'none';
+                          }
                         }, delay);
                       });
                     }
@@ -1267,6 +1266,7 @@ export default function SemantiquePage() {
               </div>
             </div>
           )}
+        </main>
         </>
       )}
 
