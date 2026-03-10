@@ -144,13 +144,9 @@ export function AppShell({ children }) {
   }, [router, pathname]); // Re-run when pathname changes (e.g., after onboarding)
 
   useEffect(() => {
-    const setAppHeight = () => {
-      // Ignore les resize causés par le clavier iOS natif.
-      // ViewController.swift pose --keyboard-height > 0 quand le clavier est ouvert,
-      // ce qui change window.innerHeight → fire resize → recalcul --app-height → header bouge.
-      const kbh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--keyboard-height')) || 0;
-      if (kbh > 0) return;
+    const isIOSNative = Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'ios';
 
+    const setAppHeight = () => {
       // Calcule la vraie hauteur visible (sans barre d'adresse, etc.)
       const vh = window.innerHeight;
       document.documentElement.style.setProperty('--app-height', `${vh}px`);
@@ -174,7 +170,12 @@ export function AppShell({ children }) {
     setSafeAreaFallback();
 
     // Update on resize and orientation change
-    window.addEventListener('resize', setAppHeight);
+    // iOS Capacitor : pas de barre d'adresse → resize ne vient que du clavier.
+    // On ignore resize pour éviter que --app-height change à l'ouverture du clavier.
+    // Seul orientationchange met à jour (rotation d'écran).
+    if (!isIOSNative) {
+      window.addEventListener('resize', setAppHeight);
+    }
     window.addEventListener('orientationchange', () => {
       // Delay pour laisser le temps au navigateur de recalculer
       setTimeout(setAppHeight, 100);
@@ -215,7 +216,7 @@ export function AppShell({ children }) {
     }
 
     return () => {
-      window.removeEventListener('resize', setAppHeight);
+      if (!isIOSNative) window.removeEventListener('resize', setAppHeight);
       window.removeEventListener('orientationchange', setAppHeight);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('native-keyboard-show', handleNativeKbShow);
