@@ -145,6 +145,12 @@ export function AppShell({ children }) {
 
   useEffect(() => {
     const setAppHeight = () => {
+      // Ignore les resize causés par le clavier iOS natif.
+      // ViewController.swift pose --keyboard-height > 0 quand le clavier est ouvert,
+      // ce qui change window.innerHeight → fire resize → recalcul --app-height → header bouge.
+      const kbh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--keyboard-height')) || 0;
+      if (kbh > 0) return;
+
       // Calcule la vraie hauteur visible (sans barre d'adresse, etc.)
       const vh = window.innerHeight;
       document.documentElement.style.setProperty('--app-height', `${vh}px`);
