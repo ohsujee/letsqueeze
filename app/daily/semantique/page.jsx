@@ -730,15 +730,19 @@ export default function SemantiquePage() {
   //
   // Android / web : fallback visualViewport resize (Android redimensionne le WebView).
   useEffect(() => {
+    // Hauteur de base stable — capturée avant toute ouverture clavier.
+    // Sur iOS natif, window.innerHeight peut changer pendant l'animation
+    // (additionalSafeAreaInsets animé en Swift) → on utilise cette ref stable.
+    const baseHeightRef = { current: window.innerHeight };
+
     const applyKb = (kb) => {
       const mainEl = semanticMainRef.current;
       if (!mainEl) return;
       if (kb > 0) {
-        // Hauteur = espace entre le haut de main et le haut du clavier
         const topOffset = mainEl.getBoundingClientRect().top;
-        mainEl.style.height = `${window.innerHeight - kb - topOffset}px`;
+        // Utiliser baseHeight (stable) au lieu de window.innerHeight (instable pendant animation)
+        mainEl.style.height = `${baseHeightRef.current - kb - topOffset}px`;
         mainEl.style.flex = 'none';
-        // Clavier couvre la safe area → pas besoin du padding extra
         const inputEl = inputZoneRef.current;
         if (inputEl) inputEl.style.paddingBottom = '12px';
       } else {
@@ -746,16 +750,17 @@ export default function SemantiquePage() {
         mainEl.style.flex = '';
         const inputEl = inputZoneRef.current;
         if (inputEl) inputEl.style.paddingBottom = '';
+        // Mettre à jour la hauteur de base quand le clavier se ferme
+        baseHeightRef.current = window.innerHeight;
       }
     };
 
     // iOS natif — ignore les events avec height=0 (quirk iPad : double notification)
     const onNativeShow = (e) => {
       nativeKbActiveRef.current = true;
-      window.scrollTo(0, 0); // empêche iOS de scroller la WebView
+      window.scrollTo(0, 0);
       if (e.detail.height > 0) {
         applyKb(e.detail.height);
-        // Réactive le scroll de la liste une fois l'animation clavier terminée (~350ms)
         setTimeout(() => {
           const scrollEl = scrollAreaRef.current;
           if (scrollEl) scrollEl.style.overflowY = '';
@@ -766,13 +771,17 @@ export default function SemantiquePage() {
     window.addEventListener('native-keyboard-show', onNativeShow);
     window.addEventListener('native-keyboard-hide', onNativeHide);
 
-    // visualViewport : filet de sécurité pour iOS (corrige un height=0 natif manqué)
-    // et source principale sur Android/web
+    // visualViewport : source principale sur Android/web UNIQUEMENT.
+    // Sur iOS natif, on a les events native-keyboard-show/hide qui sont fiables.
+    // Le visualViewport.resize y fire 5-10 fois pendant l'animation du clavier
+    // avec des valeurs instables → on le coupe entièrement quand le natif gère.
     const vv = window.visualViewport;
     const onVvResize = vv ? () => {
+      // Skip si iOS natif gère déjà (évite les recalculs parasites)
+      if (nativeKbActiveRef.current) return;
       const kbHeight = window.innerHeight - vv.height;
       if (kbHeight > 0) applyKb(kbHeight);
-      else if (!nativeKbActiveRef.current) applyKb(0);
+      else applyKb(0);
     } : null;
     if (vv && onVvResize) vv.addEventListener('resize', onVvResize);
 
