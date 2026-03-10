@@ -118,6 +118,8 @@ export default function LaLoiLobby() {
         if (!isHostRef.current) {
           if (m.mode) setMode(m.mode);
           if (m.timerMinutes) setTimerMinutes(m.timerMinutes);
+          if (m.nbInvestigators) setNbInvestigators(m.nbInvestigators);
+          if (m.selectedInvestigators) setSelectedInvestigators(m.selectedInvestigators);
         }
       }
     });
@@ -151,21 +153,28 @@ export default function LaLoiLobby() {
 
   const toggleInvestigator = (uid) => {
     setSelectedInvestigators(prev => {
-      if (prev.includes(uid)) return prev.filter(id => id !== uid);
-      if (prev.length < nbInvestigators) return [...prev, uid];
-      return [...prev.slice(1), uid];
+      let next;
+      if (prev.includes(uid)) next = prev.filter(id => id !== uid);
+      else if (prev.length < nbInvestigators) next = [...prev, uid];
+      else next = [...prev.slice(1), uid];
+      if (isHost && code) update(ref(db, `rooms_laregle/${code}/meta`), { selectedInvestigators: next });
+      return next;
     });
   };
 
   const handleRandomInvestigators = () => {
     const shuffled = [...players].sort(() => Math.random() - 0.5);
-    setSelectedInvestigators(shuffled.slice(0, nbInvestigators).map(p => p.uid));
+    const next = shuffled.slice(0, nbInvestigators).map(p => p.uid);
+    setSelectedInvestigators(next);
+    if (isHost && code) update(ref(db, `rooms_laregle/${code}/meta`), { selectedInvestigators: next });
   };
 
   const handleSetCount = (delta) => {
     const next = Math.max(1, Math.min(maxInvestigators, nbInvestigators + delta));
     setNbInvestigators(next);
-    setSelectedInvestigators(prev => prev.slice(0, next));
+    const trimmed = selectedInvestigators.slice(0, next);
+    setSelectedInvestigators(trimmed);
+    if (isHost && code) update(ref(db, `rooms_laregle/${code}/meta`), { nbInvestigators: next, selectedInvestigators: trimmed });
   };
 
   const handleStartGame = async () => {
