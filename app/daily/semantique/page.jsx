@@ -734,13 +734,18 @@ export default function SemantiquePage() {
       const mainEl = semanticMainRef.current;
       if (!mainEl) return;
       if (kb > 0) {
-        // Réduit semantic-main à la hauteur visible (windowHeight - clavier)
-        // → l'input zone reste le bas naturel du flex, la scroll area se réduit
-        mainEl.style.height = `${window.innerHeight - kb}px`;
+        // Hauteur = espace entre le haut de main et le haut du clavier
+        const topOffset = mainEl.getBoundingClientRect().top;
+        mainEl.style.height = `${window.innerHeight - kb - topOffset}px`;
         mainEl.style.flex = 'none';
+        // Clavier couvre la safe area → pas besoin du padding extra
+        const inputEl = inputZoneRef.current;
+        if (inputEl) inputEl.style.paddingBottom = '12px';
       } else {
         mainEl.style.height = '';
         mainEl.style.flex = '';
+        const inputEl = inputZoneRef.current;
+        if (inputEl) inputEl.style.paddingBottom = '';
       }
     };
 
@@ -1238,8 +1243,9 @@ export default function SemantiquePage() {
                           const kbHeight = window.innerHeight - vv.height;
                           const mainEl = semanticMainRef.current;
                           if (!mainEl || kbHeight <= 50) return;
+                          const topOffset = mainEl.getBoundingClientRect().top;
+                          const expectedH = window.innerHeight - kbHeight - topOffset;
                           const currentH = mainEl.style.height ? parseFloat(mainEl.style.height) : 0;
-                          const expectedH = window.innerHeight - kbHeight;
                           if (!currentH || currentH > expectedH + 10) {
                             mainEl.style.height = `${expectedH}px`;
                             mainEl.style.flex = 'none';
