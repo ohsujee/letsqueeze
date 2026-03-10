@@ -182,10 +182,14 @@ export function AppShell({ children }) {
         setAppHeight();
         // Recapturer la safe area physique après rotation (peut changer)
         if (isIOSNative) {
+          // Retirer l'inline pour laisser env() se recalculer avec la nouvelle orientation
           document.documentElement.style.removeProperty('--safe-area-bottom');
           requestAnimationFrame(() => {
-            const newSafe = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-bottom').trim() || '0px';
-            document.documentElement.style.setProperty('--safe-area-bottom', newSafe);
+            const appShellEl = document.querySelector('.app-shell');
+            if (appShellEl) {
+              const newSafe = getComputedStyle(appShellEl).paddingBottom;
+              document.documentElement.style.setProperty('--safe-area-bottom', newSafe);
+            }
           });
         }
       }, 100);
@@ -205,16 +209,23 @@ export function AppShell({ children }) {
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // iOS : figer --safe-area-bottom DÉFINITIVEMENT au montage.
-    // Swift anime additionalSafeAreaInsets.bottom à chaque ouverture clavier, ce qui
-    // gonfle env(safe-area-inset-bottom) de ~34px à ~334px. Tout CSS utilisant env()
-    // directement ou via --safe-area-bottom (défini comme env() dans theme.css) est affecté.
-    // En figeant la valeur physique en inline style dès le montage, on coupe la propagation
-    // de l'animation Swift vers le CSS pour TOUTE la session.
-    // Recapturé uniquement sur orientationchange (rotation d'écran).
+    // iOS : figer --safe-area-bottom à sa VRAIE valeur pixel au montage.
+    //
+    // POURQUOI : Swift anime additionalSafeAreaInsets.bottom à chaque ouverture clavier,
+    // ce qui gonfle env(safe-area-inset-bottom) de ~34px à ~334px.
+    //
+    // PIÈGE : getPropertyValue('--safe-area-bottom') retourne le TOKEN brut
+    // "env(safe-area-inset-bottom, 0px)" — PAS la valeur résolue "34px".
+    // Donc le remettre en inline style ne fige RIEN (c'est toujours la ref dynamique env()).
+    //
+    // FIX : lire la valeur RÉSOLUE en pixels depuis le paddingBottom calculé de .app-shell
+    // (qui utilise var(--safe-area-bottom)), puis figer cette valeur pixel en inline style.
     if (isIOSNative) {
-      const physicalSafeBottom = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-bottom').trim() || '0px';
-      document.documentElement.style.setProperty('--safe-area-bottom', physicalSafeBottom);
+      const appShellEl = document.querySelector('.app-shell');
+      if (appShellEl) {
+        const resolvedSafeBottom = getComputedStyle(appShellEl).paddingBottom; // "34px"
+        document.documentElement.style.setProperty('--safe-area-bottom', resolvedSafeBottom);
+      }
     }
 
     // iOS : forcer window.scrollTo(0,0) quand le clavier apparaît.
