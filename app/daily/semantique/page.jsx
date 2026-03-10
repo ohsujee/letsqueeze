@@ -734,13 +734,30 @@ export default function SemantiquePage() {
       if (!el) return;
       el.style.bottom = `${Math.max(0, kb)}px`;
       el.style.transform = '';
+      // Ajuste le paddingBottom de la liste pour qu'elle ne passe pas derrière l'input zone
+      const scrollEl = scrollAreaRef.current;
+      if (scrollEl) {
+        if (kb > 0) {
+          const inputH = el.offsetHeight || 72;
+          scrollEl.style.paddingBottom = `${inputH + 8}px`;
+        } else {
+          scrollEl.style.paddingBottom = '';
+        }
+      }
     };
 
     // iOS natif — ignore les events avec height=0 (quirk iPad : double notification)
     const onNativeShow = (e) => {
       nativeKbActiveRef.current = true;
       window.scrollTo(0, 0); // empêche iOS de scroller la WebView
-      if (e.detail.height > 0) applyKb(e.detail.height);
+      if (e.detail.height > 0) {
+        applyKb(e.detail.height);
+        // Réactive le scroll de la liste une fois l'animation clavier terminée (~350ms)
+        setTimeout(() => {
+          const scrollEl = scrollAreaRef.current;
+          if (scrollEl) scrollEl.style.overflowY = '';
+        }, 350);
+      }
     };
     const onNativeHide = () => { nativeKbActiveRef.current = false; applyKb(0); };
     window.addEventListener('native-keyboard-show', onNativeShow);

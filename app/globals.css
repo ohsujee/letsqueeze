@@ -13890,6 +13890,7 @@ input[type="text"].game-search-input:focus,
   flex-direction: column;
   padding: 8px 16px 12px;
   gap: 10px;
+  overscroll-behavior: contain;
 }
 
 /* Zone input — fixed au-dessus du clavier */
