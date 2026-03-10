@@ -56,7 +56,7 @@ export default function LaLoiInvestigatePage() {
   const myPlayer = players.find(p => p.uid === myUid);
 
   // Room guard
-  const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
+  const { isHostTemporarilyDisconnected, hostDisconnectedAt, closeRoom } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_laregle',
     playerUid: myUid,
@@ -440,6 +440,7 @@ export default function LaLoiInvestigatePage() {
             variant="header"
             confirmMessage="Voulez-vous vraiment quitter la partie ?"
             onExit={async () => {
+              if (isHost) await closeRoom();
               await leaveRoom();
               router.push('/home');
             }}
