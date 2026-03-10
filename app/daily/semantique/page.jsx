@@ -718,6 +718,26 @@ export default function SemantiquePage() {
   const transitionTimerRef = useRef(null);
   const inputZoneRef = useRef(null);
 
+  // ─── Clavier iOS natif : positionner la zone au-dessus du clavier ─────────
+  useEffect(() => {
+    const onShow = (e) => {
+      const h = e?.detail?.height;
+      if (!h || h <= 0) return;
+      const el = inputZoneRef.current;
+      if (el) el.style.bottom = `${h}px`;
+    };
+    const onHide = () => {
+      const el = inputZoneRef.current;
+      if (el) el.style.bottom = '';
+    };
+    window.addEventListener('native-keyboard-show', onShow);
+    window.addEventListener('native-keyboard-hide', onHide);
+    return () => {
+      window.removeEventListener('native-keyboard-show', onShow);
+      window.removeEventListener('native-keyboard-hide', onHide);
+    };
+  }, []);
+
   // ─── Anti-cheat / mode alternatif ────────────────────────────────────────
   const [showScoreUpdateModal, setShowScoreUpdateModal] = useState(false);
   const [showSuspiciousModal, setShowSuspiciousModal] = useState(false);
