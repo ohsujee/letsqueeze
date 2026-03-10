@@ -13806,6 +13806,7 @@ input[type="text"].game-search-input:focus,
   flex-direction: column;
   flex: 1;
   min-height: 0;
+  overflow: hidden;
   background: var(--bg-primary, #0d0d1a);
   color: var(--text-primary, #fff);
 }
