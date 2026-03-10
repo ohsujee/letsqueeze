@@ -26,11 +26,13 @@ export function ForceUpdateModal() {
         className="rounded-3xl p-8 max-w-sm w-full text-center"
         style={{ backgroundColor: 'var(--card-bg, #1a1a2e)', border: '1px solid rgba(255,255,255,0.08)' }}
       >
-        <img
-          src="/images/mascot/giggly-worried.webp"
-          alt="Giggly"
-          className="w-28 h-28 mx-auto mb-5 object-contain"
-        />
+        <div className="flex justify-center mb-5">
+          <img
+            src="/images/mascot/giggly-worried.webp"
+            alt="Giggly"
+            className="w-28 h-28 object-contain"
+          />
+        </div>
         <h2
           className="text-2xl font-bold text-white mb-3"
           style={{ fontFamily: 'var(--font-title, Bungee)' }}
@@ -38,8 +40,8 @@ export function ForceUpdateModal() {
           Mise à jour requise
         </h2>
         <p className="text-sm text-zinc-400 mb-7 leading-relaxed">
-          Une nouvelle version de Gigglz est disponible.{' '}
-          Mets à jour l&apos;application pour continuer à jouer !
+          Une version améliorée est disponible.
+          Mets à jour pour profiter de la meilleure expérience !
         </p>
         <button
           onClick={handleUpdate}

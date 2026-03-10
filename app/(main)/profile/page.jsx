@@ -17,11 +17,13 @@ import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProfileSkeleton from '@/components/ui/ProfileSkeleton';
 import { HueLogo, DeezerLogo, GoogleIcon, AppleIcon } from '@/components/icons';
-import { version } from '../../../package.json';
+import { version as pkgVersion } from '../../../package.json';
+import { useAppVersion } from '@/lib/hooks/useAppVersion';
 import './profile.css';
 
 export default function ProfilePage() {
   const router = useRouter();
+  const appVersion = useAppVersion();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [soundEffects, setSoundEffects] = useState(true);
@@ -550,7 +552,7 @@ export default function ProfilePage() {
 
         {/* Footer */}
         <div className="profile-footer">
-          <p className="footer-text">Version {version}</p>
+          <p className="footer-text">Version {appVersion}</p>
           <div className="footer-links">
             <a href="/support" className="footer-link">Aide</a>
             <span className="footer-separator">•</span>
