@@ -259,7 +259,32 @@
       "WebFetch(domain:capacitorjs.com)",
       "Bash(npm show:*)",
       "WebFetch(domain:www.cvedetails.com)",
-      "WebFetch(domain:www.joshmorony.com)"
+      "WebFetch(domain:www.joshmorony.com)",
+      "Bash(git pull:*)",
+      "WebFetch(domain:embeddings.net)",
+      "Bash(ssh punkrecords:*)",
+      "WebFetch(domain:review.firstround.com)",
+      "WebFetch(domain:qonversion.io)",
+      "WebFetch(domain:superwall.com)",
+      "WebFetch(domain:dev.to)",
+      "WebFetch(domain:uxdesign.cc)",
+      "WebFetch(domain:uxcam.com)",
+      "WebFetch(domain:evolvingweb.com)",
+      "WebFetch(domain:www.nngroup.com)",
+      "WebFetch(domain:www.figma.com)",
+      "WebFetch(domain:www.builder.io)",
+      "WebFetch(domain:www.geeky-gadgets.com)",
+      "Bash(sed:*)",
+      "Bash(firebase:*)",
+      "Bash(cmd:*)",
+      "Bash(test:*)",
+      "Bash(gh api:*)",
+      "Bash(gh search:*)",
+      "WebFetch(domain:stackoverflow.com)",
+      "Bash(gh issue:*)",
+      "Bash(gh pr:*)",
+      "Bash(gh release:*)",
+      "Bash(npx firebase:*)"
     ]
   }
 }

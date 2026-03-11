@@ -21,7 +21,7 @@ import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useToast } from "@/lib/hooks/useToast";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
-import { Clock, Pause, Play } from "lucide-react";
+import { Clock, Pause, Play, AlertTriangle } from "lucide-react";
 import ExitButton from "@/lib/components/ExitButton";
 import PlayerBanner from "@/components/game/PlayerBanner";
 
@@ -37,6 +37,13 @@ export default function LaLoiInvestigatePage() {
   const [myUid, setMyUid] = useState(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [showEndTransition, setShowEndTransition] = useState(false);
+
+  // Elimination system
+  const [eliminations, setEliminations] = useState({});
+  const [flashUid, setFlashUid] = useState(null);
+  const [eliminationNotif, setEliminationNotif] = useState(null);
+  const notifTimerRef = useRef(null);
+  const prevEliminationsRef = useRef({});
 
   // Ref to prevent multiple auto-confirm triggers
   const autoConfirmTriggeredRef = useRef(false);
@@ -113,11 +120,36 @@ export default function LaLoiInvestigatePage() {
       }
     });
 
+    const elimUnsub = onValue(ref(db, `rooms_laregle/${code}/eliminations`), (snap) => {
+      const data = snap.val() || {};
+      setEliminations(data);
+    });
+
     return () => {
       metaUnsub();
       stateUnsub();
+      elimUnsub();
     };
   }, [code, router]);
+
+  // Detect new eliminations → flash + notification
+  const eliminatedUids = Object.keys(eliminations);
+  useEffect(() => {
+    const prevUids = Object.keys(prevEliminationsRef.current);
+    const newUids = eliminatedUids.filter(uid => !prevUids.includes(uid));
+    if (newUids.length > 0) {
+      const newUid = newUids[0];
+      setFlashUid(newUid);
+      setTimeout(() => setFlashUid(null), 500);
+      const player = players.find(p => p.uid === newUid);
+      if (player) {
+        if (notifTimerRef.current) clearTimeout(notifTimerRef.current);
+        setEliminationNotif(player);
+        notifTimerRef.current = setTimeout(() => setEliminationNotif(null), 2500);
+      }
+    }
+    prevEliminationsRef.current = eliminations;
+  }, [eliminatedUids, players, eliminations]);
 
   // Auto-confirm when all voters have voted (host only - for when host is investigator)
   useEffect(() => {
@@ -542,7 +574,7 @@ export default function LaLoiInvestigatePage() {
               }}>
                 <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>🔍</span>
                 <span style={{ fontSize: '0.82rem', color: 'rgba(238,242,255,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.4 }}>
-                  Pose des questions, observe les comportements, devine la regle.
+                  Pose des questions, observe les comportements, devine la règle.
                 </span>
               </div>
 
@@ -566,12 +598,12 @@ export default function LaLoiInvestigatePage() {
                     textTransform: 'uppercase', letterSpacing: '0.1em',
                     fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
                   }}>
-                    Prepare-toi
+                    Prépare-toi
                   </span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                     <span style={{ fontSize: '0.68rem', color: 'rgba(238,242,255,0.25)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
                       {state.revealPhase
-                        ? 'Selection en cours...'
+                        ? 'Sélection en cours...'
                         : 'Les joueurs choisissent...'}
                     </span>
                     <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: ACCENT, animation: 'invPulse 1.5s ease-in-out infinite' }} />
@@ -599,10 +631,10 @@ export default function LaLoiInvestigatePage() {
                   </div>
                   <span style={{ fontSize: '0.8rem', color: 'rgba(238,242,255,0.5)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
                     {state.revealPhase === 'winner'
-                      ? 'Regle choisie ! La partie va commencer...'
+                      ? 'Règle choisie ! La partie va commencer...'
                       : state.revealPhase
-                        ? 'Les joueurs ont vote, la regle va etre revelee !'
-                        : 'Les joueurs choisissent une regle secrete'}
+                        ? 'Les joueurs ont voté, la règle va être révélée !'
+                        : 'Les joueurs choisissent une règle secrète'}
                   </span>
                 </div>
 
@@ -610,8 +642,8 @@ export default function LaLoiInvestigatePage() {
                 <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {[
                     { icon: '💬', text: 'Pose des questions ouvertes aux joueurs' },
-                    { icon: '👁️', text: 'Observe leurs reponses et comportements' },
-                    { icon: '🎯', text: 'Tu auras 3 essais pour deviner la regle' },
+                    { icon: '👁️', text: 'Observe leurs réponses et comportements' },
+                    { icon: '🎯', text: 'Tu auras 3 essais pour deviner la règle' },
                   ].map((tip, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                       <span style={{ fontSize: '1.1rem', flexShrink: 0, lineHeight: 1 }}>{tip.icon}</span>
@@ -651,7 +683,7 @@ export default function LaLoiInvestigatePage() {
               }}>
                 <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>🔍</span>
                 <span style={{ fontSize: '0.82rem', color: 'rgba(238,242,255,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.4 }}>
-                  Pose des questions, observe les reponses, devine la regle.
+                  Pose des questions, observe les réponses, devine la règle.
                 </span>
               </div>
 
@@ -696,11 +728,77 @@ export default function LaLoiInvestigatePage() {
                   </div>
                 </div>
 
-                {/* Player rows with PlayerBanner */}
+                {/* Player rows with PlayerBanner + elimination */}
                 <div style={{ padding: '8px 10px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                  {gamePlayers.map(player => (
-                    <PlayerBanner key={player.uid} player={player} accentColor={ACCENT} accentDark="#00b8d9" />
-                  ))}
+                  {[...gamePlayers]
+                    .sort((a, b) => (eliminations[a.uid] ? 1 : 0) - (eliminations[b.uid] ? 1 : 0))
+                    .map(player => {
+                    const isEliminated = !!eliminations[player.uid];
+                    return (
+                      <motion.div
+                        key={player.uid}
+                        layout
+                        transition={{ layout: { type: 'spring', stiffness: 280, damping: 26 } }}
+                        style={{ display: 'grid' }}
+                      >
+                        {/* Layer 1 — PlayerBanner */}
+                        <div style={{ gridArea: '1/1', opacity: isEliminated ? 0.38 : 1, transition: 'opacity 0.3s ease' }}>
+                          <PlayerBanner player={player} accentColor={ACCENT} accentDark="#00b8d9" />
+                        </div>
+
+                        {/* Layer 2 — Red flash on elimination */}
+                        <AnimatePresence>
+                          {flashUid === player.uid && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: [0, 0.45, 0] }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.45, ease: 'easeOut' }}
+                              style={{
+                                gridArea: '1/1', zIndex: 3, pointerEvents: 'none',
+                                paddingTop: '10px',
+                              }}
+                            >
+                              <div style={{
+                                height: '100%',
+                                borderRadius: '14px',
+                                background: 'rgba(239,68,68,0.35)',
+                                boxShadow: '0 0 20px rgba(239,68,68,0.4)',
+                              }} />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Layer 3 — ÉLIMINÉ badge */}
+                        <AnimatePresence>
+                          {isEliminated && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.2, delay: 0.15 }}
+                              style={{
+                                gridArea: '1/1', zIndex: 1, pointerEvents: 'none',
+                                paddingTop: '10px',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              }}
+                            >
+                              <span style={{
+                                fontSize: '0.65rem', fontWeight: 700,
+                                color: '#f87171',
+                                background: 'rgba(239,68,68,0.15)',
+                                border: '1px solid rgba(239,68,68,0.3)',
+                                padding: '3px 10px', borderRadius: '6px',
+                                letterSpacing: '0.08em', textTransform: 'uppercase',
+                              }}>
+                                Éliminé
+                              </span>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </div>
             </>
@@ -719,7 +817,7 @@ export default function LaLoiInvestigatePage() {
               }}>
                 <span style={{ fontSize: '0.9rem', flexShrink: 0 }}>🔍</span>
                 <span style={{ fontSize: '0.82rem', color: 'rgba(238,242,255,0.6)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.4 }}>
-                  Pose des questions, observe les reponses, devine la regle.
+                  Pose des questions, observe les réponses, devine la règle.
                 </span>
               </div>
 
@@ -819,7 +917,7 @@ export default function LaLoiInvestigatePage() {
         </div>
       </main>
 
-      {/* Fixed bottom button: "J'ai devine la regle !" */}
+      {/* Fixed bottom button: "J'ai deviné la règle !" */}
       <AnimatePresence>
         {state.phase === 'playing' && (
           <motion.div
@@ -840,7 +938,7 @@ export default function LaLoiInvestigatePage() {
                   margin: 0, textAlign: 'center',
                   fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
                 }}>
-                  Dis ta reponse a voix haute — les joueurs voteront
+                  Dis ta réponse à voix haute — les joueurs voteront
                 </p>
               )}
               <motion.button
@@ -867,7 +965,7 @@ export default function LaLoiInvestigatePage() {
                   transition: 'all 0.2s ease',
                 }}
               >
-                {attemptsLeft <= 0 ? "Plus d'essais" : "J'ai devine la regle !"}
+                {attemptsLeft <= 0 ? "Plus d'essais" : "J'ai deviné la règle !"}
               </motion.button>
             </div>
           </motion.div>
@@ -1088,6 +1186,90 @@ export default function LaLoiInvestigatePage() {
         isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
         hostDisconnectedAt={hostDisconnectedAt}
       />
+
+      {/* Elimination notification modal */}
+      <AnimatePresence>
+        {eliminationNotif && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 9999,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '24px',
+              background: 'rgba(8, 8, 12, 0.92)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: -20 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '320px',
+                background: 'linear-gradient(180deg, rgba(45, 20, 20, 0.98) 0%, rgba(28, 12, 12, 0.98) 100%)',
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+                borderRadius: '24px',
+                padding: '32px 24px 24px',
+                textAlign: 'center',
+                overflow: 'hidden',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.6), 0 0 80px rgba(239, 68, 68, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+              }}
+            >
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                style={{
+                  width: '72px', height: '72px',
+                  margin: '0 auto 20px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  background: 'linear-gradient(135deg, rgba(239,68,68,0.2), rgba(239,68,68,0.08))',
+                  border: '2px solid rgba(239,68,68,0.5)',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 40px rgba(239,68,68,0.3), inset 0 0 20px rgba(239,68,68,0.1)',
+                }}
+              >
+                <AlertTriangle size={36} color="#f87171" />
+              </motion.div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                <span style={{ fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", fontSize: '0.85rem', fontWeight: 500, color: 'rgba(255,255,255,0.5)' }}>
+                  Joueur éliminé
+                </span>
+                <div style={{ width: '100%' }}>
+                  <PlayerBanner player={eliminationNotif} accentColor="#ef4444" accentDark="#dc2626" />
+                </div>
+                <span style={{ fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', marginTop: '4px' }}>
+                  N'a pas suivi la règle
+                </span>
+              </div>
+              <motion.div
+                initial={{ scaleX: 1 }}
+                animate={{ scaleX: 0 }}
+                transition={{ duration: 2.5, ease: 'linear' }}
+                style={{
+                  position: 'absolute',
+                  bottom: 0, left: 0, right: 0,
+                  height: '4px',
+                  background: '#ef4444',
+                  transformOrigin: 'left center',
+                  boxShadow: '0 0 10px #ef4444',
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Disconnect alert overlay */}
       <DisconnectAlert

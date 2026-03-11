@@ -6295,6 +6295,29 @@ input[type="text"].game-search-input:focus,
   border: none;
 }
 
+/* New Badge - Bottom Left */
+.game-card .new-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  z-index: 2;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: #0a0a0f;
+  box-shadow: 0 2px 12px rgba(251, 191, 36, 0.5), 0 0 20px rgba(251, 191, 36, 0.25);
+  animation: newBadgePulse 2s ease-in-out infinite;
+}
+
+@keyframes newBadgePulse {
+  0%, 100% { box-shadow: 0 2px 12px rgba(251, 191, 36, 0.5), 0 0 20px rgba(251, 191, 36, 0.25); }
+  50% { box-shadow: 0 2px 16px rgba(251, 191, 36, 0.7), 0 0 30px rgba(251, 191, 36, 0.4); }
+}
+
 /* Players Pill - Bottom Right, Discrete */
 .game-card .players-pill {
   position: absolute;

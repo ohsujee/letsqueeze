@@ -270,7 +270,8 @@ const GAMES_DATA = {
             { number: 1, title: "Mise à l'écart", description: "Les enquêteurs s'éloignent pendant que les joueurs choisissent la règle sur leur téléphone" },
             { number: 2, title: "Choix de la règle", description: "Les joueurs choisissent une règle secrète" },
             { number: 3, title: "Discussion libre", description: "Les enquêteurs reviennent et observent" },
-            { number: 4, title: "3 tentatives", description: "Pour deviner la règle secrète" }
+            { number: 4, title: "Élimination", description: "Si un joueur ne respecte pas la règle, ses coéquipiers peuvent l'éliminer. Le joueur éliminé peut contester s'il a été éliminé par erreur." },
+            { number: 5, title: "3 tentatives", description: "Pour deviner la règle secrète" }
           ]
         }
       },
@@ -289,7 +290,7 @@ const GAMES_DATA = {
             },
             {
               title: "Les Joueurs gagnent",
-              condition: "Si les enquêteurs échouent après 3 tentatives",
+              condition: "Si les enquêteurs échouent après 3 tentatives ou ne trouvent pas avant la fin du temps imparti",
               icon: Users,
               color: '#06b6d4'
             }

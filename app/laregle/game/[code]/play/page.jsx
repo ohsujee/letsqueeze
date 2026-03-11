@@ -22,8 +22,9 @@ import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
-import { Clock, RefreshCw, Check, X, ThumbsUp, ThumbsDown, Pause, Play } from "lucide-react";
+import { Clock, RefreshCw, Check, X, ThumbsUp, ThumbsDown, Pause, Play, AlertTriangle } from "lucide-react";
 import ExitButton from "@/lib/components/ExitButton";
+import PlayerBanner from "@/components/game/PlayerBanner";
 import {
   getRandomRulesForVoting,
   getRuleById,
@@ -60,6 +61,14 @@ export default function LaLoiPlayPage() {
 
   // Rule card reveal (hold to reveal)
   const [isRuleRevealed, setIsRuleRevealed] = useState(false);
+
+  // Elimination system
+  const [eliminations, setEliminations] = useState({});
+  const [flashUid, setFlashUid] = useState(null);
+  const [reportMode, setReportMode] = useState(false);
+  const [eliminationNotif, setEliminationNotif] = useState(null);
+  const notifTimerRef = useRef(null);
+  const prevEliminationsRef = useRef({});
 
   // Ref to prevent multiple auto-confirm triggers
   const autoConfirmTriggeredRef = useRef(false);
@@ -151,11 +160,54 @@ export default function LaLoiPlayPage() {
       }
     });
 
+    const elimUnsub = onValue(ref(db, `rooms_laregle/${code}/eliminations`), (snap) => {
+      const data = snap.val() || {};
+      setEliminations(data);
+    });
+
     return () => {
       metaUnsub();
       stateUnsub();
+      elimUnsub();
     };
   }, [code, router]);
+
+  // Detect new eliminations → flash + notification
+  const eliminatedUids = useMemo(() => Object.keys(eliminations), [eliminations]);
+  useEffect(() => {
+    const prevUids = Object.keys(prevEliminationsRef.current);
+    const newUids = eliminatedUids.filter(uid => !prevUids.includes(uid));
+    if (newUids.length > 0) {
+      const newUid = newUids[0];
+      setFlashUid(newUid);
+      setTimeout(() => setFlashUid(null), 500);
+      const player = players.find(p => p.uid === newUid);
+      if (player) {
+        if (notifTimerRef.current) clearTimeout(notifTimerRef.current);
+        setEliminationNotif(player);
+        notifTimerRef.current = setTimeout(() => setEliminationNotif(null), 2500);
+      }
+    }
+    prevEliminationsRef.current = eliminations;
+  }, [eliminatedUids, players, eliminations]);
+
+  const amIEliminated = myUid ? !!eliminations[myUid] : false;
+
+  const handleEliminate = async (uid) => {
+    if (!myUid || !code) return;
+    if (eliminations[uid]) {
+      // Undo elimination
+      await set(ref(db, `rooms_laregle/${code}/eliminations/${uid}`), null);
+    } else {
+      await set(ref(db, `rooms_laregle/${code}/eliminations/${uid}`), { reportedBy: myUid, at: Date.now() });
+    }
+    setReportMode(false);
+  };
+
+  const handleContestElimination = async () => {
+    if (!myUid || !code) return;
+    await set(ref(db, `rooms_laregle/${code}/eliminations/${myUid}`), null);
+  };
 
   // Timer countdown (with pause support)
   const timerEndAt = state?.timerEndAt;
@@ -1151,13 +1203,97 @@ export default function LaLoiPlayPage() {
                 </div>
               </div>
 
-              {/* Team card */}
+              {/* Eliminated banner — if I'm eliminated */}
+              <AnimatePresence>
+                {amIEliminated && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    style={{
+                      padding: '16px 20px',
+                      background: 'rgba(239,68,68,0.08)',
+                      border: '1.5px solid rgba(239,68,68,0.3)',
+                      borderRadius: '14px',
+                      textAlign: 'center',
+                      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px',
+                    }}
+                  >
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#f87171', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                      Tu as été éliminé
+                    </span>
+                    <span style={{ fontSize: '0.8rem', color: 'rgba(238,242,255,0.5)', fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", lineHeight: 1.4 }}>
+                      Un coéquipier pense que tu n'as pas suivi la règle.
+                    </span>
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.96 }}
+                      onClick={handleContestElimination}
+                      style={{
+                        padding: '10px 20px',
+                        background: 'rgba(34,197,94,0.12)',
+                        border: '1px solid rgba(34,197,94,0.35)',
+                        borderRadius: '10px',
+                        color: '#4ade80',
+                        fontSize: '0.82rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                      }}
+                    >
+                      Voté par erreur
+                    </motion.button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Report mode header */}
+              <AnimatePresence>
+                {reportMode && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      padding: '10px 14px',
+                      background: 'rgba(239,68,68,0.08)',
+                      border: '1px solid rgba(239,68,68,0.25)',
+                      borderRadius: '12px',
+                    }}
+                  >
+                    <span style={{ fontSize: '0.82rem', color: '#f87171', fontWeight: 600, fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif" }}>
+                      Qui n'a pas suivi la règle ?
+                    </span>
+                    <motion.button
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => setReportMode(false)}
+                      style={{
+                        padding: '4px 10px',
+                        background: 'rgba(255,255,255,0.06)',
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        borderRadius: '8px',
+                        color: 'rgba(238,242,255,0.5)',
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                      }}
+                    >
+                      Annuler
+                    </motion.button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Team card — with elimination system */}
               <div style={{
                 background: 'rgba(8,14,32,0.92)',
-                border: '1px solid rgba(255,255,255,0.06)',
+                border: `1px solid ${reportMode ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.06)'}`,
                 borderRadius: '16px',
                 overflow: 'hidden',
                 boxShadow: '0 2px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+                transition: 'border-color 0.2s ease',
               }}>
                 <div style={{
                   padding: '11px 16px',
@@ -1172,32 +1308,123 @@ export default function LaLoiPlayPage() {
                     Ton équipe
                   </span>
                 </div>
-                <div style={{ padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  {civilPlayers.map(p => (
-                    <div key={p.uid} style={{
-                      display: 'flex', alignItems: 'center', gap: '10px',
-                      padding: '8px 12px',
-                      background: 'rgba(255,255,255,0.03)',
-                      borderRadius: '10px',
-                    }}>
-                      <div style={{
-                        width: '28px', height: '28px', borderRadius: '50%',
-                        background: `${ACCENT}20`, border: `1px solid ${ACCENT}35`,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: '0.7rem', fontWeight: 700, color: ACCENT,
-                        fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                      }}>
-                        {(p.name || '?')[0].toUpperCase()}
-                      </div>
-                      <span style={{
-                        fontSize: '0.85rem', fontWeight: 600, color: 'rgba(238,242,255,0.8)',
-                        fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                      }}>
-                        {p.name}
-                        {p.uid === myUid && <span style={{ color: `${ACCENT}80`, fontSize: '0.7rem', marginLeft: '6px' }}>(toi)</span>}
-                      </span>
-                    </div>
-                  ))}
+                <div style={{ padding: '8px 10px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {[...civilPlayers]
+                    .sort((a, b) => (eliminations[a.uid] ? 1 : 0) - (eliminations[b.uid] ? 1 : 0))
+                    .map(player => {
+                    const isEliminated = !!eliminations[player.uid];
+                    const isMe = player.uid === myUid;
+                    return (
+                      <motion.div
+                        key={player.uid}
+                        layout
+                        transition={{ layout: { type: 'spring', stiffness: 280, damping: 26 } }}
+                        style={{ display: 'grid', cursor: (reportMode && !isMe && !isEliminated) || (isEliminated && !isMe) ? 'pointer' : 'default' }}
+                        onClick={() => {
+                          if (reportMode && !isMe && !isEliminated) handleEliminate(player.uid);
+                          else if (isEliminated && !isMe) handleEliminate(player.uid);
+                        }}
+                      >
+                        {/* Layer 1 — PlayerBanner */}
+                        <div style={{ gridArea: '1/1', opacity: isEliminated ? 0.38 : 1, transition: 'opacity 0.3s ease' }}>
+                          <PlayerBanner player={player} accentColor={ACCENT} accentDark="#00b8d9" />
+                        </div>
+
+                        {/* Layer 2 — Red flash on elimination */}
+                        <AnimatePresence>
+                          {flashUid === player.uid && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: [0, 0.45, 0] }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.45, ease: 'easeOut' }}
+                              style={{
+                                gridArea: '1/1', zIndex: 3, pointerEvents: 'none',
+                                paddingTop: '10px',
+                              }}
+                            >
+                              <div style={{
+                                height: '100%',
+                                borderRadius: '14px',
+                                background: 'rgba(239,68,68,0.35)',
+                                boxShadow: '0 0 20px rgba(239,68,68,0.4)',
+                              }} />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Layer 3 — ÉLIMINÉ badge */}
+                        <AnimatePresence>
+                          {isEliminated && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.2, delay: 0.15 }}
+                              style={{
+                                gridArea: '1/1', zIndex: 1, pointerEvents: 'none',
+                                paddingTop: '10px',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              }}
+                            >
+                              <span style={{
+                                fontSize: '0.65rem', fontWeight: 700,
+                                color: '#f87171',
+                                background: 'rgba(239,68,68,0.15)',
+                                border: '1px solid rgba(239,68,68,0.3)',
+                                padding: '3px 10px', borderRadius: '6px',
+                                letterSpacing: '0.08em', textTransform: 'uppercase',
+                              }}>
+                                Éliminé
+                              </span>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Layer 4 — Undo icon for eliminated */}
+                        {isEliminated && !isMe && (
+                          <div style={{
+                            gridArea: '1/1', zIndex: 2,
+                            paddingTop: '10px', paddingRight: '10px',
+                            display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
+                          }}>
+                            <div style={{
+                              width: '24px', height: '24px',
+                              display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              background: 'rgba(34,197,94,0.1)',
+                              border: '1px solid rgba(34,197,94,0.25)',
+                              borderRadius: '8px',
+                              color: '#4ade80',
+                              fontSize: '0.7rem',
+                            }}>
+                              ↩
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Layer 5 — Report mode highlight */}
+                        {reportMode && !isEliminated && !isMe && (
+                          <div style={{
+                            gridArea: '1/1', zIndex: 2,
+                            paddingTop: '10px', paddingRight: '10px',
+                            display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
+                          }}>
+                            <div style={{
+                              width: '24px', height: '24px',
+                              display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              background: 'rgba(239,68,68,0.1)',
+                              border: '1px solid rgba(239,68,68,0.25)',
+                              borderRadius: '8px',
+                              color: '#f87171',
+                              fontSize: '0.7rem',
+                            }}>
+                              ✕
+                            </div>
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -1391,6 +1618,133 @@ export default function LaLoiPlayPage() {
 
         </div>
       </main>
+
+      {/* Fixed bottom button — report elimination (playing/guessing, not eliminated, not in report mode) */}
+      <AnimatePresence>
+        {(state?.phase === 'playing' || state?.phase === 'guessing') && !amIEliminated && !reportMode && myPlayer?.role !== 'investigator' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ type: 'spring', damping: 22, stiffness: 300 }}
+            style={{
+              position: 'fixed',
+              bottom: 0, left: 0, right: 0,
+              zIndex: 50,
+              padding: '12px 16px 20px',
+              background: 'linear-gradient(to top, rgba(4,6,15,0.95) 60%, transparent)',
+              pointerEvents: 'none',
+            }}
+          >
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => setReportMode(true)}
+              style={{
+                pointerEvents: 'auto',
+                width: '100%',
+                padding: '15px 20px',
+                border: 'none',
+                borderRadius: '14px',
+                background: 'linear-gradient(135deg, #ef4444, #dc2626)',
+                color: '#fff',
+                fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                fontSize: '0.9rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+              }}
+            >
+              <AlertTriangle size={18} />
+              Un joueur n'a pas suivi la règle
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Elimination notification modal */}
+      <AnimatePresence>
+        {eliminationNotif && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 9999,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '24px',
+              background: 'rgba(8, 8, 12, 0.92)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: -20 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '320px',
+                background: 'linear-gradient(180deg, rgba(45, 20, 20, 0.98) 0%, rgba(28, 12, 12, 0.98) 100%)',
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+                borderRadius: '24px',
+                padding: '32px 24px 24px',
+                textAlign: 'center',
+                overflow: 'hidden',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.6), 0 0 80px rgba(239, 68, 68, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+              }}
+            >
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                style={{
+                  width: '72px', height: '72px',
+                  margin: '0 auto 20px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  background: 'linear-gradient(135deg, rgba(239,68,68,0.2), rgba(239,68,68,0.08))',
+                  border: '2px solid rgba(239,68,68,0.5)',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 40px rgba(239,68,68,0.3), inset 0 0 20px rgba(239,68,68,0.1)',
+                }}
+              >
+                <AlertTriangle size={36} color="#f87171" />
+              </motion.div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                <span style={{ fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", fontSize: '0.85rem', fontWeight: 500, color: 'rgba(255,255,255,0.5)' }}>
+                  Joueur éliminé
+                </span>
+                <div style={{ width: '100%' }}>
+                  <PlayerBanner player={eliminationNotif} accentColor="#ef4444" accentDark="#dc2626" />
+                </div>
+                <span style={{ fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif", fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', marginTop: '4px' }}>
+                  N'a pas suivi la règle
+                </span>
+              </div>
+              <motion.div
+                initial={{ scaleX: 1 }}
+                animate={{ scaleX: 0 }}
+                transition={{ duration: 2.5, ease: 'linear' }}
+                style={{
+                  position: 'absolute',
+                  bottom: 0, left: 0, right: 0,
+                  height: '4px',
+                  background: '#ef4444',
+                  transformOrigin: 'left center',
+                  boxShadow: '0 0 10px #ef4444',
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Disconnect Alert */}
       <DisconnectAlert

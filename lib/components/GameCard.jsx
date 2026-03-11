@@ -155,8 +155,15 @@ export default function GameCard({
         <h3 className="game-name">{game.name}</h3>
       </div>
 
+      {/* New Badge - Bottom Left */}
+      {game.isNew && !game.comingSoon && (
+        <div className="new-badge">
+          NOUVEAU
+        </div>
+      )}
+
       {/* Powered By Pill - Bottom Left */}
-      {game.poweredBy && (
+      {game.poweredBy && !game.isNew && (
         <div className={`powered-pill powered-${game.poweredBy}`}>
           {game.poweredBy === 'deezer' ? 'Deezer' : game.poweredBy}
         </div>

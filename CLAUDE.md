@@ -24,6 +24,19 @@
 
 ---
 
+**RÈGLE DEV — NE JAMAIS TOUCHER AU VRAI JEU DEPUIS `app/dev/` :**
+
+Quand on travaille dans `app/dev/` (pages de prototypage UI) :
+
+1. **NE JAMAIS modifier** les fichiers hors de `app/dev/` (composants partagés, pages de jeux, hooks, globals.css, etc.)
+2. **Toujours créer des copies** dans `app/dev/components/` si on a besoin d'un composant existant à modifier
+3. **Lire** les originaux pour s'en inspirer, mais les **copier** avant de les altérer
+4. **Les modifications dev ne s'appliquent au vrai jeu** que si l'utilisateur dit explicitement : "applique au vrai jeu", "merge", "passe en prod" ou équivalent
+
+**Pourquoi:** `app/dev/` est un bac à sable d'exploration UI. Un push accidentel ne doit jamais impacter les lobbies en production.
+
+---
+
 **Après TOUT changement UI/CSS (styles, layout, composants visuels):**
 
 1. **NE PAS** prendre de screenshots pour auto-vérifier

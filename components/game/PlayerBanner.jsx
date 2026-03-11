@@ -142,12 +142,11 @@ export default function PlayerBanner({
           color: #0a0a0f;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           letter-spacing: 0.02em;
-          transition: background 0.15s ease;
+          transition: background 0.15s ease, box-shadow 0.15s ease;
         }
 
         .pb-avatar.pb-avatar-selected {
-          background: var(--accent);
-          box-shadow: 0 0 16px rgba(0, 229, 255, 0.55);
+          box-shadow: 0 0 12px var(--player-color), 0 0 24px color-mix(in srgb, var(--player-color) 50%, transparent);
         }
 
         /* ── Nom ── */
