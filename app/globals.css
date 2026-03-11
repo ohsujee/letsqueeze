@@ -47,6 +47,14 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Réactiver la sélection sur les champs de saisie */
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 /* Canvas confetti - visible au-dessus de tout et transparent (pas de flash blanc) */
