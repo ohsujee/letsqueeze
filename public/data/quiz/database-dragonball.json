@@ -401,8 +401,8 @@
     },
     {
       "id": "db067",
-      "question": "Méthode de fusion nécessitant une chorégraphie symétrique parfaite entre deux combattants de taille et puissance similaires. La fusion dure 30 minutes. Quelle est cette technique ?",
-      "answer": "Danse de la fusion (Fusion Dance)",
+      "question": "Goku apprit cette technique dans l'Au-delà auprès des Métamols. Cette technique produit un guerrier à la veste courte caractéristique, mais son effet ne dure que 30 minutes. Les deux combattants doivent être de même taille et puissance pour l'exécuter. Quelle est cette technique ?",
+      "answer": "Fusion Dance (Danse de la fusion)",
       "category": "Fusions"
     },
     {
@@ -419,14 +419,14 @@
     },
     {
       "id": "db070",
-      "question": "Véhicule jaune volant en forme de nuage, offert à Sangoku par Tortue Géniale. Seules les personnes au cœur pur peuvent monter dessus. Quel est cet objet ?",
-      "answer": "Nuage magique (Kinto'un)",
+      "question": "Offert par Kamé Sennin à Sangoku après le sauvetage de sa tortue de mer, ce moyen de transport ne peut être utilisé que par les personnes au cœur pur. Kamé Sennin (Tortue Géniale) lui-même, trop pervers, passe au travers. De quel objet s'agit-il ?",
+      "answer": "Kinto'un (Nuage magique)",
       "category": "Univers"
     },
     {
       "id": "db071",
-      "question": "Bâton rouge extensible que Sangoku utilise durant son enfance, hérité de son grand-père adoptif. Il relie la tour Karine au palais de Dieu. Quel est cet objet ?",
-      "answer": "Bâton magique (Nyoi-bô)",
+      "question": "Transmis par maître Karin à Tortue Géniale, puis au grand-père Gohan, cet objet rouge peut s'allonger à l'infini. Il relie la tour Karine au palais de Dieu. De quelle arme iconique de Sangoku enfant s'agit-il ?",
+      "answer": "Nyoi-bô (Bâton magique)",
       "category": "Univers"
     },
     {
@@ -461,7 +461,7 @@
     },
     {
       "id": "db077",
-      "question": "Lors de cet affrontement iconique sur Namek, Sangoku atteint pour la première fois le stade de Super Saiyan après que Freezer a tué Krilin sous ses yeux. La planète Namek est détruite. Quel est cet affrontement ?",
+      "question": "Ce combat légendaire de Dragon Ball Z voit un Saiyan affronter un tyran intergalactique. Le héros y éveille pour la première fois une transformation mythique après la mort de son meilleur ami, et la planète où ils s'affrontent se retrouve détruite. Quel est cet affrontement ?",
       "answer": "Sangoku vs Freezer (sur Namek)",
       "category": "Sagas"
     },
@@ -737,8 +737,8 @@
     },
     {
       "id": "db123",
-      "question": "Cette technique de Cell lui permet de se régénérer entièrement à partir d'une seule cellule intacte, capacité héritée des Namekiens via Piccolo. Grâce à elle, Cell survit à sa propre auto-destruction. Quelle est cette capacité ?",
-      "answer": "Régénération (cellules namekiennes)",
+      "question": "Cell possède cette capacité héritée de l'ADN de Piccolo. Cette capacité lui a permis de revenir sous une forme encore plus puissante après s'être fait exploser face à Goku et Kaio. De quelle capacité s'agit-il ?",
+      "answer": "Régénération",
       "category": "Techniques"
     },
     {
@@ -875,8 +875,8 @@
     },
     {
       "id": "db146",
-      "question": "Quand la Danse de la Fusion échoue parce que les deux combattants ne sont pas parfaitement synchronisés, le résultat est un guerrier grotesque, soit extrêmement maigre soit extrêmement gros. Goten et Trunks ratent la fusion plusieurs fois avant de créer Gotenks. Comment appelle-t-on ces fusions ratées ?",
-      "answer": "Fusion ratée (Veku / Fat Gotenks / Skinny Gotenks)",
+      "question": "Ce guerrier obèse et incompétent de Dragon Ball Z est né d'une erreur de synchronisation entre Goku et Vegeta lors de la Danse de la Fusion. Incapable de combattre, il ne peut que fuir et utiliser des flatulences comme seule technique. Quel est son nom ?",
+      "answer": "Veku",
       "category": "Fusions"
     },
     {

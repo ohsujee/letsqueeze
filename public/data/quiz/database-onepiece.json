@@ -263,7 +263,7 @@
     },
     {
       "id": "op044",
-      "question": "Royaume antique détruit par les fondateurs du Gouvernement Mondial il y a 800 ans, son existence est interdite de recherche sous peine de mort. Les Ponéglyphes racontent son histoire. Quel est ce royaume ?",
+      "question": "Il y a 800 ans, les fondateurs du Gouvernement Mondial ont éradiqué cette civilisation et interdit toute recherche à son sujet sous peine de mort. Les Ponéglyphes, créés par le clan Kozuki, sont les seuls vestiges de son histoire. Quel est cet endroit ?",
       "answer": "Le Royaume Ancien (Ancient Kingdom)",
       "category": "Histoire"
     },
@@ -425,7 +425,7 @@
     },
     {
       "id": "op071",
-      "question": "Arc actuel où l'équipage visite l'île laboratoire du plus grand scientifique, les secrets du monde y sont révélés. Le Gouvernement y lance une attaque massive. Quel est cet arc ?",
+      "question": "Cet arc met en scène l'arrivée des Chapeaux de Paille sur une île laboratoire avancée de 500 ans sur son temps. Le Gouvernement Mondial y déploie une flotte de cent navires et un Amiral pour éliminer le scientifique qui menace de révéler la vérité sur le monde. Quel est cet arc ?",
       "answer": "Arc Egghead",
       "category": "Arcs"
     },
@@ -671,8 +671,8 @@
     },
     {
       "id": "op112",
-      "question": "Épéiste créateur de Wado Ichimonji et d'Enma, deux sabres légendaires, ce forgeron légendaire de Wano a vécu il y a des siècles. Ses lames les plus célèbres sont les douze Saijo O Wazamono. Qui est-ce ?",
-      "answer": "Shimotsuki Kozaburo / les forgerons de Wano",
+      "question": "Forgeron légendaire de Wano, il considérait Enma — le sabre qui blessa Kaidō — comme son chef-d'œuvre. Il forgea aussi le Wado Ichimonji, transmis à Zoro via sa petite-fille Kuina. Ayant quitté Wano illégalement, il fonda un village dans l'East Blue. Qui est-ce ?",
+      "answer": "Shimotsuki Kozaburo",
       "category": "Histoire"
     },
     {
@@ -761,7 +761,7 @@
     },
     {
       "id": "op127",
-      "question": "Équipage de Barbe Noire comptant dix capitaines possédant chacun un fruit du démon puissant, ils ont attaqué Amazon Lily et vaincu Law pour voler ses Ponéglyphes. Leur navire est le Saber of Xebec. Quel est cet équipage ?",
+      "question": "Comptant dix commandants possédant chacun un fruit du démon, cet équipage pirate a attaqué Amazon Lily et vaincu Trafalgar Law pour s'emparer de ses copies de Ponéglyphes. Leur navire, le Saber of Xebec, porte le nom du père de leur capitaine. Quel est cet équipage ?",
       "answer": "L'équipage de Barbe Noire",
       "category": "Pirates"
     },

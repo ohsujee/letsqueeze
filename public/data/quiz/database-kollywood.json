@@ -11,13 +11,13 @@
     },
     {
       "id": "kol002",
-      "question": "Considéré comme l'encyclopédie du cinéma, il a joué 10 rôles différents dans le film Dasavathaaram, une prouesse mondiale. On l'appelle 'Ulaganayagan' (Héros Universel). Qui est-ce ?",
+      "question": "Considéré comme un pilier du cinéma, il a joué 10 rôles différents dans le film 'Dasavathaaram'. On l'appelle 'Ulaganayagan'. Qui est-ce ?",
       "answer": "Kamal Haasan",
       "category": "Acteurs"
     },
     {
       "id": "kol003",
-      "question": "Dans ce film culte de 1995, un humble conducteur d'auto-rickshaw cache un passé de redoutable parrain de la pègre de Mumbai nommé Manick Baashha. Quel est ce film ?",
+      "question": "Ce film tamoul culte de 1995 met en scène le personnage Manickam, un modeste conducteur d'auto-rickshaw dont le terrifiant passé de parrain du crime à Bombay finit par le rattraper. Quel est ce film ?",
       "answer": "Baashha",
       "category": "Films cultes"
     },
@@ -1319,8 +1319,8 @@
     },
     {
       "id": "kol225",
-      "question": "Chanson composée par D. Imman pour le film Viswasam. C'est une mélodie père-fille très émouvante qui a battu des records de vues ('Kannaana Kanney'). Quel est ce film ?",
-      "answer": "Viswasam",
+      "question": "Composée par D. Imman pour le film Viswasam (2019) avec Ajith Kumar, cette mélodie père-fille interprétée par Sid Sriram est devenue un phénomène avec plus de 250 millions de vues sur YouTube. Quel est le nom de cette chanson marquante du film ?",
+      "answer": "Kannaana Kanney",
       "category": "Musique"
     },
     {
