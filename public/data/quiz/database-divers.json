@@ -144,7 +144,7 @@
     {
       "id": "div024",
       "question": "Comment appelle-t-on le petit marteau utilisé par les juges au tribunal ou lors des ventes aux enchères ?",
-      "answer": "Un maillet",
+      "answer": "Un marteau (de président)",
       "category": "Objets"
     },
     {
@@ -167,8 +167,8 @@
     },
     {
       "id": "div028",
-      "question": "Quel est le seul jour de la semaine qui compte toujours 8 lettres en français ?",
-      "answer": "Dimanche",
+      "question": "Quel jour de la semaine compte 6 lettres en français ?",
+      "answer": "Samedi",
       "category": "Langue"
     },
     {
@@ -215,8 +215,8 @@
     },
     {
       "id": "div036",
-      "question": "Dans un jeu de Scrabble français, quelles sont les deux lettres qui valent le plus de points (10 points) ?",
-      "answer": "K, W, X, Y et Z (il en faut au moins deux)",
+      "question": "Dans un jeu de Scrabble français, quelles sont les cinq lettres qui valent le plus de points (10 points) ?",
+      "answer": "K, W, X, Y et Z",
       "category": "Jeux"
     },
     {

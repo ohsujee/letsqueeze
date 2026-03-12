@@ -95,7 +95,7 @@
     },
     {
       "id": "nar016",
-      "question": "Ayant massacré tout son clan en une seule nuit sur ordre secret de Konoha, ce prodige a éveillé son Mangekyo Sharingan par ce crime. Il n'a épargné que son petit frère. Qui est-ce ?",
+      "question": "Ayant massacré tout son clan en une seule nuit sur ordre secret de Konoha, ce prodige n'a épargné que son petit frère. Il avait éveillé son Mangekyo Sharingan peu avant, en perdant son meilleur ami. Qui est-ce ?",
       "answer": "Itachi Uchiha",
       "category": "Personnages"
     },
@@ -149,7 +149,7 @@
     },
     {
       "id": "nar025",
-      "question": "Technique de téléportation instantanée créée par le 4ème Hokage, elle nécessite des kunais spéciaux marqués d'un sceau. C'est grâce à elle que Minato était surnommé l'Éclair Jaune. Quelle est cette technique ?",
+      "question": "Technique de téléportation instantanée créée par le 2ème Hokage Tobirama Senju, elle a été perfectionnée par Minato qui utilisait des kunais spéciaux marqués d'un sceau. C'est grâce à elle que Minato était surnommé l'Éclair Jaune de Konoha. Quelle est cette technique ?",
       "answer": "Hiraishin no Jutsu (Dieu du Tonnerre Volant)",
       "category": "Techniques"
     },
@@ -204,7 +204,7 @@
     {
       "id": "nar034",
       "question": "Objectif principal de l'Akatsuki, ce plan consiste à extraire les bijuu de leurs jinchuuriki et les sceller dans une statue géante. Le but final est d'activer un genjutsu mondial. Quel est cet objectif ?",
-      "answer": "Capturer les neuf démons à queues",
+      "answer": "Le projet Tsuki no Me (Plan Œil de Lune)",
       "category": "Intrigue"
     },
     {
@@ -449,7 +449,7 @@
     },
     {
       "id": "nar077",
-      "question": "Légendaire fondateur du clan Uchiha et co-fondateur de Konoha, ce ninja aux cheveux longs a combattu Hashirama à la Vallée de la Fin. Ressuscité par Kabuto, il était le vrai cerveau derrière l'Akatsuki. Qui est-ce ?",
+      "question": "Légendaire chef du clan Uchiha et co-fondateur de Konoha, ce ninja aux cheveux longs a combattu Hashirama à la Vallée de la Fin. Ressuscité par Kabuto, il était le vrai cerveau derrière l'Akatsuki. Qui est-ce ?",
       "answer": "Madara Uchiha",
       "category": "Légendes"
     },
@@ -671,7 +671,7 @@
     },
     {
       "id": "nar115",
-      "question": "Clone artificiel de l'organisation Kara créé à partir de l'ADN de Jigen, ce garçon pâle aux cheveux blancs devient le coéquipier de Boruto. Il possède le Karma. Qui est-ce ?",
+      "question": "Élevé par Jigen au sein de l'organisation Kara, ce garçon pâle aux cheveux blancs a été le seul survivant des expériences visant à lui implanter le Karma. Devenu coéquipier de Boruto, qui est-ce ?",
       "answer": "Kawaki",
       "category": "Nouvelle génération"
     },
@@ -815,7 +815,7 @@
     },
     {
       "id": "nar139",
-      "question": "Fille du sensei Asuma Sarutobi née après sa mort, elle porte le même nom qu'une pièce de shogi. Shikamaru a promis de la protéger et de devenir son maître. Comment s'appelle-t-elle ?",
+      "question": "Elle porte le même nom qu'une pièce de shogi, Shikamaru a promis de la protéger et de devenir son maître. Elle est la fille d'Asuma Sarutobi née après sa mort. Comment s'appelle-t-elle ?",
       "answer": "Mirai Sarutobi",
       "category": "Nouvelle génération"
     },
@@ -899,8 +899,8 @@
     },
     {
       "id": "nar153",
-      "question": "Technique de Naruto combinant le mode Ermite et le Rasenshuriken, il lance deux shurikens de chakra naturel capables de détruire un chemin de Pain. C'est l'attaque qui renverse le combat lors de l'invasion de Pain. Quelle est cette technique ?",
-      "answer": "Senpou: Rasenshuriken (Rasenshuriken mode Ermite)",
+      "question": "Technique signature de Naruto combinant le Fūton (élément vent) et le Rasengan, elle prend la forme d'un shuriken géant de chakra. Grâce au mode Ermite, Naruto peut enfin la lancer comme un projectile et détruit le Chemin Humain de Pain avec. Quelle est cette technique ?",
+      "answer": "Fūton: Rasenshuriken (Orbe Shuriken Tourbillonnant)",
       "category": "Techniques"
     },
     {
