@@ -12,6 +12,7 @@ import { usePushNotifications } from '@/lib/hooks/usePushNotifications';
 import { useForceUpdate } from '@/lib/hooks/useForceUpdate';
 import { ForceUpdateModal } from '@/components/shared/ForceUpdateModal';
 import { useGlobalPresence } from '@/lib/hooks/useGlobalPresence';
+import { useAppTracking } from '@/lib/hooks/useAppTracking';
 
 /**
  * ClientProviders - Wrapper pour tous les providers côté client
@@ -25,6 +26,9 @@ export function ClientProviders({ children }) {
 
   // Push notifications natives (iOS + Android)
   usePushNotifications();
+
+  // Tracking version/plateforme pour tous les users natifs authentifiés
+  useAppTracking();
 
   // Présence globale — écrit presence/{uid} dans Firebase RTDB
   useGlobalPresence();
