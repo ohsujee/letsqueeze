@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { ForceUpdateModal } from '@/components/shared/ForceUpdateModal';
 import { useToast } from '@/lib/hooks/useToast';
+import DevMidnightModal from './components/DevMidnightModal';
+import { DevToastProvider, useDevToast } from './components/DevToast';
 
 const GAMES = [
   {
@@ -101,6 +103,7 @@ export default function DevIndex() {
   const [activeTab, setActiveTab] = useState('lobbies');
 
   return (
+    <DevToastProvider>
     <div style={{
       flex: 1,
       minHeight: 0,
@@ -186,12 +189,14 @@ export default function DevIndex() {
         DEV ONLY — Ne pas shipper en production
       </div>
     </div>
+    </DevToastProvider>
   );
 }
 
 function UIPlayground() {
   const [showForceUpdate, setShowForceUpdate] = useState(false);
-  const toast = useToast();
+  const [showMidnight, setShowMidnight] = useState(false);
+  const toast = useDevToast();
 
   const cardStyle = {
     padding: '16px',
@@ -252,6 +257,30 @@ function UIPlayground() {
         </div>
       </div>
 
+      {/* Midnight Modal */}
+      <div style={{ ...cardStyle, borderLeft: '3px solid #f97316' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{
+              fontFamily: 'Bungee, sans-serif',
+              fontSize: '0.9rem',
+              color: '#eef2ff',
+              letterSpacing: '0.03em',
+              marginBottom: '4px',
+            }}>Midnight Modal</div>
+            <div style={{ fontSize: '0.72rem', color: 'rgba(238,242,255,0.3)' }}>
+              Modale affichée quand le mot du jour change à minuit (sémantique)
+            </div>
+          </div>
+          <button
+            onClick={() => setShowMidnight(true)}
+            style={btnStyle('#f97316', true)}
+          >
+            Prévisualiser
+          </button>
+        </div>
+      </div>
+
       {/* Toasts */}
       <div style={{ ...cardStyle, borderLeft: '3px solid #8b5cf6' }}>
         {sectionTitle('Toasts')}
@@ -291,6 +320,12 @@ function UIPlayground() {
           Ici tu peux prévisualiser le rendu des modales et toasts liés aux notifications.
         </div>
       </div>
+
+      {/* Midnight Modal overlay */}
+      <DevMidnightModal
+        isOpen={showMidnight}
+        onClose={() => setShowMidnight(false)}
+      />
 
       {/* Force Update overlay */}
       {showForceUpdate && (

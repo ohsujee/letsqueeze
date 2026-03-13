@@ -1,11 +1,18 @@
-"use client";
+'use client';
+
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback, createContext, useContext, useMemo } from 'react';
 import { CheckCircle, XCircle, Warning, Info, X } from '@phosphor-icons/react';
+
+/**
+ * Dev preview — redesigned toasts (flat + subtle glow, Phosphor icons, progress bar).
+ * Once validated, this replaces components/shared/Toast.jsx
+ */
 
 const TOAST_CONFIG = {
   success: {
     icon: CheckCircle,
+    accent: '#22c55e',
     bg: '#22c55e',
     iconBg: 'rgba(255, 255, 255, 0.2)',
     textColor: '#fff',
@@ -14,6 +21,7 @@ const TOAST_CONFIG = {
   },
   error: {
     icon: XCircle,
+    accent: '#ef4444',
     bg: '#ef4444',
     iconBg: 'rgba(255, 255, 255, 0.2)',
     textColor: '#fff',
@@ -22,6 +30,7 @@ const TOAST_CONFIG = {
   },
   warning: {
     icon: Warning,
+    accent: '#f59e0b',
     bg: '#f59e0b',
     iconBg: 'rgba(255, 255, 255, 0.2)',
     textColor: '#fff',
@@ -30,6 +39,7 @@ const TOAST_CONFIG = {
   },
   info: {
     icon: Info,
+    accent: '#8b5cf6',
     bg: '#8b5cf6',
     iconBg: 'rgba(255, 255, 255, 0.2)',
     textColor: '#fff',
@@ -38,7 +48,7 @@ const TOAST_CONFIG = {
   },
 };
 
-export function Toast({ id, type = 'info', message, duration = 5000, onDismiss }) {
+function DevToast({ id, type = 'info', message, duration = 5000, onDismiss }) {
   const config = TOAST_CONFIG[type] || TOAST_CONFIG.info;
   const Icon = config.icon;
 
@@ -146,25 +156,23 @@ export function Toast({ id, type = 'info', message, duration = 5000, onDismiss }
   );
 }
 
-export function ToastContainer({ toasts, onDismiss }) {
+function DevToastContainer({ toasts, onDismiss }) {
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 'calc(16px + env(safe-area-inset-top, 0px))',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 9999,
-        pointerEvents: 'none',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}
-    >
+    <div style={{
+      position: 'fixed',
+      top: 'calc(16px + env(safe-area-inset-top, 0px))',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      zIndex: 9999,
+      pointerEvents: 'none',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    }}>
       <div style={{ pointerEvents: 'auto' }}>
         <AnimatePresence mode="popLayout">
           {toasts.map((toast) => (
-            <Toast
+            <DevToast
               key={toast.id}
               id={toast.id}
               type={toast.type}
@@ -177,4 +185,40 @@ export function ToastContainer({ toasts, onDismiss }) {
       </div>
     </div>
   );
+}
+
+// ─── Standalone context for dev preview ─────────────────────────────────────
+
+const DevToastContext = createContext(null);
+
+export function DevToastProvider({ children }) {
+  const [toasts, setToasts] = useState([]);
+
+  const dismissToast = useCallback((id) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, []);
+
+  const showToast = useCallback((message, type = 'info', duration = 5000) => {
+    const id = Date.now() + Math.random();
+    setToasts((prev) => [...prev, { id, message, type, duration }]);
+    return id;
+  }, []);
+
+  const value = useMemo(() => ({
+    success: (msg, dur) => showToast(msg, 'success', dur),
+    error: (msg, dur) => showToast(msg, 'error', dur),
+    warning: (msg, dur) => showToast(msg, 'warning', dur),
+    info: (msg, dur) => showToast(msg, 'info', dur),
+  }), [showToast]);
+
+  return (
+    <DevToastContext.Provider value={value}>
+      {children}
+      <DevToastContainer toasts={toasts} onDismiss={dismissToast} />
+    </DevToastContext.Provider>
+  );
+}
+
+export function useDevToast() {
+  return useContext(DevToastContext);
 }

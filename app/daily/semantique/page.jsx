@@ -13,6 +13,7 @@ import { GameEndTransition } from '@/components/transitions';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 import SuspiciousResultModal from '@/components/ui/SuspiciousResultModal';
 import ScoreUpdateModal from '@/components/ui/ScoreUpdateModal';
+import MidnightModal from '@/components/ui/MidnightModal';
 
 // ─── Normalisation accents (pour lookup Firebase) ────────────────────────────
 function stripAccents(str) {
@@ -697,6 +698,11 @@ export default function SemantiquePage() {
   const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, writeLeaderboard, loaded } =
     useDailyGame('semantique', { forceDate: serverDate });
 
+  const [showMidnightModal, setShowMidnightModal] = useState(false);
+  const previousDateRef = useRef(serverDate);
+  const guessesRef = useRef([]);
+  const gameOverRef = useRef(false);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [targetWord, setTargetWord] = useState(null);
   const [guesses, setGuesses] = useState([]);
@@ -806,6 +812,64 @@ export default function SemantiquePage() {
   const [altShowResult, setAltShowResult] = useState(false);
   const altStartTimeRef = useRef(null);
 
+  // ─── Midnight guard : sync refs + timer ──────────────────────────────────
+  useEffect(() => { guessesRef.current = guesses; }, [guesses]);
+  useEffect(() => { gameOverRef.current = gameOver; }, [gameOver]);
+
+  useEffect(() => {
+    if (!serverDate) return;
+    previousDateRef.current = serverDate;
+
+    // Calculer les ms jusqu'à minuit Paris
+    const nowParis = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Paris' }));
+    const midnightParis = new Date(nowParis);
+    midnightParis.setHours(24, 0, 0, 0);
+    const msUntilMidnight = midnightParis.getTime() - nowParis.getTime();
+
+    if (msUntilMidnight < 1000 || msUntilMidnight > 86400000) return;
+
+    const timer = setTimeout(() => {
+      // Sauvegarder la progression en cours avant le switch
+      if (guessesRef.current.length > 0 && !gameOverRef.current) {
+        saveProgress(guessesRef.current, guessesRef.current.length);
+      }
+      setShowMidnightModal(true);
+    }, msUntilMidnight);
+
+    return () => clearTimeout(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [serverDate]);
+
+  const handleMidnightReset = useCallback(() => {
+    const freshDate = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
+
+    setGuesses([]);
+    setInput('');
+    setGameOver(false);
+    setShowResult(false);
+    setShowTransition(false);
+    setFinalScore(0);
+    setError('');
+    setActiveTab('game');
+    setTargetWord(null);
+    setShowScoreUpdateModal(false);
+    setShowSuspiciousModal(false);
+    setSuspiciousCompleteParams(null);
+    setAltMode(false);
+    setAltToken(null);
+    setAltGuesses([]);
+    setAltGameOver(false);
+    setAltFinalScore(0);
+    setAltShowResult(false);
+    setUnranked(false);
+    setFlashEntry(null);
+    startTimeRef.current = null;
+    freshCompletionRef.current = false;
+    altStartTimeRef.current = null;
+
+    setServerDate(freshDate);
+    setShowMidnightModal(false);
+  }, []);
 
   // Transition + pub + switch vers classement après une completion fraîche (pas une restauration)
   useEffect(() => {
@@ -1109,6 +1173,14 @@ export default function SemantiquePage() {
           <Trophy size={14} weight="fill" /> Classement
         </button>
       </div>
+
+      {/* Modal minuit — changement de mot */}
+      <MidnightModal
+        isOpen={showMidnightModal}
+        previousDate={previousDateRef.current}
+        newDate={new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' })}
+        onPlayNewWord={handleMidnightReset}
+      />
 
       {/* Modal nouveau système de points (one-time) */}
       <ScoreUpdateModal
