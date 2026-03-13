@@ -267,6 +267,17 @@ export default function PlayerGame() {
           code={code}
           isActualHost={false}
           onAdvanceAsker={advanceToNextAsker}
+          onExit={async () => {
+            if (isActualHost) {
+              await import('@/lib/firebase').then(({ update, ref: dbRef }) => {
+                update(dbRef(db, `rooms/${code}/state`), { phase: 'ended' });
+                update(dbRef(db, `rooms/${code}/meta`), { closed: true });
+              });
+            } else {
+              await leaveRoom();
+            }
+            router.push('/home');
+          }}
         />
       </>
     );

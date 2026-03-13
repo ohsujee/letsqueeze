@@ -32,7 +32,7 @@ import { push, set } from "firebase/database";
  * @param {boolean} isActualHost - True if this is the actual host (Game Master mode), false for Party Mode asker
  * @param {function} onAdvanceAsker - Callback to advance to next asker (Party Mode only)
  */
-export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker }) {
+export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker, onExit }) {
   const router = useRouter();
 
   const [meta, setMeta] = useState(null);
@@ -43,6 +43,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   const endTransitionTriggeredRef = useRef(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportSubmitting, setReportSubmitting] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
@@ -350,6 +351,12 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
       // Petit délai pour laisser le son jouer
       await new Promise(resolve => setTimeout(resolve, 300));
 
+      // Party Mode: masquer le contenu AVANT les updates Firebase
+      // pour éviter le flash de la question suivante
+      if (onAdvanceAsker) {
+        setIsTransitioning(true);
+      }
+
       const uid = state.lockUid;
       const pts = pointsEnJeu;
       const next = (state.currentIndex || 0) + 1;
@@ -473,6 +480,11 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
       return;
     }
 
+    // Party Mode: masquer le contenu AVANT les updates Firebase
+    if (onAdvanceAsker) {
+      setIsTransitioning(true);
+    }
+
     const updates = {};
     players.forEach(p => {
       updates[`rooms/${code}/players/${p.uid}/blockedUntil`] = 0;
@@ -572,6 +584,18 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
 
   return (
     <div className="host-game-page game-page">
+      {/* Party Mode: overlay opaque pour masquer la question suivante pendant la transition */}
+      <AnimatePresence>
+        {isTransitioning && (
+          <motion.div
+            className="party-transition-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.15 }}
+          />
+        )}
+      </AnimatePresence>
+
       {/* End transition */}
       <AnimatePresence>
         {showEndTransition && (
@@ -605,9 +629,9 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
               variant="header"
               confirmMessage={isActualHost
                 ? "Voulez-vous vraiment quitter ? La partie sera abandonnee pour tous les joueurs."
-                : "Voulez-vous vraiment quitter ?"
+                : "Voulez-vous vraiment quitter ? Votre score sera conservé."
               }
-              onExit={isActualHost ? exitAndEndGame : () => router.push('/home')}
+              onExit={isActualHost ? exitAndEndGame : (onExit || (() => router.push('/home')))}
             />
           </div>
         </div>
@@ -673,6 +697,15 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
       )}
 
       <style jsx>{`
+        :global(.party-transition-overlay) {
+          position: fixed;
+          inset: 0;
+          z-index: 9998;
+          background: rgba(8, 8, 12, 0.97);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+        }
+
         .host-game-page {
           flex: 1;
           min-height: 0;
