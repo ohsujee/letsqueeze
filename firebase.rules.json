@@ -326,7 +326,7 @@
         },
         "state": {
           ".read": "auth != null",
-          ".write": "auth != null && auth.uid == root.child('rooms_laregle/'+$code+'/meta/hostUid').val()",
+          ".write": "auth != null && ( auth.uid == root.child('rooms_laregle/'+$code+'/meta/hostUid').val() || root.child('rooms_laregle/'+$code+'/players/'+auth.uid).exists() )",
           "votes": {
             "$uid": {
               ".write": "auth != null && auth.uid == $uid"
@@ -348,6 +348,11 @@
           ".read": "auth != null",
           "$uid": {
             ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        "eliminations": {
+          "$uid": {
+            ".write": "auth != null"
           }
         },
         "kickedPlayers": {

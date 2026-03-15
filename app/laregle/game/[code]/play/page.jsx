@@ -801,7 +801,7 @@ export default function LaLoiPlayPage() {
                               {getCategoryDisplayName(winnerRule.category)}
                             </span>
                             <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)' }}>
-                              {'★'.repeat(diffInfo?.stars || 1)}{'☆'.repeat(3 - (diffInfo?.stars || 1))}
+                              {'★'.repeat(Math.min(diffInfo?.stars || 1, 3))}{'☆'.repeat(Math.max(0, 3 - (diffInfo?.stars || 1)))}
                             </span>
                           </div>
                           <p style={{
@@ -896,7 +896,7 @@ export default function LaLoiPlayPage() {
                                     {getCategoryDisplayName(rule.category)}
                                   </span>
                                   <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)' }}>
-                                    {'★'.repeat(diffInfo.stars)}{'☆'.repeat(3 - diffInfo.stars)}
+                                    {'★'.repeat(Math.min(diffInfo.stars, 3))}{'☆'.repeat(Math.max(0, 3 - diffInfo.stars))}
                                   </span>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>

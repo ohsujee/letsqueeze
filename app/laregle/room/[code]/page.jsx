@@ -184,7 +184,9 @@ export default function LaLoiLobby() {
       const updates = {};
       players.forEach(p => {
         updates[`rooms_laregle/${code}/players/${p.uid}/role`] = selectedInvestigators.includes(p.uid) ? 'investigator' : 'player';
+        updates[`rooms_laregle/${code}/players/${p.uid}/score`] = 0;
       });
+      updates[`rooms_laregle/${code}/eliminations`] = null;
       updates[`rooms_laregle/${code}/meta/mode`] = mode;
       updates[`rooms_laregle/${code}/meta/timerMinutes`] = timerMinutes;
       const ruleOptions = getRandomRulesForVoting({ onlineOnly: mode === 'a_distance', excludeIds: [] });
