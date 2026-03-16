@@ -45,9 +45,7 @@ export function ClientProviders({ children }) {
         <ThemeProvider>
           <ToastProvider>
             <ReviewPromptProvider>
-              <div style={forceUpdate ? { pointerEvents: 'none', opacity: 0.3 } : undefined}>
-                {children}
-              </div>
+              {children}
             </ReviewPromptProvider>
           </ToastProvider>
         </ThemeProvider>
