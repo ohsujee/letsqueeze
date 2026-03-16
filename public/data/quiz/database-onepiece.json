@@ -587,8 +587,8 @@
     },
     {
       "id": "op098",
-      "question": "Première transformation du héros pompant le sang plus vite pour augmenter sa vitesse et sa puissance, elle rétrécit son corps après utilisation. Créée face à CP9. Quelle est cette forme ?",
-      "answer": "Gear Second",
+      "question": "Première transformation du héros pompant le sang plus vite pour augmenter sa vitesse et sa puissance, elle raccourcit sa durée de vie selon Rob Lucci. Créée face à CP9. Quelle est cette forme ?",
+      "answer": "Gear Second (ギア2 セカンド)",
       "category": "Techniques"
     },
     {
@@ -617,7 +617,7 @@
     },
     {
       "id": "op103",
-      "question": "Clan des samouraïs de Wano qui attendait le retour de la lune depuis 800 ans, leur seigneur Oden a été exécuté par Kaido et Orochi. Le symbole de la grue leur appartient. Quel est ce clan ?",
+      "question": "Clan des samouraïs de Wano, leur seigneur a été exécuté par Kaido et Orochi. Le symbole de leur clan arbore une grue. Quel est ce clan ?",
       "answer": "Le clan Kozuki",
       "category": "Clans"
     },
@@ -647,7 +647,7 @@
     },
     {
       "id": "op108",
-      "question": "Descendants des 20 rois fondateurs du Gouvernement Mondial vivant à Marie-Geoise, ces nobles peuvent tuer des roturiers sans conséquence. Ils portent des bulles sur la tête. Qui sont-ils ?",
+      "question": "Descendants de 19 des 20 rois fondateurs du Gouvernement Mondial vivant à Marie-Geoise, ces nobles peuvent tuer des roturiers sans conséquence. Ils portent des bulles sur la tête. Qui sont-ils ?",
       "answer": "Les Dragons Célestes (Tenryuubito)",
       "category": "Gouvernement"
     },
@@ -689,7 +689,7 @@
     },
     {
       "id": "op115",
-      "question": "Seigneur légendaire de Wano qui a dansé nu dans les rues pour faire rire sa fille, il a voyagé avec Roger et appris l'histoire du monde. Exécuté par Kaido. Qui est-ce ?",
+      "question": "Seigneur légendaire de Wano qui a dansé nu dans les rues pendant 5 ans pour protéger les citoyens de Wano, il a voyagé avec Roger et appris l'histoire du monde. Exécuté par Kaido. Qui est-ce ?",
       "answer": "Kozuki Oden",
       "category": "Personnages"
     },
@@ -796,12 +796,6 @@
       "category": "Techniques"
     },
     {
-      "id": "op133",
-      "question": "Capacité avancée du Haki de l'Armement permettant de projeter le Haki à l'intérieur d'un objet ou d'une personne pour le détruire de l'intérieur, Rayleigh l'a enseignée au héros. Comment s'appelle cette technique ?",
-      "answer": "Le Haki de l'Armement avancé (Ryuo)",
-      "category": "Haki"
-    },
-    {
       "id": "op134",
       "question": "Capacité avancée du Haki de l'Observation permettant de voir quelques secondes dans le futur, Katakuri la maîtrise parfaitement. Le héros l'a développée durant leur combat à Whole Cake Island. Quel est ce pouvoir ?",
       "answer": "Le Haki de l'Observation du futur (Kenbunshoku avancé)",
@@ -815,7 +809,7 @@
     },
     {
       "id": "op136",
-      "question": "Commandants de l'Armée Révolutionnaire dirigeant chacun une armée sur un continent différent, les plus connus sont Morley, Belo Betty, Lindbergh et Karasu. Chacun possède un fruit du démon unique. Quel est leur titre ?",
+      "question": "Commandants de l'Armée Révolutionnaire dirigeant chacun une armée sur un continent différent, les plus connus sont Morley, Belo Betty, Lindbergh et Karasu. Quel est leur titre ?",
       "answer": "Les commandants de l'Armée Révolutionnaire",
       "category": "Révolutionnaires"
     },
@@ -845,7 +839,7 @@
     },
     {
       "id": "op141",
-      "question": "Race ailée vivant autrefois sur la Lune puis sur Red Line avant d'être exterminée, seul King en était un survivant connu. Leurs flammes dorsales brûlent éternellement et ils peuvent survivre à n'importe quel environnement. Quelle est cette race ?",
+      "question": "Race ailée vivant autrefois sur Red Line avant d'être exterminée. Leurs flammes dorsales brûlent éternellement et ils peuvent survivre à n'importe quel environnement. Seul King en était un survivant connu. Quelle est cette race ?",
       "answer": "Les Lunarias",
       "category": "Races"
     },
@@ -881,7 +875,7 @@
     },
     {
       "id": "op147",
-      "question": "Nouvel Amiral aux pouvoirs de verdure capable de faire pousser des forêts entières avec le Mori Mori no Mi, il est loyal au pouvoir en place. Apparu lors de l'arc Dressrosa. Qui est-ce ?",
+      "question": "Nouvel Amiral aux pouvoirs de verdure capable de faire pousser des forêts entières avec le Mori Mori no Mi. Mentionné pour la première fois lors de l'arc Dressrosa, il apparaît physiquement lors de l'arc Reverie. Qui est-ce ?",
       "answer": "Ryokugyu (Aramaki)",
       "category": "Marine"
     },
@@ -929,7 +923,7 @@
     },
     {
       "id": "op155",
-      "question": "Sabre blanc compagnon de Zoro depuis le début de l'aventure, il appartenait à Kuina, son amie d'enfance décédée. C'est le sabre qu'il tient dans la bouche durant ses combats au Santoryu. Quel est ce sabre ?",
+      "question": "Ce sabre blanc accompagne Zoro depuis le début de son aventure et appartenait à Kuina, son amie d'enfance décédée. C'est celui qu'il tient dans la bouche durant ses combats au Santoryu. Quel est ce sabre ?",
       "answer": "Wado Ichimonji",
       "category": "Armes"
     }

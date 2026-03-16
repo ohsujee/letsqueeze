@@ -263,7 +263,7 @@
     },
     {
       "id": "kol044",
-      "question": "Kamal Haasan joue trois rôles : un père mécanicien et ses deux fils jumeaux, dont un nain de cirque qui tue ses ennemis avec des pièges ingénieux. Quel est ce film ?",
+      "question": "Kamal Haasan joue trois rôles : un père policier et ses deux fils jumeaux, dont un nain de cirque qui tue ses ennemis avec des pièges ingénieux. Quel est ce film ?",
       "answer": "Apoorva Sagodharargal",
       "category": "Technique"
     },
@@ -329,13 +329,13 @@
     },
     {
       "id": "kol055",
-      "question": "Dans le film Alaipayuthey, quelle chanson célèbre est une ode aux couleurs (Rouge de la colère, Noir de la nuit, Vert...) ?",
+      "question": "Dans le film Alaipayuthey, quelle chanson célèbre d'A.R. Rahman compare les différentes facettes de l'amour à des couleurs (vert, blanc, rouge, bleu...) ?",
       "answer": "Pachai Nirame",
       "category": "Musique"
     },
     {
       "id": "kol056",
-      "question": "Thriller psychologique où Dhanush souffre de troubles bipolaires qui le poussent à la violence, menant à une fin tragique pour lui et sa femme (Shruti Haasan). Quel est ce film ?",
+      "question": "Thriller psychologique où Dhanush souffre de troubles bipolaires non traités qui le poussent au suicide, laissant sa femme (Shruti Haasan) chercher à comprendre les raisons de sa mort. Quel est ce film ?",
       "answer": "3",
       "category": "Films"
     },
@@ -365,7 +365,7 @@
     },
     {
       "id": "kol061",
-      "question": "Vijay joue un père poule boulanger au Kerala qui cache sa véritable identité d'ancien policier impitoyable de Chennai pour protéger sa fille. Le méchant est un politicien. Quel est ce film ?",
+      "question": "Vijay joue un père poule boulanger au Kerala qui cache sa véritable identité d'ancien policier impitoyable de Chennai pour protéger sa fille. Le méchant de ce film est un politicien. Quel est ce film ?",
       "answer": "Theri",
       "category": "Action"
     },
@@ -377,7 +377,7 @@
     },
     {
       "id": "kol063",
-      "question": "Un chef de gang de quartier doit prendre la place de son père assassiné pour devenir l'entraîneur de l'équipe féminine de football du Tamil Nadu. Quel est ce film ?",
+      "question": "Un ancien footballeur devenu chef de gang après l'assassinat de son père doit remplacer son ami blessé comme entraîneur de l'équipe féminine de football du Tamil Nadu. Quel est ce film ?",
       "answer": "Bigil",
       "category": "Sport"
     },
@@ -617,7 +617,7 @@
     },
     {
       "id": "kol103",
-      "question": "Actrice connue pour ses expressions mignonnes, elle a marqué les esprits dans 'Deiva Thirumagal' et 'Raja Rani'. Elle est souvent appelée 'Expression Queen'. Qui est-ce ?",
+      "question": "Actrice connue pour ses expressions mignonnes, elle a marqué les esprits dans 'Raja Rani' et 'Neram'. Elle est souvent appelée 'Expression Queen'. Qui est-ce ?",
       "answer": "Nazriya Nazim",
       "category": "Actrices"
     },
@@ -833,7 +833,7 @@
     },
     {
       "id": "kol140",
-      "question": "Film de science-fiction 'boucle temporelle' (Time Loop) de 2021. Simbu revit la même journée où il doit assassiner le Premier Ministre. Un succès critique immense. Quel est ce film ?",
+      "question": "Film de science-fiction 'boucle temporelle' (Time Loop) de 2021. Simbu revit la même journée où il doit assassiner le Chief Minister. Un succès critique immense. Quel est ce film ?",
       "answer": "Maanaadu",
       "category": "Science-fiction"
     },
@@ -899,13 +899,13 @@
     },
     {
       "id": "kol152",
-      "question": "Film de 2006 réalisé par Selvaraghavan. Dhanush y joue un jeune homme de la classe moyenne obsédé par une fille riche et arrogante. La musique de Yuvan Shankar Raja est culte. Quel est ce film ?",
-      "answer": "Pudhupettai",
+      "question": "Film de 2006 réalisé par Selvaraghavan. Dhanush y joue un adolescent des bidonvilles de Chennai qui intègre un gang local et gravit les échelons du crime organisé pour devenir un redoutable homme de main. La musique de Yuvan Shankar Raja est culte. Quel est ce film ?",
+      "answer": "Pudhupettai (புதுப்பேட்டை)",
       "category": "Films cultes"
     },
     {
       "id": "kol153",
-      "question": "Dans quel film comique de 2002 voit-on Kamal Haasan et Madhavan communiquer par des mensonges constants ('Pammal K. Sambandam') ? Une scène de chirurgie avec une montre dans le ventre est célèbre.",
+      "question": "Dans quel film comique tamoul de 2002, Kamal Haasan incarne un cascadeur célibataire endurci dont le ventre retient accidentellement la montre d'une femme médecin après une chirurgie, déclenchant une série de quiproquos ?",
       "answer": "Pammal K. Sambandam",
       "category": "Comédie"
     },
@@ -926,12 +926,6 @@
       "question": "Actrice ayant débuté enfant (Baby Shamili), elle est revenue en héroïne dans Oy!. Son rôle le plus célèbre reste l'enfant handicapée mentale dans Anjali (1990). Qui est-ce ?",
       "answer": "Shamili",
       "category": "Actrices"
-    },
-    {
-      "id": "kol157",
-      "question": "Film de 2010. Arya joue un patron d'hôpital psychiatrique fictif et hilarant. C'est une parodie complète du cinéma tamoul ('Spoof movie'). Quel est ce film ?",
-      "answer": "Thamizh Padam",
-      "category": "Comédie"
     },
     {
       "id": "kol159",
@@ -1001,14 +995,14 @@
     },
     {
       "id": "kol171",
-      "question": "Quel acteur joue le fantôme transgenre 'Muniya' dans le film Kanchana, livrant une performance terrifiante en sari rouge ?",
+      "question": "Quel acteur joue le fantôme transgenre 'Kanchana' dans le film Kanchana (Muni 2), livrant une performance terrifiante en sari rouge ?",
       "answer": "Sarathkumar",
       "category": "Performance"
     },
     {
       "id": "kol172",
-      "question": "Film de 2013. Un jeune chrétien (Dhanush) tombe amoureux d'une fille (Sonam Kapoor) mais leur amour est condamné. La chanson 'Nenjukkul Peidhidum' est un classique. Quel est ce film ?",
-      "answer": "Raanjhanaa (Film Hindi doublé, Ambikapathy en Tamoul)",
+      "question": "Film de 2013. Un jeune hindou de Varanasi (Dhanush) tombe amoureux d'une musulmane (Sonam Kapoor) mais leur amour interdit est condamné. Musique d'A.R. Rahman. Quel est ce film ?",
+      "answer": "Raanjhanaa (Film Hindi, Ambikapathy en Tamoul)",
       "category": "Romance"
     },
     {
@@ -1037,14 +1031,14 @@
     },
     {
       "id": "kol177",
-      "question": "Chanteur et parolier célèbre pour ses chansons 'Gaana' (folk urbain de Chennai) comme 'Dangamaari Oodhari'. Il joue souvent son propre rôle. Qui est-ce ?",
+      "question": "Chanteur et parolier célèbre pour ses chansons 'Gaana' (folk urbain de Chennai) comme 'Aadi Pona Aavani' (Attakathi). Il joue souvent son propre rôle. Qui est-ce ?",
       "answer": "Gana Bala",
       "category": "Musique"
     },
     {
       "id": "kol178",
-      "question": "Dans le film Thuppakki, quel est le nom du méchant terroriste 'Sleeper Cell' qui joue au jeu de l'esprit avec Vijay par téléphone ?",
-      "answer": "Jagdish",
+      "question": "Dans le film Thuppakki, quel est le nom du personnage héroïque joué par Vijay, un capitaine de l'armée indienne ?",
+      "answer": "Jagdish (Jagadish Dhanapal)",
       "category": "Méchants"
     },
     {
@@ -1092,7 +1086,7 @@
     {
       "id": "kol186",
       "question": "La 'BGM' (Musique de fond) virale du film Vikram (2022) qui accompagne l'entrée de l'agent Tina et les scènes de combat. Elle est composée par Anirudh. Quel est son titre ?",
-      "answer": "Vikram Title Track (Once Upon a Time)",
+      "answer": "Agent Tina (Background Score)",
       "category": "Musique"
     },
     {
@@ -1127,8 +1121,8 @@
     },
     {
       "id": "kol192",
-      "question": "Acteur comique et caractériel, connu pour son rôle de 'Vandu Murugan' dans le film Yaradi Nee Mohini. Ses dialogues rapides sont sa marque. Qui est-ce ?",
-      "answer": "Karunakaran",
+      "question": "Acteur comique et caractériel, connu pour son rôle de 'Vandu Murugan' dans le film Ellam Avan Seyal. Ses dialogues rapides sont sa marque. Qui est-ce ?",
+      "answer": "Vadivelu",
       "category": "Comédie"
     },
     {
@@ -1148,12 +1142,6 @@
       "question": "Dans le film Vada Chennai, quel jeu de société est central à l'intrigue et sert de métaphore pour les guerres de gangs ?",
       "answer": "Le Carrom",
       "category": "Objets"
-    },
-    {
-      "id": "kol196",
-      "question": "Acteur de soutien respecté, il a joué le père de Baahubali (Bijjaladeva) et le chef terroriste dans Roja. Il est aussi président de l'association des acteurs (Nadigar Sangam). Qui est-ce ?",
-      "answer": "Nassar",
-      "category": "Acteurs"
     },
     {
       "id": "kol197",
@@ -1277,13 +1265,13 @@
     },
     {
       "id": "kol218",
-      "question": "Film de 2011 où Jiiva, Srikanth et Vijay sont trois amis étudiants. Remake du film hindi '3 Idiots'. Quel est ce film ?",
+      "question": "Film de 2012 où Jiiva, Srikanth et Vijay sont trois amis étudiants. Remake du film hindi '3 Idiots'. Quel est ce film ?",
       "answer": "Nanban",
       "category": "Remake"
     },
     {
       "id": "kol219",
-      "question": "Actrice des années 80-90, connue pour être une excellente danseuse et actrice comique. Elle joue dans Michael Madana Kama Rajan (la femme kleptomane). Qui est-ce ?",
+      "question": "Actrice des années 80-90, connue pour être une excellente danseuse et actrice comique. Elle joue Thirupurasundari, la petite-amie de Kameshwaran, dans Michael Madana Kama Rajan (1990). Qui est-ce ?",
       "answer": "Urvashi",
       "category": "Actrices"
     },
@@ -1325,7 +1313,7 @@
     },
     {
       "id": "kol226",
-      "question": "Acteur connu pour ses rôles de méchant sophistiqué dans Thani Oruvan et Velaikkaran. Il a fait son retour en tant qu'acteur après avoir été une idole romantique dans les années 90 (Roja, Bombay). Qui est-ce ?",
+      "question": "Acteur connu pour son rôle de méchant sophistiqué dans Thani Oruvan (2015). Il a fait son retour en tant qu'acteur après avoir été une idole romantique dans les années 90 (Roja, Bombay). Qui est-ce ?",
       "answer": "Arvind Swamy",
       "category": "Acteurs"
     },
@@ -1346,12 +1334,6 @@
       "question": "Film de science-fiction tamoul de 2018. Un magicien est recruté pour devenir astronaute et détruire un astéroïde. Premier film spatial indien. Quel est ce film ?",
       "answer": "Tik Tik Tik",
       "category": "Science-fiction"
-    },
-    {
-      "id": "kol230",
-      "question": "Dans le film Chandramukhi, quel animal imaginaire Vadivelu pense-t-il avoir dans son lit ('Vada pochu!') ?",
-      "answer": "Un serpent (Pambu)",
-      "category": "Comédie"
     },
     {
       "id": "kol231",
@@ -1463,7 +1445,7 @@
     },
     {
       "id": "kol250",
-      "question": "Elle a chanté la version féminine de 'Why This Kolaveri Di' et joué la petite amie de Dhanush dans le film '3'. Fille d'un acteur légendaire, elle est aussi actrice. Qui est-ce ?",
+      "question": "Elle a chanté 'Kannazhaga (The Kiss of Love)' et joué aux côtés de Dhanush dans le film '3'. Fille d'un acteur légendaire, elle est aussi actrice. Qui est-ce ?",
       "answer": "Shruti Haasan",
       "category": "Actrices"
     },
@@ -1475,7 +1457,7 @@
     },
     {
       "id": "kol252",
-      "question": "Chanson du film Maari 2 (2018). Dhanush et Sai Pallavi dansent avec une coordination parfaite. C'est la vidéo de chanson indienne la plus vue de tous les temps sur YouTube. Quel est le titre ?",
+      "question": "Chanson du film Maari 2 (2018). Dhanush et Sai Pallavi dansent avec une coordination parfaite. C'est la vidéo de chanson de film sud-indien la plus vue de tous les temps sur YouTube. Quel est le titre ?",
       "answer": "Rowdy Baby",
       "category": "Musique"
     },
@@ -1484,12 +1466,6 @@
       "question": "Acteur controversé mais talentueux, fils du réalisateur T. Rajendar. Surnommé 'Little Superstar' ou 'STR', il a fait un retour triomphal avec le film Maanaadu. Qui est-ce ?",
       "answer": "Simbu (Silambarasan)",
       "category": "Acteurs"
-    },
-    {
-      "id": "kol254",
-      "question": "Réalisateur méticuleux, ancien journaliste. Il est connu pour ses recherches approfondies sur ses sujets : les arnaques dans Sathuranga Vettai et la police dans Theeran Adhigaaram Ondru. Qui est-ce ?",
-      "answer": "H. Vinoth",
-      "category": "Réalisateurs"
     },
     {
       "id": "kol255",
@@ -1559,7 +1535,7 @@
     },
     {
       "id": "kol266",
-      "question": "Film de 2004 de Selvaraghavan. Ravi Krishna joue un jeune homme dépressif et bon à rien qui est hanté par le fantôme de sa voisine Anita. La musique de Yuvan est légendaire. Quel est ce film ?",
+      "question": "Film de 2004 de Selvaraghavan. Ravi Krishna joue un jeune homme dépressif et bon à rien qui tombe amoureux de sa voisine Anitha, une fille issue d'une famille Marwadi. La musique de Yuvan est légendaire. Quel est ce film ?",
       "answer": "7G Rainbow Colony",
       "category": "Drame/Romance"
     },
@@ -1589,7 +1565,7 @@
     },
     {
       "id": "kol271",
-      "question": "Comédie romantique culte de 2009. Jiiva joue un livreur farceur qui harcèle gentiment une hôtesse de l'air. Le film a redéfini l'humour romantique moderne. Quel est ce film ?",
+      "question": "Comédie romantique culte de 2009. Jiiva joue un livreur qui se fait passer pour un militaire et rencontre une RJ qui prétend être hôtesse de l'air. Leurs mensonges mutuels déclenchent une guerre de représailles hilarante. Quel est ce film ?",
       "answer": "Siva Manasula Sakthi (SMS)",
       "category": "Comédie"
     },
@@ -1625,8 +1601,8 @@
     },
     {
       "id": "kol277",
-      "question": "Dans le film Jeans (1998), pourquoi le père de Prashanth veut-il absolument marier ses deux fils jumeaux à deux sœurs jumelles ?",
-      "answer": "Parce qu'il a lui-même un frère jumeau et veut rester uni",
+      "question": "Dans le film Jeans (1998), pourquoi le père de Vishwanathan et Ramamoorthy veut-il absolument marier ses fils jumeaux à deux sœurs jumelles ?",
+      "answer": "Parce que sa femme est morte après l'accouchement, torturée par la femme de son frère jumeau, et en mourant elle a dit que des sœurs jumelles se seraient soutenues",
       "category": "Comédie"
     },
     {
@@ -1643,7 +1619,7 @@
     },
     {
       "id": "kol280",
-      "question": "Quel comédien a obtenu son surnom après une scène du film Vennila Kabadi Kuzhu où il mange des dizaines de parottas mais le serveur ne les compte pas ?",
+      "question": "Quel comédien a obtenu son surnom après une scène du film Vennila Kabadi Kuzhu où son personnage mange 50 parottas lors d'une compétition devant un hôtelier stupéfait ?",
       "answer": "Parotta Soori",
       "category": "Comédie"
     },
@@ -1661,7 +1637,7 @@
     },
     {
       "id": "kol283",
-      "question": "Dans le film Indian (1996), quel est le nom du personnage de vieux justicier joué par Kamal Haasan, qui tue les corrompus avec un couteau en forme de spirale ?",
+      "question": "Dans le film Indian (1996), quel est le nom du personnage de vieux justicier joué par Kamal Haasan, qui élimine les corrompus grâce au Varma Kalai, un art martial ancestral ciblant les points vitaux ?",
       "answer": "Senapathy (Indian Thatha)",
       "category": "Personnages Cultes"
     },
@@ -1682,12 +1658,6 @@
       "question": "Actrice très populaire, connue pour ses rôles dans Theri, Mersal et Super Deluxe. Elle a une base de fans énorme et est surnommée 'Sam'. Qui est-ce ?",
       "answer": "Samantha Ruth Prabhu",
       "category": "Actrices"
-    },
-    {
-      "id": "kol288",
-      "question": "Dans le film Vinnaithaandi Varuvaayaa, quelle scène marque la séparation déchirante entre Karthik et Jessie, où elle lui dit 'Il y a un moment pour tout' ?",
-      "answer": "La scène de la grille (The Gate Scene)",
-      "category": "Scènes cultes"
     },
     {
       "id": "kol289",
@@ -1739,8 +1709,8 @@
     },
     {
       "id": "kol298",
-      "question": "Dans le film Kabali, quel son/musique de sifflet composé par Santhosh Narayanan accompagne l'entrée de Rajinikanth ?",
-      "answer": "Whistle Theme (Neruppu Da)",
+      "question": "Dans le film Kabali, quel thème instrumental de sifflet accompagne l'entrée de Rajinikanth ?",
+      "answer": "Kabali Whistle Theme",
       "category": "Musique"
     },
     {
@@ -1772,12 +1742,6 @@
       "question": "Réalisateur commercial légendaire, connu pour ses blockbusters avec Rajinikanth (Muthu, Padayappa) et Kamal Haasan (Avvai Shanmughi). Il fait toujours un cameo dans ses films. Qui est-ce ?",
       "answer": "K.S. Ravikumar",
       "category": "Réalisateurs"
-    },
-    {
-      "id": "kol304",
-      "question": "Dans le film Muthu, quelle est la profession du personnage principal joué par Rajinikanth avant qu'il ne découvre son passé royal ?",
-      "answer": "Cocher (Conducteur de charrette à cheval)",
-      "category": "Personnages"
     },
     {
       "id": "kol305",
@@ -1817,8 +1781,8 @@
     },
     {
       "id": "kol311",
-      "question": "Film de 1999 avec Vijay et Simran. Il contient la chanson 'Oru Pennai Parthu' où le héros refuse de regarder la fille par respect. Quel est ce film ?",
-      "answer": "Thulladha Manamum Thullum",
+      "question": "Film de 1964 avec M.G.R. et Saroja Devi contenant la chanson 'Oru Pennai Parthu Nilavai Parthen'. Quel est ce film ?",
+      "answer": "Deiva Thai",
       "category": "Romance"
     },
     {
@@ -1836,7 +1800,7 @@
     {
       "id": "kol314",
       "question": "Compositeur des années 90, rival d'A.R. Rahman à ses débuts. Connu pour 'Kadhal Kottai' et 'Gokulathil Seethai'. Son style est très mélodique. Qui est-ce ?",
-      "answer": "S.A. Rajkumar",
+      "answer": "Deva",
       "category": "Musique"
     },
     {
@@ -1883,13 +1847,13 @@
     },
     {
       "id": "kol322",
-      "question": "Chanteuse à la voix très aiguë et reconnaissable, souvent associée aux chansons d'Ilaiyaraaja et Rahman (Chinna Chinna Asai). Qui est-ce ?",
+      "question": "Chanteuse à la voix très aiguë et reconnaissable, souvent associée aux chansons d'Ilaiyaraaja et Rahman (Kannalane, Anjali Anjali). Qui est-ce ?",
       "answer": "K.S. Chithra",
       "category": "Musique"
     },
     {
       "id": "kol323",
-      "question": "Film de 2011. Jai, Anjali et Sharwanand. Une histoire d'amour réaliste et tragique où le héros est percuté par un bus. C'est le premier film 'd'auteur' de M. Saravanan. Quel est ce film ?",
+      "question": "Film de 2011. Jai, Anjali et Sharwanand. Une histoire d'amour réaliste et tragique qui s'achève par une collision frontale entre deux bus. C'est le premier film tamoul de M. Saravanan. Quel est ce film ?",
       "answer": "Engeyum Eppodhum",
       "category": "Drame"
     },
@@ -1919,25 +1883,25 @@
     },
     {
       "id": "kol328",
-      "question": "Réalisateur qui a fait de Ajith une star d'action avec les films 'Dheena' et 'Ramana'. Il a aussi réalisé Ghajini. Qui est-ce ?",
+      "question": "Réalisateur qui a fait de Ajith une star d'action avec le film 'Dheena' (2001). Il a aussi réalisé 'Ramanaa' avec Vijayakanth et 'Ghajini' avec Suriya. Qui est-ce ?",
       "answer": "A.R. Murugadoss",
       "category": "Réalisateurs"
     },
     {
       "id": "kol329",
-      "question": "Film de 2022. Karthi joue un espion qui doit infiltrer une base militaire en se faisant passer pour un acteur de théâtre, tout en portant une perruque et du maquillage. Quel est ce film ?",
+      "question": "Film de 2022. Karthi joue un double rôle. L'armée indienne recrute un acteur de théâtre pour en faire un espion, qui utilise de multiples déguisements pour ses missions. Quel est ce film ?",
       "answer": "Sardar",
       "category": "Action"
     },
     {
       "id": "kol330",
-      "question": "Quelle actrice a joué la petite amie de Vijay dans 3 films consécutifs : Thirumalai, Ghilli et Thirupaachi ? Elle était surnommée la 'Lucky Mascot' de Vijay.",
+      "question": "Quelle actrice a joué la petite amie de Vijay dans 3 films consécutifs : Ghilli, Thirupaachi et Aathi ? Elle formait un duo iconique avec Vijay dans les années 2000.",
       "answer": "Trisha",
       "category": "Actrices"
     },
     {
       "id": "kol331",
-      "question": "Film de 2016. Une satire politique où un homme simple devient maire par hasard. Le film dénonce la corruption des élections. Avec Vidharth. 'Joker'. Quel est ce film ?",
+      "question": "Film tamoul de 2016. Une satire politique où un villageois se déclare Président de l'Inde et dénonce les injustices. Avec Guru Somasundaram. Réalisé par Raju Murugan. Quel est ce film ?",
       "answer": "Joker",
       "category": "Politique"
     },
@@ -1949,7 +1913,7 @@
     },
     {
       "id": "kol333",
-      "question": "Dans quel film comique de 1996 voit-on Kamal Haasan et Prabhu se disputer pour la même femme, avec des dialogues de Crazy Mohan ? 'Kaathala Kaathala'.",
+      "question": "Dans quel film comique de 1998 voit-on Kamal Haasan et Prabhu Deva se disputer pour séduire des femmes, avec des dialogues de Crazy Mohan ?",
       "answer": "Kaathala Kaathala",
       "category": "Comédie"
     },
@@ -1973,7 +1937,7 @@
     },
     {
       "id": "kol338",
-      "question": "Chanson du film '3' (2012) qui n'est PAS Kolaveri Di, mais une mélodie chantée par Dhanush et Shreya Ghoshal. 'Nee Paartha Vizhigal'. Quel est le titre ?",
+      "question": "Chanson du film '3' (2012) qui n'est PAS Kolaveri Di, mais une mélodie chantée par Dhanush, Vijay Yesudas et Shweta Mohan. Quel est le titre ?",
       "answer": "Nee Paartha Vizhigal",
       "category": "Musique"
     },
@@ -2051,7 +2015,7 @@
     },
     {
       "id": "kol351",
-      "question": "Film romantique de 1999 où un homme tombe amoureux d'une fille sur internet (chat room). La chanson 'Muna Puna' est célèbre. Kunal et Sonali Bendre. Quel est ce film ?",
+      "question": "Film romantique tamoul de 1999 où un homme tombe amoureux d'une fille sur internet (chat room). La chanson 'Oh Maria' est célèbre. Avec Kunal et Sonali Bendre. Quel est ce film ?",
       "answer": "Kadhalar Dhinam",
       "category": "Romance"
     },
@@ -2105,7 +2069,7 @@
     },
     {
       "id": "kol360",
-      "question": "Comédien qui joue 'Mottai Shiva' dans le film Giri. Sa phrase 'Adra Sakka' est célèbre. Qui est-ce ?",
+      "question": "Comédien qui joue 'Veerabagu' dans le film Giri (2004). Sa comédie avec Arjun est culte. Qui est-ce ?",
       "answer": "Vadivelu",
       "category": "Comédie"
     },
@@ -2159,7 +2123,7 @@
     },
     {
       "id": "kol369",
-      "question": "Film de 1999 avec Vijay. La chanson 'Minsara Kanna' avec Ramya Krishnan est très célèbre. Vijay joue le garde du corps d'une femme riche. Quel est ce film ?",
+      "question": "Film de 1999 avec Vijay. Vijay et sa famille se font passer pour des employés (garde du corps, cuisinier...) chez une femme riche misandre pour la convaincre d'accepter un mariage. Quel est ce film ?",
       "answer": "Minsara Kanna",
       "category": "Comédie"
     },
@@ -2182,12 +2146,6 @@
       "category": "Musique"
     },
     {
-      "id": "kol373",
-      "question": "Quelle superstar a chorégraphié la chanson 'Rowdy Baby' (Maari 2) qui est devenue un succès mondial ?",
-      "answer": "Prabhu Deva",
-      "category": "Danse"
-    },
-    {
       "id": "kol374",
       "question": "Dans le film Kaithi, quelle arme lourde Karthi utilise-t-il lors du climax pour détruire les camions des méchants devant le commissariat ?",
       "answer": "Une mitrailleuse Gatling (M134 Minigun)",
@@ -2200,12 +2158,6 @@
       "category": "Action"
     },
     {
-      "id": "kol376",
-      "question": "Dans la comédie 'Imsai Arasan 23rd Pulikecei', Vadivelu joue un roi incompétent. Quelle est sa phrase fétiche quand il parle à ses gardes ?",
-      "answer": "Yaarum keka koodadhu! (Personne ne doit demander !)",
-      "category": "Répliques"
-    },
-    {
       "id": "kol377",
       "question": "Film tragique de 1999 qui a révélé Vikram. Il joue un étudiant qui devient fou et finit dans un asile après une rupture amoureuse brutale. Quel est ce film ?",
       "answer": "Sethu",
@@ -2216,12 +2168,6 @@
       "question": "Acteur comique qui joue un agent de sécurité maladroit dans le film Gurkha (2019) où il doit sauver un centre commercial avec un chien. Qui est-ce ?",
       "answer": "Yogi Babu",
       "category": "Comédie"
-    },
-    {
-      "id": "kol379",
-      "question": "Dans une scène comique du film Enthiran, à qui Chitti le robot parle-t-il avant de l'écraser parce qu'il l'a empêché d'écouter la conversation de Sana ?",
-      "answer": "Un moustique",
-      "category": "Scènes cultes"
     },
     {
       "id": "kol380",
@@ -2267,7 +2213,7 @@
     },
     {
       "id": "kol388",
-      "question": "Film de 2021. Simbu joue un jeune homme musulman, Abdul Khaaliq, coincé dans une boucle temporelle pour sauver le Premier Ministre. Quel est ce film ?",
+      "question": "Film de 2021. Simbu joue un jeune homme musulman, Abdul Khaaliq, coincé dans une boucle temporelle pour sauver le Chief Minister. Quel est ce film ?",
       "answer": "Maanaadu",
       "category": "Science-fiction"
     },
@@ -2399,7 +2345,7 @@
     },
     {
       "id": "kol411",
-      "question": "Film de 2010. Arya joue un musulman de Madraspatnam (Madras colonial) amoureux d'une femme britannique dans les années 1940. Quel est ce film ?",
+      "question": "Film de 2010. Arya joue un lavandier (dhobi) de Madraspatnam (Madras colonial) amoureux de la fille du gouverneur britannique dans les années 1940. Quel est ce film ?",
       "answer": "Madrasapattinam",
       "category": "Historique"
     },
@@ -2471,7 +2417,7 @@
     },
     {
       "id": "kol424",
-      "question": "Film de 2013. Vishal joue un homme atteint de narcolepsie (il s'endort quand il ressent une émotion forte) qui doit sauver sa femme. Quel est ce film ?",
+      "question": "Film tamoul de 2014. Vishal joue un homme atteint de narcolepsie (il s'endort quand il ressent une émotion forte) qui cherche à venger sa petite amie après une agression. Quel est ce film ?",
       "answer": "Naan Sigappu Manithan",
       "category": "Thriller"
     },
@@ -2531,7 +2477,7 @@
     },
     {
       "id": "kol435",
-      "question": "Film de 2016. Vijay Sethupathi joue un voyou qui veut devenir policier ('Rowdy Police'). Nayanthara joue une fille sourde dont il tombe amoureux. Quel est ce film ?",
+      "question": "Film de 2015. Vijay Sethupathi joue un voyou, fils de policier. Nayanthara joue une fille sourde dont il tombe amoureux. Quel est ce film ?",
       "answer": "Naanum Rowdy Dhaan",
       "category": "Comédie"
     },
@@ -2585,27 +2531,15 @@
     },
     {
       "id": "kol446",
-      "question": "Film de 1999. Vijay et Shalini. Une histoire d'amour 'Roméo et Juliette' moderne où les familles s'opposent à cause de la religion (Hindou/Chrétien). La fin est heureuse. Quel est ce film ?",
+      "question": "Film de 1997. Vijay et Shalini. Une histoire d'amour inter-religieuse (Hindou/Chrétien) où les frères de l'héroïne s'opposent à leur relation. La fin est heureuse. Quel est ce film ?",
       "answer": "Kadhalukku Mariyadhai",
       "category": "Romance"
     },
     {
-      "id": "kol447",
-      "question": "Dans le film Ghajini, quel est le dernier mot que Kalpana (Asin) prononce avant de mourir, essayant de dire à Sanjay qui est le tueur ?",
-      "answer": "Ram... (pour Ramasamy)",
-      "category": "Scènes cultes"
-    },
-    {
       "id": "kol448",
-      "question": "Acteur connu pour ses rôles de policier dur (Yennai Arindhaal) et de méchant (Master). Il a une cicatrice sur la joue dans Master. Qui est-ce ?",
+      "question": "Acteur révélé dans Kaithi (2019) et connu pour son rôle de méchant intimidant dans Master (2021), où il incarne un criminel au look marquant. Qui est-ce ?",
       "answer": "Arjun Das",
       "category": "Acteurs"
-    },
-    {
-      "id": "kol449",
-      "question": "Dans le film Soorarai Pottru, quel est le nom de la compagnie aérienne fondée par Nedumaaran Rajangam (Suriya) ?",
-      "answer": "Deccan Air",
-      "category": "Biopic"
     },
     {
       "id": "kol450",
@@ -2615,13 +2549,13 @@
     },
     {
       "id": "kol451",
-      "question": "Dans le film Leo (2023), Vijay affronte un animal sauvage en CGI dans une scène d'action au Cachemire. Quel est cet animal ?",
+      "question": "Dans le film Leo (2023), Vijay affronte un animal sauvage en CGI dans une scène d'action spectaculaire. Quel est cet animal ?",
       "answer": "Une hyène",
       "category": "Action"
     },
     {
       "id": "kol452",
-      "question": "Quel acteur joue le frère antagoniste de Vijay, 'Antony Das', dans le film Leo ? C'est une star de Bollywood.",
+      "question": "Quel acteur de Bollywood joue le père antagoniste de Vijay, 'Antony Das', dans le film Leo ?",
       "answer": "Sanjay Dutt",
       "category": "Méchants"
     },
@@ -2651,13 +2585,13 @@
     },
     {
       "id": "kol457",
-      "question": "Dans Jigarthanda DoubleX, le personnage de S.J. Suryah (Ray Das) est un fan absolu d'un acteur/réalisateur de western américain. Lequel ?",
+      "question": "Dans Jigarthanda DoubleX, le personnage de Raghava Lawrence est un fan absolu d'un acteur/réalisateur de western américain. Lequel ?",
       "answer": "Clint Eastwood",
       "category": "Références"
     },
     {
       "id": "kol458",
-      "question": "Film de 2023. Un drame intense sur un locataire et son propriétaire qui se livrent une guerre d'ego pour une place de stationnement. M.S. Bhaskar y est magistral. Quel est ce film ?",
+      "question": "Film de 2023. Un drame intense sur un jeune homme et son voisin âgé qui se livrent une guerre d'ego pour une place de stationnement. M.S. Bhaskar y est magistral. Quel est ce film ?",
       "answer": "Parking",
       "category": "Drame"
     },
@@ -2686,14 +2620,8 @@
       "category": "Musique"
     },
     {
-      "id": "kol463",
-      "question": "Dans le film Jailer, Rajinikanth porte des lunettes spécifiques pour voir un souvenir important (la tête coupée). De qui sont ces lunettes ?",
-      "answer": "Celles de son petit-fils",
-      "category": "Intrigue"
-    },
-    {
       "id": "kol464",
-      "question": "Quel film de 2024 met en scène Soori dans le rôle d'un homme de main fidèle qui se retourne contre ses maîtres ? Un succès critique écrit par Vetrimaaran. Quel est ce film ?",
+      "question": "Quel film de 2024 met en scène Soori dans le rôle d'un homme de main fidèle qui se retourne contre ses maîtres ? Un succès critique produit par Vetrimaaran. Quel est ce film ?",
       "answer": "Garudan",
       "category": "Action"
     },
@@ -2758,12 +2686,6 @@
       "category": "Intrigue"
     },
     {
-      "id": "kol475",
-      "question": "Acteur de caractère magistral, capable de jouer la comédie et le drame (8 Thottakkal, Parking). Il est aussi une voix de doublage célèbre (Spider-Man, Jackie Chan en tamoul). Qui est-ce ?",
-      "answer": "M.S. Bhaskar",
-      "category": "Acteurs"
-    },
-    {
       "id": "kol476",
       "question": "Quelle est la particularité du film 'Sivaji: The Boss' concernant son financement et sa production en 2007 (un record pour l'époque) ?",
       "answer": "Premier film tamoul à entrer dans le '100 Crore Club' (1 milliard de roupies)",
@@ -2795,7 +2717,7 @@
     },
     {
       "id": "kol481",
-      "question": "Film de 2024. Un film de cricket centré sur la rivalité entre deux équipes locales à Chennai. Ashok Selvan et Shanthanu Bhagyaraj. 'Blue Star'. Quel est ce film ?",
+      "question": "Film de 2024. Un film de cricket situé à Arakkonam, centré sur la rivalité entre deux équipes de castes différentes. Ashok Selvan et Shanthanu Bhagyaraj. Quel est ce film ?",
       "answer": "Blue Star",
       "category": "Sport"
     },
@@ -2848,12 +2770,6 @@
       "category": "Trivia"
     },
     {
-      "id": "kol490",
-      "question": "Dans le film '96', qu'est-ce que Ram (Vijay Sethupathi) a gardé de Jaanu (Trisha) pendant 22 ans sans jamais l'ouvrir ?",
-      "answer": "Une boîte de souvenirs (avec ses vêtements d'école/cahiers)",
-      "category": "Romance"
-    },
-    {
       "id": "kol491",
       "question": "Compositeur de musique folk et rock, connu pour les bandes originales des films 'Joker' et 'Jai Bhim'. Qui est-ce ?",
       "answer": "Sean Roldan",
@@ -2897,20 +2813,20 @@
     },
     {
       "id": "kol498",
-      "question": "Film de 2024. Un film d'horreur où Tamannaah joue une sorcière/fantôme. 'Aranmanai 4'. Quel est ce film ?",
+      "question": "Film de 2024. Un film d'horreur tamoul où Tamannaah Bhatia joue Selvi, un fantôme, dans cette franchise populaire de Sundar C. Quel est ce film ?",
       "answer": "Aranmanai 4",
       "category": "Horreur"
     },
     {
       "id": "kol499",
-      "question": "Quel est le nom du tout premier film sorti avec Rajinikanth en 1975, où il joue un petit rôle de mari abusif qui ouvre une porte ('Abaswaram') ?",
+      "question": "Quel est le nom du tout premier film sorti avec Rajinikanth en 1975, où il joue un petit rôle de mari abusif, son personnage étant nommé d'après le raga 'Abaswaram' ?",
       "answer": "Apoorva Raagangal",
       "category": "Histoire"
     },
     {
       "id": "kol500",
-      "question": "Pour finir : Quel est le titre honorifique ultime donné à M.G. Ramachandran (MGR), signifiant 'Le Dieu du Cœur' ?",
-      "answer": "Idhayakani",
+      "question": "Figure majeure du cinéma tamoul et homme politique légendaire, M.G. Ramachandran, surnommé MGR, a été trois fois ministre en chef du Tamil Nadu. Quel titre honorifique célèbre lui a été décerné, signifiant littéralement 'Joyau du Peuple' en tamoul ?",
+      "answer": "Makkal Thilagam",
       "category": "Légendes"
     }
   ]
