@@ -2,8 +2,6 @@
 
 import { Capacitor } from '@capacitor/core';
 
-// ⚠️ Remplace par ton App Store ID numérique
-// Visible dans App Store Connect → App Information → Apple ID (ex: 1234567890)
 const IOS_APP_STORE_URL = 'https://apps.apple.com/app/id6758512562';
 const ANDROID_STORE_URL = 'https://play.google.com/store/apps/details?id=com.gigglz.app';
 
@@ -21,32 +19,54 @@ export function ForceUpdateModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-sm px-6">
+    <div
+      style={{
+        position: 'fixed', inset: 0, zIndex: 9999,
+        background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(6px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '24px',
+      }}
+    >
       <div
-        className="rounded-3xl p-8 max-w-sm w-full text-center"
-        style={{ backgroundColor: 'var(--card-bg, #1a1a2e)', border: '1px solid rgba(255,255,255,0.08)' }}
+        style={{
+          background: 'linear-gradient(145deg, #1a1a2e, #16213e)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: '20px',
+          padding: '28px 24px',
+          maxWidth: '360px',
+          width: '100%',
+          textAlign: 'center',
+        }}
       >
-        <div className="flex justify-center mb-5">
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
           <img
             src="/images/mascot/giggly-worried.webp"
             alt="Giggly"
-            className="w-28 h-28 object-contain"
+            style={{ width: '112px', height: '112px', objectFit: 'contain' }}
           />
         </div>
         <h2
-          className="text-2xl font-bold text-white mb-3"
-          style={{ fontFamily: 'var(--font-title, Bungee)' }}
+          style={{
+            fontFamily: "var(--font-title, 'Bungee')",
+            fontSize: '1.5rem', fontWeight: 700, color: '#ffffff',
+            marginBottom: '12px',
+          }}
         >
           Mise à jour requise
         </h2>
-        <p className="text-sm text-zinc-400 mb-7 leading-relaxed">
+        <p
+          style={{
+            fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)',
+            marginBottom: '28px', lineHeight: 1.6,
+          }}
+        >
           Une version améliorée est disponible.
           Mets à jour pour profiter de la meilleure expérience !
         </p>
         <button
           onClick={handleUpdate}
-          className="btn btn-primary w-full"
-          style={{ fontSize: '1rem' }}
+          className="btn btn-primary"
+          style={{ fontSize: '1rem', width: '100%' }}
         >
           Mettre à jour →
         </button>
