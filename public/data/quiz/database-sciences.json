@@ -89,7 +89,7 @@
     },
     {
       "id": "cg-sci015",
-      "question": "Plus grande planète du système solaire, cette géante gazeuse possède une Grande Tache Rouge, une tempête qui fait rage depuis plus de 300 ans. Elle compte 95 satellites naturels dont Ganymède. Quelle est cette planète ?",
+      "question": "Plus grande planète du système solaire, cette géante gazeuse possède une Grande Tache Rouge, une tempête qui fait rage depuis plus de 300 ans. Elle compte plus de 95 satellites naturels dont Ganymède. Quelle est cette planète ?",
       "answer": "Jupiter",
       "category": "Sciences"
     },
@@ -491,7 +491,7 @@
     },
     {
       "id": "cg-sci082",
-      "question": "Phénomène physique caractérisé par le changement de fréquence d'une onde lorsque la source est en mouvement par rapport à l'observateur. On l'entend quand une sirène d'ambulance passe devant nous (le son change de grave à aigu). Quel est cet effet ?",
+      "question": "Phénomène physique caractérisé par le changement de fréquence d'une onde lorsque la source est en mouvement par rapport à l'observateur. On l'entend quand une sirène d'ambulance passe devant nous (le son change d'aigu à grave). Quel est cet effet ?",
       "answer": "L'effet Doppler",
       "category": "Sciences"
     },
