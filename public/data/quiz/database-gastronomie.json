@@ -190,12 +190,6 @@
       "category": "Gastronomie"
     },
     {
-      "id": "cg-food032",
-      "question": "Plat savoyard convivial où l'on fait fondre du fromage (généralement du reblochon entier) sur des pommes de terre, accompagné de charcuterie et de cornichons. Quel est ce plat ?",
-      "answer": "La tartiflette",
-      "category": "Gastronomie"
-    },
-    {
       "id": "cg-food033",
       "question": "Spécialité culinaire japonaise constituée de nouilles servies dans un bouillon à base de poisson ou de viande, assaisonné au miso ou à la sauce soja. Naruto en raffole. Quel est ce plat ?",
       "answer": "Les ramens",
@@ -271,12 +265,6 @@
       "id": "cg-food045",
       "question": "Plat de rue britannique composé de poisson frit en pâte (généralement du cabillaud) servi avec des frites et arrosé de vinaigre de malt. Enveloppé traditionnellement dans du papier journal. Quel est ce plat ?",
       "answer": "Le Fish and Chips",
-      "category": "Gastronomie"
-    },
-    {
-      "id": "cg-food046",
-      "question": "Chef pâtissier français élu 'Meilleur Pâtissier du Monde' en 2016. Célèbre pour ses fruits en trompe-l'œil (citron, noisette) et son compte Instagram très suivi. Qui est-ce ?",
-      "answer": "Cédric Grolet",
       "category": "Gastronomie"
     },
     {

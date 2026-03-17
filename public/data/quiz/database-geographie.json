@@ -160,12 +160,6 @@
       "category": "Géographie"
     },
     {
-      "id": "cg-geo027",
-      "question": "S'étendant sur 1,3 million de km² entre le nord de la Chine et le sud de la Mongolie, ce désert est le deuxième plus grand d'Asie et le cinquième plus grand du monde. Contrairement aux idées reçues, il est principalement recouvert de pierres. Quel est ce désert ?",
-      "answer": "Le désert de Gobi",
-      "category": "Géographie"
-    },
-    {
       "id": "cg-geo028",
       "question": "Long de 2850 kilomètres, ce fleuve européen traverse ou longe dix pays et quatre capitales : Vienne, Bratislava, Budapest et Belgrade. Il prend sa source en Allemagne et se jette dans la mer Noire. Quel est ce fleuve ?",
       "answer": "Le Danube",
@@ -238,12 +232,6 @@
       "category": "Géographie"
     },
     {
-      "id": "cg-geo040",
-      "question": "Située à environ 435 mètres sous le niveau de la mer, cette étendue d'eau salée entre Israël, la Jordanie et la Palestine est le point émergé le plus bas de la Terre. Son eau contient environ 34% de sel. Quelle est cette mer ?",
-      "answer": "La mer Morte",
-      "category": "Géographie"
-    },
-    {
       "id": "cg-geo041",
       "question": "Situées sur la rivière Niagara à la frontière entre le Canada et les États-Unis, ces chutes d'eau ont un débit de 2800 m³/s et une hauteur de 52 mètres. Elles comprennent les célèbres Horseshoe Falls. Quelles sont ces chutes ?",
       "answer": "Les chutes du Niagara",
@@ -304,12 +292,6 @@
       "category": "Géographie"
     },
     {
-      "id": "cg-geo051",
-      "question": "Long de 4400 kilomètres, ce fleuve russe prend sa source dans les monts Altaï et se jette dans l'océan Arctique. C'est le plus long fleuve de Russie occidentale et le quatrième plus long d'Asie. Quel est ce fleuve ?",
-      "answer": "L'Ob",
-      "category": "Géographie"
-    },
-    {
       "id": "cg-geo052",
       "question": "Capitale du Maroc, cette ville impériale située sur l'Atlantique abrite le mausolée Mohammed V et la tour Hassan. Elle ne doit pas être confondue avec Casablanca, la plus grande ville du pays. Quelle est cette ville ?",
       "answer": "Rabat",
@@ -319,12 +301,6 @@
       "id": "cg-geo053",
       "question": "Plus vaste pays d'Afrique avec 2,38 millions de km², cette nation du Maghreb est bordée par la Méditerranée au nord et le Sahara au sud. Sa capitale partage son nom avec le pays. Quel est ce pays ?",
       "answer": "L'Algérie",
-      "category": "Géographie"
-    },
-    {
-      "id": "cg-geo054",
-      "question": "Culminant à 5642 mètres d'altitude dans le Caucase, ce volcan éteint situé en Russie est considéré par certains géographes comme le plus haut sommet d'Europe. Son nom signifie 'la montagne à deux bosses'. Quel est ce sommet ?",
-      "answer": "L'Elbrouz (ou mont Elbrouz)",
       "category": "Géographie"
     },
     {

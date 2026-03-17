@@ -304,21 +304,9 @@
       "category": "Sport"
     },
     {
-      "id": "cg-sport051",
-      "question": "Détenteur du record du monde du saut en longueur (8,95 m) depuis 1991, cet Américain a failli battre le mythique record de Bob Beamon. Il a été quadruple champion olympique et auteur d'un saut à 8,99 m non homologué pour vent. Qui est-ce ?",
-      "answer": "Mike Powell",
-      "category": "Sport"
-    },
-    {
       "id": "cg-sport052",
       "question": "Surnommée 'La Perle Noire' et considérée comme la meilleure footballeuse de l'histoire, cette Brésilienne a été élue meilleure joueuse FIFA à six reprises. Elle détient le record de buts en sélection brésilienne avec plus de 100 réalisations. Qui est-ce ?",
       "answer": "Marta",
-      "category": "Sport"
-    },
-    {
-      "id": "cg-sport053",
-      "question": "Vainqueur du Tour de France 2022 et 2023 après avoir battu Pogačar, ce Danois de l'équipe Jumbo-Visma a dû surmonter une grave chute au Tour du Pays basque 2024. Il est le deuxième Danois à remporter la Grande Boucle, après Bjarne Riis (1996, titre retiré pour dopage). Qui est-ce ?",
-      "answer": "Jonas Vingegaard",
       "category": "Sport"
     },
     {
@@ -331,12 +319,6 @@
       "id": "cg-sport055",
       "question": "Considérée comme la meilleure skieuse alpine américaine de l'histoire avec 84 victoires en Coupe du monde, cette Américaine a remporté l'or olympique en descente à Vancouver 2010 et détient 2 titres de championne du monde. Elle a dominé les épreuves de vitesse pendant plus d'une décennie. Qui est-ce ?",
       "answer": "Lindsey Vonn",
-      "category": "Sport"
-    },
-    {
-      "id": "cg-sport056",
-      "question": "Seul joueur à avoir remporté le Ballon d'Or, la Coupe du Monde et la Ligue des Champions la même année (2002), ce milieu brésilien était surnommé 'Roi de la passe'. Il a brillé au Real Madrid et au Milan AC. Qui est-ce ?",
-      "answer": "Kaká",
       "category": "Sport"
     },
     {
@@ -400,12 +382,6 @@
       "category": "Sport"
     },
     {
-      "id": "cg-sport067",
-      "question": "Plus grand buteur de l'histoire de la Bundesliga avec 365 buts, cet attaquant allemand a joué 15 saisons au Bayern Munich. Surnommé 'Der Bomber', il a remporté la Coupe du Monde 1974. Qui est-ce ?",
-      "answer": "Gerd Müller",
-      "category": "Sport"
-    },
-    {
       "id": "cg-sport068",
       "question": "Quintuple champion du Tour de France consécutivement (1991-1995), cet Espagnol est le seul coureur à avoir réalisé cet exploit. Spécialiste du contre-la-montre doté d'une capacité pulmonaire exceptionnelle, il a dominé le cyclisme des années 90. Qui est-ce ?",
       "answer": "Miguel Indurain",
@@ -415,12 +391,6 @@
       "id": "cg-sport069",
       "question": "Gardien légendaire de la Juventus et de l'Italie, ce joueur a remporté la Coupe du Monde 2006 et terminé deuxième du Ballon d'Or cette année-là. Transféré pour un montant record pour un gardien à l'époque, il détient le record de clean sheets en Serie A. Qui est-ce ?",
       "answer": "Gianluigi Buffon",
-      "category": "Sport"
-    },
-    {
-      "id": "cg-sport070",
-      "question": "Seul coureur cycliste à avoir remporté le Tour de France, le Giro et la Vuelta au moins deux fois chacun, ce Français aux 5 Tours est surnommé 'Le Blaireau'. Il a ensuite brillé comme directeur sportif. Qui est-ce ?",
-      "answer": "Bernard Hinault",
       "category": "Sport"
     },
     {
@@ -496,12 +466,6 @@
       "category": "Sport"
     },
     {
-      "id": "cg-sport083",
-      "question": "Sextuple champion olympique de cross-country aux JO d'hiver, ce fondeur norvégien est l'athlète le plus médaillé de l'histoire des Jeux olympiques d'hiver. Il a dominé les distances longues pendant une décennie. Qui est-ce ?",
-      "answer": "Bjørn Dæhlie",
-      "category": "Sport"
-    },
-    {
       "id": "cg-sport084",
       "question": "Considéré comme l'un des meilleurs défenseurs de l'histoire du football, cet Italien a joué toute sa carrière à l'AC Milan où il a remporté 5 Ligues des Champions. Il a porté le maillot des Rossoneri pendant 25 saisons. Qui est-ce ?",
       "answer": "Paolo Maldini",
@@ -529,12 +493,6 @@
       "id": "cg-sport088",
       "question": "Quadruple Ballon d'Or africain et champion d'Afrique 2002 avec le Cameroun, cet attaquant a brillé au FC Barcelone avec plus de 100 buts. Surnommé 'Le Lion Indomptable', il a remporté deux Ligues des Champions consécutives avec deux clubs différents (Barcelone 2009, Inter 2010). Qui est-ce ?",
       "answer": "Samuel Eto'o",
-      "category": "Sport"
-    },
-    {
-      "id": "cg-sport089",
-      "question": "Double champion olympique du décathlon (1980, 1984), cet athlète britannique est considéré comme l'un des meilleurs décathloniens de l'histoire. Son record de 8847 points a tenu pendant 7 ans. Qui est-ce ?",
-      "answer": "Daley Thompson",
       "category": "Sport"
     },
     {

@@ -76,12 +76,6 @@
       "category": "Piliers"
     },
     {
-      "id": "ds013",
-      "question": "Aveugle depuis l'enfance à cause d'une fièvre, ce Pilier est considéré comme le plus puissant des neuf actuels. Il manie une arme non conventionnelle composée d'une hache et d'un fléau à pointes reliés par une chaîne. Qui est-ce ?",
-      "answer": "Himejima Gyōmei (Gyômei Himejima)",
-      "category": "Piliers"
-    },
-    {
       "id": "ds014",
       "question": "Né dans une famille qui vénérait un Démon-Serpent femelle, ce Pilier a eu la bouche tranchée à douze ans pour ressembler au démon. Il possède une hétérochromie, un oeil jaune et un turquoise, et est accompagné d'un serpent blanc nommé Kaburamaru. Qui est-ce ?",
       "answer": "Iguro Obanai (Obanai Iguro)",
@@ -97,12 +91,6 @@
       "id": "ds016",
       "question": "Frère jumeau aîné de Yoriichi, cet ancien pourfendeur de l'ère Sengoku a trahi l'humanité en devenant un démon par jalousie envers son cadet. Possédant six yeux et le rang le plus élevé parmi les Lunes, il maîtrise un souffle unique avec seize formes. Qui est-ce ?",
       "answer": "Kokushibō (Kokushibô)",
-      "category": "Lunes Supérieures"
-    },
-    {
-      "id": "ds017",
-      "question": "Chef du Culte du Paradis Éternel, ce démon charismatique aux yeux dorés est incapable de ressentir la moindre émotion authentique. Il a tué la mère d'Inosuke après qu'elle a découvert qu'il dévorait ses fidèles, et a également assassiné Kanae Kocho. Qui est-ce ?",
-      "answer": "Dōma (Dôma)",
       "category": "Lunes Supérieures"
     },
     {
@@ -412,22 +400,10 @@
       "category": "Lore"
     },
     {
-      "id": "ds069",
-      "question": "Durant l'arc du Train de l'Infini, un démon utilise ses pouvoirs de sommeil pour piéger le héros dans un rêve heureux où sa famille est encore vivante. Le héros doit se suicider dans le rêve pour se réveiller, un acte qu'il répète plusieurs fois. Combien de fois le héros se tranche-t-il la gorge dans ses rêves pour s'en échapper ?",
-      "answer": "Plus de deux cents fois (innombrables fois)",
-      "category": "Batailles"
-    },
-    {
       "id": "ds070",
       "question": "Soeur aînée de Giyu, elle s'est sacrifiée la veille de son propre mariage en cachant son frère alors que des démons attaquaient. Sa mort a poussé Giyu à devenir pourfendeur et à se battre pour honorer sa mémoire. Qui est-ce ?",
       "answer": "Tsutako Tomioka (Tsutako)",
       "category": "Personnages"
-    },
-    {
-      "id": "ds071",
-      "question": "Kotoha Hashibira, une femme qui fuyait un mari violent, a rejoint ce culte religieux avec son bébé. Quand elle a découvert que le gourou dévorait ses fidèles, elle a jeté son enfant d'une falaise pour le sauver avant d'être tuée. Quel est ce culte ?",
-      "answer": "Bansei Gokuraku Kyō (Culte du Paradis Éternel)",
-      "category": "Lore"
     },
     {
       "id": "ds072",

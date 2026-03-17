@@ -460,12 +460,6 @@
       "category": "Lore"
     },
     {
-      "id": "aot077",
-      "question": "Bras droit d'Erwin Smith et chef de section au sein du Bataillon d'Exploration, ce soldat barbu et expérimenté est considéré comme le deuxième soldat le plus fort de l'humanité après Livaï. Doté d'un odorat surdéveloppé lui permettant de détecter les Titans à distance, il est tragiquement tué par le Titan Bestial au début de l'arc du Retour à Shiganshina. Qui est-ce ?",
-      "answer": "Mike Zacharias (Miche Zacharias)",
-      "category": "Bataillon"
-    },
-    {
       "id": "aot079",
       "question": "Commandant en chef de l'armée de Mahr, cet officier finit par reconnaître ses torts envers les Eldiens et s'allie aux soldats de Paradis contre le Grand Terrassement. Il se sacrifie aux côtés de l'ancien instructeur de la 104ème brigade en faisant exploser le navire des Jägeristes. Qui est-ce ?",
       "answer": "Théo Magath (Theo Magath)",
@@ -476,12 +470,6 @@
       "question": "Mouvement nationaliste radical de l'île de Paradis fondé par des partisans du protagoniste, ce groupe milite pour la suprématie des Eldiens et soutient le Grand Terrassement. Ses membres prennent le contrôle de l'armée en emprisonnant les officiers loyalistes. Comment s'appelle ce mouvement ?",
       "answer": "Les Jägeristes (Yeagerists)",
       "category": "Lore"
-    },
-    {
-      "id": "aot081",
-      "question": "Ancien camarade de promotion d'Erwin au sein du Bataillon d'Exploration, cet officier en devient le leader des Jägeristes sur l'île de Paradis. Il est abattu par Gaby Braun d'une balle dans la gorge lors de la bataille du port, alors qu'il tentait d'empêcher l'Alliance de partir. Qui est-ce ?",
-      "answer": "Floch Forster",
-      "category": "Personnages"
     },
     {
       "id": "aot082",
@@ -500,12 +488,6 @@
       "question": "Pour synchroniser les horloges entre les différents clients sur un champ de bataille, les soldats de Paradis utilisent un décalage temporel calculé à partir des serveurs centraux. Dans l'anime, le Bataillon d'Exploration utilise des fusées de couleur pour communiquer pendant les expéditions. Quelle couleur de fusée signale la présence d'un déviant ?",
       "answer": "Noir (Black flare)",
       "category": "Techniques"
-    },
-    {
-      "id": "aot085",
-      "question": "Titan de 15 mètres au sourire permanent et aux proportions difformes, cette créature erre sur l'île de Paradis pendant 20 ans avant de dévorer la mère du protagoniste lors de la chute de Shiganshina. On découvre plus tard qu'il s'agit de la première épouse de Grisha, transformée en titan pur par Mahr. Comment est surnommé ce titan ?",
-      "answer": "Le Titan Souriant (Smiling Titan)",
-      "category": "Titans"
     },
     {
       "id": "aot086",
@@ -536,12 +518,6 @@
       "question": "Promotion militaire célèbre dont sont issus la plupart des personnages principaux, cette brigade d'entraînement forme ses recrues pendant trois ans avant de leur permettre de choisir entre le Bataillon, la Garnison ou les Brigades Spéciales. Seuls les dix meilleurs du classement accèdent à cette dernière option. De quelle promotion s'agit-il ?",
       "answer": "104ème Brigade d'entraînement (104th Training Corps)",
       "category": "Bataillon"
-    },
-    {
-      "id": "aot091",
-      "question": "Capacité unique du détenteur du Titan Bestial porteur de sang royal, ce pouvoir permet de transformer en titans purs tous les Eldiens ayant ingéré son liquide céphalo-rachidien. Il lui suffit de pousser un hurlement pour déclencher la transformation simultanée de toutes les victimes contaminées. Comment appelle-t-on cette capacité ?",
-      "answer": "Le Cri du Titan Bestial (Scream of the Beast Titan)",
-      "category": "Techniques"
     },
     {
       "id": "aot092",
@@ -602,12 +578,6 @@
       "question": "Entité née de la fusion entre le protagoniste et le Titan Originel lors du Grand Terrassement, cette forme colossale ressemble à un squelette géant surmonté du buste du Titan Assaillant. Elle avance à la tête de centaines de milliers de Titans Colossaux, écrasant tout sur son passage. De quelle forme s'agit-il ?",
       "answer": "La forme finale d'Eren / Titan Originel d'Eren (Eren's Founding Titan form)",
       "category": "Titans"
-    },
-    {
-      "id": "aot103",
-      "question": "Ami d'enfance d'Eren et Armin, ce garçon meurt lors de la chute de Shiganshina quand sa mère est dévorée sous ses yeux. Plus exactement, c'est le protagoniste qui perd sa mère ce jour-là, tandis que le père de ce garçon le confie aux autorités avec un morceau de pain. Cet ami n'est jamais revu. Qui est-ce ?",
-      "answer": "Hannes",
-      "category": "Personnages"
     },
     {
       "id": "aot105",

@@ -100,12 +100,6 @@
       "category": "Shinigami"
     },
     {
-      "id": "dn017",
-      "question": "Agent du FBI envoye au Japon pour surveiller les familles des policiers, cet homme a ete piege dans un bus detourne puis force d'ecrire les noms de ses onze collegues sur une page du cahier. Il meurt d'un arret cardiaque en sortant du train. Qui est-ce ?",
-      "answer": "Raye Penber",
-      "category": "Personnages"
-    },
-    {
       "id": "dn018",
       "question": "Ancienne agente du FBI et fiancee d'un agent tue par Kira, cette femme mene sa propre enquete et deduit que Kira se trouvait dans le bus detourne. Elle est tuee apres avoir imprudemment revele son vrai nom au suspect principal. Qui est-ce ?",
       "answer": "Misora Naomi (Naomi Misora)",
@@ -280,12 +274,6 @@
       "category": "Enquete"
     },
     {
-      "id": "dn047",
-      "question": "Le suspect principal et le detective se sont affrontes dans un sport sur le campus universitaire, tous deux ayant ete champions dans leur pays respectif durant leur jeunesse. Le suspect remporte la partie 6 a 4 devant toute l'universite. A quel sport ont-ils joue ?",
-      "answer": "Le tennis",
-      "category": "Episodes cles"
-    },
-    {
       "id": "dn048",
       "question": "Le manga est l'oeuvre de deux createurs japonais : l'un est le scenariste, l'autre l'illustrateur egalement connu pour Hikaru no Go et Bakuman. Qui est l'illustrateur du manga ?",
       "answer": "Obata Takeshi (Takeshi Obata)",
@@ -394,12 +382,6 @@
       "category": "Episodes cles"
     },
     {
-      "id": "dn066",
-      "question": "L'enlevement de la porte-parole de Kira par un successeur du detective a des consequences inattendues : le procureur fanatique est force de sortir de sa routine pour gerer la crise, ce qui revele des incoherences au SPK. Quel vehicule le ravisseur utilise-t-il pour s'enfuir avec la presentatrice ?",
-      "answer": "Un camion (une camionnette)",
-      "category": "Episodes cles"
-    },
-    {
       "id": "dn067",
       "question": "Apres son enlevement, la presentatrice se retrouve enfermee dans un camion avec son ravisseur. Forcee de se deshabiller pour eliminer tout traceur, elle cache un morceau de page du cahier et l'utilise pour tuer son ravisseur dont elle connait le vrai nom. Quel est ce vrai nom qu'elle ecrit ?",
       "answer": "Mihael Keehl",
@@ -445,12 +427,6 @@
       "id": "dn074",
       "question": "Le directeur d'une chaine de television cree une emission dediee a la glorification de Kira et tente de construire un temple pour recueillir des dons en son honneur. Le procureur fanatique le juge indigne et l'elimine avec le cahier. Quel est le nom de ce directeur televisuel ?",
       "answer": "Demegawa Hitoshi (Hitoshi Demegawa)",
-      "category": "Personnages"
-    },
-    {
-      "id": "dn075",
-      "question": "Le detective nait un jour particulier de l'annee, associe dans la culture occidentale aux fantomes et aux morts-vivants. Cette date de naissance a un cote ironique pour un personnage qui traque un tueur surnaturel. Quel jour est ne le detective ?",
-      "answer": "Le 31 octobre (Halloween)",
       "category": "Personnages"
     },
     {
@@ -502,12 +478,6 @@
       "category": "Episodes cles"
     },
     {
-      "id": "dn084",
-      "question": "L'agent du FBI piege dans le bus avait pour mission de surveiller les familles des policiers haut places. Il surveillait specificement la famille du commissaire divisionnaire et son fils, qui s'est avere etre son tueur. Combien d'agents du FBI au total sont envoyes au Japon par le detective ?",
-      "answer": "12 agents",
-      "category": "Enquete"
-    },
-    {
       "id": "dn085",
       "question": "Quand un possesseur du cahier obtient les yeux de shinigami puis renonce a son cahier, il perd ses souvenirs et ses yeux surnaturels. S'il refait le pacte, il perd a nouveau la moitie de sa vie restante. La deuxieme Kira a fait ce pacte deux fois. A combien de sa vie originale cela la reduit-il ?",
       "answer": "Un quart de sa vie originale (1/4)",
@@ -550,12 +520,6 @@
       "category": "Regles du Death Note"
     },
     {
-      "id": "dn092",
-      "question": "Le suspect principal cache son cahier dans un double fond de tiroir avec un piege a incendie, tandis que la deuxieme Kira cache le sien dans un endroit different. Elle le dissimule dans un objet du quotidien dans sa chambre. Dans quel objet cache-t-elle son journal intime contenant les pages ?",
-      "answer": "Dans son journal intime (un faux journal intime)",
-      "category": "Kira"
-    },
-    {
       "id": "dn093",
       "question": "L'un des episodes les plus marquants montre le detective lavant les pieds du suspect principal, dans une scene chargee de symbolisme religieux evoquant une celebre scene biblique. Cet episode exclusif a l'anime n'existe pas dans le manga. A quel evenement biblique cette scene fait-elle reference ?",
       "answer": "Le lavement des pieds (Jesus lavant les pieds de ses disciples / Judas)",
@@ -566,12 +530,6 @@
       "question": "Le detective analyse les horaires auxquels Kira tue ses victimes et remarque un schema revelateur. Les meurtres sont concentres en fin de journee et le soir, avec une absence totale durant certaines heures de la journee. Que deduit le detective de ce schema concernant la vie quotidienne de Kira ?",
       "answer": "Kira est un etudiant (il a des cours en journee / c'est un lyceen ou un universitaire)",
       "category": "Enquete"
-    },
-    {
-      "id": "dn095",
-      "question": "Selon les regles du cahier, si une personne possede simultanement deux cahiers de mort et renonce a l'un d'entre eux, elle perd le droit de voir le shinigami qui y est attache, mais conserve tous ses souvenirs tant qu'elle garde l'autre cahier. Combien de cahiers de mort existent au maximum dans le monde humain pendant la serie ?",
-      "answer": "Trois (3 cahiers)",
-      "category": "Regles du Death Note"
     },
     {
       "id": "dn096",
@@ -590,12 +548,6 @@
       "question": "Le membre le plus maladroit de la cellule d'enquete se deguise un jour en artiste sous un faux nom pour infiltrer le groupe Yotsuba. Son intrusion tourne mal et il est decouvert, ce qui oblige le detective a improviser un plan de sauvetage impliquant une fausse mort. Quel faux nom de scene utilise-t-il lors de cette infiltration ?",
       "answer": "Taro Matsui",
       "category": "Enquete"
-    },
-    {
-      "id": "dn099",
-      "question": "Membre de la cellule d'enquete qui rejoint le groupe dans la deuxieme partie de la serie, ce policier avait initialement refuse de participer a l'enquete. Il revient apres la mort du detective original car il se sent coupable de ne pas avoir ete la. Qui est-ce ?",
-      "answer": "Ide Hideki (Hideki Ide)",
-      "category": "Personnages"
     },
     {
       "id": "dn100",
@@ -674,12 +626,6 @@
       "question": "Pendant l'arc Yotsuba, la deuxieme Kira accepte de participer a un piege pour demasquer le troisieme utilisateur du cahier. Elle se fait passer pour une admiratrice de Kira et enregistre secretement sa confession. Comment l'homme d'affaires se trahit-il aupres d'elle ?",
       "answer": "Il revele qu'il est Kira (il avoue posseder le pouvoir de tuer)",
       "category": "Enquete"
-    },
-    {
-      "id": "dn113",
-      "question": "Le suspect principal planifie meticulement la mort de l'agent du FBI dans un train. Il lui remet une enveloppe contenant des pages du cahier sur lesquelles l'agent ecrit sans le savoir les noms de ses 11 collegues, pensant ecrire autre chose. Comment le suspect fait-il pour que l'agent ne se mefie pas ?",
-      "answer": "Il lui fait croire qu'il ecrit les noms sur un document officiel du FBI (un fichier de transmission de donnees)",
-      "category": "Kira"
     },
     {
       "id": "dn114",
