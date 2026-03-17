@@ -465,9 +465,9 @@ const GAMES_DATA = {
     id: 'lol',
     title: 'LOL',
     subtitle: 'Qui rit, sort !',
-    accentColor: '#FF3366',
-    accentGradient: 'linear-gradient(135deg, #FF3366, #CC0044)',
-    glowColor: 'rgba(255, 51, 102, 0.4)',
+    accentColor: '#EF4444',
+    accentGradient: 'linear-gradient(135deg, #EF4444, #DC2626)',
+    glowColor: 'rgba(239, 68, 68, 0.4)',
     sections: [
       {
         id: 'concept',

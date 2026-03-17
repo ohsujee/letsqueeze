@@ -41,7 +41,8 @@ const LobbyHeader = forwardRef(function LobbyHeader({
     alibi: 'rooms_alibi',
     laregle: 'rooms_laregle',
     mindlink: 'rooms_mindlink',
-    mime: 'rooms_mime'
+    mime: 'rooms_mime',
+    lol: 'rooms_lol'
   };
 
   const roomPrefix = roomPrefixMap[variant] || 'rooms';

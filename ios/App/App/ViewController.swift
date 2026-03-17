@@ -2,6 +2,7 @@ import UIKit
 import Capacitor
 import WebKit
 import MediaPlayer
+import AVFoundation
 
 class ViewController: CAPBridgeViewController {
 
@@ -9,6 +10,16 @@ class ViewController: CAPBridgeViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Force la catégorie audio en .playback pour que le son sorte
+        // même quand le bouton mute (silent switch) est activé.
+        // Sans ça, WKWebView utilise .ambient → le mute switch coupe le son.
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("[Audio] AVAudioSession setup error: \(error)")
+        }
 
         // Désactive le scroll natif du WKScrollView principal.
         // Tout le scroll de l'app passe par CSS overflow:auto (scroll views séparés).

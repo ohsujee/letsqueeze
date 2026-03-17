@@ -51,6 +51,7 @@ export default function GameCard({
       case 'mime': return 'linear-gradient(135deg, #84cc16, #65a30d)';
       case 'laregle': return 'linear-gradient(135deg, #06b6d4, #0891b2)';
       case 'mindlink': return 'linear-gradient(135deg, #ec4899, #db2777)';
+      case 'lol': return 'linear-gradient(135deg, #EF4444, #DC2626)';
       default: return 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
     }
   };

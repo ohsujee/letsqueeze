@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, update, get,
@@ -21,7 +21,7 @@ import { getRandomStandups } from "@/data/lol/standup";
 import { getRandomScenes } from "@/data/lol/scenes";
 import { getRandomCollectiveGames } from "@/data/lol/collective";
 
-const ACCENT = '#FF3366';
+const ACCENT = '#EF4444';
 const ROOM_PREFIX = 'rooms_lol';
 const VOTE_DURATION = 15000; // 15 seconds
 const ACCUSATION_COOLDOWN = 30000; // 30 seconds
@@ -34,12 +34,13 @@ const hapticNotification = async (type = NotificationType.Warning) => {
   try { await Haptics.notification({ type }); } catch {}
 };
 
-export default function LolPlayPage() {
-  const { code } = useParams();
-  const router = useRouter();
+export function LolPlayContent({ code, myUid: devUid }) {
+  const realRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : realRouter;
   const toast = useToast();
 
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
   const [isHost, setIsHost] = useState(false);
@@ -71,11 +72,12 @@ export default function LolPlayPage() {
 
   // Auth
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) setMyUid(user.uid);
     });
     return () => unsub();
-  }, []);
+  }, [devUid]);
 
   // Listen to meta & state
   useEffect(() => {
@@ -1448,4 +1450,9 @@ export default function LolPlayPage() {
       </AnimatePresence>
     </div>
   );
+}
+
+export default function LolPlayPage() {
+  const { code } = useParams();
+  return <LolPlayContent code={code} />;
 }

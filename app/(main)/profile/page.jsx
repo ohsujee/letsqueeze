@@ -10,7 +10,7 @@ import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { usePlatform } from '@/lib/hooks/usePlatform';
 import { storage } from '@/lib/utils/storage';
-import { CaretRight, WifiHigh, WifiSlash, ChartBar, UserPlus, Lightning, ArrowSquareOut, FloppyDisk, Trophy, PencilSimple, Check, X, Bell, SpeakerHigh, Lightbulb, Globe, Gear, Link, Trash } from '@phosphor-icons/react';
+import { CaretRight, WifiHigh, WifiSlash, ChartBar, UserPlus, Lightning, ArrowSquareOut, FloppyDisk, Trophy, PencilSimple, Check, X, Bell, SpeakerHigh, Lightbulb, Globe, Gear, Link, Trash, Sparkle } from '@phosphor-icons/react';
 import ProCard from '@/components/ui/ProCard';
 import { openManageSubscriptions } from '@/lib/revenuecat';
 import hueService from '@/lib/hue-module/services/hueService';

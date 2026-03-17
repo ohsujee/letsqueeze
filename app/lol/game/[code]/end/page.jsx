@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, update,
@@ -13,30 +13,32 @@ import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { useToast } from "@/lib/hooks/useToast";
 import { Trophy, ArrowCounterClockwise, House, Crown } from "@phosphor-icons/react";
 
-const ACCENT = '#FF3366';
+const ACCENT = '#EF4444';
 const ROOM_PREFIX = 'rooms_lol';
 
-export default function LolEndPage() {
-  const { code } = useParams();
-  const router = useRouter();
+export function LolEndContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
 
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
   const [isHost, setIsHost] = useState(false);
 
   const { players } = usePlayers({ roomCode: code, roomPrefix: ROOM_PREFIX });
-  useRoomGuard({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, isHost });
+  useRoomGuard({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, isHost, enabled: !devUid });
   useGameCompletion({ gameType: 'lol', roomCode: code });
 
   // Auth
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) setMyUid(user.uid);
     });
     return () => unsub();
-  }, []);
+  }, [devUid]);
 
   // Listen to meta & state
   useEffect(() => {
@@ -378,4 +380,9 @@ export default function LolEndPage() {
       </div>
     </div>
   );
+}
+
+export default function LolEndPage() {
+  const { code } = useParams();
+  return <LolEndContent code={code} />;
 }

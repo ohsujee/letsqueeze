@@ -1,14 +1,12 @@
-ErrorBoundary caught: Error: Module [project]/node_modules/@phosphor-icons/react/dist/csr/Clock.es.js [app-client] (ecmascript) was instantiated because it was required from module [project]/app/dev/laregle/page.jsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
-    at instantiateModule (dev-base.ts:197:11)
-    at getOrInstantiateModuleFromParent (dev-base.ts:162:10)
-    at DevContext.esmImport [as i] (runtime-utils.ts:347:18)
-    at module evaluation (page.jsx:6:1)
-    at dev-base.ts:244:7
-    at runModuleExecutionHooks (dev-base.ts:278:7)
-    at instantiateModule (dev-base.ts:238:5)
-    at getOrInstantiateModuleFromParent (dev-base.ts:162:10)
-    at DevContext.commonJsRequire [as r] (runtime-utils.ts:389:10)
-    at requireModule (react-server-dom-turbopack-client.browser.development.js:97:27)
-    at initializeModuleChunk (react-server-dom-turbopack-client.browser.development.js:1853:21)
-    at resolveModuleChunk (react-server-dom-turbopack-client.browser.development.js:1740:12)
-    at react-server-dom-turbopack-client.browser.development.js:2887:20 Object
+Cannot update a component (`MindLinkLobbyContent`) while rendering a different component (`MindLinkLobbyContent`). To locate the bad setState() call inside `MindLinkLobbyContent`, follow the stack trace as described in https://react.dev/link/setstate-in-render
+page.jsx:428 ReferenceError: WAITING_DURATION is not defined
+    at useActiveLink (useActiveLink.js:379:55)
+    at MindLinkDefendContent (page.jsx:57:29)
+
+
+The above error occurred in the <MindLinkDefendContent> component. It was handled by the <ErrorBoundary> error boundary.
+ErrorBoundary.jsx:21 ErrorBoundary caught: ReferenceError: WAITING_DURATION is not defined
+    at useActiveLink (useActiveLink.js:379:55)
+    at MindLinkDefendContent (page.jsx:57:29)
+ 
+{componentStack: '\n    at MindLinkDefendContent (http://localhost:30…_modules_next_dist_client_aaee43fe._.js:12983:17)'}

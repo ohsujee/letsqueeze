@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, update, set,
@@ -25,21 +25,22 @@ import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
-import { Clock, ArrowRight, Users, Info, CaretDown, Smiley, ShieldStar } from '@phosphor-icons/react';
+import { Clock, ArrowRight, Users, Info, CaretDown, ShieldStar, Skull } from '@phosphor-icons/react';
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 
-const ACCENT = '#FF3366';
-const ACCENT_DARK = '#CC0044';
+const ACCENT = '#EF4444';
+const ACCENT_DARK = '#DC2626';
 const ROOM_PREFIX = 'rooms_lol';
 
-export default function LolLobby() {
-  const { code } = useParams();
-  const router = useRouter();
+export function LolLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
-  const [isHost, setIsHost] = useState(false);
-  const [myUid, setMyUid] = useState(null);
+  const [isHost, setIsHost] = useState(devIsHost || false);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [joinUrl, setJoinUrl] = useState("");
   const [hostJoined, setHostJoined] = useState(false);
   const [showCountdown, setShowCountdown] = useState(false);
@@ -80,6 +81,7 @@ export default function LolLobby() {
   }, [code]);
 
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setMyUid(user.uid);
@@ -92,11 +94,11 @@ export default function LolLobby() {
       }
     });
     return () => unsub();
-  }, [meta?.hostUid, players]);
+  }, [devUid, meta?.hostUid, players]);
 
-  useRoomGuard({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, isHost, skipKickRedirect: true });
-  useHostDisconnect({ roomCode: code, roomPrefix: ROOM_PREFIX, hostUid: meta?.hostUid });
-  usePresence({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, heartbeatInterval: 15000, enabled: !!myUid });
+  useRoomGuard({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, isHost, skipKickRedirect: true, enabled: !devUid });
+  useHostDisconnect({ roomCode: code, roomPrefix: ROOM_PREFIX, hostUid: devUid ? null : meta?.hostUid });
+  usePresence({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, heartbeatInterval: 15000, enabled: !!myUid && !devUid });
 
   const { leaveRoom, markVoluntaryLeave, attemptRejoin, isRejoining } = usePlayerCleanup({
     roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, isHost,
@@ -220,7 +222,7 @@ export default function LolLobby() {
     return (
       <div style={{
         flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column',
-        background: '#0a0610', alignItems: 'center', justifyContent: 'center', gap: '14px',
+        background: '#04060f', alignItems: 'center', justifyContent: 'center', gap: '14px',
       }}>
         <div style={{
           width: 30, height: 30,
@@ -236,21 +238,26 @@ export default function LolLobby() {
   return (
     <div style={{
       flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column',
-      background: '#0a0610', position: 'relative', overflow: 'hidden',
+      background: '#04060f', position: 'relative', overflow: 'hidden',
       fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
     }}>
 
-      {/* Background */}
+      {/* ── Background layers ── */}
       <div aria-hidden style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
         <div style={{
           position: 'absolute', inset: 0,
-          backgroundImage: `radial-gradient(circle, ${ACCENT}0e 1px, transparent 1px)`,
+          backgroundImage: 'radial-gradient(circle, rgba(239,68,68,0.055) 1px, transparent 1px)',
           backgroundSize: '28px 28px',
         }} />
         <div style={{
           position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
           width: '90%', height: '280px',
-          background: `radial-gradient(ellipse at 50% 0%, ${ACCENT}18 0%, transparent 70%)`,
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(239,68,68,0.09) 0%, transparent 70%)',
+        }} />
+        <div style={{
+          position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)',
+          width: '60%', height: '120px',
+          background: 'radial-gradient(ellipse at 50% 100%, rgba(239,68,68,0.05) 0%, transparent 70%)',
         }} />
       </div>
 
@@ -279,7 +286,7 @@ export default function LolLobby() {
         />
       </div>
 
-      {/* Main content */}
+      {/* ── Main content ── */}
       <main style={{
         flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden',
         padding: '16px 16px 8px',
@@ -287,7 +294,7 @@ export default function LolLobby() {
         display: 'flex', flexDirection: 'column', gap: '16px',
       }}>
 
-        {/* Settings panel (host) */}
+        {/* ── Settings panel (host) ── */}
         <AnimatePresence>
           {isHost && (
             <LayoutGroup>
@@ -298,8 +305,8 @@ export default function LolLobby() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2 }}
                 style={{
-                  background: 'rgba(10,6,16,0.92)',
-                  border: `1px solid ${ACCENT}20`,
+                  background: 'rgba(8,14,32,0.92)',
+                  border: '1px solid rgba(239,68,68,0.12)',
                   borderRadius: '16px',
                   padding: '14px 16px',
                   boxShadow: '0 2px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
@@ -316,9 +323,9 @@ export default function LolLobby() {
                   marginBottom: '14px',
                 }}>
                   {[
-                    { val: 'classique', label: 'Classique', desc: '2 cartons jaunes = éliminé' },
-                    { val: 'severe', label: 'Impitoyable', desc: '1 seul carton = éliminé' },
-                  ].map(({ val, label, desc }) => {
+                    { val: 'classique', label: 'Classique', desc: '2 cartons jaunes = éliminé', icon: <ShieldStar size={14} weight="bold" /> },
+                    { val: 'severe', label: 'Impitoyable', desc: '1 seul carton = éliminé', icon: <Skull size={14} weight="bold" /> },
+                  ].map(({ val, label, desc, icon }) => {
                     const active = eliminationMode === val;
                     return (
                       <motion.button
@@ -340,8 +347,8 @@ export default function LolLobby() {
                             layoutId="elim-pill"
                             style={{
                               position: 'absolute', inset: 0, borderRadius: '9px',
-                              background: `${ACCENT}18`,
-                              border: `1px solid ${ACCENT}44`,
+                              background: 'rgba(239,68,68,0.1)',
+                              border: '1px solid rgba(239,68,68,0.3)',
                               zIndex: -1,
                             }}
                             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
@@ -351,14 +358,14 @@ export default function LolLobby() {
                           display: 'flex', alignItems: 'center', gap: '7px',
                           color: active ? ACCENT : 'rgba(238,242,255,0.4)',
                           fontSize: '0.82rem', fontWeight: 700,
-                          textShadow: active ? `0 0 12px ${ACCENT}80` : 'none',
+                          textShadow: active ? `0 0 12px rgba(239,68,68,0.5)` : 'none',
                         }}>
-                          {val === 'classique' ? <ShieldStar size={14} weight="bold" /> : <Smiley size={14} weight="bold" />}
+                          {icon}
                           {label}
                         </div>
                         <span style={{
                           fontSize: '0.62rem', fontWeight: 600,
-                          color: active ? `${ACCENT}88` : 'rgba(238,242,255,0.25)',
+                          color: active ? 'rgba(239,68,68,0.55)' : 'rgba(238,242,255,0.25)',
                           transition: 'color 0.2s ease',
                         }}>
                           {desc}
@@ -396,8 +403,8 @@ export default function LolLobby() {
                             alignItems: 'center', justifyContent: 'center',
                             gap: '1px', padding: '7px 0 8px',
                             borderRadius: '10px',
-                            border: active ? `1px solid ${ACCENT}55` : '1px solid rgba(238,242,255,0.08)',
-                            background: active ? `${ACCENT}18` : 'rgba(238,242,255,0.03)',
+                            border: active ? '1px solid rgba(239,68,68,0.35)' : '1px solid rgba(238,242,255,0.08)',
+                            background: active ? 'rgba(239,68,68,0.1)' : 'rgba(238,242,255,0.03)',
                             cursor: 'pointer', overflow: 'hidden',
                             transition: 'border-color 0.15s ease, background 0.15s ease',
                           }}
@@ -405,12 +412,12 @@ export default function LolLobby() {
                           <span style={{
                             fontFamily: "var(--font-title, 'Bungee'), cursive", fontSize: '1rem', lineHeight: 1,
                             color: active ? ACCENT : 'rgba(238,242,255,0.5)',
-                            textShadow: active ? `0 0 10px ${ACCENT}88` : 'none',
+                            textShadow: active ? `0 0 10px rgba(239,68,68,0.55)` : 'none',
                             transition: 'color 0.15s ease, text-shadow 0.15s ease',
                           }}>{mins}</span>
                           <span style={{
                             fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.05em',
-                            color: active ? `${ACCENT}bb` : 'rgba(238,242,255,0.3)',
+                            color: active ? 'rgba(239,68,68,0.7)' : 'rgba(238,242,255,0.3)',
                             textTransform: 'uppercase',
                             transition: 'color 0.15s ease',
                           }}>min</span>
@@ -420,8 +427,8 @@ export default function LolLobby() {
                               style={{
                                 position: 'absolute', bottom: 0, left: 0, right: 0,
                                 height: '2px',
-                                background: `linear-gradient(90deg, transparent, ${ACCENT}99, transparent)`,
-                                boxShadow: `0 0 4px ${ACCENT}55`,
+                                background: 'linear-gradient(90deg, transparent, rgba(239,68,68,0.6), transparent)',
+                                boxShadow: '0 0 4px rgba(239,68,68,0.35)',
                               }}
                               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                             />
@@ -442,8 +449,8 @@ export default function LolLobby() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             style={{
-              background: 'rgba(10,6,16,0.92)',
-              border: `1px solid ${ACCENT}20`,
+              background: 'rgba(8,14,32,0.92)',
+              border: '1px solid rgba(239,68,68,0.12)',
               borderRadius: '16px',
               padding: '14px 16px',
               boxShadow: '0 2px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
@@ -453,7 +460,7 @@ export default function LolLobby() {
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '0.85rem', fontWeight: 700, color: '#ffffff' }}>
-                {eliminationMode === 'classique' ? <ShieldStar size={14} weight="bold" /> : <Smiley size={14} weight="bold" />}
+                {eliminationMode === 'classique' ? <ShieldStar size={14} weight="bold" /> : <Skull size={14} weight="bold" />}
                 {eliminationMode === 'classique' ? 'Classique' : 'Impitoyable'}
               </div>
               <span style={{ fontSize: '0.65rem', fontWeight: 600, color: 'rgba(238,242,255,0.35)' }}>
@@ -467,7 +474,7 @@ export default function LolLobby() {
           </motion.div>
         )}
 
-        {/* Players section */}
+        {/* ── Players section ── */}
         <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
 
           {/* Section header */}
@@ -484,8 +491,8 @@ export default function LolLobby() {
               }}>Joueurs</span>
               <div style={{
                 padding: '2px 9px',
-                background: `${ACCENT}18`,
-                border: `1px solid ${ACCENT}40`,
+                background: 'rgba(239,68,68,0.1)',
+                border: '1px solid rgba(239,68,68,0.25)',
                 borderRadius: '6px',
                 fontFamily: "var(--font-title, 'Bungee'), cursive",
                 fontSize: '0.7rem',
@@ -509,8 +516,8 @@ export default function LolLobby() {
                 <div style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
                   padding: '9px 12px',
-                  background: `${ACCENT}0d`,
-                  borderLeft: `2px solid ${ACCENT}77`,
+                  background: 'rgba(239,68,68,0.05)',
+                  borderLeft: '2px solid rgba(239,68,68,0.45)',
                   borderRadius: '10px',
                 }}>
                   <Info size={14} color={`${ACCENT}bb`} weight="bold" style={{ flexShrink: 0 }} />
@@ -538,8 +545,9 @@ export default function LolLobby() {
                 marginBottom: '12px', flexShrink: 0,
               }}
             >
+              <span style={{ fontSize: '0.9rem' }}>&#x23F3;</span>
               <span style={{ fontSize: '0.78rem', color: 'rgba(238,242,255,0.45)', fontWeight: 600 }}>
-                En attente que l'hote demarre la partie...
+                En attente que l'hôte démarre la partie…
               </span>
             </motion.div>
           )}
@@ -573,7 +581,7 @@ export default function LolLobby() {
               ))}
             </div>
 
-            {/* Scroll fade */}
+            {/* Scroll fade + chevron */}
             <AnimatePresence>
               {canScrollDown && (
                 <motion.div
@@ -584,7 +592,7 @@ export default function LolLobby() {
                   style={{
                     position: 'absolute', bottom: 0, left: 0, right: 0,
                     height: '56px',
-                    background: 'linear-gradient(to bottom, transparent, rgba(10,6,16,0.96))',
+                    background: 'linear-gradient(to bottom, transparent, rgba(4,6,15,0.96))',
                     pointerEvents: 'none',
                     display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
                     paddingBottom: '4px', zIndex: 2,
@@ -604,14 +612,14 @@ export default function LolLobby() {
         </div>
       </main>
 
-      {/* Footer */}
+      {/* ── Footer ── */}
       <div style={{
         position: 'relative', zIndex: 2,
         padding: '12px 16px 16px',
         borderTop: '1px solid rgba(238,242,255,0.05)',
         flexShrink: 0,
         display: 'flex', flexDirection: 'column', gap: '10px',
-        background: 'rgba(10,6,16,0.8)',
+        background: 'rgba(4,6,15,0.8)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
       }}>
@@ -641,4 +649,9 @@ export default function LolLobby() {
       </div>
     </div>
   );
+}
+
+export default function LolLobby() {
+  const { code } = useParams();
+  return <LolLobbyContent code={code} />;
 }

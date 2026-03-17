@@ -658,6 +658,99 @@ text of any kind, bald featureless silhouettes, sci-fi aesthetic, horror atmosph
 cluttered particles, overly symmetric compositions, isolated figures without social context.
 ```
 
+## 10. LOL
+
+```
+Art style: Professional digital illustration for premium mobile party game.
+Clean modern aesthetic with intentional composition and purposeful design choices.
+Soft gradients used strategically, subtle neon accents for atmosphere (not excessive),
+strong dramatic lighting with deep shadows and bright highlights.
+
+Characters are elegant simplified silhouettes or minimalist stylized figures -
+clean shapes, no unnecessary details, deliberate design decisions.
+NOT realistic anatomy, NOT cartoony, NOT anime - sophisticated simplified forms.
+
+Color palette is carefully curated with 4-5 main colors maximum.
+Rich saturated darks for depth, vibrant accents for energy, strategic use of light.
+Professional color theory - complementary colors, intentional contrast.
+
+Reference: Jackbox Games promotional art, modern board game box art (Wingspan, Azul),
+premium app store feature graphics, professional graphic design work.
+
+Technical: Aspect ratio 4:3, high contrast, clean composition with clear focal point.
+Every element serves a purpose - no random floating shapes, no busy details.
+
+Production quality: Magazine editorial illustration quality, not AI-generated look.
+Intentional negative space, balanced composition, professional polish.
+
+STRICT RULES:
+- NO random decorative elements that serve no purpose
+- NO busy/cluttered composition
+- NO excessive effects or filters
+- NO realistic faces or detailed anatomy
+- NO text, words, letters, or UI elements anywhere
+- NO generic AI artifacts (strange floating objects, weird patterns)
+
+---
+
+Scene composition: Hilarious party game moment — a group of friends having the time
+of their lives, one performing something ridiculous while others try not to crack up.
+Pure fun energy, everyone is laughing or about to laugh.
+
+Key elements:
+- 5-6 simplified stylized figure silhouettes (mix of masculine and feminine forms —
+  varied heights, distinct hair shapes: flowing, short curly, ponytail, buzzcut —
+  clearly distinguishable as different people, NOT bald featureless silhouettes)
+- CENTER PERFORMER silhouette in dramatic exaggerated comedy pose — arms spread wide,
+  body leaning forward with theatrical energy, one leg planted forward, performing with
+  full commitment and joy. A single golden JOKER CARD icon floating above/beside them,
+  glowing with warm gold light (the joker activation moment).
+- 2-3 AUDIENCE silhouettes CRACKING UP — one doubled over with hands on knees unable
+  to contain laughter, another with head thrown back and hand covering mouth trying
+  to hold it in, a third leaning on a friend's shoulder shaking with laughter.
+  Bodies full of joyful movement, pure contagious hilarity.
+- 1-2 AUDIENCE silhouettes TRYING TO HOLD IT — lips pressed together, hand over mouth,
+  body slightly trembling, clearly about to crack but fighting it with playful
+  determination. NOT angry or tense — visibly amused but resisting, smiling through
+  the struggle. Fun body language, not stiff.
+- ONE FIGURE holding up a YELLOW CARD in one hand, arm raised playfully like a referee
+  having fun — but their own body language shows they're laughing too, other hand on
+  their stomach from laughter, brandishing the card with amused authority. The card
+  is a simple rectangle with rounded corners, glowing amber-gold.
+- ANOTHER FIGURE casually holding a RED CARD down at their side or loosely in hand,
+  also clearly amused, relaxed posture — like they just gave it out and are still
+  giggling about it. The red card glows with soft crimson light.
+  Both cards feel like playful props in the hands of friends, not threatening objects.
+
+Background: Deep dark crimson-black (#1a0808) gradient fading to near-black at edges.
+Bold radial glow of vivid red (#EF4444) emanating from center performer,
+illuminating the entire group from the middle outward.
+
+Lighting: Strong vivid red spotlight from above on the performer, casting dramatic
+cone of light. All figures warmly lit with red-amber tones — nobody is in cold shadow,
+everyone is part of the fun. Yellow card glows amber-gold, red card pulses with
+soft crimson. Volumetric light beams (3-4 beams) cutting from overhead, catching
+confetti-like particles (10-15 small rectangles) drifting through the scene.
+
+Atmosphere: Pure party fun — friends laughing together, contagious joy, the kind of
+moment everyone remembers from the best house parties. Sparkle particles along light
+beams only, not cluttered. Clean negative space between figure groups for readability.
+
+Mood: THE funniest moment of the party — someone doing something absolutely ridiculous
+while the whole group loses it. Like the best moment of LOL: Last One Laughing where
+everyone is having a blast. Festive, joyful, hilarious. Premium party game energy
+where friends make each other laugh until they cry. Nobody is upset — even getting
+a card is funny. The whole vibe is PURE JOY and contagious laughter.
+
+Color palette: Deep crimson-black (#1a0808), Dark red (#B91C1C), Vivid red (#EF4444),
+Warm gold (#FFD700) for joker card, Amber (#f59e0b) for yellow card, Soft crimson (#dc2626) for red card.
+
+AVOID: Angry or tense body language, accusatory pointing gestures, serious/aggressive poses,
+literal laughing face emojis, speech bubbles, text of any kind, microphone stands,
+stage setup (this is a living room/party setting not a theater), too many cards floating,
+realistic facial expressions, cluttered particles, symmetrical static poses.
+```
+
 ---
 
 *Un seul copier-coller par jeu - Prêt à l'emploi !*

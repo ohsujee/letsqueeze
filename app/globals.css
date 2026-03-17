@@ -6181,6 +6181,14 @@ input[type="text"].game-search-input:focus,
     0 0 60px #84cc16;
 }
 
+[data-game="lol"] .game-name {
+  text-shadow:
+    0 0 10px #f87171,
+    0 0 20px #f87171,
+    0 0 40px #EF4444,
+    0 0 60px #EF4444;
+}
+
 /* Coming Soon Card State - Only gray out the background, not overlays */
 .game-card.coming-soon .card-bg,
 .game-card.coming-soon .card-illustration,
@@ -9791,6 +9799,35 @@ input[type="text"].game-search-input:focus,
   background: rgba(236, 72, 153, 0.25);
   border-color: rgba(236, 72, 153, 0.5);
   box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
+}
+
+/* Header - LOL variant */
+.lobby-header.lol {
+  border-bottom-color: rgba(239, 68, 68, 0.15);
+}
+
+.lobby-header.lol .lobby-title {
+  text-shadow:
+    0 0 10px rgba(239, 68, 68, 0.5),
+    0 0 20px rgba(239, 68, 68, 0.3),
+    0 0 40px rgba(239, 68, 68, 0.2);
+}
+
+.lobby-header.lol .room-code {
+  color: #f87171;
+  text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+}
+
+.lobby-header.lol .help-btn {
+  background: rgba(239, 68, 68, 0.15);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.lobby-header.lol .help-btn:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
 }
 
 /* Main Content Area */
