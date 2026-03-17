@@ -11,7 +11,7 @@
     },
     {
       "id": "cg-sport002",
-      "question": "Détenteur du record du monde du 100 mètres en 9,58 secondes établi à Berlin en 2009, ce sprinter jamaïcain a remporté 8 médailles d'or olympiques. Son surnom 'Lightning Bolt' reflète sa vitesse fulgurante. Qui est-ce ?",
+      "question": "Détenteur du record du monde du 100 mètres en 9,58 secondes établi à Berlin en 2009, ce sprinter jamaïcain a remporté 8 médailles d'or olympiques. Triple champion olympique du 100m et du 200m, il reste l'homme le plus rapide de l'histoire. Qui est-ce ?",
       "answer": "Usain Bolt",
       "category": "Sport"
     },
@@ -35,19 +35,19 @@
     },
     {
       "id": "cg-sport006",
-      "question": "Surnommé 'Air Jordan' pour ses dunks spectaculaires, ce basketteur américain a remporté 6 titres NBA avec les Chicago Bulls dans les années 90. Sa marque de chaussures est devenue emblématique. Qui est-ce ?",
+      "question": "Sextuple champion NBA avec les Chicago Bulls dans les années 90, cet Américain est considéré comme le plus grand basketteur de l'histoire. Sa marque de chaussures est devenue un empire mondial et son numéro 23 est légendaire. Qui est-ce ?",
       "answer": "Michael Jordan",
       "category": "Sport"
     },
     {
       "id": "cg-sport007",
-      "question": "Roi de Roland-Garros avec 14 titres sur terre battue, ce tennisman espagnol gaucher est le maître incontesté du tournoi parisien. Surnommé 'Rafa', il a pris sa retraite en 2024. Qui est-ce ?",
+      "question": "Roi de Roland-Garros avec 14 titres sur terre battue, ce tennisman espagnol gaucher est le maître incontesté du tournoi parisien. Vainqueur de 22 Grands Chelems au total, il a pris sa retraite en 2024. Qui est-ce ?",
       "answer": "Rafael Nadal",
       "category": "Sport"
     },
     {
       "id": "cg-sport008",
-      "question": "Pilote britannique de Formule 1, il détient 7 titres mondiaux égalant le record de Michael Schumacher et 103 victoires en Grand Prix, un record absolu. Fait chevalier en 2021, il défend activement les droits civiques. Qui est-ce ?",
+      "question": "Pilote britannique de Formule 1, il détient 7 titres mondiaux égalant le record de Michael Schumacher et 105 victoires en Grand Prix, un record absolu. Fait chevalier en 2021, il défend activement les droits civiques. Qui est-ce ?",
       "answer": "Lewis Hamilton",
       "category": "Sport"
     },
@@ -215,13 +215,13 @@
     },
     {
       "id": "cg-sport036",
-      "question": "Nageuse la plus titrée de l'histoire olympique avec 9 médailles d'or, cette Américaine détient les records du monde du 800m et 1500m nage libre. Elle n'a jamais perdu une course majeure sur ces distances depuis 2012. Qui est-ce ?",
+      "question": "Nageuse la plus titrée de l'histoire olympique avec 9 médailles d'or, cette Américaine détient le record du monde du 1500m nage libre et a dominé le 800m et le 1500m pendant plus d'une décennie. Qui est-ce ?",
       "answer": "Katie Ledecky",
       "category": "Sport"
     },
     {
       "id": "cg-sport037",
-      "question": "Meilleur buteur de l'histoire d'Arsenal avec 228 buts et de l'équipe de France avec 51 réalisations, cet attaquant a été quatre fois meilleur buteur de Premier League. Surnommé 'The King' à Arsenal, il a fait partie des 'Invincibles' de 2004. Qui est-ce ?",
+      "question": "Meilleur buteur de l'histoire d'Arsenal avec 228 buts et ancien recordman de l'équipe de France avec 51 réalisations, cet attaquant a été quatre fois meilleur buteur de Premier League. Surnommé 'The King' à Arsenal, il a fait partie des 'Invincibles' de 2004. Qui est-ce ?",
       "answer": "Thierry Henry",
       "category": "Sport"
     },
@@ -233,7 +233,7 @@
     },
     {
       "id": "cg-sport039",
-      "question": "Premier joueur depuis Kaká à briser la domination Messi-Ronaldo au Ballon d'Or, ce milieu croate l'a remporté en 2018 après avoir mené la Croatie en finale du Mondial. Quintuple vainqueur de la Ligue des Champions avec le Real Madrid. Qui est-ce ?",
+      "question": "Premier joueur depuis Kaká à briser la domination Messi-Ronaldo au Ballon d'Or, ce milieu croate l'a remporté en 2018 après avoir mené la Croatie en finale du Mondial. Sextuple vainqueur de la Ligue des Champions avec le Real Madrid. Qui est-ce ?",
       "answer": "Luka Modric",
       "category": "Sport"
     },
@@ -275,7 +275,7 @@
     },
     {
       "id": "cg-sport046",
-      "question": "Septuple champion du monde de F1 avec Ferrari entre 2000 et 2004, ce pilote allemand détient le record de 91 victoires en Grand Prix. Victime d'un grave accident de ski en 2013, il a dominé la discipline pendant une décennie. Qui est-ce ?",
+      "question": "Septuple champion du monde de F1, dont cinq titres consécutifs avec Ferrari entre 2000 et 2004, ce pilote allemand a longtemps détenu le record de 91 victoires en Grand Prix. Victime d'un grave accident de ski en 2013, il a dominé la discipline pendant une décennie. Qui est-ce ?",
       "answer": "Michael Schumacher",
       "category": "Sport"
     },
@@ -287,7 +287,7 @@
     },
     {
       "id": "cg-sport048",
-      "question": "Seul skieur à avoir remporté trois médailles d'or olympiques en ski alpin masculin, cet Autrichien surnommé 'Herminator' a dominé les années 2000. Octuple champion du monde et vainqueur de 4 gros globes de cristal. Qui est-ce ?",
+      "question": "Surnommé 'Herminator', cet Autrichien a dominé le ski alpin dans les années 2000. Double champion olympique à Nagano 1998, triple champion du monde et vainqueur de 4 gros globes de cristal, il est revenu au plus haut niveau après un grave accident de moto. Qui est-ce ?",
       "answer": "Hermann Maier",
       "category": "Sport"
     },
@@ -299,7 +299,7 @@
     },
     {
       "id": "cg-sport050",
-      "question": "Vainqueur de 11 titres NBA consécutifs avec les Boston Celtics entre 1957 et 1969, ce pivot américain est le joueur le plus titré de l'histoire du basketball. Le trophée de MVP des Finales porte désormais son nom. Qui est-ce ?",
+      "question": "Vainqueur de 11 titres NBA avec les Boston Celtics entre 1957 et 1969, dont un record de 8 consécutifs, ce pivot américain est le joueur le plus titré de l'histoire du basketball. Le trophée de MVP des Finales porte désormais son nom. Qui est-ce ?",
       "answer": "Bill Russell",
       "category": "Sport"
     },
@@ -311,13 +311,13 @@
     },
     {
       "id": "cg-sport052",
-      "question": "Surnommée 'La Perle Noire' et considérée comme la meilleure footballeuse de l'histoire, cette Brésilienne a remporté le Ballon d'Or féminin à six reprises. Elle détient le record de buts en sélection nationale avec plus de 100 réalisations. Qui est-ce ?",
+      "question": "Surnommée 'La Perle Noire' et considérée comme la meilleure footballeuse de l'histoire, cette Brésilienne a été élue meilleure joueuse FIFA à six reprises. Elle détient le record de buts en sélection brésilienne avec plus de 100 réalisations. Qui est-ce ?",
       "answer": "Marta",
       "category": "Sport"
     },
     {
       "id": "cg-sport053",
-      "question": "Vainqueur du Tour de France 2022 et 2023 après avoir battu Pogacar, ce Danois de l'équipe Visma a dû surmonter une grave chute au Tour du Pays basque 2024. Il est le premier Danois à remporter la Grande Boucle. Qui est-ce ?",
+      "question": "Vainqueur du Tour de France 2022 et 2023 après avoir battu Pogačar, ce Danois de l'équipe Jumbo-Visma a dû surmonter une grave chute au Tour du Pays basque 2024. Il est le deuxième Danois à remporter la Grande Boucle, après Bjarne Riis (1996, titre retiré pour dopage). Qui est-ce ?",
       "answer": "Jonas Vingegaard",
       "category": "Sport"
     },
@@ -329,7 +329,7 @@
     },
     {
       "id": "cg-sport055",
-      "question": "Considérée comme la meilleure skieuse alpine de l'histoire avec 82 victoires en Coupe du monde, cette Américaine a remporté 3 médailles d'or olympiques et 7 titres mondiaux. Elle a dominé les épreuves de vitesse pendant plus d'une décennie. Qui est-ce ?",
+      "question": "Considérée comme la meilleure skieuse alpine américaine de l'histoire avec 84 victoires en Coupe du monde, cette Américaine a remporté l'or olympique en descente à Vancouver 2010 et détient 2 titres de championne du monde. Elle a dominé les épreuves de vitesse pendant plus d'une décennie. Qui est-ce ?",
       "answer": "Lindsey Vonn",
       "category": "Sport"
     },
@@ -359,13 +359,13 @@
     },
     {
       "id": "cg-sport060",
-      "question": "Capitaine de l'équipe de France de handball lors des victoires olympiques de 2008, 2012 et 2021, ce gardien de 2,05 m est considéré comme le meilleur de l'histoire. Triple champion du monde et triple champion d'Europe. Qui est-ce ?",
+      "question": "Gardien de l'équipe de France de handball lors des victoires olympiques de 2008 et 2012, ce gardien de 1,92 m est considéré comme le meilleur de l'histoire. Quintuple champion du monde et triple champion d'Europe. Qui est-ce ?",
       "answer": "Thierry Omeyer",
       "category": "Sport"
     },
     {
       "id": "cg-sport061",
-      "question": "Plus jeune champion du monde d'échecs de l'histoire à 22 ans en 2013, ce Norvégien est considéré comme le meilleur joueur de tous les temps. Son rating Elo a atteint le record de 2882. Qui est-ce ?",
+      "question": "Champion du monde d'échecs en 2013 à seulement 22 ans, ce Norvégien est considéré comme le meilleur joueur de tous les temps. Son rating Elo a atteint le record de 2882. Qui est-ce ?",
       "answer": "Magnus Carlsen",
       "category": "Sport"
     },
@@ -377,19 +377,19 @@
     },
     {
       "id": "cg-sport063",
-      "question": "Double médaillé d'or olympique en tennis (2008, 2016) et vainqueur de la Coupe Davis avec la Grande-Bretagne en 2015, cet Écossais a brisé l'hégémonie du Big Four en remportant Wimbledon deux fois. Qui est-ce ?",
+      "question": "Double médaillé d'or olympique en tennis (2012, 2016) et vainqueur de la Coupe Davis avec la Grande-Bretagne en 2015, cet Écossais a brisé l'hégémonie du Big Four en remportant Wimbledon deux fois. Qui est-ce ?",
       "answer": "Andy Murray",
       "category": "Sport"
     },
     {
       "id": "cg-sport064",
-      "question": "Ce meneur slovène a été MVP de l'EuroBasket 2017 et a mené Dallas aux Finales NBA 2024. Surnommé 'Luka Magic' ou 'The Don', il est considéré comme l'un des joueurs les plus talentueux de sa génération. Qui est-ce ?",
-      "answer": "Luka Doncic",
+      "question": "Ce meneur slovène a été élu dans le meilleur cinq de l'EuroBasket 2017 à seulement 18 ans, puis a mené Dallas aux Finales NBA 2024. Connu pour ses step-backs dévastateurs, il est considéré comme l'un des joueurs les plus talentueux de sa génération. Qui est-ce ?",
+      "answer": "Luka Dončić",
       "category": "Sport"
     },
     {
       "id": "cg-sport065",
-      "question": "Fondateur du Gracie Jiu-Jitsu et co-créateur de l'UFC, ce Brésilien a popularisé les arts martiaux mixtes en remportant les premiers tournois UFC. Sa famille a révolutionné le combat au sol. Qui est-ce ?",
+      "question": "Choisi par sa famille pour représenter le jiu-jitsu brésilien, ce combattant a popularisé les arts martiaux mixtes en remportant trois des quatre premiers tournois de l'UFC malgré son gabarit modeste. Issu d'une dynastie de combattants, il a révolutionné le combat au sol. Qui est-ce ?",
       "answer": "Royce Gracie",
       "category": "Sport"
     },
@@ -401,19 +401,19 @@
     },
     {
       "id": "cg-sport067",
-      "question": "Plus grand buteur de l'histoire de la Bundesliga avec 365 buts, cet attaquant allemand a joué toute sa carrière au Bayern Munich. Surnommé 'Der Bomber', il a remporté la Coupe du Monde 1974. Qui est-ce ?",
+      "question": "Plus grand buteur de l'histoire de la Bundesliga avec 365 buts, cet attaquant allemand a joué 15 saisons au Bayern Munich. Surnommé 'Der Bomber', il a remporté la Coupe du Monde 1974. Qui est-ce ?",
       "answer": "Gerd Müller",
       "category": "Sport"
     },
     {
       "id": "cg-sport068",
-      "question": "Quintuple champion du Tour de France consécutivement (1991-1995), cet Espagnol surnommé 'Big Mig' est le seul à avoir réalisé cet exploit. Spécialiste du contre-la-montre, il a dominé le cyclisme des années 90. Qui est-ce ?",
+      "question": "Quintuple champion du Tour de France consécutivement (1991-1995), cet Espagnol est le seul coureur à avoir réalisé cet exploit. Spécialiste du contre-la-montre doté d'une capacité pulmonaire exceptionnelle, il a dominé le cyclisme des années 90. Qui est-ce ?",
       "answer": "Miguel Indurain",
       "category": "Sport"
     },
     {
       "id": "cg-sport069",
-      "question": "Gardien légendaire de la Juventus et de l'Italie, ce joueur a remporté la Coupe du Monde 2006 et terminé deuxième du Ballon d'Or cette année-là. Surnommé 'Super Gigi', il détient le record de clean sheets en Serie A. Qui est-ce ?",
+      "question": "Gardien légendaire de la Juventus et de l'Italie, ce joueur a remporté la Coupe du Monde 2006 et terminé deuxième du Ballon d'Or cette année-là. Transféré pour un montant record pour un gardien à l'époque, il détient le record de clean sheets en Serie A. Qui est-ce ?",
       "answer": "Gianluigi Buffon",
       "category": "Sport"
     },
@@ -425,7 +425,7 @@
     },
     {
       "id": "cg-sport071",
-      "question": "Plus jeune capitaine à soulever la Coupe du Monde de football à 21 ans en 1970, ce défenseur légendaire du Bayern Munich et de l'Allemagne a inventé le rôle de libéro moderne. Double Ballon d'Or (1972, 1976). Qui est-ce ?",
+      "question": "Capitaine de l'Allemagne lors de la victoire en Coupe du Monde 1974, ce défenseur légendaire du Bayern Munich a inventé le rôle de libéro moderne. Double Ballon d'Or (1972, 1976). Qui est-ce ?",
       "answer": "Franz Beckenbauer",
       "category": "Sport"
     },
@@ -443,13 +443,13 @@
     },
     {
       "id": "cg-sport074",
-      "question": "Quintuple champion olympique de biathlon, ce Français détient le record de médailles d'or aux JO d'hiver pour un athlète tricolore. Il a brillé à Sotchi et Pyeongchang avec son frère Simon. Qui est-ce ?",
+      "question": "Sextuple champion olympique de biathlon, ce Français détient le record de médailles d'or aux JO pour un athlète tricolore. Il a brillé à Sotchi et Pyeongchang avec son frère Simon. Qui est-ce ?",
       "answer": "Martin Fourcade",
       "category": "Sport"
     },
     {
       "id": "cg-sport075",
-      "question": "Considéré comme le meilleur gardien de l'histoire du football, cet Espagnol a remporté 3 Euro et 1 Mondial avec la Roja, ainsi que 3 Ligues des Champions avec le Real Madrid. Surnommé 'San Iker'. Qui est-ce ?",
+      "question": "Considéré comme le meilleur gardien de l'histoire du football, cet Espagnol a remporté 2 Euro et 1 Mondial avec la Roja, ainsi que 3 Ligues des Champions avec le Real Madrid. Surnommé 'San Iker'. Qui est-ce ?",
       "answer": "Iker Casillas",
       "category": "Sport"
     },
@@ -461,7 +461,7 @@
     },
     {
       "id": "cg-sport077",
-      "question": "Plus grande joueuse de ski alpin de l'histoire avec 86 victoires en Coupe du monde, cette Américaine a remporté 3 médailles olympiques et 5 titres mondiaux. Elle a dominé le slalom et le géant pendant 15 ans. Qui est-ce ?",
+      "question": "Plus grande joueuse de ski alpin de l'histoire avec plus de 100 victoires en Coupe du monde, cette Américaine a remporté 4 médailles olympiques et 8 titres mondiaux. Elle domine le slalom depuis plus de 10 ans. Qui est-ce ?",
       "answer": "Mikaela Shiffrin",
       "category": "Sport"
     },
@@ -491,7 +491,7 @@
     },
     {
       "id": "cg-sport082",
-      "question": "Premier athlète de l'histoire à remporter la même épreuve olympique cinq fois consécutivement, ce lutteur cubain de 42 ans a triomphé en gréco-romaine de 2004 à 2024. Il s'est retiré après Paris 2024. Qui est-ce ?",
+      "question": "Premier athlète de l'histoire à remporter la même épreuve olympique cinq fois consécutivement, ce lutteur cubain de 41 ans a triomphé en gréco-romaine de 2008 à 2024. Il s'est retiré après Paris 2024. Qui est-ce ?",
       "answer": "Mijaín López",
       "category": "Sport"
     },
@@ -503,7 +503,7 @@
     },
     {
       "id": "cg-sport084",
-      "question": "Considéré comme le meilleur libéro de l'histoire du football, cet Italien a joué toute sa carrière à l'AC Milan où il a remporté 3 Ligues des Champions. Capitaine légendaire des Rossoneri pendant 25 ans. Qui est-ce ?",
+      "question": "Considéré comme l'un des meilleurs défenseurs de l'histoire du football, cet Italien a joué toute sa carrière à l'AC Milan où il a remporté 5 Ligues des Champions. Il a porté le maillot des Rossoneri pendant 25 saisons. Qui est-ce ?",
       "answer": "Paolo Maldini",
       "category": "Sport"
     },
@@ -527,13 +527,13 @@
     },
     {
       "id": "cg-sport088",
-      "question": "Quintuple Ballon d'Or africain et champion d'Afrique 2002 avec le Cameroun, cet attaquant a brillé au FC Barcelone avec 130 buts. Surnommé 'Le Lion Indomptable', il est le meilleur buteur de l'histoire de l'Inter Milan en C1. Qui est-ce ?",
+      "question": "Quadruple Ballon d'Or africain et champion d'Afrique 2002 avec le Cameroun, cet attaquant a brillé au FC Barcelone avec plus de 100 buts. Surnommé 'Le Lion Indomptable', il a remporté deux Ligues des Champions consécutives avec deux clubs différents (Barcelone 2009, Inter 2010). Qui est-ce ?",
       "answer": "Samuel Eto'o",
       "category": "Sport"
     },
     {
       "id": "cg-sport089",
-      "question": "Double champion olympique du décathlon (1984, 1988), cet athlète britannique est considéré comme le meilleur décathlonien de l'histoire. Son record de 8847 points a tenu pendant 15 ans. Qui est-ce ?",
+      "question": "Double champion olympique du décathlon (1980, 1984), cet athlète britannique est considéré comme l'un des meilleurs décathloniens de l'histoire. Son record de 8847 points a tenu pendant 7 ans. Qui est-ce ?",
       "answer": "Daley Thompson",
       "category": "Sport"
     },
@@ -545,20 +545,20 @@
     },
     {
       "id": "cg-sport091",
-      "question": "Vainqueur de 6 Championnats du monde des rallyes consécutivement (2004-2009), ce pilote français a dominé le WRC avec Citroën. Recordman de victoires avec 79 succès en carrière. Qui est-ce ?",
+      "question": "Vainqueur de 9 Championnats du monde des rallyes consécutivement (2004-2012), ce pilote français a dominé le WRC avec Citroën. Recordman de victoires avec 80 succès en carrière. Qui est-ce ?",
       "answer": "Sébastien Loeb",
       "category": "Sport"
     },
     {
       "id": "cg-sport092",
-      "question": "Plus grand patineur artistique de l'histoire avec 4 titres mondiaux et 2 médailles olympiques, ce Japonais a réalisé le premier quadruple axel de l'histoire. Son style élégant a révolutionné la discipline. Qui est-ce ?",
+      "question": "Double champion olympique (2014, 2018) et double champion du monde (2014, 2017), ce patineur japonais a battu 19 records du monde et tenté le premier quadruple axel aux JO. Son style élégant a révolutionné la discipline. Qui est-ce ?",
       "answer": "Yuzuru Hanyu",
       "category": "Sport"
     },
     {
       "id": "cg-sport093",
-      "question": "Détenteur du record de passes décisives en une saison de Ligue 1 (21 en 2017-18), ce milieu brésilien a brillé au PSG où il a formé la 'MNM' avec Mbappé et Messi. Connu pour ses dribbles spectaculaires. Qui est-ce ?",
-      "answer": "Neymar",
+      "question": "Détenteur du record de passes décisives en une saison de Ligue 1 (18 en 2015-16), ce milieu argentin a brillé au PSG. Connu pour ses centres précis et sa vista. Qui est-ce ?",
+      "answer": "Angel Di Maria",
       "category": "Sport"
     },
     {
@@ -581,7 +581,7 @@
     },
     {
       "id": "cg-sport097",
-      "question": "Considéré comme le meilleur milieu de terrain de l'histoire du football espagnol, ce joueur du FC Barcelone a remporté l'Euro 2008 et 2012, ainsi que le Mondial 2010. Architecte du tiki-taka, il a pris sa retraite en 2023. Qui est-ce ?",
+      "question": "Considéré comme le meilleur milieu de terrain de l'histoire du football espagnol, ce joueur du FC Barcelone a remporté l'Euro 2008 et 2012, ainsi que le Mondial 2010. Architecte du tiki-taka, il a pris sa retraite de joueur professionnel en 2019. Qui est-ce ?",
       "answer": "Xavi Hernández",
       "category": "Sport"
     },
@@ -593,7 +593,7 @@
     },
     {
       "id": "cg-sport099",
-      "question": "Auteur d'un record du monde du 400m haies à Tokyo 2020 (45s94), ce Norvégien a pulvérisé l'ancien record de 29 ans. Double champion olympique et mondial, il domine sa discipline depuis 2020. Qui est-ce ?",
+      "question": "Auteur d'un record du monde du 400m haies à Tokyo 2020 (45s94), ce Norvégien a pulvérisé l'ancien record de 29 ans. Triple champion du monde et champion olympique, il domine sa discipline depuis 2017. Qui est-ce ?",
       "answer": "Karsten Warholm",
       "category": "Sport"
     },

@@ -83,7 +83,7 @@
     },
     {
       "id": "cg-cine014",
-      "question": "Perfectionniste légendaire né dans le Bronx en 1928, ce réalisateur a passé quatre ans à tourner 2001 L'Odyssée de l'espace et a exigé 70 prises pour une scène de Shining. Ses films vont de l'horreur à la satire militaire avec Full Metal Jacket. Qui est-ce ?",
+      "question": "Perfectionniste légendaire né dans le Bronx en 1928, ce réalisateur a passé quatre ans à tourner 2001 L'Odyssée de l'espace et détient le record Guinness de 148 prises pour une scène de Shining. Ses films vont de l'horreur à la satire militaire avec Full Metal Jacket. Qui est-ce ?",
       "answer": "Stanley Kubrick",
       "category": "Cinéma"
     },
@@ -131,7 +131,7 @@
     },
     {
       "id": "cg-cine022",
-      "question": "Saga de huit films adaptés des romans de J.K. Rowling, elle a rapporté plus de 9,6 milliards de dollars au box-office mondial. Daniel Radcliffe y incarne un jeune sorcier à la cicatrice en forme d'éclair. Quelle est cette saga ?",
+      "question": "Saga de huit films adaptés des romans de J.K. Rowling, elle a rapporté plus de 7,7 milliards de dollars au box-office mondial. Daniel Radcliffe y incarne un jeune sorcier à la cicatrice en forme d'éclair. Quelle est cette saga ?",
       "answer": "Harry Potter",
       "category": "Cinéma"
     },
@@ -143,7 +143,7 @@
     },
     {
       "id": "cg-cine024",
-      "question": "Film de gangsters de 1983 réalisé par Brian De Palma, Al Pacino y incarne un réfugié cubain devenu baron de la drogue à Miami. Le mot 'fuck' y est prononcé 207 fois. Quel est ce film ?",
+      "question": "Film de gangsters de 1983 réalisé par Brian De Palma, Al Pacino y incarne un réfugié cubain devenu baron de la drogue à Miami. Le mot 'fuck' y est prononcé plus de 200 fois. Quel est ce film ?",
       "answer": "Scarface",
       "category": "Cinéma"
     },
@@ -197,7 +197,7 @@
     },
     {
       "id": "cg-cine033",
-      "question": "Comédie romantique française de 2001 réalisée par Jean-Pierre Jeunet, Audrey Tautou y incarne une serveuse de Montmartre qui améliore la vie des gens autour d'elle. Le film a attiré 8,6 millions de spectateurs en France. Quel est ce film ?",
+      "question": "Comédie romantique française de 2001 réalisée par Jean-Pierre Jeunet, Audrey Tautou y incarne une serveuse de Montmartre qui améliore la vie des gens autour d'elle. Le film a attiré près de 9 millions de spectateurs en France. Quel est ce film ?",
       "answer": "Le Fabuleux Destin d'Amélie Poulain",
       "category": "Cinéma"
     },
@@ -473,7 +473,7 @@
     },
     {
       "id": "cg-cine079",
-      "question": "Réalisateur sud-coréen de Memories of Murder, The Host et Parasite, il est le premier cinéaste asiatique à remporter l'Oscar du meilleur réalisateur. Parasite remporta quatre Oscars en 2020. Qui est-ce ?",
+      "question": "Réalisateur sud-coréen de Memories of Murder, The Host et Parasite, il est le premier cinéaste sud-coréen à remporter l'Oscar du meilleur réalisateur. Parasite remporta quatre Oscars en 2020. Qui est-ce ?",
       "answer": "Bong Joon-ho",
       "category": "Cinéma"
     },
@@ -533,7 +533,7 @@
     },
     {
       "id": "cg-cine089",
-      "question": "Film de 1998 de Steven Spielberg sur le débarquement en Normandie, sa scène d'ouverture de 27 minutes sur Omaha Beach est considérée comme l'une des plus réalistes de l'histoire du cinéma de guerre. Quel est ce film ?",
+      "question": "Film de 1998 de Steven Spielberg sur le débarquement en Normandie, sa scène d'ouverture de 24 minutes sur Omaha Beach est considérée comme l'une des plus réalistes de l'histoire du cinéma de guerre. Quel est ce film ?",
       "answer": "Il faut sauver le soldat Ryan",
       "category": "Cinéma"
     },

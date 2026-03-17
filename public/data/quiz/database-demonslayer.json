@@ -281,7 +281,7 @@
     },
     {
       "id": "ds047",
-      "question": "Père du héros principal, cet homme malade mais d'une force phénoménale a tué un ours sauvage de deux mètres à mains nues. Il exécutait la Danse du Dieu du Feu chaque nuit du coucher au lever du soleil malgré sa fragilité. Qui est-ce ?",
+      "question": "Père du héros principal, cet homme malade mais d'une force phénoménale a décapité un ours sauvage de près de trois mètres de deux coups de hache en un clin d'œil. Il exécutait la Danse du Dieu du Feu chaque nuit du coucher au lever du soleil malgré sa fragilité. Qui est-ce ?",
       "answer": "Kamado Tanjūrō (Tanjûrô Kamado)",
       "category": "Personnages"
     },
@@ -305,7 +305,7 @@
     },
     {
       "id": "ds051",
-      "question": "Style de souffle le plus ancien avec seize formes développées au fil des siècles, il est maîtrisé par un ancien pourfendeur devenu la Lune Supérieure 1. Inspiré par son frère jumeau, il n'a jamais réussi à égaler le souffle original. Quel est ce souffle ?",
+      "question": "Style de souffle le plus ancien avec seize formes développées au fil des siècles, il est maîtrisé par un ancien pourfendeur devenu la Lune Supérieure 1. Dérivé du Souffle du Soleil de son frère jumeau, il n'a jamais réussi à égaler le souffle original. Quel est ce souffle ?",
       "answer": "Tsuki no Kokyū (Souffle de la Lune)",
       "category": "Souffles"
     },
@@ -341,7 +341,7 @@
     },
     {
       "id": "ds057",
-      "question": "Marque mystérieuse apparaissant sur la peau des pourfendeurs lorsque leur rythme cardiaque dépasse deux cents battements par minute et leur température corporelle trente-neuf degrés. Elle décuple leur force mais réduit leur espérance de vie. Comment l'appelle-t-on ?",
+      "question": "Marque mystérieuse apparaissant sur la peau des pourfendeurs lorsque leur rythme cardiaque dépasse deux cents battements par minute et leur température corporelle trente-neuf degrés. Elle augmente considérablement leurs capacités physiques mais condamne son porteur à mourir avant l'âge de vingt-cinq ans. Comment l'appelle-t-on ?",
       "answer": "Marque des Pourfendeurs (Demon Slayer Mark)",
       "category": "Lore"
     },
@@ -425,8 +425,8 @@
     },
     {
       "id": "ds071",
-      "question": "Kotoha Hashibira, une femme qui fuyait un mari violent, a rejoint ce culte religieux avec son bébé. Quand elle a découvert que le gourou dévorait ses fidèles, elle a jeté son enfant dans une rivière pour le sauver avant d'être tuée. Quel est ce culte ?",
-      "answer": "Manseikai Kyō (Culte du Paradis Éternel)",
+      "question": "Kotoha Hashibira, une femme qui fuyait un mari violent, a rejoint ce culte religieux avec son bébé. Quand elle a découvert que le gourou dévorait ses fidèles, elle a jeté son enfant d'une falaise pour le sauver avant d'être tuée. Quel est ce culte ?",
+      "answer": "Bansei Gokuraku Kyō (Culte du Paradis Éternel)",
       "category": "Lore"
     },
     {
@@ -540,7 +540,7 @@
     {
       "id": "ds094",
       "question": "Lors du combat contre Muzan, cette capacité permet aux pourfendeurs de teinter temporairement leurs lames en rouge cramoisi, augmentant drastiquement leur pouvoir de coupe et empêchant la régénération des démons. Comment appelle-t-on ces lames ?",
-      "answer": "Nichirin Akatō (Lames Nichirin Rouges)",
+      "answer": "Kakutō (赫刀) (Lames Nichirin Rouge Cramoisi)",
       "category": "Techniques"
     },
     {
@@ -587,8 +587,8 @@
     },
     {
       "id": "ds102",
-      "question": "Au début de la série, le héros porte sa soeur démone dans une boîte spéciale sur son dos pour la protéger du soleil. Ce contenant est fabriqué dans un bois extrêmement léger et résistant. Quel est le nom de ce bois ?",
-      "answer": "Kiribako (boîte en bois de paulownia)",
+      "question": "Au début de la série, le héros porte sa sœur démone dans une boîte spéciale sur son dos pour la protéger du soleil. Dans quel matériau fictif cette boîte est-elle fabriquée ?",
+      "answer": "Kirikomosugi (霧雲杉) - un bois fictif très léger",
       "category": "Lore"
     },
     {

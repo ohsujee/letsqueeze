@@ -521,7 +521,7 @@
     },
     {
       "id": "db087",
-      "question": "Premier grand méchant de Dragon Ball, cet être démoniaque vert est le roi des démons. Piccolo est sa réincarnation. Il a été enfermé dans un autocuiseur par Tortue Géniale et Mutaïto. Qui est-ce ?",
+      "question": "Premier grand méchant de Dragon Ball, cet être démoniaque vert est le roi des démons. Piccolo est sa réincarnation. Il a été enfermé dans un autocuiseur par Mutaïto grâce à la technique du Mafuba. Qui est-ce ?",
       "answer": "Piccolo Daimaô (Grand Démon Piccolo)",
       "category": "Méchants"
     },
@@ -617,8 +617,8 @@
     },
     {
       "id": "db103",
-      "question": "Technique signature de Végéta dans la saga Saiyan, il concentre son énergie dans une main levée et tire un puissant rayon violet. Il l'utilise pour la première fois contre Sangoku lors de leur premier affrontement sur Terre. Quelle est cette technique ?",
-      "answer": "Galick Gun (Garlic Ho)",
+      "question": "Technique signature de Végéta dans la saga Saiyan, il concentre son énergie dans ses deux mains jointes à hauteur de poitrine puis tire un puissant rayon violet. Il l'utilise pour la première fois contre Sangoku lors de leur premier affrontement sur Terre. Quelle est cette technique ?",
+      "answer": "Galick Gun (Gyarikku Hō)",
       "category": "Techniques"
     },
     {
@@ -634,15 +634,9 @@
       "category": "Techniques"
     },
     {
-      "id": "db106",
-      "question": "Fille de Gohan et Videl, cette petite fille est quart-Saiyan. Elle peut voler et participe au Tournoi du Pouvoir dans le manga. Dans l'anime, elle aide à invoquer le Super Saiyan God. Qui est-ce ?",
-      "answer": "Pan",
-      "category": "Saiyans"
-    },
-    {
       "id": "db107",
-      "question": "Fille de Végéta et Bulma, cette petite Saiyan est la sœur cadette de Trunks. Dans Dragon Ball Super, elle fournit l'énergie manquante pour le rituel du Super Saiyan God alors qu'elle est encore dans le ventre de Bulma. Qui est-ce ?",
-      "answer": "Bra (Bulla)",
+      "question": "Fille de Son Gohan et Videl, cette petite Saiyan est la petite-fille de Son Goku. Dans Dragon Ball Super, elle fournit l'énergie manquante pour le rituel du Super Saiyan God alors qu'elle est encore dans le ventre de Videl. Qui est-ce ?",
+      "answer": "Pan",
       "category": "Saiyans"
     },
     {
@@ -719,7 +713,7 @@
     },
     {
       "id": "db120",
-      "question": "Robot espion de Freezer envoyé sur Terre après les événements de Namek. Ses restes sont récupérés par le Docteur Gero pour créer Cell grâce aux cellules des combattants. Quel rôle jouent les cellules collectées ?",
+      "question": "Micro-robot espion créé par le Docteur Gero pour suivre Sangoku depuis la chute du Red Ribbon. Il a collecté les cellules des plus grands combattants jusqu'à l'arrivée de Mecha Freezer sur Terre. À quoi servent ces cellules ?",
       "answer": "Créer Cell (elles contiennent l'ADN de Sangoku, Végéta, Piccolo, Freezer et King Cold)",
       "category": "Détails"
     },
@@ -917,7 +911,7 @@
     },
     {
       "id": "db153",
-      "question": "Ancien élève de Tortue Géniale aux côtés de Son Gohan (le grand-père), ce vieux maître utilise la technique du Mafuba pour sceller Piccolo Daimaô, au prix de sa propre vie. Qui est-ce ?",
+      "question": "Ancien maître de Tortue Géniale et de Tsuru Sennin, ce vieux combattant utilise la technique du Mafuba pour sceller Piccolo Daimaô, au prix de sa propre vie. Qui est-ce ?",
       "answer": "Mutaïto",
       "category": "Personnages"
     },
@@ -950,12 +944,6 @@
       "question": "Dans Dragon Ball Z, ce géant vert est le guerrier le plus puissant de la planète Namek. Il affronte Freezer sous sa deuxième forme et parvient à le dominer brièvement grâce à sa fusion avec le Namekien Nail. Qui est-ce ?",
       "answer": "Piccolo (après fusion avec Nail)",
       "category": "Sagas"
-    },
-    {
-      "id": "db159",
-      "question": "Tueur à gages de l'Armée du Ruban Rouge, il est un cyborg à la langue bleue. Sangoku le bat lors de son assaut contre le QG de l'armée. Il est le plus puissant assassin de l'organisation. Qui est-ce ?",
-      "answer": "Tao Pai Pai (Mercenary Tao)",
-      "category": "Méchants"
     },
     {
       "id": "db160",

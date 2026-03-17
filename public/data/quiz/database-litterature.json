@@ -65,7 +65,7 @@
     },
     {
       "id": "cg-lit011",
-      "question": "Dramaturge français du XVIIe siècle mort sur scène en jouant Le Malade imaginaire, il a créé des comédies comme Tartuffe et L'Avare. La langue française est souvent appelée 'la langue de...' qui ?",
+      "question": "Dramaturge français du XVIIe siècle pris de malaise sur scène en jouant Le Malade imaginaire, il a créé des comédies comme Tartuffe et L'Avare. La langue française est souvent appelée 'la langue de...' qui ?",
       "answer": "Molière",
       "category": "Littérature"
     },
@@ -509,7 +509,7 @@
     },
     {
       "id": "cg-lit085",
-      "question": "Romancière française du Nouveau Roman prix Nobel 1985, auteure de L'Amant et Moderato cantabile. Elle a aussi réalisé des films. Qui est-ce ?",
+      "question": "Romancière française associée au Nouveau Roman, prix Goncourt 1984 pour L'Amant, auteure de Moderato cantabile. Elle a aussi réalisé des films. Qui est-ce ?",
       "answer": "Marguerite Duras",
       "category": "Littérature"
     },
@@ -521,7 +521,7 @@
     },
     {
       "id": "cg-lit087",
-      "question": "Dessinateur belge créateur de Spirou et Fantasio, du Marsupilami et de Gaston Lagaffe. Son style dynamique a influencé toute la BD franco-belge. Qui est-ce ?",
+      "question": "Dessinateur belge emblématique de Spirou et Fantasio, créateur du Marsupilami et de Gaston Lagaffe. Son style dynamique a influencé toute la BD franco-belge. Qui est-ce ?",
       "answer": "André Franquin",
       "category": "Littérature"
     },
@@ -599,7 +599,7 @@
     },
     {
       "id": "cg-lit100",
-      "question": "Romancière britannique auteure de Frankenstein en 1818 à 19 ans, considéré comme le premier roman de science-fiction. Victor y crée une créature monstrueuse. Qui est-ce ?",
+      "question": "Romancière britannique qui a commencé à écrire Frankenstein à 18 ans, publié en 1818 et considéré comme le premier roman de science-fiction. Victor y crée une créature monstrueuse. Qui est-ce ?",
       "answer": "Mary Shelley",
       "category": "Littérature"
     }

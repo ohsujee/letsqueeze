@@ -149,7 +149,7 @@
     },
     {
       "id": "aot025",
-      "question": "Composée de Petra Ralle, Erd Gin, Gunther Schultz et Auruo Bossard, cette unité d'élite du Bataillon d'Exploration est placée sous le commandement du soldat le plus puissant de l'humanité. Tous ses membres périssent en affrontant le Titan Féminin dans la forêt des arbres géants. De quelle unité s'agit-il ?",
+      "question": "Composée de Petra Ral, Erd Gin, Gunther Schultz et Auruo Bossard, cette unité d'élite du Bataillon d'Exploration est placée sous le commandement du soldat le plus puissant de l'humanité. Tous ses membres périssent en affrontant le Titan Féminin dans la forêt des arbres géants. De quelle unité s'agit-il ?",
       "answer": "Escouade Tactique de Livaï (Levi Squad)",
       "category": "Bataillon"
     },
@@ -221,7 +221,7 @@
     },
     {
       "id": "aot037",
-      "question": "Frère aîné de Marcel, ce guerrier de Mahr hérite du Titan Mâchoire après avoir dévoré Ymir qui s'est livrée volontairement. Fier et impulsif, il périt lors de la bataille de Shiganshina en se sacrifiant pour que le protagoniste puisse briser le cristal de Lara Teyber. Qui est-ce ?",
+      "question": "Frère cadet de Marcel, ce guerrier de Mahr hérite du Titan Mâchoire après avoir dévoré Ymir qui s'est livrée volontairement. Fier et impulsif, il se sacrifie lors de la bataille de Shiganshina en se laissant dévorer par Falco Grice pour lui transmettre le Titan Mâchoire. Qui est-ce ?",
       "answer": "Porco Galliard",
       "category": "Mahr"
     },
@@ -251,8 +251,8 @@
     },
     {
       "id": "aot042",
-      "question": "Véritable roi des murs caché derrière une fausse monarchie, ce noble obèse tente de faire dévorer son propre fils par sa fille illégitime pour récupérer le Titan Originel. Il se transforme en un titan pur gigantesque et difforme en léchant le liquide rachidien, mais est finalement vaincu. Qui est-ce ?",
-      "answer": "Rhodes Reiss (Rod Reiss)",
+      "question": "Véritable roi des murs caché derrière une fausse monarchie, ce noble obèse tente de faire dévorer Eren Jaeger par sa fille illégitime pour récupérer le Titan Originel. Il se transforme en un titan pur gigantesque et difforme en léchant le liquide rachidien, mais est finalement vaincu. Qui est-ce ?",
+      "answer": "Rod Reiss",
       "category": "Personnages"
     },
     {
@@ -461,7 +461,7 @@
     },
     {
       "id": "aot077",
-      "question": "Bras droit d'Erwin Smith et chef de section au sein du Bataillon d'Exploration, ce soldat barbu et expérimenté participe à la plupart des grandes batailles. Il accompagne Livaï dans la traque de Kenny Ackerman et survit jusqu'à la bataille finale contre le Grand Terrassement. Qui est-ce ?",
+      "question": "Bras droit d'Erwin Smith et chef de section au sein du Bataillon d'Exploration, ce soldat barbu et expérimenté est considéré comme le deuxième soldat le plus fort de l'humanité après Livaï. Doté d'un odorat surdéveloppé lui permettant de détecter les Titans à distance, il est tragiquement tué par le Titan Bestial au début de l'arc du Retour à Shiganshina. Qui est-ce ?",
       "answer": "Mike Zacharias (Miche Zacharias)",
       "category": "Bataillon"
     },
