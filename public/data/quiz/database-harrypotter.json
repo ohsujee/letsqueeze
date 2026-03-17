@@ -22,12 +22,6 @@
       "category": "Personnages"
     },
     {
-      "id": "hp004",
-      "question": "Né sous le nom de Tom Elvis Jedusor, cet ancien élève de Serpentard est un descendant direct de Salazar. Il a divisé son âme en sept fragments pour échapper à la mort et son véritable nom, réarrangé en anagramme, révèle son identité de mage noir. Quel est le nom qu'il s'est choisi ?",
-      "answer": "Voldemort",
-      "category": "Personnages"
-    },
-    {
       "id": "hp005",
       "question": "Ce directeur de Poudlard à la longue barbe argentée est considéré comme le plus grand sorcier de son époque. Ancien vainqueur de Grindelwald en 1945, il possède un phénix nommé Fumseck et a un faible bien connu pour les bonbons au citron. Qui est-ce ?",
       "answer": "Albus Dumbledore",
@@ -113,7 +107,7 @@
     },
     {
       "id": "hp019",
-      "question": "Ce jeune sorcier de Poufsouffle est champion de Poudlard lors du Tournoi des Trois Sorciers en quatrième année. Attrapeur de l'équipe de Quidditch de sa maison, il meurt dans le cimetière de Little Hangleton après avoir touché le trophée-Portoloin. Qui est-ce ?",
+      "question": "Ce jeune sorcier de Poufsouffle est champion de Poudlard lors du Tournoi des Trois Sorciers en sixième année. Attrapeur de l'équipe de Quidditch de sa maison, il meurt dans le cimetière de Little Hangleton après avoir touché le trophée-Portoloin. Qui est-ce ?",
       "answer": "Cédric Diggory",
       "category": "Personnages"
     },
@@ -245,7 +239,7 @@
     },
     {
       "id": "hp041",
-      "question": "Ce sortilège, dont la formule signifie « j'efface », supprime les souvenirs de la personne ciblée. Le professeur Lockhart en est un expert mais se retrouve victime de son propre sort après avoir tenté de l'utiliser avec une baguette défectueuse. Quel est ce sortilège ?",
+      "question": "Ce sortilège, dont la formule évoque l'oubli, supprime les souvenirs de la personne ciblée. Le professeur Lockhart en est un expert mais se retrouve victime de son propre sort après avoir tenté de l'utiliser avec la baguette cassée de Ron. Quel est ce sortilège ?",
       "answer": "Oubliettes (sortilège d'Amnésie)",
       "category": "Sortilèges"
     },
@@ -515,13 +509,13 @@
     },
     {
       "id": "hp086",
-      "question": "Ce joueur de Quidditch professionnel est l'attrapeur vedette de l'équipe nationale de Bulgarie. Champion de la Coupe du Monde en quatrième année, il est aussi le champion de l'école de Durmstrang lors du Tournoi des Trois Sorciers. Qui est-ce ?",
+      "question": "Ce joueur de Quidditch professionnel est l'attrapeur vedette de l'équipe nationale de Bulgarie. Finaliste de la Coupe du Monde en quatrième année, il attrape le Vif d'Or malgré la défaite de son équipe. Il est aussi le champion de l'école de Durmstrang lors du Tournoi des Trois Sorciers. Qui est-ce ?",
       "answer": "Viktor Krum",
       "category": "Quidditch"
     },
     {
       "id": "hp087",
-      "question": "Cette demi-Vélane française est la championne de l'Académie de Beauxbâtons lors du Tournoi des Trois Sorciers. Sa petite sœur Gabrielle est retenue au fond du lac lors de la deuxième épreuve, et elle épouse plus tard Bill Weasley. Qui est-ce ?",
+      "question": "Cette quart-Vélane française est la championne de l'Académie de Beauxbâtons lors du Tournoi des Trois Sorciers. Sa petite sœur Gabrielle est retenue au fond du lac lors de la deuxième épreuve, et elle épouse plus tard Bill Weasley. Qui est-ce ?",
       "answer": "Fleur Delacour",
       "category": "Personnages"
     },
@@ -671,19 +665,19 @@
     },
     {
       "id": "hp112",
-      "question": "Ce patronus du héros prend la forme d'un cerf, identique à la forme Animagus de son père James Potter. Produit pour la première fois en troisième année au bord d'un lac face à des centaines de Détraqueurs, il est assez puissant pour tous les repousser. Quelle forme animale prend le patronus du fils Potter ?",
-      "answer": "Un cerf",
+      "question": "Ce sortilège défensif maîtrisé en troisième année projette une créature corporelle identique à la forme Animagus de James Potter. Produit pour la première fois au bord d'un lac face à des centaines de Détraqueurs, il est assez puissant pour tous les repousser d'un coup. Quelle forme animale prend le patronus du héros ?",
+      "answer": "Cerf",
       "category": "Sortilèges"
     },
     {
       "id": "hp113",
-      "question": "Ce directeur de la maison Serpentard est aussi le fantôme le plus sinistre de Poudlard. Connu sous son titre de Baron, il porte des chaînes et des taches de sang argenté sur ses vêtements translucides. Quel est le surnom de ce fantôme ?",
+      "question": "Ce fantôme est le spectre attitré de la maison Serpentard à Poudlard, réputé le plus sinistre de tout le château. Traînant de lourdes chaînes et couvert de taches argentées sur ses vêtements translucides, il inspire la terreur même aux autres fantômes. Quel est le surnom de ce spectre ?",
       "answer": "Le Baron Sanglant",
       "category": "Poudlard"
     },
     {
       "id": "hp114",
-      "question": "Ce département du ministère de la Magie, situé au niveau le plus profond, contient des salles remplies de prophéties, de cerveaux et un mystérieux voile entre les vivants et les morts. Une bataille majeure s'y déroule entre l'Armée de Dumbledore et les Mangemorts en cinquième année. Quel est ce département ?",
+      "question": "Situé au niveau le plus profond du ministère de la Magie, ce lieu contient des salles remplies de prophéties, de cerveaux et un voile étrange séparant les vivants des morts. Une bataille majeure s'y déroule entre l'Armée de Dumbledore et les Mangemorts en cinquième année. Quel est cet endroit ?",
       "answer": "Le Département des Mystères",
       "category": "Lieux"
     },

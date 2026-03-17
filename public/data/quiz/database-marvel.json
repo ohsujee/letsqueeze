@@ -226,12 +226,6 @@
       "category": "Acteurs"
     },
     {
-      "id": "mcu038",
-      "question": "Ce personnage est un raton laveur génétiquement modifié, expert en armes et en mécanique, surnommé « sweet rabbit » par Thor et révèle son vrai nom Rocket dans Les Gardiens de la Galaxie Vol. 3. Qui est-ce ?",
-      "answer": "Rocket Raccoon",
-      "category": "Gardiens de la Galaxie"
-    },
-    {
       "id": "mcu039",
       "question": "Cette Pierre d'Infinité est de couleur orange, nécessite le sacrifice d'un être aimé pour l'obtenir et se trouve sur la planète Vormir, gardée par Red Skull. Quelle est cette pierre ?",
       "answer": "La Pierre de l'Âme",
@@ -316,12 +310,6 @@
       "category": "Gardiens de la Galaxie"
     },
     {
-      "id": "mcu053",
-      "question": "Cette IA sert d'assistante personnelle à Tony Stark dans ses armures, remplaçant JARVIS après que celui-ci est devenu Vision. Elle porte un prénom féminin irlandais. Qui est-ce ?",
-      "answer": "F.R.I.D.A.Y.",
-      "category": "Iron Man"
-    },
-    {
       "id": "mcu054",
       "question": "Ce film de 2019 révèle les origines de Carol Danvers comme pilote de l'armée de l'air, se déroule dans les années 90 et montre comment Nick Fury a perdu son œil à cause d'un Flerken. Quel est ce film ?",
       "answer": "Captain Marvel",
@@ -352,12 +340,6 @@
       "category": "Black Panther"
     },
     {
-      "id": "mcu059",
-      "question": "Dans Avengers: Endgame, Thor déprimé vit reclus dans cette ville de pêcheurs norvégiens avec Korg et Miek, boit de la bière et joue à Fortnite. Quel est le nom de cette ville ?",
-      "answer": "New Asgard (Tønsberg)",
-      "category": "Thor"
-    },
-    {
       "id": "mcu060",
       "question": "Cet acteur britannique est le plus jeune à incarner Spider-Man au cinéma, fait ses débuts dans le MCU dans Captain America: Civil War en 2016 et est connu pour spoiler accidentellement des scènes Marvel en interview. Qui est cet acteur ?",
       "answer": "Tom Holland",
@@ -368,12 +350,6 @@
       "question": "Ce super-héros est un ancien parachutiste militaire équipé d'ailes mécaniques, devient le meilleur ami de Steve Rogers et hérite du bouclier de Captain America à la fin d'Endgame. Qui est-ce ?",
       "answer": "Sam Wilson / Le Faucon",
       "category": "Captain America"
-    },
-    {
-      "id": "mcu062",
-      "question": "Ce Gardien de la Galaxie est une empathique aux antennes qui peut ressentir et influencer les émotions des autres, rejoint l'équipe dans le Vol. 2 et endort temporairement Thanos sur Titan. Qui est-ce ?",
-      "answer": "Mantis",
-      "category": "Gardiens de la Galaxie"
     },
     {
       "id": "mcu063",
@@ -442,12 +418,6 @@
       "category": "Méchants"
     },
     {
-      "id": "mcu074",
-      "question": "Cette actrice oscarisée incarne Pepper Potts, la femme de Tony Stark, du premier Iron Man à Endgame, et enfile même sa propre armure « Rescue » lors de la bataille finale. Qui est-ce ?",
-      "answer": "Gwyneth Paltrow",
-      "category": "Acteurs"
-    },
-    {
       "id": "mcu075",
       "question": "Ce nain géant roi de Nidavellir, interprété par Peter Dinklage, a été forcé par Thanos de forger le Gantelet de l'Infinité et aide Thor à créer Stormbreaker. Qui est-ce ?",
       "answer": "Eitri",
@@ -470,12 +440,6 @@
       "question": "Ce film est le premier de la Phase 4 du MCU sorti au cinéma, se déroule après Endgame et suit Natasha Romanoff dans une aventure liée à son passé avec la Red Room et le méchant Taskmaster. Quel est ce film ?",
       "answer": "Black Widow (2021)",
       "category": "Phases"
-    },
-    {
-      "id": "mcu079",
-      "question": "Cet acteur interprète Loki dans le MCU depuis 2011, est devenu une icône grâce à ce rôle de dieu de la malice charmeur et a obtenu sa propre série sur Disney+. Qui est cet acteur ?",
-      "answer": "Tom Hiddleston",
-      "category": "Acteurs"
     },
     {
       "id": "mcu080",
@@ -520,12 +484,6 @@
       "category": "Captain America"
     },
     {
-      "id": "mcu087",
-      "question": "Ce film de 2019 se déroule en Europe, voit Peter Parker affronter Mysterio et se termine par la révélation de l'identité secrète de Spider-Man au monde entier par J. Jonah Jameson. Quel est ce film ?",
-      "answer": "Spider-Man: Far From Home",
-      "category": "Spider-Man"
-    },
-    {
       "id": "mcu088",
       "question": "Ce personnage est la fille de Hank Pym, porte le costume de la Guêpe avec des ailes et des blasters, et est la partenaire romantique et de combat de Scott Lang. Qui est-ce ?",
       "answer": "Hope van Dyne / La Guêpe",
@@ -554,12 +512,6 @@
       "question": "Cette fille de Thanos à la peau bleue et aux implants cybernétiques rivalise avec sa sœur Gamora, finit par se retourner contre son père et rejoint les Gardiens de la Galaxie. Qui est-ce ?",
       "answer": "Nebula",
       "category": "Gardiens de la Galaxie"
-    },
-    {
-      "id": "mcu093",
-      "question": "Ce film se déroule dans les années 1940, montre les origines de Steve Rogers comme super-soldat, sa lutte contre Red Skull et Hydra, et se termine par son crash dans la glace arctique. Quel est ce film ?",
-      "answer": "Captain America: First Avenger",
-      "category": "Captain America"
     },
     {
       "id": "mcu094",
@@ -592,12 +544,6 @@
       "category": "Spider-Man"
     },
     {
-      "id": "mcu099",
-      "question": "Ce méchant scientifique d'Iron Man 3 a créé le virus Extremis qui donne des pouvoirs régénératifs et une chaleur intense, a financé le faux Mandarin Trevor Slattery et est un scientifique que Tony Stark avait humilié en l'ignorant lors d'une fête du Nouvel An. Qui est-ce ?",
-      "answer": "Aldrich Killian",
-      "category": "Méchants"
-    },
-    {
       "id": "mcu100",
       "question": "Ce producteur légendaire, co-créateur de Marvel Comics, est célèbre pour ses caméos dans presque chaque film Marvel et est décédé en novembre 2018. Son dernier caméo dans Endgame le montre rajeuni dans les années 1970. Qui est-ce ?",
       "answer": "Stan Lee",
@@ -614,12 +560,6 @@
       "question": "Dans Avengers: Infinity War, la bataille finale pour protéger Vision se déroule dans ce pays africain. Les Avengers, aidés par l'armée locale, affrontent les Outriders de Thanos. Dans quel pays se déroule cette bataille ?",
       "answer": "Le Wakanda",
       "category": "Avengers"
-    },
-    {
-      "id": "mcu103",
-      "question": "Dans Avengers: Infinity War, Thanos obtient la première Pierre d'Infinité en attaquant le vaisseau des réfugiés asgardiens au tout début du film, tuant la moitié des survivants et étranglant Loki. Quelle pierre récupère-t-il sur ce vaisseau ?",
-      "answer": "La Pierre de l'Espace (le Tesseract)",
-      "category": "Pierres d'Infinité"
     },
     {
       "id": "mcu104",
@@ -659,7 +599,7 @@
     },
     {
       "id": "mcu110",
-      "question": "Ce livre ancien de magie noire corrompt quiconque le lit, est utilisé par Wanda dans WandaVision et Multiverse of Madness, et est finalement détruit dans toutes les dimensions par Doctor Strange. Quel est ce livre ?",
+      "question": "Ce livre ancien de magie noire corrompt quiconque le lit, est utilisé par Wanda dans WandaVision et Multiverse of Madness, et est finalement détruit dans toutes les dimensions par Wanda elle-même en faisant s'effondrer le Mont Wundagore. Quel est ce livre ?",
       "answer": "Le Darkhold",
       "category": "Doctor Strange"
     },
@@ -668,12 +608,6 @@
       "question": "Ce Gantelet doré a été forgé par les nains de Nidavellir pour contenir les six Pierres d'Infinité. Thanos l'utilise pour le snap, et Tony Stark en crée une version nanotechnologique dans Endgame. Quel est cet objet ?",
       "answer": "Le Gantelet de l'Infinité",
       "category": "Pierres d'Infinité"
-    },
-    {
-      "id": "mcu112",
-      "question": "Ce jeune héros de Sokovie possède une super-vitesse, est le frère jumeau de Wanda Maximoff et meurt en protégeant Oeil de Faucon et un enfant des tirs d'Ultron dans Age of Ultron. Qui est-ce ?",
-      "answer": "Pietro Maximoff / Vif-Argent / Quicksilver",
-      "category": "Avengers"
     },
     {
       "id": "mcu113",
@@ -730,12 +664,6 @@
       "category": "Avengers"
     },
     {
-      "id": "mcu122",
-      "question": "Ce chat roux nommé Goose dans Captain Marvel n'est pas un simple félin : il peut déployer des tentacules dimensionnels, avaler le Tesseract entier et c'est lui qui crève l'œil de Nick Fury. Quelle espèce extraterrestre est-ce en réalité ?",
-      "answer": "Un Flerken",
-      "category": "Avengers"
-    },
-    {
       "id": "mcu123",
       "question": "Dans Spider-Man: No Way Home, ce méchant iconique au masque vert et au planeur revient du multivers, manipule Peter Parker en se faisant passer pour un allié avant de tuer Tante May. Qui est-ce ?",
       "answer": "Le Bouffon Vert / Norman Osborn",
@@ -776,12 +704,6 @@
       "question": "Ce portail arc-en-ciel relie les neuf royaumes dans la mythologie asgardienne, est contrôlé par Heimdall et est détruit puis reconstruit plusieurs fois au cours de la saga Thor. Quel est son nom ?",
       "answer": "Le Bifrost",
       "category": "Thor"
-    },
-    {
-      "id": "mcu130",
-      "question": "Ce super-héros mutant maya de Talocan possède des ailes aux chevilles, une lance en vibranium et défie le Wakanda après la mort de T'Challa, inondant la capitale wakandaise dans Black Panther: Wakanda Forever. Qui est-ce ?",
-      "answer": "Namor / K'uk'ulkan",
-      "category": "Black Panther"
     },
     {
       "id": "mcu131",

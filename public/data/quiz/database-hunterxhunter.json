@@ -29,7 +29,7 @@
     },
     {
       "id": "hxh005",
-      "question": "Magicien psychopathe et combattant de génie, ce personnage au visage peint d'un trèfle et d'une étoile est obsédé par les adversaires puissants. Son aura ressemble à du chewing-gum élastique et collant. Qui est-ce ?",
+      "question": "Magicien psychopathe et combattant de génie, ce personnage au visage peint d'une étoile et d'une larme est obsédé par les adversaires puissants. Son aura ressemble à du chewing-gum élastique et collant. Qui est-ce ?",
       "answer": "Hisoka Morow (Hisoka Morrow)",
       "category": "Personnages"
     },
@@ -130,12 +130,6 @@
       "category": "Brigade Fantôme"
     },
     {
-      "id": "hxh022",
-      "question": "Composé de cinq phases et supervisé par un président différent à chaque édition, cet examen annuel a un taux de réussite extrêmement faible. Gon et ses amis y participent lors de la 287e session. De quel examen s'agit-il ?",
-      "answer": "L'examen des Hunters (Hunter Exam)",
-      "category": "Examen Hunter"
-    },
-    {
       "id": "hxh023",
       "question": "Examinateur silencieux de la première épreuve du 287e examen, cet homme à la moustache guide les candidats dans une course d'endurance à travers un tunnel interminable menant au marais de Swindler. Qui est-ce ?",
       "answer": "Satotz",
@@ -203,7 +197,7 @@
     },
     {
       "id": "hxh034",
-      "question": "Game Master de Greed Island et ancien criminel recruté par le père de Gon, cet homme massif utilise 14 constructions de Nen en forme de diables pour combattre. Un match de balle au prisonnier contre lui devient légendaire. Qui est-ce ?",
+      "question": "Game Master de Greed Island et ancien criminel recruté par le père de Gon, cet homme massif utilise une technique appelée « 14 Devils » invoquant des constructions de Nen en forme de diables pour combattre. Un match de balle au prisonnier contre lui devient légendaire. Qui est-ce ?",
       "answer": "Razor",
       "category": "Personnages"
     },
@@ -328,21 +322,9 @@
       "category": "Zoldyck"
     },
     {
-      "id": "hxh055",
-      "question": "Quatrième enfant de la famille Zoldyck, cette personne abrite en elle une entité mystérieuse capable d'exaucer n'importe quel souhait. Seul le troisième fils peut formuler des demandes sans conséquence néfaste. Qui est-ce ?",
-      "answer": "Alluka Zoldyck (Aruka Zoldik)",
-      "category": "Zoldyck"
-    },
-    {
       "id": "hxh056",
       "question": "Entité mystérieuse résidant dans le corps du quatrième enfant Zoldyck, elle peut exaucer n'importe quel vœu, mais celui qui refuse quatre de ses demandes consécutives mourra avec la personne qu'il aime le plus. Comment s'appelle cette entité ?",
       "answer": "Nanika",
-      "category": "Zoldyck"
-    },
-    {
-      "id": "hxh057",
-      "question": "Plus jeune enfant de la famille Zoldyck, ce garçon discret rejoint la Brigade Fantôme en tant que nouveau membre numéro 4 après le départ d'Hisoka. Il utilise la Manipulation avec des éventails en papier. Qui est-ce ?",
-      "answer": "Kalluto Zoldyck (Karuto Zoldik)",
       "category": "Zoldyck"
     },
     {
@@ -372,7 +354,7 @@
     {
       "id": "hxh062",
       "question": "Le survivant du clan Kurta possède cinq chaînes, une à chaque doigt. Celle de son majeur peut emprisonner un ennemi et couper son accès au Nen, mais elle ne fonctionne que contre les membres de la Brigade Fantôme. Comment s'appelle cette chaîne ?",
-      "answer": "Chain Jail (la Chaîne du Jugement)",
+      "answer": "Chain Jail (la Chaîne Geôlière)",
       "category": "Nen"
     },
     {
@@ -383,7 +365,7 @@
     },
     {
       "id": "hxh064",
-      "question": "Ce Beast Hunter utilise une pipe géante et manipule la fumée grâce au Nen. Il peut créer des soldats de fumée pour l'espionnage et le combat, et enfermer ses adversaires dans une prison hermétique. Comment s'appelle sa capacité principale ?",
+      "question": "Ce Sea Hunter utilise une pipe géante et manipule la fumée grâce au Nen. Il peut créer des soldats de fumée pour l'espionnage et le combat, et enfermer ses adversaires dans une prison hermétique. Comment s'appelle sa capacité principale ?",
       "answer": "Deep Purple",
       "category": "Nen"
     },
@@ -416,12 +398,6 @@
       "question": "Ancien élève de Ging Freecss, ce Hunter matérialise une arme aléatoire grâce à une roulette de 1 à 9 portée par un clown. Un numéro secret n'apparaît que lorsqu'il a une volonté de survie absolue. Qui est-ce ?",
       "answer": "Kite (Kaito)",
       "category": "Personnages"
-    },
-    {
-      "id": "hxh070",
-      "question": "Capacité Nen de l'élève de Ging, cette roulette aléatoire matérialise une arme différente selon le numéro tiré, sans possibilité de choisir. Cette restriction volontaire augmente la puissance de chaque arme individuelle. Comment s'appelle cette capacité ?",
-      "answer": "Crazy Slots",
-      "category": "Nen"
     },
     {
       "id": "hxh071",
@@ -592,12 +568,6 @@
       "category": "Arcs"
     },
     {
-      "id": "hxh099",
-      "question": "Après l'arc de York Shin, le chef de la Brigade Fantôme se retrouve privé de ses capacités Nen par les chaînes de Kurapika. Il engage une exorciste nommée Abengane pour lever cette restriction. Qui cherche-t-il à cette fin dans l'arc suivant ?",
-      "answer": "Un exorciste de Nen (Nen Exorcist)",
-      "category": "Lore"
-    },
-    {
       "id": "hxh100",
       "question": "Publié pour la première fois en 1998 dans le magazine Weekly Shonen Jump, ce manga est célèbre pour ses longues pauses dues aux problèmes de santé de son auteur. Ce mangaka est aussi le créateur de Yu Yu Hakusho. Qui est l'auteur de ce manga ?",
       "answer": "Yoshihiro Togashi",
@@ -616,12 +586,6 @@
       "category": "Lore"
     },
     {
-      "id": "hxh103",
-      "question": "La capacité de Léolio lui permet de frapper un objet proche et de faire jaillir son poing à distance à travers un portail d'aura. Cette technique d'Émission imite le principe de l'échographie médicale. Comment fonctionne cette capacité ?",
-      "answer": "Remote Punch (le Poing à Distance / Warp Punch)",
-      "category": "Nen"
-    },
-    {
       "id": "hxh104",
       "question": "Membre de la Brigade Fantôme portant le numéro 7, ce géant au visage cousu n'a jamais prononcé une parole inutile. C'est un Émetteur capable de projeter des balles d'aura dévastatrices. Il fait partie des membres fondateurs aux côtés du chef. Qui est-ce ?",
       "answer": "Franklin Bordeau",
@@ -638,18 +602,6 @@
       "question": "Le plus petit membre de la Brigade Fantôme, ce Matérialiseur peut créer des copies parfaites de n'importe quel objet inanimé, mais ses copies disparaissent après 24 heures. Il est tué par Hisoka dans le manga. Qui est-ce ?",
       "answer": "Kortopi",
       "category": "Brigade Fantôme"
-    },
-    {
-      "id": "hxh107",
-      "question": "Après leur match au 287e examen, le magicien remet une carte avec un numéro au fils de Ging. Ce numéro permet de le joindre quand le garçon sera devenu assez fort pour l'affronter. Par quel système de communication les personnages se contactent-ils ?",
-      "answer": "Le téléphone portable (avec Texture Surprise sur la carte)",
-      "category": "Lore"
-    },
-    {
-      "id": "hxh108",
-      "question": "Lors de l'arc de l'examen, les candidats pénètrent dans un restaurant qui sert de point d'entrée secret. Ils doivent commander un plat spécifique pour accéder au lieu de l'examen. Ce restaurant se trouve dans la ville de Dolle, au pied de la montagne des Cèdres. Quel est le nom du cuisinier examinateur de la deuxième épreuve, partenaire de Menchi ?",
-      "answer": "Buhara",
-      "category": "Examen Hunter"
     },
     {
       "id": "hxh109",

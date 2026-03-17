@@ -298,18 +298,6 @@
       "category": "Personnages"
     },
     {
-      "id": "lotr050",
-      "question": "Embuscade dans laquelle Isildur et ses compagnons furent attaqués par des Orques au début du Troisième Âge, alors qu'ils longeaient l'Anduin. L'Anneau glissa du doigt d'Isildur dans les eaux du fleuve, où il resta caché pendant deux millénaires. Quel est le nom de cet événement ?",
-      "answer": "Le Désastre des Champs d'Iris (Gladden Fields)",
-      "category": "Batailles"
-    },
-    {
-      "id": "lotr051",
-      "question": "Volcan actif du Mordor aussi nommé Orodruin ou Amon Amarth, cette montagne abrite en son cœur les Crevasses du Destin où l'Anneau Unique fut forgé. C'est le seul endroit où le feu est assez ardent pour détruire cet objet. Comment se nomme cette montagne ?",
-      "answer": "La Montagne du Destin (Mont Destin / Mount Doom)",
-      "category": "Mordor"
-    },
-    {
       "id": "lotr052",
       "question": "Personnage énigmatique vivant dans la Vieille Forêt avec son épouse Baie d'Or, il chante constamment et semble insensible au pouvoir de l'Anneau Unique. Sa véritable nature reste un mystère, même pour les plus sages. Qui est-ce ?",
       "answer": "Tom Bombadil",
@@ -322,34 +310,10 @@
       "category": "Personnages"
     },
     {
-      "id": "lotr054",
-      "question": "Conseiller perfide du roi Théoden, cet agent de Saroumane empoisonne l'esprit du souverain du Rohan pour l'affaiblir. Démasqué par Gandalf et banni d'Edoras, il rejoint son maître à Isengard. Qui est-ce ?",
-      "answer": "Grima Langue-de-Serpent (Wormtongue)",
-      "category": "Rohan"
-    },
-    {
-      "id": "lotr055",
-      "question": "Hobbit aventurier qui découvre un anneau d'or dans les profondeurs des Monts Brumeux après un jeu de devinettes avec une créature des ténèbres. Il participe à la reconquête de la Montagne Solitaire avec treize Nains et un magicien. Qui est-ce ?",
-      "answer": "Bilbon (Bilbo)",
-      "category": "Hobbits"
-    },
-    {
       "id": "lotr056",
       "question": "Héritier de Durin et chef de la Compagnie de treize Nains, ce roi en exil entreprend la reconquête de la Montagne Solitaire. Son surnom lui vient d'une branche de chêne qu'il utilisa comme bouclier lors d'une bataille. Qui est-ce ?",
       "answer": "Thorin Écu-de-Chêne (Thorin Oakenshield)",
       "category": "Nains"
-    },
-    {
-      "id": "lotr057",
-      "question": "Dragon ailé et cracheur de feu qui ravagea le royaume nain d'Erebor et la ville de Dale, cette créature dort sur un trésor immense pendant près de deux siècles. Un archer humain le tue en frappant le seul point faible de son armure d'écailles. Qui est-ce ?",
-      "answer": "Smaug",
-      "category": "Personnages"
-    },
-    {
-      "id": "lotr058",
-      "question": "Archer de la ville de Lac-ville qui abat le dragon d'Erebor grâce à une flèche noire tirée dans une faille révélée par une grive. Son exploit sauve les habitants mais déclenche une dispute pour le trésor de la Montagne Solitaire. Qui est-ce ?",
-      "answer": "Bard (Bard l'Archer)",
-      "category": "Personnages"
     },
     {
       "id": "lotr059",
@@ -358,160 +322,16 @@
       "category": "Mordor"
     },
     {
-      "id": "lotr060",
-      "question": "Race de créatures mi-arbres mi-bergers créées par Yavanna pour protéger les forêts, ces êtres anciens et lents à prendre des décisions attaquent Isengard dans Les Deux Tours. Ils déplorent la disparition de leurs compagnes. Quel est le nom de cette race ?",
-      "answer": "Les Ents",
-      "category": "Races"
-    },
-    {
-      "id": "lotr061",
-      "question": "Esprits angéliques créés par Eru Ilúvatar avant le monde, ces êtres puissants façonnent Arda à travers la Grande Musique. Les plus puissants d'entre eux, au nombre de quatorze, gouvernent depuis Valinor. Quel est leur nom collectif ?",
-      "answer": "Les Valar",
-      "category": "Magie"
-    },
-    {
-      "id": "lotr062",
-      "question": "Esprits du même ordre que les Valar mais de moindre puissance, ces êtres servent et assistent les Puissances d'Arda. Gandalf, Saroumane et Sauron appartiennent à cette catégorie d'êtres. Quel est leur nom ?",
-      "answer": "Les Maiar",
-      "category": "Magie"
-    },
-    {
-      "id": "lotr063",
-      "question": "Plus puissant des Valar et Roi d'Arda, ce seigneur des vents et du ciel règne depuis le sommet du Taniquetil en Valinor. Son épouse est Varda, la Reine des Étoiles que les Elfes vénèrent sous le nom d'Elbereth. Qui est-ce ?",
-      "answer": "Manwë",
-      "category": "Magie"
-    },
-    {
-      "id": "lotr064",
-      "question": "Premier Seigneur des Ténèbres et ancien Vala le plus puissant, ce rebelle vole les Silmarils et détruit les Deux Arbres de Valinor avec l'aide d'Ungoliant. Vaincu lors de la Guerre de la Grande Colère, il est banni dans le Vide. Qui est-ce ?",
-      "answer": "Morgoth (Melkor)",
-      "category": "Personnages"
-    },
-    {
-      "id": "lotr065",
-      "question": "Plus grand artisan que le monde ait connu et fils de Finwë, ce prince Noldor crée les joyaux les plus précieux d'Arda en y emprisonnant la lumière des Deux Arbres. Son serment terrible entraîne son peuple dans l'exil et la guerre. Qui est-ce ?",
-      "answer": "Fëanor",
-      "category": "Personnages"
-    },
-    {
       "id": "lotr066",
       "question": "Trois joyaux indestructibles contenant la lumière des Deux Arbres de Valinor, ces gemmes furent créées par le plus grand artisan des Noldor. Leur vol par Morgoth déclenche une guerre qui dure tout le Premier Âge. Comment se nomment-ils ?",
       "answer": "Les Silmarils",
       "category": "Objets"
     },
     {
-      "id": "lotr067",
-      "question": "Araignée primordiale et esprit de ténèbres ayant pris forme d'arachnide, cette créature aide Morgoth à détruire les Deux Arbres de Valinor en en dévorant la sève lumineuse. Elle est la mère de toutes les grandes araignées de la Terre du Milieu. Qui est-ce ?",
-      "answer": "Ungoliant",
-      "category": "Personnages"
-    },
-    {
-      "id": "lotr068",
-      "question": "Guerrier et navigateur du Premier Âge porteur d'un Silmaril à la proue de son navire volant, il navigue dans le ciel comme étoile du soir et du matin. Père d'Elrond et d'Elros, il choisit le destin elfique tandis que son frère choisit celui des Hommes. Qui est-ce ?",
-      "answer": "Eärendil",
-      "category": "Personnages"
-    },
-    {
-      "id": "lotr069",
-      "question": "Cité elfique cachée fondée par Turgon au Premier Âge entre des montagnes infranchissables, elle est considérée comme la plus belle ville jamais bâtie. Trahie par Maeglin, elle est détruite par les armées de Morgoth. Quel est son nom ?",
-      "answer": "Gondolin",
-      "category": "Lieux"
-    },
-    {
-      "id": "lotr070",
-      "question": "Continent bienheureux situé à l'extrême ouest du monde, cette terre des Valar abrite Valinor et les Deux Arbres. Après la Submersion de Númenor, seuls les Elfes peuvent encore naviguer vers ces rivages. Quel est son nom ?",
-      "answer": "Aman (Les Terres Immortelles)",
-      "category": "Lieux"
-    },
-    {
-      "id": "lotr071",
-      "question": "Grande île en forme d'étoile offerte aux Hommes fidèles après la guerre contre Morgoth, ce royaume atteint une splendeur inégalée avant que son dernier roi, corrompu par Sauron, ne tente d'envahir Valinor. Elle est engloutie par les flots. Quel est son nom ?",
-      "answer": "Númenor",
-      "category": "Lieux"
-    },
-    {
-      "id": "lotr072",
-      "question": "Épée elfique forgée à Gondolin et surnommée Marteau à Ennemis, cette lame est trouvée par un magicien dans un repaire de Trolls lors de l'aventure de Bilbon. Elle brille d'une lueur bleue à l'approche des Orques. Quel est son nom ?",
-      "answer": "Glamdring",
-      "category": "Objets"
-    },
-    {
-      "id": "lotr073",
-      "question": "Sœur de Glamdring et surnommée la Fendoir à Gobelins, cette épée est également trouvée dans le repaire de Trolls et revient au chef des treize Nains. Elle est déposée sur sa tombe après la Bataille des Cinq Armées. Quel est son nom ?",
-      "answer": "Orcrist",
-      "category": "Objets"
-    },
-    {
-      "id": "lotr074",
-      "question": "Cor de guerre hérité des Intendants du Gondor, cet objet au son puissant peut être entendu à des lieues à la ronde. Il est fendu en deux quand son porteur sonne l'alarme une dernière fois aux chutes de Rauros pour appeler à l'aide. Quel est cet objet ?",
-      "answer": "Le Cor de Gondor (Cor de Boromir)",
-      "category": "Objets"
-    },
-    {
-      "id": "lotr075",
-      "question": "Demeure royale au toit d'or du roi du Rohan, ce palais est situé au sommet de la colline d'Edoras. C'est là que Gandalf libère le roi de l'emprise de Saroumane en chassant son conseiller malfaisant. Quel est son nom ?",
-      "answer": "Meduseld (le Château d'Or)",
-      "category": "Rohan"
-    },
-    {
-      "id": "lotr076",
-      "question": "Forteresse du Rohan creusée dans la montagne au fond d'une gorge profonde, elle sert de refuge aux habitants d'Edoras lors de l'invasion des Uruk-hai. Un mur de pierre, le Mur du Gouffre, en défend l'accès. Quel est son nom ?",
-      "answer": "Fort-le-Cor (Helm's Deep)",
-      "category": "Rohan"
-    },
-    {
-      "id": "lotr077",
-      "question": "Ancienne capitale du Gondor située entre Minas Tirith et Minas Morgul, cette cité en ruines enjambe le grand fleuve Anduin. Elle est le théâtre de combats entre les forces du Gondor et du Mordor avant le siège de la cité blanche. Quelle est cette cité ?",
-      "answer": "Osgiliath",
-      "category": "Gondor"
-    },
-    {
       "id": "lotr078",
       "question": "Fleuve le plus long de la Terre du Milieu, ce cours d'eau coule du nord au sud en traversant de nombreux royaumes. La Communauté le descend en barques elfiques après avoir quitté la Lothlórien. Quel est son nom ?",
       "answer": "L'Anduin (Le Grand Fleuve)",
       "category": "Lieux"
-    },
-    {
-      "id": "lotr079",
-      "question": "Col dangereux gardé par l'araignée Arachne et la tour de guet du même nom, ce passage à travers les Montagnes de l'Ombre est le chemin choisi par Gollum pour mener les Hobbits au Mordor. Quel est son nom ?",
-      "answer": "Cirith Ungol",
-      "category": "Mordor"
-    },
-    {
-      "id": "lotr080",
-      "question": "Démon de feu et d'ombre, cet ancien serviteur de Morgoth sommeille sous les Monts Brumeux depuis des millénaires. Réveillé par les Nains qui creusaient trop profond à la recherche de mithril, il est surnommé le Fléau de Durin. Qu'est-ce que cette créature ?",
-      "answer": "Le Balrog (de la Moria)",
-      "category": "Races"
-    },
-    {
-      "id": "lotr081",
-      "question": "Nom donné aux cinq magiciens envoyés par les Valar en Terre du Milieu au Troisième Âge pour aider les peuples libres contre Sauron. Gandalf et Saroumane en font partie, de même que Radagast le Brun. Comment les appelle-t-on ?",
-      "answer": "Les Istari",
-      "category": "Magie"
-    },
-    {
-      "id": "lotr082",
-      "question": "Troisième Istari et ami des animaux et des oiseaux, ce magicien vêtu de brun vit près de la Forêt Noire. Il envoie un papillon porter un message à Gandalf prisonnier au sommet d'Orthanc. Qui est-ce ?",
-      "answer": "Radagast (Radagast le Brun)",
-      "category": "Personnages"
-    },
-    {
-      "id": "lotr083",
-      "question": "Montagne Solitaire située au nord-est de la Terre du Milieu, ce pic isolé abrite l'ancien royaume nain reconquis par Thorin et sa compagnie. Un immense trésor y est gardé par un dragon pendant près de deux siècles. Quel est son nom ?",
-      "answer": "Erebor (La Montagne Solitaire / The Lonely Mountain)",
-      "category": "Nains"
-    },
-    {
-      "id": "lotr084",
-      "question": "Cousin de Gimli, ce seigneur nain part avec une expédition pour recoloniser la Moria et rétablir le royaume de Khazad-dûm. La Communauté découvre sa tombe dans la Chambre de Mazarbul où est posé le Livre des Archives. Qui est-ce ?",
-      "answer": "Balin",
-      "category": "Nains"
-    },
-    {
-      "id": "lotr085",
-      "question": "Père fondateur du peuple des Nains, ce personnage est le premier des Sept Pères créés par le Vala forgeron Aulë. Il s'éveille sous les Monts Brumeux et fonde la cité de Khazad-dûm. Qui est-ce ?",
-      "answer": "Durin (Durin l'Immortel)",
-      "category": "Nains"
     },
     {
       "id": "lotr086",
@@ -575,7 +395,7 @@
     },
     {
       "id": "lotr096",
-      "question": "Nom donné par les Elfes aux Hobbits en raison de la taille de leurs pieds, ce terme apparaît régulièrement dans les écrits de Tolkien. Gandalf utilise aussi ce terme avec affection en parlant de Frodon et ses compagnons. Quel est ce nom ?",
+      "question": "Terme utilisé par les Elfes et d'autres peuples pour désigner les Hobbits, en référence à leur petite taille représentant environ la moitié de celle des Hommes. Gandalf emploie ce terme avec affection en parlant de Frodon et ses compagnons. Quel est ce nom ?",
       "answer": "Les Semi-Hommes (Periannath / Halflings)",
       "category": "Hobbits"
     },
@@ -634,64 +454,16 @@
       "category": "Mordor"
     },
     {
-      "id": "lotr106",
-      "question": "Elfes de haute lignée qui ont vu la lumière des Deux Arbres de Valinor, ils sont les plus nobles et les plus puissants de leur race. Galadriel et Glorfindel en font partie. Quel est le nom de ce peuple elfique ?",
-      "answer": "Les Noldor",
-      "category": "Elfes"
-    },
-    {
-      "id": "lotr107",
-      "question": "Forteresse cachée dans la Forêt Noire où Sauron se dissimule sous l'identité du Nécromancien avant de retrouver sa puissance. Le Conseil Blanc l'en chasse lors des événements de l'aventure de Bilbon. Quel est son nom ?",
-      "answer": "Dol Guldur",
-      "category": "Lieux"
-    },
-    {
-      "id": "lotr108",
-      "question": "Conseil réunissant Gandalf, Saroumane, Galadriel, Elrond et d'autres sages de la Terre du Milieu, cette assemblée est formée pour surveiller les agissements de Sauron. Saroumane en est le président. Comment s'appelle ce conseil ?",
-      "answer": "Le Conseil Blanc (The White Council)",
-      "category": "Magie"
-    },
-    {
-      "id": "lotr109",
-      "question": "La Terre du Milieu porte ce nom car elle se situe entre les Terres Immortelles à l'ouest et les terres inexplorées de l'est. En quenya, elle porte un nom distinct de son appellation sindarine. Quel est le nom quenya de cette terre où se déroulent les aventures ?",
-      "answer": "Endor (Ennor en sindarin)",
-      "category": "Lieux"
-    },
-    {
       "id": "lotr110",
       "question": "Elfe guerrier de Fondcombe qui secourt Frodon blessé et le transporte à cheval pour franchir le gué de Bruinen, poursuivi par les Nazgûl. Dans les films, c'est Arwen qui remplit ce rôle à sa place. Qui est-ce ?",
       "answer": "Glorfindel",
       "category": "Elfes"
     },
     {
-      "id": "lotr111",
-      "question": "Créature aquatique tentaculaire qui attaque la Communauté devant les Portes de la Moria, elle saisit Frodon et tente de l'entraîner dans les profondeurs du lac sombre. Le groupe est forcé de fuir dans les mines pour lui échapper. Qu'est-ce que cette créature ?",
-      "answer": "Le Guetteur de l'Eau (Watcher in the Water)",
-      "category": "Races"
-    },
-    {
-      "id": "lotr112",
-      "question": "Gigantesque éléphant de guerre utilisé par les Haradrim du sud, ces bêtes portent des tours de combat sur leur dos. Legolas en abat un à lui seul lors de la Bataille des Champs du Pelennor. Comment les appelle-t-on ?",
-      "answer": "Les Oliphants (Mûmakil)",
-      "category": "Races"
-    },
-    {
       "id": "lotr113",
       "question": "Deux sources lumineuses qui éclairent Valinor avant la création du Soleil et de la Lune, ces végétaux sacrés sont nommés Telperion l'argenté et Laurelin la dorée. Morgoth et Ungoliant les détruisent, plongeant le monde dans l'obscurité. Comment les appelle-t-on ?",
       "answer": "Les Deux Arbres de Valinor",
       "category": "Magie"
-    },
-    {
-      "id": "lotr114",
-      "question": "Compagnes perdues des Ents dont la disparition est une source de grande tristesse pour les gardiens de la forêt. Sylvebarbe les cherche sans relâche à travers la Terre du Milieu mais elles ont disparu depuis des siècles. Comment les appelle-t-on ?",
-      "answer": "Les Ent-femmes (Entwives)",
-      "category": "Races"
-    },
-    {
-      "id": "lotr115",
-      "question": "Miroir magique constitué d'un bassin d'eau dans lequel on peut voir des visions du passé, du présent ou d'un futur possible, cet objet appartient à la Dame de la Lórien. Le Porteur de l'Anneau y contemple l'œil de feu. Quel est cet objet ?",
-      "answer": "Le Miroir de Galadriel",
-      "category": "Objets"
     }
   ]
 }

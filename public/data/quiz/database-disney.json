@@ -132,7 +132,7 @@
     {
       "id": "dis022",
       "question": "Trophées remis à Mulan par l'Empereur de Chine pour avoir sauvé le pays des Huns, ces deux objets symbolisent son honneur retrouvé. L'un appartient au chef ennemi. Quels sont ces objets ?",
-      "answer": "L'épée de Shan-Yu et le sceau de l'Empereur",
+      "answer": "L'épée de Shan-Yu et le médaillon de l'Empereur",
       "category": "Mulan"
     },
     {
@@ -184,12 +184,6 @@
       "category": "Aladdin"
     },
     {
-      "id": "dis031",
-      "question": "Animée par Ward Kimball après que ses scènes de Blanche-Neige aient été coupées, cette créature verte aux quatre membres chante 'When You Wish Upon a Star' dans le film de 1940. Nommée 'conscience officielle' par la Fée Bleue, elle accompagne un pantin de bois. Qui est-ce ?",
-      "answer": "Jiminy Cricket",
-      "category": "Pinocchio"
-    },
-    {
       "id": "dis032",
       "question": "Dans ce segment de Fantasia sorti en 1940, un apprenti coiffé d'un chapeau étoilé enchante des balais pour porter de l'eau, mais perd le contrôle de la situation. La musique est composée par Paul Dukas. Quel personnage Disney iconique joue cet apprenti sorcier ?",
       "answer": "Mickey Mouse",
@@ -205,12 +199,6 @@
       "id": "dis034",
       "question": "Tigre du Bengale boiteux nommé 'Lungri' dans le roman original de Rudyard Kipling, ce félin est le principal antagoniste du Livre de la Jungle. Il craint le feu et considère Mowgli comme sa proie légitime. Qui est-ce ?",
       "answer": "Shere Khan",
-      "category": "Le Livre de la Jungle"
-    },
-    {
-      "id": "dis035",
-      "question": "Panthère noire sage et sérieuse qui sauve Mowgli de Shere Khan dans Le Livre de la Jungle, elle offre un taureau fraîchement tué pour faire accepter l'enfant par la meute de loups. Comment s'appelle-t-elle ?",
-      "answer": "Bagheera",
       "category": "Le Livre de la Jungle"
     },
     {
@@ -256,12 +244,6 @@
       "category": "Les Aristochats"
     },
     {
-      "id": "dis043",
-      "question": "Chat de gouttière orange dont le nom complet est Abraham de Lacy Giuseppe Casey Thomas O'Malley, il aide une famille de chats aristocrates perdus dans la campagne française à rentrer à Paris. Phil Harris lui prête sa voix. Qui est-ce ?",
-      "answer": "Thomas O'Malley",
-      "category": "Les Aristochats"
-    },
-    {
       "id": "dis044",
       "question": "Éléphanteau aux grandes oreilles né dans un cirque en 1941, il apprend à voler grâce à une 'plume magique'. Rejeté à cause de son physique, il devient la star du spectacle. Comment s'appelle-t-il ?",
       "answer": "Dumbo",
@@ -280,12 +262,6 @@
       "category": "La Belle et le Clochard"
     },
     {
-      "id": "dis047",
-      "question": "Sirène rousse de 16 ans, plus jeune des sept filles du Roi Triton, elle collecte des objets humains dans une grotte secrète. Jodi Benson lui prête sa voix dans le film qui lança la Renaissance Disney en 1989. Qui est-ce ?",
-      "answer": "Ariel",
-      "category": "La Petite Sirène"
-    },
-    {
       "id": "dis048",
       "question": "Crabe rouge jamaïcain conseiller du Roi Triton, il est chargé de surveiller Ariel mais finit par l'aider. Il chante 'Sous l'Océan' dans La Petite Sirène, chanson récompensée d'un Oscar. Comment s'appelle-t-il ?",
       "answer": "Sébastien",
@@ -296,18 +272,6 @@
       "question": "Petit poisson jaune et bleu facilement effrayé, il est le meilleur ami d'Ariel dans La Petite Sirène. Malgré sa couardise, il vient toujours aider la sirène quand elle est en danger. Quel est son nom ?",
       "answer": "Polochon",
       "category": "La Petite Sirène"
-    },
-    {
-      "id": "dis050",
-      "question": "Serviteur transformé en chandelier à trois branches dans le château de la Bête, ce majordome français séducteur garde espoir de retrouver forme humaine. Il rivalise avec Big Ben le majordome. Comment s'appelle-t-il ?",
-      "answer": "Lumière",
-      "category": "La Belle et la Bête"
-    },
-    {
-      "id": "dis051",
-      "question": "Petite théière en porcelaine blanche et bleue servant de mère à Zip dans le château de la Bête, elle prépare du thé pour Belle dès son arrivée. Angela Lansbury lui prête sa voix et chante la chanson-titre. Qui est-ce ?",
-      "answer": "Madame Samovar",
-      "category": "La Belle et la Bête"
     },
     {
       "id": "dis052",
@@ -412,14 +376,8 @@
       "category": "Tarzan"
     },
     {
-      "id": "dis069",
-      "question": "Cowboy de tissu et bourré de coton qui craint d'être remplacé par un nouveau jouet, il est le jouet préféré d'Andy avant l'arrivée de Buzz l'Éclair. Tom Hanks lui prête sa voix. Qui est-ce ?",
-      "answer": "Woody",
-      "category": "Toy Story"
-    },
-    {
       "id": "dis070",
-      "question": "Ranger de l'espace en plastique qui ignore qu'il est un jouet dans le premier Toy Story, son nom rend hommage à l'astronaute Buzz Aldrin. Sa réplique célèbre est 'Vers l'infini et au-delà !'. Qui est-ce ?",
+      "question": "Ranger de l'espace en plastique qui ignore qu'il est un jouet dans le premier Toy Story, son nom rend hommage à un célèbre astronaute américain du programme Apollo. Sa réplique célèbre est 'Vers l'infini et au-delà !'. Qui est-ce ?",
       "answer": "Buzz l'Éclair",
       "category": "Toy Story"
     },
@@ -466,12 +424,6 @@
       "category": "Les Indestructibles"
     },
     {
-      "id": "dis078",
-      "question": "Styliste de super-héros de petite taille aux lunettes rondes dans Les Indestructibles, elle refuse catégoriquement d'ajouter des capes aux costumes. Brad Bird lui prête sa voix. Qui est-ce ?",
-      "answer": "Edna Mode",
-      "category": "Les Indestructibles"
-    },
-    {
       "id": "dis079",
       "question": "Super-héros noir aux pouvoirs de glace et meilleur ami de Bob Parr, il était témoin à son mariage. Samuel L. Jackson lui prête sa voix dans Les Indestructibles. Quel est son nom de super-héros ?",
       "answer": "Frozone",
@@ -487,12 +439,6 @@
       "id": "dis081",
       "question": "Chef cuisinier français dont le motto est 'Tout le monde peut cuisiner' dans Ratatouille, il est décédé après avoir perdu une étoile suite à une critique d'Anton Ego. Son fantôme guide Rémy. Qui est-ce ?",
       "answer": "Auguste Gusteau",
-      "category": "Ratatouille"
-    },
-    {
-      "id": "dis082",
-      "question": "Garçon de cuisine maladroit et fils secret de Gusteau dans Ratatouille, il est contrôlé par un rat caché sous sa toque. Lou Romano lui prête sa voix. Comment s'appelle-t-il ?",
-      "answer": "Alfredo Linguini",
       "category": "Ratatouille"
     },
     {
@@ -587,7 +533,7 @@
     },
     {
       "id": "dis098",
-      "question": "Cousine de Mirabel dotée d'une super-force dans Encanto, elle porte la maison sur ses épaules au sens propre comme au figuré. Elle chante 'Sous les apparences' et passe son temps à soulever des ânes et des ponts. Qui est-ce ?",
+      "question": "Grande sœur de Mirabel dotée d'une super-force dans Encanto, elle porte la maison sur ses épaules au sens propre comme au figuré. Elle chante 'Sous les apparences' et passe son temps à soulever des ânes et des ponts. Qui est-ce ?",
       "answer": "Luisa",
       "category": "Encanto"
     },

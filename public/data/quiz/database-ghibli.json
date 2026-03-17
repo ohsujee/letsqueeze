@@ -58,12 +58,6 @@
       "category": "Récompenses"
     },
     {
-      "id": "ghb010",
-      "question": "Cofondateur du studio aux côtés de Miyazaki et Suzuki, ce réalisateur a signé un drame de guerre en 1988 et un film sur les tanuki en 1994. Il est décédé le 5 avril 2018 à l'âge de 82 ans. Qui est-ce ?",
-      "answer": "Isao Takahata",
-      "category": "Takahata"
-    },
-    {
       "id": "ghb011",
       "question": "En 1988, Takahata réalise un film bouleversant situé à Kobe pendant les bombardements américains. Un adolescent de 14 ans et sa petite sœur de 4 ans tentent de survivre après la mort de leur mère. Quel est ce film ?",
       "answer": "Hotaru no Haka (Le Tombeau des Lucioles)",
@@ -122,18 +116,6 @@
       "question": "Dans un film de 2008, le petit garçon de 5 ans qui recueille un poisson rouge et refuse de l'abandonner malgré le cataclysme que sa métamorphose déclenche porte un prénom japonais. Comment s'appelle-t-il ?",
       "answer": "Sōsuke",
       "category": "Personnages"
-    },
-    {
-      "id": "ghb021",
-      "question": "Le nom du célèbre studio d'animation japonais fondé en 1985 vient d'un mot arabe désignant le vent chaud du Sahara. Ce mot a aussi donné son nom à un avion de reconnaissance italien Caproni Ca.309 de la Seconde Guerre mondiale. Quel est ce mot ?",
-      "answer": "Ghibli",
-      "category": "Production"
-    },
-    {
-      "id": "ghb023",
-      "question": "Depuis 1991, le logo du célèbre studio d'animation japonais représente la silhouette d'un gros esprit gris issu d'un film de 1988. Le producteur Suzuki a comparé ce personnage à ce que Mickey Mouse représente pour Disney. Quel est ce personnage-mascotte ?",
-      "answer": "Totoro",
-      "category": "Créatures"
     },
     {
       "id": "ghb024",
@@ -295,66 +277,6 @@
       "id": "ghb053",
       "question": "Dans un film de 1988 avec deux sœurs à la campagne, le père est un professeur d'université qui les rassure sur la présence de petites créatures noires inoffensives dans leur maison. Leur mère, absente au quotidien, souffre d'une maladie. Où se trouve la mère ?",
       "answer": "À l'hôpital",
-      "category": "Films"
-    },
-    {
-      "id": "ghb054",
-      "question": "Ce film de 2002 réalisé par Hiroyuki Morita raconte l'histoire d'une lycéenne nommée Haru qui sauve un chat de la route. Invitée au monde félin pour épouser le prince, elle est secourue par une figurine de chat distingué qui prend vie. Quel est ce film ?",
-      "answer": "Neko no Ongaeshi (Le Royaume des chats)",
-      "category": "Films"
-    },
-    {
-      "id": "ghb055",
-      "question": "En 2014, Yonebayashi réalise son deuxième film pour le studio, adapté d'un roman de Joan G. Robinson. Une adolescente solitaire nommée Anna rencontre une mystérieuse jeune fille dans un manoir abandonné des marais de Hokkaido. Quel est ce film ?",
-      "answer": "Omoide no Marnie (Souvenirs de Marnie)",
-      "category": "Films"
-    },
-    {
-      "id": "ghb056",
-      "question": "En 1991, Takahata réalise un film où une femme de bureau de 27 ans, Taeko, part à la campagne de Yamagata et se remémore ses années d'écolière. Ce film introspectif mêle passé et présent avec délicatesse. Quel est ce film ?",
-      "answer": "Omoide Poro Poro (Souvenirs goutte à goutte)",
-      "category": "Takahata"
-    },
-    {
-      "id": "ghb057",
-      "question": "En 1999, Takahata réalise un film adapté d'un manga de Hisaichi Ishii, centré sur une famille japonaise ordinaire et leur quotidien chaotique. C'est le premier film du studio au style d'aquarelle minimaliste. Quel est ce film ?",
-      "answer": "Hōhokekyo Tonari no Yamada-kun (Mes voisins les Yamada)",
-      "category": "Takahata"
-    },
-    {
-      "id": "ghb058",
-      "question": "Dans un film de 1988, l'aînée des deux sœurs a 10 ans et est décrite comme active, gaie et courageuse. Elle prend soin de sa cadette en l'absence de leurs parents. Comment s'appelle cette grande sœur responsable ?",
-      "answer": "Satsuki",
-      "category": "Personnages"
-    },
-    {
-      "id": "ghb059",
-      "question": "Dans le même film de 1988, la cadette de 4 ans est impulsive et débordante d'énergie. C'est elle qui découvre en premier les créatures magiques en tombant dans un terrier sous les racines du grand camphrier. Comment s'appelle-t-elle ?",
-      "answer": "Mei",
-      "category": "Personnages"
-    },
-    {
-      "id": "ghb060",
-      "question": "Dans un film de 2004, la jeune chapelière transformée en vieille femme rencontre un épouvantail sautillant planté sur un bâton. Ce personnage muet l'aide à trouver la demeure du magicien. Il s'avère être un prince ensorcelé. Quel est son surnom ?",
-      "answer": "Kabu (Tête-de-Navet / Turnip Head)",
-      "category": "Personnages"
-    },
-    {
-      "id": "ghb061",
-      "question": "Dans un film de 2004, le jeune apprenti du magicien se déguise en vieil homme barbu pour impressionner les visiteurs. Il gère les affaires quotidiennes de la demeure mécanique avec débrouillardise. Comment s'appelle-t-il ?",
-      "answer": "Markl",
-      "category": "Personnages"
-    },
-    {
-      "id": "ghb062",
-      "question": "Le fils de Miyazaki réalise en 2006 un film d'heroic fantasy adapté du cycle d'Ursula K. Le Guin. Le prince Arren fuit son pays après un acte terrible et voyage avec un mage nommé Épervier. Quel est ce film ?",
-      "answer": "Gedo Senki (Les Contes de Terremer)",
-      "category": "Films"
-    },
-    {
-      "id": "ghb063",
-      "question": "En 2011, Gorō Miyazaki réalise son deuxième film, situé dans le Yokohama de 1963. Une lycéenne nommée Umi hisse chaque matin des pavillons de signalisation maritime en mémoire de son père disparu en mer. Quel est ce film ?",
-      "answer": "Kokuriko-zaka kara (La Colline aux Coquelicots)",
       "category": "Films"
     },
     {

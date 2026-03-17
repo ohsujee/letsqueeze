@@ -449,7 +449,7 @@
     },
     {
       "id": "jjk075",
-      "question": "La lumière sacrée invoquée par l'ange de l'ère Heian peut détruire n'importe quel objet maudit ou technique occulte sans discrimination. C'est elle qui brise le sceau de l'artefact bouddhiste emprisonnant le plus puissant exorciste. Quel est le nom de cette technique ?",
+      "question": "La lumière sacrée invoquée par l'ange de l'ère Heian peut annuler n'importe quelle technique occulte sans discrimination. C'est elle qui détruit le Prison Realm (Gokumonkyō), l'objet maudit de grade spécial emprisonnant le plus puissant exorciste. Quel est le nom de cette technique ?",
       "answer": "Échelle de Jacob (Jacob's Ladder)",
       "category": "Techniques"
     },
@@ -486,7 +486,7 @@
     {
       "id": "jjk081",
       "question": "Activation de Nobara durant laquelle elle plante un clou dans son propre corps ou dans une partie de l'adversaire en utilisant sa Technique Vaudou. Un éclair noir d'énergie maudite se propage le long du lien sympathique et inflige des dégâts dévastateurs. Quelle est cette forme avancée ?",
-      "answer": "Hairpin (Hairpin / Épingle à Cheveux)",
+      "answer": "Resonance (Résonance / 共鳴り)",
       "category": "Techniques"
     },
     {
@@ -528,7 +528,7 @@
     {
       "id": "jjk088",
       "question": "Groupe religieux qui s'oppose à la fusion du Plasma Stellaire avec Maître Tengen, considérant que son évolution naturelle est sacrée. Il engage l'Assassin d'Exorcistes pour éliminer Riko Amanai et empêcher la cérémonie. Quel est ce groupe ?",
-      "answer": "Culte Astral (Q / Star Religious Group)",
+      "answer": "Time Vessel Association (Association du Vaisseau Temporel / Groupe Religieux de l'Étoile)",
       "category": "Lore"
     },
     {
@@ -570,7 +570,7 @@
     {
       "id": "jjk095",
       "question": "Forme ultime du roi des fléaux après avoir pris le contrôle du corps de Megumi, il combine la Technique des Dix Ombres et ses propres capacités de découpe. Il affronte le plus puissant exorciste dans un combat titanesque qui se solde par la mort de ce dernier. De quel combat s'agit-il ?",
-      "answer": "Gojo vs Sukuna (Combat du chapitre 221-236)",
+      "answer": "Gojo vs Sukuna (Combat des chapitres 223-236)",
       "category": "Batailles"
     },
     {
@@ -598,12 +598,6 @@
       "category": "Batailles"
     },
     {
-      "id": "jjk100",
-      "question": "Arme maudite de grade spécial en forme d'épée enveloppée de bandages, elle possède la capacité de s'étendre indéfiniment et de couper presque n'importe quoi. L'Assassin d'Exorcistes la transporte dans un serpent maudit caché dans ses entrailles. Quelle est cette arme ?",
-      "answer": "Épée de l'Âme Inversée (Inverted Spear of Heaven)",
-      "category": "Lore"
-    },
-    {
       "id": "jjk101",
       "question": "Technique qui consiste à recouvrir l'utilisateur d'une fine membrane de territoire pour neutraliser les coups assurés adverses. Version améliorée du Territoire Simple, elle est utilisée par certains exorcistes comme contre-mesure face aux Extensions du Territoire. Quelle est-elle ?",
       "answer": "Prolongement du Territoire (Domain Amplification)",
@@ -611,7 +605,7 @@
     },
     {
       "id": "jjk102",
-      "question": "Gardienne de Riko Amanai et employée de la résidence Amanai, cette femme est kidnappée par Kenjaku pour forcer les étudiants de l'école de Tokyo à agir rapidement. Le professeur au bandeau la sauve en Okinawa avant de poursuivre sa mission. Qui est-ce ?",
+      "question": "Gardienne de Riko Amanai depuis la mort de ses parents, cette femme est kidnappée par l'Association des Vaisseaux du Temps et emmenée à Okinawa pour piéger les étudiants de l'école de Tokyo. Gojo et Geto la sauvent avant de poursuivre leur mission de protection du Vaisseau Étoilé. Qui est-ce ?",
       "answer": "Kuroi Misato (Misato Kuroi)",
       "category": "Personnages"
     },
@@ -630,7 +624,7 @@
     {
       "id": "jjk105",
       "question": "En plus de ses attaques tranchantes, le roi des fléaux possède une troisième technique offensive basée sur le feu. Cette capacité pyrokinétique lui permet de calciner ses adversaires à distance et surprend même les exorcistes les plus expérimentés. Quelle est-elle ?",
-      "answer": "Flamme (Fire Arrow / Technique de Flamme de Sukuna)",
+      "answer": "Flamme Divine (Kamino / Fūga)",
       "category": "Techniques"
     },
     {
@@ -655,18 +649,6 @@
       "id": "jjk109",
       "question": "Dans le système de grades des exorcistes, ce niveau est le plus élevé et regroupe seulement quatre personnes dans l'ère moderne : le professeur au bandeau, le manipulateur d'esprits, l'exorciste au spectre et une légende vivante. Quel est ce grade ?",
       "answer": "Grade Spécial (Special Grade / Classe S)",
-      "category": "Lore"
-    },
-    {
-      "id": "jjk110",
-      "question": "Exorciste de Kyoto considéré comme le plus puissant de grade 1 après le scellement de son homologue, il combat sans technique maudite en se reposant uniquement sur son sabre et ses compétences physiques. Il admet être largement dépassé par les sorciers de l'ère Heian. Qui est-ce ?",
-      "answer": "Kusakabe Atsuya (Atsuya Kusakabe)",
-      "category": "Personnages"
-    },
-    {
-      "id": "jjk111",
-      "question": "Cet élément symbolique du décor apparaît dans l'anime lors du premier épisode : le protagoniste y découvre un doigt momifié sous le sceau protecteur de l'école. La nuit, des fléaux attirés par l'objet attaquent ses camarades du club d'occultisme. Quel est le nom de ce club ?",
-      "answer": "Club de Recherches Occultes (Occult Research Club)",
       "category": "Lore"
     },
     {
