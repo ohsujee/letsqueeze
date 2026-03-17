@@ -570,4 +570,94 @@ symmetric decorative patterns, busy composition, anything too literal or illustr
 
 ---
 
+## 9. MIND LINK
+
+```
+Art style: Professional digital illustration for premium mobile party game.
+Clean modern aesthetic with intentional composition and purposeful design choices.
+Soft gradients used strategically, subtle neon accents for atmosphere (not excessive),
+strong dramatic lighting with deep shadows and bright highlights.
+
+Characters are elegant simplified silhouettes or minimalist stylized figures -
+clean shapes, no unnecessary details, deliberate design decisions.
+NOT realistic anatomy, NOT cartoony, NOT anime - sophisticated simplified forms.
+
+Color palette is carefully curated with 4-5 main colors maximum.
+Rich saturated darks for depth, vibrant accents for energy, strategic use of light.
+Professional color theory - complementary colors, intentional contrast.
+
+Reference: Jackbox Games promotional art, modern board game box art (Wingspan, Azul),
+premium app store feature graphics, professional graphic design work.
+
+Technical: Aspect ratio 4:3, high contrast, clean composition with clear focal point.
+Every element serves a purpose - no random floating shapes, no busy details.
+
+Production quality: Magazine editorial illustration quality, not AI-generated look.
+Intentional negative space, balanced composition, professional polish.
+
+STRICT RULES:
+- NO random decorative elements that serve no purpose
+- NO busy/cluttered composition
+- NO excessive effects or filters
+- NO realistic faces or detailed anatomy
+- NO text, words, letters, or UI elements anywhere
+- NO generic AI artifacts (strange floating objects, weird patterns)
+
+---
+
+Scene composition: Intimate mind-sync party game moment — a small group around a
+table or standing in a circle, two players sharing a secret connection while a
+guardian watches. Social deduction meets telepathy, warm competitive atmosphere.
+
+Key elements:
+- 4-5 simplified stylized figure silhouettes (mix of masculine and feminine forms —
+  varied heights, distinct hair shapes: one with long flowing hair, one with short
+  curly hair, one with ponytail, one with medium wavy hair — clearly distinguishable
+  as different people through hair and body shape, NOT bald featureless silhouettes)
+- TWO PLAYERS on one side leaning toward each other with conspiratorial energy —
+  one whispering with hand cupped near mouth, the other with finger to temple in
+  "thinking the same thing" gesture, both with excited body language, slight forward
+  lean. Between their heads: 2-3 graceful curved glowing pink energy lines connecting
+  them — the "mind link" moment, arcing elegantly overhead like a bridge of shared thought.
+- ONE GUARDIAN FIGURE standing opposite, arms crossed or hand on chin in analytical
+  observation pose, leaning forward with intense focus, studying the linked pair —
+  body language showing "I'm watching you, I'll figure it out." Slightly apart from
+  the group, vigilant, strategic.
+- 1-2 OTHER PLAYERS in background showing excited spectator reactions — one with
+  arms up in anticipation, another leaning in curiously, creating social party energy.
+- Subtle glowing NODES (5-6 small circles) connected by faint lines in the background
+  above the group — suggesting a neural network map, abstract and atmospheric,
+  NOT literal brain anatomy.
+- The energy connection lines between the linked pair are the visual hero —
+  bright, elegant, the clear focal point of the composition.
+
+Background: Deep dark rose-black (#1a0a12) gradient with warm undertone.
+Subtle radial glow of pink (#ec4899) emanating from the connection point between
+the two linked players, illuminating the center of the scene.
+
+Lighting: Strong warm pink spotlight from above illuminating the linked pair,
+casting dramatic shadows. The energy lines between them cast additional pink glow
+on their faces and shoulders. Guardian figure lit with cooler subtle blue rim light
+from behind for contrast. Background players partially lit from the main pink glow.
+Volumetric light beams (2-3 beams) cutting through the scene from overhead.
+
+Atmosphere: Confetti-like sparkle particles (8-12 max) drifting only along the
+energy connection lines — like sparks of shared thought. Minimal, intentional.
+
+Mood: ELECTRIC SOCIAL CONNECTION — the thrilling moment when two friends think the
+exact same word, that magical "we're on the same wavelength!" feeling, while someone
+watches trying to crack their code. Party game energy, intimate and competitive,
+cerebral but fun. Like a premium party board game night where everyone is engaged
+and leaning in. Friends challenging each other's minds with playful intensity.
+
+Color palette: Deep rose-black (#1a0a12), Dark magenta (#831843), Bright pink (#ec4899),
+Soft pink (#f9a8d4), Cool blue accent (#93c5fd) for guardian contrast.
+
+AVOID: Literal brain illustrations, thought bubbles, question marks, floating symbols,
+text of any kind, bald featureless silhouettes, sci-fi aesthetic, horror atmosphere,
+cluttered particles, overly symmetric compositions, isolated figures without social context.
+```
+
+---
+
 *Un seul copier-coller par jeu - Prêt à l'emploi !*

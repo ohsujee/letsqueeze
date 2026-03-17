@@ -461,6 +461,226 @@ const GAMES_DATA = {
     ]
   },
 
+  lol: {
+    id: 'lol',
+    title: 'LOL',
+    subtitle: 'Qui rit, sort !',
+    accentColor: '#FF3366',
+    accentGradient: 'linear-gradient(135deg, #FF3366, #CC0044)',
+    glowColor: 'rgba(255, 51, 102, 0.4)',
+    sections: [
+      {
+        id: 'concept',
+        title: 'Le concept',
+        icon: Target,
+        content: {
+          type: 'intro',
+          text: "Inspiré de LOL: Qui rit, sort ! Tous les joueurs sont enfermés ensemble. Le but : faire rire les autres sans craquer soi-même. Si tu rigoles, tu prends un carton !"
+        }
+      },
+      {
+        id: 'modes',
+        title: "Les modes d'élimination",
+        icon: Shield,
+        content: {
+          type: 'modes',
+          modes: [
+            {
+              name: "Classique",
+              emoji: '🛡️',
+              description: "2 cartons jaunes = 1 carton rouge = éliminé. Tu as droit à une erreur !",
+              color: '#f59e0b'
+            },
+            {
+              name: "Impitoyable",
+              emoji: '💀',
+              description: "1 seul carton jaune = carton rouge direct = éliminé. Aucune seconde chance !",
+              color: '#ef4444'
+            }
+          ]
+        }
+      },
+      {
+        id: 'flow',
+        title: 'Déroulement',
+        icon: Play,
+        content: {
+          type: 'steps',
+          steps: [
+            { number: 1, title: "Le timer tourne", description: "La partie dure 15, 30 ou 45 minutes. Gardez votre sérieux !" },
+            { number: 2, title: "Accuse quelqu'un", description: "Tu vois quelqu'un rire ? Appuie sur \"A rigolé !\" et choisis le joueur" },
+            { number: 3, title: "Vote collectif", description: "Tout le monde vote : le joueur a-t-il vraiment ri ? Majorité décide." },
+            { number: 4, title: "Carton !", description: "Si la majorité vote OUI → carton jaune (ou rouge en Impitoyable)" },
+            { number: 5, title: "Auto-signalement", description: "Tu as ri et tu le sais ? Signale-toi toi-même : carton automatique, pas de vote" }
+          ]
+        }
+      },
+      {
+        id: 'jokers',
+        title: 'Les Jokers',
+        icon: Zap,
+        content: {
+          type: 'roles',
+          roles: [
+            {
+              name: "Stand-Up",
+              emoji: '🎤',
+              description: "Lis un monologue comique devant tout le monde. Un script complet t'est fourni !",
+              color: '#8b5cf6'
+            },
+            {
+              name: "Scènes",
+              emoji: '🎭',
+              description: "Joue une scène improvisée avec un ou plusieurs partenaires. Chacun reçoit son rôle.",
+              color: '#f59e0b'
+            },
+            {
+              name: "Jeux Collectifs",
+              emoji: '🎪',
+              description: "Lance un mini-jeu auquel TOUT LE MONDE participe. Idéal pour faire craquer le groupe !",
+              color: '#22c55e'
+            }
+          ]
+        }
+      },
+      {
+        id: 'elimination',
+        title: 'Élimination',
+        icon: AlertTriangle,
+        content: {
+          type: 'scoring',
+          items: [
+            { label: "Carton jaune", value: "1er avertissement", icon: AlertTriangle, color: '#f59e0b' },
+            { label: "Carton rouge", value: "Éliminé !", icon: XCircle, color: '#ef4444' },
+            { label: "Joker", value: "1 par joueur", icon: Zap, color: '#8b5cf6' },
+            { label: "Dernier debout", value: "Gagne la partie !", icon: Trophy, color: '#22c55e' }
+          ],
+          note: "La partie se termine quand le timer arrive à zéro ou quand il ne reste plus qu'un seul joueur."
+        }
+      }
+    ]
+  },
+
+  mindlink: {
+    id: 'mindlink',
+    title: 'Mind Link',
+    subtitle: 'Synchronisez vos esprits !',
+    accentColor: '#ec4899',
+    accentGradient: 'linear-gradient(135deg, #ec4899, #db2777)',
+    glowColor: 'rgba(236, 72, 153, 0.4)',
+    sections: [
+      {
+        id: 'concept',
+        title: 'Le concept',
+        icon: Target,
+        content: {
+          type: 'intro',
+          text: "Un mot secret est caché. Les attaquants doivent le deviner en communiquant par indices, tandis que les défenseurs protègent le mot et tentent d'intercepter les échanges !"
+        }
+      },
+      {
+        id: 'roles',
+        title: 'Les rôles',
+        icon: Users,
+        content: {
+          type: 'roles',
+          roles: [
+            {
+              name: "Les Attaquants",
+              emoji: '⚔️',
+              description: "Donnent des indices à un mot et tentent de penser au même mot qu'un coéquipier. Si deux attaquants disent le même mot, c'est un Link réussi !",
+              color: '#ec4899'
+            },
+            {
+              name: "Les Défenseurs",
+              emoji: '🛡️',
+              description: "Connaissent le mot secret. Ils observent les indices et peuvent intercepter un Link s'ils devinent le mot échangé. Après un Link réussi, ils choisissent de révéler ou non une lettre.",
+              color: '#3b82f6'
+            }
+          ]
+        }
+      },
+      {
+        id: 'flow',
+        title: 'Le Link',
+        icon: Zap,
+        content: {
+          type: 'steps',
+          steps: [
+            { number: 1, title: "Un indice", description: "Un attaquant donne un indice d'un mot en rapport avec le mot secret" },
+            { number: 2, title: "Link !", description: "Un autre attaquant pense avoir compris l'indice et demande à linker" },
+            { number: 3, title: "Le même mot ?", description: "Les deux disent (ou écrivent) un mot en même temps. Si c'est le même mot → Link réussi !" },
+            { number: 4, title: "Révélation", description: "Sur un Link réussi, le défenseur choisit de révéler une lettre supplémentaire du mot secret ou non" }
+          ]
+        }
+      },
+      {
+        id: 'example',
+        title: 'Exemple',
+        icon: FileText,
+        content: {
+          type: 'mindlink-example',
+          accentColor: '#ec4899',
+          intro: "Le mot secret est CARNAVAL. Les attaquants voient les lettres déjà révélées et doivent trouver des mots commençant par ces lettres.",
+          word: 'CARNAVAL',
+          revealedCount: 2,
+          scenario: [
+            { emoji: '👀', text: "Les attaquants voient : C A _ _ _ _ _ _. Ils savent que le mot commence par CA.", highlight: false },
+            { emoji: '💡', text: "Alice donne l'indice « cheval » car elle pense à CAVALIER (qui commence par CA).", highlight: false },
+            { emoji: '🔗', text: "Bob pense aussi à CAVALIER ! Il appuie sur Link !", highlight: true },
+            { emoji: '🎯', text: "Les deux disent leur mot : si c'est le même → Link réussi ! Sinon, on continue.", highlight: false },
+            { emoji: '🛡️', text: "Attention : le défenseur peut intercepter s'il devine le mot échangé !", highlight: false },
+          ],
+          note: "⚡ En mode écrit, le mot que tu proposes doit obligatoirement commencer par les lettres déjà révélées (ici CA)."
+        }
+      },
+      {
+        id: 'modes',
+        title: 'Les modes',
+        icon: MessageCircle,
+        content: {
+          type: 'modes',
+          modes: [
+            {
+              name: "Oral",
+              emoji: '🎙️',
+              description: "Les joueurs disent leur mot à voix haute en même temps. Le défenseur valide le résultat.",
+              color: '#22c55e'
+            },
+            {
+              name: "Écrit",
+              emoji: '✍️',
+              description: "Les joueurs écrivent leur mot sur leur téléphone. La comparaison est automatique. Le mot doit commencer par les lettres déjà révélées.",
+              color: '#3b82f6'
+            }
+          ]
+        }
+      },
+      {
+        id: 'scoring',
+        title: 'Qui gagne ?',
+        icon: Trophy,
+        content: {
+          type: 'verdict-inline',
+          outcomes: [
+            {
+              title: "Les Attaquants gagnent",
+              condition: "S'ils devinent le mot secret avant la fin du temps imparti",
+              icon: Zap,
+              color: '#22c55e'
+            },
+            {
+              title: "Les Défenseurs gagnent",
+              condition: "Si le timer arrive à zéro sans que le mot n'ait été trouvé",
+              icon: Shield,
+              color: '#ec4899'
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   memory: {
     id: 'memory',
     title: 'Memory',
@@ -707,6 +927,97 @@ function WordleColorsSection({ content }) {
   );
 }
 
+function MindLinkExampleSection({ content }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      {/* Intro text */}
+      <p style={{
+        color: 'rgba(238, 242, 255, 0.7)', fontSize: '0.88rem',
+        lineHeight: 1.6, margin: 0,
+      }}>
+        {content.intro}
+      </p>
+
+      {/* Word tiles */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        style={{
+          display: 'flex', justifyContent: 'center', gap: '5px',
+          padding: '14px 0',
+        }}
+      >
+        {content.word.split('').map((letter, i) => {
+          const isRevealed = i < content.revealedCount;
+          return (
+            <div
+              key={i}
+              style={{
+                width: 34, height: 42,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                borderRadius: '8px',
+                background: isRevealed ? `${content.accentColor}22` : 'rgba(238,242,255,0.04)',
+                border: `1.5px solid ${isRevealed ? `${content.accentColor}66` : 'rgba(238,242,255,0.1)'}`,
+                fontFamily: "var(--font-title, 'Bungee'), cursive",
+                fontSize: '0.95rem',
+                color: isRevealed ? content.accentColor : 'rgba(238,242,255,0.2)',
+                textShadow: isRevealed ? `0 0 8px ${content.accentColor}44` : 'none',
+              }}
+            >
+              {isRevealed ? letter : '_'}
+            </div>
+          );
+        })}
+      </motion.div>
+
+      {/* Scenario steps */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {content.scenario.map((step, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 + i * 0.1 }}
+            style={{
+              display: 'flex', alignItems: 'flex-start', gap: '10px',
+              padding: '10px 12px',
+              background: step.highlight ? `${content.accentColor}10` : 'rgba(238,242,255,0.03)',
+              border: `1px solid ${step.highlight ? `${content.accentColor}30` : 'rgba(238,242,255,0.06)'}`,
+              borderRadius: '10px',
+            }}
+          >
+            <span style={{ fontSize: '1rem', flexShrink: 0, lineHeight: 1.4 }}>{step.emoji}</span>
+            <p style={{
+              color: 'rgba(238,242,255,0.75)', fontSize: '0.82rem',
+              lineHeight: 1.5, margin: 0,
+            }}>
+              {step.text}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Bottom note */}
+      {content.note && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          style={{
+            color: content.accentColor, fontSize: '0.8rem',
+            fontWeight: 600, textAlign: 'center',
+            margin: '4px 0 0', lineHeight: 1.4,
+            opacity: 0.8,
+          }}
+        >
+          {content.note}
+        </motion.p>
+      )}
+    </div>
+  );
+}
+
 function VerdictInlineSection({ content }) {
   return (
     <div className="section-verdict-inline">
@@ -782,6 +1093,8 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
         return <VerdictInlineSection content={content} />;
       case 'wordle-colors':
         return <WordleColorsSection content={content} />;
+      case 'mindlink-example':
+        return <MindLinkExampleSection content={content} />;
       default:
         return null;
     }

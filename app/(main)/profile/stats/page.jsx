@@ -13,7 +13,7 @@ import LoadingScreen from '@/components/ui/LoadingScreen';
 export default function StatsPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuthProtect();
-  const { isFounder: userIsFounder } = useUserProfile();
+  const { isFounder: userIsFounder, isSuperFounder: userIsSuperFounder } = useUserProfile();
   const [stats, setStats] = useState(null);
   const [statsLoading, setStatsLoading] = useState(true);
 
@@ -33,7 +33,7 @@ export default function StatsPage() {
   const loading = authLoading || statsLoading;
 
   // Get visible games based on founder status (must be before any early return)
-  const visibleGames = getVisibleGames(userIsFounder);
+  const visibleGames = getVisibleGames(userIsFounder, userIsSuperFounder);
 
   // Map stats to each visible game (must be before any early return)
   const games = useMemo(() => {

@@ -28,6 +28,10 @@
         }
       }
     },
+    "config": {
+      ".read": "auth != null",
+      ".write": false
+    },
     "admins": {
       ".read": "root.child('admins').child(auth.uid).exists()",
       ".write": false
@@ -406,6 +410,73 @@
         "words": {
           ".read": "auth != null",
           ".write": "auth != null && auth.uid == root.child('rooms_mime/'+$code+'/meta/hostUid').val()"
+        }
+      }
+    },
+    "rooms_mindlink": {
+      "$code": {
+        ".read": "auth != null",
+        "meta": {
+          ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )"
+        },
+        "state": {
+          ".read": "auth != null",
+          ".write": "auth != null && ( auth.uid == root.child('rooms_mindlink/'+$code+'/meta/hostUid').val() || root.child('rooms_mindlink/'+$code+'/players/'+auth.uid).exists() )"
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_mindlink/'+$code+'/meta/hostUid').val() )"
+          },
+          ".read": "auth != null"
+        },
+        "presence": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        "kickedPlayers": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == root.child('rooms_mindlink/'+$code+'/meta/hostUid').val()"
+          }
+        }
+      }
+    },
+    "rooms_lol": {
+      "$code": {
+        ".read": "auth != null",
+        "meta": {
+          ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )"
+        },
+        "state": {
+          ".read": "auth != null",
+          ".write": "auth != null && ( auth.uid == root.child('rooms_lol/'+$code+'/meta/hostUid').val() || root.child('rooms_lol/'+$code+'/players/'+auth.uid).exists() )",
+          "currentVote": {
+            "votes": {
+              "$uid": {
+                ".write": "auth != null && auth.uid == $uid"
+              }
+            }
+          }
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_lol/'+$code+'/meta/hostUid').val() )"
+          },
+          ".read": "auth != null"
+        },
+        "presence": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        "kickedPlayers": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == root.child('rooms_lol/'+$code+'/meta/hostUid').val()"
+          }
         }
       }
     },

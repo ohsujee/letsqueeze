@@ -38,16 +38,16 @@ export default function LobbyStartButton({
 
   const baseStyles = {
     width: '100%',
-    height: '7vh',
+    height: '52px',
     minHeight: '52px',
     padding: '0 24px',
     background: `linear-gradient(135deg, ${effectiveColor}, ${colorDark})`,
     border: 'none',
-    borderRadius: '1.8vh',
+    borderRadius: '13px',
     color: textColor,
     fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
     fontWeight: 700,
-    fontSize: '2vh',
+    fontSize: '15px',
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
     cursor: isDisabled ? 'not-allowed' : 'pointer',
@@ -66,7 +66,7 @@ export default function LobbyStartButton({
   };
 
   const iconStyles = {
-    fontSize: '2.2vh',
+    fontSize: '16px',
     minWidth: '24px',
     display: 'flex',
     alignItems: 'center',

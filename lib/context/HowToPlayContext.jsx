@@ -17,6 +17,8 @@ const ROUTE_GAME_MAP = [
   { pattern: /^\/blindtest\/room\/[^/]+$/, gameType: 'deeztest' },
   { pattern: /^\/alibi\/room\/[^/]+$/, gameType: 'alibi' },
   { pattern: /^\/laregle\/room\/[^/]+$/, gameType: 'laregle' },
+  { pattern: /^\/lol\/room\/[^/]+$/, gameType: 'lol' },
+  { pattern: /^\/mindlink\/room\/[^/]+$/, gameType: 'mindlink' },
   { pattern: /^\/mime(\/room\/[^/]+)?$/, gameType: 'mime' },
   { pattern: /^\/daily\/semantique$/, gameType: 'semantique' },
   { pattern: /^\/daily\/motmystere$/, gameType: 'motmystere' },

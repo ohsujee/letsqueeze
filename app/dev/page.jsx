@@ -147,6 +147,7 @@ export default function DevIndex() {
           {[
             { id: 'lobbies', label: 'Lobbies' },
             { id: 'game',    label: 'Game' },
+            { id: 'simulation', label: 'Simulation' },
             { id: 'ui',      label: 'UI' },
           ].map(tab => (
             <button
@@ -174,7 +175,7 @@ export default function DevIndex() {
 
       {/* Content */}
       <div style={{ padding: '0 20px 40px' }}>
-        {activeTab === 'ui' ? <UIPlayground /> : <GameList games={GAMES} tab={activeTab} />}
+        {activeTab === 'ui' ? <UIPlayground /> : activeTab === 'simulation' ? <SimulationList /> : <GameList games={GAMES} tab={activeTab} />}
       </div>
 
       {/* Footer */}
@@ -356,6 +357,91 @@ function UIPlayground() {
           </button>
         </>
       )}
+    </div>
+  );
+}
+
+const SIMULATION_GAMES = [
+  { id: 'mindlink', name: 'Mind Link', icon: '\u{1F9E0}', color: '#a855f7', available: true, path: '/dev/simulation/mindlink' },
+  { id: 'quiz', name: 'Quiz Buzzer', icon: '\u26A1', color: '#8b5cf6', available: false },
+  { id: 'deeztest', name: 'DeezTest', icon: '\u{1F3B5}', color: '#A238FF', available: false },
+  { id: 'alibi', name: 'Alibi', icon: '\u{1F575}\uFE0F', color: '#f59e0b', available: false },
+  { id: 'laregle', name: 'La R\u00E8gle', icon: '\u{1F50D}', color: '#06b6d4', available: false },
+];
+
+function SimulationList() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div style={{
+        fontSize: '0.7rem',
+        color: 'rgba(238,242,255,0.35)',
+        marginBottom: '8px',
+        letterSpacing: '0.03em',
+        lineHeight: 1.5,
+      }}>
+        Simule une room compl\u00E8te avec plusieurs vues (host, joueurs) c\u00F4te \u00E0 c\u00F4te. Cr\u00E9e une vraie room Firebase avec des faux joueurs.
+      </div>
+      {SIMULATION_GAMES.map(game => (
+        <div
+          key={game.id}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            padding: '14px 16px',
+            background: 'rgba(238,242,255,0.025)',
+            border: '1px solid rgba(238,242,255,0.06)',
+            borderLeft: `3px solid ${game.color}`,
+            borderRadius: '12px',
+            opacity: game.available ? 1 : 0.4,
+          }}
+        >
+          <span style={{ fontSize: '1.4rem', lineHeight: 1 }}>{game.icon}</span>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{
+              fontFamily: 'Bungee, sans-serif',
+              fontSize: '0.9rem',
+              color: '#eef2ff',
+              letterSpacing: '0.03em',
+              marginBottom: '2px',
+            }}>{game.name}</div>
+            <div style={{ fontSize: '0.72rem', color: 'rgba(238,242,255,0.3)' }}>
+              {game.available ? 'Simulation multi-vues disponible' : 'Simulation \u00E0 venir'}
+            </div>
+          </div>
+          {game.available ? (
+            <a
+              href={game.path}
+              style={{
+                padding: '7px 14px',
+                background: game.color,
+                color: '#04060f',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '0.72rem',
+                fontWeight: 800,
+                letterSpacing: '0.06em',
+                textDecoration: 'none',
+                textTransform: 'uppercase',
+                fontFamily: "'Space Grotesk', sans-serif",
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Ouvrir \u2192
+            </a>
+          ) : (
+            <span style={{
+              fontSize: '0.65rem',
+              color: 'rgba(238,242,255,0.2)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              flexShrink: 0,
+            }}>
+              \u00C0 venir
+            </span>
+          )}
+        </div>
+      ))}
     </div>
   );
 }

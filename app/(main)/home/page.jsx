@@ -25,7 +25,7 @@ import { useToast } from '@/lib/hooks/useToast';
 import { GameController, Heart } from '@phosphor-icons/react';
 import DailyGamesSection from '@/components/home/DailyGamesSection';
 import { genUniqueCode } from '@/lib/utils';
-import { isFounder } from '@/lib/admin';
+import { isFounder, isSuperFounder } from '@/lib/admin';
 import { getVisibleGames, filterByPlayerCount, sortGames, searchGames, applyRemoteConfig } from '@/lib/config/games';
 import { useRemoteConfig } from '@/lib/hooks/useRemoteConfig';
 import { useGlobalPlayCounts } from '@/lib/hooks/useGlobalPlayCounts';
@@ -323,13 +323,14 @@ function HomePageContent() {
     }
   };
 
-  // Filter out founders-only games for non-founders, then apply Remote Config overrides
+  // Filter out founders-only / super-founders-only games, then apply Remote Config overrides
   const userIsFounder = isFounder(user);
+  const userIsSuperFounder = isSuperFounder(user);
 
   // Memoize visible games (only recalculate when user or config changes)
   const visibleGames = useMemo(() => {
-    return applyRemoteConfig(getVisibleGames(userIsFounder), gamesConfig);
-  }, [userIsFounder, gamesConfig]);
+    return applyRemoteConfig(getVisibleGames(userIsFounder, userIsSuperFounder), gamesConfig);
+  }, [userIsFounder, userIsSuperFounder, gamesConfig]);
 
   // Memoize favorite games
   const favoriteGames = useMemo(() => {

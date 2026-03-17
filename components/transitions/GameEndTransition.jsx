@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
  * Transition de fin de partie avant l'affichage des résultats
  * Affiche une animation fullscreen avec icône, titre et barre de progression
  */
-export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
+export function GameEndTransition({ variant, onComplete, duration = 3500, title: titleOverride, subtitle: subtitleOverride }) {
   const [step, setStep] = useState(0);
   // Use ref to avoid resetting timers when onComplete prop changes
   const onCompleteRef = useRef(onComplete);
@@ -91,10 +91,24 @@ export function GameEndTransition({ variant, onComplete, duration = 3500 }) {
       title: "Voyons le classement !",
       subtitle: "Qui est le plus sémantique ?",
       icon: "trophy"
+    },
+    "mindlink": {
+      gradient: ["rgba(236, 72, 153, 0.97)", "rgba(219, 39, 119, 0.97)"],
+      glow: "rgba(236, 72, 153, 0.6)",
+      accent: "#ec4899",
+      accentGlow: "#f472b6",
+      title: "Partie Terminée",
+      subtitle: "Découvrez les résultats…",
+      icon: "brainEmoji"
     }
   };
 
-  const config = configs[variant] || configs.quiz;
+  const baseConfig = configs[variant] || configs.quiz;
+  const config = {
+    ...baseConfig,
+    title: titleOverride || baseConfig.title,
+    subtitle: subtitleOverride || baseConfig.subtitle,
+  };
 
   return (
     <motion.div
@@ -253,6 +267,8 @@ function TransitionIcon({ type, color, glowColor, step }) {
     folder: <FolderIcon size={size} color={color} glowColor={glowColor} />,
     lightbulb: <LightbulbIcon size={size} color={color} glowColor={glowColor} />,
     theater: <TheaterIcon size={size} color={color} glowColor={glowColor} />,
+    brain: <BrainIcon size={size} color={color} glowColor={glowColor} />,
+    brainEmoji: <BrainEmojiIcon size={size} glowColor={glowColor} />,
   };
 
   return (
@@ -586,6 +602,97 @@ function TheaterIcon({ size, color, glowColor }) {
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ delay: 0.9, duration: 0.3 }}
+        />
+      </svg>
+    </div>
+  );
+}
+
+function BrainEmojiIcon({ size, glowColor }) {
+  return (
+    <div style={{ position: "relative", width: size, height: size, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.8, 0.4] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          position: "absolute",
+          inset: -20,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
+          filter: "blur(15px)"
+        }}
+      />
+      <motion.span
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 200, damping: 12, delay: 0.2 }}
+        style={{ fontSize: size * 0.7, lineHeight: 1 }}
+      >
+        🧠
+      </motion.span>
+    </div>
+  );
+}
+
+function BrainIcon({ size, color, glowColor }) {
+  return (
+    <div style={{ position: "relative", width: size, height: size }}>
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.9, 0.5] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          position: "absolute",
+          inset: -20,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
+          filter: "blur(15px)"
+        }}
+      />
+      <svg viewBox="0 0 24 24" fill="none" width={size} height={size}>
+        {/* Left hemisphere */}
+        <motion.path
+          d="M12 4C10 4 8.5 5 7.5 6.5C6 6.5 4.5 7.5 4.5 9.5C3.5 10 3 11 3 12.5C3 14 4 15.5 5.5 16C5.5 17.5 7 19 9 19C10 19 11 18.5 12 18"
+          stroke="white"
+          strokeWidth="2"
+          strokeLinecap="round"
+          fill={color}
+          fillOpacity="0.3"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        />
+        {/* Right hemisphere */}
+        <motion.path
+          d="M12 4C14 4 15.5 5 16.5 6.5C18 6.5 19.5 7.5 19.5 9.5C20.5 10 21 11 21 12.5C21 14 20 15.5 18.5 16C18.5 17.5 17 19 15 19C14 19 13 18.5 12 18"
+          stroke="white"
+          strokeWidth="2"
+          strokeLinecap="round"
+          fill={color}
+          fillOpacity="0.3"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        />
+        {/* Center line */}
+        <motion.path
+          d="M12 4V18"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeDasharray="2 2"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.4, delay: 0.6 }}
+        />
+        {/* Neural spark */}
+        <motion.circle
+          cx="12"
+          cy="11"
+          r="2"
+          fill={glowColor}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: [0, 1.3, 1], opacity: [0, 1, 0.8] }}
+          transition={{ delay: 0.9, duration: 0.5 }}
         />
       </svg>
     </div>

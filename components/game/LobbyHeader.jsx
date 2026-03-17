@@ -40,6 +40,7 @@ const LobbyHeader = forwardRef(function LobbyHeader({
     deeztest: 'rooms_blindtest',
     alibi: 'rooms_alibi',
     laregle: 'rooms_laregle',
+    mindlink: 'rooms_mindlink',
     mime: 'rooms_mime'
   };
 
@@ -58,7 +59,7 @@ const LobbyHeader = forwardRef(function LobbyHeader({
           confirmMessage={isHost ? hostConfirmMessage : playerConfirmMessage}
         />
         <div className="header-title-row">
-          <h1 className="lobby-title">Lobby</h1>
+          <h1 className="lobby-title">CODE</h1>
           <span className="lobby-divider">•</span>
           <span className="room-code selectable">{code}</span>
         </div>
