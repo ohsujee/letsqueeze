@@ -2,7 +2,7 @@ import UIKit
 import Capacitor
 import WebKit
 import MediaPlayer
-import AVFoundation
+import ObjectiveC
 
 class ViewController: CAPBridgeViewController {
 
@@ -10,16 +10,6 @@ class ViewController: CAPBridgeViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Force la catégorie audio en .playback pour que le son sorte
-        // même quand le bouton mute (silent switch) est activé.
-        // Sans ça, WKWebView utilise .ambient → le mute switch coupe le son.
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print("[Audio] AVAudioSession setup error: \(error)")
-        }
 
         // Désactive le scroll natif du WKScrollView principal.
         // Tout le scroll de l'app passe par CSS overflow:auto (scroll views séparés).
@@ -64,6 +54,43 @@ class ViewController: CAPBridgeViewController {
         // quand un <input> reçoit le focus (contourne isScrollEnabled = false).
         // Résultat : zéro blink — la page ne remonte plus d'1 frame puis redescend.
         webView?.scrollView.addObserver(self, forKeyPath: "contentOffset", options: [.new], context: nil)
+
+        // Retire la barre d'accessoires clavier (↑ ↓ ✓) au-dessus du clavier iOS.
+        // Cette barre sert à naviguer entre champs de formulaire — inutile dans l'app
+        // car chaque page a au plus un seul <input>.
+        // Technique : swizzle inputAccessoryView sur WKContentView pour retourner nil.
+        // Utilisée par des milliers d'apps Capacitor/Cordova en production (App Store safe).
+        removeInputAccessoryView()
+    }
+
+    // MARK: - Input Accessory View Removal
+
+    private func removeInputAccessoryView() {
+        guard let webView = webView else { return }
+
+        for subview in webView.scrollView.subviews {
+            let className = String(describing: type(of: subview))
+            guard className.hasPrefix("WKContent") else { continue }
+
+            let newClassName = "\(className)_NoInputAccessory"
+            let noAccessoryClass: AnyClass
+
+            if let existingClass = NSClassFromString(newClassName) {
+                noAccessoryClass = existingClass
+            } else {
+                guard let targetClass = object_getClass(subview),
+                      let newClass = objc_allocateClassPair(targetClass, newClassName, 0) else { continue }
+
+                // Override inputAccessoryView pour retourner nil
+                let nilBlock: @convention(block) (Any) -> Any? = { _ in nil }
+                let nilIMP = imp_implementationWithBlock(nilBlock)
+                class_addMethod(newClass, #selector(getter: UIResponder.inputAccessoryView), nilIMP, "@@:")
+                objc_registerClassPair(newClass)
+                noAccessoryClass = newClass
+            }
+
+            object_setClass(subview, noAccessoryClass)
+        }
     }
 
     // MARK: - Anti-blink KVO
@@ -85,31 +112,11 @@ class ViewController: CAPBridgeViewController {
 
     @objc private func keyboardWillChangeFrame(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
-              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
-              let curveRaw = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
         else { return }
 
-        // Deux valeurs distinctes :
-        //   insetsHeight → pour additionalSafeAreaInsets (sans safe-area existante, évite double-comptage)
-        //   jsHeight     → pour el.style.bottom côté JS (hauteur visuelle complète, rétrocompat)
-        let insetsHeight = computeInsetsHeight(from: keyboardFrame)
+        // Hauteur visuelle complète pour le positionnement JS
         let jsHeight = computeJsHeight(from: keyboardFrame)
-
-        let safeDuration = duration > 0 ? duration : 0.25
-        let animOptions = UIView.AnimationOptions(rawValue: curveRaw << 16)
-
-        // Réduit le safe area inférieur en sync avec l'animation clavier.
-        // env(safe-area-inset-bottom) en CSS augmente du même montant.
-        // iOS voit l'input au-dessus du clavier → pas de scrollRectToVisible → zéro blink.
-        UIView.animate(
-            withDuration: safeDuration,
-            delay: 0,
-            options: [animOptions, .beginFromCurrentState]
-        ) {
-            self.additionalSafeAreaInsets.bottom = insetsHeight
-            self.view.layoutIfNeeded()
-        }
 
         // Dispatch JS :
         //   - hauteur visuelle pour le positionnement (el.style.bottom)
@@ -130,33 +137,15 @@ class ViewController: CAPBridgeViewController {
         webView?.evaluateJavaScript(js, completionHandler: nil)
     }
 
-    /// Hauteur pour additionalSafeAreaInsets.
-    /// Soustrait window.safeAreaInsets.bottom pour éviter le double-comptage :
-    /// additionalSafeAreaInsets AJOUTE au safe area existant → env(safe-area-inset-bottom) = physique + insetsHeight.
-    private func computeInsetsHeight(from keyboardFrame: CGRect) -> CGFloat {
-        guard let window = view.window else { return 0 }
-        let kbInWindow = window.convert(keyboardFrame, from: nil)
-        // Clavier flottant ou non ancré au bas de l'écran → pas d'inset
-        guard kbInWindow.maxY >= window.bounds.height - 20 else { return 0 }
-        let viewInWindow = window.convert(view.frame, from: view.superview)
-        let overlap = viewInWindow.maxY - kbInWindow.minY
-        let safeBottom = window.safeAreaInsets.bottom
-        let height = max(0, overlap - safeBottom)
-        // iPad + hardware keyboard : QuickType bar (~44px) ne déclenche pas d'inset
-        if UIDevice.current.userInterfaceIdiom == .pad && height < 120 { return 0 }
-        return height
-    }
-
     /// Hauteur visuelle complète pour l'event JS.
-    /// Compatible avec el.style.bottom côté JS (même logique que l'ancien UIScreen.main.bounds.height
-    /// mais basé sur view.window pour iPad split view / Stage Manager).
+    /// Compatible avec el.style.bottom côté JS (basé sur view.window pour iPad split view / Stage Manager).
     private func computeJsHeight(from keyboardFrame: CGRect) -> CGFloat {
         guard let window = view.window else { return 0 }
         let kbInWindow = window.convert(keyboardFrame, from: nil)
         guard kbInWindow.maxY >= window.bounds.height - 20 else { return 0 }
         let viewInWindow = window.convert(view.frame, from: view.superview)
         let overlap = max(0, viewInWindow.maxY - kbInWindow.minY)
-        // iPad : même seuil QuickType que computeInsetsHeight
+        // iPad : QuickType bar (~44px) ne déclenche pas d'event
         if UIDevice.current.userInterfaceIdiom == .pad {
             let netHeight = max(0, overlap - window.safeAreaInsets.bottom)
             if netHeight < 120 { return 0 }
@@ -168,13 +157,7 @@ class ViewController: CAPBridgeViewController {
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        // Reset l'inset pendant la transition de rotation.
         // keyboardWillChangeFrame re-fire automatiquement avec le nouveau frame correct.
-        coordinator.animate(alongsideTransition: { _ in
-            if self.additionalSafeAreaInsets.bottom > 0 {
-                self.additionalSafeAreaInsets.bottom = 0
-            }
-        })
     }
 
     // MARK: - Cleanup

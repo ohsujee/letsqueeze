@@ -12,6 +12,7 @@ import AskerTransition from "@/components/game/AskerTransition";
 import { motion, AnimatePresence } from "framer-motion";
 import { GameEndTransition } from "@/components/transitions";
 import { PREVIEW_START_OFFSET_SEC } from "@/lib/deezer/player";
+import { nativePlay, nativeStop, nativePause, nativeResume, nativeGetCurrentTime } from "@/lib/nativeAudioPlayer";
 
 import GamePlayHeader from "@/components/game/GamePlayHeader";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
@@ -149,14 +150,15 @@ export default function DeezTestPlayerGame() {
     return clearMediaSession;
   }, [shouldPlayAudio]);
 
-  const audioPlayerRef = useRef(null);
   const audioSyncTimeoutRef = useRef(null);
   const audioStopIntervalRef = useRef(null);
+  const audioSyncActiveRef = useRef(false); // true quand un snippet est en cours de lecture
   // Ref pour accéder à l'offset serveur dans le callback Firebase sans re-subscribe
   const serverOffsetRef = useRef(offset);
   serverOffsetRef.current = offset;
 
-  // Listener pour audioSync dans Firebase
+  // Listener pour audioSync dans Firebase — utilise le plugin natif iOS (AVPlayer)
+  // pour contourner les restrictions WKWebView sur l'autoplay sans geste utilisateur
   useEffect(() => {
     if (!shouldPlayAudio || !code) return;
 
@@ -174,64 +176,50 @@ export default function DeezTestPlayerGame() {
       // Si le timestamp est dans le passé (>500ms en server time), ignorer
       if (delay < -500) return;
 
-      // Clear ancien audio + timeout
+      // Clear ancien timeout + audio
       if (audioSyncTimeoutRef.current) {
         clearTimeout(audioSyncTimeoutRef.current);
         audioSyncTimeoutRef.current = null;
       }
-      if (audioPlayerRef.current) {
-        audioPlayerRef.current.pause();
-        audioPlayerRef.current = null;
+      if (audioStopIntervalRef.current) {
+        clearInterval(audioStopIntervalRef.current);
+        audioStopIntervalRef.current = null;
+      }
+      if (audioSyncActiveRef.current) {
+        await nativeStop().catch(() => {});
+        audioSyncActiveRef.current = false;
       }
 
-      // Preload l'audio
-      try {
-        const audio = new Audio(previewUrl);
-        audio.preload = 'auto';
-        audioPlayerRef.current = audio;
+      // Programmer le démarrage à startAt (server time)
+      const finalDelay = Math.max(0, startAt - (Date.now() + serverOffsetRef.current));
 
-        // Attendre que l'audio soit prêt (canplay = plus rapide que canplaythrough sur iOS)
-        await new Promise((resolve, reject) => {
-          audio.addEventListener('canplay', resolve, { once: true });
-          audio.addEventListener('error', reject, { once: true });
-          setTimeout(() => reject(new Error('Audio load timeout')), 2000);
-        });
+      audioSyncTimeoutRef.current = setTimeout(async () => {
+        try {
+          await nativePlay(previewUrl, PREVIEW_START_OFFSET_SEC, 0.8);
+          audioSyncActiveRef.current = true;
 
-        // Programmer le démarrage à startAt (server time)
-        const finalDelay = Math.max(0, startAt - (Date.now() + serverOffsetRef.current));
-
-        audioSyncTimeoutRef.current = setTimeout(async () => {
-          try {
-            audio.currentTime = PREVIEW_START_OFFSET_SEC;
-            await audio.play();
-
-            // Stop basé sur currentTime (pas setTimeout) pour garantir la durée exacte
-            // même si iOS démarre l'audio avec un léger délai après play()
-            if (duration) {
-              const targetTime = PREVIEW_START_OFFSET_SEC + duration / 1000;
-              if (audioStopIntervalRef.current) clearInterval(audioStopIntervalRef.current);
-              audioStopIntervalRef.current = setInterval(() => {
-                if (audioPlayerRef.current !== audio) {
+          // Stop basé sur currentTime (polling) pour garantir la durée exacte
+          if (duration) {
+            const targetTime = PREVIEW_START_OFFSET_SEC + duration / 1000;
+            audioStopIntervalRef.current = setInterval(async () => {
+              try {
+                const { currentTime, isPlaying } = await nativeGetCurrentTime();
+                if (!isPlaying || currentTime >= targetTime) {
                   clearInterval(audioStopIntervalRef.current);
                   audioStopIntervalRef.current = null;
-                  return;
+                  await nativeStop().catch(() => {});
+                  audioSyncActiveRef.current = false;
                 }
-                if (audio.currentTime >= targetTime || audio.ended) {
-                  clearInterval(audioStopIntervalRef.current);
-                  audioStopIntervalRef.current = null;
-                  audio.pause();
-                  audio.currentTime = 0;
-                }
-              }, 50);
-            }
-          } catch (err) {
-            console.error('[Audio Sync] Play error:', err);
+              } catch {
+                clearInterval(audioStopIntervalRef.current);
+                audioStopIntervalRef.current = null;
+              }
+            }, 50);
           }
-        }, finalDelay);
-
-      } catch (error) {
-        console.error('[Audio Sync] Preload error:', error);
-      }
+        } catch (err) {
+          console.error('[Audio Sync] Play error:', err);
+        }
+      }, finalDelay);
     });
 
     return () => {
@@ -243,29 +231,29 @@ export default function DeezTestPlayerGame() {
         clearInterval(audioStopIntervalRef.current);
         audioStopIntervalRef.current = null;
       }
-      if (audioPlayerRef.current) {
-        audioPlayerRef.current.pause();
-        audioPlayerRef.current = null;
+      if (audioSyncActiveRef.current) {
+        nativeStop().catch(() => {});
+        audioSyncActiveRef.current = false;
       }
     };
   }, [shouldPlayAudio, code]);
 
   // Cleanup audio quand quelqu'un buzz
   useEffect(() => {
-    if (state?.lockUid && audioPlayerRef.current) {
+    if (state?.lockUid && audioSyncActiveRef.current) {
       if (audioStopIntervalRef.current) {
         clearInterval(audioStopIntervalRef.current);
         audioStopIntervalRef.current = null;
       }
-      audioPlayerRef.current.pause();
-      audioPlayerRef.current.currentTime = 0;
+      nativeStop().catch(() => {});
+      audioSyncActiveRef.current = false;
     }
   }, [state?.lockUid]);
   // ========== FIN AUDIO SYNC ==========
 
   // ========== REVEAL AUDIO SYNC (mode 'all') ==========
-  const revealAudioPlayerRef = useRef(null);
   const revealAudioTimeoutRef = useRef(null);
+  const revealAudioActiveRef = useRef(false);
 
   // Listener pour revealAudioSync dans Firebase
   useEffect(() => {
@@ -282,63 +270,37 @@ export default function DeezTestPlayerGame() {
 
       // Action: 'play', 'pause', 'resume'
       if (action === 'play' && startAt && previewUrl) {
-        // Démarrage du reveal audio
         const serverNowMs = Date.now() + serverOffsetRef.current;
         const delay = startAt - serverNowMs;
 
-        // Si le timestamp est dans le passé (>500ms), ignorer
         if (delay < -500) return;
 
-        // Clear ancien audio + timeout
+        // Clear ancien timeout + audio
         if (revealAudioTimeoutRef.current) {
           clearTimeout(revealAudioTimeoutRef.current);
           revealAudioTimeoutRef.current = null;
         }
-        if (revealAudioPlayerRef.current) {
-          revealAudioPlayerRef.current.pause();
-          revealAudioPlayerRef.current = null;
+        if (revealAudioActiveRef.current) {
+          await nativeStop().catch(() => {});
+          revealAudioActiveRef.current = false;
         }
 
-        // Preload l'audio
-        try {
-          const audio = new Audio(previewUrl);
-          audio.preload = 'auto';
-          revealAudioPlayerRef.current = audio;
+        const finalDelay = Math.max(0, startAt - (Date.now() + serverOffsetRef.current));
 
-          // Attendre que l'audio soit prêt (canplay = plus rapide que canplaythrough sur iOS)
-          await new Promise((resolve, reject) => {
-            audio.addEventListener('canplay', resolve, { once: true });
-            audio.addEventListener('error', reject, { once: true });
-            setTimeout(() => reject(new Error('Reveal audio load timeout')), 2000);
-          });
+        revealAudioTimeoutRef.current = setTimeout(async () => {
+          try {
+            await nativePlay(previewUrl, PREVIEW_START_OFFSET_SEC, 0.8);
+            revealAudioActiveRef.current = true;
+          } catch (err) {
+            console.error('[Reveal Audio Sync] Play error:', err);
+          }
+        }, finalDelay);
 
-          // Programmer le démarrage à startAt (server time)
-          const finalDelay = Math.max(0, startAt - (Date.now() + serverOffsetRef.current));
+      } else if (action === 'pause' && revealAudioActiveRef.current) {
+        await nativePause().catch(() => {});
 
-          revealAudioTimeoutRef.current = setTimeout(async () => {
-            try {
-              audio.currentTime = PREVIEW_START_OFFSET_SEC;
-              await audio.play();
-            } catch (err) {
-              console.error('[Reveal Audio Sync] Play error:', err);
-            }
-          }, finalDelay);
-
-        } catch (error) {
-          console.error('[Reveal Audio Sync] Preload error:', error);
-        }
-
-      } else if (action === 'pause' && revealAudioPlayerRef.current) {
-        // Pause du reveal audio
-        revealAudioPlayerRef.current.pause();
-
-      } else if (action === 'resume' && revealAudioPlayerRef.current) {
-        // Resume du reveal audio
-        try {
-          await revealAudioPlayerRef.current.play();
-        } catch (err) {
-          console.error('[Reveal Audio Sync] Resume error:', err);
-        }
+      } else if (action === 'resume' && revealAudioActiveRef.current) {
+        await nativeResume().catch(() => {});
       }
     });
 
@@ -347,18 +309,18 @@ export default function DeezTestPlayerGame() {
       if (revealAudioTimeoutRef.current) {
         clearTimeout(revealAudioTimeoutRef.current);
       }
-      if (revealAudioPlayerRef.current) {
-        revealAudioPlayerRef.current.pause();
-        revealAudioPlayerRef.current = null;
+      if (revealAudioActiveRef.current) {
+        nativeStop().catch(() => {});
+        revealAudioActiveRef.current = false;
       }
     };
   }, [shouldPlayAudio, code]);
 
   // Cleanup reveal audio quand on quitte le reveal
   useEffect(() => {
-    if (!revealed && revealAudioPlayerRef.current) {
-      revealAudioPlayerRef.current.pause();
-      revealAudioPlayerRef.current = null;
+    if (!revealed && revealAudioActiveRef.current) {
+      nativeStop().catch(() => {});
+      revealAudioActiveRef.current = false;
     }
   }, [revealed]);
   // ========== FIN REVEAL AUDIO SYNC ==========

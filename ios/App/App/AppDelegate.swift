@@ -12,9 +12,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize Firebase
         FirebaseApp.configure()
 
-        // Configure AVAudioSession pour autoriser la lecture audio programmatique
-        // sans geste utilisateur (nécessaire pour la sync audio BlindTest côté non-asker)
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+        // Configure AVAudioSession en mode mixWithOthers par défaut.
+        // → Les autres apps audio (Spotify, Apple Music) ne sont PAS coupées au lancement.
+        // → Le plugin NativeAudioPlayer retire mixWithOthers quand il joue un preview Deezer,
+        //   puis le remet quand il s'arrête.
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
         try? AVAudioSession.sharedInstance().setActive(true)
 
         return true
