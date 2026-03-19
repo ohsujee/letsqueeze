@@ -26,15 +26,16 @@ import { storage } from "@/lib/utils/storage";
 import { FitText } from "@/lib/hooks/useFitText";
 import { GameEndTransition } from "@/components/transitions";
 
-export default function PlayerGame() {
-  const { code } = useParams();
-  const router = useRouter();
+export function QuizPlayContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
 
   const [state, setState] = useState(null);
   const [meta, setMeta] = useState(null);
   const [quiz, setQuiz] = useState(null);
   const [conf, setConf] = useState(null);
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [showEndTransition, setShowEndTransition] = useState(false);
   const [showAskerTransition, setShowAskerTransition] = useState(false);
   const endTransitionTriggeredRef = useRef(false);
@@ -68,6 +69,7 @@ export default function PlayerGame() {
 
   // Auth
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setMyUid(user.uid);
@@ -81,7 +83,7 @@ export default function PlayerGame() {
       }
     });
     return () => unsub();
-  }, [code]);
+  }, [code, devUid]);
 
   // Player cleanup hook
   const { leaveRoom, markActive } = usePlayerCleanup({
@@ -670,4 +672,9 @@ export default function PlayerGame() {
       `}</style>
     </div>
   );
+}
+
+export default function PlayerGame() {
+  const { code } = useParams();
+  return <QuizPlayContent code={code} />;
 }

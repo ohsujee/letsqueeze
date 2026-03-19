@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
-  auth, db, ref, onValue, update, get,
+  auth, db, ref, set, onValue, update, get,
   onAuthStateChanged,
 } from "@/lib/firebase";
 import { motion, AnimatePresence } from "framer-motion";
@@ -249,7 +249,7 @@ export function LolPlayContent({ code, myUid: devUid }) {
     if (!myUid || !currentVote || hasVoted || isAccused) return;
     hapticImpact(ImpactStyle.Light);
 
-    await update(ref(db, `${ROOM_PREFIX}/${code}/state/currentVote/votes/${myUid}`), vote);
+    await set(ref(db, `${ROOM_PREFIX}/${code}/state/currentVote/votes/${myUid}`), vote);
 
     // Check if all eligible voters have voted -> resolve immediately
     const eligibleVoters = players.filter(p =>

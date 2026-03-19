@@ -598,13 +598,19 @@ export default function LaLoiLobby() {
                 style={{ overflow: 'hidden', flexShrink: 0 }}
               >
                 <div style={{
-                  display: 'flex', alignItems: 'center', gap: '8px',
-                  padding: '9px 12px',
-                  background: 'rgba(0,229,255,0.05)',
-                  borderLeft: '2px solid rgba(0,229,255,0.45)',
-                  borderRadius: '10px',
+                  display: 'flex', alignItems: 'center', gap: '10px',
+                  padding: '10px 14px',
+                  background: 'rgba(0,229,255,0.06)',
+                  border: '1px solid rgba(0,229,255,0.12)',
+                  borderRadius: '12px',
                 }}>
-                  <Info size={14} color={`${ACCENT}bb`} weight="bold" style={{ flexShrink: 0 }} />
+                  <div style={{
+                    width: 26, height: 26, borderRadius: '8px', flexShrink: 0,
+                    background: 'rgba(0,229,255,0.1)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <Info size={13} color={`${ACCENT}cc`} weight="bold" />
+                  </div>
                   <span style={{
                     fontSize: '0.78rem', color: `${ACCENT}cc`, fontWeight: 600, lineHeight: 1.3,
                   }}>

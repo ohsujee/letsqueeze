@@ -15,9 +15,10 @@ import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
 import { rankWithTies } from "@/lib/utils/ranking";
 import { EndScreenFooter } from "@/components/transitions";
 
-export default function EndPage(){
-  const { code } = useParams();
-  const router = useRouter();
+export function QuizEndContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
 
   const [meta,setMeta]=useState(null);
@@ -27,7 +28,10 @@ export default function EndPage(){
   const statsRecordedRef = useRef(false);
 
   // End page ad + auth (handles interstitial + returnedFromGame + myUid)
-  const { myUid, userIsPro, currentUser } = useEndPageAd();
+  const endPageAd = useEndPageAd();
+  const myUid = devUid || endPageAd.myUid;
+  const userIsPro = endPageAd.userIsPro;
+  const currentUser = endPageAd.currentUser;
 
   // Centralized players hook (live data)
   const { players: livePlayers } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
@@ -362,4 +366,9 @@ export default function EndPage(){
       `}</style>
     </div>
   );
+}
+
+export default function EndPage() {
+  const { code } = useParams();
+  return <QuizEndContent code={code} />;
 }
