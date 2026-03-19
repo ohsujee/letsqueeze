@@ -59,13 +59,13 @@
     },
     {
       "id": "got010",
-      "question": "Les trois dragons de Daenerys naissent dans les flammes du bûcher funéraire de Khal Drogo. Le plus grand et le plus noir est sa monture personnelle. Le vert porte le nom du frère de Daenerys et le crème celui de son mari. Comment s'appelle le dragon noir ?",
+      "question": "Les trois dragons de Daenerys naissent dans les flammes du bûcher funéraire de Khal Drogo. Le plus grand et le plus noir porte le nom de son défunt mari. Le vert et le crème portent chacun le nom d'un de ses frères. Comment s'appelle le dragon noir ?",
       "answer": "Drogon",
       "category": "Dragons"
     },
     {
       "id": "got011",
-      "question": "Construction colossale de glace de plus de 200 mètres de haut et de 500 kilomètres de long, elle sépare les Sept Couronnes des terres sauvages du Nord. Gardée par la Garde de Nuit, elle est finalement détruite par le dragon Viserion transformé. Qu'est-ce que c'est ?",
+      "question": "Construction colossale de glace de plus de 200 mètres de haut et de 480 kilomètres de long, elle sépare les Sept Couronnes des terres sauvages du Nord. Gardée par la Garde de Nuit, elle est percée à Eastwatch par le dragon Viserion, ressuscité par le Roi de la Nuit. Qu'est-ce que c'est ?",
       "answer": "Le Mur (The Wall)",
       "category": "Lieux"
     },
@@ -250,12 +250,6 @@
       "category": "Personnages"
     },
     {
-      "id": "got042",
-      "question": "Prince de Dorne charismatique surnommé 'la Vipère Rouge', il vient à Port-Réal pour venger sa soeur Elia, assassinée par la Montagne. Lors de son combat judiciaire pour Tyrion, il domine la Montagne mais son excès de confiance lui coûte la vie. Qui est-ce ?",
-      "answer": "Oberyn Martell (la Vipère Rouge / The Red Viper)",
-      "category": "Personnages"
-    },
-    {
       "id": "got043",
       "question": "Maison noble dont le blason est un lion d'or sur champ cramoisi et dont le siège est Castral Roc, elle est la famille la plus riche de Westeros grâce à ses mines d'or. Sa devise officielle est 'Hear Me Roar' mais tout le monde retient l'officieuse. Quelle est cette maison ?",
       "answer": "La Maison Lannister",
@@ -263,7 +257,7 @@
     },
     {
       "id": "got044",
-      "question": "Ce personnage est le frère aîné de Robert Baratheon par la loi, seigneur de Peyredragon, suit la prêtresse rouge Mélisandre et croit être Azor Ahai réincarné. Qui est-ce ?",
+      "question": "Ce personnage est le frère cadet de Robert Baratheon, seigneur de Peyredragon, suit la prêtresse rouge Mélisandre et croit être Azor Ahai réincarné. Qui est-ce ?",
       "answer": "Stannis Baratheon",
       "category": "Personnages"
     },
@@ -275,7 +269,7 @@
     },
     {
       "id": "got046",
-      "question": "Groupe de guerrières privées qui protègent Daenerys, elles sont composées d'anciennes esclaves libérées dans la Baie des Serfs. Leur devise est 'Valar Morghulis'. Mais l'armée principale de Daenerys est composée de soldats-esclaves eunuques. Comment s'appellent ces soldats ?",
+      "question": "Armée principale de Daenerys Targaryen, ces soldats-esclaves eunuques ont été formés à Astapor, dans la Baie des Serfs. Réputés pour leur discipline absolue au combat, Daenerys les libère et ils choisissent de la servir en tant qu'hommes libres. Comment s'appellent ces soldats ?",
       "answer": "Les Immaculés (The Unsullied)",
       "category": "Personnages"
     },
@@ -365,7 +359,7 @@
     },
     {
       "id": "got061",
-      "question": "Mercenaire au franc-parler, vendeur d'épée expert en combat, il accompagne Tyrion dans ses aventures en Essos. Il se présente comme un simple combattant mais cache un sens de l'honneur. Interprété par Jerome Flynn, il a aussi un talent de chanteur. Qui est-ce ?",
+      "question": "Mercenaire au franc-parler, vendeur d'épée expert en combat, il accompagne Tyrion dans ses aventures à Port-Réal. Il se présente comme un simple combattant mais cache un sens de l'honneur. Interprété par Jerome Flynn, il a aussi un talent de chanteur. Qui est-ce ?",
       "answer": "Bronn (Ser Bronn de la Néra)",
       "category": "Personnages"
     },
@@ -388,12 +382,6 @@
       "category": "Épisodes marquants"
     },
     {
-      "id": "got065",
-      "question": "Margaery Tyrell, belle-fille successivement de Joffrey, puis de Tommen, est une manipulatrice habile qui joue le jeu du pouvoir mieux que quiconque. Elle utilise sa beauté et sa générosité pour gagner l'amour du peuple. Quel était le nom de son premier mari royal assassiné ?",
-      "answer": "Renly Baratheon",
-      "category": "Personnages"
-    },
-    {
       "id": "got066",
       "question": "Pirate sanguinaire et capitaine du 'Silence', il est le frère de Balon Greyjoy et l'oncle de Theon et Yara. Il devient une menace majeure en tuant le dragon Rhaegal d'un tir de scorpion et en offrant sa flotte à Cersei. Qui est-ce ?",
       "answer": "Euron Greyjoy",
@@ -407,7 +395,7 @@
     },
     {
       "id": "got068",
-      "question": "Ancien mestre de la Garde de Nuit à Châteaunoir, ce vieillard aveugle est en réalité un Targaryen, arrière-grand-oncle du Roi Fou. Il refuse le trône et choisit de servir. Il meurt de vieillesse en prononçant le nom de son frère Egg. Qui est-ce ?",
+      "question": "Ancien mestre de la Garde de Nuit à Châteaunoir, ce vieillard aveugle est en réalité un Targaryen, grand-oncle du Roi Fou. Il refuse le trône et choisit de servir. Il meurt de vieillesse en prononçant le nom de son frère Egg. Qui est-ce ?",
       "answer": "Mestre Aemon (Aemon Targaryen)",
       "category": "Personnages"
     },
@@ -476,18 +464,6 @@
       "question": "Merveilleuse scène de la saison 6 où la révélation de la véritable identité de Jon Snow est faite via un flashback. Lyanna Stark, mourante, murmure un secret à son frère Ned dans une tour de Dorne. Comment s'appelle cette tour ?",
       "answer": "La Tour de la Joie (Tower of Joy)",
       "category": "Lieux"
-    },
-    {
-      "id": "got080",
-      "question": "Dague en acier valyrien qui a failli tuer Bran au début de la série, envoyée par un assassin. Cette même dague est utilisée par Arya Stark pour tuer le Roi de la Nuit dans le final de la Bataille de Winterfell. Elle change de main au dernier moment. Quel geste fait Arya ?",
-      "answer": "Elle lâche la dague de sa main droite et la rattrape de la main gauche pour poignarder le Roi de la Nuit",
-      "category": "Batailles"
-    },
-    {
-      "id": "got081",
-      "question": "La Longue Nuit est une période légendaire de l'histoire de Westeros où les Marcheurs Blancs ont failli détruire l'humanité. Un héros mythique les a repoussés et Brandon le Bâtisseur a ensuite construit le Mur. Comment s'appelle ce héros légendaire ?",
-      "answer": "Azor Ahai (Le Prince Promis / The Prince That Was Promised)",
-      "category": "Marcheurs Blancs"
     },
     {
       "id": "got082",

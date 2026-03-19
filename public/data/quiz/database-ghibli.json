@@ -322,12 +322,6 @@
       "category": "Personnages"
     },
     {
-      "id": "ghb071",
-      "question": "Dans un film de 1992, le héros transformé en cochon est un chasseur de primes qui traque les pirates du ciel dans l'Adriatique. Son surnom italien signifie littéralement 'cochon rouge'. Comment l'appellent ses ennemis ?",
-      "answer": "Porco Rosso",
-      "category": "Personnages"
-    },
-    {
       "id": "ghb072",
       "question": "En 1989, le film sur la jeune fille de 13 ans devient le premier grand succès commercial du studio avec plus de 2,6 millions d'entrées au Japon. L'héroïne s'installe dans une ville portuaire d'inspiration européenne. Quel est son unique pouvoir magique ?",
       "answer": "Le vol sur un balai",
@@ -394,12 +388,6 @@
       "category": "Miyazaki"
     },
     {
-      "id": "ghb084",
-      "question": "La bande originale du film de 1988 avec les deux sœurs contient un morceau joué à l'ocarina, joyeux et mélancolique à la fois, devenu iconique. Il évoque la promenade à travers la campagne japonaise. Quel est le titre de ce morceau célèbre ?",
-      "answer": "Kaze no Tōrimichi (Le chemin du vent)",
-      "category": "Musique"
-    },
-    {
       "id": "ghb085",
       "question": "En 1992, le film sur le pilote transformé en cochon est situé dans l'entre-deux-guerres, sur la côte adriatique. Le héros combat un rival américain nommé Donald Curtis. Dans quel pays se déroule principalement l'action ?",
       "answer": "L'Italie",
@@ -444,7 +432,7 @@
     {
       "id": "ghb092",
       "question": "Dans un film de 1989, l'héroïne traverse une crise de confiance et perd temporairement ses pouvoirs. Une artiste peintre nommée Ursula, vivant seule dans les bois, l'aide à retrouver sa motivation. Quel talent l'héroïne perd-elle temporairement ?",
-      "answer": "Sa capacité à voler",
+      "answer": "Ses pouvoirs de sorcière (voler sur son balai et parler à son chat)",
       "category": "Films"
     },
     {
@@ -484,12 +472,6 @@
       "category": "Films"
     },
     {
-      "id": "ghb099",
-      "question": "Dans un film de 1984, la jungle empoisonnée qui s'étend inexorablement est appelée 'Fukai' en japonais, un terme évoquant la profondeur et la putréfaction. Les humains la craignent mais elle purifie en réalité la terre polluée. Comment traduit-on ce nom en français ?",
-      "answer": "La mer de la Décrépitude",
-      "category": "Lieux"
-    },
-    {
       "id": "ghb100",
       "question": "En 2003, Miyazaki refuse de se rendre à la cérémonie des Oscars malgré la nomination de son film. Le réalisateur japonais protestait contre une intervention militaire américaine lancée cette même année au Moyen-Orient. Dans quel pays avait lieu ce conflit ?",
       "answer": "L'Irak",
@@ -515,7 +497,7 @@
     },
     {
       "id": "ghb104",
-      "question": "La bande originale du film de 1997 mêle orchestre symphonique, chœurs et instruments traditionnels japonais. Le morceau principal, puissant et épique, est chanté par la soprano Yoshikazu Mera. Quel est le titre de ce morceau ?",
+      "question": "La bande originale du film de 1997 mêle orchestre symphonique, chœurs et instruments traditionnels japonais. Le morceau principal, puissant et épique, est chanté par le contre-ténor Yoshikazu Mera. Quel est le titre de ce morceau ?",
       "answer": "Mononoke Hime (thème principal)",
       "category": "Musique"
     },

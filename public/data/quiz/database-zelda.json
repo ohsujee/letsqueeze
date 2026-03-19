@@ -35,7 +35,7 @@
     },
     {
       "id": "zld006",
-      "question": "Instrument bleu à vent obtenu dans le Temple du Temps, il permet de jouer des mélodies magiques comme le Chant du Temps ou le Chant des Tempêtes. Le titre du jeu dans lequel il apparaît porte son nom. Quel est cet objet ?",
+      "question": "Instrument bleu à vent récupéré dans les douves du Château d'Hyrule après la fuite de la Princesse Zelda, il permet de jouer des mélodies magiques comme le Chant du Temps ou le Chant des Tempêtes. Le titre du jeu dans lequel il apparaît porte son nom. Quel est cet objet ?",
       "answer": "L'Ocarina du Temps",
       "category": "Objets"
     },
@@ -104,12 +104,6 @@
       "question": "Instrument sacré de The Wind Waker, ce petit bâton magique permet de diriger le vent et de jouer des mélodies. Le héros l'obtient sur l'Île du Dragon et le titre du jeu porte son nom en anglais. Quel est cet objet ?",
       "answer": "La Baguette du Vent (Wind Waker)",
       "category": "Objets"
-    },
-    {
-      "id": "zld018",
-      "question": "Jeune Piaf harpiste dans The Wind Waker, elle devient la Sage du Temple de la Terre. Son nom inspira celui de la Créature Divine Vah'Medoh dans Breath of the Wild, un siècle plus tard. Qui est cette musicienne ailée ?",
-      "answer": "Médolie (Medli)",
-      "category": "Personnages"
     },
     {
       "id": "zld019",
@@ -257,7 +251,7 @@
     },
     {
       "id": "zld043",
-      "question": "Premier jeu de la saga sorti en 1986 sur NES au Japon, il propose un monde ouvert avec huit donjons à explorer librement. Le créateur s'est inspiré de ses explorations de grottes dans la campagne de Kyoto. Quel est ce jeu fondateur ?",
+      "question": "Premier jeu de la saga sorti en 1986 sur NES au Japon, il propose un monde ouvert avec neuf donjons à explorer librement. Le créateur s'est inspiré de ses explorations de grottes dans la campagne de Kyoto. Quel est ce jeu fondateur ?",
       "answer": "The Legend of Zelda (NES)",
       "category": "Jeux"
     },
@@ -269,7 +263,7 @@
     },
     {
       "id": "zld045",
-      "question": "Producteur japonais devenu le gardien de la saga après avoir dirigé Ocarina of Time, il supervise chaque épisode depuis plus de vingt ans. Il a dirigé la conception des donjons avant de devenir producteur de la série. Qui est ce développeur ?",
+      "question": "Producteur japonais devenu le gardien de la saga après avoir conçu les donjons d'Ocarina of Time, il supervise chaque épisode depuis plus de vingt ans. Il a ensuite dirigé Majora's Mask et The Wind Waker avant de devenir producteur de la série. Qui est ce développeur ?",
       "answer": "Eiji Aonuma",
       "category": "Histoire"
     },
@@ -430,12 +424,6 @@
       "category": "Histoire"
     },
     {
-      "id": "zld072",
-      "question": "Donjon optionnel de Breath of the Wild situé sous le Château d'Hyrule, le héros peut y trouver la tunique de la Garde Royale et la hallebarde royale. C'est aussi le chemin le plus court vers le boss final. Quel est ce lieu ?",
-      "answer": "Le Château d'Hyrule",
-      "category": "Donjons"
-    },
-    {
       "id": "zld073",
       "question": "Créature Divine en forme d'éléphant mécanique dans Breath of the Wild, elle menace le Domaine Zora d'une pluie incessante. Son nom rend hommage à une princesse Zora d'Ocarina of Time. Quelle est cette machine ?",
       "answer": "Vah'Ruta",
@@ -551,7 +539,7 @@
     },
     {
       "id": "zld092",
-      "question": "Ennemis squelettiques récurrents de la saga, ils apparaissent la nuit dans la Plaine d'Hyrule et se relèvent après avoir été abattus si le héros ne détruit pas leur corps rapidement. Quelles sont ces créatures mortes-vivantes ?",
+      "question": "Ennemis squelettiques récurrents de la saga, ces guerriers morts-vivants armés d'épée et de bouclier hantent les donjons et se relèvent après avoir été abattus si le héros ne détruit pas leur corps rapidement. Quelles sont ces créatures ?",
       "answer": "Les Stalfos",
       "category": "Créatures"
     },
@@ -562,12 +550,6 @@
       "category": "Créatures"
     },
     {
-      "id": "zld094",
-      "question": "Créatures porcines agressives présentes dans presque tous les épisodes de la saga, elles servent souvent de sbires à Ganon. Dans Breath of the Wild, elles construisent des campements et portent des armes variées. Quels sont ces monstres récurrents ?",
-      "answer": "Les Bokoblins",
-      "category": "Créatures"
-    },
-    {
       "id": "zld095",
       "question": "Gardiens mécaniques de l'ancienne technologie Sheikah dans Breath of the Wild, ces machines à pattes de pieuvre tirent des rayons laser dévastateurs. Corrompus par le Fléau, ils terrorisent les plaines d'Hyrule. Quels sont ces robots ?",
       "answer": "Les Gardiens (Guardians)",
@@ -575,7 +557,7 @@
     },
     {
       "id": "zld096",
-      "question": "Boss arachnide géant affronté dans plusieurs donjons de la saga, cette araignée géante cuirassée possède un oeil vulnérable sur son dos. Elle apparaît notamment dans l'Arbre Mojo et dans A Link to the Past. Quel est ce boss ?",
+      "question": "Boss arachnide géant affronté dans plusieurs donjons de la saga, cette araignée géante cuirassée possède un œil vulnérable. Elle apparaît notamment dans l'Arbre Mojo dans Ocarina of Time et sous la forme d'Armogohma dans Twilight Princess. Quel est ce boss ?",
       "answer": "Gohma",
       "category": "Boss"
     },
@@ -583,12 +565,6 @@
       "id": "zld097",
       "question": "Roi reptilien géant des Dodongos, ce boss cracheur de feu est affronté dans la Caverne Dodongo d'Ocarina of Time. Le héros doit lui lancer des bombes dans la gueule quand il l'ouvre pour rugir. Quel est ce boss ?",
       "answer": "King Dodongo (Roi Dodongo)",
-      "category": "Boss"
-    },
-    {
-      "id": "zld098",
-      "question": "Dragon des ombres et boss du Temple de l'Ombre dans Ocarina of Time, cette créature spectrale aux mains géantes frappe depuis les ténèbres. Il faut utiliser la Longue-Vue de Vérité pour révéler son corps invisible. Quel est ce boss ?",
-      "answer": "Bongo Bongo",
       "category": "Boss"
     },
     {
@@ -659,7 +635,7 @@
     },
     {
       "id": "zld110",
-      "question": "Créature mécanique en forme de centaure dans Breath of the Wild, elle patrouille dans les plaines et les montagnes. Considérée comme l'un des combats les plus difficiles du jeu, elle existe en version mineure, majeure et suprême. Quel est cet ennemi redoutable ?",
+      "question": "Créature en forme de centaure dans Breath of the Wild, mi-lion mi-cheval, elle patrouille dans les plaines et les montagnes. Considérée comme l'un des combats les plus difficiles du jeu, elle existe en plusieurs variantes de plus en plus puissantes (rouge, bleu, blanc, argenté). Quel est cet ennemi redoutable ?",
       "answer": "Le Lynel",
       "category": "Créatures"
     },
@@ -689,7 +665,7 @@
     },
     {
       "id": "zld115",
-      "question": "Jeu musical développé par Koei Tecmo sorti en 2020 sur Switch, ce spin-off de type musou se déroule cent ans avant Breath of the Wild. On y incarne les Prodiges dans leur combat contre le Fléau. Quel est le titre français de ce jeu ?",
+      "question": "Jeu de type musou développé par Koei Tecmo sorti en 2020 sur Switch, ce spin-off se déroule cent ans avant Breath of the Wild. On y incarne les Prodiges dans leur combat contre le Fléau. Quel est le titre français de ce jeu ?",
       "answer": "Hyrule Warriors : L'Ère du Fléau (Age of Calamity)",
       "category": "Jeux"
     }

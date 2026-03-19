@@ -77,7 +77,7 @@
     },
     {
       "id": "pkb013",
-      "question": "Chef des Birmingham Boys et roi des bookmakers sur les hippodromes, cet antagoniste de la saison 1 est abattu par Tommy lors de l'affrontement final aux courses de Worcester. Qui est-ce ?",
+      "question": "Chef des Birmingham Boys et roi des bookmakers sur les hippodromes, cet antagoniste de la saison 1 est abattu par Tommy lors de l'affrontement final sur Garrison Lane. Qui est-ce ?",
       "answer": "Billy Kimber",
       "category": "Antagonistes"
     },
@@ -154,12 +154,6 @@
       "category": "Lieux"
     },
     {
-      "id": "pkb026",
-      "question": "Duchesse russe exilée, séductrice et manipulatrice, elle a une liaison avec Tommy dans la saison 3 dans le cadre d'un complot impliquant des bijoux russes et un trafic d'armes. Qui est-ce ?",
-      "answer": "Tatiana Petrovna",
-      "category": "Personnages"
-    },
-    {
       "id": "pkb027",
       "question": "Prêtre corrompu et agent de la Ligue Économique dans la saison 3, il enlève le fils de Tommy pour faire pression sur lui. Interprété par Paddy Considine, il est finalement tué par les Shelby. Qui est-ce ?",
       "answer": "Father Hughes (Père Hughes)",
@@ -179,7 +173,7 @@
     },
     {
       "id": "pkb030",
-      "question": "Le plus jeune des frères Shelby, interprété par Joe Cole, est assassiné devant sa maison au début de la saison 4 par des hommes envoyés par la mafia new-yorkaise. Dans quelle saison meurt-il ?",
+      "question": "Ce frère Shelby, interprété par Joe Cole, est assassiné devant sa maison au début de la saison 4 par des hommes envoyés par Luca Changretta. Dans quelle saison meurt-il ?",
       "answer": "Saison 4 (Series 4)",
       "category": "Famille Shelby"
     },
@@ -413,7 +407,7 @@
     },
     {
       "id": "pkb070",
-      "question": "Le personnage d'Alfie Solomons est tiré d'un vrai gangster juif de l'East End londonien des années 1920. Tommy lui tire dessus à Margate, mais Alfie survit avec des cicatrices au visage. Quel acteur oscarisé, célèbre pour ses rôles dans Mad Max: Fury Road et Inception, incarne ce personnage ?",
+      "question": "Le personnage d'Alfie Solomons est tiré d'un vrai gangster juif de l'East End londonien des années 1920. Tommy lui tire dessus à Margate, mais Alfie survit avec des cicatrices au visage. Quel acteur, nommé aux Oscars et célèbre pour ses rôles dans Mad Max: Fury Road et Inception, incarne ce personnage ?",
       "answer": "Tom Hardy",
       "category": "Personnages"
     },
@@ -432,7 +426,7 @@
     {
       "id": "pkb073",
       "question": "Dans la saison 2, le Garrison Pub est détruit par une explosion pendant que la famille assiste aux funérailles de Freddie Thorne. Qui a commandité cet attentat contre le quartier général des Shelby ?",
-      "answer": "Sabini (les Italiens)",
+      "answer": "L'IRA (Irene O'Donnell et l'Inspecteur Campbell)",
       "category": "Saisons"
     },
     {
@@ -473,8 +467,8 @@
     },
     {
       "id": "pkb080",
-      "question": "Dans la saison 4, la famille Changretta envoie à chaque cible Shelby un symbole traditionnel de la vendetta sicilienne pour annoncer qu'elle va mourir. Cet objet religieux sombre est envoyé accompagné d'un message de mort. Quel est cet objet sinistre transmis aux Shelby ?",
-      "answer": "Une croix noire (Black Hand / avis de mort)",
+      "question": "Dans la saison 4, la famille Changretta envoie à chaque cible Shelby un symbole traditionnel pour annoncer la vendetta. Ce symbole mafieux italien est envoyé accompagné d'un message de mort. Quel est ce symbole sinistre transmis aux Shelby ?",
+      "answer": "Une Main Noire (Black Hand)",
       "category": "Saisons"
     },
     {
@@ -533,7 +527,7 @@
     },
     {
       "id": "pkb090",
-      "question": "La série est diffusée sur BBC Two pour les deux premières saisons, puis sur une autre chaîne de la BBC à partir de la saison 3. Sur quelle chaîne les saisons 3 à 6 ont-elles été diffusées ?",
+      "question": "La série est diffusée sur BBC Two pour les quatre premières saisons, puis sur une autre chaîne de la BBC à partir de la saison 5. Sur quelle chaîne les saisons 5 et 6 ont-elles été diffusées ?",
       "answer": "BBC One",
       "category": "Épisodes clés"
     },
@@ -586,12 +580,6 @@
       "category": "Business"
     },
     {
-      "id": "pkb099",
-      "question": "Grace Burgess infiltre le Garrison Pub en se faisant passer pour une serveuse irlandaise dans la saison 1. En réalité, elle travaille secrètement pour le compte de Campbell. Pour quelle organisation travaille-t-elle officiellement ?",
-      "answer": "La police (le service de renseignement britannique / la Couronne)",
-      "category": "Personnages"
-    },
-    {
       "id": "pkb100",
       "question": "Le frère le plus instable de Tommy combat une addiction sévère tout au long de la série. Violent et impulsif, il tente même de se suicider dans la saison 2 après une pendaison ratée. Quelle substance, en plus de l'alcool, alimente principalement sa rage ?",
       "answer": "La cocaïne",
@@ -617,8 +605,8 @@
     },
     {
       "id": "pkb104",
-      "question": "Dans la saison 4, Tommy élabore un plan risqué pour vaincre Luca Changretta en lui tendant un piège. Il utilise les services d'un gangster juif de Camden Town pour attirer le mafieux dans un guet-apens. Qui exécute finalement Luca ?",
-      "answer": "Les hommes d'Alfie Solomons (la mafia juive)",
+      "question": "Dans la saison 4, Tommy élabore un plan risqué pour vaincre Luca Changretta. Il simule la mort d'un membre de sa famille pour attirer le mafieux dans un piège. Qui exécute finalement Luca ?",
+      "answer": "Arthur Shelby",
       "category": "Saisons"
     },
     {

@@ -71,7 +71,7 @@
     },
     {
       "id": "mc012",
-      "question": "Minerai très rare généré entre les couches 8 et 22 de la dimension infernale, il résiste aux explosions et ne brûle pas dans la lave. Une fois fondu, il donne des fragments nécessaires à la fabrication du matériau le plus solide du jeu. Quel est ce minerai ?",
+      "question": "Minerai très rare généré principalement entre les couches 8 et 24 de la dimension infernale, il résiste aux explosions et ne brûle pas dans la lave. Une fois fondu, il donne des fragments nécessaires à la fabrication du matériau le plus solide du jeu. Quel est ce minerai ?",
       "answer": "Débris antiques (Ancient Debris)",
       "category": "Le Nether"
     },
@@ -197,7 +197,7 @@
     },
     {
       "id": "mc033",
-      "question": "Créée en combinant trois lingots d'or avec deux bâtons et une pierre, cette montre dorée indique le cycle jour-nuit grâce à un cadran solaire animé. Elle ne fonctionne pas dans les autres dimensions. Quel est cet objet ?",
+      "question": "Créée en combinant quatre lingots d'or avec une poudre de redstone, cette montre dorée indique le cycle jour-nuit grâce à un cadran rotatif animé. Elle tourne aléatoirement dans le Nether et l'End. Quel est cet objet ?",
       "answer": "Horloge",
       "category": "Crafting"
     },
@@ -329,7 +329,7 @@
     },
     {
       "id": "mc055",
-      "question": "Mob passif ajouté en 1.19, il existe en trois variantes selon le biome de naissance de son têtard : tempéré, chaud ou froid. Chaque variante a une couleur différente et la variante chaude produit des boules de magma (Froglight). De quel mob s'agit-il ?",
+      "question": "Mob passif ajouté en 1.19, il existe en trois variantes selon le biome de naissance de son têtard : tempéré, chaud ou froid. Chaque variante a une couleur différente et produit un Froglight de couleur unique en mangeant un petit Magma Cube. De quel mob s'agit-il ?",
       "answer": "Grenouille (Frog)",
       "category": "Mobs"
     },
@@ -365,7 +365,7 @@
     },
     {
       "id": "mc061",
-      "question": "Bloc fabriqué avec huit pavés et un bâton, il permet de retirer les enchantements des objets pour récupérer de l'expérience, ou de réparer deux outils identiques en un seul. Quel est ce bloc ?",
+      "question": "Bloc fabriqué avec deux bâtons, deux planches et une dalle de pierre, il permet de retirer les enchantements des objets pour récupérer de l'expérience, ou de réparer deux outils identiques en un seul. Quel est ce bloc ?",
       "answer": "Meule (Grindstone)",
       "category": "Crafting"
     },
@@ -449,7 +449,7 @@
     },
     {
       "id": "mc075",
-      "question": "Bloc fabriqué avec un lingot de fer au centre et six planches de bois, il ressemble à un entonnoir et transfère automatiquement les objets entre les conteneurs. Incontournable dans les systèmes de tri automatiques. Quel est ce bloc ?",
+      "question": "Bloc fabriqué avec cinq lingots de fer et un coffre au centre, il ressemble à un entonnoir et transfère automatiquement les objets entre les conteneurs. Incontournable dans les systèmes de tri automatiques. Quel est ce bloc ?",
       "answer": "Entonnoir (Hopper)",
       "category": "Redstone"
     },
@@ -516,7 +516,7 @@
     {
       "id": "mc087",
       "question": "Bloc lumineux rouge obtenu en minant du minerai spécial en profondeur, il est posable au sol comme une torche et transmet du courant. On en a besoin pour fabriquer des torches, des pistons et des rails motorisés. Quel est ce bloc ?",
-      "answer": "Torche de redstone",
+      "answer": "Redstone",
       "category": "Redstone"
     },
     {
@@ -533,14 +533,8 @@
     },
     {
       "id": "mc090",
-      "question": "Biome aquatique composé de récifs multicolores vivants ajoutés dans la mise à jour Aquatic. Poissons tropicaux, concombres de mer et dauphins y nagent entre les éponges et les coraux. Quel est ce biome ?",
+      "question": "Biome aquatique composé de récifs multicolores vivants ajoutés dans la mise à jour Aquatic. Poissons tropicaux, cornichons de mer et dauphins y nagent entre les éponges et les coraux. Quel est ce biome ?",
       "answer": "Récif de corail (Coral Reef)",
-      "category": "Biomes"
-    },
-    {
-      "id": "mc091",
-      "question": "Biome froid couvert de neige et de glace où apparaissent des igloos contenant parfois un laboratoire secret au sous-sol. Des ours polaires et des renards blancs y vivent. Quel est ce biome ?",
-      "answer": "Plaines enneigées (Snowy Plains)",
       "category": "Biomes"
     },
     {
@@ -617,14 +611,14 @@
     },
     {
       "id": "mc104",
-      "question": "Plante rouge ressemblant à un champignon qui pousse exclusivement dans la dimension infernale, elle est le premier ingrédient de toutes les potions. Sans elle, l'alchimie est impossible. Quelle est cette plante ?",
+      "question": "Plante rouge ressemblant à un champignon, trouvée naturellement dans les forteresses du Nether, elle est l'ingrédient de base de la grande majorité des potions. Quelle est cette plante ?",
       "answer": "Verrue du Nether (Nether Wart)",
       "category": "Le Nether"
     },
     {
       "id": "mc105",
-      "question": "Mob aquatique hostile généré dans les monuments océaniques, il tire un rayon laser bleu et inflige Fatigue de minage III pendant cinq minutes. Trois spécimens plus grands et plus rares gardent les ailes du monument. De quel mob s'agit-il ?",
-      "answer": "Gardien (Guardian)",
+      "question": "Mob aquatique hostile généré dans les monuments océaniques, il tire un rayon laser et inflige Fatigue de minage III pendant cinq minutes. Trois spécimens gardent les ailes du monument. De quel mob s'agit-il ?",
+      "answer": "Gardien ancien (Elder Guardian)",
       "category": "Mobs"
     },
     {
@@ -658,14 +652,8 @@
       "category": "L'End"
     },
     {
-      "id": "mc111",
-      "question": "Bloc fabriqué avec quatre fils et une planche de bois, il émet un signal de redstone quand un joueur ou un mob marche dessus. Très utilisé dans les pièges, il est quasi invisible une fois posé au sol. Quel est ce bloc ?",
-      "answer": "Plaque de pression",
-      "category": "Redstone"
-    },
-    {
       "id": "mc112",
-      "question": "Bloc musical fabriqué avec huit planches de bois et un lingot de redstone, il joue une note quand on clique dessus. Le bloc situé en dessous détermine l'instrument : bois pour basse, sable pour caisse claire, pierre pour grosse caisse. Quel est ce bloc ?",
+      "question": "Bloc musical fabriqué avec huit planches de bois et de la poudre de redstone, il joue une note quand on clique dessus. Le bloc situé en dessous détermine l'instrument : bois pour basse, sable pour caisse claire, pierre pour grosse caisse. Quel est ce bloc ?",
       "answer": "Bloc musical (Note Block)",
       "category": "Redstone"
     },

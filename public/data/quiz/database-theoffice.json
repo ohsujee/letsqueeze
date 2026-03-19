@@ -89,7 +89,7 @@
     },
     {
       "id": "off015",
-      "question": "Comptable originaire de Cuba, ouvertement gay, il entretient secretement une liaison avec le mari d'une de ses collegues, un senateur de Pennsylvanie. Dans le finale, il se lance lui-meme en politique. Qui est-ce ?",
+      "question": "Comptable d'origine mexicaine, ouvertement gay, il entretient secrètement une liaison avec le mari d'une de ses collègues, un sénateur de Pennsylvanie. Dans le finale, il se lance lui-même en politique. Qui est-ce ?",
       "answer": "Oscar Martinez",
       "category": "Personnages"
     },
@@ -341,7 +341,7 @@
     },
     {
       "id": "off057",
-      "question": "Personnage britannique interpretee par Catherine Tate, elle arrive a Scranton et usurpe le poste de manager en l'absence du titulaire parti en voyage en bateau. Elle finit par rester au bureau dans un role de 'Special Projects Manager'. Qui est-ce ?",
+      "question": "Personnage britannique interprétée par Catherine Tate, elle arrive à Scranton et usurpe le poste de manager en l'absence du titulaire parti en Floride retrouver une collègue. Elle finit par rester au bureau dans un rôle de 'Special Projects Manager'. Qui est-ce ?",
       "answer": "Nellie Bertram",
       "category": "Personnages"
     },
@@ -443,7 +443,7 @@
     },
     {
       "id": "off074",
-      "question": "En saison 3, l'employe le plus vendeur du bureau doit demissionner de son poste de sherif adjoint benevole dans un comte de Pennsylvanie apres avoir aide son patron a tricher a un test de depistage. Dans quel comte etait-il benevole ?",
+      "question": "En saison 2, l'employe le plus vendeur du bureau doit demissionner de son poste de sherif adjoint benevole dans un comte de Pennsylvanie apres avoir aide son patron a tricher a un test de depistage. Dans quel comte etait-il benevole ?",
       "answer": "Lackawanna County",
       "category": "Lieux"
     },
@@ -455,8 +455,8 @@
     },
     {
       "id": "off076",
-      "question": "Le plat signature d'un comptable de Dunder Mifflin, qu'il prepare avec un rituel minutieux la veille et qu'il renverse spectaculairement sur la moquette du bureau dans l'episode 'Casual Friday'. L'ingredient secret est les oignons cuits la veille. Quel est ce plat ?",
-      "answer": "Du chili (chili con carne)",
+      "question": "Le plat signature d'un comptable de Dunder Mifflin, qu'il prépare avec amour au moins une fois par an et qu'il renverse spectaculairement sur la moquette du bureau dans l'épisode 'Casual Friday'. Son secret de préparation est de sous-cuire les oignons. Quel est ce plat ?",
+      "answer": "Du chili (Kevin's Famous Chili)",
       "category": "Running Gags"
     },
     {
@@ -479,7 +479,7 @@
     },
     {
       "id": "off080",
-      "question": "Receptionniste timide et adorable arrivee en saison 5, elle grandit dans une famille d'accueil et developpe une relation avec le manager qui lui succede. Elle suit son petit ami jusqu'aux Bahamas pour le retrouver pendant son voyage en bateau. Qui est-ce ?",
+      "question": "Réceptionniste timide et adorable arrivée en saison 5, elle grandit dans des familles d'accueil et développe une relation avec le manager qui lui succède. C'est ce dernier qui traverse la Floride pour la récupérer lorsqu'elle décide de rester à Tallahassee. Qui est-ce ?",
       "answer": "Erin Hannon",
       "category": "Personnages"
     },
@@ -563,13 +563,13 @@
     },
     {
       "id": "off094",
-      "question": "Dans l'episode de la fete indienne en saison 3, le manager de Scranton profite de la celebration pour faire une demande en mariage desastreuse a sa superieure hierarchique, qui le rejette publiquement. Quelle fete hindoue est celebree dans cet episode ?",
+      "question": "Dans l'épisode de la fête indienne en saison 3, le manager de Scranton profite de la célébration pour faire une demande en mariage désastreuse à sa petite amie, qui le rejette publiquement. Quelle fête hindoue est célébrée dans cet épisode ?",
       "answer": "Diwali",
       "category": "Episodes"
     },
     {
       "id": "off095",
-      "question": "En saison 2, le manager de Scranton promet a un groupe d'ecoliers defavorises de payer leurs frais de scolarite universitaire. Des annees plus tard, il realise qu'il ne peut pas tenir sa promesse et doit leur annoncer la verite dans l'un des episodes les plus genants de la serie. Comment s'appelle cet episode ?",
+      "question": "En saison 6, le manager de Scranton promet a un groupe d'ecoliers defavorises de payer leurs frais de scolarite universitaire. Des annees plus tard, il realise qu'il ne peut pas tenir sa promesse et doit leur annoncer la verite dans l'un des episodes les plus genants de la serie. Comment s'appelle cet episode ?",
       "answer": "Scott's Tots",
       "category": "Episodes"
     },
@@ -605,8 +605,8 @@
     },
     {
       "id": "off101",
-      "question": "Acteur et scenariste americain qui joue l'interimiaire devenu VP puis redevenu interimiaire dans la serie, il est aussi producteur executif du show. Il a egalement cree la serie The Mindy Project. Qui est cet acteur-scenariste ?",
-      "answer": "B.J. Novak",
+      "question": "Actrice et scénariste américaine d'origine indienne, elle joue Kelly Kapoor dans The Office et en est aussi scénariste et productrice exécutive. Elle a également créé la série The Mindy Project. Qui est cette actrice-scénariste ?",
+      "answer": "Mindy Kaling",
       "category": "Personnages"
     },
     {
@@ -629,8 +629,8 @@
     },
     {
       "id": "off105",
-      "question": "Le meilleur vendeur de la branche de Scranton conduit une voiture de sport emblematique qu'il considere comme son bien le plus precieux avec sa ferme. Souvent garee sur le parking de Dunder Mifflin, cette Pontiac Trans Am est d'une couleur bien reconnaissable. De quelle couleur est cette voiture ?",
-      "answer": "Jaune moutarde",
+      "question": "Le meilleur vendeur de la branche de Scranton conduit une voiture de sport emblématique qu'il considère comme son bien le plus précieux avec sa ferme. Souvent garée sur le parking de Dunder Mifflin, cette Pontiac Trans Am est d'une couleur bien reconnaissable. De quelle couleur est cette voiture ?",
+      "answer": "Bordeaux (maroon)",
       "category": "Personnages"
     },
     {

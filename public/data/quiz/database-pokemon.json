@@ -155,7 +155,7 @@
     },
     {
       "id": "pkm026",
-      "question": "Ce Pokémon fabuleux de type Psy et Plante peut voyager dans le temps. Gardien de la forêt de Bois-aux-Chênes à Johto, il apparaît dans le deuxième film. Quel est ce Pokémon ?",
+      "question": "Ce Pokémon fabuleux de type Psy et Plante peut voyager dans le temps. Gardien de la forêt de Bois-aux-Chênes à Johto, il apparaît dans le quatrième film. Quel est ce Pokémon ?",
       "answer": "Celebi",
       "category": "Légendaires"
     },
@@ -188,12 +188,6 @@
       "question": "Ce Pokémon de type Eau est un léviathan qui peut provoquer des tempêtes et élever le niveau des mers. Mascotte de Pokémon Saphir, il est en conflit permanent avec la créature des continents. Quel est ce Pokémon ?",
       "answer": "Kyogre",
       "category": "Légendaires"
-    },
-    {
-      "id": "pkm032",
-      "question": "Ce starter de type Feu de Hoenn est un petit poussin qui évolue en un puissant combattant martial bipède. Son évolution finale est de type Feu et Combat, et fut le premier Pokémon à recevoir une Méga-Évolution. Quel est ce Pokémon de départ ?",
-      "answer": "Poussifeu (Torchic)",
-      "category": "Starters"
     },
     {
       "id": "pkm033",
@@ -335,7 +329,7 @@
     },
     {
       "id": "pkm056",
-      "question": "Ce Pokémon légendaire de type Fée et Acier brandit une épée dans sa gueule et est la mascotte de Pokémon Épée. Protecteur de Galar aux côtés de son partenaire au bouclier, il prend une forme spéciale grâce aux Herbes du Changement. Quel est ce Pokémon ?",
+      "question": "Ce Pokémon légendaire de type Fée et Acier brandit une épée dans sa gueule et est la mascotte de Pokémon Épée. Protecteur de Galar aux côtés de son partenaire au bouclier, il prend sa forme Épée Suprême grâce à l'Épée Rouillée. Quel est ce Pokémon ?",
       "answer": "Zacian",
       "category": "Légendaires"
     },
@@ -371,13 +365,13 @@
     },
     {
       "id": "pkm062",
-      "question": "Ce starter de type Feu de Paldea est un petit crocodile pimenté qui adore manger. Son évolution finale, de type Feu et Spectre, est un imposant chanteur de flamenco inspiré de la culture espagnole. Quel est ce Pokémon de départ ?",
+      "question": "Ce starter de type Feu de Paldea est un petit crocodile pimenté qui adore manger. Son évolution finale, de type Feu et Spectre, est un imposant chanteur inspiré du mariachi et du Día de los Muertos mexicain. Quel est ce Pokémon de départ ?",
       "answer": "Chochodile (Fuecoco)",
       "category": "Starters"
     },
     {
       "id": "pkm063",
-      "question": "Ce Pokémon de type Eau et Vol ressemble à un plongeur de transport marin au long cou. Dans les premiers jeux, il était offert dans la Tour Pokémon de Lavanville et servait de moyen de locomotion sur l'eau. Quel est ce Pokémon ?",
+      "question": "Ce Pokémon de type Eau et Glace ressemble à un plésiosaure au long cou. Dans les premiers jeux, il était offert par un employé de la Sylphe SARL après avoir chassé la Team Rocket, et servait de moyen de locomotion sur l'eau grâce à la CS Surf. Quel est ce Pokémon ?",
       "answer": "Lokhlass (Lapras)",
       "category": "Pokémon"
     },
@@ -503,7 +497,7 @@
     },
     {
       "id": "pkm084",
-      "question": "Ce titan colossal de type Normal a créé les trois golems de Hoenn. Endormi dans le Temple de Floraville à Sinnoh, il ne peut être réveillé qu'en amenant ses trois créations devant lui. Quel est ce Pokémon ?",
+      "question": "Ce titan colossal de type Normal a créé les trois golems de Hoenn. Endormi dans le Temple de Frimapic à Sinnoh, il ne peut être réveillé qu'en amenant ses trois créations devant lui. Quel est ce Pokémon ?",
       "answer": "Regigigas",
       "category": "Légendaires"
     },
@@ -516,7 +510,7 @@
     {
       "id": "pkm086",
       "question": "Ce Pokémon de type Psy a la particularité de posséder un pendule qu'il balance constamment pour hypnotiser ses adversaires. Reconnaissable à son museau pointu, il est l'un des premiers Pokémon Psy rencontrés à Kanto. Quel est ce Pokémon ?",
-      "answer": "Soporifik (Drowzee)",
+      "answer": "Hypnomade (Hypno)",
       "category": "Pokémon"
     },
     {
@@ -587,7 +581,7 @@
     },
     {
       "id": "pkm098",
-      "question": "Ce Pokémon de type Électrik et Acier de la deuxième génération est la pré-évolution du rongeur jaune le plus célèbre de la franchise. Petit et mignon, il évolue par bonheur. Quel est ce Pokémon ?",
+      "question": "Ce Pokémon de type Électrik de la deuxième génération est la pré-évolution du rongeur jaune le plus célèbre de la franchise. Petit et mignon, il évolue par bonheur. Quel est ce Pokémon ?",
       "answer": "Pichu",
       "category": "Évolutions"
     },
@@ -599,7 +593,7 @@
     },
     {
       "id": "pkm100",
-      "question": "Ce Pokémon de type Insecte et Acier est l'un des plus petits légendaires. Originaire de Kalos, il peut prendre trois formes différentes : 10%, 50% et parfaite, selon le nombre de cellules qu'il a rassemblées. Quel est ce Pokémon ?",
+      "question": "Ce Pokémon de type Dragon et Sol est l'un des légendaires de Kalos. Il peut prendre trois formes différentes : 10%, 50% et parfaite, selon le nombre de cellules qu'il a rassemblées. Quel est ce Pokémon ?",
       "answer": "Zygarde",
       "category": "Légendaires"
     },
@@ -617,7 +611,7 @@
     },
     {
       "id": "pkm103",
-      "question": "Ce Pokémon fabuleux de type Feu et Acier est le créateur volcanique de la mythologie de Sinnoh. Il aurait forgé les trois gardiens des lacs dans sa fournaise. Bien qu'important dans le lore, il n'est disponible que par événement. Quel est ce Pokémon ?",
+      "question": "Ce Pokémon légendaire de type Feu et Acier vit dans les profondeurs volcaniques de la région de Sinnoh. Son corps est fait d'acier en fusion et il réside dans la Montagne Abrupte. C'est le seul Pokémon à posséder cette combinaison de types. Quel est ce Pokémon ?",
       "answer": "Heatran",
       "category": "Légendaires"
     },
@@ -671,25 +665,25 @@
     },
     {
       "id": "pkm112",
-      "question": "Ce Pokémon de type Plante et Poison de Kanto porte le numéro 001 dans le Pokédex national. Reconnaissable au bulbe sur son dos, c'est le tout premier Pokémon du Pokédex et l'un des trois starters originaux. Quel est ce Pokémon ?",
+      "question": "Ce Pokémon de type Plante et Poison de Kanto porte le numéro 001 dans le Pokédex national. Reconnaissable à l'étrange graine qu'il porte sur son dos depuis sa naissance, c'est le tout premier Pokémon du Pokédex et l'un des trois starters originaux. Quel est ce Pokémon ?",
       "answer": "Bulbizarre (Bulbasaur)",
       "category": "Starters"
     },
     {
       "id": "pkm113",
       "question": "Cette forme spéciale de Dynamax, exclusive à certains Pokémon de Galar, modifie leur apparence et leur donne accès à une capacité unique. Le dragon cracheur de feu de Kanto possède l'une des formes les plus populaires. De quoi s'agit-il ?",
-      "answer": "Le Gigamax",
+      "answer": "Gigamax",
       "category": "Combats"
     },
     {
       "id": "pkm114",
-      "question": "Ce starter de type Eau de Kanto est une petite tortue bleue à carapace marron. Joyeuse et fidèle, elle évolue en un intermédiaire à longues oreilles puis en un blindé aquatique armé de canons. Quel est ce Pokémon de départ ?",
+      "question": "Ce starter de type Eau de Kanto est une petite tortue bleue au sourire malicieux. Joyeuse et fidèle, elle évolue en un intermédiaire à longues oreilles puis en un blindé aquatique armé de canons. Quel est ce Pokémon de départ ?",
       "answer": "Carapuce (Squirtle)",
       "category": "Starters"
     },
     {
       "id": "pkm115",
-      "question": "Ce starter de type Feu de Kanto est une petite salamandre dont la flamme au bout de la queue reflète son état de santé. Premier Pokémon choisi par de nombreux joueurs en 1996, il porte le numéro 004 du Pokédex. Quel est ce Pokémon de départ ?",
+      "question": "Ce starter de type Feu de Kanto est un petit lézard orange dont la flamme au bout de la queue reflète son état de santé. Premier Pokémon choisi par de nombreux joueurs en 1996, il porte le numéro 004 du Pokédex. Quel est ce Pokémon de départ ?",
       "answer": "Salamèche (Charmander)",
       "category": "Starters"
     }

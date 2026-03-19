@@ -208,22 +208,10 @@
       "category": "Production"
     },
     {
-      "id": "sqg035",
-      "question": "La mère du protagoniste souffre d'une maladie chronique qui s'aggrave tout au long de la saison 1, au point de risquer une amputation. Son fils n'a plus les moyens de payer son assurance ni ses soins. De quelle maladie souffre-t-elle ?",
-      "answer": "Le diabète",
-      "category": "Saison 1"
-    },
-    {
       "id": "sqg036",
       "question": "Avant de participer aux jeux, Cho Sang-woo était un financier brillant qui a détourné l'argent de ses clients pour investir dans des produits financiers à haut risque. Il a utilisé la maison et le commerce de sa mère comme garantie pour ses opérations illégales. Dans quel type de produits financiers avait-il investi ?",
       "answer": "Les produits dérivés (dérivés et options sur contrats à terme)",
       "category": "Personnages"
-    },
-    {
-      "id": "sqg037",
-      "question": "Lors de la nuit sanglante dans le dortoir de la saison 1, les joueurs s'entretuent dans le noir pour réduire le nombre de concurrents et augmenter la cagnotte. Mais le joueur 001 crie aux gardes d'intervenir, et le carnage s'arrête. Pourquoi les gardes obéissent-ils au vieil homme ?",
-      "answer": "Parce qu'il est le créateur et organisateur des jeux",
-      "category": "Saison 1"
     },
     {
       "id": "sqg038",
@@ -236,12 +224,6 @@
       "question": "Après la survie du premier jeu, les participants votent pour arrêter la compétition et rentrent chez eux. Mais écrasés par leurs dettes, la grande majorité d'entre eux accepte de revenir jouer. Quel pourcentage approximatif des survivants revient aux jeux ?",
       "answer": "Environ 93% (187 sur 201 survivants)",
       "category": "Saison 1"
-    },
-    {
-      "id": "sqg040",
-      "question": "Les escaliers labyrinthiques et colorés empruntés par les joueurs entre les épreuves sont inspirés de l'oeuvre d'un artiste néerlandais célèbre pour ses gravures de perspectives impossibles et d'escaliers infinis. Quel est cet artiste ?",
-      "answer": "M.C. Escher (Maurits Cornelis Escher)",
-      "category": "Production"
     },
     {
       "id": "sqg041",
@@ -365,7 +347,7 @@
     },
     {
       "id": "sqg062",
-      "question": "Le troisième jeu de la saison 2 est une course en équipes de cinq joueurs attachés ensemble. Ils doivent compléter cinq mini-jeux traditionnels coréens à chaque étape de la course. Comment s'appelle cette épreuve combinée ?",
+      "question": "Le deuxième jeu de la saison 2 est une course en équipes de cinq joueurs attachés ensemble. Ils doivent compléter cinq mini-jeux traditionnels coréens à chaque étape de la course. Comment s'appelle cette épreuve combinée ?",
       "answer": "Le pentathlon à six jambes (Six-Legged Pentathlon)",
       "category": "Jeux"
     },
@@ -391,12 +373,6 @@
       "id": "sqg066",
       "question": "Le Hwang Dong-hyuk a écrit le scénario original sous forme de film en 2009, mais aucun studio coréen n'a voulu le produire car l'histoire était jugée trop violente et irréaliste. Il a même dû vendre son ordinateur portable pour se nourrir. Combien d'années a-t-il attendu avant de voir sa série produite ?",
       "answer": "Environ 10 ans (plus d'une décennie)",
-      "category": "Production"
-    },
-    {
-      "id": "sqg067",
-      "question": "La première saison de la série est constituée d'épisodes dont la durée varie entre 32 et 63 minutes. La saison a été diffusée intégralement le jour de son lancement. Combien d'épisodes comporte la saison 1 ?",
-      "answer": "9 épisodes",
       "category": "Production"
     },
     {
@@ -485,7 +461,7 @@
     },
     {
       "id": "sqg083",
-      "question": "L'acteur qui interprète le policier Hwang Jun-ho est devenu une star internationale après la série. Il a ensuite joué dans le drama romantique The Worst of Evil. Son personnage survit à sa chute de la falaise dans la saison 1 et revient dans la saison 2. Qui est cet acteur ?",
+      "question": "L'acteur qui interprète le policier Hwang Jun-ho est devenu une star internationale après la série. Il a ensuite joué dans le thriller noir The Worst of Evil sur Disney+. Son personnage survit à sa chute de la falaise dans la saison 1 et revient dans la saison 2. Qui est cet acteur ?",
       "answer": "Wi Ha-joon (Wi Ha-jun)",
       "category": "Production"
     },
@@ -532,12 +508,6 @@
       "category": "Organisation"
     },
     {
-      "id": "sqg092",
-      "question": "L'un des VIPs importune sexuellement le policier infiltré Jun-ho, qui se fait passer pour un serveur masqué dans la salle des VIPs. Cette scène permet à Jun-ho d'accéder aux zones interdites et de découvrir l'ampleur de l'organisation. Dans quelle pièce exclusive Jun-ho se retrouve-t-il piégé avec ce VIP ?",
-      "answer": "La salle des VIPs (le salon VIP)",
-      "category": "Saison 1"
-    },
-    {
       "id": "sqg093",
       "question": "Le jeu principal de la série, qui donne son nom au show, est un jeu de cour de récréation coréen traditionnel. Le terrain est tracé au sol à la craie et sa forme géométrique ressemble à un céphalopode marin. L'attaquant doit atteindre la tête en partant de la queue. À quel animal ce dessin au sol ressemble-t-il ?",
       "answer": "Un calamar (une seiche / un poulpe)",
@@ -554,12 +524,6 @@
       "question": "Dans la saison 2, une jeune femme enceinte participe aux jeux. Elle porte le numéro 222 et accouche pendant l'une des épreuves, protégée par Hyun-ju et Geum-ja. La naissance de son bébé est un moment de lumière dans l'horreur des jeux. Qui est cette joueuse ?",
       "answer": "Jun-hee (Kim Jun-hee)",
       "category": "Saison 2"
-    },
-    {
-      "id": "sqg096",
-      "question": "Dans la saison 1, les joueurs qui reviennent après le vote reçoivent un rappel glaçant des règles. L'organisation affiche trois principes fondamentaux sur les murs du dortoir, dont un principe d'équité fondamental. Quel est ce principe central affiché sur les murs ?",
-      "answer": "Tous les joueurs sont égaux pendant les jeux",
-      "category": "Organisation"
     },
     {
       "id": "sqg097",
@@ -635,20 +599,14 @@
     },
     {
       "id": "sqg110",
-      "question": "Le dalgona que Gi-hun doit découper en forme de parapluie semble impossible à réussir. Mais il observe un joueur à côté de lui utiliser une technique ingénieuse avec sa bouche pour ramollir le sucre par derrière. Il adopte cette méthode et réussit de justesse. Quel geste sauve Gi-hun lors de cette épreuve ?",
+      "question": "Le dalgona que Gi-hun doit découper en forme de parapluie semble impossible à réussir. Mais en remarquant que sa propre sueur fait fondre le sucre, il a une idée de génie : utiliser sa salive pour ramollir le biscuit par derrière. Les autres joueurs, stupéfaits, imitent alors sa méthode. Quel geste sauve Gi-hun lors de cette épreuve ?",
       "answer": "Lécher le dos du biscuit (utiliser sa salive pour ramollir le sucre)",
       "category": "Saison 1"
     },
     {
-      "id": "sqg111",
-      "question": "Dans la saison 2, le vote final après le troisième jeu aboutit à un résultat parfaitement partagé entre les joueurs voulant continuer et ceux voulant partir. C'est le Front Man infiltré comme joueur 001 qui, par son vote stratégique, influence le résultat. Quel est le résultat de ce dernier vote dans la saison 2 ?",
-      "answer": "Égalité (50-50 / match nul)",
-      "category": "Saison 2"
-    },
-    {
       "id": "sqg113",
-      "question": "La mort de la mère de Gi-hun survient pendant qu'il est piégé dans les jeux. Quand il rentre chez lui après le vote d'arrêt, il découvre qu'elle est décédée seule chez elle de complications liées à sa maladie. Cette perte renforce sa détermination à retourner aux jeux. Quand Gi-hun apprend-il la mort de sa mère ?",
-      "answer": "Quand il rentre chez lui après le vote d'arrêt des jeux",
+      "question": "Gi-hun découvre la mort de sa mère dans des circonstances tragiques. Quand il rentre chez lui après avoir remporté les jeux, il trouve sa mère décédée seule de complications liées à son diabète. Quand Gi-hun apprend-il la mort de sa mère ?",
+      "answer": "Quand il rentre chez lui après avoir gagné les jeux (épisode 9)",
       "category": "Morts"
     },
     {

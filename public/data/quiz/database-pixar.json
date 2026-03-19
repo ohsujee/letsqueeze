@@ -485,7 +485,7 @@
     },
     {
       "id": "pxr081",
-      "question": "Balle jaune ornée d'une étoile bleue et d'une bande rouge, elle apparaît pour la première fois dans un court-métrage de lampes de bureau de 1986 et fait un caméo dans presque chaque film du studio depuis. Quel est cet objet ?",
+      "question": "Balle jaune ornée d'une étoile rouge et d'une bande bleue, elle apparaît pour la première fois dans un court-métrage de lampes de bureau de 1986 et fait un caméo dans presque chaque film du studio depuis. Quel est cet objet ?",
       "answer": "La balle Luxo (Luxo Ball)",
       "category": "Easter Eggs"
     },
@@ -515,13 +515,13 @@
     },
     {
       "id": "pxr086",
-      "question": "Compositeur américain ayant signé la musique de neuf films du studio, dont toute la saga des jouets, le film de monstres et les trois films automobiles, il est aussi connu pour la chanson 'You've Got a Friend in Me'. Qui est-il ?",
+      "question": "Compositeur américain ayant signé la musique de neuf films du studio, dont toute la saga des jouets, les deux films de monstres, un film d'insectes et deux des trois films automobiles, il est aussi connu pour la chanson 'You've Got a Friend in Me'. Qui est-il ?",
       "answer": "Randy Newman",
       "category": "Musique"
     },
     {
       "id": "pxr087",
-      "question": "Compositeur américain oscarisé pour la musique d'un film de ballons en 2009, il a aussi signé les bandes originales du film de super-héros, du film d'émotions et du film de jazz du studio. Il compose aussi pour la saga Jurassic World. Qui est-il ?",
+      "question": "Compositeur américain oscarisé pour la musique d'un film de ballons en 2009, il a aussi signé les bandes originales du film de super-héros, du film d'émotions et du film de cuisine du studio. Il compose aussi pour la saga Jurassic World. Qui est-il ?",
       "answer": "Michael Giacchino",
       "category": "Musique"
     },
@@ -623,31 +623,31 @@
     },
     {
       "id": "pxr108",
-      "question": "Dans un film de 2001, la petite fille humaine qui s'introduit dans le monde des monstres ne dit qu'un seul vrai mot compréhensible tout au long du film, qu'elle utilise comme surnom pour le grand monstre bleu. Quel est ce mot ?",
+      "question": "Dans Monstres et Cie (2001), quel surnom la petite Bouh donne-t-elle au grand monstre bleu Sulli, car elle le prend pour un gros chat ?",
       "answer": "Kitty (Minou)",
       "category": "Films"
     },
     {
       "id": "pxr109",
-      "question": "Dans un film de rat cuisinier de 2007, le restaurant fictif où se déroule l'action porte le nom du chef fantôme qui inspire le héros. Le vrai nom du jeune commis humain qui sert de marionnette au rat signifie 'petite pâte' en italien. Qui est ce commis ?",
+      "question": "Dans un film de rat cuisinier de 2007, le restaurant fictif où se déroule l'action porte le nom du chef fantôme qui inspire le héros. Le nom de famille du jeune commis humain qui sert de marionnette au rat est aussi celui d'un type de pâtes italiennes signifiant 'petites langues'. Qui est ce commis ?",
       "answer": "Alfredo Linguini",
       "category": "Personnages"
     },
     {
       "id": "pxr110",
       "question": "Monstre violet caméléon capable de se rendre invisible, il est le rival du héros bleu dans l'usine de monstres et complote pour aspirer les cris des enfants avec une machine. Steve Buscemi lui prête sa voix en VO. Qui est-il ?",
-      "answer": "Randall Boggs (Léon Bogue)",
+      "answer": "Randall Boggs (Randall Bogue)",
       "category": "Personnages"
     },
     {
       "id": "pxr111",
-      "question": "Court-métrage de 1984 considéré comme la toute première production de l'équipe qui deviendra le studio, il met en scène deux personnages en images de synthèse dans une forêt. Réalisé par John Lasseter chez Lucasfilm, il a été présenté au SIGGRAPH. Quel est son titre ?",
+      "question": "Court-métrage de 1984 considéré comme la toute première production de l'équipe qui deviendra le studio, il met en scène deux personnages en images de synthèse dans une forêt. Réalisé par Alvy Ray Smith chez Lucasfilm, avec l'animation de John Lasseter, il a été présenté au SIGGRAPH. Quel est son titre ?",
       "answer": "The Adventures of André and Wally B.",
       "category": "Courts-métrages"
     },
     {
       "id": "pxr112",
-      "question": "En 2014, un court-métrage de lampes de bureau de 1986 et un court-métrage de jouet en fer-blanc de 1988 ont été sélectionnés pour préservation au National Film Registry de la Bibliothèque du Congrès américain. Pour quelle raison officielle les films sont-ils sélectionnés ?",
+      "question": "En 2014, un court-métrage d'animation mettant en scène des lampes de bureau, réalisé par Pixar en 1986, a été sélectionné pour préservation au National Film Registry de la Bibliothèque du Congrès américain. Pour quelle raison officielle les films sont-ils sélectionnés ?",
       "answer": "Culturellement, historiquement ou esthétiquement significatifs",
       "category": "Récompenses"
     },

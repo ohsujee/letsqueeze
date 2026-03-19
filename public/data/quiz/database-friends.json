@@ -131,7 +131,7 @@
     },
     {
       "id": "friends-022",
-      "question": "Dans l'épisode 'The One Where Ross Meets Elizabeth's Dad', cet acteur joue Paul Stevens, le père surprotecteur de la petite amie de Ross. Il a gagné un Emmy pour ce rôle et a accepté de jouer gratuitement après avoir perdu un pari avec Matthew Perry. Qui est-ce ?",
+      "question": "Dans l'épisode 'The One Where Ross Meets Elizabeth's Dad', cet acteur joue Paul Stevens, le père surprotecteur de la petite amie de Ross. Il a gagné un Emmy pour ce rôle et a accepté de jouer après avoir perdu un pari avec Matthew Perry, reversant son cachet à des œuvres caritatives. Qui est-ce ?",
       "answer": "Bruce Willis",
       "category": "Friends"
     },
@@ -221,7 +221,7 @@
     },
     {
       "id": "friends-037",
-      "question": "Pendant le même quiz, on découvre le film préféré de Rachel, qu'elle prétend être 'Autant en emporte le vent'. Quel est en réalité son film préféré, une comédie avec un cadavre ?",
+      "question": "Pendant le quiz de l'épisode 'The One with the Embryos', Rachel prétend que son film préféré est 'Les Liaisons dangereuses'. Quel est en réalité son film préféré, une comédie avec un cadavre ?",
       "answer": "Weekend at Bernie's (VF: Week-end chez Bernie)",
       "category": "Friends"
     },
@@ -401,8 +401,8 @@
     },
     {
       "id": "friends-067",
-      "question": "Dans l'épisode 'The One with George Stephanopoulos', Joey compte le nombre de marches entre son appartement et celui de Monica. Combien y en a-t-il ?",
-      "answer": "97 marches",
+      "question": "Dans l'épisode 'The One with George Stephanopoulos', Joey compte le nombre de pas entre son appartement et Central Perk. Combien y en a-t-il ?",
+      "answer": "97 pas",
       "category": "Friends"
     },
     {
@@ -413,8 +413,8 @@
     },
     {
       "id": "friends-069",
-      "question": "Joey refuse de partager sa nourriture, même avec ses petites amies. Il crie cette réplique célèbre quand Phoebe le questionne sur pourquoi il ne veut plus revoir une fille qui a pris une frite dans son assiette. Quelle est cette phrase ?",
-      "answer": "Joey doesn't share food! (VF: Joey ne partage pas sa nourriture !)",
+      "question": "Joey ne supporte pas qu'on touche à sa nourriture. Après un rendez-vous désastreux organisé par Phoebe, où sa date prend des frites dans son assiette puis tente de manger son plateau de fruits de mer, Joey prononce sa réplique la plus célèbre. Quelle est cette phrase ?",
+      "answer": "Joey doesn't share food! (VF : Joey ne partage pas sa nourriture !)",
       "category": "Friends"
     },
     {
@@ -445,12 +445,6 @@
       "id": "friends-074",
       "question": "Parmi les six acteurs principaux, c'est Lisa Kudrow qui était la plus âgée au début de la série. Elle avait créé son personnage d'Ursula dans une autre sitcom avant Friends. Laquelle ?",
       "answer": "Mad About You",
-      "category": "Friends"
-    },
-    {
-      "id": "friends-075",
-      "question": "Après la mort de son personnage dans 'Des Jours et des Vies', Joey apparaît dans un film avec un acteur d'arts martiaux belge. Marcel le singe joue aussi dans ce film. Quel acteur est-ce ?",
-      "answer": "Jean-Claude Van Damme",
       "category": "Friends"
     },
     {
@@ -491,14 +485,8 @@
     },
     {
       "id": "friends-082",
-      "question": "Ross travaille comme paléontologue dans un célèbre musée de New York. Il y donne des conférences sur les dinosaures et y rencontre plusieurs de ses petites amies. Comment s'appelle ce musée ?",
-      "answer": "Le Museum d'Histoire Naturelle de New York",
-      "category": "Friends"
-    },
-    {
-      "id": "friends-083",
-      "question": "Dans la réunion de 2021 sur HBO Max, Lisa Kudrow a chanté 'Smelly Cat' avec une célèbre chanteuse pop. Cette artiste a ensuite repris la chanson dans ses concerts. Qui est-ce ?",
-      "answer": "Lady Gaga",
+      "question": "Ross travaille comme paléontologue dans un musée fictif de New York. Il y donne des conférences sur les dinosaures et y rencontre plusieurs de ses petites amies. Comment s'appelle ce musée ?",
+      "answer": "Le Museum of Prehistoric History (Musée de Préhistoire)",
       "category": "Friends"
     },
     {
@@ -533,7 +521,7 @@
     },
     {
       "id": "friends-089",
-      "question": "Sean Penn apparaît dans deux épisodes en tant que petit ami de Phoebe. Ce personnage est le frère jumeau d'une femme qui a refusé de sortir avec Joey. Comment s'appelle-t-il ?",
+      "question": "Sean Penn apparaît dans deux épisodes en tant que petit ami de Phoebe. Ce personnage était le fiancé de la sœur jumelle de Phoebe, une femme que Joey avait également fréquentée. Comment s'appelle-t-il ?",
       "answer": "Eric",
       "category": "Friends"
     },

@@ -179,7 +179,7 @@
     },
     {
       "id": "pb030",
-      "question": "Le directeur de Fox River construit un modèle réduit d'un célèbre monument indien en marbre blanc pour les noces d'or de sa femme. Il demande l'aide d'un détenu ingénieur pour stabiliser la structure. Quel monument est-ce ?",
+      "question": "Le directeur de Fox River construit un modèle réduit d'un célèbre monument indien en marbre blanc pour les noces de rubis de sa femme. Il demande l'aide d'un détenu ingénieur pour stabiliser la structure. Quel monument est-ce ?",
       "answer": "Le Taj Mahal",
       "category": "Fox River"
     },
@@ -539,7 +539,7 @@
     },
     {
       "id": "pb094",
-      "question": "Dans la saison 2, la vice-présidente Reynolds est contrainte d'accorder un pardon présidentiel aux frères après que le héros la fait chanter avec un enregistrement compromettant. Cet enregistrement suggère une relation incestueuse entre elle et son frère. Quel type de document légal le héros obtient-il ?",
+      "question": "Dans la saison 2, la vice-présidente Reynolds est contrainte par le héros qui la fait chanter avec un enregistrement compromettant suggérant une relation incestueuse avec son frère. Que demande le héros en échange de son silence ?",
       "answer": "Un pardon présidentiel (presidential pardon)",
       "category": "Plans"
     },
@@ -551,8 +551,8 @@
     },
     {
       "id": "pb096",
-      "question": "Dans la série, un système de combat rituel est utilisé à Sona pour régler les différends entre détenus. Les combats se déroulent dans une arène improvisée sous les acclamations des prisonniers, et sont souvent mortels. Quel est le nom de ce système de combat ?",
-      "answer": "Les combats de Sona (fights)",
+      "question": "Dans la série, un système de combat rituel est utilisé à Sona pour régler les différends entre détenus. Un objet est remis à un détenu pour le défier, et le combat se déroule à mains nues jusqu'à la mort sous la supervision de Lechero. Quel est le nom de ce rituel ?",
+      "answer": "Le Chicken Foot",
       "category": "Lieux"
     },
     {
@@ -626,12 +626,6 @@
       "question": "Scylla tire son nom d'un monstre de la mythologie grecque. Ce monstre terrifiant possède plusieurs têtes et vit d'un côté d'un détroit étroit, le nombre de ses têtes correspondant exactement au nombre de cartes composant l'appareil dans la série. Combien de têtes possède ce monstre mythologique ?",
       "answer": "6 (six)",
       "category": "The Company"
-    },
-    {
-      "id": "pb109",
-      "question": "Dans la saison 1, l'évasion est rendue possible grâce à la connaissance précise de la structure de la prison. Le héros a eu accès aux plans architecturaux originaux de l'établissement grâce à son emploi dans un cabinet d'architectes qui avait travaillé sur la construction de Fox River. Quel type de plans a-t-il tatoué sur son corps ?",
-      "answer": "Les plans architecturaux (blueprints) de la prison",
-      "category": "Tatouage"
     },
     {
       "id": "pb110",

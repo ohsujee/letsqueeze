@@ -47,7 +47,7 @@
     },
     {
       "id": "rus008",
-      "question": "En 1987, un duo compose d'un DJ de Houston et d'un MC de Long Island sort Paid in Full, considere par MTV comme le plus grand album hip-hop de tous les temps. Le rappeur du duo est souvent cite comme le plus grand lyriciste de l'histoire. Quel est ce duo ?",
+      "question": "En 1987, un duo composé d'un DJ de Queens et d'un MC de Long Island sort Paid in Full, considéré par MTV comme le plus grand album hip-hop de tous les temps. Le rappeur du duo est souvent cité comme le plus grand lyriciste de l'histoire. Quel est ce duo ?",
       "answer": "Eric B. & Rakim",
       "category": "Golden Age"
     },
@@ -83,7 +83,7 @@
     },
     {
       "id": "rus014",
-      "question": "Ce rappeur de Queensbridge a sorti en 1994 un album debut produit par DJ Premier et Pete Rock qui est devenu la pierre angulaire du rap East Coast. Son nom est inspire d'un roi du Zulu. Qui est cet artiste ?",
+      "question": "Ce rappeur de Queensbridge a sorti en 1994 un album debut produit par DJ Premier et Pete Rock qui est devenu la pierre angulaire du rap East Coast. Son prénom, d'origine arabe, signifie 'celui qui aide'. Qui est cet artiste ?",
       "answer": "Nas",
       "category": "Artistes"
     },
@@ -365,7 +365,7 @@
     },
     {
       "id": "rus061",
-      "question": "En 2020, un rappeur californien de 29 ans remporte le Grammy du meilleur album rap pour IGOR, un album experimental melant synth-pop et neo-soul. Il critique ensuite les Grammy pour avoir automatiquement classe son projet dans la categorie rap a cause de sa couleur de peau. Qui est-ce ?",
+      "question": "En 2020, un rappeur californien de 28 ans remporte le Grammy du meilleur album rap pour IGOR, un album expérimental mêlant synth-pop et neo-soul. Il critique ensuite les Grammy pour avoir automatiquement classé son projet dans la catégorie rap à cause de sa couleur de peau. Qui est-ce ?",
       "answer": "Tyler, the Creator",
       "category": "Modern"
     },
@@ -401,8 +401,8 @@
     },
     {
       "id": "rus070",
-      "question": "En 1996, un rappeur signe chez Death Row apres que le patron du label ait paye sa caution de 1,4 million de dollars pour le faire sortir de prison. 7 mois plus tard, il est assassine dans un drive-by a Las Vegas. De quelle ville etait originaire ce rappeur ?",
-      "answer": "Harlem",
+      "question": "En 1996, un rappeur signe chez Death Row après que le patron du label ait payé sa caution de 1,4 million de dollars pour le faire sortir de prison. 7 mois plus tard, il est assassiné dans un drive-by à Las Vegas. Dans quel quartier de New York ce rappeur est-il né ?",
+      "answer": "East Harlem (New York)",
       "category": "Culture hip-hop"
     },
     {
@@ -434,12 +434,6 @@
       "question": "En 2010, cette rappeuse originaire de Trinidad et Tobago sort son premier album Pink Friday, realisant la plus grosse semaine de ventes pour un album de rappeuse au 21e siecle. Elle deviendra la rappeuse aux plus gros records Billboard de l'histoire. Qui est-ce ?",
       "answer": "Nicki Minaj",
       "category": "Artistes"
-    },
-    {
-      "id": "rus077",
-      "question": "Ce producteur et membre du Wu-Tang Clan a produit l'integralite de l'album Enter the Wu-Tang (36 Chambers) pour moins de 36 000 dollars. Son style sombre inspire des films de kung-fu a revolutionne la production hip-hop des annees 90. Qui est-ce ?",
-      "answer": "RZA",
-      "category": "Producteurs"
     },
     {
       "id": "rus078",
@@ -515,13 +509,13 @@
     },
     {
       "id": "rus095",
-      "question": "En 2004, un producteur et rappeur d'Atlanta sort son album debut Trap Muzik, qui contribue a definir le sous-genre trap du hip-hop. Son style melant narration de rue et beats lourds deviendra un modele pour toute une generation de rappeurs du Sud. Qui est-ce ?",
+      "question": "En 2003, un producteur et rappeur d'Atlanta sort son deuxième album Trap Muzik, qui contribue a definir le sous-genre trap du hip-hop. Son style melant narration de rue et beats lourds deviendra un modele pour toute une generation de rappeurs du Sud. Qui est-ce ?",
       "answer": "T.I.",
       "category": "Artistes"
     },
     {
       "id": "rus096",
-      "question": "Ce groupe de rap de Long Island, signe chez Def Jam, sort en 1986 Licensed to Ill, le premier album de rap a atteindre la premiere place du Billboard 200. Ils sont egalement les premiers rappeurs blancs a connaitre un succes commercial massif. Quel est ce groupe ?",
+      "question": "Ce groupe de rap de New York, signé chez Def Jam, sort en 1986 Licensed to Ill, le premier album de rap à atteindre la première place du Billboard 200. Ils sont également les premiers rappeurs blancs à connaître un succès commercial massif. Quel est ce groupe ?",
       "answer": "Beastie Boys",
       "category": "Old School"
     },
@@ -544,12 +538,6 @@
       "category": "Artistes"
     },
     {
-      "id": "rus100",
-      "question": "Ce rappeur et producteur de Virginie, membre du duo Neptunes et du groupe N.E.R.D, sort le mega-tube Happy en 2013 qui passe 25 semaines dans le top 10 du Hot 100. Il est egalement connu pour son chapeau Vivienne Westwood iconique. Qui est-ce ?",
-      "answer": "Pharrell Williams",
-      "category": "Producteurs"
-    },
-    {
       "id": "rus101",
       "question": "En 2012, un rappeur sort un album concept decrivant sa jeunesse a Compton comme un court-metrage, avec sa mere qui laisse des messages vocaux entre les morceaux. L'album se termine par une priere. Quel est cet album ?",
       "answer": "good kid, m.A.A.d city",
@@ -557,13 +545,13 @@
     },
     {
       "id": "rus103",
-      "question": "Ce label legendaire de la scene Southern, fonde a Atlanta par Jermaine Dupri en 1993, a lance les carrieres de Ludacris, Da Brat et Bow Wow. Son nom evoque l'idee d'un disque jockey exclusif. Quel est ce label ?",
+      "question": "Ce label legendaire de la scene Southern, fonde a Atlanta par Jermaine Dupri en 1993, a lance les carrieres de Kris Kross, Da Brat et Bow Wow. Son nom evoque l'idee d'un disque jockey exclusif. Quel est ce label ?",
       "answer": "So So Def Recordings",
       "category": "Labels"
     },
     {
       "id": "rus104",
-      "question": "En 2017, un rappeur d'Atlanta sort le titre XO Tour Llif3 qui atteint la 7e place du Billboard Hot 100 et definit le son emo-trap melodique. Son style melant Auto-Tune, punk et trap influence une generation entiere. Qui est-ce ?",
+      "question": "En 2017, un rappeur de Philadelphie sort le titre XO Tour Llif3 qui atteint la 7e place du Billboard Hot 100 et definit le son emo-trap melodique. Son style melant Auto-Tune, punk et trap influence une generation entiere. Qui est-ce ?",
       "answer": "Lil Uzi Vert",
       "category": "Modern"
     },
@@ -575,13 +563,13 @@
     },
     {
       "id": "rus106",
-      "question": "Ce rappeur d'Atlanta, ne Dominique Jones, est le plus jeune membre du trio Migos. Il sort son album solo The Last Rocket en 2018 mais decede tragiquement en novembre 2022 a Houston a l'age de 28 ans. Qui est-ce ?",
+      "question": "Ce rappeur d'Atlanta, né Kirshnik Khari Ball, est le plus jeune membre du trio Migos. Il sort son album solo The Last Rocket en 2018 mais décède tragiquement en novembre 2022 à Houston à l'âge de 28 ans. Qui est-ce ?",
       "answer": "Takeoff",
       "category": "Artistes"
     },
     {
       "id": "rus107",
-      "question": "Ce rappeur de Chicago sort le titre Love Sosa en 2012 a seulement 16 ans, lancant le mouvement drill de sa ville. Son style brut et agressif influence des scenes entieres a Londres et New York. Son nom de scene est compose d'un titre honorifique et d'un prenom. Qui est-ce ?",
+      "question": "Ce rappeur de Chicago sort le titre Love Sosa en 2012 a seulement 17 ans, lancant le mouvement drill de sa ville. Son style brut et agressif influence des scenes entieres a Londres et New York. Son nom de scene est compose d'un titre honorifique et d'un prenom. Qui est-ce ?",
       "answer": "Chief Keef",
       "category": "Modern"
     },
@@ -605,19 +593,19 @@
     },
     {
       "id": "rus112",
-      "question": "En 2019, un jeune rappeur du Mississippi sort le titre Old Town Road qui est d'abord retire du classement country de Billboard avant de devenir le plus long numero un de l'histoire du Hot 100 avec 19 semaines. Qui est cet artiste ?",
+      "question": "En 2019, un jeune rappeur du Mississippi sort le titre Old Town Road qui est d'abord retiré du classement country de Billboard avant de devenir le plus long numéro un de l'histoire du Hot 100 avec 19 semaines. Qui est cet artiste ?",
       "answer": "Lil Nas X",
       "category": "Records"
     },
     {
       "id": "rus114",
-      "question": "Ce rappeur et entrepreneur de la cote Ouest, cofondateur de N.W.A et de Ruthless Records, est souvent surnomme le parrain du gangsta rap. Il decede en 1995 a 30 ans des suites du SIDA. Qui est-ce ?",
+      "question": "Ce rappeur et entrepreneur de la côte Ouest, cofondateur de N.W.A et de Ruthless Records, est souvent surnommé le parrain du gangsta rap. Il décède en 1995 à 30 ans des suites du SIDA. Qui est-ce ?",
       "answer": "Eazy-E",
       "category": "Artistes"
     },
     {
       "id": "rus115",
-      "question": "Ce rappeur et producteur de New York, ne Sean Michaels Leonard Anderson, est la moitie du duo Gang Starr avec DJ Premier. Il est connu pour sa voix monotone et son flow jazzy. Il decede en 2010 a 48 ans des suites d'un cancer. Quel est son nom de scene ?",
+      "question": "Ce rappeur et producteur de Boston, né Keith Edward Elam, est la moitié du duo Gang Starr avec DJ Premier. Il est connu pour sa voix monotone et son flow jazzy. Il décède en 2010 à 48 ans des suites d'un cancer. Quel est son nom de scène ?",
       "answer": "Guru",
       "category": "Golden Age"
     }

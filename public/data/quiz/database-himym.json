@@ -95,7 +95,7 @@
     },
     {
       "id": "him016",
-      "question": "Dans la série, après que Ted et Robin se séparent en saison 2, Ted sort un soir et se réveille le lendemain avec une fille inconnue, une cheville foulée, un manteau brûlé et un fruit tropical mystérieux sur sa table de nuit. Quel est ce fruit ?",
+      "question": "Dans la série How I Met Your Mother (saison 1, épisode 10), Ted se réveille après une nuit de beuverie sans aucun souvenir, avec une fille inconnue dans son lit, une cheville foulée, et un fruit mystérieux sur sa table de nuit. Quel est ce fruit ?",
       "answer": "Un ananas (A Pineapple)",
       "category": "Épisodes"
     },
@@ -103,12 +103,6 @@
       "id": "him017",
       "question": "Lors de la première visite d'un restaurant de leur quartier, les amis découvrent un instrument de musique accroché au mur. Ted le vole pour l'offrir à Robin lors de leur premier rendez-vous, et ce même objet réapparaît dans le tout dernier épisode. De quel instrument s'agit-il ?",
       "answer": "Un cor français bleu (Blue French Horn)",
-      "category": "Running Gags"
-    },
-    {
-      "id": "him018",
-      "question": "Symbole récurrent de la série pendant huit saisons, cet accessoire de couleur vive est le seul indice que les spectateurs possèdent sur la future femme de Ted. Tracy le laisse à une fête à la fin de la saison 3. De quel objet s'agit-il ?",
-      "answer": "Le parapluie jaune (Yellow Umbrella)",
       "category": "Running Gags"
     },
     {
@@ -329,7 +323,7 @@
     },
     {
       "id": "him055",
-      "question": "Dans cet épisode de Thanksgiving, le groupe découvre le pari des gifles, la vidéo embarrassante de Robin et sa chanson sur les centres commerciaux. Cet épisode, noté 9.4 sur IMDb, est un des plus populaires de la série. Quel est son titre ?",
+      "question": "Dans cet épisode, le groupe découvre le pari des gifles, la vidéo embarrassante de Robin et sa chanson sur les centres commerciaux. Cet épisode, noté 9.4 sur IMDb, est un des plus populaires de la série. Quel est son titre ?",
       "answer": "Slap Bet",
       "category": "Épisodes"
     },
@@ -508,12 +502,6 @@
       "category": "Personnages"
     },
     {
-      "id": "him086",
-      "question": "Dans la série, Robin possède un total de cinq chiens dans son appartement quand Ted emménage chez elle. Elle finit par les donner car ils sont en réalité des cadeaux de ses ex-petits amis, ce qui dérange Ted. De quelle race sont principalement ses chiens ?",
-      "answer": "Des chiens de différentes races (elle a 5 chiens, pas d'une race unique)",
-      "category": "Personnages"
-    },
-    {
       "id": "him087",
       "question": "Épisode de la saison 1 où Ted embauche une agence matrimoniale en ligne et découvre que sa compatibilité parfaite est en réalité une personne que le système refuse de lui révéler. C'est aussi l'épisode qui introduit la créature hybride dans l'appartement. Quel est le titre de cet épisode ?",
       "answer": "Matchmaker",
@@ -539,7 +527,7 @@
     },
     {
       "id": "him091",
-      "question": "En saison 6, Victoria révèle qu'elle s'est enfuie de son propre mariage avec un autre homme pour retrouver Ted. Ce fiancé allemand s'est lui aussi enfui de la cérémonie de son côté. Quel est le prénom de l'ex-fiancé de Victoria ?",
+      "question": "En saison 8, Victoria révèle qu'elle s'est enfuie de son propre mariage avec un autre homme pour retrouver Ted. Ce fiancé allemand s'est lui aussi enfui de la cérémonie de son côté. Quel est le prénom de l'ex-fiancé de Victoria ?",
       "answer": "Klaus",
       "category": "Relations"
     },
@@ -581,7 +569,7 @@
     },
     {
       "id": "him098",
-      "question": "Quand Barney et Robin commencent à se fréquenter en saison 5, ils découvrent un clip vidéo embarrassant de Robin adolescente que Barney refuse de détruire. Ce clip est celui de la ballade sentimentale où elle pleure sur la plage. Avec quel garçon Robin sortait-elle à l'époque du clip ?",
+      "question": "Dans l'épisode 'Sandcastles in the Sand' (saison 3), Barney découvre un deuxième clip de Robin Sparkles où elle pleure sur la plage. Avec quel garçon Robin sortait-elle à l'époque de ce clip ?",
       "answer": "Simon",
       "category": "Relations"
     },
@@ -610,22 +598,10 @@
       "category": "Épisodes"
     },
     {
-      "id": "him103",
-      "question": "Dans la série, Lily travaille pendant des années comme enseignante dans une école maternelle de New York. Elle rêve de devenir artiste mais a renoncé à cette carrière. Elle finit par obtenir un poste de consultante en art pour un riche collectionneur. Quel diplôme universitaire Lily possède-t-elle dans le domaine artistique ?",
-      "answer": "Un diplôme en Histoire de l'Art (Art History degree)",
-      "category": "Personnages"
-    },
-    {
       "id": "him104",
       "question": "Dans l'épisode Ducky Tie, on découvre que Barney a passé six mois à faire l'aller-retour dans une ville du New Jersey pour apprendre les techniques de cuisine teppanyaki en secret, dans le but de gagner un futur pari. Quelle est cette ville ?",
       "answer": "Hoboken",
       "category": "Épisodes"
-    },
-    {
-      "id": "him105",
-      "question": "Première petite amie sérieuse de Ted dans la série, cette Canadienne est présentée dès l'épisode pilote comme une reporter terrain à New York. Le narrateur révèle immédiatement qu'elle n'est pas la mère de ses enfants. Par quel surnom Ted l'appelle-t-il parfois affectueusement ?",
-      "answer": "Scherbatsky",
-      "category": "Relations"
     },
     {
       "id": "him106",
@@ -653,7 +629,7 @@
     },
     {
       "id": "him110",
-      "question": "En saison 4, Barney brûle son Playbook devant ses amis après une rupture douloureuse avec Shannon, mais il est révélé plus tard qu'il en possède une copie de sauvegarde. L'épisode qui donne son nom au carnet de drague est le huitième de quelle saison ?",
+      "question": "Barney brûle son Playbook devant Patrice en saison 8 pour lui prouver qu'il a changé, mais il est révélé plus tard qu'il en possédait une copie de sauvegarde. L'épisode qui donne son nom au carnet de drague est le huitième de quelle saison ?",
       "answer": "Saison 5",
       "category": "Saisons"
     },
@@ -665,7 +641,7 @@
     },
     {
       "id": "him112",
-      "question": "Dans la série, Barney possède un écran plat géant dans son appartement et une tempête destructrice appelée Stormtrooper. Son expression favorite pour décrire quelque chose d'extraordinaire est précédée d'une pause dramatique en deux mots. Quelle phrase utilise-t-il pour cette pause ?",
+      "question": "Dans la série, Barney possède un écran plat géant dans son appartement et une statue grandeur nature de Stormtrooper Star Wars. Son expression favorite pour décrire quelque chose d'extraordinaire est précédée d'une pause dramatique en deux mots. Quelle phrase utilise-t-il pour cette pause ?",
       "answer": "Wait for it",
       "category": "Running Gags"
     },

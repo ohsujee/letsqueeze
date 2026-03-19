@@ -47,7 +47,7 @@
     },
     {
       "id": "st008",
-      "question": "Seul membre noir du groupe principal d'amis dans Stranger Things, il est pragmatique, loyal et utilise un lance-pierres comme arme de prédilection. Il sort avec Max Mayfield à partir de la saison 3. Qui est-ce ?",
+      "question": "Seul membre noir du groupe principal d'amis dans Stranger Things, il est pragmatique, loyal et utilise un lance-pierres comme arme de prédilection. Il sort avec Max Mayfield à partir de la saison 2. Qui est-ce ?",
       "answer": "Lucas Sinclair",
       "category": "Personnages"
     },
@@ -101,7 +101,7 @@
     },
     {
       "id": "st017",
-      "question": "Demi-frère de Max Mayfield, ce maître-nageur musclé et charismatique du Starcourt Mall est possédé par le Mind Flayer en saison 3. Il se sacrifie finalement pour sauver Eleven et ses amis. Qui est-ce ?",
+      "question": "Beau-frère de Max Mayfield, ce maître-nageur musclé et charismatique de la piscine municipale de Hawkins est possédé par le Mind Flayer en saison 3. Il se sacrifie finalement pour sauver Eleven et ses amis. Qui est-ce ?",
       "answer": "Billy Hargrove",
       "category": "Personnages"
     },
@@ -167,7 +167,7 @@
     },
     {
       "id": "st028",
-      "question": "Eddie Munson joue un solo de guitare épique dans le Monde Inversé pour attirer les Demodogs loin de ses amis dans la saison 4. Il joue un morceau de Metallica sorti en 1986, devenu viral après la diffusion de l'épisode. Quel est ce morceau ?",
+      "question": "Eddie Munson joue un solo de guitare épique dans le Monde Inversé pour attirer les Demobats loin de ses amis dans la saison 4. Il joue un morceau de Metallica sorti en 1986, devenu viral après la diffusion de l'épisode. Quel est ce morceau ?",
       "answer": "Master of Puppets",
       "category": "Saisons"
     },
@@ -185,7 +185,7 @@
     },
     {
       "id": "st031",
-      "question": "Professeur de sciences excentrique au collège de Hawkins, il aide les garçons à comprendre le Monde Inversé en utilisant une analogie avec un acrobate et une puce sur une corde. Il tombe amoureux de Joyce Byers. Qui est-ce ?",
+      "question": "Professeur de sciences excentrique au collège de Hawkins, il aide les garçons à comprendre le Monde Inversé en utilisant une analogie avec un acrobate et une puce sur une corde. Il a une petite amie nommée Marissa. Qui est-ce ?",
       "answer": "Scott Clarke (Mr. Clarke)",
       "category": "Personnages"
     },
@@ -197,8 +197,8 @@
     },
     {
       "id": "st033",
-      "question": "Dans la saison 3, un groupe secret de Russes a construit une machine sous le Starcourt Mall pour ouvrir un portail vers le Monde Inversé. Steve et Robin découvrent un message codé en russe. Quel type d'entreprise sert de couverture pour accéder à la base ?",
-      "answer": "Une livraison de colis / un entrepôt (ils découvrent l'accès via les quais de livraison du mall)",
+      "question": "Dans la saison 3, un groupe secret de Russes a construit une machine sous le Starcourt Mall pour ouvrir un portail vers le Monde Inversé. Steve et Robin découvrent un message codé en russe. Quel est le nom de l'entreprise de livraison qui sert de couverture aux Russes pour accéder à leur base secrète ?",
+      "answer": "Lynx Transportation (reconnaissable à son logo de chat argenté, le « silver cat » mentionné dans le message codé)",
       "category": "Saisons"
     },
     {
@@ -305,14 +305,14 @@
     },
     {
       "id": "st051",
-      "question": "Dans la saison 1, Barb Holland, meilleure amie de Nancy, disparaît lors d'une fête chez Steve Harrington. Elle est capturée par le Demogorgon après être tombée dans la piscine. Sa mort devient un sujet de controverse en saison 2. Pourquoi les fans ont-ils été particulièrement touchés par Barb ?",
+      "question": "Dans la saison 1, Barb Holland, meilleure amie de Nancy, disparaît lors d'une fête chez Steve Harrington. Assise seule au bord de la piscine, elle est capturée par le Demogorgon, attiré par le sang de sa coupure à la main. Sa mort devient un sujet de controverse en saison 2. Pourquoi les fans ont-ils été particulièrement touchés par Barb ?",
       "answer": "Justice for Barb (sa mort a été ignorée/minimisée par les personnages, ce qui a indigné les fans)",
       "category": "Personnages"
     },
     {
       "id": "st052",
-      "question": "Arme emblématique de Steve Harrington dans Stranger Things, il l'utilise pour la première fois contre le Demogorgon en saison 1 puis la garde comme arme de prédilection pour combattre les créatures du Monde Inversé. Quel est cet objet ?",
-      "answer": "Une batte de baseball cloutée (bat with nails)",
+      "question": "Arme emblématique de Steve Harrington dans Stranger Things, cette batte modifiée par Jonathan Byers est récupérée par Steve lors du combat contre le Demogorgon en saison 1. Elle devient ensuite son arme de prédilection pour affronter les créatures du Monde Inversé. Quel est cet objet ?",
+      "answer": "Une batte de baseball cloutée (spiked bat)",
       "category": "Personnages"
     },
     {
@@ -365,7 +365,7 @@
     },
     {
       "id": "st061",
-      "question": "Hopper survit à l'explosion du portail en saison 3 en sautant dans le Monde Inversé. Il est ensuite capturé par les Russes et emprisonné dans un camp de travail en Sibérie. Les prisonniers sont utilisés comme appâts pour quel type de créature ?",
+      "question": "Hopper survit à l'explosion du portail en saison 3 en sautant sur une plateforme inférieure. Il est ensuite capturé par les Russes et emprisonné dans un camp de travail en Sibérie. Les prisonniers sont utilisés comme appâts pour quel type de créature ?",
       "answer": "Un Demogorgon (les Russes en gardent un captif dans le camp)",
       "category": "Saisons"
     },
@@ -431,14 +431,14 @@
     },
     {
       "id": "st072",
-      "question": "Dans la saison 2, Dustin essaie d'impressionner Max en battant un record sur un jeu d'arcade classique des années 80. Ce jeu donne aussi son nom à un épisode de la série. Quel est ce jeu ?",
+      "question": "Dans la saison 2, le record de Dustin sur un jeu d'arcade classique des années 80 est battu par une mystérieuse joueuse surnommée MADMAX. Ce jeu donne aussi son nom à un épisode de la série. Quel est ce jeu ?",
       "answer": "Dig Dug (épisode 5 de la saison 2)",
       "category": "Hawkins"
     },
     {
       "id": "st073",
-      "question": "Hopper laisse des Eggo dans une boîte dans la forêt pour Eleven après sa disparition à la fin de la saison 1. Ce rituel quotidien, qu'il maintient pendant un an, est la façon dont il finit par la retrouver. Quel poème/lettre lit Hopper dans une scène émotionnelle ?",
-      "answer": "La lettre de Hopper à Eleven (qu'il n'a jamais réussi à lui lire - le discours du bal de la saison 3)",
+      "question": "Dans Stranger Things, Hopper laisse des Eggo dans une boîte en forêt pour Eleven après sa disparition. C'est ainsi qu'elle le retrouve et ils vivent cachés dans une cabane. Dans le finale de la saison 3, Eleven découvre une lettre écrite par Hopper. De quoi parle cette lettre ?",
+      "answer": "La lettre de Hopper à Eleven — un texte sur ses sentiments et leur relation, qu'il n'a jamais pu lui lire de son vivant. Joyce la trouve dans sa chemise après sa mort apparente.",
       "category": "Personnages"
     },
     {

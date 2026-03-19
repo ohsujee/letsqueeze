@@ -47,7 +47,7 @@
     },
     {
       "id": "cdp008",
-      "question": "Ancien mineur et père aimant, ce braqueur a élevé seul son fils après le départ de sa femme toxicomane. Il meurt touché par des balles de la police lors de la fuite à travers le tunnel. Son pseudonyme est celui d'une capitale russe. Qui est-il ?",
+      "question": "Ancien mineur et père aimant, ce braqueur a élevé seul son fils après le départ de sa femme toxicomane. Touché par des balles de la police en couvrant le retour de Tokyo, il meurt de ses blessures tandis que son fils creuse désespérément le tunnel pour tenter de le sauver. Son pseudonyme est celui d'une capitale russe. Qui est-il ?",
       "answer": "Moscou",
       "category": "Morts"
     },
@@ -244,12 +244,6 @@
       "category": "Personnages"
     },
     {
-      "id": "cdp041",
-      "question": "Soudeur de métier recruté pour le deuxième braquage, cet homme imposant aux sept enfants disséminés à travers le monde tombe amoureux de la responsable de l'imprimerie. Son vrai nom est Santiago López. Quel est son pseudonyme ?",
-      "answer": "Bogota",
-      "category": "Personnages"
-    },
-    {
       "id": "cdp042",
       "question": "Personnage transgenre introduit dans la partie 4, cette ancienne amie d'enfance du fils de Moscou est la filleule de ce dernier. Infiltrée parmi les otages de la Banque d'Espagne, elle agit comme une taupe pour le compte des braqueurs. Quel est son pseudonyme ?",
       "answer": "Manille (Manila)",
@@ -394,12 +388,6 @@
       "category": "Personnages"
     },
     {
-      "id": "cdp067",
-      "question": "Le véritable nom d'Helsinki est Mirko Dragić, et celui de son cousin est Radko Dragić. De quelle nationalité sont ces deux membres de la bande ?",
-      "answer": "Serbe",
-      "category": "Personnages"
-    },
-    {
       "id": "cdp068",
       "question": "Pendant la préparation du braquage dans la propriété de Tolède, le cerveau de l'opération impose une règle absolue aux membres de la bande. Chacun doit choisir un pseudonyme appartenant à une catégorie précise pour protéger son identité. Quelle catégorie de noms est imposée ?",
       "answer": "Des noms de villes",
@@ -413,7 +401,7 @@
     },
     {
       "id": "cdp070",
-      "question": "Le capitaine de la bande prend un traitement quotidien pour retarder la progression de sa maladie dégénérative pendant le braquage de la Fabrique de la Monnaie. Quel est le nom de ce médicament fictif ?",
+      "question": "Pendant le braquage de la Fabrique de la Monnaie, Berlin prend un traitement quotidien pour retarder la progression de sa maladie dégénérative (la myopathie de Helmer). Quel est le nom de ce médicament fictif ?",
       "answer": "Retroxil",
       "category": "Personnages"
     },
@@ -452,18 +440,6 @@
       "question": "Lors du premier braquage, un jeune braqueur reçoit l'ordre d'exécuter une otage parce qu'elle a vu le visage d'un membre de la bande. Il tire volontairement à côté et la cache, tombant amoureux d'elle. Quel est le vrai prénom de ce braqueur fils de Moscou ?",
       "answer": "Daniel (Ramos)",
       "category": "Relations"
-    },
-    {
-      "id": "cdp077",
-      "question": "L'ancien béret vert retenu dans la Banque d'Espagne parvient à s'échapper de sa captivité et sème la terreur parmi les braqueurs. Il assassine froidement la braqueuse responsable de l'imprimerie d'une balle dans la tête. De quelle manière les braqueurs parviennent-ils finalement à le maîtriser ?",
-      "answer": "Helsinki le neutralise au corps à corps",
-      "category": "Épisodes clés"
-    },
-    {
-      "id": "cdp078",
-      "question": "Acteur espagnol connu pour son rôle dans la série Vis a vis avant de rejoindre le casting, il incarne le fils de Moscou au rire nerveux légendaire. Qui est l'acteur qui joue le rôle du braqueur au pseudonyme américain ?",
-      "answer": "Jaime Lorente",
-      "category": "Personnages"
     },
     {
       "id": "cdp079",
@@ -533,7 +509,7 @@
     },
     {
       "id": "cdp090",
-      "question": "Dans la partie 4, l'inspectrice Sierra accouche dans des conditions extrêmes alors qu'elle vient de capturer le cerveau de l'opération. Elle le tient en joue avec une arme pendant sa propre délivrance. Quel est le prénom du bébé qu'elle met au monde ?",
+      "question": "Dans la partie 5, l'inspectrice Sierra accouche dans des conditions extrêmes après avoir capturé le cerveau de l'opération. Elle est aidée par le Professeur lui-même pour la délivrance. Quel est le prénom du bébé qu'elle met au monde ?",
       "answer": "Victoria",
       "category": "Épisodes clés"
     },
@@ -542,12 +518,6 @@
       "question": "Après le premier braquage, Denver et son amoureuse se cachent avec leur bébé dans un pays d'Asie du Sud-Est sous de fausses identités. Dans quel pays vivent-ils avant d'être rappelés pour le deuxième braquage ?",
       "answer": "L'Indonésie",
       "category": "Lieux"
-    },
-    {
-      "id": "cdp092",
-      "question": "Le cerveau du braquage a souffert d'une grave maladie dans son enfance, ce qui a poussé son père à commettre des braquages pour financer ses soins à l'étranger. Dans quel pays le jeune Sergio a-t-il été soigné ?",
-      "answer": "Les États-Unis",
-      "category": "Le Professeur"
     },
     {
       "id": "cdp093",
@@ -563,8 +533,8 @@
     },
     {
       "id": "cdp095",
-      "question": "Lorsque l'inspectrice Raquel Murillo découvre que Salva et le cerveau du braquage ne font qu'un, elle est déchirée entre son devoir et ses sentiments. Dans quelle ville italienne la retrouve-t-on vivant paisiblement avec lui après le premier braquage ?",
-      "answer": "Palermo (en Sicile)",
+      "question": "Lorsque l'inspectrice Raquel Murillo découvre que Salva et le cerveau du braquage ne font qu'un, elle est déchirée entre son devoir et ses sentiments. Sur quelle île la retrouve-t-on vivant paisiblement avec lui après le premier braquage ?",
+      "answer": "Palawan (aux Philippines)",
       "category": "Lieux"
     },
     {
@@ -587,7 +557,7 @@
     },
     {
       "id": "cdp100",
-      "question": "L'acteur qui interprète le personnage taciturne opérant à l'extérieur de la banque est un polyglotte capable de jouer dans sept langues différentes. De quelle nationalité est cet acteur nommé Luka Peroš ?",
+      "question": "L'acteur qui interprète le personnage taciturne opérant à l'extérieur de la banque est un polyglotte capable de jouer dans huit langues différentes. De quelle nationalité est cet acteur nommé Luka Peroš ?",
       "answer": "Croate",
       "category": "Personnages"
     },
@@ -606,7 +576,7 @@
     {
       "id": "cdp103",
       "question": "Dans la partie 5, la narratrice de la série se sacrifie en retenant l'assaut d'un commando militaire pour permettre à ses compagnons de fuir. Elle dégoupille plusieurs grenades attachées à sa poitrine. Combien de grenades porte-t-elle lors de cette scène finale ?",
-      "answer": "5 grenades",
+      "answer": "4 grenades",
       "category": "Morts"
     },
     {
@@ -650,12 +620,6 @@
       "question": "Pendant le spin-off consacré au capitaine de la bande, l'action se déroule dans une grande capitale européenne où il monte un plan audacieux de vol de bijoux avec une nouvelle équipe. Dans quelle ville se passe cette série dérivée ?",
       "answer": "Paris",
       "category": "Saisons"
-    },
-    {
-      "id": "cdp112",
-      "question": "Le cerveau du braquage est un homme méthodique et obsédé par le temps. Il possède un objet symbolique qui représente sa précision et son héritage familial, objet qu'il consulte régulièrement pendant les opérations. De quel type d'objet s'agit-il ?",
-      "answer": "Une montre à gousset",
-      "category": "Le Professeur"
     },
     {
       "id": "cdp113",

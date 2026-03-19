@@ -40,12 +40,6 @@
       "category": "Personnages"
     },
     {
-      "id": "mar007",
-      "question": "Grand, mince et vêtu de violet, ce personnage est le rival de Luigi et le partenaire de Wario. Il est apparu pour la première fois dans Mario Tennis sur Nintendo 64 en 2000, et reste absent de la série Super Smash Bros en tant que combattant. Qui est-il ?",
-      "answer": "Waluigi",
-      "category": "Personnages"
-    },
-    {
       "id": "mar008",
       "question": "Gardienne de l'univers et mère adoptive des Lumas, cette princesse mystérieuse vit dans l'Observatoire de la Comète. Elle est apparue pour la première fois dans Super Mario Galaxy en 2007. Quel est son nom en version française ?",
       "answer": "Harmonie (Rosalina)",
@@ -245,7 +239,7 @@
     },
     {
       "id": "mar041",
-      "question": "Cet acteur vocal américain d'origine italienne a donné sa voix au plombier moustachu pendant près de 30 ans, de 1996 à 2023. Il doublait aussi Luigi, Wario et Waluigi. En 2023, il a reçu le titre d'Ambassadeur. Qui est-il ?",
+      "question": "Cet acteur vocal américain d'origine française a donné sa voix au plombier moustachu pendant plus de 30 ans, de 1992 à 2023. Il doublait aussi Luigi, Wario et Waluigi. En 2023, il a reçu le titre de Mario Ambassador. Qui est-il ?",
       "answer": "Charles Martinet",
       "category": "Histoire"
     },
@@ -335,7 +329,7 @@
     },
     {
       "id": "mar056",
-      "question": "Roi des fantômes Boo et ennemi principal de Luigi's Mansion, ce spectre porte une couronne dorée ornée d'un joyau magenta. Il réapparaît comme boss récurrent et comme personnage jouable dans Mario Kart. Qui est-il ?",
+      "question": "Roi des fantômes Boo et ennemi principal de Luigi's Mansion, ce spectre porte une couronne dorée ornée d'un joyau violet. Il réapparaît comme boss récurrent et comme personnage jouable dans Mario Kart. Qui est-il ?",
       "answer": "Le Roi Boo",
       "category": "Boss"
     },
@@ -389,7 +383,7 @@
     },
     {
       "id": "mar065",
-      "question": "Jeu de rôle développé par Intelligent Systems sorti en 2000 sur Nintendo 64, ce titre met en scène le héros moustachu en version plate comme du papier, accompagné de partenaires comme Goomélie et Koopek. Quel est ce jeu ?",
+      "question": "Jeu de rôle développé par Intelligent Systems sorti en 2000 sur Nintendo 64, ce titre met en scène le héros moustachu en version plate comme du papier, accompagné de partenaires comme Goombario et Kooper. Quel est ce jeu ?",
       "answer": "Paper Mario",
       "category": "Jeux"
     },
@@ -431,7 +425,7 @@
     },
     {
       "id": "mar072",
-      "question": "Personnage jouable féminin dans Super Mario 3D World et New Super Mario Bros. U Deluxe, cette Toad aux tresses roses et à la tête tachetée de rose est la partenaire de Toad. Elle est jouable dans Mario Kart et Mario Party. Qui est-elle ?",
+      "question": "Personnage jouable féminin dans New Super Mario Bros. U Deluxe et Captain Toad: Treasure Tracker, cette Toad aux tresses roses et à la tête tachetée de rose est la partenaire de Toad. Elle est jouable dans Mario Kart et Mario Party. Qui est-elle ?",
       "answer": "Toadette",
       "category": "Personnages"
     },
@@ -508,12 +502,6 @@
       "category": "Karts"
     },
     {
-      "id": "mar086",
-      "question": "Gros poisson violet avec des lèvres roses et des lunettes de soleil, ce boss aquatique est affronté dans plusieurs jeux dont Super Mario 64 et Super Mario Galaxy. Il essaie d'avaler le héros tout entier. Qui est-il ?",
-      "answer": "Le Gros Cheep-Cheep (Boss Bass / Big Cheep Cheep)",
-      "category": "Boss"
-    },
-    {
       "id": "mar087",
       "question": "Boss récurrent constitué d'un énorme mur de pierre avec un visage, il tente d'écraser le héros en tombant de face dans Super Mario 64. Le héros doit lui sauter sur le dos pour le vaincre. Quel est ce boss ?",
       "answer": "Le Roi Whomp",
@@ -534,13 +522,13 @@
     {
       "id": "mar090",
       "question": "Dans Super Mario Bros. Wonder, ces fleurs spéciales déclenchent des transformations délirantes du niveau quand le héros les touche : les tuyaux dansent, les ennemis changent de comportement, le décor se déforme. Comment s'appellent-elles ?",
-      "answer": "Les Fleurs Merveille (Wonder Flowers)",
+      "answer": "Les Fleurs Prodiges (Wonder Flowers)",
       "category": "Power-ups"
     },
     {
       "id": "mar091",
-      "question": "Dans Super Mario Galaxy, cette transformation permet au héros de patiner sur l'eau et la lave pendant quelques secondes grâce à un champignon qui le recouvre de glace. Ce pouvoir l'entoure d'un halo bleu glacé. Quel est ce power-up ?",
-      "answer": "Le Champignon de Glace (Ice Flower)",
+      "question": "Dans Super Mario Galaxy, cette transformation permet au héros de patiner sur l'eau et la lave pendant quelques secondes grâce à une fleur qui le recouvre de glace. Ce pouvoir l'entoure d'un halo bleu glacé. Quel est ce power-up ?",
+      "answer": "La Fleur de Glace (Ice Flower)",
       "category": "Power-ups"
     },
     {
@@ -575,7 +563,7 @@
     },
     {
       "id": "mar097",
-      "question": "Le film d'animation Super Mario Bros. sorti en 2023 a rapporté plus d'un milliard de dollars au box-office mondial. Ce studio d'animation français, fondé par Chris Meledandri et basé à Paris, est aussi connu pour les franchises Moi, Moche et Méchant et Sing. Quel studio a produit ce film ?",
+      "question": "Le film d'animation Super Mario Bros. sorti en 2023 a rapporté plus d'un milliard de dollars au box-office mondial. Ce studio d'animation américain, fondé par Chris Meledandri, possède un studio d'animation à Paris et est aussi connu pour les franchises Moi, Moche et Méchant et Sing. Quel studio a produit ce film ?",
       "answer": "Illumination",
       "category": "Histoire"
     },
@@ -602,12 +590,6 @@
       "question": "Dans Super Mario World, le héros peut trouver des Yoshis de différentes couleurs, chacune offrant un pouvoir spécial en mangeant des carapaces de Koopa. Le Yoshi bleu peut voler quelle que soit la couleur de la carapace avalée. Combien de couleurs de Yoshi existe-t-il dans ce jeu ?",
       "answer": "4 couleurs (vert, rouge, bleu, jaune)",
       "category": "Personnages"
-    },
-    {
-      "id": "mar102",
-      "question": "Inventé en 1996, le premier game over en 3D de la franchise montre le héros tomber au sol en disant une phrase devenue culte. Quand il meurt dans Super Mario 64, il regarde la caméra en disant cette réplique. Quelle est-elle ?",
-      "answer": "Mama mia!",
-      "category": "Histoire"
     },
     {
       "id": "mar103",
@@ -673,12 +655,6 @@
       "id": "mar114",
       "question": "Bloc transparent marron devenu vide après avoir été frappé, cet élément visuel indique qu'un bloc a déjà été utilisé et ne contient plus rien. Il est présent depuis le tout premier jeu en 1985. Quel est cet objet ?",
       "answer": "Le Bloc vide (Empty Block / Used Block)",
-      "category": "Jeux"
-    },
-    {
-      "id": "mar115",
-      "question": "Dans Super Mario Bros. Wonder, les joueurs peuvent jouer en ligne ensemble pour la première fois dans un jeu 2D de la série principale. Des fantômes d'autres joueurs apparaissent pour aider en posant des panneaux de soutien. Comment s'appellent ces éléments multijoueurs ?",
-      "answer": "Les Panneaux Debout (Standees)",
       "category": "Jeux"
     }
   ]

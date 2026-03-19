@@ -65,7 +65,7 @@
     },
     {
       "id": "pop011",
-      "question": "Sortie en 1975 sur l'album A Night at the Opera, cette composition de près de 6 minutes mêlant opéra et rock est devenue le titre du XXe siècle le plus streamé de tous les temps, dépassant les 2,8 milliards d'écoutes sur Spotify. Quel est ce morceau ?",
+      "question": "Sortie en 1975 sur l'album A Night at the Opera, cette composition de près de 6 minutes mêlant opéra et rock est devenue le titre du XXe siècle le plus streamé de tous les temps, dépassant les 3 milliards d'écoutes sur Spotify. Quel est ce morceau ?",
       "answer": "Bohemian Rhapsody",
       "category": "Tubes"
     },
@@ -113,7 +113,7 @@
     },
     {
       "id": "pop020",
-      "question": "Chanteuse franco-malienne née à Aulnay-sous-Bois, elle est devenue l'artiste francophone féminine la plus écoutée au monde sur Spotify. Son deuxième album est l'album en français le plus streamé de l'histoire de la plateforme. Qui est-elle ?",
+      "question": "Chanteuse franco-malienne née à Bamako et ayant grandi à Aulnay-sous-Bois, elle est devenue l'artiste francophone féminine la plus écoutée au monde sur Spotify. Son deuxième album est l'album en français le plus streamé de l'histoire de la plateforme. Qui est-elle ?",
       "answer": "Aya Nakamura",
       "category": "Artistes"
     },
@@ -167,7 +167,7 @@
     },
     {
       "id": "pop029",
-      "question": "Avec 14 singles numéro un au Billboard Hot 100, cette chanteuse originaire de la Barbade détient le record féminin du plus grand nombre de titres ayant atteint le sommet de ce classement. Elle est aussi fondatrice d'un empire cosmétique devenu milliardaire. Qui est-elle ?",
+      "question": "Avec 14 singles numéro un au Billboard Hot 100, cette chanteuse originaire de la Barbade est l'une des artistes féminines les plus titrées de ce classement. Elle est aussi fondatrice d'un empire cosmétique devenu milliardaire. Qui est-elle ?",
       "answer": "Rihanna",
       "category": "Records"
     },
@@ -179,7 +179,7 @@
     },
     {
       "id": "pop032",
-      "question": "Unique artiste à avoir vendu un single à plus de 10 millions d'exemplaires à trois reprises, cette chanteuse américaine a fait ses débuts en 2008 avec l'album The Fame. Ses tenues extravagantes et ses clips avant-gardistes ont redéfini la pop du XXIe siècle. Qui est-elle ?",
+      "question": "Première artiste féminine à avoir vendu un single à plus de 10 millions d'exemplaires à quatre reprises, cette chanteuse américaine a fait ses débuts en 2008 avec l'album The Fame. Ses tenues extravagantes et ses clips avant-gardistes ont redéfini la pop du XXIe siècle. Qui est-elle ?",
       "answer": "Lady Gaga",
       "category": "Artistes"
     },
@@ -215,15 +215,9 @@
     },
     {
       "id": "pop038",
-      "question": "Lancée en mars 2022, la tournée Music of the Spheres de ce groupe britannique a battu le record d'affluence totale pour une tournée musicale avec plus de 10 millions de billets vendus, dépassant le record précédent d'Ed Sheeran. Quel est ce groupe ?",
+      "question": "Lancée en mars 2022, la tournée Music of the Spheres de ce groupe britannique a battu le record d'affluence totale pour une tournée musicale avec plus de 10 millions de billets vendus, dépassant le record précédent de Taylor Swift. Quel est ce groupe ?",
       "answer": "Coldplay",
       "category": "Concerts"
-    },
-    {
-      "id": "pop039",
-      "question": "En 1984, lors de la cérémonie des Grammy Awards, un artiste remporte 8 récompenses en une seule soirée, un record qui tiendra 16 ans. C'est aussi la même année qu'il révolutionne le clip vidéo avec un court-métrage de 14 minutes. Qui est cet artiste ?",
-      "answer": "Michael Jackson",
-      "category": "Grammys"
     },
     {
       "id": "pop040",
@@ -233,7 +227,7 @@
     },
     {
       "id": "pop041",
-      "question": "En 2009, ce titre devient le single le plus vendu de l'année dans le monde entier. Premier extrait de l'album The Fame, il atteint le numéro un en Australie, au Canada, au Royaume-Uni et aux États-Unis. Quel est ce morceau ?",
+      "question": "En 2009, ce titre devient le single le plus vendu de l'année dans le monde entier. Deuxième extrait de l'album The Fame, il atteint le numéro un en Australie, au Canada, au Royaume-Uni et aux États-Unis. Quel est ce morceau ?",
       "answer": "Poker Face",
       "category": "Tubes"
     },
@@ -245,21 +239,15 @@
     },
     {
       "id": "pop043",
-      "question": "En 2010, la chorégraphie de cette chanson devient un phénomène viral mondial et son interprète remporte le Grammy de la chanson de l'année. La performance aux MTV VMAs cette même année entre dans la légende grâce à l'interruption de Kanye West. Quel est ce titre ?",
-      "answer": "Single Ladies",
+      "question": "En 2009, la chorégraphie de cette chanson devient un phénomène viral mondial. L'année suivante, son interprète remporte le Grammy de la chanson de l'année. La cérémonie des MTV VMAs 2009 entre dans la légende quand Kanye West interrompt Taylor Swift pour défendre le clip de cette chanson. Quel est ce titre ?",
+      "answer": "Single Ladies (Put a Ring on It)",
       "category": "Tubes"
     },
     {
       "id": "pop044",
-      "question": "Groupe pop irlandais formé en 1998, il détient le record du plus grand nombre de singles débutant directement à la première place des charts britanniques, avec sept titres consécutifs entre 1999 et 2003. Quel est ce groupe ?",
+      "question": "Groupe pop irlandais formé en 1998, il détient le record du plus grand nombre de singles débutant directement à la première place des charts britanniques, avec sept titres consécutifs entre 1999 et 2000. Quel est ce groupe ?",
       "answer": "Westlife",
       "category": "Records"
-    },
-    {
-      "id": "pop045",
-      "question": "Extrait de l'album 21 sorti en 2011, ce titre d'adieu sur un piano mélancolique a remporté six Grammy Awards dont ceux du disque, de la chanson et de l'album de l'année, et a dominé les charts dans plus de 30 pays. Quel est ce titre ?",
-      "answer": "Rolling in the Deep",
-      "category": "Tubes"
     },
     {
       "id": "pop046",
@@ -272,18 +260,6 @@
       "question": "En 1985, au stade de Wembley devant 72 000 personnes, ce groupe britannique livre une performance de 20 minutes lors du concert caritatif Live Aid, considérée comme la meilleure prestation live de l'histoire du rock. Quel est ce groupe ?",
       "answer": "Queen",
       "category": "Concerts"
-    },
-    {
-      "id": "pop048",
-      "question": "Chanteuse britannique née à Londres de parents kosovars-albanais, elle a donné son nom à une règle du football anglais après avoir été citée par un arbitre. Son album Future Nostalgia a été nommé aux Grammy Awards dans six catégories. Qui est-elle ?",
-      "answer": "Dua Lipa",
-      "category": "Artistes"
-    },
-    {
-      "id": "pop049",
-      "question": "Duo français formé en 1993, reconnaissable à ses casques robotiques, il a remporté cinq Grammy Awards dont ceux de l'album et du disque de l'année en 2014 pour un titre enregistré avec Pharrell Williams et Nile Rodgers. Quel est ce duo ?",
-      "answer": "Daft Punk",
-      "category": "Artistes"
     },
     {
       "id": "pop050",
@@ -311,13 +287,13 @@
     },
     {
       "id": "pop055",
-      "question": "En 1985, 45 artistes américains se réunissent pour enregistrer un titre caritatif au profit de la lutte contre la famine en Éthiopie, produit par Quincy Jones et écrit par Lionel Richie et un ancien membre des Beatles. Quel est ce titre ?",
+      "question": "En 1985, 45 artistes américains se réunissent pour enregistrer un titre caritatif au profit de la lutte contre la famine en Éthiopie, produit par Quincy Jones et écrit par Lionel Richie et Michael Jackson. Quel est ce titre ?",
       "answer": "We Are the World",
       "category": "Tubes"
     },
     {
       "id": "pop056",
-      "question": "En 1977, cette chanson du groupe ABBA devient un hymne disco planétaire. Jouée lors du mariage de la princesse Victoria de Suède en 2010, elle reste le titre le plus iconique du quatuor suédois et un incontournable des soirées dansantes. Quel est ce titre ?",
+      "question": "En 1976, cette chanson du groupe ABBA devient un hymne disco planétaire. Interprétée pour la première fois lors du gala royal précédant le mariage du roi Carl XVI Gustaf et de la reine Silvia de Suède, elle reste le titre le plus iconique du quatuor suédois et un incontournable des soirées dansantes. Quel est ce titre ?",
       "answer": "Dancing Queen",
       "category": "Tubes"
     },
@@ -329,7 +305,7 @@
     },
     {
       "id": "pop059",
-      "question": "En 1999, ce single de la chanteuse colombienne Shakira, chanté en espagnol et en anglais, lance sa carrière internationale. Il est extrait de l'album Laundry Service, premier album en anglais de l'artiste. Quel est ce titre ?",
+      "question": "En 2001, ce single de la chanteuse colombienne Shakira, chanté en espagnol et en anglais, lance sa carrière internationale. Il est extrait de l'album Laundry Service, premier album en anglais de l'artiste. Quel est ce titre ?",
       "answer": "Whenever, Wherever",
       "category": "Tubes"
     },
@@ -371,19 +347,19 @@
     },
     {
       "id": "pop069",
-      "question": "Fondé en 1964 à Liverpool par Roger Daltrey, Pete Townshend, John Entwistle et Keith Moon, ce groupe britannique est l'un des pionniers du rock et créateur de l'un des premiers opéras rock, Tommy, en 1969. Quel est ce groupe ?",
+      "question": "Fondé en 1964 à Londres par Roger Daltrey, Pete Townshend, John Entwistle et Keith Moon, ce groupe britannique est l'un des pionniers du rock et créateur de l'un des premiers opéras rock, Tommy, en 1969. Quel est ce groupe ?",
       "answer": "The Who",
       "category": "Artistes"
     },
     {
       "id": "pop070",
-      "question": "Sorti en 2008, le premier album de cette chanteuse new-yorkaise inclut le tube « Just Dance » et se classe numéro un dans six pays. Il est certifié 8 fois platine aux États-Unis et lance l'ère des hits pop excentriques des années 2010. Quel est cet album ?",
+      "question": "Sorti en 2008, le premier album de cette chanteuse new-yorkaise inclut le tube « Just Dance » et se classe numéro un dans six pays. Il est certifié 6 fois platine aux États-Unis et lance l'ère des hits pop excentriques des années 2010. Quel est cet album ?",
       "answer": "The Fame",
       "category": "Albums"
     },
     {
       "id": "pop071",
-      "question": "Avec 22 Grammy Awards, ce groupe de rock irlandais formé en 1976 par Bono et The Edge détient le record du plus grand nombre de récompenses par un groupe dans l'histoire des Grammys. Quel est ce groupe ?",
+      "question": "Avec 22 Grammy Awards, ce groupe de rock irlandais formé en 1976 à Dublin par Larry Mullen Jr., Bono, The Edge et Adam Clayton détient le record du plus grand nombre de récompenses par un groupe dans l'histoire des Grammys. Quel est ce groupe ?",
       "answer": "U2",
       "category": "Grammys"
     },
@@ -413,7 +389,7 @@
     },
     {
       "id": "pop076",
-      "question": "Clip réalisé par Mark Romanek et sorti en 2009, cette vidéo de 9 minutes aux références à la mode et à l'horreur a remporté sept MTV Video Music Awards. C'est l'un des clips les plus primés de l'histoire. De quel clip s'agit-il ?",
+      "question": "Clip réalisé par Francis Lawrence et sorti en 2009, cette vidéo de Lady Gaga aux références à la mode et à l'horreur a remporté sept MTV Video Music Awards. C'est l'un des clips les plus primés de l'histoire. De quel clip s'agit-il ?",
       "answer": "Bad Romance",
       "category": "Clips"
     },
@@ -455,7 +431,7 @@
     },
     {
       "id": "pop084",
-      "question": "En 1997, ce titre des Verve utilise un sample orchestral d'un morceau des Rolling Stones. Le groupe britannique a dû reverser l'intégralité des droits d'auteur à Jagger et Richards, faisant de ce succès mondial un titre qu'ils n'ont jamais pu monétiser. Quel est ce titre ?",
+      "question": "En 1997, ce titre des Verve sample un arrangement orchestral de 'The Last Time' par le Andrew Oldham Orchestra (basé sur un morceau des Rolling Stones). Après un procès, le groupe a dû céder 100% des droits d'auteur à Jagger et Richards — droits qui ne leur ont été restitués qu'en 2019. Quel est ce titre ?",
       "answer": "Bitter Sweet Symphony",
       "category": "Tubes"
     },
@@ -479,13 +455,13 @@
     },
     {
       "id": "pop090",
-      "question": "Groupe de new wave britannique formé à Bath en 1985, il est connu pour le titre « Everybody Hurts » et l'album Shiny Happy People. Mené par Curt Smith et Roland Orzabal, il a vendu plus de 30 millions d'albums. Quel est ce groupe ?",
+      "question": "Groupe de new wave britannique formé à Bath en 1981, il est connu pour les titres « Shout » et « Everybody Wants to Rule the World ». Mené par Curt Smith et Roland Orzabal, il a vendu plus de 30 millions d'albums. Quel est ce groupe ?",
       "answer": "Tears for Fears",
       "category": "Années 80-90"
     },
     {
       "id": "pop091",
-      "question": "En 1983, ce single de new wave devient l'un des morceaux les plus emblématiques des années 80. Son clip tourné sous forme de bande dessinée animée remporte six MTV Video Music Awards. Son refrain « Take On Me » est reconnaissable entre mille. Quel groupe l'interprète ?",
+      "question": "En 1985, ce single de new wave devient l'un des morceaux les plus emblématiques des années 80. Son clip tourné sous forme de bande dessinée animée remporte six MTV Video Music Awards. Son refrain « Take On Me » est reconnaissable entre mille. Quel groupe l'interprète ?",
       "answer": "a-ha",
       "category": "Années 80-90"
     },
@@ -497,7 +473,7 @@
     },
     {
       "id": "pop093",
-      "question": "Sorti en 1991, cet album du chanteur britannique George Michael contient les titres « Freedom! '90 » et « Praying for Time ». Malgré un immense succès critique, les ventes sont en deçà de son premier album solo. Quel est cet album ?",
+      "question": "Sorti en 1990, cet album du chanteur britannique George Michael contient les titres « Freedom! '90 » et « Praying for Time ». Malgré un immense succès critique, les ventes sont en deçà de son premier album solo. Quel est cet album ?",
       "answer": "Listen Without Prejudice Vol. 1",
       "category": "Albums"
     },
@@ -509,7 +485,7 @@
     },
     {
       "id": "pop095",
-      "question": "Duo pop britannique des années 80 formé par Andrew Ridgeley et un futur chanteur solo légendaire, leur titre de Noël de 1984 est le seul morceau à avoir été numéro un au Royaume-Uni à Noël deux années consécutives. Quel est ce duo ?",
+      "question": "Duo pop britannique des années 80 formé par Andrew Ridgeley et un futur chanteur solo légendaire, leur célèbre titre de Noël sorti en 1984 est devenu, près de 40 ans plus tard, le seul morceau à avoir été numéro un au Royaume-Uni à Noël deux années consécutives (2023 et 2024). Quel est ce duo ?",
       "answer": "Wham!",
       "category": "Années 80-90"
     },
@@ -539,19 +515,19 @@
     },
     {
       "id": "pop101",
-      "question": "Label britannique fondé en 1962 par George Martin, il est surtout connu pour avoir produit les albums des Beatles à Abbey Road Studios. Le dernier album du groupe, sorti en 1970, porte d'ailleurs le nom de la rue où se trouve le studio. Quel est ce label ?",
+      "question": "Label britannique d'EMI dont George Martin était le directeur, il est surtout connu pour avoir signé et produit les albums des Beatles. L'avant-dernier album du groupe, sorti en 1969, porte le nom de la rue où se trouvent les studios d'enregistrement. Quel est ce label ?",
       "answer": "Parlophone",
       "category": "Labels"
     },
     {
       "id": "pop102",
-      "question": "En 1986, ce titre de la chanteuse américaine Whitney Houston bat le record du plus grand nombre de semaines consécutives en tête du Billboard Hot 100 à l'époque, avec 14 semaines. Il est extrait de son deuxième album studio. Quel est ce titre ?",
+      "question": "En 1986, ce titre de la chanteuse américaine Whitney Houston atteint la première place du Billboard Hot 100 pendant 3 semaines. Il est extrait de son premier album studio éponyme sorti en 1985 et devient son troisième single consécutif numéro un. Quel est ce titre ?",
       "answer": "Greatest Love of All",
       "category": "Tubes"
     },
     {
       "id": "pop103",
-      "question": "Trio suédois formé en 2015, leur titre « Don't You Worry Child » a atteint le top 10 dans plus de 20 pays et le clip de leur titre « The Days » est un hommage à Avicii. Cependant, un autre trio suédois bien plus ancien a dominé le paysage musical avec « The Sign » en 1994. Quel est ce groupe des années 90 ?",
+      "question": "Trio suédois formé en 2008, leur titre « Don't You Worry Child » a atteint le top 10 dans plus de 20 pays. Un autre groupe suédois bien plus ancien a dominé le paysage musical avec « The Sign » en 1994. Quel est ce groupe des années 90 ?",
       "answer": "Ace of Base",
       "category": "Années 80-90"
     },
@@ -563,7 +539,7 @@
     },
     {
       "id": "pop105",
-      "question": "En 2002, ce titre d'Eminem extrait du film 8 Mile remporte l'Oscar de la meilleure chanson originale. Le rappeur, absent de la cérémonie car il pensait ne pas gagner, interprètera finalement le morceau aux Oscars 17 ans plus tard, en 2020. Quel est ce titre ?",
+      "question": "En 2003, ce titre d'Eminem extrait du film 8 Mile remporte l'Oscar de la meilleure chanson originale. Le rappeur, absent de la cérémonie car il pensait ne pas gagner, interprètera finalement le morceau aux Oscars 17 ans plus tard, en 2020. Quel est ce titre ?",
       "answer": "Lose Yourself",
       "category": "Tubes"
     },
@@ -581,7 +557,7 @@
     },
     {
       "id": "pop109",
-      "question": "Tube dance de 1996, ce titre du groupe français Modjo est devenu un hit international malgré sa sortie quatre ans plus tard en 2000. Utilisant un sample de Chic, il incarne la french touch et la house music des années 2000. Quel est ce titre ?",
+      "question": "Sorti en 2000, ce titre du groupe français Modjo est devenu un hit international. Utilisant un sample de \"Soup for One\" de Chic, il incarne la french touch et la house music des années 2000. Quel est ce titre ?",
       "answer": "Lady (Hear Me Tonight)",
       "category": "Tubes"
     },
@@ -611,13 +587,13 @@
     },
     {
       "id": "pop116",
-      "question": "Chanteur nigérian naturalisé américain, il est surnommé le « roi de l'afrobeats » et a collaboré avec des artistes comme Beyoncé sur l'album The Lion King: The Gift. Son titre « Essence » avec Tems a été qualifié de chanson de l'été 2021. Qui est-il ?",
+      "question": "Chanteur nigérian surnommé le « roi de l'afrobeats », il a collaboré avec Beyoncé sur l'album The Lion King: The Gift. Son titre « Essence » avec Tems a été qualifié de chanson de l'été 2021. Qui est-il ?",
       "answer": "Wizkid",
       "category": "Années 2000-2020"
     },
     {
       "id": "pop117",
-      "question": "Sorti en 1971, cet album solo d'un ancien Beatle contient le titre « Imagine », devenu un hymne pacifiste mondial. La chanson a été désignée par le magazine Rolling Stone comme la troisième meilleure chanson de tous les temps. Qui est l'auteur de cette chanson ?",
+      "question": "Sorti en 1971, cet album solo d'un ancien Beatle contient le titre « Imagine », devenu un hymne pacifiste mondial. La chanson a été classée parmi les plus grandes chansons de tous les temps par le magazine Rolling Stone. Qui est l'auteur de cette chanson ?",
       "answer": "John Lennon",
       "category": "Artistes"
     },

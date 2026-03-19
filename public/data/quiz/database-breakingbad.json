@@ -83,8 +83,8 @@
     },
     {
       "id": "bb014",
-      "question": "Dans la scène emblématique de confrontation entre Walter et Hank, Walter prononce cette phrase menaçante après que Hank lui dit de faire attention. Walter répond calmement en demandant à Hank de prononcer son nom de criminel. Quelle est cette réplique ?",
-      "answer": "Say my name (Dis mon nom)",
+      "question": "Dans la scène emblématique de confrontation entre Walter et Hank dans le garage, Hank dit à Walter qu'il ne sait plus à qui il parle. Quelle est la réplique menaçante que Walter lui adresse en réponse ?",
+      "answer": "Tread lightly (Fais attention où tu mets les pieds)",
       "category": "Répliques cultes"
     },
     {
@@ -95,7 +95,7 @@
     },
     {
       "id": "bb016",
-      "question": "Partenaire fidèle de Hank à la DEA, cet agent d'origine hispanique l'accompagne dans presque toutes ses enquêtes. Il survit à une fusillade au Mexique où il est grièvement blessé. Qui est-ce ?",
+      "question": "Partenaire fidèle de Hank à la DEA, cet agent d'origine hispanique l'accompagne dans presque toutes ses enquêtes. Il est tué aux côtés de Hank lors de l'affrontement final contre le gang de Jack Welker à To'hajiilee. Qui est-ce ?",
       "answer": "Steven Gomez (Gomie)",
       "category": "Personnages"
     },
@@ -143,7 +143,7 @@
     },
     {
       "id": "bb024",
-      "question": "Femme d'affaires méticuleuse qui boit toujours du thé au jasmin avec du Stevia, elle prend le relais de la distribution de meth après Gus Fring. Nerveuse et obsédée par le contrôle, elle est empoisonnée par Walter dans le dernier épisode. Qui est-ce ?",
+      "question": "Femme d'affaires méticuleuse qui boit toujours du thé à la camomille avec du Stevia, elle prend le relais de la distribution de meth après Gus Fring. Nerveuse et obsédée par le contrôle, elle est empoisonnée à la ricine par Walter dans le dernier épisode. Qui est-ce ?",
       "answer": "Lydia Rodarte-Quayle",
       "category": "Personnages"
     },
@@ -178,12 +178,6 @@
       "category": "Lieux"
     },
     {
-      "id": "bb030",
-      "question": "Dans la saison 5, Hank découvre enfin l'identité d'Heisenberg en trouvant un livre dédicacé sur les toilettes de Walter. Ce recueil de poèmes de Walt Whitman contient une dédicace de Gale Boetticher. Que dit cette dédicace ?",
-      "answer": "To my other favorite W.W. (À mon autre W.W. préféré)",
-      "category": "Épisodes marquants"
-    },
-    {
       "id": "bb031",
       "question": "Chimiste brillant et passionné de café, il est engagé par Gus Fring pour le super-lab. Grand admirateur de Walter White, il lui dédie un poème de Walt Whitman. Son meurtre par Jesse est l'un des moments les plus tragiques de la série. Qui est-ce ?",
       "answer": "Gale Boetticher",
@@ -209,15 +203,9 @@
     },
     {
       "id": "bb035",
-      "question": "Dans la saison 4, Walter fait tournoyer un revolver sur une table pour décider de son prochain mouvement. Le revolver pointe deux fois vers une plante sur sa terrasse, lui donnant l'idée d'empoisonner Brock. Quelle plante toxique utilise-t-il ?",
+      "question": "Dans la saison 4, Walter fait tournoyer un revolver sur une table pour décider de son prochain mouvement. À quelle occasion le revolver finit-il par pointer vers une plante sur sa terrasse, lui donnant l'idée d'empoisonner Brock ? Quelle plante toxique utilise-t-il ?",
       "answer": "Le muguet (Lily of the Valley)",
       "category": "Chimie"
-    },
-    {
-      "id": "bb036",
-      "question": "Ce dealer de rue travaillant pour Gus Fring utilise un enfant nommé Tomás pour vendre de la drogue, ce qui pousse Jesse à vouloir se venger. L'enfant est finalement tué par ces dealers. Comment Jesse réagit-il ?",
-      "answer": "Il tue les deux dealers (provoquant la rupture avec Gus)",
-      "category": "Jesse"
     },
     {
       "id": "bb037",
@@ -320,12 +308,6 @@
       "question": "Le nom 'Breaking Bad' est une expression argotique du sud des États-Unis qui signifie basculer du bon côté vers le mauvais, devenir hors-la-loi. L'acteur principal, Bryan Cranston, était surtout connu avant pour un rôle de père comique. Dans quelle sitcom jouait-il ?",
       "answer": "Malcolm in the Middle (Malcolm)",
       "category": "Épisodes marquants"
-    },
-    {
-      "id": "bb054",
-      "question": "Dans Better Call Saul, ce personnage est un dealer de drogue calme et méthodique originaire du quartier de Walter White. Il devient l'un des principaux distributeurs de Gus Fring avant les événements de Breaking Bad. Qui est-ce ?",
-      "answer": "Nacho Varga (Ignacio Varga)",
-      "category": "Better Call Saul"
     },
     {
       "id": "bb055",
@@ -437,8 +419,8 @@
     },
     {
       "id": "bb073",
-      "question": "Dans Better Call Saul, cet homme discret et méthodique est un 'fixer' (nettoyeur) engagé par Gus Fring. Il apparaît rarement mais résout les situations les plus délicates avec une efficacité chirurgicale. Son nom est aussi celui d'un aspirateur. Qui est-ce ?",
-      "answer": "Le Disparu (The Disappearer / Ed Galbraith, le vacuum cleaner guy)",
+      "question": "Dans Breaking Bad et Better Call Saul, cet homme tient une boutique de réparation d'aspirateurs comme couverture. Son vrai métier : faire disparaître des criminels en leur créant une nouvelle identité. Saul Goodman l'appelle 'le meilleur dans ce qu'il fait'. Qui est ce personnage surnommé 'The Disappearer' ?",
+      "answer": "Ed Galbraith (The Disappearer), propriétaire de Best Quality Vacuum",
       "category": "Better Call Saul"
     },
     {
@@ -449,8 +431,8 @@
     },
     {
       "id": "bb075",
-      "question": "Expression favorite de Jesse Pinkman quand il est enthousiasmé par la science, cette phrase est devenue virale sur internet et l'un des mèmes les plus populaires de Breaking Bad. Complétez : 'Yeah, ... bitch!'",
-      "answer": "Science (Yeah, science bitch!)",
+      "question": "Expression favorite de Jesse Pinkman devenue virale sur internet sous la forme 'Yeah, science bitch!', cette phrase est en réalité un misquote célèbre. Quelle est la vraie réplique de Jesse dans la série ? 'Yeah, Mr. White! Yeah, ...'",
+      "answer": "Science (Yeah Mr. White! Yeah science!)",
       "category": "Répliques cultes"
     },
     {

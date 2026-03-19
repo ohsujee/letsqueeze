@@ -269,7 +269,7 @@
     },
     {
       "id": "jv045",
-      "question": "Jeu de simulation de vie de Nintendo sorti le 20 mars 2020, il a connu un succès phénoménal pendant les confinements, se vendant à plus de 47 millions d'exemplaires. Le joueur y aménage une île déserte peuplée d'animaux anthropomorphes. Quel est ce jeu ?",
+      "question": "Jeu de simulation de vie de Nintendo sorti le 20 mars 2020, il a connu un succès phénoménal pendant les confinements, se vendant à plus de 49 millions d'exemplaires. Le joueur y aménage une île déserte peuplée d'animaux anthropomorphes. Quel est ce jeu ?",
       "answer": "Animal Crossing: New Horizons",
       "category": "Culture gaming"
     },
@@ -293,7 +293,7 @@
     },
     {
       "id": "jv049",
-      "question": "Jeu mobile de puzzle sorti en avril 2012 par le studio King, il consiste à aligner des bonbons colorés par trois. Devenu un phénomène mondial avec des millions de joueurs quotidiens, il a popularisé le modèle économique free-to-play sur mobile. Quel est ce jeu ?",
+      "question": "Jeu de puzzle développé par le studio King, d'abord sorti sur Facebook en avril 2012 puis sur mobile en novembre 2012, il consiste à aligner des bonbons colorés par trois. Devenu un phénomène mondial avec des millions de joueurs quotidiens, il a popularisé le modèle économique free-to-play sur mobile. Quel est ce jeu ?",
       "answer": "Candy Crush Saga",
       "category": "Culture gaming"
     },
@@ -347,7 +347,7 @@
     },
     {
       "id": "jv058",
-      "question": "Apparue en 1986 dans un jeu Nintendo sur NES, cette chasseuse de primes intergalactique en armure de combat était le premier personnage féminin jouable de l'histoire du jeu vidéo. Les joueurs ne découvraient son identité qu'à la fin du jeu en retirant son casque. Qui est-ce ?",
+      "question": "Apparue en 1986 dans un jeu Nintendo sur NES, cette chasseuse de primes intergalactique en armure de combat a surpris les joueurs en révélant son identité féminine à la fin du jeu, lorsqu'elle retire son casque. Qui est-ce ?",
       "answer": "Samus Aran",
       "category": "Personnages iconiques"
     },
@@ -473,7 +473,7 @@
     },
     {
       "id": "jv081",
-      "question": "Sorti en novembre 1998, ce FPS d'infiltration de Konami sur PlayStation met en scène un agent spécial infiltrant une base nucléaire en Alaska. Son système de détection par champ de vision et les appels par codec ont défini le genre stealth-action. Quel est ce jeu ?",
+      "question": "Sorti en octobre 1998, ce jeu d'action-infiltration de Konami sur PlayStation met en scène un agent spécial infiltrant une base nucléaire en Alaska. Son système de détection par champ de vision et les appels par codec ont défini le genre stealth-action. Quel est ce jeu ?",
       "answer": "Metal Gear Solid",
       "category": "Culture gaming"
     },
@@ -533,7 +533,7 @@
     },
     {
       "id": "jv092",
-      "question": "Ce personnage de Capcom est un mercenaire blond à l'épée surdimensionnée qui travaille pour un groupe éco-terroriste appelé AVALANCHE. Souffrant de faux souvenirs, il est le héros de l'un des RPG les plus influents de 1997 et de son remake en 2020. Qui est-ce ?",
+      "question": "Ce personnage de Square (aujourd'hui Square Enix) est un mercenaire blond à l'épée surdimensionnée qui travaille pour un groupe éco-terroriste appelé AVALANCHE. Souffrant de faux souvenirs, il est le héros de l'un des RPG les plus influents de 1997 et de son remake en 2020. Qui est-ce ?",
       "answer": "Cloud Strife",
       "category": "Personnages iconiques"
     },
@@ -551,7 +551,7 @@
     },
     {
       "id": "jv095",
-      "question": "Société japonaise fondée en 1960 et connue pour ses machines d'arcade, ses pachinko et ses franchises comme Castlevania et Silent Hill. En 2015, une rupture avec un célèbre game designer a fait grand bruit dans l'industrie. Quelle est cette société ?",
+      "question": "Société japonaise fondée en 1969 et connue pour ses machines d'arcade, ses pachinko et ses franchises comme Castlevania et Silent Hill. En 2015, une rupture avec un célèbre game designer a fait grand bruit dans l'industrie. Quelle est cette société ?",
       "answer": "Konami",
       "category": "Studios"
     },
@@ -569,7 +569,7 @@
     },
     {
       "id": "jv098",
-      "question": "Première console portable en couleur de l'histoire, cette machine de Sega sortie en 1990 embarquait un rétroéclairage mais souffrait d'une autonomie très limitée. Elle n'a pas réussi à concurrencer la Game Boy malgré sa supériorité technique. Quelle est cette console ?",
+      "question": "Console portable de Sega sortie en 1990, elle embarquait un écran couleur rétroéclairé mais souffrait d'une autonomie très limitée (3 à 5 heures avec 6 piles AA). Malgré sa supériorité technique, elle n'a pas réussi à concurrencer la Game Boy. Quelle est cette console ?",
       "answer": "Game Gear",
       "category": "Consoles"
     },
@@ -581,7 +581,7 @@
     },
     {
       "id": "jv100",
-      "question": "Studio américain fondé en 1991, il est le créateur de la franchise Halo qui a défini le FPS sur console. Après 20 ans de collaboration avec Microsoft, il s'est séparé du géant pour se lancer dans un nouveau projet de science-fiction en monde ouvert en 2010. Quel est ce studio ?",
+      "question": "Studio américain fondé en 1991, il est le créateur de la franchise Halo qui a défini le FPS sur console. Acquis par Microsoft en 2000, il a retrouvé son indépendance en 2007 avant de signer avec Activision pour se lancer dans un nouveau projet de science-fiction en monde ouvert. Quel est ce studio ?",
       "answer": "Bungie",
       "category": "Studios"
     },
@@ -605,13 +605,13 @@
     },
     {
       "id": "jv104",
-      "question": "Sorti en 2015 sur PlayStation 4, ce jeu de tir en ligne de Bungie propose un univers de science-fiction dans lequel les joueurs incarnent des Gardiens protégeant la Terre. Son système de loot et ses raids multijoueurs en ont fait un classique du genre looter-shooter. Quel est ce jeu ?",
+      "question": "Sorti en 2014 sur PlayStation 4, ce jeu de tir en ligne de Bungie propose un univers de science-fiction dans lequel les joueurs incarnent des Gardiens protégeant la Terre. Son système de loot et ses raids multijoueurs en ont fait un classique du genre looter-shooter. Quel est ce jeu ?",
       "answer": "Destiny",
       "category": "FPS"
     },
     {
       "id": "jv105",
-      "question": "Studio japonais fondé en 1983 et connu pour ses RPG, il est le créateur des séries Final Fantasy et Dragon Quest. En 2003, il a fusionné avec Enix pour former l'un des plus grands éditeurs japonais. Quel est le nom de ce studio avant la fusion ?",
+      "question": "Studio japonais fondé en 1983 et connu pour ses RPG, il est le créateur de la série Final Fantasy. En 2003, il a fusionné avec Enix, le créateur de Dragon Quest, pour former l'un des plus grands éditeurs japonais. Quel est le nom de ce studio avant la fusion ?",
       "answer": "Square",
       "category": "Studios"
     },
@@ -629,7 +629,7 @@
     },
     {
       "id": "jv108",
-      "question": "Ce jeu indépendant de plateforme sorti en 2010 manipule le temps de manière unique : le personnage avance à droite et le temps avance, il recule et le temps recule aussi. Créé par Jonathan Blow, il a redéfini ce que pouvait être un jeu indépendant. Quel est ce jeu ?",
+      "question": "Ce jeu indépendant de plateforme sorti en 2008 manipule le temps de manière unique : le personnage avance à droite et le temps avance, il recule et le temps recule aussi. Créé par Jonathan Blow, il a redéfini ce que pouvait être un jeu indépendant. Quel est ce jeu ?",
       "answer": "Braid",
       "category": "Indépendants"
     },
@@ -647,7 +647,7 @@
     },
     {
       "id": "jv111",
-      "question": "Sorti en 2017 et développé par miHoYo, ce RPG en monde ouvert free-to-play avec un système de gacha a généré des milliards de dollars de revenus. Il est disponible sur mobile, PC et consoles, et son style anime a conquis un public mondial. Quel est ce jeu ?",
+      "question": "Sorti en 2020 et développé par miHoYo, ce RPG en monde ouvert free-to-play avec un système de gacha a généré des milliards de dollars de revenus. Il est disponible sur mobile, PC et consoles, et son style anime a conquis un public mondial. Quel est ce jeu ?",
       "answer": "Genshin Impact",
       "category": "RPG"
     },

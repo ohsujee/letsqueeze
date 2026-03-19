@@ -5,8 +5,8 @@
   "items": [
     {
       "id": "gta001",
-      "question": "Ce protagoniste muet est trahi et laissé pour mort par sa petite amie lors d'un braquage de banque au début du jeu. Arrêté puis libéré lors d'une embuscade du cartel colombien pendant son transfert en prison, il gravit les échelons du crime dans une métropole inspirée de New York. Qui est ce personnage ?",
-      "answer": "Claude",
+      "question": "Ce protagoniste muet est trahi et laissé pour mort par sa petite amie lors d'un braquage de banque au début du jeu. Arrêté puis libéré lors d'une embuscade du cartel colombien pendant son transfert en prison, il gravit les échelons du crime dans Liberty City. Qui est ce personnage ?",
+      "answer": "Claude (GTA III)",
       "category": "Personnages"
     },
     {
@@ -35,7 +35,7 @@
     },
     {
       "id": "gta006",
-      "question": "Ce criminel canadien dirige une entreprise de trafic de méthamphétamine depuis un petit village désertique. Connu pour son comportement imprévisible et violent, il est doublé par Steven Ogg et retrouve son ancien partenaire qu'il croyait mort depuis dix ans. Qui est-ce ?",
+      "question": "Ce criminel canadien dirige une entreprise de trafic de méthamphétamine depuis un petit village désertique. Connu pour son comportement imprévisible et violent, il est doublé par Steven Ogg et retrouve son ancien partenaire qu'il croyait mort depuis neuf ans. Qui est-ce ?",
       "answer": "Trevor Philips",
       "category": "Personnages"
     },
@@ -78,7 +78,7 @@
     {
       "id": "gta013",
       "question": "Ce personnage est le frère aîné de CJ et le leader des Grove Street Families. Farouchement opposé à la drogue, il refuse de voir son gang en vendre malgré les difficultés financières, ce qui affaiblit sa position face aux gangs rivaux. Quel est son prénom ?",
-      "answer": "Sweet",
+      "answer": "Sean",
       "category": "Personnages"
     },
     {
@@ -431,7 +431,7 @@
     },
     {
       "id": "gta073",
-      "question": "Dans le jeu de 2002, le protagoniste peut acheter un nightclub qui deviendra l'une de ses propriétés génératrices de revenus. Inspiré directement du Babylon Club dans Scarface, ce club est situé à Washington Beach. Quel est son nom ?",
+      "question": "Dans le jeu de 2002, le protagoniste peut acheter un nightclub qui deviendra l'une de ses propriétés génératrices de revenus. Inspiré directement du Babylon Club dans Scarface, ce club est situé à Vice Point. Quel est son nom ?",
       "answer": "Malibu Club",
       "category": "Missions"
     },
@@ -458,18 +458,6 @@
       "question": "Dans le cinquième opus, le troisième braquage de l'histoire implique de braquer une banque dans une petite ville côtière du comté de Blaine pour financer une opération du FIB. L'équipe doit combattre l'armée avec un bulldozer blindé pour s'enfuir. Quel est le nom de cette mission ?",
       "answer": "The Paleto Score",
       "category": "Missions"
-    },
-    {
-      "id": "gta078",
-      "question": "Dans le cinquième opus, la base militaire de Fort Zancudo est une zone interdite fortement gardée. Y pénétrer déclenche instantanément le niveau de recherche maximal et l'intervention de l'armée. Cette base est la version fictive de quelle vraie base californienne ?",
-      "answer": "Fort Irwin / Vandenberg Air Force Base",
-      "category": "Villes"
-    },
-    {
-      "id": "gta079",
-      "question": "Le jeu de 2002 a été le premier de la série à utiliser des acteurs professionnels de Hollywood pour le doublage. Outre Ray Liotta, on pouvait entendre des voix de stars comme Burt Reynolds, Dennis Hopper et le rappeur dont le studio s'appelle Aftermath. Quel rappeur a participé au doublage ?",
-      "answer": "Ice-T",
-      "category": "Personnages"
     },
     {
       "id": "gta080",
@@ -545,7 +533,7 @@
     },
     {
       "id": "gta092",
-      "question": "Dans le jeu de 2004, un personnage excentrique prénommé « The Truth » est un hippie conspirationniste qui cultive du cannabis et croit aux extraterrestres. Il est doublé par un acteur hollywoodien de légende, fils du célèbre Henry et sœur de Jane. Quel est le nom de cet acteur ?",
+      "question": "Dans le jeu de 2004, un personnage excentrique prénommé « The Truth » est un hippie conspirationniste qui cultive du cannabis et croit aux extraterrestres. Il est doublé par un acteur hollywoodien de légende, fils du célèbre Henry et frère de Jane. Quel est le nom de cet acteur ?",
       "answer": "Peter Fonda",
       "category": "Personnages"
     },
@@ -647,8 +635,8 @@
     },
     {
       "id": "gta109",
-      "question": "Dans le cinquième opus, une mission emblématique implique de faire tomber un gratte-ciel en le percutant avec un engin de chantier pour le faire s'effondrer sur la maison du patron de la vie privée de la fille de Michael. Cette destruction spectaculaire est un moment marquant du début du jeu. Quel type d'engin Michael utilise-t-il ?",
-      "answer": "Un bulldozer (un tractopelle)",
+      "question": "Dans le cinquième opus, une mission emblématique implique Michael et Franklin utilisant un véhicule muni d'un treuil pour arracher les piliers d'une maison perchée sur une colline, la faisant s'effondrer spectaculairement. Cette destruction, visant par erreur la maison de la maîtresse de Martin Madrazo, force Michael à sortir de sa retraite. Quel type de véhicule utilisent-ils ?",
+      "answer": "Un pickup (Bravado Bison avec treuil)",
       "category": "Missions"
     },
     {

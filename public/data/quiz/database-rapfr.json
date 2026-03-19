@@ -125,14 +125,8 @@
     },
     {
       "id": "rfr021",
-      "question": "Deuxième album d'Orelsan sorti en 2017, il a été certifié double diamant en janvier 2023 avec plus d'un million de ventes. Son titre de quatre mots suggère la fin d'une célébration. Quel est cet album ?",
+      "question": "Troisième album d'Orelsan sorti en 2017, il a été certifié double diamant en janvier 2023 avec plus d'un million de ventes. Son titre de quatre mots suggère la fin d'une célébration. Quel est cet album ?",
       "answer": "La fête est finie",
-      "category": "Albums"
-    },
-    {
-      "id": "rfr022",
-      "question": "Premier album solo de Diam's sorti en 2006, il s'est classé directement numéro 1 en France et a été l'album le plus vendu de l'année, certifié diamant. Il a engendré les tubes La Boulette et Confessions Nocturnes. Quel est cet album ?",
-      "answer": "Dans ma bulle",
       "category": "Albums"
     },
     {
@@ -173,7 +167,7 @@
     },
     {
       "id": "rfr029",
-      "question": "Sorti en 1995, ce double album du groupe fondé par Rockin' Squat et Solo est devenu double disque d'or. Il contient le titre culte L'État assassine. Son titre de deux mots décrit un crime avec préméditation. Quel est cet album ?",
+      "question": "Sorti en 1995, ce double album du groupe fondé par Rockin' Squat et Solo est devenu disque d'or. Il contient le titre culte L'État assassine. Son titre de deux mots décrit un crime avec préméditation. Quel est cet album ?",
       "answer": "L'Homicide volontaire",
       "category": "Classiques"
     },
@@ -182,12 +176,6 @@
       "question": "Premier album d'un rappeur parisien surnommé le Black Mozart, sorti en avril 1998 sur le label Time Bomb, ce disque sombre et poétique est unanimement salué par la critique. Son titre associe un genre musical italien au nom de scène de l'artiste. Quel est cet album ?",
       "answer": "Opéra Puccino",
       "category": "Classiques"
-    },
-    {
-      "id": "rfr031",
-      "question": "Ce rappeur né Ibrahima Diakhaté est considéré comme le prince de la drill hexagonale. En 2019, il a lancé une série de cinq freestyles qui l'ont révélé au grand public, avant de sortir sa première mixtape en février 2021 directement numéro 1. Qui est-il ?",
-      "answer": "Gazo",
-      "category": "Nouvelle génération"
     },
     {
       "id": "rfr032",
@@ -209,7 +197,7 @@
     },
     {
       "id": "rfr035",
-      "question": "Signé chez Wati B, ce rappeur d'origine malienne a percé avec son album Mélo en mai 2022, certifié platine. Ses singles La Clé et Gasolina ont été certifiés diamant, et il collabore régulièrement avec Niska et Gazo. Qui est-il ?",
+      "question": "Signé chez Wati B, ce rappeur d'origine congolaise a percé avec son album Mélo en mai 2022, certifié platine. Ses singles La Clé et Gasolina ont été certifiés diamant, et il collabore régulièrement avec Niska et Gazo. Qui est-il ?",
       "answer": "Tiakola",
       "category": "Nouvelle génération"
     },
@@ -227,7 +215,7 @@
     },
     {
       "id": "rfr038",
-      "question": "Rappeur originaire d'Aulnay-sous-Bois, il a percé grâce à son album Commando en 2017, certifié diamant. Son single de la même année est resté 11 semaines numéro 1 du Top Singles français et a été certifié single de diamant. Qui est-il ?",
+      "question": "Rappeur originaire d'Évry-Courcouronnes, il a percé grâce à son album Commando en 2017, certifié diamant. Son single de la même année est resté 11 semaines numéro 1 du Top Singles français et a été certifié single de diamant. Qui est-il ?",
       "answer": "Niska",
       "category": "Nouvelle génération"
     },
@@ -251,7 +239,7 @@
     },
     {
       "id": "rfr042",
-      "question": "Ce producteur belge d'origine marocaine a joué un rôle majeur dans l'explosion du rap belge, collaborant étroitement avec Damso sur les albums Lithopédion et QALF. Il s'est ensuite lancé dans une carrière solo avec l'album Passager en 2023. Qui est-il ?",
+      "question": "Ce producteur belge d'origine congolaise a joué un rôle majeur dans l'explosion du rap belge, collaborant étroitement avec Damso sur les albums Lithopédion et QALF. Il s'est ensuite lancé dans une carrière solo avec l'album Passager en 2023. Qui est-il ?",
       "answer": "Prinzly",
       "category": "Producteurs"
     },
@@ -287,14 +275,8 @@
     },
     {
       "id": "rfr048",
-      "question": "Fondé en 2002 au Havre par le rappeur Médine avec ses amis Brav et Alivor, ce label indépendant a pour devise Le Savoir Est Une Arme. Son catalogue défend un rap conscient et engagé. Quel est ce label ?",
+      "question": "Fondé en 2002 au Havre par les rappeurs Proof et Sals'a du groupe La Boussole, ce label indépendant a pour devise Le Savoir Est Une Arme. Son catalogue, qui inclut des artistes comme Médine, Brav et Alivor, défend un rap conscient et engagé. Quel est ce label ?",
       "answer": "Din Records",
-      "category": "Labels"
-    },
-    {
-      "id": "rfr049",
-      "question": "Label fondé en 1999 autour de trois groupes de Boulogne-Billancourt dont Lunatic, cette structure a été le socle de la carrière du Duc avant de devenir un véritable empire du rap. Son nom associe le chiffre 45 et un adjectif anglais. Quel est ce label historique ?",
-      "answer": "45 Scientific",
       "category": "Labels"
     },
     {
@@ -407,7 +389,7 @@
     },
     {
       "id": "rfr073",
-      "question": "Rappeur franco-congolais et chanteur R&B né Djuna Djanana Junior, il a connu un succès phénoménal en solo après la pause de la Sexion d'Assaut. Son premier album solo, sorti en 2013, a été certifié diamant. Il est aussi le frère aîné de Dadju. Qui est-il ?",
+      "question": "Rappeur franco-congolais et chanteur R&B né Gandhi Djuna, il a connu un succès phénoménal en solo après la pause de la Sexion d'Assaut. Son premier album solo, sorti en 2013, a été certifié diamant. Il est aussi le frère aîné de Dadju. Qui est-il ?",
       "answer": "Gims",
       "category": "Artistes"
     },
@@ -430,12 +412,6 @@
       "category": "Artistes"
     },
     {
-      "id": "rfr077",
-      "question": "Rappeur franco-congolais, fils du musicien Tabu Ley Rochereau, il a sorti son troisième album en 2012, certifié platine en sept mois. Son rap est reconnu pour ses textes introspectifs et ses punchlines ciselées. Qui est-il ?",
-      "answer": "Youssoupha",
-      "category": "Artistes"
-    },
-    {
       "id": "rfr078",
       "question": "Rappeur d'origine sénégalaise et française, il a sorti son premier album Le Poisson Rouge en 2000, porté par le tube J'pète les plombs vendu à 400 000 exemplaires. Il a ensuite remporté une Victoire de la Musique en 2006. Qui est-il ?",
       "answer": "Disiz",
@@ -449,7 +425,7 @@
     },
     {
       "id": "rfr080",
-      "question": "Surnommé le Black Mozart, ce rappeur parisien au style sombre et poétique a sorti son premier album en 1998. Proche du collectif Time Bomb, il est souvent comparé à Nas pour son rap narratif et introspectif. Qui est-il ?",
+      "question": "Surnommé le Black Jacques Brel, ce rappeur parisien au style sombre et poétique a sorti son premier album en 1998. Proche du collectif Time Bomb, il est souvent comparé à Nas pour son rap narratif et introspectif. Qui est-il ?",
       "answer": "Oxmo Puccino",
       "category": "Artistes"
     },
@@ -481,12 +457,6 @@
       "id": "rfr086",
       "question": "Quatrième album de Damso sorti en septembre 2020, ce projet a été certifié diamant avec plus de 500 000 ventes. Son titre est un acronyme de quatre lettres. Quel est cet album ?",
       "answer": "QALF",
-      "category": "Albums"
-    },
-    {
-      "id": "rfr087",
-      "question": "Cet album de Niska sorti en 2017 a été certifié diamant. Il contenait le single numéro 1 Réseaux ainsi que trois autres singles certifiés diamant. Son titre d'un seul mot évoque une unité militaire d'élite. Quel est cet album ?",
-      "answer": "Commando",
       "category": "Albums"
     },
     {
@@ -556,12 +526,6 @@
       "category": "Artistes"
     },
     {
-      "id": "rfr102",
-      "question": "Ce rappeur originaire de Saint-Denis, de son vrai nom Housni Mkouboi, est l'un des piliers du collectif Mafia K'1 Fry. Son premier album solo est sorti en 1999, la même année que son ami Kery James. Connu pour son style agressif et ses clashs, il a sorti une dizaine d'albums studio. Qui est-il ?",
-      "answer": "Rohff",
-      "category": "Artistes"
-    },
-    {
       "id": "rfr103",
       "question": "Ce rappeur, de son vrai nom Laouni Mouhid, est originaire du Trappes dans les Yvelines. Connu pour ses albums Bourré au son et Aller-retour, il a été l'un des rivaux les plus médiatisés du Duc de Boulogne dans les années 2000-2010. Qui est-il ?",
       "answer": "La Fouine",
@@ -569,7 +533,7 @@
     },
     {
       "id": "rfr104",
-      "question": "Rappeur marseillais spécialisé dans le storytelling, il faisait partie de la Fonky Family aux côtés de Sat, Don Choa et Pone. Connu pour ses textes narratifs détaillés et ses albums solo comme Compte à rebours avant fermeture définitive, il est une légende du rap phocéen. Quel est son surnom animal ?",
+      "question": "Rappeur marseillais spécialisé dans le storytelling, il faisait partie de la Fonky Family aux côtés de Sat, Don Choa et Pone. Connu pour ses textes narratifs détaillés et son album solo Mode de vie... Béton style, il est une légende du rap phocéen. Quel est son surnom animal ?",
       "answer": "Le Rat Luciano",
       "category": "Artistes"
     },
@@ -602,12 +566,6 @@
       "question": "Producteur et manager franco-malien né Badiri Diakité en 1974, il a pris les rênes du management de la Sexion d'Assaut en 2006 et a fondé un label dont le nom signifie tout le temps en bambara. Il est considéré comme l'un des managers les plus influents du rap hexagonal. Qui est-il ?",
       "answer": "Dawala",
       "category": "Culture rap"
-    },
-    {
-      "id": "rfr111",
-      "question": "Troisième album de la Sexion d'Assaut sorti le 5 mars 2012, ce disque s'est vendu à 10 000 exemplaires le jour même de sa sortie et a été certifié diamant. Son titre d'un seul mot désigne le point culminant, le sommet absolu. Quel est cet album ?",
-      "answer": "L'Apogée",
-      "category": "Albums"
     },
     {
       "id": "rfr112",

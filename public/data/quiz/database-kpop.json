@@ -5,7 +5,7 @@
   "items": [
     {
       "id": "kpop001",
-      "question": "Formé par Big Hit Entertainment en 2012, ce groupe de sept membres est devenu le premier acte sud-coréen à atteindre la première place du Billboard Hot 100 en 2020 avec un single entièrement en anglais. Leur fandom, l'un des plus puissants au monde, s'appelle ARMY. Quel est ce groupe ?",
+      "question": "Formé par Big Hit Entertainment et ayant débuté en 2013, ce groupe de sept membres est devenu le premier acte sud-coréen à atteindre la première place du Billboard Hot 100 en 2020 avec un single entièrement en anglais. Leur fandom, l'un des plus puissants au monde, s'appelle ARMY. Quel est ce groupe ?",
       "answer": "BTS",
       "category": "BTS"
     },
@@ -52,12 +52,6 @@
       "category": "BTS"
     },
     {
-      "id": "kpop009",
-      "question": "Sorti en mai 2021, ce single estival en anglais est resté trois semaines consécutives numéro un du Billboard Hot 100. Le clip met en scène les membres dans des décors inspirés de restaurants et a battu des records YouTube. Quel est ce titre ?",
-      "answer": "Butter",
-      "category": "BTS"
-    },
-    {
       "id": "kpop010",
       "question": "Danseur et chanteur reconnu pour ses performances solo comme Lie et Filter, ce membre de Busan a été élu à plusieurs reprises artiste le plus recherché sur Google au sein de son groupe. Son album solo Face est sorti en mars 2023. Qui est-il ?",
       "answer": "Jimin",
@@ -65,7 +59,7 @@
     },
     {
       "id": "kpop011",
-      "question": "Né Kim Taehyung, ce chanteur au timbre baryton reconnaissable a sorti l'album solo Layover en 2023. Connu pour son amour de l'art et de la photographie, il est aussi acteur dans le drama historique Hwarang. Son nom de scène est la 22e lettre de l'alphabet latin. Quelle est cette lettre ?",
+      "question": "Né Kim Taehyung, ce chanteur au timbre baryton reconnaissable a sorti l'album solo Layover en 2023. Connu pour son amour de l'art et de la photographie, il est aussi acteur dans le drama historique Hwarang. Quel est son nom de scène ?",
       "answer": "V",
       "category": "BTS"
     },
@@ -89,7 +83,7 @@
     },
     {
       "id": "kpop015",
-      "question": "Série d'albums conceptuels explorant les thèmes de la jeunesse et de l'amour de soi, cette franchise a débuté en 2018 et inclut les volets Her, Tear et Answer. Le dernier volet a été le premier album K-pop numéro un du Billboard 200. Quel est le nom de cette série d'albums ?",
+      "question": "Série d'albums conceptuels de BTS déclinée en trois volets — Her, Tear et Answer —, cette franchise a débuté en 2017. Le deuxième volet, porté par le single Fake Love, a été le premier album K-pop numéro un du Billboard 200. Quel est le nom de cette série d'albums ?",
       "answer": "Love Yourself",
       "category": "BTS"
     },
@@ -113,7 +107,7 @@
     },
     {
       "id": "kpop019",
-      "question": "Née en Nouvelle-Zélande et élevée en Australie, cette chanteuse est la vocaliste principale de son groupe. Son single solo On The Ground a atteint le numéro un du Billboard Global 200 en 2021. Son album solo APT. avec Bruno Mars est devenu viral en 2024. Qui est-elle ?",
+      "question": "Née en Nouvelle-Zélande et élevée en Australie, cette chanteuse est la vocaliste principale de son groupe. Son single solo On The Ground a atteint le numéro un du Billboard Global 200 en 2021. Son single APT. avec Bruno Mars est devenu viral en 2024. Qui est-elle ?",
       "answer": "Rosé",
       "category": "BLACKPINK"
     },
@@ -191,7 +185,7 @@
     },
     {
       "id": "kpop032",
-      "question": "Acronyme de Neo Culture Technology, ce projet de SM Entertainment lancé en 2016 repose sur un nombre illimité de membres répartis en sous-unités. 127 fait référence à la longitude de Séoul, et le groupe compte plus de vingt-cinq membres au total. Quel est ce groupe ?",
+      "question": "Acronyme de Neo Culture Technology, ce projet de SM Entertainment lancé en 2016 repose sur un nombre illimité de membres répartis en sous-unités. 127 fait référence à la longitude de Séoul, et le groupe compte vingt-cinq membres. Quel est ce groupe ?",
       "answer": "NCT",
       "category": "Groupes masculins"
     },
@@ -221,14 +215,8 @@
     },
     {
       "id": "kpop037",
-      "question": "Débutant en mai 2008 sous SM Entertainment avec le single Replay, ce groupe de cinq membres est considéré comme l'un des pionniers de la troisième génération K-pop. Leur plus jeune membre est devenu l'un des solistes masculins les plus acclamés de l'industrie. Quel est ce groupe ?",
+      "question": "Débutant en mai 2008 sous SM Entertainment avec le single Replay, ce groupe de cinq membres est considéré comme l'un des pionniers de la deuxième génération K-pop. Leur plus jeune membre est devenu l'un des solistes masculins les plus acclamés de l'industrie. Quel est ce groupe ?",
       "answer": "SHINee",
-      "category": "Groupes masculins"
-    },
-    {
-      "id": "kpop038",
-      "question": "Débutant en novembre 2005 sur Inkigayo avec douze membres, ce boy group de SM Entertainment a conquis l'Asie avec le titre Sorry, Sorry en 2009. Leur leader Leeteuk est le plus ancien idol encore actif de l'agence. Quel est ce groupe ?",
-      "answer": "Super Junior",
       "category": "Groupes masculins"
     },
     {
@@ -287,7 +275,7 @@
     },
     {
       "id": "kpop048",
-      "question": "Formé par Source Music, filiale de HYBE, ce girl group a débuté en mai 2022 avec l'EP Fearless. Il compte parmi ses membres Sakura et Kim Chaewon, toutes deux anciennes de IZ*ONE. Leur nom est un anagramme d'un groupe de six lettres angéliques. Quel est ce groupe ?",
+      "question": "Formé par Source Music, filiale de HYBE, ce girl group a débuté en mai 2022 avec l'EP Fearless. Il compte parmi ses membres Sakura et Kim Chaewon, toutes deux anciennes de IZ*ONE. Leur nom est un anagramme de « I'M FEARLESS » et fait référence aux séraphins, êtres angéliques à six ailes. Quel est ce groupe ?",
       "answer": "LE SSERAFIM",
       "category": "Groupes féminins"
     },
@@ -521,7 +509,7 @@
     },
     {
       "id": "kpop087",
-      "question": "HyunA a fait une apparition remarquée dans le clip de ce tube planétaire de 2012 aux côtés de son créateur, dans une scène se déroulant dans un sauna. Cette collaboration a renforcé la visibilité mondiale de la K-pop féminine. Dans quel clip est-elle apparue ?",
+      "question": "HyunA a fait une apparition remarquée dans le clip de ce tube planétaire de 2012 aux côtés de son créateur, dans une scène se déroulant dans le métro. Cette collaboration a renforcé la visibilité mondiale de la K-pop féminine. Dans quel clip est-elle apparue ?",
       "answer": "Gangnam Style",
       "category": "Collaborations/Crossover"
     },
@@ -539,7 +527,7 @@
     },
     {
       "id": "kpop090",
-      "question": "Supergroupe formé par SM Entertainment en 2019 réunissant Taemin de SHINee, Baekhyun et Kai d'EXO, et des membres de NCT 127 et WayV, ce projet visait le marché américain avec le titre Jopping. Le groupe s'est produit au Super Bowl de 2020. Quel est son nom ?",
+      "question": "Supergroupe formé par SM Entertainment en 2019 réunissant Taemin de SHINee, Baekhyun et Kai d'EXO, et des membres de NCT 127 et WayV, ce projet visait le marché américain avec le titre Jopping. Quel est son nom ?",
       "answer": "SuperM",
       "category": "Collaborations/Crossover"
     },
@@ -563,7 +551,7 @@
     },
     {
       "id": "kpop094",
-      "question": "Stray Kids a collaboré avec Charlie Puth sur le titre Lose My Breath en 2024, marquant une percée significative sur le marché américain. Le leader australien du groupe a co-produit le titre. Quel est le nom de ce leader né à Sydney ?",
+      "question": "Stray Kids a collaboré avec Charlie Puth sur le titre Lose My Breath en 2024, marquant une percée significative sur le marché américain. Le leader du groupe, élevé en Australie, a co-écrit le titre avec son unité 3Racha. Quel est le nom de ce leader qui a grandi à Sydney ?",
       "answer": "Bang Chan",
       "category": "Collaborations/Crossover"
     },
@@ -575,7 +563,7 @@
     },
     {
       "id": "kpop096",
-      "question": "Rival direct de H.O.T. dans les années 1990, ce boy group formé par Daesung Entertainment a débuté en mai 1997. Composé de six membres (d'où leur nom allemand), ils ont été au cœur de la première guerre de fandoms de la K-pop. Quel est ce groupe ?",
+      "question": "Rival direct de H.O.T. dans les années 1990, ce boy group formé par Daesung Entertainment a débuté en avril 1997. Composé de six membres (d'où leur nom allemand), ils ont été au cœur de la première guerre de fandoms de la K-pop. Quel est ce groupe ?",
       "answer": "Sechskies",
       "category": "Générations K-Pop"
     },
@@ -623,7 +611,7 @@
     },
     {
       "id": "kpop104",
-      "question": "Formé par SM Entertainment en 1998, ce boys band de six membres de la première génération est le plus ancien groupe d'idols K-pop encore en activité. Leur nom signifie 'légende' en coréen et ils n'ont jamais changé de formation en plus de vingt-cinq ans d'existence. Quel est ce groupe légendaire ?",
+      "question": "Formé par SM Entertainment en 1998, ce boys band de six membres de la première génération est le plus ancien groupe d'idols K-pop encore en activité. Leur nom signifie 'mythe' en coréen et ils n'ont jamais changé de formation en plus de vingt-cinq ans d'existence. Quel est ce groupe mythique ?",
       "answer": "Shinhwa",
       "category": "Générations K-Pop"
     },
@@ -649,12 +637,6 @@
       "id": "kpop108",
       "question": "En K-pop, ce terme désigne les photos thématiques publiées avant un comeback, montrant les membres dans l'esthétique visuelle du nouvel album. Elles servent de teasers et sont souvent déclinées en plusieurs versions. Comment appelle-t-on ces images promotionnelles ?",
       "answer": "Concept photos",
-      "category": "Concepts/Univers"
-    },
-    {
-      "id": "kpop109",
-      "question": "Le conglomérat fondé par Bang Si-hyuk a développé un univers narratif transmedia liant les histoires de BTS et TXT à travers des bandes dessinées numériques, des romans et des jeux vidéo. Cet univers explore des thèmes de jeunesse, de voyage temporel et de dimensions parallèles. Comment appelle-t-on cet univers ?",
-      "answer": "HYBE Webtoon Universe",
       "category": "Concepts/Univers"
     },
     {
