@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { SealQuestion, Heart } from '@phosphor-icons/react';
 import { useCountdownTick, calculateCountdown } from '@/lib/hooks/useCountdownTick';
+
+const MAX_RETRIES = 2;
 
 export default function GameCard({
   game,
@@ -15,6 +17,8 @@ export default function GameCard({
 }) {
   const router = useRouter();
   const [showHeart, setShowHeart] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   const { Illustration, image } = game;
 
   // Shared countdown tick (single interval for all cards)
@@ -40,6 +44,15 @@ export default function GameCard({
     e.stopPropagation();
     onShowHelp?.(game.id);
   };
+
+  const handleImgError = useCallback((e) => {
+    if (retryCount < MAX_RETRIES) {
+      // Retry with cache-busting query param
+      const nextRetry = retryCount + 1;
+      setRetryCount(nextRetry);
+      e.target.src = `${image}?retry=${nextRetry}`;
+    }
+  }, [retryCount, image]);
 
   // Game-specific gradient colors
   const getGradient = () => {
@@ -68,10 +81,16 @@ export default function GameCard({
     >
       {/* Background Image */}
       {image && (
-        <div
-          className="card-bg"
-          style={{ backgroundImage: `url(${image})` }}
-        />
+        <div className="card-bg" style={!imgLoaded ? { background: getGradient() } : undefined}>
+          <img
+            src={image}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setImgLoaded(true)}
+            onError={handleImgError}
+          />
+        </div>
       )}
 
       {/* Illustration */}
