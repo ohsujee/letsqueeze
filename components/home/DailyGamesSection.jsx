@@ -76,14 +76,17 @@ export default function DailyGamesSection() {
           </span>
         )}
       </h2>
-      <div style={{ position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'relative' }}>
         <div className="daily-games-grid" ref={scrollRef}>
           {visibleIndices.map((i) => (
             <DailyCard key={DAILY_GAMES[i].id} game={DAILY_GAMES[i]} />
           ))}
         </div>
         {canScroll && (
-          <div className="daily-scroll-hint">
+          <div
+            className="daily-scroll-hint"
+            onClick={() => scrollRef.current?.scrollBy({ left: 200, behavior: 'smooth' })}
+          >
             <CaretRight size={14} weight="bold" />
           </div>
         )}

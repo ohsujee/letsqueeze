@@ -12742,25 +12742,28 @@ input[type="text"].game-search-input:focus,
 
 .daily-scroll-hint {
   position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 32px;
-  background: linear-gradient(90deg, transparent, var(--bg-primary, #0a0a0f) 80%);
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
   z-index: 5;
-  pointer-events: none;
-}
-.daily-scroll-hint svg {
-  opacity: 0.4;
   animation: scrollHintBounce 1.5s ease-in-out infinite;
 }
 
 @keyframes scrollHintBounce {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(3px); }
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(3px); }
 }
 .daily-games-grid > * {
   scroll-snap-align: start;
