@@ -412,6 +412,56 @@ const GAMES_DATA = {
     ]
   },
 
+  total: {
+    id: 'total',
+    title: 'Total',
+    subtitle: 'Le compte est bon !',
+    accentColor: '#3b82f6',
+    accentGradient: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+    glowColor: 'rgba(59, 130, 246, 0.4)',
+    sections: [
+      {
+        id: 'concept',
+        title: 'Le concept',
+        icon: Target,
+        content: {
+          type: 'intro',
+          text: 'Chaque jour, 6 chiffres et une cible. Combine les 6 chiffres avec +, −, × et ÷ pour atteindre la cible. Tu as 3 minutes et 3 essais !'
+        }
+      },
+      {
+        id: 'rules',
+        title: 'Les règles',
+        icon: CheckCircle,
+        content: {
+          type: 'scoring',
+          items: [
+            { label: 'Utilise les 6 chiffres', value: 'Obligatoire', icon: Zap, color: '#3b82f6' },
+            { label: 'Calcul séquentiel', value: 'Gauche → droite', icon: Zap, color: '#3b82f6' },
+            { label: '3 essais max', value: '3 minutes', icon: Timer, color: '#f59e0b' },
+            { label: 'Quitter l\'app', value: 'Fin de partie', icon: AlertTriangle, color: '#ef4444' },
+          ],
+          note: 'Le résultat exact est toujours atteignable. Si tu ne le trouves pas, rapproche-toi le plus possible pour te classer !'
+        }
+      },
+      {
+        id: 'scoring',
+        title: 'Le score',
+        icon: Trophy,
+        content: {
+          type: 'scoring',
+          items: [
+            { label: 'Compte exact', value: '5 000+ pts', icon: Zap, color: '#10b981' },
+            { label: 'Écart 5', value: '~4 700 pts', icon: Zap, color: '#3b82f6' },
+            { label: 'Écart 25', value: '~3 500 pts', icon: Zap, color: '#f59e0b' },
+            { label: 'Écart 50+', value: '~2 000 pts', icon: Zap, color: '#f97316' },
+          ],
+          note: 'Chaque essai sauvegarde ton meilleur score. Un bonus temps s\'ajoute : plus tu es rapide, plus tu gagnes !'
+        }
+      }
+    ]
+  },
+
   mime: {
     id: 'mime',
     title: 'Mime',

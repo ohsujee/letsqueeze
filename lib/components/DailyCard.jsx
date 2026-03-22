@@ -45,7 +45,7 @@ export default function DailyCard({ game }) {
       {/* Top-right: state indicator */}
       {loaded && todayState === 'inprogress' && progress && (
         <div className="daily-progress-pill">
-          {progress.attempts}/{game.id === 'motmystere' ? 6 : '∞'}
+          {progress.attempts}/{game.id === 'motmystere' ? 6 : game.id === 'total' ? 3 : '∞'}
         </div>
       )}
       {loaded && todayState === 'completed' && (

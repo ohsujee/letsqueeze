@@ -753,4 +753,83 @@ realistic facial expressions, cluttered particles, symmetrical static poses.
 
 ---
 
+## 11. TOTAL (Daily Card)
+
+```
+Art style: Bold graphic illustration for a compact horizontal mobile game card.
+High contrast, strong shapes, immediately readable at small size.
+Abstract and symbolic — no characters, no scene, pure visual metaphor for calculation and precision.
+Rich saturated colors, dramatic lighting. Clean negative space.
+
+Technical: 16:9 aspect ratio, minimum 2400×1350px resolution.
+The composition must use the full height — operator symbols should be large and dominant,
+not squeezed into a thin band. Clear center focal point.
+Every element serves legibility at thumbnail size. No clutter.
+
+STRICT RULES:
+- NO characters or silhouettes
+- NO text, digits, or numbers — abstract shapes only
+- NO calculator, chalkboard, or school imagery
+- NO busy patterns or textures
+- NO random decorative elements
+
+---
+
+Scene: Four mathematical operator symbols — +, −, ×, ÷ — floating freely in a vast dark
+3D space, like objects drifting weightlessly underwater or in zero gravity.
+Inspired by the PlayStation 2 startup aesthetic — cinematic void, dramatic depth.
+
+CRITICAL — each symbol has its OWN unique position, rotation, size and depth:
+- The × is VERY CLOSE to the camera, large, slightly cropped at the edge of frame,
+  tilted 25° clockwise, slightly blurred from proximity — imposing, dominant
+- The + is mid-distance, medium size, rotated 15° counter-clockwise, floating slightly
+  above center — clear and sharp, the most readable symbol
+- The ÷ is FAR AWAY, small, tilted 30° on a diagonal axis, drifting toward the upper
+  corner — distant but glowing, adding depth to the scene
+- The − is at medium-far distance, rotated flat like a horizon line, angled 10° forward
+  as if slowly tumbling — caught mid-rotation
+
+The symbols drift organically — NOT aligned, NOT symmetric, NOT in a grid or pattern.
+They feel like they were scattered into space and are slowly rotating independently,
+each on its own axis, each at its own speed. Like watching objects float in deep water
+with gentle invisible currents pushing them in different directions.
+
+Each symbol is a thick, solid 3D shape with visible depth/extrusion — not flat icons.
+They catch light differently based on their angle: the close × shows its full face lit up,
+the distant ÷ is mostly edge-lit, the + catches light on one side creating a sharp shadow
+on the other. Soft depth-of-field blur on the very close and very far symbols.
+
+All symbols glow electric blue (#3b82f6) but the proximity to camera affects intensity:
+close × is brightest with strong blue glow bleeding into surrounding space,
+distant ÷ is dimmer with a subtle cyan (#06b6d4) rim. A faint warm gold (#f59e0b)
+light source from above-right creates subtle warm highlights on the top edges of each symbol.
+
+Between the symbols: very faint wisps of blue light connecting them loosely — not geometric
+lines but organic flowing light trails, like bioluminescent currents in dark water,
+suggesting that these symbols are part of the same system despite floating apart.
+
+Background: Deep void black (#050a18) with a soft diffuse blue nebula (#0f2557) in the
+center-back, like distant light behind fog. Cinematic vignette darkening all edges.
+Sparse micro-particles — tiny blue-white dust motes catching light, enhancing the
+underwater/space feeling of depth.
+
+Lighting: No single light source — symbols self-illuminate with blue glow.
+A subtle warm directional light from upper-right creates gold-tinged edges.
+Strong depth-of-field: sharp focus on mid-distance symbols, soft blur on very near
+and very far elements. Volumetric haze between depth layers.
+
+Mood: Meditative, vast, cinematic — like floating in a calm digital ocean where
+mathematical operations drift as luminous artifacts. PS2 startup energy meets
+underwater documentary. Premium, mysterious, contemplative depth.
+
+Color palette: Void black (#050a18), Deep blue (#0f2557), Electric blue (#3b82f6),
+Bright blue (#2563eb), Cyan (#06b6d4), Warm gold accent (#f59e0b).
+
+AVOID: Symmetric arrangements, grid patterns, diamond/rhombus formation, flat 2D symbols,
+equal sizes, equal spacing, actual numbers or digits, text, characters, calculator imagery,
+school aesthetic, cluttered composition, symbols all facing the same direction.
+```
+
+---
+
 *Un seul copier-coller par jeu - Prêt à l'emploi !*

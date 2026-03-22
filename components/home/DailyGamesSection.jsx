@@ -1,23 +1,51 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CalendarDots } from '@phosphor-icons/react';
+import { onAuthStateChanged } from 'firebase/auth';
 import { DAILY_GAMES } from '@/lib/config/dailyGames';
 import DailyCard from '@/lib/components/DailyCard';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
+import { isSuperFounder } from '@/lib/admin';
+import { auth } from '@/lib/firebase';
 
-// Appel du hook pour chaque jeu (2 jeux fixes)
+// Hooks appelés pour chaque jeu (nombre fixe pour respecter les règles des hooks)
 function useDailyProgress() {
   const s0 = useDailyGame(DAILY_GAMES[0]?.id);
   const s1 = useDailyGame(DAILY_GAMES[1]?.id);
-  const states = [s0, s1].slice(0, DAILY_GAMES.length);
+  const s2 = useDailyGame(DAILY_GAMES[2]?.id);
+  const states = [s0, s1, s2].slice(0, DAILY_GAMES.length);
   const loaded = states.every((s) => s.loaded);
-  const completed = states.filter((s) => s.todayState === 'completed').length;
-  return { completed, total: DAILY_GAMES.length, loaded };
+  return { states, loaded };
 }
 
 export default function DailyGamesSection() {
-  const { completed, total, loaded } = useDailyProgress();
+  const { states, loaded } = useDailyProgress();
+  const [user, setUser] = useState(auth.currentUser);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
+    return () => unsub();
+  }, []);
+
+  const userIsSuperFounder = isSuperFounder(user);
+
+  // Date actuelle en Europe/Paris
+  const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
+
+  // Filtrer les jeux visibles
+  const visibleIndices = DAILY_GAMES
+    .map((g, i) => i)
+    .filter((i) => {
+      const g = DAILY_GAMES[i];
+      if (g.superFoundersOnly && !userIsSuperFounder) return false;
+      if (g.availableFrom && todayStr < g.availableFrom && !userIsSuperFounder) return false;
+      return true;
+    });
+
+  const completed = visibleIndices.filter((i) => states[i]?.todayState === 'completed').length;
+  const total = visibleIndices.length;
   const allDone = loaded && completed === total;
 
   return (
@@ -37,8 +65,8 @@ export default function DailyGamesSection() {
         )}
       </h2>
       <div className="daily-games-grid">
-        {DAILY_GAMES.map((game) => (
-          <DailyCard key={game.id} game={game} />
+        {visibleIndices.map((i) => (
+          <DailyCard key={DAILY_GAMES[i].id} game={DAILY_GAMES[i]} />
         ))}
       </div>
     </motion.section>

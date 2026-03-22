@@ -22,6 +22,7 @@ const ROUTE_GAME_MAP = [
   { pattern: /^\/mime(\/room\/[^/]+)?$/, gameType: 'mime' },
   { pattern: /^\/daily\/semantique$/, gameType: 'semantique' },
   { pattern: /^\/daily\/motmystere$/, gameType: 'motmystere' },
+  { pattern: /^\/daily\/total$/, gameType: 'total' },
 ];
 
 const HowToPlayContext = createContext(null);
