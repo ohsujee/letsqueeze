@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { CalendarDots } from '@phosphor-icons/react';
+import { CalendarDots, CaretRight } from '@phosphor-icons/react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { DAILY_GAMES } from '@/lib/config/dailyGames';
 import DailyCard from '@/lib/components/DailyCard';
@@ -48,6 +48,18 @@ export default function DailyGamesSection() {
   const total = visibleIndices.length;
   const allDone = loaded && completed === total;
 
+  const scrollRef = useRef(null);
+  const [canScroll, setCanScroll] = useState(false);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const check = () => setCanScroll(el.scrollWidth - el.scrollLeft - el.clientWidth > 8);
+    check();
+    el.addEventListener('scroll', check, { passive: true });
+    return () => el.removeEventListener('scroll', check);
+  }, [visibleIndices.length]);
+
   return (
     <motion.section
       className="daily-games-section"
@@ -64,10 +76,17 @@ export default function DailyGamesSection() {
           </span>
         )}
       </h2>
-      <div className="daily-games-grid">
-        {visibleIndices.map((i) => (
-          <DailyCard key={DAILY_GAMES[i].id} game={DAILY_GAMES[i]} />
-        ))}
+      <div style={{ position: 'relative', overflow: 'hidden' }}>
+        <div className="daily-games-grid" ref={scrollRef}>
+          {visibleIndices.map((i) => (
+            <DailyCard key={DAILY_GAMES[i].id} game={DAILY_GAMES[i]} />
+          ))}
+        </div>
+        {canScroll && (
+          <div className="daily-scroll-hint">
+            <CaretRight size={14} weight="bold" />
+          </div>
+        )}
       </div>
     </motion.section>
   );

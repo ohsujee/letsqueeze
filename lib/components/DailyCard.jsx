@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { CheckCircle, Fire } from '@phosphor-icons/react';
+import { CheckCircle, Fire, StarFour } from '@phosphor-icons/react';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
 
 export default function DailyCard({ game }) {
@@ -58,6 +58,14 @@ export default function DailyCard({ game }) {
           <CheckCircle weight="fill" size={14} />
           Fait !
         </motion.div>
+      )}
+
+      {/* New badge */}
+      {game.isNew && (
+        <div className="daily-new-pill">
+          <StarFour weight="fill" size={10} />
+          NOUVEAU
+        </div>
       )}
 
       {/* Center: Game title */}
