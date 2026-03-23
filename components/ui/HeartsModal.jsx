@@ -10,6 +10,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Crown, X, Play } from 'lucide-react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 const MAX_HEARTS = 5;
 
@@ -54,6 +55,8 @@ export default function HeartsModal({
   canClose = true,
   onGoHome,
 }) {
+  useBackHandler(onClose, isOpen && canClose);
+
   if (!isOpen) return null;
 
   const isBlocked = heartsRemaining === 0;

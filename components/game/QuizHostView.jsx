@@ -13,7 +13,6 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import HostDisconnectAlert from "@/components/game/HostDisconnectAlert";
 import BuzzValidationModal from "@/components/game/BuzzValidationModal";
@@ -116,7 +115,6 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   });
 
   // Keep screen awake
-  useWakeLock({ enabled: true });
 
   // Exit and end game (actual host only)
   async function exitAndEndGame() {

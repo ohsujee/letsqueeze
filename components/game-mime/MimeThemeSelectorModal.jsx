@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, Lock } from 'lucide-react';
 
@@ -27,6 +28,8 @@ export default function MimeThemeSelectorModal({
 }) {
   const [mounted, setMounted] = useState(false);
   const [selectedThemes, setSelectedThemes] = useState([]);
+
+  useBackHandler(onClose, isOpen);
 
   useEffect(() => {
     setMounted(true);

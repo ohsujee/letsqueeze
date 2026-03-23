@@ -30,7 +30,6 @@ import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { ALIBI_GROUP_CONFIG } from "@/lib/config/rooms";
 
@@ -74,7 +73,6 @@ export default function AlibiPrep() {
   });
 
   // Keep screen awake during game
-  useWakeLock({ enabled: true });
 
   // Scroll indicators for document
   useEffect(() => {

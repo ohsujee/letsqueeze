@@ -8,7 +8,8 @@
  * Usage: <GuestAccountPromptModal currentUser={currentUser} isHost={isHost} />
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { signInWithGoogle, signInWithApple } from '@/lib/firebase';
@@ -201,7 +202,9 @@ export default function GuestAccountPromptModal({ currentUser, isHost, onConnect
 
   if (!isOpen) return null;
 
-  const handleClose = () => setIsOpen(false);
+  const handleClose = useCallback(() => setIsOpen(false), []);
+
+  useBackHandler(handleClose, isOpen);
 
   const handleGoogleConnect = async () => {
     try {

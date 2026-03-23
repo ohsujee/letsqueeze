@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, X, HelpCircle, UserX, WifiOff, Moon, Crown, Users, Sparkles } from 'lucide-react';
 import { ref, remove } from 'firebase/database';
@@ -39,6 +40,9 @@ export default function LobbySettings({
   const [isOpen, setIsOpen] = useState(false);
   const { openManually } = useHowToPlay();
   const [confirmKick, setConfirmKick] = useState(null);
+
+  const closeSettings = useCallback(() => setIsOpen(false), []);
+  useBackHandler(closeSettings, isOpen);
 
   const color = useMemo(() => VARIANT_COLORS[variant] || VARIANT_COLORS.quiz, [variant]);
 

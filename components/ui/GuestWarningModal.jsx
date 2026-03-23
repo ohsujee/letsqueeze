@@ -7,6 +7,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UserX, ArrowRight } from 'lucide-react';
 import { shouldShowAppleSignIn, isIOSDevice } from '@/lib/services/authService';
@@ -137,6 +138,8 @@ export default function GuestWarningModal({
 }) {
   const [showApple, setShowApple] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
+
+  useBackHandler(onClose, isOpen);
 
   useEffect(() => {
     setShowApple(shouldShowAppleSignIn());

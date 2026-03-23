@@ -33,7 +33,6 @@ import { ChevronRight, Music, Search, Check, X, Volume2 } from "lucide-react";
 import LobbyStartButton from "@/components/game/LobbyStartButton";
 import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
 import { storage } from "@/lib/utils/storage";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useTeamMode } from "@/lib/hooks/useTeamMode";
 import {
   searchPlaylists,
@@ -109,7 +108,6 @@ export default function DeezTestLobby() {
 
 
   // Keep screen awake during game
-  useWakeLock({ enabled: true });
 
   // Set join URL
   useEffect(() => {

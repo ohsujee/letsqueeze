@@ -36,7 +36,6 @@ import { useToast } from "@/lib/hooks/useToast";
 import { getAlibiManifest } from "@/lib/utils/manifestCache";
 import { ChevronRight, ChevronUp, ChevronDown, Shuffle, RotateCcw, X, UserPlus } from "lucide-react";
 import { storage } from "@/lib/utils/storage";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { GameLaunchCountdown } from "@/components/transitions";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
@@ -109,7 +108,6 @@ export default function AlibiLobby() {
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
 
   // Keep screen awake during game
-  useWakeLock({ enabled: true });
 
   // ATT Prompt for hosts (GDPR + ATT)
   useATTPromptInLobby(isHost);

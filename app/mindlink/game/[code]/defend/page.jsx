@@ -13,7 +13,6 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useActiveLink } from "@/lib/hooks/useActiveLink";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
@@ -140,7 +139,6 @@ export function MindLinkDefendContent({ code, myUid: devUid }) {
     roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: devUid ? null : myUid, isHost, phase: 'playing',
   });
   useInactivityDetection({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: devUid ? null : myUid, inactivityTimeout: 30000 });
-  useWakeLock({ enabled: true });
 
   const isWordChooser = meta?.wordChooserUid === myUid;
   const wordChooserName = players.find(p => p.uid === meta?.wordChooserUid)?.name || 'Un défenseur';

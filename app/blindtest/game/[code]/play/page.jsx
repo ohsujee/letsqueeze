@@ -23,7 +23,6 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useAskerRotation } from "@/lib/hooks/useAskerRotation";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { storage } from "@/lib/utils/storage";
@@ -129,7 +128,6 @@ export default function DeezTestPlayerGame() {
   });
 
   // Keep screen awake during game
-  useWakeLock({ enabled: true });
 
   // ========== AUDIO SYNC PLAYER (mode 'all') ==========
   const audioMode = meta?.audioMode || 'single';

@@ -24,7 +24,6 @@ import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { VerdictTransition } from "@/components/game-alibi/VerdictTransition";
 import { AlibiRoundTransition, AlibiSpectatorView } from "@/components/game-alibi";
@@ -59,7 +58,6 @@ export default function AlibiInterrogation() {
   });
 
   // Keep screen awake during game
-  useWakeLock({ enabled: true });
 
   // Host disconnect - gère la grace period si l'hôte perd sa connexion
   // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
@@ -400,31 +398,17 @@ export default function AlibiInterrogation() {
     if (!canControl) return;
 
     if (isPartyMode) {
-      // Party Mode: check if this round is complete
-      const questionsPerGroup = state?.questionsPerGroup || 8;
-      const questionInRound = currentQuestion % questionsPerGroup;
-
-      if (questionInRound >= questionsPerGroup - 1) {
-        // Round complete - check if game is over
-        if (currentRound >= totalRounds - 1) {
-          await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
-        } else {
-          // Advance to next round
-          await advanceToNextRound();
-          setShowRoundTransition(true);
-          // Reset interrogation for new round
-          await update(ref(db, `rooms_alibi/${code}/interrogation`), {
-            currentQuestion: 0,
-            state: "waiting",
-            startedAt: null,
-            responses: {},
-            verdict: null
-          });
-        }
+      // Party Mode: chaque round = 1 question, la rotation gère l'alternance
+      if (currentRound >= totalRounds - 1) {
+        // Dernière question — fin de partie
+        await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
       } else {
-        // Next question in current round
+        // Avancer au round suivant (= prochaine question avec alternance)
+        await advanceToNextRound();
+        setShowRoundTransition(true);
+        // Reset interrogation pour le nouveau round
         await update(ref(db, `rooms_alibi/${code}/interrogation`), {
-          currentQuestion: currentQuestion + 1,
+          currentQuestion: 0,
           state: "waiting",
           startedAt: null,
           responses: {},
@@ -516,11 +500,11 @@ export default function AlibiInterrogation() {
   // Progress calculation
   const progressPercent = useMemo(() => {
     if (isPartyMode) {
-      // Party Mode: progress based on rounds
-      return gameProgress?.percentage || 0;
+      // Party Mode: chaque round = 1 question
+      return totalRounds > 0 ? Math.round(((currentRound + 1) / totalRounds) * 100) : 0;
     }
     return ((currentQuestion + 1) / 10) * 100;
-  }, [isPartyMode, gameProgress, currentQuestion]);
+  }, [isPartyMode, currentRound, totalRounds, currentQuestion]);
 
   const isUrgent = timeLeft <= 10;
   const isCritical = timeLeft <= 5;
@@ -538,7 +522,7 @@ export default function AlibiInterrogation() {
         <div className="interro-header-content">
           <div className="interro-header-title">
             {isPartyMode ? (
-              <>Round {currentRound + 1}/{totalRounds} • Q{currentQuestion + 1}</>
+              <>Question {currentRound + 1}/{totalRounds}</>
             ) : (
               <>Question {currentQuestion + 1}/10</>
             )}
@@ -623,7 +607,7 @@ export default function AlibiInterrogation() {
                     transition={{ delay: 0.1 }}
                   >
                     <div className="interro-card-glow" />
-                    <div className="interro-question-badge">Question {currentQuestion + 1}</div>
+                    <div className="interro-question-badge">Question {isPartyMode ? currentRound + 1 : currentQuestion + 1}</div>
                     <p className="interro-question-text">{currentQuestionData?.text}</p>
                   </motion.div>
 
@@ -760,7 +744,7 @@ export default function AlibiInterrogation() {
                     transition={{ delay: 0.1 }}
                   >
                     <div className="interro-card-glow" />
-                    <div className="interro-question-badge">Question {currentQuestion + 1}</div>
+                    <div className="interro-question-badge">Question {isPartyMode ? currentRound + 1 : currentQuestion + 1}</div>
                     <p className="interro-question-text">{currentQuestionData?.text}</p>
                   </motion.div>
 
@@ -850,7 +834,7 @@ export default function AlibiInterrogation() {
                     animate={{ opacity: 1 }}
                   >
                     <div className="interro-card-glow" />
-                    <div className="interro-question-badge">Question {currentQuestion + 1}</div>
+                    <div className="interro-question-badge">Question {isPartyMode ? currentRound + 1 : currentQuestion + 1}</div>
                     <p className="interro-question-text">{currentQuestionData?.text}</p>
                   </motion.div>
 

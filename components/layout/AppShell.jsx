@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Capacitor } from '@capacitor/core';
 import { App } from '@capacitor/app';
 import { HowToPlayProvider } from '@/lib/context/HowToPlayContext';
+import { consumeBackHandler } from '@/lib/hooks/useBackHandler';
 
 // Référence module-level pour l'AudioContext iOS (persist entre re-renders)
 let _iosAudioCtx = null;
@@ -61,18 +62,18 @@ export function AppShell({ children }) {
     if (!Capacitor.isNativePlatform()) return;
 
     const listener = App.addListener('backButton', ({ canGoBack }) => {
-      // Pages principales où on minimise au lieu de quitter
+      // 1. Si une modale/overlay est ouverte, la fermer au lieu de naviguer
+      if (consumeBackHandler()) return;
+
+      // 2. Pages principales → minimiser l'app au lieu de quitter
       const mainPages = ['/home', '/splash', '/'];
       const isMainPage = mainPages.includes(pathname);
 
       if (isMainPage) {
-        // Minimiser l'app au lieu de quitter
         App.minimizeApp();
       } else if (canGoBack) {
-        // Naviguer en arrière
         router.back();
       } else {
-        // Fallback : aller à home
         router.push('/home');
       }
     });

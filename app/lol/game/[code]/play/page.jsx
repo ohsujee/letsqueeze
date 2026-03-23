@@ -11,7 +11,6 @@ import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { useToast } from "@/lib/hooks/useToast";
@@ -68,7 +67,6 @@ export function LolPlayContent({ code, myUid: devUid }) {
     roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, isHost, phase: 'playing',
   });
   useInactivityDetection({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, inactivityTimeout: 30000 });
-  useWakeLock({ enabled: true });
 
   // Auth
   useEffect(() => {

@@ -6,7 +6,8 @@
  * Accessible depuis: GameCard (?), LobbySettings (host), Lobby (players)
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X, Users, Clock, Target, Zap, CheckCircle, XCircle,
@@ -1208,6 +1209,9 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
   const [activeSection, setActiveSection] = useState(0);
   const [dismissChecked, setDismissChecked] = useState(false);
   const game = GAMES_DATA[gameType] || GAMES_DATA.quiz;
+
+  // Back button ferme la modale
+  useBackHandler(onClose, isOpen);
 
   // Reset section + checkbox when modal opens or game changes
   useEffect(() => {

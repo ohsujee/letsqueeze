@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { X } from 'lucide-react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 export default function ExitButton({
   onExit,
@@ -14,6 +15,9 @@ export default function ExitButton({
   const router = useRouter();
   const [showConfirm, setShowConfirm] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  const closeConfirm = useCallback(() => setShowConfirm(false), []);
+  useBackHandler(closeConfirm, showConfirm);
 
   useEffect(() => {
     setMounted(true);

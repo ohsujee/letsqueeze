@@ -1,8 +1,11 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 export default function ScoreUpdateModal({ isOpen, onClose }) {
+  useBackHandler(onClose, isOpen);
+
   if (!isOpen) return null;
 
   return (

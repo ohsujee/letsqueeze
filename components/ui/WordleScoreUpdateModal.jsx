@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 const EXAMPLES = [
   { label: '2 essais, 4 min', before: '5 600', after: '5 251', highlight: false },
@@ -8,6 +9,8 @@ const EXAMPLES = [
 ];
 
 export default function WordleScoreUpdateModal({ isOpen, onClose }) {
+  useBackHandler(onClose, isOpen);
+
   if (!isOpen) return null;
 
   return (

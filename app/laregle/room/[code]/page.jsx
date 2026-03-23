@@ -23,7 +23,6 @@ import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { usePresence } from "@/lib/hooks/usePresence";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { Users, Clock, Shuffle, House, Globe, MagnifyingGlass, ArrowRight, Info, CaretDown } from '@phosphor-icons/react';
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
@@ -65,7 +64,6 @@ export default function LaLoiLobby() {
   const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
   const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 
-  useWakeLock({ enabled: true });
   useATTPromptInLobby(isHost);
 
   const checkScroll = () => {

@@ -17,7 +17,6 @@ import { GameEndTransition } from '@/components/transitions';
 import { usePlayers } from '@/lib/hooks/usePlayers';
 import { usePlayerCleanup } from '@/lib/hooks/usePlayerCleanup';
 import { useRoomGuard } from '@/lib/hooks/useRoomGuard';
-import { useWakeLock } from '@/lib/hooks/useWakeLock';
 import useMimeRotation from '@/lib/hooks/useMimeRotation';
 import useMimeTimer from '@/lib/hooks/useMimeTimer';
 import useMimeBuzz from '@/lib/hooks/useMimeBuzz';
@@ -42,7 +41,6 @@ export default function MimeHostView({ code, isActualHost = true }) {
   const buzzWindowRef = useRef(null);
 
   // Keep screen awake
-  useWakeLock({ enabled: true });
 
   // Récupérer l'UID
   useEffect(() => {

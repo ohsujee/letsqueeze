@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 /**
  * Modal générique de sélection d'items (Quiz, Alibi, etc.)
@@ -31,6 +32,8 @@ export default function SelectorModal({
   freeLimit = 3
 }) {
   const [mounted, setMounted] = useState(false);
+
+  useBackHandler(onClose, isOpen);
 
   // Couleurs selon la variante (guide de style UI)
   const colors = variant === 'alibi'

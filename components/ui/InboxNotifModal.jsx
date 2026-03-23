@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 const GAME_LABELS = {
   semantique: 'Sémantique',
@@ -21,6 +22,8 @@ function formatDate(dateStr) {
 }
 
 export default function InboxNotifModal({ notification, onClose }) {
+  useBackHandler(onClose, !!notification);
+
   if (!notification) return null;
 
   const gameLabel = GAME_LABELS[notification.game] || notification.game;

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Warning, X } from '@phosphor-icons/react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 const REPORT_TYPES = [
   { id: 'wrong_answer',       label: 'La réponse est incorrecte' },
@@ -13,6 +14,8 @@ const REPORT_TYPES = [
 ];
 
 export default function ReportQuestionModal({ isOpen, onClose, onSubmit, submitting }) {
+  useBackHandler(onClose, isOpen);
+
   const [selected, setSelected] = useState([]);
   const [customText, setCustomText] = useState('');
 

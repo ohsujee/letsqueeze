@@ -16,7 +16,6 @@ import { usePlayers } from '@/lib/hooks/usePlayers';
 import { usePlayerCleanup } from '@/lib/hooks/usePlayerCleanup';
 import { useRoomGuard } from '@/lib/hooks/useRoomGuard';
 import { usePresence } from '@/lib/hooks/usePresence';
-import { useWakeLock } from '@/lib/hooks/useWakeLock';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { isPro } from '@/lib/subscription';
 import { useHearts } from '@/lib/hooks/useHearts';
@@ -64,7 +63,6 @@ export default function MimeLobbyPage() {
   const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
 
   // Wake lock
-  useWakeLock({ enabled: true });
 
   // Charger les thèmes depuis les fichiers JSON locaux
   useEffect(() => {

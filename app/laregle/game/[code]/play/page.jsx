@@ -18,7 +18,6 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
@@ -96,7 +95,6 @@ export default function LaLoiPlayPage() {
   });
 
   // Keep screen awake during game
-  useWakeLock({ enabled: true });
 
   // Host disconnect - gère la grace period si l'hôte perd sa connexion
   // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte

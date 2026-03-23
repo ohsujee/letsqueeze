@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, X, UserX, WifiOff, Crown } from 'lucide-react';
 import { ref, remove, update, set } from 'firebase/database';
@@ -30,6 +31,9 @@ export default function PlayerManager({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmKick, setConfirmKick] = useState(null);
+
+  const closeManager = useCallback(() => setIsOpen(false), []);
+  useBackHandler(closeManager, isOpen);
 
   // Couleurs par variante
   const colors = {

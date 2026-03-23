@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { UserPlus, Users, X } from 'lucide-react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 /**
  * CreateOrJoinSelector - Modal pour choisir entre créer ou rejoindre une partie
@@ -18,6 +19,8 @@ import { UserPlus, Users, X } from 'lucide-react';
  */
 export default function CreateOrJoinSelector({ isOpen, onClose, onSelectCreate, onSelectJoin, game }) {
   const themeColor = game?.themeColor || '#8b5cf6';
+
+  useBackHandler(onClose, isOpen);
 
   const handleCreate = () => {
     onSelectCreate();

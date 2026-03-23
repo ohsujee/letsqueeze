@@ -8,7 +8,6 @@ import { getApp } from 'firebase/app';
 import MimeHostView from '@/components/game/MimeHostView';
 import MimeGuesserView from '@/components/game/MimeGuesserView';
 import AskerTransition from '@/components/game/AskerTransition';
-import { useWakeLock } from '@/lib/hooks/useWakeLock';
 import { usePlayers } from '@/lib/hooks/usePlayers';
 import './play.css';
 
@@ -26,7 +25,6 @@ export default function MimePlayPage() {
   const [previousMimeUid, setPreviousMimeUid] = useState(null);
 
   // Wake lock
-  useWakeLock({ enabled: true });
 
   // Players
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_mime' });

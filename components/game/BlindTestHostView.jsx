@@ -22,7 +22,6 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { getAllPlaylistTracks, formatTracksForGame, getRandomUnplayedTrack } from "@/lib/deezer/api";
 import { usePlaylistHistory } from "@/lib/hooks/usePlaylistHistory";
 
@@ -224,7 +223,6 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   });
 
   // Empêcher l'écran de se verrouiller
-  useWakeLock({ enabled: true });
 
   const total = playlist?.tracks?.length || 0;
   const qIndex = state?.currentIndex || 0;

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { Share2, X, Copy, Check } from "lucide-react";
 
@@ -9,6 +10,9 @@ const ShareModal = forwardRef(function ShareModal({ roomCode, joinUrl }, ref) {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  const closeShare = useCallback(() => setIsOpen(false), []);
+  useBackHandler(closeShare, isOpen);
 
   // Expose open/close methods to parent via ref
   useImperativeHandle(ref, () => ({

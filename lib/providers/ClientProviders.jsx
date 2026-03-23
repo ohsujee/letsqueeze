@@ -13,6 +13,7 @@ import { useForceUpdate } from '@/lib/hooks/useForceUpdate';
 import { ForceUpdateModal } from '@/components/shared/ForceUpdateModal';
 import { useGlobalPresence } from '@/lib/hooks/useGlobalPresence';
 import { useAppTracking } from '@/lib/hooks/useAppTracking';
+import { useWakeLock } from '@/lib/hooks/useWakeLock';
 
 /**
  * ClientProviders - Wrapper pour tous les providers côté client
@@ -35,6 +36,9 @@ export function ClientProviders({ children }) {
 
   // Force update si version < config/forceUpdateVersion dans Firebase
   const { forceUpdate } = useForceUpdate();
+
+  // Wake lock global — empêche l'écran de se verrouiller tant que l'app est au premier plan
+  useWakeLock();
 
   return (
     <>

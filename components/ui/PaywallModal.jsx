@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { X, Crown, Sparkles, Zap, Gift, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { trackPaywallShown, trackPaywallConversion } from '@/lib/analytics';
@@ -31,6 +32,9 @@ const QUIZ_PREVIEWS = [
 
 export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', contentName = '' }) {
   const { isAndroid } = usePlatform();
+
+  useBackHandler(onClose, isOpen);
+
   const [pricingTier, setPricingTier] = useState('annual');
   const [isGuest, setIsGuest] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);

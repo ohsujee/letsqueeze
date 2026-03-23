@@ -17,7 +17,6 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useToast } from "@/lib/hooks/useToast";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
@@ -71,7 +70,6 @@ export default function LaLoiInvestigatePage() {
   });
 
   // Keep screen awake
-  useWakeLock({ enabled: true });
 
   // Host disconnect - gère la grace period si l'hôte perd sa connexion
   useHostDisconnect({

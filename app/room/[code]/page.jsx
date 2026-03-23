@@ -36,7 +36,6 @@ import { calculatePartyModeQuestions } from "@/lib/config/rooms";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import LobbyStartButton from "@/components/game/LobbyStartButton";
 import { storage } from "@/lib/utils/storage";
-import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { GameLaunchCountdown } from "@/components/transitions";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
@@ -78,7 +77,6 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
 
   const { players } = usePlayers({ roomCode: code, roomPrefix: ROOM_PREFIX });
 
-  useWakeLock({ enabled: true });
   useATTPromptInLobby(isHost);
 
   const checkScroll = () => {

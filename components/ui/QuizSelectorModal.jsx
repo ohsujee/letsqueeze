@@ -3,6 +3,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, Lock, ChevronLeft, CheckSquare, Square } from 'lucide-react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 export default function QuizSelectorModal({
   isOpen,
@@ -13,6 +14,9 @@ export default function QuizSelectorModal({
   userIsPro
 }) {
   const [mounted, setMounted] = useState(false);
+
+  useBackHandler(onClose, isOpen);
+
   const [screen, setScreen] = useState('categories'); // 'categories' | 'themes'
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedThemes, setSelectedThemes] = useState([]);

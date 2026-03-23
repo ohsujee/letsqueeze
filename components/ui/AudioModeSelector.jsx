@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Speaker, Volume2, X } from 'lucide-react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 /**
  * AudioModeSelector - Modal de sélection du mode audio (DeezTest)
@@ -19,6 +20,8 @@ import { Speaker, Volume2, X } from 'lucide-react';
  */
 export default function AudioModeSelector({ isOpen, onClose, onSelectMode, game }) {
   const themeColor = game?.themeColor || '#A238FF';
+
+  useBackHandler(onClose, isOpen);
 
   const handleSelect = (mode) => {
     onSelectMode(mode);

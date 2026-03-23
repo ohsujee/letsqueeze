@@ -17,7 +17,6 @@ import { usePlayers } from '@/lib/hooks/usePlayers';
 import { usePlayerCleanup } from '@/lib/hooks/usePlayerCleanup';
 import { useRoomGuard } from '@/lib/hooks/useRoomGuard';
 import { useInactivityDetection } from '@/lib/hooks/useInactivityDetection';
-import { useWakeLock } from '@/lib/hooks/useWakeLock';
 import { useServerTime } from '@/lib/hooks/useServerTime';
 import useMimeRotation from '@/lib/hooks/useMimeRotation';
 import useMimeTimer from '@/lib/hooks/useMimeTimer';
@@ -45,7 +44,6 @@ export default function MimeGuesserView({ code, myUid }) {
   const playBuzz = useSound('/sounds/quiz-buzzer.wav');
 
   // Keep screen awake
-  useWakeLock({ enabled: true });
 
   // Listeners Firebase
   useEffect(() => {

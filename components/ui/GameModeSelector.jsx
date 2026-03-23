@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Crown, PartyPopper, X } from 'lucide-react';
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 /**
  * GameModeSelector - Modal de sélection du mode de jeu
@@ -19,6 +20,8 @@ import { Crown, PartyPopper, X } from 'lucide-react';
  */
 export default function GameModeSelector({ isOpen, onClose, onSelectMode, game }) {
   const themeColor = game?.themeColor || '#8b5cf6';
+
+  useBackHandler(onClose, isOpen);
 
   const handleSelect = (mode) => {
     onSelectMode(mode);
