@@ -1217,8 +1217,9 @@ export default function DailyTotalPage() {
                     {[
                       { icon: <HashStraight size={18} weight="duotone" color="#3b82f6" />, text: 'Utilise les 6 chiffres' },
                       { icon: <PlusMinus size={18} weight="duotone" color="#3b82f6" />, text: '4 opérations : + − × ÷' },
+                      { icon: <ArrowRight size={18} weight="duotone" color="#3b82f6" />, text: 'Le calcul se fait étape par étape : chaque résultat sert de base au suivant' },
                       { icon: <Hourglass size={18} weight="duotone" color="#3b82f6" />, text: '3 minutes · 3 essais' },
-                      { icon: <Trophy size={18} weight="duotone" color="#3b82f6" />, text: 'Chaque essai sauvegarde ton meilleur score. Rapproche-toi le plus possible !' },
+                      { icon: <Trophy size={18} weight="duotone" color="#3b82f6" />, text: 'Chaque essai sauvegarde ton meilleur score' },
                     ].map((rule, i) => (
                       <div key={i} style={{
                         display: 'flex', alignItems: 'center', gap: '12px',

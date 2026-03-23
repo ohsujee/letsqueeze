@@ -426,7 +426,25 @@ const GAMES_DATA = {
         icon: Target,
         content: {
           type: 'intro',
-          text: 'Chaque jour, 6 chiffres et une cible. Combine les 6 chiffres avec +, −, × et ÷ pour atteindre la cible. Tu as 3 minutes et 3 essais !'
+          text: 'Chaque jour, 6 chiffres et un nombre cible. Utilise les 6 chiffres avec +, −, × et ÷ pour atteindre la cible. Tu as 3 minutes et 3 essais !'
+        }
+      },
+      {
+        id: 'example',
+        title: 'Comment ça marche',
+        icon: Zap,
+        content: {
+          type: 'total-example',
+          target: 408,
+          numbers: [25, 5, 2, 4, 7, 6],
+          steps: [
+            { a: 25, op: '+', b: 5, result: 30 },
+            { a: 30, op: '×', b: 4, result: 120 },
+            { a: 120, op: '+', b: 7, result: 127 },
+            { a: 127, op: '×', b: 2, result: 254 },
+            { a: 254, op: '+', b: 6, result: 260 },
+          ],
+          note: 'Le calcul se fait étape par étape : chaque résultat sert de base au calcul suivant. Pas besoin de parenthèses !'
         }
       },
       {
@@ -436,12 +454,12 @@ const GAMES_DATA = {
         content: {
           type: 'scoring',
           items: [
-            { label: 'Utilise les 6 chiffres', value: 'Obligatoire', icon: Zap, color: '#3b82f6' },
-            { label: 'Calcul séquentiel', value: 'Gauche → droite', icon: Zap, color: '#3b82f6' },
-            { label: '3 essais max', value: '3 minutes', icon: Timer, color: '#f59e0b' },
+            { label: 'Les 6 chiffres', value: 'Tous obligatoires', icon: Zap, color: '#3b82f6' },
+            { label: '3 essais', value: 'Ton meilleur compte', icon: Zap, color: '#3b82f6' },
+            { label: 'Timer', value: '3 minutes', icon: Timer, color: '#f59e0b' },
             { label: 'Quitter l\'app', value: 'Fin de partie', icon: AlertTriangle, color: '#ef4444' },
           ],
-          note: 'Le résultat exact est toujours atteignable. Si tu ne le trouves pas, rapproche-toi le plus possible pour te classer !'
+          note: 'Le résultat exact est toujours atteignable. Si tu ne le trouves pas, rapproche-toi le plus possible !'
         }
       },
       {
@@ -456,7 +474,7 @@ const GAMES_DATA = {
             { label: 'Écart 25', value: '~3 500 pts', icon: Zap, color: '#f59e0b' },
             { label: 'Écart 50+', value: '~2 000 pts', icon: Zap, color: '#f97316' },
           ],
-          note: 'Chaque essai sauvegarde ton meilleur score. Un bonus temps s\'ajoute : plus tu es rapide, plus tu gagnes !'
+          note: 'Chaque essai sauvegarde ton meilleur score. Plus tu es rapide, plus tu gagnes !'
         }
       }
     ]
@@ -977,6 +995,92 @@ function WordleColorsSection({ content }) {
   );
 }
 
+function TotalExampleSection({ content }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      {/* Target + numbers */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '10px 14px', borderRadius: 12,
+        background: 'rgba(59,130,246,0.08)',
+        border: '1px solid rgba(59,130,246,0.15)',
+      }}>
+        <div>
+          <span style={{ fontSize: '0.6rem', fontWeight: 700, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>CIBLE</span>
+          <span style={{ fontFamily: "var(--font-title, 'Bungee'), cursive", fontSize: '1.3rem', color: '#3b82f6', marginLeft: 8 }}>{content.target}</span>
+        </div>
+        <div style={{ display: 'flex', gap: 5 }}>
+          {content.numbers.map((n, i) => (
+            <span key={i} style={{
+              padding: '4px 8px', borderRadius: 6,
+              background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.2)',
+              fontFamily: "var(--font-title, 'Bungee'), cursive", fontSize: '0.8rem', color: '#fff',
+            }}>{n}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Step by step calculation */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {content.steps.map((step, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.15 }}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              padding: '8px 12px', borderRadius: 10,
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.06)',
+            }}
+          >
+            <span style={{
+              fontSize: '0.6rem', fontWeight: 700, color: 'rgba(255,255,255,0.25)',
+              minWidth: 14,
+            }}>{i + 1}</span>
+            <span style={{
+              fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+              fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)',
+            }}>
+              <span style={{ color: '#3b82f6', fontWeight: 700 }}>{step.a}</span>
+              {' '}<span style={{ color: 'rgba(255,255,255,0.35)' }}>{step.op}</span>{' '}
+              <span style={{ color: '#fff', fontWeight: 700 }}>{step.b}</span>
+            </span>
+            <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem' }}>=</span>
+            <span style={{
+              fontFamily: "var(--font-title, 'Bungee'), cursive",
+              fontSize: '0.9rem',
+              color: i === content.steps.length - 1 ? '#10b981' : '#fff',
+            }}>{step.result}</span>
+            {i === 0 && (
+              <span style={{
+                marginLeft: 'auto', fontSize: '0.6rem', color: 'rgba(59,130,246,0.5)',
+                fontStyle: 'italic',
+              }}>← départ</span>
+            )}
+            {i > 0 && i < content.steps.length - 1 && (
+              <span style={{
+                marginLeft: 'auto', fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)',
+                fontStyle: 'italic',
+              }}>← résultat précédent</span>
+            )}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Note */}
+      {content.note && (
+        <p style={{
+          fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)',
+          lineHeight: 1.5, margin: 0, textAlign: 'center',
+          fontStyle: 'italic',
+        }}>{content.note}</p>
+      )}
+    </div>
+  );
+}
+
 function MindLinkExampleSection({ content }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -1143,6 +1247,8 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
         return <VerdictInlineSection content={content} />;
       case 'wordle-colors':
         return <WordleColorsSection content={content} />;
+      case 'total-example':
+        return <TotalExampleSection content={content} />;
       case 'mindlink-example':
         return <MindLinkExampleSection content={content} />;
       default:
