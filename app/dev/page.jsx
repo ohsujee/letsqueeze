@@ -147,6 +147,7 @@ export default function DevIndex() {
           {[
             { id: 'lobbies', label: 'Lobbies' },
             { id: 'game',    label: 'Game' },
+            { id: 'daily',   label: 'Daily' },
             { id: 'simulation', label: 'Simulation' },
             { id: 'ui',      label: 'UI' },
           ].map(tab => (
@@ -175,7 +176,7 @@ export default function DevIndex() {
 
       {/* Content */}
       <div style={{ padding: '0 20px 40px' }}>
-        {activeTab === 'ui' ? <UIPlayground /> : activeTab === 'simulation' ? <SimulationList /> : <GameList games={GAMES} tab={activeTab} />}
+        {activeTab === 'ui' ? <UIPlayground /> : activeTab === 'simulation' ? <SimulationList /> : activeTab === 'daily' ? <DailyList /> : <GameList games={GAMES} tab={activeTab} />}
       </div>
 
       {/* Footer */}
@@ -439,6 +440,91 @@ function SimulationList() {
               flexShrink: 0,
             }}>
               \u00C0 venir
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const DAILY_GAMES = [
+  { id: 'total', name: 'Total', icon: '🧮', color: '#3b82f6', description: 'Trouve le nombre cible avec 6 chiffres', path: '/dev/daily/total', available: true },
+  { id: 'motmystere', name: 'Mot Mystère', icon: '🔤', color: '#10b981', description: 'Wordle en français', path: '/dev/daily/motmystere', available: false },
+  { id: 'semantique', name: 'Sémantique', icon: '🧠', color: '#a855f7', description: 'Trouve le mot par proximité sémantique', path: '/dev/daily/semantique', available: false },
+];
+
+function DailyList() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div style={{
+        fontSize: '0.7rem',
+        color: 'rgba(238,242,255,0.35)',
+        marginBottom: '8px',
+        letterSpacing: '0.03em',
+        lineHeight: 1.5,
+      }}>
+        Prévisualise les écrans des jeux daily avec des données mockées. Aucune partie réelle n&apos;est lancée.
+      </div>
+      {DAILY_GAMES.map(game => (
+        <div
+          key={game.id}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            padding: '14px 16px',
+            background: 'rgba(238,242,255,0.025)',
+            border: '1px solid rgba(238,242,255,0.06)',
+            borderLeft: `3px solid ${game.color}`,
+            borderRadius: '12px',
+            opacity: game.available ? 1 : 0.4,
+          }}
+        >
+          <span style={{ fontSize: '1.4rem', lineHeight: 1 }}>{game.icon}</span>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{
+              fontFamily: 'Bungee, sans-serif',
+              fontSize: '0.9rem',
+              color: '#eef2ff',
+              letterSpacing: '0.03em',
+              marginBottom: '2px',
+            }}>{game.name}</div>
+            <div style={{ fontSize: '0.72rem', color: 'rgba(238,242,255,0.3)' }}>
+              {game.description}
+            </div>
+          </div>
+          {game.available ? (
+            <a
+              href={game.path}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                padding: '7px 14px',
+                background: game.color,
+                color: '#04060f',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '0.72rem',
+                fontWeight: 800,
+                letterSpacing: '0.06em',
+                textDecoration: 'none',
+                textTransform: 'uppercase',
+                fontFamily: "'Space Grotesk', sans-serif",
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Ouvrir →
+            </a>
+          ) : (
+            <span style={{
+              fontSize: '0.65rem',
+              color: 'rgba(238,242,255,0.2)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              flexShrink: 0,
+            }}>
+              À venir
             </span>
           )}
         </div>

@@ -15040,7 +15040,8 @@ input[type="text"].game-search-input:focus,
 .total-token.operator {
   background: rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.3rem;
   padding: 4px 6px;
 }
 
@@ -15106,17 +15107,22 @@ input[type="text"].game-search-input:focus,
 }
 
 .total-operator-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-appearance: none;
+  appearance: none;
+  display: grid;
+  place-content: center;
   height: clamp(34px, 5dvh, 40px);
+  padding: 0 0 3px;
+  margin: 0;
+  box-sizing: border-box;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
-  font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.8rem;
   font-weight: 700;
+  line-height: 1;
   cursor: pointer;
   transition: background 0.15s, opacity 0.15s, transform 0.1s;
 }
