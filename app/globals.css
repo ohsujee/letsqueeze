@@ -12816,13 +12816,14 @@ input[type="text"].game-search-input:focus,
     );
   z-index: 1;
   pointer-events: none;
+  transform: translateZ(0);
 }
 
 .daily-game-card .daily-card-title-wrap {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 1px);
   z-index: 2;
   text-align: center;
   width: 100%;
