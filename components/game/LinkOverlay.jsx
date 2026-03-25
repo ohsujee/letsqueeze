@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Link as LinkIcon, Clock, Check, X } from 'lucide-react';
-import { HandPalm } from '@phosphor-icons/react';
+import { HandPalm, Microphone } from '@phosphor-icons/react';
 
 const ACCENT = '#ec4899';
 
@@ -21,7 +21,7 @@ const ACCENT = '#ec4899';
  * @param {string} props.myUid
  * @param {string} props.myRole - 'attacker' | 'defender'
  */
-export default function LinkOverlay({ link, mode, players = [], myUid, myRole = 'attacker', revealedPrefix = '' }) {
+export default function LinkOverlay({ link, mode, players = [], myUid, myRole = 'attacker', revealedPrefix = '', opaque = false }) {
   const [clueInput, setClueInput] = useState('');
   const [linkWordInput, setLinkWordInput] = useState('');
   const [interceptInput, setInterceptInput] = useState('');
@@ -31,11 +31,29 @@ export default function LinkOverlay({ link, mode, players = [], myUid, myRole = 
   const {
     activeLink, phase, isInitiator, isChosen, isInLink, candidates,
     failedInterceptors,
-    countdown, waitingTimeLeft, clueTimeLeft, waitingProgress,
-    WAITING_DURATION, CLUE_DURATION,
+    countdown, waitingTimeLeft, clueTimeLeft, announcingTimeLeft, waitingProgress,
+    WAITING_DURATION, CLUE_DURATION, ANNOUNCING_DURATION,
     submitClue, requestLink, chooseCandidate, submitLinkWord,
     startIntercept, intercept, confirmIntercept, validateOralResult,
   } = link;
+
+  const prevCandidatesLenRef = useRef(0);
+
+  // Vibrate ALL phones when announcing phase starts (someone clicked "J'ai un indice")
+  useEffect(() => {
+    if (phase === 'announcing') {
+      navigator?.vibrate?.([100, 50, 100]);
+    }
+  }, [phase]);
+
+  // Vibrate initiator's phone when a new candidate requests to link
+  useEffect(() => {
+    if (!isInitiator || !candidates) return;
+    if (candidates.length > prevCandidatesLenRef.current) {
+      navigator?.vibrate?.([80, 40, 80]);
+    }
+    prevCandidatesLenRef.current = candidates.length;
+  }, [candidates?.length, isInitiator]);
 
   if (!activeLink) return null;
 
@@ -79,8 +97,8 @@ export default function LinkOverlay({ link, mode, players = [], myUid, myRole = 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       style={{
-        background: 'rgba(236,72,153,0.06)',
-        border: '1px solid rgba(236,72,153,0.15)',
+        background: opaque ? 'rgba(8,14,32,0.97)' : 'rgba(236,72,153,0.06)',
+        border: `1px solid ${opaque ? 'rgba(236,72,153,0.25)' : 'rgba(236,72,153,0.15)'}`,
         borderRadius: '16px',
         padding: '16px',
         marginBottom: '16px', flexShrink: 0,
@@ -114,6 +132,57 @@ export default function LinkOverlay({ link, mode, players = [], myUid, myRole = 
           animate={{ width: `${(clueTimeLeft / CLUE_DURATION) * 100}%` }}
           transition={{ duration: 0.1 }}
         />
+      )}
+
+      {/* ── ANNOUNCING PHASE (oral mode, 3s) ── */}
+      {phase === 'announcing' && (
+        <div style={{ textAlign: 'center', padding: '8px 0' }}>
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            style={{
+              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px',
+            }}
+          >
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              style={{
+                width: '48px', height: '48px', borderRadius: '50%',
+                background: `linear-gradient(135deg, ${ACCENT}, #9333ea)`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: `0 0 30px ${ACCENT}66`,
+              }}
+            >
+              <Microphone size={24} weight="bold" color="#fff" />
+            </motion.div>
+            <div style={{
+              fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+              fontSize: '1rem', fontWeight: 700, color: '#eef2ff',
+              lineHeight: 1.4,
+            }}>
+              <strong style={{ color: ACCENT }}>{initiatorName}</strong> donne son indice
+            </div>
+            <div style={{
+              fontSize: '0.78rem', color: 'rgba(238,242,255,0.45)',
+              fontWeight: 600,
+            }}>
+              Écoutez bien !
+            </div>
+            <motion.div
+              style={{
+                fontFamily: "var(--font-title, 'Bungee'), cursive",
+                fontSize: '1.8rem', color: ACCENT,
+                textShadow: `0 0 20px ${ACCENT}66`,
+              }}
+              key={Math.ceil(announcingTimeLeft / 1000)}
+              initial={{ scale: 1.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+            >
+              {Math.ceil(announcingTimeLeft / 1000)}
+            </motion.div>
+          </motion.div>
+        </div>
       )}
 
       {/* ── CLUE PHASE ── */}
@@ -268,7 +337,7 @@ export default function LinkOverlay({ link, mode, players = [], myUid, myRole = 
                 fontSize: '0.72rem', fontWeight: 700, color: 'rgba(238,242,255,0.4)',
                 letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px',
               }}>
-                Qui veut link ? ({candidates.length})
+                Clique pour linker ({candidates.length})
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {candidates.map(uid => (
@@ -347,7 +416,7 @@ export default function LinkOverlay({ link, mode, players = [], myUid, myRole = 
       )}
 
       {/* ── DEFENDER: already failed on this link ── */}
-      {['waiting', 'choosing', 'countdown'].includes(phase) && isDefender && !activeLink.defenderIntercept && failedInterceptors?.includes(myUid) && (
+      {['announcing', 'waiting', 'choosing', 'countdown'].includes(phase) && isDefender && !activeLink.defenderIntercept && failedInterceptors?.includes(myUid) && (
         <div style={{
           marginTop: '10px', padding: '12px', borderRadius: '12px',
           background: 'rgba(239,68,68,0.06)',
@@ -363,8 +432,8 @@ export default function LinkOverlay({ link, mode, players = [], myUid, myRole = 
         </div>
       )}
 
-      {/* ── DEFENDER INTERCEPTION (visible during waiting, choosing, countdown) ── */}
-      {['waiting', 'choosing', 'countdown'].includes(phase) && isDefender && !activeLink.defenderIntercept && !failedInterceptors?.includes(myUid) && (
+      {/* ── DEFENDER INTERCEPTION (visible during announcing, waiting, choosing, countdown) ── */}
+      {['announcing', 'waiting', 'choosing', 'countdown'].includes(phase) && isDefender && !activeLink.defenderIntercept && !failedInterceptors?.includes(myUid) && (
         <>
           {mode === 'oral' ? (
             /* ── ORAL: one-tap intercept, defender says word out loud ── */
@@ -784,15 +853,15 @@ export default function LinkOverlay({ link, mode, players = [], myUid, myRole = 
             // Oral mode: defender validates
             <>
               <div style={{
-                fontFamily: "var(--font-title, 'Bungee'), cursive",
-                fontSize: '1.3rem', color: '#eef2ff', marginBottom: '6px',
+                fontSize: '0.72rem', fontWeight: 700, color: ACCENT,
+                letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px',
               }}>
-                « {activeLink.clue} »
+                Révélation
               </div>
               <div style={{
-                fontSize: '0.78rem', color: 'rgba(238,242,255,0.4)', marginBottom: '12px',
+                fontSize: '0.85rem', color: 'rgba(238,242,255,0.5)', marginBottom: '12px',
               }}>
-                {initiatorName} ↔ {chosenName} ont dit leur mot
+                <strong style={{ color: ACCENT }}>{initiatorName}</strong> ↔ <strong style={{ color: ACCENT }}>{chosenName}</strong> ont dit leur mot
               </div>
 
               {isDefender ? (

@@ -43,7 +43,7 @@ export default function MindLinkNetwork({
 
   // Animate energy flow on active connections
   useEffect(() => {
-    if (!activeLink || !['waiting', 'choosing', 'countdown'].includes(activeLink.phase)) return;
+    if (!activeLink || !['announcing', 'waiting', 'choosing', 'countdown'].includes(activeLink.phase)) return;
     const interval = setInterval(() => {
       setEnergyOffset(prev => (prev + 2) % 20);
     }, 50);
@@ -115,7 +115,7 @@ export default function MindLinkNetwork({
     }
 
     // Initiator highlighted (only to other attackers)
-    if (hasInitiator && !isOtherDefender && ['clue', 'waiting', 'choosing'].includes(phase)) return 'initiator';
+    if (hasInitiator && !isOtherDefender && ['announcing', 'clue', 'waiting', 'choosing'].includes(phase)) return 'initiator';
 
     return 'dormant';
   };
@@ -171,9 +171,9 @@ export default function MindLinkNetwork({
     },
   };
 
-  // Clue text to display in center
+  // Clue text to display in center (hide "(oral)" placeholder)
   const clueText = activeLink?.clue || null;
-  const showClue = clueText && ['waiting', 'choosing', 'countdown'].includes(activeLink?.phase);
+  const showClue = clueText && clueText !== '(oral)' && ['waiting', 'choosing', 'countdown'].includes(activeLink?.phase);
 
   return (
     <div ref={containerRef} style={{

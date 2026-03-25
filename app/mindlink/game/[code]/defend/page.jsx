@@ -46,6 +46,7 @@ export function MindLinkDefendContent({ code, myUid: devUid }) {
   const [wordError, setWordError] = useState('');
   const [isLoadingRandom, setIsLoadingRandom] = useState(false);
   const lastRandomRef = useRef('');
+  const [showFoundConfirm, setShowFoundConfirm] = useState(false);
 
   // Timer
   const [timeLeft, setTimeLeft] = useState(0);
@@ -677,17 +678,27 @@ export function MindLinkDefendContent({ code, myUid: devUid }) {
           />
         </div>
 
-        {/* ── Link overlay (all phases handled by LinkOverlay) ── */}
+        {/* ── Link overlay — positioned absolute so it doesn't push the network ── */}
         <AnimatePresence>
           {link.activeLink && (
-            <LinkOverlay
-              link={link}
-              mode={meta?.mode || 'oral'}
-              players={players}
-              myUid={myUid}
-              myRole="defender"
-              revealedPrefix={state?.revealedPrefix || ''}
-            />
+            <div style={{
+              position: 'absolute', bottom: 0, left: 0, right: 0,
+              padding: '0 16px 16px',
+              zIndex: 10,
+              pointerEvents: 'none',
+            }}>
+              <div style={{ pointerEvents: 'auto' }}>
+                <LinkOverlay
+                  link={link}
+                  mode={meta?.mode || 'oral'}
+                  players={players}
+                  myUid={myUid}
+                  myRole="defender"
+                  revealedPrefix={state?.revealedPrefix || ''}
+                  opaque
+                />
+              </div>
+            </div>
           )}
         </AnimatePresence>
 
@@ -743,7 +754,7 @@ export function MindLinkDefendContent({ code, myUid: devUid }) {
           {/* They found my word button */}
           <motion.button
             whileTap={{ scale: 0.97 }}
-            onClick={handleTheyFoundMyWord}
+            onClick={() => setShowFoundConfirm(true)}
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
               padding: '10px', borderRadius: '12px',
@@ -851,6 +862,84 @@ export function MindLinkDefendContent({ code, myUid: devUid }) {
             </motion.div>
           );
         })()}
+      </AnimatePresence>
+
+      {/* Confirmation modal — "Ils ont trouvé mon mot" */}
+      <AnimatePresence>
+        {showFoundConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowFoundConfirm(false)}
+            style={{
+              position: 'absolute', inset: 0, zIndex: 9998,
+              background: 'rgba(0,0,0,0.8)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              padding: '24px',
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                background: 'rgba(8,14,32,0.98)',
+                border: '1px solid rgba(239,68,68,0.2)',
+                borderRadius: '20px',
+                padding: '24px',
+                width: '100%', maxWidth: '320px',
+                textAlign: 'center',
+              }}
+            >
+              <div style={{
+                fontSize: '0.72rem', fontWeight: 700, color: '#ef4444',
+                letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px',
+              }}>
+                Confirmation
+              </div>
+
+              <div style={{
+                fontSize: '0.88rem', color: '#eef2ff', marginBottom: '20px', lineHeight: 1.5,
+              }}>
+                Es-tu sûr ? Cette action <strong style={{ color: '#ef4444' }}>met fin à la manche</strong> et donne la victoire aux attaquants.
+              </div>
+
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowFoundConfirm(false)}
+                  style={{
+                    flex: 1, padding: '12px', borderRadius: '12px',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    color: '#eef2ff', fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer',
+                    fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                  }}
+                >
+                  Annuler
+                </motion.button>
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setShowFoundConfirm(false);
+                    handleTheyFoundMyWord();
+                  }}
+                  style={{
+                    flex: 1, padding: '12px', borderRadius: '12px',
+                    background: 'rgba(239,68,68,0.15)',
+                    border: '1px solid rgba(239,68,68,0.3)',
+                    color: '#ef4444', fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer',
+                    fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                  }}
+                >
+                  Oui, confirmer
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
       </AnimatePresence>
 
       <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
