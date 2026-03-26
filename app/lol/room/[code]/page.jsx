@@ -185,6 +185,7 @@ export function LolLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
         currentVote: null,
         currentJoker: null,
         eliminationOrder: [],
+        usedJokerIds: null,
       };
 
       // Store isPro for joker content gating

@@ -98,6 +98,7 @@ export function LolEndContent({ code, myUid: devUid }) {
         currentVote: null,
         currentJoker: null,
         eliminationOrder: [],
+        usedJokerIds: null,
       };
       await update(ref(db), updates);
     } catch (err) {

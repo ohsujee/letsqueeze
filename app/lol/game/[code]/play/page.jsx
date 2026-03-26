@@ -122,7 +122,7 @@ export function LolPlayContent({ code, myUid: devUid }) {
 
       // Auto-end: any client can trigger when timer hits 0
       if (remaining <= 0 && state.phase === 'playing') {
-        update(ref(db, `${ROOM_PREFIX}/${code}/state`), { phase: 'ended' }).catch(() => {});
+        update(ref(db, `${ROOM_PREFIX}/${code}/state`), { phase: 'ended', currentJoker: null, currentVote: null }).catch(() => {});
       }
     };
 
@@ -168,7 +168,7 @@ export function LolPlayContent({ code, myUid: devUid }) {
   useEffect(() => {
     if (!state || state.phase !== 'playing') return;
     if (activePlayers.length <= 1 && players.length >= 2) {
-      update(ref(db, `${ROOM_PREFIX}/${code}/state`), { phase: 'ended' }).catch(() => {});
+      update(ref(db, `${ROOM_PREFIX}/${code}/state`), { phase: 'ended', currentJoker: null, currentVote: null }).catch(() => {});
     }
   }, [activePlayers.length, players.length, state?.phase, code]);
 
@@ -369,7 +369,8 @@ export function LolPlayContent({ code, myUid: devUid }) {
   // --- JOKER OPEN ---
   // Used joker IDs from Firebase (shared across all players)
   const usedJokerIds = useMemo(() => {
-    const firebaseUsedIds = state?.usedJokerIds ? Object.values(state.usedJokerIds) : [];
+    const raw = state?.usedJokerIds;
+    const firebaseUsedIds = Array.isArray(raw) ? raw : raw ? Object.values(raw) : [];
     return new Set([...usedJokerIdsRef.current, ...firebaseUsedIds]);
   }, [state?.usedJokerIds]);
 
@@ -455,7 +456,8 @@ export function LolPlayContent({ code, myUid: devUid }) {
     usedJokerIdsRef.current.push(selectedJoker.id);
 
     // Deduplication: add to Firebase so other players exclude this joker
-    const currentUsedIds = state?.usedJokerIds ? Object.values(state.usedJokerIds) : [];
+    const rawUsed = state?.usedJokerIds;
+    const currentUsedIds = Array.isArray(rawUsed) ? rawUsed : rawUsed ? Object.values(rawUsed) : [];
     updates[`${ROOM_PREFIX}/${code}/state/usedJokerIds`] = [...currentUsedIds, selectedJoker.id];
 
     await update(ref(db), updates);
