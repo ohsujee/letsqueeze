@@ -304,13 +304,13 @@ export function LolEndContent({ code, myUid: devUid }) {
                 borderRadius: '12px',
               }}>
                 <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', marginBottom: '4px' }}>
-                  Plus accuse
+                  Plus accusé
                 </div>
                 <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff' }}>
                   {mostAccused.name}
                 </div>
                 <div style={{ fontSize: '0.7rem', color: ACCENT }}>
-                  {mostAccused.accusationsReceived} fois accuse
+                  {mostAccused.accusationsReceived} fois accusé
                 </div>
               </div>
             )}
@@ -356,7 +356,7 @@ export function LolEndContent({ code, myUid: devUid }) {
             color: 'rgba(255,255,255,0.4)',
             fontSize: '0.82rem', fontWeight: 600,
           }}>
-            L'hote a quitte la partie
+            L'hôte a quitté la partie
           </div>
         ) : null}
 
