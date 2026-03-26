@@ -12,6 +12,7 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { useToast } from "@/lib/hooks/useToast";
 import { Trophy, ArrowCounterClockwise, House, Crown } from "@phosphor-icons/react";
+import { EndScreenFooter } from "@/components/transitions/EndScreenFooter";
 
 const ACCENT = '#EF4444';
 const ROOM_PREFIX = 'rooms_lol';
@@ -103,6 +104,10 @@ export function LolEndContent({ code, myUid: devUid }) {
       console.error('Error resetting game:', err);
       toast.error('Erreur lors du reset');
     }
+  };
+
+  const handleBackToLobby = () => {
+    router.push(`/lol/room/${code}`);
   };
 
   const handleGoHome = () => {
@@ -318,66 +323,20 @@ export function LolEndContent({ code, myUid: devUid }) {
         </div>
       </main>
 
-      {/* Footer buttons */}
-      <div style={{
-        padding: '12px 16px 16px',
-        display: 'flex', gap: '10px',
-        flexShrink: 0,
-        background: 'rgba(10,6,16,0.9)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        borderTop: '1px solid rgba(255,255,255,0.05)',
-        position: 'relative', zIndex: 2,
-      }}>
-        {isHost && hostPresent ? (
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={handleNewGame}
-            style={{
-              flex: 1, padding: '14px',
-              background: ACCENT, border: 'none', borderRadius: '14px',
-              color: '#fff', fontSize: '0.9rem', fontWeight: 800,
-              cursor: 'pointer',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-              fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-              boxShadow: `0 4px 20px ${ACCENT}44`,
-            }}
-          >
-            <ArrowCounterClockwise size={18} weight="bold" />
-            Nouvelle Partie
-          </motion.button>
-        ) : !hostPresent ? (
-          <div style={{
-            flex: 1, padding: '14px',
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: '14px',
-            textAlign: 'center',
-            color: 'rgba(255,255,255,0.4)',
-            fontSize: '0.82rem', fontWeight: 600,
-          }}>
-            L'hôte a quitté la partie
-          </div>
-        ) : null}
-
-        <motion.button
-          whileTap={{ scale: 0.95 }}
-          onClick={handleGoHome}
-          style={{
-            padding: '14px 18px',
-            background: 'rgba(255,255,255,0.06)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: '14px',
-            color: 'rgba(255,255,255,0.7)',
-            fontSize: '0.9rem', fontWeight: 700,
-            cursor: 'pointer',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px',
-            fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-          }}
-        >
-          <House size={18} weight="bold" />
-        </motion.button>
-      </div>
+      {/* Footer — same pattern as La Règle */}
+      <EndScreenFooter
+        gameColor={ACCENT}
+        label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
+        onNewGame={() => {
+          if (!hostPresent) {
+            router.push('/home');
+          } else if (isHost) {
+            handleNewGame();
+          } else {
+            router.push(`/lol/room/${code}`);
+          }
+        }}
+      />
     </div>
   );
 }

@@ -386,54 +386,46 @@ export function LolLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
                     <Clock size={13} weight="bold" color={ACCENT} />
                     Durée
                   </div>
-                  <div style={{ display: 'flex', gap: '5px' }}>
-                    {[15, 30, 45].map(mins => {
-                      const active = duration === mins;
-                      return (
-                        <motion.button
-                          key={mins}
-                          onClick={() => handleDurationChange(mins)}
-                          whileHover={{ y: -2 }}
-                          whileTap={{ scale: 0.92 }}
-                          style={{
-                            position: 'relative', width: '48px',
-                            display: 'flex', flexDirection: 'column',
-                            alignItems: 'center', justifyContent: 'center',
-                            gap: '1px', padding: '7px 0 8px',
-                            borderRadius: '10px',
-                            border: active ? '1px solid rgba(239,68,68,0.35)' : '1px solid rgba(238,242,255,0.08)',
-                            background: active ? 'rgba(239,68,68,0.1)' : 'rgba(238,242,255,0.03)',
-                            cursor: 'pointer', overflow: 'hidden',
-                            transition: 'border-color 0.15s ease, background 0.15s ease',
-                          }}
-                        >
-                          <span style={{
-                            fontFamily: "var(--font-title, 'Bungee'), cursive", fontSize: '1rem', lineHeight: 1,
-                            color: active ? ACCENT : 'rgba(238,242,255,0.5)',
-                            textShadow: active ? `0 0 10px rgba(239,68,68,0.55)` : 'none',
-                            transition: 'color 0.15s ease, text-shadow 0.15s ease',
-                          }}>{mins}</span>
-                          <span style={{
-                            fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.05em',
-                            color: active ? 'rgba(239,68,68,0.7)' : 'rgba(238,242,255,0.3)',
-                            textTransform: 'uppercase',
-                            transition: 'color 0.15s ease',
-                          }}>min</span>
-                          {active && (
-                            <motion.div
-                              layoutId="timer-bar"
-                              style={{
-                                position: 'absolute', bottom: 0, left: 0, right: 0,
-                                height: '2px',
-                                background: 'linear-gradient(90deg, transparent, rgba(239,68,68,0.6), transparent)',
-                                boxShadow: '0 0 4px rgba(239,68,68,0.35)',
-                              }}
-                              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                            />
-                          )}
-                        </motion.button>
-                      );
-                    })}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <button
+                      onClick={() => handleDurationChange(Math.max(5, duration - 5))}
+                      disabled={duration <= 5}
+                      style={{
+                        width: 30, height: 30, borderRadius: '50%',
+                        border: '1px solid rgba(238,242,255,0.1)',
+                        background: 'rgba(238,242,255,0.06)',
+                        color: duration <= 5 ? 'rgba(238,242,255,0.2)' : '#eef2ff',
+                        fontSize: '1.1rem', fontWeight: 300,
+                        cursor: duration <= 5 ? 'not-allowed' : 'pointer',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'all 0.15s ease', lineHeight: 1, paddingBottom: '1px',
+                      }}
+                    >−</button>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '3px', minWidth: '50px', justifyContent: 'center' }}>
+                      <span style={{
+                        fontFamily: "var(--font-title, 'Bungee'), cursive",
+                        fontSize: '1.4rem', color: ACCENT,
+                        textShadow: `0 0 16px rgba(239,68,68,0.55)`,
+                      }}>{duration}</span>
+                      <span style={{
+                        fontSize: '0.6rem', fontWeight: 700, color: 'rgba(239,68,68,0.7)',
+                        textTransform: 'uppercase',
+                      }}>min</span>
+                    </div>
+                    <button
+                      onClick={() => handleDurationChange(Math.min(60, duration + 5))}
+                      disabled={duration >= 60}
+                      style={{
+                        width: 30, height: 30, borderRadius: '50%',
+                        border: '1px solid rgba(238,242,255,0.1)',
+                        background: 'rgba(238,242,255,0.06)',
+                        color: duration >= 60 ? 'rgba(238,242,255,0.2)' : '#eef2ff',
+                        fontSize: '1.1rem', fontWeight: 300,
+                        cursor: duration >= 60 ? 'not-allowed' : 'pointer',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'all 0.15s ease', lineHeight: 1, paddingBottom: '1px',
+                      }}
+                    >+</button>
                   </div>
                 </div>
               </motion.div>
