@@ -223,7 +223,9 @@ export function ImposteurLobbyContent({ code, myUid: devUid, isHost: devIsHost }
     consumeHeart();
     try {
       const playerUids = players.map(p => p.uid);
-      const { undercover, mrwhite, civilians } = distributeRoles(playerUids, mrWhiteEnabled && players.length >= 5, nbImposteurs);
+      // Read nbImposteurs from both local state and Firebase meta to be safe
+      const actualNbImposteurs = meta?.settings?.nbImposteurs || nbImposteurs || 1;
+      const { undercover, mrwhite, civilians } = distributeRoles(playerUids, mrWhiteEnabled && players.length >= 5, actualNbImposteurs);
       const wordPair = getRandomWordPair([]);
 
       if (!wordPair) {
