@@ -38,22 +38,14 @@ const ROOM_PREFIX = 'rooms_imposteur';
  * Distributes roles based on player count
  * @returns {{ undercover: string[], mrwhite: string[], civilians: string[] }}
  */
-function distributeRoles(playerUids, mrWhiteEnabled) {
+function distributeRoles(playerUids, mrWhiteEnabled, customNbImposteurs = 1) {
   const shuffled = [...playerUids].sort(() => Math.random() - 0.5);
   const count = shuffled.length;
-  let nbUndercover = 1;
-  let nbMrWhite = 0;
+  const nbMrWhite = mrWhiteEnabled ? 1 : 0;
 
-  if (count >= 9) {
-    nbUndercover = 2;
-    nbMrWhite = mrWhiteEnabled ? (count >= 11 ? 2 : 1) : 0;
-  } else if (count >= 7) {
-    nbUndercover = count >= 8 ? 2 : 1;
-    nbMrWhite = mrWhiteEnabled ? 1 : 0;
-  } else if (count >= 5) {
-    nbUndercover = 1;
-    nbMrWhite = mrWhiteEnabled ? 1 : 0;
-  }
+  // Ensure at least 2 civilians remain
+  const maxImposteurs = Math.max(1, count - nbMrWhite - 2);
+  const nbUndercover = Math.min(customNbImposteurs, maxImposteurs);
 
   const undercover = shuffled.slice(0, nbUndercover);
   const mrwhite = shuffled.slice(nbUndercover, nbUndercover + nbMrWhite);
@@ -90,6 +82,7 @@ export function ImposteurLobbyContent({ code, myUid: devUid, isHost: devIsHost }
 
   // Settings
   const [totalRounds, setTotalRounds] = useState(1);
+  const [nbImposteurs, setNbImposteurs] = useState(1);
   const [mrWhiteEnabled, setMrWhiteEnabled] = useState(false);
   const [clueMode, setClueMode] = useState('oral');
   const [descriptionTimer, setDescriptionTimer] = useState(30);
@@ -166,6 +159,7 @@ export function ImposteurLobbyContent({ code, myUid: devUid, isHost: devIsHost }
         roomWasValidRef.current = true;
         if (!isHostRef.current) {
           if (m.settings?.totalRounds) setTotalRounds(m.settings.totalRounds);
+          if (m.settings?.nbImposteurs) setNbImposteurs(m.settings.nbImposteurs);
           if (m.settings?.mrWhiteEnabled !== undefined) setMrWhiteEnabled(m.settings.mrWhiteEnabled);
           if (m.settings?.clueMode) setClueMode(m.settings.clueMode);
           if (m.settings?.descriptionTimer) setDescriptionTimer(m.settings.descriptionTimer);
@@ -203,6 +197,11 @@ export function ImposteurLobbyContent({ code, myUid: devUid, isHost: devIsHost }
     updateSetting('totalRounds', val);
   };
 
+  const handleNbImposteursChange = (val) => {
+    setNbImposteurs(val);
+    updateSetting('nbImposteurs', val);
+  };
+
   const handleMrWhiteToggle = () => {
     const next = !mrWhiteEnabled;
     setMrWhiteEnabled(next);
@@ -224,7 +223,7 @@ export function ImposteurLobbyContent({ code, myUid: devUid, isHost: devIsHost }
     consumeHeart();
     try {
       const playerUids = players.map(p => p.uid);
-      const { undercover, mrwhite, civilians } = distributeRoles(playerUids, mrWhiteEnabled && players.length >= 5);
+      const { undercover, mrwhite, civilians } = distributeRoles(playerUids, mrWhiteEnabled && players.length >= 5, nbImposteurs);
       const wordPair = getRandomWordPair([]);
 
       if (!wordPair) {
@@ -464,6 +463,58 @@ export function ImposteurLobbyContent({ code, myUid: devUid, isHost: devIsHost }
                         </motion.button>
                       );
                     })}
+                  </div>
+                </div>
+
+                <div style={{ height: '1px', background: 'rgba(238,242,255,0.05)', marginBottom: '14px' }} />
+
+                {/* Nombre d'imposteurs */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  marginBottom: '14px',
+                }}>
+                  <div style={{
+                    fontSize: '0.8rem', fontWeight: 700, color: '#eef2ff',
+                    display: 'flex', alignItems: 'center', gap: '6px',
+                  }}>
+                    🕵️ Imposteurs
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <button
+                      onClick={() => handleNbImposteursChange(Math.max(1, nbImposteurs - 1))}
+                      disabled={nbImposteurs <= 1}
+                      style={{
+                        width: 30, height: 30, borderRadius: '50%',
+                        border: '1px solid rgba(238,242,255,0.1)',
+                        background: 'rgba(238,242,255,0.06)',
+                        color: nbImposteurs <= 1 ? 'rgba(238,242,255,0.2)' : '#eef2ff',
+                        fontSize: '1.1rem', fontWeight: 300,
+                        cursor: nbImposteurs <= 1 ? 'not-allowed' : 'pointer',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'all 0.15s ease', lineHeight: 1, paddingBottom: '1px',
+                      }}
+                    >−</button>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '3px', minWidth: '30px', justifyContent: 'center' }}>
+                      <span style={{
+                        fontFamily: "var(--font-title, 'Bungee'), cursive",
+                        fontSize: '1.4rem', color: ACCENT,
+                        textShadow: `0 0 16px ${ACCENT}66`,
+                      }}>{nbImposteurs}</span>
+                    </div>
+                    <button
+                      onClick={() => handleNbImposteursChange(Math.min(Math.max(1, players.length - 2), nbImposteurs + 1))}
+                      disabled={nbImposteurs >= Math.max(1, players.length - 2)}
+                      style={{
+                        width: 30, height: 30, borderRadius: '50%',
+                        border: '1px solid rgba(238,242,255,0.1)',
+                        background: 'rgba(238,242,255,0.06)',
+                        color: nbImposteurs >= Math.max(1, players.length - 2) ? 'rgba(238,242,255,0.2)' : '#eef2ff',
+                        fontSize: '1.1rem', fontWeight: 300,
+                        cursor: nbImposteurs >= Math.max(1, players.length - 2) ? 'not-allowed' : 'pointer',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: 'all 0.15s ease', lineHeight: 1, paddingBottom: '1px',
+                      }}
+                    >+</button>
                   </div>
                 </div>
 
