@@ -17,6 +17,7 @@ export default function ImposteurEliminationPhase({
   eliminatedPlayer,
   eliminatedRole,
   state,
+  mrWhiteEnabled,
   onMrWhiteGuess,
   onContinue,
   isHost,
@@ -52,7 +53,7 @@ export default function ImposteurEliminationPhase({
       eliminatedPlayer={eliminatedPlayer}
       role={eliminatedRole?.role}
       word={eliminatedRole?.word}
-      mrWhiteEnabled={!!state?.mrWhiteEnabled}
+      mrWhiteEnabled={!!mrWhiteEnabled}
       onContinue={onContinue}
       isHost={isHost}
       isMrWhiteGuessing={isMrWhiteGuessing}

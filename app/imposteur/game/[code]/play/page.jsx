@@ -302,6 +302,7 @@ export function ImposteurPlayContent({ overrideCode, overrideUid, code: propCode
             eliminatedPlayer={eliminatedPlayer}
             eliminatedRole={eliminatedRole}
             state={state}
+            mrWhiteEnabled={settings?.mrWhiteEnabled}
             onMrWhiteGuess={handleMrWhiteGuess}
             onContinue={handleContinueAfterElimination}
             isHost={isHost}

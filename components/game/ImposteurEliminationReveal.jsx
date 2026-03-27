@@ -124,9 +124,7 @@ export default function ImposteurEliminationReveal({
       } catch (e) {
         // Haptics not available
       }
-      // Show word after 1s into reveal
-      const wordTimeout = setTimeout(() => setShowWord(true), 1000);
-      return () => clearTimeout(wordTimeout);
+      // Word is intentionally NOT revealed during the game
     }
   }, [phase]);
 
@@ -387,36 +385,12 @@ export default function ImposteurEliminationReveal({
               {eliminatedPlayer.name}
             </motion.div>
 
-            {/* Word reveal */}
-            <AnimatePresence>
-              {showWord && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  style={{
-                    marginTop: '8px',
-                    fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                    fontSize: 'clamp(0.85rem, 3.5vw, 1rem)',
-                    color: 'rgba(238,242,255,0.5)',
-                    fontWeight: 600,
-                  }}
-                >
-                  Son mot était :{' '}
-                  <span style={{ color: config.color, fontWeight: 700 }}>
-                    {wordDisplay}
-                  </span>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* PHASE 5: ACTIONS */}
+            {/* PHASE 5: ACTIONS — no word reveal */}
             <AnimatePresence>
               {phase === PHASE_ACTIONS && (
                 <>
-                  {/* If Mr. White eliminated and guessing, show nothing — parent handles it */}
                   {role === 'mrwhite' && isMrWhiteGuessing ? null : (
-                    isHost && (
+                    isHost ? (
                       <motion.button
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -429,7 +403,7 @@ export default function ImposteurEliminationReveal({
                           borderRadius: '14px',
                           border: 'none',
                           background: `linear-gradient(135deg, ${ACCENT}, #a3e635)`,
-                          color: '#fff',
+                          color: '#000',
                           fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
                           fontSize: '0.95rem',
                           fontWeight: 700,
@@ -439,6 +413,21 @@ export default function ImposteurEliminationReveal({
                       >
                         Continuer
                       </motion.button>
+                    ) : (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                        style={{
+                          marginTop: '16px',
+                          fontSize: '0.8rem',
+                          color: 'rgba(238,242,255,0.4)',
+                          fontWeight: 600,
+                          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
+                        }}
+                      >
+                        En attente de l'hôte...
+                      </motion.div>
                     )
                   )}
                 </>
