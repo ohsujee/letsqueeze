@@ -365,6 +365,7 @@ function UIPlayground() {
 const SIMULATION_GAMES = [
   { id: 'mindlink', name: 'Mind Link', icon: '\u{1F9E0}', color: '#a855f7', available: true, path: '/dev/simulation/mindlink' },
   { id: 'lol', name: 'LOL', icon: '\u{1F606}', color: '#EF4444', available: true, path: '/dev/simulation/lol' },
+  { id: 'imposteur', name: 'Imposteur', icon: '\u{1F575}', color: '#e11d48', available: true, path: '/dev/simulation/imposteur' },
   { id: 'quiz', name: 'Quiz Buzzer', icon: '\u26A1', color: '#8b5cf6', available: true, path: '/dev/simulation/quiz' },
   { id: 'deeztest', name: 'DeezTest', icon: '\u{1F3B5}', color: '#A238FF', available: false },
   { id: 'alibi', name: 'Alibi', icon: '\u{1F575}\uFE0F', color: '#f59e0b', available: false },

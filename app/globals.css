@@ -6145,6 +6145,14 @@ input[type="text"].game-search-input:focus,
     0 0 60px #EF4444;
 }
 
+[data-game="imposteur"] .game-name {
+  text-shadow:
+    0 0 10px #a3e635,
+    0 0 20px #a3e635,
+    0 0 40px #84cc16,
+    0 0 60px #84cc16;
+}
+
 /* Coming Soon Card State - Only gray out the background, not overlays */
 .game-card.coming-soon .card-bg,
 .game-card.coming-soon .card-illustration,
@@ -9797,6 +9805,23 @@ input[type="text"].game-search-input:focus,
   background: rgba(239, 68, 68, 0.25);
   border-color: rgba(239, 68, 68, 0.5);
   box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Header - Imposteur variant */
+.lobby-header.imposteur {
+  border-bottom-color: rgba(132, 204, 22, 0.15);
+}
+
+.lobby-header.imposteur .lobby-title {
+  text-shadow:
+    0 0 10px rgba(132, 204, 22, 0.5),
+    0 0 20px rgba(132, 204, 22, 0.3),
+    0 0 40px rgba(132, 204, 22, 0.2);
+}
+
+.lobby-header.imposteur .room-code {
+  color: #a3e635;
+  text-shadow: 0 0 15px rgba(132, 204, 22, 0.5);
 }
 
 /* Main Content Area */

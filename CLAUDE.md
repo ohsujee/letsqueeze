@@ -24,6 +24,18 @@
 
 ---
 
+**TOUJOURS écrire le français avec les accents corrects:**
+
+- **JAMAIS** de caractères Unicode échappés (`\u00e9`, `\u00e0`, `\uD83D`, etc.) dans le code visible par l'utilisateur
+- **TOUJOURS** écrire les vrais caractères : é, è, ê, ë, à, ù, ô, î, ï, ç, œ, etc.
+- **TOUJOURS** écrire les vrais emojis (🎉, 👀, 🕵️) et pas les escapes Unicode
+- Cela s'applique à : tous les textes UI, les données de jeu, les messages, les labels, les placeholders
+- **Avant de valider**, vérifier qu'aucun `\u00` ou `\uD83D` n'apparaît dans les strings visibles
+
+**Pourquoi:** Les escapes Unicode s'affichent comme du texte cassé pour l'utilisateur.
+
+---
+
 **RÈGLE DEV — NE JAMAIS TOUCHER AU VRAI JEU DEPUIS `app/dev/` :**
 
 Quand on travaille dans `app/dev/` (pages de prototypage UI) :
