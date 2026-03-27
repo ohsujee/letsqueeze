@@ -375,7 +375,7 @@
         },
         "state": {
           ".read": "auth != null",
-          ".write": "auth != null && auth.uid == root.child('rooms_imposteur/'+$code+'/meta/hostUid').val()"
+          ".write": "auth != null"
         },
         "players": {
           "$uid": {
