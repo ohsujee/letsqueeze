@@ -993,7 +993,7 @@ export function LolPlayContent({ code, myUid: devUid }) {
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               style={{
                 position: 'fixed', left: 0, right: 0, bottom: 0,
-                top: '56px', // Below timer
+                top: 'calc(56px + max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px)))',
                 zIndex: 9999,
                 background: '#0a0610',
                 borderRadius: '24px 24px 0 0',
@@ -1363,6 +1363,8 @@ export function LolPlayContent({ code, myUid: devUid }) {
               background: 'rgba(0,0,0,0.95)',
               display: 'flex', flexDirection: 'column',
               overflow: 'hidden',
+              paddingTop: 'max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px))',
+              paddingBottom: 'env(safe-area-inset-bottom, 0px)',
             }}
           >
             {/* Joker header */}
@@ -1475,6 +1477,8 @@ export function LolPlayContent({ code, myUid: devUid }) {
               background: 'rgba(0,0,0,0.95)',
               display: 'flex', flexDirection: 'column',
               overflow: 'hidden',
+              paddingTop: 'max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px))',
+              paddingBottom: 'env(safe-area-inset-bottom, 0px)',
             }}
           >
             <div style={{
@@ -1555,6 +1559,8 @@ export function LolPlayContent({ code, myUid: devUid }) {
                 background: 'rgba(0,0,0,0.95)',
                 display: 'flex', flexDirection: 'column',
                 overflow: 'hidden',
+                paddingTop: 'max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px))',
+                paddingBottom: 'env(safe-area-inset-bottom, 0px)',
               }}
             >
               <div style={{
@@ -1622,6 +1628,7 @@ export function LolPlayContent({ code, myUid: devUid }) {
               exit={{ opacity: 0 }}
               style={{
                 position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9997,
+                paddingTop: 'max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px))',
                 background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 70%, transparent 100%)',
                 padding: '16px',
                 display: 'flex', flexDirection: 'column', alignItems: 'center',
