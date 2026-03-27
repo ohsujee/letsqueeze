@@ -367,6 +367,68 @@
         }
       }
     },
+    "rooms_imposteur": {
+      "$code": {
+        ".read": "auth != null",
+        "meta": {
+          ".write": "auth != null && ( !data.exists() ? newData.child('hostUid').val() == auth.uid : data.child('hostUid').val() == auth.uid )"
+        },
+        "state": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_imposteur/'+$code+'/meta/hostUid').val()"
+        },
+        "players": {
+          "$uid": {
+            ".write": "auth != null && ( auth.uid == $uid || auth.uid == root.child('rooms_imposteur/'+$code+'/meta/hostUid').val() )"
+          },
+          ".read": "auth != null"
+        },
+        "roles": {
+          "$uid": {
+            ".read": "auth != null && auth.uid == $uid",
+            ".write": "auth != null && auth.uid == root.child('rooms_imposteur/'+$code+'/meta/hostUid').val()"
+          }
+        },
+        "revealedRoles": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_imposteur/'+$code+'/meta/hostUid').val()"
+        },
+        "descriptions": {
+          "$subRound": {
+            "$uid": {
+              ".write": "auth != null && auth.uid == $uid",
+              ".read": "auth != null"
+            }
+          },
+          ".read": "auth != null"
+        },
+        "votes": {
+          "$subRound": {
+            "$uid": {
+              ".write": "auth != null && auth.uid == $uid",
+              ".read": "auth != null"
+            }
+          },
+          ".read": "auth != null"
+        },
+        "roundScores": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid == root.child('rooms_imposteur/'+$code+'/meta/hostUid').val()"
+        },
+        "presence": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid"
+          }
+        },
+        "kickedPlayers": {
+          ".read": "auth != null",
+          "$uid": {
+            ".write": "auth != null && auth.uid == root.child('rooms_imposteur/'+$code+'/meta/hostUid').val()"
+          }
+        }
+      }
+    },
     "rooms_mime": {
       "$code": {
         ".read": "auth != null",

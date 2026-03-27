@@ -6145,6 +6145,14 @@ input[type="text"].game-search-input:focus,
     0 0 60px #EF4444;
 }
 
+[data-game="imposteur"] .game-name {
+  text-shadow:
+    0 0 10px #f43f5e,
+    0 0 20px #f43f5e,
+    0 0 40px #e11d48,
+    0 0 60px #e11d48;
+}
+
 /* Coming Soon Card State - Only gray out the background, not overlays */
 .game-card.coming-soon .card-bg,
 .game-card.coming-soon .card-illustration,
@@ -9797,6 +9805,35 @@ input[type="text"].game-search-input:focus,
   background: rgba(239, 68, 68, 0.25);
   border-color: rgba(239, 68, 68, 0.5);
   box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Header - Imposteur variant */
+.lobby-header.imposteur {
+  border-bottom-color: rgba(225, 29, 72, 0.15);
+}
+
+.lobby-header.imposteur .lobby-title {
+  text-shadow:
+    0 0 10px rgba(225, 29, 72, 0.5),
+    0 0 20px rgba(225, 29, 72, 0.3),
+    0 0 40px rgba(225, 29, 72, 0.2);
+}
+
+.lobby-header.imposteur .room-code {
+  color: #f43f5e;
+  text-shadow: 0 0 15px rgba(225, 29, 72, 0.5);
+}
+
+.lobby-header.imposteur .help-btn {
+  background: rgba(225, 29, 72, 0.15);
+  border: 2px solid rgba(225, 29, 72, 0.3);
+  color: #f43f5e;
+}
+
+.lobby-header.imposteur .help-btn:hover {
+  background: rgba(225, 29, 72, 0.25);
+  border-color: rgba(225, 29, 72, 0.5);
+  box-shadow: 0 4px 20px rgba(225, 29, 72, 0.3);
 }
 
 /* Main Content Area */

@@ -369,6 +369,7 @@ const SIMULATION_GAMES = [
   { id: 'deeztest', name: 'DeezTest', icon: '\u{1F3B5}', color: '#A238FF', available: false },
   { id: 'alibi', name: 'Alibi', icon: '\u{1F575}\uFE0F', color: '#f59e0b', available: false },
   { id: 'laregle', name: 'La R\u00E8gle', icon: '\u{1F50D}', color: '#06b6d4', available: false },
+  { id: 'imposteur', name: 'Imposteur', icon: '\u{1F575}\uFE0F', color: '#e11d48', available: true, path: '/dev/simulation/imposteur' },
 ];
 
 function SimulationList() {
