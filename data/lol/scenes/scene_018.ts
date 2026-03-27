@@ -8,7 +8,6 @@ const scene: Scene = {
   difficulty: 'facile',
   duration: '3 min',
   playerCount: 3,
-  pro: true,
   setup: 'Une tortue défie un lièvre à la course. Le lièvre, sûr de lui, traîne en chemin. La tortue avance sans relâche. Le public connaît la fin, mais le trajet est savoureux.',
   roles: [
     { name: 'LE NARRATEUR', description: 'Raconte avec malice, savoure l\'humiliation du lièvre' },

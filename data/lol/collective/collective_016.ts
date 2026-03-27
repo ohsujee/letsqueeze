@@ -6,7 +6,6 @@ const game: CollectiveGame = {
   tone: 'absurde',
   difficulty: 'facile',
   duration: '3 min',
-  pro: true,
   setup: 'Le Joker est le narrateur du documentaire. Les autres joueurs s\'installent normalement (assis, debout, peu importe). Aucun accessoire nécessaire.',
   rules: `Le Joker narre un documentaire animalier sur les autres joueurs, qui doivent simplement se comporter NORMALEMENT (rester assis, boire, regarder leur téléphone...). Le Joker les observe et commente leurs moindres gestes comme un naturaliste fasciné. Les joueurs doivent continuer à agir naturellement sans craquer.
 

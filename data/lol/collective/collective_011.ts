@@ -6,7 +6,6 @@ const game: CollectiveGame = {
   tone: 'absurde',
   difficulty: 'facile',
   duration: '3 min',
-  pro: true,
   setup: 'Le Joker est l\'audioguide du musée. Tous les autres joueurs se figent dans une pose aléatoire de leur choix. Ils sont les œuvres d\'art.',
   rules: `Les joueurs se figent chacun dans une pose ridicule. Le Joker se promène parmi eux comme un audioguide de musée prestigieux et commente chaque "œuvre" avec un sérieux absolu. Les œuvres doivent tenir leur pose ET garder un visage impassible pendant le commentaire.
 

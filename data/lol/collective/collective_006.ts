@@ -6,7 +6,6 @@ const game: CollectiveGame = {
   tone: 'physique',
   difficulty: 'moyen',
   duration: '3 min',
-  pro: true,
   setup: 'Espace pour bouger. Le Joker est le narrateur. Tout le monde se prépare à mimer.',
   rules: `Le Joker annonce une scène du quotidien. Tous les joueurs doivent l'exécuter en EXTRÊME ralenti, comme dans un film d'action. Pendant ce temps, le Joker fait la narration dramatique en voix off.
 

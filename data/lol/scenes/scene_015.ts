@@ -8,7 +8,6 @@ const scene: Scene = {
   difficulty: 'moyen',
   duration: '3 min',
   playerCount: 3,
-  pro: true,
   setup: 'Le juge Dandin, obsédé par le fait de juger, organise un procès contre un chien accusé d\'avoir volé un chapon. Deux avocats s\'affrontent avec un formalisme juridique absurde. Le juge veut condamner avant même d\'entendre les arguments.',
   roles: [
     { name: 'LE JUGE DANDIN', description: 'Magistrat maniaque, veut juger à tout prix, interrompt pour condamner' },
