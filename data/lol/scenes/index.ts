@@ -40,6 +40,11 @@ import scene_013 from './scene_013';
 import scene_014 from './scene_014';
 import scene_015 from './scene_015';
 import scene_016 from './scene_016';
+import scene_017 from './scene_017';
+import scene_018 from './scene_018';
+import scene_019 from './scene_019';
+import scene_020 from './scene_020';
+import scene_021 from './scene_021';
 
 export const SCENES: Scene[] = [
   // =============================================
@@ -69,6 +74,15 @@ export const SCENES: Scene[] = [
   // =============================================
   scene_009,
   scene_013,
+
+  // =============================================
+  // LA FONTAINE FABLES
+  // =============================================
+  scene_017,  // Le Loup et l'Agneau (trio)
+  scene_018,  // Le Lièvre et la Tortue (trio)
+  scene_019,  // La Cigale et la Fourmi (duo)
+  scene_020,  // Le Chêne et le Roseau (trio, PRO)
+  scene_021,  // Le Rat de Ville et le Rat des Champs (duo, PRO)
 ];
 
 export function getRandomScenes(count: number, maxPlayers: number, excludeIds: string[] = [], proOnly?: boolean): Scene[] {
