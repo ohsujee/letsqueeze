@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'cringe',
   difficulty: 'facile',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'Commencer avec une voix mystique et théâtrale d\'astrologue télévisé. Châle ou écharpe imaginaire. Consulter une boule de cristal entre les signes. L\'assurance se fissure progressivement : à partir du signe 4-5, l\'astrologue doute, vérifie son téléphone, perd le fil. Vers la fin, c\'est la crise existentielle complète. Le dernier signe est le sien — le plus dévastateur de tous.',
   script: `[S'installe, ajuste un châle imaginaire, prend une voix mystique et assurée]
 

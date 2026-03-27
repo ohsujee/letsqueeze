@@ -8,6 +8,7 @@ const scene: Scene = {
   difficulty: 'moyen',
   duration: '3 min',
   playerCount: 2,
+  pro: true,
   setup: 'Harpagon vient de découvrir que sa cassette pleine d\'or a été volée. Il est en pleine crise. La Flèche, valet de son fils, est le suspect numéro un.',
   roles: [
     { name: 'HARPAGON', description: 'Avare dément, traite son argent comme un être aimé, soupçonne tout le monde' },

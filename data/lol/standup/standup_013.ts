@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'absurde',
   difficulty: 'facile',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'Voix feutrée et posée de narrateur de documentaire animalier (style David Attenborough). Chuchoter par moments comme pour ne pas effrayer les animaux. Mimer des jumelles. Désigner des zones de la pièce comme différents espaces du bureau. Progression vers un ton de plus en plus délirant.',
   script: `[Voix feutrée, regarde au loin avec des jumelles imaginaires]
 

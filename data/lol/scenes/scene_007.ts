@@ -8,6 +8,7 @@ const scene: Scene = {
   difficulty: 'moyen',
   duration: '3 min',
   playerCount: 3,
+  pro: true,
   setup: 'Alceste, qui déteste l\'hypocrisie, confronte Célimène, qui adore médire de tout le monde. Philinte essaie désespérément de calmer le jeu.',
   roles: [
     { name: 'ALCESTE', description: 'Misanthrope furieux, dit ses vérités en face, incapable de compliment' },

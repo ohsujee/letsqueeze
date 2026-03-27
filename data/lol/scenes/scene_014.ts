@@ -8,6 +8,7 @@ const scene: Scene = {
   difficulty: 'moyen',
   duration: '3 min',
   playerCount: 2,
+  pro: true,
   setup: 'Dom Juan, libertin sans scrupules, annonce à son valet Sganarelle ses derniers méfaits. Sganarelle tente de protester moralement, mais Dom Juan le réduit au silence avec une logique tordue. Sganarelle cède à chaque fois, avant de se souvenir de l\'essentiel : ses gages impayés.',
   roles: [
     { name: 'DOM JUAN', description: 'Séducteur cynique, justifie tout avec une éloquence redoutable' },

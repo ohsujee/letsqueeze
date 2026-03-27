@@ -6,6 +6,7 @@ const game: CollectiveGame = {
   tone: 'absurde',
   difficulty: 'moyen',
   duration: '3 min',
+  pro: true,
   setup: 'Tout le monde s\'assoit face à la scène. Le Joker désigne 2 volontaires : un "Muet" (celui qui bouge et mime) et une "Voix" (celui qui improvise le doublage). Le Muet se place devant, la Voix juste derrière ou à côté.',
   rules: `Le Muet gesticule, mime et ouvre la bouche SANS émettre un son. La Voix improvise tout ce que le Muet est censé "dire" en temps réel. Le Joker est le réalisateur : il intervient ACTIVEMENT pendant la scène.
 

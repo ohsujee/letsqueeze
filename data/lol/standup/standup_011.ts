@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'dark',
   difficulty: 'hard',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'Ton de correspondant de guerre ou de diplomate à l\'ONU. Gravité constante. Désigner différentes zones de la pièce comme des "territoires" familiaux. Recevoir des "dépêches" dans l\'oreillette.',
   script: `[Main sur l'oreillette, ton grave de correspondant de guerre]
 

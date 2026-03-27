@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'cringe',
   difficulty: 'moyen',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'Énergie d\'animateur d\'infopublicité à 3h du matin. Sourire figé permanent, gestes exagérés de démonstration produit. Chaque défaut doit être présenté comme une fonctionnalité révolutionnaire. Le "avant/après" est mimé avec des poses. Le faux témoignage est lu depuis une carte imaginaire avec un ton clairement forcé. La descente de prix finale est jouée avec l\'excitation croissante d\'un vrai vendeur.',
   script: `[Apparaît avec un sourire immense et figé, pointe la caméra]
 

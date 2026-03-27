@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'absurde',
   difficulty: 'facile',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'Jouer un délégué syndical qui mène une assemblée générale. Ton officiel, lecture de revendications depuis un document imaginaire. Alterner entre la voix du délégué (solennel, engagé) et celle du "management" humain (condescendant, exaspéré). Mimer le chaos final quand les objets font grève.',
   script: `[Tape sur un pupitre imaginaire, ajuste des lunettes]
 

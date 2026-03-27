@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'genant',
   difficulty: 'facile',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'Jouer un agent immobilier trop enthousiaste qui fait visiter son propre appartement minable. Gestes amples pour désigner des espaces minuscules. Sourire commercial permanent. Chaque « qualité » révèle un défaut évident. Ouvrir des portes imaginaires avec fierté.',
   script: `[Ouvre une porte imaginaire avec un grand geste]
 

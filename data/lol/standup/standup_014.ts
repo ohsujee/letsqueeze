@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'genant',
   difficulty: 'moyen',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'Mimer un téléphone contre l\'oreille pendant tout le sketch. Alterner entre exaspération (attente, musique d\'attente) et politesse forcée quand un "agent" décroche. Faire les bruitages de la musique d\'attente et des touches du téléphone. L\'énergie passe de la frustration légère à la détresse existentielle.',
   script: `[Téléphone imaginaire à l'oreille, tape sur les touches]
 

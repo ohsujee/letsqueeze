@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'cringe',
   difficulty: 'moyen',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'Jouer un sommelier extrêmement prétentieux. Faire tourner un verre imaginaire, renifler, goûter avec des bruits de dégustation exagérés. Confiance absolue.',
   script: `[S'avance avec un verre imaginaire, le fait tourner délicatement]
 

@@ -6,6 +6,7 @@ const game: CollectiveGame = {
   tone: 'physique',
   difficulty: 'moyen',
   duration: '3 min',
+  pro: true,
   setup: 'Le Joker est le marionnettiste. Il choisit un premier joueur comme "marionnette". Le reste du groupe regarde (et n\'a PAS le droit de rire).',
   rules: `Le Joker "contrôle" un joueur comme une marionnette, en narrant chaque mouvement que la marionnette doit exécuter. La marionnette doit obéir immédiatement ET garder un visage parfaitement neutre. Le public aussi doit rester impassible.
 

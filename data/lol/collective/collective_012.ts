@@ -6,6 +6,7 @@ const game: CollectiveGame = {
   tone: 'absurde',
   difficulty: 'facile',
   duration: '3 min',
+  pro: true,
   setup: 'Le Joker est le présentateur météo. Chaque joueur se voit attribuer une région française (le Joker les assigne). Aucun accessoire nécessaire.',
   rules: `Le Joker présente le bulletin météo du jour, mais la "météo" décrit en réalité les joueurs. Chaque joueur est une région et le Joker le pointe du doigt en annonçant ses prévisions. Les joueurs doivent rester impassibles pendant qu'on décrit leur "climat".
 

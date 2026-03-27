@@ -6,6 +6,7 @@ const game: CollectiveGame = {
   tone: 'genant',
   difficulty: 'moyen',
   duration: '3 min',
+  pro: true,
   setup: 'Tout le monde en file. Le Joker est au début de la chaîne. Minimum 4 joueurs pour que ce soit drôle.',
   rules: `Le Joker chuchote une phrase à l'oreille du premier joueur. Chaque joueur répète À VOIX HAUTE ce qu'il a compris au joueur suivant (pas en chuchotant !). La distorsion se fait en temps réel et tout le monde entend le massacre progressif.
 

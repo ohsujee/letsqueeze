@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'absurde',
   difficulty: 'moyen',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'Jouer plusieurs personnages : le neurone PDG (voix grave, autoritaire), le neurone anxieux (voix aiguë), le neurone créatif (rêveur), le neurone nocturne (voix louche). Changer de posture pour chaque personnage.',
   script: `[Voix grave de PDG, tape sur une table imaginaire]
 

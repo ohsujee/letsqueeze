@@ -8,6 +8,7 @@ const scene: Scene = {
   difficulty: 'facile',
   duration: '3 min',
   playerCount: 2,
+  pro: true,
   setup: 'Monsieur Jourdain, riche bourgeois, prend sa leçon de philosophie. Il découvre avec émerveillement qu\'il fait de la prose depuis quarante ans.',
   roles: [
     { name: 'LE MAÎTRE', description: 'Professeur de philosophie, patient puis dépassé par la bêtise' },

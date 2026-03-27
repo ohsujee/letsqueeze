@@ -8,6 +8,7 @@ const scene: Scene = {
   difficulty: 'moyen',
   duration: '3 min',
   playerCount: 3,
+  pro: true,
   setup: 'George Dandin, riche paysan, a épousé Angélique, fille de la noble famille de Sotenville. Il regrette amèrement ce mariage. Chaque fois qu\'il accuse sa femme, sa belle-mère prend le parti d\'Angélique et l\'humilie. Dandin finit toujours par se lamenter seul.',
   roles: [
     { name: 'GEORGE DANDIN', description: 'Paysan marié au-dessus de sa condition, accuse sa femme mais n\'est jamais cru' },

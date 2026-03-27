@@ -8,6 +8,7 @@ const scene: Scene = {
   difficulty: 'hard',
   duration: '3 min',
   playerCount: 3,
+  pro: true,
   setup: 'Sganarelle, un bûcheron ivrogne, a été battu jusqu\'à ce qu\'il accepte de se faire passer pour médecin. Il examine Lucinde (qui feint d\'être muette) devant son père Géronte, paniqué.',
   roles: [
     { name: 'SGANARELLE', description: 'Faux médecin improvisé, invente du latin et des diagnostics avec aplomb' },

@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'dark',
   difficulty: 'moyen',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'En deuil. Voix brisée par le chagrin. Parler comme à un vrai enterrement, avec des pauses émotionnelles sincères. Tenir un mouchoir imaginaire.',
   script: `[S'avance lentement, en noir, se mouche]
 

@@ -6,6 +6,7 @@ const standup: StandupScript = {
   tone: 'absurde',
   difficulty: 'moyen',
   duration: '2-3 min',
+  pro: true,
   stageDirections: 'Ton d\'avocat passionné en pleine plaidoirie. Arpenter l\'espace comme dans un tribunal. Désigner des spectateurs comme membres du jury. S\'adresser au juge imaginaire avec déférence.',
   script: `[Se lève, ajuste sa veste, s'adresse au juge]
 
