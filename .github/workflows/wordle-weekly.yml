@@ -1,9 +1,7 @@
-name: Assign Wordle Words
+name: Assign Wordle Words (DISABLED — words pre-seeded in Firebase until 2029)
 
 on:
-  schedule:
-    - cron: '0 19 * * 0'  # Chaque dimanche à 19h UTC (20h Paris)
-  workflow_dispatch:
+  workflow_dispatch:  # Manual only, no more cron
 
 jobs:
   assign:

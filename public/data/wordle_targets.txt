@@ -29,7 +29,6 @@ ample
 ancre
 angle
 aneth
-anion
 anime
 annee
 apnee
@@ -76,7 +75,6 @@ beton
 biche
 bidet
 biere
-biome
 bisou
 bison
 blanc
@@ -110,7 +108,6 @@ carpe
 carre
 carte
 cause
-cedar
 champ
 chaos
 chaud
@@ -294,7 +291,6 @@ idole
 image
 impur
 index
-inept
 issue
 jante
 jeter

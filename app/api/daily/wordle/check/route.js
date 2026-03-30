@@ -66,15 +66,10 @@ export async function POST(request) {
     const db = admin.database();
     const snap = await db.ref(`daily/wordle/${date}/word`).get();
 
-    let word;
-    if (snap.exists()) {
-      word = snap.val().toLowerCase();
-    } else {
-      // Fallback déterministe par date (même logique que l'ancienne page)
-      const words = ['chien', 'magie', 'brave', 'solde', 'fleur', 'monde', 'arbre', 'poule', 'table', 'noire'];
-      const dayIndex = Math.floor(new Date(date).getTime() / 86400000);
-      word = words[dayIndex % words.length];
+    if (!snap.exists()) {
+      return Response.json({ error: 'Mot du jour non disponible' }, { status: 503 });
     }
+    const word = snap.val().toLowerCase();
 
     const feedback = computeFeedback(guess, word);
     const isWin = normalize(guess) === normalize(word);
