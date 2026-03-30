@@ -33,7 +33,7 @@ export function evaluateTokens(tokens) {
 
 // ─── Scoring ────────────────────────────────────────────────────────────────
 export function computeScore(difference, timeMs) {
-  const precision = Math.max(500, 5000 - Math.round(difference * 60));
+  const precision = Math.max(0, 10000 - Math.round(difference * 1000));
   const timeBonus = Math.round(999 * Math.exp(-timeMs / 120000));
   return precision + timeBonus;
 }
