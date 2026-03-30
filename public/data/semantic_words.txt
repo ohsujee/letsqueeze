@@ -204,7 +204,6 @@ narine
 pupille
 paupière
 omoplate
-côte
 sternum
 pain
 fromage
@@ -382,7 +381,6 @@ pyjama
 basket
 sandale
 botte
-talon
 semelle
 lacet
 bouton
@@ -778,7 +776,6 @@ statue
 buste
 scène
 décor
-rideau
 coulisse
 football
 rugby
@@ -825,7 +822,6 @@ saison
 midi
 minuit
 aurore
-crépuscule
 latitude
 longitude
 équateur
