@@ -341,17 +341,29 @@ app/mygame/game/[code]/play/
 
 | Métrique | Avant | Après | Réduction |
 |----------|-------|-------|-----------|
-| Lignes totales (Tier 1) | 21,077 | 11,956 | **-43%** |
-| Fichiers > 1000 lignes | 14 | 5 | **-64%** |
+| Lignes totales (Tier 1) | 21,077 | 9,155 | **-57%** |
+| Fichiers > 1000 lignes | 14 | **0** | **-100%** |
 | Build errors | — | 0 | ✅ |
 | Fonctionnalités cassées | — | 0 | ✅ |
 
-### Fichiers restants > 1000 lignes (nécessitent restructuration logique)
-- `lol/play/page.jsx` — 1700 (JSX couplé au state, modals)
-- `laregle/play/page.jsx` — 1694 (3 phases, state machine)
-- `laregle/investigate/page.jsx` — 1206 (timer + éliminations)
-- `alibi/room/page.jsx` — 1148 (Party Mode setup)
-- `alibi/play/page.jsx` — 979 (extraction CSS faite, logique à restructurer)
+### Résultats par fichier
+
+| # | Fichier | Avant | Après | Réduction |
+|---|---------|-------|-------|-----------|
+| 1 | HowToPlayModal.jsx | 1897 | **178** | -90% |
+| 2 | BlindTestHostView.jsx | 1917 | **711** | -63% |
+| 3 | lol/play/page.jsx | 1811 | **747** | -59% |
+| 4 | laregle/play/page.jsx | 1774 | **572** | -68% |
+| 5 | alibi/play/page.jsx | 1670 | **979** | -41% |
+| 6 | motmystere/page.jsx | 1384 | **649** | -53% |
+| 7 | semantique/page.jsx | 1376 | **716** | -48% |
+| 8 | alibi/prep/page.jsx | 1292 | **638** | -51% |
+| 9 | laregle/investigate/page.jsx | 1286 | **663** | -45% |
+| 10 | profile/hue/page.jsx | 2277 | **920** | -60% |
+| 11 | alibi/room/page.jsx | 1148 | **965** | -16% |
+| 12 | Leaderboard.jsx | 1136 | **376** | -67% |
+| 13 | subscribe/page.jsx | 1085 | **425** | -61% |
+| 14 | onboarding/page.jsx | 1024 | **616** | -40% |
 
 ---
 
@@ -359,29 +371,53 @@ app/mygame/game/[code]/play/
 
 | Phase | Status | Date début | Date fin |
 |-------|--------|------------|----------|
-| Tier 1 (14 fichiers) | 🟡 En cours (9/14 sous 1000 lignes) | 2026-03-30 | |
+| Tier 1 (14 fichiers) | ✅ **Terminé** — 0 fichiers > 1000 lignes | 2026-03-30 | 2026-03-31 |
 | Tier 2 (18 fichiers) | ⬜ En attente | | |
 | Tier 3 (48 fichiers) | ⬜ En attente | | |
 
 ### Fichiers créés pendant le refacto
+
+**Hooks :**
 - `lib/hooks/useBlindTestAudio.js` — Audio Deezer (init, play, stop, progress)
 - `lib/hooks/useBlindTestBuzz.js` — Système de buzz (listener, résolution)
 - `lib/hooks/useRevealPlayback.js` — Reveal après bonne réponse (play, drag, seek)
+
+**Composants partagés :**
+- `components/game/EliminationNotifModal.jsx` — Modal élimination (La Règle play + investigate)
+- `components/shared/LeaderboardErrorBoundary.jsx` — Error boundary (3 daily games)
+
+**Composants extraits par jeu :**
 - `lib/config/howToPlayData.js` — Données tutoriels (11 jeux)
 - `components/ui/HowToPlaySections.jsx` — Renderers de sections tutoriel
-- `components/ui/HowToPlayModal.css` — Styles modal tutoriel
-- `components/game/BlindTestHostView.css` — Styles host blind test
-- `components/game/Leaderboard.css` — Styles leaderboard
-- `components/game/EliminationNotifModal.jsx` — Modal élimination partagée (La Règle)
-- `components/shared/LeaderboardErrorBoundary.jsx` — Error boundary partagé (3 daily)
 - `app/daily/motmystere/WordleLeaderboard.jsx` — Leaderboard Mot Mystère
 - `app/daily/motmystere/WordleComponents.jsx` — Grid, Keyboard, ResultBanner, StatsModal
 - `app/daily/semantique/SemanticLeaderboard.jsx` — Leaderboard Sémantique
 - `app/daily/semantique/SemanticComponents.jsx` — Helpers + UI composants
 - `app/onboarding/Mascot.jsx`, `PseudoSlide.jsx`, `GuestWarningModal.jsx`
 - `app/lol/game/[code]/play/RenderSceneScript.jsx` — Rendu script théâtre
-- Fichiers CSS : `subscribe.css`, `hue.css`, `alibi-play.css`, `alibi-prep.css`
+- `app/lol/game/[code]/play/_components/GameModals.jsx` — Accuse, Vote, Accused modals
+- `app/lol/game/[code]/play/_components/JokerOverlays.jsx` — Joker selection + 3 screens
+- `app/laregle/game/[code]/play/_components/ChoosingPhase.jsx` — Phase de vote
+- `app/laregle/game/[code]/play/_components/PlayingPhase.jsx` — Phase de jeu active
+- `app/laregle/game/[code]/play/_components/GuessingPhase.jsx` — Phase de devinette
+- `app/laregle/game/[code]/investigate/_components/InvestigatePhases.jsx` — 3 phases enquêteur
+- `app/laregle/game/[code]/investigate/_components/GuessVoteSheet.jsx` — Modal vote devinette
+- `app/alibi/room/[code]/_components/RolesCard.jsx` — Carte gestion des rôles
+
+**Fichiers CSS extraits :**
+- `components/ui/HowToPlayModal.css`
+- `components/game/BlindTestHostView.css`
+- `components/game/Leaderboard.css`
+- `app/subscribe/subscribe.css`
+- `app/(main)/profile/hue/hue.css`
+- `app/alibi/game/[code]/play/alibi-play.css`
+- `app/alibi/game/[code]/prep/alibi-prep.css`
+
+### Améliorations bonus
+- `LeaderboardErrorBoundary` ajouté aux 3 daily games (motmystere, semantique, total)
+- `EliminationNotifModal` dédupliqué entre La Règle play et investigate
+- Agents custom créés : `code-reviewer`, `complexity-analyzer`
 
 ---
 
-*Créé le 2026-03-30 — Dernière mise à jour : 2026-03-30*
+*Créé le 2026-03-30 — Dernière mise à jour : 2026-03-31*
