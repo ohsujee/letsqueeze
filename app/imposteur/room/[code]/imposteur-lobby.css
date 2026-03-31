@@ -1,0 +1,510 @@
+/* imposteur-lobby.css */
+
+.imp-lobby {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #04060f;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+/* ── Loading ── */
+
+.imp-lobby-loading {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #04060f;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.imp-lobby-spinner {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #1e1e30;
+  border-top-color: #84cc16;
+  border-radius: 50%;
+  animation: imp-spin 0.9s linear infinite;
+}
+
+.imp-lobby-loading-text {
+  color: #5a5a72;
+  font-size: 0.85rem;
+}
+
+@keyframes imp-spin { to { transform: rotate(360deg); } }
+
+/* ── Background ── */
+
+.imp-lobby-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.imp-lobby-bg-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(132, 204, 22, 0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.imp-lobby-bg-glow-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 280px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(132, 204, 22, 0.09) 0%, transparent 70%);
+}
+
+.imp-lobby-bg-glow-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 120px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(132, 204, 22, 0.05) 0%, transparent 70%);
+}
+
+/* ── Main ── */
+
+.imp-lobby-main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 16px 8px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Settings panel ── */
+
+.imp-settings-panel {
+  background: rgba(8, 14, 32, 0.92);
+  border: 1px solid rgba(132, 204, 22, 0.12);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+
+.imp-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.imp-settings-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #eef2ff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.imp-settings-sublabel {
+  font-size: 0.68rem;
+  color: rgba(238, 242, 255, 0.35);
+  margin-top: 2px;
+}
+
+.imp-settings-divider {
+  height: 1px;
+  background: rgba(238, 242, 255, 0.05);
+  margin-bottom: 14px;
+}
+
+/* ── Pill buttons (rounds, timer) ── */
+
+.imp-pill-btns {
+  display: flex;
+  gap: 5px;
+}
+
+.imp-pill-btn {
+  position: relative;
+  min-width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 7px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(238, 242, 255, 0.08);
+  background: rgba(238, 242, 255, 0.03);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.imp-pill-btn.active {
+  border-color: rgba(132, 204, 22, 0.33);
+  background: rgba(132, 204, 22, 0.1);
+}
+
+.imp-pill-btn-text {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1rem;
+  line-height: 1;
+  color: rgba(238, 242, 255, 0.5);
+  transition: color 0.15s ease, text-shadow 0.15s ease;
+}
+
+.imp-pill-btn-text.small {
+  font-size: 0.75rem;
+}
+
+.imp-pill-btn.active .imp-pill-btn-text {
+  color: #a3e635;
+  text-shadow: 0 0 10px rgba(132, 204, 22, 0.53);
+}
+
+.imp-pill-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(132, 204, 22, 0.6), transparent);
+  box-shadow: 0 0 4px rgba(132, 204, 22, 0.33);
+}
+
+/* ── Stepper (imposteurs count) ── */
+
+.imp-stepper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.imp-stepper-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(238, 242, 255, 0.1);
+  background: rgba(238, 242, 255, 0.06);
+  font-size: 1.1rem;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  line-height: 1;
+  padding-bottom: 1px;
+}
+
+.imp-stepper-btn.enabled {
+  color: #eef2ff;
+  cursor: pointer;
+}
+
+.imp-stepper-btn.disabled {
+  color: rgba(238, 242, 255, 0.2);
+  cursor: not-allowed;
+}
+
+.imp-stepper-value {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  min-width: 30px;
+  justify-content: center;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.4rem;
+  color: #84cc16;
+  text-shadow: 0 0 16px rgba(132, 204, 22, 0.4);
+}
+
+/* ── Toggle (Mr. White) ── */
+
+.imp-toggle {
+  width: 48px;
+  height: 28px;
+  border-radius: 14px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.imp-toggle.on {
+  background: rgba(132, 204, 22, 0.3);
+  border: 1px solid rgba(132, 204, 22, 0.33);
+  cursor: pointer;
+}
+
+.imp-toggle.off {
+  background: rgba(238, 242, 255, 0.08);
+  border: 1px solid rgba(238, 242, 255, 0.1);
+}
+
+.imp-toggle.off.disabled {
+  cursor: not-allowed;
+}
+
+.imp-toggle.off:not(.disabled) {
+  cursor: pointer;
+}
+
+.imp-toggle-knob {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+}
+
+.imp-toggle-knob.on {
+  background: #a3e635;
+  box-shadow: 0 0 8px rgba(132, 204, 22, 0.4);
+}
+
+.imp-toggle-knob.off {
+  background: rgba(238, 242, 255, 0.25);
+}
+
+/* ── Segmented control (clue mode) ── */
+
+.imp-segment-control {
+  position: relative;
+  display: flex;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(238, 242, 255, 0.07);
+  padding: 4px;
+  gap: 4px;
+}
+
+.imp-segment-btn {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  color: rgba(238, 242, 255, 0.4);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.imp-segment-btn.active {
+  color: #a3e635;
+  text-shadow: 0 0 12px rgba(132, 204, 22, 0.5);
+}
+
+.imp-segment-pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  background: rgba(132, 204, 22, 0.1);
+  border: 1px solid rgba(132, 204, 22, 0.3);
+  z-index: -1;
+}
+
+/* ── Player settings (non-host) ── */
+
+.imp-player-settings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.imp-player-settings-info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.imp-player-settings-tags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.imp-player-settings-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(238, 242, 255, 0.6);
+}
+
+/* ── Players section ── */
+
+.imp-players-section {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.imp-players-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.imp-players-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.imp-players-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: rgba(238, 242, 255, 0.35);
+  text-transform: uppercase;
+}
+
+.imp-players-count {
+  padding: 2px 9px;
+  background: rgba(132, 204, 22, 0.1);
+  border: 1px solid rgba(132, 204, 22, 0.25);
+  border-radius: 6px;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.7rem;
+  color: #a3e635;
+  letter-spacing: 0.04em;
+}
+
+/* ── Hints ── */
+
+.imp-hint-callout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(132, 204, 22, 0.06);
+  border: 1px solid rgba(132, 204, 22, 0.12);
+  border-radius: 12px;
+}
+
+.imp-hint-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background: rgba(132, 204, 22, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imp-hint-text {
+  font-size: 0.78rem;
+  color: rgba(163, 230, 53, 0.8);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.imp-player-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: rgba(238, 242, 255, 0.04);
+  border: 1px solid rgba(238, 242, 255, 0.07);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.imp-player-hint-text {
+  font-size: 0.78rem;
+  color: rgba(238, 242, 255, 0.45);
+  font-weight: 600;
+}
+
+/* ── Players list ── */
+
+.imp-players-list-wrapper {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.imp-players-list {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: visible;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.imp-scroll-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: linear-gradient(to bottom, transparent, rgba(4, 6, 15, 0.96));
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+  z-index: 2;
+}
+
+/* ── Footer ── */
+
+.imp-lobby-footer {
+  position: relative;
+  z-index: 2;
+  padding: 12px 16px 16px;
+  border-top: 1px solid rgba(238, 242, 255, 0.05);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(4, 6, 15, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.imp-footer-player-card {
+  padding: 14px;
+  background: rgba(238, 242, 255, 0.03);
+  border: 1px solid rgba(238, 242, 255, 0.07);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.imp-footer-player-text {
+  font-size: 0.75rem;
+  color: rgba(238, 242, 255, 0.35);
+  font-weight: 600;
+}
