@@ -15,6 +15,7 @@ import { TIMER_SECONDS, MAX_SUBMISSIONS, evaluateTokens, computeScore, formatRes
 import TotalResultBanner from './components/TotalResultBanner';
 import TotalStatsModal from './components/TotalStatsModal';
 import TotalLeaderboard from './components/TotalLeaderboard';
+import LeaderboardErrorBoundary from '@/components/shared/LeaderboardErrorBoundary';
 import TotalReadyScreen from './components/TotalReadyScreen';
 import TotalPlayingScreen from './components/TotalPlayingScreen';
 import TotalSubmissionsRecap from './components/TotalSubmissionsRecap';
@@ -563,7 +564,9 @@ export default function DailyTotalPage() {
           </>
         ) : (
           // Leaderboard tab
-          <TotalLeaderboard todayDate={todayDate} />
+          <LeaderboardErrorBoundary>
+            <TotalLeaderboard todayDate={todayDate} />
+          </LeaderboardErrorBoundary>
         )}
       </div>
 

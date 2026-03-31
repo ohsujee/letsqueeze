@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, update, runTransaction, serverTimestamp, set, increment
@@ -12,7 +12,6 @@ import PlayerManager from "@/components/game/PlayerManager";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import HostDisconnectAlert from "@/components/game/HostDisconnectAlert";
 import BuzzValidationModal from "@/components/game/BuzzValidationModal";
-import { initializePlayer, playSnippet, pause, resume, isPlayerReady, disconnect, preloadPreview, seek, getPlayerState } from "@/lib/deezer/player";
 import { SkipForward, X, Check, Music, Play, Pause, Bell, RefreshCw, Shuffle } from "lucide-react";
 import BlindTestRevealScreen from "@/components/game/BlindTestRevealScreen";
 import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel, AUDIO_SYNC_BUFFER_MS } from "@/lib/constants/blindtest";
@@ -22,8 +21,12 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
-import { getAllPlaylistTracks, formatTracksForGame, getRandomUnplayedTrack } from "@/lib/deezer/api";
+import { getRandomUnplayedTrack } from "@/lib/deezer/api";
 import { usePlaylistHistory } from "@/lib/hooks/usePlaylistHistory";
+import { useBlindTestAudio } from "@/lib/hooks/useBlindTestAudio";
+import { useBlindTestBuzz } from "@/lib/hooks/useBlindTestBuzz";
+import { useRevealPlayback } from "@/lib/hooks/useRevealPlayback";
+import './BlindTestHostView.css';
 
 const DEEZER_PURPLE = '#A238FF';
 const DEEZER_PINK = '#FF0092';
@@ -49,50 +52,14 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
 
-  // Deezer player state
-  const [playerReady, setPlayerReady] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSnippet, setCurrentSnippet] = useState(null);
-  const snippetStopRef = useRef(null);
-
-  // Track highest unlocked level (0 = first level always unlocked)
-  const [unlockedLevel, setUnlockedLevel] = useState(0);
-  const unlockTimeoutRef = useRef(null);
-
-  // Track highest level that was actually played (for scoring)
-  const [highestLevelPlayed, setHighestLevelPlayed] = useState(null);
-
   // Server time sync (300ms tick for score updates)
   const { serverNow, offset: serverOffset } = useServerTime(300);
-
-  // Player error state
-  const [playerError, setPlayerError] = useState(null);
-
-  // Track refresh state
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const hasTriedRefresh = useRef(false);
-
-  // Audio loading state (for spinner on album cover)
-  const [isAudioLoading, setIsAudioLoading] = useState(false);
-
-  // Progress bar state for timeline segments
-  const [playProgress, setPlayProgress] = useState(0);
-  const progressIntervalRef = useRef(null);
 
   // Change song animation state
   const [isChangingSong, setIsChangingSong] = useState(false);
 
-  // Reveal screen state (shown after correct answer)
-  const [showRevealScreen, setShowRevealScreen] = useState(false);
-  const [revealWinner, setRevealWinner] = useState(null); // { name, points, level }
-  const [revealTrack, setRevealTrack] = useState(null); // Track info to show
-  const [revealProgress, setRevealProgress] = useState(0);
-  const [isRevealPlaying, setIsRevealPlaying] = useState(false);
-  const [isRevealDragging, setIsRevealDragging] = useState(false);
-  const revealProgressBarRef = useRef(null);
-  const revealAnimationRef = useRef(null);
-  const revealProgressRef = useRef(0); // Track progress during drag
-  const wasPlayingBeforeDragRef = useRef(false); // Track if was playing before drag
+  // Reveal system (after correct answer)
+  const reveal = useRevealPlayback({ code, meta, serverOffset, snippetStopRef });
 
   // Playlist history (to avoid replaying same tracks)
   const { markTracksAsPlayed, getPlayedTracks } = usePlaylistHistory();
@@ -101,80 +68,20 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   // Pour les permissions Firebase, on est "host" si on est le vrai host OU si on est l'asker actuel
   const canControl = isActualHost || (meta?.gameMasterMode === 'party' && state?.currentAskerUid === myUid);
 
-  // Pause music - défini tôt car utilisé dans le système de buzz
-  const pauseMusic = useCallback(async () => {
-    if (snippetStopRef.current) {
-      await snippetStopRef.current.stop();
-      snippetStopRef.current = null;
-    }
-    await pause();
-    setIsPlaying(false);
-  }, []);
+  // Derived values needed before audio hook
+  const total = playlist?.tracks?.length || 0;
+  const qIndex = state?.currentIndex || 0;
+  const currentTrack = playlist?.tracks?.[qIndex];
 
-  // Function to refresh all track URLs from Deezer
-  const refreshTrackUrls = useCallback(async () => {
-    if (!playlist?.id || isRefreshing) return false;
+  // Audio system (player, snippets, progress, levels)
+  const {
+    playerReady, isPlaying, currentSnippet, unlockedLevel,
+    highestLevelPlayed, playerError, isRefreshing, isAudioLoading,
+    playProgress, pointsEnJeu, snippetStopRef,
+    playLevel, stopMusic, pauseMusic, refreshTrackUrls, resetForNextTrack,
+  } = useBlindTestAudio({ code, canControl, currentTrack, meta, state, playlist, serverOffset });
 
-    setIsRefreshing(true);
-    setPlayerError("Rafraîchissement des URLs...");
-
-    try {
-      const freshTracks = await getAllPlaylistTracks(playlist.id);
-      const formattedTracks = formatTracksForGame(freshTracks);
-
-      // Match tracks by ID to preserve order — only refresh the URL, never swap the song
-      const refreshedTracks = playlist.tracks.map(oldTrack => {
-        const fresh = formattedTracks.find(t => t.id === oldTrack.id);
-        if (fresh) {
-          return { ...oldTrack, previewUrl: fresh.previewUrl };
-        }
-        // Track not found in fresh list — keep original (don't substitute a different song)
-        return oldTrack;
-      });
-
-      // Update Firebase with fresh URLs using set() for the tracks array
-      await set(ref(db, `rooms_blindtest/${code}/meta/playlist/tracks`), refreshedTracks);
-
-      setPlayerError(null);
-      setIsRefreshing(false);
-      return true;
-    } catch (error) {
-      console.error("[DeezTest Host] Failed to refresh URLs:", error);
-      setPlayerError("Impossible de rafraîchir les URLs");
-      setIsRefreshing(false);
-      return false;
-    }
-  }, [playlist?.id, playlist?.tracks, code, isRefreshing]);
-
-  // Initialize Deezer Player
-  useEffect(() => {
-    const init = async () => {
-      try {
-        await initializePlayer({
-          onReady: () => {
-            setPlayerReady(true);
-            setPlayerError(null);
-          },
-          onStateChange: (playerState) => {
-            setIsPlaying(!playerState?.paused);
-          },
-          onError: (error) => {
-            console.error("[DeezTest Host] Player error:", error);
-            setPlayerError(error.message || "Erreur audio");
-          },
-          onEnded: () => {
-            setIsPlaying(false);
-          }
-        });
-      } catch (error) {
-        console.error("[DeezTest Host] Failed to init player:", error);
-        setPlayerError(error.message || "Échec d'initialisation");
-      }
-    };
-    init();
-
-    return () => disconnect();
-  }, []);
+  // (Audio init, pauseMusic, refreshTrackUrls, preload → useBlindTestAudio)
 
   // DB listeners
   useEffect(() => {
@@ -222,21 +129,9 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     inactivityTimeout: 30000
   });
 
-  // Empêcher l'écran de se verrouiller
-
-  const total = playlist?.tracks?.length || 0;
-  const qIndex = state?.currentIndex || 0;
-  const currentTrack = playlist?.tracks?.[qIndex];
   const progressLabel = total ? `${Math.min(qIndex + 1, total)} / ${total}` : "";
   const snippetLevel = state?.snippetLevel || 0;
   const currentLevelConfig = SNIPPET_LEVELS[snippetLevel];
-
-  // Calculate points based on HIGHEST level played (not current snippet)
-  const { pointsEnJeu } = useMemo(() => {
-    if (highestLevelPlayed === null) return { pointsEnJeu: SNIPPET_LEVELS[0].start };
-    const levelConfig = SNIPPET_LEVELS[highestLevelPlayed];
-    return { pointsEnJeu: levelConfig?.start || 0 };
-  }, [highestLevelPlayed]);
 
   // Sounds
   const playBuzz = useSound("/sounds/quiz-buzzer.wav");
@@ -244,239 +139,10 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   const playWrong = useSound("/sounds/quiz-bad-answer.wav");
   const prevLock = useRef(null);
 
-  // *** SYSTÈME DE BUZZ ROBUSTE ***
-  const BUZZ_WINDOW_MS = 150;
-  const buzzWindowTimeout = useRef(null);
-  const buzzCache = useRef({});
-  const isResolving = useRef(false);
-
-  // *** SYSTÈME DE BUZZ ROBUSTE: LISTENER DÉDIÉ + CACHE LOCAL ***
-  useEffect(() => {
-    if (!canControl || !code) return;
-
-    const pendingBuzzesRef = ref(db, `rooms_blindtest/${code}/state/pendingBuzzes`);
-
-    const resolveBuzzes = async () => {
-      isResolving.current = true;
-      buzzWindowTimeout.current = null;
-
-      try {
-        const buzzesToResolve = { ...buzzCache.current };
-        const buzzCount = Object.keys(buzzesToResolve).length;
-
-        if (buzzCount === 0) return;
-
-        const { get: fbGet } = await import('firebase/database');
-        const lockSnap = await fbGet(ref(db, `rooms_blindtest/${code}/state/lockUid`));
-        if (lockSnap.val()) return;
-
-        const buzzArray = Object.values(buzzesToResolve);
-        buzzArray.sort((a, b) => a.adjustedTime - b.adjustedTime);
-        const winner = buzzArray[0];
-
-        const { runTransaction: fbTransaction } = await import('firebase/database');
-        const lockResult = await fbTransaction(ref(db, `rooms_blindtest/${code}/state/lockUid`), (currentLock) => {
-          if (currentLock) return currentLock;
-          return winner.uid;
-        });
-
-        if (lockResult.snapshot.val() !== winner.uid) return;
-
-        pauseMusic();
-
-        await update(ref(db, `rooms_blindtest/${code}/state`), {
-          buzz: { uid: winner.uid, at: winner.localTime },
-          buzzBanner: `🔔 ${winner.name} a buzzé !`,
-          pausedAt: serverTimestamp(),
-          lockedAt: serverTimestamp()
-        });
-
-        const { remove: fbRemove } = await import('firebase/database');
-        await fbRemove(pendingBuzzesRef).catch(() => {});
-
-        playBuzz();
-
-      } catch (error) {
-        console.error('[Buzz] Error:', error);
-      } finally {
-        isResolving.current = false;
-        buzzCache.current = {};
-      }
-    };
-
-    const unsubscribe = onValue(pendingBuzzesRef, (snapshot) => {
-      const pendingBuzzes = snapshot.val() || {};
-      const buzzCount = Object.keys(pendingBuzzes).length;
-
-      buzzCache.current = pendingBuzzes;
-
-      if (buzzCount === 0) return;
-      if (buzzWindowTimeout.current) return;
-      if (isResolving.current) return;
-
-      buzzWindowTimeout.current = setTimeout(resolveBuzzes, BUZZ_WINDOW_MS);
-    });
-
-    return () => {
-      unsubscribe();
-      if (buzzWindowTimeout.current) {
-        clearTimeout(buzzWindowTimeout.current);
-        buzzWindowTimeout.current = null;
-      }
-      buzzCache.current = {};
-      isResolving.current = false;
-    };
-  }, [canControl, code, playBuzz, pauseMusic]);
-
-  // Preload track silently when changing to a new question
-  useEffect(() => {
-    if (!canControl || !playerReady || !currentTrack?.previewUrl) return;
-
-    const timer = setTimeout(async () => {
-      try {
-        await preloadPreview(currentTrack.previewUrl);
-      } catch (e) {
-        // Ignore preload errors - playLevel will handle refresh if needed
-      }
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [canControl, playerReady, currentTrack?.previewUrl]);
-
-  // Play snippet at specific level
-  const playLevel = async (level) => {
-    if (!canControl || !currentTrack || !playerReady) return;
-
-    setIsAudioLoading(true);
-
-    if (snippetStopRef.current) {
-      await snippetStopRef.current.stop();
-    }
-
-    const config = SNIPPET_LEVELS[level];
-    const previewUrl = currentTrack.previewUrl;
-
-    if (!previewUrl) {
-      setPlayerError("Cette piste n'a pas d'extrait disponible");
-      setIsAudioLoading(false);
-      return;
-    }
-
-    // ========== AUDIO SYNC ==========
-    const audioMode = meta?.audioMode || 'single';
-
-    if (audioMode === 'all') {
-      // Mode synchronisé: tout le monde démarre au même moment (server time)
-      const startAt = Date.now() + serverOffset + AUDIO_SYNC_BUFFER_MS;
-
-      // Écrire dans Firebase pour que les players reçoivent l'event
-      await update(ref(db, `rooms_blindtest/${code}/state`), {
-        snippetLevel: level,
-        highestSnippetLevel: Math.max(state?.highestSnippetLevel ?? -1, level),
-        audioSync: {
-          startAt,
-          previewUrl: previewUrl,
-          duration: config.duration || 25000,
-          level: level
-        },
-        lastRevealAt: serverTimestamp()
-      });
-
-      // L'asker attend aussi startAt (même timing que les players)
-      const delay = Math.max(0, startAt - (Date.now() + serverOffset));
-      if (delay > 0) {
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
-    }
-    // ========== FIN AUDIO SYNC ==========
-
-    try {
-      const snippet = await playSnippet(previewUrl, config.duration);
-      snippetStopRef.current = snippet;
-      setIsPlaying(true);
-      setCurrentSnippet(level);
-      setPlayerError(null);
-      setIsAudioLoading(false);
-      hasTriedRefresh.current = false;
-
-      // Start progress animation
-      setPlayProgress(0);
-      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-      const duration = config.duration || 25000;
-      const startTime = Date.now();
-      progressIntervalRef.current = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min((elapsed / duration) * 100, 100);
-        setPlayProgress(progress);
-        if (progress >= 100) {
-          clearInterval(progressIntervalRef.current);
-          progressIntervalRef.current = null;
-        }
-      }, 50);
-
-      setHighestLevelPlayed(prev => Math.max(prev ?? -1, level));
-
-      if (unlockTimeoutRef.current) {
-        clearTimeout(unlockTimeoutRef.current);
-        unlockTimeoutRef.current = null;
-      }
-
-      const isLastLevel = level === SNIPPET_LEVELS.length - 1;
-      if (!isLastLevel && config.duration && level >= unlockedLevel) {
-        const unlockDelay = Math.floor(config.duration * 0.9);
-        unlockTimeoutRef.current = setTimeout(() => {
-          setUnlockedLevel(prev => Math.max(prev, level + 1));
-        }, unlockDelay);
-      }
-
-      // Mode 'single' uniquement: update Firebase state
-      if (audioMode === 'single') {
-        const currentHighest = state?.highestSnippetLevel ?? -1;
-        const newHighest = Math.max(currentHighest, level);
-
-        await update(ref(db, `rooms_blindtest/${code}/state`), {
-          snippetLevel: level,
-          highestSnippetLevel: newHighest,
-          // NE PAS mettre revealed: true ici - ça cache l'UI du joueur !
-          // revealed ne doit être true que quand on montre la réponse finale
-          lastRevealAt: serverTimestamp()
-        });
-      }
-    } catch (error) {
-      console.error("[DeezTest Host] Error playing snippet:", error);
-      setIsAudioLoading(false);
-
-      if (!hasTriedRefresh.current) {
-        hasTriedRefresh.current = true;
-        const refreshed = await refreshTrackUrls();
-        if (refreshed) {
-          setPlayerError("URLs expirées - Rafraîchies! Réessayez.");
-        }
-      } else {
-        setPlayerError(error.message || "Erreur de lecture");
-      }
-    }
-  };
-
-  // Full stop - resets everything for new question
-  const stopMusic = async () => {
-    if (unlockTimeoutRef.current) {
-      clearTimeout(unlockTimeoutRef.current);
-      unlockTimeoutRef.current = null;
-    }
-    if (progressIntervalRef.current) {
-      clearInterval(progressIntervalRef.current);
-      progressIntervalRef.current = null;
-    }
-    if (snippetStopRef.current) {
-      await snippetStopRef.current.stop();
-      snippetStopRef.current = null;
-    }
-    await pause();
-    setIsPlaying(false);
-    setCurrentSnippet(null);
-    setPlayProgress(0);
-  };
+  // Buzz system
+  const { resetBuzzers, isResolving } = useBlindTestBuzz({
+    code, canControl, pauseMusic, playBuzz, playLevel, currentSnippet, currentTrack
+  });
 
   // Exit and end game
   async function exitAndEndGame() {
@@ -490,28 +156,7 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     router.push('/home');
   }
 
-  // Reset buzzers
-  async function resetBuzzers() {
-    if (!canControl) return;
-    isResolving.current = false;
-    if (buzzWindowTimeout.current) {
-      clearTimeout(buzzWindowTimeout.current);
-      buzzWindowTimeout.current = null;
-    }
-    await update(ref(db, `rooms_blindtest/${code}/state`), {
-      lockUid: null,
-      buzzBanner: "",
-      buzz: null,
-      pausedAt: null,
-      lockedAt: null
-    });
-    await import('firebase/database').then(m =>
-      m.remove(m.ref(db, `rooms_blindtest/${code}/state/pendingBuzzes`))
-    ).catch(() => {});
-    if (currentSnippet !== null && currentTrack) {
-      await playLevel(currentSnippet);
-    }
-  }
+  // (resetBuzzers → useBlindTestBuzz)
 
   // Validate correct answer
   async function validate() {
@@ -565,286 +210,19 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
 
     await update(ref(db), updates);
 
-    // Show reveal screen locally
-    setRevealWinner(winnerInfo);
-    setRevealTrack(currentTrack);
-    setRevealProgress(0);
-    revealProgressRef.current = 0;
-    setShowRevealScreen(true);
-
-    // Start playing full preview
-    startRevealPlayback();
+    // Show reveal screen + start playback
+    reveal.triggerReveal(currentTrack, winnerInfo);
 
     } finally {
       isValidatingRef.current = false;
     }
   }
 
-  // Reveal screen playback functions
-  // Preview plays from 5s to 30s (25 seconds of content)
-  const REVEAL_START_OFFSET = 5; // seconds
-  const REVEAL_DURATION = 25; // seconds (30 - 5)
-  const REVEAL_DURATION_MS = REVEAL_DURATION * 1000;
 
-  const startRevealPlayback = async () => {
-    if (!currentTrack?.previewUrl) return;
-
-    try {
-      // Stop any current playback
-      if (snippetStopRef.current) {
-        await snippetStopRef.current.stop();
-        snippetStopRef.current = null;
-      }
-
-      // ========== REVEAL AUDIO SYNC ==========
-      const audioMode = meta?.audioMode || 'single';
-
-      if (audioMode === 'all') {
-        // Mode synchronisé: sync reveal audio sur tous les téléphones
-        const startAt = Date.now() + serverOffset + AUDIO_SYNC_BUFFER_MS;
-
-        // Écrire dans Firebase pour que les players reçoivent l'event
-        await update(ref(db, `rooms_blindtest/${code}/state`), {
-          revealAudioSync: {
-            startAt,
-            previewUrl: currentTrack.previewUrl,
-            action: 'play' // 'play', 'pause', 'resume'
-          }
-        });
-
-        // L'asker attend aussi startAt (même timing que les players)
-        const delay = Math.max(0, startAt - (Date.now() + serverOffset));
-        if (delay > 0) {
-          await new Promise(resolve => setTimeout(resolve, delay));
-        }
-      }
-      // ========== FIN REVEAL AUDIO SYNC ==========
-
-      // Play full 30s preview (null duration = full length)
-      const snippet = await playSnippet(currentTrack.previewUrl, null);
-      snippetStopRef.current = snippet;
-      setIsRevealPlaying(true);
-      setRevealProgress(0);
-      revealProgressRef.current = 0;
-
-      // Time-based animation for smooth progress (like the demo)
-      let startTime = null;
-
-      const animate = (timestamp) => {
-        if (!startTime) startTime = timestamp;
-        const elapsed = timestamp - startTime;
-        const newProgress = Math.min(100, (elapsed / REVEAL_DURATION_MS) * 100);
-
-        setRevealProgress(newProgress);
-        revealProgressRef.current = newProgress;
-
-        if (newProgress >= 100) {
-          setIsRevealPlaying(false);
-          // Sync ended state to Firebase
-          update(ref(db, `rooms_blindtest/${code}/state/revealPlayback`), {
-            paused: true,
-            startProgress: 100
-          }).catch(() => {});
-          return;
-        }
-
-        revealAnimationRef.current = requestAnimationFrame(animate);
-      };
-
-      revealAnimationRef.current = requestAnimationFrame(animate);
-    } catch (error) {
-      console.error('[Reveal] Error starting playback:', error);
-    }
-  };
-
-  const toggleRevealPlayback = async () => {
-    const audioMode = meta?.audioMode || 'single';
-
-    if (isRevealPlaying) {
-      // Pause
-      if (revealAnimationRef.current) {
-        cancelAnimationFrame(revealAnimationRef.current);
-        revealAnimationRef.current = null;
-      }
-      await pause();
-      setIsRevealPlaying(false);
-
-      // Sync pause state to Firebase
-      update(ref(db, `rooms_blindtest/${code}/state/revealPlayback`), {
-        paused: true,
-        startProgress: revealProgressRef.current
-      }).catch(() => {});
-
-      // Sync audio pause to all players (mode 'all')
-      if (audioMode === 'all') {
-        update(ref(db, `rooms_blindtest/${code}/state/revealAudioSync`), {
-          action: 'pause'
-        }).catch(() => {});
-      }
-    } else {
-      // Resume from current progress
-      await resume();
-      setIsRevealPlaying(true);
-
-      const startProgress = revealProgressRef.current;
-
-      // Sync resume state to Firebase
-      update(ref(db, `rooms_blindtest/${code}/state/revealPlayback`), {
-        paused: false,
-        startedAt: Date.now(),
-        startProgress
-      }).catch(() => {});
-
-      // Sync audio resume to all players (mode 'all')
-      if (audioMode === 'all') {
-        update(ref(db, `rooms_blindtest/${code}/state/revealAudioSync`), {
-          action: 'resume'
-        }).catch(() => {});
-      }
-
-      // Time-based animation resuming from current progress (use ref for accurate value)
-      let startTime = null;
-
-      const animate = (timestamp) => {
-        if (!startTime) startTime = timestamp;
-        const elapsed = timestamp - startTime;
-        const progressIncrement = (elapsed / REVEAL_DURATION_MS) * 100;
-        const newProgress = Math.min(100, startProgress + progressIncrement);
-
-        setRevealProgress(newProgress);
-        revealProgressRef.current = newProgress;
-
-        if (newProgress >= 100) {
-          setIsRevealPlaying(false);
-          // Sync ended state
-          update(ref(db, `rooms_blindtest/${code}/state/revealPlayback`), {
-            paused: true,
-            startProgress: 100
-          }).catch(() => {});
-          return;
-        }
-
-        revealAnimationRef.current = requestAnimationFrame(animate);
-      };
-
-      revealAnimationRef.current = requestAnimationFrame(animate);
-    }
-  };
-
-  const seekReveal = (clientX) => {
-    if (!revealProgressBarRef.current) return;
-    const rect = revealProgressBarRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const newProgress = Math.max(0, Math.min(100, (x / rect.width) * 100));
-
-    // Update both state and ref
-    setRevealProgress(newProgress);
-    revealProgressRef.current = newProgress;
-
-    // Seek in audio - map 0-100% to 5-30 seconds
-    const targetSec = REVEAL_START_OFFSET + (newProgress / 100) * REVEAL_DURATION;
-    seek(targetSec * 1000);
-
-    // Sync seek to Firebase
-    update(ref(db, `rooms_blindtest/${code}/state/revealPlayback`), {
-      startedAt: Date.now(),
-      startProgress: newProgress,
-      paused: !isRevealPlaying
-    }).catch(() => {});
-  };
-
-  const handleRevealDragStart = (e) => {
-    // Remember if we were playing
-    wasPlayingBeforeDragRef.current = isRevealPlaying;
-    setIsRevealDragging(true);
-
-    // Stop animation during drag
-    if (revealAnimationRef.current) {
-      cancelAnimationFrame(revealAnimationRef.current);
-      revealAnimationRef.current = null;
-    }
-
-    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-    seekReveal(clientX);
-  };
-
-  const handleRevealDragMove = useCallback((e) => {
-    if (!isRevealDragging) return;
-    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-    seekReveal(clientX);
-  }, [isRevealDragging]);
-
-  const handleRevealDragEnd = useCallback(() => {
-    setIsRevealDragging(false);
-
-    // Restart animation from current position if was playing before drag
-    if (wasPlayingBeforeDragRef.current) {
-      let startTime = null;
-      const startProgress = revealProgressRef.current;
-
-      const animate = (timestamp) => {
-        if (!startTime) startTime = timestamp;
-        const elapsed = timestamp - startTime;
-        const progressIncrement = (elapsed / REVEAL_DURATION_MS) * 100;
-        const updatedProgress = Math.min(100, startProgress + progressIncrement);
-
-        setRevealProgress(updatedProgress);
-        revealProgressRef.current = updatedProgress;
-
-        if (updatedProgress >= 100) {
-          setIsRevealPlaying(false);
-          return;
-        }
-
-        revealAnimationRef.current = requestAnimationFrame(animate);
-      };
-
-      revealAnimationRef.current = requestAnimationFrame(animate);
-    }
-  }, []);
-
-  // Global mouse/touch listeners for reveal drag
-  useEffect(() => {
-    if (isRevealDragging) {
-      window.addEventListener('mousemove', handleRevealDragMove);
-      window.addEventListener('mouseup', handleRevealDragEnd);
-      window.addEventListener('touchmove', handleRevealDragMove);
-      window.addEventListener('touchend', handleRevealDragEnd);
-    }
-    return () => {
-      window.removeEventListener('mousemove', handleRevealDragMove);
-      window.removeEventListener('mouseup', handleRevealDragEnd);
-      window.removeEventListener('touchmove', handleRevealDragMove);
-      window.removeEventListener('touchend', handleRevealDragEnd);
-    };
-  }, [isRevealDragging, handleRevealDragMove, handleRevealDragEnd]);
-
+  // Close reveal and advance to next track (orchestrates reveal + audio + tracks)
   const closeRevealAndNext = async () => {
-    // Stop animation
-    if (revealAnimationRef.current) {
-      cancelAnimationFrame(revealAnimationRef.current);
-      revealAnimationRef.current = null;
-    }
-
-    // Stop audio
+    reveal.resetReveal();
     await stopMusic();
-
-    // Reset reveal state
-    setShowRevealScreen(false);
-    setRevealWinner(null);
-    setRevealTrack(null);
-    setRevealProgress(0);
-    revealProgressRef.current = 0;
-    setIsRevealPlaying(false);
-
-    // Clean up Firebase reveal data (nextTrack also sets revealed: false)
-    update(ref(db, `rooms_blindtest/${code}/state`), {
-      revealPlayback: null,
-      revealWinner: null,
-      revealAudioSync: null
-    }).catch(() => {});
-
-    // Go to next track
     await nextTrack();
   };
 
@@ -955,9 +333,7 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     await import('firebase/database').then(m =>
       m.remove(m.ref(db, `rooms_blindtest/${code}/state/pendingBuzzes`))
     ).catch(() => {});
-    setCurrentSnippet(null);
-    setUnlockedLevel(0);
-    setHighestLevelPlayed(null);
+    resetForNextTrack();
 
     // Party Mode: advance to next asker
     if (onAdvanceAsker) {
@@ -1032,10 +408,7 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
       }
 
       // Reset l'état local pour la nouvelle track
-      setCurrentSnippet(null);
-      setUnlockedLevel(0);
-      setHighestLevelPlayed(null);
-      setPlayerError(null);
+      resetForNextTrack();
 
       // Reset les buzzers au cas où
       await update(ref(db, `rooms_blindtest/${code}/state`), {
@@ -1172,16 +545,16 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
 
       {/* Reveal Screen - Shown after correct answer */}
       <BlindTestRevealScreen
-        show={showRevealScreen}
-        track={revealTrack}
-        winner={revealWinner}
-        isPlaying={isRevealPlaying}
-        progress={revealProgress}
+        show={reveal.showRevealScreen}
+        track={reveal.revealTrack}
+        winner={reveal.revealWinner}
+        isPlaying={reveal.isRevealPlaying}
+        progress={reveal.revealProgress}
         isController={true}
-        onTogglePlayback={toggleRevealPlayback}
+        onTogglePlayback={reveal.toggleRevealPlayback}
         onNext={closeRevealAndNext}
-        onDragStart={handleRevealDragStart}
-        progressBarRef={revealProgressBarRef}
+        onDragStart={reveal.handleRevealDragStart}
+        progressBarRef={reveal.revealProgressBarRef}
       />
 
       {/* Main Content */}
@@ -1333,585 +706,6 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
           </button>
         </div>
       </footer>
-
-      <style jsx global>{`
-        html, body {
-          overflow-x: hidden !important;
-          max-width: 100% !important;
-        }
-        .deeztest-host-page,
-        .deeztest-host-page *,
-        .deeztest-host-page *::before,
-        .deeztest-host-page *::after {
-          box-sizing: border-box !important;
-          max-width: 100%;
-        }
-        .deeztest-host-page .carousel-track {
-          max-width: none;
-        }
-      `}</style>
-      <style jsx>{`
-        .deeztest-host-page {
-          flex: 1;
-          min-height: 0;
-          width: 100%;
-          max-width: 100%;
-          display: flex;
-          flex-direction: column;
-          background: var(--bg-primary, #0a0a0f);
-        }
-
-        .deeztest-host-page::before {
-          content: '';
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          background:
-            radial-gradient(ellipse at 20% 80%, rgba(162, 56, 255, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 20%, rgba(255, 0, 146, 0.1) 0%, transparent 50%),
-            var(--bg-primary, #0a0a0f);
-          pointer-events: none;
-        }
-
-        .game-header.deeztest {
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(162, 56, 255, 0.2);
-          padding: 12px 16px;
-          width: 100%;
-          max-width: 100%;
-          overflow: hidden;
-        }
-
-        .game-header-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          width: 100%;
-          gap: 16px;
-          min-width: 0;
-        }
-
-        .game-header-left {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          flex: 1;
-          min-width: 0;
-          overflow: hidden;
-        }
-
-        .game-header-progress.deeztest {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.1rem;
-          color: ${DEEZER_LIGHT};
-          text-shadow: 0 0 10px rgba(162, 56, 255, 0.5);
-          flex-shrink: 0;
-        }
-
-        .game-header-title {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.85rem;
-          font-weight: 600;
-          color: var(--text-secondary);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .game-header-right {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          flex-shrink: 0;
-        }
-
-        .game-content.deeztest {
-          flex: 1;
-          min-width: 0;
-          position: relative;
-          z-index: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 16px;
-          gap: 10px;
-          overflow-y: auto;
-          overflow-x: hidden;
-          min-height: 0;
-          width: 100%;
-          -webkit-overflow-scrolling: touch;
-        }
-
-        .track-card {
-          width: 100%;
-          max-width: 600px;
-          min-width: 0;
-          background: rgba(20, 20, 30, 0.7);
-          border: 1px solid rgba(162, 56, 255, 0.15);
-          border-radius: 16px;
-          padding: 20px;
-          backdrop-filter: blur(20px);
-          flex-shrink: 0;
-          overflow: hidden;
-        }
-
-        .track-empty {
-          text-align: center;
-          color: var(--text-muted);
-          padding: 40px 20px;
-        }
-
-        .track-header {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          margin-bottom: 12px;
-          padding-bottom: 12px;
-          border-bottom: 1px solid rgba(162, 56, 255, 0.1);
-          min-width: 0;
-          width: 100%;
-          overflow: hidden;
-        }
-
-        .track-cover-wrapper {
-          position: relative;
-          flex-shrink: 0;
-        }
-
-        .track-cover {
-          width: 80px;
-          height: 80px;
-          border-radius: 12px;
-          object-fit: cover;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .track-cover-placeholder {
-          width: 80px;
-          height: 80px;
-          border-radius: 12px;
-          background: rgba(162, 56, 255, 0.1);
-          border: 1px solid rgba(162, 56, 255, 0.2);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: ${DEEZER_LIGHT};
-        }
-
-        .track-loading-overlay {
-          position: absolute;
-          inset: 0;
-          border-radius: 12px;
-          background: rgba(0, 0, 0, 0.6);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          backdrop-filter: blur(2px);
-        }
-
-        .track-loading-spinner {
-          width: 32px;
-          height: 32px;
-          border: 3px solid rgba(162, 56, 255, 0.3);
-          border-top-color: ${DEEZER_LIGHT};
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
-        }
-
-
-        .track-playing-indicator {
-          position: absolute;
-          bottom: -8px;
-          left: 50%;
-          transform: translateX(-50%);
-          display: flex;
-          align-items: flex-end;
-          gap: 3px;
-          height: 16px;
-          padding: 4px 8px;
-          background: ${DEEZER_PURPLE};
-          border-radius: 8px;
-        }
-
-        .track-playing-indicator span {
-          width: 3px;
-          background: white;
-          border-radius: 2px;
-          animation: equalizer 0.8s ease-in-out infinite;
-        }
-
-        .track-playing-indicator span:nth-child(1) { height: 8px; animation-delay: 0s; }
-        .track-playing-indicator span:nth-child(2) { height: 12px; animation-delay: 0.2s; }
-        .track-playing-indicator span:nth-child(3) { height: 6px; animation-delay: 0.4s; }
-
-        @keyframes equalizer {
-          0%, 100% { transform: scaleY(1); }
-          50% { transform: scaleY(0.5); }
-        }
-
-        .track-meta {
-          flex: 1;
-          min-width: 0;
-          overflow: hidden;
-        }
-
-        .track-title-host {
-          display: block;
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-weight: 700;
-          font-size: 1rem;
-          color: var(--text-primary);
-          margin-bottom: 4px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .track-artist-host {
-          display: block;
-          font-size: 0.85rem;
-          color: var(--text-secondary);
-          margin-bottom: 8px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .track-points-badge {
-          display: inline-flex;
-          align-items: baseline;
-          gap: 4px;
-          padding: 6px 12px;
-          background: linear-gradient(135deg, rgba(162, 56, 255, 0.2), rgba(162, 56, 255, 0.1));
-          border: 1px solid rgba(162, 56, 255, 0.3);
-          border-radius: 20px;
-        }
-
-        .track-points-badge .points-value {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.1rem;
-          color: ${DEEZER_LIGHT};
-          text-shadow: 0 0 10px rgba(162, 56, 255, 0.5);
-        }
-
-        .track-points-badge .points-label {
-          font-size: 0.7rem;
-          color: rgba(197, 116, 255, 0.7);
-          font-weight: 600;
-        }
-
-        /* Timeline Snippet Selector - Full width outside track-card */
-        .snippet-timeline {
-          width: 100%;
-          max-width: 600px;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          padding: 0 4px;
-        }
-
-        .timeline-bar {
-          display: flex;
-          gap: 8px;
-        }
-
-        :global(.timeline-segment) {
-          flex: 1;
-          position: relative;
-          height: 56px;
-          background: rgba(162, 56, 255, 0.1);
-          border: 2px solid rgba(162, 56, 255, 0.3);
-          border-radius: 12px;
-          overflow: hidden;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          color: white;
-          transition: all 0.2s;
-        }
-
-        :global(.timeline-segment:hover:not(:disabled)) {
-          border-color: rgba(162, 56, 255, 0.6);
-          background: rgba(162, 56, 255, 0.15);
-        }
-
-        :global(.timeline-segment.active) {
-          border-width: 3px;
-          border-color: ${DEEZER_PURPLE};
-          background: rgba(162, 56, 255, 0.25);
-          box-shadow:
-            0 0 20px rgba(162, 56, 255, 0.5),
-            inset 0 0 20px rgba(162, 56, 255, 0.1);
-        }
-
-        :global(.timeline-segment.locked) {
-          opacity: 0.4;
-          cursor: not-allowed;
-          border-color: rgba(120, 120, 130, 0.3);
-          background: rgba(60, 60, 70, 0.2);
-        }
-
-        :global(.timeline-segment:disabled) {
-          cursor: not-allowed;
-        }
-
-        :global(.segment-fill) {
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          background: linear-gradient(90deg, ${DEEZER_PURPLE}, ${DEEZER_PINK});
-          transition: width 0.1s linear;
-          opacity: 0.85;
-          border-radius: 10px;
-        }
-
-        :global(.segment-duration) {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-weight: 700;
-          font-size: 1.1rem;
-          color: white;
-          position: relative;
-          z-index: 1;
-        }
-
-        :global(.segment-play-icon) {
-          opacity: 0.7;
-          color: ${DEEZER_LIGHT};
-          position: relative;
-          z-index: 1;
-          flex-shrink: 0;
-        }
-
-        :global(.timeline-segment.active .segment-play-icon) {
-          opacity: 1;
-        }
-
-        :global(.timeline-segment.locked .segment-play-icon) {
-          opacity: 0.5;
-        }
-
-        .timeline-points {
-          display: flex;
-          gap: 8px;
-        }
-
-        .points-label {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 2px;
-          transition: all 0.2s;
-        }
-
-        .points-value {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.85rem;
-          font-weight: 700;
-          color: rgba(34, 197, 94, 0.7);
-        }
-
-        .points-text {
-          font-size: 0.6rem;
-          color: rgba(255, 255, 255, 0.4);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
-        .points-label.active .points-value {
-          color: #22c55e;
-          text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
-          transform: scale(1.1);
-        }
-
-        .points-label.active .points-text {
-          color: rgba(255, 255, 255, 0.6);
-        }
-
-        .player-status {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          padding: 10px 16px;
-          border-radius: 10px;
-          font-size: 0.8rem;
-          font-weight: 500;
-        }
-
-        .player-status.warning {
-          background: rgba(251, 191, 36, 0.1);
-          border: 1px solid rgba(251, 191, 36, 0.2);
-          color: #fbbf24;
-        }
-
-        .player-status.error {
-          background: rgba(239, 68, 68, 0.1);
-          border: 1px solid rgba(239, 68, 68, 0.3);
-          color: #f87171;
-        }
-
-        .refresh-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 28px;
-          height: 28px;
-          padding: 0;
-          background: rgba(162, 56, 255, 0.2);
-          border: 1px solid rgba(162, 56, 255, 0.4);
-          border-radius: 8px;
-          color: ${DEEZER_LIGHT};
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .refresh-btn:hover {
-          background: rgba(162, 56, 255, 0.3);
-          transform: rotate(90deg);
-        }
-
-        .status-spinner {
-          width: 16px;
-          height: 16px;
-          border: 2px solid rgba(251, 191, 36, 0.3);
-          border-top-color: #fbbf24;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
-        }
-
-        .status-spinner.small {
-          width: 14px;
-          height: 14px;
-          border-width: 2px;
-          border-color: rgba(162, 56, 255, 0.3);
-          border-top-color: ${DEEZER_LIGHT};
-        }
-
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-
-        .game-footer.deeztest {
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
-          padding: 12px 16px;
-          /* Safe area gérée par AppShell */
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          border-top: 1px solid rgba(162, 56, 255, 0.2);
-          width: 100%;
-        }
-
-        .host-actions {
-          display: flex;
-          gap: 10px;
-          justify-content: center;
-          width: 100%;
-        }
-
-        .action-btn {
-          flex: 1;
-          min-width: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 4px;
-          padding: 10px 16px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          color: var(--text-primary);
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .action-btn span {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.65rem;
-          font-weight: 600;
-          text-transform: uppercase;
-        }
-
-        .action-btn:hover {
-          transform: translateY(-2px);
-        }
-
-
-        .action-change.deeztest {
-          background: rgba(59, 130, 246, 0.1);
-          border-color: rgba(59, 130, 246, 0.25);
-          color: #60a5fa;
-        }
-
-        .action-change.deeztest:hover:not(:disabled) {
-          background: rgba(59, 130, 246, 0.18);
-          border-color: rgba(59, 130, 246, 0.4);
-        }
-
-        .action-change.deeztest:disabled {
-          opacity: 0.4;
-          cursor: not-allowed;
-        }
-
-        .action-skip.deeztest {
-          background: rgba(245, 158, 11, 0.1);
-          border-color: rgba(245, 158, 11, 0.25);
-          color: #fbbf24;
-        }
-
-        .action-skip.deeztest:hover {
-          background: rgba(245, 158, 11, 0.18);
-          border-color: rgba(245, 158, 11, 0.4);
-        }
-
-        .action-end.deeztest {
-          background: rgba(239, 68, 68, 0.1);
-          border-color: rgba(239, 68, 68, 0.25);
-          color: #f87171;
-        }
-
-        .action-end.deeztest:hover {
-          background: rgba(239, 68, 68, 0.18);
-          border-color: rgba(239, 68, 68, 0.4);
-        }
-
-        .loading-dots {
-          display: flex;
-          justify-content: center;
-          gap: 8px;
-          margin-bottom: 16px;
-        }
-
-        .loading-dots span {
-          width: 10px;
-          height: 10px;
-          background: ${DEEZER_LIGHT};
-          border-radius: 50%;
-          animation: dot-bounce 1.4s ease-in-out infinite;
-        }
-
-        .loading-dots span:nth-child(1) { animation-delay: 0s; }
-        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes dot-bounce {
-          0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-          40% { transform: scale(1.2); opacity: 1; }
-        }
-
-        /* Reveal screen styles are in BlindTestRevealScreen component */
-      `}</style>
     </div>
   );
 }
