@@ -55,176 +55,86 @@ app/mygame/game/[code]/play/
 
 ---
 
-## Tier 1 — 🔴 Critique (> 1000 lignes) — 14 fichiers
+## Tier 1 — ✅ Terminé — 14 fichiers (tous sous 1000 lignes)
 
-### 1. `components/ui/HowToPlayModal.jsx` — 1897 lignes → ~400
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** GAMES_DATA (~1000 lignes) → `lib/config/howToPlayData.js`
-- [x] **Extraire** composants renderers (sections, scoring, rôles, phases) → `components/ui/how-to-play/`
-- [x] **Extraire** hook navigation → `useGameTutorial()`
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 3 useState, 2 useEffect — peu complexe, surtout de la data
-- **Risque :** 🟢 Faible — extraction de données pures
-- **Jeux impactés :** Tous (modal partagée)
+### 1. `components/ui/HowToPlayModal.jsx` — 1897 → 178 lignes (-90%)
+- [x] Extraire `GAMES_DATA` (793 lignes) → `lib/config/howToPlayData.js`
+- [x] Extraire CSS `<style jsx global>` (535 lignes) → `components/ui/HowToPlayModal.css`
+- [x] Extraire 10 section renderers → `components/ui/HowToPlaySections.jsx`
+- **Méthode :** 3 extractions pures (data, CSS, composants), aucun changement de logique
 
-### 2. `components/game/BlindTestHostView.jsx` — 1917 lignes → ~1100
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useDeezerPlayer()` — init, play/pause, snippet (~150 lignes)
-- [x] **Extraire** hook `useSnippetLevels()` — unlock timing, progression (~100 lignes)
-- [x] **Extraire** hook `useRevealScreen()` — animation reveal, drag (~180 lignes)
-- [x] **Extraire** composant `RevealScreen` — UI reveal (~200 lignes)
-- [x] **Extraire** composant `ProgressTimeline` — barre audio/niveaux (~120 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 21 useState, 7 useEffect, 15 useRef — très complexe
-- **Risque :** 🟡 Moyen — logique audio/timing sensible
-- **Jeux impactés :** DeezTest (blind test)
+### 2. `components/game/BlindTestHostView.jsx` — 1917 → 711 lignes (-63%)
+- [x] Extraire CSS `<style jsx>` (578 lignes) → `components/game/BlindTestHostView.css`
+- [x] Extraire système audio → `lib/hooks/useBlindTestAudio.js` (9 useState, 4 useRef, playLevel/stopMusic/pauseMusic)
+- [x] Extraire système buzz → `lib/hooks/useBlindTestBuzz.js` (3 useRef, listener Firebase, resetBuzzers)
+- [x] Extraire système reveal → `lib/hooks/useRevealPlayback.js` (6 useState, 4 useRef, play/pause/seek/drag)
+- [x] Fix interpolations CSS (`${DEEZER_PURPLE}` → valeurs en dur) et `:global()` → sélecteurs normaux
+- **Méthode :** Restructuration en 3 hooks spécialisés + CSS. Analyse de dépendances complète (DAG sans cycles)
 
-### 3. `app/(main)/profile/hue/page.jsx` — 2277 lignes → ~1400
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useHueConnection()` — discovery, connexion bridge (~80 lignes)
-- [x] **Extraire** hook `useHueGameConfig()` — mapping événements/effets (~120 lignes)
-- [x] **Extraire** composant `HueConnectionTab` — UI connexion (~150 lignes)
-- [x] **Extraire** composant `HueLightsSelector` — sélection lumières (~130 lignes)
-- [x] **Extraire** composant `HueGameConfigurator` — mapping jeux (~200 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 19 useState, 2 useEffect — beaucoup d'état UI
-- **Risque :** 🟢 Faible — page isolée, n'impacte pas les jeux
-- **Jeux impactés :** Aucun directement
+### 3. `app/(main)/profile/hue/page.jsx` — 2277 → 920 lignes (-60%)
+- [x] Extraire CSS `<style jsx>` (1358 lignes) → `app/(main)/profile/hue/hue.css`
+- **Méthode :** Extraction CSS uniquement. Logique trop couplée entre les 3 tabs pour extraire des hooks sans risque
 
-### 4. `app/lol/game/[code]/play/page.jsx` — 1811 lignes → ~800
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useVoteSystem()` — votes, résolution, timers (~180 lignes)
-- [x] **Extraire** hook `useAccusationFlow()` — accusations, cooldowns (~140 lignes)
-- [x] **Extraire** hook `useGameTimer()` — countdown, auto-end (~120 lignes)
-- [x] **Extraire** hook `useJokerMechanics()` — drag, activation (~100 lignes)
-- [x] **Extraire** composant `VoteModal` — UI vote (~120 lignes)
-- [x] **Extraire** composant `SceneScript` — rendu scène théâtre (~150 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 14 useState, 11 useEffect, 5 useRef
-- **Risque :** 🟡 Moyen — logique de vote/élimination complexe
-- **Jeux impactés :** LOL
+### 4. `app/lol/game/[code]/play/page.jsx` — 1811 → 747 lignes (-59%)
+- [x] Extraire `RenderSceneScript` (108 lignes) → `app/lol/.../play/RenderSceneScript.jsx`
+- [x] Extraire 3 modals (Accuse, Vote, Accused ~260 lignes) → `_components/GameModals.jsx`
+- [x] Extraire Joker (selection modal + 3 active screens ~720 lignes) → `_components/JokerOverlays.jsx`
+- **Méthode :** Extraction JSX pure (les composants reçoivent handlers/state en props). Logique reste dans le parent car trop couplée entre systèmes
 
-### 5. `app/laregle/game/[code]/play/page.jsx` — 1774 lignes → ~850
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useRuleVoting()` — collection votes, validation (~140 lignes)
-- [x] **Extraire** hook `useRevealPhases()` — tiebreaker, animation reveal (~130 lignes)
-- [x] **Extraire** hook `useEliminationSystem()` — tracking, notifications (~120 lignes)
-- [x] **Extraire** hook `useRerollSystem()` — reroll validation, API (~80 lignes)
-- [x] **Extraire** composant `RuleVoteDisplay` — UI votes (~140 lignes)
-- [x] **Extraire** composant `RevealAnimation` — UI reveal (~120 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 16 useState, 10 useEffect, 5 useRef
-- **Risque :** 🟡 Moyen — state machine reveal complexe
-- **Jeux impactés :** La Règle
+### 5. `app/laregle/game/[code]/play/page.jsx` — 1774 → 572 lignes (-68%)
+- [x] Extraire ChoosingPhase (6 useState, 3 useEffects, 4 handlers, ~620 lignes) → `_components/ChoosingPhase.jsx`
+- [x] Extraire PlayingPhase (JSX règle secrète + équipe + éliminations ~390 lignes) → `_components/PlayingPhase.jsx`
+- [x] Extraire GuessingPhase (JSX vote devinette ~180 lignes) → `_components/GuessingPhase.jsx`
+- [x] Dédupliquer `EliminationNotifModal` → `components/game/EliminationNotifModal.jsx` (partagé avec investigate)
+- **Méthode :** Découpage par phase de jeu. ChoosingPhase possède son propre state (vote, reveal animation). PlayingPhase et GuessingPhase sont du JSX pur avec props
 
-### 6. `app/alibi/game/[code]/play/page.jsx` — 1670 lignes → ~900
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useInterrogationPhase()` — questions, réponses (~140 lignes)
-- [x] **Extraire** hook `useVerdictPhase()` — calcul verdict, affichage (~120 lignes)
-- [x] **Extraire** hook `useHueIntegration()` — triggers Hue (~80 lignes)
-- [x] **Extraire** composant `InterrogationUI` — UI question/réponse (~150 lignes)
-- [x] **Extraire** composant `VerdictDisplay` — UI verdict (~130 lignes)
-- [x] **Extraire** composant `SpectatorView` — vue spectateur (~140 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 22 useState, 16 useEffect, 4 useRef
-- **Risque :** 🔴 Élevé — Party Mode + groupes + rotation complexe
-- **Jeux impactés :** Alibi
+### 6. `app/alibi/game/[code]/play/page.jsx` — 1670 → 979 lignes (-41%)
+- [x] Extraire CSS `<style jsx global>` (688 lignes) → `app/alibi/.../play/alibi-play.css`
+- [x] Fix `:global()` → sélecteurs normaux (via script Python)
+- **Méthode :** Extraction CSS uniquement. La logique Party Mode + groupes est trop interconnectée pour extraire des composants sans risque
 
-### 7. `app/daily/motmystere/page.jsx` — 1384 lignes → ~650
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useWordleGame()` — state jeu, logique guess, feedback (~200 lignes)
-- [x] **Extraire** hook `useWordleKeyboard()` — gestion clavier desktop + mobile (~220 lignes)
-- [x] **Extraire** hook `useWordleStats()` — stats, calculs (~100 lignes)
-- [x] **Extraire** composant `WordleGrid` — grille de lettres (~80 lignes)
-- [x] **Extraire** composant `WordleStatsModal` — modal stats (~90 lignes)
-- [x] **Extraire** config `AZERTY_ROWS` et helpers → `lib/config/wordle.js` (~60 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 47 useState, 13 useEffect, 7 useRef — record du projet !
-- **Risque :** 🟡 Moyen — beaucoup d'état mais logique linéaire
-- **Jeux impactés :** Daily Mot Mystère
+### 7. `app/daily/motmystere/page.jsx` — 1384 → 649 lignes (-53%)
+- [x] Extraire Leaderboard (470 lignes : helpers, WeekProgressBar, LbRow, LbRows, resolveNames, WordleLeaderboard) → `WordleLeaderboard.jsx`
+- [x] Extraire composants UI + helpers (267 lignes : WordleGrid, WordleKeyboard, WordleResultBanner, WordleStatsModal, normalize, computeFeedback, computeScore, constants) → `WordleComponents.jsx`
+- [x] Ajouter `LeaderboardErrorBoundary` (partagé avec semantique et total)
+- **Méthode :** Extraction de sous-composants + leaderboard autonome
 
-### 8. `app/daily/semantique/page.jsx` — 1376 lignes → ~650
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useSemanticGame()` — state jeu, guess, feedback (~200 lignes)
-- [x] **Extraire** hook `useTemperatureScoring()` — calcul température, score (~120 lignes)
-- [x] **Extraire** hook `useSemanticStats()` — stats, streaks (~100 lignes)
-- [x] **Extraire** composant `TemperatureBar` — barre visuelle (~100 lignes)
-- [x] **Extraire** composant `SemanticStatsModal` — modal stats (~100 lignes)
-- [x] **Extraire** composant `SemanticLeaderboard` — classement (~150 lignes)
-- [x] **Extraire** config ranking/helpers → `lib/config/semantic.js` (~60 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 40 useState, 15 useEffect, 13 useRef
-- **Risque :** 🟡 Moyen — scoring complexe mais isolé
-- **Jeux impactés :** Daily Sémantique
+### 8. `app/daily/semantique/page.jsx` — 1376 → 716 lignes (-48%)
+- [x] Extraire Leaderboard (481 lignes : helpers, WeekProgressBar, LbRow, LbRows, resolveNames, SemanticLeaderboard, LeaderboardErrorBoundary) → `SemanticLeaderboard.jsx`
+- [x] Extraire composants UI + helpers (190 lignes : stripAccents, température system, SemanticStatsModal, SemanticResultBanner, GuessRow) → `SemanticComponents.jsx`
+- [x] Déplacer `LeaderboardErrorBoundary` → `components/shared/LeaderboardErrorBoundary.jsx` (partagé entre les 3 daily)
+- **Méthode :** Même pattern que motmystere
 
-### 9. `app/alibi/game/[code]/prep/page.jsx` — 1292 lignes → ~750
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useAlibiPrepFlow()` — state prep, transitions (~150 lignes)
-- [x] **Extraire** hook `usePrepTimer()` — countdown, pause/resume (~100 lignes)
-- [x] **Extraire** hook `useCustomQuestions()` — input questions, validation (~90 lignes)
-- [x] **Extraire** composant `DocumentViewer` — affichage document + scroll (~150 lignes)
-- [x] **Extraire** composant `QuestionEditor` — UI saisie questions (~120 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 18 useState, 9 useEffect, 3 useRef
-- **Risque :** 🟡 Moyen — DOMPurify + scroll indicators
-- **Jeux impactés :** Alibi
+### 9. `app/alibi/game/[code]/prep/page.jsx` — 1292 → 638 lignes (-51%)
+- [x] Extraire CSS `<style jsx>` (653 lignes) → `app/alibi/.../prep/alibi-prep.css`
+- [x] Fix `:global()` → sélecteurs normaux
+- **Méthode :** Extraction CSS uniquement
 
-### 10. `app/laregle/game/[code]/investigate/page.jsx` — 1286 lignes → ~700
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useInvestigationTimer()` — timer, auto-end (~120 lignes)
-- [x] **Extraire** hook `useEliminationNotifications()` — éliminations, flash (~140 lignes)
-- [x] **Extraire** hook `useGameStateSync()` — listeners Firebase (~130 lignes)
-- [x] **Extraire** composant `InvestigationTimerUI` — affichage timer (~100 lignes)
-- [x] **Extraire** composant `EliminationIndicator` — notification élim (~100 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 9 useState, 8 useEffect, 5 useRef
-- **Risque :** 🟡 Moyen — timer + éliminations
-- **Jeux impactés :** La Règle
+### 10. `app/laregle/game/[code]/investigate/page.jsx` — 1286 → 663 lignes (-45%)
+- [x] Extraire GuessVoteSheet (206 lignes : bottom sheet modal de vote) → `_components/GuessVoteSheet.jsx`
+- [x] Extraire 3 phases enquêteur → `_components/InvestigatePhases.jsx` (ChoosingWaitPhase, PlayingInvestPhase, GuessingInvestPhase)
+- [x] Utiliser `EliminationNotifModal` partagé (déjà extrait pour play)
+- **Méthode :** Extraction JSX par phase + modal autonome
 
-### 11. `app/alibi/room/[code]/page.jsx` — 1148 lignes → ~600
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useAlibiSelection()` — sélection scenario, manifest (~140 lignes)
-- [x] **Extraire** hook `useAlibiGroupSetup()` — assignation groupes Party Mode (~130 lignes)
-- [x] **Extraire** hook `useGameLaunch()` — countdown, lancement (~100 lignes)
-- [x] **Extraire** composant `GroupAssignmentUI` — UI groupes (~130 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 20 useState, 10 useEffect, 6 useRef
-- **Risque :** 🟡 Moyen — Party Mode setup
-- **Jeux impactés :** Alibi
+### 11. `app/alibi/room/[code]/page.jsx` — 1148 → 965 lignes (-16%)
+- [x] Extraire RolesCard (188 lignes : carte gestion rôles host, inspecteurs/suspects, expanded detail) → `_components/RolesCard.jsx`
+- **Méthode :** Extraction d'un bloc JSX auto-contenu. Réduction modeste car le reste est du JSX couplé au state parent
 
-### 12. `components/game/Leaderboard.jsx` — 1136 lignes → ~550
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useLeaderboardAnimations()` — tracking positions, animations (~180 lignes)
-- [x] **Extraire** hook `useTeamViewToggle()` — switch équipe/individuel (~100 lignes)
-- [x] **Extraire** composant `LeaderboardRow` — ligne animée (~120 lignes)
-- [x] **Extraire** composant `TeamRow` — ligne équipe (~100 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 6 useState, 4 useEffect, 5 useRef
-- **Risque :** 🔴 Élevé — composant partagé par TOUS les jeux
-- **Jeux impactés :** Quiz, DeezTest, Alibi, La Règle, LOL, Mind Link
+### 12. `components/game/Leaderboard.jsx` — 1136 → 376 lignes (-67%)
+- [x] Extraire CSS `<style jsx>` (758 lignes) → `components/game/Leaderboard.css`
+- [x] Fix `:global()` → sélecteurs normaux
+- **Méthode :** Extraction CSS uniquement. Le composant JS restant (376 lignes) est dans la zone acceptable
 
-### 13. `app/subscribe/page.jsx` — 1084 lignes → ~600
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useRevenueCatIntegration()` — achat, restore (~120 lignes)
-- [x] **Extraire** composant `PricingCards` — sélection plan (~150 lignes)
-- [x] **Extraire** composant `BenefitsSection` — liste avantages (~100 lignes)
-- [x] **Extraire** config `PRICING_DATA` → `lib/config/pricing.js` (~100 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 7 useState, 1 useEffect
-- **Risque :** 🟢 Faible — page isolée
-- **Jeux impactés :** Aucun
+### 13. `app/subscribe/page.jsx` — 1085 → 425 lignes (-61%)
+- [x] Extraire CSS `const styles` template literal (658 lignes) → `app/subscribe/subscribe.css`
+- **Méthode :** Extraction CSS uniquement. Pas d'extraction de hooks (7 useState, page simple et isolée)
 
-### 14. `app/onboarding/page.jsx` — 1024 lignes → ~450
-- [x] **Analyser** avec @complexity-analyzer
-- [x] **Extraire** hook `useAuthSignIn()` — Google/Apple/Guest login (~180 lignes)
-- [x] **Extraire** hook `usePseudoSetup()` — validation pseudo, save (~140 lignes)
-- [x] **Extraire** hook `useCarouselSwipe()` — swipe detection, navigation (~120 lignes)
-- [x] **Extraire** composant `SignInButtons` — boutons auth (~100 lignes)
-- [x] **Extraire** composant `PseudoSlide` — slide pseudo (~120 lignes)
-- [x] **Review** avec @code-reviewer
-- **Hooks :** 12 useState, 2 useEffect, 1 useRef
-- **Risque :** 🟢 Faible — flow linéaire
-- **Jeux impactés :** Aucun (onboarding)
+### 14. `app/onboarding/page.jsx` — 1024 → 616 lignes (-40%)
+- [x] Extraire `Mascot` composant (52 lignes) → `app/onboarding/Mascot.jsx`
+- [x] Extraire `PseudoSlide` (185 lignes : écran saisie pseudo + gestion clavier) → `app/onboarding/PseudoSlide.jsx`
+- [x] Extraire `GuestWarningModal` (220 lignes : modal avertissement + boutons auth) → `app/onboarding/GuestWarningModal.jsx`
+- [x] Nettoyer imports inutilisés (useEffect, AlertTriangle, X)
+- **Méthode :** Extraction de 3 sous-composants autonomes. PseudoSlide possède son propre state clavier
 
 ---
 
