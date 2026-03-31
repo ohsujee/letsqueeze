@@ -58,170 +58,170 @@ app/mygame/game/[code]/play/
 ## Tier 1 — 🔴 Critique (> 1000 lignes) — 14 fichiers
 
 ### 1. `components/ui/HowToPlayModal.jsx` — 1897 lignes → ~400
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** GAMES_DATA (~1000 lignes) → `lib/config/howToPlayData.js`
-- [ ] **Extraire** composants renderers (sections, scoring, rôles, phases) → `components/ui/how-to-play/`
-- [ ] **Extraire** hook navigation → `useGameTutorial()`
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** GAMES_DATA (~1000 lignes) → `lib/config/howToPlayData.js`
+- [x] **Extraire** composants renderers (sections, scoring, rôles, phases) → `components/ui/how-to-play/`
+- [x] **Extraire** hook navigation → `useGameTutorial()`
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 3 useState, 2 useEffect — peu complexe, surtout de la data
 - **Risque :** 🟢 Faible — extraction de données pures
 - **Jeux impactés :** Tous (modal partagée)
 
 ### 2. `components/game/BlindTestHostView.jsx` — 1917 lignes → ~1100
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useDeezerPlayer()` — init, play/pause, snippet (~150 lignes)
-- [ ] **Extraire** hook `useSnippetLevels()` — unlock timing, progression (~100 lignes)
-- [ ] **Extraire** hook `useRevealScreen()` — animation reveal, drag (~180 lignes)
-- [ ] **Extraire** composant `RevealScreen` — UI reveal (~200 lignes)
-- [ ] **Extraire** composant `ProgressTimeline` — barre audio/niveaux (~120 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useDeezerPlayer()` — init, play/pause, snippet (~150 lignes)
+- [x] **Extraire** hook `useSnippetLevels()` — unlock timing, progression (~100 lignes)
+- [x] **Extraire** hook `useRevealScreen()` — animation reveal, drag (~180 lignes)
+- [x] **Extraire** composant `RevealScreen` — UI reveal (~200 lignes)
+- [x] **Extraire** composant `ProgressTimeline` — barre audio/niveaux (~120 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 21 useState, 7 useEffect, 15 useRef — très complexe
 - **Risque :** 🟡 Moyen — logique audio/timing sensible
 - **Jeux impactés :** DeezTest (blind test)
 
 ### 3. `app/(main)/profile/hue/page.jsx` — 2277 lignes → ~1400
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useHueConnection()` — discovery, connexion bridge (~80 lignes)
-- [ ] **Extraire** hook `useHueGameConfig()` — mapping événements/effets (~120 lignes)
-- [ ] **Extraire** composant `HueConnectionTab` — UI connexion (~150 lignes)
-- [ ] **Extraire** composant `HueLightsSelector` — sélection lumières (~130 lignes)
-- [ ] **Extraire** composant `HueGameConfigurator` — mapping jeux (~200 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useHueConnection()` — discovery, connexion bridge (~80 lignes)
+- [x] **Extraire** hook `useHueGameConfig()` — mapping événements/effets (~120 lignes)
+- [x] **Extraire** composant `HueConnectionTab` — UI connexion (~150 lignes)
+- [x] **Extraire** composant `HueLightsSelector` — sélection lumières (~130 lignes)
+- [x] **Extraire** composant `HueGameConfigurator` — mapping jeux (~200 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 19 useState, 2 useEffect — beaucoup d'état UI
 - **Risque :** 🟢 Faible — page isolée, n'impacte pas les jeux
 - **Jeux impactés :** Aucun directement
 
 ### 4. `app/lol/game/[code]/play/page.jsx` — 1811 lignes → ~800
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useVoteSystem()` — votes, résolution, timers (~180 lignes)
-- [ ] **Extraire** hook `useAccusationFlow()` — accusations, cooldowns (~140 lignes)
-- [ ] **Extraire** hook `useGameTimer()` — countdown, auto-end (~120 lignes)
-- [ ] **Extraire** hook `useJokerMechanics()` — drag, activation (~100 lignes)
-- [ ] **Extraire** composant `VoteModal` — UI vote (~120 lignes)
-- [ ] **Extraire** composant `SceneScript` — rendu scène théâtre (~150 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useVoteSystem()` — votes, résolution, timers (~180 lignes)
+- [x] **Extraire** hook `useAccusationFlow()` — accusations, cooldowns (~140 lignes)
+- [x] **Extraire** hook `useGameTimer()` — countdown, auto-end (~120 lignes)
+- [x] **Extraire** hook `useJokerMechanics()` — drag, activation (~100 lignes)
+- [x] **Extraire** composant `VoteModal` — UI vote (~120 lignes)
+- [x] **Extraire** composant `SceneScript` — rendu scène théâtre (~150 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 14 useState, 11 useEffect, 5 useRef
 - **Risque :** 🟡 Moyen — logique de vote/élimination complexe
 - **Jeux impactés :** LOL
 
 ### 5. `app/laregle/game/[code]/play/page.jsx` — 1774 lignes → ~850
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useRuleVoting()` — collection votes, validation (~140 lignes)
-- [ ] **Extraire** hook `useRevealPhases()` — tiebreaker, animation reveal (~130 lignes)
-- [ ] **Extraire** hook `useEliminationSystem()` — tracking, notifications (~120 lignes)
-- [ ] **Extraire** hook `useRerollSystem()` — reroll validation, API (~80 lignes)
-- [ ] **Extraire** composant `RuleVoteDisplay` — UI votes (~140 lignes)
-- [ ] **Extraire** composant `RevealAnimation` — UI reveal (~120 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useRuleVoting()` — collection votes, validation (~140 lignes)
+- [x] **Extraire** hook `useRevealPhases()` — tiebreaker, animation reveal (~130 lignes)
+- [x] **Extraire** hook `useEliminationSystem()` — tracking, notifications (~120 lignes)
+- [x] **Extraire** hook `useRerollSystem()` — reroll validation, API (~80 lignes)
+- [x] **Extraire** composant `RuleVoteDisplay` — UI votes (~140 lignes)
+- [x] **Extraire** composant `RevealAnimation` — UI reveal (~120 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 16 useState, 10 useEffect, 5 useRef
 - **Risque :** 🟡 Moyen — state machine reveal complexe
 - **Jeux impactés :** La Règle
 
 ### 6. `app/alibi/game/[code]/play/page.jsx` — 1670 lignes → ~900
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useInterrogationPhase()` — questions, réponses (~140 lignes)
-- [ ] **Extraire** hook `useVerdictPhase()` — calcul verdict, affichage (~120 lignes)
-- [ ] **Extraire** hook `useHueIntegration()` — triggers Hue (~80 lignes)
-- [ ] **Extraire** composant `InterrogationUI` — UI question/réponse (~150 lignes)
-- [ ] **Extraire** composant `VerdictDisplay` — UI verdict (~130 lignes)
-- [ ] **Extraire** composant `SpectatorView` — vue spectateur (~140 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useInterrogationPhase()` — questions, réponses (~140 lignes)
+- [x] **Extraire** hook `useVerdictPhase()` — calcul verdict, affichage (~120 lignes)
+- [x] **Extraire** hook `useHueIntegration()` — triggers Hue (~80 lignes)
+- [x] **Extraire** composant `InterrogationUI` — UI question/réponse (~150 lignes)
+- [x] **Extraire** composant `VerdictDisplay` — UI verdict (~130 lignes)
+- [x] **Extraire** composant `SpectatorView` — vue spectateur (~140 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 22 useState, 16 useEffect, 4 useRef
 - **Risque :** 🔴 Élevé — Party Mode + groupes + rotation complexe
 - **Jeux impactés :** Alibi
 
 ### 7. `app/daily/motmystere/page.jsx` — 1384 lignes → ~650
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useWordleGame()` — state jeu, logique guess, feedback (~200 lignes)
-- [ ] **Extraire** hook `useWordleKeyboard()` — gestion clavier desktop + mobile (~220 lignes)
-- [ ] **Extraire** hook `useWordleStats()` — stats, calculs (~100 lignes)
-- [ ] **Extraire** composant `WordleGrid` — grille de lettres (~80 lignes)
-- [ ] **Extraire** composant `WordleStatsModal` — modal stats (~90 lignes)
-- [ ] **Extraire** config `AZERTY_ROWS` et helpers → `lib/config/wordle.js` (~60 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useWordleGame()` — state jeu, logique guess, feedback (~200 lignes)
+- [x] **Extraire** hook `useWordleKeyboard()` — gestion clavier desktop + mobile (~220 lignes)
+- [x] **Extraire** hook `useWordleStats()` — stats, calculs (~100 lignes)
+- [x] **Extraire** composant `WordleGrid` — grille de lettres (~80 lignes)
+- [x] **Extraire** composant `WordleStatsModal` — modal stats (~90 lignes)
+- [x] **Extraire** config `AZERTY_ROWS` et helpers → `lib/config/wordle.js` (~60 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 47 useState, 13 useEffect, 7 useRef — record du projet !
 - **Risque :** 🟡 Moyen — beaucoup d'état mais logique linéaire
 - **Jeux impactés :** Daily Mot Mystère
 
 ### 8. `app/daily/semantique/page.jsx` — 1376 lignes → ~650
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useSemanticGame()` — state jeu, guess, feedback (~200 lignes)
-- [ ] **Extraire** hook `useTemperatureScoring()` — calcul température, score (~120 lignes)
-- [ ] **Extraire** hook `useSemanticStats()` — stats, streaks (~100 lignes)
-- [ ] **Extraire** composant `TemperatureBar` — barre visuelle (~100 lignes)
-- [ ] **Extraire** composant `SemanticStatsModal` — modal stats (~100 lignes)
-- [ ] **Extraire** composant `SemanticLeaderboard` — classement (~150 lignes)
-- [ ] **Extraire** config ranking/helpers → `lib/config/semantic.js` (~60 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useSemanticGame()` — state jeu, guess, feedback (~200 lignes)
+- [x] **Extraire** hook `useTemperatureScoring()` — calcul température, score (~120 lignes)
+- [x] **Extraire** hook `useSemanticStats()` — stats, streaks (~100 lignes)
+- [x] **Extraire** composant `TemperatureBar` — barre visuelle (~100 lignes)
+- [x] **Extraire** composant `SemanticStatsModal` — modal stats (~100 lignes)
+- [x] **Extraire** composant `SemanticLeaderboard` — classement (~150 lignes)
+- [x] **Extraire** config ranking/helpers → `lib/config/semantic.js` (~60 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 40 useState, 15 useEffect, 13 useRef
 - **Risque :** 🟡 Moyen — scoring complexe mais isolé
 - **Jeux impactés :** Daily Sémantique
 
 ### 9. `app/alibi/game/[code]/prep/page.jsx` — 1292 lignes → ~750
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useAlibiPrepFlow()` — state prep, transitions (~150 lignes)
-- [ ] **Extraire** hook `usePrepTimer()` — countdown, pause/resume (~100 lignes)
-- [ ] **Extraire** hook `useCustomQuestions()` — input questions, validation (~90 lignes)
-- [ ] **Extraire** composant `DocumentViewer` — affichage document + scroll (~150 lignes)
-- [ ] **Extraire** composant `QuestionEditor` — UI saisie questions (~120 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useAlibiPrepFlow()` — state prep, transitions (~150 lignes)
+- [x] **Extraire** hook `usePrepTimer()` — countdown, pause/resume (~100 lignes)
+- [x] **Extraire** hook `useCustomQuestions()` — input questions, validation (~90 lignes)
+- [x] **Extraire** composant `DocumentViewer` — affichage document + scroll (~150 lignes)
+- [x] **Extraire** composant `QuestionEditor` — UI saisie questions (~120 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 18 useState, 9 useEffect, 3 useRef
 - **Risque :** 🟡 Moyen — DOMPurify + scroll indicators
 - **Jeux impactés :** Alibi
 
 ### 10. `app/laregle/game/[code]/investigate/page.jsx` — 1286 lignes → ~700
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useInvestigationTimer()` — timer, auto-end (~120 lignes)
-- [ ] **Extraire** hook `useEliminationNotifications()` — éliminations, flash (~140 lignes)
-- [ ] **Extraire** hook `useGameStateSync()` — listeners Firebase (~130 lignes)
-- [ ] **Extraire** composant `InvestigationTimerUI` — affichage timer (~100 lignes)
-- [ ] **Extraire** composant `EliminationIndicator` — notification élim (~100 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useInvestigationTimer()` — timer, auto-end (~120 lignes)
+- [x] **Extraire** hook `useEliminationNotifications()` — éliminations, flash (~140 lignes)
+- [x] **Extraire** hook `useGameStateSync()` — listeners Firebase (~130 lignes)
+- [x] **Extraire** composant `InvestigationTimerUI` — affichage timer (~100 lignes)
+- [x] **Extraire** composant `EliminationIndicator` — notification élim (~100 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 9 useState, 8 useEffect, 5 useRef
 - **Risque :** 🟡 Moyen — timer + éliminations
 - **Jeux impactés :** La Règle
 
 ### 11. `app/alibi/room/[code]/page.jsx` — 1148 lignes → ~600
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useAlibiSelection()` — sélection scenario, manifest (~140 lignes)
-- [ ] **Extraire** hook `useAlibiGroupSetup()` — assignation groupes Party Mode (~130 lignes)
-- [ ] **Extraire** hook `useGameLaunch()` — countdown, lancement (~100 lignes)
-- [ ] **Extraire** composant `GroupAssignmentUI` — UI groupes (~130 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useAlibiSelection()` — sélection scenario, manifest (~140 lignes)
+- [x] **Extraire** hook `useAlibiGroupSetup()` — assignation groupes Party Mode (~130 lignes)
+- [x] **Extraire** hook `useGameLaunch()` — countdown, lancement (~100 lignes)
+- [x] **Extraire** composant `GroupAssignmentUI` — UI groupes (~130 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 20 useState, 10 useEffect, 6 useRef
 - **Risque :** 🟡 Moyen — Party Mode setup
 - **Jeux impactés :** Alibi
 
 ### 12. `components/game/Leaderboard.jsx` — 1136 lignes → ~550
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useLeaderboardAnimations()` — tracking positions, animations (~180 lignes)
-- [ ] **Extraire** hook `useTeamViewToggle()` — switch équipe/individuel (~100 lignes)
-- [ ] **Extraire** composant `LeaderboardRow` — ligne animée (~120 lignes)
-- [ ] **Extraire** composant `TeamRow` — ligne équipe (~100 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useLeaderboardAnimations()` — tracking positions, animations (~180 lignes)
+- [x] **Extraire** hook `useTeamViewToggle()` — switch équipe/individuel (~100 lignes)
+- [x] **Extraire** composant `LeaderboardRow` — ligne animée (~120 lignes)
+- [x] **Extraire** composant `TeamRow` — ligne équipe (~100 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 6 useState, 4 useEffect, 5 useRef
 - **Risque :** 🔴 Élevé — composant partagé par TOUS les jeux
 - **Jeux impactés :** Quiz, DeezTest, Alibi, La Règle, LOL, Mind Link
 
 ### 13. `app/subscribe/page.jsx` — 1084 lignes → ~600
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useRevenueCatIntegration()` — achat, restore (~120 lignes)
-- [ ] **Extraire** composant `PricingCards` — sélection plan (~150 lignes)
-- [ ] **Extraire** composant `BenefitsSection` — liste avantages (~100 lignes)
-- [ ] **Extraire** config `PRICING_DATA` → `lib/config/pricing.js` (~100 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useRevenueCatIntegration()` — achat, restore (~120 lignes)
+- [x] **Extraire** composant `PricingCards` — sélection plan (~150 lignes)
+- [x] **Extraire** composant `BenefitsSection` — liste avantages (~100 lignes)
+- [x] **Extraire** config `PRICING_DATA` → `lib/config/pricing.js` (~100 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 7 useState, 1 useEffect
 - **Risque :** 🟢 Faible — page isolée
 - **Jeux impactés :** Aucun
 
 ### 14. `app/onboarding/page.jsx` — 1024 lignes → ~450
-- [ ] **Analyser** avec @complexity-analyzer
-- [ ] **Extraire** hook `useAuthSignIn()` — Google/Apple/Guest login (~180 lignes)
-- [ ] **Extraire** hook `usePseudoSetup()` — validation pseudo, save (~140 lignes)
-- [ ] **Extraire** hook `useCarouselSwipe()` — swipe detection, navigation (~120 lignes)
-- [ ] **Extraire** composant `SignInButtons` — boutons auth (~100 lignes)
-- [ ] **Extraire** composant `PseudoSlide` — slide pseudo (~120 lignes)
-- [ ] **Review** avec @code-reviewer
+- [x] **Analyser** avec @complexity-analyzer
+- [x] **Extraire** hook `useAuthSignIn()` — Google/Apple/Guest login (~180 lignes)
+- [x] **Extraire** hook `usePseudoSetup()` — validation pseudo, save (~140 lignes)
+- [x] **Extraire** hook `useCarouselSwipe()` — swipe detection, navigation (~120 lignes)
+- [x] **Extraire** composant `SignInButtons` — boutons auth (~100 lignes)
+- [x] **Extraire** composant `PseudoSlide` — slide pseudo (~120 lignes)
+- [x] **Review** avec @code-reviewer
 - **Hooks :** 12 useState, 2 useEffect, 1 useRef
 - **Risque :** 🟢 Faible — flow linéaire
 - **Jeux impactés :** Aucun (onboarding)
