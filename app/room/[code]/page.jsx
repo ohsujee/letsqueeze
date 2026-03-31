@@ -3,16 +3,8 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
-  auth,
-  db,
-  ref,
-  onValue,
-  update,
-  remove,
-  set,
-  get,
-  signInAnonymously,
-  onAuthStateChanged,
+  auth, db, ref, onValue, update, remove, set, get,
+  signInAnonymously, onAuthStateChanged,
 } from "@/lib/firebase";
 import TeamTabs from "@/lib/components/TeamTabs";
 import PaywallModal from "@/components/ui/PaywallModal";
@@ -33,13 +25,15 @@ import HeartsModal from "@/components/ui/HeartsModal";
 import { useToast } from "@/lib/hooks/useToast";
 import { getQuizManifest } from "@/lib/utils/manifestCache";
 import { calculatePartyModeQuestions } from "@/lib/config/rooms";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import LobbyStartButton from "@/components/game/LobbyStartButton";
 import { storage } from "@/lib/utils/storage";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { GameLaunchCountdown } from "@/components/transitions";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
-import { CaretDown, CaretRight, Info, Lightning, UsersThree, ArrowRight, Users } from '@phosphor-icons/react';
+import { CaretDown, Info, Lightning, UsersThree, ArrowRight, Users } from '@phosphor-icons/react';
+import HostSettingsPanel from './_components/HostSettingsPanel';
+import './quiz-lobby.css';
 
 const ACCENT = '#8b5cf6';
 const ACCENT_DARK = '#7c3aed';
@@ -92,9 +86,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   }, [code]);
 
   useEffect(() => {
-    getQuizManifest()
-      .then(cats => setCategories(cats))
-      .catch(() => setCategories([]));
+    getQuizManifest().then(cats => setCategories(cats)).catch(() => setCategories([]));
   }, []);
 
   useEffect(() => {
@@ -117,15 +109,9 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   usePresence({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, heartbeatInterval: 15000, enabled: !!myUid && !devUid });
 
   const { leaveRoom, attemptRejoin, isRejoining } = usePlayerCleanup({
-    roomCode: code,
-    roomPrefix: ROOM_PREFIX,
-    playerUid: myUid,
-    phase: 'lobby',
-    playerName: userPseudo,
-    isHost,
-    getPlayerData: (uid, name) => ({
-      uid, name, score: 0, teamId: "", blockedUntil: 0, joinedAt: Date.now()
-    }),
+    roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, phase: 'lobby',
+    playerName: userPseudo, isHost,
+    getPlayerData: (uid, name) => ({ uid, name, score: 0, teamId: "", blockedUntil: 0, joinedAt: Date.now() }),
     onPlayerRemoved: () => { if (!isHost) setIsPlayerMissing(true); },
     onRejoinSuccess: () => { setIsPlayerMissing(false); setRejoinError(null); },
     onRejoinFailed: (err) => { setRejoinError(err?.message || 'Impossible de rejoindre'); },
@@ -138,13 +124,11 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
 
   useHostDisconnect({ roomCode: code, roomPrefix: ROOM_PREFIX, hostUid: devUid ? null : meta?.hostUid });
 
-  // Mark player location
   useEffect(() => {
     if (!myUid || !code || devUid) return;
     update(ref(db), { [`${ROOM_PREFIX}/${code}/players/${myUid}/location`]: 'lobby' });
   }, [myUid, code, devUid]);
 
-  // Listen to meta & state
   useEffect(() => {
     if (!code) return;
     const metaUnsub = onValue(ref(db, `${ROOM_PREFIX}/${code}/meta`), (snap) => {
@@ -169,7 +153,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
     return () => { metaUnsub(); stateUnsub(); };
   }, [code, router, isHost]);
 
-  // ── Handlers (all preserved) ──
+  // ── Handlers ──
 
   const handleStartGame = async () => {
     if (!isHost || !meta?.quizSelection?.themeIds?.length) return;
@@ -225,9 +209,9 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
       let askerRotationFields = {};
       if (isPartyMode) {
         if (meta?.mode === 'équipes') {
-          const teamIds = Object.keys(meta?.teams || {}).filter(teamId => {
-            return activePlayers.filter(p => p.teamId === teamId).length > 0;
-          });
+          const teamIds = Object.keys(meta?.teams || {}).filter(teamId =>
+            activePlayers.filter(p => p.teamId === teamId).length > 0
+          );
           for (let i = teamIds.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [teamIds[i], teamIds[j]] = [teamIds[j], teamIds[i]];
@@ -271,9 +255,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
 
   const createTeamsForCount = (count) => {
     const newTeams = {};
-    for (let i = 0; i < count; i++) {
-      newTeams[`team${i + 1}`] = { name: teamNames[i], color: teamColors[i], score: 0 };
-    }
+    for (let i = 0; i < count; i++) newTeams[`team${i + 1}`] = { name: teamNames[i], color: teamColors[i], score: 0 };
     return newTeams;
   };
 
@@ -282,8 +264,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
     const newMode = meta?.mode === "équipes" ? "individuel" : "équipes";
     if (newMode === "équipes" && (!teams || Object.keys(teams).length === 0)) {
       const count = meta?.teamCount || 2;
-      const defaultTeams = createTeamsForCount(count);
-      await update(ref(db, `${ROOM_PREFIX}/${code}/meta`), { mode: newMode, teams: defaultTeams, teamCount: count });
+      await update(ref(db, `${ROOM_PREFIX}/${code}/meta`), { mode: newMode, teams: createTeamsForCount(count), teamCount: count });
     } else if (newMode === "individuel") {
       const updates = {};
       players.forEach(p => { updates[`${ROOM_PREFIX}/${code}/players/${p.uid}/teamId`] = ""; });
@@ -371,49 +352,25 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   // ── Loading ──
   if (!meta) {
     return (
-      <div style={{
-        flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column',
-        background: '#04060f', alignItems: 'center', justifyContent: 'center', gap: '14px',
-      }}>
-        <div style={{
-          width: 30, height: 30,
-          border: '2px solid #1e1e30', borderTopColor: ACCENT,
-          borderRadius: '50%', animation: 'spin 0.9s linear infinite',
-        }} />
-        <p style={{ color: '#5a5a72', fontSize: '0.85rem' }}>Chargement...</p>
-        <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      <div className="quiz-lobby-loading">
+        <div className="quiz-lobby-spinner" />
+        <p className="quiz-lobby-loading-text">Chargement...</p>
       </div>
     );
   }
 
   // ── Render ──
   return (
-    <div style={{
-      flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column',
-      background: '#04060f', position: 'relative', overflow: 'hidden',
-      fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-    }}>
+    <div className="quiz-lobby">
 
-      {/* ── Background layers ── */}
-      <div aria-hidden style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: 'radial-gradient(circle, rgba(139,92,246,0.055) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }} />
-        <div style={{
-          position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
-          width: '90%', height: '280px',
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.09) 0%, transparent 70%)',
-        }} />
-        <div style={{
-          position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)',
-          width: '60%', height: '120px',
-          background: 'radial-gradient(ellipse at 50% 100%, rgba(139,92,246,0.05) 0%, transparent 70%)',
-        }} />
+      {/* Background layers */}
+      <div aria-hidden className="quiz-lobby-bg">
+        <div className="quiz-lobby-bg-dots" />
+        <div className="quiz-lobby-bg-glow-top" />
+        <div className="quiz-lobby-bg-glow-bottom" />
       </div>
 
-      {/* ── Modals ── */}
+      {/* Modals */}
       <PaywallModal isOpen={showPaywall} onClose={() => setShowPaywall(false)} contentType="quiz" contentName={lockedQuizName} />
       <QuizSelectorModal
         isOpen={showQuizSelector} onClose={() => setShowQuizSelector(false)}
@@ -428,7 +385,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
         error={rejoinError} gameColor={ACCENT}
       />
 
-      {/* ── Countdown ── */}
+      {/* Countdown */}
       <AnimatePresence>
         {showCountdown && (
           <GameLaunchCountdown
@@ -442,7 +399,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
         )}
       </AnimatePresence>
 
-      {/* ── Header ── */}
+      {/* Header */}
       <div style={{ position: 'relative', zIndex: 1 }}>
         <LobbyHeader
           ref={shareModalRef} variant="quiz" code={code} isHost={isHost}
@@ -452,233 +409,40 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
         />
       </div>
 
-      {/* ── Main content ── */}
-      <main style={{
-        flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden',
-        padding: '16px 16px 8px', position: 'relative', zIndex: 1,
-        display: 'flex', flexDirection: 'column', gap: '16px',
-      }}>
+      {/* Main content */}
+      <main className="quiz-lobby-main">
 
-        {/* ── Settings panel (host) ── */}
+        {/* Host settings panel */}
         <AnimatePresence>
           {isHost && (
-            <LayoutGroup>
-              <motion.div
-                key="settings"
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2 }}
-                style={{
-                  background: 'rgba(8,14,32,0.92)',
-                  border: '1px solid rgba(139,92,246,0.12)',
-                  borderRadius: '16px',
-                  padding: '14px 16px',
-                  boxShadow: '0 2px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
-                  flexShrink: 0,
-                }}
-              >
-                {/* Quiz selector row */}
-                <motion.div
-                  onClick={() => setShowQuizSelector(true)}
-                  whileTap={{ scale: 0.98 }}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: '12px',
-                    padding: '10px 12px', borderRadius: '12px',
-                    background: 'rgba(139,92,246,0.06)',
-                    border: '1px solid rgba(139,92,246,0.15)',
-                    cursor: 'pointer', marginBottom: '14px',
-                    transition: 'background 0.15s ease',
-                  }}
-                >
-                  <span style={{ fontSize: '1.4rem', flexShrink: 0 }}>
-                    {quizSelection?.categoryEmoji || '🧠'}
-                  </span>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{
-                      fontSize: '0.85rem', fontWeight: 700, color: '#eef2ff',
-                      whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-                    }}>
-                      {quizSelection?.categoryName || 'Choisis un quiz'}
-                    </div>
-                    {hasSelection && (
-                      <div style={{
-                        fontSize: '0.65rem', fontWeight: 600,
-                        color: 'rgba(139,92,246,0.6)', marginTop: '2px',
-                        whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-                      }}>
-                        {selectedThemeNames} &bull; {totalQuestions} questions
-                      </div>
-                    )}
-                  </div>
-                  <div style={{
-                    display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0,
-                  }}>
-                    <span style={{
-                      fontSize: '0.68rem', fontWeight: 700, color: ACCENT,
-                      textTransform: 'uppercase', letterSpacing: '0.04em',
-                    }}>
-                      {hasSelection ? 'Changer' : 'Choisir'}
-                    </span>
-                    <CaretRight size={14} weight="bold" color={ACCENT} />
-                  </div>
-                </motion.div>
-
-                {/* Divider */}
-                <div style={{ height: '1px', background: 'rgba(238,242,255,0.05)', marginBottom: '14px' }} />
-
-                {/* Mode segmented control */}
-                <div style={{
-                  position: 'relative', display: 'flex',
-                  borderRadius: '12px', background: 'rgba(0,0,0,0.3)',
-                  border: '1px solid rgba(238,242,255,0.07)',
-                  padding: '4px', gap: '4px',
-                }}>
-                  {[
-                    { val: 'individuel', label: 'Solo', icon: <Lightning size={14} weight="bold" /> },
-                    { val: 'équipes', label: 'Équipes', icon: <UsersThree size={14} weight="bold" /> },
-                  ].map(({ val, label, icon }) => {
-                    const active = meta?.mode === val;
-                    return (
-                      <motion.button
-                        key={val}
-                        onClick={handleModeToggle}
-                        whileTap={{ scale: 0.97 }}
-                        style={{
-                          flex: 1, position: 'relative', zIndex: 1,
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          gap: '7px', padding: '10px 12px', borderRadius: '9px',
-                          border: 'none', background: 'transparent', cursor: 'pointer',
-                          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                          transition: 'color 0.2s ease, text-shadow 0.2s ease',
-                          color: active ? ACCENT : 'rgba(238,242,255,0.4)',
-                          fontSize: '0.82rem', fontWeight: 700,
-                          textShadow: active ? '0 0 12px rgba(139,92,246,0.5)' : 'none',
-                        }}
-                      >
-                        {active && (
-                          <motion.div
-                            layoutId="mode-pill"
-                            style={{
-                              position: 'absolute', inset: 0, borderRadius: '9px',
-                              background: 'rgba(139,92,246,0.1)',
-                              border: '1px solid rgba(139,92,246,0.3)',
-                              zIndex: -1,
-                            }}
-                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                          />
-                        )}
-                        {icon}
-                        {label}
-                      </motion.button>
-                    );
-                  })}
-                </div>
-
-                {/* Team count selector */}
-                <AnimatePresence>
-                  {meta?.mode === 'équipes' && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                      animate={{ opacity: 1, height: 'auto', marginTop: 14 }}
-                      exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                      transition={{ duration: 0.2 }}
-                      style={{ overflow: 'hidden' }}
-                    >
-                      <div style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                      }}>
-                        <span style={{
-                          fontSize: '0.8rem', fontWeight: 700, color: '#eef2ff',
-                        }}>
-                          Nombre d'équipes
-                        </span>
-                        <div style={{ display: 'flex', gap: '5px' }}>
-                          {[2, 3, 4].map(count => {
-                            const active = (meta?.teamCount || 2) === count;
-                            return (
-                              <motion.button
-                                key={count}
-                                onClick={() => handleTeamCountChange(count)}
-                                whileHover={{ y: -2 }}
-                                whileTap={{ scale: 0.92 }}
-                                style={{
-                                  position: 'relative', width: '42px',
-                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                  padding: '7px 0', borderRadius: '10px',
-                                  border: active ? '1px solid rgba(139,92,246,0.35)' : '1px solid rgba(238,242,255,0.08)',
-                                  background: active ? 'rgba(139,92,246,0.1)' : 'rgba(238,242,255,0.03)',
-                                  cursor: 'pointer', overflow: 'hidden',
-                                  fontFamily: "var(--font-title, 'Bungee'), cursive",
-                                  fontSize: '1rem', lineHeight: 1,
-                                  color: active ? ACCENT : 'rgba(238,242,255,0.5)',
-                                  textShadow: active ? '0 0 10px rgba(139,92,246,0.55)' : 'none',
-                                  transition: 'border-color 0.15s ease, background 0.15s ease, color 0.15s ease',
-                                }}
-                              >
-                                {count}
-                                {active && (
-                                  <motion.div
-                                    layoutId="team-count-bar"
-                                    style={{
-                                      position: 'absolute', bottom: 0, left: 0, right: 0, height: '2px',
-                                      background: 'linear-gradient(90deg, transparent, rgba(139,92,246,0.6), transparent)',
-                                      boxShadow: '0 0 4px rgba(139,92,246,0.35)',
-                                    }}
-                                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                                  />
-                                )}
-                              </motion.button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            </LayoutGroup>
+            <HostSettingsPanel
+              meta={meta}
+              quizSelection={quizSelection}
+              hasSelection={hasSelection}
+              selectedThemeNames={selectedThemeNames}
+              totalQuestions={totalQuestions}
+              onOpenQuizSelector={() => setShowQuizSelector(true)}
+              onModeToggle={handleModeToggle}
+              onTeamCountChange={handleTeamCountChange}
+            />
           )}
         </AnimatePresence>
 
-        {/* ── Settings display (player) ── */}
+        {/* Player settings (non-host) */}
         {!isHost && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            style={{
-              background: 'rgba(8,14,32,0.92)',
-              border: '1px solid rgba(139,92,246,0.12)',
-              borderRadius: '16px',
-              padding: '14px 16px',
-              boxShadow: '0 2px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
-              flexShrink: 0,
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: 1, minWidth: 0 }}>
-              <span style={{ fontSize: '1.2rem', flexShrink: 0 }}>
-                {quizSelection?.categoryEmoji || '🧠'}
-              </span>
+          <motion.div className="quiz-settings-panel quiz-player-settings" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <div className="quiz-player-settings-info">
+              <span className="quiz-player-settings-emoji">{quizSelection?.categoryEmoji || '🧠'}</span>
               <div style={{ minWidth: 0 }}>
-                <div style={{
-                  fontSize: '0.85rem', fontWeight: 700, color: '#ffffff',
-                  whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-                }}>
+                <div className="quiz-player-settings-name">
                   {quizSelection?.categoryName || 'Quiz en attente'}
                 </div>
                 {hasSelection && (
-                  <span style={{ fontSize: '0.65rem', fontWeight: 600, color: 'rgba(238,242,255,0.35)' }}>
-                    {totalQuestions} questions
-                  </span>
+                  <span className="quiz-player-settings-questions">{totalQuestions} questions</span>
                 )}
               </div>
             </div>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '6px',
-              fontSize: '0.85rem', fontWeight: 700, color: 'rgba(238,242,255,0.6)',
-              flexShrink: 0,
-            }}>
+            <div className="quiz-player-settings-mode">
               {meta?.mode === 'équipes'
                 ? <><UsersThree size={14} weight="bold" /> Équipes</>
                 : <><Lightning size={14} weight="bold" /> Solo</>
@@ -687,65 +451,38 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
           </motion.div>
         )}
 
-        {/* ── Team management (host, team mode) ── */}
+        {/* Team management (host, team mode) */}
         {isHost && meta?.mode === 'équipes' && (
-          <div style={{
-            background: 'rgba(8,14,32,0.92)',
-            border: '1px solid rgba(139,92,246,0.08)',
-            borderRadius: '16px',
-            padding: '14px 16px',
-            boxShadow: '0 2px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
-            flexShrink: 0,
-          }}>
+          <div className="quiz-team-management">
             <TeamTabs
-              teams={teams}
-              players={players}
-              teamCount={meta?.teamCount || 2}
-              onAssignToTeam={handleAssignToTeam}
-              onRemoveFromTeam={handleRemoveFromTeam}
-              onAutoBalance={handleAutoBalance}
-              onResetTeams={handleResetTeams}
+              teams={teams} players={players} teamCount={meta?.teamCount || 2}
+              onAssignToTeam={handleAssignToTeam} onRemoveFromTeam={handleRemoveFromTeam}
+              onAutoBalance={handleAutoBalance} onResetTeams={handleResetTeams}
             />
           </div>
         )}
 
-        {/* ── Player team view ── */}
+        {/* Player team view (non-host) */}
         {!isHost && meta?.mode === 'équipes' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {/* My Team Banner */}
             {players.find(p => p.uid === myUid)?.teamId ? (
-              <div className="my-team-banner" style={{
-                '--team-color': teams[players.find(p => p.uid === myUid)?.teamId]?.color
-              }}>
+              <div className="my-team-banner" style={{ '--team-color': teams[players.find(p => p.uid === myUid)?.teamId]?.color }}>
                 <div className="banner-glow" />
                 <span className="banner-label">Ton équipe</span>
-                <span className="banner-team-name">
-                  {teams[players.find(p => p.uid === myUid)?.teamId]?.name}
-                </span>
+                <span className="banner-team-name">{teams[players.find(p => p.uid === myUid)?.teamId]?.name}</span>
               </div>
             ) : (
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: '10px',
-                padding: '14px 16px',
-                background: 'rgba(238,242,255,0.04)',
-                border: '1px solid rgba(238,242,255,0.07)',
-                borderRadius: '14px',
-              }}>
-                <span style={{ fontSize: '1.1rem' }}>&#x23F3;</span>
-                <span style={{ fontSize: '0.8rem', color: 'rgba(238,242,255,0.45)', fontWeight: 600 }}>
-                  L'hôte va t'assigner à une équipe...
-                </span>
+              <div className="quiz-no-team-banner">
+                <span className="quiz-no-team-emoji">&#x23F3;</span>
+                <span className="quiz-no-team-text">L'hôte va t'assigner à une équipe...</span>
               </div>
             )}
-
-            {/* Teams Grid */}
             <div className={`teams-grid-player teams-${meta?.teamCount || 2}`}>
               {Object.entries(teams).slice(0, meta?.teamCount || 2).map(([id, team]) => {
                 const teamPlayers = players.filter(p => p.teamId === id);
                 const isMyTeam = players.find(p => p.uid === myUid)?.teamId === id;
                 return (
-                  <div key={id} className={`team-card-player ${isMyTeam ? 'my-team' : ''}`}
-                    style={{ '--team-color': team.color }}>
+                  <div key={id} className={`team-card-player ${isMyTeam ? 'my-team' : ''}`} style={{ '--team-color': team.color }}>
                     <div className="team-card-bar" style={{ backgroundColor: team.color }} />
                     <div className="team-card-header">
                       <span className="team-card-name">{team.name.replace('Équipe ', '')}</span>
@@ -756,15 +493,12 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
                         <span className="no-players-text">Vide</span>
                       ) : (
                         teamPlayers.slice(0, 4).map((player) => (
-                          <span key={player.uid}
-                            className={`player-tag ${player.uid === myUid ? 'is-me' : ''}`}>
+                          <span key={player.uid} className={`player-tag ${player.uid === myUid ? 'is-me' : ''}`}>
                             {player.uid === myUid && '👤 '}{player.name}
                           </span>
                         ))
                       )}
-                      {teamPlayers.length > 4 && (
-                        <span className="player-tag more">+{teamPlayers.length - 4}</span>
-                      )}
+                      {teamPlayers.length > 4 && <span className="player-tag more">+{teamPlayers.length - 4}</span>}
                     </div>
                   </div>
                 );
@@ -773,33 +507,17 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
           </div>
         )}
 
-        {/* ── Players section (solo mode) ── */}
+        {/* Players section (solo mode) */}
         {meta?.mode !== 'équipes' && (
-          <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
-
-            {/* Section header */}
-            <div style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              marginBottom: '12px', flexShrink: 0,
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{
-                  fontSize: '0.65rem', fontWeight: 700,
-                  letterSpacing: '0.13em', color: 'rgba(238,242,255,0.35)',
-                  textTransform: 'uppercase',
-                }}>Joueurs</span>
-                <div style={{
-                  padding: '2px 9px',
-                  background: 'rgba(139,92,246,0.1)',
-                  border: '1px solid rgba(139,92,246,0.25)',
-                  borderRadius: '6px',
-                  fontFamily: "var(--font-title, 'Bungee'), cursive",
-                  fontSize: '0.7rem', color: ACCENT, letterSpacing: '0.04em',
-                }}>{players.length}</div>
+          <div className="quiz-players-section">
+            <div className="quiz-players-header">
+              <div className="quiz-players-header-left">
+                <span className="quiz-players-label">Joueurs</span>
+                <div className="quiz-players-count">{players.length}</div>
               </div>
             </div>
 
-            {/* Hint callouts */}
+            {/* Host hint */}
             <AnimatePresence initial={false}>
               {isHost && !canStart && (
                 <motion.div
@@ -810,65 +528,29 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
                   transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                   style={{ overflow: 'hidden', flexShrink: 0 }}
                 >
-                  <div style={{
-                    display: 'flex', alignItems: 'center', gap: '10px',
-                    padding: '10px 14px',
-                    background: 'rgba(139,92,246,0.06)',
-                    border: '1px solid rgba(139,92,246,0.12)',
-                    borderRadius: '12px',
-                  }}>
-                    <div style={{
-                      width: 26, height: 26, borderRadius: '8px', flexShrink: 0,
-                      background: 'rgba(139,92,246,0.1)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    }}>
-                      <Info size={13} color={`${ACCENT}cc`} weight="bold" />
+                  <div className="quiz-hint-callout">
+                    <div className="quiz-hint-icon">
+                      <Info size={13} color="rgba(139,92,246,0.8)" weight="bold" />
                     </div>
-                    <span style={{
-                      fontSize: '0.78rem', color: `${ACCENT}cc`, fontWeight: 600, lineHeight: 1.3,
-                    }}>
-                      {!hasSelection
-                        ? 'Sélectionne un quiz pour pouvoir lancer la partie'
-                        : 'En attente de joueurs...'
-                      }
+                    <span className="quiz-hint-text">
+                      {!hasSelection ? 'Sélectionne un quiz pour pouvoir lancer la partie' : 'En attente de joueurs...'}
                     </span>
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* Player view hint */}
+            {/* Player hint */}
             {!isHost && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '8px',
-                  padding: '9px 12px',
-                  background: 'rgba(238,242,255,0.04)',
-                  border: '1px solid rgba(238,242,255,0.07)',
-                  borderRadius: '10px',
-                  marginBottom: '12px', flexShrink: 0,
-                }}
-              >
-                <span style={{ fontSize: '0.9rem' }}>&#x23F3;</span>
-                <span style={{ fontSize: '0.78rem', color: 'rgba(238,242,255,0.45)', fontWeight: 600 }}>
-                  En attente que l'hôte démarre la partie…
-                </span>
+              <motion.div className="quiz-player-hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <span className="quiz-player-hint-emoji">&#x23F3;</span>
+                <span className="quiz-player-hint-text">En attente que l'hôte démarre la partie…</span>
               </motion.div>
             )}
 
             {/* Players list */}
-            <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
-              <div
-                ref={listRef}
-                onScroll={checkScroll}
-                style={{
-                  height: '100%', overflowY: 'auto', overflowX: 'visible',
-                  WebkitOverflowScrolling: 'touch',
-                  display: 'flex', flexDirection: 'column', gap: '0px',
-                }}
-              >
+            <div className="quiz-players-list-wrapper">
+              <div ref={listRef} onScroll={checkScroll} className="quiz-players-list">
                 {[...players].sort((a, b) => a.uid === myUid ? -1 : b.uid === myUid ? 1 : 0).map((player, index) => (
                   <motion.div
                     key={player.uid}
@@ -877,38 +559,15 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
                     transition={{ delay: index * 0.05, duration: 0.2 }}
                     style={{ overflow: 'visible' }}
                   >
-                    <PlayerBanner
-                      player={player}
-                      isMe={player.uid === myUid}
-                      accentColor={ACCENT}
-                      accentDark={ACCENT_DARK}
-                    />
+                    <PlayerBanner player={player} isMe={player.uid === myUid} accentColor={ACCENT} accentDark={ACCENT_DARK} />
                   </motion.div>
                 ))}
               </div>
 
-              {/* Scroll fade + chevron */}
               <AnimatePresence>
                 {canScrollDown && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    style={{
-                      position: 'absolute', bottom: 0, left: 0, right: 0,
-                      height: '56px',
-                      background: 'linear-gradient(to bottom, transparent, rgba(4,6,15,0.96))',
-                      pointerEvents: 'none',
-                      display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
-                      paddingBottom: '4px', zIndex: 2,
-                    }}
-                  >
-                    <motion.div
-                      animate={{ y: [0, 3, 0] }}
-                      transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-                      style={{ color: `${ACCENT}66` }}
-                    >
+                  <motion.div className="quiz-scroll-fade" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+                    <motion.div animate={{ y: [0, 3, 0] }} transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }} style={{ color: 'rgba(139,92,246,0.4)' }}>
                       <CaretDown size={14} weight="bold" />
                     </motion.div>
                   </motion.div>
@@ -919,38 +578,14 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
         )}
       </main>
 
-      {/* ── Footer ── */}
-      <div style={{
-        position: 'relative', zIndex: 2,
-        padding: '12px 16px 16px',
-        borderTop: '1px solid rgba(238,242,255,0.05)',
-        flexShrink: 0,
-        display: 'flex', flexDirection: 'column', gap: '10px',
-        background: 'rgba(4,6,15,0.8)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-      }}>
+      {/* Footer */}
+      <div className="quiz-lobby-footer">
         {isHost && (
-          <LobbyStartButton
-            gameColor={ACCENT}
-            icon={startIcon}
-            label={startLabel}
-            disabled={!canStart}
-            onClick={handleStartGame}
-          />
+          <LobbyStartButton gameColor={ACCENT} icon={startIcon} label={startLabel} disabled={!canStart} onClick={handleStartGame} />
         )}
-
         {!isHost && (
-          <div style={{
-            padding: '14px',
-            background: 'rgba(238,242,255,0.03)',
-            border: '1px solid rgba(238,242,255,0.07)',
-            borderRadius: '14px',
-            textAlign: 'center',
-          }}>
-            <div style={{ fontSize: '0.75rem', color: 'rgba(238,242,255,0.35)', fontWeight: 600 }}>
-              Partage le code pour inviter des amis
-            </div>
+          <div className="quiz-footer-player-card">
+            <div className="quiz-footer-player-text">Partage le code pour inviter des amis</div>
           </div>
         )}
       </div>
