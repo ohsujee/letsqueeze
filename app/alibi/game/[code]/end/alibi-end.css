@@ -1,0 +1,258 @@
+/* ===== ALIBI END SCREEN ===== */
+
+.alibi-end-screen {
+  flex: 1 !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: #0a0a0f !important;
+  position: relative !important;
+}
+
+/* Animated background */
+.alibi-end-screen::before {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 60%, rgba(180, 83, 9, 0.08) 0%, transparent 50%),
+    #0a0a0f !important;
+  pointer-events: none !important;
+}
+
+.alibi-end-container {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  padding-bottom: 80px !important;
+}
+
+/* Loading state (reused as centered container) */
+.alibi-end-container.centered {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.alibi-end-footer-wrap {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  padding-bottom: var(--safe-area-bottom, env(safe-area-inset-bottom, 0px)) !important;
+  z-index: 10 !important;
+}
+
+.alibi-end-content {
+  max-width: 500px !important;
+  margin: 0 auto !important;
+  padding: 2rem 1.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.5rem !important;
+}
+
+/* ── Loading ── */
+
+.alibi-end-loading {
+  text-align: center !important;
+}
+
+.alibi-end-loading-icon {
+  margin-bottom: 1rem !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.alibi-end-loading-text {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.25rem !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ── Main card ── */
+
+.alibi-end-card {
+  position: relative !important;
+  background: rgba(20, 20, 30, 0.85) !important;
+  border-radius: 24px !important;
+  padding: 2rem !important;
+  text-align: center !important;
+  border: 1px solid rgba(245, 158, 11, 0.2) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  overflow: hidden !important;
+}
+
+.alibi-end-card[data-success="true"] {
+  border-color: rgba(16, 185, 129, 0.3) !important;
+  box-shadow:
+    0 0 40px rgba(16, 185, 129, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+.alibi-end-card[data-success="false"] {
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  box-shadow:
+    0 0 40px rgba(239, 68, 68, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ── Background glow ── */
+
+.alibi-end-glow {
+  position: absolute !important;
+  top: -50% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 200% !important;
+  height: 200% !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+.alibi-end-glow[data-success="true"] {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 50%) !important;
+}
+
+.alibi-end-glow[data-success="false"] {
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, transparent 50%) !important;
+}
+
+/* ── Icon ── */
+
+.alibi-end-icon {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  justify-content: center !important;
+  margin-bottom: 1rem !important;
+}
+
+/* ── Title ── */
+
+.alibi-end-title {
+  position: relative !important;
+  z-index: 1 !important;
+  font-family: 'Bungee', cursive !important;
+  font-size: clamp(1.5rem, 6vw, 2.5rem) !important;
+  font-weight: 400 !important;
+  color: white !important;
+  margin: 0 0 1.5rem 0 !important;
+  text-transform: uppercase !important;
+  text-shadow:
+    0 0 20px rgba(245, 158, 11, 0.5),
+    0 0 40px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* ── Score ── */
+
+.alibi-end-score-container {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: center !important;
+  gap: 0.25rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.alibi-end-score {
+  font-family: 'Bungee', cursive !important;
+  font-size: clamp(5rem, 20vw, 8rem) !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+}
+
+.alibi-end-score[data-success="true"] {
+  color: #10b981 !important;
+  text-shadow: 0 0 40px rgba(16, 185, 129, 0.6) !important;
+}
+
+.alibi-end-score[data-success="false"] {
+  color: #ef4444 !important;
+  text-shadow: 0 0 40px rgba(239, 68, 68, 0.6) !important;
+}
+
+.alibi-end-score-separator {
+  font-family: 'Bungee', cursive !important;
+  font-size: clamp(2rem, 8vw, 3rem) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  margin: 0 0.25rem !important;
+}
+
+.alibi-end-score-total {
+  font-family: 'Bungee', cursive !important;
+  font-size: clamp(2.5rem, 10vw, 4rem) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ── Percentage ── */
+
+.alibi-end-percentage {
+  position: relative !important;
+  z-index: 1 !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.alibi-end-percentage[data-success="true"] {
+  color: #10b981 !important;
+}
+
+.alibi-end-percentage[data-success="false"] {
+  color: #ef4444 !important;
+}
+
+/* ── Message ── */
+
+.alibi-end-message {
+  position: relative !important;
+  z-index: 1 !important;
+  padding: 1.25rem 1.5rem !important;
+  border-radius: 16px !important;
+  margin-top: 0.5rem !important;
+}
+
+.alibi-end-message[data-success="true"] {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+.alibi-end-message[data-success="false"] {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+}
+
+.alibi-end-message p {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+  margin: 0 !important;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 480px) {
+  .alibi-end-content {
+    padding: 1.5rem 1rem !important;
+  }
+
+  .alibi-end-card {
+    padding: 1.5rem !important;
+  }
+
+  .alibi-end-title {
+    font-size: 1.5rem !important;
+  }
+
+  .alibi-end-message p {
+    font-size: 1rem !important;
+  }
+}
