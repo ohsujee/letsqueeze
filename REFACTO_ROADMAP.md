@@ -138,21 +138,68 @@ app/mygame/game/[code]/play/
 
 ---
 
-## Tier 2 — 🟡 Important (600-1000 lignes) — 18 fichiers
+## Tier 2 — 🟡 En cours (600-1000 lignes) — 18 fichiers
+
+### 15. `components/game/LinkOverlay.jsx` — 973 → 587 lignes (-40%)
+- [x] Extraire inline styles → `components/game/LinkOverlay.css`
+- [x] Extraire `DefenderInterceptSection` (intercept failed + button + typing + pending) en composant local
+- **Méthode :** CSS extraction + extraction du bloc défenseur. Composant reste à 587 car 8 phases distinctes
+
+### 16. `app/room/[code]/page.jsx` — 964 → 599 lignes (-38%)
+- [x] Extraire inline styles → `app/room/[code]/quiz-lobby.css`
+- [x] Extraire host settings panel (quiz selector + mode toggle + team count) → `_components/HostSettingsPanel.jsx`
+- **Méthode :** CSS extraction + composant host settings. handleStartGame gardé dans la page (trop couplé au state)
+
+### 17. `app/mindlink/game/[code]/defend/page.jsx` — 953 → 264 lignes (-72%)
+- [x] Extraire ChoosingPhase (word input + random + preview) → `_components/ChoosingPhase.jsx`
+- [x] Extraire WordGuessModal + FoundConfirmModal → `_components/DefendModals.jsx`
+- [x] Extraire inline styles → `defend.css`
+- **Méthode :** ChoosingPhase avec son propre state. 2 modals extraites. CSS centralisé
+
+### 18. `app/alibi/game/[code]/end/page.jsx` — 920 → 354 lignes (-62%)
+- [x] Extraire TrophyIcon + DefeatIcon SVGs → `_components/AlibiEndIcons.jsx`
+- [x] Extraire 2 blocs `<style jsx global>` → `alibi-end.css`
+- **Méthode :** Extraction SVG + CSS. Logique score/animation gardée dans la page
+
+### 19. `app/imposteur/room/[code]/page.jsx` — 909 → 385 lignes (-58%)
+- [x] Extraire host settings panel (rounds, imposteurs, Mr. White, clue mode, timer) → `_components/ImposteurSettingsPanel.jsx`
+- [x] Extraire inline styles → `imposteur-lobby.css`
+- **Méthode :** Même pattern que Quiz lobby
+
+### 20. `components/game/QuizHostView.jsx` — 804 → 234 lignes (-71%)
+- [x] Extraire buzz system + actions (validate/wrong/skip/reset/reveal) → `lib/hooks/useQuizActions.js`
+- [x] Extraire `<style jsx>` → `QuizHostView.css`
+- **Méthode :** Hook d'actions complet. Le composant ne garde que le rendu + scoring + report
+
+### 21. `app/mindlink/room/[code]/page.jsx` — 776 → 318 lignes (-59%)
+- [x] Extraire host settings (mode, timer, defenders) → `_components/MindLinkSettingsPanel.jsx`
+- [x] Extraire inline styles → `mindlink-lobby.css`
+- **Méthode :** Même pattern lobby que Quiz et Imposteur
+
+### 22. `components/game-alibi/VerdictTransition.jsx` — 761 → 131 lignes (-83%)
+- [x] Extraire ValidIcon + RefuseIcon + TimeoutIcon + ExplosiveParticles → `VerdictIcons.jsx`
+- [x] Extraire `<style jsx global>` → `VerdictTransition.css`
+- [x] Config object (correct/incorrect/timeout) extrait en constante module-level
+- **Méthode :** Icons SVG + particles + CSS. Plus grosse réduction du Tier 2
+
+### 23. `app/laregle/room/[code]/page.jsx` — 747 → 273 lignes (-63%)
+- [x] Extraire host settings (mode, timer, investigators) → `_components/LaRegleSettingsPanel.jsx`
+- [x] Extraire inline styles → `laregle-lobby.css`
+- **Méthode :** Même pattern lobby
+
+### 24. `app/daily/total/page.jsx` — 722 → 165 lignes (-77%)
+- [x] Extraire toute la logique de jeu → `lib/hooks/useTotalGame.js`
+- [x] Extraire background + modal styles → `total.css`
+- **Méthode :** Hook complet (state, timer, validation, leaderboard)
+
+### 25. `components/transitions/GameEndTransition.jsx` — 710 → 60 lignes (-92%)
+- [x] Extraire 7 icon components → `TransitionIcons.jsx` avec helper GlowBg partagé
+- [x] Extraire `<style jsx global>` → `GameEndTransition.css`
+- [x] Config object (9 jeux) extrait en constante module-level
+- **Méthode :** Plus grosse réduction du projet (-92%)
 
 | # | Fichier | Lignes | Jeu impacté |
 |---|---------|--------|-------------|
-| 15 | `components/game/LinkOverlay.jsx` | 973 | Mind Link |
-| 16 | `app/room/[code]/page.jsx` | 964 | Quiz |
-| 17 | `app/mindlink/game/[code]/defend/page.jsx` | 953 | Mind Link |
-| 18 | `app/alibi/game/[code]/end/page.jsx` | 920 | Alibi |
-| 19 | `app/imposteur/room/[code]/page.jsx` | 909 | Imposteur |
-| 20 | `components/game/QuizHostView.jsx` | 804 | Quiz |
-| 21 | `app/mindlink/room/[code]/page.jsx` | 776 | Mind Link |
-| 22 | `components/game-alibi/VerdictTransition.jsx` | 761 | Alibi |
-| 23 | `app/laregle/room/[code]/page.jsx` | 747 | La Règle |
-| 24 | `app/daily/total/page.jsx` | 722 | Daily Total |
-| 25 | `components/transitions/GameEndTransition.jsx` | 710 | Tous |
 | 26 | `app/game/[code]/play/page.jsx` | 678 | Quiz |
 | 27 | `components/game/MimeGuesserView.jsx` | 671 | Mime |
 | 28 | `components/game/QuestionHostCard.jsx` | 661 | Quiz |
@@ -282,7 +329,7 @@ app/mygame/game/[code]/play/
 | Phase | Status | Date début | Date fin |
 |-------|--------|------------|----------|
 | Tier 1 (14 fichiers) | ✅ **Terminé** — 0 fichiers > 1000 lignes | 2026-03-30 | 2026-03-31 |
-| Tier 2 (18 fichiers) | ⬜ En attente | | |
+| Tier 2 (18 fichiers) | 🟡 **En cours** — 11/18 terminés | 2026-03-31 | |
 | Tier 3 (48 fichiers) | ⬜ En attente | | |
 
 ### Fichiers créés pendant le refacto
@@ -313,15 +360,18 @@ app/mygame/game/[code]/play/
 - `app/laregle/game/[code]/investigate/_components/InvestigatePhases.jsx` — 3 phases enquêteur
 - `app/laregle/game/[code]/investigate/_components/GuessVoteSheet.jsx` — Modal vote devinette
 - `app/alibi/room/[code]/_components/RolesCard.jsx` — Carte gestion des rôles
+- `app/room/[code]/_components/HostSettingsPanel.jsx` — Quiz selector + mode toggle + team count
 
 **Fichiers CSS extraits :**
 - `components/ui/HowToPlayModal.css`
 - `components/game/BlindTestHostView.css`
 - `components/game/Leaderboard.css`
+- `components/game/LinkOverlay.css`
 - `app/subscribe/subscribe.css`
 - `app/(main)/profile/hue/hue.css`
 - `app/alibi/game/[code]/play/alibi-play.css`
 - `app/alibi/game/[code]/prep/alibi-prep.css`
+- `app/room/[code]/quiz-lobby.css`
 
 ### Améliorations bonus
 - `LeaderboardErrorBoundary` ajouté aux 3 daily games (motmystere, semantique, total)
@@ -330,4 +380,4 @@ app/mygame/game/[code]/play/
 
 ---
 
-*Créé le 2026-03-30 — Dernière mise à jour : 2026-03-31*
+*Créé le 2026-03-30 — Dernière mise à jour : 2026-04-01*
