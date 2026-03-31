@@ -1,9 +1,7 @@
 "use client";
-import { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import {
-  auth, db, ref, onValue, update, runTransaction, serverTimestamp, increment
-} from "@/lib/firebase";
+import { auth, db, ref, onValue, update, serverTimestamp } from "@/lib/firebase";
 import { motion, AnimatePresence } from "framer-motion";
 import ExitButton from "@/lib/components/ExitButton";
 import Leaderboard from "@/components/game/Leaderboard";
@@ -12,7 +10,6 @@ import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useServerTime } from "@/lib/hooks/useServerTime";
-import { useSound } from "@/lib/hooks/useSound";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import HostDisconnectAlert from "@/components/game/HostDisconnectAlert";
 import BuzzValidationModal from "@/components/game/BuzzValidationModal";
@@ -21,15 +18,13 @@ import { GameEndTransition } from "@/components/transitions";
 import QuestionCard from "@/components/game/QuestionCard";
 import HostActionFooter from "@/components/game/HostActionFooter";
 import ReportQuestionModal from "@/components/game/ReportQuestionModal";
+import { useQuizActions } from "@/lib/hooks/useQuizActions";
 import { push, set } from "firebase/database";
+import './QuizHostView.css';
 
 /**
  * QuizHostView - Shared component for Quiz host view
  * Used by both the host page and the play page (when player is the asker in Party Mode)
- *
- * @param {string} code - Room code
- * @param {boolean} isActualHost - True if this is the actual host (Game Master mode), false for Party Mode asker
- * @param {function} onAdvanceAsker - Callback to advance to next asker (Party Mode only)
  */
 export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker, onExit }) {
   const router = useRouter();
@@ -42,17 +37,10 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   const endTransitionTriggeredRef = useRef(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportSubmitting, setReportSubmitting] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
-
-  // Server time sync (300ms tick for score updates)
   const { serverNow, offset: serverOffset } = useServerTime(300);
-
   const myUid = auth.currentUser?.uid;
-
-  // Can this user control the game? (actual host OR party mode asker)
   const canControl = isActualHost || (meta?.gameMasterMode === 'party' && state?.currentAskerUid === myUid);
 
   // Load scoring config
@@ -71,14 +59,12 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
     return () => { u1(); u2(); u3(); };
   }, [code]);
 
-  // Actual host: Redirect to play page in Party Mode (no separate host)
+  // Redirect actual host to play page in Party Mode
   useEffect(() => {
-    if (isActualHost && meta?.gameMasterMode === 'party') {
-      router.replace(`/game/${code}/play`);
-    }
+    if (isActualHost && meta?.gameMasterMode === 'party') router.replace(`/game/${code}/play`);
   }, [isActualHost, meta?.gameMasterMode, code, router]);
 
-  // Redirect when phase changes
+  // Redirect on phase change
   useEffect(() => {
     if (state?.phase === "ended" && !endTransitionTriggeredRef.current) {
       endTransitionTriggeredRef.current = true;
@@ -89,48 +75,25 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
 
   // Hue ambiance on load (actual host only)
   useEffect(() => {
-    if (isActualHost) {
-      hueScenariosService.trigger('gigglz', 'ambiance');
-    }
+    if (isActualHost) hueScenariosService.trigger('gigglz', 'ambiance');
   }, [isActualHost]);
 
-  // Room guard (actual host only)
+  // Room guard + host disconnect
   const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
-    roomCode: code,
-    roomPrefix: 'rooms',
-    playerUid: myUid,
-    isHost: isActualHost
+    roomCode: code, roomPrefix: 'rooms', playerUid: myUid, isHost: isActualHost
+  });
+  const { isHostMarkedDisconnected: isHostDisconnected, isFirebaseConnected, forceReconnect } = useHostDisconnect({
+    roomCode: code, roomPrefix: 'rooms', hostUid: meta?.hostUid
   });
 
-  // Host disconnect - gère la grace period si l'hôte perd sa connexion
-  // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
-  const {
-    isHostMarkedDisconnected: isHostDisconnected,
-    isFirebaseConnected,
-    forceReconnect
-  } = useHostDisconnect({
-    roomCode: code,
-    roomPrefix: 'rooms',
-    hostUid: meta?.hostUid
-  });
-
-  // Keep screen awake
-
-  // Exit and end game (actual host only)
-  async function exitAndEndGame() {
-    if (code && isActualHost) {
-      await update(ref(db, `rooms/${code}/meta`), { closed: true });
-    }
-    router.push('/home');
-  }
-
+  // Derived
   const total = quiz?.items?.length || 0;
   const qIndex = state?.currentIndex || 0;
   const q = quiz?.items?.[qIndex];
   const progressLabel = total ? `Q${Math.min(qIndex + 1, total)} / ${total}` : "";
   const title = (quiz?.title || (meta?.quizId ? meta.quizId.replace(/-/g, " ") : "Partie"));
 
-  // Points calculation (server sync + pause)
+  // Points calculation
   const elapsedEffective = useMemo(() => {
     if (!state?.revealed || !state?.lastRevealAt) return 0;
     const acc = state?.elapsedAcc || 0;
@@ -148,375 +111,19 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
     return { pointsEnJeu: pts, ratioRemain: ratio, cfg: c };
   }, [conf, q, elapsedEffective]);
 
-  // Sounds
-  const playReveal = useSound("/sounds/reveal.mp3");
-  const playBuzz = useSound("/sounds/quiz-buzzer.wav");
-  const playCorrect = useSound("/sounds/quiz-good-answer.wav");
-  const playWrong = useSound("/sounds/quiz-bad-answer.wav");
-  const prevRevealAt = useRef(0);
-  const prevLock = useRef(null);
-  const timeUpTriggered = useRef(false);
-
-  // Buzz system
-  const BUZZ_WINDOW_MS = 150;
-  const buzzWindowTimeout = useRef(null);
-  const buzzCache = useRef({});
-  const isResolving = useRef(false);
-  const isValidatingRef = useRef(false);
-
-  useEffect(() => {
-    if (state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current) {
-      playReveal();
-      prevRevealAt.current = state.lastRevealAt;
-      timeUpTriggered.current = false;
-      buzzCache.current = {};
-      isResolving.current = false;
-      if (buzzWindowTimeout.current) {
-        clearTimeout(buzzWindowTimeout.current);
-        buzzWindowTimeout.current = null;
-      }
-    }
-  }, [state?.revealed, state?.lastRevealAt, playReveal]);
-
-  // Trigger Hue timeUp
-  useEffect(() => {
-    if (state?.revealed && ratioRemain <= 0 && !timeUpTriggered.current && !state?.lockUid) {
-      timeUpTriggered.current = true;
-      hueScenariosService.trigger('gigglz', 'timeUp');
-    }
-  }, [state?.revealed, ratioRemain, state?.lockUid]);
-
-  // Buzz resolution listener
-  useEffect(() => {
-    if (!canControl || !code) return;
-
-    const pendingBuzzesRef = ref(db, `rooms/${code}/state/pendingBuzzes`);
-
-    const resolveBuzzes = async () => {
-      isResolving.current = true;
-      buzzWindowTimeout.current = null;
-
-      try {
-        const buzzesToResolve = { ...buzzCache.current };
-        const buzzCount = Object.keys(buzzesToResolve).length;
-
-        if (buzzCount === 0) {
-          console.log('[Buzz] Aucun buzz a resoudre');
-          return;
-        }
-
-        console.log(`[Buzz] Resolution de ${buzzCount} buzz(es)...`);
-
-        const { get: fbGet } = await import('firebase/database');
-        const lockSnap = await fbGet(ref(db, `rooms/${code}/state/lockUid`));
-        if (lockSnap.val()) {
-          console.log('[Buzz] lockUid deja defini, abandon');
-          return;
-        }
-
-        const buzzArray = Object.values(buzzesToResolve);
-        buzzArray.sort((a, b) => a.adjustedTime - b.adjustedTime);
-        const winner = buzzArray[0];
-
-        console.log(`[Buzz] Gagnant: ${winner.name} (adjustedTime: ${winner.adjustedTime})`);
-
-        const { runTransaction: fbTransaction } = await import('firebase/database');
-        const lockResult = await fbTransaction(ref(db, `rooms/${code}/state/lockUid`), (currentLock) => {
-          if (currentLock) return currentLock;
-          return winner.uid;
-        });
-
-        if (lockResult.snapshot.val() !== winner.uid) {
-          console.log('[Buzz] Transaction perdue, quelqu\'un d\'autre a ecrit lockUid');
-          return;
-        }
-
-        await update(ref(db, `rooms/${code}/state`), {
-          buzz: { uid: winner.uid, at: winner.localTime },
-          buzzBanner: `🔔 ${winner.name} a buzzé !`,
-          pausedAt: serverTimestamp(),
-          lockedAt: serverTimestamp()
-        });
-
-        const { remove: fbRemove } = await import('firebase/database');
-        await fbRemove(pendingBuzzesRef).catch(() => {});
-
-        playBuzz();
-        hueScenariosService.trigger('gigglz', 'buzz');
-
-        console.log('[Buzz] Resolution terminee');
-
-      } catch (error) {
-        console.error('[Buzz] Erreur resolution:', error);
-      } finally {
-        isResolving.current = false;
-        buzzCache.current = {};
-      }
-    };
-
-    const unsubscribe = onValue(pendingBuzzesRef, (snapshot) => {
-      const pendingBuzzes = snapshot.val() || {};
-      const buzzCount = Object.keys(pendingBuzzes).length;
-
-      buzzCache.current = pendingBuzzes;
-
-      if (buzzCount === 0) return;
-
-      if (buzzWindowTimeout.current) {
-        console.log(`[Buzz] +1 buzz ajoute au cache (total: ${buzzCount})`);
-        return;
-      }
-
-      if (isResolving.current) {
-        console.log('[Buzz] Resolution en cours, buzz ajoute au cache');
-        return;
-      }
-
-      console.log(`[Buzz] Premier buzz detecte, demarrage fenetre ${BUZZ_WINDOW_MS}ms`);
-      buzzWindowTimeout.current = setTimeout(resolveBuzzes, BUZZ_WINDOW_MS);
-    });
-
-    return () => {
-      unsubscribe();
-      if (buzzWindowTimeout.current) {
-        clearTimeout(buzzWindowTimeout.current);
-        buzzWindowTimeout.current = null;
-      }
-      buzzCache.current = {};
-      isResolving.current = false;
-    };
-  }, [canControl, code, playBuzz]);
-
-  // Lock tracking
-  useEffect(() => {
-    if (!canControl) return;
-    const cur = state?.lockUid || null;
-    if (cur && cur !== prevLock.current) {
-      prevLock.current = cur;
-    }
-    prevLock.current = cur;
-  }, [canControl, state?.lockUid]);
-
-  const computeResumeFields = useCallback(() => {
-    const already = (state?.elapsedAcc || 0)
-      + Math.max(0, (state?.pausedAt || state?.lockedAt || 0) - (state?.lastRevealAt || 0));
-    return { elapsedAcc: already, lastRevealAt: serverTimestamp(), pausedAt: null, lockedAt: null };
-  }, [state]);
-
-  // Actions
-  async function revealToggle() {
-    if (!canControl || !q) return;
-
-    if (!state?.revealed) {
-      hueScenariosService.trigger('gigglz', 'roundStart');
-      await update(ref(db, `rooms/${code}/state`), {
-        revealed: true,
-        lastRevealAt: serverTimestamp(),
-        elapsedAcc: 0
-      });
-    } else {
-      await update(ref(db, `rooms/${code}/state`), { revealed: false });
-    }
-  }
-
-  async function resetBuzzers() {
-    if (!canControl) return;
-    isResolving.current = false;
-    if (buzzWindowTimeout.current) {
-      clearTimeout(buzzWindowTimeout.current);
-      buzzWindowTimeout.current = null;
-    }
-    const resume = computeResumeFields();
-    await update(ref(db, `rooms/${code}/state`), {
-      lockUid: null,
-      buzzBanner: "",
-      buzz: null,
-      ...resume
-    });
-    await import('firebase/database').then(m =>
-      m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
-    ).catch(() => {});
-  }
-
-  async function validate() {
-    if (isValidatingRef.current || !canControl || !q || !state?.lockUid || !conf) return;
-    isValidatingRef.current = true;
-
-    try {
-      hueScenariosService.trigger('gigglz', 'goodAnswer');
-      playCorrect();
-
-      // Petit délai pour laisser le son jouer
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      // Party Mode: masquer le contenu AVANT les updates Firebase
-      // pour éviter le flash de la question suivante
-      if (onAdvanceAsker) {
-        setIsTransitioning(true);
-      }
-
-      const uid = state.lockUid;
-      const pts = pointsEnJeu;
-      const next = (state.currentIndex || 0) + 1;
-
-      // Tout dans un seul update atomique : score + reset état
-      const updates = {};
-
-      // Score du joueur (increment atomique côté serveur)
-      updates[`rooms/${code}/players/${uid}/score`] = increment(pts);
-
-      if (meta?.mode === "équipes") {
-        const player = players.find(p => p.uid === uid);
-        const teamId = player?.teamId;
-        if (teamId) {
-          updates[`rooms/${code}/meta/teams/${teamId}/score`] = increment(pts);
-        }
-      }
-
-      if (next >= total) {
-        updates[`rooms/${code}/state/phase`] = "ended";
-        await update(ref(db), updates);
-        return;
-      }
-
-      // Reset état pour la question suivante
-      players.forEach(p => {
-        updates[`rooms/${code}/players/${p.uid}/blockedUntil`] = 0;
-      });
-      updates[`rooms/${code}/state/currentIndex`] = next;
-      updates[`rooms/${code}/state/revealed`] = false;
-      updates[`rooms/${code}/state/lockUid`] = null;
-      updates[`rooms/${code}/state/pausedAt`] = null;
-      updates[`rooms/${code}/state/lockedAt`] = null;
-      updates[`rooms/${code}/state/elapsedAcc`] = 0;
-      updates[`rooms/${code}/state/lastRevealAt`] = 0;
-      updates[`rooms/${code}/state/buzzBanner`] = "";
-      updates[`rooms/${code}/state/buzz`] = null;
-
-      isResolving.current = false;
-
-      await update(ref(db), updates);
-      await import('firebase/database').then(m =>
-        m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
-      ).catch(() => {});
-
-      // Party Mode: advance to next asker
-      if (onAdvanceAsker) {
-        await onAdvanceAsker();
-      }
-    } finally {
-      isValidatingRef.current = false;
-    }
-  }
-
-  async function wrong() {
-    if (isValidatingRef.current || !canControl || !state?.lockUid || !conf) return;
-    isValidatingRef.current = true;
-
-    try {
-    hueScenariosService.trigger('gigglz', 'badAnswer');
-    playWrong();
-
-    const ms = conf.lockoutMs || 8000;
-    const uid = state.lockUid;
-    const wrongPenalty = conf.wrongAnswerPenalty || 25;
-
-    await runTransaction(ref(db, `rooms/${code}/players/${uid}/score`), (cur) => Math.max(0, (cur || 0) - wrongPenalty));
-
-    if (meta?.mode === "équipes") {
-      const player = players.find(p => p.uid === uid);
-      const teamId = player?.teamId;
-      if (teamId) {
-        await runTransaction(ref(db, `rooms/${code}/meta/teams/${teamId}/score`), (cur) => Math.max(0, (cur || 0) - wrongPenalty));
-      }
-    }
-
-    const updates = {};
-    // Timestamp frais (Date.now() + offset) plutôt que serverNow périmé (React state, 300ms stale)
-    const until = Date.now() + serverOffset + ms;
-
-    if (meta?.mode === "équipes") {
-      const player = players.find(p => p.uid === uid);
-      const teamId = player?.teamId;
-      if (teamId) {
-        players.filter(p => p.teamId === teamId).forEach(p => {
-          updates[`rooms/${code}/players/${p.uid}/blockedUntil`] = until;
-        });
-      } else {
-        updates[`rooms/${code}/players/${uid}/blockedUntil`] = until;
-      }
-    } else {
-      updates[`rooms/${code}/players/${uid}/blockedUntil`] = until;
-    }
-
-    const resume = computeResumeFields();
-    updates[`rooms/${code}/state/lockUid`] = null;
-    updates[`rooms/${code}/state/buzzBanner`] = "";
-    updates[`rooms/${code}/state/buzz`] = null;
-    updates[`rooms/${code}/state/elapsedAcc`] = resume.elapsedAcc;
-    updates[`rooms/${code}/state/lastRevealAt`] = resume.lastRevealAt;
-    updates[`rooms/${code}/state/pausedAt`] = resume.pausedAt;
-    updates[`rooms/${code}/state/lockedAt`] = resume.lockedAt;
-
-    isResolving.current = false;
-
-    await update(ref(db), updates);
-    await import('firebase/database').then(m =>
-      m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
-    ).catch(() => {});
-
-    } finally {
-      isValidatingRef.current = false;
-    }
-  }
-
-  async function skip() {
-    if (!canControl || total === 0) return;
-    const next = (state?.currentIndex || 0) + 1;
-    if (next >= total) {
-      await update(ref(db, `rooms/${code}/state`), { phase: "ended" });
-      return;
-    }
-
-    // Party Mode: masquer le contenu AVANT les updates Firebase
-    if (onAdvanceAsker) {
-      setIsTransitioning(true);
-    }
-
-    const updates = {};
-    players.forEach(p => {
-      updates[`rooms/${code}/players/${p.uid}/blockedUntil`] = 0;
-    });
-    updates[`rooms/${code}/state/currentIndex`] = next;
-    updates[`rooms/${code}/state/revealed`] = false;
-    updates[`rooms/${code}/state/lockUid`] = null;
-    updates[`rooms/${code}/state/pausedAt`] = null;
-    updates[`rooms/${code}/state/lockedAt`] = null;
-    updates[`rooms/${code}/state/elapsedAcc`] = 0;
-    updates[`rooms/${code}/state/lastRevealAt`] = 0;
-    updates[`rooms/${code}/state/buzzBanner`] = "";
-    updates[`rooms/${code}/state/buzz`] = null;
-
-    isResolving.current = false;
-
-    await update(ref(db), updates);
-    await import('firebase/database').then(m =>
-      m.remove(m.ref(db, `rooms/${code}/state/pendingBuzzes`))
-    ).catch(() => {});
-
-    // Party Mode: advance to next asker
-    if (onAdvanceAsker) {
-      await onAdvanceAsker();
-    }
-  }
-
-  async function end() {
-    if (canControl) {
-      await update(ref(db, `rooms/${code}/state`), { phase: "ended" });
-    }
-  }
+  // Game actions (buzz system, sounds, validate/wrong/skip/etc.)
+  const { revealToggle, resetBuzzers, validate, wrong, skip, end, isTransitioning } = useQuizActions({
+    code, state, meta, quiz, players, conf, canControl,
+    pointsEnJeu, ratioRemain, total,
+    onAdvanceAsker, serverOffset,
+  });
 
   const lockedName = state?.lockUid ? (players.find(p => p.uid === state.lockUid)?.name || state.lockUid) : "-";
+
+  async function exitAndEndGame() {
+    if (code && isActualHost) await update(ref(db, `rooms/${code}/meta`), { closed: true });
+    router.push('/home');
+  }
 
   async function handleReport({ reportTypes, customText }) {
     if (!q || reportSubmitting) return;
@@ -526,27 +133,16 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
       const rawThemeId = quiz?.id || meta?.quizId || '';
       const themeId = rawThemeId.split('+')[0];
 
-      // 1. Écrire le report
       await push(ref(db, 'quiz_reports'), {
-        questionId,
-        themeId,
-        themeTitle: quiz?.title || themeId,
-        questionText: q.question,
-        answerText: q.answer || '',
-        reportTypes,
-        customText: customText || '',
-        roomCode: code,
-        reporterUid: myUid || 'anonymous',
-        timestamp: serverTimestamp(),
-        status: 'open',
+        questionId, themeId, themeTitle: quiz?.title || themeId,
+        questionText: q.question, answerText: q.answer || '',
+        reportTypes, customText: customText || '',
+        roomCode: code, reporterUid: myUid || 'anonymous',
+        timestamp: serverTimestamp(), status: 'open',
       });
 
-      // 2. Marquer la question indisponible globalement
-      if (q.id) {
-        await set(ref(db, `unavailable_questions/${q.id}`), true);
-      }
+      if (q.id) await set(ref(db, `unavailable_questions/${q.id}`), true);
 
-      // 3. Trouver une question de remplacement
       const themeIds = quiz?.id?.split('+') || meta?.quizSelection?.themeIds || [];
       const usedIds = new Set((quiz?.items || []).map(item => item.id).filter(Boolean));
       let replacement = null;
@@ -560,18 +156,12 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
             replacement = candidates[Math.floor(Math.random() * candidates.length)];
             break;
           }
-        } catch (err) {
-          console.warn(`Failed to load theme ${tid}:`, err);
-        }
+        } catch (err) { console.warn(`Failed to load theme ${tid}:`, err); }
       }
 
-      // 4. Remplacer dans Firebase — tous les clients voient la nouvelle question instantanément
       if (replacement) {
-        await update(ref(db, `rooms/${code}/quiz`), {
-          [`items/${qIndex}`]: replacement,
-        });
+        await update(ref(db, `rooms/${code}/quiz`), { [`items/${qIndex}`]: replacement });
       }
-
       setShowReportModal(false);
     } catch (err) {
       console.error('Erreur signalement:', err);
@@ -582,46 +172,27 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
 
   return (
     <div className="host-game-page game-page">
-      {/* Party Mode: overlay opaque pour masquer la question suivante pendant la transition */}
       <AnimatePresence>
         {isTransitioning && (
-          <motion.div
-            className="party-transition-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.15 }}
-          />
+          <motion.div className="party-transition-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.15 }} />
         )}
       </AnimatePresence>
 
-      {/* End transition */}
       <AnimatePresence>
         {showEndTransition && (
-          <GameEndTransition
-            variant="quiz"
-            onComplete={() => router.replace(`/end/${code}`)}
-          />
+          <GameEndTransition variant="quiz" onComplete={() => router.replace(`/end/${code}`)} />
         )}
       </AnimatePresence>
 
-      {/* Header */}
       <header className="game-header">
         <div className="game-header-content">
           <div className="game-header-left">
             <div className="game-header-progress">{progressLabel}</div>
             <div className="game-header-title">{title}</div>
           </div>
-
           <div className="game-header-right">
             {isActualHost && (
-              <PlayerManager
-                players={players}
-                roomCode={code}
-                roomPrefix="rooms"
-                hostUid={meta?.hostUid}
-                variant="quiz"
-                phase="playing"
-              />
+              <PlayerManager players={players} roomCode={code} roomPrefix="rooms" hostUid={meta?.hostUid} variant="quiz" phase="playing" />
             )}
             <ExitButton
               variant="header"
@@ -635,170 +206,29 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
         </div>
       </header>
 
-      {/* Buzz validation modal */}
       <BuzzValidationModal
-        isOpen={!!state?.lockUid}
-        playerName={lockedName}
-        gameColor="#8b5cf6"
-        answerLabel="Réponse attendue"
-        answerValue={q?.answer}
-        points={pointsEnJeu}
-        onCorrect={validate}
-        onWrong={wrong}
-        onCancel={resetBuzzers}
+        isOpen={!!state?.lockUid} playerName={lockedName} gameColor="#8b5cf6"
+        answerLabel="Réponse attendue" answerValue={q?.answer} points={pointsEnJeu}
+        onCorrect={validate} onWrong={wrong} onCancel={resetBuzzers}
       />
 
-      {/* Main Content */}
       <main className="game-content">
         <QuestionCard
-          question={q?.question}
-          answer={q?.answer}
-          points={pointsEnJeu}
-          questionIndex={qIndex}
-          isEmpty={!q}
+          question={q?.question} answer={q?.answer} points={pointsEnJeu}
+          questionIndex={qIndex} isEmpty={!q}
           onReport={q ? () => setShowReportModal(true) : undefined}
         />
-
         <Leaderboard players={players} mode={meta?.mode} teams={meta?.teams} />
       </main>
 
-      {/* Footer actions */}
-      <HostActionFooter
-        revealed={state?.revealed}
-        onRevealToggle={revealToggle}
-        onSkip={skip}
-        onEnd={end}
-      />
+      <HostActionFooter revealed={state?.revealed} onRevealToggle={revealToggle} onSkip={skip} onEnd={end} />
 
-      {/* Game Status Banners */}
-      <GameStatusBanners
-        isHost={isActualHost}
-        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
-        hostDisconnectedAt={hostDisconnectedAt}
-      />
+      <GameStatusBanners isHost={isActualHost} isHostTemporarilyDisconnected={isHostTemporarilyDisconnected} hostDisconnectedAt={hostDisconnectedAt} />
+      <ReportQuestionModal isOpen={showReportModal} onClose={() => setShowReportModal(false)} onSubmit={handleReport} submitting={reportSubmitting} />
 
-      {/* Report modal */}
-      <ReportQuestionModal
-        isOpen={showReportModal}
-        onClose={() => setShowReportModal(false)}
-        onSubmit={handleReport}
-        submitting={reportSubmitting}
-      />
-
-      {/* Host Disconnect Alert - shown when host is marked as disconnected */}
       {isActualHost && (
-        <HostDisconnectAlert
-          isDisconnected={isHostDisconnected}
-          isFirebaseConnected={isFirebaseConnected}
-          onReconnect={forceReconnect}
-        />
+        <HostDisconnectAlert isDisconnected={isHostDisconnected} isFirebaseConnected={isFirebaseConnected} onReconnect={forceReconnect} />
       )}
-
-      <style jsx>{`
-        :global(.party-transition-overlay) {
-          position: fixed;
-          inset: 0;
-          z-index: 9998;
-          background: rgba(8, 8, 12, 0.97);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
-        }
-
-        .host-game-page {
-          flex: 1;
-          min-height: 0;
-          display: flex;
-          flex-direction: column;
-          background: var(--bg-primary, #0a0a0f);
-          position: relative;
-        }
-
-        .host-game-page::before {
-          content: '';
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          background:
-            radial-gradient(ellipse at 20% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 20%, rgba(239, 68, 68, 0.08) 0%, transparent 50%),
-            var(--bg-primary, #0a0a0f);
-          pointer-events: none;
-        }
-
-        .game-header {
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-          padding: 12px 16px;
-        }
-
-        .game-header-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          max-width: 600px;
-          margin: 0 auto;
-          gap: 16px;
-        }
-
-        .game-header-left {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          flex: 1;
-          min-width: 0;
-        }
-
-        .game-header-progress {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.1rem;
-          color: var(--quiz-glow, #a78bfa);
-          text-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
-          flex-shrink: 0;
-        }
-
-        .game-header-title {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.85rem;
-          font-weight: 600;
-          color: var(--text-secondary, rgba(255, 255, 255, 0.7));
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .game-header-right {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          flex-shrink: 0;
-        }
-
-        .game-content {
-          flex: 1;
-          position: relative;
-          z-index: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 16px;
-          gap: 12px;
-          overflow: hidden;
-          min-height: 0;
-        }
-
-        .game-content > :global(.leaderboard-card) {
-          flex: 1;
-          min-height: 0;
-          width: 100%;
-          max-width: 500px;
-          margin: 0 auto;
-        }
-      `}</style>
     </div>
   );
 }
