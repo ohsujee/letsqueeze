@@ -1,0 +1,141 @@
+/* VerdictTransition.css */
+
+.verdict-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+.verdict-glow-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.verdict-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+}
+
+.verdict-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.02) 2px,
+    rgba(255, 255, 255, 0.02) 4px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.verdict-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.verdict-content {
+  position: relative;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.verdict-icon-main {
+  margin-bottom: 1.5rem;
+}
+
+.verdict-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.verdict-title {
+  font-family: 'Bungee', cursive !important;
+  font-size: clamp(2.5rem, 10vw, 5rem) !important;
+  font-weight: 400 !important;
+  color: white !important;
+  letter-spacing: 0.02em !important;
+  margin: 0 0 1rem 0 !important;
+  text-transform: uppercase !important;
+  line-height: 1.1 !important;
+}
+
+.verdict-subtitle {
+  font-family: 'Inter', sans-serif !important;
+  font-size: clamp(1rem, 4vw, 1.5rem) !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  margin: 0 0 2rem 0 !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+  line-height: 1.4 !important;
+}
+
+.verdict-btn {
+  background: rgba(255, 255, 255, 0.97) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 1rem 2.5rem !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.verdict-progress {
+  height: 4px;
+  width: 200px;
+  border-radius: 2px;
+  transform-origin: left;
+  margin-top: 1.5rem;
+}
+
+.verdict-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .verdict-icon-main {
+    transform: scale(0.7);
+  }
+
+  .verdict-title {
+    font-size: 2rem !important;
+  }
+
+  .verdict-subtitle {
+    font-size: 1rem !important;
+  }
+
+  .verdict-btn {
+    padding: 0.875rem 2rem !important;
+    font-size: 1rem !important;
+  }
+}
