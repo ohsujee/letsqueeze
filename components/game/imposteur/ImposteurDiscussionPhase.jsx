@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChatCircleDots, Scales, ArrowClockwise, Eye } from '@phosphor-icons/react';
+import './ImposteurDiscussionPhase.css';
 
 export default function ImposteurDiscussionPhase({
   alivePlayers,
@@ -25,33 +26,17 @@ export default function ImposteurDiscussionPhase({
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      style={{
-        display: 'flex', flexDirection: 'column', gap: '20px', padding: '8px 0',
-      }}
+      className="discussion-phase"
     >
       {/* ── Header ── */}
-      <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <div style={{
-          width: 52, height: 52, borderRadius: '50%',
-          background: `rgba(132,204,22,0.08)`,
-          border: `1.5px solid rgba(132,204,22,0.15)`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}>
+      <div className="discussion-header">
+        <div className="discussion-header-icon">
           <ChatCircleDots size={26} weight="fill" color={ACCENT} />
         </div>
-        <div style={{
-          fontFamily: "var(--font-title, 'Bungee'), cursive",
-          fontSize: 'clamp(1.3rem, 5vw, 1.8rem)',
-          color: '#ffffff',
-          textShadow: '0 0 20px rgba(132,204,22,0.25)',
-        }}>
+        <div className="discussion-header-title">
           Discussion
         </div>
-        <div style={{
-          fontSize: '0.85rem', fontWeight: 600,
-          color: 'rgba(238,242,255,0.5)',
-          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-        }}>
+        <div className="discussion-header-subtitle">
           Débattez pour trouver l'imposteur !
         </div>
       </div>
@@ -61,28 +46,17 @@ export default function ImposteurDiscussionPhase({
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          style={{
-            textAlign: 'center', padding: '10px 16px',
-            background: 'rgba(239,68,68,0.08)',
-            border: '1px solid rgba(239,68,68,0.2)',
-            borderRadius: '12px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-          }}
+          className="discussion-spectator-badge"
         >
           <Eye size={18} weight="bold" color="#f87171" />
-          <span style={{
-            fontSize: '0.8rem', fontWeight: 700, color: '#f87171',
-            fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-          }}>
+          <span className="discussion-spectator-text">
             Tu observes en spectateur
           </span>
         </motion.div>
       )}
 
       {/* ── Two-column vote buttons ── */}
-      <div style={{
-        display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px',
-      }}>
+      <div className="discussion-vote-grid">
         {/* Vote column */}
         <DiscussionChoice
           type="vote"
@@ -117,38 +91,21 @@ export default function ImposteurDiscussionPhase({
       </div>
 
       {/* ── Progress bar ── */}
-      <div style={{
-        display: 'flex', flexDirection: 'column', gap: '6px',
-        padding: '0 4px',
-      }}>
-        <div style={{
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        }}>
-          <span style={{
-            fontSize: '0.72rem', fontWeight: 700,
-            color: 'rgba(238,242,255,0.4)',
-            fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-          }}>
+      <div className="discussion-progress">
+        <div className="discussion-progress-header">
+          <span className="discussion-progress-label">
             Progression vers la majorité
           </span>
-          <span style={{
-            fontSize: '0.72rem', fontWeight: 700,
-            color: 'rgba(238,242,255,0.4)',
-            fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-          }}>
+          <span className="discussion-progress-label">
             {majority}/{alivePlayers.length}
           </span>
         </div>
-        <div style={{
-          width: '100%', height: 6, borderRadius: 3,
-          background: 'rgba(238,242,255,0.06)',
-          overflow: 'hidden',
-        }}>
+        <div className="discussion-progress-track">
           <motion.div
             animate={{ width: `${Math.min(progressFraction, 1) * 100}%` }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            className="discussion-progress-fill"
             style={{
-              height: '100%', borderRadius: 3,
               background: voteReached
                 ? `linear-gradient(90deg, ${ACCENT}, ${ACCENT_LIGHT})`
                 : continueReached
@@ -167,10 +124,8 @@ export default function ImposteurDiscussionPhase({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            className="discussion-majority-flash"
             style={{
-              textAlign: 'center',
-              padding: '12px',
-              borderRadius: '14px',
               background: voteReached
                 ? `rgba(132,204,22,0.1)`
                 : 'rgba(59,130,246,0.1)',
@@ -180,10 +135,8 @@ export default function ImposteurDiscussionPhase({
             <motion.div
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
+              className="discussion-majority-text"
               style={{
-                fontFamily: "var(--font-title, 'Bungee'), cursive",
-                fontSize: '1.2rem',
-                color: '#ffffff',
                 textShadow: voteReached
                   ? '0 0 20px rgba(132,204,22,0.4)'
                   : '0 0 20px rgba(59,130,246,0.4)',
@@ -214,14 +167,14 @@ function DiscussionChoice({
   onChoose,
 }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+    <div className="discussion-choice-column">
       <motion.button
         onClick={() => !isDisabled && onChoose()}
         whileTap={!isDisabled ? { scale: 0.93 } : {}}
         whileHover={!isDisabled ? { scale: 1.02 } : {}}
         disabled={isDisabled}
+        className="discussion-choice-btn"
         style={{
-          padding: '20px 12px', borderRadius: '16px',
           border: isSelected
             ? `2px solid ${accentColor}66`
             : '1.5px solid rgba(238,242,255,0.08)',
@@ -229,56 +182,42 @@ function DiscussionChoice({
             ? `${accentColor}15`
             : 'rgba(8,12,24,0.8)',
           cursor: isDisabled ? 'default' : 'pointer',
-          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px',
-          transition: 'background 0.15s ease, border 0.15s ease',
           boxShadow: isSelected ? `0 0 24px ${accentColor}18` : 'none',
-          position: 'relative',
-          overflow: 'hidden',
         }}
       >
         {/* Subtle glow on selected */}
         {isSelected && (
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: `radial-gradient(ellipse at 50% 80%, ${accentColor}10, transparent 70%)`,
-            pointerEvents: 'none',
-          }} />
+          <div
+            className="discussion-choice-glow"
+            style={{
+              background: `radial-gradient(ellipse at 50% 80%, ${accentColor}10, transparent 70%)`,
+            }}
+          />
         )}
 
-        <div style={{ color: isSelected ? accentColor : 'rgba(238,242,255,0.5)', position: 'relative' }}>
+        <div className="discussion-choice-icon" style={{ color: isSelected ? accentColor : 'rgba(238,242,255,0.5)' }}>
           {icon}
         </div>
-        <span style={{
-          fontFamily: "var(--font-title, 'Bungee'), cursive",
-          fontSize: '0.78rem',
-          color: isSelected ? '#ffffff' : 'rgba(238,242,255,0.7)',
-          position: 'relative',
-        }}>
+        <span className="discussion-choice-label" style={{ color: isSelected ? '#ffffff' : 'rgba(238,242,255,0.7)' }}>
           {label}
         </span>
 
         {/* Count badge */}
-        <div style={{
-          padding: '3px 12px', borderRadius: '20px',
-          background: isSelected ? `${accentColor}25` : 'rgba(238,242,255,0.05)',
-          border: `1px solid ${isSelected ? `${accentColor}30` : 'rgba(238,242,255,0.06)'}`,
-          position: 'relative',
-        }}>
-          <span style={{
-            fontSize: '0.75rem', fontWeight: 800,
-            color: isSelected ? '#ffffff' : 'rgba(238,242,255,0.4)',
-            fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-          }}>
+        <div
+          className="discussion-choice-count-badge"
+          style={{
+            background: isSelected ? `${accentColor}25` : 'rgba(238,242,255,0.05)',
+            border: `1px solid ${isSelected ? `${accentColor}30` : 'rgba(238,242,255,0.06)'}`,
+          }}
+        >
+          <span className="discussion-choice-count-text" style={{ color: isSelected ? '#ffffff' : 'rgba(238,242,255,0.4)' }}>
             {count}/{total}
           </span>
         </div>
       </motion.button>
 
       {/* Player heads */}
-      <div style={{
-        display: 'flex', flexWrap: 'wrap', gap: '6px', justifyContent: 'center',
-        minHeight: '32px',
-      }}>
+      <div className="discussion-player-heads">
         <AnimatePresence>
           {playerUids.map(uid => {
             const p = players.find(pl => pl.uid === uid);
@@ -289,13 +228,10 @@ function DiscussionChoice({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                className="discussion-player-avatar"
                 style={{
-                  width: 30, height: 30, borderRadius: '50%',
                   background: `${accentColor}20`,
                   border: `1.5px solid ${accentColor}50`,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontFamily: "var(--font-title, 'Bungee'), cursive",
-                  fontSize: '0.65rem', color: '#ffffff',
                 }}
                 title={p?.name}
               >

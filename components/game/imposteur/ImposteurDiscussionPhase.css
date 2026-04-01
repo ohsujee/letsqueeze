@@ -1,0 +1,185 @@
+/* ── ImposteurDiscussionPhase ── */
+
+.discussion-phase {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 8px 0;
+}
+
+/* Header */
+.discussion-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.discussion-header-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(132, 204, 22, 0.08);
+  border: 1.5px solid rgba(132, 204, 22, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.discussion-header-title {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(1.3rem, 5vw, 1.8rem);
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(132, 204, 22, 0.25);
+}
+
+.discussion-header-subtitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(238, 242, 255, 0.5);
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+/* Spectator badge */
+.discussion-spectator-badge {
+  text-align: center;
+  padding: 10px 16px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.discussion-spectator-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #f87171;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+/* Vote grid */
+.discussion-vote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Progress section */
+.discussion-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 4px;
+}
+
+.discussion-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.discussion-progress-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(238, 242, 255, 0.4);
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+.discussion-progress-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(238, 242, 255, 0.06);
+  overflow: hidden;
+}
+
+.discussion-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+/* Majority flash */
+.discussion-majority-flash {
+  text-align: center;
+  padding: 12px;
+  border-radius: 14px;
+}
+
+.discussion-majority-text {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+/* ── DiscussionChoice sub-component ── */
+
+.discussion-choice-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.discussion-choice-btn {
+  padding: 20px 12px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.15s ease, border 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.discussion-choice-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.discussion-choice-icon {
+  position: relative;
+}
+
+.discussion-choice-label {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.78rem;
+  position: relative;
+}
+
+.discussion-choice-count-badge {
+  padding: 3px 12px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.discussion-choice-count-text {
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+/* Player heads */
+.discussion-player-heads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  min-height: 32px;
+}
+
+.discussion-player-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.65rem;
+  color: #ffffff;
+}

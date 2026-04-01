@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
+import './ImposteurEliminationReveal.css';
 
 const ACCENT = '#84cc16';
 
@@ -139,22 +140,7 @@ export default function ImposteurEliminationReveal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 9999,
-        background: 'rgba(0,0,0,0.95)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 'max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px))',
-        paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-        paddingLeft: '20px',
-        paddingRight: '20px',
-        textAlign: 'center',
-        overflow: 'hidden',
-      }}
+      className="elimination-overlay"
     >
       {/* PHASE 1: SUSPENSE */}
       <AnimatePresence>
@@ -165,28 +151,17 @@ export default function ImposteurEliminationReveal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '24px',
-            }}
+            className="elimination-phase-container elimination-phase-container--suspense"
           >
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              style={{
-                fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                fontSize: 'clamp(1.2rem, 5vw, 1.6rem)',
-                color: 'rgba(238,242,255,0.9)',
-                fontWeight: 600,
-                margin: 0,
-              }}
+              className="elimination-suspense-text"
             >
               Le verdict est tombé...
             </motion.p>
-            <div style={{ display: 'flex', gap: '6px' }}>
+            <div className="elimination-loading-dots">
               {[0, 1, 2].map(i => (
                 <motion.span
                   key={i}
@@ -199,13 +174,7 @@ export default function ImposteurEliminationReveal({
                     repeat: Infinity,
                     delay: i * 0.2,
                   }}
-                  style={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: '50%',
-                    background: ACCENT,
-                    display: 'inline-block',
-                  }}
+                  className="elimination-loading-dot"
                 />
               ))}
             </div>
@@ -222,22 +191,13 @@ export default function ImposteurEliminationReveal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '12px',
-            }}
+            className="elimination-phase-container elimination-phase-container--name"
           >
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-              style={{
-                fontFamily: "var(--font-title, 'Bungee'), cursive",
-                fontSize: 'clamp(1.6rem, 7vw, 2.4rem)',
-                color: '#fff',
-              }}
+              className="elimination-player-name"
             >
               {eliminatedPlayer.name}
             </motion.div>
@@ -245,12 +205,7 @@ export default function ImposteurEliminationReveal({
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.4 }}
-              style={{
-                fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                fontSize: 'clamp(0.9rem, 3.5vw, 1.1rem)',
-                color: 'rgba(238,242,255,0.6)',
-                fontWeight: 600,
-              }}
+              className="elimination-subtitle"
             >
               a été éliminé(e)
             </motion.div>
@@ -267,24 +222,13 @@ export default function ImposteurEliminationReveal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '24px',
-            }}
+            className="elimination-phase-container elimination-phase-container--roulette"
           >
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4 }}
-              style={{
-                fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                fontSize: 'clamp(1rem, 4vw, 1.3rem)',
-                color: 'rgba(238,242,255,0.8)',
-                fontWeight: 600,
-                margin: 0,
-              }}
+              className="elimination-roulette-label"
             >
               Son rôle est...
             </motion.p>
@@ -299,29 +243,14 @@ export default function ImposteurEliminationReveal({
                 ],
               }}
               transition={{ duration: 0.3, repeat: Infinity }}
-              style={{
-                width: '260px',
-                height: '72px',
-                border: '2px solid rgba(238,242,255,0.25)',
-                borderRadius: '16px',
-                background: 'rgba(12,14,28,0.8)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-              }}
+              className="elimination-slot-box"
             >
               <motion.span
                 key={slotText}
                 initial={{ y: 20, opacity: 0.3 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.06 }}
-                style={{
-                  fontFamily: "var(--font-title, 'Bungee'), cursive",
-                  fontSize: 'clamp(1.1rem, 4.5vw, 1.4rem)',
-                  color: '#fff',
-                  whiteSpace: 'nowrap',
-                }}
+                className="elimination-slot-text"
               >
                 {slotText}
               </motion.span>
@@ -338,19 +267,14 @@ export default function ImposteurEliminationReveal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '16px',
-            }}
+            className="elimination-phase-container elimination-phase-container--reveal"
           >
             {/* Large emoji */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', stiffness: 250, damping: 12 }}
-              style={{ fontSize: '4rem', lineHeight: 1 }}
+              className="elimination-emoji"
             >
               {config.emoji}
             </motion.div>
@@ -360,9 +284,8 @@ export default function ImposteurEliminationReveal({
               initial={{ scale: 1 }}
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 0.5, ease: 'easeInOut' }}
+              className="elimination-role-name"
               style={{
-                fontFamily: "var(--font-title, 'Bungee'), cursive",
-                fontSize: 'clamp(1.6rem, 7vw, 2.2rem)',
                 color: config.color,
                 textShadow: `0 0 30px ${config.color}80, 0 0 60px ${config.color}40`,
               }}
@@ -375,12 +298,7 @@ export default function ImposteurEliminationReveal({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              style={{
-                fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                fontSize: 'clamp(0.85rem, 3vw, 1rem)',
-                color: 'rgba(238,242,255,0.5)',
-                fontWeight: 600,
-              }}
+              className="elimination-name-reminder"
             >
               {eliminatedPlayer.name}
             </motion.div>
@@ -397,19 +315,7 @@ export default function ImposteurEliminationReveal({
                         transition={{ duration: 0.4, delay: 0.2 }}
                         onClick={onContinue}
                         whileTap={{ scale: 0.97 }}
-                        style={{
-                          marginTop: '16px',
-                          padding: '14px 36px',
-                          borderRadius: '14px',
-                          border: 'none',
-                          background: `linear-gradient(135deg, ${ACCENT}, #a3e635)`,
-                          color: '#000',
-                          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                          fontSize: '0.95rem',
-                          fontWeight: 700,
-                          cursor: 'pointer',
-                          boxShadow: `0 4px 24px ${ACCENT}44`,
-                        }}
+                        className="elimination-continue-btn"
                       >
                         Continuer
                       </motion.button>
@@ -418,13 +324,7 @@ export default function ImposteurEliminationReveal({
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        style={{
-                          marginTop: '16px',
-                          fontSize: '0.8rem',
-                          color: 'rgba(238,242,255,0.4)',
-                          fontWeight: 600,
-                          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                        }}
+                        className="elimination-waiting-text"
                       >
                         En attente de l'hôte...
                       </motion.div>

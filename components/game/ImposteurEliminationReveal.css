@@ -1,0 +1,140 @@
+/* ImposteurEliminationReveal.css */
+
+.elimination-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: max(env(safe-area-inset-top, 0px), var(--safe-area-top-fallback, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.elimination-phase-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.elimination-phase-container--suspense {
+  gap: 24px;
+}
+
+.elimination-phase-container--name {
+  gap: 12px;
+}
+
+.elimination-phase-container--roulette {
+  gap: 24px;
+}
+
+.elimination-phase-container--reveal {
+  gap: 16px;
+}
+
+.elimination-suspense-text {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  color: rgba(238, 242, 255, 0.9);
+  font-weight: 600;
+  margin: 0;
+}
+
+.elimination-loading-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.elimination-loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #84cc16;
+  display: inline-block;
+}
+
+.elimination-player-name {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  color: #fff;
+}
+
+.elimination-subtitle {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+  color: rgba(238, 242, 255, 0.6);
+  font-weight: 600;
+}
+
+.elimination-roulette-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: clamp(1rem, 4vw, 1.3rem);
+  color: rgba(238, 242, 255, 0.8);
+  font-weight: 600;
+  margin: 0;
+}
+
+.elimination-slot-box {
+  width: 260px;
+  height: 72px;
+  border: 2px solid rgba(238, 242, 255, 0.25);
+  border-radius: 16px;
+  background: rgba(12, 14, 28, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.elimination-slot-text {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+  color: #fff;
+  white-space: nowrap;
+}
+
+.elimination-emoji {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.elimination-role-name {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(1.6rem, 7vw, 2.2rem);
+}
+
+.elimination-name-reminder {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: clamp(0.85rem, 3vw, 1rem);
+  color: rgba(238, 242, 255, 0.5);
+  font-weight: 600;
+}
+
+.elimination-continue-btn {
+  margin-top: 16px;
+  padding: 14px 36px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #84cc16, #a3e635);
+  color: #000;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 24px #84cc1644;
+}
+
+.elimination-waiting-text {
+  margin-top: 16px;
+  font-size: 0.8rem;
+  color: rgba(238, 242, 255, 0.4);
+  font-weight: 600;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}

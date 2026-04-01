@@ -1,0 +1,204 @@
+/* ImposteurRoundEndPhase.css */
+
+.round-end-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.round-end-emoji {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.round-end-title {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(1.2rem, 5vw, 1.8rem);
+  color: #ffffff;
+}
+
+.round-end-reason {
+  font-size: 0.82rem;
+  color: rgba(238, 242, 255, 0.5);
+  font-weight: 600;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  max-width: 300px;
+}
+
+/* ── Shared card style ── */
+.round-end-card {
+  background: rgba(8, 12, 24, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(238, 242, 255, 0.06);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.round-end-card--words {
+  padding: 20px 24px;
+}
+
+.round-end-card--roles {
+  padding: 16px 18px;
+}
+
+.round-end-card-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(238, 242, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+.round-end-card-label--words {
+  margin-bottom: 14px;
+}
+
+.round-end-card-label--roles {
+  margin-bottom: 12px;
+}
+
+/* ── Word pair section ── */
+.round-end-words-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 12px;
+}
+
+.round-end-word-col {
+  flex: 1;
+  text-align: center;
+}
+
+.round-end-word-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+.round-end-word-tag--civilian {
+  color: #3b82f6;
+}
+
+.round-end-word-value {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+  color: #ffffff;
+}
+
+.round-end-words-divider {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, rgba(238, 242, 255, 0.12), transparent);
+}
+
+/* ── Roles list ── */
+.round-end-roles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.round-end-role-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+}
+
+.round-end-role-name {
+  font-size: 0.84rem;
+  color: #eef2ff;
+  font-weight: 600;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+.round-end-role-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+.round-end-role-unknown {
+  font-size: 0.78rem;
+  color: rgba(238, 242, 255, 0.3);
+  font-weight: 600;
+}
+
+/* ── Multi-round summary ── */
+.round-end-summary {
+  padding: 16px 20px;
+  border-radius: 20px;
+  background: rgba(8, 12, 24, 0.8);
+  border: 1px solid rgba(238, 242, 255, 0.06);
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+}
+
+.round-end-summary-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(238, 242, 255, 0.35);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.round-end-summary-scores {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 10px;
+}
+
+.round-end-summary-count {
+  font-size: 1.4rem;
+  font-family: var(--font-title, 'Bungee'), cursive;
+}
+
+.round-end-summary-count--civil {
+  color: #3b82f6;
+}
+
+.round-end-summary-team-label {
+  font-size: 0.7rem;
+  color: rgba(238, 242, 255, 0.5);
+  font-weight: 600;
+}
+
+.round-end-summary-divider {
+  width: 1px;
+  background: rgba(238, 242, 255, 0.08);
+}
+
+.round-end-summary-result {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+/* ── Action button ── */
+.round-end-action-btn {
+  padding: 14px 36px;
+  border-radius: 14px;
+  border: none;
+  color: #000;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+}

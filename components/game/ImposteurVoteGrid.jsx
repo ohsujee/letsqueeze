@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Capacitor } from '@capacitor/core';
+import './ImposteurVoteGrid.css';
 
 const ACCENT = '#84cc16';
 const ACCENT_LIGHT = '#a3e635';
@@ -102,26 +103,24 @@ export default function ImposteurVoteGrid({
   const maxVotes = Math.max(...Object.values(voteCounts), 0);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div className="vote-grid-root">
 
       {/* Timer */}
-      <div style={{ textAlign: 'center' }}>
+      <div className="vote-grid-timer-wrapper">
         <motion.div
           animate={timerDanger && !showResults ? {
             scale: [1, 1.08, 1],
             color: ['#ef4444', '#ff6b6b', '#ef4444'],
           } : {}}
           transition={timerDanger ? { duration: 0.8, repeat: Infinity } : {}}
+          className="vote-grid-timer"
           style={{
-            fontFamily: "var(--font-title, 'Bungee'), cursive",
-            fontSize: 'clamp(2rem, 8vw, 3rem)',
             color: showResults ? 'rgba(238,242,255,0.3)' : timerDanger ? '#ef4444' : ACCENT_LIGHT,
             textShadow: showResults
               ? 'none'
               : timerDanger
                 ? '0 0 20px #ef444466'
                 : `0 0 20px ${ACCENT}55`,
-            lineHeight: 1,
           }}
         >
           {showResults ? '0' : displaySeconds}
@@ -129,10 +128,7 @@ export default function ImposteurVoteGrid({
       </div>
 
       {/* Title */}
-      <div style={{
-        textAlign: 'center',
-        fontFamily: "var(--font-title, 'Bungee'), cursive",
-        fontSize: '1rem',
+      <div className="vote-grid-title" style={{
         color: ACCENT_LIGHT,
         textShadow: `0 0 16px ${ACCENT}55`,
       }}>
@@ -140,27 +136,19 @@ export default function ImposteurVoteGrid({
       </div>
 
       {/* Vote progress */}
-      <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-        padding: '6px 14px',
-        background: 'rgba(8,14,32,0.7)',
-        borderRadius: '10px',
-        border: '1px solid rgba(238,242,255,0.07)',
-      }}>
-        <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'rgba(238,242,255,0.5)' }}>
+      <div className="vote-grid-progress">
+        <span className="vote-grid-progress-text">
           {allVotesIn ? 'Tous les votes sont in !' : `${aliveVoteCount}/${totalAlive} ont voté`}
         </span>
         {!allVotesIn && !showResults && (
-          <div style={{ display: 'flex', gap: '3px' }}>
+          <div className="vote-grid-progress-dots">
             {Array.from({ length: 3 }).map((_, i) => (
               <motion.div
                 key={i}
                 animate={{ opacity: [0.3, 1, 0.3] }}
                 transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
-                style={{
-                  width: 4, height: 4, borderRadius: '50%',
-                  background: ACCENT_LIGHT,
-                }}
+                className="vote-grid-progress-dot"
+                style={{ background: ACCENT_LIGHT }}
               />
             ))}
           </div>
@@ -169,23 +157,13 @@ export default function ImposteurVoteGrid({
 
       {/* Spectator indicator */}
       {isEliminated && (
-        <div style={{
-          textAlign: 'center', padding: '10px',
-          background: 'rgba(239,68,68,0.08)',
-          border: '1px solid rgba(239,68,68,0.2)',
-          borderRadius: '12px',
-          fontSize: '0.8rem', fontWeight: 700, color: '#f87171',
-        }}>
+        <div className="vote-grid-spectator">
           Tu observes le vote en spectateur
         </div>
       )}
 
       {/* Player grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        gap: '10px',
-      }}>
+      <div className="vote-grid-players">
         {(alivePlayers || []).map((player, index) => {
           const isSelf = player.uid === myUid;
           const isMyVoteTarget = myVote === player.uid;
@@ -203,12 +181,8 @@ export default function ImposteurVoteGrid({
               whileTap={canTap ? { scale: 0.95 } : {}}
               onClick={() => handleTap(player.uid)}
               disabled={!canTap}
+              className="vote-grid-card"
               style={{
-                position: 'relative',
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', gap: '8px',
-                padding: '14px 10px',
-                borderRadius: '16px',
                 border: isMyVoteTarget
                   ? `2px solid ${ACCENT_LIGHT}`
                   : isTopVoted
@@ -221,47 +195,31 @@ export default function ImposteurVoteGrid({
                     : 'rgba(238,242,255,0.03)',
                 cursor: canTap ? 'pointer' : 'default',
                 opacity: isSelf ? 0.4 : 1,
-                transition: 'border 0.15s ease, background 0.15s ease',
               }}
             >
               {/* Avatar circle */}
-              <div style={{
-                width: 48, height: 48, borderRadius: '50%',
+              <div className="vote-grid-avatar" style={{
                 background: isSelf
                   ? 'rgba(59,130,246,0.15)'
                   : isMyVoteTarget
                     ? 'rgba(132,204,22,0.15)'
                     : 'rgba(238,242,255,0.06)',
                 border: `2px solid ${isSelf ? '#3b82f640' : isMyVoteTarget ? `${ACCENT}60` : 'rgba(238,242,255,0.1)'}`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontFamily: "var(--font-title, 'Bungee'), cursive",
-                fontSize: '1.1rem',
                 color: isSelf ? '#3b82f6' : isMyVoteTarget ? ACCENT_LIGHT : 'rgba(238,242,255,0.5)',
               }}>
                 {player.name?.charAt(0)?.toUpperCase() || '?'}
               </div>
 
               {/* Name */}
-              <div style={{
-                fontSize: '0.78rem', fontWeight: 700,
+              <div className="vote-grid-player-name" style={{
                 color: isSelf ? '#3b82f6' : '#eef2ff',
-                textAlign: 'center',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                maxWidth: '100px',
               }}>
                 {player.name}
               </div>
 
               {/* "Toi" label for self */}
               {isSelf && (
-                <div style={{
-                  fontSize: '0.65rem', fontWeight: 700,
-                  color: '#3b82f6',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                }}>
+                <div className="vote-grid-self-label">
                   Toi
                 </div>
               )}
@@ -271,14 +229,7 @@ export default function ImposteurVoteGrid({
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  style={{
-                    position: 'absolute', top: -8, right: -8,
-                    padding: '2px 8px', borderRadius: '10px',
-                    background: ACCENT,
-                    fontSize: '0.6rem', fontWeight: 800, color: '#fff',
-                    letterSpacing: '0.03em',
-                    boxShadow: `0 2px 8px ${ACCENT}66`,
-                  }}
+                  className="vote-grid-vote-badge"
                 >
                   Ton vote
                 </motion.div>
@@ -291,13 +242,9 @@ export default function ImposteurVoteGrid({
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.1, type: 'spring', stiffness: 300, damping: 15 }}
+                    className="vote-grid-count-badge"
                     style={{
-                      position: 'absolute', top: -8, right: -8,
-                      width: 28, height: 28, borderRadius: '50%',
                       background: isTopVoted ? '#ef4444' : ACCENT,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontFamily: "var(--font-title, 'Bungee'), cursive",
-                      fontSize: '0.75rem', color: '#fff',
                       boxShadow: `0 0 12px ${isTopVoted ? '#ef444466' : `${ACCENT}66`}`,
                     }}
                   >

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useBackHandler } from '@/lib/hooks/useBackHandler';
+import './SelectorModal.css';
 
 /**
  * Modal générique de sélection d'items (Quiz, Alibi, etc.)
@@ -89,87 +90,39 @@ export default function SelectorModal({
   const modalContent = (
     <AnimatePresence>
       {isOpen && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          zIndex: 'var(--z-tooltip)',
-          pointerEvents: 'none'
-        }}>
+        <div className="selector-modal-overlay">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'rgba(0, 0, 0, 0.8)',
-              backdropFilter: 'blur(10px)',
-              pointerEvents: 'auto'
-            }}
+            className="selector-modal-backdrop"
           />
 
           {/* Modal Container */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 'var(--space-4)',
-            pointerEvents: 'none'
-          }}>
+          <div className="selector-modal-container">
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 50 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="selector-modal-panel"
               style={{
-                width: '100%',
-                maxWidth: '900px',
-                maxHeight: '85vh',
-                background: 'rgba(20, 20, 30, 0.95)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
                 border: `2px solid ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.3)' : 'rgba(139, 92, 246, 0.3)'}`,
-                borderRadius: '20px',
-                padding: '2rem',
-                boxShadow: `0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(139, 92, 246, 0.15)'}`,
-                overflow: 'hidden',
-                display: 'flex',
-                flexDirection: 'column',
-                pointerEvents: 'auto'
+                boxShadow: `0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(139, 92, 246, 0.15)'}`
               }}
             >
               {/* Header */}
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '1.5rem',
-                paddingBottom: '1rem',
+              <div className="selector-modal-header" style={{
                 borderBottom: `1px solid ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(139, 92, 246, 0.2)'}`
               }}>
                 <motion.h2
+                  className="selector-modal-title"
                   style={{
-                    fontFamily: "var(--font-title, 'Bungee'), cursive",
-                    fontSize: '1.75rem',
-                    fontWeight: 400,
-                    color: 'var(--text-primary, #ffffff)',
                     textShadow: variant === 'alibi'
                       ? '0 0 10px rgba(245, 158, 11, 0.5), 0 0 30px rgba(245, 158, 11, 0.3)'
-                      : '0 0 10px rgba(139, 92, 246, 0.5), 0 0 30px rgba(139, 92, 246, 0.3)',
-                    margin: 0
+                      : '0 0 10px rgba(139, 92, 246, 0.5), 0 0 30px rgba(139, 92, 246, 0.3)'
                   }}
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -179,56 +132,15 @@ export default function SelectorModal({
                 </motion.h2>
                 <button
                   onClick={onClose}
-                  style={{
-                    width: '44px',
-                    height: '44px',
-                    minWidth: '44px',
-                    minHeight: '44px',
-                    borderRadius: '12px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '2px solid rgba(255, 255, 255, 0.1)',
-                    color: 'var(--text-secondary, rgba(255, 255, 255, 0.7))',
-                    fontSize: '1.5rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: 0,
-                    margin: 0,
-                    lineHeight: 1,
-                    fontFamily: 'system-ui, -apple-system, sans-serif',
-                    fontWeight: 300,
-                    transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)';
-                    e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.4)';
-                    e.currentTarget.style.color = '#ef4444';
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                    e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)';
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }}
+                  className="selector-modal-close-btn"
                 >
                   ×
                 </button>
               </div>
 
               {/* Options Grid - Scrollable */}
-              <div style={{
-                flex: 1,
-                overflowY: 'auto',
-                padding: '0.5rem',
-                marginRight: '-0.5rem'
-              }}>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                  gap: '1rem'
-                }}>
+              <div className="selector-modal-scroll">
+                <div className="selector-modal-grid">
                   {options.map((option, index) => {
                     const isSelected = selectedId === option.id;
                     const isLocked = !userIsPro && index >= freeLimit;
@@ -243,15 +155,11 @@ export default function SelectorModal({
                         whileHover={!isLocked ? { scale: 1.05, y: -5 } : {}}
                         whileTap={!isLocked ? { scale: 0.98 } : {}}
                         onClick={() => !isLocked && onSelect(option.id)}
+                        className="selector-modal-option"
                         style={{
-                          position: 'relative',
                           background: isSelected ? colors.bgSelected : 'rgba(255, 255, 255, 0.05)',
                           border: isSelected ? `3px solid ${colors.borderSelected}` : '2px solid rgba(255, 255, 255, 0.1)',
-                          borderRadius: '1.25rem',
-                          padding: '1.5rem',
                           cursor: isLocked ? 'not-allowed' : 'pointer',
-                          textAlign: 'center',
-                          backdropFilter: 'blur(10px)',
                           boxShadow: isSelected ? `0 4px 20px ${colors.shadow}` : '0 4px 12px rgba(0, 0, 0, 0.2)',
                           opacity: isLocked ? 0.6 : 1,
                           filter: isLocked ? 'grayscale(0.5)' : 'none'
@@ -263,18 +171,7 @@ export default function SelectorModal({
                             initial={{ scale: 0, rotate: -180 }}
                             animate={{ scale: 1, rotate: 0 }}
                             transition={{ delay: index * 0.04 + 0.2, type: "spring" }}
-                            style={{
-                              position: 'absolute',
-                              top: '0.75rem',
-                              right: '0.75rem',
-                              background: 'linear-gradient(135deg, #FFD700, #FF6D00)',
-                              color: 'white',
-                              fontSize: '0.625rem',
-                              fontWeight: 700,
-                              padding: '0.35rem 0.65rem',
-                              borderRadius: '12px',
-                              boxShadow: '0 4px 12px rgba(255, 109, 0, 0.4)'
-                            }}
+                            className="selector-modal-lock-badge"
                           >
                             🔒 PRO
                           </motion.div>
@@ -285,19 +182,9 @@ export default function SelectorModal({
                           <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
+                            className="selector-modal-selected-badge"
                             style={{
-                              position: 'absolute',
-                              top: '0.75rem',
-                              left: '0.75rem',
                               background: colors.borderSelected,
-                              color: 'white',
-                              fontSize: '1rem',
-                              width: '28px',
-                              height: '28px',
-                              borderRadius: '50%',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
                               boxShadow: `0 4px 12px ${colors.shadow}`
                             }}
                           >
@@ -306,52 +193,25 @@ export default function SelectorModal({
                         )}
 
                         {/* Emoji */}
-                        <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>
+                        <div className="selector-modal-emoji">
                           {emoji}
                         </div>
 
                         {/* Title */}
-                        <div style={{
-                          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                          fontSize: '0.95rem',
-                          fontWeight: 700,
-                          color: 'var(--text-primary, #ffffff)',
-                          minHeight: '2.5rem',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          lineHeight: 1.3
-                        }}>
+                        <div className="selector-modal-option-title">
                           {option.title}
                         </div>
 
                         {/* Meta (optionnel - pour quiz) */}
                         {(option.difficulty || option.questionCount) && (
-                          <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            gap: '0.5rem',
-                            marginTop: '0.75rem'
-                          }}>
+                          <div className="selector-modal-meta">
                             {option.difficulty && (
-                              <span style={{
-                                fontSize: '0.75rem',
-                                fontWeight: 600,
-                                padding: '0.35rem 0.65rem',
-                                borderRadius: '10px',
-                                background: 'rgba(255, 255, 255, 0.1)',
-                                color: 'rgba(255, 255, 255, 0.7)'
-                              }}>
+                              <span className="selector-modal-difficulty">
                                 {option.difficulty}
                               </span>
                             )}
                             {option.questionCount && (
-                              <span style={{
-                                fontSize: '0.75rem',
-                                fontWeight: 600,
-                                color: 'rgba(255, 255, 255, 0.5)'
-                              }}>
+                              <span className="selector-modal-question-count">
                                 {option.questionCount} Q
                               </span>
                             )}
@@ -360,14 +220,7 @@ export default function SelectorModal({
 
                         {/* Description (optionnel) */}
                         {option.description && (
-                          <div style={{
-                            fontSize: '0.7rem',
-                            color: 'rgba(255, 255, 255, 0.5)',
-                            lineHeight: 1.4,
-                            paddingTop: '0.75rem',
-                            marginTop: '0.5rem',
-                            borderTop: '1px solid rgba(255, 255, 255, 0.1)'
-                          }}>
+                          <div className="selector-modal-description">
                             {option.description}
                           </div>
                         )}
@@ -379,12 +232,9 @@ export default function SelectorModal({
 
               {/* Footer */}
               <motion.div
+                className="selector-modal-footer"
                 style={{
-                  marginTop: '1.5rem',
-                  paddingTop: '1rem',
-                  paddingBottom: 'calc(0.5rem + var(--safe-area-bottom, 0px))',
-                  borderTop: `1px solid ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(139, 92, 246, 0.2)'}`,
-                  textAlign: 'center'
+                  borderTop: `1px solid ${variant === 'alibi' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(139, 92, 246, 0.2)'}`
                 }}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -394,26 +244,14 @@ export default function SelectorModal({
                   onClick={onClose}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
+                  className="selector-modal-confirm-btn"
                   style={{
-                    minWidth: '200px',
-                    height: '52px',
-                    padding: '0 2rem',
                     background: variant === 'alibi'
                       ? 'linear-gradient(135deg, #f59e0b, #ea580c)'
                       : 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
-                    border: 'none',
-                    borderRadius: '12px',
-                    color: 'white',
-                    fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-                    fontSize: '1rem',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    cursor: 'pointer',
                     boxShadow: variant === 'alibi'
                       ? '0 4px 15px rgba(245, 158, 11, 0.4), 0 0 30px rgba(245, 158, 11, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
-                      : '0 4px 15px rgba(139, 92, 246, 0.4), 0 0 30px rgba(139, 92, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-                    transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                      : '0 4px 15px rgba(139, 92, 246, 0.4), 0 0 30px rgba(139, 92, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
                   }}
                 >
                   Confirmer
