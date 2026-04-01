@@ -198,15 +198,35 @@ app/mygame/game/[code]/play/
 - [x] Config object (9 jeux) extrait en constante module-level
 - **Méthode :** Plus grosse réduction du projet (-92%)
 
-| # | Fichier | Lignes | Jeu impacté |
-|---|---------|--------|-------------|
-| 26 | `app/game/[code]/play/page.jsx` | 678 | Quiz |
-| 27 | `components/game/MimeGuesserView.jsx` | 671 | Mime |
-| 28 | `components/game/QuestionHostCard.jsx` | 661 | Quiz |
-| 29 | `app/lol/room/[code]/page.jsx` | 654 | LOL |
-| 30 | `app/laregle/game/[code]/end/page.jsx` | 631 | La Règle |
-| 31 | `app/(main)/profile/page.jsx` | 612 | Profil |
-| 32 | `lib/hooks/usePlayerCleanup.js` | 602 | Tous |
+### 26. `app/game/[code]/play/page.jsx` — 678 → 470 lignes (-31%)
+- [x] Extraire `<style jsx>` → `quiz-play.css`
+- **Méthode :** CSS extraction. Logique Party Mode + scoring trop couplée pour extraire un hook
+
+### 27. `components/game/MimeGuesserView.jsx` — 671 → 363 lignes (-46%)
+- [x] Extraire `<style jsx>` (270 lignes) → `MimeGuesserView.css`
+
+### 28. `components/game/QuestionHostCard.jsx` — 661 → 201 lignes (-70%)
+- [x] Extraire `<style jsx>` (460 lignes) → `QuestionHostCard.css`
+- [x] Suppression des `:global()` wrappers
+
+### 29. `app/lol/room/[code]/page.jsx` — 654 → 253 lignes (-61%)
+- [x] Extraire host settings (elimination mode + durée) → `_components/LolSettingsPanel.jsx`
+- [x] Extraire inline styles → `lol-lobby.css`
+
+### 30. `app/laregle/game/[code]/end/page.jsx` — 631 → 498 lignes (-21%)
+- [x] Extraire RESULTS config + ResultIcon + AttemptsDots + DifficultyStars → `_components/LaRegleEndComponents.jsx`
+- **Méthode :** Séparation données/visuels de la logique page. Inline styles gardés (dynamiques via accentRgb)
+
+### 31. `app/(main)/profile/page.jsx` — 612 lignes — ✅ Acceptable
+- CSS déjà externalisé dans `profile.css`, 1 seul inline style
+- Structure claire : handlers + JSX avec classes CSS
+- Pas de refacto nécessaire — le fichier suit déjà les bonnes pratiques
+
+### 32. `lib/hooks/usePlayerCleanup.js` — 602 lignes — ✅ Acceptable
+- Hook d'infrastructure critique (déconnexion, rejoin, cleanup)
+- Code sensible avec beaucoup de edge cases affinés au fil du temps
+- Risque de régression élevé pour un gain structurel marginal
+- Un hook complexe de 600 lignes avec une seule responsabilité est acceptable
 
 ---
 
@@ -329,7 +349,7 @@ app/mygame/game/[code]/play/
 | Phase | Status | Date début | Date fin |
 |-------|--------|------------|----------|
 | Tier 1 (14 fichiers) | ✅ **Terminé** — 0 fichiers > 1000 lignes | 2026-03-30 | 2026-03-31 |
-| Tier 2 (18 fichiers) | 🟡 **En cours** — 11/18 terminés | 2026-03-31 | |
+| Tier 2 (18 fichiers) | ✅ **Terminé** — 16 refacto + 2 acceptables | 2026-03-31 | 2026-04-01 |
 | Tier 3 (48 fichiers) | ⬜ En attente | | |
 
 ### Fichiers créés pendant le refacto
@@ -377,6 +397,44 @@ app/mygame/game/[code]/play/
 - `LeaderboardErrorBoundary` ajouté aux 3 daily games (motmystere, semantique, total)
 - `EliminationNotifModal` dédupliqué entre La Règle play et investigate
 - Agents custom créés : `code-reviewer`, `complexity-analyzer`
+
+---
+
+### Fichiers créés pendant le Tier 2
+
+**Hooks :**
+- `lib/hooks/useQuizActions.js` — Buzz system + actions quiz (validate/wrong/skip/reveal/end)
+- `lib/hooks/useTotalGame.js` — Logique complète du jeu Daily Total
+
+**Composants extraits par jeu :**
+- `app/room/[code]/_components/HostSettingsPanel.jsx` — Quiz selector + mode + teams
+- `app/imposteur/room/[code]/_components/ImposteurSettingsPanel.jsx` — Rounds, imposteurs, Mr White, clue mode, timer
+- `app/mindlink/room/[code]/_components/MindLinkSettingsPanel.jsx` — Mode, timer, defenders
+- `app/laregle/room/[code]/_components/LaRegleSettingsPanel.jsx` — Mode, timer, investigators
+- `app/lol/room/[code]/_components/LolSettingsPanel.jsx` — Elimination mode, duration
+- `app/mindlink/game/[code]/defend/_components/ChoosingPhase.jsx` — Word chooser input
+- `app/mindlink/game/[code]/defend/_components/DefendModals.jsx` — Guess + confirm modals
+- `app/alibi/game/[code]/end/_components/AlibiEndIcons.jsx` — Trophy + Defeat SVGs
+- `app/laregle/game/[code]/end/_components/LaRegleEndComponents.jsx` — Result config + visual components
+- `components/game-alibi/VerdictIcons.jsx` — 3 verdict icons + particles
+- `components/transitions/TransitionIcons.jsx` — 7 game end icons + GlowBg helper
+
+**Fichiers CSS extraits (Tier 2) :**
+- `components/game/LinkOverlay.css`
+- `components/game/QuizHostView.css`
+- `components/game/MimeGuesserView.css`
+- `components/game/QuestionHostCard.css`
+- `components/game-alibi/VerdictTransition.css`
+- `components/transitions/GameEndTransition.css`
+- `app/room/[code]/quiz-lobby.css`
+- `app/game/[code]/play/quiz-play.css`
+- `app/imposteur/room/[code]/imposteur-lobby.css`
+- `app/mindlink/room/[code]/mindlink-lobby.css`
+- `app/mindlink/game/[code]/defend/defend.css`
+- `app/laregle/room/[code]/laregle-lobby.css`
+- `app/lol/room/[code]/lol-lobby.css`
+- `app/alibi/game/[code]/end/alibi-end.css`
+- `app/daily/total/total.css`
 
 ---
 
