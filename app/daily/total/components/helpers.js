@@ -33,11 +33,11 @@ export function evaluateTokens(tokens) {
 
 // ─── Scoring ────────────────────────────────────────────────────────────────
 // Chaque unité d'écart = 100 pts de pénalité (max écart utile : 100)
-// Bonus temps max = 99 → ne peut JAMAIS dépasser 1 unité d'écart
-// Garantie : écart N est TOUJOURS au-dessus d'écart N+1
+// Bonus temps : float non arrondi (max ~99) → classement unique par joueur
+// Garantie : écart N est TOUJOURS au-dessus d'écart N+1 (99 < 100)
 export function computeScore(difference, timeMs) {
   const precision = Math.max(0, 10000 - Math.round(difference * 100));
-  const timeBonus = Math.round(99 * Math.exp(-timeMs / 120000));
+  const timeBonus = 99 * Math.exp(-timeMs / 120000);
   return precision + timeBonus;
 }
 

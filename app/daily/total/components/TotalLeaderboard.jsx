@@ -149,7 +149,7 @@ function LbRow({ entry, rank, isMe, subLabel, maxScore, animDelay = 0 }) {
         }
         <span className="wordle-lb-name">{entry.name}{isMe ? ' · moi' : ''}</span>
         <div className="wordle-lb-right">
-          <span className="wordle-lb-score">{(entry.score || 0).toLocaleString('fr-FR')} pts</span>
+          <span className="wordle-lb-score">{Math.round(entry.score || 0).toLocaleString('fr-FR')} pts</span>
           <span className="wordle-lb-attempts">{subLabel(entry)}</span>
         </div>
       </div>
@@ -225,7 +225,19 @@ async function resolveNames(entries) {
   return results;
 }
 
-const TOTAL_SUB_LABEL = (e) => e.solved ? '🎯 Exact' : `Écart: ${e.difference ?? '?'}`;
+function formatTimeMs(ms) {
+  if (!ms && ms !== 0) return '';
+  const totalSec = Math.floor(ms / 1000);
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
+const TOTAL_SUB_LABEL = (e) => {
+  const ecart = e.solved ? '🎯 Exact' : `Écart: ${e.difference ?? '?'}`;
+  const time = e.timeMs ? ` · ${formatTimeMs(e.timeMs)}` : '';
+  return `${ecart}${time}`;
+};
 const TOTAL_WEEK_SUB_LABEL = (e) => `${e.days} jour${e.days > 1 ? 's' : ''} joué${e.days > 1 ? 's' : ''}`;
 
 // ─── Leaderboard ────────────────────────────────────────────────────────────
