@@ -13,6 +13,7 @@ import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { useToast } from "@/lib/hooks/useToast";
 import { Trophy, ArrowCounterClockwise, House, Crown } from "@phosphor-icons/react";
 import { EndScreenFooter } from "@/components/transitions/EndScreenFooter";
+import './lol-end.css';
 
 const ACCENT = '#EF4444';
 const ROOM_PREFIX = 'rooms_lol';
@@ -125,7 +126,7 @@ export function LolEndContent({ code, myUid: devUid }) {
           width: 30, height: 30, border: '2px solid #1e1e30', borderTopColor: ACCENT,
           borderRadius: '50%', animation: 'spin 0.9s linear infinite',
         }} />
-        <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+
       </div>
     );
   }

@@ -1,0 +1,116 @@
+.asker-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(8, 8, 12, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.asker-transition-modal {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  background: linear-gradient(180deg, rgba(30, 25, 45, 0.98) 0%, rgba(18, 15, 28, 0.98) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 24px;
+  padding: 32px 24px 24px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 80px rgba(139, 92, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.asker-modal-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--accent-color) 20%, transparent),
+    color-mix(in srgb, var(--accent-color) 8%, transparent)
+  );
+  border: 2px solid color-mix(in srgb, var(--accent-color) 50%, transparent);
+  border-radius: 50%;
+  box-shadow:
+    0 0 40px color-mix(in srgb, var(--accent-color) 30%, transparent),
+    inset 0 0 20px color-mix(in srgb, var(--accent-color) 10%, transparent);
+}
+
+.asker-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.asker-subtitle {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.02em;
+}
+
+.asker-title {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.8rem;
+  color: var(--name-color, #a78bfa);
+  text-shadow: 0 0 30px color-mix(in srgb, var(--name-color, #a78bfa) 60%, transparent);
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.asker-hint {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
+}
+
+.asker-team-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+.team-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--team-color, #8b5cf6);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--team-color, #8b5cf6);
+}
+
+.team-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.asker-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--progress-color, #8b5cf6);
+  transform-origin: left center;
+  box-shadow: 0 0 10px var(--progress-color, #8b5cf6);
+}
