@@ -58,10 +58,12 @@ export async function GET(request) {
     if (!dateData.leaderboard) continue;
 
     for (const [uid, entry] of Object.entries(dateData.leaderboard)) {
-      // Skip entries with no submissions (no valid attempt)
+      // No submissions → force score to 0
       if (!entry.attempts || entry.difference == null) {
-        updates[`daily/total/${date}/leaderboard/${uid}`] = null;
-        updated++;
+        if ((entry.score || 0) !== 0) {
+          updates[`daily/total/${date}/leaderboard/${uid}/score`] = 0;
+          updated++;
+        }
         continue;
       }
       const difference = entry.solved ? 0 : (entry.difference ?? 0);
