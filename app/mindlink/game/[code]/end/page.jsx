@@ -16,6 +16,7 @@ import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useToast } from "@/lib/hooks/useToast";
 import { ShieldStar, Sword, Trophy, Timer, ArrowLeft, ArrowsClockwise } from '@phosphor-icons/react';
 import WordDisplay from '@/components/game/WordDisplay';
+import './mindlink-end.css';
 
 const ACCENT = '#ec4899';
 const ACCENT_DARK = '#db2777';
@@ -138,7 +139,6 @@ export function MindLinkEndContent({ code, myUid: devUid }) {
           border: '2px solid #1e1e30', borderTopColor: ACCENT,
           borderRadius: '50%', animation: 'spin 0.9s linear infinite',
         }} />
-        <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
   }
@@ -429,7 +429,6 @@ export function MindLinkEndContent({ code, myUid: devUid }) {
         )}
       </div>
 
-      <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }

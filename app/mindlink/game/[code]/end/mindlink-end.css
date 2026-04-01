@@ -1,0 +1,7 @@
+/* mindlink-end.css — extracted from <style jsx> blocks in page.jsx */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
