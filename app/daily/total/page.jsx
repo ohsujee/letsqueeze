@@ -231,6 +231,8 @@ export default function DailyTotalPage() {
   async function writeTotalLeaderboard(finalScore, attempts, solved, timeMs, difference) {
     const user = auth.currentUser;
     if (!user || !todayDate) return;
+    // Don't write to leaderboard if no submission was made
+    if (!attempts || attempts === 0) return;
     try {
       let name = 'Joueur';
       try {
