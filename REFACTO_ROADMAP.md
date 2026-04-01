@@ -42,8 +42,9 @@ app/mygame/game/[code]/play/
 
 | Métrique | Avant | Après | Réduction |
 |----------|-------|-------|-----------|
-| Lignes totales (Tier 1+2, 30 fichiers) | 33,611 | 14,310 | **-57%** |
+| Lignes totales (Tier 1+2+3, 60 fichiers traités) | ~45,000 | ~20,000 | **~-56%** |
 | Fichiers > 1000 lignes | 14 | **0** | **-100%** |
+| Fichiers avec `<style jsx>` | 36+ | **0** | **-100%** |
 | Build errors | — | 0 | ✅ |
 | Fonctionnalités cassées | — | 0 | ✅ |
 
@@ -55,7 +56,7 @@ app/mygame/game/[code]/play/
 |-------|--------|------------|----------|
 | Tier 1 (14 fichiers > 1000 lignes) | ✅ **Terminé** | 2026-03-30 | 2026-03-31 |
 | Tier 2 (18 fichiers 600-1000 lignes) | ✅ **Terminé** (16 refacto + 2 acceptables) | 2026-03-31 | 2026-04-01 |
-| Tier 3 (48 fichiers 300-600 lignes) | ⬜ Optionnel | | |
+| Tier 3 (48 fichiers 300-600 lignes) | ✅ **Terminé** (28 refacto + 20 acceptables) | 2026-04-01 | 2026-04-01 |
 
 ---
 
@@ -117,64 +118,51 @@ app/mygame/game/[code]/play/
 
 ---
 
-## Tier 3 — ⬜ Optionnel (300-600 lignes) — 48 fichiers
+## Tier 3 — ✅ Terminé — 48 fichiers (28 refacto + 20 acceptables)
 
-À traiter si le temps le permet. Fichiers entre 300-600 lignes — déjà dans la zone acceptable pour certains, mais améliorables.
+### Batch 1-3 : Extraction `<style jsx>` (22 fichiers)
 
-<details>
-<summary>Liste complète (cliquer pour déplier)</summary>
+| Fichier | Avant | Après | Réduction |
+|---------|-------|-------|-----------|
+| AlibiSpectatorView.jsx | 528 | **149** | -72% |
+| ErrorBoundary.jsx | 489 | **143** | -71% |
+| LobbySettings.jsx | 589 | **254** | -57% |
+| PlayerManager.jsx | 492 | **200** | -59% |
+| MimeHostView.jsx | 564 | **377** | -33% |
+| BlindTestRevealScreen.jsx | 517 | **187** | -64% |
+| support/page.jsx | 468 | **143** | -69% |
+| AlibiGroupSelector.jsx | 536 | **227** | -58% |
+| AlibiPartyEndScreen.jsx | 456 | **227** | -50% |
+| profile/stats/page.jsx | 429 | **151** | -65% |
+| PlayerTeamView.jsx | 333 | **~90** | -73% |
+| delete-account/page.jsx | 301 | **~112** | -63% |
+| end/[code]/page.jsx | 374 | **294** | -21% |
+| AskerTransition.jsx | 308 | **191** | -38% |
+| terms/page.jsx | 363 | **~228** | -37% |
+| privacy/page.jsx | 334 | **~199** | -40% |
+| AlibiPhaseTransition.jsx | 450 | **~342** | -24% |
+| AlibiRoundTransition.jsx | 360 | **~233** | -35% |
+| mindlink/play/page.jsx | 564 | **~562** | keyframes only |
+| mindlink/end/page.jsx | 440 | **~438** | keyframes only |
+| lol/end/page.jsx | 348 | **~346** | keyframes only |
+| imposteur/play/page.jsx | 328 | — | no `<style jsx>` |
 
-| Fichier | Lignes |
-|---------|--------|
-| `components/game/LobbySettings.jsx` | 589 |
-| `lib/hue-module/services/hueScenariosService.js` | 578 |
-| `components/game/MimeHostView.jsx` | 564 |
-| `app/mindlink/game/[code]/play/page.jsx` | 564 |
-| `lib/hooks/useImposteurGame.js` | 558 |
-| `lib/config/rooms.js` | 556 |
-| `app/(main)/home/page.jsx` | 547 |
-| `components/game-alibi/AlibiGroupSelector.jsx` | 536 |
-| `app/mime/room/[code]/page.jsx` | 529 |
-| `components/game-alibi/AlibiSpectatorView.jsx` | 528 |
-| `components/game/BlindTestRevealScreen.jsx` | 517 |
-| `components/game/PlayerManager.jsx` | 492 |
-| `components/shared/ErrorBoundary.jsx` | 489 |
-| `app/support/page.jsx` | 468 |
-| `components/game/MindLinkNetwork.jsx` | 465 |
-| `lib/hooks/useActiveLink.js` | 460 |
-| `components/game-alibi/AlibiPartyEndScreen.jsx` | 456 |
-| `components/ui/SelectorModal.jsx` | 452 |
-| `components/game-alibi/AlibiPhaseTransition.jsx` | 450 |
-| `components/game/ImposteurEliminationReveal.jsx` | 441 |
-| `app/mindlink/game/[code]/end/page.jsx` | 440 |
-| `app/(main)/profile/stats/page.jsx` | 429 |
-| `app/(main)/join/page.client.jsx` | 410 |
-| `app/daily/total/components/TotalLeaderboard.jsx` | 406 |
-| `app/end/[code]/page.jsx` | 374 |
-| `lib/hooks/usePresence.js` | 366 |
-| `app/terms/page.jsx` | 363 |
-| `components/game-alibi/AlibiRoundTransition.jsx` | 360 |
-| `components/game/imposteur/ImposteurRoundEndPhase.jsx` | 359 |
-| `lib/hooks/useDailyGame.js` | 358 |
-| `components/ui/GuestAccountPromptModal.jsx` | 354 |
-| `components/ui/QuizSelectorModal.jsx` | 353 |
-| `components/ui/PaywallModal.jsx` | 348 |
-| `app/lol/game/[code]/end/page.jsx` | 348 |
-| `components/ui/ProCard.jsx` | 340 |
-| `components/game/imposteur/ImposteurDescribingPhase.jsx` | 336 |
-| `components/game/BuzzValidationModal.jsx` | 334 |
-| `app/privacy/page.jsx` | 334 |
-| `lib/components/PlayerTeamView.jsx` | 333 |
-| `lib/firebase.js` | 330 |
-| `lib/deezer/player.js` | 330 |
-| `app/imposteur/game/[code]/play/page.jsx` | 328 |
-| `components/game/ImposteurVoteGrid.jsx` | 314 |
-| `lib/services/authService.js` | 313 |
-| `components/game/imposteur/ImposteurDiscussionPhase.jsx` | 310 |
-| `components/game/AskerTransition.jsx` | 308 |
-| `app/delete-account/page.jsx` | 301 |
+### Batch 4 : Extraction inline styles (6 fichiers)
 
-</details>
+| Fichier | Avant | Après | Réduction |
+|---------|-------|-------|-----------|
+| ImposteurRoundEndPhase.jsx | 359 | **236** | -34% |
+| ImposteurDescribingPhase.jsx | 336 | **223** | -34% |
+| ImposteurDiscussionPhase.jsx | 310 | **~240** | -23% |
+| SelectorModal.jsx | 452 | **291** | -36% |
+| ImposteurEliminationReveal.jsx | 441 | **342** | -22% |
+| ImposteurVoteGrid.jsx | 314 | **262** | -17% |
+
+### 20 fichiers non modifiés (acceptables en l'état)
+
+Fichiers de logique pure (hooks, config, services) sans styles, ou composants avec peu d'inline styles (<10) :
+
+`hueScenariosService.js` (578), `useImposteurGame.js` (558), `rooms.js` (556), `home/page.jsx` (547), `mime/room/page.jsx` (529), `MindLinkNetwork.jsx` (465), `useActiveLink.js` (460), `join/page.client.jsx` (410), `TotalLeaderboard.jsx` (406), `usePresence.js` (366), `useDailyGame.js` (358), `GuestAccountPromptModal.jsx` (354), `QuizSelectorModal.jsx` (353), `PaywallModal.jsx` (348), `ProCard.jsx` (340), `BuzzValidationModal.jsx` (334), `firebase.js` (330), `deezer/player.js` (330), `authService.js` (313), `imposteur/play/page.jsx` (328)
 
 ---
 
@@ -226,33 +214,14 @@ app/mygame/game/[code]/play/
 | `app/onboarding/PseudoSlide.jsx` | Écran saisie pseudo |
 | `app/onboarding/GuestWarningModal.jsx` | Modal avertissement guest |
 
-### Fichiers CSS extraits (22 fichiers)
+### Fichiers CSS créés (44 fichiers)
 
-| Tier | Fichier |
-|------|---------|
-| 1 | `components/ui/HowToPlayModal.css` |
-| 1 | `components/game/BlindTestHostView.css` |
-| 1 | `components/game/Leaderboard.css` |
-| 1 | `app/subscribe/subscribe.css` |
-| 1 | `app/(main)/profile/hue/hue.css` |
-| 1 | `app/alibi/game/[code]/play/alibi-play.css` |
-| 1 | `app/alibi/game/[code]/prep/alibi-prep.css` |
-| 2 | `components/game/LinkOverlay.css` |
-| 2 | `components/game/QuizHostView.css` |
-| 2 | `components/game/MimeGuesserView.css` |
-| 2 | `components/game/QuestionHostCard.css` |
-| 2 | `components/game-alibi/VerdictTransition.css` |
-| 2 | `components/transitions/GameEndTransition.css` |
-| 2 | `app/room/[code]/quiz-lobby.css` |
-| 2 | `app/game/[code]/play/quiz-play.css` |
-| 2 | `app/imposteur/room/[code]/imposteur-lobby.css` |
-| 2 | `app/mindlink/room/[code]/mindlink-lobby.css` |
-| 2 | `app/mindlink/game/[code]/defend/defend.css` |
-| 2 | `app/laregle/room/[code]/laregle-lobby.css` |
-| 2 | `app/lol/room/[code]/lol-lobby.css` |
-| 2 | `app/alibi/game/[code]/end/alibi-end.css` |
-| 2 | `app/daily/total/total.css` |
+**Tier 1 (7):** `HowToPlayModal.css`, `BlindTestHostView.css`, `Leaderboard.css`, `subscribe.css`, `hue.css`, `alibi-play.css`, `alibi-prep.css`
+
+**Tier 2 (15):** `LinkOverlay.css`, `QuizHostView.css`, `MimeGuesserView.css`, `QuestionHostCard.css`, `VerdictTransition.css`, `GameEndTransition.css`, `quiz-lobby.css`, `quiz-play.css`, `imposteur-lobby.css`, `mindlink-lobby.css`, `defend.css`, `laregle-lobby.css`, `lol-lobby.css`, `alibi-end.css`, `total.css`
+
+**Tier 3 (22):** `AlibiSpectatorView.css`, `ErrorBoundary.css`, `LobbySettings.css`, `PlayerManager.css`, `MimeHostView.css`, `BlindTestRevealScreen.css`, `support.css`, `AlibiGroupSelector.css`, `AlibiPartyEndScreen.css`, `stats.css`, `PlayerTeamView.css`, `delete-account.css`, `end.css`, `AskerTransition.css`, `terms.css`, `privacy.css`, `AlibiPhaseTransition.css`, `AlibiRoundTransition.css`, `mindlink-play.css`, `mindlink-end.css`, `lol-end.css`, `SelectorModal.css`, `ImposteurEliminationReveal.css`, `ImposteurVoteGrid.css`, `ImposteurRoundEndPhase.css`, `ImposteurDiscussionPhase.css`, `ImposteurDescribingPhase.css`
 
 ---
 
-*Créé le 2026-03-30 — Dernière mise à jour : 2026-04-01*
+*Créé le 2026-03-30 — Terminé le 2026-04-01*
