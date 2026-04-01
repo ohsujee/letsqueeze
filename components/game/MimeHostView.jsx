@@ -22,6 +22,7 @@ import useMimeTimer from '@/lib/hooks/useMimeTimer';
 import useMimeBuzz from '@/lib/hooks/useMimeBuzz';
 import useServerOffset from '@/lib/hooks/useServerOffset';
 import { MIME_CONFIG, calculateMimePoints } from '@/lib/config/rooms';
+import './MimeHostView.css';
 
 /**
  * MimeHostView - Vue du mimeur
@@ -221,7 +222,6 @@ export default function MimeHostView({ code, isActualHost = true }) {
           <div className="loading-spinner" style={{ width: 40, height: 40, border: '3px solid rgba(0,255,102,0.2)', borderTopColor: '#00ff66', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }} />
           <p>Chargement...</p>
         </div>
-        <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
   }
@@ -371,194 +371,6 @@ export default function MimeHostView({ code, isActualHost = true }) {
         hostDisconnectedAt={hostDisconnectedAt}
       />
 
-      <style jsx>{`
-        .mime-host-page {
-          flex: 1;
-          min-height: 0;
-          display: flex;
-          flex-direction: column;
-          background: var(--bg-primary, #0a0a0f);
-        }
-
-        .mime-host-page::before {
-          content: '';
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          background:
-            radial-gradient(ellipse at 20% 80%, rgba(0, 255, 102, 0.08) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 20%, rgba(0, 204, 82, 0.06) 0%, transparent 50%),
-            var(--bg-primary, #0a0a0f);
-          pointer-events: none;
-        }
-
-        .game-content {
-          flex: 1;
-          position: relative;
-          z-index: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 16px;
-          gap: 16px;
-          overflow-y: auto;
-          min-height: 0;
-        }
-
-        .timer-section {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 6px;
-          width: 100%;
-          max-width: 300px;
-        }
-
-        .timer-badge {
-          display: flex;
-          align-items: baseline;
-          justify-content: center;
-          gap: 4px;
-        }
-
-        .timer-value {
-          font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.5rem;
-          color: var(--mime-primary, #00ff66);
-          text-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
-        }
-
-        .timer-label {
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.7rem;
-          font-weight: 600;
-          color: rgba(255, 255, 255, 0.5);
-          text-transform: uppercase;
-        }
-
-        .timer-bar-container {
-          width: 100%;
-          height: 6px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 3px;
-          overflow: hidden;
-        }
-
-        .timer-bar-fill {
-          height: 100%;
-          background: linear-gradient(90deg, var(--mime-primary, #00ff66), #00cc52);
-          border-radius: 3px;
-          transition: width 0.3s ease-out;
-          box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
-        }
-
-        .timer-bar-fill.paused {
-          animation: pulse-glow 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse-glow {
-          0%, 100% { opacity: 0.6; }
-          50% { opacity: 1; }
-        }
-
-        .points-info {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          margin-top: 10px;
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.6);
-        }
-
-        .points-item strong {
-          font-weight: 700;
-          transition: all 0.3s ease;
-        }
-
-        .points-item.mimer strong {
-          color: #00ff66;
-        }
-
-        .points-item.guesser strong {
-          color: #ffc800;
-        }
-
-        .points-separator {
-          color: rgba(255, 255, 255, 0.3);
-        }
-
-        .word-card-wrapper {
-          width: 100%;
-          max-width: 280px;
-          flex-shrink: 0;
-        }
-
-        .action-zone {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: 52px;
-          width: 100%;
-        }
-
-        .skip-zone,
-        .start-zone {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: 52px;
-          width: 100%;
-        }
-
-        .btn-start-miming {
-          padding: 14px 28px;
-          background: linear-gradient(135deg, var(--mime-primary, #00ff66), #00cc52);
-          border: none;
-          border-radius: 12px;
-          color: #000;
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3);
-        }
-
-        .btn-start-miming:active:not(.disabled) {
-          transform: scale(0.95);
-        }
-
-        .btn-start-miming.disabled {
-          background: rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 0.4);
-          box-shadow: none;
-          cursor: not-allowed;
-        }
-
-        .btn-skip {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          padding: 14px 28px;
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 12px;
-          color: rgba(255, 255, 255, 0.7);
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .btn-skip:active {
-          transform: scale(0.95);
-          background: rgba(255, 255, 255, 0.15);
-        }
-      `}</style>
     </div>
   );
 }

@@ -19,6 +19,7 @@ import DisconnectAlert from "@/components/game/DisconnectAlert";
 import LinkOverlay from "@/components/game/LinkOverlay";
 import { useToast } from "@/lib/hooks/useToast";
 import { Clock, Lightbulb, Target } from 'lucide-react';
+import './mindlink-play.css';
 import { Sword } from '@phosphor-icons/react';
 import WordDisplay from '@/components/game/WordDisplay';
 import MindLinkNetwork from '@/components/game/MindLinkNetwork';
@@ -193,7 +194,6 @@ export function MindLinkPlayContent({ code, myUid: devUid }) {
           borderRadius: '50%', animation: 'spin 0.9s linear infinite',
         }} />
         <p style={{ color: '#5a5a72', fontSize: '0.85rem' }}>Chargement...</p>
-        <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
   }
@@ -553,7 +553,6 @@ export function MindLinkPlayContent({ code, myUid: devUid }) {
         )}
       </AnimatePresence>
 
-      <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }
