@@ -96,6 +96,7 @@ export default function DailyTotalPage() {
   const [bestResult, setBestResult] = useState(null);
   const [bestDifference, setBestDifference] = useState(Infinity);
   const [bestScore, setBestScore] = useState(0);
+  const [bestTimeMs, setBestTimeMs] = useState(null);
   const [submissions, setSubmissions] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [showTransition, setShowTransition] = useState(false);
@@ -164,13 +165,14 @@ export default function DailyTotalPage() {
       setBestResult(data.bestResult ?? null);
       setBestDifference(data.difference ?? Infinity);
       setBestScore(data.bestScore ?? 0);
+      setBestTimeMs(data.bestTimeMs ?? null);
       setSubmissions(data.submissions ?? []);
       // Calculate remaining time
       const elapsed = Math.floor((Date.now() - (data.startedAt || Date.now())) / 1000);
       const remaining = Math.max(0, TIMER_SECONDS - elapsed);
       setTimeLeft(remaining);
       if (remaining <= 0) {
-        handleTimeUp(data.bestResult, data.difference ?? Infinity, data.bestScore ?? 0);
+        handleTimeUp(data.bestResult, data.difference ?? Infinity, data.bestScore ?? 0, 'time', data.bestTimeMs ?? null);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -201,25 +203,26 @@ export default function DailyTotalPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, gamePhase]);
 
-  function handleTimeUp(finalBestResult, finalDiff, finalScore, reason = 'time') {
+  function handleTimeUp(finalBestResult, finalDiff, finalScore, reason = 'time', finalBestTimeMs = null) {
     clearInterval(timerRef.current);
     freshCompletionRef.current = true;
     setEndReason(reason);
-    const timeMs = TIMER_SECONDS * 1000;
-    const finalScoreVal = finalScore || 0;
+    // Use the time of the best submission, not total game time
+    const usedTimeMs = finalBestTimeMs || bestTimeMs || TIMER_SECONDS * 1000;
+    const recalcScore = computeScore(finalDiff === Infinity ? 0 : finalDiff, usedTimeMs);
+    const finalScoreVal = finalDiff === Infinity ? 0 : recalcScore;
     setScore(finalScoreVal);
 
     const isSolved = finalDiff === 0;
     completeGame({
       solved: isSolved,
       attempts: submissions.length,
-      timeMs,
+      timeMs: usedTimeMs,
       score: finalScoreVal,
       skipLeaderboard: true,
     });
 
-    // Write leaderboard with difference field
-    writeTotalLeaderboard(finalScoreVal, submissions.length, isSolved, timeMs, finalDiff);
+    writeTotalLeaderboard(finalScoreVal, submissions.length, isSolved, usedTimeMs, finalDiff);
 
     setGamePhase('finished');
   }
@@ -326,11 +329,13 @@ export default function DailyTotalPage() {
       setBestResult(result);
       setBestDifference(diff);
       setBestScore(calcScore);
+      setBestTimeMs(timeMs);
     }
 
     // Save progress (store custom data in guesses[0])
+    const currentBestTimeMs = (diff < bestDifference || (diff === bestDifference && calcScore > bestScore)) ? timeMs : bestTimeMs;
     saveProgress(
-      [{ bestResult: newBestResult, difference: newBestDiff, bestScore: newBestScore, submissions: newSubmissions, startedAt: startTimeRef.current }],
+      [{ bestResult: newBestResult, difference: newBestDiff, bestScore: newBestScore, bestTimeMs: currentBestTimeMs, submissions: newSubmissions, startedAt: startTimeRef.current }],
       newSubmissions.length,
       []
     );
@@ -356,17 +361,20 @@ export default function DailyTotalPage() {
       clearInterval(timerRef.current);
       freshCompletionRef.current = true;
       setEndReason('attempts');
-      setScore(newBestScore);
+      // Use bestTimeMs (time of the best submission, not the last one)
+      const usedTimeMs = diff < bestDifference ? timeMs : (bestTimeMs || timeMs);
+      const finalScore = computeScore(newBestDiff, usedTimeMs);
+      setScore(finalScore);
 
       const isSolved = newBestDiff === 0;
       completeGame({
         solved: isSolved,
         attempts: newSubmissions.length,
-        timeMs,
-        score: newBestScore,
+        timeMs: usedTimeMs,
+        score: finalScore,
         skipLeaderboard: true,
       });
-      writeTotalLeaderboard(newBestScore, newSubmissions.length, isSolved, timeMs, newBestDiff);
+      writeTotalLeaderboard(finalScore, newSubmissions.length, isSolved, usedTimeMs, newBestDiff);
       setGamePhase('finished');
     } else {
       // Clear expression for next attempt
@@ -417,6 +425,7 @@ export default function DailyTotalPage() {
     setBestResult(null);
     setBestDifference(Infinity);
     setBestScore(0);
+    setBestTimeMs(null);
     setSubmissions([]);
     setShowResult(false);
     setShowTransition(false);

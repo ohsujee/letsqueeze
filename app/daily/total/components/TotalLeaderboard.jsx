@@ -235,7 +235,7 @@ function formatTimeMs(ms) {
 
 const TOTAL_SUB_LABEL = (e) => {
   const ecart = e.solved ? '🎯 Exact' : `Écart: ${e.difference ?? '?'}`;
-  const time = e.timeMs ? ` · ${formatTimeMs(e.timeMs)}` : '';
+  const time = e.timeMs ? ` · Temps : ${formatTimeMs(e.timeMs)}` : '';
   return `${ecart}${time}`;
 };
 const TOTAL_WEEK_SUB_LABEL = (e) => `${e.days} jour${e.days > 1 ? 's' : ''} joué${e.days > 1 ? 's' : ''}`;
