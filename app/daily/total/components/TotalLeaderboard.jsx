@@ -17,11 +17,13 @@ const BAR_COLOR = [
 ];
 
 function sortLeaderboard(a, b) {
-  // Primary: lower difference is better (solved = difference 0)
+  // Primary: higher score is better
+  if ((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
+  // Secondary: lower difference is better
   const diffA = a.solved ? 0 : (a.difference ?? Infinity);
   const diffB = b.solved ? 0 : (b.difference ?? Infinity);
   if (diffA !== diffB) return diffA - diffB;
-  // Secondary: faster time is better
+  // Tertiary: faster time is better
   return (a.timeMs || 0) - (b.timeMs || 0);
 }
 
@@ -30,9 +32,7 @@ function assignRanks(entries) {
   for (let i = 0; i < entries.length; i++) {
     if (i === 0) { ranks.push(1); continue; }
     const p = entries[i - 1], c = entries[i];
-    const diffP = p.solved ? 0 : (p.difference ?? Infinity);
-    const diffC = c.solved ? 0 : (c.difference ?? Infinity);
-    if (diffC === diffP && (c.timeMs || 0) === (p.timeMs || 0)) ranks.push(ranks[i - 1]);
+    if ((c.score || 0) === (p.score || 0)) ranks.push(ranks[i - 1]);
     else ranks.push(i + 1);
   }
   return ranks;
