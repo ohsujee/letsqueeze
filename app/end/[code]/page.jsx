@@ -128,8 +128,7 @@ export function QuizEndContent({ code, myUid: devUid }) {
     if (!myUid || rankedPlayers.length === 0) return;
 
     // Don't record stats for the host (they don't play, they just manage)
-    const isHostUser = myUid && meta?.hostUid === myUid;
-    if (isHostUser) {
+    if (isHost) {
       statsRecordedRef.current = true; // Mark as "handled" to prevent future attempts
       return;
     }
@@ -160,6 +159,17 @@ export function QuizEndContent({ code, myUid: devUid }) {
 
     return { totalScore, avgScore, maxScore, minScore };
   }, [players]);
+
+  // Podium et classement — calculés une fois
+  const podiumPlayers = useMemo(() => {
+    const source = modeEquipes ? rankedTeams : rankedPlayers;
+    return source.filter(p => (p.score || 0) > 0).slice(0, 3);
+  }, [modeEquipes, rankedTeams, rankedPlayers]);
+
+  const remainingPlayers = useMemo(() => {
+    const podiumUids = new Set(podiumPlayers.map(p => p.uid || p.id));
+    return players.filter(p => !podiumUids.has(p.uid));
+  }, [podiumPlayers, players]);
 
   const handleShare = () => {
     const winner = rankedPlayers[0];
@@ -212,11 +222,7 @@ export function QuizEndContent({ code, myUid: devUid }) {
       updates[`rooms/${code}/state/lockedAt`] = null;
       updates[`rooms/${code}/state/buzz`] = null;
 
-      console.log('🔄 Retour au lobby - Updates:', updates);
-
       await update(ref(db), updates);
-
-      console.log('✅ Updates Firebase réussis');
 
       // Rediriger vers le lobby
       router.push(`/room/${code}`);
@@ -250,28 +256,19 @@ export function QuizEndContent({ code, myUid: devUid }) {
           <span className="title-text">{quizTitle || "Partie terminée"}</span>
         </div>
 
-        {/* Podium + Classement — le podium prend les top scorers, le classement affiche le reste */}
-        {(() => {
-          const source = modeEquipes ? rankedTeams : rankedPlayers;
-          const podiumPlayers = source.filter(p => (p.score || 0) > 0).slice(0, 3);
-          const podiumUids = new Set(podiumPlayers.map(p => p.uid || p.id));
-          const remainingPlayers = players.filter(p => !podiumUids.has(p.uid));
+        {/* Podium */}
+        {podiumPlayers.length > 0 && (
+          <div className="podium-section">
+            <PodiumPremium topPlayers={podiumPlayers} />
+          </div>
+        )}
 
-          return (
-            <>
-              {podiumPlayers.length > 0 && (
-                <div className="podium-section">
-                  <PodiumPremium topPlayers={podiumPlayers} />
-                </div>
-              )}
-              {remainingPlayers.length > 0 && (
-                <div className="leaderboard-wrapper">
-                  <Leaderboard players={remainingPlayers} currentPlayerUid={myUid} teams={meta?.teams} rankOffset={podiumPlayers.length} />
-                </div>
-              )}
-            </>
-          );
-        })()}
+        {/* Classement (joueurs hors podium) */}
+        {remainingPlayers.length > 0 && (
+          <div className="leaderboard-wrapper">
+            <Leaderboard players={remainingPlayers} currentPlayerUid={myUid} teams={meta?.teams} rankOffset={podiumPlayers.length} />
+          </div>
+        )}
       </main>
 
       {/* Footer fixe */}

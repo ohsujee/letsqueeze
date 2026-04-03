@@ -127,7 +127,4 @@
   color: #fff !important;
 }
 
-/* ===== SPINNER ===== */
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+/* @keyframes spin → globals.css */

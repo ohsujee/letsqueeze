@@ -19,7 +19,7 @@ import QuestionCard from "@/components/game/QuestionCard";
 import HostActionFooter from "@/components/game/HostActionFooter";
 import ReportQuestionModal from "@/components/game/ReportQuestionModal";
 import { useQuizActions } from "@/lib/hooks/useQuizActions";
-import { getFlatCSSVars } from "@/lib/config/colors";
+import { getFlatCSSVars, GAME_COLORS } from "@/lib/config/colors";
 import { push, set } from "firebase/database";
 import './QuizHostView.css';
 
@@ -180,7 +180,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
             <ExitButton
               variant="header"
               confirmMessage={isActualHost
-                ? "Voulez-vous vraiment quitter ? La partie sera abandonnee pour tous les joueurs."
+                ? "Voulez-vous vraiment quitter ? La partie sera abandonnée pour tous les joueurs."
                 : "Voulez-vous vraiment quitter ? Votre score sera conservé."
               }
               onExit={isActualHost ? exitAndEndGame : (onExit || (() => router.push('/home')))}
@@ -190,7 +190,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
       </header>
 
       <BuzzValidationModal
-        isOpen={!!state?.lockUid} playerName={lockedName} gameColor="#8b5cf6"
+        isOpen={!!state?.lockUid} playerName={lockedName} gameColor={GAME_COLORS.quiz.primary}
         answerLabel="Réponse attendue" answerValue={q?.answer} points={100}
         onCorrect={validate} onWrong={wrong} onCancel={resetBuzzers}
       />

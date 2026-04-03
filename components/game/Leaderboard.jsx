@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { WifiOff, ChevronDown, ChevronUp, User } from 'lucide-react';
+import { WifiSlash, CaretDown, CaretUp, User } from '@phosphor-icons/react';
 import './Leaderboard.css';
 
 /**
@@ -141,6 +141,8 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
   }, [teams]);
 
   // Track position changes (for both players and teams)
+  const posTimersRef = useRef([]);
+
   useEffect(() => {
     const newPositions = {};
     const newChanges = {};
@@ -158,14 +160,15 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
       // Only show triangle if position actually changed
       if (prevPos !== undefined && prevPos !== currentPos) {
         newChanges[key] = prevPos > currentPos ? 'up' : 'down';
-        // Clear the indicator after 3s (longer visibility)
-        setTimeout(() => {
+        // Clear the indicator after 3s
+        const timer = setTimeout(() => {
           setPositionChanges(prev => {
             const updated = { ...prev };
             delete updated[key];
             return updated;
           });
         }, 3000);
+        posTimersRef.current.push(timer);
       }
     });
 
@@ -174,6 +177,12 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
       setPositionChanges(prev => ({ ...prev, ...newChanges }));
     }
     prevPositionsRef.current = newPositions;
+
+    // Cleanup timers on unmount or re-run
+    return () => {
+      posTimersRef.current.forEach(clearTimeout);
+      posTimersRef.current = [];
+    };
   }, [sorted, teamsArray, isTeamMode]);
 
 
@@ -261,7 +270,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <ChevronUp size={16} />
+              <CaretUp size={16} weight="bold" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -352,7 +361,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                     <span className="player-name">
                       {p.name}
                       {isMe && <span className="you-badge">vous</span>}
-                      {isDisconnected && <WifiOff size={12} className="disconnected-icon" />}
+                      {isDisconnected && <WifiSlash size={12} weight="bold" className="disconnected-icon" />}
                     </span>
                     <div className="score-area">
                       {posChange && (
@@ -378,7 +387,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <ChevronDown size={16} />
+              <CaretDown size={16} weight="bold" />
             </motion.div>
           )}
         </AnimatePresence>

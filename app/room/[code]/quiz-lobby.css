@@ -38,11 +38,9 @@
   font-size: 0.85rem;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+/* @keyframes spin → globals.css */
 
-/* ── Background — supprimé les layers glass, fond solide ── */
-
-.quiz-lobby-bg { display: none; }
+/* Background layers supprimés — fond solide #0e0e1a */
 
 /* ── Main content ── */
 

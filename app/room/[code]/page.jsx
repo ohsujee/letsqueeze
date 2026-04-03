@@ -368,12 +368,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   return (
     <div className="quiz-lobby" style={getFlatCSSVars('quiz')}>
 
-      {/* Background layers */}
-      <div aria-hidden className="quiz-lobby-bg">
-        <div className="quiz-lobby-bg-dots" />
-        <div className="quiz-lobby-bg-glow-top" />
-        <div className="quiz-lobby-bg-glow-bottom" />
-      </div>
+      {/* Background — solid color via CSS */}
 
       {/* Modals */}
       <PaywallModal isOpen={showPaywall} onClose={() => setShowPaywall(false)} contentType="quiz" contentName={lockedQuizName} />

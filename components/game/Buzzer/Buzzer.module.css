@@ -191,7 +191,7 @@
   left: 0;
   right: 0;
   height: 120px;
-  background: var(--flat-bg, #2d1b69);
+  background: var(--flat-bg, #2d1f5e);
   border-top: 4px solid var(--flat-bg-light, #3d2a80);
   border-radius: 30% 30% 0 0;
   z-index: 499;

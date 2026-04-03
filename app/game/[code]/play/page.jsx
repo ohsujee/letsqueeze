@@ -234,10 +234,8 @@ export function QuizPlayContent({ code, myUid: devUid }) {
           onAdvanceAsker={advanceToNextAsker}
           onExit={async () => {
             if (isActualHost) {
-              await import('@/lib/firebase').then(({ update, ref: dbRef }) => {
-                update(dbRef(db, `rooms/${code}/state`), { phase: 'ended' });
-                update(dbRef(db, `rooms/${code}/meta`), { closed: true });
-              });
+              await update(ref(db, `rooms/${code}/state`), { phase: 'ended' });
+              await update(ref(db, `rooms/${code}/meta`), { closed: true });
             } else {
               await leaveRoom();
             }
@@ -292,9 +290,8 @@ export function QuizPlayContent({ code, myUid: devUid }) {
         showScore={true}
         onExit={async () => {
           if (isActualHost) {
-            const { update, ref: dbRef } = await import('@/lib/firebase');
-            await update(dbRef(db, `rooms/${code}/state`), { phase: 'ended' });
-            await update(dbRef(db, `rooms/${code}/meta`), { closed: true });
+            await update(ref(db, `rooms/${code}/state`), { phase: 'ended' });
+            await update(ref(db, `rooms/${code}/meta`), { closed: true });
           } else {
             await leaveRoom();
           }

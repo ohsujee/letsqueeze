@@ -1,5 +1,7 @@
 "use client";
 
+import { darkenColor } from '@/lib/utils/colorUtils';
+
 /**
  * Footer unifié pour tous les écrans de fin de partie
  * Style flat cartoon avec couleur dynamique selon le jeu
@@ -38,10 +40,4 @@ export function EndScreenFooter({ gameColor = '#8b5cf6', onNewGame, label = "Nou
   );
 }
 
-function darkenColor(hex, amount) {
-  const color = hex.replace('#', '');
-  const r = Math.max(0, parseInt(color.slice(0, 2), 16) - amount);
-  const g = Math.max(0, parseInt(color.slice(2, 4), 16) - amount);
-  const b = Math.max(0, parseInt(color.slice(4, 6), 16) - amount);
-  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-}
+/* darkenColor importé depuis lib/utils/colorUtils */

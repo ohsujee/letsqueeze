@@ -25,7 +25,7 @@ const ROUTE_GAME_MAP = [
   { pattern: /^\/daily\/total$/, gameType: 'total' },
 ];
 
-const HowToPlayContext = createContext(null);
+export const HowToPlayContext = createContext(null);
 
 export function HowToPlayProvider({ children }) {
   const pathname = usePathname();

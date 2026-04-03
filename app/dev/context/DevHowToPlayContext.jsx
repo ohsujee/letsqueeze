@@ -8,16 +8,18 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import DevHowToPlayModal from '@/app/dev/components/DevHowToPlayModal';
+import { HowToPlayContext } from '@/lib/context/HowToPlayContext';
 import { storage } from '@/lib/utils/storage';
 
 const STORAGE_PREFIX = 'dev_htp_dismissed_';
 
 const DEV_ROUTE_GAME_MAP = [
-  { pattern: /^\/dev\/laregle(\/.*)?$/, gameType: 'laregle'  },
-  { pattern: /^\/dev\/quiz(\/.*)?$/,    gameType: 'quiz'     },
-  { pattern: /^\/dev\/deeztest(\/.*)?$/,gameType: 'deeztest' },
-  { pattern: /^\/dev\/alibi(\/.*)?$/,   gameType: 'alibi'    },
-  { pattern: /^\/dev\/mime(\/.*)?$/,    gameType: 'mime'     },
+  { pattern: /^\/dev\/(simulation\/)?laregle(\/.*)?$/, gameType: 'laregle'  },
+  { pattern: /^\/dev\/(simulation\/)?quiz(\/.*)?$/,    gameType: 'quiz'     },
+  { pattern: /^\/dev\/(simulation\/)?deeztest(\/.*)?$/,gameType: 'deeztest' },
+  { pattern: /^\/dev\/(simulation\/)?alibi(\/.*)?$/,   gameType: 'alibi'    },
+  { pattern: /^\/dev\/(simulation\/)?mime(\/.*)?$/,    gameType: 'mime'     },
+  { pattern: /^\/dev\/(simulation\/)?blindtest(\/.*)?$/,gameType: 'deeztest' },
 ];
 
 const DevHowToPlayContext = createContext(null);
@@ -33,8 +35,11 @@ export function DevHowToPlayProvider({ children }) {
     setGameType(match?.gameType ?? null);
   }, [pathname]);
 
+  // Auto-open seulement sur les routes dev directes, pas les simulations
+  const isSimulation = pathname?.includes('/simulation/');
+
   useEffect(() => {
-    if (!gameType) {
+    if (!gameType || isSimulation) {
       setIsOpen(false);
       setIsAutoMode(false);
       return;
@@ -48,7 +53,7 @@ export function DevHowToPlayProvider({ children }) {
     }, 400);
 
     return () => clearTimeout(timer);
-  }, [gameType]);
+  }, [gameType, isSimulation]);
 
   const close = useCallback(() => {
     setIsOpen(false);
@@ -67,6 +72,7 @@ export function DevHowToPlayProvider({ children }) {
   }, []);
 
   return (
+    <HowToPlayContext.Provider value={{ openManually }}>
     <DevHowToPlayContext.Provider value={{ openManually }}>
       {children}
       {gameType && (
@@ -79,6 +85,7 @@ export function DevHowToPlayProvider({ children }) {
         />
       )}
     </DevHowToPlayContext.Provider>
+    </HowToPlayContext.Provider>
   );
 }
 
