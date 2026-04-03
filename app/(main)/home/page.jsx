@@ -32,6 +32,10 @@ import { useGlobalPlayCounts } from '@/lib/hooks/useGlobalPlayCounts';
 import { ROOM_TYPES, createRoom } from '@/lib/config/rooms';
 import { LobbyEntryTransition } from '@/components/transitions';
 import { GAME_COLOR_MAP } from '@/lib/config/colors';
+import './home.css';
+import './home-header.css';
+import '@/app/daily/daily-home.css';
+import '@/app/coming-soon.css';
 
 function HomePageContent() {
   const router = useRouter();

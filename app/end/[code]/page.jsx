@@ -5,6 +5,7 @@ import { db, ref, onValue, update, auth, onAuthStateChanged } from "@/lib/fireba
 import { PodiumPremium } from "@/components/ui/PodiumPremium";
 import Leaderboard from "@/components/game/Leaderboard";
 import { motion } from "framer-motion";
+import { Trophy } from '@phosphor-icons/react';
 import { useToast } from "@/lib/hooks/useToast";
 import { hueScenariosService } from "@/lib/hue-module";
 import { recordQuizGame } from "@/lib/services/statsService";
@@ -14,6 +15,7 @@ import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
 import { rankWithTies } from "@/lib/utils/ranking";
 import { EndScreenFooter } from "@/components/transitions";
+import { getFlatCSSVars, GAME_COLORS } from "@/lib/config/colors";
 import "./end.css";
 
 export function QuizEndContent({ code, myUid: devUid }) {
@@ -237,36 +239,45 @@ export function QuizEndContent({ code, myUid: devUid }) {
   }
 
   return (
-    <div className="end-page game-page">
+    <div className="end-page game-page" style={getFlatCSSVars('quiz')}>
       {/* Main Content - Tout sur une page */}
       <main className="end-content">
         {/* Titre du quiz */}
         <div className="end-header">
-          <span className="trophy-icon">🏆</span>
+          <div className="end-header-icon">
+            <Trophy size={22} weight="fill" />
+          </div>
           <span className="title-text">{quizTitle || "Partie terminée"}</span>
         </div>
 
-        {/* Podium animé */}
-        {rankedPlayers.length >= 1 && (
-          <div className="podium-section">
-            {modeEquipes ? (
-              <PodiumPremium topPlayers={rankedTeams.slice(0, 3)} />
-            ) : (
-              <PodiumPremium topPlayers={rankedPlayers.slice(0, 3)} />
-            )}
-          </div>
-        )}
+        {/* Podium + Classement — le podium prend les top scorers, le classement affiche le reste */}
+        {(() => {
+          const source = modeEquipes ? rankedTeams : rankedPlayers;
+          const podiumPlayers = source.filter(p => (p.score || 0) > 0).slice(0, 3);
+          const podiumUids = new Set(podiumPlayers.map(p => p.uid || p.id));
+          const remainingPlayers = players.filter(p => !podiumUids.has(p.uid));
 
-        {/* Classement */}
-        <div className="leaderboard-wrapper">
-          <Leaderboard players={players} currentPlayerUid={myUid} teams={meta?.teams} />
-        </div>
+          return (
+            <>
+              {podiumPlayers.length > 0 && (
+                <div className="podium-section">
+                  <PodiumPremium topPlayers={podiumPlayers} />
+                </div>
+              )}
+              {remainingPlayers.length > 0 && (
+                <div className="leaderboard-wrapper">
+                  <Leaderboard players={remainingPlayers} currentPlayerUid={myUid} teams={meta?.teams} rankOffset={podiumPlayers.length} />
+                </div>
+              )}
+            </>
+          );
+        })()}
       </main>
 
       {/* Footer fixe */}
       <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 10, paddingBottom: 'var(--safe-area-bottom, env(safe-area-inset-bottom, 0px))' }}>
       <EndScreenFooter
-        gameColor="#8b5cf6"
+        gameColor={GAME_COLORS.quiz.primary}
         label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
         onNewGame={async () => {
           if (!hostPresent) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth,
@@ -45,22 +45,25 @@ import TeamPlayerView from "@/components/game/TeamPlayerView";
 import TeamTabs from "@/lib/components/TeamTabs";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import { calculatePartyModeQuestions } from "@/lib/config/rooms";
+import '@/app/blindtest/blindtest-theme.css';
+import '@/components/ui/playlist-modal.css';
 
-export default function DeezTestLobby() {
-  const { code } = useParams();
-  const router = useRouter();
+export function BlindTestLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
   const [teams, setTeams] = useState({});
-  const [isHost, setIsHost] = useState(false);
+  const [isHost, setIsHost] = useState(devIsHost || false);
   const [joinUrl, setJoinUrl] = useState("");
   const [showPaywall, setShowPaywall] = useState(false);
   const [showPlaylistSelector, setShowPlaylistSelector] = useState(false);
   const [showCountdown, setShowCountdown] = useState(false);
   const countdownTriggeredRef = useRef(false);
   const roomWasValidRef = useRef(false);
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [isPlayerMissing, setIsPlayerMissing] = useState(false);
   const [rejoinError, setRejoinError] = useState(null);
   const shareModalRef = useRef(null);
@@ -132,8 +135,9 @@ export default function DeezTestLobby() {
     loadFeatured();
   }, []);
 
-  // Auth
+  // Auth (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setMyUid(user.uid);
@@ -143,7 +147,7 @@ export default function DeezTestLobby() {
       }
     });
     return () => unsub();
-  }, [meta?.hostUid]);
+  }, [meta?.hostUid, devUid]);
 
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
 
@@ -880,4 +884,9 @@ export default function DeezTestLobby() {
       </main>
     </div>
   );
+}
+
+export default function DeezTestLobby() {
+  const { code } = useParams();
+  return <BlindTestLobbyContent code={code} />;
 }

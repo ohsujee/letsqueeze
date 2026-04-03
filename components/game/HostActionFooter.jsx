@@ -1,51 +1,163 @@
 'use client';
 
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+
+/**
+ * ConfirmModal — Modal flat réutilisable pour garde-fou
+ * Utilisée par tous les jeux pour Passer / Fin / etc.
+ */
+function ConfirmModal({ isOpen, title, message, confirmLabel, confirmColor, onConfirm, onCancel }) {
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgb(8, 8, 15, 0.92)',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onCancel}
+        >
+          <motion.div
+            style={{
+              background: '#1a1a2e',
+              borderBottom: '4px solid #13132a',
+              borderRadius: 18,
+              padding: 28,
+              maxWidth: 360,
+              width: '100%',
+              textAlign: 'center',
+            }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+            onClick={e => e.stopPropagation()}
+          >
+            <h2 style={{
+              fontFamily: "'Bungee', cursive",
+              fontSize: '1.1rem',
+              color: '#fff',
+              margin: '0 0 12px',
+            }}>
+              {title}
+            </h2>
+            <p style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: '0.85rem',
+              color: '#c4b5fd',
+              margin: '0 0 24px',
+              lineHeight: 1.5,
+            }}>
+              {message}
+            </p>
+            <div style={{ display: 'flex', gap: 10 }}>
+              <button
+                onClick={onCancel}
+                style={{
+                  flex: 1,
+                  minHeight: 48,
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: '0.9rem',
+                  fontWeight: 700,
+                  background: '#4a3a8a',
+                  border: 'none',
+                  borderBottom: '4px solid #3a2a70',
+                  borderRadius: 12,
+                  color: '#fff',
+                  cursor: 'pointer',
+                }}
+              >
+                Annuler
+              </button>
+              <button
+                onClick={onConfirm}
+                style={{
+                  flex: 1,
+                  minHeight: 48,
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: '0.9rem',
+                  fontWeight: 700,
+                  background: confirmColor || '#ef4444',
+                  border: 'none',
+                  borderBottom: `4px solid ${confirmColor === '#f59e0b' ? '#d97706' : confirmColor === '#ef4444' ? '#b91c1c' : '#b91c1c'}`,
+                  borderRadius: 12,
+                  color: '#fff',
+                  cursor: 'pointer',
+                }}
+              >
+                {confirmLabel}
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body
+  );
+}
+
 /**
  * HostActionFooter - Footer d'actions partagé entre Host et Asker (Party Mode)
- *
- * Boutons: Révéler/Masquer, Passer, Fin
- * Utilisé dans: host/page.jsx, play/page.jsx (asker view)
+ * Boutons: Passer, Fin — avec modales de confirmation
+ * Réutilisable par tous les jeux.
  */
-export default function HostActionFooter({
-  revealed,
-  onRevealToggle,
-  onSkip,
-  onEnd
-}) {
+export default function HostActionFooter({ onSkip, onEnd }) {
+  const [showSkipConfirm, setShowSkipConfirm] = useState(false);
+  const [showEndConfirm, setShowEndConfirm] = useState(false);
+
   return (
     <footer className="game-footer">
       <div className="host-actions">
-        <button className="action-btn action-reveal" onClick={onRevealToggle}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            {revealed ? (
-              <>
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-                <line x1="1" y1="1" x2="23" y2="23"/>
-              </>
-            ) : (
-              <>
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </>
-            )}
-          </svg>
-          <span>{revealed ? "Masquer" : "Révéler"}</span>
-        </button>
-        <button className="action-btn action-skip" onClick={onSkip}>
+        <button className="action-btn action-skip" onClick={() => setShowSkipConfirm(true)}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polygon points="5 4 15 12 5 20 5 4"/>
             <line x1="19" y1="5" x2="19" y2="19"/>
           </svg>
           <span>Passer</span>
         </button>
-        <button className="action-btn action-end" onClick={onEnd}>
+        <button className="action-btn action-end" onClick={() => setShowEndConfirm(true)}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
           <span>Fin</span>
         </button>
       </div>
+
+      <ConfirmModal
+        isOpen={showSkipConfirm}
+        title="Passer la question ?"
+        message="La question sera passée et personne ne marquera de points."
+        confirmLabel="Passer"
+        confirmColor="#f59e0b"
+        onConfirm={() => { setShowSkipConfirm(false); onSkip?.(); }}
+        onCancel={() => setShowSkipConfirm(false)}
+      />
+
+      <ConfirmModal
+        isOpen={showEndConfirm}
+        title="Terminer la partie ?"
+        message="La partie se termine et tous les joueurs verront le classement final."
+        confirmLabel="Terminer"
+        confirmColor="#ef4444"
+        onConfirm={() => { setShowEndConfirm(false); onEnd?.(); }}
+        onCancel={() => setShowEndConfirm(false)}
+      />
     </footer>
   );
 }
+
+// Export pour réutilisation dans d'autres jeux
+export { ConfirmModal };

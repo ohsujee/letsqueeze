@@ -1015,3 +1015,164 @@
   }
 
 }
+
+/* PROFILE pseudo edit — extracted from globals.css */
+/* ============================================
+   PROFILE - Pseudo Edit Styles
+   ============================================ */
+
+/* User name with inline edit button */
+.user-name-editable {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 400;
+  color: var(--text-primary, #ffffff);
+  margin-bottom: 0.25rem;
+  text-shadow:
+    0 0 10px rgba(139, 92, 246, 0.4),
+    0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.edit-name-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 8px;
+  color: #a78bfa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-name-btn:hover {
+  background: rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: #c4b5fd;
+  transform: scale(1.1);
+}
+
+/* Pseudo Edit Card - Compact */
+.pseudo-edit-card {
+  position: relative;
+  background: var(--bg-card, rgba(20, 20, 30, 0.95));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Input - Fond clair pour lisibilité */
+.pseudo-input-large {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  border-radius: 10px;
+  color: #1a1a2e;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 0.02em;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  /* Force la couleur sombre même quand le clavier iOS change le fond */
+  -webkit-text-fill-color: #1a1a2e;
+}
+
+.pseudo-input-large:focus {
+  border-color: var(--quiz-primary, #8b5cf6);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.pseudo-input-large::placeholder {
+  color: #9ca3af;
+  -webkit-text-fill-color: #9ca3af;
+}
+
+.pseudo-error-inline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #ef4444;
+  text-align: center;
+  margin: 0.5rem 0 0 0;
+}
+
+/* Boutons compacts */
+.pseudo-edit-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* Bouton Enregistrer - Compact */
+.pseudo-save-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+  transition: all 0.2s ease;
+}
+
+.pseudo-save-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.pseudo-save-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.pseudo-save-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* Bouton Annuler - Lien discret */
+.pseudo-cancel-btn {
+  width: 100%;
+  padding: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.pseudo-cancel-btn:hover:not(:disabled) {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pseudo-cancel-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+

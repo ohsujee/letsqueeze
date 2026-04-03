@@ -1,0 +1,222 @@
+/* ALIBI selector modal — extracted from globals.css */
+/* ===========================================
+   ALIBI SELECTOR MODAL - Compact Bottom Sheet
+   =========================================== */
+
+.alibi-modal-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.alibi-modal-wrapper.open {
+  pointer-events: auto;
+}
+
+.alibi-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fadeIn 0.2s ease-out forwards;
+  will-change: opacity;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.alibi-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  background: rgba(20, 20, 30, 0.98);
+  border: 2px solid rgba(245, 158, 11, 0.3);
+  border-bottom: none;
+  border-radius: 24px 24px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow:
+    0 -10px 50px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(245, 158, 11, 0.15);
+  /* GPU-accelerated slide up animation */
+  animation: slideUp 0.25s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%) translateZ(0);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+  }
+}
+
+.alibi-modal-handle {
+  width: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  margin: 12px auto 8px;
+  flex-shrink: 0;
+}
+
+.alibi-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem 1rem;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+  flex-shrink: 0;
+}
+
+.alibi-modal-title {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.25rem;
+  color: var(--text-primary, #ffffff);
+  margin: 0;
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+.alibi-modal-close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.alibi-modal-close:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+.alibi-modal-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Alibi Item - Horizontal compact row */
+.alibi-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  text-align: left;
+  width: 100%;
+  /* GPU acceleration for tap feedback */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.alibi-item:active:not(.locked) {
+  transform: scale(0.98) translateZ(0);
+}
+
+.alibi-item:hover:not(.locked) {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.alibi-item.selected {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.08));
+  border-color: var(--success, #22c55e);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+}
+
+.alibi-item.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.alibi-item-emoji {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.3));
+}
+
+.alibi-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.alibi-item-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary, #ffffff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.alibi-item-meta {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+}
+
+.alibi-item-status {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.alibi-item-check {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--success, #22c55e);
+  border-radius: 50%;
+  color: white;
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+}
+
+.alibi-item-lock {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background: linear-gradient(135deg, #FFD700, #FF6D00);
+  border-radius: 8px;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+

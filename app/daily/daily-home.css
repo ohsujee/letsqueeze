@@ -1,0 +1,256 @@
+/* DAILY GAMES home section — extracted from globals.css */
+/* ═══════════════════════════════════════════════════
+   DAILY GAMES — Section Home
+═══════════════════════════════════════════════════ */
+
+.daily-games-section {
+  margin-bottom: 1.5rem;
+}
+
+/* Ligne unique avec 2 cartes côte à côte */
+.daily-games-grid {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.daily-games-grid::-webkit-scrollbar { display: none; }
+
+.daily-scroll-hint {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  z-index: 5;
+  animation: scrollHintBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes scrollHintBounce {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(3px); }
+}
+.daily-games-grid > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  width: calc(48% - 5px);
+}
+
+/* ── DailyCard — game card fine (paysage) ── */
+.daily-game-card {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  user-select: none;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.daily-game-card .daily-card-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: transform 0.4s ease;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.daily-game-card:hover .daily-card-bg {
+  transform: scale(1.08) translateZ(0);
+}
+
+.daily-game-card .daily-card-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0, 0, 0, 0.42) 0%, transparent 100%),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.08) 40%,
+      rgba(0, 0, 0, 0.38) 100%
+    );
+  z-index: 1;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+.daily-game-card .daily-card-title-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 1px);
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  padding: 0 8px;
+}
+
+.daily-game-card .daily-card-game-name {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(0.8rem, 3.8vw, 1.1rem);
+  font-weight: 400;
+  color: white;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+  text-shadow:
+    0 1px 8px rgba(0, 0, 0, 0.9),
+    0 2px 20px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Streak pill — top-left */
+.daily-game-card .daily-streak-pill {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(249, 115, 22, 0.5);
+  color: #fb923c;
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+/* Progress pill — top-right */
+.daily-game-card .daily-progress-pill {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  z-index: 3;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+/* Done pill — top-right completed */
+.daily-game-card .daily-done-pill {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #34d399;
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.daily-game-card .daily-done-pill:hover {
+  background: rgba(16, 185, 129, 0.4);
+}
+
+/* New badge — bottom-left */
+.daily-game-card .daily-new-pill {
+  position: absolute;
+  bottom: 7px;
+  left: 7px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  color: #60a5fa;
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Quotidien pill — bottom-left */
+.daily-game-card .daily-quotidien-pill {
+  position: absolute;
+  bottom: 7px;
+  left: 7px;
+  z-index: 2;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.daily-game-card .daily-card-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Completed state */
+.daily-game-card.completed .daily-card-bg {
+  filter: saturate(0.75) brightness(0.85);
+}
+
+/* Loading skeleton */
+.daily-game-card.loading {
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: none;
+  animation: pulse 1.5s ease-in-out infinite;
+  cursor: default;
+}
+

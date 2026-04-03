@@ -1,0 +1,969 @@
+/* WORDLE/MOT MYSTERE daily game — extracted from globals.css */
+/* ═══════════════════════════════════════════════════
+   MOT MYSTERE (WORDLE) — Page de jeu
+═══════════════════════════════════════════════════ */
+
+.wordle-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background: var(--bg-primary, #0a0a0f);
+  color: var(--text-primary, #fff);
+}
+
+.wordle-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 16px;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
+}
+
+.wordle-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(16, 185, 129, 0.2);
+  border-top-color: #10b981;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.wordle-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.wordle-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  border: none;
+  color: var(--text-primary, #fff);
+  cursor: pointer;
+}
+
+.wordle-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 0 18px rgba(16, 185, 129, 0.8), 0 0 4px rgba(16, 185, 129, 0.4);
+  pointer-events: none;
+}
+
+.wordle-header-right {
+  width: 38px;
+}
+
+.wordle-help-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #10b981;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  flex-shrink: 0;
+}
+.wordle-help-btn:hover { background: rgba(16, 185, 129, 0.22); transform: scale(1.05); }
+
+/* ── Tabs (segmented control) ────────────────────────────────────────────── */
+.wordle-tabs {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.025);
+  overflow: hidden;
+}
+
+.wordle-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
+}
+.wordle-tab:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+}
+.wordle-tab.active {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.25);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.12);
+}
+
+.wordle-game-date {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.28);
+  text-align: center;
+  padding: 8px 16px 2px;
+  text-transform: capitalize;
+  flex-shrink: 0;
+  letter-spacing: 0.01em;
+}
+
+/* ── Leaderboard ─────────────────────────────────────────────────────────── */
+.wordle-lb {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 14px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wordle-lb-loading {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  font-family: var(--font-display);
+}
+
+/* Sub-tabs Aujourd'hui / Cette semaine */
+.wordle-lb-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 11px;
+  flex-shrink: 0;
+}
+.wordle-lb-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.wordle-lb-tab:hover { color: rgba(255, 255, 255, 0.7); }
+.wordle-lb-tab.active {
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
+.wordle-lb-tab-count {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  border-radius: 20px;
+  padding: 1px 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+/* Navigation semaine (leaderboard) */
+.lb-week-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 4px 2px;
+}
+.lb-week-nav-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.lb-week-nav-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+.lb-week-nav-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+.lb-week-nav-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  flex: 1;
+}
+
+/* Week progress bar (frise)
+   Principe : 2 rangées en CSS Grid 7 colonnes égales (repeat(7, 1fr)).
+   Les pips et labels sont dans la même grille → alignement exact garanti.
+   Les lignes sont absolues dans .week-bar-pips ; leurs positions en %
+   sont calculées depuis les centres de colonnes : center(col i) = (i+0.5)/7×100%.
+   Ligne bg  : left=7.143% (center col 0), right=7.143% (center col 6).
+   Ligne verte : left=7.143%, width = todayIdx/7×100%.
+*/
+.week-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px 4px 2px;
+  flex-shrink: 0;
+}
+
+/* Rangée des pips : grille 7 colonnes, position relative pour les lignes */
+.week-bar-pips {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  position: relative;
+  height: 14px;   /* légèrement > pip max (13px) pour ne pas couper */
+  align-items: center;
+}
+
+/* Ligne de fond : centre col 0 → centre col 6 */
+.week-bar-line-bg {
+  position: absolute;
+  top: 50%;
+  left: 7.143%;   /* (0.5/7)×100 */
+  right: 7.143%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+/* Ligne verte : span complet pip0→pip6, scaleX animé depuis la gauche */
+.week-bar-line-filled {
+  position: absolute;
+  top: calc(50% - 1px);
+  left: 7.143%;
+  width: 85.714%; /* (6/7)*100 — distance centre pip0 → centre pip6 */
+  height: 2px;
+  background: #10b981;
+  border-radius: 1px;
+  transform-origin: left center;
+  z-index: 0;
+}
+
+/* Cellule : centrage du pip dans sa colonne, au-dessus des lignes */
+.week-bar-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.week-bar-pip {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.week-bar-pip.past  { background: #10b981; }
+.week-bar-pip.today {
+  width: 13px;
+  height: 13px;
+  background: #fff;
+  border: 2px solid #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.65);
+}
+.week-bar-pip.future {
+  background: #0d1118;   /* fond opaque = masque la ligne derrière */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Rangée des labels : même grille → alignement automatique */
+.week-bar-lbls {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.week-bar-lbl {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+.week-bar-lbl.past  { color: rgba(255, 255, 255, 0.4); }
+.week-bar-lbl.today { color: #10b981; font-weight: 700; }
+
+.wordle-lb-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.85rem;
+  font-family: var(--font-display);
+  padding: 40px 0;
+}
+
+.wordle-lb-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Card row */
+.wordle-lb-row {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.025);
+  padding: 10px 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+.wordle-lb-row.gold   { background: rgba(255,215,0,0.10); border-color: rgba(255,215,0,0.22); }
+.wordle-lb-row.silver { background: rgba(192,192,192,0.07); border-color: rgba(192,192,192,0.18); }
+.wordle-lb-row.bronze { background: rgba(205,127,50,0.08); border-color: rgba(205,127,50,0.20); }
+.wordle-lb-row.me     { background: rgba(16,185,129,0.10); border-color: rgba(16,185,129,0.28); }
+
+.wordle-lb-row-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wordle-lb-rank {
+  font-size: 1rem;
+  min-width: 30px;
+  flex-shrink: 0;
+  text-align: center;
+  line-height: 1;
+}
+.wordle-lb-rank.num {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.wordle-lb-name {
+  flex: 1;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wordle-lb-row.me .wordle-lb-name { color: #10b981; }
+
+.wordle-lb-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  flex-shrink: 0;
+}
+.wordle-lb-score {
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  color: #fff;
+}
+.wordle-lb-row.me .wordle-lb-score {
+  color: #10b981;
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.45);
+}
+.wordle-lb-attempts {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.32);
+  letter-spacing: 0.02em;
+}
+
+/* Progress bar */
+.wordle-lb-bar-track {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.wordle-lb-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transform-origin: left;
+}
+
+/* Ma position épinglée */
+.wordle-lb-my-pin {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+.wordle-lb-my-pin-label {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: rgba(16, 185, 129, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Nombre de joueurs */
+.wordle-lb-count {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.28);
+  flex-shrink: 0;
+  letter-spacing: 0.01em;
+}
+
+.wordle-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.wordle-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding: 4px 12px clamp(8px, 2vw, 16px);
+  gap: clamp(4px, 1.5vw, 8px);
+  justify-content: flex-start;
+}
+
+/* ── Tab bar error state ─────────────────────────────────────────────────── */
+.wordle-tabs-content {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+.wordle-tabs-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dc2626;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.wordle-board-area {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  container-type: size;
+  overflow: hidden;
+}
+
+/* ── Grid: cellules dimensionnées via container queries — s'adapte à tout écran ── */
+
+.wordle-grid {
+  --gap: 5px;
+  --cell: min(
+    calc((100cqw - 4 * var(--gap)) / 5),
+    calc((100cqh - 5 * var(--gap)) / 6)
+  );
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  width: calc(5 * var(--cell) + 4 * var(--gap));
+}
+
+.wordle-row {
+  display: flex;
+  gap: var(--gap);
+}
+
+.wordle-cell {
+  width: var(--cell);
+  height: var(--cell);
+  flex-shrink: 0;
+  border: 2px solid #3a3a5c;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-size: calc(var(--cell) * 0.6);
+  font-weight: 400;
+  color: #fff;
+  text-transform: uppercase;
+  transition: border-color 0.15s;
+  background: var(--bg-primary, #0a0a0f);
+}
+
+.wordle-cell.filled {
+  border-color: #8a8aaa;
+  animation: pop 0.1s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.wordle-cell.correct  { background: #10b981; border-color: #10b981; }
+.wordle-cell.present  { background: #e07c1a; border-color: #e07c1a; }
+.wordle-cell.absent   { background: #3a3a4a; border-color: #3a3a4a; }
+
+
+.wordle-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5px, 1.1dvh, 8px);
+  width: 100%;
+  max-width: 500px;
+  align-self: center;
+  flex-shrink: 0;
+  background: transparent;
+  padding: clamp(12px, 2.5dvh, 20px) 8px clamp(18px, 3.5dvh, 30px);
+}
+
+.wordle-keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.wordle-key {
+  /* Rows 1 & 2: 10 keys × key-w + 9 gaps × 6px = 100% */
+  flex: none;
+  width: calc((100% - 54px) / 10);
+  height: clamp(42px, 7dvh, 56px);
+  border-radius: 10px;
+  background: #5a5a82;
+  border: none;
+  border-bottom: 4px solid #2e2e52;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(0.92rem, 4.2vw, 1.15rem);
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background 0.1s, border-bottom-width 0.06s, transform 0.06s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.wordle-key:active {
+  transform: translateY(3px);
+  border-bottom-width: 1px;
+}
+.wordle-key.action-delete svg { margin-left: -3px; }
+
+/* ⌫ on row 3 — 1.5× wider, distinct color */
+.wordle-key.action-delete {
+  width: calc((100% - 54px) / 10 * 1.5);
+  background: #ef4444;
+  border-bottom-color: #b91c1c;
+}
+
+.wordle-submit-btn {
+  width: 62%;
+  align-self: center;
+  height: clamp(42px, 7.5dvh, 52px);
+  border-radius: 999px;
+  background: #10b981;
+  border: none;
+  border-bottom: 4px solid #07704f;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: clamp(6px, 1.5dvh, 12px);
+  transition: background 0.1s, border-bottom-width 0.06s, transform 0.06s;
+}
+.wordle-submit-btn:active {
+  transform: translateY(3px);
+  border-bottom-width: 1px;
+  background: #0d9268;
+}
+
+.wordle-key.correct { background: #10b981; border-bottom-color: #07704f; }
+.wordle-key.present { background: #f59e0b; border-bottom-color: #b45309; }
+.wordle-key.absent  { background: #2e2e48; border-bottom-color: #18182e; color: rgba(255,255,255,0.35); }
+
+/* ── Result (slot clavier) ────────────────────────────────────────────────── */
+.wordle-result {
+  position: relative;
+  flex-shrink: 0;
+  padding: 14px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  align-self: center;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Thin separator at top */
+.wordle-result::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 16px; right: 16px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent);
+}
+
+/* Ambient glow */
+.wres-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.wordle-result.win  .wres-glow { background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(16,185,129,0.20) 0%, transparent 70%); }
+.wordle-result.lose .wres-glow { background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(239,68,68,0.13) 0%, transparent 70%); }
+
+/* Hero row */
+.wres-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.wres-hero-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wres-emoji { font-size: 1.5rem; line-height: 1; }
+
+.wres-verdict {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.wres-sub {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.48);
+  margin: 2px 0 0;
+}
+.wres-sub strong {
+  color: rgba(255,255,255,0.88);
+  font-family: var(--font-title);
+  letter-spacing: 0.06em;
+}
+
+.wres-score {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.wres-score-val {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  color: #10b981;
+  line-height: 1;
+  text-shadow: 0 0 22px rgba(16,185,129,0.55);
+}
+.wres-score-lbl {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.38);
+  letter-spacing: 0.04em;
+}
+
+/* Stats inline */
+.wres-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+.wres-stat-chip {
+  flex: 1;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.55);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wres-stat-chip strong {
+  color: #fff;
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+.wres-stat-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  flex-shrink: 0;
+  margin: 0 4px;
+}
+
+/* CTA buttons */
+.wres-actions {
+  display: flex;
+  gap: 8px;
+}
+.wres-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+.wres-btn.primary {
+  background: #10b981;
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(16,185,129,0.35);
+}
+.wres-btn.primary:hover {
+  background: #0ea371;
+  box-shadow: 0 4px 26px rgba(16,185,129,0.52);
+  transform: translateY(-1px);
+}
+.wres-btn.secondary {
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.78);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.wres-btn.secondary:hover {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+/* ── Header actions ──────────────────────────────────────────────────────── */
+.wordle-header-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* ── Stats Modal ─────────────────────────────────────────────────────────── */
+.wordle-stats-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.wordle-stats-modal {
+  width: 100%;
+  max-width: 420px;
+  background: #16162a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.wsm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wsm-title {
+  font-family: var(--font-title);
+  font-size: 1rem;
+  color: #10b981;
+  margin: 0;
+}
+
+.wsm-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wsm-stats-row {
+  display: flex;
+  gap: 0;
+}
+
+.wsm-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.wsm-stat-val {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.wsm-stat-lbl {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-align: center;
+}
+
+.wsm-dist-title {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0;
+}
+
+.wsm-distribution {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.wsm-dist-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wsm-dist-label {
+  width: 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.wsm-dist-bar {
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  min-width: 28px;
+  transition: width 0.5s ease;
+}
+
+.wsm-dist-bar.highlight { background: #10b981; }
+
+

@@ -1,19 +1,10 @@
-/* ===== LAYOUT - Une seule page ===== */
+/* ===== END PAGE — Flat style ===== */
 .end-page {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  background: var(--bg-primary, #0a0a0f);
-}
-
-.end-page::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background: var(--bg-primary, #0a0a0f);
-  pointer-events: none;
+  background: #0e0e1a;
 }
 
 /* ===== MAIN CONTENT ===== */
@@ -24,13 +15,12 @@
   position: relative;
   z-index: 1;
   padding: 16px;
-  padding-top: 16px;
   max-width: 500px;
   margin: 0 auto;
   width: 100%;
   min-height: 0;
   overflow-y: auto;
-  padding-bottom: 80px;
+  padding-bottom: 100px;
 }
 
 /* ===== HEADER ===== */
@@ -39,20 +29,26 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 8px 0;
+  padding: 10px 0;
   flex-shrink: 0;
-  position: relative;
-  z-index: 1;
 }
 
-.trophy-icon {
-  font-size: 1.5rem;
+.end-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #FFD233;
+  border-bottom: 3px solid #CC9600;
+  border-radius: 10px;
+  color: #5C3D00;
 }
 
 .title-text {
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: clamp(1rem, 4vw, 1.3rem);
-  color: var(--text-primary, #ffffff);
+  color: #fff;
 }
 
 /* ===== PODIUM ===== */
@@ -60,10 +56,7 @@
   flex-shrink: 0;
   position: relative;
   z-index: 2;
-  transform: scale(0.5);
-  transform-origin: center top;
-  margin: 0 0 -200px 0;
-  filter: saturate(0.85);
+  margin: 0 0 12px 0;
 }
 
 /* ===== LEADERBOARD ===== */
@@ -76,9 +69,65 @@
   z-index: 3;
 }
 
+/* Sur l'écran END, is-me ne change pas la couleur de fond — le podium reste intact */
+.end-page .leaderboard-card .player-row.is-me.first {
+  background: #FFD233 !important;
+  border-bottom: 3px solid #CC9600 !important;
+}
+
+.end-page .leaderboard-card .player-row.is-me.first .player-name { color: #5C3D00; }
+.end-page .leaderboard-card .player-row.is-me.first .you-badge { background: #CC9600; color: #fff; }
+.end-page .leaderboard-card .player-row.is-me.first .rank-number { background: #CC9600; color: #fff; }
+.end-page .leaderboard-card .player-row.is-me.first .player-score { background: #CC9600; border-bottom-color: #A07800; color: #fff; }
+
+.end-page .leaderboard-card .player-row.is-me.second {
+  background: #C8D6E5 !important;
+  border-bottom: 3px solid #8E9BAD !important;
+}
+
+.end-page .leaderboard-card .player-row.is-me.second .player-name { color: #2C3E50; }
+.end-page .leaderboard-card .player-row.is-me.second .you-badge { background: #8E9BAD; color: #fff; }
+.end-page .leaderboard-card .player-row.is-me.second .rank-number { background: #8E9BAD; color: #fff; }
+.end-page .leaderboard-card .player-row.is-me.second .player-score { background: #8E9BAD; border-bottom-color: #7B8A9E; color: #fff; }
+
+.end-page .leaderboard-card .player-row.is-me.third {
+  background: #E8945A !important;
+  border-bottom: 3px solid #A05A2E !important;
+}
+
+.end-page .leaderboard-card .player-row.is-me.third .player-name { color: #4A2000; }
+.end-page .leaderboard-card .player-row.is-me.third .you-badge { background: #A05A2E; color: #fff; }
+.end-page .leaderboard-card .player-row.is-me.third .rank-number { background: #A05A2E; color: #fff; }
+.end-page .leaderboard-card .player-row.is-me.third .player-score { background: #A05A2E; border-bottom-color: #8A4A22; color: #fff; }
+
+/* Hors podium : couleur neutre, badge "vous" discret */
+.end-page .leaderboard-card .player-row.is-me:not(.first):not(.second):not(.third) {
+  background: #222240 !important;
+  border-bottom: 2px solid #1a1a35 !important;
+}
+
+.end-page .leaderboard-card .player-row.is-me:not(.first):not(.second):not(.third) .player-name {
+  color: #eef2ff !important;
+}
+
+.end-page .leaderboard-card .player-row.is-me:not(.first):not(.second):not(.third) .you-badge {
+  background: #7c3aed !important;
+  color: #fff !important;
+}
+
+.end-page .leaderboard-card .player-row.is-me:not(.first):not(.second):not(.third) .rank-number {
+  background: #3a3a58 !important;
+  border-bottom-color: #2a2a45 !important;
+  color: #fff !important;
+}
+
+.end-page .leaderboard-card .player-row.is-me:not(.first):not(.second):not(.third) .player-score {
+  background: #3a3a58 !important;
+  border-bottom-color: #2a2a45 !important;
+  color: #fff !important;
+}
+
 /* ===== SPINNER ===== */
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }

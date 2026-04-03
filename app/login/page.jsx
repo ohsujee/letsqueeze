@@ -10,6 +10,7 @@ import { trackSignup, trackLogin, initAnalytics } from '@/lib/analytics';
 import { useToast } from '@/lib/hooks/useToast';
 import { motion } from 'framer-motion';
 import { AuthButtons } from '@/components/auth';
+import '@/app/(auth)/login.css';
 
 export default function LoginPage() {
   const router = useRouter();

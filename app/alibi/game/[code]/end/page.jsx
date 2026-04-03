@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, get, onValue, update,
@@ -20,10 +20,12 @@ import { usePlayers } from "@/lib/hooks/usePlayers";
 import { AlibiPartyEndScreen } from "@/components/game-alibi";
 import { TrophyIcon, DefeatIcon } from './_components/AlibiEndIcons';
 import './alibi-end.css';
+import '@/app/alibi/alibi-theme.css';
 
-export default function AlibiEnd() {
-  const { code } = useParams();
-  const router = useRouter();
+export function AlibiEndContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
 
   const [score, setScore] = useState(null);
   const [myTeam, setMyTeam] = useState(null);
@@ -73,14 +75,15 @@ export default function AlibiEnd() {
     }
   }, [currentUser, userIsPro, profileLoading]);
 
-  // Auth
+  // Auth (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       setFirebaseUser(user);
       if (!user) signInAnonymously(auth).catch(() => {});
     });
     return () => unsub();
-  }, []);
+  }, [devUid]);
 
   // Listen player team/group
   useEffect(() => {
@@ -351,4 +354,9 @@ export default function AlibiEnd() {
       </div>
     </div>
   );
+}
+
+export default function AlibiEnd() {
+  const { code } = useParams();
+  return <AlibiEndContent code={code} />;
 }

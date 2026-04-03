@@ -19,6 +19,7 @@ import QuestionCard from "@/components/game/QuestionCard";
 import HostActionFooter from "@/components/game/HostActionFooter";
 import ReportQuestionModal from "@/components/game/ReportQuestionModal";
 import { useQuizActions } from "@/lib/hooks/useQuizActions";
+import { getFlatCSSVars } from "@/lib/config/colors";
 import { push, set } from "firebase/database";
 import './QuizHostView.css';
 
@@ -43,7 +44,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   const myUid = auth.currentUser?.uid;
   const canControl = isActualHost || (meta?.gameMasterMode === 'party' && state?.currentAskerUid === myUid);
 
-  // Load scoring config
+  // Load scoring config (used for lockoutMs + wrongAnswerPenalty)
   useEffect(() => {
     fetch(`/config/scoring.json?t=${Date.now()}`)
       .then(r => r.json())
@@ -93,29 +94,11 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   const progressLabel = total ? `Q${Math.min(qIndex + 1, total)} / ${total}` : "";
   const title = (quiz?.title || (meta?.quizId ? meta.quizId.replace(/-/g, " ") : "Partie"));
 
-  // Points calculation
-  const elapsedEffective = useMemo(() => {
-    if (!state?.revealed || !state?.lastRevealAt) return 0;
-    const acc = state?.elapsedAcc || 0;
-    const hardStop = state?.pausedAt ?? state?.lockedAt ?? null;
-    const end = hardStop ?? serverNow;
-    return acc + Math.max(0, end - state.lastRevealAt);
-  }, [state?.revealed, state?.lastRevealAt, state?.elapsedAcc, state?.pausedAt, state?.lockedAt, serverNow]);
-
-  const { pointsEnJeu, ratioRemain, cfg } = useMemo(() => {
-    if (!conf || !q) return { pointsEnJeu: 0, ratioRemain: 1, cfg: null };
-    const diff = q.difficulty === "difficile" ? "difficile" : "normal";
-    const c = conf[diff];
-    const ratio = Math.max(0, 1 - (elapsedEffective / c.durationMs));
-    const pts = Math.round(c.floor + (c.start - c.floor) * ratio);
-    return { pointsEnJeu: pts, ratioRemain: ratio, cfg: c };
-  }, [conf, q, elapsedEffective]);
-
   // Game actions (buzz system, sounds, validate/wrong/skip/etc.)
-  const { revealToggle, resetBuzzers, validate, wrong, skip, end, isTransitioning } = useQuizActions({
+  // Scoring: 100 pts fixes par bonne réponse (défini dans useQuizActions)
+  const { resetBuzzers, validate, wrong, skip, end, isTransitioning } = useQuizActions({
     code, state, meta, quiz, players, conf, canControl,
-    pointsEnJeu, ratioRemain, total,
-    onAdvanceAsker, serverOffset,
+    total, onAdvanceAsker, serverOffset,
   });
 
   const lockedName = state?.lockUid ? (players.find(p => p.uid === state.lockUid)?.name || state.lockUid) : "-";
@@ -171,7 +154,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   }
 
   return (
-    <div className="host-game-page game-page">
+    <div className="host-game-page game-page" style={getFlatCSSVars('quiz')}>
       <AnimatePresence>
         {isTransitioning && (
           <motion.div className="party-transition-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.15 }} />
@@ -208,20 +191,20 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
 
       <BuzzValidationModal
         isOpen={!!state?.lockUid} playerName={lockedName} gameColor="#8b5cf6"
-        answerLabel="Réponse attendue" answerValue={q?.answer} points={pointsEnJeu}
+        answerLabel="Réponse attendue" answerValue={q?.answer} points={100}
         onCorrect={validate} onWrong={wrong} onCancel={resetBuzzers}
       />
 
       <main className="game-content">
         <QuestionCard
-          question={q?.question} answer={q?.answer} points={pointsEnJeu}
+          question={q?.question} answer={q?.answer}
           questionIndex={qIndex} isEmpty={!q}
           onReport={q ? () => setShowReportModal(true) : undefined}
         />
         <Leaderboard players={players} mode={meta?.mode} teams={meta?.teams} />
       </main>
 
-      <HostActionFooter revealed={state?.revealed} onRevealToggle={revealToggle} onSkip={skip} onEnd={end} />
+      <HostActionFooter onSkip={skip} onEnd={end} />
 
       <GameStatusBanners isHost={isActualHost} isHostTemporarilyDisconnected={isHostTemporarilyDisconnected} hostDisconnectedAt={hostDisconnectedAt} />
       <ReportQuestionModal isOpen={showReportModal} onClose={() => setShowReportModal(false)} onSubmit={handleReport} submitting={reportSubmitting} />

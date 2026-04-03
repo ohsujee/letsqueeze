@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { getDatabase, ref, onValue, update, get, set } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -22,6 +22,8 @@ import { useHearts } from '@/lib/hooks/useHearts';
 import { useHeartsLobbyGuard } from '@/lib/hooks/useHeartsLobbyGuard';
 import HeartsModal from '@/components/ui/HeartsModal';
 import { calculateMimeWords, MIME_CONFIG } from '@/lib/config/rooms';
+import '@/app/mime/mime-lobby.css';
+import '@/app/mime/mime-selector.css';
 
 // Thèmes disponibles (chargés depuis /public/data/mime/*.json)
 const MIME_THEMES = [
@@ -35,16 +37,16 @@ const MIME_THEMES = [
   { id: 'lieux', name: 'Lieux', emoji: '🏠', file: 'lieux.json' },
 ];
 
-export default function MimeLobbyPage() {
-  const params = useParams();
-  const router = useRouter();
-  const code = params?.code;
+export function MimeLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const db = getDatabase(getApp());
 
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
-  const [myUid, setMyUid] = useState(null);
-  const [isHost, setIsHost] = useState(false);
+  const [myUid, setMyUid] = useState(devUid || null);
+  const [isHost, setIsHost] = useState(devIsHost || false);
   const [showThemeSelector, setShowThemeSelector] = useState(false);
   const [themes, setThemes] = useState(MIME_THEMES);
   const [themeSelection, setThemeSelection] = useState(null);
@@ -91,14 +93,15 @@ export default function MimeLobbyPage() {
     loadThemes();
   }, []);
 
-  // Auth
+  // Auth (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const auth = getAuth(getApp());
     const unsub = onAuthStateChanged(auth, (user) => {
       setMyUid(user?.uid || null);
     });
     return () => unsub();
-  }, []);
+  }, [devUid]);
 
   // Firebase listeners
   useEffect(() => {
@@ -525,5 +528,11 @@ export default function MimeLobbyPage() {
       </main>
     </div>
   );
+}
+
+export default function MimeLobbyPage() {
+  const params = useParams();
+  const code = params?.code;
+  return <MimeLobbyContent code={code} />;
 }
 

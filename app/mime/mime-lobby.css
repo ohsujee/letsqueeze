@@ -1,0 +1,407 @@
+/* MIME game lobby — extracted from globals.css */
+/* ===========================================
+   🎭 MIME GAME LOBBY STYLES
+   Neon Green Theme - Premium Style Guide
+   =========================================== */
+
+/* Container with neon green glow */
+.lobby-container.mime::before {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(0, 255, 102, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(0, 204, 82, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(0, 255, 102, 0.03) 0%, transparent 70%),
+    var(--bg-primary, #0a0a0f);
+}
+
+/* Lobby content scrollable for Mime */
+.lobby-container.mime .lobby-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Card glow effect - neon green */
+.lobby-card.mime::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 102, 0.5),
+    rgba(0, 255, 102, 0.8),
+    rgba(0, 255, 102, 0.5),
+    transparent
+  );
+}
+
+/* Theme selector card for MIME - like Quiz selector */
+.lobby-card.quiz-selector.mime {
+  cursor: pointer;
+  border: 2px solid rgba(0, 255, 102, 0.35);
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.08), rgba(0, 255, 102, 0.03));
+  backdrop-filter: blur(12px);
+}
+
+.lobby-card.quiz-selector.mime:hover {
+  border-color: rgba(0, 255, 102, 0.5);
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.12), rgba(0, 255, 102, 0.06));
+  box-shadow: 0 0 30px rgba(0, 255, 102, 0.15);
+}
+
+.lobby-card.quiz-selector.mime .quiz-card-emoji {
+  filter: drop-shadow(0 0 10px rgba(0, 255, 102, 0.5));
+}
+
+.lobby-card.quiz-selector.mime .quiz-card-label {
+  color: #00ff66;
+}
+
+.lobby-card.quiz-selector.mime .quiz-change-hint,
+.lobby-container.mime .quiz-change-hint {
+  color: #00ff66;
+}
+
+.lobby-card.quiz-selector.mime .quiz-card-arrow,
+.lobby-container.mime .quiz-card-arrow {
+  color: rgba(0, 255, 102, 0.6);
+}
+
+/* Theme selector card for MIME - premium styling */
+.lobby-card.theme-selector.mime {
+  cursor: default;
+  border: 2px solid rgba(0, 255, 102, 0.35);
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.08), rgba(0, 255, 102, 0.03));
+  backdrop-filter: blur(12px);
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* Instructions card - polished */
+.lobby-card.mime-instructions {
+  border: 2px solid rgba(0, 255, 102, 0.3);
+  background: linear-gradient(180deg, rgba(0, 255, 102, 0.1) 0%, rgba(0, 255, 102, 0.04) 100%);
+  backdrop-filter: blur(12px);
+}
+
+.mime-instructions-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+}
+
+.mime-instructions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mime-instructions-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.mime-step-num {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.25), rgba(0, 255, 102, 0.1));
+  border: 2px solid rgba(0, 255, 102, 0.5);
+  border-radius: 50%;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #00ff66;
+  flex-shrink: 0;
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+}
+
+/* Theme selection header */
+.mime-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 0 0.25rem;
+}
+
+.mime-section-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.mime-word-count {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #00ff66;
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.2), rgba(0, 255, 102, 0.08));
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(0, 255, 102, 0.4);
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+}
+
+/* Themes grid */
+.mime-themes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.mime-theme-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(180deg, rgba(22, 22, 32, 0.9) 0%, rgba(16, 16, 24, 0.95) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(12px);
+}
+
+.mime-theme-card:hover:not(.selected) {
+  border-color: rgba(0, 255, 102, 0.4);
+  background: linear-gradient(180deg, rgba(0, 255, 102, 0.08) 0%, rgba(0, 255, 102, 0.03) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.mime-theme-card.selected {
+  border-color: #00ff66;
+  background: linear-gradient(180deg, rgba(0, 255, 102, 0.15) 0%, rgba(0, 255, 102, 0.06) 100%);
+  box-shadow:
+    0 0 30px rgba(0, 255, 102, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.mime-theme-check {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #00ff66, #00cc52);
+  border-radius: 50%;
+  color: #0a0a0f;
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.6);
+}
+
+.mime-theme-emoji {
+  font-size: 2.25rem;
+  filter: drop-shadow(0 0 15px rgba(0, 255, 102, 0.4));
+}
+
+.mime-theme-name {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mime-theme-count {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Start button with neon lime 3D effect - Style Guide Compliant */
+.lobby-start-btn.mime {
+  background: linear-gradient(180deg, #00ff66 0%, #00cc52 100%);
+  color: #0a0a0f;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  border: none;
+  box-shadow:
+    0 6px 0 #4d7c0f,
+    0 8px 30px rgba(0, 255, 102, 0.5),
+    0 0 60px rgba(0, 255, 102, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  animation: mime-start-pulse 2s ease-in-out infinite;
+}
+
+@keyframes mime-start-pulse {
+  0%, 100% {
+    box-shadow:
+      0 6px 0 #4d7c0f,
+      0 8px 30px rgba(0, 255, 102, 0.5),
+      0 0 60px rgba(0, 255, 102, 0.2),
+      inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 6px 0 #4d7c0f,
+      0 12px 50px rgba(0, 255, 102, 0.7),
+      0 0 100px rgba(0, 255, 102, 0.3),
+      inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+.lobby-start-btn.mime:hover:not(:disabled) {
+  animation: none;
+  transform: translateY(-3px);
+  box-shadow:
+    0 9px 0 #4d7c0f,
+    0 15px 50px rgba(0, 255, 102, 0.6),
+    0 0 80px rgba(0, 255, 102, 0.3),
+    inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+
+.lobby-start-btn.mime:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow:
+    0 3px 0 #4d7c0f,
+    0 5px 20px rgba(0, 255, 102, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+}
+
+.lobby-start-btn.mime:disabled {
+  background: linear-gradient(180deg, rgba(60, 60, 70, 0.6) 0%, rgba(40, 40, 50, 0.7) 100%);
+  color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 4px 0 rgba(30, 30, 40, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  animation: none;
+}
+
+/* Help button for MIME - neon style */
+.help-btn.mime-accent,
+.help-btn.mime {
+  background: rgba(0, 255, 102, 0.12);
+  border: 2px solid rgba(0, 255, 102, 0.35);
+  color: #00ff66;
+}
+
+.help-btn.mime-accent:hover,
+.help-btn.mime:hover {
+  background: rgba(0, 255, 102, 0.2);
+  border-color: rgba(0, 255, 102, 0.6);
+  box-shadow:
+    0 0 25px rgba(0, 255, 102, 0.4),
+    0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Loading spinner for MIME - neon style */
+.lobby-loading.mime .loading-spinner {
+  border: 3px solid rgba(0, 255, 102, 0.15);
+  border-top-color: #00ff66;
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+}
+
+/* Player view for MIME */
+.lobby-player-view.mime {
+  --accent-color: #00ff66;
+}
+
+.lobby-player-view.mime .players-header-card {
+  border-color: rgba(0, 255, 102, 0.3);
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.1), rgba(0, 255, 102, 0.05));
+}
+
+.lobby-player-view.mime .players-header-card .players-icon {
+  filter: drop-shadow(0 0 8px rgba(0, 255, 102, 0.5));
+}
+
+.lobby-player-view.mime .players-header-card .players-count {
+  color: #00ff66;
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.6);
+}
+
+.lobby-player-view.mime .player-info-card {
+  border-color: rgba(0, 255, 102, 0.25);
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.08), rgba(0, 255, 102, 0.03));
+}
+
+.lobby-player-view.mime .player-info-card .player-info-title {
+  color: #00ff66;
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+}
+
+.lobby-player-view.mime .chip-avatar-glow {
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.2), rgba(0, 255, 102, 0.1));
+  border-color: rgba(0, 255, 102, 0.3);
+  color: #00ff66;
+}
+
+.lobby-player-view.mime .player-chip-full.is-me .chip-avatar-glow {
+  background: linear-gradient(135deg, #00ff66, #00cc52);
+  border-color: #00ff66;
+  color: #0a0a0f;
+}
+
+.lobby-player-view.mime .player-chip-full.is-me {
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.25), rgba(0, 255, 102, 0.12));
+  border-color: rgba(0, 255, 102, 0.5);
+}
+
+.lobby-player-view.mime .player-chip-full.is-me .chip-name-full {
+  color: #00ff66;
+}
+
+/* Player count badge for MIME */
+.lobby-container.mime .player-count-badge {
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.3), rgba(0, 255, 102, 0.15));
+  border-color: rgba(0, 255, 102, 0.5);
+  color: #00ff66;
+}
+
+/* Waiting animation for MIME */
+.waiting-compact.mime {
+  margin-top: 1rem;
+}
+
+.waiting-pulse.mime {
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.25), rgba(0, 255, 102, 0.1));
+  border-color: rgba(0, 255, 102, 0.4);
+  box-shadow: 0 0 30px rgba(0, 255, 102, 0.2);
+}
+
+.waiting-pulse.mime::before {
+  filter: drop-shadow(0 0 8px rgba(0, 255, 102, 0.5));
+}
+
+/* Instructions card content */
+.lobby-card.mime-instructions .instruction-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.lobby-card.mime-instructions .instruction-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 102, 0.5));
+}
+
+.lobby-card.mime-instructions .instruction-text {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+

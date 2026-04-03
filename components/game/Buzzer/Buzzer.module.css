@@ -1,160 +1,126 @@
-/* Container fixe pour le positionnement */
+/* Container fixe */
 .wrapper {
   position: fixed;
-  bottom: 20px;
+  bottom: 36px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 500;
   pointer-events: none;
+  perspective: 600px;
 }
 
-/* Bouton buzzer - Base 3D */
+/* ===== BOUTON BUZZER — Arcade 3D cartoon =====
+   Le côté épais est construit via des box-shadow empilées
+   sans blur (0px) qui forment un mur solide sous le cercle.
+   3 bandes de couleur = look angulaire/chunky. */
+
 .button {
   pointer-events: auto;
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: 190px;
+  height: 190px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform-origin: center center;
-  transition: all 0.15s ease;
+  transform-origin: center bottom;
+  transform: rotateX(18deg);
+  transition: transform 0.08s ease;
+  z-index: 2;
 }
 
-/* ===== ÉTAT ACTIF (Rouge) - Peut buzzer ===== */
+/* Corps 3D — élément APRÈS le bouton, z-index inférieur = rendu derrière */
+.body {
+  position: absolute;
+  top: 50%;
+  left: 2.5%;
+  width: 95%;
+  height: calc(50% + 16px);
+  border-radius: 0 0 45% 45%;
+  pointer-events: none;
+  z-index: 1;
+  transition: height 0.08s ease;
+}
+
+/* Highlight arc — cercle parfait, bas-droite visible */
+.button::after {
+  content: '';
+  position: absolute;
+  bottom: 4%;
+  right: 8%;
+  width: 84%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border-bottom: 3px solid var(--buzzer-highlight, transparent);
+  background: transparent;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.5;
+  clip-path: inset(70% 0 0 0);
+}
+
+/* ===== ÉTAT ACTIF (Rouge) ===== */
 .active {
-  background: linear-gradient(145deg, #f87171, #dc2626);
-  border: 4px solid #b91c1c;
-  box-shadow:
-    0 8px 0 #991b1b,
-    0 15px 30px rgba(0, 0, 0, 0.4),
-    0 0 40px rgba(239, 68, 68, 0.4),
-    inset 0 -4px 10px rgba(0, 0, 0, 0.3),
-    inset 0 4px 10px rgba(255, 255, 255, 0.2);
-  animation: pulse-active 2s ease-in-out infinite;
-}
-
-@keyframes pulse-active {
-  0%, 100% {
-    box-shadow:
-      0 8px 0 #991b1b,
-      0 15px 30px rgba(0, 0, 0, 0.4),
-      0 0 30px rgba(239, 68, 68, 0.4),
-      inset 0 -4px 10px rgba(0, 0, 0, 0.3),
-      inset 0 4px 10px rgba(255, 255, 255, 0.2);
-  }
-  50% {
-    box-shadow:
-      0 8px 0 #991b1b,
-      0 15px 30px rgba(0, 0, 0, 0.4),
-      0 0 60px rgba(239, 68, 68, 0.6),
-      inset 0 -4px 10px rgba(0, 0, 0, 0.3),
-      inset 0 4px 10px rgba(255, 255, 255, 0.2);
-  }
+  --buzzer-highlight: #fca5a5;
+  background: #ef4444;
+  border: 4px solid #dc2626;
 }
 
 .active:active {
-  transform: translateY(4px);
-  box-shadow:
-    0 4px 0 #991b1b,
-    0 8px 15px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(239, 68, 68, 0.5),
-    inset 0 -2px 5px rgba(0, 0, 0, 0.3),
-    inset 0 2px 5px rgba(255, 255, 255, 0.2);
+  transform: rotateX(18deg) translateY(10px);
 }
 
-/* ===== ÉTAT PENDING (Jaune) - En attente de résolution ===== */
+/* Le socle ne bouge pas au press — seul le cercle descend */
+
+/* ===== ÉTAT PENDING (Jaune) ===== */
 .pending {
-  background: linear-gradient(145deg, #fde047, #eab308);
+  --buzzer-highlight: #fef3c7;
+  background: #eab308;
   border: 4px solid #ca8a04;
-  box-shadow:
-    0 8px 0 #a16207,
-    0 15px 30px rgba(0, 0, 0, 0.4),
-    0 0 50px rgba(234, 179, 8, 0.5),
-    inset 0 -4px 10px rgba(0, 0, 0, 0.3),
-    inset 0 4px 10px rgba(255, 255, 255, 0.2);
   cursor: default;
-  animation: pending-pulse 0.8s ease-in-out infinite;
 }
 
-@keyframes pending-pulse {
-  0%, 100% {
-    box-shadow:
-      0 8px 0 #a16207,
-      0 15px 30px rgba(0, 0, 0, 0.4),
-      0 0 40px rgba(234, 179, 8, 0.4),
-      inset 0 -4px 10px rgba(0, 0, 0, 0.3),
-      inset 0 4px 10px rgba(255, 255, 255, 0.2);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow:
-      0 8px 0 #a16207,
-      0 15px 30px rgba(0, 0, 0, 0.4),
-      0 0 70px rgba(234, 179, 8, 0.7),
-      inset 0 -4px 10px rgba(0, 0, 0, 0.3),
-      inset 0 4px 10px rgba(255, 255, 255, 0.2);
-    transform: scale(1.02);
-  }
-}
-
-/* ===== ÉTAT SUCCESS (Vert) - J'ai buzzé ===== */
+/* ===== ÉTAT SUCCESS (Vert) ===== */
 .success {
-  background: linear-gradient(145deg, #6ee7b7, #10b981);
-  border: 4px solid #047857;
-  box-shadow:
-    0 8px 0 #065f46,
-    0 15px 30px rgba(0, 0, 0, 0.4),
-    0 0 50px rgba(16, 185, 129, 0.6),
-    inset 0 -4px 10px rgba(0, 0, 0, 0.3),
-    inset 0 4px 10px rgba(255, 255, 255, 0.2);
+  --buzzer-highlight: #bbf7d0;
+  background: #22c55e;
+  border: 4px solid #16a34a;
   cursor: default;
-  animation: success-glow 1s ease-out;
 }
 
-@keyframes success-glow {
-  0% { transform: scale(1); }
-  30% { transform: scale(1.08); }
-  100% { transform: scale(1); }
-}
+/* success body color set via inline style */
 
-/* ===== ÉTAT BLOCKED (Gris) - Quelqu'un d'autre a buzzé ===== */
+/* (animation success supprimée — le changement de couleur suffit) */
+
+/* ===== ÉTAT BLOCKED (Gris) ===== */
 .blocked {
-  background: linear-gradient(145deg, #94a3b8, #64748b);
+  --buzzer-highlight: #cbd5e1;
+  background: #64748b;
   border: 4px solid #475569;
-  box-shadow:
-    0 8px 0 #334155,
-    0 15px 30px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(100, 116, 139, 0.3),
-    inset 0 -4px 10px rgba(0, 0, 0, 0.3),
-    inset 0 4px 10px rgba(255, 255, 255, 0.15);
   cursor: not-allowed;
-  opacity: 0.85;
 }
 
-/* ===== ÉTAT PENALTY (Orange) - Pénalité temps ===== */
+/* blocked body color set via inline style */
+
+/* ===== ÉTAT PENALTY (Orange) ===== */
 .penalty {
-  background: linear-gradient(145deg, #fdba74, #f97316);
-  border: 4px solid #c2410c;
-  box-shadow:
-    0 8px 0 #9a3412,
-    0 15px 30px rgba(0, 0, 0, 0.4),
-    0 0 40px rgba(249, 115, 22, 0.4),
-    inset 0 -4px 10px rgba(0, 0, 0, 0.3),
-    inset 0 4px 10px rgba(255, 255, 255, 0.2);
+  --buzzer-highlight: #fed7aa;
+  background: #f97316;
+  border: 4px solid #ea580c;
   cursor: not-allowed;
   animation: penalty-flash 1.5s ease-in-out infinite;
 }
 
+/* penalty body color set via inline style */
+
 @keyframes penalty-flash {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+  50% { opacity: 0.6; }
 }
 
-/* ===== Croix pour état blocked ===== */
+/* ===== Croix blocked ===== */
 .crossOverlay {
   position: absolute;
   top: 50%;
@@ -163,6 +129,7 @@
   width: 70px;
   height: 70px;
   pointer-events: none;
+  z-index: 10;
 }
 
 .crossOverlay::before,
@@ -172,19 +139,13 @@
   top: 50%;
   left: 50%;
   width: 80%;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  height: 14px;
+  background: #fff;
+  border-radius: 7px;
 }
 
-.crossOverlay::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.crossOverlay::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
+.crossOverlay::before { transform: translate(-50%, -50%) rotate(45deg); }
+.crossOverlay::after { transform: translate(-50%, -50%) rotate(-45deg); }
 
 /* ===== Contenu texte ===== */
 .content {
@@ -199,133 +160,98 @@
 
 .mainLabel {
   font-family: 'Bungee', var(--font-title, cursive), sans-serif;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 400;
-  line-height: 1.2;
-  color: #7f1d1d;
+  line-height: 1;
+  color: #fff;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  /* Effet gravé : ombre claire en bas, sombre en haut */
-  text-shadow:
-    0 -1px 1px rgba(0, 0, 0, 0.4),
-    0 1px 1px rgba(255, 255, 255, 0.15);
+  letter-spacing: 0.06em;
 }
 
-/* Couleur du texte pour l'état pending (jaune) */
-.pending .mainLabel {
-  color: #713f12;
-  text-shadow:
-    0 -1px 1px rgba(0, 0, 0, 0.3),
-    0 1px 1px rgba(255, 255, 255, 0.2);
-}
-
-/* Couleur du texte pour l'état success (vert) */
-.success .mainLabel {
-  color: #065f46;
-  text-shadow:
-    0 -1px 1px rgba(0, 0, 0, 0.3),
-    0 1px 1px rgba(255, 255, 255, 0.2);
-}
+.pending .mainLabel { color: #422006; }
 
 .subLabel {
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #ffffff;
-  opacity: 0.9;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  margin-top: 4px;
+  color: #fff;
+  opacity: 0.85;
+  margin-top: 2px;
 }
 
-/* Spacer pour éviter que le contenu passe sous le buzzer */
+.pending .subLabel { color: #422006; opacity: 0.6; }
+
+/* ===== PUPITRE — fixed indépendant, comme une table sous le buzzer ===== */
+
+.podium {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: var(--flat-bg, #2d1b69);
+  border-top: 4px solid var(--flat-bg-light, #3d2a80);
+  border-radius: 30% 30% 0 0;
+  z-index: 499;
+  pointer-events: none;
+}
+
+/* Spacer — hauteur pour le pupitre complet */
 .spacer {
-  height: 100px;
+  height: 160px;
   flex-shrink: 0;
 }
 
 /* ===== Responsive ===== */
 @media (max-width: 640px) {
-  .wrapper {
-    bottom: 16px;
-  }
-
-  .button {
-    width: 160px;
-    height: 160px;
-  }
-
-  .spacer {
-    height: 90px;
-  }
-
-  .mainLabel {
-    font-size: 1.75rem;
-  }
-
-  .subLabel {
-    font-size: 0.625rem;
-  }
-
-  .crossOverlay {
-    width: 60px;
-    height: 60px;
-  }
+  .wrapper { bottom: 16px; }
+  .button { width: 155px; height: 155px; }
+  .spacer { height: 140px; }
+  .mainLabel { font-size: 1.9rem; }
+  .crossOverlay { width: 58px; height: 58px; }
+  .podium { height: 90px; }
 }
 
 @media (max-width: 380px) {
-  .button {
-    width: 140px;
-    height: 140px;
-  }
-
-  .spacer {
-    height: 80px;
-  }
-
-  .mainLabel {
-    font-size: 1.5rem;
-  }
-
-  .crossOverlay {
-    width: 50px;
-    height: 50px;
-  }
+  .button { width: 135px; height: 135px; }
+  .spacer { height: 120px; }
+  .mainLabel { font-size: 1.6rem; }
+  .crossOverlay { width: 48px; height: 48px; }
+  .podium { height: 80px; }
 }
 
-/* Très petits écrans */
 @media (max-width: 320px) {
-  .button {
-    width: 120px;
-    height: 120px;
-  }
-
-  .spacer {
-    height: 70px;
-  }
-
-  .mainLabel {
-    font-size: 1.25rem;
-  }
-
-  .crossOverlay {
-    width: 40px;
-    height: 40px;
-  }
+  .button { width: 115px; height: 115px; }
+  .spacer { height: 80px; }
+  .mainLabel { font-size: 1.3rem; }
+  .crossOverlay { width: 38px; height: 38px; }
 }
 
-/* Safe area */
+@media (max-height: 750px) {
+  .button { width: 125px; height: 125px; }
+  .spacer { height: 115px; }
+  .mainLabel { font-size: 1.5rem; }
+  .wrapper { bottom: 12px; }
+  .crossOverlay { width: 42px; height: 42px; }
+  .podium { height: 70px; }
+}
+
+@media (max-height: 650px) {
+  .button { width: 105px; height: 105px; }
+  .spacer { height: 100px; }
+  .mainLabel { font-size: 1.2rem; }
+  .wrapper { bottom: 8px; }
+  .podium { height: 60px; }
+}
+
 @supports (padding: max(0px)) {
   .wrapper {
     bottom: max(16px, calc(env(safe-area-inset-bottom) + 12px));
   }
 }
 
-/* Mouvement réduit */
 @media (prefers-reduced-motion: reduce) {
-  .active,
-  .penalty {
-    animation: none !important;
-  }
+  .active, .penalty { animation: none !important; }
 }

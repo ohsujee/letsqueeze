@@ -2,64 +2,99 @@
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useGameAudio } from '@/lib/hooks/useGameAudio';
+
+const RANK_STYLES = {
+  1: { bg: '#FFD233', dark: '#CC9600', text: '#5C3D00' },
+  2: { bg: '#C8D6E5', dark: '#8E9BAD', text: '#2C3E50' },
+  3: { bg: '#E8945A', dark: '#A05A2E', text: '#4A2000' },
+};
+
+const SIZES = {
+  large:  { height: 90, avatarSize: 62, fontSize: '1.6rem', scoreSize: '0.85rem', pedestalW: 90, rankFont: '2rem' },
+  medium: { height: 65, avatarSize: 52, fontSize: '1.3rem', scoreSize: '0.75rem', pedestalW: 75, rankFont: '1.5rem' },
+  small:  { height: 45, avatarSize: 48, fontSize: '1.2rem', scoreSize: '0.7rem', pedestalW: 70, rankFont: '1.3rem' },
+};
+
+function buildPodiumSlots(topPlayers) {
+  const players = topPlayers.filter(Boolean);
+  if (players.length === 0) return [];
+
+  const ranks = players.map(p => p.rank);
+  const uniqueRanks = [...new Set(ranks)];
+
+  // Tous ex-aequo
+  if (uniqueRanks.length === 1) {
+    return players.map((p, i) => ({
+      player: p,
+      rank: p.rank,
+      size: 'large',
+      delay: i * 0.3,
+    }));
+  }
+
+  // 2 premiers ex-aequo (rank 1, rank 1, rank 3)
+  const rank1Players = players.filter(p => p.rank === 1);
+  if (rank1Players.length === 2) {
+    const third = players.find(p => p.rank !== 1);
+    return [
+      { player: rank1Players[0], rank: 1, size: 'large', delay: 0 },
+      { player: rank1Players[1], rank: 1, size: 'large', delay: 0.3 },
+      ...(third ? [{ player: third, rank: third.rank, size: 'small', delay: 0.6 }] : []),
+    ];
+  }
+
+  // 2e et 3e ex-aequo (rank 1, rank 2, rank 2)
+  const rank2Players = players.filter(p => p.rank === 2);
+  if (rank2Players.length === 2) {
+    const first = players.find(p => p.rank === 1);
+    return [
+      ...(rank2Players[0] ? [{ player: rank2Players[0], rank: 2, size: 'medium', delay: 0 }] : []),
+      ...(first ? [{ player: first, rank: 1, size: 'large', delay: 0.4 }] : []),
+      ...(rank2Players[1] ? [{ player: rank2Players[1], rank: 2, size: 'medium', delay: 0.8 }] : []),
+    ];
+  }
+
+  // Cas normal : 3 rangs différents → 2e | 1er | 3e
+  return [
+    players[1] ? { player: players[1], rank: players[1].rank, size: 'medium', delay: 0 } : null,
+    players[0] ? { player: players[0], rank: players[0].rank, size: 'large', delay: 0.4 } : null,
+    players[2] ? { player: players[2], rank: players[2].rank, size: 'small', delay: 0.8 } : null,
+  ].filter(Boolean);
+}
+
 export const PodiumPremium = ({ topPlayers, disableAnimations = false }) => {
   const audio = useGameAudio();
 
   useEffect(() => {
-    // Son de victoire (joue une seule fois)
     audio.play('victory/end-celebration', { volume: 0.4 });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty deps - run once on mount only
+  }, []);
 
-  // Ordre podium: 2nd, 1st, 3rd
-  const podiumOrder = [
-    topPlayers[1], // 2ème à gauche
-    topPlayers[0], // 1er au centre (plus haut)
-    topPlayers[2]  // 3ème à droite
-  ];
-
-  const podiumHeights = [140, 200, 100];
-  const medals = ['🥈', '🥇', '🥉'];
-  const defaultColors = [
-    { primary: '#C0C0C0', secondary: '#E8E8E8', glow: 'rgba(192, 192, 192, 0.3)' },
-    { primary: '#FFD700', secondary: '#FFA500', glow: 'rgba(255, 215, 0, 0.4)' },
-    { primary: '#CD7F32', secondary: '#8B4513', glow: 'rgba(205, 127, 50, 0.3)' }
-  ];
-  const ranks = [2, 1, 3];
-
-  // Helper to create color variants from a base team color
-  const getTeamColorVariants = (baseColor) => {
-    // Parse the color to create lighter/darker variants
-    return {
-      primary: baseColor,
-      secondary: baseColor,
-      glow: `${baseColor}66` // 40% opacity
-    };
-  };
+  const podiumSlots = buildPodiumSlots(topPlayers);
 
   return (
     <div style={{
-      perspective: '1000px',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'flex-end',
-      gap: '1rem',
+      gap: '10px',
       padding: '0.5rem 0 0 0',
-      position: 'relative'
+      position: 'relative',
     }}>
+      {podiumSlots.map((slot) => {
+        const { player, rank, size: sizeKey, delay } = slot;
+        const style = RANK_STYLES[rank] || RANK_STYLES[3];
+        const size = SIZES[sizeKey];
 
-      {podiumOrder.map((player, i) => {
-        if (!player) return <span key={`empty-${i}`} />;
-
-        const isWinner = ranks[i] === 1;
-        // Use team color if available (team mode), otherwise use medal colors
         const isTeam = !!player.color;
-        const color = isTeam ? getTeamColorVariants(player.color) : defaultColors[i];
-        // For teams, extract the team name without prefix for display
         const displayName = isTeam
           ? (player.name || '').replace(/^(Équipe |Team )/i, '') || 'Équipe'
           : player.name || 'Joueur';
         const initial = displayName.charAt(0).toUpperCase();
+
+        const bg = isTeam ? player.color : style.bg;
+        const dark = isTeam ? darken(player.color, 40) : style.dark;
+        const text = isTeam ? '#fff' : style.text;
 
         return (
           <motion.div
@@ -68,188 +103,95 @@ export const PodiumPremium = ({ topPlayers, disableAnimations = false }) => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              zIndex: isWinner ? 10 : 5,
-              position: 'relative'
+              zIndex: sizeKey === 'large' ? 10 : 5,
             }}
-            initial={disableAnimations ? false : { y: 100, opacity: 0 }}
+            initial={disableAnimations ? false : { y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={disableAnimations ? { duration: 0 } : {
-              delay: ranks[i] === 1 ? 0.5 : ranks[i] === 2 ? 0 : 1.0,
-              duration: 0.6,
-              ease: "easeOut"
+              delay,
+              duration: 0.5,
+              ease: 'easeOut',
             }}
           >
-            {/* Médaille flottante */}
-            <motion.div
-              style={{
-                position: 'relative',
-                marginBottom: '1.5rem'
-              }}
-              animate={{
-                y: [0, -10, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              {/* Badge médaille moderne */}
-              <motion.div
-                style={{
-                  position: 'relative',
-                  width: isWinner ? '110px' : '90px',
-                  height: isWinner ? '110px' : '90px',
-                  borderRadius: '50%',
-                  background: `linear-gradient(135deg, ${color.primary}, ${color.secondary})`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: '4px solid rgba(255, 255, 255, 0.3)',
-                  boxShadow: `0 4px 15px ${color.glow}, inset 0 2px 8px rgba(255,255,255,0.2)`,
-                  overflow: 'hidden'
-                }}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-              >
-                {/* Effet shine */}
-                <motion.div
-                  style={{
-                    position: 'absolute',
-                    top: '-50%',
-                    left: '-50%',
-                    width: '200%',
-                    height: '200%',
-                    background: 'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%)',
-                  }}
-                  animate={{
-                    rotate: [0, 360]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                />
+            {/* Avatar */}
+            <div style={{
+              width: size.avatarSize,
+              height: size.avatarSize,
+              borderRadius: '50%',
+              background: bg,
+              border: `4px solid ${dark}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 8,
+            }}>
+              <span style={{
+                fontFamily: "'Bungee', cursive",
+                fontSize: size.fontSize,
+                color: text,
+                lineHeight: 1,
+              }}>
+                {initial}
+              </span>
+            </div>
 
-                {/* Initiale */}
-                <span style={{
-                  fontSize: isWinner ? '3rem' : '2.5rem',
-                  fontWeight: 900,
-                  color: 'white',
-                  textShadow: '0 4px 10px rgba(0,0,0,0.5)',
-                  position: 'relative',
-                  zIndex: 1
-                }}>
-                  {initial}
-                </span>
-              </motion.div>
-
-              {/* Emoji médaille */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '-10px',
-                  right: '-10px',
-                  fontSize: isWinner ? '3.5rem' : '2.5rem',
-                  filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
-                }}
-              >
-                {medals[i]}
-              </div>
-            </motion.div>
-
-            {/* Nom du joueur ou de l'équipe */}
-            <div
-              style={{
-                fontSize: '1.5rem',
-                fontWeight: 700,
-                color: isTeam ? color.primary : 'white',
-                textAlign: 'center',
-                marginBottom: '0.75rem',
-                maxWidth: '140px',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                textShadow: isTeam ? `0 0 10px ${color.glow}` : 'none'
-              }}
-            >
-              {isTeam ? `Team ${displayName}` : displayName}
+            {/* Nom */}
+            <div style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              color: '#fff',
+              textAlign: 'center',
+              marginBottom: 4,
+              maxWidth: '110px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}>
+              {displayName}
             </div>
 
             {/* Score */}
-            <div
-              style={{
-                fontSize: isWinner ? '2rem' : '1.5rem',
-                fontWeight: 900,
-                fontFamily: 'var(--font-mono)',
-                color: color.primary,
-                textShadow: `0 0 10px ${color.glow}`,
-                marginBottom: '1.5rem',
-                padding: '0.5rem 1.5rem',
-                background: 'rgba(0, 0, 0, 0.3)',
-                borderRadius: '9999px',
-                border: `2px solid ${color.primary}`,
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              {player.score}
+            <div style={{
+              fontFamily: "'Bungee', cursive",
+              fontSize: size.scoreSize,
+              color: '#fff',
+              background: '#3a3a58',
+              borderBottom: '2px solid #2a2a45',
+              borderRadius: 8,
+              padding: '4px 12px',
+              marginBottom: 10,
+            }}>
+              {player.score ?? 0}
             </div>
 
-            {/* Piédestal moderne avec glassmorphisme */}
+            {/* Piédestal */}
             <motion.div
               style={{
-                width: isWinner ? '140px' : '120px',
-                background: `linear-gradient(180deg, ${color.primary}40, ${color.secondary}20)`,
-                borderRadius: '1rem 1rem 0 0',
-                borderTop: `2px solid ${color.primary}60`,
-                borderLeft: `2px solid ${color.primary}60`,
-                borderRight: `2px solid ${color.primary}60`,
-                borderBottom: 'none',
-                boxShadow: `0 -4px 15px ${color.glow}, inset 0 1px 5px rgba(255,255,255,0.1)`,
-                backdropFilter: 'blur(20px)',
+                width: size.pedestalW,
+                background: bg,
+                borderRadius: '12px 12px 0 0',
+                borderBottom: `4px solid ${dark}`,
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'flex-end',
-                paddingBottom: '1.5rem',
-                position: 'relative',
-                overflow: 'hidden'
+                justifyContent: 'center',
+                overflow: 'hidden',
               }}
               initial={disableAnimations ? false : { height: 0 }}
-              animate={{ height: podiumHeights[i] }}
+              animate={{ height: size.height }}
               transition={disableAnimations ? { duration: 0 } : {
-                delay: ranks[i] === 1 ? 0.7 : ranks[i] === 2 ? 0.2 : 1.2,
-                duration: 0.8,
-                ease: "easeOut"
+                delay: delay + 0.2,
+                duration: 0.6,
+                ease: 'easeOut',
               }}
             >
-              {/* Rayures décoratives */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: `repeating-linear-gradient(
-                  45deg,
-                  transparent,
-                  transparent 20px,
-                  ${color.primary}10 20px,
-                  ${color.primary}10 40px
-                )`,
-                pointerEvents: 'none'
-              }} />
-
-              {/* Numéro de rang */}
               <span style={{
-                fontSize: isWinner ? '4rem' : '3rem',
-                fontWeight: 900,
-                color: 'white',
-                textShadow: `0 2px 8px ${color.glow}`,
-                position: 'relative',
-                zIndex: 1
+                fontFamily: "'Bungee', cursive",
+                fontSize: size.rankFont,
+                color: text,
+                lineHeight: 1,
               }}>
-                {ranks[i]}
+                {rank}
               </span>
             </motion.div>
           </motion.div>
@@ -258,3 +200,11 @@ export const PodiumPremium = ({ topPlayers, disableAnimations = false }) => {
     </div>
   );
 };
+
+function darken(hex, amount) {
+  const color = hex.replace('#', '');
+  const r = Math.max(0, parseInt(color.slice(0, 2), 16) - amount);
+  const g = Math.max(0, parseInt(color.slice(2, 4), 16) - amount);
+  const b = Math.max(0, parseInt(color.slice(4, 6), 16) - amount);
+  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+}

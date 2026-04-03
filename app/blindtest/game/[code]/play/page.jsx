@@ -27,18 +27,20 @@ import { useAskerRotation } from "@/lib/hooks/useAskerRotation";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { storage } from "@/lib/utils/storage";
 import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
+import '@/app/blindtest/blindtest-theme.css';
 
 // Deezer brand colors
 const DEEZER_PURPLE = '#A238FF';
 
-export default function DeezTestPlayerGame() {
-  const { code } = useParams();
-  const router = useRouter();
+export function BlindTestPlayContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
 
   const [state, setState] = useState(null);
   const [meta, setMeta] = useState(null);
   const [playlist, setPlaylist] = useState(null);
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [showEndTransition, setShowEndTransition] = useState(false);
   const [showAskerTransition, setShowAskerTransition] = useState(false);
   const endTransitionTriggeredRef = useRef(false);
@@ -73,8 +75,9 @@ export default function DeezTestPlayerGame() {
   // Server time sync (300ms tick for score updates)
   const { serverNow, offset } = useServerTime(300);
 
-  // Auth
+  // Auth (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, async u => {
       if (u) setMyUid(u.uid);
       else {
@@ -82,7 +85,7 @@ export default function DeezTestPlayerGame() {
       }
     });
     return unsub;
-  }, []);
+  }, [devUid]);
 
   // Player cleanup (mark disconnected on leave)
   const { leaveRoom, markActive } = usePlayerCleanup({
@@ -841,4 +844,9 @@ export default function DeezTestPlayerGame() {
       `}</style>
     </div>
   );
+}
+
+export default function DeezTestPlayerGame() {
+  const { code } = useParams();
+  return <BlindTestPlayContent code={code} />;
 }

@@ -32,11 +32,16 @@ import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
 import { GameLaunchCountdown } from "@/components/transitions";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import { CaretDown, Info, Lightning, UsersThree, ArrowRight, Users } from '@phosphor-icons/react';
+import { getFlatCSSVars, GAME_COLORS } from '@/lib/config/colors';
 import HostSettingsPanel from './_components/HostSettingsPanel';
 import './quiz-lobby.css';
+import './quiz-lobby-globals.css';
+import './quiz-selector-modal.css';
+import './quiz-selector-v2.css';
+import './team-tabs.css';
 
-const ACCENT = '#8b5cf6';
-const ACCENT_DARK = '#7c3aed';
+const ACCENT = GAME_COLORS.quiz.primary;
+const ACCENT_DARK = GAME_COLORS.quiz.secondary;
 const ROOM_PREFIX = 'rooms';
 
 export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
@@ -361,7 +366,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
 
   // ── Render ──
   return (
-    <div className="quiz-lobby">
+    <div className="quiz-lobby" style={getFlatCSSVars('quiz')}>
 
       {/* Background layers */}
       <div aria-hidden className="quiz-lobby-bg">

@@ -20,11 +20,14 @@ import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { useAskerRotation } from "@/lib/hooks/useAskerRotation";
+// useSound kept for buzz sound
 import GameStatusBanners from "@/components/game/GameStatusBanners";
+import { BellRinging } from '@phosphor-icons/react';
 import { storage } from "@/lib/utils/storage";
-import { FitText } from "@/lib/hooks/useFitText";
+import { getFlatCSSVars } from "@/lib/config/colors";
 import { GameEndTransition } from "@/components/transitions";
 import './quiz-play.css';
+import '@/app/game/quiz-guide-styles.css';
 
 export function QuizPlayContent({ code, myUid: devUid }) {
   const nextRouter = useRouter();
@@ -34,7 +37,6 @@ export function QuizPlayContent({ code, myUid: devUid }) {
   const [state, setState] = useState(null);
   const [meta, setMeta] = useState(null);
   const [quiz, setQuiz] = useState(null);
-  const [conf, setConf] = useState(null);
   const [myUid, setMyUid] = useState(devUid || null);
   const [showEndTransition, setShowEndTransition] = useState(false);
   const [showAskerTransition, setShowAskerTransition] = useState(false);
@@ -130,13 +132,7 @@ export function QuizPlayContent({ code, myUid: devUid }) {
 
   // Keep screen awake
 
-  // Config scoring
-  useEffect(() => {
-    fetch(`/config/scoring.json?t=${Date.now()}`)
-      .then(r => r.json())
-      .then(setConf)
-      .catch(err => console.error('Erreur chargement config:', err));
-  }, []);
+  // Config scoring removed — 100 pts fixes par question
 
   // DB listeners
   useEffect(() => {
@@ -159,10 +155,8 @@ export function QuizPlayContent({ code, myUid: devUid }) {
     return () => { u1(); u2(); u3(); };
   }, [code, router, isValidating]);
 
-  const revealed = !!state?.revealed;
   const total = quiz?.items?.length || 0;
   const qIndex = state?.currentIndex || 0;
-  const q = quiz?.items?.[qIndex];
   const progressLabel = total ? `Q${Math.min(qIndex + 1, total)} / ${total}` : "";
   const title = (quiz?.title || (meta?.quizId ? meta.quizId.replace(/-/g, " ") : "Partie"));
 
@@ -170,36 +164,9 @@ export function QuizPlayContent({ code, myUid: devUid }) {
   const blockedMs = Math.max(0, (me?.blockedUntil || 0) - serverNow);
   const blocked = blockedMs > 0;
 
-  // Points sync
-  const elapsedEffective = useMemo(() => {
-    if (!revealed || !state?.lastRevealAt) return 0;
-    const acc = state?.elapsedAcc || 0;
-    const hardStop = state?.pausedAt ?? state?.lockedAt ?? null;
-    const end = hardStop ?? serverNow;
-    return acc + Math.max(0, end - state.lastRevealAt);
-  }, [revealed, state?.lastRevealAt, state?.elapsedAcc, state?.pausedAt, state?.lockedAt, serverNow]);
-
-  const { pointsEnJeu } = useMemo(() => {
-    if (!conf || !q) return { pointsEnJeu: 0 };
-    const diff = q.difficulty === "difficile" ? "difficile" : "normal";
-    const c = conf[diff];
-    const ratio = Math.max(0, 1 - (elapsedEffective / c.durationMs));
-    const pts = Math.round(c.floor + (c.start - c.floor) * ratio);
-    return { pointsEnJeu: pts };
-  }, [conf, q, elapsedEffective]);
-
   // Sounds
-  const playReveal = useSound("/sounds/reveal.mp3");
   const playBuzz = useSound("/sounds/quiz-buzzer.wav");
-  const prevRevealAt = useRef(0);
   const prevLock = useRef(null);
-
-  useEffect(() => {
-    if (state?.revealed && state?.lastRevealAt && state.lastRevealAt !== prevRevealAt.current) {
-      playReveal();
-      prevRevealAt.current = state.lastRevealAt;
-    }
-  }, [state?.revealed, state?.lastRevealAt, playReveal]);
 
   useEffect(() => {
     const cur = state?.lockUid || null;
@@ -207,20 +174,7 @@ export function QuizPlayContent({ code, myUid: devUid }) {
     prevLock.current = cur;
   }, [state?.lockUid, playBuzz]);
 
-  // Confetti for correct answer
-  const prevQuestionIndex = useRef(-1);
-  const wasLockedByMe = useRef(false);
-  useEffect(() => {
-    const currentIndex = state?.currentIndex || 0;
-    const isLockedByMe = state?.lockUid === auth.currentUser?.uid;
-
-    if (currentIndex !== prevQuestionIndex.current && prevQuestionIndex.current >= 0 && wasLockedByMe.current) {
-      // Confetti removed (caused white squares on Android)
-    }
-
-    prevQuestionIndex.current = currentIndex;
-    wasLockedByMe.current = isLockedByMe;
-  }, [state?.currentIndex, state?.lockUid]);
+  // (confetti removed)
 
   const isMyTurn = state?.lockUid === me?.uid;
 
@@ -239,6 +193,17 @@ export function QuizPlayContent({ code, myUid: devUid }) {
     }
     prevAskerUidRef.current = currentAskerUid;
   }, [isPartyMode, currentAskerUid]);
+
+  // Sorted players for leaderboard ribbon (must be before ALL conditional returns)
+  const sortedPlayers = useMemo(() =>
+    [...players].sort((a, b) => (b.score || 0) - (a.score || 0)),
+    [players]
+  );
+
+  const myRank = useMemo(() => {
+    const idx = sortedPlayers.findIndex(p => p.uid === me?.uid);
+    return idx >= 0 ? idx + 1 : null;
+  }, [sortedPlayers, me?.uid]);
 
   // Loading state
   if (isValidating) {
@@ -283,9 +248,9 @@ export function QuizPlayContent({ code, myUid: devUid }) {
     );
   }
 
-  // ===== PLAYER VIEW (Buzzer) =====
+  // ===== PLAYER VIEW (Buzzer-centric redesign) =====
   return (
-    <div className={`player-game-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
+    <div className={`player-game-page game-page ${isMyTurn ? 'my-turn' : ''}`} style={getFlatCSSVars('quiz')}>
       {/* End transition */}
       <AnimatePresence>
         {showEndTransition && !meta?.closed && (
@@ -313,18 +278,12 @@ export function QuizPlayContent({ code, myUid: devUid }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 50,
-              pointerEvents: 'none',
-              boxShadow: 'inset 0 0 60px 5px rgba(34, 197, 94, 0.25)'
-            }}
+            className="my-turn-glow"
           />
         )}
       </AnimatePresence>
 
-      {/* Header */}
+      {/* ── Header ── */}
       <GamePlayHeader
         game="quiz"
         progress={progressLabel}
@@ -333,7 +292,6 @@ export function QuizPlayContent({ code, myUid: devUid }) {
         showScore={true}
         onExit={async () => {
           if (isActualHost) {
-            // Host quitte -> fermer la room
             const { update, ref: dbRef } = await import('@/lib/firebase');
             await update(dbRef(db, `rooms/${code}/state`), { phase: 'ended' });
             await update(dbRef(db, `rooms/${code}/meta`), { closed: true });
@@ -348,95 +306,59 @@ export function QuizPlayContent({ code, myUid: devUid }) {
         }
       />
 
-      {/* Buzz notification */}
-      <AnimatePresence>
-        {state?.buzzBanner && state?.lockUid !== me?.uid && (
-          <div className="buzz-notification-wrapper">
-            <motion.div
-              className="buzz-notification"
-              initial={{ opacity: 0, scale: 0.9, y: -30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -20 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            >
-              <div className="buzz-notification-icon">🔔</div>
-              <div className="buzz-notification-content">
-                <span className="buzz-notification-label">Quelqu'un a buzzé !</span>
-                <span className="buzz-notification-name">
-                  {players.find(p => p.uid === state.lockUid)?.name || 'Joueur'}
+      {/* ── Main content (scrollable) ── */}
+      <main className="quiz-play-main">
+
+        {/* Status card — flip entre "lit la question" et "a buzzé" */}
+        <div className="quiz-play-status-wrapper">
+          <AnimatePresence mode="wait">
+            {state?.buzzBanner && state?.lockUid !== myUid ? (
+              <motion.div
+                key="buzz"
+                className="quiz-play-status buzz-active"
+                initial={{ rotateX: -90, opacity: 0 }}
+                animate={{ rotateX: 0, opacity: 1 }}
+                exit={{ rotateX: 90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <BellRinging size={18} weight="fill" className="buzz-notif-icon" />
+                <span className="quiz-play-status-text">
+                  {players.find(p => p.uid === state.lockUid)?.name || 'Joueur'} a buzzé
                 </span>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      {/* Main Content */}
-      <main className="game-content">
-        {/* Question Card */}
-        <div className="question-card">
-          <div className="points-badge">
-            <span className="points-value">{pointsEnJeu}</span>
-            <span className="points-label">points</span>
-          </div>
-
-          <div className="question-content">
-            {q ? (
-              <AnimatePresence mode="wait">
-                {revealed ? (
-                  <motion.div
-                    key="revealed"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    style={{ width: '100%', height: '100%' }}
-                  >
-                    <FitText minFontSize={12} maxFontSize={24} className="question-text">
-                      {q.question}
-                    </FitText>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="waiting"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <div className="waiting-dots">
-                      <span></span><span></span><span></span>
-                    </div>
-                    <div className="waiting-label">
-                      {isPartyMode && currentAsker
-                        ? `${currentAsker.name} lit la question...`
-                        : `${meta?.hostName || 'L\'animateur'} lit la question...`
-                      }
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              </motion.div>
             ) : (
-              <div className="waiting-label">Chargement...</div>
+              <motion.div
+                key="waiting"
+                className="quiz-play-status"
+                initial={{ rotateX: -90, opacity: 0 }}
+                animate={{ rotateX: 0, opacity: 1 }}
+                exit={{ rotateX: 90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <span className="quiz-play-status-text">
+                  {isPartyMode && currentAsker
+                    ? `${currentAsker.name} lit la question...`
+                    : `${meta?.hostName || 'L\'hôte'} lit la question...`
+                  }
+                </span>
+                <div className="waiting-dots"><span /><span /><span /></div>
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
         </div>
 
         {/* Leaderboard */}
-        <Leaderboard players={players} currentPlayerUid={me?.uid} mode={meta?.mode} teams={meta?.teams} />
+        <div className="quiz-play-leaderboard">
+          <Leaderboard players={players} mode={meta?.mode} teams={meta?.teams} />
+        </div>
+
       </main>
 
-      {/* Buzzer footer */}
+      {/* ── Buzzer ── */}
       <footer className="buzzer-footer">
         <Buzzer
           roomCode={code}
-          playerUid={auth.currentUser?.uid}
+          playerUid={myUid}
           playerName={me?.name}
           blockedUntil={me?.blockedUntil || 0}
           serverNow={serverNow}

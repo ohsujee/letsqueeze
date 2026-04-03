@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth,
@@ -41,15 +41,19 @@ import { GameLaunchCountdown } from "@/components/transitions";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
 import RolesCard from "./_components/RolesCard";
+import '@/app/alibi/alibi-lobby-globals.css';
+import '@/app/alibi/alibi-theme.css';
+import '@/app/alibi/alibi-selector.css';
 
-export default function AlibiLobby() {
-  const { code } = useParams();
-  const router = useRouter();
+export function AlibiLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
-  const [isHost, setIsHost] = useState(false);
-  const [myUid, setMyUid] = useState(null);
+  const [isHost, setIsHost] = useState(devIsHost || false);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [groups, setGroups] = useState({});
 
   // Centralized players hook
@@ -156,8 +160,9 @@ export default function AlibiLobby() {
     setSelectedAlibiId(availableAlibis[newIndex].id);
   };
 
-  // Auth
+  // Auth (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setMyUid(user.uid);
@@ -168,7 +173,7 @@ export default function AlibiLobby() {
       }
     });
     return () => unsub();
-  }, [meta?.hostUid, players]);
+  }, [meta?.hostUid, players, devUid]);
 
   // Auto-join host
   useEffect(() => {
@@ -962,4 +967,9 @@ export default function AlibiLobby() {
       </AnimatePresence>
     </div>
   );
+}
+
+export default function AlibiLobby() {
+  const { code } = useParams();
+  return <AlibiLobbyContent code={code} />;
 }

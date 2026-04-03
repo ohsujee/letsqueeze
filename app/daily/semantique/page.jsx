@@ -17,6 +17,7 @@ import MidnightModal from '@/components/ui/MidnightModal';
 import SemanticLeaderboard from './SemanticLeaderboard';
 import LeaderboardErrorBoundary from '@/components/shared/LeaderboardErrorBoundary';
 import {
+import './semantique.css';
   stripAccents, toCelsius, formatCelsius, getTemperature,
   computeFinalScore, getStreakFlames,
   SemanticStatsModal, SemanticResultBanner, GuessRow

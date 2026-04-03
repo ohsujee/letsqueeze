@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth,
@@ -33,12 +33,14 @@ import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import './alibi-prep.css';
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { ALIBI_GROUP_CONFIG } from "@/lib/config/rooms";
+import '@/app/alibi/alibi-theme.css';
 
-export default function AlibiPrep() {
-  const { code } = useParams();
-  const router = useRouter();
+export function AlibiPrepContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
 
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [meta, setMeta] = useState(null);
   const [timeLeft, setTimeLeft] = useState(90);
   const [myTeam, setMyTeam] = useState(null);
@@ -147,8 +149,9 @@ export default function AlibiPrep() {
     router.push(`/alibi/game/${code}/play`);
   };
 
-  // Auth - only set myUid
+  // Auth - only set myUid (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setMyUid(user.uid);
@@ -157,7 +160,7 @@ export default function AlibiPrep() {
       }
     });
     return () => unsub();
-  }, []);
+  }, [devUid]);
 
   // Listen to player team/group - separate effect with proper cleanup
   useEffect(() => {
@@ -635,4 +638,9 @@ export default function AlibiPrep() {
 
     </div>
   );
+}
+
+export default function AlibiPrep() {
+  const { code } = useParams();
+  return <AlibiPrepContent code={code} />;
 }

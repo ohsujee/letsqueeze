@@ -109,42 +109,49 @@ export default function GamePlayHeader({
           position: sticky;
           top: 0;
           z-index: 100;
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          background: #1a1a2e;
+          border-bottom: 3px solid #13132a;
         }
 
         .game-header-content {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 12px 16px;
+          padding: 10px 16px;
           max-width: 600px;
           margin: 0 auto;
+          gap: 12px;
         }
 
         .game-header-left {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 10px;
           flex: 1;
           min-width: 0;
         }
 
         .game-header-progress {
           font-family: 'Bungee', cursive;
-          font-size: 1rem;
-          color: var(--game-color);
+          font-size: 0.8rem;
+          color: #fff;
+          background: var(--game-secondary, #7c3aed);
+          border: none;
+          border-bottom: 3px solid var(--game-dark, #5b21b6);
+          padding: 0 10px;
+          min-height: 40px;
+          display: flex;
+          align-items: center;
+          border-radius: 10px;
           white-space: nowrap;
+          letter-spacing: 0.02em;
         }
 
         .game-header-title {
           font-family: 'Space Grotesk', sans-serif;
-          font-weight: 600;
-          font-size: 0.9rem;
-          color: white;
-          opacity: 0.9;
+          font-weight: 700;
+          font-size: 0.85rem;
+          color: var(--flat-text, #c4b5fd);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -153,75 +160,60 @@ export default function GamePlayHeader({
         .game-header-right {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 10px;
           flex-shrink: 0;
         }
 
         .my-score-badge {
           display: flex;
-          align-items: baseline;
+          align-items: center;
           gap: 3px;
-          padding: 6px 12px;
-          background: rgba(255, 255, 255, 0.08);
-          border-radius: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 0 12px;
+          min-height: 40px;
+          background: #3a3a58;
+          border: none;
+          border-bottom: 3px solid #2a2a45;
+          border-radius: 10px;
         }
 
         .my-score-value {
           font-family: 'Bungee', cursive;
-          font-size: 1.1rem;
-          color: var(--game-color);
+          font-size: 1rem;
+          color: #fff;
+          line-height: 1;
         }
 
         .my-score-label {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.7rem;
-          color: rgba(255, 255, 255, 0.5);
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.6rem;
+          font-weight: 700;
+          color: #8a8aa0;
           text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
         .team-badge {
           display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          padding: 4px 12px;
-          background: rgba(255, 255, 255, 0.08);
-          border-radius: 12px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          align-items: center;
+          gap: 6px;
+          padding: 5px 12px;
+          background: var(--game-secondary, #7c3aed);
+          border: none;
+          border-bottom: 2px solid var(--game-dark, #5b21b6);
+          border-radius: 10px;
         }
 
         .team-name {
           font-family: 'Space Grotesk', sans-serif;
           font-size: 0.75rem;
-          color: var(--game-color);
+          color: #fff;
           font-weight: 600;
         }
 
         .team-score {
           font-family: 'Bungee', cursive;
-          font-size: 0.9rem;
-          color: white;
-        }
-
-        /* Game-specific border colors */
-        .game-play-header.quiz {
-          border-bottom-color: rgba(139, 92, 246, 0.2);
-        }
-
-        .game-play-header.alibi {
-          border-bottom-color: rgba(245, 158, 11, 0.2);
-        }
-
-        .game-play-header.deeztest {
-          border-bottom-color: rgba(162, 56, 255, 0.2);
-        }
-
-        .game-play-header.laregle {
-          border-bottom-color: rgba(6, 182, 212, 0.2);
-        }
-
-        .game-play-header.mime {
-          border-bottom-color: rgba(0, 255, 102, 0.2);
+          font-size: 0.85rem;
+          color: #fff;
         }
       `}</style>
     </header>

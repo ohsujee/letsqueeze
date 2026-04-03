@@ -1,0 +1,1371 @@
+/* ALIBI lobby + game master + player view — extracted from globals.css */
+/* ===========================================
+   🕵️ ALIBI LOBBY - Guide Compliant
+   Amber/Gold theme with detective aesthetic
+   =========================================== */
+
+/* Container - Full viewport, no scroll */
+.alibi-lobby-container {
+  position: relative;
+  flex: 1; min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-primary, #0a0a0f);
+  overflow: hidden;
+}
+
+/* Animated Background - Alibi Theme (Amber/Gold) */
+.alibi-lobby-container::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(251, 191, 36, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(217, 119, 6, 0.06) 0%, transparent 60%),
+    var(--bg-primary, #0a0a0f);
+  pointer-events: none;
+}
+
+/* Header - Alibi variant (uses standard .lobby-header) */
+.lobby-header.alibi {
+  border-bottom-color: rgba(245, 158, 11, 0.15);
+}
+
+.lobby-header.alibi .lobby-title {
+  text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+}
+
+.lobby-header.alibi .room-code {
+  color: var(--alibi-glow, #fbbf24);
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+
+.lobby-header.alibi .help-btn {
+  background: rgba(245, 158, 11, 0.15);
+  border: 2px solid rgba(245, 158, 11, 0.3);
+  color: var(--alibi-glow, #fbbf24);
+}
+
+.lobby-header.alibi .help-btn:hover {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+}
+
+/* Header - La Règle variant */
+.lobby-header.laregle {
+  border-bottom-color: rgba(6, 182, 212, 0.15);
+}
+
+.lobby-header.laregle .lobby-title {
+  text-shadow:
+    0 0 10px rgba(6, 182, 212, 0.5),
+    0 0 20px rgba(6, 182, 212, 0.3),
+    0 0 40px rgba(6, 182, 212, 0.2);
+}
+
+.lobby-header.laregle .room-code {
+  color: #22d3ee;
+  text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+.lobby-header.laregle .help-btn {
+  background: rgba(6, 182, 212, 0.15);
+  border: 2px solid rgba(6, 182, 212, 0.3);
+  color: #22d3ee;
+}
+
+.lobby-header.laregle .help-btn:hover {
+  background: rgba(6, 182, 212, 0.25);
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+}
+
+/* Header - Mime variant */
+.lobby-header.mime {
+  border-bottom-color: rgba(0, 255, 102, 0.15);
+}
+
+.lobby-header.mime .lobby-title {
+  text-shadow:
+    0 0 10px rgba(0, 255, 102, 0.5),
+    0 0 20px rgba(0, 255, 102, 0.3),
+    0 0 40px rgba(0, 255, 102, 0.2);
+}
+
+.lobby-header.mime .room-code {
+  color: #00ff66;
+  text-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+}
+
+.lobby-header.mime .help-btn {
+  background: rgba(0, 255, 102, 0.15);
+  border: 2px solid rgba(0, 255, 102, 0.3);
+  color: #00ff66;
+}
+
+.lobby-header.mime .help-btn:hover {
+  background: rgba(0, 255, 102, 0.25);
+  border-color: rgba(0, 255, 102, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 255, 102, 0.3);
+}
+
+/* Header - Mind Link variant */
+.lobby-header.mindlink {
+  border-bottom-color: rgba(236, 72, 153, 0.15);
+}
+
+.lobby-header.mindlink .lobby-title {
+  text-shadow:
+    0 0 10px rgba(236, 72, 153, 0.5),
+    0 0 20px rgba(236, 72, 153, 0.3),
+    0 0 40px rgba(236, 72, 153, 0.2);
+}
+
+.lobby-header.mindlink .room-code {
+  color: #f472b6;
+  text-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+}
+
+.lobby-header.mindlink .help-btn {
+  background: rgba(236, 72, 153, 0.15);
+  border: 2px solid rgba(236, 72, 153, 0.3);
+  color: #f472b6;
+}
+
+.lobby-header.mindlink .help-btn:hover {
+  background: rgba(236, 72, 153, 0.25);
+  border-color: rgba(236, 72, 153, 0.5);
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
+}
+
+/* Header - LOL variant */
+.lobby-header.lol {
+  border-bottom-color: rgba(239, 68, 68, 0.15);
+}
+
+.lobby-header.lol .lobby-title {
+  text-shadow:
+    0 0 10px rgba(239, 68, 68, 0.5),
+    0 0 20px rgba(239, 68, 68, 0.3),
+    0 0 40px rgba(239, 68, 68, 0.2);
+}
+
+.lobby-header.lol .room-code {
+  color: #f87171;
+  text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+}
+
+.lobby-header.lol .help-btn {
+  background: rgba(239, 68, 68, 0.15);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.lobby-header.lol .help-btn:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Header - Imposteur variant */
+.lobby-header.imposteur {
+  border-bottom-color: rgba(132, 204, 22, 0.15);
+}
+
+.lobby-header.imposteur .lobby-title {
+  text-shadow:
+    0 0 10px rgba(132, 204, 22, 0.5),
+    0 0 20px rgba(132, 204, 22, 0.3),
+    0 0 40px rgba(132, 204, 22, 0.2);
+}
+
+.lobby-header.imposteur .room-code {
+  color: #a3e635;
+  text-shadow: 0 0 15px rgba(132, 204, 22, 0.5);
+}
+
+/* Main Content Area */
+.alibi-lobby-main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Scrollable Content */
+.alibi-lobby-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 158, 11, 0.3) transparent;
+}
+
+.alibi-lobby-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.alibi-lobby-content::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.3);
+  border-radius: 2px;
+}
+
+/* Alibi Lobby Card - Base */
+.alibi-lobby-card {
+  background: rgba(20, 20, 30, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* ========================================
+   GAME MASTER MODE: Alibi Display Card - Compact
+   ======================================== */
+.gm-alibi-card {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.05)) !important;
+  border: 2px solid rgba(245, 158, 11, 0.3) !important;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+  padding: 0.875rem 1rem !important;
+}
+
+.gm-alibi-row {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.gm-alibi-emoji {
+  font-size: 2.25rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.4));
+}
+
+.gm-alibi-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.gm-alibi-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
+}
+
+.gm-upsell-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.gm-upsell-link span {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.gm-upsell-link:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.gm-upsell-link:hover span {
+  color: #fbbf24;
+}
+
+.gm-pro-hint {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.gm-shuffle-btn {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 12px;
+  color: #fbbf24;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gm-shuffle-btn:hover {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+/* Legacy selector styles (keep for AlibiSelectorModal) */
+.alibi-lobby-card.alibi-selector {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+  border: 2px solid rgba(245, 158, 11, 0.25);
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.1);
+}
+
+.alibi-lobby-card.alibi-selector:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 35px rgba(245, 158, 11, 0.2);
+  transform: translateY(-2px);
+}
+
+.alibi-card-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.alibi-card-left {
+  flex-shrink: 0;
+}
+
+.alibi-card-emoji {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.4));
+}
+
+.alibi-card-center {
+  flex: 1;
+  min-width: 0;
+}
+
+.alibi-card-label {
+  display: block;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--alibi-glow, #fbbf24);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+}
+
+.alibi-card-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary, #ffffff);
+  margin: 0 0 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.alibi-card-meta {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+  margin: 0;
+}
+
+.alibi-card-right {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-shrink: 0;
+}
+
+.alibi-change-hint {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--alibi-glow, #fbbf24);
+  opacity: 0.8;
+}
+
+.alibi-card-arrow {
+  color: var(--alibi-glow, #fbbf24);
+  opacity: 0.6;
+}
+
+/* Roles Card */
+.alibi-roles-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ===== PARTY MODE - Host View ===== */
+.party-groups-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.party-groups-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* Scroll indicators */
+.scroll-indicator {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 24px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
+  color: var(--alibi-glow, #fbbf24);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.scroll-indicator.visible {
+  opacity: 1;
+  animation: scroll-bounce 1.5s ease-in-out infinite;
+}
+
+.scroll-indicator.up {
+  top: -8px;
+}
+
+.scroll-indicator.down {
+  bottom: -8px;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-3px); }
+}
+
+.scroll-indicator.down {
+  animation-name: scroll-bounce-down;
+}
+
+@keyframes scroll-bounce-down {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(3px); }
+}
+
+/* Random alibi hint for Party Mode */
+/* Party Mode Free Limit Banner */
+.party-free-limit-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-top: 0.75rem;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.party-free-limit-banner:hover {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.party-free-limit-banner .limit-message {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.party-free-limit-banner .limit-emoji {
+  font-size: 1.25rem;
+}
+
+.party-free-limit-banner .limit-text {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+.party-free-limit-banner .limit-text strong {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.party-free-limit-banner .unlock-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.625rem 1rem;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border-radius: 10px;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.party-free-limit-banner:hover .unlock-cta {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+/* Simple hint for Pro users */
+.party-alibi-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  margin-top: 0.5rem;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px dashed rgba(245, 158, 11, 0.25);
+  border-radius: 10px;
+}
+
+.party-alibi-hint .hint-icon {
+  font-size: 1rem;
+}
+
+.party-alibi-hint .hint-text {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+/* Roles Header */
+.roles-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.roles-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.roles-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-chip.alibi-accent {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: var(--alibi-glow, #fbbf24);
+}
+
+.action-chip.alibi-accent:hover {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+/* Roles Grid - Liste verticale */
+.alibi-roles-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Role Card - Format liste horizontale */
+.alibi-role-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1rem 1.25rem;
+  background: rgba(20, 20, 30, 0.6);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.alibi-role-card:hover {
+  background: rgba(30, 30, 45, 0.8);
+}
+
+.alibi-role-card.inspectors {
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.alibi-role-card.inspectors:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+.alibi-role-card.suspects {
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+.alibi-role-card.suspects:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+}
+
+/* Role Color Bar */
+.role-color-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 14px 14px 0 0;
+}
+
+.role-color-bar.inspectors {
+  background: var(--alibi-primary, #f59e0b);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5);
+}
+
+.role-color-bar.suspects {
+  background: #6366f1;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+}
+
+/* Role Info */
+.role-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.role-icon {
+  font-size: 1.25rem;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
+}
+
+.role-name {
+  flex: 1;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary, #ffffff);
+}
+
+.role-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 0.375rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.75rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+}
+
+/* Role Players Preview */
+.role-players-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.player-name-chip.inspectors {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: var(--alibi-glow, #fbbf24);
+}
+
+.player-name-chip.suspects {
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: #a5b4fc;
+}
+
+/* Role Detail Overlay */
+.role-detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.role-detail-card {
+  width: 100%;
+  max-width: 340px;
+  background: rgba(20, 20, 30, 0.98);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.role-detail-card.inspectors {
+  border: 2px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(245, 158, 11, 0.15);
+}
+
+.role-detail-card.suspects {
+  border: 2px solid rgba(99, 102, 241, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.15);
+}
+
+.role-detail-card .detail-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.role-detail-card .detail-icon {
+  font-size: 1.5rem;
+}
+
+.role-detail-card .detail-title {
+  flex: 1;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary, #ffffff);
+  margin: 0;
+}
+
+.role-detail-card .detail-players {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.role-detail-card .detail-player {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.role-detail-card .detail-player.inspectors {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.role-detail-card .detail-player.suspects {
+  background: rgba(99, 102, 241, 0.08);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.role-detail-card .player-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+}
+
+.role-detail-card .player-dot.inspectors {
+  background: linear-gradient(135deg, var(--alibi-primary, #f59e0b), #d97706);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+
+.role-detail-card .player-dot.suspects {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+}
+
+.role-detail-card .player-name {
+  flex: 1;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.875rem;
+  color: var(--text-primary, #ffffff);
+}
+
+.role-detail-card .empty-role {
+  text-align: center;
+  padding: 1rem;
+  color: var(--text-muted, rgba(255, 255, 255, 0.4));
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Add Player Chips for Alibi */
+.add-player-chip.inspectors {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: var(--alibi-glow, #fbbf24);
+}
+
+.add-player-chip.inspectors:hover {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+.add-player-chip.suspects {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: #a5b4fc;
+}
+
+.add-player-chip.suspects:hover {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+/* Unassigned Row - Alibi */
+.unassigned-row.alibi {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+/* Fixed Footer with Start Button */
+.alibi-lobby-footer {
+  position: relative;
+  z-index: 10;
+  padding: 1rem;
+  /* Safe area déjà gérée par .app-shell */
+  background: linear-gradient(to top, rgba(10, 10, 15, 0.98) 0%, rgba(10, 10, 15, 0.9) 70%, transparent 100%);
+  flex-shrink: 0;
+}
+
+/* Extend background into safe area to avoid visible line */
+.alibi-lobby-footer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--safe-area-bottom, 0px);
+  transform: translateY(100%);
+  background: rgba(10, 10, 15, 0.98);
+  pointer-events: none;
+}
+
+.alibi-start-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, var(--alibi-primary, #f59e0b), #d97706);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow:
+    0 5px 0 #b45309,
+    0 8px 25px rgba(245, 158, 11, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.alibi-start-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 0 #b45309,
+    0 12px 35px rgba(245, 158, 11, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.alibi-start-btn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow:
+    0 2px 0 #b45309,
+    0 4px 15px rgba(245, 158, 11, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.alibi-start-btn:disabled {
+  background: linear-gradient(135deg, #4a4a52, #3a3a42);
+  cursor: not-allowed;
+  box-shadow:
+    0 3px 0 #2a2a32,
+    0 4px 15px rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.alibi-start-btn:disabled .btn-text .check-done {
+  color: var(--alibi-primary, #f59e0b);
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+
+.alibi-start-btn .btn-icon {
+  font-size: 1.25rem;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+
+.alibi-start-btn .btn-text {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ===== PLAYER VIEW - Alibi ===== */
+.alibi-player-view-wrapper {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.alibi-player-view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  padding-bottom: calc(1rem + var(--safe-area-bottom));
+  width: 100%;
+  overflow-y: auto;
+}
+
+/* My Role Banner */
+.my-role-banner {
+  position: relative;
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 16px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.my-role-banner.inspectors {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.08));
+  border: 2px solid var(--alibi-primary, #f59e0b);
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.25);
+}
+
+.my-role-banner.suspects {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0.08));
+  border: 2px solid #6366f1;
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.25);
+}
+
+.my-role-banner .banner-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.my-role-banner.inspectors .banner-glow {
+  background: radial-gradient(ellipse at center, rgba(245, 158, 11, 0.2) 0%, transparent 70%);
+  animation: banner-pulse 3s ease-in-out infinite;
+}
+
+.my-role-banner.suspects .banner-glow {
+  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+  animation: banner-pulse 3s ease-in-out infinite;
+}
+
+.my-role-banner .banner-label {
+  display: block;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.375rem;
+  position: relative;
+}
+
+.my-role-banner .banner-role-name {
+  display: block;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.5rem;
+  color: #ffffff;
+  position: relative;
+  margin-bottom: 0.375rem;
+}
+
+.my-role-banner.inspectors .banner-role-name {
+  text-shadow: 0 0 25px var(--alibi-primary, #f59e0b), 0 0 50px rgba(245, 158, 11, 0.5);
+}
+
+.my-role-banner.suspects .banner-role-name {
+  text-shadow: 0 0 25px #6366f1, 0 0 50px rgba(99, 102, 241, 0.5);
+}
+
+.my-role-banner .banner-description {
+  display: block;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  position: relative;
+}
+
+/* Pending Banner Alibi */
+.pending-banner.alibi {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+/* ===== PARTY MODE - My Group Banner (Player View) ===== */
+.my-group-banner {
+  position: relative;
+  width: 100%;
+  padding: 1.25rem;
+  border-radius: 16px;
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  border: 2px solid var(--group-color);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--group-color) 15%, transparent);
+  flex-shrink: 0;
+}
+
+.my-group-banner .banner-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.my-group-banner .banner-description {
+  display: block;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+/* ===== PARTY MODE - Groups Grid (Player View) ===== */
+.alibi-groups-grid-player {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  padding-bottom: 8rem; /* Space for LobbyWaitingIndicator */
+}
+
+.group-card-player {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1rem 1.25rem;
+  background: rgba(20, 20, 30, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.group-card-player.my-group {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  border-color: var(--group-color);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--group-color) 25%, transparent);
+}
+
+.group-card-player .group-card-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--group-color) 50%, transparent);
+}
+
+.group-card-player .group-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.group-card-player .group-card-name {
+  flex: 1;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.group-card-player .group-card-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 0.375rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.75rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+}
+
+.group-card-player .group-card-players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 32px;
+}
+
+.group-card-player .no-players-text {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--text-muted, rgba(255, 255, 255, 0.4));
+}
+
+.group-card-player .player-tag {
+  padding: 0.5rem 0.875rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-primary, #ffffff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.group-card-player .player-tag.is-me {
+  font-weight: 600;
+  background: color-mix(in srgb, var(--group-color) 15%, transparent);
+  border-color: color-mix(in srgb, var(--group-color) 30%, transparent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--group-color) 15%, transparent);
+}
+
+.group-card-player .player-tag.more {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+  font-size: 0.8125rem;
+}
+
+/* Roles Grid Player View - Liste verticale */
+.alibi-roles-grid-player {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  padding-bottom: 8rem; /* Space for LobbyWaitingIndicator */
+}
+
+/* Role Card Player - Format liste */
+.role-card-player {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1rem 1.25rem;
+  background: rgba(20, 20, 30, 0.7);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.role-card-player.inspectors {
+  border: 2px solid rgba(245, 158, 11, 0.25);
+}
+
+.role-card-player.suspects {
+  border: 2px solid rgba(99, 102, 241, 0.25);
+}
+
+.role-card-player.my-role.inspectors {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.08));
+  border-color: var(--alibi-primary, #f59e0b);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.25);
+}
+
+.role-card-player.my-role.suspects {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0.08));
+  border-color: #6366f1;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.25);
+}
+
+/* Role Card Bar - color stripe at top */
+.role-card-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 14px 14px 0 0;
+}
+
+.role-card-bar.inspectors {
+  background: var(--alibi-primary, #f59e0b);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5);
+}
+
+.role-card-bar.suspects {
+  background: #6366f1;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+}
+
+.role-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.role-card-icon {
+  font-size: 1.25rem;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
+}
+
+.role-card-name {
+  flex: 1;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary, #ffffff);
+}
+
+.role-card-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 0.375rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.75rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+}
+
+.role-card-players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 32px;
+}
+
+.role-card-players .no-players-text {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--text-muted, rgba(255, 255, 255, 0.4));
+}
+
+.role-card-players .player-tag {
+  padding: 0.5rem 0.875rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-primary, #ffffff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.role-card-players .player-tag.inspectors {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.role-card-players .player-tag.suspects {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.role-card-players .player-tag.is-me {
+  font-weight: 600;
+}
+
+.role-card-players .player-tag.is-me.inspectors {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.15);
+}
+
+.role-card-players .player-tag.is-me.suspects {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.15);
+}
+
+/* Waiting Animation - Alibi */
+.waiting-compact.alibi {
+  margin-top: 1rem;
+}
+
+.waiting-pulse.alibi {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.1));
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.2);
+}
+
+.waiting-pulse.alibi::before {
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+}
+
+@keyframes waiting-pulse-alibi {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4), 0 0 30px rgba(245, 158, 11, 0.2);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 12px rgba(245, 158, 11, 0), 0 0 40px rgba(245, 158, 11, 0.3);
+  }
+}
+

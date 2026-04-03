@@ -32,7 +32,7 @@ export default function PlayerBanner({
   return (
     <div className="pb-wrapper" style={{ '--accent': accentColor, '--accent-dark': accentDark, '--player-color': playerColor }}>
 
-      {/* Sticky note rôle — sibling de pb-root pour éviter le clipping du backdrop-filter */}
+      {/* Sticky note rôle */}
       {isSelected && (
         <div className="pb-sticky">
           {selectedLabel}
@@ -75,27 +75,23 @@ export default function PlayerBanner({
           gap: 12px;
           width: 100%;
           padding: 10px 12px;
-          background: rgba(20, 20, 30, 0.85);
-          border: 1.5px solid rgba(255, 255, 255, 0.08);
-          border-radius: 14px;
+          background: #222240;
+          border: none;
+          border-bottom: 2px solid #1a1a35;
+          border-radius: 10px;
           text-align: left;
           cursor: default;
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          box-shadow: 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
-          transition: border-color 0.15s ease, box-shadow 0.15s ease;
           box-sizing: border-box;
           overflow: visible;
         }
 
         .pb-root.pb-me {
-          background: rgba(30, 30, 45, 0.92);
-          border-color: rgba(255, 255, 255, 0.14);
+          background: var(--flat-bg, #2d1f5e);
+          border-bottom-color: var(--flat-bg-dark, #1e1445);
         }
 
         .pb-root.pb-selected {
-          border-color: var(--accent);
-          box-shadow: 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+          border-bottom-color: var(--accent);
         }
 
         .pb-root.pb-clickable {
@@ -103,7 +99,8 @@ export default function PlayerBanner({
         }
 
         .pb-root.pb-clickable:active {
-          transform: scale(0.97);
+          transform: translateY(1px);
+          border-bottom-width: 1px;
         }
 
         /* ── Sticky note rôle ── */
@@ -122,7 +119,6 @@ export default function PlayerBanner({
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           text-transform: uppercase;
           pointer-events: none;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.4);
           white-space: nowrap;
           z-index: 2;
         }
@@ -142,11 +138,10 @@ export default function PlayerBanner({
           color: #0a0a0f;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
           letter-spacing: 0.02em;
-          transition: background 0.15s ease, box-shadow 0.15s ease;
         }
 
         .pb-avatar.pb-avatar-selected {
-          box-shadow: 0 0 12px var(--player-color), 0 0 24px color-mix(in srgb, var(--player-color) 50%, transparent);
+          border: 3px solid var(--accent);
         }
 
         /* ── Nom ── */
@@ -168,7 +163,6 @@ export default function PlayerBanner({
           height: 7px;
           border-radius: 50%;
           background: var(--accent);
-          opacity: 0.7;
         }
       `}</style>
     </div>

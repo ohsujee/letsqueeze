@@ -19,10 +19,10 @@
           flex-shrink: 0;
           display: flex;
           flex-direction: column;
-          gap: 0.8vh;
+          gap: clamp(4px, 0.8vh, 8px);
           overflow-y: auto;
           overflow-x: hidden;
-          padding-right: 0.5vw;
+          padding-right: 0;
           /* Opacity transition - inactive slide fades out quickly */
           opacity: 0;
           transition: opacity 0.15s ease-out;
@@ -35,12 +35,11 @@
         }
 
 
-        .leaderboard-card .carousel-slide::-webkit-scrollbar { width: 0.4vh; }
-        .leaderboard-card .carousel-slide::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 2px; }
-        .leaderboard-card .carousel-slide::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--game-color) 40%, transparent); border-radius: 2px; }
+        .leaderboard-card .carousel-slide::-webkit-scrollbar { display: none; }
+        .leaderboard-card .carousel-slide { scrollbar-width: none; }
 
         .leaderboard-card .carousel-slide.team-mode {
-          gap: 1vh;
+          gap: clamp(5px, 1vh, 10px);
         }
 
         .leaderboard-card,
@@ -58,12 +57,11 @@
           min-width: 0;
           display: flex;
           flex-direction: column;
-          background: rgba(20, 20, 30, 0.8);
-          border: 1px solid color-mix(in srgb, var(--game-color) 25%, transparent);
-          border-radius: 2vh;
-          padding: 1.5vh 16px;
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          background: #1a1a2e;
+          border: 1px solid #2a2a45;
+          border-bottom: 3px solid #2a2a45;
+          border-radius: 14px;
+          padding: clamp(8px, 1.5vh, 14px) 12px;
           overflow: hidden;
         }
 
@@ -71,36 +69,35 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 1vh;
-          padding-bottom: 1vh;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          margin-bottom: clamp(3px, 0.6vh, 6px);
+          padding-bottom: clamp(3px, 0.6vh, 6px);
+          border-bottom: 1px solid #222240;
           flex-shrink: 0;
         }
 
         .leaderboard-title {
           font-family: var(--font-title, 'Bungee'), cursive;
-          font-size: 1.8vh;
-          color: var(--game-color);
-          text-shadow: 0 0 12px color-mix(in srgb, var(--game-color) 50%, transparent);
+          font-size: clamp(9px, 1.4vh, 13px);
+          color: var(--game-color, #8b5cf6);
         }
 
         .leaderboard-count {
           font-family: var(--font-mono, 'Roboto Mono'), monospace;
-          font-size: 1.3vh;
+          font-size: clamp(8px, 1.1vh, 11px);
           font-weight: 600;
-          color: var(--game-color);
-          background: color-mix(in srgb, var(--game-color) 15%, transparent);
-          border: 1px solid color-mix(in srgb, var(--game-color) 30%, transparent);
-          padding: 0.5vh 1vh;
-          border-radius: 1vh;
+          color: #fff;
+          background: var(--game-secondary, #7c3aed);
+          border: none;
+          padding: clamp(2px, 0.4vh, 4px) clamp(5px, 0.8vh, 8px);
+          border-radius: 6px;
         }
 
         /* View toggle for team/player switch */
         .view-toggle {
           display: flex;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 1vh;
+          background: #15152a;
+          border: 1px solid #2a2a45;
+          border-radius: 8px;
           padding: 2px;
           gap: 2px;
         }
@@ -109,24 +106,23 @@
           font-family: var(--font-mono, 'Roboto Mono'), monospace;
           font-size: 1.1vh;
           font-weight: 600;
-          color: rgba(255, 255, 255, 0.5);
+          color: #6b6b8a;
           background: transparent;
           border: none;
           padding: 0.4vh 0.8vh;
-          border-radius: 0.8vh;
+          border-radius: 6px;
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: background 0.15s ease;
           white-space: nowrap;
         }
 
         .toggle-btn:hover {
-          color: rgba(255, 255, 255, 0.7);
+          color: #8a8aa0;
         }
 
         .toggle-btn.active {
-          color: var(--game-color);
-          background: color-mix(in srgb, var(--game-color) 20%, transparent);
-          box-shadow: 0 0 8px color-mix(in srgb, var(--game-color) 30%, transparent);
+          color: #fff;
+          background: var(--game-secondary, #7c3aed);
         }
 
         .leaderboard-list-wrapper {
@@ -138,89 +134,110 @@
         }
 
         .leaderboard-card .scroll-indicator {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 28px;
-          height: 20px;
-          background: color-mix(in srgb, var(--game-color) 30%, transparent);
-          border: 1px solid color-mix(in srgb, var(--game-color) 50%, transparent);
-          border-radius: 10px;
-          color: rgba(255, 255, 255, 0.8);
-          z-index: 10;
-          pointer-events: none;
-          backdrop-filter: blur(4px);
-        }
-
-        .leaderboard-card .scroll-indicator.up {
-          top: 0;
-        }
-
-        .leaderboard-card .scroll-indicator.down {
-          bottom: 0;
+          display: none;
         }
 
         .leaderboard-card .player-row {
           display: flex;
           align-items: center;
-          gap: 1.5vw;
-          padding: 1vh 2vw;
-          background: rgba(20, 20, 30, 0.6);
-          border-radius: 2vh;
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          gap: clamp(6px, 1.5vw, 10px);
+          padding: clamp(6px, 1.2vh, 10px) clamp(8px, 2vw, 12px);
+          background: #222240;
+          border-radius: 10px;
+          border: none;
+          border-bottom: 2px solid #1a1a35;
           flex-shrink: 0;
           min-width: 0;
           width: 100%;
+          transition: background 0.4s ease, border-color 0.4s ease;
         }
 
-        .leaderboard-card .player-row.moved-up {
-          animation: flash-up 0.8s ease;
-        }
-
-        .leaderboard-card .player-row.moved-down {
-          animation: flash-down 0.8s ease;
-        }
-
-        @keyframes flash-up {
-          0% { background: rgba(34, 197, 94, 0.5); }
-          100% { background: rgba(20, 20, 30, 0.6); }
-        }
-
-        @keyframes flash-down {
-          0% { background: rgba(239, 68, 68, 0.4); }
-          100% { background: rgba(20, 20, 30, 0.6); }
-        }
+        /* Flash animations supprimées — Framer Motion layout gère les transitions */
 
         .leaderboard-card .player-row.first {
-          background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.1));
-          border-color: rgba(255, 215, 0, 0.6);
+          background: #FFD233;
+          border-bottom: 3px solid #CC9600;
         }
 
-        .leaderboard-card .player-row.first.moved-up {
-          animation: flash-up-gold 0.8s ease;
+        .leaderboard-card .player-row.first .player-name {
+          color: #5C3D00;
         }
 
-        @keyframes flash-up-gold {
-          0% { background: rgba(34, 197, 94, 0.6); }
-          100% { background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.1)); }
+        .leaderboard-card .player-row.first .rank-number {
+          background: #CC9600;
+          border-bottom-color: #A07800;
+          color: #fff;
         }
+
+        .leaderboard-card .player-row.first .player-score {
+          background: #CC9600;
+          border-bottom: 2px solid #A07800;
+          color: #fff;
+        }
+
+        /* Flash gold supprimé — transition CSS gère le changement */
 
         .leaderboard-card .player-row.second {
-          background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.08));
-          border-color: rgba(192, 192, 192, 0.5);
+          background: #C8D6E5;
+          border-bottom: 3px solid #8E9BAD;
+        }
+
+        .leaderboard-card .player-row.second .player-name {
+          color: #2C3E50;
+        }
+
+        .leaderboard-card .player-row.second .rank-number {
+          background: #8E9BAD;
+          border-bottom-color: #7B8A9E;
+          color: #fff;
+        }
+
+        .leaderboard-card .player-row.second .player-score {
+          background: #8E9BAD;
+          border-bottom: 2px solid #7B8A9E;
+          color: #fff;
         }
 
         .leaderboard-card .player-row.third {
-          background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.08));
-          border-color: rgba(205, 127, 50, 0.5);
+          background: #E8945A;
+          border-bottom: 3px solid #A05A2E;
+        }
+
+        .leaderboard-card .player-row.third .player-name {
+          color: #4A2000;
+        }
+
+        .leaderboard-card .player-row.third .rank-number {
+          background: #A05A2E;
+          border-bottom-color: #8A4A22;
+          color: #fff;
+        }
+
+        .leaderboard-card .player-row.third .player-score {
+          background: #A05A2E;
+          border-bottom: 2px solid #8A4A22;
+          color: #fff;
         }
 
         .leaderboard-card .player-row.is-me {
-          background: linear-gradient(135deg, color-mix(in srgb, var(--game-color) 30%, transparent), color-mix(in srgb, var(--game-color) 15%, transparent)) !important;
-          border-color: color-mix(in srgb, var(--game-color) 70%, transparent) !important;
+          background: var(--game-secondary, #7c3aed) !important;
+          border-bottom: 3px solid var(--game-dark, #5b21b6) !important;
+        }
+
+        .leaderboard-card .player-row.is-me .player-name {
+          color: #fff;
+        }
+
+        .leaderboard-card .player-row.is-me .rank-number {
+          background: var(--game-dark, #6d28d9);
+          border-bottom-color: var(--game-dark, #5b21b6);
+          color: #fff;
+        }
+
+        .leaderboard-card .player-row.is-me .player-score {
+          background: var(--game-dark, #6d28d9);
+          border-bottom: 2px solid var(--game-dark, #5b21b6);
+          color: #fff;
         }
 
         .leaderboard-card .player-row.disconnected {
@@ -229,14 +246,13 @@
         }
 
         .leaderboard-card .player-row.disconnected .player-name {
-          color: rgba(255, 255, 255, 0.5);
+          color: #4a4a65;
         }
 
         .leaderboard-card .player-row.disconnected .player-score {
-          color: rgba(255, 255, 255, 0.4);
-          background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(255, 255, 255, 0.1);
-          text-shadow: none;
+          color: #4a4a65;
+          background: #222240;
+          border-bottom-color: #1a1a30;
         }
 
         /* Team mode - player with team color */
@@ -248,11 +264,8 @@
         .leaderboard-card .player-row.has-team.first,
         .leaderboard-card .player-row.has-team.second,
         .leaderboard-card .player-row.has-team.third {
-          background: linear-gradient(135deg,
-            color-mix(in srgb, var(--player-team-color) 20%, transparent),
-            color-mix(in srgb, var(--player-team-color) 8%, transparent)
-          );
-          border-color: var(--player-team-color);
+          background: color-mix(in srgb, var(--player-team-color) 10%, transparent);
+          border-color: color-mix(in srgb, var(--player-team-color) 30%, transparent);
         }
 
         .team-badge {
@@ -274,29 +287,30 @@
         .disconnected-icon {
           display: inline-block;
           margin-left: 1vw;
-          color: rgba(239, 68, 68, 0.7);
+          color: #dc2626;
           vertical-align: middle;
         }
 
         .player-rank {
-          width: 2.5vh;
-          height: 2.5vh;
+          width: clamp(18px, 2.5vh, 24px);
+          height: clamp(18px, 2.5vh, 24px);
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          font-size: 2vh;
+          font-size: clamp(14px, 2vh, 18px);
         }
 
         .rank-number {
-          font-family: var(--font-mono, 'Roboto Mono'), monospace;
-          font-size: 1.3vh;
+          font-family: var(--font-title, 'Bungee'), cursive;
+          font-size: clamp(9px, 1.3vh, 12px);
           font-weight: 700;
-          color: var(--text-muted, rgba(255, 255, 255, 0.5));
-          background: rgba(255, 255, 255, 0.08);
-          width: 2.5vh;
-          height: 2.5vh;
-          border-radius: 0.6vh;
+          color: #fff;
+          background: #3a3a58;
+          width: clamp(22px, 3vh, 28px);
+          height: clamp(22px, 3vh, 28px);
+          border-radius: 8px;
+          border-bottom: 2px solid #2a2a45;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -306,9 +320,9 @@
           flex: 1;
           min-width: 0;
           font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: 1.6vh;
-          font-weight: 600;
-          color: var(--text-primary, #ffffff);
+          font-size: clamp(12px, 1.6vh, 15px);
+          font-weight: 700;
+          color: #eef2ff;
           display: flex;
           align-items: center;
           white-space: nowrap;
@@ -318,11 +332,12 @@
 
         .you-badge {
           display: inline;
-          font-size: 1vh;
-          padding: 0.3vh 0.6vh;
-          margin-left: 1vw;
-          background: var(--game-color);
-          border-radius: 0.4vh;
+          font-size: clamp(7px, 1vh, 10px);
+          padding: clamp(2px, 0.3vh, 4px) clamp(4px, 0.6vh, 6px);
+          margin-left: clamp(3px, 1vw, 6px);
+          background: var(--game-secondary, #7c3aed);
+          color: #fff;
+          border-radius: 4px;
           text-transform: uppercase;
           font-weight: 700;
           letter-spacing: 0.05em;
@@ -341,37 +356,35 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 2.2vh;
-          height: 2.2vh;
-          border-radius: 0.5vh;
-          font-size: 1.1vh;
+          width: 14px;
+          height: 14px;
+          border-radius: 3px;
+          font-size: 7px;
           font-weight: 700;
           line-height: 1;
         }
 
         .leaderboard-card .pos-triangle.up {
           color: #fff;
-          background: linear-gradient(135deg, #22c55e, #16a34a);
-          box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+          background: #22c55e;
         }
 
         .leaderboard-card .pos-triangle.down {
           color: #fff;
-          background: linear-gradient(135deg, #ef4444, #dc2626);
-          box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+          background: #ef4444;
         }
 
         .player-score {
           font-family: var(--font-mono, 'Roboto Mono'), monospace;
-          font-size: 1.5vh;
+          font-size: clamp(11px, 1.5vh, 14px);
           font-weight: 700;
-          color: var(--success, #22c55e);
-          text-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
-          background: rgba(34, 197, 94, 0.12);
-          padding: 0.5vh 1vh;
-          border-radius: 0.8vh;
-          border: 1px solid rgba(34, 197, 94, 0.3);
-          width: 6vh;
+          color: #fff;
+          background: #3a3a58;
+          padding: clamp(4px, 0.6vh, 7px) clamp(6px, 1vh, 10px);
+          border-radius: 8px;
+          border: none;
+          border-bottom: 2px solid #2a2a45;
+          min-width: clamp(40px, 6vh, 52px);
           text-align: center;
         }
 
@@ -411,20 +424,16 @@
         .leaderboard-card .team-race-row.leader {
           background: linear-gradient(135deg, rgba(20, 20, 35, 0.95), rgba(15, 15, 25, 0.95));
           border-color: color-mix(in srgb, var(--team-color) 40%, transparent);
-          box-shadow: 0 0 15px color-mix(in srgb, var(--team-color) 15%, transparent);
         }
 
         .leaderboard-card .team-race-row.leader::before {
           width: 4px;
-          box-shadow: 0 0 8px var(--team-color);
         }
 
         /* My team highlight - thicker border for emphasis */
         .leaderboard-card .team-race-row.my-team {
-          border-width: 3px !important;
+          border-width: 2px !important;
           border-color: var(--team-color) !important;
-          box-shadow: 0 0 12px color-mix(in srgb, var(--team-color) 40%, transparent),
-                      inset 0 0 20px color-mix(in srgb, var(--team-color) 10%, transparent);
         }
 
         /* Post-it style indicator for player's team */
@@ -495,24 +504,7 @@
           z-index: 10 !important;
         }
 
-        /* Position change animations */
-        .leaderboard-card .team-race-row.moved-up {
-          animation: team-flash-up 0.8s ease;
-        }
-
-        .leaderboard-card .team-race-row.moved-down {
-          animation: team-flash-down 0.8s ease;
-        }
-
-        @keyframes team-flash-up {
-          0% { background: rgba(34, 197, 94, 0.3); }
-          100% { background: rgba(15, 15, 25, 0.9); }
-        }
-
-        @keyframes team-flash-down {
-          0% { background: rgba(239, 68, 68, 0.3); }
-          100% { background: rgba(15, 15, 25, 0.9); }
-        }
+        /* Team flash animations supprimées — layout animation gère les transitions */
 
         /* Rank number */
         .team-rank {
@@ -533,7 +525,6 @@
           font-family: var(--font-title, 'Bungee'), cursive;
           font-size: 0.75rem;
           color: var(--team-color);
-          text-shadow: 0 0 6px color-mix(in srgb, var(--team-color) 50%, transparent);
         }
 
         /* Team content (name + progress bar) */
@@ -557,7 +548,6 @@
           font-family: var(--font-title, 'Bungee'), cursive;
           font-size: 0.9rem;
           color: var(--team-color);
-          text-shadow: 0 0 8px color-mix(in srgb, var(--team-color) 40%, transparent);
           letter-spacing: 0.02em;
           white-space: nowrap;
           display: flex;
@@ -628,12 +618,10 @@
           color: white;
           min-width: 36px;
           text-align: right;
-          text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
         }
 
         .leaderboard-card .team-race-row.leader .team-score-value {
           color: var(--team-color);
-          text-shadow: 0 0 10px color-mix(in srgb, var(--team-color) 60%, transparent);
         }
 
         /* ===== TEAM-SPECIFIC EFFECTS (PNG backgrounds) ===== */

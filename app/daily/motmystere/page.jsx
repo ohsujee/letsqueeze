@@ -17,6 +17,7 @@ import { showRewardedAd } from '@/lib/admob';
 import WordleLeaderboard from './WordleLeaderboard';
 import LeaderboardErrorBoundary from '@/components/shared/LeaderboardErrorBoundary';
 import {
+import './wordle.css';
   WORD_LENGTH, MAX_ATTEMPTS, normalize, computeFeedback, computeScore,
   WordleGrid, WordleKeyboard, WordleResultBanner, WordleStatsModal
 } from './WordleComponents';

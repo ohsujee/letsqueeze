@@ -46,9 +46,7 @@ export default function ReportQuestionModal({ isOpen, onClose, onSubmit, submitt
             position: 'fixed',
             inset: 0,
             zIndex: 9999,
-            background: 'rgba(0,0,0,0.88)',
-            backdropFilter: 'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)',
+            background: 'rgb(8, 8, 15, 0.92)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -63,11 +61,11 @@ export default function ReportQuestionModal({ isOpen, onClose, onSubmit, submitt
             style={{
               width: '100%',
               maxWidth: '360px',
-              background: 'linear-gradient(180deg, #191924 0%, #0f0f16 100%)',
-              borderRadius: 20,
+              background: '#1a1a2e',
+              borderRadius: 18,
               overflow: 'hidden',
-              border: '1.5px solid rgba(255,255,255,0.1)',
-              boxShadow: '0 8px 0 rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+              border: 'none',
+              borderBottom: '4px solid #13132a',
             }}
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -78,67 +76,61 @@ export default function ReportQuestionModal({ isOpen, onClose, onSubmit, submitt
             {/* ── Header ── */}
             <div style={{
               position: 'relative',
-              background: 'linear-gradient(135deg, #b45309, #f59e0b)',
-              padding: '22px 24px 20px',
+              background: '#d97706',
+              borderBottom: '4px solid #92400e',
+              padding: '20px 24px 18px',
               textAlign: 'center',
             }}>
-              {/* Reflet inset top */}
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(180deg, rgba(255,255,255,0.14) 0%, transparent 55%)',
-                pointerEvents: 'none',
-              }} />
-
               {/* Close */}
               <button
                 onClick={handleClose}
                 style={{
                   position: 'absolute',
-                  top: 12, right: 12,
+                  top: 10, right: 10,
                   width: 32, height: 32,
-                  borderRadius: '50%',
-                  background: 'rgba(0,0,0,0.25)',
+                  borderRadius: 8,
+                  background: '#b45309',
                   border: 'none',
-                  color: 'rgba(255,255,255,0.85)',
+                  borderBottom: '2px solid #92400e',
+                  color: '#fff',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
               >
-                <X size={15} />
+                <X size={15} weight="bold" />
               </button>
 
               {/* Icon */}
               <div style={{
                 display: 'flex',
                 justifyContent: 'center',
-                marginBottom: 10,
+                marginBottom: 8,
               }}>
-                <Warning size={32} weight="fill" color="white" />
+                <Warning size={30} weight="fill" color="white" />
               </div>
 
               {/* Title */}
               <h2 style={{
                 fontFamily: "'Bungee', cursive",
-                fontSize: '1.15rem',
+                fontSize: '1rem',
                 color: 'white',
                 margin: 0,
                 textTransform: 'uppercase',
                 letterSpacing: '0.02em',
-                textShadow: '0 2px 8px rgba(0,0,0,0.35)',
               }}>
                 Signaler un problème
               </h2>
             </div>
 
             {/* ── Body ── */}
-            <div style={{ padding: '16px 20px 20px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <div style={{ padding: '14px 18px 18px', display: 'flex', flexDirection: 'column', gap: 6 }}>
 
               {REPORT_TYPES.map(type => {
                 const isChecked = selected.includes(type.id);
                 return (
-                  <motion.button
+                  <button
                     key={type.id}
                     onClick={() => toggle(type.id)}
                     style={{
@@ -146,30 +138,26 @@ export default function ReportQuestionModal({ isOpen, onClose, onSubmit, submitt
                       alignItems: 'center',
                       gap: 12,
                       width: '100%',
-                      padding: '11px 14px',
-                      background: isChecked
-                        ? 'rgba(139,92,246,0.15)'
-                        : 'rgba(255,255,255,0.04)',
-                      border: `1.5px solid ${isChecked ? 'rgba(139,92,246,0.5)' : 'rgba(255,255,255,0.08)'}`,
-                      borderRadius: 12,
+                      padding: '10px 14px',
+                      background: isChecked ? '#2d1f5e' : '#222240',
+                      border: 'none',
+                      borderBottom: isChecked ? '2px solid #1e1445' : '2px solid #1a1a35',
+                      borderRadius: 10,
                       cursor: 'pointer',
                       textAlign: 'left',
-                      transition: 'background 0.15s, border-color 0.15s',
                     }}
-                    whileTap={{ scale: 0.98 }}
                   >
-                    {/* Custom checkbox */}
+                    {/* Checkbox */}
                     <div style={{
                       width: 20,
                       height: 20,
                       borderRadius: 6,
-                      border: `2px solid ${isChecked ? '#8b5cf6' : 'rgba(255,255,255,0.25)'}`,
-                      background: isChecked ? '#8b5cf6' : 'transparent',
+                      border: 'none',
+                      background: isChecked ? '#8b5cf6' : '#3a3a58',
                       flexShrink: 0,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      transition: 'all 0.15s',
                     }}>
                       {isChecked && (
                         <svg width="11" height="8" viewBox="0 0 11 8" fill="none">
@@ -179,14 +167,13 @@ export default function ReportQuestionModal({ isOpen, onClose, onSubmit, submitt
                     </div>
                     <span style={{
                       fontFamily: "'Inter', sans-serif",
-                      fontSize: '0.875rem',
-                      fontWeight: isChecked ? 600 : 400,
-                      color: isChecked ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.7)',
-                      transition: 'color 0.15s',
+                      fontSize: '0.85rem',
+                      fontWeight: isChecked ? 700 : 500,
+                      color: isChecked ? '#fff' : '#8a8aa0',
                     }}>
                       {type.label}
                     </span>
-                  </motion.button>
+                  </button>
                 );
               })}
 
@@ -208,10 +195,11 @@ export default function ReportQuestionModal({ isOpen, onClose, onSubmit, submitt
                         width: '100%',
                         marginTop: 4,
                         padding: '10px 14px',
-                        borderRadius: 12,
-                        border: '1.5px solid rgba(255,255,255,0.12)',
-                        background: 'rgba(255,255,255,0.05)',
-                        color: 'rgba(255,255,255,0.9)',
+                        borderRadius: 10,
+                        border: 'none',
+                        borderBottom: '2px solid #1a1a35',
+                        background: '#222240',
+                        color: '#fff',
                         fontFamily: "'Inter', sans-serif",
                         fontSize: '0.85rem',
                         resize: 'none',
@@ -219,8 +207,6 @@ export default function ReportQuestionModal({ isOpen, onClose, onSubmit, submitt
                         boxSizing: 'border-box',
                         lineHeight: 1.5,
                       }}
-                      onFocus={e => { e.target.style.borderColor = 'rgba(139,92,246,0.5)'; }}
-                      onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; }}
                     />
                   </motion.div>
                 )}
@@ -228,52 +214,45 @@ export default function ReportQuestionModal({ isOpen, onClose, onSubmit, submitt
 
               {/* ── Boutons ── */}
               <div style={{ display: 'flex', gap: 10, marginTop: 6 }}>
-                <motion.button
+                <button
                   onClick={handleClose}
+                  disabled={submitting}
                   style={{
                     flex: 1,
-                    padding: '13px 16px',
+                    padding: '12px 16px',
                     borderRadius: 12,
-                    border: '1.5px solid rgba(255,255,255,0.12)',
-                    background: 'rgba(255,255,255,0.06)',
-                    color: 'rgba(255,255,255,0.7)',
+                    border: 'none',
+                    borderBottom: '3px solid #2a2a45',
+                    background: '#3a3a58',
+                    color: '#fff',
                     fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: '0.875rem',
-                    fontWeight: 600,
+                    fontSize: '0.85rem',
+                    fontWeight: 700,
                     cursor: 'pointer',
-                    boxShadow: '0 3px 0 rgba(0,0,0,0.3)',
                   }}
-                  whileHover={{ y: -1, boxShadow: '0 4px 0 rgba(0,0,0,0.3)' }}
-                  whileTap={{ y: 2, boxShadow: '0 1px 0 rgba(0,0,0,0.3)' }}
-                  disabled={submitting}
                 >
                   Annuler
-                </motion.button>
+                </button>
 
-                <motion.button
+                <button
                   onClick={handleSubmit}
                   disabled={!canSubmit}
                   style={{
                     flex: 1,
-                    padding: '13px 16px',
+                    padding: '12px 16px',
                     borderRadius: 12,
                     border: 'none',
-                    background: canSubmit
-                      ? 'linear-gradient(135deg, #7c3aed, #8b5cf6)'
-                      : 'rgba(255,255,255,0.08)',
-                    color: canSubmit ? 'white' : 'rgba(255,255,255,0.3)',
+                    borderBottom: canSubmit ? '3px solid #5b21b6' : '3px solid #1a1a35',
+                    background: canSubmit ? '#7c3aed' : '#222240',
+                    color: canSubmit ? '#fff' : '#4a4a65',
                     fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: '0.875rem',
+                    fontSize: '0.85rem',
                     fontWeight: 700,
                     cursor: canSubmit ? 'pointer' : 'not-allowed',
-                    boxShadow: canSubmit ? '0 4px 0 #5b21b6' : '0 3px 0 rgba(0,0,0,0.2)',
-                    transition: 'background 0.15s, color 0.15s, box-shadow 0.15s',
                   }}
-                  whileHover={canSubmit ? { y: -1, boxShadow: '0 5px 0 #5b21b6' } : {}}
-                  whileTap={canSubmit ? { y: 3, boxShadow: '0 1px 0 #5b21b6' } : {}}
                 >
                   {submitting ? 'Envoi...' : 'Signaler'}
-                </motion.button>
+                </button>
               </div>
 
             </div>

@@ -1,11 +1,11 @@
-/* quiz-lobby.css */
+/* quiz-lobby.css — Style flat cartoon */
 
 .quiz-lobby {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  background: #04060f;
+  background: #0e0e1a;
   position: relative;
   overflow: hidden;
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
@@ -18,7 +18,7 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  background: #04060f;
+  background: #0e0e1a;
   align-items: center;
   justify-content: center;
   gap: 14px;
@@ -27,54 +27,22 @@
 .quiz-lobby-spinner {
   width: 30px;
   height: 30px;
-  border: 2px solid #1e1e30;
-  border-top-color: #8b5cf6;
+  border: 3px solid #222240;
+  border-top-color: var(--game-color, #8b5cf6);
   border-radius: 50%;
   animation: spin 0.9s linear infinite;
 }
 
 .quiz-lobby-loading-text {
-  color: #5a5a72;
+  color: #6b6b8a;
   font-size: 0.85rem;
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── Background ── */
+/* ── Background — supprimé les layers glass, fond solide ── */
 
-.quiz-lobby-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.quiz-lobby-bg-dots {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(139, 92, 246, 0.055) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-.quiz-lobby-bg-glow-top {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  height: 280px;
-  background: radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.09) 0%, transparent 70%);
-}
-
-.quiz-lobby-bg-glow-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 120px;
-  background: radial-gradient(ellipse at 50% 100%, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
-}
+.quiz-lobby-bg { display: none; }
 
 /* ── Main content ── */
 
@@ -91,14 +59,14 @@
   gap: 16px;
 }
 
-/* ── Settings panel (shared host/player) ── */
+/* ── Settings panel (host/player) ── */
 
 .quiz-settings-panel {
-  background: rgba(8, 14, 32, 0.92);
-  border: 1px solid rgba(139, 92, 246, 0.12);
+  background: var(--flat-bg, #2d1f5e);
+  border: none;
+  border-bottom: 3px solid var(--flat-bg-dark, #1e1445);
   border-radius: 16px;
   padding: 14px 16px;
-  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   flex-shrink: 0;
 }
 
@@ -110,11 +78,11 @@
   gap: 12px;
   padding: 10px 12px;
   border-radius: 12px;
-  background: rgba(139, 92, 246, 0.06);
-  border: 1px solid rgba(139, 92, 246, 0.15);
+  background: var(--flat-bg-light, #3d2d70);
+  border: none;
+  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
   cursor: pointer;
   margin-bottom: 14px;
-  transition: background 0.15s ease;
 }
 
 .quiz-selector-emoji {
@@ -130,7 +98,7 @@
 .quiz-selector-name {
   font-size: 0.85rem;
   font-weight: 700;
-  color: #eef2ff;
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -139,7 +107,7 @@
 .quiz-selector-detail {
   font-size: 0.65rem;
   font-weight: 600;
-  color: rgba(139, 92, 246, 0.6);
+  color: var(--flat-muted, #a090d0);
   margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
@@ -156,7 +124,7 @@
 .quiz-selector-action-label {
   font-size: 0.68rem;
   font-weight: 700;
-  color: #8b5cf6;
+  color: var(--flat-text, #c4b5fd);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -164,8 +132,8 @@
 /* ── Divider ── */
 
 .quiz-settings-divider {
-  height: 1px;
-  background: rgba(238, 242, 255, 0.05);
+  height: 2px;
+  background: #222240;
   margin-bottom: 14px;
 }
 
@@ -175,8 +143,8 @@
   position: relative;
   display: flex;
   border-radius: 12px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(238, 242, 255, 0.07);
+  background: #15152a;
+  border: 1px solid #222240;
   padding: 4px;
   gap: 4px;
 }
@@ -195,23 +163,21 @@
   background: transparent;
   cursor: pointer;
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  transition: color 0.2s ease, text-shadow 0.2s ease;
-  color: rgba(238, 242, 255, 0.4);
+  color: #6b6b8a;
   font-size: 0.82rem;
   font-weight: 700;
 }
 
 .quiz-mode-btn.active {
-  color: #8b5cf6;
-  text-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
+  color: #fff;
 }
 
 .quiz-mode-pill {
   position: absolute;
   inset: 0;
   border-radius: 9px;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: var(--game-secondary, #7c3aed);
+  border: none;
   z-index: -1;
 }
 
@@ -226,7 +192,7 @@
 .quiz-team-count-label {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #eef2ff;
+  color: #fff;
 }
 
 .quiz-team-count-btns {
@@ -242,22 +208,21 @@
   justify-content: center;
   padding: 7px 0;
   border-radius: 10px;
-  border: 1px solid rgba(238, 242, 255, 0.08);
-  background: rgba(238, 242, 255, 0.03);
+  border: none;
+  border-bottom: 2px solid #1a1a35;
+  background: #222240;
   cursor: pointer;
   overflow: hidden;
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: 1rem;
   line-height: 1;
-  color: rgba(238, 242, 255, 0.5);
-  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  color: #6b6b8a;
 }
 
 .quiz-team-count-btn.active {
-  border-color: rgba(139, 92, 246, 0.35);
-  background: rgba(139, 92, 246, 0.1);
-  color: #8b5cf6;
-  text-shadow: 0 0 10px rgba(139, 92, 246, 0.55);
+  background: var(--game-secondary, #7c3aed);
+  border-bottom-color: var(--game-dark, #5b21b6);
+  color: #fff;
 }
 
 .quiz-team-count-bar {
@@ -266,8 +231,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.6), transparent);
-  box-shadow: 0 0 4px rgba(139, 92, 246, 0.35);
+  background: var(--game-color, #8b5cf6);
 }
 
 /* ── Player settings (non-host) ── */
@@ -294,7 +258,7 @@
 .quiz-player-settings-name {
   font-size: 0.85rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -303,7 +267,7 @@
 .quiz-player-settings-questions {
   font-size: 0.65rem;
   font-weight: 600;
-  color: rgba(238, 242, 255, 0.35);
+  color: var(--flat-muted, #a090d0);
 }
 
 .quiz-player-settings-mode {
@@ -312,18 +276,18 @@
   gap: 6px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: rgba(238, 242, 255, 0.6);
+  color: var(--flat-text, #c4b5fd);
   flex-shrink: 0;
 }
 
 /* ── Team management ── */
 
 .quiz-team-management {
-  background: rgba(8, 14, 32, 0.92);
-  border: 1px solid rgba(139, 92, 246, 0.08);
+  background: var(--flat-bg, #2d1f5e);
+  border: none;
+  border-bottom: 3px solid var(--flat-bg-dark, #1e1445);
   border-radius: 16px;
   padding: 14px 16px;
-  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   flex-shrink: 0;
 }
 
@@ -354,18 +318,17 @@
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.13em;
-  color: rgba(238, 242, 255, 0.35);
+  color: #8a8aa0;
   text-transform: uppercase;
 }
 
 .quiz-players-count {
   padding: 2px 9px;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.25);
+  background: var(--game-secondary, #7c3aed);
   border-radius: 6px;
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: 0.7rem;
-  color: #8b5cf6;
+  color: #fff;
   letter-spacing: 0.04em;
 }
 
@@ -376,8 +339,9 @@
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
-  background: rgba(139, 92, 246, 0.06);
-  border: 1px solid rgba(139, 92, 246, 0.12);
+  background: var(--flat-bg-light, #3d2d70);
+  border: none;
+  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
   border-radius: 12px;
 }
 
@@ -386,7 +350,7 @@
   height: 26px;
   border-radius: 8px;
   flex-shrink: 0;
-  background: rgba(139, 92, 246, 0.1);
+  background: var(--flat-bg, #2d1f5e);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -394,7 +358,7 @@
 
 .quiz-hint-text {
   font-size: 0.78rem;
-  color: rgba(139, 92, 246, 0.8);
+  color: var(--flat-text, #c4b5fd);
   font-weight: 600;
   line-height: 1.3;
 }
@@ -404,8 +368,9 @@
   align-items: center;
   gap: 8px;
   padding: 9px 12px;
-  background: rgba(238, 242, 255, 0.04);
-  border: 1px solid rgba(238, 242, 255, 0.07);
+  background: #222240;
+  border: none;
+  border-bottom: 2px solid #1a1a35;
   border-radius: 10px;
   margin-bottom: 12px;
   flex-shrink: 0;
@@ -417,7 +382,7 @@
 
 .quiz-player-hint-text {
   font-size: 0.78rem;
-  color: rgba(238, 242, 255, 0.45);
+  color: #8a8aa0;
   font-weight: 600;
 }
 
@@ -437,7 +402,10 @@
   display: flex;
   flex-direction: column;
   gap: 0px;
+  scrollbar-width: none;
 }
+
+.quiz-players-list::-webkit-scrollbar { display: none; }
 
 .quiz-scroll-fade {
   position: absolute;
@@ -445,7 +413,7 @@
   left: 0;
   right: 0;
   height: 56px;
-  background: linear-gradient(to bottom, transparent, rgba(4, 6, 15, 0.96));
+  background: linear-gradient(to bottom, transparent, #0e0e1a);
   pointer-events: none;
   display: flex;
   align-items: flex-end;
@@ -460,27 +428,26 @@
   position: relative;
   z-index: 2;
   padding: 12px 16px 16px;
-  border-top: 1px solid rgba(238, 242, 255, 0.05);
+  border-top: 2px solid #222240;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: rgba(4, 6, 15, 0.8);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: #0e0e1a;
 }
 
 .quiz-footer-player-card {
   padding: 14px;
-  background: rgba(238, 242, 255, 0.03);
-  border: 1px solid rgba(238, 242, 255, 0.07);
+  background: #222240;
+  border: none;
+  border-bottom: 2px solid #1a1a35;
   border-radius: 14px;
   text-align: center;
 }
 
 .quiz-footer-player-text {
   font-size: 0.75rem;
-  color: rgba(238, 242, 255, 0.35);
+  color: #8a8aa0;
   font-weight: 600;
 }
 
@@ -491,8 +458,9 @@
   align-items: center;
   gap: 10px;
   padding: 14px 16px;
-  background: rgba(238, 242, 255, 0.04);
-  border: 1px solid rgba(238, 242, 255, 0.07);
+  background: #222240;
+  border: none;
+  border-bottom: 2px solid #1a1a35;
   border-radius: 14px;
 }
 
@@ -502,6 +470,6 @@
 
 .quiz-no-team-text {
   font-size: 0.8rem;
-  color: rgba(238, 242, 255, 0.45);
+  color: #8a8aa0;
   font-weight: 600;
 }

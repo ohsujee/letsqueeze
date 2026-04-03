@@ -1,0 +1,53 @@
+/* ALIBI theme film noir — extracted from globals.css */
+/* =========================================
+   🕵️ ALIBI GAME - DETECTIVE/FILM NOIR THEME
+   =========================================== */
+
+/* Effet vignette + grain + film noir pour pages Alibi */
+.alibi-theme {
+  position: relative;
+  /* NOTE: Le filter crée un nouveau stacking context, donc on l'applique via un wrapper interne */
+}
+
+/* Wrapper pour le filtre film noir - appliqué sur le contenu, pas sur les modals */
+.alibi-theme > .game-container {
+  filter: contrast(1.1) saturate(0.85);
+}
+
+/* Vignette dramatique (obscurcissement des bords) - z-index bas pour ne pas bloquer les modals */
+.alibi-theme::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 50; /* Sous les modals (z-index: 9999) mais au-dessus du contenu */
+  /* Vignette plus prononcée pour effet dramatique */
+  background: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.55) 100%);
+}
+
+/* Grain statique type pellicule vintage */
+.alibi-theme::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 50; /* Sous les modals (z-index: 9999) mais au-dessus du contenu */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  /* Grain statique - pas d'animation */
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+}
+
+/* Typographie style machine à écrire (optionnel) */
+.typewriter-text {
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.05em;
+  line-height: 1.7;
+}
+

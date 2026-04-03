@@ -2,63 +2,42 @@
 
 /**
  * Footer unifié pour tous les écrans de fin de partie
- * Bouton "Nouvelle partie" avec couleur dynamique selon le jeu
+ * Style flat cartoon avec couleur dynamique selon le jeu
  */
-export function EndScreenFooter({ gameColor, onNewGame, label = "Nouvelle partie" }) {
-  // Calculer si la couleur est très lumineuse (comme le vert #00ff66)
-  const isHighBrightness = getColorBrightness(gameColor) > 180;
-
-  // Pour les couleurs lumineuses, assombrir le gradient et utiliser du texte sombre
-  const darkenedColor = isHighBrightness ? darkenColor(gameColor, 30) : gameColor;
-  const textColor = isHighBrightness ? '#0a0a0f' : 'white';
-
-  const footerStyle = {
-    flexShrink: 0,
-    padding: '12px 16px',
-  };
-
-  const buttonStyle = {
-    display: 'block',
-    width: '100%',
-    padding: '14px 24px',
-    border: 'none',
-    borderRadius: '12px',
-    cursor: 'pointer',
-    fontFamily: "'Space Grotesk', sans-serif",
-    fontSize: '0.95rem',
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    letterSpacing: '0.08em',
-    color: textColor,
-    background: `linear-gradient(135deg, ${darkenedColor}, ${darkenColor(darkenedColor, 20)})`,
-    boxShadow: `0 5px 0 ${darkenedColor}88, 0 8px 15px ${gameColor}40`,
-    textShadow: isHighBrightness ? 'none' : '0 1px 2px rgba(0,0,0,0.2)',
-  };
+export function EndScreenFooter({ gameColor = '#8b5cf6', onNewGame, label = "Nouvelle partie" }) {
+  const darkerColor = darkenColor(gameColor, 30);
 
   return (
-    <div style={footerStyle}>
-      <button style={buttonStyle} onClick={onNewGame}>
+    <div style={{
+      flexShrink: 0,
+      padding: '12px 16px',
+      background: '#0e0e1a',
+    }}>
+      <button
+        onClick={onNewGame}
+        style={{
+          display: 'block',
+          width: '100%',
+          padding: '16px 24px',
+          border: 'none',
+          borderBottom: `5px solid ${darkerColor}`,
+          borderRadius: '14px',
+          cursor: 'pointer',
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontSize: '1rem',
+          fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          color: '#fff',
+          background: gameColor,
+        }}
+      >
         {label}
       </button>
     </div>
   );
 }
 
-/**
- * Calcule la luminosité perçue d'une couleur (0-255)
- */
-function getColorBrightness(hex) {
-  const color = hex.replace('#', '');
-  const r = parseInt(color.slice(0, 2), 16);
-  const g = parseInt(color.slice(2, 4), 16);
-  const b = parseInt(color.slice(4, 6), 16);
-  // Formule de luminosité perçue
-  return (r * 299 + g * 587 + b * 114) / 1000;
-}
-
-/**
- * Assombrit une couleur hex
- */
 function darkenColor(hex, amount) {
   const color = hex.replace('#', '');
   const r = Math.max(0, parseInt(color.slice(0, 2), 16) - amount);

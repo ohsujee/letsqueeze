@@ -13,7 +13,7 @@ import './Leaderboard.css';
  * - Largeur fixe pour les scores (4 digits max)
  * - Support mode équipes: affiche les équipes avec scores agrégés
  */
-export default function Leaderboard({ players = [], currentPlayerUid = null, mode = 'individuel', teams = {}, gameColor = '#8b5cf6' }) {
+export default function Leaderboard({ players = [], currentPlayerUid = null, mode = 'individuel', teams = {}, gameColor = '#8b5cf6', rankOffset = 0 }) {
   const prevPositionsRef = useRef({});
   const listRef = useRef(null);
   const [positionChanges, setPositionChanges] = useState({});
@@ -100,11 +100,19 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
     return max > 0 ? max : 100;
   }, [teamsArray]);
 
-  // Sort by score descending (for individual mode)
-  const sorted = useMemo(() =>
-    [...players].sort((a, b) => (b.score || 0) - (a.score || 0)),
-    [players]
-  );
+  // Sort by score descending with real rank (handles ties)
+  const sorted = useMemo(() => {
+    const s = [...players].sort((a, b) => (b.score || 0) - (a.score || 0));
+    let lastScore = null, lastRank = 0, seen = 0;
+    return s.map((p) => {
+      seen++;
+      const sc = p.score || 0;
+      const rank = (lastScore === sc) ? lastRank : seen;
+      lastScore = sc;
+      lastRank = rank;
+      return { ...p, _rank: rank };
+    });
+  }, [players]);
 
   // Count active players
   const activeCount = useMemo(() =>
@@ -320,19 +328,23 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
               {sorted.map((p, i) => {
                 const isMe = currentPlayerUid && p.uid === currentPlayerUid;
                 const isDisconnected = p.status === 'disconnected' || p.status === 'left';
-                const rankClass = i === 0 ? 'first' : i === 1 ? 'second' : i === 2 ? 'third' : '';
+                const hasScore = (p.score || 0) > 0;
+                const realRank = p._rank + rankOffset;
+                const rankClass = hasScore ? (realRank === 1 ? 'first' : realRank === 2 ? 'second' : realRank === 3 ? 'third' : '') : '';
                 const posChange = positionChanges[p.uid];
                 const animatedScore = p.score ?? 0;
                 const playerTeam = getPlayerTeam(p);
 
                 return (
-                  <div
+                  <motion.div
                     key={p.uid}
-                    className={`player-row ${rankClass} ${isMe ? 'is-me' : ''} ${isDisconnected ? 'disconnected' : ''} ${posChange ? `moved-${posChange}` : ''} ${playerTeam ? 'has-team' : ''}`}
+                    layout
+                    transition={{ type: 'spring', stiffness: 500, damping: 35, mass: 0.8 }}
+                    className={`player-row ${rankClass} ${isMe ? 'is-me' : ''} ${isDisconnected ? 'disconnected' : ''} ${playerTeam ? 'has-team' : ''}`}
                     style={playerTeam ? { '--player-team-color': playerTeam.color } : undefined}
                   >
                     <span className="player-rank">
-                      {i < 3 ? ['🥇', '🥈', '🥉'][i] : <span className="rank-number">{i + 1}</span>}
+                      {hasScore && realRank <= 3 ? ['🥇', '🥈', '🥉'][realRank - 1] : <span className="rank-number">{realRank}</span>}
                     </span>
                     {playerTeam && (
                       <span className="team-badge" style={{ background: playerTeam.color }}>{playerTeam.initial}</span>
@@ -348,7 +360,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                       )}
                       <span className="player-score">{animatedScore}</span>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
               {players.length === 0 && <div className="no-players">Aucun joueur</div>}

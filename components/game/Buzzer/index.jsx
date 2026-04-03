@@ -105,6 +105,17 @@ export default function Buzzer({
       // Vibration haptique
       navigator?.vibrate?.([100, 50, 200]);
 
+      // Fake players (simulateur dev) — écriture directe sans auth
+      const isFakePlayer = playerUid.startsWith('fake_');
+      if (isFakePlayer) {
+        await update(ref(db, `${roomPrefix}/${code}/state`), {
+          lockUid: playerUid,
+          buzzBanner: `🔔 ${playerName} a buzzé !`,
+          buzz: { uid: playerUid, at: localTime },
+        });
+        return;
+      }
+
       // Vérifier d'abord si lockUid est déjà défini (quelqu'un a déjà gagné)
       const stateSnap = await get(ref(db, `${roomPrefix}/${code}/state/lockUid`));
       if (stateSnap.val()) {
@@ -136,6 +147,15 @@ export default function Buzzer({
   // Classe CSS selon l'état
   const buttonClass = `${styles.button} ${styles[buzzerState.type]}`;
 
+  // Couleur du corps 3D (sibling derrière le bouton)
+  const bodyColors = {
+    active: '#991b1b',
+    pending: '#78350f',
+    success: '#166534',
+    blocked: '#1e293b',
+    penalty: '#7c2d12',
+  };
+
   return (
     <>
       <div className={styles.spacer} />
@@ -160,7 +180,13 @@ export default function Buzzer({
             )}
           </div>
         </button>
+
+        {/* Corps 3D — APRÈS le bouton, z-index inférieur = rendu derrière */}
+        <div className={styles.body} style={{ background: bodyColors[buzzerState.type] || '#991b1b' }} />
       </div>
+
+      {/* Pupitre — fixed indépendant, derrière le wrapper */}
+      <div className={styles.podium} />
     </>
   );
 }

@@ -12,15 +12,17 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
 import { rankWithTies } from "@/lib/utils/ranking";
+import '@/app/blindtest/blindtest-theme.css';
 
 // Deezer brand colors
 const DEEZER_PURPLE = '#A238FF';
 const DEEZER_PINK = '#FF0092';
 const DEEZER_LIGHT = '#C574FF';
 
-export default function DeezTestEndPage() {
-  const { code } = useParams();
-  const router = useRouter();
+export function BlindTestEndContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
@@ -28,7 +30,8 @@ export default function DeezTestEndPage() {
   const [roomExists, setRoomExists] = useState(true);
 
   // End page ad + auth (handles interstitial + returnedFromGame + myUid)
-  const { myUid } = useEndPageAd();
+  const { myUid: adUid } = useEndPageAd();
+  const myUid = devUid || adUid;
 
   // Centralized players hook (live data)
   const { players: livePlayers } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
@@ -257,4 +260,9 @@ export default function DeezTestEndPage() {
       `}</style>
     </div>
   );
+}
+
+export default function DeezTestEndPage() {
+  const { code } = useParams();
+  return <BlindTestEndContent code={code} />;
 }

@@ -32,12 +32,14 @@ import { hueScenariosService } from "@/lib/hue-module";
 import { useAlibiGroupRotation } from "@/lib/hooks/useAlibiGroupRotation";
 
 import './alibi-play.css';
+import '@/app/alibi/alibi-theme.css';
 
-export default function AlibiInterrogation() {
-  const { code } = useParams();
-  const router = useRouter();
+export function AlibiPlayContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
 
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [myTeam, setMyTeam] = useState(null);
   const [myGroupId, setMyGroupId] = useState(null);
   const [isHost, setIsHost] = useState(false);
@@ -179,8 +181,9 @@ export default function AlibiInterrogation() {
     return () => unsub();
   }, []);
 
-  // Auth - only set myUid
+  // Auth - only set myUid (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setMyUid(user.uid);
@@ -189,7 +192,7 @@ export default function AlibiInterrogation() {
       }
     });
     return () => unsub();
-  }, []);
+  }, [devUid]);
 
   // Listen to player team/group - separate effect with proper cleanup
   useEffect(() => {
@@ -976,4 +979,9 @@ export default function AlibiInterrogation() {
       </AnimatePresence>
     </div>
   );
+}
+
+export default function AlibiInterrogation() {
+  const { code } = useParams();
+  return <AlibiPlayContent code={code} />;
 }
