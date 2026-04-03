@@ -70,7 +70,7 @@ export default function ImposteurEliminationReveal({
       timeoutsRef.current.forEach(clearTimeout);
       timeoutsRef.current = [];
     };
-  }, [eliminatedPlayer, addTimeout]);
+  }, [eliminatedPlayer?.uid, addTimeout]);
 
   // Slot machine cycling logic
   useEffect(() => {
