@@ -4,23 +4,12 @@ import { forwardRef } from 'react';
 import ExitButton from '@/lib/components/ExitButton';
 import LobbySettings from '@/components/game/LobbySettings';
 import ShareModal from '@/lib/components/ShareModal';
-import { HelpCircle } from 'lucide-react';
+import { HelpCircle, Share2 } from 'lucide-react';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 
 /**
- * LobbyHeader - Header unifié pour tous les lobbys de jeux
- *
- * @param {Object} props
- * @param {'quiz'|'deeztest'|'alibi'|'laregle'|'mime'} props.variant - Thème couleur
- * @param {string} props.code - Code de la room
- * @param {boolean} props.isHost - Si l'utilisateur est l'hôte
- * @param {Array} props.players - Liste des joueurs
- * @param {string} props.hostUid - UID de l'hôte
- * @param {function} props.onHostExit - Callback quand l'hôte quitte
- * @param {function} props.onPlayerExit - Callback quand un joueur quitte
- * @param {string} props.joinUrl - URL de join pour le partage
- * @param {'gamemaster'|'party'} props.gameMode - Mode de jeu (optionnel)
- * @param {React.Ref} ref - Ref forwarded to ShareModal
+ * LobbyHeader — Header flat pour tous les lobbys
+ * Layout : [Settings/Help] [CODE ↗] ... [Exit]
  */
 const LobbyHeader = forwardRef(function LobbyHeader({
   variant = 'quiz',
@@ -34,39 +23,21 @@ const LobbyHeader = forwardRef(function LobbyHeader({
   gameMode
 }, ref) {
   const { openManually } = useHowToPlay();
-  // Config par variante
-  const roomPrefixMap = {
-    quiz: 'rooms',
-    deeztest: 'rooms_blindtest',
-    alibi: 'rooms_alibi',
-    laregle: 'rooms_laregle',
-    mindlink: 'rooms_mindlink',
-    mime: 'rooms_mime',
-    lol: 'rooms_lol',
-    imposteur: 'rooms_imposteur'
-  };
 
+  const roomPrefixMap = {
+    quiz: 'rooms', deeztest: 'rooms_blindtest', alibi: 'rooms_alibi',
+    laregle: 'rooms_laregle', mindlink: 'rooms_mindlink',
+    mime: 'rooms_mime', lol: 'rooms_lol', imposteur: 'rooms_imposteur'
+  };
   const roomPrefix = roomPrefixMap[variant] || 'rooms';
 
-  // Messages de confirmation
   const hostConfirmMessage = "Voulez-vous vraiment quitter ? La partie sera fermée pour tous les joueurs.";
   const playerConfirmMessage = "Voulez-vous vraiment quitter le lobby ?";
 
   return (
     <header className={`lobby-header ${variant}`}>
+      {/* Gauche : Settings (host) ou Help (player) */}
       <div className="header-left">
-        <ExitButton
-          variant="header"
-          onExit={isHost ? onHostExit : onPlayerExit}
-          confirmMessage={isHost ? hostConfirmMessage : playerConfirmMessage}
-        />
-        <div className="header-title-row">
-          <h1 className="lobby-title">CODE</h1>
-          <span className="lobby-divider">•</span>
-          <span className="room-code selectable">{code}</span>
-        </div>
-      </div>
-      <div className="header-right">
         {isHost ? (
           <LobbySettings
             players={players}
@@ -77,14 +48,24 @@ const LobbyHeader = forwardRef(function LobbyHeader({
             gameMode={gameMode}
           />
         ) : (
-          /* Help button for non-host players */
           openManually && (
             <button className="header-help-btn" onClick={openManually}>
-              <HelpCircle size={22} />
+              <HelpCircle size={20} />
             </button>
           )
         )}
-        <ShareModal ref={ref} roomCode={code} joinUrl={joinUrl} gameType={variant} />
+      </div>
+
+      {/* Centre : Room code cliquable → ouvre le share modal */}
+      <ShareModal ref={ref} roomCode={code} joinUrl={joinUrl} gameType={variant} />
+
+      {/* Droite : Exit (isolé) */}
+      <div className="header-right">
+        <ExitButton
+          variant="header"
+          onExit={isHost ? onHostExit : onPlayerExit}
+          confirmMessage={isHost ? hostConfirmMessage : playerConfirmMessage}
+        />
       </div>
     </header>
   );

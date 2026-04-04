@@ -141,8 +141,8 @@
   position: relative;
   display: flex;
   border-radius: 12px;
-  background: #15152a;
-  border: 1px solid #222240;
+  background: var(--flat-bg-light, #3d2d70);
+  border: none;
   padding: 4px;
   gap: 4px;
 }
@@ -161,7 +161,7 @@
   background: transparent;
   cursor: pointer;
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  color: #6b6b8a;
+  color: var(--flat-muted, #a090d0);
   font-size: 0.82rem;
   font-weight: 700;
 }
@@ -207,14 +207,14 @@
   padding: 7px 0;
   border-radius: 10px;
   border: none;
-  border-bottom: 2px solid #1a1a35;
-  background: #222240;
+  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
+  background: var(--flat-bg-light, #3d2d70);
   cursor: pointer;
   overflow: hidden;
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: 1rem;
   line-height: 1;
-  color: #6b6b8a;
+  color: var(--flat-muted, #a090d0);
 }
 
 .quiz-team-count-btn.active {
@@ -366,9 +366,9 @@
   align-items: center;
   gap: 8px;
   padding: 9px 12px;
-  background: #222240;
+  background: var(--flat-bg-light, #3d2d70);
   border: none;
-  border-bottom: 2px solid #1a1a35;
+  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
   border-radius: 10px;
   margin-bottom: 12px;
   flex-shrink: 0;
@@ -380,7 +380,7 @@
 
 .quiz-player-hint-text {
   font-size: 0.78rem;
-  color: #8a8aa0;
+  color: var(--flat-text, #c4b5fd);
   font-weight: 600;
 }
 
@@ -436,16 +436,16 @@
 
 .quiz-footer-player-card {
   padding: 14px;
-  background: #222240;
+  background: var(--flat-bg, #2d1f5e);
   border: none;
-  border-bottom: 2px solid #1a1a35;
+  border-bottom: 3px solid var(--flat-bg-dark, #1e1445);
   border-radius: 14px;
   text-align: center;
 }
 
 .quiz-footer-player-text {
   font-size: 0.75rem;
-  color: #8a8aa0;
+  color: var(--flat-text, #c4b5fd);
   font-weight: 600;
 }
 
@@ -456,9 +456,9 @@
   align-items: center;
   gap: 10px;
   padding: 14px 16px;
-  background: #222240;
+  background: var(--flat-bg-light, #3d2d70);
   border: none;
-  border-bottom: 2px solid #1a1a35;
+  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
   border-radius: 14px;
 }
 
@@ -468,6 +468,6 @@
 
 .quiz-no-team-text {
   font-size: 0.8rem;
-  color: #8a8aa0;
+  color: var(--flat-text, #c4b5fd);
   font-weight: 600;
 }

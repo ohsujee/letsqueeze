@@ -170,15 +170,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 5px;
+  gap: 10px;
   flex-shrink: 0;
-  height: 52px;
-  min-height: 52px;
-  max-height: 52px;
-  padding: 0 11px;
-  max-width: 500px;
+  padding: 10px 16px;
+  background: #1a1a2e;
+  border-bottom: 3px solid #13132a;
+  max-width: 100%;
   width: 100%;
-  margin: 0 auto;
 }
 
 .lobby-header .header-left {
@@ -189,6 +187,12 @@
   flex: 1;
 }
 
+.lobby-header .header-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .lobby-header .header-title-row {
   display: flex;
   align-items: center;
@@ -196,11 +200,7 @@
   min-width: 0;
 }
 
-.lobby-header .lobby-divider {
-  color: var(--text-muted, rgba(255, 255, 255, 0.3));
-  font-size: 18px;
-  flex-shrink: 0;
-}
+/* .lobby-divider supprimé — le code room est maintenant dans le share badge */
 
 .lobby-header .header-right {
   display: flex;
@@ -1919,23 +1919,30 @@
   border-bottom-width: 2px;
 }
 
-/* Share Trigger Button */
-.share-trigger-btn {
+/* Share Code Badge — room code + share icon, cliquable */
+.share-code-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 37px;
+  gap: 8px;
+  padding: 0 14px;
   height: 37px;
-  background: #16a34a;
+  background: var(--game-secondary, #7c3aed);
   border: none;
-  border-bottom: 3px solid #15803d;
-  border-radius: 9px;
+  border-bottom: 3px solid var(--game-dark, #5b21b6);
+  border-radius: 10px;
   color: #fff;
   cursor: pointer;
+  font-family: var(--font-mono, 'Roboto Mono'), monospace;
 }
 
-.share-trigger-btn:active {
+.share-code-btn:active {
   transform: translateY(2px);
   border-bottom-width: 1px;
+}
+
+.share-code-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
 }
 

@@ -124,13 +124,14 @@ const ShareModal = forwardRef(function ShareModal({ roomCode, joinUrl }, ref) {
 
   return (
     <>
-      {/* Trigger Button */}
+      {/* Trigger — Room code badge cliquable */}
       <button
-        className="share-trigger-btn"
+        className="share-code-btn"
         onClick={() => setIsOpen(true)}
-        aria-label="Partager"
+        aria-label="Partager la room"
       >
-        <Share2 size={20} />
+        <span className="share-code-text">{roomCode}</span>
+        <Share2 size={16} />
       </button>
 
       {/* Modal via Portal - always renders on top */}

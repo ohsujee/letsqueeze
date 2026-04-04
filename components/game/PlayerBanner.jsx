@@ -75,9 +75,9 @@ export default function PlayerBanner({
           gap: 12px;
           width: 100%;
           padding: 10px 12px;
-          background: #222240;
+          background: var(--flat-bg-light, #3d2d70);
           border: none;
-          border-bottom: 2px solid #1a1a35;
+          border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
           border-radius: 10px;
           text-align: left;
           cursor: default;

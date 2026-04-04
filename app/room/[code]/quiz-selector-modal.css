@@ -118,9 +118,9 @@
   align-items: center;
   gap: 0.875rem;
   padding: 0.875rem 1rem;
-  background: #222240;
+  background: var(--flat-bg-light, #3d2d70);
   border: none;
-  border-bottom: 2px solid #1a1a35;
+  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
   border-radius: 10px;
   cursor: pointer;
   text-align: left;
