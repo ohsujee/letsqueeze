@@ -11,6 +11,7 @@ import { prefetchManifests } from '@/lib/utils/manifestCache';
 import { usePushNotifications } from '@/lib/hooks/usePushNotifications';
 import { useForceUpdate } from '@/lib/hooks/useForceUpdate';
 import { ForceUpdateModal } from '@/components/shared/ForceUpdateModal';
+import { AnnouncementModal } from '@/components/shared/AnnouncementModal';
 import { useGlobalPresence } from '@/lib/hooks/useGlobalPresence';
 import { useAppTracking } from '@/lib/hooks/useAppTracking';
 import { useWakeLock } from '@/lib/hooks/useWakeLock';
@@ -43,6 +44,7 @@ export function ClientProviders({ children }) {
   return (
     <>
     {forceUpdate && <ForceUpdateModal />}
+    <AnnouncementModal />
     <ErrorBoundary>
       <BrowserRedirect />
       <AppShell>

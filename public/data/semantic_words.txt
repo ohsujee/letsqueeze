@@ -361,7 +361,6 @@ cravate
 bague
 collier
 bracelet
-lunettes
 pull
 gilet
 écharpe
@@ -482,7 +481,6 @@ corde
 ficelle
 fil
 aiguille
-ciseaux
 colle
 pinceau
 brosse
@@ -835,7 +833,6 @@ logiciel
 serveur
 signal
 programme
-données
 algorithme
 journal
 livre
