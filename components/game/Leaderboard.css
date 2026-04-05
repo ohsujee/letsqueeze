@@ -151,8 +151,6 @@
           transition: background 0.4s ease, border-color 0.4s ease;
         }
 
-        /* Flash animations supprimées — Framer Motion layout gère les transitions */
-
         .leaderboard-card .player-row.first {
           background: #FFD233;
           border-bottom: 3px solid #CC9600;
@@ -173,8 +171,6 @@
           border-bottom: 2px solid #A07800;
           color: #fff;
         }
-
-        /* Flash gold supprimé — transition CSS gère le changement */
 
         .leaderboard-card .player-row.second {
           background: #C8D6E5;

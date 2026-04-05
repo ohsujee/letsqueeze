@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { WifiSlash, CaretDown, CaretUp, User } from '@phosphor-icons/react';
+import { WifiSlash, CaretDown, CaretUp } from '@phosphor-icons/react';
 import './Leaderboard.css';
 
 /**
@@ -92,8 +92,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
       activeCount: players.filter(p => p.teamId === id && (!p.status || p.status === 'active')).length
     })).sort((a, b) => (b.score || 0) - (a.score || 0));
   }, [hasTeams, teams, players]);
-
-  // maxTeamScore removed — no more progress bars
 
   // Sort by score descending with real rank (handles ties)
   const sorted = useMemo(() => {
