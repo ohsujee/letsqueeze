@@ -1,7 +1,0 @@
-/* ── Imposteur Play ── */
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
