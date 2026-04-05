@@ -231,7 +231,7 @@ export default function MindLinkSimulator() {
           roomCode: code,
           prefix: ROOM_PREFIX,
           action: 'seed',
-          count: 5,
+          count: 4,
         }),
       });
 

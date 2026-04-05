@@ -232,7 +232,7 @@ export default function LolSimulator() {
           roomCode: code,
           prefix: ROOM_PREFIX,
           action: 'seed',
-          count: 5,
+          count: 4,
         }),
       });
 

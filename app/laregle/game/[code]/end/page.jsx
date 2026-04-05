@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { db, ref, onValue, update, auth, onAuthStateChanged } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,14 +20,15 @@ const CYAN_PRIMARY = TROUVE_COLORS.primary;
 const ACCENT = '#00e5ff';
 
 /* ─── Main ─────────────────────────────────────────────── */
-export default function LaLoiEndPage() {
-  const { code } = useParams();
-  const router = useRouter();
+export function LaRegleEndContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [roomExists, setRoomExists] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [showResult, setShowResult] = useState(false);
@@ -57,14 +58,15 @@ export default function LaLoiEndPage() {
   // Record game completion
   useGameCompletion({ gameType: 'laregle', roomCode: code });
 
-  // Auth
+  // Auth (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       setMyUid(user?.uid || null);
     });
     storage.set('returnedFromGame', true);
     return () => unsub();
-  }, [code]);
+  }, [code, devUid]);
 
   // Interstitial ad
   useEffect(() => {
@@ -495,4 +497,9 @@ export default function LaLoiEndPage() {
       </div>
     </div>
   );
+}
+
+export default function LaLoiEndPage() {
+  const { code } = useParams();
+  return <LaRegleEndContent code={code} />;
 }

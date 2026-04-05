@@ -131,7 +131,7 @@
 
 .quiz-settings-divider {
   height: 2px;
-  background: #222240;
+  background: var(--flat-bg-light, #3d2d70);
   margin-bottom: 14px;
 }
 

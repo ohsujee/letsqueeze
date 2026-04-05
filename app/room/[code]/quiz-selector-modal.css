@@ -23,7 +23,10 @@
   background: rgb(8, 8, 15, 0.92);
   animation: quizFadeIn 0.2s ease-out forwards;
   will-change: opacity;
+  transition: opacity 0.25s ease-in;
 }
+
+/* Animation gérée par Framer Motion AnimatePresence */
 
 @keyframes quizFadeIn {
   from { opacity: 0; }
@@ -42,20 +45,6 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: quizSlideUp 0.25s cubic-bezier(0.32, 0.72, 0, 1) forwards;
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-@keyframes quizSlideUp {
-  from {
-    transform: translateY(100%) translateZ(0);
-    opacity: 0.5;
-  }
-  to {
-    transform: translateY(0) translateZ(0);
-    opacity: 1;
-  }
 }
 
 .quiz-modal-handle {

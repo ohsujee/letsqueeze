@@ -235,6 +235,19 @@ function UIPlayground() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
 
+      {/* Transitions Preview */}
+      <a href="/dev/transitions" style={{ ...cardStyle, borderLeft: '3px solid #8b5cf6', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ fontFamily: 'Bungee, sans-serif', fontSize: '0.9rem', color: '#eef2ff', letterSpacing: '0.03em', marginBottom: '4px' }}>
+            🎬 Transitions Preview
+          </div>
+          <div style={{ fontSize: '0.7rem', color: 'rgba(238,242,255,0.4)' }}>
+            Countdown, fin de partie, asker transition...
+          </div>
+        </div>
+        <span style={{ color: '#8b5cf6', fontSize: '1.2rem' }}>&rarr;</span>
+      </a>
+
       {/* Force Update Modal */}
       <div style={{ ...cardStyle, borderLeft: '3px solid #ef4444' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -367,9 +380,10 @@ const SIMULATION_GAMES = [
   { id: 'lol', name: 'LOL', icon: '\u{1F606}', color: '#EF4444', available: true, path: '/dev/simulation/lol' },
   { id: 'imposteur', name: 'Imposteur', icon: '\u{1F575}', color: '#e11d48', available: true, path: '/dev/simulation/imposteur' },
   { id: 'quiz', name: 'Quiz Buzzer', icon: '\u26A1', color: '#8b5cf6', available: true, path: '/dev/simulation/quiz' },
-  { id: 'deeztest', name: 'DeezTest', icon: '\u{1F3B5}', color: '#A238FF', available: false },
-  { id: 'alibi', name: 'Alibi', icon: '\u{1F575}\uFE0F', color: '#f59e0b', available: false },
-  { id: 'laregle', name: 'La R\u00E8gle', icon: '\u{1F50D}', color: '#06b6d4', available: false },
+  { id: 'deeztest', name: 'DeezTest', icon: '🎵', color: '#A238FF', available: true, path: '/dev/simulation/blindtest' },
+  { id: 'alibi', name: 'Alibi', icon: '🕵️', color: '#f59e0b', available: true, path: '/dev/simulation/alibi' },
+  { id: 'laregle', name: 'La Règle', icon: '🔍', color: '#06b6d4', available: true, path: '/dev/simulation/laregle' },
+  { id: 'mime', name: 'Mime', icon: '🎭', color: '#00ff66', available: true, path: '/dev/simulation/mime' },
 ];
 
 function SimulationList() {

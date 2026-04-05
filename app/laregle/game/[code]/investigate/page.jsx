@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth,
@@ -29,14 +29,15 @@ import { ChoosingWaitPhase, PlayingInvestPhase, GuessingInvestPhase } from "./_c
 
 const ACCENT = '#00e5ff';
 
-export default function LaLoiInvestigatePage() {
-  const { code } = useParams();
-  const router = useRouter();
+export function LaRegleInvestigateContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [showEndTransition, setShowEndTransition] = useState(false);
 
@@ -53,13 +54,14 @@ export default function LaLoiInvestigatePage() {
 
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laregle' });
 
-  // Auth
+  // Auth (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       setMyUid(user?.uid || null);
     });
     return () => unsub();
-  }, []);
+  }, [devUid]);
 
   const isHost = myUid && meta?.hostUid === myUid;
   const myPlayer = players.find(p => p.uid === myUid);
@@ -660,4 +662,9 @@ export default function LaLoiInvestigatePage() {
       `}</style>
     </div>
   );
+}
+
+export default function LaLoiInvestigatePage() {
+  const { code } = useParams();
+  return <LaRegleInvestigateContent code={code} />;
 }

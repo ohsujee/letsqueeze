@@ -84,7 +84,7 @@
 .category-count {
   font-family: var(--font-body, 'Inter'), sans-serif;
   font-size: 0.75rem;
-  color: #6b6b8a;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .category-selected-badge {

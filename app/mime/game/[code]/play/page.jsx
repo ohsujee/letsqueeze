@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -11,15 +11,15 @@ import AskerTransition from '@/components/game/AskerTransition';
 import { usePlayers } from '@/lib/hooks/usePlayers';
 import './play.css';
 
-export default function MimePlayPage() {
-  const params = useParams();
-  const router = useRouter();
-  const code = params?.code;
+export function MimePlayContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const db = getDatabase(getApp());
 
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [isHost, setIsHost] = useState(false);
   const [showMimerTransition, setShowMimerTransition] = useState(false);
   const [previousMimeUid, setPreviousMimeUid] = useState(null);
@@ -29,14 +29,15 @@ export default function MimePlayPage() {
   // Players
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_mime' });
 
-  // Auth
+  // Auth (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const auth = getAuth(getApp());
     const unsub = onAuthStateChanged(auth, (user) => {
       setMyUid(user?.uid || null);
     });
     return () => unsub();
-  }, []);
+  }, [devUid]);
 
   // Firebase listeners
   useEffect(() => {
@@ -133,4 +134,10 @@ export default function MimePlayPage() {
       )}
     </div>
   );
+}
+
+export default function MimePlayPage() {
+  const params = useParams();
+  const code = params?.code;
+  return <MimePlayContent code={code} />;
 }

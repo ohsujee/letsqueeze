@@ -410,6 +410,21 @@ export async function POST(request) {
         });
       }
 
+      case 'updateState': {
+        // QA: Modifier n'importe quel champ du state ou de la room
+        // body.updates = { 'state/lockUid': 'fake_p1', 'state/buzzBanner': '...', 'players/fake_p1/score': 100 }
+        const { updates: stateUpdates } = body;
+        if (!stateUpdates || typeof stateUpdates !== 'object') {
+          return NextResponse.json({ error: 'updates object required' }, { status: 400 });
+        }
+        const prefixedUpdates = {};
+        Object.entries(stateUpdates).forEach(([path, value]) => {
+          prefixedUpdates[`${prefix}/${roomCode}/${path}`] = value;
+        });
+        await db.ref().update(prefixedUpdates);
+        return NextResponse.json({ success: true, action: 'updateState', paths: Object.keys(stateUpdates) });
+      }
+
       case 'setupAlibiEnd': {
         // Setup complet pour tester la page de fin Alibi
         const { hostUid, correct = 7, total = 10 } = body;

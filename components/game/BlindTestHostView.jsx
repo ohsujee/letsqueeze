@@ -58,9 +58,6 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   // Change song animation state
   const [isChangingSong, setIsChangingSong] = useState(false);
 
-  // Reveal system (after correct answer)
-  const reveal = useRevealPlayback({ code, meta, serverOffset, snippetStopRef });
-
   // Playlist history (to avoid replaying same tracks)
   const { markTracksAsPlayed, getPlayedTracks } = usePlaylistHistory();
 
@@ -80,6 +77,9 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     playProgress, pointsEnJeu, snippetStopRef,
     playLevel, stopMusic, pauseMusic, refreshTrackUrls, resetForNextTrack,
   } = useBlindTestAudio({ code, canControl, currentTrack, meta, state, playlist, serverOffset });
+
+  // Reveal system (after correct answer) — APRÈS useBlindTestAudio car utilise snippetStopRef
+  const reveal = useRevealPlayback({ code, meta, serverOffset, snippetStopRef });
 
   // (Audio init, pauseMusic, refreshTrackUrls, preload → useBlindTestAudio)
 

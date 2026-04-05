@@ -53,9 +53,11 @@ export default function Buzzer({
   // Quand lockUid est défini, vérifier si c'est moi ou non
   useEffect(() => {
     if (state?.lockUid) {
-      // Résolution terminée, reset mon état pending
       setMyPendingBuzz(false);
-      if (state.lockUid !== playerUid && myPendingBuzz) {
+      if (state.lockUid === playerUid) {
+        // C'est mon tour de répondre — vibration de succès
+        navigator?.vibrate?.([100, 50, 150]);
+      } else if (myPendingBuzz) {
         // J'avais buzzé mais quelqu'un d'autre a gagné
         playSound('error');
       }

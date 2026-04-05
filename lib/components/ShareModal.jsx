@@ -93,7 +93,6 @@ const ShareModal = forwardRef(function ShareModal({ roomCode, joinUrl }, ref) {
 
             {/* Share Info */}
             <div className="share-info">
-              <p className="share-url selectable">{joinUrl}</p>
               <p className="share-code selectable">{roomCode}</p>
             </div>
 
@@ -130,6 +129,7 @@ const ShareModal = forwardRef(function ShareModal({ roomCode, joinUrl }, ref) {
         onClick={() => setIsOpen(true)}
         aria-label="Partager la room"
       >
+        <span className="share-code-label">CODE :</span>
         <span className="share-code-text">{roomCode}</span>
         <Share2 size={16} />
       </button>

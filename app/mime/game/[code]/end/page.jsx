@@ -15,9 +15,10 @@ import { rankWithTies } from "@/lib/utils/ranking";
 // Mime colors
 const MIME_GREEN = '#00ff66';
 
-export default function MimeEndPage() {
-  const { code } = useParams();
-  const router = useRouter();
+export function MimeEndContent({ code, myUid: devUid }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
@@ -25,7 +26,8 @@ export default function MimeEndPage() {
   const [roomExists, setRoomExists] = useState(true);
 
   // End page ad + auth (handles interstitial + returnedFromGame + myUid)
-  const { myUid } = useEndPageAd();
+  const { myUid: adUid } = useEndPageAd();
+  const myUid = devUid || adUid;
 
   // Centralized players hook (live data)
   const { players: livePlayers } = usePlayers({ roomCode: code, roomPrefix: 'rooms_mime' });
@@ -250,4 +252,9 @@ export default function MimeEndPage() {
       `}</style>
     </div>
   );
+}
+
+export default function MimeEndPage() {
+  const { code } = useParams();
+  return <MimeEndContent code={code} />;
 }

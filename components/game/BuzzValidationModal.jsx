@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X } from 'lucide-react';
 import { BellRinging } from '@phosphor-icons/react';
@@ -19,6 +20,13 @@ export default function BuzzValidationModal({
   onWrong,
   onCancel
 }) {
+  // Vibrer quand la modal s'ouvre (quelqu'un a buzzé)
+  useEffect(() => {
+    if (isOpen) {
+      navigator?.vibrate?.([80, 40, 80]);
+    }
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (

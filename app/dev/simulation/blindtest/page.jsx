@@ -4,12 +4,13 @@ import { useState, useEffect, useCallback } from 'react';
 import { auth, db, ref, set, update, remove, onValue, onAuthStateChanged } from '@/lib/firebase';
 import { createRoom as createFirebaseRoom } from '@/lib/config/rooms';
 
-import { ImposteurLobbyContent } from '@/app/imposteur/room/[code]/page';
-import { ImposteurPlayContent } from '@/app/imposteur/game/[code]/play/page';
-import { ImposteurEndContent } from '@/app/imposteur/game/[code]/end/page';
+import { BlindTestLobbyContent } from '@/app/blindtest/room/[code]/page';
+import { BlindTestPlayContent } from '@/app/blindtest/game/[code]/play/page';
+import { BlindTestHostContent } from '@/app/blindtest/game/[code]/host/page';
+import { BlindTestEndContent } from '@/app/blindtest/game/[code]/end/page';
 
-const ROOM_PREFIX = 'rooms_imposteur';
-const GAME_COLOR = '#84cc16';
+const ROOM_PREFIX = 'rooms_blindtest';
+const GAME_COLOR = '#A238FF';
 
 const genCode = () => {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -20,19 +21,14 @@ const genCode = () => {
 
 const PANEL_COLORS = {
   host: { border: '#eab308', labelBg: 'rgba(234,179,8,0.15)' },
-  player: { border: GAME_COLOR, labelBg: 'rgba(132,204,22,0.15)' },
+  player: { border: GAME_COLOR, labelBg: 'rgba(162,56,255,0.15)' },
   end: { border: '#22c55e', labelBg: 'rgba(34,197,94,0.15)' },
 };
 
 const PHASE_TABS = [
   { id: 'lobby', label: 'Lobby', color: '#eab308' },
-  { id: 'roles', label: 'Roles', color: '#a78bfa' },
-  { id: 'describing', label: 'Describe', color: '#3b82f6' },
-  { id: 'discussion', label: 'Discussion', color: '#f59e0b' },
-  { id: 'voting', label: 'Vote', color: GAME_COLOR },
-  { id: 'elimination', label: 'Elim', color: '#ef4444' },
-  { id: 'roundEnd', label: 'Round End', color: '#22c55e' },
-  { id: 'ended', label: 'End', color: '#f59e0b' },
+  { id: 'playing', label: 'Game', color: '#22c55e' },
+  { id: 'ended', label: 'End', color: '#ef4444' },
 ];
 
 const PHONE_W = 360;
@@ -42,35 +38,32 @@ const CONTENT_H = PHONE_H - LABEL_H;
 
 function SimPanel({ role, label, children }) {
   const colors = PANEL_COLORS[role] || PANEL_COLORS.player;
+  const borderColor = colors.border;
+  const labelBg = colors.labelBg;
+
   return (
     <div style={{
       width: PHONE_W, height: PHONE_H,
-      border: `2px solid ${colors.border}40`,
-      borderRadius: '16px', overflow: 'hidden',
-      background: '#04060f', flexShrink: 0,
+      border: `2px solid ${borderColor}40`, borderRadius: '16px',
+      overflow: 'hidden', background: '#04060f', flexShrink: 0,
       display: 'flex', flexDirection: 'column',
     }}>
       <div style={{
-        padding: '6px 12px', height: LABEL_H,
-        background: colors.labelBg,
-        borderBottom: `1px solid ${colors.border}30`,
+        padding: '6px 12px', height: LABEL_H, background: labelBg,
+        borderBottom: `1px solid ${borderColor}30`,
         display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0,
       }}>
-        <div style={{ width: 6, height: 6, borderRadius: '50%', background: colors.border }} />
+        <div style={{ width: 6, height: 6, borderRadius: '50%', background: borderColor }} />
         <span style={{
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: '0.6rem', fontWeight: 800,
-          color: colors.border, letterSpacing: '0.08em', textTransform: 'uppercase',
+          fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.6rem',
+          fontWeight: 800, color: borderColor, letterSpacing: '0.08em', textTransform: 'uppercase',
         }}>{label}</span>
       </div>
       <div className="sim-panel-content" style={{
         width: PHONE_W, height: CONTENT_H,
-        display: 'flex', flexDirection: 'column',
-        overflow: 'hidden', position: 'relative',
-        transform: 'translateZ(0)',
-        '--app-height': `${CONTENT_H}px`,
-        '--safe-area-bottom': '0px',
-        '--safe-area-top': '0px',
+        display: 'flex', flexDirection: 'column', overflow: 'hidden',
+        position: 'relative', transform: 'translateZ(0)',
+        '--app-height': `${CONTENT_H}px`, '--safe-area-bottom': '0px', '--safe-area-top': '0px',
       }}>
         {children}
         <style>{`
@@ -88,24 +81,19 @@ function SimPanel({ role, label, children }) {
 
 function ControlButton({ label, color, onClick, disabled = false, filled = true }) {
   return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      style={{
-        padding: '6px 14px',
-        background: disabled ? 'rgba(238,242,255,0.05)' : filled ? color : 'transparent',
-        color: disabled ? 'rgba(238,242,255,0.2)' : filled ? '#04060f' : color,
-        border: filled ? 'none' : `1px solid ${disabled ? 'rgba(238,242,255,0.1)' : color}50`,
-        borderRadius: '8px', fontSize: '0.7rem', fontWeight: 800,
-        letterSpacing: '0.04em', cursor: disabled ? 'not-allowed' : 'pointer',
-        fontFamily: "'Space Grotesk', sans-serif",
-        transition: 'all 0.15s ease', textTransform: 'uppercase',
-      }}
-    >{label}</button>
+    <button onClick={onClick} disabled={disabled} style={{
+      padding: '6px 14px',
+      background: disabled ? 'rgba(238,242,255,0.05)' : filled ? color : 'transparent',
+      color: disabled ? 'rgba(238,242,255,0.2)' : filled ? '#04060f' : color,
+      border: filled ? 'none' : `1px solid ${disabled ? 'rgba(238,242,255,0.1)' : color}50`,
+      borderRadius: '8px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.04em',
+      cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: "'Space Grotesk', sans-serif",
+      transition: 'all 0.15s ease', textTransform: 'uppercase',
+    }}>{label}</button>
   );
 }
 
-export default function ImposteurSimulator() {
+export default function BlindTestSimulator() {
   const [myUid, setMyUid] = useState(null);
   const [roomCode, setRoomCode] = useState(null);
   const [phase, setPhase] = useState(null);
@@ -115,29 +103,33 @@ export default function ImposteurSimulator() {
   const [displayPhase, setDisplayPhase] = useState(null);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => setMyUid(user?.uid || null));
+    const unsub = onAuthStateChanged(auth, (user) => { setMyUid(user?.uid || null); });
     return unsub;
   }, []);
 
   useEffect(() => {
     if (!roomCode) return;
-    const unsub = onValue(ref(db, `${ROOM_PREFIX}/${roomCode}/state/phase`), snap => setPhase(snap.val()));
+    const unsub = onValue(ref(db, `${ROOM_PREFIX}/${roomCode}/state/phase`), (snap) => {
+      setPhase(snap.val());
+    });
     return () => unsub();
   }, [roomCode]);
 
   useEffect(() => {
     if (!roomCode) return;
-    const unsub = onValue(ref(db, `${ROOM_PREFIX}/${roomCode}/players`), snap => setPlayers(snap.val() || {}));
+    const unsub = onValue(ref(db, `${ROOM_PREFIX}/${roomCode}/players`), (snap) => {
+      setPlayers(snap.val() || {});
+    });
     return () => unsub();
   }, [roomCode]);
 
   useEffect(() => {
-    if (phase === 'roles') {
-      const timer = setTimeout(() => setDisplayPhase('roles'), 500);
+    if (phase === 'playing') {
+      const timer = setTimeout(() => setDisplayPhase('playing'), 4500);
       return () => clearTimeout(timer);
     }
     if (phase === 'ended') {
-      const timer = setTimeout(() => setDisplayPhase('ended'), 1000);
+      const timer = setTimeout(() => setDisplayPhase('ended'), 3500);
       return () => clearTimeout(timer);
     }
     setDisplayPhase(phase);
@@ -145,19 +137,18 @@ export default function ImposteurSimulator() {
 
   const createRoom = useCallback(async () => {
     if (!myUid) { setError('Not authenticated. Go to /dev/signin first.'); return; }
-    setCreating(true); setError(null);
+    setCreating(true);
+    setError(null);
     try {
       const code = genCode();
       const { writePromise } = await createFirebaseRoom({
-        gameId: 'imposteur', code, hostUid: myUid, hostName: 'Host (Sim)',
-        db, ref, set,
+        gameId: 'blindtest', code, hostUid: myUid, hostName: 'Host (Sim)', db, ref, set,
       });
       await writePromise;
 
       await set(ref(db, `${ROOM_PREFIX}/${code}/players/${myUid}`), {
-        uid: myUid, name: 'Host (You)', score: 0,
-        alive: true, hasSeenRole: false,
-        status: 'active', activityStatus: 'active', joinedAt: Date.now(),
+        uid: myUid, name: 'Host (You)', score: 0, teamId: '',
+        blockedUntil: 0, status: 'active', joinedAt: Date.now(),
       });
 
       const res = await fetch('/api/dev/seed-players', {
@@ -168,48 +159,39 @@ export default function ImposteurSimulator() {
       if (!res.ok) throw new Error(`Seed failed: ${await res.text()}`);
 
       setRoomCode(code);
-    } catch (err) { setError(err.message); }
-    finally { setCreating(false); }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setCreating(false);
+    }
   }, [myUid]);
 
   const resetToLobby = useCallback(async () => {
     if (!roomCode) return;
     const updates = {};
-    updates[`${ROOM_PREFIX}/${roomCode}/state`] = {
-      phase: 'lobby', currentRound: 1, currentSubRound: 1,
-      turnOrder: [], currentTurnIndex: 0, currentTurnUid: null,
-      wordPair: null, usedPairIds: [], eliminatedThisRound: [],
-      winner: null, winReason: null,
-      mrWhiteGuessing: false, mrWhiteGuess: null, mrWhiteGuessCorrect: null,
-    };
+    updates[`${ROOM_PREFIX}/${roomCode}/state`] = { phase: 'lobby' };
     Object.keys(players).forEach(uid => {
       updates[`${ROOM_PREFIX}/${roomCode}/players/${uid}/score`] = 0;
-      updates[`${ROOM_PREFIX}/${roomCode}/players/${uid}/alive`] = true;
-      updates[`${ROOM_PREFIX}/${roomCode}/players/${uid}/hasSeenRole`] = false;
-      updates[`${ROOM_PREFIX}/${roomCode}/players/${uid}/status`] = 'active';
+      updates[`${ROOM_PREFIX}/${roomCode}/players/${uid}/blockedUntil`] = 0;
     });
-    updates[`${ROOM_PREFIX}/${roomCode}/roles`] = null;
-    updates[`${ROOM_PREFIX}/${roomCode}/descriptions`] = null;
-    updates[`${ROOM_PREFIX}/${roomCode}/votes`] = null;
-    updates[`${ROOM_PREFIX}/${roomCode}/revealedRoles`] = null;
-    updates[`${ROOM_PREFIX}/${roomCode}/roundScores`] = null;
     await update(ref(db), updates);
     setDisplayPhase('lobby');
   }, [roomCode, players]);
 
+  const NAMES = ['Alice','Bob','Charlie','Diana','Emile','Fatou','Gaston','Helene','Igor','Julie','Kevin','Luna','Max','Nina','Oscar','Paul','Quentin','Rosa','Sam','Tina'];
+
   const addPlayer = useCallback(async () => {
     if (!roomCode) return;
     const existingUids = Object.keys(players);
-    if (existingUids.length >= 12) { setError('Max 12 joueurs'); return; }
+    if (existingUids.length >= 20) { setError('Max 20 joueurs'); return; }
     let num = 1;
     while (existingUids.includes(`fake_p${num}`)) num++;
     const uid = `fake_p${num}`;
-    const NAMES = ['Alice','Bob','Charlie','Diana','Emile','Fatou','Gaston','Helene','Igor','Julie','Kevin','Luna'];
     const name = NAMES[(num - 1) % NAMES.length] || `P${num}`;
     try {
       await set(ref(db, `${ROOM_PREFIX}/${roomCode}/players/${uid}`), {
-        uid, name, score: 0, alive: true, hasSeenRole: false,
-        status: 'active', activityStatus: 'active', joinedAt: Date.now(), isFake: true,
+        uid, name, score: 0, teamId: '', blockedUntil: 0,
+        status: 'active', joinedAt: Date.now(), isFake: true,
       });
     } catch (err) { setError(err.message); }
   }, [roomCode, players]);
@@ -219,13 +201,14 @@ export default function ImposteurSimulator() {
     const fakeUids = Object.keys(players).filter(uid => uid !== myUid && uid.startsWith('fake_'));
     if (fakeUids.length === 0) return;
     const sorted = fakeUids.sort((a, b) => (players[b]?.joinedAt || 0) - (players[a]?.joinedAt || 0));
-    try { await remove(ref(db, `${ROOM_PREFIX}/${roomCode}/players/${sorted[0]}`)); }
-    catch (err) { setError(err.message); }
+    try {
+      await remove(ref(db, `${ROOM_PREFIX}/${roomCode}/players/${sorted[0]}`));
+    } catch (err) { setError(err.message); }
   }, [roomCode, players, myUid]);
 
   const playerEntries = Object.entries(players);
 
-  // ── Setup screen ──
+  // ===== CREATE SCREEN =====
   if (!roomCode) {
     return (
       <div style={{
@@ -237,13 +220,14 @@ export default function ImposteurSimulator() {
         <a href="/dev" style={{
           position: 'absolute', top: '20px', left: '20px',
           color: 'rgba(238,242,255,0.4)', textDecoration: 'none', fontSize: '0.8rem',
+          fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.03em',
         }}>&larr; Dev Studio</a>
 
-        <span style={{ fontSize: '3rem', marginBottom: '16px' }}>🕵️</span>
+        <span style={{ fontSize: '3rem', marginBottom: '16px' }}>🎵</span>
         <h1 style={{
           fontFamily: 'Bungee, sans-serif', fontSize: '1.5rem', color: '#eef2ff',
           margin: '0 0 8px', letterSpacing: '0.04em', textAlign: 'center',
-        }}>Imposteur Simulator</h1>
+        }}>Blind Test Simulator</h1>
         <p style={{
           color: 'rgba(238,242,255,0.4)', fontSize: '0.8rem', margin: '0 0 32px',
           textAlign: 'center', maxWidth: '400px', lineHeight: 1.5,
@@ -255,14 +239,17 @@ export default function ImposteurSimulator() {
           <div style={{
             padding: '10px 16px', background: 'rgba(239,68,68,0.1)',
             border: '1px solid rgba(239,68,68,0.3)', borderRadius: '8px',
-            color: '#fca5a5', fontSize: '0.75rem', marginBottom: '20px', maxWidth: '400px', textAlign: 'center',
+            color: '#fca5a5', fontSize: '0.75rem', marginBottom: '20px',
+            maxWidth: '400px', textAlign: 'center',
           }}>{error}</div>
         )}
 
         <button onClick={createRoom} disabled={creating || !myUid} style={{
-          padding: '14px 32px', background: creating ? `${GAME_COLOR}55` : GAME_COLOR,
-          color: creating ? 'rgba(255,255,255,0.5)' : '#fff', border: 'none', borderRadius: '12px',
-          fontFamily: 'Bungee, sans-serif', fontSize: '1rem', letterSpacing: '0.04em',
+          padding: '14px 32px',
+          background: creating ? `${GAME_COLOR}4D` : GAME_COLOR,
+          color: creating ? 'rgba(255,255,255,0.5)' : '#fff',
+          border: 'none', borderRadius: '12px', fontFamily: 'Bungee, sans-serif',
+          fontSize: '1rem', letterSpacing: '0.04em',
           cursor: creating ? 'not-allowed' : 'pointer', transition: 'all 0.2s ease',
         }}>
           {creating ? 'Creating...' : 'Create Simulation'}
@@ -277,41 +264,46 @@ export default function ImposteurSimulator() {
     );
   }
 
-  // ── Render panels ──
+  // ===== SIMULATION VIEW =====
   const renderPanels = () => {
-    const gamePhases = ['roles', 'describing', 'discussion', 'voting', 'elimination', 'roundEnd'];
-    if (gamePhases.includes(displayPhase)) {
-      return playerEntries.map(([uid, player]) => (
-        <SimPanel key={uid} role={uid === myUid ? 'host' : 'player'} label={`${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
-          <ImposteurPlayContent overrideCode={roomCode} overrideUid={uid} />
-        </SimPanel>
-      ));
+    if (displayPhase === 'playing') {
+      return (
+        <>
+          <SimPanel role="host" label="Host View">
+            <BlindTestHostContent code={roomCode} />
+          </SimPanel>
+          {playerEntries.filter(([uid]) => uid !== myUid).map(([uid, player]) => (
+            <SimPanel key={uid} role="player" label={`Player - ${player.name || uid}`}>
+              <BlindTestPlayContent code={roomCode} myUid={uid} />
+            </SimPanel>
+          ))}
+        </>
+      );
     }
 
     if (displayPhase === 'ended') {
       return playerEntries.map(([uid, player]) => (
         <SimPanel key={uid} role="end" label={`End - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
-          <ImposteurEndContent overrideCode={roomCode} overrideUid={uid} />
+          <BlindTestEndContent code={roomCode} myUid={uid} />
         </SimPanel>
       ));
     }
 
-    // Default: lobby
+    // Lobby
     return (
       <>
         <SimPanel role="host" label="Host (You) - Lobby">
-          <ImposteurLobbyContent code={roomCode} myUid={myUid} isHost={true} />
+          <BlindTestLobbyContent code={roomCode} myUid={myUid} isHost={true} />
         </SimPanel>
         {playerEntries.filter(([uid]) => uid !== myUid).map(([uid, player]) => (
           <SimPanel key={uid} role="player" label={`Player - ${player.name || uid}`}>
-            <ImposteurLobbyContent code={roomCode} myUid={uid} />
+            <BlindTestLobbyContent code={roomCode} myUid={uid} />
           </SimPanel>
         ))}
       </>
     );
   };
 
-  // ── Simulation view ──
   return (
     <div style={{
       flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column',
@@ -324,41 +316,47 @@ export default function ImposteurSimulator() {
       }}>
         <a href="/dev" style={{
           color: 'rgba(238,242,255,0.4)', textDecoration: 'none', fontSize: '0.8rem',
+          fontFamily: "'Space Grotesk', sans-serif",
         }}>&larr; Dev Studio</a>
-        <span style={{ fontSize: '1.2rem' }}>🕵️</span>
+        <span style={{ fontSize: '1.2rem' }}>🎵</span>
         <h1 style={{
           fontFamily: 'Bungee, sans-serif', fontSize: '1rem', color: '#eef2ff',
           margin: 0, letterSpacing: '0.04em',
-        }}>Imposteur Sim</h1>
+        }}>Blind Test Sim</h1>
         <div style={{
           marginLeft: 'auto', padding: '4px 12px',
-          background: `${GAME_COLOR}25`, borderRadius: '6px',
-          fontFamily: 'Bungee, sans-serif', fontSize: '0.8rem',
-          color: GAME_COLOR, letterSpacing: '0.1em',
+          background: `${GAME_COLOR}26`, borderRadius: '6px',
+          fontFamily: 'Bungee, sans-serif', fontSize: '0.8rem', color: GAME_COLOR,
+          letterSpacing: '0.1em',
         }}>{roomCode}</div>
       </div>
 
-      {/* Tabs */}
+      {/* Phase Tabs */}
       <div style={{
-        padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '6px',
+        padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '8px',
         borderBottom: '1px solid rgba(238,242,255,0.06)', flexShrink: 0, flexWrap: 'wrap',
       }}>
         {PHASE_TABS.map((tab) => {
           const isActive = displayPhase === tab.id;
           return (
             <div key={tab.id} style={{
-              padding: '4px 10px',
+              padding: '5px 14px',
               background: isActive ? `${tab.color}20` : 'rgba(238,242,255,0.04)',
               color: isActive ? tab.color : 'rgba(238,242,255,0.2)',
               border: isActive ? `1px solid ${tab.color}50` : '1px solid rgba(238,242,255,0.06)',
-              borderRadius: '6px', fontSize: '0.6rem', fontWeight: 800,
-              letterSpacing: '0.06em', textTransform: 'uppercase', userSelect: 'none',
+              borderRadius: '6px', fontSize: '0.7rem', fontWeight: 800,
+              letterSpacing: '0.06em', textTransform: 'uppercase',
+              fontFamily: "'Space Grotesk', sans-serif", transition: 'all 0.15s ease',
+              userSelect: 'none',
             }}>{tab.label}</div>
           );
         })}
         <div style={{ flex: 1 }} />
-        <div style={{ fontSize: '0.65rem', color: 'rgba(238,242,255,0.3)' }}>
-          Phase: <span style={{ color: GAME_COLOR, fontWeight: 700 }}>{phase || 'unknown'}</span>
+        <div style={{ fontSize: '0.65rem', color: 'rgba(238,242,255,0.3)', letterSpacing: '0.06em' }}>
+          Phase: <span style={{
+            color: displayPhase === 'lobby' ? '#eab308' : displayPhase === 'playing' ? '#22c55e' : displayPhase === 'ended' ? '#ef4444' : 'rgba(238,242,255,0.4)',
+            fontWeight: 700,
+          }}>{phase || 'unknown'}</span>
         </div>
         <div style={{ fontSize: '0.65rem', color: 'rgba(238,242,255,0.3)' }}>
           {playerEntries.length} players
@@ -372,7 +370,7 @@ export default function ImposteurSimulator() {
         </div>
       </div>
 
-      {/* Bottom controls */}
+      {/* Controls */}
       <div style={{
         position: 'sticky', bottom: 0, left: 0, right: 0,
         background: 'rgba(4,6,15,0.95)', backdropFilter: 'blur(12px)',
@@ -380,7 +378,7 @@ export default function ImposteurSimulator() {
         padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0,
       }}>
         <ControlButton label="+ Joueur" color={GAME_COLOR} onClick={addPlayer} />
-        <ControlButton label="- Joueur" color="#f59e0b" onClick={removePlayer}
+        <ControlButton label="− Joueur" color="#f59e0b" onClick={removePlayer}
           disabled={Object.keys(players).filter(uid => uid.startsWith('fake_')).length === 0} filled={false} />
         <ControlButton label="↺ Lobby" color="#eab308" onClick={resetToLobby} filled={false} />
         <div style={{ flex: 1 }} />
@@ -389,13 +387,16 @@ export default function ImposteurSimulator() {
         </div>
       </div>
 
+      {/* Error Toast */}
       {error && (
         <div style={{
           position: 'fixed', top: '20px', right: '20px',
           padding: '10px 16px', background: 'rgba(239,68,68,0.15)',
           border: '1px solid rgba(239,68,68,0.3)', borderRadius: '8px',
           color: '#fca5a5', fontSize: '0.75rem', zIndex: 200, maxWidth: '300px', cursor: 'pointer',
-        }} onClick={() => setError(null)}>{error}</div>
+        }} onClick={() => setError(null)}>
+          {error}
+        </div>
       )}
     </div>
   );

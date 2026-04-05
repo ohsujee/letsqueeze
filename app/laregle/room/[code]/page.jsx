@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { auth, db, ref, onValue, update, set, signInAnonymously, onAuthStateChanged } from "@/lib/firebase";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -30,14 +30,15 @@ import './laregle-lobby.css';
 const ACCENT = '#00e5ff';
 const ACCENT_DARK = '#00b8d9';
 
-export default function LaLoiLobby() {
-  const { code } = useParams();
-  const router = useRouter();
+export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
 
   const [meta, setMeta] = useState(null);
-  const [isHost, setIsHost] = useState(false);
-  const [myUid, setMyUid] = useState(null);
+  const [isHost, setIsHost] = useState(devIsHost || false);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [joinUrl, setJoinUrl] = useState("");
   const [hostJoined, setHostJoined] = useState(false);
   const [selectedInvestigators, setSelectedInvestigators] = useState([]);
@@ -69,13 +70,15 @@ export default function LaLoiLobby() {
   useEffect(() => { checkScroll(); }, [players.length]);
   useEffect(() => { if (typeof window !== "undefined" && code) setJoinUrl(`${window.location.origin}/join?code=${code}`); }, [code]);
 
+  // Auth (skip in dev mode)
   useEffect(() => {
+    if (devUid) return;
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) { setMyUid(user.uid); const host = meta?.hostUid === user.uid; setIsHost(host); isHostRef.current = host; setHostJoined(players.some(p => p.uid === user.uid)); }
       else signInAnonymously(auth).catch(() => {});
     });
     return () => unsub();
-  }, [meta?.hostUid, players]);
+  }, [meta?.hostUid, players, devUid]);
 
   useRoomGuard({ roomCode: code, roomPrefix: 'rooms_laregle', playerUid: myUid, isHost, skipKickRedirect: true });
   useHostDisconnect({ roomCode: code, roomPrefix: 'rooms_laregle', hostUid: meta?.hostUid });
@@ -270,4 +273,9 @@ export default function LaLoiLobby() {
       </div>
     </div>
   );
+}
+
+export default function LaLoiLobby() {
+  const { code } = useParams();
+  return <LaRegleLobbyContent code={code} />;
 }

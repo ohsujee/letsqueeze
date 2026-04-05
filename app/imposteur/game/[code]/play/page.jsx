@@ -12,6 +12,7 @@ import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useImposteurGame } from "@/lib/hooks/useImposteurGame";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
+import './imposteur-play.css';
 
 // Phase components
 import ImposteurRolesPhase from "@/components/game/imposteur/ImposteurRolesPhase";
@@ -179,7 +180,6 @@ export function ImposteurPlayContent({ overrideCode, overrideUid, code: propCode
           width: 30, height: 30, border: '2px solid #1e1e30', borderTopColor: ACCENT,
           borderRadius: '50%', animation: 'spin 0.9s linear infinite',
         }} />
-        <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
   }
