@@ -97,12 +97,10 @@ export default function HostSettingsPanel({
                   {[2, 3, 4].map(count => {
                     const active = (meta?.teamCount || 2) === count;
                     return (
-                      <motion.button
+                      <button
                         key={count}
                         className={`quiz-team-count-btn${active ? ' active' : ''}`}
                         onClick={() => onTeamCountChange(count)}
-                        whileHover={{ y: -2 }}
-                        whileTap={{ scale: 0.92 }}
                       >
                         {count}
                         {active && (
@@ -112,7 +110,7 @@ export default function HostSettingsPanel({
                             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                           />
                         )}
-                      </motion.button>
+                      </button>
                     );
                   })}
                 </div>

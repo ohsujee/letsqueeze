@@ -20,6 +20,7 @@ export default function QuizSelectorModal({
   const [screen, setScreen] = useState('categories'); // 'categories' | 'themes'
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedThemes, setSelectedThemes] = useState([]);
+  const [isClosing, setIsClosing] = useState(false);
   const modalRef = useRef(null);
   const dragState = useRef({ isDragging: false, startY: 0 });
 
@@ -68,14 +69,19 @@ export default function QuizSelectorModal({
   }, [isOpen]);
 
   const handleClose = () => {
+    if (isClosing) return;
+    setIsClosing(true);
     if (modalRef.current) {
-      modalRef.current.style.transition = '';
-      modalRef.current.style.transform = '';
+      modalRef.current.style.transition = 'transform 0.25s ease-in';
+      modalRef.current.style.transform = 'translateY(110%)';
     }
-    setScreen('categories');
-    setSelectedCategory(null);
-    setSelectedThemes([]);
-    onClose();
+    setTimeout(() => {
+      setScreen('categories');
+      setSelectedCategory(null);
+      setSelectedThemes([]);
+      setIsClosing(false);
+      onClose();
+    }, 250);
   };
 
   const handleDragPointerDown = (e) => {
@@ -168,7 +174,7 @@ export default function QuizSelectorModal({
     .filter(t => selectedThemes.includes(t.id))
     .reduce((sum, t) => sum + t.questionCount, 0) || 0;
 
-  if (!mounted || !isOpen) return null;
+  if (!mounted || (!isOpen && !isClosing)) return null;
 
   const modalContent = (
     <div className="quiz-modal-wrapper open">

@@ -33,12 +33,13 @@ import { GameLaunchCountdown } from "@/components/transitions";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import { CaretDown, Info, Lightning, UsersThree, ArrowRight, Users } from '@phosphor-icons/react';
 import { getFlatCSSVars, GAME_COLORS } from '@/lib/config/colors';
+import TeamCard from '@/components/game/TeamCard';
 import HostSettingsPanel from './_components/HostSettingsPanel';
 import './quiz-lobby.css';
 import './quiz-lobby-globals.css';
+import '@/components/game/player-team-view.css';
 import './quiz-selector-modal.css';
 import './quiz-selector-v2.css';
-import './team-tabs.css';
 
 const ACCENT = GAME_COLORS.quiz.primary;
 const ACCENT_DARK = GAME_COLORS.quiz.secondary;
@@ -255,8 +256,8 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
     }
   };
 
-  const teamColors = ["#FF2D55", "#00D4FF", "#32FF7E", "#FFB800", "#BF5AF2", "#FF6B2C"];
-  const teamNames = ["Team Blaze", "Team Frost", "Team Venom", "Team Solar"];
+  const teamColors = ["#E84466", "#1EAEE0", "#30C968", "#DDB830", "#B06DEA", "#F07038"];
+  const teamNames = ["Équipe Rouge", "Équipe Bleue", "Équipe Verte", "Équipe Jaune"];
 
   const createTeamsForCount = (count) => {
     const newTeams = {};
@@ -300,6 +301,11 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
     if (!isHost) return;
     await update(ref(db, `${ROOM_PREFIX}/${code}/meta`), { quizSelection: selection });
     setShowQuizSelector(false);
+  };
+
+  const handleUpdateTeamName = async (teamId, newName) => {
+    if (!code || !newName?.trim()) return;
+    await update(ref(db, `${ROOM_PREFIX}/${code}/meta/teams/${teamId}`), { name: newName.trim() });
   };
 
   const handleAssignToTeam = async (playerUid, teamId) => {
@@ -458,54 +464,76 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
               teams={teams} players={players} teamCount={meta?.teamCount || 2}
               onAssignToTeam={handleAssignToTeam} onRemoveFromTeam={handleRemoveFromTeam}
               onAutoBalance={handleAutoBalance} onResetTeams={handleResetTeams}
+              onUpdateTeamName={handleUpdateTeamName}
             />
           </div>
         )}
 
-        {/* Player team view (non-host) */}
-        {!isHost && meta?.mode === 'équipes' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {players.find(p => p.uid === myUid)?.teamId ? (
-              <div className="my-team-banner" style={{ '--team-color': teams[players.find(p => p.uid === myUid)?.teamId]?.color }}>
-                <div className="banner-glow" />
-                <span className="banner-label">Ton équipe</span>
-                <span className="banner-team-name">{teams[players.find(p => p.uid === myUid)?.teamId]?.name}</span>
-              </div>
-            ) : (
-              <div className="quiz-no-team-banner">
-                <span className="quiz-no-team-emoji">&#x23F3;</span>
-                <span className="quiz-no-team-text">L'hôte va t'assigner à une équipe...</span>
-              </div>
-            )}
-            <div className={`teams-grid-player teams-${meta?.teamCount || 2}`}>
-              {Object.entries(teams).slice(0, meta?.teamCount || 2).map(([id, team]) => {
-                const teamPlayers = players.filter(p => p.teamId === id);
-                const isMyTeam = players.find(p => p.uid === myUid)?.teamId === id;
-                return (
-                  <div key={id} className={`team-card-player ${isMyTeam ? 'my-team' : ''}`} style={{ '--team-color': team.color }}>
-                    <div className="team-card-bar" style={{ backgroundColor: team.color }} />
-                    <div className="team-card-header">
-                      <span className="team-card-name">{team.name.replace('Équipe ', '')}</span>
-                      <span className="team-card-count">{teamPlayers.length}</span>
-                    </div>
-                    <div className="team-card-players">
-                      {teamPlayers.length === 0 ? (
-                        <span className="no-players-text">Vide</span>
-                      ) : (
-                        teamPlayers.slice(0, 4).map((player) => (
-                          <span key={player.uid} className={`player-tag ${player.uid === myUid ? 'is-me' : ''}`}>
-                            {player.uid === myUid && '👤 '}{player.name}
-                          </span>
-                        ))
-                      )}
-                      {teamPlayers.length > 4 && <span className="player-tag more">+{teamPlayers.length - 4}</span>}
-                    </div>
+        {/* Player team view (non-host) — utilise TeamCard partagé */}
+        {!isHost && meta?.mode === 'équipes' && (() => {
+          const myTeamId = players.find(p => p.uid === myUid)?.teamId;
+          const teamEntries = Object.entries(teams).slice(0, meta?.teamCount || 2);
+          const myTeamEntry = teamEntries.find(([id]) => id === myTeamId);
+          const otherTeams = teamEntries.filter(([id]) => id !== myTeamId);
+
+          return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {!myTeamId && (
+                <div className="quiz-no-team-banner">
+                  <span className="quiz-no-team-emoji">&#x23F3;</span>
+                  <span className="quiz-no-team-text">L'hôte va t'assigner à une équipe...</span>
+                </div>
+              )}
+
+              {/* Mon équipe en premier */}
+              {myTeamEntry && (
+                <>
+                  <span className="player-team-section-label">Ton équipe</span>
+                  <TeamCard
+                    team={{ id: myTeamEntry[0], ...myTeamEntry[1] }}
+                    teamPlayers={players.filter(p => p.teamId === myTeamEntry[0])}
+                    isMyTeam={true}
+                    myUid={myUid}
+                    canEdit={true}
+                    canManage={false}
+                    onUpdateName={(name) => handleUpdateTeamName(myTeamEntry[0], name)}
+                  />
+                </>
+              )}
+
+              {/* Séparateur + autres équipes */}
+              {otherTeams.length > 0 && (
+                <>
+                  <div className="player-team-divider" />
+                  <span className="player-team-section-label">Autres équipes</span>
+                  <div className="teams-grid">
+                    <AnimatePresence mode="popLayout">
+                      {otherTeams.map(([id, team], i) => (
+                        <motion.div
+                          key={id}
+                          layout
+                          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 28, delay: i * 0.05 }}
+                        >
+                          <TeamCard
+                            team={{ id, ...team }}
+                            teamPlayers={players.filter(p => p.teamId === id)}
+                            isMyTeam={false}
+                            myUid={myUid}
+                            canEdit={false}
+                            canManage={false}
+                          />
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
                   </div>
-                );
-              })}
+                </>
+              )}
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* Players section (solo mode) */}
         {meta?.mode !== 'équipes' && (

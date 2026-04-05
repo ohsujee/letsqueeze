@@ -201,16 +201,15 @@
 .quiz-team-count-btn {
   position: relative;
   width: 42px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 7px 0;
   border-radius: 10px;
   border: none;
   border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
   background: var(--flat-bg-light, #3d2d70);
   cursor: pointer;
-  overflow: hidden;
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: 1rem;
   line-height: 1;
@@ -224,12 +223,7 @@
 }
 
 .quiz-team-count-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--game-color, #8b5cf6);
+  display: none;
 }
 
 /* ── Player settings (non-host) ── */
@@ -287,6 +281,7 @@
   border-radius: 16px;
   padding: 14px 16px;
   flex-shrink: 0;
+  overflow: visible;
 }
 
 /* ── Players section ── */
@@ -470,4 +465,20 @@
   font-size: 0.8rem;
   color: var(--flat-text, #c4b5fd);
   font-weight: 600;
+}
+
+/* Section labels pour la vue joueur équipes */
+.player-team-section-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #8a8aa0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.player-team-divider {
+  height: 2px;
+  background: #222240;
+  margin: 4px 0;
 }

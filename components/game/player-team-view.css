@@ -1,0 +1,361 @@
+/* player-team-view.css — Shared team view styles for all games (player side) */
+
+.my-team-banner {
+  position: relative;
+  width: 100%;
+  padding: 12px;
+  background: var(--team-color, #8b5cf6);
+  border: none;
+  border-bottom: 3px solid color-mix(in srgb, var(--team-color, #8b5cf6) 70%, black);
+  border-radius: 12px;
+  text-align: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+/* Sticky banner in player view with fade effect */
+.lobby-player-view .my-team-banner,
+.lobby-player-view .pending-banner {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  margin-bottom: 12px;
+}
+
+/* For games with playlist card, banner stacks below */
+.lobby-player-view .player-info-card + .my-team-banner,
+.lobby-player-view .player-info-card + .pending-banner,
+.lobby-player-view .player-info-card ~ .my-team-banner,
+.lobby-player-view .player-info-card ~ .pending-banner {
+  top: 210px;
+}
+
+/* Background behind sticky banner to hide scrolling content */
+.lobby-player-view .my-team-banner::before,
+.lobby-player-view .pending-banner::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -16px;
+  right: -16px;
+  bottom: -16px;
+  background: linear-gradient(to bottom,
+    var(--bg-primary, #0a0a0f) 0%,
+    var(--bg-primary, #0a0a0f) 85%,
+    transparent 100%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+.my-team-banner .banner-glow {
+  display: none;
+}
+
+.my-team-banner .banner-label {
+  display: block;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 3px;
+}
+
+.my-team-banner .banner-team-name {
+  display: block;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+/* Force le texte blanc dans l'éditeur de nom sur fond coloré */
+.my-team-banner .display-name,
+.my-team-banner .inline-input {
+  color: #fff !important;
+}
+
+.my-team-banner .edit-btn {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Pending Banner */
+.pending-banner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 11px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+  border: 2px solid rgba(245, 158, 11, 0.4);
+  border-radius: 13px;
+  box-shadow: 0 0 22px rgba(245, 158, 11, 0.15);
+  flex-shrink: 0;
+}
+
+.pending-banner .pending-icon {
+  font-size: 18px;
+  animation: float 2s ease-in-out infinite;
+}
+
+.pending-banner .pending-text {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 13px;
+  color: var(--alibi-glow, #fbbf24);
+  text-shadow: 0 0 7px rgba(245, 158, 11, 0.3);
+}
+
+/* ===== TEAMS GRID - PLAYER VIEW ===== */
+.teams-grid-player {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* 2 équipes - côte à côte, plus grandes */
+.teams-grid-player.teams-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.teams-grid-player.teams-2 .team-card-player {
+  padding: 1rem;
+}
+
+/* 3 équipes - 2 colonnes, 3ème carte centrée en bas */
+.teams-grid-player.teams-3 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.teams-grid-player.teams-3 .team-card-player:nth-child(3) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: calc(50% - 0.375rem);
+}
+
+/* 4 équipes - grille 2x2 classique */
+.teams-grid-player.teams-4 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.team-card-player {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.875rem;
+  background: var(--flat-bg-light, #3d2d70);
+  border: none;
+  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.team-card-player.my-team {
+  border-left: 3px solid var(--team-color, #8b5cf6);
+  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
+}
+
+.team-card-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 10px 0 0 10px;
+}
+
+.team-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.team-card-name {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary, #ffffff);
+}
+
+.team-card-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 0.375rem;
+  background: var(--flat-bg-dark, #1e1445);
+  border-radius: 6px;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.75rem;
+  color: var(--flat-text, #c4b5fd);
+}
+
+.team-card-players {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-height: 40px;
+}
+
+.team-card-players .no-players-text {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  color: var(--flat-muted, #a090d0);
+}
+
+.team-card-players .player-tag {
+  padding: 0.375rem 0.625rem;
+  background: var(--flat-bg-dark, #1e1445);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-card-players .player-tag.is-me {
+  background: var(--game-secondary, #7c3aed);
+  font-weight: 700;
+}
+
+.team-card-players .player-tag.more {
+  background: var(--flat-bg-dark, #1e1445);
+  font-size: 0.6875rem;
+  color: var(--flat-muted, #a090d0);
+}
+
+.team-card-players .player-tag.more.clickable {
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.team-card-players .player-tag.more.clickable:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-primary, #fff);
+}
+
+/* ===== TEAM DETAIL MODAL (Player View) ===== */
+.team-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.team-modal-content {
+  width: 100%;
+  max-width: 320px;
+  background: rgba(20, 20, 30, 0.98);
+  border: 1px solid var(--team-color, rgba(255, 255, 255, 0.2));
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.team-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.team-modal-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.team-modal-name {
+  flex: 1;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.1rem;
+  color: var(--text-primary, #fff);
+  margin: 0;
+}
+
+.team-modal-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.team-modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-primary, #fff);
+}
+
+.team-modal-players {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.team-modal-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.team-modal-player.is-me {
+  background: rgba(var(--team-color-rgb, 139, 92, 246), 0.15);
+  border: 1px solid var(--team-color, rgba(139, 92, 246, 0.3));
+}
+
+.team-modal-player .player-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.team-modal-player .player-name {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary, #fff);
+}
+
+.team-modal-player.is-me .player-name {
+  font-weight: 600;
+}
+

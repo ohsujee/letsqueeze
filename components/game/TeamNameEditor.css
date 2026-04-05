@@ -1,0 +1,107 @@
+/* TeamNameEditor.css — Flat inline name editor for teams */
+
+.tne-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+  align-items: flex-start;
+}
+
+.tne-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tne-name {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.85rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tne-input {
+  flex: 1;
+  min-width: 0;
+  max-width: 180px;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.85rem;
+  color: #fff;
+  outline: none;
+}
+
+.tne-input:focus {
+  border-color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.tne-input.tne-error {
+  border-color: #ef4444;
+}
+
+/* Boutons */
+.tne-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.tne-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tne-btn-edit {
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tne-btn-save {
+  background: #22c55e;
+  border-bottom: 2px solid #16a34a;
+}
+
+.tne-btn-save:active:not(:disabled) {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+.tne-btn-cancel {
+  background: #ef4444;
+  border-bottom: 2px solid #dc2626;
+}
+
+.tne-btn-cancel:active:not(:disabled) {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+.tne-error-text {
+  font-size: 0.7rem;
+  color: #fca5a5;
+}
+
+/* Compact */
+.tne-compact .tne-name {
+  font-size: 0.8rem;
+}
+
+.tne-compact .tne-input {
+  font-size: 0.8rem;
+  padding: 5px 8px;
+}

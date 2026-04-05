@@ -294,21 +294,12 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                 const posChange = positionChanges[`team_${team.id}`];
                 const animatedScore = team.score ?? 0;
                 const progressPercent = maxTeamScore > 0 ? (animatedScore / maxTeamScore) * 100 : 0;
-                const teamTheme = (team.name || '').toLowerCase().replace('équipe ', '').replace('team ', '');
-
-                // Map team themes to WebP images (leader only)
-                const teamBgImage = isLeader && ['blaze', 'frost', 'venom', 'solar'].includes(teamTheme)
-                  ? `/images/optimized/${teamTheme}.webp`
-                  : null;
 
                 return (
                   <div
                     key={`team_${team.id}`}
-                    className={`team-race-row ${isLeader ? 'leader' : ''} ${isMyTeam ? 'my-team' : ''} ${posChange ? `moved-${posChange}` : ''} ${teamBgImage ? `team-${teamTheme}` : ''}`}
-                    style={{
-                      '--team-color': team.color,
-                      '--team-bg-image': teamBgImage ? `url(${teamBgImage})` : 'none'
-                    }}
+                    className={`team-race-row ${isLeader ? 'leader' : ''} ${isMyTeam ? 'my-team' : ''} ${posChange ? `moved-${posChange}` : ''}`}
+                    style={{ '--team-color': team.color }}
                   >
                     {isMyTeam && (
                       <div className="my-team-indicator">
