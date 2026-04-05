@@ -44,7 +44,9 @@ export function QuizPlayContent({ code, myUid: devUid }) {
   const prevAskerUidRef = useRef(null);
 
   // Centralized players hook
-  const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
+  const { players, me: authMe } = usePlayers({ roomCode: code, roomPrefix: 'rooms' });
+  // In dev simulation, devUid differs from auth uid — find the right player
+  const me = devUid ? players.find(p => p.uid === devUid) || authMe : authMe;
 
   // Party Mode: Asker rotation hook
   const {
@@ -361,6 +363,7 @@ export function QuizPlayContent({ code, myUid: devUid }) {
           serverNow={serverNow}
           serverOffset={offset}
           disabled={isPartyMode && !canBuzz(myUid, me?.teamId)}
+          teamColor={me?.teamId && meta?.teams?.[me.teamId]?.color || null}
         />
       </footer>
 

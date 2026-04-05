@@ -23,7 +23,8 @@ export default function Buzzer({
   blockedUntil = 0,
   serverNow = Date.now(),
   serverOffset = 0, // Offset entre client et serveur Firebase
-  disabled = false // Party Mode: désactivé si je suis le asker ou dans l'équipe qui pose
+  disabled = false, // Party Mode: désactivé si je suis le asker ou dans l'équipe qui pose
+  teamColor = null // Couleur d'équipe du joueur → colorise le pupitre
 }) {
   const [state, setState] = useState({});
   const [pendingBuzzes, setPendingBuzzes] = useState({});
@@ -188,7 +189,13 @@ export default function Buzzer({
       </div>
 
       {/* Pupitre — fixed indépendant, derrière le wrapper */}
-      <div className={styles.podium} />
+      <div
+        className={styles.podium}
+        style={teamColor ? {
+          background: teamColor,
+          borderTopColor: `color-mix(in srgb, ${teamColor} 70%, white)`
+        } : undefined}
+      />
     </>
   );
 }
