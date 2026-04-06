@@ -5,7 +5,6 @@ import { db, ref, onValue, update, auth, onAuthStateChanged } from "@/lib/fireba
 import { PodiumPremium } from "@/components/ui/PodiumPremium";
 import Leaderboard from "@/components/game/Leaderboard";
 import { motion } from "framer-motion";
-import { Trophy } from '@phosphor-icons/react';
 import { useToast } from "@/lib/hooks/useToast";
 import { hueScenariosService } from "@/lib/hue-module";
 import { recordQuizGame } from "@/lib/services/statsService";
@@ -161,15 +160,18 @@ export function QuizEndContent({ code, myUid: devUid }) {
   }, [players]);
 
   // Podium et classement — calculés une fois
+  // Podium: teams in team mode, players in solo
   const podiumPlayers = useMemo(() => {
     const source = modeEquipes ? rankedTeams : rankedPlayers;
     return source.filter(p => (p.score || 0) > 0).slice(0, 3);
   }, [modeEquipes, rankedTeams, rankedPlayers]);
 
+  // Solo mode: remaining players (exclude podium)
   const remainingPlayers = useMemo(() => {
-    const podiumUids = new Set(podiumPlayers.map(p => p.uid || p.id));
+    if (modeEquipes) return []; // Not used in team mode
+    const podiumUids = new Set(podiumPlayers.map(p => p.uid));
     return players.filter(p => !podiumUids.has(p.uid));
-  }, [podiumPlayers, players]);
+  }, [modeEquipes, podiumPlayers, players]);
 
   const handleShare = () => {
     const winner = rankedPlayers[0];
@@ -248,26 +250,66 @@ export function QuizEndContent({ code, myUid: devUid }) {
     <div className="end-page game-page" style={getFlatCSSVars('quiz')}>
       {/* Main Content - Tout sur une page */}
       <main className="end-content">
-        {/* Titre du quiz */}
+        {/* Header */}
         <div className="end-header">
-          <div className="end-header-icon">
-            <Trophy size={22} weight="fill" />
+          <div className="end-header-badge">
+            <span className="end-header-sticker">Quiz</span>
+            <span className="end-header-quiz">{quizTitle || "Partie terminée"}</span>
           </div>
-          <span className="title-text">{quizTitle || "Partie terminée"}</span>
         </div>
 
-        {/* Podium */}
-        {podiumPlayers.length > 0 && (
-          <div className="podium-section">
-            <PodiumPremium topPlayers={podiumPlayers} />
-          </div>
-        )}
+        {modeEquipes ? (
+          <>
+            {/* Classement équipes */}
+            <div className="end-team-ranking">
+              {rankedTeams.map((team, i) => {
+                const isWinner = team.rank === 1 && (team.score || 0) > 0;
+                const myTeamId = players.find(p => p.uid === myUid)?.teamId;
+                const isMyTeam = team.id === myTeamId;
+                return (
+                  <motion.div
+                    key={team.id}
+                    className={`end-team-row ${isWinner ? 'winner' : ''}`}
+                    style={{
+                      background: team.color,
+                      borderBottomColor: `color-mix(in srgb, ${team.color} 70%, black)`,
+                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.15, duration: 0.4 }}
+                  >
+                    <span className="end-team-rank">{team.rank}</span>
+                    <div className="end-team-info">
+                      <span className="end-team-name">{team.name}</span>
+                      {isMyTeam && <span className="end-team-me">Toi</span>}
+                    </div>
+                    <span className="end-team-score">{team.score ?? 0}</span>
+                  </motion.div>
+                );
+              })}
+            </div>
 
-        {/* Classement (joueurs hors podium) */}
-        {remainingPlayers.length > 0 && (
-          <div className="leaderboard-wrapper">
-            <Leaderboard players={remainingPlayers} currentPlayerUid={myUid} teams={meta?.teams} rankOffset={podiumPlayers.length} />
-          </div>
+            {/* Classement joueurs (tous, team-colored) */}
+            <div className="leaderboard-wrapper">
+              <Leaderboard players={players} currentPlayerUid={myUid} teams={meta?.teams} />
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Podium (solo) */}
+            {podiumPlayers.length > 0 && (
+              <div className="podium-section">
+                <PodiumPremium topPlayers={podiumPlayers} />
+              </div>
+            )}
+
+            {/* Classement joueurs hors podium */}
+            {remainingPlayers.length > 0 && (
+              <div className="leaderboard-wrapper">
+                <Leaderboard players={remainingPlayers} currentPlayerUid={myUid} rankOffset={podiumPlayers.length} />
+              </div>
+            )}
+          </>
         )}
       </main>
 

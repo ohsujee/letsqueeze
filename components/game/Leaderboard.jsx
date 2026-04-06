@@ -339,7 +339,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                     </span>
                     <span className="player-name">
                       {p.name}
-                      {isMe && <span className="you-badge">vous</span>}
+                      {isMe && <span className="you-badge">toi</span>}
                       {isDisconnected && <WifiSlash size={12} weight="bold" className="disconnected-icon" />}
                     </span>
                     <div className="score-area">

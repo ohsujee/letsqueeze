@@ -26,28 +26,43 @@
 /* ===== HEADER ===== */
 .end-header {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 10px;
   padding: 10px 0;
+  margin-bottom: 8px;
   flex-shrink: 0;
 }
 
-.end-header-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: #FFD233;
-  border-bottom: 3px solid #CC9600;
-  border-radius: 10px;
-  color: #5C3D00;
+.end-header-badge {
+  position: relative;
+  width: 100%;
+  background: var(--flat-bg, #2d1f5e);
+  border-bottom: 3px solid var(--flat-bg-dark, #1e1445);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: center;
+  overflow: visible;
 }
 
-.title-text {
+.end-header-sticker {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-title, 'Bungee'), cursive;
-  font-size: clamp(1rem, 4vw, 1.3rem);
+  font-size: 0.55rem;
+  color: #fff;
+  background: var(--game-color, #8b5cf6);
+  border-bottom: 2px solid var(--game-dark, #5b21b6);
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  z-index: 1;
+}
+
+.end-header-quiz {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(0.85rem, 3.5vw, 1.05rem);
   color: #fff;
 }
 
@@ -57,6 +72,119 @@
   position: relative;
   z-index: 2;
   margin: 0 0 12px 0;
+}
+
+/* ===== TEAM RANKING (end screen) ===== */
+.end-team-ranking {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+}
+
+.end-team-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  position: relative;
+}
+
+.end-team-row.winner {
+  outline: 4px solid #FFD233;
+  outline-offset: -1px;
+  box-shadow: 0 0 18px rgba(255, 210, 51, 0.35);
+  overflow: hidden;
+}
+
+/* Gold shine sweep — only on the winner row */
+.end-team-row.winner::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 35%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0) 80%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: end-gold-shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes end-gold-shimmer {
+  0% { left: -100%; }
+  50%, 100% { left: 200%; }
+}
+
+.end-team-rank {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(9px, 1.3vh, 12px);
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+  width: clamp(22px, 3vh, 26px);
+  height: clamp(22px, 3vh, 26px);
+  border-radius: 7px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.end-team-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.end-team-name {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(11px, 1.5vh, 14px);
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.end-team-me {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 7px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.end-team-score {
+  font-family: var(--font-mono, 'Roboto Mono'), monospace;
+  font-size: clamp(11px, 1.5vh, 14px);
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+  padding: clamp(4px, 0.6vh, 7px) clamp(6px, 1vh, 10px);
+  border-radius: 8px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+  min-width: clamp(40px, 6vh, 52px);
+  text-align: center;
+  flex-shrink: 0;
 }
 
 /* ===== LEADERBOARD ===== */
