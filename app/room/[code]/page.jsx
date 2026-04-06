@@ -35,7 +35,7 @@ import { getFlatCSSVars, GAME_COLORS } from '@/lib/config/colors';
 import TeamCard from '@/components/game/TeamCard';
 import HostSettingsPanel from './_components/HostSettingsPanel';
 import './quiz-lobby.css';
-import './quiz-lobby-globals.css';
+import '@/components/game/lobby-base.css';
 import '@/components/game/player-team-view.css';
 import './quiz-selector-modal.css';
 import './quiz-selector-v2.css';

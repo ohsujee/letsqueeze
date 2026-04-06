@@ -45,6 +45,7 @@ import TeamPlayerView from "@/components/game/TeamPlayerView";
 import TeamTabs from "@/lib/components/TeamTabs";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import { calculatePartyModeQuestions } from "@/lib/config/rooms";
+import '@/components/game/lobby-base.css';
 import '@/app/blindtest/blindtest-theme.css';
 import '@/components/ui/playlist-modal.css';
 

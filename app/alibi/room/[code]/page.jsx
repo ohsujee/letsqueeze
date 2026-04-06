@@ -41,6 +41,7 @@ import { GameLaunchCountdown } from "@/components/transitions";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
 import RolesCard from "./_components/RolesCard";
+import '@/components/game/lobby-base.css';
 import '@/app/alibi/alibi-lobby-globals.css';
 import '@/app/alibi/alibi-theme.css';
 import '@/app/alibi/alibi-selector.css';

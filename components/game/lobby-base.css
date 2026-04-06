@@ -1,8 +1,7 @@
-/* QUIZ LOBBY styles from globals — extracted from globals.css */
 /* ===========================================
-   🎮 LOBBY STYLES - Quiz Buzzer
-   Style Guide Compliant - No Scroll Layout
-   Pure Viewport Units for Proportional Scaling
+   LOBBY BASE — Shared styles for ALL game lobbies
+   Imported by every lobby page.
+   Game-specific overrides go in each game's own CSS.
    =========================================== */
 
 .lobby-container {
@@ -158,7 +157,7 @@
   width: 37px;
   height: 37px;
   border: 3px solid rgba(139, 92, 246, 0.2);
-  border-top-color: var(--quiz-primary, #8b5cf6);
+  border-top-color: var(--game-color, #8b5cf6);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -419,7 +418,7 @@
   width: 100%;
   height: 52px;
   padding: 0 11px;
-  background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #7c3aed);
+  background: linear-gradient(135deg, var(--game-color, #8b5cf6), #7c3aed);
   border: none;
   border-radius: 13px;
   color: white;
@@ -522,140 +521,7 @@
   margin: 0;
 }
 
-/* ===== QUIZ SELECTOR - Prominent & Clickable ===== */
-.quiz-selector {
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  border: 2px solid rgba(139, 92, 246, 0.35);
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0.03));
-  position: relative;
-}
-
-/* Animated border glow */
-.quiz-selector::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 15px;
-  background: linear-gradient(
-    135deg,
-    rgba(139, 92, 246, 0.5),
-    rgba(167, 139, 250, 0.3),
-    rgba(139, 92, 246, 0.5)
-  );
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.quiz-selector:hover::after {
-  opacity: 1;
-}
-
-.quiz-selector:hover {
-  border-color: rgba(139, 92, 246, 0.6);
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.08));
-  transform: translateY(-2px);
-  box-shadow: 0 7px 30px rgba(139, 92, 246, 0.25);
-}
-
-/* Quiz Card - New clean structure */
-.quiz-card-content {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.quiz-card-left {
-  flex-shrink: 0;
-}
-
-.quiz-card-emoji {
-  font-size: 30px;
-  display: block;
-  filter: drop-shadow(0 0 11px rgba(139, 92, 246, 0.4));
-}
-
-.quiz-card-center {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.quiz-card-label {
-  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--quiz-glow, #a78bfa);
-  text-shadow: 0 0 7px rgba(139, 92, 246, 0.3);
-}
-
-.quiz-card-title {
-  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-primary, #ffffff);
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.quiz-card-meta {
-  font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--text-muted, rgba(255, 255, 255, 0.5));
-  margin: 0;
-}
-
-.quiz-card-right {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  padding: 6px 5px;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.25);
-  border-radius: 9px;
-  transition: all 0.3s ease;
-}
-
-.quiz-change-hint {
-  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 9px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--quiz-glow, #a78bfa);
-  opacity: 0.8;
-  transition: all 0.3s ease;
-}
-
-.quiz-card-arrow {
-  color: var(--quiz-glow, #a78bfa);
-  opacity: 0.7;
-  transition: all 0.3s ease;
-}
-
-.quiz-selector:hover .quiz-card-right {
-  background: rgba(139, 92, 246, 0.2);
-  border-color: rgba(139, 92, 246, 0.4);
-  box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
-}
-
-.quiz-selector:hover .quiz-change-hint,
-.quiz-selector:hover .quiz-card-arrow {
-  opacity: 1;
-}
-
-.quiz-selector:hover .quiz-card-arrow {
-  transform: translateX(1px);
-}
+/* Quiz-specific selector styles → app/room/[code]/quiz-lobby.css */
 
 /* ===== TEAM COUNT TOGGLE ===== */
 
@@ -688,7 +554,7 @@
 
 .count-btn.active {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(139, 92, 246, 0.2));
-  border-color: var(--quiz-primary, #8b5cf6);
+  border-color: var(--game-color, #8b5cf6);
   color: white;
   box-shadow:
     0 0 18px rgba(139, 92, 246, 0.4),
@@ -815,7 +681,7 @@
   border-radius: 13px;
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: 12px;
-  color: var(--quiz-glow, #a78bfa);
+  color: var(--game-text, #a78bfa);
   box-shadow: 0 0 15px rgba(139, 92, 246, 0.25);
 }
 
@@ -856,7 +722,7 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #7c3aed);
+  background: linear-gradient(135deg, var(--game-color, #8b5cf6), #7c3aed);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -904,7 +770,7 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #7c3aed);
+  background: linear-gradient(135deg, var(--game-color, #8b5cf6), #7c3aed);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1027,7 +893,7 @@
 .lobby-waiting .dot {
   width: 9px;
   height: 9px;
-  background: var(--quiz-primary, #8b5cf6);
+  background: var(--game-color, #8b5cf6);
   border-radius: 50%;
   animation: waiting-dot 1.4s ease-in-out infinite;
 }
@@ -1150,7 +1016,7 @@
 .players-header-card .players-count {
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: 2rem;
-  color: var(--quiz-glow, #a78bfa);
+  color: var(--game-text, #a78bfa);
   text-shadow:
     0 0 20px rgba(139, 92, 246, 0.6),
     0 0 40px rgba(139, 92, 246, 0.3);
@@ -1216,7 +1082,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--quiz-primary, #8b5cf6), #7c3aed);
+  background: linear-gradient(135deg, var(--game-color, #8b5cf6), #7c3aed);
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
@@ -1239,7 +1105,7 @@
 
 .player-chip-full.is-me .chip-name-full {
   font-weight: 600;
-  color: var(--quiz-glow, #a78bfa);
+  color: var(--game-text, #a78bfa);
 }
 
 /* ===== ON END SCREEN - Grayed out players ===== */

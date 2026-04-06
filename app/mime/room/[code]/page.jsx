@@ -22,6 +22,7 @@ import { useHearts } from '@/lib/hooks/useHearts';
 import { useHeartsLobbyGuard } from '@/lib/hooks/useHeartsLobbyGuard';
 import HeartsModal from '@/components/ui/HeartsModal';
 import { calculateMimeWords, MIME_CONFIG } from '@/lib/config/rooms';
+import '@/components/game/lobby-base.css';
 import '@/app/mime/mime-lobby.css';
 import '@/app/mime/mime-selector.css';
 
