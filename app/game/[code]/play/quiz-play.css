@@ -13,15 +13,6 @@
   overflow: hidden;
 }
 
-/* Green border when it's my turn */
-.my-turn-glow {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  pointer-events: none;
-  border: 3px solid #22c55e;
-}
-
 /* ═══ MAIN CONTENT (scrollable, lobby-style layout) ═══ */
 
 .quiz-play-main {
@@ -58,18 +49,32 @@
 .quiz-play-status.buzz-active {
   background: #ef4444;
   border-bottom-color: #dc2626;
-  flex-direction: row;
-  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
 }
 
-.quiz-play-status.buzz-active .quiz-play-status-text {
-  color: #fff;
-  font-weight: 800;
+.buzz-notif-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-.buzz-notif-icon {
+.buzz-notif-name {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.05rem;
   color: #fff;
-  flex-shrink: 0;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 /* ── Static status message ── */

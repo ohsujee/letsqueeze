@@ -175,7 +175,6 @@ export function QuizPlayContent({ code, myUid: devUid }) {
   }, [state?.lockUid, playBuzz]);
 
 
-  const isMyTurn = state?.lockUid === me?.uid;
 
   // Party Mode: Si le poseur actuel a quitté, passer au suivant (host uniquement pour éviter race conditions)
   useEffect(() => {
@@ -247,7 +246,7 @@ export function QuizPlayContent({ code, myUid: devUid }) {
 
   // ===== PLAYER VIEW (Buzzer-centric redesign) =====
   return (
-    <div className={`player-game-page game-page ${isMyTurn ? 'my-turn' : ''}`} style={getFlatCSSVars('quiz')}>
+    <div className="player-game-page game-page" style={getFlatCSSVars('quiz')}>
       {/* End transition */}
       <AnimatePresence>
         {showEndTransition && !meta?.closed && (
@@ -266,19 +265,6 @@ export function QuizPlayContent({ code, myUid: devUid }) {
         onComplete={() => setShowAskerTransition(false)}
         duration={2500}
       />
-
-      {/* Green glow when it's my turn */}
-      <AnimatePresence>
-        {isMyTurn && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="my-turn-glow"
-          />
-        )}
-      </AnimatePresence>
 
       {/* ── Header ── */}
       <GamePlayHeader
@@ -317,9 +303,12 @@ export function QuizPlayContent({ code, myUid: devUid }) {
                 exit={{ rotateX: 90, opacity: 0 }}
                 transition={{ duration: 0.15 }}
               >
-                <BellRinging size={18} weight="fill" className="buzz-notif-icon" />
-                <span className="quiz-play-status-text">
-                  {players.find(p => p.uid === state.lockUid)?.name || 'Joueur'} a buzzé
+                <div className="buzz-notif-label">
+                  <BellRinging size={14} weight="fill" />
+                  <span>Buzz de</span>
+                </div>
+                <span className="buzz-notif-name">
+                  {players.find(p => p.uid === state.lockUid)?.name || 'Joueur'}
                 </span>
               </motion.div>
             ) : (

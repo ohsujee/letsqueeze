@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckFat, X, BellRinging } from '@phosphor-icons/react';
+import { CheckFat, BellRinging } from '@phosphor-icons/react';
 
 /**
  * BuzzValidationModal - Modal flat cartoon quand un joueur buzz
@@ -69,41 +69,32 @@ export default function BuzzValidationModal({
               exit={{ opacity: 0, scale: 0.9, y: 30 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
             >
-              {/* Bell icon */}
+              {/* Buzz header */}
               <div style={{
-                display: 'inline-flex',
+                display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: 56,
-                height: 56,
-                background: '#7c3aed',
-                borderBottom: '4px solid #5b21b6',
-                borderRadius: 16,
-                marginBottom: 16,
+                gap: 6,
+                color: '#c4b5fd',
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                marginBottom: 4,
               }}>
-                <BellRinging size={28} weight="fill" color="#fff" />
+                <BellRinging size={16} weight="fill" />
+                Buzz de
               </div>
-
-              {/* Player name — max 16 chars, adapte la taille */}
               <div style={{
                 fontFamily: "'Bungee', cursive",
-                fontSize: playerName.length > 12 ? '1.4rem' : '1.8rem',
+                fontSize: 'clamp(1.1rem, 5vw, 1.6rem)',
                 color: '#fff',
-                marginBottom: 4,
+                marginBottom: 16,
                 wordBreak: 'break-word',
-                lineHeight: 1.1,
+                lineHeight: 1.15,
               }}>
                 {playerName}
-              </div>
-
-              <div style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                color: '#c4b5fd',
-                marginBottom: 20,
-              }}>
-                a buzzé
               </div>
 
               {/* Answer */}
@@ -161,7 +152,7 @@ export default function BuzzValidationModal({
                     cursor: 'pointer',
                   }}
                 >
-                  <X size={24} />
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
                   Faux
                 </button>
                 <button

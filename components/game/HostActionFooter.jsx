@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SkipForward, XCircle } from '@phosphor-icons/react';
+import { SkipForward, X } from '@phosphor-icons/react';
 
 /**
  * ConfirmModal — Modal flat réutilisable pour garde-fou
@@ -127,7 +127,7 @@ export default function HostActionFooter({ onSkip, onEnd }) {
           <span>Passer</span>
         </button>
         <button className="action-btn action-end" onClick={() => setShowEndConfirm(true)}>
-          <XCircle size={18} weight="bold" />
+          <X size={18} weight="bold" />
           <span>Fin</span>
         </button>
       </div>
