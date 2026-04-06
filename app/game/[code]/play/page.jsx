@@ -288,7 +288,7 @@ export function QuizPlayContent({ code, myUid: devUid }) {
         game="quiz"
         progress={progressLabel}
         title={title}
-        score={me?.score || 0}
+        score={Math.max(0, me?.score || 0)}
         showScore={true}
         onExit={async () => {
           if (isActualHost) {

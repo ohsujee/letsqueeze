@@ -87,7 +87,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
       id,
       name: team.name || `Équipe ${id}`,
       color: team.color || '#8b5cf6',
-      score: team.score || 0,
+      score: Math.max(0, team.score || 0),
       memberCount: players.filter(p => p.teamId === id).length,
       activeCount: players.filter(p => p.teamId === id && (!p.status || p.status === 'active')).length
     })).sort((a, b) => (b.score || 0) - (a.score || 0));
@@ -95,13 +95,14 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
 
   // Sort by score descending with real rank (handles ties)
   const sorted = useMemo(() => {
-    const s = [...players].sort((a, b) => (b.score || 0) - (a.score || 0));
+    const s = [...players]
+      .map(p => ({ ...p, score: Math.max(0, p.score || 0) }))
+      .sort((a, b) => b.score - a.score);
     let lastScore = null, lastRank = 0, seen = 0;
     return s.map((p) => {
       seen++;
-      const sc = p.score || 0;
-      const rank = (lastScore === sc) ? lastRank : seen;
-      lastScore = sc;
+      const rank = (lastScore === p.score) ? lastRank : seen;
+      lastScore = p.score;
       lastRank = rank;
       return { ...p, _rank: rank };
     });
