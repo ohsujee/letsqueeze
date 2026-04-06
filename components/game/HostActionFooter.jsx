@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { SkipForward, XCircle } from '@phosphor-icons/react';
 
 /**
  * ConfirmModal — Modal flat réutilisable pour garde-fou
@@ -122,16 +123,11 @@ export default function HostActionFooter({ onSkip, onEnd }) {
     <footer className="game-footer">
       <div className="host-actions">
         <button className="action-btn action-skip" onClick={() => setShowSkipConfirm(true)}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polygon points="5 4 15 12 5 20 5 4"/>
-            <line x1="19" y1="5" x2="19" y2="19"/>
-          </svg>
+          <SkipForward size={18} weight="bold" />
           <span>Passer</span>
         </button>
         <button className="action-btn action-end" onClick={() => setShowEndConfirm(true)}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M18 6L6 18M6 6l12 12"/>
-          </svg>
+          <XCircle size={18} weight="bold" />
           <span>Fin</span>
         </button>
       </div>

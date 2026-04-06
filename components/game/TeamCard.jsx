@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, UserPlus } from 'lucide-react';
+import { X, UserPlus } from '@phosphor-icons/react';
 import TeamNameEditor from '@/components/game/TeamNameEditor';
 import './TeamCard.css';
 

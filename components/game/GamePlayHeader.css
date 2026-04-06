@@ -1,0 +1,112 @@
+/* ===== GamePlayHeader — Flat style ===== */
+
+.game-play-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1a1a2e;
+  border-bottom: 3px solid #13132a;
+}
+
+.game-play-header .game-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  gap: 12px;
+}
+
+.game-play-header .game-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.game-play-header .game-header-progress {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.8rem;
+  color: #fff;
+  background: var(--game-secondary, #7c3aed);
+  border: none;
+  border-bottom: 3px solid var(--game-dark, #5b21b6);
+  padding: 0 10px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.game-play-header .game-header-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--flat-text, #c4b5fd);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.game-play-header .game-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.game-play-header .my-score-badge {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 12px;
+  min-height: 40px;
+  background: #3a3a58;
+  border: none;
+  border-bottom: 3px solid #2a2a45;
+  border-radius: 10px;
+}
+
+.game-play-header .my-score-value {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1rem;
+  color: #fff;
+  line-height: 1;
+}
+
+.game-play-header .my-score-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #8a8aa0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.game-play-header .team-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: var(--game-secondary, #7c3aed);
+  border: none;
+  border-bottom: 2px solid var(--game-dark, #5b21b6);
+  border-radius: 10px;
+}
+
+.game-play-header .team-name {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.75rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.game-play-header .team-score {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.85rem;
+  color: #fff;
+}

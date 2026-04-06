@@ -2,8 +2,7 @@
 
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, X } from 'lucide-react';
-import { BellRinging } from '@phosphor-icons/react';
+import { CheckFat, X, BellRinging } from '@phosphor-icons/react';
 
 /**
  * BuzzValidationModal - Modal flat cartoon quand un joueur buzz
@@ -185,7 +184,7 @@ export default function BuzzValidationModal({
                     cursor: 'pointer',
                   }}
                 >
-                  <Check size={24} />
+                  <CheckFat size={24} weight="fill" />
                   Correct
                 </button>
               </div>

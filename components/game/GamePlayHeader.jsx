@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import ExitButton from '@/lib/components/ExitButton';
 import { GAME_COLORS } from '@/lib/config/colors';
+import './GamePlayHeader.css';
 
 /**
  * GamePlayHeader - Header unifié pour les pages play/host
@@ -104,118 +105,6 @@ export default function GamePlayHeader({
         </div>
       </div>
 
-      <style jsx>{`
-        .game-play-header {
-          position: sticky;
-          top: 0;
-          z-index: 100;
-          background: #1a1a2e;
-          border-bottom: 3px solid #13132a;
-        }
-
-        .game-header-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 10px 16px;
-          max-width: 600px;
-          margin: 0 auto;
-          gap: 12px;
-        }
-
-        .game-header-left {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          flex: 1;
-          min-width: 0;
-        }
-
-        .game-header-progress {
-          font-family: 'Bungee', cursive;
-          font-size: 0.8rem;
-          color: #fff;
-          background: var(--game-secondary, #7c3aed);
-          border: none;
-          border-bottom: 3px solid var(--game-dark, #5b21b6);
-          padding: 0 10px;
-          min-height: 40px;
-          display: flex;
-          align-items: center;
-          border-radius: 10px;
-          white-space: nowrap;
-          letter-spacing: 0.02em;
-        }
-
-        .game-header-title {
-          font-family: 'Space Grotesk', sans-serif;
-          font-weight: 700;
-          font-size: 0.85rem;
-          color: var(--flat-text, #c4b5fd);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .game-header-right {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          flex-shrink: 0;
-        }
-
-        .my-score-badge {
-          display: flex;
-          align-items: center;
-          gap: 3px;
-          padding: 0 12px;
-          min-height: 40px;
-          background: #3a3a58;
-          border: none;
-          border-bottom: 3px solid #2a2a45;
-          border-radius: 10px;
-        }
-
-        .my-score-value {
-          font-family: 'Bungee', cursive;
-          font-size: 1rem;
-          color: #fff;
-          line-height: 1;
-        }
-
-        .my-score-label {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.6rem;
-          font-weight: 700;
-          color: #8a8aa0;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        .team-badge {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          padding: 5px 12px;
-          background: var(--game-secondary, #7c3aed);
-          border: none;
-          border-bottom: 2px solid var(--game-dark, #5b21b6);
-          border-radius: 10px;
-        }
-
-        .team-name {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.75rem;
-          color: #fff;
-          font-weight: 600;
-        }
-
-        .team-score {
-          font-family: 'Bungee', cursive;
-          font-size: 0.85rem;
-          color: #fff;
-        }
-      `}</style>
     </header>
   );
 }
