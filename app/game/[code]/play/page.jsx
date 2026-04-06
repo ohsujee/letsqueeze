@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
-  auth, db, ref, onValue, signInAnonymously, onAuthStateChanged
+  auth, db, ref, onValue, update, signInAnonymously, onAuthStateChanged
 } from "@/lib/firebase";
 import Buzzer from "@/components/game/Buzzer";
 import Leaderboard from "@/components/game/Leaderboard";
@@ -20,7 +20,6 @@ import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { useAskerRotation } from "@/lib/hooks/useAskerRotation";
-// useSound kept for buzz sound
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { BellRinging } from '@phosphor-icons/react';
 import { storage } from "@/lib/utils/storage";
@@ -134,7 +133,6 @@ export function QuizPlayContent({ code, myUid: devUid }) {
 
   // Keep screen awake
 
-  // Config scoring removed — 100 pts fixes par question
 
   // DB listeners
   useEffect(() => {
@@ -176,7 +174,6 @@ export function QuizPlayContent({ code, myUid: devUid }) {
     prevLock.current = cur;
   }, [state?.lockUid, playBuzz]);
 
-  // (confetti removed)
 
   const isMyTurn = state?.lockUid === me?.uid;
 
@@ -363,7 +360,7 @@ export function QuizPlayContent({ code, myUid: devUid }) {
           serverNow={serverNow}
           serverOffset={offset}
           disabled={isPartyMode && !canBuzz(myUid, me?.teamId)}
-          teamColor={me?.teamId && meta?.teams?.[me.teamId]?.color || null}
+          teamColor={(me?.teamId && meta?.teams?.[me.teamId]?.color) || null}
         />
       </footer>
 

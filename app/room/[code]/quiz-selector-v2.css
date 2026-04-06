@@ -311,17 +311,13 @@
 }
 
 .quiz-validate-btn.disabled .validate-text {
-  color: rgba(238, 242, 255, 0.35);
+  color: #6b6b8a;
 }
 
 .validate-meta {
   font-family: var(--font-body, 'Inter'), sans-serif;
   font-size: 0.7rem;
   color: var(--flat-text, #c4b5fd);
-}
-
-.quiz-validate-btn.disabled .validate-text {
-  color: #6b6b8a;
 }
 
 .quiz-validate-btn.disabled .validate-meta {

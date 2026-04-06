@@ -7,7 +7,6 @@ import {
   signInAnonymously, onAuthStateChanged,
 } from "@/lib/firebase";
 import TeamTabs from "@/lib/components/TeamTabs";
-import PaywallModal from "@/components/ui/PaywallModal";
 import QuizSelectorModal from "@/components/ui/QuizSelectorModal";
 import LobbyHeader from "@/components/game/LobbyHeader";
 import PlayerBanner from "@/components/game/PlayerBanner";
@@ -18,7 +17,7 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { usePresence } from "@/lib/hooks/usePresence";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
-import { canAccessPack, isPro } from "@/lib/subscription";
+import { isPro } from "@/lib/subscription";
 import { useHearts } from "@/lib/hooks/useHearts";
 import { useHeartsLobbyGuard } from "@/lib/hooks/useHeartsLobbyGuard";
 import HeartsModal from "@/components/ui/HeartsModal";
@@ -55,9 +54,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   const [teams, setTeams] = useState({});
   const [isHost, setIsHost] = useState(devIsHost || false);
   const [categories, setCategories] = useState([]);
-  const [showPaywall, setShowPaywall] = useState(false);
   const [showQuizSelector, setShowQuizSelector] = useState(false);
-  const [lockedQuizName, setLockedQuizName] = useState('');
   const [joinUrl, setJoinUrl] = useState("");
   const roomWasValidRef = useRef(false);
   const [myUid, setMyUid] = useState(devUid || null);
@@ -66,7 +63,6 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   const [isPlayerMissing, setIsPlayerMissing] = useState(false);
   const [rejoinError, setRejoinError] = useState(null);
   const shareModalRef = useRef(null);
-  const isHostRef = useRef(false);
   const listRef = useRef(null);
   const [canScrollDown, setCanScrollDown] = useState(false);
 
@@ -100,9 +96,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         setMyUid(user.uid);
-        const host = meta?.hostUid === user.uid;
-        setIsHost(host);
-        isHostRef.current = host;
+        setIsHost(meta?.hostUid === user.uid);
       } else {
         signInAnonymously(auth).catch(() => {});
       }
@@ -377,7 +371,6 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
       {/* Background — solid color via CSS */}
 
       {/* Modals */}
-      <PaywallModal isOpen={showPaywall} onClose={() => setShowPaywall(false)} contentType="quiz" contentName={lockedQuizName} />
       <QuizSelectorModal
         isOpen={showQuizSelector} onClose={() => setShowQuizSelector(false)}
         categories={categories} currentSelection={meta?.quizSelection || null}

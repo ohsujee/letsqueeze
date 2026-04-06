@@ -14,7 +14,7 @@ import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
 import { rankWithTies } from "@/lib/utils/ranking";
 import { EndScreenFooter } from "@/components/transitions";
-import { getFlatCSSVars, GAME_COLORS } from "@/lib/config/colors";
+import { getFlatCSSVars, GAME_COLORS, GAME_LABELS } from "@/lib/config/colors";
 import "./end.css";
 
 export function QuizEndContent({ code, myUid: devUid }) {
@@ -253,7 +253,7 @@ export function QuizEndContent({ code, myUid: devUid }) {
         {/* Header */}
         <div className="end-header">
           <div className="end-header-badge">
-            <span className="end-header-sticker">Quiz</span>
+            <span className="end-header-sticker">{GAME_LABELS.quiz}</span>
             <span className="end-header-quiz">{quizTitle || "Partie terminée"}</span>
           </div>
         </div>

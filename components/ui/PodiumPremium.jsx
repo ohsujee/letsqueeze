@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useGameAudio } from '@/lib/hooks/useGameAudio';
+import { darkenColor } from '@/lib/utils/colorUtils';
 
 const RANK_STYLES = {
   1: { bg: '#FFD233', dark: '#CC9600', text: '#5C3D00' },
@@ -93,7 +94,7 @@ export const PodiumPremium = ({ topPlayers, disableAnimations = false }) => {
         const initial = displayName.charAt(0).toUpperCase();
 
         const bg = isTeam ? player.color : style.bg;
-        const dark = isTeam ? darken(player.color, 40) : style.dark;
+        const dark = isTeam ? darkenColor(player.color, 40) : style.dark;
         const text = isTeam ? '#fff' : style.text;
 
         return (
@@ -201,10 +202,3 @@ export const PodiumPremium = ({ topPlayers, disableAnimations = false }) => {
   );
 };
 
-function darken(hex, amount) {
-  const color = hex.replace('#', '');
-  const r = Math.max(0, parseInt(color.slice(0, 2), 16) - amount);
-  const g = Math.max(0, parseInt(color.slice(2, 4), 16) - amount);
-  const b = Math.max(0, parseInt(color.slice(4, 6), 16) - amount);
-  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-}

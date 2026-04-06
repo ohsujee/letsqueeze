@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, forwardRef, useImperativeHandle, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useBackHandler } from '@/lib/hooks/useBackHandler';
-import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Share2, X, Copy, Check } from "lucide-react";
 
 const ShareModal = forwardRef(function ShareModal({ roomCode, joinUrl }, ref) {
