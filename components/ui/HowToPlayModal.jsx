@@ -6,10 +6,10 @@
  * Accessible depuis: GameCard (?), LobbySettings (host), Lobby (players)
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight } from 'lucide-react';
+import { X, CaretRight } from '@phosphor-icons/react';
 import { GAMES_DATA } from '@/lib/config/howToPlayData';
 import {
   IntroSection, RolesSection, StepsSection, TimelineSection,
@@ -46,8 +46,6 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
     }
   };
 
-  if (!isOpen || !game) return null;
-
   const renderSectionContent = (section) => {
     const { content } = section;
     switch (content.type) {
@@ -59,7 +57,7 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
       case 'steps':
         return <StepsSection content={content} accentColor={game.accentColor} />;
       case 'timeline-simple':
-        return <TimelineSection content={content} accentColor={game.accentColor} />;
+        return <TimelineSection content={content} />;
       case 'scoring':
         return <ScoringSection content={content} />;
       case 'phases':
@@ -79,7 +77,7 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen && game && (
         <motion.div
           className="htp-overlay"
           initial={{ opacity: 0 }}
@@ -96,14 +94,12 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
             onClick={(e) => e.stopPropagation()}
             style={{
               '--accent': game.accentColor,
-              '--accent-glow': game.glowColor,
-              '--accent-gradient': game.accentGradient
             }}
           >
             {/* Header */}
             <div className="htp-header">
               <button className="htp-close" onClick={onClose}>
-                <X size={20} />
+                <X weight="bold" size={20} />
               </button>
               <div className="htp-title-group">
                 <h2 className="htp-title">{game.title}</h2>
@@ -125,7 +121,7 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
                   <h3 className="htp-section-title">
                     {(() => {
                       const Icon = game.sections[activeSection].icon;
-                      return <Icon size={22} />;
+                      return <Icon size={22} weight="fill" />;
                     })()}
                     {game.sections[activeSection].title}
                   </h3>
@@ -150,7 +146,7 @@ export default function HowToPlayModal({ isOpen, onClose, gameType = 'quiz', sho
                     onClick={() => setActiveSection(activeSection + 1)}
                   >
                     Suivant
-                    <ChevronRight size={18} />
+                    <CaretRight weight="bold" size={18} />
                   </button>
                 ) : (
                   <button className="htp-btn-done" onClick={handleClose}>

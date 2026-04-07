@@ -4,7 +4,7 @@
  */
 
 import { motion } from 'framer-motion';
-import { AlertTriangle } from 'lucide-react';
+import { Warning } from '@phosphor-icons/react';
 
 export function IntroSection({ content }) {
   return (
@@ -25,13 +25,13 @@ export function RolesSection({ content }) {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: index * 0.1 }}
-          style={{ borderColor: `${role.color}40` }}
+          style={{ backgroundColor: role.color }}
         >
           <div className="role-header">
             <span className="role-emoji">{role.emoji}</span>
-            <h4 className="role-name" style={{ color: role.color }}>{role.name}</h4>
+            <h4 className="role-name" style={{ color: '#ffffff' }}>{role.name}</h4>
           </div>
-          <p className="role-description">{role.description}</p>
+          <p className="role-description" style={{ color: '#ffffff' }}>{role.description}</p>
         </motion.div>
       ))}
     </div>
@@ -60,13 +60,13 @@ export function StepsSection({ content, accentColor }) {
   );
 }
 
-export function TimelineSection({ content, accentColor }) {
+export function TimelineSection({ content }) {
   return (
     <div className="section-timeline-simple">
       <p className="timeline-description">{content.description}</p>
       {content.note && (
         <p className="timeline-note">
-          <AlertTriangle size={14} />
+          <Warning size={14} weight="fill" />
           {content.note}
         </p>
       )}
@@ -87,12 +87,13 @@ export function ScoringSection({ content }) {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
+              style={{ backgroundColor: item.color }}
             >
-              <div className="scoring-icon" style={{ background: `${item.color}20`, color: item.color }}>
-                <ItemIcon size={20} />
+              <div className="scoring-icon" style={{ color: '#ffffff' }}>
+                <ItemIcon size={20} weight="fill" />
               </div>
-              <span className="scoring-label">{item.label}</span>
-              <span className="scoring-value" style={{ color: item.color }}>{item.value}</span>
+              <span className="scoring-label" style={{ color: '#ffffff' }}>{item.label}</span>
+              <span className="scoring-value" style={{ color: '#ffffff' }}>{item.value}</span>
             </motion.div>
           );
         })}
@@ -114,18 +115,18 @@ export function PhasesSection({ content }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.15 }}
-            style={{ borderLeftColor: phase.color }}
+            style={{ backgroundColor: phase.color }}
           >
             <div className="phase-header">
-              <div className="phase-icon" style={{ background: `${phase.color}20`, color: phase.color }}>
-                <PhaseIcon size={20} />
+              <div className="phase-icon" style={{ background: 'rgba(0,0,0,0.2)', color: '#ffffff' }}>
+                <PhaseIcon size={20} weight="fill" />
               </div>
               <div className="phase-title-group">
                 <h4 className="phase-name">{phase.name}</h4>
-                <span className="phase-duration" style={{ color: phase.color }}>{phase.duration}</span>
+                <span className="phase-duration" style={{ color: '#ffffff' }}>{phase.duration}</span>
               </div>
             </div>
-            <p className="phase-description">{phase.description}</p>
+            <p className="phase-description" style={{ color: '#ffffff' }}>{phase.description}</p>
           </motion.div>
         );
       })}
@@ -135,11 +136,6 @@ export function PhasesSection({ content }) {
 
 export function WordleColorsSection({ content }) {
   const stateColors = {
-    correct: '#10b981',
-    present: '#e07c1a',
-    absent: '#3a3a4a',
-  };
-  const stateBorders = {
     correct: '#10b981',
     present: '#e07c1a',
     absent: '#3a3a4a',
@@ -164,7 +160,7 @@ export function WordleColorsSection({ content }) {
                   className="wc-cell"
                   style={isHighlight ? {
                     background: stateColors[ex.state],
-                    borderColor: stateBorders[ex.state],
+                    borderColor: stateColors[ex.state],
                     color: '#fff',
                   } : {
                     background: '#0a0a0f',
@@ -186,24 +182,25 @@ export function WordleColorsSection({ content }) {
 
 export function TotalExampleSection({ content }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       {/* Target + numbers */}
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '10px 14px', borderRadius: 12,
-        background: 'rgba(59,130,246,0.08)',
-        border: '1px solid rgba(59,130,246,0.15)',
+        background: '#3b82f6',
+        border: 'none',
+        borderBottom: '3px solid #1a1a35',
       }}>
         <div>
-          <span style={{ fontSize: '0.6rem', fontWeight: 700, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>CIBLE</span>
-          <span style={{ fontFamily: "var(--font-title, 'Bungee'), cursive", fontSize: '1.3rem', color: '#3b82f6', marginLeft: 8 }}>{content.target}</span>
+          <span style={{ fontSize: '0.6rem', fontWeight: 700, color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.1em' }}>CIBLE</span>
+          <span style={{ fontFamily: "var(--font-title, 'Bungee'), cursive", fontSize: '1.2rem', color: '#ffffff', marginLeft: 8 }}>{content.target}</span>
         </div>
-        <div style={{ display: 'flex', gap: 5 }}>
+        <div style={{ display: 'flex', gap: 4 }}>
           {content.numbers.map((n, i) => (
             <span key={i} style={{
-              padding: '4px 8px', borderRadius: 6,
-              background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.2)',
-              fontFamily: "var(--font-title, 'Bungee'), cursive", fontSize: '0.8rem', color: '#fff',
+              padding: '3px 7px', borderRadius: 6,
+              background: 'rgba(0,0,0,0.2)', border: 'none',
+              fontFamily: "var(--font-title, 'Bungee'), cursive", fontSize: '0.75rem', color: '#fff',
             }}>{n}</span>
           ))}
         </div>
@@ -216,44 +213,29 @@ export function TotalExampleSection({ content }) {
             key={i}
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.15 }}
+            transition={{ delay: i * 0.1 }}
             style={{
-              display: 'flex', alignItems: 'center', gap: 8,
-              padding: '8px 12px', borderRadius: 10,
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.06)',
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '9px 14px', borderRadius: 10,
+              background: '#222240',
+              border: 'none',
+              borderBottom: '2px solid #1a1a35',
             }}
           >
             <span style={{
-              fontSize: '0.6rem', fontWeight: 700, color: 'rgba(255,255,255,0.25)',
-              minWidth: 14,
-            }}>{i + 1}</span>
-            <span style={{
               fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-              fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)',
+              fontSize: '0.875rem', color: '#d4d4e0',
             }}>
               <span style={{ color: '#3b82f6', fontWeight: 700 }}>{step.a}</span>
-              {' '}<span style={{ color: 'rgba(255,255,255,0.35)' }}>{step.op}</span>{' '}
+              {' '}<span style={{ color: '#6b6b8a' }}>{step.op}</span>{' '}
               <span style={{ color: '#fff', fontWeight: 700 }}>{step.b}</span>
             </span>
-            <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem' }}>=</span>
+            <span style={{ color: '#6b6b8a', fontSize: '0.8rem' }}>=</span>
             <span style={{
               fontFamily: "var(--font-title, 'Bungee'), cursive",
               fontSize: '0.9rem',
               color: i === content.steps.length - 1 ? '#10b981' : '#fff',
             }}>{step.result}</span>
-            {i === 0 && (
-              <span style={{
-                marginLeft: 'auto', fontSize: '0.6rem', color: 'rgba(59,130,246,0.5)',
-                fontStyle: 'italic',
-              }}>← départ</span>
-            )}
-            {i > 0 && i < content.steps.length - 1 && (
-              <span style={{
-                marginLeft: 'auto', fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)',
-                fontStyle: 'italic',
-              }}>← résultat précédent</span>
-            )}
           </motion.div>
         ))}
       </div>
@@ -261,9 +243,12 @@ export function TotalExampleSection({ content }) {
       {/* Note */}
       {content.note && (
         <p style={{
-          fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)',
-          lineHeight: 1.5, margin: 0, textAlign: 'center',
-          fontStyle: 'italic',
+          fontSize: '0.8rem', color: '#d4d4e0',
+          lineHeight: 1.5, margin: 0,
+          padding: '12px 14px',
+          background: '#222240',
+          borderBottom: '2px solid #1a1a35',
+          borderRadius: 12,
         }}>{content.note}</p>
       )}
     </div>
@@ -272,11 +257,16 @@ export function TotalExampleSection({ content }) {
 
 export function MindLinkExampleSection({ content }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       {/* Intro text */}
       <p style={{
-        color: 'rgba(238, 242, 255, 0.7)', fontSize: '0.88rem',
+        color: '#ffffff', fontSize: '0.88rem',
         lineHeight: 1.6, margin: 0,
+        padding: '14px 16px',
+        background: content.accentColor,
+        border: 'none',
+        borderBottom: '3px solid #1a1a35',
+        borderRadius: 12,
       }}>
         {content.intro}
       </p>
@@ -287,7 +277,7 @@ export function MindLinkExampleSection({ content }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
         style={{
-          display: 'flex', justifyContent: 'center', gap: '5px',
+          display: 'flex', justifyContent: 'center', gap: 6,
           padding: '14px 0',
         }}
       >
@@ -299,13 +289,13 @@ export function MindLinkExampleSection({ content }) {
               style={{
                 width: 34, height: 42,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                borderRadius: '8px',
-                background: isRevealed ? `${content.accentColor}22` : 'rgba(238,242,255,0.04)',
-                border: `1.5px solid ${isRevealed ? `${content.accentColor}66` : 'rgba(238,242,255,0.1)'}`,
+                borderRadius: 8,
+                background: isRevealed ? content.accentColor : '#222240',
+                border: 'none',
+                borderBottom: isRevealed ? '3px solid #1a1a35' : '2px solid #1a1a35',
                 fontFamily: "var(--font-title, 'Bungee'), cursive",
                 fontSize: '0.95rem',
-                color: isRevealed ? content.accentColor : 'rgba(238,242,255,0.2)',
-                textShadow: isRevealed ? `0 0 8px ${content.accentColor}44` : 'none',
+                color: isRevealed ? '#ffffff' : '#6b6b8a',
               }}
             >
               {isRevealed ? letter : '_'}
@@ -315,7 +305,7 @@ export function MindLinkExampleSection({ content }) {
       </motion.div>
 
       {/* Scenario steps */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {content.scenario.map((step, i) => (
           <motion.div
             key={i}
@@ -323,16 +313,17 @@ export function MindLinkExampleSection({ content }) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 + i * 0.1 }}
             style={{
-              display: 'flex', alignItems: 'flex-start', gap: '10px',
-              padding: '10px 12px',
-              background: step.highlight ? `${content.accentColor}10` : 'rgba(238,242,255,0.03)',
-              border: `1px solid ${step.highlight ? `${content.accentColor}30` : 'rgba(238,242,255,0.06)'}`,
-              borderRadius: '10px',
+              display: 'flex', alignItems: 'flex-start', gap: 10,
+              padding: '10px 14px',
+              background: step.highlight ? content.accentColor : '#222240',
+              border: 'none',
+              borderBottom: step.highlight ? '3px solid #1a1a35' : '2px solid #1a1a35',
+              borderRadius: 12,
             }}
           >
             <span style={{ fontSize: '1rem', flexShrink: 0, lineHeight: 1.4 }}>{step.emoji}</span>
             <p style={{
-              color: 'rgba(238,242,255,0.75)', fontSize: '0.82rem',
+              color: '#ffffff', fontSize: '0.82rem',
               lineHeight: 1.5, margin: 0,
             }}>
               {step.text}
@@ -348,10 +339,14 @@ export function MindLinkExampleSection({ content }) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
           style={{
-            color: content.accentColor, fontSize: '0.8rem',
+            color: '#ffffff', fontSize: '0.8rem',
             fontWeight: 600, textAlign: 'center',
-            margin: '4px 0 0', lineHeight: 1.4,
-            opacity: 0.8,
+            margin: 0, lineHeight: 1.4,
+            padding: '12px 14px',
+            background: content.accentColor,
+            border: 'none',
+            borderBottom: '3px solid #1a1a35',
+            borderRadius: 12,
           }}
         >
           {content.note}
@@ -373,14 +368,14 @@ export function VerdictInlineSection({ content }) {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
-            style={{ borderColor: `${outcome.color}40` }}
+            style={{ backgroundColor: outcome.color }}
           >
-            <div className="verdict-inline-icon" style={{ background: `${outcome.color}20`, color: outcome.color }}>
-              <OutcomeIcon size={22} />
+            <div className="verdict-inline-icon" style={{ background: 'rgba(0,0,0,0.2)', color: '#ffffff' }}>
+              <OutcomeIcon size={22} weight="fill" />
             </div>
             <div className="verdict-inline-content">
-              <h4 className="verdict-inline-title" style={{ color: outcome.color }}>{outcome.title}</h4>
-              <p className="verdict-inline-condition">{outcome.condition}</p>
+              <h4 className="verdict-inline-title" style={{ color: '#ffffff' }}>{outcome.title}</h4>
+              <p className="verdict-inline-condition" style={{ color: '#ffffff' }}>{outcome.condition}</p>
             </div>
           </motion.div>
         );

@@ -65,9 +65,9 @@
 }
 
 .daily-section-counter.done {
-  background: #0a3028;
-  border-bottom-color: #063d2e;
-  color: #22c55e;
+  background: #22c55e;
+  border-bottom-color: #16a34a;
+  color: #ffffff;
 }
 
 .daily-games-grid {
