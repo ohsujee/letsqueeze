@@ -20,7 +20,7 @@
 
 .pro-card-scene.locked .pro-status-card,
 .pro-card-scene.locked .pro-card-back-face {
-  filter: saturate(0.6) brightness(0.92);
+  filter: none;
 }
 
 /* ── Face avant ── */

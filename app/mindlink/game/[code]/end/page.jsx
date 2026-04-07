@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
+import { recordMindlinkGame } from "@/lib/services/statsService";
 import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
@@ -148,6 +149,16 @@ export function MindLinkEndContent({ code, myUid: devUid }) {
   const myPlayer = players.find(p => p.uid === myUid);
   const myRole = myPlayer?.role || 'attacker';
   const iWon = (myRole === 'attacker' && winner === 'attackers') || (myRole === 'defender' && winner === 'defenders');
+
+  // Record individual stats
+  const statsRecordedRef = useRef(false);
+  useEffect(() => {
+    if (statsRecordedRef.current || !myUid || !meta || !myPlayer) return;
+    if (myUid === meta.hostUid) { statsRecordedRef.current = true; return; }
+    statsRecordedRef.current = true;
+    recordMindlinkGame({ won: iWon });
+  }, [myUid, meta, myPlayer, iWon]);
+
   const winReason = WIN_REASONS[state.winReason] || '';
   const secretWord = state.secretWord || '???';
 

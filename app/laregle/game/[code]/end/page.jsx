@@ -13,6 +13,7 @@ import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
+import { recordLaregleGame } from "@/lib/services/statsService";
 import { storage } from "@/lib/utils/storage";
 import { TROUVE_COLORS, getCategoryDisplayName, getDifficultyInfo } from "@/data/laregle-rules";
 
@@ -122,6 +123,15 @@ export function LaRegleEndContent({ code, myUid: devUid }) {
   const isInvestigator = myPlayer?.role === 'investigator';
   const investigatorsWon = state?.foundByInvestigators;
   const iWon = (isInvestigator && investigatorsWon) || (!isInvestigator && !investigatorsWon);
+
+  // Record individual stats
+  const statsRecordedRef = useRef(false);
+  useEffect(() => {
+    if (statsRecordedRef.current || !myUid || !meta || myPlayer === undefined) return;
+    if (myUid === meta.hostUid) { statsRecordedRef.current = true; return; }
+    statsRecordedRef.current = true;
+    recordLaregleGame({ won: iWon });
+  }, [myUid, meta, myPlayer, iWon]);
 
   // Result config
   const resultKey = isInvestigator

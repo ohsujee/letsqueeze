@@ -9,6 +9,7 @@ import { useToast } from "@/lib/hooks/useToast";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
+import { recordMimeGame } from "@/lib/services/statsService";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
 import { rankWithTies } from "@/lib/utils/ranking";
 
@@ -75,6 +76,17 @@ export function MimeEndContent({ code, myUid: devUid }) {
   const hostPresent = roomExists && meta && !meta.closed;
 
   const rankedPlayers = useMemo(() => rankWithTies(players, "score"), [players]);
+
+  // Record individual stats
+  const statsRecordedRef = useRef(false);
+  useEffect(() => {
+    if (statsRecordedRef.current || !myUid || !meta || !rankedPlayers.length) return;
+    if (myUid === meta.hostUid) { statsRecordedRef.current = true; return; }
+    const myPlayer = rankedPlayers.find(p => p.uid === myUid);
+    if (!myPlayer) return;
+    statsRecordedRef.current = true;
+    recordMimeGame({ won: myPlayer.rank === 1, score: myPlayer.score || 0 });
+  }, [myUid, meta, rankedPlayers]);
 
   // Redirect if host returns to lobby (only if host is still present)
   useEffect(() => {

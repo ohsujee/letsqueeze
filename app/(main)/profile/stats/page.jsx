@@ -3,13 +3,33 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { getUserStats, formatStats } from '@/lib/services/statsService';
-import { ArrowLeft, Trophy, Target, Flame } from 'lucide-react';
+import { ArrowLeft, Trophy, GameController, Fire } from '@phosphor-icons/react';
 import { motion } from 'framer-motion';
 import { getVisibleGames } from '@/lib/config/games';
+import { GAME_COLORS } from '@/lib/config/colors';
 import { useAuthProtect } from '@/lib/hooks/useAuthProtect';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import './stats.css';
+
+// Couleurs fallback par game id
+const COLOR_MAP = {
+  quiz: '#8b5cf6',
+  blindtest: '#A238FF',
+  alibi: '#f59e0b',
+  laregle: '#06b6d4',
+  mime: '#34d399',
+  lol: '#EF4444',
+  mindlink: '#ec4899',
+  imposteur: '#84cc16',
+};
+
+function getGameColor(gameId) {
+  if (GAME_COLORS[gameId]?.primary) return GAME_COLORS[gameId].primary;
+  // blindtest uses deeztest in GAME_COLORS
+  if (gameId === 'blindtest' && GAME_COLORS.deeztest?.primary) return GAME_COLORS.deeztest.primary;
+  return COLOR_MAP[gameId] || '#8b5cf6';
+}
 
 export default function StatsPage() {
   const router = useRouter();
@@ -18,53 +38,45 @@ export default function StatsPage() {
   const [stats, setStats] = useState(null);
   const [statsLoading, setStatsLoading] = useState(true);
 
-  // Load stats when user is available
   useEffect(() => {
     if (!user) return;
-
     const loadStats = async () => {
       const rawStats = await getUserStats(user.uid);
       setStats(formatStats(rawStats));
       setStatsLoading(false);
     };
-
     loadStats();
   }, [user]);
 
   const loading = authLoading || statsLoading;
-
-  // Get visible games based on founder status (must be before any early return)
   const visibleGames = getVisibleGames(userIsFounder, userIsSuperFounder);
 
-  // Map stats to each visible game (must be before any early return)
   const games = useMemo(() => {
-    const statsMap = {
-      quiz: [
-        { label: 'Parties', value: stats?.quiz?.gamesPlayed || 0, icon: Target },
-        { label: 'Victoires', value: stats?.quiz?.wins || 0, icon: Trophy },
-        { label: 'Meilleur', value: stats?.quiz?.bestScore || 0, icon: Flame }
-      ],
-      alibi: [
-        { label: 'Parties', value: stats?.alibi?.gamesPlayed || 0, icon: Target },
-        { label: 'Victoires', value: stats?.alibi?.totalWins || 0, icon: Trophy },
-        { label: 'Meilleur', value: stats?.alibi?.bestScore || 0, icon: Flame }
-      ],
-      deeztest: [
-        { label: 'Parties', value: stats?.deeztest?.gamesPlayed || 0, icon: Target },
-        { label: 'Victoires', value: stats?.deeztest?.wins || 0, icon: Trophy },
-        { label: 'Meilleur', value: stats?.deeztest?.bestScore || 0, icon: Flame }
-      ],
-      mime: [] // Local game, no online stats
-    };
+    // Map game.id to the stats key (blindtest → deeztest in Firebase)
+    const statsKeyMap = { blindtest: 'deeztest' };
 
-    return visibleGames.map(game => ({
-      id: game.id,
-      title: game.name,
-      image: game.image,
-      available: game.available && !game.comingSoon,
-      stats: statsMap[game.id] || []
-    }));
+    return visibleGames
+      .filter(g => g.available && !g.comingSoon)
+      .map(game => {
+        const statsKey = statsKeyMap[game.id] || game.id;
+        const gs = stats?.[statsKey] || {};
+        const color = getGameColor(game.id);
+
+        return {
+          id: game.id,
+          title: game.name,
+          image: game.image,
+          color,
+          stats: [
+            { label: 'Parties', value: gs.gamesPlayed || 0, icon: GameController },
+            { label: 'Victoires', value: gs.wins || gs.totalWins || 0, icon: Trophy },
+            { label: 'Meilleur', value: gs.bestScore || 0, icon: Fire },
+          ],
+        };
+      });
   }, [visibleGames, stats]);
+
+  const totalGames = stats?.totalGames || 0;
 
   if (loading) {
     return <LoadingScreen game="quiz" />;
@@ -72,72 +84,71 @@ export default function StatsPage() {
 
   return (
     <div className="stats-page">
-      {/* Background */}
-      <div className="stats-bg" />
-
       {/* Header */}
       <header className="stats-header">
-        <button className="back-btn" onClick={() => router.push('/profile')}>
-          <ArrowLeft size={22} />
+        <button className="stats-back-btn" onClick={() => router.push('/profile')}>
+          <ArrowLeft size={20} weight="bold" />
         </button>
         <h1 className="stats-title">Mes Statistiques</h1>
       </header>
 
       {/* Content */}
       <main className="stats-content">
-        {/* Total Summary */}
+        {/* Total */}
         <motion.div
-          className="total-card"
+          className="stats-total-card"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="total-number">{stats?.totalGames || 0}</div>
-          <div className="total-label">parties jouées</div>
+          <div className="stats-total-number">{totalGames}</div>
+          <div className="stats-total-label">parties jouées</div>
         </motion.div>
 
-        {/* Game Cards Grid */}
-        <div className="games-grid">
+        {/* Game list */}
+        <div className="stats-games-list">
           {games.map((game, index) => (
             <motion.div
               key={game.id}
-              className={`stat-game-card ${!game.available ? 'disabled' : ''}`}
-              data-game={game.id}
+              className="stats-game-card"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 * (index + 1) }}
+              transition={{ duration: 0.3, delay: 0.05 * (index + 1) }}
             >
-              {/* Background Image */}
-              <div
-                className="card-bg"
-                style={{ backgroundImage: `url(${game.image})` }}
-              />
-
-              {/* Overlay */}
-              <div className="card-overlay" />
-
-              {/* Game Title - Top */}
-              <div className="game-title-wrap">
-                <h2 className="game-name">{game.title}</h2>
+              {/* Game image + title header */}
+              <div className="stats-game-header" style={{ backgroundColor: game.color }}>
+                {game.image && (
+                  <img
+                    src={game.image}
+                    alt=""
+                    className="stats-game-img"
+                    draggable={false}
+                  />
+                )}
+                <h2 className="stats-game-name">{game.title}</h2>
               </div>
 
-              {/* Stats - Bottom (only for available games) */}
-              {game.available && (
-                <div className="stats-row">
-                  {game.stats.map((stat, i) => (
-                    <div key={i} className="stat-box">
-                      <stat.icon size={18} className="stat-icon" />
-                      <div className="stat-value">{stat.value}</div>
-                      <div className="stat-label">{stat.label}</div>
+              {/* Stats row */}
+              <div className="stats-game-body">
+                {game.stats.map((stat, i) => {
+                  const Icon = stat.icon;
+                  return (
+                    <div key={i} className="stats-stat-item">
+                      <div className="stats-stat-icon">
+                        <Icon size={14} weight="fill" />
+                      </div>
+                      <div className="stats-stat-info">
+                        <span className="stats-stat-label">{stat.label}</span>
+                        <span className="stats-stat-value">{stat.value}</span>
+                      </div>
                     </div>
-                  ))}
-                </div>
-              )}
+                  );
+                })}
+              </div>
             </motion.div>
           ))}
         </div>
       </main>
-
     </div>
   );
 }

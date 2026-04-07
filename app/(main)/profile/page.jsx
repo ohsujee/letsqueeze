@@ -10,7 +10,8 @@ import { useSubscription } from '@/lib/hooks/useSubscription';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { usePlatform } from '@/lib/hooks/usePlatform';
 import { storage } from '@/lib/utils/storage';
-import { CaretRight, WifiHigh, WifiSlash, ChartBar, UserPlus, Lightning, ArrowSquareOut, FloppyDisk, Trophy, PencilSimple, Check, X, Bell, SpeakerHigh, Lightbulb, Globe, Gear, Link, Trash, Sparkle } from '@phosphor-icons/react';
+import { CaretRight, WifiHigh, WifiSlash, ChartBar, UserPlus, ArrowSquareOut, FloppyDisk, Trophy, PencilSimple, Check, X, Bell, SpeakerHigh, Lightbulb, Globe, Gear, Link, Trash, Sparkle } from '@phosphor-icons/react';
+import { Crown } from 'lucide-react';
 import ProCard from '@/components/ui/ProCard';
 import { openManageSubscriptions } from '@/lib/revenuecat';
 import hueService from '@/lib/hue-module/services/hueService';
@@ -418,8 +419,8 @@ export default function ProfilePage() {
               <p className="upgrade-tagline">Fini les coupures en pleine soirée.</p>
               <p className="upgrade-detail">Tout le contenu débloqué · Parties illimitées · Zéro pub</p>
               <button className="upgrade-cta-btn" onClick={() => router.push('/subscribe')}>
-                <Lightning size={18} weight="fill" />
-                <span>Activer ma carte Pro</span>
+                <Crown size={18} strokeWidth={2.5} />
+                <span>Devenir Pro</span>
               </button>
               <p className="upgrade-legal">Résiliable à tout moment</p>
             </>
@@ -514,7 +515,6 @@ export default function ProfilePage() {
         {!user?.isAnonymous && (
           <section className="profile-card">
             <h2 className="profile-card-title">
-              <Link size={20} weight="fill" />
               Connexions
             </h2>
 

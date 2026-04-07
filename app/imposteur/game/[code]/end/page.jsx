@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { auth, db, ref, onValue, onAuthStateChanged, signInAnonymously, update } from "@/lib/firebase";
 import { motion } from 'framer-motion';
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
+import { recordImposteurGame } from "@/lib/services/statsService";
 import { EndScreenFooter } from "@/components/transitions/EndScreenFooter";
 
 const ACCENT = '#84cc16';
@@ -85,6 +86,18 @@ export function ImposteurEndContent({ overrideCode, overrideUid, code: propCode,
 
   // Podium
   const sortedPlayers = [...players].sort((a, b) => (b.score || 0) - (a.score || 0));
+
+  // Record individual stats
+  const statsRecordedRef = useRef(false);
+  useEffect(() => {
+    if (statsRecordedRef.current || !myUid || !meta || !sortedPlayers.length) return;
+    if (myUid === meta.hostUid) { statsRecordedRef.current = true; return; }
+    const myIdx = sortedPlayers.findIndex(p => p.uid === myUid);
+    if (myIdx === -1) return;
+    statsRecordedRef.current = true;
+    recordImposteurGame({ won: myIdx === 0, score: sortedPlayers[myIdx].score || 0 });
+  }, [myUid, meta, sortedPlayers]);
+
   const top3 = sortedPlayers.slice(0, 3);
   const rest = sortedPlayers.slice(3);
 

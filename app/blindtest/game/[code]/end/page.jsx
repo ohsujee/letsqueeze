@@ -10,6 +10,7 @@ import { useToast } from "@/lib/hooks/useToast";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
+import { recordDeezTestGame } from "@/lib/services/statsService";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
 import { rankWithTies } from "@/lib/utils/ranking";
 import '@/app/blindtest/blindtest-theme.css';
@@ -81,6 +82,17 @@ export function BlindTestEndContent({ code, myUid: devUid }) {
 
   const rankedPlayers = useMemo(() => rankWithTies(players, "score"), [players]);
   const rankedTeams = useMemo(() => rankWithTies(teamsArray, "score"), [teamsArray]);
+
+  // Record individual stats
+  const statsRecordedRef = useRef(false);
+  useEffect(() => {
+    if (statsRecordedRef.current || !myUid || !meta || !rankedPlayers.length) return;
+    if (myUid === meta.hostUid) { statsRecordedRef.current = true; return; }
+    const myPlayer = rankedPlayers.find(p => p.uid === myUid);
+    if (!myPlayer) return;
+    statsRecordedRef.current = true;
+    recordDeezTestGame({ won: myPlayer.rank === 1, score: myPlayer.score || 0 });
+  }, [myUid, meta, rankedPlayers]);
 
   // Redirect if host returns to lobby (only if host is still present)
   useEffect(() => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, update,
@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
+import { recordLolGame } from "@/lib/services/statsService";
 import { useToast } from "@/lib/hooks/useToast";
 import { Trophy, ArrowCounterClockwise, House, Crown } from "@phosphor-icons/react";
 import { EndScreenFooter } from "@/components/transitions/EndScreenFooter";
@@ -69,6 +70,17 @@ export function LolEndContent({ code, myUid: devUid }) {
     .filter(Boolean);
 
   const ranking = [...survivors, ...eliminated];
+
+  // Record individual stats
+  const statsRecordedRef = useRef(false);
+  useEffect(() => {
+    if (statsRecordedRef.current || !myUid || !meta || !players.length) return;
+    if (myUid === meta.hostUid) { statsRecordedRef.current = true; return; }
+    const myPlayer = players.find(p => p.uid === myUid);
+    if (!myPlayer) return;
+    statsRecordedRef.current = true;
+    recordLolGame({ survived: !myPlayer.redCard });
+  }, [myUid, meta, players]);
 
   // Stats
   const mostAccusations = [...players].sort((a, b) => (b.accusationsMade || 0) - (a.accusationsMade || 0))[0];

@@ -1,0 +1,146 @@
+/* ===========================================
+   Lobby Entry Transition — Flat Cartoon Style
+   =========================================== */
+
+.lobby-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lobby-fade-in 0.3s ease-out;
+}
+
+.lobby-transition-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--game-color, #8b5cf6);
+}
+
+.lobby-transition-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  animation: lobby-content-in 0.5s ease-out 0.1s both;
+}
+
+/* Door */
+.lobby-transition-door-wrapper {
+  margin-bottom: 1.5rem;
+  animation: lobby-door-bounce 0.6s ease-out 0.2s both;
+}
+
+.lobby-transition-door-frame {
+  position: relative;
+  width: 80px;
+  height: 100px;
+  margin: 0 auto;
+  border: 4px solid #ffffff;
+  border-bottom: 6px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.15);
+  perspective: 400px;
+}
+
+.lobby-transition-door-light {
+  position: absolute;
+  inset: 4px;
+  background: #ffffff;
+  border-radius: 2px;
+  animation: lobby-light-glow 1s ease-in-out 0.5s both;
+}
+
+.lobby-transition-door {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  background: var(--game-color, #8b5cf6);
+  border: 2px solid #ffffff;
+  border-radius: 2px;
+  transform-origin: left center;
+  animation: lobby-door-open 0.8s ease-out 0.4s both;
+}
+
+.lobby-transition-door::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+/* Text */
+.lobby-transition-title {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: clamp(1.3rem, 5vw, 2rem);
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.lobby-transition-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  color: #ffffff;
+  margin: 0 0 1.5rem 0;
+}
+
+/* Progress bar */
+.lobby-transition-progress {
+  width: 150px;
+  height: 8px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.lobby-transition-progress-bar {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 4px;
+  animation: lobby-progress linear forwards;
+  animation-duration: inherit;
+}
+
+/* Animations */
+@keyframes lobby-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes lobby-content-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lobby-door-bounce {
+  0% { opacity: 0; transform: scale(0.5); }
+  70% { transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes lobby-door-open {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(-60deg); }
+}
+
+@keyframes lobby-light-glow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes lobby-progress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
