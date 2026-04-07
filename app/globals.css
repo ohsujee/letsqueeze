@@ -1587,19 +1587,14 @@ textarea:focus-visible {
   right: 0;
   height: calc(80px + var(--safe-area-bottom));
   padding-bottom: var(--safe-area-bottom);
-  background: rgba(10, 10, 15, 0.98);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: #1a1a2e;
+  border-top: 3px solid #13132a;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   padding: 8px 16px;
   padding-bottom: calc(8px + var(--safe-area-bottom));
   z-index: 300;
-  box-shadow:
-    0 -8px 32px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .bottom-nav .nav-tab {
@@ -1627,18 +1622,11 @@ textarea:focus-visible {
 .bottom-nav .nav-pill {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(139, 92, 246, 0.25) 0%,
-    rgba(139, 92, 246, 0.15) 100%
-  );
-  border-radius: 16px;
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  box-shadow:
-    0 0 24px rgba(139, 92, 246, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: #8b5cf6;
+  border-radius: 14px;
+  border: none;
+  border-bottom: 3px solid #6d28d9;
   z-index: 0;
-  /* GPU acceleration for smooth animation */
   will-change: transform;
   transform: translateZ(0);
 }
@@ -1658,9 +1646,9 @@ textarea:focus-visible {
   height: 24px;
 }
 
-/* Active state glow on icon */
+/* Active tab — white on solid purple pill */
 .bottom-nav .nav-tab.active .nav-icon-wrapper {
-  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.6));
+  color: #fff;
 }
 
 /* Hover effect for non-active tabs */
@@ -1670,7 +1658,7 @@ textarea:focus-visible {
 
 /* Active tab color */
 .bottom-nav .nav-tab.active {
-  color: #a78bfa;
+  color: #fff;
 }
 
 /* Tab label */
@@ -1705,20 +1693,26 @@ textarea:focus-visible {
    🎮 GAME CARD STYLES
    =========================================== */
 
+/* ==========================================
+   GAME CARD — Z-index scale:
+   0: card-bg, card-illustration
+   1: card-overlay (gradient)
+   2: game-title, pills (new, powered, players)
+   3: action buttons (favorite, help), heart-pop
+   4: badges (coming-soon, countdown)
+   ========================================== */
 .game-card {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
   -webkit-touch-callout: none;
   user-select: none;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-  /* GPU acceleration for smooth animations */
+  transition: transform 0.2s ease;
+  border: none;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.5);
   will-change: transform;
   transform: translateZ(0);
   -webkit-backface-visibility: hidden;
@@ -1745,7 +1739,7 @@ textarea:focus-visible {
 }
 
 .game-card:hover .card-bg img {
-  transform: scale(1.1) translateZ(0);
+  transform: scale(1.05) translateZ(0);
 }
 
 .game-card .card-illustration {
@@ -1763,15 +1757,15 @@ textarea:focus-visible {
   height: 80%;
 }
 
-/* Overlay gradient - darker at top for title readability */
+/* Overlay — flat, heavier for readability */
 .game-card .card-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.6) 0%,
-    rgba(0, 0, 0, 0.1) 40%,
-    rgba(0, 0, 0, 0.3) 100%
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.15) 35%,
+    rgba(0, 0, 0, 0.55) 100%
   );
   z-index: 1;
   pointer-events: none;
@@ -1780,53 +1774,52 @@ textarea:focus-visible {
 /* Lock Badge */
 .game-card .lock-badge {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 10px;
+  right: 10px;
   padding: 6px 12px;
-  border-radius: 999px;
+  border-radius: 8px;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   gap: 6px;
-  z-index: 4;
+  z-index: 3;
   font-size: 0.75rem;
   font-weight: 700;
   color: white;
   text-transform: uppercase;
 }
 
-/* Card Action Buttons - Glassmorphism circles */
+/* Card Action Buttons */
 .game-card .card-action-btn {
   position: absolute;
-  top: 12px;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  top: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.8);
   transition: all 0.2s ease;
-  z-index: 4;
+  z-index: 3;
 }
 
-.game-card .card-action-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
+.game-card .card-action-btn:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
 }
 
 .game-card .card-action-btn.favorite {
-  left: 12px;
+  left: 10px;
   background: transparent;
-  border-color: transparent;
+  border: none;
+  border-bottom: none;
   padding: 0;
 }
 
@@ -1837,13 +1830,13 @@ textarea:focus-visible {
 .game-card .card-action-btn.favorite.active {
   color: #ef4444;
   background: transparent;
-  border-color: transparent;
 }
 
 .game-card .card-action-btn.help {
-  right: 12px;
+  right: 10px;
   background: transparent;
-  border-color: transparent;
+  border: none;
+  border-bottom: none;
   padding: 0;
 }
 
@@ -1854,7 +1847,7 @@ textarea:focus-visible {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 4rem;
-  z-index: 5;
+  z-index: 3;
   pointer-events: none;
   filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.8));
 }
@@ -1862,7 +1855,7 @@ textarea:focus-visible {
 /* Game Title - Centered */
 .game-card .game-title {
   position: absolute;
-  top: 50%;
+  top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
@@ -1882,80 +1875,33 @@ textarea:focus-visible {
   line-height: 1.1;
 }
 
-/* Game-specific glows - Reusable for any element with data-game attribute */
-[data-game="quiz"] .game-name {
-  text-shadow:
-    0 0 10px var(--quiz-glow, #a78bfa),
-    0 0 20px var(--quiz-glow, #a78bfa),
-    0 0 40px var(--quiz-primary, #8b5cf6),
-    0 0 60px var(--quiz-primary, #8b5cf6);
+/* Game names — colored glow per game */
+.game-card[data-game="quiz"] .game-name {
+  text-shadow: 0 0 10px #a78bfa, 0 0 20px #a78bfa, 0 0 40px #8b5cf6, 0 0 60px #8b5cf6;
+}
+.game-card[data-game="alibi"] .game-name {
+  text-shadow: 0 0 10px #fbbf24, 0 0 20px #fbbf24, 0 0 40px #f59e0b, 0 0 60px #f59e0b;
+}
+.game-card[data-game="deeztest"] .game-name {
+  text-shadow: 0 0 10px #A238FF, 0 0 20px #A238FF, 0 0 40px #FF0092, 0 0 60px #FF0092;
+}
+.game-card[data-game="laregle"] .game-name {
+  text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee, 0 0 40px #06b6d4, 0 0 60px #06b6d4;
+}
+.game-card[data-game="mindlink"] .game-name {
+  text-shadow: 0 0 10px #ec4899, 0 0 20px #ec4899, 0 0 40px #db2777, 0 0 60px #db2777;
+}
+.game-card[data-game="mime"] .game-name {
+  text-shadow: 0 0 10px #a3e635, 0 0 20px #a3e635, 0 0 40px #84cc16, 0 0 60px #84cc16;
+}
+.game-card[data-game="lol"] .game-name {
+  text-shadow: 0 0 10px #f87171, 0 0 20px #f87171, 0 0 40px #EF4444, 0 0 60px #EF4444;
+}
+.game-card[data-game="imposteur"] .game-name {
+  text-shadow: 0 0 10px #bef264, 0 0 20px #bef264, 0 0 40px #84cc16, 0 0 60px #84cc16;
 }
 
-[data-game="alibi"] .game-name {
-  text-shadow:
-    0 0 10px var(--alibi-glow, #fbbf24),
-    0 0 20px var(--alibi-glow, #fbbf24),
-    0 0 40px var(--alibi-primary, #f59e0b),
-    0 0 60px var(--alibi-primary, #f59e0b);
-}
-
-[data-game="deeztest"] .game-name {
-  text-shadow:
-    0 0 10px #A238FF,
-    0 0 20px #A238FF,
-    0 0 40px #FF0092,
-    0 0 60px #FF0092;
-}
-
-[data-game="memory"] .game-name {
-  text-shadow:
-    0 0 10px #f472b6,
-    0 0 20px #f472b6,
-    0 0 40px #ec4899,
-    0 0 60px #ec4899;
-}
-
-[data-game="laregle"] .game-name {
-  text-shadow:
-    0 0 10px #22d3ee,
-    0 0 20px #22d3ee,
-    0 0 40px #06b6d4,
-    0 0 60px #06b6d4;
-}
-
-[data-game="mindlink"] .game-name {
-  text-shadow:
-    0 0 10px #ec4899,
-    0 0 20px #ec4899,
-    0 0 40px #db2777,
-    0 0 60px #db2777;
-}
-
-[data-game="mime"] .game-name {
-  text-shadow:
-    0 0 10px #a3e635,
-    0 0 20px #a3e635,
-    0 0 40px #84cc16,
-    0 0 60px #84cc16;
-}
-
-[data-game="lol"] .game-name {
-  text-shadow:
-    0 0 10px #f87171,
-    0 0 20px #f87171,
-    0 0 40px #EF4444,
-    0 0 60px #EF4444;
-}
-
-[data-game="imposteur"] .game-name {
-  text-shadow:
-    0 0 10px #a3e635,
-    0 0 20px #a3e635,
-    0 0 40px #84cc16,
-    0 0 60px #84cc16;
-}
-
-/* Coming Soon Card State - Only gray out the background, not overlays */
+/* Coming Soon Card State */
 .game-card.coming-soon .card-bg,
 .game-card.coming-soon .card-illustration,
 .game-card.coming-soon .game-title {
@@ -1971,33 +1917,22 @@ textarea:focus-visible {
 }
 
 .game-card.coming-soon .card-overlay {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.4) 40%,
-    rgba(0, 0, 0, 0.5) 100%
-  ) !important;
+  background: rgba(0, 0, 0, 0.5);
 }
 
-/* Coming Soon Badge on Game Card - Bottom bar */
 .game-card .coming-soon-badge {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 16px 16px 18px;
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.9) 0%,
-    transparent 100%
-  );
-  border: none !important;
-  border-radius: 0 0 16px 16px;
-  z-index: 10;
+  padding: 10px 16px 12px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  z-index: 4;
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   text-align: center;
@@ -2006,23 +1941,15 @@ textarea:focus-visible {
   align-items: center;
 }
 
-/* Countdown Badge - Top bar for games with releaseDate */
+/* Countdown Badge */
 .game-card .countdown-badge {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  padding: 14px 16px 22px;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.85) 40%,
-    rgba(0, 0, 0, 0.5) 70%,
-    rgba(0, 0, 0, 0.2) 85%,
-    transparent 100%
-  );
-  border-radius: 16px 16px 0 0;
-  z-index: 10;
+  padding: 10px 16px 18px;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 4;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2056,7 +1983,6 @@ textarea:focus-visible {
   font-size: 0.9rem;
   font-weight: 700;
   color: #fbbf24;
-  text-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
   min-width: 1.2ch;
   text-align: right;
 }
@@ -2069,69 +1995,63 @@ textarea:focus-visible {
   text-transform: lowercase;
 }
 
-/* Powered By Pill - Bottom Left */
+/* Powered By Pill — Flat */
 .game-card .powered-pill {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
+  bottom: 10px;
+  left: 10px;
   padding: 4px 10px;
-  border-radius: 999px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  border-radius: 8px;
   z-index: 2;
-  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
   font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .game-card .powered-deezer {
-  background: linear-gradient(135deg, #A238FF, #FF0092);
-  color: white;
+  background: #A238FF;
   border: none;
+  border-bottom: 2px solid #7B20CC;
+  color: white;
 }
 
-/* New Badge - Bottom Left */
+/* New Badge — Flat */
 .game-card .new-badge {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
+  bottom: 10px;
+  left: 10px;
   padding: 5px 12px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  background: #fbbf24;
+  border: none;
+  border-bottom: 2px solid #b45309;
   z-index: 2;
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: 0.6rem;
   font-weight: 400;
   letter-spacing: 0.1em;
   color: #0a0a0f;
-  box-shadow: 0 2px 12px rgba(251, 191, 36, 0.5), 0 0 20px rgba(251, 191, 36, 0.25);
-  animation: newBadgePulse 2s ease-in-out infinite;
 }
 
-@keyframes newBadgePulse {
-  0%, 100% { box-shadow: 0 2px 12px rgba(251, 191, 36, 0.5), 0 0 20px rgba(251, 191, 36, 0.25); }
-  50% { box-shadow: 0 2px 16px rgba(251, 191, 36, 0.7), 0 0 30px rgba(251, 191, 36, 0.4); }
-}
-
-/* Players Pill - Bottom Right, Discrete */
+/* Players Pill — Flat */
 .game-card .players-pill {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
+  bottom: 10px;
+  right: 10px;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: 8px;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
   z-index: 2;
-  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
   font-size: 0.65rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 

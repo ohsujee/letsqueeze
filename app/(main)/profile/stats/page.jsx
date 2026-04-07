@@ -54,8 +54,7 @@ export default function StatsPage() {
         { label: 'Victoires', value: stats?.deeztest?.wins || 0, icon: Trophy },
         { label: 'Meilleur', value: stats?.deeztest?.bestScore || 0, icon: Flame }
       ],
-      mime: [], // Local game, no online stats
-      memory: []
+      mime: [] // Local game, no online stats
     };
 
     return visibleGames.map(game => ({
@@ -116,13 +115,6 @@ export default function StatsPage() {
 
               {/* Overlay */}
               <div className="card-overlay" />
-
-              {/* Coming Soon Badge - Bottom bar style like home */}
-              {!game.available && (
-                <div className="coming-soon-badge">
-                  À VENIR
-                </div>
-              )}
 
               {/* Game Title - Top */}
               <div className="game-title-wrap">

@@ -7,21 +7,9 @@
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  overflow-x: hidden;
-  background: var(--bg-primary, #0a0a0f);
+  overflow-x: clip;
+  background: #0e0e1a;
   position: relative;
-}
-
-.home-container::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse at 20% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
-    var(--bg-primary, #0a0a0f);
-  pointer-events: none;
 }
 
 .home-content {
@@ -30,7 +18,5 @@
   padding-bottom: 80px; /* Clearance for fixed bottom-nav, safe-area handled by .app-shell */
   max-width: 1200px;
   margin: 0 auto;
-  position: relative;
-  z-index: 1;
 }
 

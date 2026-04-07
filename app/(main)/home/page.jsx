@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo, Suspense } from 'react';
+import { useEffect, useState, useMemo, useRef, useCallback, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { onAuthStateChanged, auth, db, ref, set, signInWithGoogle, signInWithApple } from '@/lib/firebase';
@@ -35,7 +35,7 @@ import { GAME_COLOR_MAP } from '@/lib/config/colors';
 import './home.css';
 import './home-header.css';
 import '@/app/daily/daily-home.css';
-import '@/app/coming-soon.css';
+
 
 function HomePageContent() {
   const router = useRouter();
@@ -50,14 +50,13 @@ function HomePageContent() {
   const [selectedGameMasterMode, setSelectedGameMasterMode] = useState(null);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [helpGameId, setHelpGameId] = useState('quiz');
-  const { profile, cachedPseudo, subscription } = useUserProfile();
+  const { profile, cachedPseudo, subscription, loading: profileLoading } = useUserProfile();
   const userWithSubscription = useMemo(() => user ? { ...user, subscription } : null, [user, subscription]);
   const { isPro, isLoading: subscriptionLoading } = useSubscription(userWithSubscription);
   const {
     heartsRemaining,
     canPlay: canPlayHearts,
     canRecharge,
-    consumeHeart,
     rechargeHearts,
     isRecharging,
   } = useHearts({ isPro, uid: user?.uid ?? null });
@@ -85,7 +84,74 @@ function HomePageContent() {
   const toast = useToast();
 
   // Dev auth bypass - allows ?devAuth=UID to auto-login (localhost only)
-  const { isDevAuth, loading: devAuthLoading, error: devAuthError } = useDevAuth();
+  useDevAuth(); // Side-effect only: auto-login via ?devAuth=UID on localhost
+
+  // Bounce vertical quand on atteint le haut/bas du scroll
+  const containerRef = useRef(null);
+  const contentRef = useRef(null);
+  useEffect(() => {
+    const el = containerRef.current;
+    const content = contentRef.current;
+    if (!el || !content) return;
+
+    let prevSt = el.scrollTop;
+    let peakV = 0;
+    let bounceTimer = null;
+    // Tracking si on était déjà au bout pour détecter la transition
+    let prevAtTop = el.scrollTop <= 0;
+    let prevAtBottom = el.scrollTop >= el.scrollHeight - el.clientHeight - 1;
+    // Tracking direction pour savoir quand on va vers un bout
+    let scrollingUp = false;
+    let scrollingDown = false;
+
+    const doBounce = (px) => {
+      content.style.transition = 'none';
+      content.style.transform = `translateY(${px}px)`;
+      clearTimeout(bounceTimer);
+      bounceTimer = setTimeout(() => {
+        content.style.transition = 'transform 0.45s cubic-bezier(0.25, 1.5, 0.5, 1)';
+        content.style.transform = 'translateY(0)';
+      }, 16);
+    };
+
+    const handleScroll = () => {
+      const st = el.scrollTop;
+      const delta = st - prevSt;
+      const v = Math.abs(delta);
+
+      scrollingUp = delta < 0;
+      scrollingDown = delta > 0;
+      if (v > peakV) peakV = v;
+
+      const atTop = st <= 0;
+      const atBottom = st >= el.scrollHeight - el.clientHeight - 1;
+
+      // Vient d'arriver en haut en scrollant vers le haut
+      if (atTop && !prevAtTop && scrollingUp && peakV > 1) {
+        doBounce(Math.min(peakV * 1.2, 12));
+        peakV = 0;
+      }
+
+      // Vient d'arriver en bas en scrollant vers le bas
+      if (atBottom && !prevAtBottom && scrollingDown && peakV > 1) {
+        doBounce(-Math.min(peakV * 1.2, 12));
+        peakV = 0;
+      }
+
+      // Reset peak quand on est au milieu
+      if (!atTop && !atBottom) peakV = 0;
+
+      prevSt = st;
+      prevAtTop = atTop;
+      prevAtBottom = atBottom;
+    };
+
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      el.removeEventListener('scroll', handleScroll);
+      clearTimeout(bounceTimer);
+    };
+  }, []);
 
   // Check if player was kicked from a room (show notification)
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -184,12 +250,6 @@ function HomePageContent() {
   };
 
   const handleGameClick = (game) => {
-    // Redirect to coming soon page for unreleased games (founders bypass)
-    if (game.comingSoon && !userIsFounder) {
-      router.push(`/coming-soon/${game.id}`);
-      return;
-    }
-
     // Local games (like Mime) - no restrictions, direct navigation
     if (game.local) {
       createAndNavigateToGame(game);
@@ -285,12 +345,6 @@ function HomePageContent() {
     }
   };
 
-  // Handle upgrade to Pro
-  const handleUpgradeToPro = () => {
-    setPendingGame(null);
-    router.push('/subscribe');
-  };
-
   // Handle showing help for a game
   const handleShowHelp = (gameId) => {
     setHelpGameId(gameId);
@@ -327,6 +381,33 @@ function HomePageContent() {
     }
   };
 
+  // Modal handlers (extracted to avoid inline arrow re-creation)
+  const handleOpenHeartsModal = useCallback(() => setShowHeartsModal(true), []);
+  const handleCloseHeartsModal = useCallback(() => setShowHeartsModal(false), []);
+  const handleCloseGuestWarning = useCallback(() => setShowGuestWarning(false), []);
+  const handleCloseCreateOrJoin = useCallback(() => {
+    setShowCreateOrJoinSelector(false);
+    setPendingGame(null);
+  }, []);
+  const handleCloseModeSelector = useCallback(() => {
+    setShowModeSelector(false);
+    setPendingGame(null);
+  }, []);
+  const handleCloseAudioMode = useCallback(() => {
+    setShowAudioModeSelector(false);
+    setPendingGame(null);
+    setSelectedGameMasterMode(null);
+  }, []);
+  const handleCloseHowToPlay = useCallback(() => setShowHowToPlay(false), []);
+  const handleUpgradePro = useCallback(() => {
+    router.push('/subscribe');
+    setShowHeartsModal(false);
+  }, [router]);
+  const handleDismissRejoin = useCallback(() => {
+    setShowRejoinBanner(false);
+    storage.remove('last_game');
+  }, []);
+
   // Filter out founders-only / super-founders-only games, then apply Remote Config overrides
   const userIsFounder = isFounder(user);
   const userIsSuperFounder = isSuperFounder(user);
@@ -354,34 +435,32 @@ function HomePageContent() {
   return (
     <motion.div
       className="home-container"
+      ref={containerRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
     >
-      <main className="home-content">
+      <main className="home-content" ref={contentRef}>
         {/* Modern Header 2025 */}
         <HomeHeader
           displayName={profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Joueur'}
           avatarInitial={(profile?.pseudo?.[0] || cachedPseudo?.[0] || user?.displayName?.[0] || 'J').toUpperCase()}
           isPro={isPro}
           heartsRemaining={heartsRemaining}
-          heartsVisible={!subscriptionLoading}
-          onHeartsClick={() => setShowHeartsModal(true)}
+          heartsVisible={!profileLoading && !isPro}
+          onHeartsClick={handleOpenHeartsModal}
         />
 
         {/* Rejoin Banner - Show when player has an active game */}
         {activeGame && showRejoinBanner && (
           <RejoinBanner
             activeGame={activeGame}
-            onDismiss={() => {
-              setShowRejoinBanner(false);
-              storage.remove('last_game');
-            }}
+            onDismiss={handleDismissRejoin}
           />
         )}
 
         {/* Daily Games Section */}
-        <DailyGamesSection />
+        <DailyGamesSection user={user} />
 
         {/* Search & Filter Bar */}
         <GameFilterBar
@@ -459,16 +538,13 @@ function HomePageContent() {
           </div>
         </motion.section>
 
-
-        {/* Bottom padding for nav */}
-        <div className="bottom-padding"></div>
       </main>
 
 
       {/* Guest Warning Modal - Blocks game creation for guests */}
       <GuestWarningModal
         isOpen={showGuestWarning}
-        onClose={() => setShowGuestWarning(false)}
+        onClose={handleCloseGuestWarning}
         onSignInGoogle={handleGuestWarningGoogle}
         onSignInApple={handleGuestWarningApple}
         context="home"
@@ -477,21 +553,18 @@ function HomePageContent() {
       {/* Hearts Modal - Info / recharge cœurs */}
       <HeartsModal
         isOpen={showHeartsModal}
-        onClose={() => setShowHeartsModal(false)}
+        onClose={handleCloseHeartsModal}
         heartsRemaining={heartsRemaining}
         canRecharge={canRecharge}
         isWatchingAd={isRecharging}
         onWatchAd={handleRechargeHearts}
-        onUpgrade={() => { router.push('/subscribe'); setShowHeartsModal(false); }}
+        onUpgrade={handleUpgradePro}
       />
 
       {/* Create or Join Selector - First step for all multiplayer games */}
       <CreateOrJoinSelector
         isOpen={showCreateOrJoinSelector}
-        onClose={() => {
-          setShowCreateOrJoinSelector(false);
-          setPendingGame(null);
-        }}
+        onClose={handleCloseCreateOrJoin}
         onSelectCreate={handleCreateSelect}
         onSelectJoin={handleJoinSelect}
         game={pendingGame}
@@ -500,10 +573,7 @@ function HomePageContent() {
       {/* Game Mode Selector - Choose between Game Master and Party Mode */}
       <GameModeSelector
         isOpen={showModeSelector}
-        onClose={() => {
-          setShowModeSelector(false);
-          setPendingGame(null);
-        }}
+        onClose={handleCloseModeSelector}
         onSelectMode={handleModeSelect}
         game={pendingGame}
       />
@@ -511,11 +581,7 @@ function HomePageContent() {
       {/* Audio Mode Selector - Choose where audio plays (DeezTest only) */}
       <AudioModeSelector
         isOpen={showAudioModeSelector}
-        onClose={() => {
-          setShowAudioModeSelector(false);
-          setPendingGame(null);
-          setSelectedGameMasterMode(null);
-        }}
+        onClose={handleCloseAudioMode}
         onSelectMode={handleAudioModeSelect}
         game={pendingGame}
       />
@@ -523,7 +589,7 @@ function HomePageContent() {
       {/* How To Play Modal */}
       <HowToPlayModal
         isOpen={showHowToPlay}
-        onClose={() => setShowHowToPlay(false)}
+        onClose={handleCloseHowToPlay}
         gameType={helpGameId}
       />
 

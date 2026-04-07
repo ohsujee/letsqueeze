@@ -1,9 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Crown } from 'lucide-react';
 
 const MAX_HEARTS = 5;
+const HEADER_3D_STYLE = { perspective: 600, transformStyle: 'preserve-3d' };
 
 // SVG heart flat — fill et stroke contrôlés directement
 function HeartIcon({ full }) {
@@ -57,17 +58,26 @@ export default function HomeHeader({
         <h1 className="user-name">{displayName}</h1>
 
         {/* Toujours présent pour garder le pseudo centré */}
-        <div className="header-actions">
-          {isPro && (
-            <motion.div
-              className="pro-badge-circle"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              title="Membre Pro"
-            >
-              <Crown size={20} strokeWidth={2.5} />
-            </motion.div>
-          )}
+        <div className="header-actions" style={HEADER_3D_STYLE}>
+          <AnimatePresence>
+            {isPro && (
+              <motion.div
+                className="pro-badge-circle"
+                key="pro-badge"
+                initial={{ rotateY: 720, opacity: 0, scale: 0.5 }}
+                animate={{ rotateY: 0, opacity: 1, scale: 1 }}
+                exit={{ rotateY: 90, opacity: 0 }}
+                transition={{ type: 'spring', stiffness: 120, damping: 14 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                title="Membre Pro"
+              >
+                <div className="pro-badge-face">
+                  <Crown size={20} strokeWidth={2.5} />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </header>
 

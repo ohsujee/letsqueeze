@@ -8,6 +8,20 @@ import { useCountdownTick, calculateCountdown } from '@/lib/hooks/useCountdownTi
 
 const MAX_RETRIES = 2;
 
+// Module-level gradient map — avoids recreating per render
+const GAME_GRADIENTS = {
+  quiz: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+  alibi: 'linear-gradient(135deg, #f59e0b, #d97706)',
+  deeztest: 'linear-gradient(135deg, #A238FF, #FF0092)',
+  blindtest: 'linear-gradient(135deg, #A238FF, #FF0092)',
+  mime: 'linear-gradient(135deg, #84cc16, #65a30d)',
+  laregle: 'linear-gradient(135deg, #06b6d4, #0891b2)',
+  mindlink: 'linear-gradient(135deg, #ec4899, #db2777)',
+  lol: 'linear-gradient(135deg, #EF4444, #DC2626)',
+  imposteur: 'linear-gradient(135deg, #84cc16, #65a30d)',
+};
+const DEFAULT_GRADIENT = 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
+
 export default function GameCard({
   game,
   isFavorite = false,
@@ -54,20 +68,7 @@ export default function GameCard({
     }
   }, [retryCount, image]);
 
-  // Game-specific gradient colors
-  const getGradient = () => {
-    switch (game.id) {
-      case 'quiz': return 'linear-gradient(135deg, #8b5cf6, #7c3aed)';
-      case 'alibi': return 'linear-gradient(135deg, #f59e0b, #d97706)';
-      case 'deeztest': return 'linear-gradient(135deg, #A238FF, #FF0092)';
-      case 'memory': return 'linear-gradient(135deg, #ec4899, #db2777)';
-      case 'mime': return 'linear-gradient(135deg, #84cc16, #65a30d)';
-      case 'laregle': return 'linear-gradient(135deg, #06b6d4, #0891b2)';
-      case 'mindlink': return 'linear-gradient(135deg, #ec4899, #db2777)';
-      case 'lol': return 'linear-gradient(135deg, #EF4444, #DC2626)';
-      default: return 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
-    }
-  };
+  const gradient = GAME_GRADIENTS[game.id] || DEFAULT_GRADIENT;
 
   return (
     <motion.div
@@ -77,11 +78,11 @@ export default function GameCard({
       onContextMenu={(e) => e.preventDefault()}
       whileHover={game.comingSoon ? { y: -4, scale: 1.01 } : { y: -8, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      style={{ background: image ? undefined : getGradient() }}
+      style={{ background: image ? undefined : gradient }}
     >
       {/* Background Image */}
       {image && (
-        <div className="card-bg" style={!imgLoaded ? { background: getGradient() } : undefined}>
+        <div className="card-bg" style={!imgLoaded ? { background: gradient } : undefined}>
           <img
             src={image}
             alt=""
