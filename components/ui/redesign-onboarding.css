@@ -1,0 +1,254 @@
+/* ===========================================
+   Redesign Onboarding — Flat Cartoon Style
+   Inspired by Duolingo/Kahoot onboarding
+   =========================================== */
+
+.ro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.4s ease;
+  overflow: hidden;
+}
+
+.ro-carousel {
+  width: 100%;
+  max-width: 400px;
+  overflow: hidden;
+}
+
+.ro-track {
+  display: flex;
+  width: 200%;
+}
+
+.ro-slide {
+  width: 50%;
+  flex-shrink: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Mascotte */
+.ro-mascot-container {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ro-mascot {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 0 rgba(0, 0, 0, 0.15));
+}
+
+.ro-mascot-small {
+  width: 130px;
+}
+
+/* Texte */
+.ro-title {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.ro-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  margin: 0;
+}
+
+/* Features list — white cards on colored bg */
+.ro-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.ro-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: none;
+  border-bottom: 3px solid #e0e0e0;
+  border-radius: 14px;
+}
+
+.ro-feature-emoji {
+  font-size: 1.4rem;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.ro-feature-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+/* Avatar grid preview */
+.ro-avatar-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ro-avatar-grid {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.ro-avatar-item {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.ro-avatar-item img {
+  height: 82%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Footer boutons */
+.ro-footer {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.ro-btn-next {
+  flex: 1;
+  padding: 16px 24px;
+  background: #ffffff;
+  border: none;
+  border-bottom: 4px solid #e0e0e0;
+  border-radius: 14px;
+  color: #1a1a2e;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ro-btn-next:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.ro-btn-next svg {
+  color: #8b5cf6;
+}
+
+.ro-btn-avatar {
+  flex: 1;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: none;
+  border-bottom: 4px solid #e0e0e0;
+  border-radius: 14px;
+  color: #1a1a2e;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ro-btn-avatar:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.ro-btn-avatar svg {
+  color: #22c55e;
+}
+
+.ro-btn-skip {
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.ro-btn-skip:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+/* Dots */
+.ro-dots {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  gap: 8px;
+}
+
+.ro-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.ro-dot.active {
+  background: #ffffff;
+  width: 24px;
+  border-radius: 4px;
+}

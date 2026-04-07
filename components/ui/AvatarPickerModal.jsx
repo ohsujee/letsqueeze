@@ -1,18 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from '@phosphor-icons/react';
-import { AVATARS, AVATAR_COLORS, getAvatarUrl } from '@/lib/config/avatars';
+import { AVATARS, AVATARS_V2, AVATAR_COLORS, DEFAULT_AVATAR, getAvatarUrl } from '@/lib/config/avatars';
 import './avatar-picker.css';
 
+const PACKS = [
+  { key: 'v1', label: 'Mini', avatars: AVATARS },
+  { key: 'v2', label: 'Wild', avatars: AVATARS_V2 },
+];
+
 export default function AvatarPickerModal({ isOpen, onClose, currentAvatarId, currentColor, onSave }) {
-  const [selectedId, setSelectedId] = useState(currentAvatarId || null);
-  const [selectedColor, setSelectedColor] = useState(currentColor || '#8b5cf6');
+  const [selectedId, setSelectedId] = useState(currentAvatarId || DEFAULT_AVATAR.id);
+  const [selectedColor, setSelectedColor] = useState(currentColor || DEFAULT_AVATAR.color);
+  const [packIndex, setPackIndex] = useState(
+    currentAvatarId?.startsWith('v2-') ? 1 : 0
+  );
+  const [slideDir, setSlideDir] = useState(1);
 
   if (!isOpen) return null;
 
   const outlineColor = selectedColor === '#ffffff' ? '#ef4444' : '#ffffff';
+  const activePack = PACKS[packIndex];
+
+  const switchPack = (newIndex) => {
+    if (newIndex === packIndex) return;
+    setSlideDir(newIndex > packIndex ? 1 : -1);
+    setPackIndex(newIndex);
+  };
 
   const handleSave = () => {
     onSave({ avatarId: selectedId, avatarColor: selectedColor });
@@ -65,24 +81,60 @@ export default function AvatarPickerModal({ isOpen, onClose, currentAvatarId, cu
           </div>
         </div>
 
-        {/* Animal picker */}
-        <div className="avatar-picker-section avatar-picker-section-scroll">
-          <span className="avatar-picker-label">Animal</span>
-          <div className="avatar-picker-grid">
-            {AVATARS.map((avatar) => (
+        {/* Pack toggle */}
+        <div className="avatar-picker-section">
+          <div className="avatar-pack-tabs">
+            {PACKS.map((pack, i) => (
               <button
-                key={avatar.id}
-                className={`avatar-grid-item ${selectedId === avatar.id ? 'active' : ''}`}
-                style={{
-                  backgroundColor: selectedColor,
-                  '--avatar-outline-color': outlineColor,
-                }}
-                onClick={() => setSelectedId(avatar.id)}
+                key={pack.key}
+                className={`avatar-pack-tab ${packIndex === i ? 'active' : ''}`}
+                onClick={() => switchPack(i)}
               >
-                <img src={getAvatarUrl(avatar.id)} alt={avatar.name} draggable={false} />
+                {pack.label}
+                {packIndex === i && (
+                  <motion.div
+                    className="avatar-pack-tab-indicator"
+                    layoutId="pack-indicator"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Animal grid with carousel animation */}
+        <div className="avatar-picker-section avatar-picker-section-scroll">
+          <AnimatePresence mode="wait" initial={false} custom={slideDir}>
+            <motion.div
+              key={activePack.key}
+              className="avatar-picker-grid"
+              custom={slideDir}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              variants={{
+                enter: (dir) => ({ opacity: 0, x: dir * 80 }),
+                center: { opacity: 1, x: 0 },
+                exit: (dir) => ({ opacity: 0, x: dir * -80 }),
+              }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+            >
+              {activePack.avatars.map((avatar) => (
+                <button
+                  key={avatar.id}
+                  className={`avatar-grid-item ${selectedId === avatar.id ? 'active' : ''}`}
+                  style={{
+                    backgroundColor: selectedColor,
+                    '--avatar-outline-color': outlineColor,
+                  }}
+                  onClick={() => setSelectedId(avatar.id)}
+                >
+                  <img src={getAvatarUrl(avatar.id)} alt={avatar.name} draggable={false} />
+                </button>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Save */}

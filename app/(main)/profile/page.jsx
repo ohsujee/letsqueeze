@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useMemo, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { onAuthStateChanged, auth, signOutUser, signInWithGoogle, signInWithApple, db } from '@/lib/firebase';
 import { deleteUser } from 'firebase/auth';
 import { ref as dbRef, remove, set } from 'firebase/database';
@@ -16,6 +16,9 @@ import { openManageSubscriptions } from '@/lib/revenuecat';
 import hueService from '@/lib/hue-module/services/hueService';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProfileSkeleton from '@/components/ui/ProfileSkeleton';
+import Avatar from '@/components/ui/Avatar';
+import AvatarPickerModal from '@/components/ui/AvatarPickerModal';
+import SpotlightTip from '@/components/ui/SpotlightTip';
 import { HueLogo, DeezerLogo, GoogleIcon, AppleIcon } from '@/components/icons';
 import { version as pkgVersion } from '../../../package.json';
 import { useAppVersion } from '@/lib/hooks/useAppVersion';
@@ -45,6 +48,31 @@ export default function ProfilePage() {
       set(dbRef(db, `users/${user.uid}/memberSince`), ts);
     }
   }, [isAdmin, memberSince, user]);
+
+  // Avatar picker state
+  const [showAvatarPicker, setShowAvatarPicker] = useState(false);
+  const avatarRef = useRef(null);
+  const searchParams = useSearchParams();
+  const [showAvatarTip, setShowAvatarTip] = useState(false);
+
+  useEffect(() => {
+    if (loading) return;
+    const fromOnboarding = searchParams.get('pickAvatar') === '1';
+    const skippedAvatar = storage.get('showAvatarTipOnProfile');
+    if (fromOnboarding || skippedAvatar) {
+      storage.remove('showAvatarTipOnProfile');
+      setTimeout(() => setShowAvatarTip(true), 800);
+    }
+  }, [searchParams, loading]);
+
+  const handleSaveAvatar = async ({ avatarId, avatarColor }) => {
+    if (!user?.uid) return;
+    try {
+      await set(dbRef(db, `users/${user.uid}/avatar`), { id: avatarId, color: avatarColor });
+    } catch (err) {
+      console.error('[Avatar] Save error:', err);
+    }
+  };
 
   // Pseudo editing state
   const [isEditingPseudo, setIsEditingPseudo] = useState(false);
@@ -188,16 +216,6 @@ export default function ProfilePage() {
     }
   };
 
-  const getInitials = (name) => {
-    if (!name) return '?';
-    return name
-      .split(' ')
-      .map(n => n[0])
-      .join('')
-      .toUpperCase()
-      .slice(0, 2);
-  };
-
   // Pseudo editing handlers
   const handleStartEditPseudo = () => {
     setNewPseudo(profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || '');
@@ -254,11 +272,14 @@ export default function ProfilePage() {
       <main className="profile-content">
         {/* Profile Header */}
         <section className="profile-header">
-          <div className="profile-avatar-container">
-            <div className="profile-avatar-placeholder">
-              {getInitials(user?.displayName)}
-            </div>
-          </div>
+          <Avatar
+            ref={avatarRef}
+            initial={(profile?.pseudo?.[0] || cachedPseudo?.[0] || user?.displayName?.[0] || 'J').toUpperCase()}
+            size="lg"
+            avatarId={profile?.avatar?.id}
+            avatarColor={profile?.avatar?.color}
+            onClick={() => setShowAvatarPicker(true)}
+          />
 
           <div className="user-info">
             <AnimatePresence mode="wait">
@@ -602,9 +623,25 @@ export default function ProfilePage() {
           </div>
         )}
 
-        {/* Bottom padding for nav */}
-        <div className="bottom-padding"></div>
       </main>
+
+        {/* Avatar Picker */}
+        <AvatarPickerModal
+          isOpen={showAvatarPicker}
+          onClose={() => setShowAvatarPicker(false)}
+          currentAvatarId={profile?.avatar?.id}
+          currentColor={profile?.avatar?.color}
+          onSave={handleSaveAvatar}
+        />
+
+        <SpotlightTip
+          targetRef={avatarRef}
+          message="Clique ici pour choisir ton avatar !"
+          show={showAvatarTip}
+          onDismiss={() => setShowAvatarTip(false)}
+          onTargetClick={() => setShowAvatarPicker(true)}
+        />
+
         </motion.div>
       )}
     </AnimatePresence>

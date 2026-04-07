@@ -17,7 +17,7 @@
   border-radius: 20px 20px 0 0;
   width: 100%;
   max-width: 480px;
-  max-height: 85vh;
+  max-height: 95vh;
   overflow: hidden;
   padding: 20px 16px 16px;
   display: flex;
@@ -103,6 +103,53 @@
   color: #6b6b8a;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+/* Pack tabs */
+.avatar-pack-tabs {
+  display: flex;
+  gap: 6px;
+  background: #222240;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.avatar-pack-tab {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #6b6b8a;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.avatar-pack-tab {
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-pack-tab.active {
+  color: #ffffff;
+}
+
+.avatar-pack-tab-indicator {
+  position: absolute;
+  inset: 0;
+  background: #8b5cf6;
+  border-bottom: 2px solid #6d28d9;
+  border-radius: 8px;
+  z-index: -1;
+}
+
+.avatar-pack-tab:not(.active):active {
+  transform: scale(0.95);
 }
 
 /* Color picker */

@@ -1,0 +1,157 @@
+/* Selector Flat — Shared styles for CreateOrJoin, GameMode, AudioMode modals */
+
+.sel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 8, 15, 0.92);
+  z-index: 9998;
+}
+
+.sel-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  pointer-events: none;
+}
+
+.sel-modal {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: #1a1a2e;
+  border: none;
+  border-bottom: 4px solid #13132a;
+  border-radius: 20px;
+  padding: 24px;
+  pointer-events: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+.sel-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ef4444;
+  border: none;
+  border-bottom: 3px solid #b91c1c;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.sel-close:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.sel-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.sel-title {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.4rem;
+  color: white;
+  margin: 0 0 8px 0;
+}
+
+.sel-subtitle {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9rem;
+  color: #d4d4e0;
+  margin: 0;
+}
+
+.sel-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sel-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #222240;
+  border: none;
+  border-bottom: 3px solid #1a1a35;
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.sel-option:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.sel-option-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  flex-shrink: 0;
+  border: none;
+  border-bottom: 3px solid;
+}
+
+.sel-option-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sel-option-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 4px 0;
+}
+
+.sel-option-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.sel-option-desc {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.85rem;
+  color: #d4d4e0;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.sel-player-pill {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fff;
+  background: #3a3a58;
+  border: none;
+  border-bottom: 2px solid #2a2a45;
+  border-radius: 6px;
+  padding: 2px 7px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

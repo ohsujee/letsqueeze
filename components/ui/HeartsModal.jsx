@@ -1,44 +1,35 @@
 'use client';
 
 /**
- * HeartsModal
+ * HeartsModal — Flat Cartoon Style
  * S'affiche quand le joueur clique sur sa barre de cœurs ou tente de jouer sans cœurs.
- * Mode "info" (cœurs > 0) ou mode "bloquant" (0 cœur).
- *
- * TODO Phase 2 : brancher isWatchingAd, onWatchAd, onUpgrade avec useHearts
  */
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Crown, X, Play } from 'lucide-react';
+import { X, Play, GameController, Clock, FilmSlate } from '@phosphor-icons/react';
+import { Crown } from 'lucide-react';
 import { useBackHandler } from '@/lib/hooks/useBackHandler';
+import './hearts-modal.css';
 
 const MAX_HEARTS = 5;
 
 function HeartSVG({ full, size = 28 }) {
-  const h = Math.round(size * (22 / 24));
   return (
     <svg
       width={size}
-      height={h}
-      viewBox="0 0 24 22"
+      height={size}
+      viewBox="0 0 455.111 455.111"
       xmlns="http://www.w3.org/2000/svg"
       style={{ flexShrink: 0, display: 'block' }}
     >
-      <path
-        d="M12 21C12 21 2 14 2 7.5C2 4.42 4.42 2 7.5 2C9.24 2 10.91 2.81 12 4.09C13.09 2.81 14.76 2 16.5 2C19.58 2 22 4.42 22 7.5C22 14 12 21 12 21Z"
-        fill={full ? '#ff2d55' : 'rgba(255,255,255,0.15)'}
-        stroke={full ? '#c41230' : 'rgba(255,255,255,0.25)'}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {full && (
-        <path
-          d="M8.5 7.5C8.5 7.5 9.5 6 11.5 6.5"
-          stroke="rgba(255,255,255,0.55)"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
+      {full ? (
+        <>
+          <path fill="#E24C4B" d="M455.111,164.089c0,137.956-163.556,228.978-213.333,253.156c-8.533,4.267-19.911,4.267-28.444,0C163.556,393.067,0,304.889,0,164.089C0,92.978,52.622,34.667,116.622,34.667c51.2,0,93.867,35.556,109.511,85.333c15.644-49.778,59.733-85.333,109.511-85.333C402.489,34.667,455.111,92.978,455.111,164.089z" />
+          <path fill="#D1403F" d="M455.111,164.089c0,137.956-163.556,228.978-213.333,253.156c-8.533,4.267-19.911,4.267-29.867,0c-22.756-9.956-65.422-34.133-108.089-68.267h1.422c135.111,0,243.2-109.511,243.2-243.2c0-24.178-4.267-48.356-11.378-71.111C403.911,36.089,455.111,92.978,455.111,164.089z" />
+          <path fill="#FFFFFF" opacity="0.2" d="M109.511,142.756c-22.756,5.689-44.089-2.844-48.356-18.489C58.311,107.2,72.533,90.133,95.289,84.444s44.089,2.844,48.356,18.489C147.911,120,132.267,137.067,109.511,142.756z" />
+        </>
+      ) : (
+        <path fill="rgba(255,255,255,0.15)" d="M455.111,164.089c0,137.956-163.556,228.978-213.333,253.156c-8.533,4.267-19.911,4.267-28.444,0C163.556,393.067,0,304.889,0,164.089C0,92.978,52.622,34.667,116.622,34.667c51.2,0,93.867,35.556,109.511,85.333c15.644-49.778,59.733-85.333,109.511-85.333C402.489,34.667,455.111,92.978,455.111,164.089z" />
       )}
     </svg>
   );
@@ -61,229 +52,108 @@ export default function HeartsModal({
 
   const isBlocked = heartsRemaining === 0;
 
-  const headerGradient = isBlocked
-    ? 'linear-gradient(135deg, #7a0a1e, #c41230)'
-    : 'linear-gradient(135deg, #c41230, #ff2d55)';
-
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 1000,
-            background: 'rgba(0,0,0,0.88)',
-            backdropFilter: 'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '20px',
-          }}
+          className="hm-overlay"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={canClose ? onClose : undefined}
         >
           <motion.div
-            style={{
-              width: '100%',
-              maxWidth: '360px',
-              background: 'linear-gradient(180deg, #191924 0%, #0f0f16 100%)',
-              borderRadius: 20,
-              overflow: 'hidden',
-              border: '1.5px solid rgba(255,255,255,0.1)',
-              /* Flat : ombre solide sans glow coloré */
-              boxShadow: '0 8px 0 rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
-            }}
+            className="hm-modal"
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             onClick={e => e.stopPropagation()}
           >
-            {/* ── Header coloré ── */}
-            <div style={{
-              position: 'relative',
-              background: headerGradient,
-              padding: '28px 24px 24px',
-              textAlign: 'center',
-            }}>
-              {/* Reflet inset top */}
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(180deg, rgba(255,255,255,0.14) 0%, transparent 55%)',
-                pointerEvents: 'none',
-              }} />
-
-              {/* Close — masqué si canClose=false */}
+            {/* Header */}
+            <div className={`hm-header ${isBlocked ? 'hm-header--blocked' : ''}`}>
               {canClose && (
-                <button
-                  onClick={onClose}
-                  style={{
-                    position: 'absolute',
-                    top: 12, right: 12,
-                    width: 34, height: 34,
-                    borderRadius: '50%',
-                    background: 'rgba(0,0,0,0.3)',
-                    border: 'none',
-                    color: 'rgba(255,255,255,0.85)',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <X size={16} />
+                <button className="hm-close" onClick={onClose}>
+                  <X weight="bold" size={16} />
                 </button>
               )}
 
-              {/* Hearts */}
-              <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 14 }}>
+              <div className="hm-hearts-row">
                 {Array.from({ length: MAX_HEARTS }).map((_, i) => (
-                  <HeartSVG key={i} full={i < heartsRemaining} size={30} />
+                  <HeartSVG key={i} full={i < heartsRemaining} size={32} />
                 ))}
               </div>
 
-              {/* Title */}
-              <h2 style={{
-                fontFamily: "'Bungee', cursive",
-                fontSize: '1.3rem',
-                color: 'white',
-                margin: 0,
-                textTransform: 'uppercase',
-                letterSpacing: '0.02em',
-                textShadow: '0 2px 8px rgba(0,0,0,0.4)',
-              }}>
+              <h2 className="hm-title">
                 {isBlocked
-                  ? 'Plus de cœurs !'
+                  ? 'Oups, plus de cœurs !'
                   : `${heartsRemaining} cœur${heartsRemaining !== 1 ? 's' : ''} restant${heartsRemaining !== 1 ? 's' : ''}`}
               </h2>
             </div>
 
-            {/* ── Body ── */}
-            <div style={{ padding: '20px 20px 24px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {/* Body */}
+            <div className="hm-body">
+              {/* Explication */}
+              <div className="hm-info-block">
+                {isBlocked ? (
+                  <>
+                    <div className="hm-info-row">
+                      <FilmSlate size={18} weight="fill" className="hm-info-icon" />
+                      <span className="hm-info-text">Regarde une courte vidéo pour récupérer tous tes cœurs</span>
+                    </div>
+                    <div className="hm-info-row">
+                      <Clock size={18} weight="fill" className="hm-info-icon" />
+                      <span className="hm-info-text">Sinon, ils se rechargent automatiquement à minuit</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="hm-info-row">
+                      <GameController size={18} weight="fill" className="hm-info-icon" />
+                      <span className="hm-info-text">Chaque partie utilise 1 cœur</span>
+                    </div>
+                    <div className="hm-info-row">
+                      <Clock size={18} weight="fill" className="hm-info-icon" />
+                      <span className="hm-info-text">Tous les cœurs se rechargent à minuit</span>
+                    </div>
+                    <div className="hm-info-row">
+                      <FilmSlate size={18} weight="fill" className="hm-info-icon" />
+                      <span className="hm-info-text">Regarde une pub pour recharger à tout moment</span>
+                    </div>
+                  </>
+                )}
+              </div>
 
-              {/* Description */}
-              <p style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '0.875rem',
-                color: 'rgba(255,255,255,0.55)',
-                margin: '0 0 4px',
-                lineHeight: 1.55,
-                textAlign: 'center',
-              }}>
-                {isBlocked
-                  ? 'Regarde une courte vidéo pour recharger tes 5 cœurs gratuitement. Ou passe Pro pour des vies infinies et zéro pub.'
-                  : 'Chaque partie utilise 1 cœur. Ils se rechargent automatiquement à minuit. Passe Pro pour jouer sans limite.'}
-              </p>
-
-              {/* ── Bouton vidéo (vert) — action immédiate ── */}
-              {canRecharge && (
+              {/* Bouton vidéo — toujours visible dès qu'un cœur manque */}
+              {canRecharge && heartsRemaining < MAX_HEARTS && (
                 <motion.button
-                  style={{
-                    position: 'relative',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 9,
-                    width: '100%',
-                    padding: '14px 16px',
-                    background: 'linear-gradient(135deg, #22c55e, #16a34a)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: 12,
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: '0.9rem',
-                    fontWeight: 700,
-                    cursor: isWatchingAd ? 'wait' : 'pointer',
-                    opacity: isWatchingAd ? 0.6 : 1,
-                    boxShadow: '0 4px 0 #15803d',
-                    overflow: 'visible',
-                  }}
+                  className={`hm-btn hm-btn--recharge ${isWatchingAd ? 'hm-btn--loading' : ''}`}
                   onClick={onWatchAd}
                   disabled={isWatchingAd}
-                  whileHover={isWatchingAd ? {} : { y: -1, boxShadow: '0 5px 0 #15803d' }}
-                  whileTap={isWatchingAd ? {} : { y: 3, boxShadow: '0 1px 0 #15803d' }}
+                  whileTap={isWatchingAd ? {} : { y: 2 }}
                 >
-                  {/* Sticker PUB */}
-                  {!isWatchingAd && (
-                    <div style={{
-                      position: 'absolute',
-                      top: -10,
-                      right: -4,
-                      background: 'white',
-                      color: '#15803d',
-                      fontSize: '0.6rem',
-                      fontWeight: 900,
-                      padding: '3px 7px',
-                      borderRadius: 5,
-                      transform: 'rotate(8deg)',
-                      letterSpacing: '0.1em',
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      textTransform: 'uppercase',
-                      pointerEvents: 'none',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.35)',
-                    }}>
-                      Pub
-                    </div>
-                  )}
-                  <Play size={16} fill="white" strokeWidth={0} />
+                  {!isWatchingAd && <span className="hm-sticker">Pub</span>}
+                  <Play weight="fill" size={16} />
                   {isWatchingAd ? 'Chargement...' : 'Recharger mes cœurs'}
                 </motion.button>
               )}
 
-              {/* ── Bouton Pro (gold) — upgrade ── */}
+              {/* Bouton Pro */}
               <motion.button
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 9,
-                  width: '100%',
-                  padding: '14px 16px',
-                  background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-                  color: '#1a0e00',
-                  border: 'none',
-                  borderRadius: 12,
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '0.9rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 0 #b45309',
-                }}
+                className="hm-btn hm-btn--pro"
                 onClick={onUpgrade}
-                whileHover={{ y: -1, boxShadow: '0 5px 0 #b45309' }}
-                whileTap={{ y: 3, boxShadow: '0 1px 0 #b45309' }}
+                whileTap={{ y: 2 }}
               >
-                <Crown size={16} />
-                Jouer sans limite
+                <Crown size={18} strokeWidth={2.5} />
+                Parties illimitées, sans pub
               </motion.button>
 
-              {/* Retour accueil — seulement en mode bloquant */}
+              {/* Retour accueil si bloquant */}
               {!canClose && onGoHome && (
-                <button
-                  onClick={onGoHome}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '100%',
-                    padding: '12px 16px',
-                    background: 'transparent',
-                    color: 'rgba(255,255,255,0.4)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: 12,
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.85rem',
-                    cursor: 'pointer',
-                  }}
-                >
+                <button className="hm-btn hm-btn--back" onClick={onGoHome}>
                   Retour à l'accueil
                 </button>
               )}
-
             </div>
           </motion.div>
         </motion.div>

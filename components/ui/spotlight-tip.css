@@ -1,0 +1,81 @@
+/* ===========================================
+   SpotlightTip — Tutorial Highlight Overlay
+   =========================================== */
+
+.spotlight-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+}
+
+.spotlight-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.spotlight-ring {
+  animation: spotlight-breathe 2s ease-in-out infinite;
+}
+
+@keyframes spotlight-breathe {
+  0%, 100% { r: var(--ring-r); opacity: 1; }
+  50% { r: calc(var(--ring-r) + 6px); opacity: 0.7; }
+}
+
+/* Clickable zone over cutout */
+.spotlight-cutout-click {
+  position: absolute;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* Tooltip */
+.spotlight-tooltip {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  max-width: 300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: none;
+  border-bottom: 4px solid #e0e0e0;
+  border-radius: 14px;
+}
+
+.spotlight-message {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.spotlight-dismiss {
+  padding: 10px 24px;
+  background: #8b5cf6;
+  border: none;
+  border-bottom: 3px solid #6d28d9;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.spotlight-dismiss:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}

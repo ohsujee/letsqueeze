@@ -1,0 +1,222 @@
+/* ===========================================
+   Hearts Modal — Flat Cartoon Style
+   =========================================== */
+
+.hm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(8, 8, 15, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.hm-modal {
+  width: 100%;
+  max-width: 360px;
+  background: #1a1a2e;
+  border: none;
+  border-bottom: 4px solid #13132a;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* Header */
+.hm-header {
+  position: relative;
+  padding: 28px 24px 20px;
+  text-align: center;
+  background: #8b5cf6;
+  border-bottom: 3px solid #6d28d9;
+}
+
+.hm-header--blocked {
+  background: #ef4444;
+  border-bottom-color: #b91c1c;
+}
+
+.hm-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hm-close:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+.hm-hearts-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.hm-title {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.hm-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #ffffff;
+  margin: 8px 0 0;
+}
+
+/* Body */
+.hm-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Info block */
+.hm-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px;
+  background: #222240;
+  border: none;
+  border-bottom: 2px solid #1a1a35;
+  border-radius: 12px;
+}
+
+.hm-info-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hm-info-icon {
+  flex-shrink: 0;
+  color: #8b5cf6;
+}
+
+.hm-info-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #d4d4e0;
+  margin: 0;
+}
+
+/* Buttons */
+.hm-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+}
+
+.hm-btn--recharge {
+  background: #22c55e;
+  border-bottom: 3px solid #15803d;
+  color: #ffffff;
+}
+
+.hm-btn--recharge:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.hm-btn--loading {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.hm-btn--pro {
+  background: linear-gradient(135deg, #ffd700, #ffb700);
+  border-bottom: 3px solid #d4a000;
+  color: #5c3d00;
+  overflow: hidden;
+  position: relative;
+}
+
+.hm-btn--pro::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 80%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: hm-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes hm-shimmer {
+  0% { left: -100%; }
+  50%, 100% { left: 200%; }
+}
+
+.hm-btn--pro:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.hm-btn--back {
+  background: #222240;
+  border-bottom: 2px solid #1a1a35;
+  color: #6b6b8a;
+}
+
+.hm-btn--back:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+/* Sticker PUB */
+.hm-sticker {
+  position: absolute;
+  top: -10px;
+  right: -4px;
+  background: #ef4444;
+  border-bottom: 2px solid #b91c1c;
+  color: #ffffff;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.55rem;
+  font-weight: 400;
+  padding: 3px 7px;
+  border-radius: 6px;
+  transform: rotate(8deg);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+}

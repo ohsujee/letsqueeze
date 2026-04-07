@@ -448,14 +448,14 @@ input[type="text"].game-search-input:focus,
    HEADER — Flat Cartoon
    =========================================== */
 
-/* Wrapper pour le positionnement des cœurs qui débordent */
+/* Wrapper pour le header + étiquette cœurs */
 .home-header-wrapper {
   position: relative;
-  margin-bottom: calc(2rem + 18px);
+  margin-bottom: 1.5rem;
 }
 
 .home-header-wrapper--pro {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .home-header-modern {
@@ -470,37 +470,11 @@ input[type="text"].game-search-input:focus,
   border-bottom: 3px solid #13132a;
   border-radius: 16px;
   overflow: visible;
-}
-
-.avatar-container {
   position: relative;
+  z-index: 1;
 }
 
-.avatar-placeholder {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 3px solid #6d28d9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #8b5cf6;
-  color: white;
-  font-family: var(--font-title, 'Bungee'), cursive;
-  font-size: 1.1rem;
-  font-weight: 400;
-}
-
-.avatar-status {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 12px;
-  height: 12px;
-  background: #22c55e;
-  border-radius: 50%;
-  border: 2px solid #1a1a2e;
-}
+/* Avatar styles are in components/ui/avatar.css — imported by Avatar.jsx */
 
 .home-header-modern .user-name {
   font-family: var(--font-title, 'Bungee'), cursive;
@@ -522,76 +496,52 @@ input[type="text"].game-search-input:focus,
   flex-shrink: 0;
 }
 
-/* ─── Hearts Anchor — conteneur positionné, flex centre la pill ─── */
-.hearts-anchor {
-  position: absolute;
-  bottom: -18px;
-  left: 0;
-  right: 0;
+/* ─── Hearts Tag — étiquette flat stackée derrière le header ─── */
+.hearts-tag {
   display: flex;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.hearts-anchor > * {
-  pointer-events: all;
-}
-
-/* ─── Hearts Bar — Flat Cartoon ─── */
-.hearts-bar {
-  display: inline-flex;
-  flex-direction: row;
   align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-  height: 36px;
-  padding: 0 16px;
-  background: #2a0d18;
-  border: 2px solid #ff2d55;
-  border-bottom: 4px solid #8b1a2a;
-  border-radius: 999px;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  margin-top: -10px;
+  padding-top: 18px;
+  background: #2d1f5e;
+  border: none;
+  border-bottom: 3px solid #1a1240;
+  border-radius: 0 0 14px 14px;
   cursor: pointer;
-  transition: transform 0.12s ease;
 }
 
-.hearts-bar:active {
-  transform: translateY(2px);
+.hearts-tag:active {
+  transform: translateY(1px);
   border-bottom-width: 2px;
 }
 
-.hearts-bar--empty {
-  border-color: #3a3a58;
+.hearts-tag--empty {
+  background: #3a3a58;
   border-bottom-color: #2a2a45;
   animation: hearts-pulse 2s ease-in-out infinite;
 }
 
 @keyframes hearts-pulse {
-  0%, 100% { border-color: #3a3a58; border-bottom-color: #2a2a45; }
-  50%      { border-color: #ff2d55; border-bottom-color: #8b1a2a; }
+  0%, 100% { background: #3a3a58; border-bottom-color: #2a2a45; }
+  50%      { background: #2d1f5e; border-bottom-color: #1a1240; }
 }
 
 .hearts-row {
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 4px;
-  flex-wrap: nowrap;
 }
 
-.hearts-bar-plus {
+.hearts-tag-text {
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: #ff2d55;
-  line-height: 1;
-  border: 1.5px solid #ff2d55;
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Pro Badge — wrapper 3D pour le flip (pas d'overflow ici) */

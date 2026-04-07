@@ -18,6 +18,7 @@ import AudioModeSelector from '@/components/ui/AudioModeSelector';
 import CreateOrJoinSelector from '@/components/ui/CreateOrJoinSelector';
 import HowToPlayModal from '@/components/ui/HowToPlayModal';
 import RejoinBanner from '@/components/ui/RejoinBanner';
+import RedesignOnboarding from '@/components/ui/RedesignOnboarding';
 import HomeHeader from '@/components/home/HomeHeader';
 import GameFilterBar from '@/components/home/GameFilterBar';
 import { useActiveGameCheck } from '@/lib/hooks/usePlayerCleanup';
@@ -61,6 +62,9 @@ function HomePageContent() {
     isRecharging,
   } = useHearts({ isPro, uid: user?.uid ?? null });
   const [showRejoinBanner, setShowRejoinBanner] = useState(true);
+  const [showRedesignOnboarding, setShowRedesignOnboarding] = useState(
+    !storage.get('hasSeenRedesignOnboarding')
+  );
 
   // Search & Filter state
   const [searchQuery, setSearchQuery] = useState('');
@@ -445,10 +449,13 @@ function HomePageContent() {
         <HomeHeader
           displayName={profile?.pseudo || cachedPseudo || user?.displayName?.split(' ')[0] || 'Joueur'}
           avatarInitial={(profile?.pseudo?.[0] || cachedPseudo?.[0] || user?.displayName?.[0] || 'J').toUpperCase()}
+          avatarId={profile?.avatar?.id}
+          avatarColor={profile?.avatar?.color}
           isPro={isPro}
           heartsRemaining={heartsRemaining}
           heartsVisible={!profileLoading && !isPro}
           onHeartsClick={handleOpenHeartsModal}
+          onAvatarClick={() => router.push('/profile')}
         />
 
         {/* Rejoin Banner - Show when player has an active game */}
@@ -592,6 +599,11 @@ function HomePageContent() {
         onClose={handleCloseHowToPlay}
         gameType={helpGameId}
       />
+
+      {/* Redesign Onboarding - shown to connected users */}
+      {showRedesignOnboarding && user && (
+        <RedesignOnboarding onComplete={() => setShowRedesignOnboarding(false)} />
+      )}
 
       {/* Entry Transition - Door opening animation before entering lobby */}
       {showEntryTransition && transitionConfig && (
