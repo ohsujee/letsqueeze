@@ -128,9 +128,6 @@
   letter-spacing: 0.05em;
   cursor: pointer;
   transition: all 0.15s ease;
-}
-
-.avatar-pack-tab {
   position: relative;
   z-index: 1;
 }

@@ -2,7 +2,6 @@
 import { Suspense } from "react";
 import JoinClient from "./page.client";
 import '@/app/join/quiz-join.css';
-import '@/app/join/alibi-join.css';
 
 export const dynamic = "force-dynamic"; // évite le prerender strict
 

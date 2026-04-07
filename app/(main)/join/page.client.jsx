@@ -7,7 +7,8 @@ import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { useHearts } from "@/lib/hooks/useHearts";
 import { useHeartsLobbyGuard } from "@/lib/hooks/useHeartsLobbyGuard";
 import HeartsModal from "@/components/ui/HeartsModal";
-import { User, Pencil, Check, X, AlertCircle, PlayCircle, SearchX } from "lucide-react";
+import { PencilSimple, WarningCircle, PlayCircle, MagnifyingGlass } from "@phosphor-icons/react";
+import Avatar from "@/components/ui/Avatar";
 import { ROOM_TYPES } from "@/lib/config/rooms";
 import { isPro } from "@/lib/subscription";
 import ATTPromptHandler from "@/components/game/ATTPromptHandler";
@@ -255,75 +256,53 @@ export default function JoinClient({ initialCode = "" }) {
             </div>
           </div>
 
-          {/* Pseudo section with edit capability */}
+          {/* Player banner */}
           <div className="pseudo-section">
-            <AnimatePresence mode="wait">
-              {isEditingPseudo ? (
-                <motion.div
-                  key="editing"
-                  className="pseudo-edit-row"
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                >
-                  <User size={16} className="pseudo-icon" />
-                  <span className="pseudo-label">Tu joues en tant que</span>
-                  <input
-                    type="text"
-                    className={`pseudo-input ${pseudoError ? 'has-error' : ''}`}
-                    value={editedPseudo}
-                    onChange={e => handlePseudoChange(e.target.value)}
-                    maxLength={16}
-                    autoFocus
-                    onKeyDown={e => {
-                      if (e.key === 'Enter') savePseudo();
-                      if (e.key === 'Escape') cancelEditPseudo();
-                    }}
-                  />
-                  <button
-                    className="pseudo-action-btn save"
-                    onClick={savePseudo}
-                    disabled={savingPseudo}
-                    title="Confirmer"
-                  >
-                    <Check size={16} />
-                  </button>
-                  <button
-                    className="pseudo-action-btn cancel"
-                    onClick={cancelEditPseudo}
-                    disabled={savingPseudo}
-                    title="Annuler"
-                  >
-                    <X size={16} />
-                  </button>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="display"
-                  className="pseudo-preview"
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                >
-                  <div className="pseudo-preview-label">
-                    <User size={14} className="pseudo-icon" />
-                    <span className="pseudo-label">Tu joues en tant que</span>
-                  </div>
-                  <div className="pseudo-preview-name">
+            <div className="pseudo-card">
+              <span className="pseudo-label">Tu joues en tant que</span>
+              <div className="pseudo-banner">
+                <Avatar
+                  initial={pseudo?.[0]?.toUpperCase() || '?'}
+                  size="sm"
+                  avatarId={profile?.avatar?.id}
+                  avatarColor={profile?.avatar?.color}
+                />
+                <div className="pseudo-banner-info">
+                  {isEditingPseudo ? (
+                    <input
+                      type="text"
+                      className={`pseudo-input ${pseudoError ? 'has-error' : ''}`}
+                      value={editedPseudo}
+                      onChange={e => handlePseudoChange(e.target.value)}
+                      maxLength={16}
+                      autoFocus
+                      onKeyDown={e => {
+                        if (e.key === 'Enter') savePseudo();
+                        if (e.key === 'Escape') cancelEditPseudo();
+                      }}
+                    />
+                  ) : (
                     <span className="pseudo-name">{pseudo}</span>
-                    <button
-                      className="pseudo-edit-btn"
-                      onClick={startEditPseudo}
-                      title="Modifier le pseudo"
-                    >
-                      <Pencil size={14} />
-                    </button>
-                  </div>
-                </motion.div>
+                  )}
+                </div>
+              </div>
+              {isEditingPseudo ? (
+                <div className="pseudo-card-actions">
+                  <button className="pseudo-action-btn cancel" onClick={cancelEditPseudo} disabled={savingPseudo}>
+                    Annuler
+                  </button>
+                  <button className="pseudo-action-btn save" onClick={savePseudo} disabled={savingPseudo}>
+                    Valider
+                  </button>
+                </div>
+              ) : (
+                <button className="pseudo-modify-btn" onClick={startEditPseudo}>
+                  <PencilSimple size={14} weight="fill" />
+                  Modifier le nom
+                </button>
               )}
-            </AnimatePresence>
+            </div>
 
-            {/* Pseudo error message */}
             <AnimatePresence>
               {pseudoError && (
                 <motion.div
@@ -357,7 +336,7 @@ export default function JoinClient({ initialCode = "" }) {
                   exit={{ opacity: 0, y: 10 }}
                 >
                   <div className="join-error-card-icon warning">
-                    <PlayCircle size={22} />
+                    <PlayCircle size={22} weight="fill" />
                   </div>
                   <div className="join-error-card-content">
                     <span className="join-error-card-title warning">Partie en cours</span>
@@ -374,7 +353,7 @@ export default function JoinClient({ initialCode = "" }) {
                   exit={{ opacity: 0, y: 10 }}
                 >
                   <div className="join-error-card-icon danger">
-                    <SearchX size={22} />
+                    <MagnifyingGlass size={22} weight="fill" />
                   </div>
                   <div className="join-error-card-content">
                     <span className="join-error-card-title danger">Code introuvable</span>
@@ -390,7 +369,7 @@ export default function JoinClient({ initialCode = "" }) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
                 >
-                  <AlertCircle size={16} />
+                  <WarningCircle size={16} weight="fill" />
                   <span>{error}</span>
                 </motion.div>
               )

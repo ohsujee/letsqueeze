@@ -21,7 +21,6 @@ import Avatar from '@/components/ui/Avatar';
 import AvatarPickerModal from '@/components/ui/AvatarPickerModal';
 import SpotlightTip from '@/components/ui/SpotlightTip';
 import { HueLogo, DeezerLogo, GoogleIcon, AppleIcon } from '@/components/icons';
-import { version as pkgVersion } from '../../../package.json';
 import { useAppVersion } from '@/lib/hooks/useAppVersion';
 import './profile.css';
 

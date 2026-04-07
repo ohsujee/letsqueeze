@@ -1,12 +1,30 @@
-/* Join Page - Component-specific styles */
+/* ===========================================
+   Join Page — Flat Cartoon Style
+   =========================================== */
 
-/* Help text */
+/* Header card */
+.join-header {
+  background: #1a1a2e;
+  border: none;
+  border-bottom: 3px solid #13132a;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.join-header .page-title {
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
 .join-help-text {
   font-family: var(--font-body, 'Inter'), sans-serif;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  color: #d4d4e0;
   text-align: center;
-  margin: 12px 0 0 0;
+  margin: 0;
   line-height: 1.5;
 }
 
@@ -39,31 +57,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(139, 92, 246, 0.3);
-  border-radius: 12px;
+  background: #222240;
+  border: none;
+  border-bottom: 3px solid #1a1a35;
+  border-radius: 10px;
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.3);
+  color: #6b6b8a;
   transition: all 0.2s ease;
 }
 
 .code-box.filled {
-  color: var(--quiz-primary, #8b5cf6);
-  border-color: var(--quiz-primary, #8b5cf6);
-  background: rgba(139, 92, 246, 0.15);
+  color: #ffffff;
+  background: #8b5cf6;
+  border-bottom-color: #6d28d9;
 }
 
 .code-box.active {
-  border-color: var(--quiz-primary, #8b5cf6);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
-  animation: pulse-box 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse-box {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2); }
-  50% { box-shadow: 0 0 0 5px rgba(139, 92, 246, 0.1); }
+  border-bottom-color: #8b5cf6;
 }
 
 /* Pseudo section */
@@ -71,85 +83,81 @@
   margin-bottom: 12px;
 }
 
-.pseudo-preview {
+.pseudo-card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 14px 16px;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  border-radius: 12px;
-}
-
-.pseudo-preview-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.pseudo-preview-name {
-  display: flex;
-  align-items: center;
   gap: 10px;
-  padding-left: 22px;
+  padding: 14px 16px;
+  background: #222240;
+  border: none;
+  border-bottom: 2px solid #1a1a35;
+  border-radius: 12px;
 }
 
-.pseudo-edit-row {
+.pseudo-banner {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  border-radius: 12px;
-  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.pseudo-preview .pseudo-icon,
-.pseudo-edit-row .pseudo-icon {
-  color: var(--quiz-primary, #8b5cf6);
-  flex-shrink: 0;
+.pseudo-banner-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pseudo-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.pseudo-modify-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px;
+  background: #3a3a58;
+  border: none;
+  border-bottom: 2px solid #2a2a45;
+  border-radius: 8px;
+  color: #8a8aa0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.pseudo-modify-btn:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
 }
 
 .pseudo-label {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: #8a8aa0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-align: center;
+  width: 100%;
 }
 
 .pseudo-name {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   font-size: 1.2rem;
-  color: var(--quiz-primary, #8b5cf6);
+  color: #ffffff;
 }
 
-.pseudo-edit-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.6);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.pseudo-edit-btn:hover {
-  background: rgba(139, 92, 246, 0.3);
-  color: white;
-}
 
 .pseudo-input {
   flex: 1;
-  min-width: 80px;
-  padding: 6px 10px !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 2px solid rgba(139, 92, 246, 0.5) !important;
+  min-width: 0;
+  padding: 4px 8px !important;
+  background: #1a1a2e !important;
+  border: 2px solid #8b5cf6 !important;
   border-radius: 8px !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
@@ -158,64 +166,65 @@
   font-weight: 700 !important;
   outline: none !important;
   box-shadow: none !important;
-  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
 .pseudo-input:focus,
 .pseudo-input:focus-visible {
-  border-color: rgba(139, 92, 246, 0.9) !important;
-  background: rgba(139, 92, 246, 0.08) !important;
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15) !important;
+  border-color: #a78bfa !important;
+  background: #222240 !important;
+  box-shadow: none !important;
   outline: none !important;
 }
 
 .pseudo-input.has-error,
 .pseudo-input.has-error:focus {
   border-color: #ef4444 !important;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+  box-shadow: none !important;
 }
 
 .pseudo-input::placeholder {
-  color: rgba(255, 255, 255, 0.3) !important;
-  -webkit-text-fill-color: rgba(255, 255, 255, 0.3) !important;
+  color: #6b6b8a !important;
+  -webkit-text-fill-color: #6b6b8a !important;
 }
 
 .pseudo-action-btn {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  padding: 8px;
   border: none;
   border-radius: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  transition: all 0.2s;
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }
 
-.pseudo-action-btn:focus,
-.pseudo-action-btn:focus-visible {
-  outline: none;
-}
-
 .pseudo-action-btn.save {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  background: #22c55e;
+  border-bottom: 2px solid #15803d;
+  color: #ffffff;
 }
 
-.pseudo-action-btn.save:hover {
-  background: rgba(34, 197, 94, 0.4);
+.pseudo-action-btn.save:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
 }
 
 .pseudo-action-btn.cancel {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.5);
+  background: #3a3a58;
+  border-bottom: 2px solid #2a2a45;
+  color: #8a8aa0;
 }
 
-.pseudo-action-btn.cancel:hover {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+.pseudo-action-btn.cancel:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
 }
 
 .pseudo-action-btn:disabled {
@@ -236,10 +245,11 @@
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: rgba(239, 68, 68, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: #ef4444;
+  border: none;
+  border-bottom: 2px solid #b91c1c;
   border-radius: 12px;
-  color: #f87171;
+  color: #ffffff;
   font-size: 0.9rem;
   margin-top: 16px;
 }
@@ -256,16 +266,17 @@
   padding: 20px 16px;
   border-radius: 14px;
   margin-top: 12px;
+  border: none;
 }
 
 .join-error-card.warning {
-  background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(245, 158, 11, 0.08) 100%);
-  border: 2px solid rgba(251, 191, 36, 0.35);
+  background: #f59e0b;
+  border-bottom: 3px solid #b45309;
 }
 
 .join-error-card.danger {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(220, 38, 38, 0.08) 100%);
-  border: 2px solid rgba(239, 68, 68, 0.35);
+  background: #ef4444;
+  border-bottom: 3px solid #b91c1c;
 }
 
 .join-error-card-icon {
@@ -279,13 +290,13 @@
 }
 
 .join-error-card-icon.warning {
-  background: rgba(251, 191, 36, 0.2);
-  color: #fbbf24;
+  background: rgba(0, 0, 0, 0.15);
+  color: #ffffff;
 }
 
 .join-error-card-icon.danger {
-  background: rgba(239, 68, 68, 0.2);
-  color: #f87171;
+  background: rgba(0, 0, 0, 0.15);
+  color: #ffffff;
 }
 
 .join-error-card-content {
@@ -298,19 +309,20 @@
 .join-error-card-title {
   font-family: var(--font-title, 'Bungee'), cursive;
   font-size: 1rem;
+  color: #ffffff;
 }
 
 .join-error-card-title.warning {
-  color: #fbbf24;
+  color: #ffffff;
 }
 
 .join-error-card-title.danger {
-  color: #f87171;
+  color: #ffffff;
 }
 
 .join-error-card-text {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: #ffffff;
   line-height: 1.4;
   max-width: 240px;
 }

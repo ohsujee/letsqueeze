@@ -52,10 +52,6 @@
   filter: drop-shadow(0 8px 0 rgba(0, 0, 0, 0.15));
 }
 
-.ro-mascot-small {
-  width: 130px;
-}
-
 /* Texte */
 .ro-title {
   font-family: var(--font-title, 'Bungee'), cursive;

@@ -55,28 +55,6 @@
   margin: 0;
 }
 
-.pro-badge-pill {
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background: #fbbf24;
-  color: #1a1a2e;
-  border: none;
-  border-bottom: 3px solid #b45309;
-  z-index: 10;
-}
-
 /* ── Subscription Section ── */
 .subscription-section {
   margin-bottom: 1rem;
