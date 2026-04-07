@@ -1,0 +1,64 @@
+/* ===========================================
+   Avatar — shared styles, imported by Avatar.jsx
+   =========================================== */
+
+.avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-container--clickable {
+  cursor: pointer;
+}
+
+.avatar-placeholder {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  color: white;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-weight: 400;
+  overflow: hidden;
+}
+
+.avatar-placeholder--has-image {
+  align-items: flex-end;
+}
+
+.avatar-placeholder--sm {
+  width: 44px;
+  height: 44px;
+  font-size: 1.1rem;
+}
+
+.avatar-placeholder--md {
+  width: 56px;
+  height: 56px;
+  font-size: 1.4rem;
+}
+
+.avatar-placeholder--lg {
+  width: 100px;
+  height: 100px;
+  font-size: 2rem;
+}
+
+.avatar-image {
+  height: 82%;
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.avatar-status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background: #22c55e;
+  border-radius: 50%;
+  border: 2px solid #1a1a2e;
+}
