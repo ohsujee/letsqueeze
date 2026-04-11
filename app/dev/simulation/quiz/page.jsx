@@ -1,13 +1,15 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { auth, db, ref, set, update, remove, onValue, onAuthStateChanged } from '@/lib/firebase';
 import { createRoom as createFirebaseRoom } from '@/lib/config/rooms';
 
 import { QuizLobbyContent } from '@/app/room/[code]/page';
-import { QuizHostContent } from '@/app/game/[code]/host/page';
-import { QuizPlayContent } from '@/app/game/[code]/play/page';
-import { QuizEndContent } from '@/app/end/[code]/page';
+
+// Lazy load non-lobby phases — prevents CSS from all phases loading simultaneously
+const QuizHostContent = lazy(() => import('@/app/game/[code]/host/page').then(m => ({ default: m.QuizHostContent })));
+const QuizPlayContent = lazy(() => import('@/app/game/[code]/play/page').then(m => ({ default: m.QuizPlayContent })));
+const QuizEndContent = lazy(() => import('@/app/end/[code]/page').then(m => ({ default: m.QuizEndContent })));
 
 const ROOM_PREFIX = 'rooms';
 
@@ -144,6 +146,14 @@ function ControlButton({ label, color, onClick, disabled = false, filled = true 
     >
       {label}
     </button>
+  );
+}
+
+function PhaseLoader() {
+  return (
+    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0e0e1a' }}>
+      <div style={{ width: 24, height: 24, border: '3px solid #222240', borderTopColor: '#8b5cf6', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+    </div>
   );
 }
 
@@ -354,11 +364,11 @@ export default function QuizSimulator() {
       return (
         <>
           <SimPanel role="host" label="Host View" phoneW={device.w} phoneH={device.h}>
-            <QuizHostContent code={roomCode} />
+            <Suspense fallback={<PhaseLoader />}><QuizHostContent code={roomCode} /></Suspense>
           </SimPanel>
           {playerEntries.filter(([uid]) => uid !== myUid).map(([uid, player]) => (
             <SimPanel key={uid} role="player" label={`Player - ${player.name || uid}`} phoneW={device.w} phoneH={device.h}>
-              <QuizPlayContent code={roomCode} myUid={uid} />
+              <Suspense fallback={<PhaseLoader />}><QuizPlayContent code={roomCode} myUid={uid} /></Suspense>
             </SimPanel>
           ))}
         </>
@@ -368,7 +378,7 @@ export default function QuizSimulator() {
     if (displayPhase === 'ended') {
       return playerEntries.map(([uid, player]) => (
         <SimPanel key={uid} role="end" label={`End - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`} phoneW={device.w} phoneH={device.h}>
-          <QuizEndContent code={roomCode} myUid={uid} />
+          <Suspense fallback={<PhaseLoader />}><QuizEndContent code={roomCode} myUid={uid} /></Suspense>
         </SimPanel>
       ));
     }

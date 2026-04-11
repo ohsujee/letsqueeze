@@ -3,14 +3,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { X } from 'lucide-react';
+import { X } from '@phosphor-icons/react';
 import { useBackHandler } from '@/lib/hooks/useBackHandler';
 
 export default function ExitButton({
   onExit,
   confirmMessage = "Voulez-vous vraiment quitter ? Votre progression sera perdue.",
   exitLabel = "Quitter",
-  variant = "default" // "default" | "minimal" | "header"
+  variant = "default", // "default" | "minimal" | "header"
+  color = null, // Optional custom color (e.g. '#5c4420'). Overrides red default.
 }) {
   const router = useRouter();
   const [showConfirm, setShowConfirm] = useState(false);
@@ -37,8 +38,9 @@ export default function ExitButton({
         className={`exit-button exit-button-${variant}`}
         onClick={() => setShowConfirm(true)}
         aria-label="Quitter"
+        style={color ? { background: color, borderBottomColor: color } : undefined}
       >
-        <X size={variant === "header" ? 20 : 24} strokeWidth={2.5} />
+        <X size={variant === "header" ? 20 : 24} weight="bold" />
         {variant === "default" && <span className="exit-label">{exitLabel}</span>}
       </button>
 

@@ -24,6 +24,7 @@ import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
 import { useSound } from "@/lib/hooks/useSound";
 import { useAskerRotation } from "@/lib/hooks/useAskerRotation";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { storage } from "@/lib/utils/storage";
 import { SNIPPET_LEVELS, getPointsForLevel, isValidLevel } from "@/lib/constants/blindtest";
@@ -33,6 +34,7 @@ import '@/app/blindtest/blindtest-theme.css';
 const DEEZER_PURPLE = '#A238FF';
 
 export function BlindTestPlayContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

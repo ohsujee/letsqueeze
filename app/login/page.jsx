@@ -8,11 +8,13 @@ import { usePlatform } from '@/lib/hooks/usePlatform';
 import { initializeUserProfile } from '@/lib/userProfile';
 import { trackSignup, trackLogin, initAnalytics } from '@/lib/analytics';
 import { useToast } from '@/lib/hooks/useToast';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import { motion } from 'framer-motion';
 import { AuthButtons } from '@/components/auth';
 import '@/app/(auth)/login.css';
 
 export default function LoginPage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const toast = useToast();
   const { isAndroid } = usePlatform();

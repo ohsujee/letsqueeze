@@ -10,6 +10,7 @@ import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useWakeLock } from "@/lib/hooks/useWakeLock";
 import { useImposteurGame } from "@/lib/hooks/useImposteurGame";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import './imposteur-play.css';
@@ -31,6 +32,7 @@ export default function ImposteurPlay() {
 }
 
 export function ImposteurPlayContent({ overrideCode, overrideUid, code: propCode, myUid: propUid } = {}) {
+  useAppShellBg('#04060f');
   const params = useParams();
   const code = overrideCode || propCode || params?.code;
   const devUid = overrideUid || propUid || null;

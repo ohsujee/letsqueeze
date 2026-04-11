@@ -9,9 +9,11 @@ import MimeHostView from '@/components/game/MimeHostView';
 import MimeGuesserView from '@/components/game/MimeGuesserView';
 import AskerTransition from '@/components/game/AskerTransition';
 import { usePlayers } from '@/lib/hooks/usePlayers';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import './play.css';
 
 export function MimePlayContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

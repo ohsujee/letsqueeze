@@ -20,6 +20,7 @@ import { useUserProfile } from '@/lib/hooks/useUserProfile';
 import { isPro } from '@/lib/subscription';
 import { useHearts } from '@/lib/hooks/useHearts';
 import { useHeartsLobbyGuard } from '@/lib/hooks/useHeartsLobbyGuard';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import HeartsModal from '@/components/ui/HeartsModal';
 import { calculateMimeWords, MIME_CONFIG } from '@/lib/config/rooms';
 import '@/components/game/lobby-base.css';
@@ -39,6 +40,7 @@ const MIME_THEMES = [
 ];
 
 export function MimeLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

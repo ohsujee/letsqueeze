@@ -13,12 +13,14 @@
 | **Profondeur** | `border-bottom: 3-5px solid <couleur-sombre>` | `box-shadow` glow, `filter: drop-shadow` |
 | **Fonds** | Couleurs solides (`#0e0e1a`, `#1a1a2e`, `#222240`) | `rgba()`, `backdrop-filter: blur()`, gradients |
 | **Texte** | Couleur solide, pas d'effet | `text-shadow`, `glow` |
+| **Game Card titres** | Glow coloré par jeu (exception validée) | Pas de glow |
 | **Boutons** | Fond solide + `border-bottom` 3D | Gradients, pulse animations, `box-shadow` glow |
 | **Cards** | `background: var(--flat-bg)` + `border-bottom` | `backdrop-filter`, `border: 1px solid rgba(...)` |
 | **Hover** | `transform: translateY(2px)` + réduction border-bottom | `scale()`, `box-shadow` qui grossit |
 | **Active (press)** | `translateY(2px)` + `border-bottom-width: 1px` | Glow, pulse |
 | **Animations** | `transition: 200ms ease` sur background/border | Keyframes breathing, flash, pulse |
 | **Icônes** | Phosphor Icons (`@phosphor-icons/react`) | lucide-react, SVG inline, emojis comme icônes UI |
+| **Exceptions** | `Crown` lucide-react (badge Pro), `FlameIcon` SVG custom (streak) | Multiplier les exceptions |
 
 ### Palette de couleurs par jeu
 
@@ -26,7 +28,7 @@
 Quiz:      #8b5cf6 (violet)     Alibi:     #f59e0b (orange)
 BlindTest: #A238FF (magenta)    La Règle:  #06b6d4 (cyan)
 MindLink:  #ec4899 (rose)       LOL:       #EF4444 (rouge)
-Mime:      #34d399 (vert)       Imposteur: #f97316 (orange foncé)
+Mime:      #34d399 (vert)       Imposteur: #84cc16 (lime)
 ```
 
 ### Variables CSS dynamiques
@@ -90,6 +92,62 @@ Le `border-bottom` de la row elle-même utilise :
 ```css
 border-bottom-color: color-mix(in srgb, <team-color> 70%, black);
 ```
+
+### Game Cards (accueil)
+
+Les game cards multiplayer ont été redesignées en flat cartoon :
+
+| Élément | Spec |
+|---------|------|
+| **Images** | Flat cartoon style Duolingo, WebP 800px, ~25KB. Dossier: `/images/optimized/` |
+| **Titre** | Positionné à `top: 75%` (centre de la moitié basse), glow coloré par jeu |
+| **Aspect ratio** | 4/3 |
+| **Border** | `border-bottom: 4px solid rgba(0,0,0,0.5)` |
+| **Overlay** | Gradient top-bottom pour lisibilité titre |
+| **Hover** | Image zoom `scale(1.05)`, card lift `y: -8, scale: 1.02` |
+
+**Z-index scale (documentée dans globals.css) :**
+- `0` : card-bg, card-illustration
+- `1` : card-overlay (gradient)
+- `2` : game-title, pills (new, powered, joueurs)
+- `3` : action buttons (favorite, help), heart-pop
+- `4` : badges (coming-soon, countdown)
+
+**Gradients fallback** : `GAME_GRADIENTS` map module-level dans `GameCard.jsx` (pas de fonction recréée par render).
+
+### Daily Cards (défis du jour)
+
+| Élément | Spec |
+|---------|------|
+| **Images** | Flat cartoon/abstract, WebP 800px. Dossier: `/images/daily/` |
+| **Format** | 16:9 horizontal |
+| **Streak** | `FlameIcon` SVG custom avec nombre intégré, tilté -15° en coin haut gauche |
+| **Bandeau terminé** | Vert flat `#16a34a` en haut, texte blanc "Terminé" |
+| **Tri** | Jeux terminés passent en fin de liste automatiquement |
+| **Scroll hint** | Bouton flèche violet dans le header, flip au clic, scroll smooth |
+
+**Streak logic :**
+- Visible si `streak.count >= 1` ET `lastPlayedDate` = aujourd'hui ou hier
+- Si un jour est raté, le sticker disparaît
+- Nombre affiché dans la flamme SVG (taille adaptative 1/2/3 chiffres)
+
+### Outil Card Compare (dev)
+
+Page `/dev/card-compare` pour comparer ancien vs nouveau design des game cards :
+- Original (composant `GameCardOriginal` avec glow) vs New (GameCard actuel)
+- Drop d'images, crop interactif (Ctrl+Molette = zoom, Drag = position)
+- Toggle titre Centre/Bas/Off pour tester le placement
+- Persistance IndexedDB (survit au refresh)
+- Boutons Reset/Remplacer/Supprimer par carte
+
+### Prompts illustrations
+
+Fichier `PROMPTS_FLAT_CARTOON.md` contient tous les prompts pour générer les illustrations :
+- Style master Duolingo-inspired (copié dans chaque prompt)
+- 8 prompts jeux multiplayer (Quiz, Alibi, Blind Test, Mime, La Règle, LOL, Mind Link, Imposteur)
+- 4 prompts daily cards (Mot Mystère, Sémantique, Total, Mastermind/Code Breaker)
+- Diversité ethnique explicite dans chaque prompt (dont East Asian)
+- Camera work cinématique (dutch angle, low-angle, over-the-shoulder, etc.)
 
 ---
 
@@ -312,9 +370,9 @@ Appliqué dans : `Leaderboard.jsx` (sorted + teamsArray), `rankWithTies()`, `Gam
 - [ ] Zéro `rgba()` sur les fonds principaux → couleurs solides
 - [ ] Zéro `backdrop-filter` / `blur()`
 - [ ] Zéro `box-shadow` glow → `border-bottom` 3D
-- [ ] Zéro `text-shadow`
+- [ ] Zéro `text-shadow` (sauf glow game card titres — exception validée)
 - [ ] Zéro gradient sur boutons/cards → couleurs solides
-- [ ] Zéro lucide-react → Phosphor
+- [ ] Zéro lucide-react → Phosphor (exception : Crown badge Pro)
 - [ ] Zéro `<style jsx>` → fichier CSS externe
 - [ ] Zéro inline styles massifs → fichier CSS
 - [ ] Zéro fonction utilitaire locale dupliquée → import partagé
@@ -323,11 +381,15 @@ Appliqué dans : `Leaderboard.jsx` (sorted + teamsArray), `rankWithTies()`, `Gam
 
 ## 7. TIPS POUR LES ÉCRANS NON-JEU
 
-### Accueil (`app/(main)/home`)
+### Accueil (`app/(main)/home`) — nettoyé
 
-- Appliquer les mêmes cards flat (fond solide + border-bottom 3D)
-- Game cards : fond couleur du jeu, texte blanc, border-bottom `color-mix(70%, black)`
-- Badges Pro : garder le shimmer gold (c'est le seul élément qui a droit au glow)
+- Game cards : illustrations flat cartoon, titre en bas avec glow coloré
+- Daily cards : scroll horizontal, streak flamme, bandeau "Terminé", tri auto
+- Inline arrows extraites en `useCallback` (9 handlers nommés)
+- `DailyGamesSection` reçoit `user` en prop (plus de listener Firebase dupliqué)
+- `useDevAuth()` appelé sans destructure (side-effect only)
+- Dead code retiré : `.upgrade-banner` (72 lignes), `.user-info`, `.greeting-text`, `.upgrade-btn-circle`, `.daily-progress-counter`, double bottom-padding, `::before` pseudo-element
+- Crown icon : lucide-react (exception validée, design préféré)
 - Navigation bottom : fond `#1a1a2e`, border-top `#13132a`
 
 ### Profil
@@ -363,8 +425,11 @@ components/game/lobby-base.css ← CSS universel des lobbies
 components/game/Leaderboard.*  ← Classement avec carousel teams/players
 components/game/Buzzer/*       ← Buzzer 3D cartoon (CSS Module)
 components/transitions/*       ← Countdown, EndTransition, EndFooter
+components/icons/FlameIcon.jsx ← Flamme SVG avec count intégré (streaks)
+PROMPTS_FLAT_CARTOON.md        ← Prompts pour générer les illustrations
+app/dev/card-compare/          ← Outil comparaison old vs new game cards
 ```
 
 ---
 
-*Dernière mise à jour : 2026-04-06 — Post Quiz Buzzer refacto complet*
+*Dernière mise à jour : 2026-04-07 — Game cards redesign + home cleanup + daily cards*

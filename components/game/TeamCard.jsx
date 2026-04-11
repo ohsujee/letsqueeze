@@ -5,6 +5,8 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, UserPlus } from '@phosphor-icons/react';
 import TeamNameEditor from '@/components/game/TeamNameEditor';
+import PlayerBanner from '@/components/game/PlayerBanner';
+import Avatar from '@/components/ui/Avatar';
 import './TeamCard.css';
 
 /**
@@ -61,20 +63,19 @@ export default function TeamCard({
           <span className="tc-empty">Aucun joueur</span>
         ) : (
           teamPlayers.map(player => (
-            <div key={player.uid} className={`tc-player ${player.uid === myUid ? 'tc-player-me' : ''}`}>
-              <div className="tc-player-avatar" style={{ background: 'rgba(255,255,255,0.2)' }}>
-                {player.name?.charAt(0)?.toUpperCase()}
-              </div>
-              <span className="tc-player-name">
-                {player.name}
-                {player.uid === myUid && <span className="tc-me-badge">Toi</span>}
-              </span>
-              {canManage && onRemovePlayer && (
-                <button className="tc-remove-btn" onClick={() => onRemovePlayer(player.uid)}>
-                  <X size={14} />
-                </button>
-              )}
-            </div>
+            <PlayerBanner
+              key={player.uid}
+              player={player}
+              isMe={player.uid === myUid}
+              rootClassName="tc-player-row"
+              suffix={
+                canManage && onRemovePlayer ? (
+                  <button className="tc-remove-btn" onClick={() => onRemovePlayer(player.uid)}>
+                    <X size={14} />
+                  </button>
+                ) : null
+              }
+            />
           ))
         )}
       </div>
@@ -122,9 +123,12 @@ export default function TeamCard({
                       className="tc-modal-player"
                       onClick={() => { onAssignPlayer?.(p.uid); if (unassignedPlayers.length <= 1) setShowAdd(false); }}
                     >
-                      <div className="tc-modal-player-avatar" style={{ background: team.color }}>
-                        {p.name?.charAt(0)?.toUpperCase()}
-                      </div>
+                      <Avatar
+                        initial={(p.name?.[0] || '?').toUpperCase()}
+                        size="xs"
+                        avatarId={p.avatar?.id}
+                        avatarColor={p.avatar?.color || team.color}
+                      />
                       <span className="tc-modal-player-name">{p.name}</span>
                       <UserPlus size={16} className="tc-modal-player-icon" />
                     </button>

@@ -1,653 +1,828 @@
-        /* ===== GAME SCREEN LAYOUT (Style Guide Section 6.1) ===== */
-        .game-screen {
-          flex: 1;
-          min-height: 0;
-          display: flex;
-          flex-direction: column;
-          background: var(--bg-primary, #0a0a0f);
-        }
-
-        /* Animated Background (Style Guide Section 7.1) */
-        .animated-background {
-          position: fixed;
-          inset: 0;
-          z-index: -1;
-          background:
-            radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 20%, rgba(251, 191, 36, 0.10) 0%, transparent 50%),
-            radial-gradient(ellipse at 50% 50%, rgba(180, 83, 9, 0.08) 0%, transparent 60%),
-            #0a0a0f;
-          pointer-events: none;
-        }
-
-        /* ===== HEADER ===== */
-        .game-header {
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
-          background: rgba(10, 10, 15, 0.95);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(245, 158, 11, 0.2);
-          padding-top: 0;
-        }
-
-        .header-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          padding: 10px 16px;
-        }
-
-        .header-title {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.875rem;
-          font-weight: 700;
-          color: rgba(255, 255, 255, 0.7);
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        .timer-section {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .pause-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 32px;
-          height: 32px;
-          border-radius: 8px;
-          background: rgba(245, 158, 11, 0.15);
-          border: 1px solid rgba(245, 158, 11, 0.3);
-          color: #fbbf24;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .timer-display {
-          font-family: 'Roboto Mono', monospace;
-          font-size: 1.25rem;
-          font-weight: 700;
-          color: #fbbf24;
-          text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-        }
-
-        .timer-display.paused {
-          opacity: 0.5;
-          animation: blink 1s ease-in-out infinite;
-        }
-
-        .timer-display.urgent {
-          color: #ef4444;
-          text-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
-          animation: urgency-pulse 0.5s ease-in-out infinite;
-        }
-
-        /* Progress Bar (Style Guide Section 4.4) */
-        .progress-bar {
-          height: 4px;
-          background: rgba(255, 255, 255, 0.1);
-          overflow: hidden;
-        }
-
-        .progress-fill {
-          height: 100%;
-          background: linear-gradient(90deg, #f59e0b, #fbbf24);
-          position: relative;
-          border-radius: 0 2px 2px 0;
-        }
-
-        .progress-fill::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-          animation: shimmer 2s infinite;
-        }
-
-        .progress-fill.urgent {
-          background: linear-gradient(90deg, #ef4444, #f59e0b);
-        }
-
-        @keyframes shimmer {
-          100% { left: 100%; }
-        }
-
-        /* ===== MAIN CONTENT ===== */
-        .prep-content {
-          flex: 1;
-          position: relative;
-          z-index: 1;
-          padding: 12px;
-          /* Safe area gérée par AppShell */
-          overflow: hidden;
-          min-height: 0;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .prep-wrapper {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          width: 100%;
-          min-height: 0;
-          overflow: hidden;
-        }
-
-        /* ===== PHASE HEADER ===== */
-        .phase-header {
-          text-align: center;
-          flex-shrink: 0;
-        }
-
-        /* Party Mode: Group Badge */
-        .group-badge-prep {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 6px 14px;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-          border: 1.5px solid var(--group-color, #f59e0b);
-          border-radius: 20px;
-          margin-bottom: 8px;
-        }
-
-        .group-badge-prep .group-dot {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-        }
-
-        .group-badge-prep .group-name {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.8125rem;
-          font-weight: 700;
-          color: var(--group-color, #f59e0b);
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        /* Game Title (Style Guide Section 3) */
-        .game-title {
-          font-family: 'Bungee', cursive;
-          font-size: clamp(1.125rem, 4vw, 1.5rem);
-          color: #ffffff;
-          text-transform: uppercase;
-          letter-spacing: 0.02em;
-          text-shadow:
-            0 0 10px rgba(251, 191, 36, 0.5),
-            0 0 20px rgba(251, 191, 36, 0.3),
-            0 0 40px rgba(245, 158, 11, 0.2);
-          margin: 0 0 4px 0;
-        }
-
-        .phase-subtitle {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.8125rem;
-          color: rgba(255, 255, 255, 0.6);
-          margin: 0;
-        }
-
-        /* ===== HOST CONTROLS ===== */
-        .host-controls {
-          display: flex;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-
-        .btn-skip {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 12px 24px;
-          background: linear-gradient(135deg, #f59e0b, #d97706);
-          border: none;
-          border-radius: 12px;
-          color: white;
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.875rem;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          cursor: pointer;
-          box-shadow:
-            0 4px 15px rgba(245, 158, 11, 0.4),
-            0 0 30px rgba(245, 158, 11, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* ===== ALIBI CARD WRAPPER (for scroll indicators) ===== */
-        .alibi-card-wrapper {
-          position: relative;
-          flex: 1;
-          min-height: 0;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .alibi-card-wrapper .scroll-indicator {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 20;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background: rgba(245, 158, 11, 0.9);
-          color: white;
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity 0.3s ease;
-          box-shadow: 0 2px 12px rgba(245, 158, 11, 0.4);
-        }
-
-        .alibi-card-wrapper .scroll-indicator.up {
-          top: 8px;
-        }
-
-        .alibi-card-wrapper .scroll-indicator.down {
-          bottom: 8px;
-        }
-
-        .alibi-card-wrapper .scroll-indicator.visible {
-          opacity: 1;
-        }
-
-        /* ===== CARDS ===== */
-        .alibi-card,
-        .context-card,
-        .questions-card,
-        .custom-questions-card,
-        .no-team-card {
-          position: relative;
-          background: rgba(20, 20, 30, 0.8);
-          border-radius: 16px;
-          padding: 16px;
-          border: 1px solid rgba(245, 158, 11, 0.25);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          flex-shrink: 0;
-          overflow: hidden;
-          box-shadow:
-            0 4px 20px rgba(0, 0, 0, 0.3),
-            0 0 0 1px rgba(255, 255, 255, 0.05);
-        }
-
-        /* Carte principale scrollable (suspects) */
-        .alibi-card {
-          flex: 1;
-          min-height: 0;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          padding: 12px;
-        }
-
-        /* Cartes inspecteurs - pas de flex-shrink pour permettre le scroll du parent */
-        .context-card,
-        .questions-card,
-        .custom-questions-card {
-          flex-shrink: 0;
-        }
-
-        /* Card Glow Effect - AMBRE unifié */
-        .card-glow,
-        .card-glow.inspector {
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 50%);
-          animation: glow-pulse 4s ease-in-out infinite;
-          pointer-events: none;
-        }
-
-        @keyframes glow-pulse {
-          0%, 100% { opacity: 0.5; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.05); }
-        }
-
-        /* Section Title - AMBRE unifié */
-        .section-title {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 1rem;
-          font-weight: 700;
-          color: #fbbf24;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          margin: 0 0 12px 0;
-          position: relative;
-          z-index: 1;
-        }
-
-        /* ===== ALIBI CONTENT ===== */
-        .alibi-content {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          flex: 1;
-          min-height: 0;
-          overflow: hidden;
-          transition: filter 0.3s ease;
-        }
-
-        .accusation-box {
-          position: relative;
-          background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
-          border: 1px solid rgba(245, 158, 11, 0.3);
-          border-radius: 12px;
-          padding: 12px 14px;
-          flex-shrink: 0;
-          box-shadow:
-            0 4px 16px rgba(245, 158, 11, 0.15),
-            0 0 0 1px rgba(255, 255, 255, 0.03),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
-          overflow: hidden;
-        }
-
-        /* Glow effect subtil */
-        .accusation-box::before {
-          content: '';
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
-          animation: glow-pulse 4s ease-in-out infinite;
-          pointer-events: none;
-        }
-
-        .accusation-box.inspector {
-          background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.04));
-        }
-
-        .accusation-header {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          margin-bottom: 8px;
-        }
-
-        .accusation-icon {
-          font-size: 1.125rem;
-          filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5));
-        }
-
-        .accusation-label {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.7rem;
-          font-weight: 700;
-          color: #fbbf24;
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
-        }
-
-        .accusation-text {
-          position: relative;
-          z-index: 1;
-          font-family: 'Inter', sans-serif;
-          font-size: 0.9375rem;
-          line-height: 1.6;
-          color: rgba(255, 255, 255, 0.9);
-          margin: 0;
-        }
-
-        .document-box {
-          flex: 1;
-          min-height: 0;
-          overflow-y: auto;
-          -webkit-overflow-scrolling: touch;
-        }
-
-        .scenario-text {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.9375rem;
-          line-height: 1.7;
-          color: rgba(255, 255, 255, 0.9);
-          white-space: pre-wrap;
-        }
-
-        .scenario-text.small {
-          font-size: 0.875rem;
-          line-height: 1.6;
-        }
-
-        /* Prose styling */
-        .alibi-prose {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.9375rem;
-          line-height: 1.7;
-          color: rgba(255, 255, 255, 0.9);
-        }
-
-        .alibi-prose strong,
-        .alibi-prose b {
-          color: #fbbf24;
-          font-weight: 700;
-        }
-
-        .text-alibi-glow {
-          color: #fbbf24;
-          text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
-        }
-
-        /* ===== INSPECTOR SECTION ===== */
-        .inspector-section {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          min-height: 0;
-          overflow-y: auto;
-          overflow-x: hidden;
-          -webkit-overflow-scrolling: touch;
-        }
-
-        .context-content {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-        }
-
-        .inspector-summary {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.875rem;
-          font-style: italic;
-          color: rgba(255, 255, 255, 0.7);
-          margin: 0;
-          position: relative;
-          z-index: 1;
-        }
-
-        /* Questions List */
-        .questions-list {
-          position: relative;
-          z-index: 1;
-          list-style: decimal;
-          padding-left: 24px;
-          margin: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        }
-
-        .questions-list li {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.875rem;
-          line-height: 1.5;
-          color: rgba(255, 255, 255, 0.85);
-        }
-
-        /* Custom Questions */
-        .custom-hint {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.8125rem;
-          color: rgba(255, 255, 255, 0.6);
-          margin: 0 0 12px 0;
-          position: relative;
-          z-index: 1;
-        }
-
-        .custom-inputs {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-        }
-
-        .input-group {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-        }
-
-        .input-group label {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.75rem;
-          font-weight: 600;
-          color: rgba(255, 255, 255, 0.6);
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        /* Game Input - AMBRE unifié */
-        .game-input {
-          width: 100%;
-          padding: 14px 16px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 2px solid rgba(245, 158, 11, 0.2);
-          border-radius: 12px;
-          color: #ffffff;
-          font-family: 'Inter', sans-serif;
-          font-size: 0.9375rem;
-          transition: all 0.3s ease;
-        }
-
-        .game-input:focus {
-          outline: none;
-          border-color: #f59e0b;
-          background: rgba(245, 158, 11, 0.1);
-          box-shadow:
-            0 0 0 4px rgba(245, 158, 11, 0.15),
-            0 0 20px rgba(245, 158, 11, 0.1);
-        }
-
-        .game-input::placeholder {
-          color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* No Team Card */
-        .no-team-card {
-          text-align: center;
-        }
-
-        .no-team-card p {
-          font-family: 'Inter', sans-serif;
-          font-size: 0.9375rem;
-          color: rgba(255, 255, 255, 0.5);
-          margin: 0;
-        }
-
-        /* ===== PAUSE BLUR OVERLAY (sur carte alibi) ===== */
-        .alibi-card.paused .alibi-content,
-        .alibi-card.paused .card-glow {
-          filter: blur(12px);
-          pointer-events: none;
-          user-select: none;
-        }
-
-        .pause-blur-overlay {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 10;
-          background: rgba(10, 10, 15, 0.4);
-          border-radius: 16px;
-        }
-
-        .pause-label {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 12px;
-          padding: 24px 40px;
-          background: rgba(245, 158, 11, 0.15);
-          border: 2px solid rgba(245, 158, 11, 0.4);
-          border-radius: 20px;
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          box-shadow:
-            0 0 40px rgba(245, 158, 11, 0.3),
-            0 8px 32px rgba(0, 0, 0, 0.4);
-        }
-
-        .pause-label svg {
-          color: #fbbf24;
-          filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
-        }
-
-        .pause-label span {
-          font-family: 'Bungee', cursive;
-          font-size: 1.5rem;
-          color: #fbbf24;
-          text-transform: uppercase;
-          letter-spacing: 0.15em;
-          text-shadow:
-            0 0 10px rgba(251, 191, 36, 0.5),
-            0 0 20px rgba(251, 191, 36, 0.3);
-        }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes blink {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 1; }
-        }
-
-        @keyframes urgency-pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.6; }
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 480px) {
-          .game-title {
-            font-size: 1.125rem;
-          }
-
-          .prep-content {
-            padding: 10px;
-          }
-
-          .alibi-card,
-          .context-card,
-          .questions-card,
-          .custom-questions-card {
-            padding: 12px;
-          }
-        }
+/* =====================================================
+   ALIBI PREP — Full immersive document experience
+   .suspect-view = Confidential aged paper
+   .inspector-view = Manila police case file
+   ===================================================== */
+
+/* ══════════════════════════════
+   BASE LAYOUT (both views)
+   ══════════════════════════════ */
+
+.alibi-prep {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ══════════════════════════════
+   SUSPECT VIEW — Aged confidential paper
+   ══════════════════════════════ */
+
+.alibi-prep.suspect-view {
+  background: #f0e8d8;
+  /* Subtle aging stains */
+  background-image:
+    radial-gradient(ellipse at 85% 15%, rgba(160, 120, 60, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(140, 100, 50, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 40%, rgba(120, 90, 40, 0.05) 0%, transparent 60%);
+}
+
+/* Red margin line — full page height */
+.alibi-prep.suspect-view::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 30px;
+  width: 1.5px;
+  height: 100%;
+  background: #d4a0a0;
+  opacity: 0.5;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* CONFIDENTIEL watermark on whole page */
+.alibi-prep.suspect-view::after {
+  content: 'CONFIDENTIEL';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-25deg);
+  font-family: var(--font-title, 'Bungee'), sans-serif;
+  font-size: 2.5rem;
+  color: rgba(200, 60, 60, 0.06);
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+/* Header — suspect: paper band with document reference */
+.suspect-view .prep-header {
+  background: rgba(220, 210, 190, 0.9);
+  border-bottom: 1.5px solid #c4b8a0;
+  z-index: 10;
+  position: relative;
+}
+
+.suspect-view .prep-header-left {
+  color: #3a2a10;
+}
+
+.suspect-view .prep-timer-display {
+  font-family: 'Courier New', monospace;
+  color: #3a2a10;
+  background: rgba(200, 60, 60, 0.1);
+  border: 1.5px solid rgba(200, 60, 60, 0.3);
+  border-bottom: 2px solid rgba(200, 60, 60, 0.4);
+  border-radius: 3px;
+  padding: 4px 10px;
+}
+
+.suspect-view .prep-timer-display.urgent {
+  background: #cc2020;
+  border-color: #a01818;
+  color: #fff;
+}
+
+.suspect-view .prep-pause-btn {
+  background: rgba(200, 60, 60, 0.1);
+  border: 1.5px solid rgba(200, 60, 60, 0.3);
+  border-bottom: 2px solid rgba(200, 60, 60, 0.4);
+  border-radius: 3px;
+  color: #8a3030;
+}
+
+.suspect-view .prep-progress-bar {
+  height: 3px;
+  background: #d4c9b8;
+}
+
+.suspect-view .prep-progress-fill {
+  background: #cc2020;
+}
+
+.suspect-view .prep-progress-fill.urgent {
+  background: #991010;
+}
+
+/* Phase header — suspect */
+.suspect-view .prep-title {
+  font-family: 'Courier New', monospace;
+  font-size: clamp(0.95rem, 3.5vw, 1.15rem);
+  font-weight: 700;
+  color: #2a1a08;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.suspect-view .prep-subtitle {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  color: #6a5530;
+}
+
+/* Skip button — suspect */
+.suspect-view .prep-skip-btn {
+  background: #cc2020;
+  border-bottom: 4px solid #991010;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Alibi card — already on paper, minimal extra styling */
+.suspect-view .prep-alibi-card {
+  background: transparent;
+  border: none;
+  border-bottom: none;
+  padding: 10px 0 10px 16px;
+  border-radius: 0;
+}
+
+.suspect-view .prep-alibi-card::before,
+.suspect-view .prep-alibi-card::after {
+  display: none;
+}
+
+/* ══════════════════════════════
+   INSPECTOR VIEW — Manila case file
+   ══════════════════════════════ */
+
+.alibi-prep.inspector-view {
+  background: #c8ad75;
+  background-image:
+    radial-gradient(ellipse at 90% 90%, rgba(100, 70, 30, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 20%, rgba(80, 60, 20, 0.08) 0%, transparent 40%);
+}
+
+/* Folder tab removed — "Dossier d'enquête" is now in the header */
+
+/* USAGE INTERNE watermark */
+.alibi-prep.inspector-view::after {
+  content: 'USAGE INTERNE';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-20deg);
+  font-family: var(--font-title, 'Bungee'), sans-serif;
+  font-size: 2.2rem;
+  color: rgba(160, 60, 60, 0.06);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+/* Header — inspector: manila band */
+.inspector-view .prep-header {
+  background: rgba(180, 150, 90, 0.9);
+  border-bottom: 1.5px solid #a08850;
+  z-index: 10;
+  position: relative;
+}
+
+.inspector-view .prep-header-left {
+  color: #3a2a10;
+}
+
+.inspector-view .prep-timer-display {
+  font-family: 'Courier New', monospace;
+  color: #3a2a10;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1.5px solid rgba(90, 70, 30, 0.3);
+  border-bottom: 2px solid rgba(90, 70, 30, 0.4);
+  border-radius: 3px;
+  padding: 4px 10px;
+}
+
+.inspector-view .prep-timer-display.urgent {
+  background: #cc2020;
+  border-color: #a01818;
+  color: #fff;
+}
+
+.inspector-view .prep-pause-btn {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1.5px solid rgba(90, 70, 30, 0.3);
+  border-bottom: 2px solid rgba(90, 70, 30, 0.4);
+  border-radius: 3px;
+  color: #5c4420;
+}
+
+.inspector-view .prep-progress-bar {
+  height: 3px;
+  background: #b89a60;
+}
+
+.inspector-view .prep-progress-fill {
+  background: #7a6030;
+}
+
+.inspector-view .prep-progress-fill.urgent {
+  background: #cc2020;
+}
+
+/* Phase header — inspector */
+.inspector-view .prep-title {
+  font-family: 'Courier New', monospace;
+  font-size: clamp(0.95rem, 3.5vw, 1.15rem);
+  font-weight: 700;
+  color: #2a1a08;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.inspector-view .prep-subtitle {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  color: #6a5530;
+}
+
+/* Skip button — inspector */
+.inspector-view .prep-skip-btn {
+  background: #3a2a10;
+  border-bottom: 4px solid #2a1a08;
+  color: #f0e8d8;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ══════════════════════════════
+   SHARED LAYOUT (both views)
+   ══════════════════════════════ */
+
+.prep-header {
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.prep-header-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+}
+
+.prep-header-left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.prep-header-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+
+.prep-header-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prep-timer-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.prep-pause-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.prep-pause-btn:active {
+  transform: translateY(1px);
+}
+
+.prep-timer-display {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  min-width: 56px;
+  text-align: center;
+  padding: 4px 10px;
+  border-radius: 3px;
+}
+
+.prep-timer-display.paused {
+  opacity: 0.5;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes urgency-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.prep-timer-display.urgent {
+  animation: urgency-pulse 0.8s infinite;
+}
+
+.prep-progress-bar {
+  height: 3px;
+}
+
+.prep-progress-fill {
+  height: 100%;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Main Content */
+.prep-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+  padding-left: 40px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 3;
+}
+
+.inspector-view .prep-content {
+  padding-left: 16px;
+}
+
+.prep-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Phase Header */
+.prep-phase-header {
+  text-align: center;
+}
+
+.prep-group-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.prep-group-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.prep-group-name {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #3a2a10;
+}
+
+.prep-title {
+  margin: 0 0 6px;
+}
+
+.prep-subtitle {
+  margin: 0;
+}
+
+/* Host Controls */
+.prep-host-controls {
+  display: flex;
+  justify-content: center;
+}
+
+.prep-skip-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.prep-skip-btn:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+/* ══════════════════════════════
+   SUSPECT — Alibi document
+   ══════════════════════════════ */
+
+.prep-alibi-wrapper {
+  position: relative;
+}
+
+.prep-document-box {
+  position: relative;
+  z-index: 2;
+}
+
+.prep-scenario-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: #2a2a2a;
+  white-space: pre-wrap;
+}
+
+/* HTML alibi prose */
+.alibi-prose {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: #2a2a2a;
+}
+
+/* Force dark text on all children (globals sets body color: white) */
+.suspect-view .prep-content *,
+.suspect-view .alibi-prose *,
+.suspect-view .prep-scenario-text * {
+  color: #2a2a2a;
+}
+
+.suspect-view .prep-skip-btn,
+.suspect-view .prep-skip-btn * {
+  color: #fff !important;
+}
+
+.suspect-view .exit-button,
+.suspect-view .exit-button * {
+  color: #fff !important;
+}
+
+.alibi-prose strong,
+.alibi-prose b {
+  color: #b45309 !important;
+  font-weight: 700;
+  background: rgba(245, 158, 11, 0.15);
+  padding: 0 2px;
+}
+
+.alibi-prose p { margin: 0.6em 0; }
+.alibi-prose ul, .alibi-prose ol { padding-left: 1.2em; margin: 0.6em 0; }
+.alibi-prose li { margin: 0.3em 0; }
+.alibi-prose h1, .alibi-prose h2, .alibi-prose h3, .alibi-prose h4 {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  color: #1a1a1a !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 1em 0 0.4em;
+}
+
+.text-alibi-highlight {
+  color: #b45309 !important;
+  font-weight: 700;
+  background: rgba(245, 158, 11, 0.15);
+  padding: 0 2px;
+}
+
+/* ══════════════════════════════
+   REDACTION (Pause — suspect)
+   ══════════════════════════════ */
+
+/* ══════════════════════════════
+   REDACTION
+   Uses text-decoration: line-through (follows actual text lines).
+   Text color stays normal — line-through covers it visually.
+   Revealing = line-through fades out via text-decoration-color transition.
+   ══════════════════════════════ */
+
+.prep-alibi-card.paused,
+.prep-alibi-card.redaction-redacted {
+  user-select: none;
+}
+
+/* Redacted + Paused: thick black line-through on text */
+.prep-alibi-card.redaction-redacted .alibi-prose p,
+.prep-alibi-card.redaction-redacted .alibi-prose li,
+.prep-alibi-card.redaction-redacted .prep-scenario-text,
+.prep-alibi-card.paused .alibi-prose p,
+.prep-alibi-card.paused .alibi-prose li,
+.prep-alibi-card.paused .prep-scenario-text {
+  text-decoration: line-through 0.9em;
+  text-decoration-color: #1a1a1a;
+  -webkit-text-decoration-line: line-through;
+  -webkit-text-decoration-color: #1a1a1a;
+  text-decoration-skip-ink: none;
+}
+
+/* Revealing: line-through color transitions to transparent */
+.prep-alibi-card.redaction-revealing .alibi-prose p,
+.prep-alibi-card.redaction-revealing .alibi-prose li,
+.prep-alibi-card.redaction-revealing .prep-scenario-text {
+  text-decoration: line-through 0.9em;
+  text-decoration-color: transparent;
+  -webkit-text-decoration-line: line-through;
+  -webkit-text-decoration-color: transparent;
+  text-decoration-skip-ink: none;
+  transition: text-decoration-color 0.8s ease-out;
+}
+
+/* Visible: no decoration at all */
+.prep-alibi-card.redaction-visible .alibi-prose p,
+.prep-alibi-card.redaction-visible .alibi-prose li,
+.prep-alibi-card.redaction-visible .prep-scenario-text {
+  text-decoration: none;
+}
+
+/* CLASSIFIÉ / DÉCLASSIFIÉ stamp overlay — fixed to viewport center */
+.prep-pause-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.prep-pause-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  background: #cc2020;
+  border: 3px solid #a01818;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.prep-pause-label span {
+  font-family: var(--font-title, 'Bungee'), sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* DÉCLASSIFIÉ label — same overlay position as CLASSIFIÉ, green */
+.prep-declassified-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  background: #16a34a;
+  border: 3px solid #15803d;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.prep-declassified-label span {
+  font-family: var(--font-title, 'Bungee'), sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════
+   INSPECTOR — Case file cards
+   ══════════════════════════════ */
+
+.prep-inspector-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.prep-questions-card,
+.prep-custom-card {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  border: 1px solid rgba(90, 70, 30, 0.2);
+  border-bottom: 3px solid rgba(90, 70, 30, 0.3);
+  padding: 20px 18px;
+  position: relative;
+}
+
+.prep-section-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #3a2a10;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid #a08850;
+}
+
+/* Questions checklist */
+.prep-questions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  counter-reset: list-item;
+}
+
+.prep-questions-list li {
+  display: block;
+  padding: 10px 4px;
+  border-bottom: 1px dashed #a89060;
+}
+
+.prep-question-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prep-question-hint {
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem;
+  line-height: 1.4;
+  color: #8a7040;
+  font-style: italic;
+}
+
+.prep-question-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.prep-question-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  border: 2px solid #7a6030;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #5c4420;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.prep-question-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #2a2010;
+  font-weight: 700;
+}
+
+/* Custom questions — Notes */
+.prep-custom-hint {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  color: #6a5530;
+  font-style: italic;
+  margin: 0 0 12px;
+}
+
+.prep-custom-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prep-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.prep-input-group label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #6a5530;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.prep-game-input {
+  width: 100%;
+  padding: 8px 6px;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #8a7040;
+  border-radius: 0;
+  color: #2a2010;
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.prep-game-input:focus {
+  border-bottom-color: #5c4420;
+}
+
+.prep-game-input::placeholder {
+  color: #a09060;
+  font-style: italic;
+}
+
+/* Force dark text on inspector view too */
+.inspector-view .prep-content * {
+  color: #2a2010;
+}
+
+.inspector-view .prep-skip-btn,
+.inspector-view .prep-skip-btn * {
+  color: #f0e8d8 !important;
+}
+
+.inspector-view .exit-button,
+.inspector-view .exit-button * {
+  color: #fff !important;
+}
+
+.inspector-view .prep-content .exit-button-header,
+.inspector-view .prep-content .exit-button-header * {
+  color: #fff;
+}
+
+/* ══════════════════════════════
+   SCROLL INDICATORS
+   ══════════════════════════════ */
+
+/* Scroll hint — fixed at bottom of viewport */
+.prep-scroll-hint {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.suspect-view .prep-scroll-hint {
+  background: rgba(100, 60, 30, 0.2);
+  color: #6a5530;
+}
+
+.inspector-view .prep-scroll-hint {
+  background: rgba(60, 40, 15, 0.2);
+  color: #5c4420;
+}
+
+/* ══════════════════════════════
+   NO TEAM
+   ══════════════════════════════ */
+
+.prep-no-team {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  text-align: center;
+}
+
+.prep-no-team p {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  color: #6a5530;
+  margin: 0;
+}

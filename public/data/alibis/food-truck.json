@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé l'après-midi à un festival food truck pendant l'incident de la fontaine.",
   "inspector_questions": [
     {
-      "text": "Quel était le nom du festival food truck ?",
+      "text": "Quel était le nom du festival ?",
       "hint": "Le groupe est allé à un festival de food trucks installé sur un parking."
     },
     {
-      "text": "Combien coûtait l'entrée au festival ?",
-      "hint": "L'entrée coûtait 3 euros."
+      "text": "Combien de temps a mis la commande à arriver ?",
+      "hint": "La commande a mis 35 minutes à arriver et était complètement fausse."
     },
     {
-      "text": "De quelle couleur était l'inscription sur le tablier du cuistot ?",
+      "text": "De quelle couleur était le nom imprimé sur le tablier du cuistot ?",
       "hint": "Il portait un tablier blanc crasseux avec le nom du camion imprimé en rouge dessus."
     },
     {
-      "text": "Combien de temps a pris la commande pour arriver ?",
-      "hint": "La commande a mis 35 minutes à arriver."
+      "text": "Combien coûtait une boisson au deuxième food truck ?",
+      "hint": "Un autre food truck vendait des boissons à 5 euros dans des gobelets qui avaient l'air réutilisés."
+    },
+    {
+      "text": "Décrivez les tacos que le groupe a reçus.",
+      "hint": "Les tacos commandés étaient tièdes et dégoulinaient d'une sauce orange suspecte."
+    },
+    {
+      "text": "Quel food truck le groupe a-t-il choisi en premier, et pourquoi ?",
+      "hint": "Le premier food truck visité avait un cuistot qui transpirait au-dessus de la nourriture."
     },
     {
       "text": "Qui du groupe a trouvé un cheveu dans son plat ?",
-      "hint": "Quelqu'un du groupe a trouvé un cheveu noir dans son plat."
+      "hint": "Quelqu'un du groupe a trouvé un cheveu noir dans son plat et a failli vomir."
     },
     {
-      "text": "Combien coûtaient les boissons ?",
-      "hint": "Un autre food truck vendait des boissons à 5 euros."
-    },
-    {
-      "text": "Qui du groupe a eu mal au ventre ?",
+      "text": "Qui du groupe a eu mal au ventre après avoir mangé ?",
       "hint": "Quelqu'un du groupe a eu mal au ventre après avoir mangé."
     },
     {
-      "text": "Qui du groupe a renversé sa boisson sur ses vêtements ?",
-      "hint": "Un autre a renversé sa boisson sur ses vêtements."
+      "text": "Racontez dans l'ordre : l'arrivée au festival, la commande des tacos, et le départ du groupe.",
+      "hint": "Le groupe arrive sur le parking. Les tacos arrivent après 35 minutes. Le groupe part vers 16h."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 16h, écœuré."
-    },
-    {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est parti écœuré avec l'impression d'avoir jeté son argent."
+      "text": "Combien coûtait l'entrée du festival ?",
+      "hint": "L'entrée coûtait 3 euros."
     }
   ],
   "reading_time_seconds": 90

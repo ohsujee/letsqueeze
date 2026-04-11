@@ -1,38 +1,50 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { useBackHandler } from '@/lib/hooks/useBackHandler';
-import { X, Crown, Sparkles, Zap, Gift, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { X, Crown, Sparkle, Lightning, Gift, Star, CaretRight } from '@phosphor-icons/react';
+import { Capacitor } from '@capacitor/core';
+
+import { useBackHandler } from '@/lib/hooks/useBackHandler';
+import { usePlatform } from '@/lib/hooks/usePlatform';
 import { trackPaywallShown, trackPaywallConversion } from '@/lib/analytics';
 import { auth, signInWithGoogle, signInWithApple } from '@/lib/firebase';
 import { initializeUserProfile } from '@/lib/userProfile';
-import { usePlatform } from '@/lib/hooks/usePlatform';
 import { GoogleIcon, AppleIcon } from '@/components/icons';
-import { PRO_PRICING, PRO_CONTENT } from '@/lib/subscription';
+import { PRO_PRICING } from '@/lib/subscription';
 import { purchaseSubscription } from '@/lib/revenuecat';
-import { Capacitor } from '@capacitor/core';
 
-// Sample content previews (5 items + "+" = 6 = 2 rows of 3)
-const ALIBI_PREVIEWS = [
-  { emoji: '🎤', name: 'Karaoké' },
-  { emoji: '🎰', name: 'Casino' },
-  { emoji: '🎳', name: 'Bowling' },
-  { emoji: '🍸', name: 'Cocktails' },
-  { emoji: '🔐', name: 'Escape Game' },
+import './PaywallModal.css';
+
+const BENEFITS = [
+  { icon: Star, label: 'Tout le contenu débloqué' },
+  { icon: Lightning, label: 'Parties illimitées' },
+  { icon: Gift, label: 'Sans publicités' },
 ];
 
-const QUIZ_PREVIEWS = [
-  { emoji: '🍥', name: 'Naruto' },
-  { emoji: '🏴‍☠️', name: 'One Piece' },
-  { emoji: '🏰', name: 'Disney' },
-  { emoji: '☕', name: 'Friends' },
-  { emoji: '🎬', name: 'Cinéma' },
-];
-
-export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', contentName = '' }) {
+/**
+ * PaywallModal — réutilisable par tous les jeux
+ *
+ * Couleurs adaptables via les props `gameColor` / `gameColorDark`.
+ * Par défaut : couleurs alibi (orange). Passer les couleurs du jeu depuis
+ * le lobby via `GAME_COLORS[gameId].primary` / `.secondary`.
+ *
+ * @param {boolean} isOpen
+ * @param {() => void} onClose
+ * @param {'quiz'|'alibi'|'blindtest'|...} contentType - utilisé pour analytics
+ * @param {string} contentName - nom spécifique (ex: alibi bloqué) pour analytics
+ * @param {string} gameColor - couleur primaire du jeu (highlight + CTA + icône)
+ * @param {string} gameColorDark - version sombre pour les border-bottom 3D
+ */
+export default function PaywallModal({
+  isOpen,
+  onClose,
+  contentType = 'quiz',
+  contentName = '',
+  gameColor = '#f59e0b',
+  gameColorDark = '#b45309',
+}) {
   const { isAndroid } = usePlatform();
-
   useBackHandler(onClose, isOpen);
 
   const [pricingTier, setPricingTier] = useState('annual');
@@ -42,47 +54,17 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
   const [connectionError, setConnectionError] = useState(null);
   const [loadingPurchase, setLoadingPurchase] = useState(false);
   const [purchaseError, setPurchaseError] = useState(null);
-  const [canScrollUp, setCanScrollUp] = useState(false);
-  const [canScrollDown, setCanScrollDown] = useState(false);
-  const scrollContainerRef = useRef(null);
 
   const isNative = Capacitor.isNativePlatform();
 
-  const previews = contentType === 'alibi' ? ALIBI_PREVIEWS : QUIZ_PREVIEWS;
-  const content = contentType === 'alibi' ? PRO_CONTENT.alibi : PRO_CONTENT.quiz;
-
+  // Track paywall open + detect guest on open
   useEffect(() => {
-    if (isOpen && auth.currentUser) {
-      setIsGuest(auth.currentUser.isAnonymous);
-      trackPaywallShown(contentType, contentName, auth.currentUser.uid);
-    }
+    if (!isOpen || !auth.currentUser) return;
+    setIsGuest(auth.currentUser.isAnonymous);
+    trackPaywallShown(contentType, contentName, auth.currentUser.uid);
   }, [isOpen, contentType, contentName]);
 
-  // Scroll detection for indicators
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container || !isOpen) return;
-
-    const checkScroll = () => {
-      setCanScrollUp(container.scrollTop > 10);
-      setCanScrollDown(
-        container.scrollHeight - container.scrollTop - container.clientHeight > 10
-      );
-    };
-
-    // Initial check after a small delay to let content render
-    const timer = setTimeout(checkScroll, 100);
-    container.addEventListener('scroll', checkScroll);
-    window.addEventListener('resize', checkScroll);
-
-    return () => {
-      clearTimeout(timer);
-      container.removeEventListener('scroll', checkScroll);
-      window.removeEventListener('resize', checkScroll);
-    };
-  }, [isOpen, isGuest]);
-
-  const handleGoogleConnect = async () => {
+  const handleGoogleConnect = useCallback(async () => {
     try {
       setLoadingGoogle(true);
       setConnectionError(null);
@@ -92,14 +74,14 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
         setIsGuest(false);
       }
     } catch (err) {
-      console.error('Google connection error:', err);
+      console.error('[Paywall] Google connection error:', err);
       setConnectionError('Erreur de connexion Google');
     } finally {
       setLoadingGoogle(false);
     }
-  };
+  }, []);
 
-  const handleAppleConnect = async () => {
+  const handleAppleConnect = useCallback(async () => {
     try {
       setLoadingApple(true);
       setConnectionError(null);
@@ -109,23 +91,25 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
         setIsGuest(false);
       }
     } catch (err) {
-      console.error('Apple connection error:', err);
-      setConnectionError(err.code === 'auth/operation-not-allowed'
-        ? 'Connexion Apple bientôt disponible !'
-        : 'Erreur de connexion Apple');
+      console.error('[Paywall] Apple connection error:', err);
+      setConnectionError(
+        err.code === 'auth/operation-not-allowed'
+          ? 'Connexion Apple bientôt disponible !'
+          : 'Erreur de connexion Apple'
+      );
     } finally {
       setLoadingApple(false);
     }
-  };
+  }, []);
 
-  const handleUpgrade = async () => {
+  const handleUpgrade = useCallback(async () => {
     if (auth.currentUser) {
       trackPaywallConversion(contentType, auth.currentUser.uid, pricingTier);
     }
 
-    // Sur le web, afficher un message
+    // Web: pas d'achat possible → juste fermer la modale
     if (!isNative) {
-      setPurchaseError('Les achats sont disponibles dans l\'application mobile Gigglz.');
+      onClose();
       return;
     }
 
@@ -133,216 +117,216 @@ export default function PaywallModal({ isOpen, onClose, contentType = 'quiz', co
     setPurchaseError(null);
 
     try {
+      // pricingTier est bien passé à RevenueCat → le bon product est acheté
       const result = await purchaseSubscription(pricingTier);
-
       if (result.success) {
-        // Achat réussi - fermer la modal
         onClose();
-        // Le statut Pro sera mis à jour via le webhook ou le prochain check
       } else if (result.error === 'cancelled') {
-        // L'utilisateur a annulé - pas d'erreur à afficher
-        setLoadingPurchase(false);
+        // Annulation utilisateur = pas d'erreur à afficher
       } else {
         setPurchaseError(result.error || 'Une erreur est survenue');
       }
     } catch (error) {
-      console.error('Purchase error:', error);
+      console.error('[Paywall] Purchase error:', error);
       setPurchaseError('Une erreur est survenue lors de l\'achat');
     } finally {
       setLoadingPurchase(false);
     }
-  };
+  }, [isNative, onClose, pricingTier, contentType]);
 
-  if (!isOpen) return null;
+  const modalStyle = { '--game-color': gameColor, '--game-color-dark': gameColorDark };
 
   return (
     <AnimatePresence>
-      <motion.div
-        key="paywall-backdrop"
-        className="paywall-backdrop"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-      />
+      {isOpen && (
+        <>
+          <motion.div
+            key="paywall-backdrop"
+            className="paywall-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+          />
 
-      <div key="paywall-wrapper" className="paywall-modal-wrapper">
-        <motion.div
-          className="paywall-modal"
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+          <div key="paywall-wrapper" className="paywall-modal-wrapper">
+            <motion.div
+              className="paywall-modal"
+              style={modalStyle}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            >
+              <button onClick={onClose} className="paywall-close" aria-label="Fermer">
+                <X size={18} weight="bold" />
+              </button>
+
+              {isGuest ? (
+                <GuestView
+                  isAndroid={isAndroid}
+                  loadingGoogle={loadingGoogle}
+                  loadingApple={loadingApple}
+                  connectionError={connectionError}
+                  onGoogleConnect={handleGoogleConnect}
+                  onAppleConnect={handleAppleConnect}
+                  onClose={onClose}
+                />
+              ) : (
+                <ProView
+                  pricingTier={pricingTier}
+                  onSelectTier={setPricingTier}
+                  loadingPurchase={loadingPurchase}
+                  purchaseError={purchaseError}
+                  onUpgrade={handleUpgrade}
+                />
+              )}
+            </motion.div>
+          </div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/* ── Guest view ────────────────────────────────────────────── */
+
+function GuestView({ isAndroid, loadingGoogle, loadingApple, connectionError, onGoogleConnect, onAppleConnect, onClose }) {
+  return (
+    <div className="paywall-content">
+      <div className="paywall-header">
+        <div className="paywall-icon guest">
+          <Sparkle size={24} weight="fill" />
+        </div>
+        <h2 className="paywall-title">Crée ton compte</h2>
+        <p className="paywall-subtitle">Connecte-toi pour débloquer tout le contenu</p>
+      </div>
+
+      {connectionError && <div className="paywall-error">{connectionError}</div>}
+
+      <div className="paywall-auth-buttons">
+        <button
+          onClick={onGoogleConnect}
+          disabled={loadingGoogle || loadingApple}
+          className="paywall-auth-btn google"
         >
-        {/* Decorative elements */}
-        <div className="paywall-glow" />
-        <div className="paywall-pattern" />
-
-        {/* Close button */}
-        <button onClick={onClose} className="paywall-close" aria-label="Fermer">
-          <X size={18} strokeWidth={2.5} />
+          <GoogleIcon />
+          <span>{loadingGoogle ? 'Connexion...' : 'Continuer avec Google'}</span>
         </button>
 
-        {/* Scroll indicator - Up */}
-        <div className={`paywall-scroll-indicator up ${canScrollUp ? 'visible' : ''}`}>
-          <ChevronUp size={18} />
-        </div>
-
-        {isGuest ? (
-          /* ===== GUEST VIEW ===== */
-          <div className="paywall-content" ref={scrollContainerRef}>
-            <div className="paywall-header">
-              <div className="paywall-icon guest">
-                <Sparkles size={24} />
-              </div>
-              <h2 className="paywall-title">Crée ton compte</h2>
-              <p className="paywall-subtitle">
-                Connecte-toi pour débloquer tout le contenu
-              </p>
-            </div>
-
-            {connectionError && (
-              <div className="paywall-error">{connectionError}</div>
-            )}
-
-            <div className="paywall-auth-buttons">
-              <button
-                onClick={handleGoogleConnect}
-                disabled={loadingGoogle || loadingApple}
-                className="paywall-auth-btn google"
-              >
-                <GoogleIcon />
-                <span>{loadingGoogle ? 'Connexion...' : 'Continuer avec Google'}</span>
-              </button>
-
-              {!isAndroid && (
-                <button
-                  onClick={handleAppleConnect}
-                  disabled={loadingGoogle || loadingApple}
-                  className="paywall-auth-btn apple"
-                >
-                  <AppleIcon />
-                  <span>{loadingApple ? 'Connexion...' : 'Continuer avec Apple'}</span>
-                </button>
-              )}
-            </div>
-
-            <button onClick={onClose} className="paywall-skip">
-              Plus tard
-            </button>
-          </div>
-        ) : (
-          /* ===== CONNECTED USER VIEW ===== */
-          <div className="paywall-content" ref={scrollContainerRef}>
-            {/* Header with crown */}
-            <div className="paywall-header">
-              <div className="paywall-icon pro">
-                <Crown size={24} />
-              </div>
-              <h2 className="paywall-title">
-                {contentType === 'alibi' ? 'Plus d\'alibis' : 'Plus de quiz'}
-              </h2>
-              <p className="paywall-subtitle">
-                Débloque <strong>{content.proOnly}</strong> {contentType === 'alibi' ? 'scénarios' : 'thèmes'} supplémentaires
-              </p>
-            </div>
-
-            {/* Content preview grid */}
-            <div className="paywall-preview">
-              <div className="preview-grid">
-                {previews.map((item, i) => (
-                  <motion.div
-                    key={item.name}
-                    className="preview-item"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                  >
-                    <span className="preview-emoji">{item.emoji}</span>
-                    <span className="preview-name">{item.name}</span>
-                  </motion.div>
-                ))}
-                <div className="preview-item more">
-                  <span className="preview-more">+{content.proOnly - previews.length}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Benefits - clean, no emojis */}
-            <div className="paywall-benefits">
-              <div className="benefit-item">
-                <Zap size={18} className="benefit-icon" />
-                <span>Parties illimitées</span>
-              </div>
-              <div className="benefit-item">
-                <Gift size={18} className="benefit-icon" />
-                <span>Sans publicités</span>
-              </div>
-            </div>
-
-            {/* Pricing toggle */}
-            <div className="paywall-pricing">
-              <button
-                className={`pricing-option ${pricingTier === 'monthly' ? 'selected' : ''}`}
-                onClick={() => setPricingTier('monthly')}
-              >
-                <span className="pricing-label">{PRO_PRICING.monthly.label}</span>
-                <span className="pricing-price">{PRO_PRICING.monthly.formatted}</span>
-                <span className="pricing-period">/mois</span>
-              </button>
-
-              <button
-                className={`pricing-option best ${pricingTier === 'annual' ? 'selected' : ''}`}
-                onClick={() => setPricingTier('annual')}
-              >
-                <span className="pricing-badge">-{PRO_PRICING.annual.savingsPercent}%</span>
-                <span className="pricing-label">{PRO_PRICING.annual.label}</span>
-                <span className="pricing-price">{PRO_PRICING.annual.formatted}</span>
-                <span className="pricing-period">/an</span>
-                <span className="pricing-equivalent">{PRO_PRICING.annual.monthlyEquivalentFormatted}/mois</span>
-              </button>
-            </div>
-
-            {/* Purchase error */}
-            {purchaseError && (
-              <div className="paywall-error">{purchaseError}</div>
-            )}
-
-            {/* CTA */}
-            <motion.button
-              className={`paywall-cta ${loadingPurchase ? 'loading' : ''}`}
-              onClick={handleUpgrade}
-              disabled={loadingPurchase}
-              whileHover={loadingPurchase ? {} : { scale: 1.02 }}
-              whileTap={loadingPurchase ? {} : { scale: 0.98 }}
-            >
-              {loadingPurchase ? (
-                <span>Chargement...</span>
-              ) : (
-                <>
-                  <Crown size={20} />
-                  <span>{isNative ? 'Débloquer Pro' : 'Disponible sur mobile'}</span>
-                  <ChevronRight size={20} />
-                </>
-              )}
-            </motion.button>
-
-            <button onClick={onClose} className="paywall-skip">
-              Peut-être plus tard
-            </button>
-
-            <p className="paywall-legal">
-              {isNative ? 'Annulation possible à tout moment' : 'Téléchargez l\'app Gigglz sur iOS ou Android'}
-            </p>
-          </div>
+        {!isAndroid && (
+          <button
+            onClick={onAppleConnect}
+            disabled={loadingGoogle || loadingApple}
+            className="paywall-auth-btn apple"
+          >
+            <AppleIcon />
+            <span>{loadingApple ? 'Connexion...' : 'Continuer avec Apple'}</span>
+          </button>
         )}
-
-        {/* Scroll indicator - Down */}
-        <div className={`paywall-scroll-indicator down ${canScrollDown ? 'visible' : ''}`}>
-          <ChevronDown size={18} />
-        </div>
-        </motion.div>
       </div>
-    </AnimatePresence>
+
+      <button onClick={onClose} className="paywall-skip">
+        Plus tard
+      </button>
+    </div>
+  );
+}
+
+/* ── Pro view ──────────────────────────────────────────────── */
+
+function ProView({ pricingTier, onSelectTier, loadingPurchase, purchaseError, onUpgrade }) {
+  return (
+    <div className="paywall-content">
+      <div className="paywall-header">
+        <div className="paywall-icon pro">
+          <Crown size={28} weight="fill" />
+        </div>
+        <h2 className="paywall-title">Passe au niveau supérieur</h2>
+      </div>
+
+      {/* Benefits */}
+      <div className="paywall-benefits">
+        {BENEFITS.map(({ icon: Icon, label }) => (
+          <div key={label} className="benefit-item">
+            <Icon size={20} weight="fill" className="benefit-icon" />
+            <span>{label}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Pricing — 2 options with sliding highlight */}
+      <div className="paywall-pricing">
+        <motion.div
+          className="pricing-highlight"
+          animate={{ x: pricingTier === 'annual' ? 'calc(100% + 0.75rem)' : '0%' }}
+          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+        />
+
+        <PricingOption
+          tier="monthly"
+          label="Mensuel"
+          price={PRO_PRICING.monthly.formatted}
+          period="/mois"
+          selected={pricingTier === 'monthly'}
+          onClick={() => onSelectTier('monthly')}
+        />
+
+        <PricingOption
+          tier="annual"
+          label="Annuel"
+          price={PRO_PRICING.annual.monthlyEquivalentFormatted}
+          period="/mois"
+          equivalent={`${PRO_PRICING.annual.formatted}/an`}
+          badge={`-${PRO_PRICING.annual.savingsPercent}%`}
+          best
+          selected={pricingTier === 'annual'}
+          onClick={() => onSelectTier('annual')}
+        />
+      </div>
+
+      {purchaseError && <div className="paywall-error">{purchaseError}</div>}
+
+      <button
+        className={`paywall-cta ${loadingPurchase ? 'loading' : ''}`}
+        onClick={onUpgrade}
+        disabled={loadingPurchase}
+      >
+        {loadingPurchase ? (
+          <span>Chargement...</span>
+        ) : (
+          <>
+            <Crown size={20} weight="fill" />
+            <span>Commencer maintenant</span>
+            <CaretRight size={18} weight="bold" />
+          </>
+        )}
+      </button>
+
+      <p className="paywall-legal">Annulation possible à tout moment</p>
+    </div>
+  );
+}
+
+/* ── Pricing option card ───────────────────────────────────── */
+
+function PricingOption({ tier, label, price, period, equivalent, badge, best, selected, onClick }) {
+  return (
+    <button
+      className={`pricing-option${best ? ' best' : ''}${selected ? ' selected' : ''}`}
+      onClick={onClick}
+    >
+      {badge && <span className="pricing-badge">{badge}</span>}
+      <div className="pricing-main">
+        <span className="pricing-label">{label}</span>
+        <div className="pricing-amount">
+          <span className="pricing-price">{price}</span>
+          <span className="pricing-period">{period}</span>
+        </div>
+      </div>
+      <span className="pricing-equivalent" aria-hidden={!equivalent}>
+        {equivalent || '\u00A0'}
+      </span>
+    </button>
   );
 }

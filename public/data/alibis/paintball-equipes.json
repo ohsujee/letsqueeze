@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé l'après-midi sur un terrain de paintball pendant l'incident de la cabine téléphonique.",
   "inspector_questions": [
     {
-      "text": "Combien coûtait la session et combien de temps durait-elle ?",
-      "hint": "La session de 2 heures coûtait 35 euros par personne."
+      "text": "Quel était le nom du terrain de paintball ?",
+      "hint": "Le groupe a participé à une session de paintball dans un terrain en périphérie."
     },
     {
-      "text": "Qu'était-il écrit sur le gilet du responsable et en quelle couleur ?",
-      "hint": "Un gilet kaki avec 'STAFF TERRAIN' imprimé dans le dos en orange."
+      "text": "De quelle couleur étaient les billes de votre équipe ?",
+      "hint": "Les billes de l'équipe étaient jaune fluo pour l'identifier."
     },
     {
       "text": "Quel numéro portait le lanceur attribué au groupe ?",
       "hint": "Le lanceur attribué au groupe portait le numéro 14."
     },
     {
-      "text": "De quelle couleur étaient les billes de l'équipe ?",
-      "hint": "Les billes de l'équipe étaient jaune fluo."
+      "text": "Quel était le score final ?",
+      "hint": "L'équipe du groupe a perdu avec un score final de 127 à 89."
     },
     {
-      "text": "Qu'a hurlé le responsable dans son mégaphone ?",
-      "hint": "Le responsable a hurlé 'Zone sécurisée, on arrête !' dans son mégaphone."
+      "text": "Qu'est-ce qui était imprimé dans le dos du gilet du responsable ?",
+      "hint": "Il portait un gilet kaki avec 'STAFF TERRAIN' imprimé dans le dos en orange."
     },
     {
-      "text": "Combien de manches l'équipe du groupe a-t-elle perdues sur le total ?",
+      "text": "Décrivez le hangar en arrivant.",
+      "hint": "L'endroit était un vieux hangar reconverti qui sentait la peinture séchée et la poussière."
+    },
+    {
+      "text": "Quelle stratégie le groupe avait-il adoptée pour les parties ?",
       "hint": "L'équipe du groupe a perdu 4 manches sur 5."
     },
     {
-      "text": "Quel était le score final de la partie ?",
-      "hint": "Un score final de 127 à 89."
-    },
-    {
-      "text": "Vers quelle heure la session s'est-elle terminée ?",
-      "hint": "À la fin, vers 16h45, le responsable a annoncé les scores."
-    },
-    {
-      "text": "Qui du groupe s'est pris une bille dans la nuque ?",
-      "hint": "Quelqu'un du groupe s'est pris une bille en pleine nuque."
+      "text": "Qui du groupe s'est pris une bille en pleine nuque ?",
+      "hint": "Quelqu'un du groupe s'est pris une bille en pleine nuque parce que son masque était mal ajusté."
     },
     {
       "text": "Qui du groupe s'est vautré dans la boue ?",
-      "hint": "Un autre s'est vautré dans la boue en courant."
+      "hint": "Un autre s'est vautré dans la boue en courant et a fini couvert de terre."
+    },
+    {
+      "text": "Racontez dans l'ordre : la bille dans la nuque, la chute dans la boue, et l'annonce des scores.",
+      "hint": "Quelqu'un se prend une bille. Un autre se vautre dans la boue. Le responsable annonce les scores vers 16h45."
     }
   ],
   "reading_time_seconds": 90

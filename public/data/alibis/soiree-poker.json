@@ -10,15 +10,31 @@
       "hint": "Le groupe a participé à une soirée poker organisée dans l'arrière-salle d'un bar."
     },
     {
-      "text": "Combien coûtait l'entrée pour participer ?",
+      "text": "Qu'est-ce qui était brodé sur la casquette de l'organisateur ?",
+      "hint": "Il portait une casquette noire avec l'inscription 'ALL IN' brodée en rouge dessus."
+    },
+    {
+      "text": "Quelle était la puissance de l'ampoule qui éclairait la salle ?",
+      "hint": "L'éclairage était une ampoule nue de 40 watts qui pendait du plafond."
+    },
+    {
+      "text": "Qu'a dit l'organisateur en empochant les gains à la fin ?",
+      "hint": "L'organisateur a dit 'La prochaine fois, apprenez à jouer'."
+    },
+    {
+      "text": "Décrivez l'état des cartes utilisées.",
+      "hint": "Les cartes étaient usées et on pouvait presque voir à travers sur les grosses cartes."
+    },
+    {
+      "text": "Quelle était la meilleure main que le groupe ait eue de la soirée ?",
+      "hint": "Le groupe avait perdu tout son argent dans des circonstances douteuses."
+    },
+    {
+      "text": "Combien coûtait l'entrée ?",
       "hint": "L'entrée coûtait 20 euros avec des jetons de départ."
     },
     {
-      "text": "Qu'était-il écrit sur la casquette de l'organisateur ?",
-      "hint": "Il portait une casquette noire avec l'inscription 'ALL IN' brodée en rouge."
-    },
-    {
-      "text": "Qui du groupe a accusé un autre joueur de tricher ?",
+      "text": "Qui du groupe a accusé un joueur de tricher ?",
       "hint": "Quelqu'un du groupe a accusé un autre joueur de tricher après une main suspecte."
     },
     {
@@ -26,24 +42,8 @@
       "hint": "Quelqu'un du groupe a renversé un verre sur les cartes."
     },
     {
-      "text": "Qu'a dit l'organisateur à la fin en empochant les gains ?",
-      "hint": "L'organisateur a fait un commentaire moqueur : 'La prochaine fois, apprenez à jouer'."
-    },
-    {
-      "text": "Quelle était la puissance de l'ampoule qui éclairait la salle ?",
-      "hint": "L'éclairage était une ampoule nue de 40 watts."
-    },
-    {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "À la fin vers 23h, le groupe avait perdu tout son argent."
-    },
-    {
-      "text": "Qui du groupe avait proposé de participer à cette soirée ?",
-      "hint": "Le groupe est parti furieux en se sentant arnaqué."
-    },
-    {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est parti furieux en se sentant arnaqué."
+      "text": "Racontez dans l'ordre : l'accusation de triche, le verre renversé, et le commentaire de l'organisateur.",
+      "hint": "Quelqu'un accuse un joueur. Un verre est renversé sur les cartes. L'organisateur se moque en empochant les gains."
     }
   ],
   "reading_time_seconds": 90

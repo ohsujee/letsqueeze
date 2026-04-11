@@ -11,12 +11,14 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { recordMimeGame } from "@/lib/services/statsService";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { rankWithTies } from "@/lib/utils/ranking";
 
 // Mime colors
 const MIME_GREEN = '#00ff66';
 
 export function MimeEndContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

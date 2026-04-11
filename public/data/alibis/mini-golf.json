@@ -6,27 +6,35 @@
   "inspector_summary": "Les accusés affirment avoir passé l'après-midi au mini-golf pendant le renversement de la cabine.",
   "inspector_questions": [
     {
-      "text": "Quel était le nom du complexe de mini-golf ?",
+      "text": "Quel était le nom du complexe de loisirs ?",
       "hint": "Le groupe est allé faire un mini-golf dans un complexe de loisirs."
     },
     {
-      "text": "Combien coûtait l'entrée par personne ?",
-      "hint": "L'entrée coûtait 11 euros par personne."
-    },
-    {
-      "text": "De quelle couleur était le polo de l'employé ?",
-      "hint": "Il portait un polo orange délavé avec le logo du mini-golf."
+      "text": "À quel trou le moulin était-il bloqué ?",
+      "hint": "Le moulin du trou numéro 6 ne tournait plus et bloquait le passage."
     },
     {
       "text": "Combien de trous comptait le parcours ?",
       "hint": "Le parcours de 18 trous était dans un état lamentable."
     },
     {
-      "text": "À quel numéro de trou se trouvait le moulin bloqué ?",
-      "hint": "Le moulin du trou numéro 6 ne tournait plus."
+      "text": "Qu'ont crié les gens du groupe derrière vous ?",
+      "hint": "Le groupe d'après a crié 'Dépêchez-vous les escargots !'."
     },
     {
-      "text": "Qui du groupe a envoyé sa balle dans le buisson ?",
+      "text": "De quelle couleur était le polo du type qui distribuait les clubs ?",
+      "hint": "Il portait un polo orange délavé avec le logo du mini-golf imprimé dessus."
+    },
+    {
+      "text": "Décrivez l'état des balles qui vous ont été données.",
+      "hint": "Des balles tellement cabossées qu'elles roulaient de travers."
+    },
+    {
+      "text": "Quel était le score approximatif du groupe à la fin ?",
+      "hint": "Le score moyen était catastrophique parce que les pistes étaient injouables."
+    },
+    {
+      "text": "Qui du groupe a envoyé sa balle dans un buisson ?",
       "hint": "Quelqu'un du groupe a envoyé sa balle dans un buisson impossible à atteindre."
     },
     {
@@ -34,16 +42,8 @@
       "hint": "Un autre a cassé son club en tapant trop fort de frustration."
     },
     {
-      "text": "Qu'a crié le groupe d'après ?",
-      "hint": "Le groupe d'après a crié 'Dépêchez-vous les escargots !'."
-    },
-    {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 17h énervé."
-    },
-    {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est parti énervé en ayant payé le plein tarif."
+      "text": "Racontez dans l'ordre : l'incident du buisson, le club cassé, et le refus du geste commercial.",
+      "hint": "Quelqu'un envoie sa balle dans un buisson. Un autre casse son club. Le type refuse le geste commercial."
     }
   ],
   "reading_time_seconds": 90

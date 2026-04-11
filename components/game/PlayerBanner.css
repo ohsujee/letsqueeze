@@ -1,9 +1,13 @@
-/* ===== PlayerBanner — Flat style ===== */
+/* ===== PlayerBanner — Leaderboard row style ===== */
 
 .pb-wrapper {
   position: relative;
   overflow: visible;
   width: 100%;
+}
+
+/* Extra top padding only when sticky is shown */
+.pb-wrapper:has(.pb-sticky) {
   padding-top: 10px;
 }
 
@@ -11,22 +15,23 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: clamp(6px, 1.5vw, 10px);
   width: 100%;
-  padding: 10px 12px;
-  background: var(--flat-bg-light, #3d2d70);
+  padding: clamp(6px, 1.2vh, 10px) clamp(8px, 2vw, 12px);
+  background: #222240;
   border: none;
-  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
+  border-bottom: 2px solid #1a1a35;
   border-radius: 10px;
   text-align: left;
   cursor: default;
   box-sizing: border-box;
   overflow: visible;
+  transition: background 0.2s ease;
 }
 
 .pb-root.pb-me {
-  background: var(--flat-bg, #2d1f5e);
-  border-bottom-color: var(--flat-bg-dark, #1e1445);
+  background: var(--game-secondary, #7c3aed);
+  border-bottom-color: var(--game-dark, #5b21b6);
 }
 
 .pb-root.pb-selected {
@@ -62,44 +67,40 @@
   z-index: 2;
 }
 
-/* ── Avatar ── */
-.pb-avatar {
+/* ── Avatar wrapper ── */
+.pb-avatar-wrap {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--player-color);
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: #0a0a0f;
-  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  letter-spacing: 0.02em;
-}
-
-.pb-avatar.pb-avatar-selected {
-  border: 3px solid var(--accent);
 }
 
 /* ── Nom ── */
 .pb-name {
   flex: 1;
-  font-size: 0.95rem;
+  min-width: 0;
+  font-size: clamp(12px, 1.6vh, 15px);
   font-weight: 700;
-  color: #ffffff;
+  color: #eef2ff;
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* ── Indicateur "moi" ── */
-.pb-me-dot {
+.pb-root.pb-me .pb-name {
+  color: #fff;
+}
+
+/* ── Badge "Toi" ── */
+.pb-me-badge {
   flex-shrink: 0;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
+  font-size: clamp(7px, 1vh, 10px);
+  font-weight: 700;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: clamp(2px, 0.3vh, 4px) clamp(4px, 0.6vh, 6px);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  border-radius: 4px;
 }

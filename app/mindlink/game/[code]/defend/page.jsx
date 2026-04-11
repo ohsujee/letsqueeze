@@ -11,6 +11,7 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useActiveLink } from "@/lib/hooks/useActiveLink";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import LinkOverlay from "@/components/game/LinkOverlay";
@@ -25,6 +26,7 @@ const ACCENT = '#ec4899';
 const ROOM_PREFIX = 'rooms_mindlink';
 
 export function MindLinkDefendContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

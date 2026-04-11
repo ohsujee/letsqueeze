@@ -12,6 +12,7 @@ import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { rankWithTies } from "@/lib/utils/ranking";
 import { EndScreenFooter } from "@/components/transitions";
 import { getFlatCSSVars, GAME_COLORS, GAME_LABELS } from "@/lib/config/colors";
@@ -22,6 +23,9 @@ export function QuizEndContent({ code, myUid: devUid }) {
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
+
+  // Safe-area color continuity with the end screen dark background
+  useAppShellBg('#0e0e1a');
 
   const [meta,setMeta]=useState(null);
   const [quizTitle, setQuizTitle] = useState("");

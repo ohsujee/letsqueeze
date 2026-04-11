@@ -18,6 +18,7 @@ import GameStatusBanners from "@/components/game/GameStatusBanners";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import LinkOverlay from "@/components/game/LinkOverlay";
 import { useToast } from "@/lib/hooks/useToast";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { Clock, Lightbulb, Target } from 'lucide-react';
 import './mindlink-play.css';
 import { Sword } from '@phosphor-icons/react';
@@ -46,6 +47,7 @@ function NeuralWaitIcon() {
 }
 
 export function MindLinkPlayContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const realRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : realRouter;

@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé l'après-midi au stade pour un match de foot pendant le vol des mannequins.",
   "inspector_questions": [
     {
-      "text": "Combien coûtait l'entrée par personne ?",
-      "hint": "L'entrée coûtait 12 euros par personne."
+      "text": "Contre quelle équipe jouait l'équipe locale ?",
+      "hint": "Le groupe était au stade pour voir un match de foot d'une équipe locale."
     },
     {
-      "text": "De quelle couleur étaient les sièges du stade ?",
-      "hint": "Les sièges en plastique bleu étaient fissurés et inconfortables."
-    },
-    {
-      "text": "Qu'a dit le vigile en confisquant la bouteille ?",
-      "hint": "Il a confisqué une bouteille d'eau en disant 'Règlement c'est règlement'."
-    },
-    {
-      "text": "Quel chant hurlaient les supporters à chaque action ?",
-      "hint": "Les supporters hurlaient 'Allez les Bleus, en avant !' à chaque action."
-    },
-    {
-      "text": "Qu'était-il écrit sur l'écharpe d'un supporter et de quelles couleurs était-elle ?",
-      "hint": "Une écharpe verte et blanche avec 'Fidèles depuis 1987' écrit dessus."
-    },
-    {
-      "text": "Combien coûtaient les hot-dogs au stand ?",
-      "hint": "Les hot-dogs coûtaient 5,50 euros."
+      "text": "Quel numéro portait le joueur expulsé ?",
+      "hint": "Le numéro 8 s'est fait expulser à la 72ème minute pour un tacle par derrière."
     },
     {
       "text": "Quel était le score final du match ?",
       "hint": "L'équipe locale a perdu 3-1."
     },
     {
-      "text": "Quel numéro portait le joueur expulsé et à quelle minute ?",
-      "hint": "Le numéro 8 s'est fait expulser à la 72ème minute."
+      "text": "Qu'est-ce qui était écrit sur l'écharpe d'un des supporters ?",
+      "hint": "L'un d'eux portait une écharpe verte et blanche avec 'Fidèles depuis 1987' écrit dessus."
     },
     {
-      "text": "Vers quelle heure le groupe est-il sorti du stade ?",
-      "hint": "Le groupe est sorti vers 17h30."
+      "text": "Combien coûtaient les hot-dogs au stand de la mi-temps ?",
+      "hint": "Les hot-dogs coûtaient 5,50 euros et étaient tièdes avec un pain mou."
     },
     {
-      "text": "À qui du groupe le vigile a-t-il confisqué la bouteille d'eau ?",
-      "hint": "Il a confisqué une bouteille d'eau à quelqu'un du groupe."
+      "text": "Décrivez l'entrée du stade.",
+      "hint": "L'entrée s'est faite par un tourniquet rouillé qui coinçait."
+    },
+    {
+      "text": "Qui du groupe s'est fait confisquer sa bouteille d'eau ?",
+      "hint": "Le vigile a confisqué une bouteille d'eau à quelqu'un du groupe en disant 'Règlement c'est règlement'."
+    },
+    {
+      "text": "Que s'est-il passé juste après l'expulsion du joueur ?",
+      "hint": "Les supporters ont hué et certains sont partis avant la fin."
+    },
+    {
+      "text": "Que criaient les supporters pendant le match ?",
+      "hint": "Des types hurlaient 'Allez les Bleus, en avant !' à chaque action."
+    },
+    {
+      "text": "Où le groupe était-il assis dans le stade ?",
+      "hint": "Les gradins étaient à moitié vides. Les sièges en plastique bleu étaient fissurés."
     }
   ],
   "reading_time_seconds": 90

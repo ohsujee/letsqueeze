@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé la soirée dans un bar à cocktails pendant le bris de la vitrine.",
   "inspector_questions": [
     {
-      "text": "Quel était le nom exact du bar ?",
+      "text": "Quel était le nom du bar à cocktails ?",
       "hint": "Le groupe est allé dans un bar à cocktails qui avait l'air classe sur internet."
     },
     {
       "text": "De quelle couleur étaient les banquettes ?",
-      "hint": "Les banquettes en similicuir violet étaient craquelées et collantes."
+      "hint": "Les banquettes en similicuir violet étaient craquelées et collantes par endroits."
     },
     {
       "text": "Combien coûtait un cocktail ?",
-      "hint": "Les prix étaient exorbitants : 16 euros pour des doses ridicules."
+      "hint": "Les prix étaient exorbitants : 16 euros pour des doses ridicules servies dans des verres minuscules."
     },
     {
       "text": "Qu'a répondu le barman quand on lui a demandé la composition d'un cocktail ?",
       "hint": "Le barman a répondu sèchement 'Secret de la maison'."
     },
     {
-      "text": "Quel était le montant total de l'addition ?",
-      "hint": "L'addition affichait 127 euros avec des suppléments incompréhensibles."
+      "text": "Décrivez le barman.",
+      "hint": "Le barman était un type prétentieux avec une moustache cirée."
     },
     {
-      "text": "À quelle heure environ le groupe est-il arrivé ?",
-      "hint": "En arrivant vers 21h, la réalité était bien différente."
-    },
-    {
-      "text": "Qui du groupe a demandé la composition du cocktail au barman ?",
-      "hint": "Quelqu'un du groupe a demandé ce qu'il y avait dans un cocktail."
-    },
-    {
-      "text": "Qui du groupe a payé l'addition par carte ?",
-      "hint": "Le groupe a dû payer par carte parce que le cash n'était plus accepté."
-    },
-    {
-      "text": "Quel cocktail le groupe avait-il commandé en premier ?",
+      "text": "Quel cocktail le groupe a-t-il commandé en premier ?",
       "hint": "Le premier cocktail commandé avait un goût de sirop pour la toux."
     },
     {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Tout le monde est parti en se sentant arnaqué."
+      "text": "Combien affichait l'addition à la fin ?",
+      "hint": "L'addition affichait 127 euros avec des suppléments incompréhensibles."
+    },
+    {
+      "text": "Qui du groupe a demandé au barman ce qu'il y avait dans le cocktail ?",
+      "hint": "Quelqu'un du groupe a demandé ce qu'il y avait dans un cocktail."
+    },
+    {
+      "text": "Racontez dans l'ordre ce qui s'est passé entre la commande du premier cocktail et le départ du groupe.",
+      "hint": "Le premier cocktail avait un goût de sirop pour la toux. Les prix étaient exorbitants. L'addition affichait 127 euros."
+    },
+    {
+      "text": "Comment le groupe a-t-il payé l'addition, et pourquoi ?",
+      "hint": "Le groupe a dû payer par carte parce que le cash n'était mystérieusement plus accepté."
     }
   ],
   "reading_time_seconds": 90

@@ -1,0 +1,285 @@
+/* =====================================================
+   ALIBI LOBBY — Game-specific overrides only
+   Base styles: lobby-base.css (.lobby-flat, .lobby-main-flat, etc.)
+   Variables: getFlatCSSVars('alibi') on root container
+   ===================================================== */
+
+/* Alibi-specific: safe-area bottom on footer */
+.alibi-lobby .lobby-footer-flat {
+  padding-bottom: calc(16px + var(--safe-area-bottom, 0px));
+}
+
+/* Roles Grid — stacked (player view read-only TeamCards) */
+.alibi-roles-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ========================
+   PLAYER VIEW
+   ======================== */
+
+.alibi-player-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+/* Role Banner (player's assigned role) */
+.my-role-banner {
+  background: var(--flat-bg, #2d2440);
+  border-radius: 14px;
+  border-bottom: 3px solid var(--flat-bg-dark, #1e1830);
+  padding: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.my-role-banner .banner-color-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.my-role-banner.inspectors .banner-color-bar { background: #d97706; }
+.my-role-banner.suspects .banner-color-bar { background: #7c3aed; }
+
+.my-role-banner .banner-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #8a8aa0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.my-role-banner .banner-role-name {
+  font-family: var(--font-title, 'Bungee'), sans-serif;
+  font-size: 1.1rem;
+  color: #eef2ff;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.my-role-banner .banner-description {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.7rem;
+  color: var(--flat-muted, #a090b0);
+  display: block;
+}
+
+/* Pending Banner */
+.pending-banner.alibi {
+  background: #222240;
+  border-radius: 12px;
+  border-bottom: 3px solid #1a1a35;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pending-banner .pending-icon { font-size: 1rem; }
+
+.pending-banner .pending-text {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.75rem;
+  color: #6b6b8a;
+}
+
+/* ========================
+   PARTY MODE — HOST
+   ======================== */
+
+.party-groups-wrapper {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.party-groups-card {
+  background: var(--flat-bg, #2d2440);
+  border-radius: 14px;
+  border-bottom: 3px solid var(--flat-bg-dark, #1e1830);
+  padding: 14px;
+  max-height: 55vh;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Party Alibi — wrapper sans padding (comme home-header-wrapper) */
+.party-alibi-wrapper {
+  position: relative;
+}
+
+/* Party Alibi Tag — étiquette colorée cliquable */
+.party-alibi-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 16px;
+  background: var(--flat-bg, #2d2440);
+  border: none;
+  border-bottom: 3px solid var(--flat-bg-dark, #1e1830);
+  border-radius: 14px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.party-alibi-tag:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+.party-alibi-tag-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.party-alibi-tag-emoji {
+  font-size: 1.2rem;
+}
+
+.party-alibi-tag-text {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.party-alibi-tag-action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  color: var(--game-color, #f59e0b);
+}
+
+.party-alibi-tag-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Stacked upgrade tag — sort de derrière le tag alibi (style hearts-tag) */
+.party-upgrade-stacked-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 16px;
+  margin-top: -10px;
+  padding-top: 16px;
+  margin-bottom: 0;
+  background: #FFD233;
+  border: none;
+  border-bottom: 3px solid #CC9600;
+  border-radius: 0 0 14px 14px;
+  cursor: pointer;
+}
+
+.party-upgrade-stacked-tag:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+.party-upgrade-stacked-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #5C3D00;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.party-upgrade-stacked-badge {
+  padding: 3px 10px;
+  background: #5C3D00;
+  border-bottom: 2px solid #3a2500;
+  border-radius: 6px;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #FFD233;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ========================
+   PARTY MODE — PLAYER
+   ======================== */
+
+.my-group-banner {
+  background: var(--flat-bg, #2d2440);
+  border-radius: 14px;
+  border-bottom: 3px solid var(--flat-bg-dark, #1e1830);
+  padding: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.my-group-banner .banner-color-bar {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--group-color);
+}
+
+.my-group-banner .banner-description {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.7rem;
+  color: var(--flat-muted, #a090b0);
+  display: block;
+  margin-top: 8px;
+}
+
+.alibi-groups-grid-player { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.group-card-player {
+  background: #222240; border-radius: 12px;
+  border-bottom: 3px solid #1a1a35; padding: 10px;
+  position: relative; overflow: hidden;
+}
+.group-card-player.my-group { outline: 2px solid var(--group-color); outline-offset: -2px; }
+.group-card-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.group-card-header { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.group-card-name { font-family: var(--font-display, 'Space Grotesk'), sans-serif; font-size: 0.7rem; font-weight: 700; flex: 1; }
+.group-card-count { font-family: var(--font-title, 'Bungee'), sans-serif; font-size: 0.65rem; color: #6b6b8a; background: #1a1a2e; padding: 2px 6px; border-radius: 4px; border-bottom: 1px solid #13132a; }
+.group-card-players { display: flex; flex-wrap: wrap; gap: 4px; }
+.player-tag { padding: 3px 8px; border-radius: 6px; font-family: var(--font-display, 'Space Grotesk'), sans-serif; font-size: 0.6rem; font-weight: 600; }
+.player-tag.is-me { font-weight: 800; }
+.player-tag.more { background: #1a1a2e; color: #6b6b8a; }
+.no-players-text { font-family: var(--font-display, 'Space Grotesk'), sans-serif; font-size: 0.6rem; color: #6b6b8a; }
+
+/* ========================
+   SCROLL INDICATORS
+   ======================== */
+
+.scroll-indicator {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  z-index: 5; opacity: 0; pointer-events: none;
+  transition: opacity 0.2s ease; color: var(--game-color, #f59e0b);
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+  background: rgba(14, 14, 26, 0.8); border-radius: 50%;
+}
+.scroll-indicator.visible { opacity: 0.7; }
+.scroll-indicator.up { top: 4px; }
+.scroll-indicator.down { bottom: 4px; }

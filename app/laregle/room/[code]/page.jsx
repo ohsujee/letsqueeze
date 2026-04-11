@@ -21,16 +21,19 @@ import { usePresence } from "@/lib/hooks/usePresence";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { Users, Shuffle, House, Globe, MagnifyingGlass, ArrowRight, Info, CaretDown, Clock } from '@phosphor-icons/react';
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import { getRandomRulesForVoting } from "@/data/laregle-rules";
 import LaRegleSettingsPanel from './_components/LaRegleSettingsPanel';
 import './laregle-lobby.css';
 
+const ROOM_PREFIX = 'rooms_laregle';
 const ACCENT = '#00e5ff';
 const ACCENT_DARK = '#00b8d9';
 
 export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;
@@ -56,7 +59,7 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
   const [timerMinutes, setTimerMinutes] = useState(5);
   const [nbInvestigators, setNbInvestigators] = useState(1);
 
-  const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_laregle' });
+  const { players } = usePlayers({ roomCode: code, roomPrefix: ROOM_PREFIX });
 
   const { user: currentUser, profile, subscription, loading: profileLoading } = useUserProfile();
   const userPseudo = profile?.pseudo || currentUser?.displayName?.split(' ')[0] || 'Joueur';
@@ -80,12 +83,12 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
     return () => unsub();
   }, [meta?.hostUid, players, devUid]);
 
-  useRoomGuard({ roomCode: code, roomPrefix: 'rooms_laregle', playerUid: myUid, isHost, skipKickRedirect: true });
-  useHostDisconnect({ roomCode: code, roomPrefix: 'rooms_laregle', hostUid: meta?.hostUid });
-  usePresence({ roomCode: code, roomPrefix: 'rooms_laregle', playerUid: myUid, heartbeatInterval: 15000, enabled: !!myUid });
+  useRoomGuard({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, isHost, skipKickRedirect: true });
+  useHostDisconnect({ roomCode: code, roomPrefix: ROOM_PREFIX, hostUid: meta?.hostUid });
+  usePresence({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, heartbeatInterval: 15000, enabled: !!myUid && !devUid });
 
   const { leaveRoom, markVoluntaryLeave, attemptRejoin, isRejoining } = usePlayerCleanup({
-    roomCode: code, roomPrefix: 'rooms_laregle', playerUid: myUid, isHost,
+    roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, isHost,
     phase: 'lobby', playerName: userPseudo,
     getPlayerData: (uid, name) => ({ uid, name, score: 0, role: 'player', joinedAt: Date.now() }),
     onPlayerRemoved: () => { if (!isHost) setIsPlayerMissing(true); },
@@ -95,7 +98,7 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
 
   useEffect(() => {
     if (!code) return;
-    const metaUnsub = onValue(ref(db, `rooms_laregle/${code}/meta`), (snap) => {
+    const metaUnsub = onValue(ref(db, `${ROOM_PREFIX}/${code}/meta`), (snap) => {
       const m = snap.val();
       if (m && !m.closed) {
         setMeta(m); roomWasValidRef.current = true;
@@ -107,7 +110,7 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
         }
       }
     });
-    const stateUnsub = onValue(ref(db, `rooms_laregle/${code}/state`), (snap) => {
+    const stateUnsub = onValue(ref(db, `${ROOM_PREFIX}/${code}/state`), (snap) => {
       const state = snap.val();
       if (state?.phase === "choosing" && !countdownTriggeredRef.current) { countdownTriggeredRef.current = true; setShowCountdown(true); }
     });
@@ -116,7 +119,7 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
 
   useEffect(() => {
     if (!isHost || !userPseudo || !auth.currentUser || hostJoined || profileLoading) return;
-    set(ref(db, `rooms_laregle/${code}/players/${auth.currentUser.uid}`), { uid: auth.currentUser.uid, name: userPseudo, score: 0, role: 'player', joinedAt: Date.now() });
+    set(ref(db, `${ROOM_PREFIX}/${code}/players/${auth.currentUser.uid}`), { uid: auth.currentUser.uid, name: userPseudo, score: 0, role: 'player', joinedAt: Date.now() });
   }, [isHost, userPseudo, hostJoined, code, profileLoading]);
 
   useEffect(() => {
@@ -131,7 +134,7 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
       if (prev.includes(uid)) next = prev.filter(id => id !== uid);
       else if (prev.length < nbInvestigators) next = [...prev, uid];
       else next = [...prev.slice(1), uid];
-      if (isHost && code) update(ref(db, `rooms_laregle/${code}/meta`), { selectedInvestigators: next });
+      if (isHost && code) update(ref(db, `${ROOM_PREFIX}/${code}/meta`), { selectedInvestigators: next });
       return next;
     });
   };
@@ -139,7 +142,7 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
   const handleRandomInvestigators = () => {
     const next = [...players].sort(() => Math.random() - 0.5).slice(0, nbInvestigators).map(p => p.uid);
     setSelectedInvestigators(next);
-    if (isHost && code) update(ref(db, `rooms_laregle/${code}/meta`), { selectedInvestigators: next });
+    if (isHost && code) update(ref(db, `${ROOM_PREFIX}/${code}/meta`), { selectedInvestigators: next });
   };
 
   const handleSetCount = (delta) => {
@@ -147,23 +150,23 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
     setNbInvestigators(next);
     const trimmed = selectedInvestigators.slice(0, next);
     setSelectedInvestigators(trimmed);
-    if (isHost && code) update(ref(db, `rooms_laregle/${code}/meta`), { nbInvestigators: next, selectedInvestigators: trimmed });
+    if (isHost && code) update(ref(db, `${ROOM_PREFIX}/${code}/meta`), { nbInvestigators: next, selectedInvestigators: trimmed });
   };
 
-  const handleModeChange = (v) => { setMode(v); if (isHost && code) update(ref(db, `rooms_laregle/${code}/meta`), { mode: v }); };
-  const handleTimerChange = (v) => { setTimerMinutes(v); if (isHost && code) update(ref(db, `rooms_laregle/${code}/meta`), { timerMinutes: v }); };
+  const handleModeChange = (v) => { setMode(v); if (isHost && code) update(ref(db, `${ROOM_PREFIX}/${code}/meta`), { mode: v }); };
+  const handleTimerChange = (v) => { setTimerMinutes(v); if (isHost && code) update(ref(db, `${ROOM_PREFIX}/${code}/meta`), { timerMinutes: v }); };
 
   const handleStartGame = async () => {
     if (!isHost || selectedInvestigators.length === 0) return;
     consumeHeart();
     try {
       const updates = {};
-      players.forEach(p => { updates[`rooms_laregle/${code}/players/${p.uid}/role`] = selectedInvestigators.includes(p.uid) ? 'investigator' : 'player'; updates[`rooms_laregle/${code}/players/${p.uid}/score`] = 0; });
-      updates[`rooms_laregle/${code}/eliminations`] = null;
-      updates[`rooms_laregle/${code}/meta/mode`] = mode;
-      updates[`rooms_laregle/${code}/meta/timerMinutes`] = timerMinutes;
+      players.forEach(p => { updates[`${ROOM_PREFIX}/${code}/players/${p.uid}/role`] = selectedInvestigators.includes(p.uid) ? 'investigator' : 'player'; updates[`${ROOM_PREFIX}/${code}/players/${p.uid}/score`] = 0; });
+      updates[`${ROOM_PREFIX}/${code}/eliminations`] = null;
+      updates[`${ROOM_PREFIX}/${code}/meta/mode`] = mode;
+      updates[`${ROOM_PREFIX}/${code}/meta/timerMinutes`] = timerMinutes;
       const ruleOptions = getRandomRulesForVoting({ onlineOnly: mode === 'a_distance', excludeIds: [] });
-      updates[`rooms_laregle/${code}/state`] = {
+      updates[`${ROOM_PREFIX}/${code}/state`] = {
         phase: 'choosing', investigatorUids: selectedInvestigators, currentRule: null,
         ruleOptions: ruleOptions.map(r => ({ id: r.id, text: r.text, category: r.category, difficulty: r.difficulty })),
         votes: {}, rerollsUsed: 0, guessAttempts: 0, guesses: [], roundNumber: 1,
@@ -172,7 +175,7 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
     } catch (error) { console.error('Erreur:', error); toast.error('Erreur lors du lancement'); }
   };
 
-  const handleHostExit = async () => { if (isHost) await update(ref(db, `rooms_laregle/${code}/meta`), { closed: true }); router.push('/home'); };
+  const handleHostExit = async () => { if (isHost) await update(ref(db, `${ROOM_PREFIX}/${code}/meta`), { closed: true }); router.push('/home'); };
   const handlePlayerExit = async () => { markVoluntaryLeave?.(); await leaveRoom?.(); router.push('/home'); };
 
   const canStart = isHost && players.length >= 2 && selectedInvestigators.length >= nbInvestigators;
@@ -183,7 +186,7 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
   if (!meta) return (<div className="lr-lobby-loading"><div className="lr-lobby-spinner" /><p className="lr-lobby-loading-text">Chargement...</p></div>);
 
   return (
-    <div className="lr-lobby">
+    <div className="lr-lobby game-page">
       <div aria-hidden className="lr-lobby-bg"><div className="lr-lobby-bg-dots" /><div className="lr-lobby-bg-glow-top" /><div className="lr-lobby-bg-glow-bottom" /></div>
 
       <AnimatePresence>

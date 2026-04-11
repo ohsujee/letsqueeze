@@ -1,7 +1,5 @@
-/* ALIBI selector modal — extracted from globals.css */
-/* ===========================================
-   ALIBI SELECTOR MODAL - Compact Bottom Sheet
-   =========================================== */
+/* ALIBI SELECTOR MODAL — Flat cartoon (same pattern as Quiz selector)
+   ================================================================== */
 
 .alibi-modal-wrapper {
   position: fixed;
@@ -20,16 +18,7 @@
 .alibi-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  animation: fadeIn 0.2s ease-out forwards;
-  will-change: opacity;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  background: rgb(8, 8, 15, 0.92);
 }
 
 .alibi-modal {
@@ -37,37 +26,19 @@
   width: 100%;
   max-width: 480px;
   max-height: 80vh;
-  background: rgba(20, 20, 30, 0.98);
-  border: 2px solid rgba(245, 158, 11, 0.3);
-  border-bottom: none;
-  border-radius: 24px 24px 0 0;
+  background: #1a1a2e;
+  border: none;
+  border-top: 3px solid var(--game-secondary, #d97706);
+  border-radius: 20px 20px 0 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow:
-    0 -10px 50px rgba(0, 0, 0, 0.5),
-    0 0 60px rgba(245, 158, 11, 0.15);
-  /* GPU-accelerated slide up animation */
-  animation: slideUp 0.25s cubic-bezier(0.32, 0.72, 0, 1) forwards;
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(100%) translateZ(0);
-    opacity: 0.5;
-  }
-  to {
-    transform: translateY(0) translateZ(0);
-    opacity: 1;
-  }
 }
 
 .alibi-modal-handle {
-  width: 40px;
+  width: 36px;
   height: 4px;
-  background: rgba(255, 255, 255, 0.3);
+  background: #3a3a58;
   border-radius: 2px;
   margin: 12px auto 8px;
   flex-shrink: 0;
@@ -78,38 +49,38 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1.25rem 1rem;
-  border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+  border-bottom: 1px solid rgba(238, 242, 255, 0.06);
   flex-shrink: 0;
 }
 
 .alibi-modal-title {
   font-family: var(--font-title, 'Bungee'), cursive;
-  font-size: 1.25rem;
-  color: var(--text-primary, #ffffff);
+  font-size: 1.1rem;
+  color: #eef2ff;
   margin: 0;
-  text-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+  letter-spacing: 0.03em;
 }
 
 .alibi-modal-close {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+  background: #ef4444;
+  border: none;
+  border-bottom: 2px solid #dc2626;
+  border-radius: 8px;
+  color: #fff;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.alibi-modal-close:hover {
-  background: rgba(239, 68, 68, 0.15);
-  border-color: rgba(239, 68, 68, 0.3);
-  color: #ef4444;
+.alibi-modal-close:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
 }
 
+/* Alibi List */
 .alibi-modal-list {
   flex: 1;
   overflow-y: auto;
@@ -119,37 +90,30 @@
   gap: 0.5rem;
 }
 
-/* Alibi Item - Horizontal compact row */
+/* Alibi Item — same as quiz-item flat style */
 .alibi-item {
   display: flex;
   align-items: center;
   gap: 0.875rem;
   padding: 0.875rem 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 2px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
+  background: var(--flat-bg-light, #3a3055);
+  border: none;
+  border-bottom: 2px solid var(--flat-bg-dark, #1e1830);
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
   text-align: left;
   width: 100%;
-  /* GPU acceleration for tap feedback */
-  transform: translateZ(0);
-  will-change: transform;
+  transition: transform 0.1s ease;
 }
 
 .alibi-item:active:not(.locked) {
-  transform: scale(0.98) translateZ(0);
-}
-
-.alibi-item:hover:not(.locked) {
-  background: rgba(245, 158, 11, 0.1);
-  border-color: rgba(245, 158, 11, 0.3);
+  transform: translateY(1px);
+  border-bottom-width: 1px;
 }
 
 .alibi-item.selected {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.08));
-  border-color: var(--success, #22c55e);
-  box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+  background: #16a34a;
+  border-bottom-color: #15803d;
 }
 
 .alibi-item.locked {
@@ -160,7 +124,6 @@
 .alibi-item-emoji {
   font-size: 1.75rem;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.3));
 }
 
 .alibi-item-info {
@@ -175,16 +138,24 @@
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--text-primary, #ffffff);
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+.alibi-item.selected .alibi-item-title {
+  color: #fff;
+}
+
+.alibi-item.selected .alibi-item-meta {
+  color: #bbf7d0;
+}
+
 .alibi-item-meta {
   font-family: var(--font-body, 'Inter'), sans-serif;
   font-size: 0.75rem;
-  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+  color: #6b6b8a;
 }
 
 .alibi-item-status {
@@ -199,10 +170,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--success, #22c55e);
+  background: #22c55e;
   border-radius: 50%;
   color: white;
-  box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
 }
 
 .alibi-item-lock {
@@ -210,13 +180,110 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.25rem 0.5rem;
-  background: linear-gradient(135deg, #FFD700, #FF6D00);
-  border-radius: 8px;
+  background: #FFD233;
+  border-bottom: 2px solid #CC9600;
+  border-radius: 6px;
   font-family: var(--font-display, 'Space Grotesk'), sans-serif;
   font-size: 0.625rem;
   font-weight: 700;
-  color: white;
+  color: #5C3D00;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
+/* ===== PARTY PREVIEW MODAL ===== */
+
+.party-preview-modal {
+  max-height: 75vh;
+}
+
+.party-preview-desc {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 1rem 1.25rem;
+  padding: 12px 14px;
+  background: #222240;
+  border-radius: 10px;
+  border-bottom: 2px solid #1a1a35;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8rem;
+  color: #8a8aa0;
+  line-height: 1.5;
+}
+
+.party-preview-desc-icon {
+  flex-shrink: 0;
+  color: #fbbf24;
+  margin-top: 2px;
+}
+
+.party-preview-desc strong {
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.party-preview-item {
+  cursor: default;
+}
+
+.party-preview-item:active:not(.locked) {
+  transform: none;
+  border-bottom-width: 2px;
+}
+
+.party-preview-check {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #22c55e;
+  border-radius: 50%;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+/* Upgrade tag — stacké derrière le dernier alibi gratuit (style hearts-tag) */
+.party-preview-upgrade-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: -6px;
+  padding: 14px 14px 10px;
+  background: #3a2a10;
+  border: none;
+  border-bottom: 3px solid #2a1a08;
+  border-radius: 0 0 12px 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+.party-preview-upgrade-tag:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+.party-preview-upgrade-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fbbf24;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.party-preview-upgrade-badge {
+  padding: 3px 10px;
+  background: #FFD233;
+  border-bottom: 2px solid #CC9600;
+  border-radius: 6px;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #5C3D00;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}

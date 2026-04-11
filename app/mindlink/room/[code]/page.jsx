@@ -24,6 +24,7 @@ import { usePresence } from "@/lib/hooks/usePresence";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { Users, Shuffle, Microphone, Keyboard, ArrowRight, Info, CaretDown, ShieldStar, Clock } from '@phosphor-icons/react';
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import MindLinkSettingsPanel from './_components/MindLinkSettingsPanel';
@@ -34,6 +35,7 @@ const ACCENT_DARK = '#db2777';
 const ROOM_PREFIX = 'rooms_mindlink';
 
 export function MindLinkLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;
@@ -208,7 +210,7 @@ export function MindLinkLobbyContent({ code, myUid: devUid, isHost: devIsHost })
   }
 
   return (
-    <div className="ml-lobby">
+    <div className="ml-lobby game-page">
       <div aria-hidden className="ml-lobby-bg">
         <div className="ml-lobby-bg-dots" /><div className="ml-lobby-bg-glow-top" /><div className="ml-lobby-bg-glow-bottom" />
       </div>

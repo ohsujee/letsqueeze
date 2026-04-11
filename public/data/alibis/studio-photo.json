@@ -7,43 +7,43 @@
   "inspector_questions": [
     {
       "text": "Quel était le nom du studio photo ?",
-      "hint": "Le photographe portait un gilet avec le nom de son studio brodé dessus."
+      "hint": "Il portait un gilet beige avec le nom de son studio brodé en noir dessus."
     },
     {
-      "text": "Combien coûtait la séance pour le groupe ?",
-      "hint": "La séance coûtait 80 euros pour le groupe."
-    },
-    {
-      "text": "À quelle heure le groupe avait-il rendez-vous ?",
-      "hint": "Le groupe avait rendez-vous à 14h dans un studio photo."
-    },
-    {
-      "text": "De quelle couleur était le gilet du photographe ?",
-      "hint": "Il portait un gilet beige avec le nom de son studio brodé en noir."
-    },
-    {
-      "text": "Combien de lumières y avait-il dans le studio ?",
+      "text": "Combien de lumières fonctionnaient dans le studio ?",
       "hint": "Une des 3 lumières ne fonctionnait pas."
     },
     {
-      "text": "Combien de photos le photographe a-t-il montré sur son écran ?",
+      "text": "Combien de photos le photographe a-t-il montrées sur son écran ?",
       "hint": "Le photographe a montré les 15 premières photos sur son écran."
     },
     {
-      "text": "Qu'a dit le photographe pour blâmer le groupe ?",
+      "text": "Pendant combien de secondes le flash aveuglait-il ?",
+      "hint": "Le flash aveuglait complètement pendant 3 secondes."
+    },
+    {
+      "text": "Qu'a dit le photographe en voyant les photos ratées ?",
       "hint": "Il a blâmé le groupe en disant 'Vous ne savez vraiment pas poser'."
     },
     {
-      "text": "Combien de temps a duré la séance au total ?",
+      "text": "Décrivez la pose la plus ridicule que le photographe a demandée.",
+      "hint": "Il insistait pour que le groupe prenne des positions ridicules."
+    },
+    {
+      "text": "Quel thème ou décor le groupe avait-il choisi pour le shooting ?",
+      "hint": "Les fonds proposés étaient froissés et tachés."
+    },
+    {
+      "text": "Combien de temps la séance a-t-elle duré au total ?",
       "hint": "La séance a duré 2h30, beaucoup plus longtemps que prévu."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 16h30 sans aucune confiance."
+      "text": "Qui du groupe a eu la pire réaction en voyant les photos sur l'écran ?",
+      "hint": "C'était horrible. Tout le monde avait l'air déformé et les couleurs étaient bizarres."
     },
     {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est parti sans aucune confiance dans le résultat final."
+      "text": "Racontez dans l'ordre : l'installation dans le studio, la découverte des photos sur l'écran, et la décision d'arrêter.",
+      "hint": "Le groupe entre dans le studio. Le photographe montre les 15 premières photos. Il finit par abandonner."
     }
   ],
   "reading_time_seconds": 90

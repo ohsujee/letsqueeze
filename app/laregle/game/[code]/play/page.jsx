@@ -21,6 +21,7 @@ import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { Clock, RefreshCw, Check, X, ThumbsUp, ThumbsDown, Pause, Play, AlertTriangle } from "lucide-react";
 import ExitButton from "@/lib/components/ExitButton";
 import PlayerBanner from "@/components/game/PlayerBanner";
@@ -43,6 +44,7 @@ const ACCENT = '#00e5ff';
 const MAX_REROLLS = 3;
 
 export function LaReglePlayContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { auth, db, ref, set, update, remove, onValue, onAuthStateChanged } from '@/lib/firebase';
 import { createRoom as createFirebaseRoom } from '@/lib/config/rooms';
 
 import { ImposteurLobbyContent } from '@/app/imposteur/room/[code]/page';
-import { ImposteurPlayContent } from '@/app/imposteur/game/[code]/play/page';
-import { ImposteurEndContent } from '@/app/imposteur/game/[code]/end/page';
+
+// Lazy load non-lobby phases — prevents CSS from all phases loading simultaneously
+const ImposteurPlayContent = lazy(() => import('@/app/imposteur/game/[code]/play/page').then(m => ({ default: m.ImposteurPlayContent })));
+const ImposteurEndContent = lazy(() => import('@/app/imposteur/game/[code]/end/page').then(m => ({ default: m.ImposteurEndContent })));
 
 const ROOM_PREFIX = 'rooms_imposteur';
 const GAME_COLOR = '#84cc16';
@@ -102,6 +104,14 @@ function ControlButton({ label, color, onClick, disabled = false, filled = true 
         transition: 'all 0.15s ease', textTransform: 'uppercase',
       }}
     >{label}</button>
+  );
+}
+
+function PhaseLoader() {
+  return (
+    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0e0e1a' }}>
+      <div style={{ width: 24, height: 24, border: '3px solid #222240', borderTopColor: GAME_COLOR, borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+    </div>
   );
 }
 
@@ -283,7 +293,7 @@ export default function ImposteurSimulator() {
     if (gamePhases.includes(displayPhase)) {
       return playerEntries.map(([uid, player]) => (
         <SimPanel key={uid} role={uid === myUid ? 'host' : 'player'} label={`${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
-          <ImposteurPlayContent overrideCode={roomCode} overrideUid={uid} />
+          <Suspense fallback={<PhaseLoader />}><ImposteurPlayContent overrideCode={roomCode} overrideUid={uid} /></Suspense>
         </SimPanel>
       ));
     }
@@ -291,7 +301,7 @@ export default function ImposteurSimulator() {
     if (displayPhase === 'ended') {
       return playerEntries.map(([uid, player]) => (
         <SimPanel key={uid} role="end" label={`End - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
-          <ImposteurEndContent overrideCode={roomCode} overrideUid={uid} />
+          <Suspense fallback={<PhaseLoader />}><ImposteurEndContent overrideCode={roomCode} overrideUid={uid} /></Suspense>
         </SimPanel>
       ));
     }

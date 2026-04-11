@@ -10,40 +10,40 @@
       "hint": "Le groupe est allé voir un concert dans une petite salle locale."
     },
     {
-      "text": "Combien coûtait l'entrée ?",
-      "hint": "L'entrée coûtait 8 euros."
+      "text": "Quel groupe ou artiste jouait ce soir-là ?",
+      "hint": "Le groupe qui jouait était catastrophique."
     },
     {
-      "text": "De quelle couleur était l'inscription sur le t-shirt du vigile ?",
+      "text": "Toutes les combien de secondes le stroboscope clignotait-il ?",
+      "hint": "L'éclairage stroboscopique clignotait toutes les 3 secondes et donnait mal à la tête."
+    },
+    {
+      "text": "Qu'a dit le vigile en confisquant la bouteille d'eau ?",
+      "hint": "Il a confisqué une bouteille d'eau à quelqu'un du groupe en grognant 'Pas de liquides'."
+    },
+    {
+      "text": "De quelle couleur était le nom de la salle sur le t-shirt du vigile ?",
       "hint": "Il portait un t-shirt noir avec le nom de la salle imprimé en rouge dans le dos."
+    },
+    {
+      "text": "Décrivez la salle quand vous êtes arrivés.",
+      "hint": "L'endroit était un sous-sol humide qui sentait la bière renversée et la transpiration. Les murs suintaient."
     },
     {
       "text": "À qui du groupe le vigile a-t-il confisqué la bouteille d'eau ?",
       "hint": "Il a confisqué une bouteille d'eau à quelqu'un du groupe."
     },
     {
-      "text": "Quel était le nom du groupe qui jouait ?",
-      "hint": "Le groupe qui jouait était catastrophique."
-    },
-    {
-      "text": "Sur qui du groupe la bière a-t-elle été renversée ?",
+      "text": "Sur qui du groupe le type bourré a-t-il renversé sa bière ?",
       "hint": "Un type bourré a renversé une bière sur quelqu'un du groupe."
     },
     {
-      "text": "Qui du groupe s'est fait marcher sur le pied ?",
-      "hint": "Un autre membre s'est fait marcher sur le pied par un danseur déchaîné."
+      "text": "Que s'est-il passé entre la fouille des sacs et le moment où le groupe a décidé de partir ?",
+      "hint": "Le vigile a fouillé les sacs. La salle était bondée. Le groupe qui jouait était catastrophique. Un type a renversé une bière."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 23h30 avant la fin du concert."
-    },
-    {
-      "text": "Que s'est-il passé juste après que la bière a été renversée ?",
-      "hint": "Un autre membre s'est fait marcher sur le pied par un danseur déchaîné."
-    },
-    {
-      "text": "Comment le groupe est-il rentré après le concert ?",
-      "hint": "Le groupe est parti avec les oreilles qui sifflaient et les vêtements qui puaient."
+      "text": "Combien coûtait l'entrée ?",
+      "hint": "L'entrée coûtait 8 euros."
     }
   ],
   "reading_time_seconds": 90

@@ -14,6 +14,7 @@ import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { useToast } from "@/lib/hooks/useToast";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { Warning, HandPalm, Cards, Timer, X, Microphone, MaskHappy, UsersThree, ArrowLeft, Play, Lock } from "@phosphor-icons/react";
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { STANDUP_SCRIPTS } from "@/data/lol/standup";
@@ -38,6 +39,7 @@ const hapticNotification = async (type = NotificationType.Warning) => {
 };
 
 export function LolPlayContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const realRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : realRouter;

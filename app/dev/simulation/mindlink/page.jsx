@@ -1,13 +1,15 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { auth, db, ref, set, update, remove, onValue, onAuthStateChanged } from '@/lib/firebase';
 import { createRoom as createFirebaseRoom } from '@/lib/config/rooms';
 
 import { MindLinkLobbyContent } from '@/app/mindlink/room/[code]/page';
-import { MindLinkDefendContent } from '@/app/mindlink/game/[code]/defend/page';
-import { MindLinkPlayContent } from '@/app/mindlink/game/[code]/play/page';
-import { MindLinkEndContent } from '@/app/mindlink/game/[code]/end/page';
+
+// Lazy load non-lobby phases — prevents CSS from all phases loading simultaneously
+const MindLinkDefendContent = lazy(() => import('@/app/mindlink/game/[code]/defend/page').then(m => ({ default: m.MindLinkDefendContent })));
+const MindLinkPlayContent = lazy(() => import('@/app/mindlink/game/[code]/play/page').then(m => ({ default: m.MindLinkPlayContent })));
+const MindLinkEndContent = lazy(() => import('@/app/mindlink/game/[code]/end/page').then(m => ({ default: m.MindLinkEndContent })));
 
 const ROOM_PREFIX = 'rooms_mindlink';
 
@@ -141,6 +143,14 @@ function ControlButton({ label, color, onClick, disabled = false, filled = true 
     >
       {label}
     </button>
+  );
+}
+
+function PhaseLoader() {
+  return (
+    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0e0e1a' }}>
+      <div style={{ width: 24, height: 24, border: '3px solid #222240', borderTopColor: '#ec4899', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+    </div>
   );
 }
 
@@ -419,13 +429,13 @@ export default function MindLinkSimulator() {
           {/* Defender panels */}
           {defenders.map(([uid, player]) => (
             <SimPanel key={uid} role="defender" label={`Defender - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
-              <MindLinkDefendContent code={roomCode} myUid={uid} />
+              <Suspense fallback={<PhaseLoader />}><MindLinkDefendContent code={roomCode} myUid={uid} /></Suspense>
             </SimPanel>
           ))}
           {/* Attacker panels */}
           {attackers.map(([uid, player]) => (
             <SimPanel key={uid} role={uid === myUid ? 'host' : 'attacker'} label={`Attacker - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
-              <MindLinkPlayContent code={roomCode} myUid={uid} />
+              <Suspense fallback={<PhaseLoader />}><MindLinkPlayContent code={roomCode} myUid={uid} /></Suspense>
             </SimPanel>
           ))}
         </>
@@ -435,7 +445,7 @@ export default function MindLinkSimulator() {
     if (displayPhase === 'ended') {
       return playerEntries.map(([uid, player]) => (
         <SimPanel key={uid} role="end" label={`End - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
-          <MindLinkEndContent code={roomCode} myUid={uid} />
+          <Suspense fallback={<PhaseLoader />}><MindLinkEndContent code={roomCode} myUid={uid} /></Suspense>
         </SimPanel>
       ));
     }

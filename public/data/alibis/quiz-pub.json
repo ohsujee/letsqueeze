@@ -10,40 +10,40 @@
       "hint": "Le groupe a participé à une soirée quiz dans un pub."
     },
     {
-      "text": "Combien coûtait l'inscription par équipe ?",
+      "text": "Quel nom d'équipe le groupe avait-il choisi ?",
       "hint": "L'inscription coûtait 5 euros par équipe."
-    },
-    {
-      "text": "De quelle couleur était le t-shirt de l'animateur ?",
-      "hint": "Il portait un t-shirt violet avec le slogan de la soirée imprimé en blanc."
     },
     {
       "text": "Combien de manches comportait le quiz ?",
       "hint": "Le quiz comptait 4 manches de 10 questions chacune."
     },
     {
+      "text": "Quel était le lot du gagnant ?",
+      "hint": "Le lot du gagnant était un bon de réduction de 10% sur la prochaine consommation."
+    },
+    {
       "text": "Qu'a répondu l'animateur quand le groupe a contesté une réponse ?",
       "hint": "L'animateur a répondu 'C'est moi qui décide' avec un sourire narquois."
     },
     {
-      "text": "Qui du groupe a signalé les tricheurs ?",
-      "hint": "Quand quelqu'un du groupe l'a signalé, l'animateur n'a rien fait."
+      "text": "De quelle couleur était le t-shirt de l'animateur ?",
+      "hint": "Il portait un t-shirt violet avec le slogan de la soirée imprimé en blanc dessus."
     },
     {
-      "text": "À quelle place le groupe a-t-il terminé ?",
+      "text": "À quelle place le groupe a-t-il terminé, sur combien d'équipes ?",
       "hint": "Le groupe a terminé 9ème sur 12 équipes."
     },
     {
-      "text": "Qu'a dit l'animateur pour se moquer des perdants ?",
-      "hint": "L'animateur s'est moqué des perdants en disant 'Revenez quand vous saurez quelque chose'."
+      "text": "Qui du groupe a signalé que l'équipe d'à côté trichait ?",
+      "hint": "Quand quelqu'un du groupe l'a signalé, l'animateur n'a rien fait."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Tout le monde est parti dégoûté vers 23h."
+      "text": "Racontez dans l'ordre : la contestation d'une réponse, le signalement de la triche, et le commentaire moqueur de l'animateur à la fin.",
+      "hint": "Le groupe conteste une réponse. Quelqu'un signale la triche. L'animateur se moque des perdants."
     },
     {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Tout le monde est parti dégoûté."
+      "text": "Sur quel sujet portait la question contestée par le groupe ?",
+      "hint": "Le groupe a contesté une réponse mais l'animateur a répondu 'C'est moi qui décide'."
     }
   ],
   "reading_time_seconds": 90

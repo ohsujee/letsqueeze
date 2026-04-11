@@ -34,6 +34,7 @@ import LobbyStartButton from "@/components/game/LobbyStartButton";
 import LobbyWaitingIndicator from "@/components/game/LobbyWaitingIndicator";
 import { storage } from "@/lib/utils/storage";
 import { useTeamMode } from "@/lib/hooks/useTeamMode";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import {
   searchPlaylists,
   getFeaturedPlaylists,
@@ -50,6 +51,7 @@ import '@/app/blindtest/blindtest-theme.css';
 import '@/components/ui/playlist-modal.css';
 
 export function BlindTestLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

@@ -28,6 +28,13 @@
   align-items: flex-end;
 }
 
+.avatar-placeholder--xs {
+  width: 34px;
+  height: 34px;
+  font-size: 0.8rem;
+  border-width: 2px;
+}
+
 .avatar-placeholder--sm {
   width: 44px;
   height: 44px;

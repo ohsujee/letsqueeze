@@ -13,6 +13,7 @@ import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { recordLaregleGame } from "@/lib/services/statsService";
 import { storage } from "@/lib/utils/storage";
 import { TROUVE_COLORS, getCategoryDisplayName, getDifficultyInfo } from "@/data/laregle-rules";
@@ -22,6 +23,7 @@ const ACCENT = '#00e5ff';
 
 /* ─── Main ─────────────────────────────────────────────── */
 export function LaRegleEndContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

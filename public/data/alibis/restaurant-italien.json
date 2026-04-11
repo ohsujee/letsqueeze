@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé la soirée dans un restaurant italien pendant la destruction de l'abribus.",
   "inspector_questions": [
     {
-      "text": "Vers quelle heure le groupe est-il arrivé au restaurant ?",
-      "hint": "En arrivant vers 20h, la devanture était miteuse."
+      "text": "Quel était le nom du restaurant ?",
+      "hint": "Le groupe avait réservé dans un restaurant italien censé être bien noté en ligne."
+    },
+    {
+      "text": "Qu'est-ce qui était brodé sur le tablier du serveur ?",
+      "hint": "Il portait un tablier noir avec 'La Dolce Vita' brodé dessus en doré."
+    },
+    {
+      "text": "Qu'a crié le client de la table d'à côté au patron ?",
+      "hint": "Quelqu'un de la table d'à côté a crié 'C'est immangeable votre truc !'"
+    },
+    {
+      "text": "Combien affichait l'addition ?",
+      "hint": "L'addition affichait 78 euros avec des erreurs, dont un dessert facturé en double."
+    },
+    {
+      "text": "Qu'est-ce qui passait à la télé du restaurant ?",
+      "hint": "Le téléviseur accroché au mur diffusait un match avec le son à fond."
+    },
+    {
+      "text": "Décrivez les pizzas quand elles sont arrivées.",
+      "hint": "Les pizzas sont arrivées tièdes avec une pâte molle et dégoulinante d'huile."
+    },
+    {
+      "text": "Qu'est-ce qui clochait avec les pâtes carbonara ?",
+      "hint": "Les pâtes carbonara commandées sont arrivées avec de la crème, ce qui est une hérésie."
+    },
+    {
+      "text": "Qui du groupe a demandé au serveur de corriger l'addition ?",
+      "hint": "Le serveur a soupiré quand le groupe a demandé de corriger."
+    },
+    {
+      "text": "Racontez dans l'ordre : l'arrivée des plats, l'esclandre du voisin, et la dispute sur l'addition.",
+      "hint": "Les pizzas arrivent tièdes. Le voisin crie au patron. L'addition affiche des erreurs."
     },
     {
       "text": "De quelle couleur était l'enseigne du restaurant ?",
-      "hint": "L'enseigne rouge clignotait."
-    },
-    {
-      "text": "De quelles couleurs étaient les carreaux de la nappe ?",
-      "hint": "La nappe en plastique à carreaux rouges et blancs."
-    },
-    {
-      "text": "Qu'était-il écrit sur le tablier du serveur et en quelle couleur ?",
-      "hint": "Un tablier noir avec 'La Dolce Vita' brodé dessus en doré."
-    },
-    {
-      "text": "Quel était le problème avec les pâtes carbonara ?",
-      "hint": "Les pâtes carbonara commandées sont arrivées avec de la crème."
-    },
-    {
-      "text": "Qu'a crié le client mécontent de la table d'à côté ?",
-      "hint": "Quelqu'un s'est plaint en criant 'C'est immangeable votre truc !'"
-    },
-    {
-      "text": "Quel était le montant de l'addition avant correction ?",
-      "hint": "L'addition affichait 78 euros avec des erreurs."
-    },
-    {
-      "text": "Quel plat était facturé en double ?",
-      "hint": "Un dessert facturé en double."
-    },
-    {
-      "text": "Combien de pourboire le groupe a-t-il laissé ?",
-      "hint": "Le groupe est parti en laissant 2 euros de pourboire."
-    },
-    {
-      "text": "Vers quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 22h15."
+      "hint": "La devanture était miteuse et l'enseigne rouge clignotait."
     }
   ],
   "reading_time_seconds": 90

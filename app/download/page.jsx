@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import './download.css';
 
 const IOS_STORE_URL = 'https://apps.apple.com/app/gigglz/id6758512562';
@@ -65,6 +66,7 @@ function StoreButton({ store, platform }) {
 }
 
 export default function DownloadPage() {
+  useAppShellBg('#0e0e1a');
   const [platform, setPlatform] = useState(null);
 
   useEffect(() => {

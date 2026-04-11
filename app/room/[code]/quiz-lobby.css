@@ -181,79 +181,15 @@
 
 /* ── Team count ── */
 
-.quiz-team-count-row {
+/* Team count buttons → lobby-base.css (.lobby-team-count-*) */
+
+/* Player settings base → lobby-base.css (.lobby-player-settings) */
+
+/* Quiz-specific: extra elements inside player settings */
+.lobby-player-settings {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.quiz-team-count-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.quiz-team-count-btns {
-  display: flex;
-  gap: 5px;
-}
-
-.quiz-team-count-btn {
-  position: relative;
-  width: 42px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  border: none;
-  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
-  background: var(--flat-bg-light, #3d2d70);
-  cursor: pointer;
-  font-family: var(--font-title, 'Bungee'), cursive;
-  font-size: 1rem;
-  line-height: 1;
-  color: var(--flat-muted, #a090d0);
-}
-
-.quiz-team-count-btn.active {
-  background: var(--game-secondary, #7c3aed);
-  border-bottom-color: var(--game-dark, #5b21b6);
-  color: #fff;
-}
-
-.quiz-team-count-bar {
-  display: none;
-}
-
-/* ── Player settings (non-host) ── */
-
-.quiz-player-settings {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.quiz-player-settings-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-  min-width: 0;
-}
-
-.quiz-player-settings-emoji {
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
-.quiz-player-settings-name {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #fff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .quiz-player-settings-questions {
@@ -394,7 +330,7 @@
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  gap: 0px;
+  gap: 8px;
   scrollbar-width: none;
 }
 

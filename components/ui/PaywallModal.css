@@ -1,0 +1,400 @@
+/* ===== PAYWALL MODAL — Flat cartoon
+ * Reusable across all games — uses --game-color / --game-color-dark CSS vars
+ * injected via inline style from the component
+ * ========================================================================= */
+
+.paywall-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(8, 8, 15, 0.92);
+  z-index: 9998;
+}
+
+.paywall-modal-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.paywall-modal {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  max-height: calc(100vh - 2rem);
+  background: #1a1a2e;
+  border: none;
+  border-bottom: 4px solid #13132a;
+  border-radius: 24px;
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+/* ── Close ── */
+
+.paywall-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 32px;
+  height: 32px;
+  background: #ef4444;
+  border: none;
+  border-bottom: 2px solid #dc2626;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.paywall-close:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+/* ── Content ── */
+
+.paywall-content {
+  position: relative;
+  padding: 2rem 1.5rem 1.5rem;
+  z-index: 1;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.paywall-content::-webkit-scrollbar { display: none; }
+
+/* ── Header ── */
+
+.paywall-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.paywall-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 0.75rem;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.paywall-icon.pro {
+  background: var(--game-color, #f59e0b);
+  border-bottom: 3px solid var(--game-color-dark, #b45309);
+}
+
+.paywall-icon.guest {
+  background: #8b5cf6;
+  border-bottom: 3px solid #6d28d9;
+}
+
+.paywall-title {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.5rem;
+}
+
+.paywall-subtitle {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.9375rem;
+  color: #8a8aa0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Error ── */
+
+.paywall-error {
+  background: #2a0f0f;
+  border: none;
+  border-bottom: 2px solid #dc2626;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #f87171;
+  text-align: center;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+}
+
+/* ── Benefits ── */
+
+.paywall-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #222240;
+  border-radius: 14px;
+  border-bottom: 3px solid #1a1a35;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.benefit-item .benefit-icon {
+  color: #fbbf24;
+  flex-shrink: 0;
+}
+
+/* ── Pricing ── */
+
+.paywall-pricing {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Sliding highlight — absolute overlay above cards, under text */
+.pricing-highlight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(50% - 0.375rem);
+  background: var(--game-color, #f59e0b);
+  border-radius: 16px;
+  border-bottom: 3px solid var(--game-color-dark, #b45309);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.paywall-pricing .pricing-option {
+  background: #222240;
+  border: none;
+  border-bottom: 3px solid #1a1a35;
+  border-radius: 16px;
+  padding: 1rem 0.75rem 0.75rem;
+  cursor: pointer;
+  text-align: center;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 130px;
+}
+
+.paywall-pricing .pricing-option > * {
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.paywall-pricing .pricing-badge {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.375rem;
+  background: #ef4444;
+  border: none;
+  border-bottom: 2px solid #dc2626;
+  color: white;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  transform: rotate(12deg);
+  z-index: 3;
+}
+
+.pricing-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.pricing-amount {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.15rem;
+}
+
+.paywall-pricing .pricing-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8a8aa0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.paywall-pricing .pricing-price {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.paywall-pricing .pricing-period {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #8a8aa0;
+}
+
+.paywall-pricing .pricing-equivalent {
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.6875rem;
+  color: #6b6b8a;
+  min-height: 1em;
+}
+
+/* Selected state — text colors adapt for contrast on colored bg */
+.paywall-pricing .pricing-option.selected .pricing-label {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.paywall-pricing .pricing-option.selected .pricing-price {
+  color: #fff;
+}
+
+.paywall-pricing .pricing-option.selected .pricing-period {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.paywall-pricing .pricing-option.selected .pricing-equivalent {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* ── CTA ── */
+
+.paywall-cta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--game-color, #f59e0b);
+  border: none;
+  border-bottom: 4px solid var(--game-color-dark, #b45309);
+  border-radius: 14px;
+  color: white;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.paywall-cta:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.paywall-cta.loading,
+.paywall-cta:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* ── Skip / Legal (guest only) ── */
+
+.paywall-skip {
+  width: 100%;
+  padding: 0.875rem;
+  margin-top: 0.75rem;
+  background: transparent;
+  border: none;
+  color: #6b6b8a;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.paywall-legal {
+  text-align: center;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+  font-size: 0.6875rem;
+  color: #6b6b8a;
+  margin: 0.75rem 0 0;
+}
+
+/* ── Auth buttons (guest view) ── */
+
+.paywall-auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.paywall-auth-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 12px;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.paywall-auth-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.paywall-auth-btn.google {
+  background: white;
+  border: none;
+  border-bottom: 3px solid #d4d4d4;
+  color: #1f1f1f;
+}
+
+.paywall-auth-btn.google:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+.paywall-auth-btn.apple {
+  background: #000;
+  border: none;
+  border-bottom: 3px solid #333;
+  color: white;
+}
+
+.paywall-auth-btn.apple:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+/* ── Mobile adjustments ── */
+
+@media (max-width: 400px) {
+  .paywall-content {
+    padding: 1.5rem 1rem 1rem;
+  }
+}

@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { recordImposteurGame } from "@/lib/services/statsService";
 import { EndScreenFooter } from "@/components/transitions/EndScreenFooter";
 
@@ -19,6 +20,7 @@ export default function ImposteurEnd() {
 }
 
 export function ImposteurEndContent({ overrideCode, overrideUid, code: propCode, myUid: propUid } = {}) {
+  useAppShellBg('#04060f');
   const params = useParams();
   const code = overrideCode || propCode || params?.code;
   const devUid = overrideUid || propUid || null;

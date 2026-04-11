@@ -10,40 +10,40 @@
       "hint": "Le groupe est allé dans un club de comédie pour voir une soirée open mic."
     },
     {
-      "text": "Combien coûtait l'entrée ?",
-      "hint": "L'entrée coûtait 8 euros."
-    },
-    {
-      "text": "Qu'était-il écrit sur le t-shirt du présentateur ?",
+      "text": "Qu'est-ce qui était écrit sur le t-shirt du présentateur ?",
       "hint": "Il portait un t-shirt violet avec écrit 'RIRE C'EST VIVRE' dessus."
     },
     {
-      "text": "Combien de rangées de tabourets y avait-il ?",
-      "hint": "Les sièges étaient des tabourets de bar noirs alignés sur 5 rangées."
-    },
-    {
-      "text": "Combien coûtait une bière ?",
+      "text": "Combien coûtait la bière ?",
       "hint": "La bière coûtait 7 euros."
     },
     {
-      "text": "Qui du groupe a renversé son verre ?",
-      "hint": "Quelqu'un du groupe a renversé son verre en gesticulant."
+      "text": "Combien de rangées de sièges y avait-il dans la salle ?",
+      "hint": "Les sièges étaient des tabourets de bar noirs inconfortables, alignés sur 5 rangées."
+    },
+    {
+      "text": "Décrivez ce qui s'est passé quand le premier comédien a oublié son texte.",
+      "hint": "Il est resté figé pendant plusieurs secondes en fixant le plafond."
     },
     {
       "text": "Qu'a crié le spectateur mécontent avant de partir ?",
       "hint": "Le type s'est levé en criant 'C'est une honte !' et est parti."
     },
     {
-      "text": "Que s'est-il passé juste après le départ du spectateur mécontent ?",
-      "hint": "Le type est parti. Le comédien a dû s'excuser platement."
+      "text": "Qui du groupe a renversé son verre ?",
+      "hint": "Quelqu'un du groupe a renversé son verre en gesticulant."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 23h15."
+      "text": "Combien de comédiens sont passés sur scène ce soir-là ?",
+      "hint": "Le premier comédien s'est planté. Le dernier humoriste a fait une blague qui a mal tourné."
     },
     {
-      "text": "Comment le groupe est-il rentré ?",
-      "hint": "Le groupe est parti, soulagé de quitter cet endroit."
+      "text": "Racontez dans l'ordre : le passage du premier comédien, le verre renversé, et l'incident avec le spectateur mécontent.",
+      "hint": "Le premier comédien s'est planté. Entre les passages, quelqu'un a renversé son verre. Le dernier humoriste a provoqué un esclandre."
+    },
+    {
+      "text": "Par où êtes-vous entrés dans la salle ?",
+      "hint": "L'entrée se faisait par une porte de service dans une ruelle qui sentait les poubelles."
     }
   ],
   "reading_time_seconds": 90

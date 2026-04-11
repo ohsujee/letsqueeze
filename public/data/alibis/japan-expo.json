@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé la journée dans une convention pendant le feu d'artifice illégal.",
   "inspector_questions": [
     {
-      "text": "Combien coûtait l'entrée de la convention ?",
-      "hint": "L'entrée coûtait 18 euros."
+      "text": "Quel était le nom de la convention ?",
+      "hint": "Le groupe a passé la journée dans une convention dédiée à la culture japonaise."
     },
     {
-      "text": "Vers quelle heure le groupe est-il entré dans la convention ?",
-      "hint": "Le groupe est entré vers 11h30."
-    },
-    {
-      "text": "En quel personnage était déguisé le cosplayeur qui a marché sur le pied de quelqu'un ?",
-      "hint": "Un cosplayeur déguisé en Totoro gris a marché sur le pied de quelqu'un du groupe."
-    },
-    {
-      "text": "Combien de temps le groupe a-t-il fait la queue pour les dédicaces ?",
-      "hint": "Le groupe a fait la queue pendant 45 minutes pour voir un artiste."
-    },
-    {
-      "text": "Quel était le numéro du stand de dédicaces ?",
+      "text": "Quel numéro de stand faisait les dédicaces ?",
       "hint": "Un artiste qui faisait des dédicaces au stand B-12."
     },
     {
-      "text": "Que disait la banderole derrière l'artiste ?",
-      "hint": "Il y avait une banderole avec écrit '夢を信じて - Crois en tes rêves'."
+      "text": "Qu'est-ce qui était écrit sur la banderole derrière l'artiste ?",
+      "hint": "Il y avait une banderole derrière lui avec écrit '夢を信じて - Crois en tes rêves'."
     },
     {
-      "text": "Combien de takoyaki contenait la barquette et à quel prix ?",
+      "text": "Combien coûtait la barquette de takoyaki ?",
       "hint": "Le groupe a acheté une barquette de 6 takoyaki pour 9 euros."
     },
     {
-      "text": "De quelle couleur était le bandana du vendeur et qu'était-il écrit dessus ?",
+      "text": "De quelle couleur était le bandana du vendeur de nourriture ?",
       "hint": "Le vendeur portait un bandana bleu avec '祭り' écrit dessus en blanc."
     },
     {
-      "text": "Combien valait la figurine qui s'est cassée ?",
-      "hint": "Une figurine de 25 euros s'est cassée dans le sac."
+      "text": "En quoi était déguisé le cosplayeur qui a marché sur le pied de quelqu'un ?",
+      "hint": "Un cosplayeur déguisé en Totoro gris a marché sur le pied de quelqu'un du groupe."
     },
     {
-      "text": "Vers quelle heure le groupe est-il parti ?",
-      "hint": "En partant vers 17h, quelqu'un du groupe s'est fait bousculer."
+      "text": "Décrivez l'artiste au moment de la dédicace.",
+      "hint": "L'artiste avait l'air épuisé et a signé sans même lever les yeux."
+    },
+    {
+      "text": "Qui du groupe s'est fait bousculer en sortant et a cassé sa figurine ?",
+      "hint": "Quelqu'un du groupe s'est fait bousculer et a fait tomber ses achats. Une figurine de 25 euros s'est cassée."
+    },
+    {
+      "text": "Racontez dans l'ordre : la file pour les dédicaces, les takoyaki, et la figurine cassée.",
+      "hint": "Le groupe fait la queue au stand B-12. Puis les takoyaki au stand de nourriture. Puis la figurine cassée en partant."
+    },
+    {
+      "text": "Qu'est-ce que le groupe a acheté comme souvenirs ?",
+      "hint": "Une figurine de 25 euros s'est cassée dans le sac."
     }
   ],
   "reading_time_seconds": 90

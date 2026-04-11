@@ -3,9 +3,11 @@
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { PRO_PRICING } from '@/lib/subscription';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import './terms.css';
 
 export default function TermsPage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
 
   return (

@@ -14,36 +14,36 @@
       "hint": "L'entrée coûtait 9 euros par personne."
     },
     {
-      "text": "Quel numéro de piste était attribué au groupe ?",
+      "text": "De quelle couleur était le polo du type au comptoir ?",
+      "hint": "Il portait un polo bleu marine avec le logo du bowling brodé dessus."
+    },
+    {
+      "text": "Quel numéro de piste le groupe a-t-il eu ?",
       "hint": "La piste numéro 7 attribuée au groupe avait un problème."
-    },
-    {
-      "text": "Quelle pointure de chaussures a été donnée au groupe ?",
-      "hint": "Il a donné des chaussures de location pointure 42."
-    },
-    {
-      "text": "Qui du groupe a fait tomber une boule sur le pied d'un autre ?",
-      "hint": "Quelqu'un du groupe a fait tomber sa boule sur le pied d'un autre."
-    },
-    {
-      "text": "Sur le pied de qui la boule est-elle tombée ?",
-      "hint": "Quelqu'un du groupe a fait tomber sa boule sur le pied d'un autre."
     },
     {
       "text": "Qu'ont crié les gens de la piste d'à côté ?",
       "hint": "Le groupe de la piste 8 a crié 'Retournez au mini-golf !'."
     },
     {
+      "text": "Décrivez les chaussures qu'on vous a données.",
+      "hint": "Il a donné des chaussures de location pointure 42 qui étaient humides à l'intérieur et sentaient la transpiration."
+    },
+    {
       "text": "Combien coûtaient les nachos au snack ?",
-      "hint": "Le snack servait des nachos froids à 6,50 euros."
+      "hint": "Le snack du bowling servait des nachos froids à 6,50 euros avec un fromage orange fluo suspect."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 22h."
+      "text": "Qui du groupe a fait tomber sa boule sur le pied de quelqu'un ?",
+      "hint": "Quelqu'un du groupe a fait tomber sa boule sur le pied d'un autre."
     },
     {
-      "text": "Qui du groupe avait proposé cette sortie bowling ?",
-      "hint": "Le groupe est parti, dégoûté par l'expérience."
+      "text": "Racontez dans l'ordre : la distribution des chaussures, l'incident de la boule sur le pied, et le passage au snack.",
+      "hint": "Le type a donné des chaussures. Quelqu'un a fait tomber sa boule sur un pied. Le snack servait des nachos."
+    },
+    {
+      "text": "Quel était le score de chacun à la fin de la partie ?",
+      "hint": "L'écran d'affichage des scores buguait et mélangeait les points."
     }
   ],
   "reading_time_seconds": 90

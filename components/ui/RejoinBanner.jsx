@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight } from 'lucide-react';
+import { X, ArrowRight } from '@phosphor-icons/react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
@@ -25,7 +25,6 @@ export default function RejoinBanner({ activeGame, onDismiss }) {
       progressText = `${activeGame.progressLabel} ${activeGame.currentProgress}`;
     }
   } else if (activeGame.phase) {
-    // Fallback: show phase name for other phases
     const phaseNames = {
       'playing': 'En cours',
       'prep': 'Préparation',
@@ -47,9 +46,6 @@ export default function RejoinBanner({ activeGame, onDismiss }) {
         exit={{ opacity: 0, y: -20, scale: 0.95 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
       >
-        {/* Glow effect */}
-        <div style={styles.glow} />
-
         {/* Top section: Image + Info + Badge */}
         <div style={styles.topSection}>
           {/* Game image */}
@@ -74,7 +70,7 @@ export default function RejoinBanner({ activeGame, onDismiss }) {
             {progressText && <span style={styles.progress}>{progressText}</span>}
           </div>
 
-          {/* Status badge */}
+          {/* Status badge — flat */}
           <div style={styles.badge}>
             <span style={styles.badgeDot} />
             <span>En cours</span>
@@ -86,20 +82,18 @@ export default function RejoinBanner({ activeGame, onDismiss }) {
           <motion.button
             style={styles.rejoinBtn}
             onClick={handleRejoin}
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
+            whileTap={{ y: 2 }}
           >
             <span>Reprendre la partie</span>
-            <ArrowRight size={20} strokeWidth={2.5} />
+            <ArrowRight weight="bold" size={20} />
           </motion.button>
           <motion.button
             style={styles.dismissBtn}
             onClick={onDismiss}
-            whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
             whileTap={{ scale: 0.95 }}
             aria-label="Fermer"
           >
-            <X size={20} />
+            <X weight="bold" size={18} />
           </motion.button>
         </div>
       </motion.div>
@@ -114,20 +108,12 @@ const styles = {
     flexDirection: 'column',
     gap: '12px',
     padding: '14px',
-    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%)',
-    border: '1px solid rgba(16, 185, 129, 0.3)',
-    borderRadius: '16px',
+    background: '#0a3028',
+    border: 'none',
+    borderBottom: '3px solid #063d2e',
+    borderRadius: '14px',
     marginBottom: '20px',
     overflow: 'hidden',
-  },
-  glow: {
-    position: 'absolute',
-    top: '-30%',
-    left: '-15%',
-    width: '50%',
-    height: '160%',
-    background: 'radial-gradient(ellipse, rgba(16, 185, 129, 0.15) 0%, transparent 70%)',
-    pointerEvents: 'none',
   },
   topSection: {
     display: 'flex',
@@ -143,7 +129,7 @@ const styles = {
     borderRadius: '10px',
     overflow: 'hidden',
     flexShrink: 0,
-    border: '1px solid rgba(16, 185, 129, 0.3)',
+    border: '2px solid #22c55e',
   },
   fallbackEmoji: {
     display: 'flex',
@@ -152,7 +138,7 @@ const styles = {
     width: '100%',
     height: '100%',
     fontSize: '1.5rem',
-    background: 'rgba(16, 185, 129, 0.15)',
+    background: '#0d4035',
   },
   pulsingDot: {
     position: 'absolute',
@@ -160,9 +146,9 @@ const styles = {
     right: '3px',
     width: '10px',
     height: '10px',
-    background: '#10b981',
+    background: '#22c55e',
     borderRadius: '50%',
-    border: '2px solid rgba(10, 10, 20, 0.9)',
+    border: '2px solid #0a3028',
     animation: 'pulse 2s ease-in-out infinite',
     zIndex: 2,
   },
@@ -184,13 +170,13 @@ const styles = {
     fontFamily: "var(--font-mono, 'Roboto Mono'), monospace",
     fontSize: '0.8rem',
     fontWeight: 600,
-    color: 'rgba(16, 185, 129, 0.9)',
+    color: '#22c55e',
     letterSpacing: '0.05em',
   },
   progress: {
     fontSize: '0.75rem',
     fontWeight: 500,
-    color: 'rgba(255, 255, 255, 0.5)',
+    color: '#6b6b8a',
     marginTop: '2px',
   },
   badge: {
@@ -198,12 +184,13 @@ const styles = {
     alignItems: 'center',
     gap: '6px',
     padding: '6px 10px',
-    background: 'rgba(16, 185, 129, 0.15)',
-    border: '1px solid rgba(16, 185, 129, 0.25)',
+    background: '#22c55e',
+    border: 'none',
+    borderBottom: '2px solid #16a34a',
     borderRadius: '8px',
     fontSize: '0.7rem',
-    fontWeight: 600,
-    color: '#10b981',
+    fontWeight: 700,
+    color: '#fff',
     textTransform: 'uppercase',
     letterSpacing: '0.03em',
     flexShrink: 0,
@@ -212,7 +199,7 @@ const styles = {
   badgeDot: {
     width: '6px',
     height: '6px',
-    background: '#10b981',
+    background: '#fff',
     borderRadius: '50%',
     animation: 'pulse 2s ease-in-out infinite',
   },
@@ -230,15 +217,17 @@ const styles = {
     gap: '10px',
     flex: 1,
     padding: '12px 20px',
-    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+    background: '#22c55e',
     border: 'none',
+    borderBottom: '3px solid #16a34a',
     borderRadius: '12px',
     color: 'white',
     fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
     fontSize: '0.95rem',
-    fontWeight: 600,
+    fontWeight: 700,
     cursor: 'pointer',
-    boxShadow: '0 4px 15px rgba(16, 185, 129, 0.25)',
+    textTransform: 'uppercase',
+    letterSpacing: '0.03em',
   },
   dismissBtn: {
     width: '44px',
@@ -246,12 +235,12 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'rgba(255, 255, 255, 0.06)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    borderRadius: '12px',
-    color: 'rgba(255, 255, 255, 0.4)',
+    background: '#222240',
+    border: 'none',
+    borderBottom: '2px solid #1a1a35',
+    borderRadius: '10px',
+    color: '#6b6b8a',
     cursor: 'pointer',
-    transition: 'all 0.2s ease',
     flexShrink: 0,
   },
 };

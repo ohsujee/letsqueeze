@@ -21,6 +21,7 @@ import { usePresence } from "@/lib/hooks/usePresence";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { ArrowRight, Users, Info, CaretDown, ShieldStar, Skull, Clock } from '@phosphor-icons/react';
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import LolSettingsPanel from './_components/LolSettingsPanel';
@@ -31,6 +32,7 @@ const ACCENT_DARK = '#DC2626';
 const ROOM_PREFIX = 'rooms_lol';
 
 export function LolLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;
@@ -161,7 +163,7 @@ export function LolLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   if (!meta) return (<div className="lol-lobby-loading"><div className="lol-lobby-spinner" /><p className="lol-lobby-loading-text">Chargement...</p></div>);
 
   return (
-    <div className="lol-lobby">
+    <div className="lol-lobby game-page">
       <div aria-hidden className="lol-lobby-bg"><div className="lol-lobby-bg-dots" /><div className="lol-lobby-bg-glow-top" /><div className="lol-lobby-bg-glow-bottom" /></div>
 
       <AnimatePresence>

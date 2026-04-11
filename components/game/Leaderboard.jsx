@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { WifiSlash, CaretDown, CaretUp } from '@phosphor-icons/react';
+import PlayerBanner from '@/components/game/PlayerBanner';
 import './Leaderboard.css';
 
 /**
@@ -322,7 +323,6 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                 const realRank = p._rank + rankOffset;
                 const playerTeam = getPlayerTeam(p);
                 const isTeamColored = !!playerTeam;
-                // In team-colored mode: no gold/silver/bronze bg (team color takes over), but keep medal emojis
                 const rankClass = (!isTeamColored && hasScore) ? (realRank === 1 ? 'first' : realRank === 2 ? 'second' : realRank === 3 ? 'third' : '') : '';
                 const posChange = positionChanges[p.uid];
                 const animatedScore = p.score ?? 0;
@@ -332,23 +332,29 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                     key={p.uid}
                     layout
                     transition={{ type: 'spring', stiffness: 500, damping: 35, mass: 0.8 }}
-                    className={`player-row ${rankClass} ${isMe && !isTeamColored ? 'is-me' : ''} ${isDisconnected ? 'disconnected' : ''} ${isTeamColored ? 'team-colored' : ''}`}
-                    style={isTeamColored ? { '--player-team-color': playerTeam.color } : undefined}
                   >
-                    <span className="player-rank">
-                      {hasScore && realRank <= 3 ? ['🥇', '🥈', '🥉'][realRank - 1] : <span className="rank-number">{realRank}</span>}
-                    </span>
-                    <span className="player-name">
-                      {p.name}
-                      {isMe && <span className="you-badge">toi</span>}
-                      {isDisconnected && <WifiSlash size={12} weight="bold" className="disconnected-icon" />}
-                    </span>
-                    <div className="score-area">
-                      {posChange && (
-                        <span className={`pos-triangle ${posChange}`}>{posChange === 'up' ? '▲' : '▼'}</span>
-                      )}
-                      <span className="player-score">{animatedScore}</span>
-                    </div>
+                    <PlayerBanner
+                      player={p}
+                      isMe={isMe && !isTeamColored}
+                      rootClassName={`player-row ${rankClass} ${isDisconnected ? 'disconnected' : ''} ${isTeamColored ? 'team-colored' : ''}`}
+                      rootStyle={isTeamColored ? { '--player-team-color': playerTeam.color } : undefined}
+                      prefix={
+                        <span className="player-rank">
+                          {hasScore && realRank <= 3 ? ['🥇', '🥈', '🥉'][realRank - 1] : <span className="rank-number">{realRank}</span>}
+                        </span>
+                      }
+                      suffix={
+                        <>
+                          {isDisconnected && <WifiSlash size={12} weight="bold" className="disconnected-icon" />}
+                          <div className="score-area">
+                            {posChange && (
+                              <span className={`pos-triangle ${posChange}`}>{posChange === 'up' ? '▲' : '▼'}</span>
+                            )}
+                            <span className="player-score">{animatedScore}</span>
+                          </div>
+                        </>
+                      }
+                    />
                   </motion.div>
                 );
               })}

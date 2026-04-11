@@ -10,40 +10,40 @@
       "hint": "Le groupe a participé à un cours de cuisine collectif dans un atelier."
     },
     {
-      "text": "Combien coûtait le cours par personne ?",
-      "hint": "Le cours coûtait 45 euros par personne."
+      "text": "Quel plat le groupe devait-il apprendre à cuisiner ?",
+      "hint": "Le résultat final était immangeable."
     },
     {
       "text": "De quelle couleur était le logo brodé sur la toque du chef ?",
       "hint": "Il portait une toque blanche avec le logo de l'atelier brodé en vert dessus."
     },
     {
-      "text": "Qu'a crié le chef quand la fumée a envahi la pièce ?",
+      "text": "Combien de brûleurs fonctionnaient sur la cuisinière ?",
+      "hint": "Un des 4 brûleurs ne s'allumait plus du tout."
+    },
+    {
+      "text": "Qu'a hurlé le chef quand la fumée a envahi la pièce ?",
       "hint": "Le chef a hurlé 'C'est pas possible !' devant tout le monde."
+    },
+    {
+      "text": "Pendant combien de temps le détecteur de fumée a-t-il sonné ?",
+      "hint": "Le détecteur de fumée s'est déclenché pendant 2 minutes."
+    },
+    {
+      "text": "Décrivez l'état des ingrédients fournis.",
+      "hint": "Les légumes étaient mous et les herbes flétries depuis au moins 3 jours."
     },
     {
       "text": "Qui du groupe a fait brûler sa préparation ?",
       "hint": "Quelqu'un du groupe a fait brûler sa préparation."
     },
     {
-      "text": "Qui du groupe s'est fait couper avec le couteau ?",
+      "text": "Qui du groupe s'est fait couper par le couteau ?",
       "hint": "Un autre participant a coupé quelqu'un du groupe avec un couteau mal affûté."
     },
     {
-      "text": "Combien de brûleurs fonctionnaient sur la cuisinière ?",
-      "hint": "Un des 4 brûleurs ne s'allumait plus du tout."
-    },
-    {
-      "text": "Quel plat le groupe était-il censé préparer ?",
-      "hint": "Le résultat final était immangeable."
-    },
-    {
-      "text": "Que s'est-il passé juste après que le chef a goûté le plat ?",
-      "hint": "Le chef a goûté et fait une grimace de dégoût avant de jeter l'assiette à la poubelle."
-    },
-    {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti affamé vers 22h."
+      "text": "Racontez ce qui s'est passé entre l'incident de la fumée et le départ du groupe.",
+      "hint": "Le détecteur s'est déclenché. Un participant a coupé quelqu'un. Le chef a goûté et jeté l'assiette."
     }
   ],
   "reading_time_seconds": 90

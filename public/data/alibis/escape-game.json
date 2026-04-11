@@ -10,40 +10,40 @@
       "hint": "Le groupe a décidé de tester un escape game trouvé sur internet avec une promo douteuse."
     },
     {
-      "text": "De quelle couleur était la moquette de la salle ?",
-      "hint": "La moquette orange était collante sous les pieds."
-    },
-    {
       "text": "Combien coûtait l'entrée par personne ?",
       "hint": "Une promo douteuse à 12 euros par personne."
     },
     {
-      "text": "Quel était le thème de la salle d'escape game ?",
-      "hint": "Il a enfermé le groupe dans une salle au décor défraîchi."
+      "text": "De quelle couleur était le t-shirt du game master ?",
+      "hint": "Il portait un t-shirt jaune fluo avec une inscription dessus."
     },
     {
-      "text": "Qu'a dit exactement le game master en venant débloquer le cadenas ?",
+      "text": "Qu'est-ce qui était écrit sur son t-shirt ?",
+      "hint": "Il portait un t-shirt jaune fluo avec une inscription dessus."
+    },
+    {
+      "text": "Décrivez la salle dans laquelle le groupe a été enfermé.",
+      "hint": "La moquette orange était collante sous les pieds et certains accessoires étaient cassés ou scotchés grossièrement."
+    },
+    {
+      "text": "Qu'a dit le game master quand il est venu débloquer le cadenas ?",
       "hint": "Le game master a fini par venir débloquer le truc en soupirant 'Encore des amateurs'."
     },
     {
-      "text": "Combien de temps durait la session au chrono ?",
-      "hint": "Il a lancé le chrono de 45 minutes."
+      "text": "Que s'est-il passé après que le cadenas a été débloqué ?",
+      "hint": "Une des énigmes nécessitait d'appuyer sur un bouton rouge qui faisait un bruit à chaque pression."
     },
     {
-      "text": "Que s'est-il passé juste après que le chrono a sonné ?",
-      "hint": "Le chrono a sonné avant que quiconque puisse finir. Le game master est revenu avec un air blasé."
-    },
-    {
-      "text": "Sur combien d'équipes le groupe était-il classé dernier ?",
+      "text": "Sur combien d'équipes le groupe était-il classé au panneau des scores ?",
       "hint": "Le panneau d'affichage des scores montrait que le groupe était classé dernier sur 847 équipes."
     },
     {
-      "text": "Qui du groupe a voulu prendre une photo à la fin ?",
+      "text": "Qui du groupe a voulu prendre une photo avant de partir ?",
       "hint": "Quelqu'un du groupe a quand même voulu prendre une photo devant le décor pitoyable."
     },
     {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est parti après la photo."
+      "text": "Quel était le thème de la salle ?",
+      "hint": "Il a enfermé le groupe dans une salle au décor défraîchi."
     }
   ],
   "reading_time_seconds": 90

@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé la soirée dans un pub irlandais pour un karaoké pendant les tags.",
   "inspector_questions": [
     {
-      "text": "Quel était le nom du pub ?",
+      "text": "Quel était le nom du pub irlandais ?",
       "hint": "Le groupe s'est retrouvé dans un pub irlandais pour une soirée karaoké."
     },
     {
-      "text": "Quel était le cocktail du jour affiché sur l'ardoise ?",
+      "text": "Quel cocktail était affiché sur l'ardoise derrière le bar ?",
       "hint": "Il y avait une ardoise avec le cocktail du jour écrit à la craie : 'Mojito Spécial 6€'."
     },
     {
-      "text": "Qu'était-il écrit sur le badge de l'animateur ?",
+      "text": "Qu'est-ce qui était écrit sur le badge de l'animateur ?",
       "hint": "L'animateur du karaoké portait un badge avec écrit 'DJ MUSIC MASTER'."
     },
     {
-      "text": "Qui du groupe est monté chanter sur scène ?",
-      "hint": "Quelqu'un du groupe a fini par monter sur scène et a chanté une chanson."
-    },
-    {
-      "text": "Quelle chanson a été chantée par cette personne ?",
-      "hint": "Quelqu'un du groupe a chanté une chanson qui a fait rire toute la salle."
-    },
-    {
-      "text": "Quel montant était affiché sur l'addition avant correction ?",
+      "text": "Combien affichait l'addition avant correction ?",
       "hint": "Le barman a apporté une addition de 47 euros avec des consommations en trop."
     },
     {
-      "text": "Qui du groupe a réclamé auprès du barman pour l'addition ?",
+      "text": "Quelle chanson quelqu'un du groupe a-t-il chantée sur scène ?",
+      "hint": "Quelqu'un du groupe a fini par monter sur scène et a chanté une chanson qui a fait rire toute la salle."
+    },
+    {
+      "text": "Décrivez ce qui s'est passé quand le système de son a planté.",
+      "hint": "L'écran avec les paroles affichait n'importe quoi. L'animateur a dû tout redémarrer en tapant sur la machine."
+    },
+    {
+      "text": "Qui du groupe est monté sur scène pour chanter ?",
+      "hint": "Quelqu'un du groupe a fini par monter sur scène."
+    },
+    {
+      "text": "Qui du groupe a dû râler pour faire corriger l'addition ?",
       "hint": "Quelqu'un du groupe a dû râler pendant dix minutes pour faire corriger."
     },
     {
-      "text": "De quelle couleur étaient les taches sur le tablier du barman ?",
-      "hint": "Le barman, un type avec un tablier taché de sauce rouge."
+      "text": "Racontez dans l'ordre : le passage sur scène du groupe, la panne du système de son, et la dispute sur l'addition.",
+      "hint": "Quelqu'un chante sur scène. Le système de son plante. Le barman apporte une addition avec des erreurs."
     },
     {
-      "text": "À quelle heure approximativement le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 23h30."
-    },
-    {
-      "text": "Qui du groupe avait proposé ce pub au départ ?",
-      "hint": "Le groupe est parti en se demandant pourquoi il avait choisi cet endroit."
+      "text": "Quel artiste le premier chanteur a-t-il essayé de chanter ?",
+      "hint": "Un type a hurlé du Johnny tellement faux que ça faisait mal aux oreilles."
     }
   ],
   "reading_time_seconds": 90

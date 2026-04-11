@@ -27,10 +27,12 @@ import {
   Shield
 } from 'lucide-react';
 import { useAuthProtect } from '@/lib/hooks/useAuthProtect';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import './subscribe.css';
 
 export default function SubscribePage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const { user, loading } = useAuthProtect({ allowGuests: true });
   const [selectedPlan, setSelectedPlan] = useState('annual');

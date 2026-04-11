@@ -12,6 +12,7 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { recordLolGame } from "@/lib/services/statsService";
 import { useToast } from "@/lib/hooks/useToast";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { Trophy, ArrowCounterClockwise, House, Crown } from "@phosphor-icons/react";
 import { EndScreenFooter } from "@/components/transitions/EndScreenFooter";
 import './lol-end.css';
@@ -20,6 +21,7 @@ const ACCENT = '#EF4444';
 const ROOM_PREFIX = 'rooms_lol';
 
 export function LolEndContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

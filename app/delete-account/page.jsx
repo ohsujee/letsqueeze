@@ -6,11 +6,13 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeft, Trash2, AlertTriangle } from 'lucide-react';
 import { useState } from 'react';
 import { auth, db } from '@/lib/firebase';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import { deleteUser } from 'firebase/auth';
 import { ref, remove } from 'firebase/database';
 import './delete-account.css';
 
 export default function DeleteAccountPage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState('');

@@ -30,6 +30,7 @@ import { isFounder, isSuperFounder } from '@/lib/admin';
 import { getVisibleGames, filterByPlayerCount, sortGames, searchGames, applyRemoteConfig } from '@/lib/config/games';
 import { useRemoteConfig } from '@/lib/hooks/useRemoteConfig';
 import { useGlobalPlayCounts } from '@/lib/hooks/useGlobalPlayCounts';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import { ROOM_TYPES, createRoom } from '@/lib/config/rooms';
 import { LobbyEntryTransition } from '@/components/transitions';
 import { GAME_COLOR_MAP } from '@/lib/config/colors';
@@ -621,6 +622,7 @@ function HomePageContent() {
 
 // Wrap with Suspense for useSearchParams (used by useDevAuth)
 export default function HomePage() {
+  useAppShellBg('#0e0e1a');
   return (
     <Suspense fallback={null}>
       <HomePageContent />

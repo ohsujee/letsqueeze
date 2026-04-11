@@ -11,6 +11,7 @@ import { trackSignup, trackLogin } from '@/lib/analytics';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { useToast } from '@/lib/hooks/useToast';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import Mascot from './Mascot';
 import PseudoSlide from './PseudoSlide';
 import GuestWarningModal from './GuestWarningModal';
@@ -26,6 +27,7 @@ const GAME_IMAGES = [
 const SLIDE_COLORS = ['#8b5cf6', '#22c55e', '#8b5cf6'];
 
 export default function OnboardingPage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const toast = useToast();
   const { isAndroid } = usePlatform();

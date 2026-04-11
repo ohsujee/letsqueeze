@@ -4,9 +4,11 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeft, Mail, MessageCircle, FileText, Shield, HelpCircle, ChevronDown, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { version } from '../../package.json';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import './support.css';
 
 export default function SupportPage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const [openFaq, setOpenFaq] = useState(null);
 

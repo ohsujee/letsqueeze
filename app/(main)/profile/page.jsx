@@ -22,9 +22,11 @@ import AvatarPickerModal from '@/components/ui/AvatarPickerModal';
 import SpotlightTip from '@/components/ui/SpotlightTip';
 import { HueLogo, DeezerLogo, GoogleIcon, AppleIcon } from '@/components/icons';
 import { useAppVersion } from '@/lib/hooks/useAppVersion';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import './profile.css';
 
 export default function ProfilePage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const appVersion = useAppVersion();
   const [user, setUser] = useState(null);

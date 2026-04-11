@@ -19,6 +19,7 @@ import hueService from '@/lib/hue-module/services/hueService';
 import hueScenariosService, { COLORS } from '@/lib/hue-module/services/hueScenariosService';
 import { GAME_EVENTS } from '@/lib/hue-module/components/HueGameConfig';
 import { useAuthProtect } from '@/lib/hooks/useAuthProtect';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import './hue.css';
 
@@ -47,6 +48,7 @@ const EFFECT_TYPES = [
 ];
 
 export default function HueSettingsPage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const { user, loading } = useAuthProtect();
   const [isConnected, setIsConnected] = useState(false);

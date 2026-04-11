@@ -91,22 +91,22 @@ export default function HostSettingsPanel({
               transition={{ duration: 0.2 }}
               style={{ overflow: 'hidden' }}
             >
-              <div className="quiz-team-count-row">
-                <span className="quiz-team-count-label">Nombre d'équipes</span>
-                <div className="quiz-team-count-btns">
+              <div className="lobby-team-count-row">
+                <span className="lobby-team-count-label">Nombre d'équipes</span>
+                <div className="lobby-team-count-btns">
                   {[2, 3, 4].map(count => {
                     const active = (meta?.teamCount || 2) === count;
                     return (
                       <button
                         key={count}
-                        className={`quiz-team-count-btn${active ? ' active' : ''}`}
+                        className={`lobby-team-count-btn${active ? ' active' : ''}`}
                         onClick={() => onTeamCountChange(count)}
                       >
                         {count}
                         {active && (
                           <motion.div
                             layoutId="team-count-bar"
-                            className="quiz-team-count-bar"
+                            className="lobby-team-count-bar"
                             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                           />
                         )}

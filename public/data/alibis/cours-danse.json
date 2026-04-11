@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé la soirée dans un cours de danse pendant le vol de la statue.",
   "inspector_questions": [
     {
-      "text": "Quel était le nom de l'école de danse ?",
-      "hint": "Elle portait un justaucorps rose avec le nom de son école brodé en noir sur le dos."
+      "text": "Quel type de danse était enseigné ?",
+      "hint": "Le groupe a participé à un cours de danse collectif."
     },
     {
-      "text": "Combien coûtait l'inscription au cours ?",
-      "hint": "L'inscription coûtait 15 euros par personne."
+      "text": "De quelle couleur était l'enceinte qui diffusait la musique ?",
+      "hint": "La musique sortait d'une enceinte orange qui grésillait et saturait dans les aigus."
     },
     {
-      "text": "De quelle couleur était le justaucorps du professeur ?",
-      "hint": "Elle portait un justaucorps rose avec le nom de son école brodé en noir."
+      "text": "Depuis combien de temps la ventilation était-elle en panne ?",
+      "hint": "La ventilation était en panne depuis 2 semaines selon une affiche scotchée au mur."
     },
     {
       "text": "Qu'a dit le professeur après la démonstration ratée ?",
       "hint": "Elle a lancé 'Même un éléphant danserait mieux'."
     },
     {
-      "text": "De quelle couleur était l'enceinte ?",
-      "hint": "La musique sortait d'une enceinte orange qui grésillait."
+      "text": "Combien de fois quelqu'un du groupe a-t-il marché sur les pieds de son partenaire ?",
+      "hint": "Un autre a marché sur les pieds de son partenaire au moins 5 fois."
     },
     {
-      "text": "Qui du groupe a été désigné pour la démonstration ?",
-      "hint": "Le professeur a désigné quelqu'un du groupe pour faire une démonstration."
+      "text": "Décrivez le miroir dans la salle.",
+      "hint": "Le miroir du fond de salle était fêlé en diagonale et déformait les reflets."
     },
     {
-      "text": "Qui du groupe s'est étalé sur le parquet ?",
-      "hint": "Quelqu'un du groupe s'est emmêlé les pieds et s'est étalé de tout son long."
-    },
-    {
-      "text": "Combien y avait-il d'autres participants dans le cours ?",
+      "text": "Combien y avait-il d'autres participants en dehors du groupe ?",
       "hint": "Ce qui a fait rire nerveusement les 12 autres participants."
     },
     {
-      "text": "Quel type de danse était enseigné ?",
-      "hint": "Le groupe a participé à un cours de danse collectif."
+      "text": "Qui du groupe a été désigné pour la démonstration devant tout le monde ?",
+      "hint": "Le professeur a désigné quelqu'un du groupe pour faire une démonstration devant tout le monde."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 21h avant la fin."
+      "text": "Que s'est-il passé après la démonstration humiliante ?",
+      "hint": "Quelqu'un s'est emmêlé les pieds et s'est étalé. Un autre a marché sur les pieds de son partenaire."
+    },
+    {
+      "text": "Quel était le nom de l'école de danse du professeur ?",
+      "hint": "Elle portait un justaucorps rose avec le nom de son école brodé en noir sur le dos."
     }
   ],
   "reading_time_seconds": 90

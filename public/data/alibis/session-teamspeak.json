@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé la soirée en session gaming en ligne pendant les feux de poubelles.",
   "inspector_questions": [
     {
-      "text": "Quel était le nom du serveur vocal ?",
-      "hint": "Le serveur appartenait à quelqu'un du groupe qui avait choisi un nom ridicule."
+      "text": "À quel jeu le groupe jouait-il ?",
+      "hint": "Le premier jeu lancé a planté au bout de 5 minutes avec une erreur serveur."
     },
     {
-      "text": "À quelle heure la connexion était-elle prévue ?",
-      "hint": "La connexion était prévue pour 21h."
+      "text": "Quel était le nom du channel vocal ?",
+      "hint": "Quelqu'un du groupe avait choisi un nom ridicule pour le channel."
     },
     {
       "text": "Quel était le message d'accueil automatique du serveur ?",
-      "hint": "Il y avait un message d'accueil automatique 'Bienvenue les noobs !'."
+      "hint": "Il y avait un message d'accueil automatique 'Bienvenue les noobs !' qui se répétait à chaque connexion."
     },
     {
-      "text": "À quel jeu le groupe jouait-il ?",
-      "hint": "Le premier jeu lancé a planté au bout de 5 minutes."
-    },
-    {
-      "text": "Qui du groupe avait des problèmes de micro avec écho ?",
-      "hint": "Quelqu'un du groupe avait des problèmes de micro qui faisait un écho insupportable."
-    },
-    {
-      "text": "Combien de parties le groupe a-t-il perdues d'affilée ?",
+      "text": "Combien de défaites d'affilée le groupe a-t-il encaissées ?",
       "hint": "Une série de 7 défaites humiliantes d'affilée."
     },
     {
-      "text": "Qui du groupe a rage quit ?",
+      "text": "Combien de fois le jeu a-t-il dû être relancé avant de marcher ?",
+      "hint": "Il a fallu relancer 3 fois avant que ça marche."
+    },
+    {
+      "text": "Pendant combien de temps le serveur est-il resté planté à la fin ?",
+      "hint": "Impossible de se reconnecter pendant 20 minutes."
+    },
+    {
+      "text": "Décrivez la scène du rage quit.",
       "hint": "Quelqu'un a rage quit après s'être fait éliminer d'une façon ridicule."
-    },
-    {
-      "text": "Qu'a crié quelqu'un pour insulter un coéquipier ?",
-      "hint": "Un autre a insulté un coéquipier en criant 'T'es vraiment nul !'."
-    },
-    {
-      "text": "À quelle heure le serveur a-t-il complètement planté ?",
-      "hint": "Vers 23h30, le serveur a complètement planté."
     },
     {
       "text": "Qui du groupe hébergeait le serveur vocal ?",
       "hint": "Le serveur appartenait à quelqu'un du groupe."
+    },
+    {
+      "text": "Qui du groupe avait le micro qui faisait écho ?",
+      "hint": "Quelqu'un du groupe avait des problèmes de micro qui faisait un écho insupportable."
+    },
+    {
+      "text": "Racontez dans l'ordre : le premier plantage du jeu, le rage quit, et la déconnexion finale du serveur.",
+      "hint": "Le jeu plante au bout de 5 minutes. Quelqu'un rage quit. Le serveur plante vers 23h30."
     }
   ],
   "reading_time_seconds": 90

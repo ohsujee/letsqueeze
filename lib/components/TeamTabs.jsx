@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shuffle, RotateCcw } from 'lucide-react';
+import { Shuffle, ArrowCounterClockwise } from '@phosphor-icons/react';
 import TeamCard from '@/components/game/TeamCard';
+import PlayerBanner from '@/components/game/PlayerBanner';
 import './TeamTabs.css';
+
+export const DEFAULT_TEAM_COLORS = ['#E84466', '#1EAEE0', '#30C968', '#DDB830', '#B06DEA', '#F07038'];
 
 /**
  * TeamTabs — Gestion d'équipes host (grille de TeamCards)
@@ -20,8 +23,13 @@ export default function TeamTabs({
   onUpdateTeamName,
   teamCount = 4,
   onTeamCountChange,
+  label = 'Équipes',
 }) {
-  const teamsSorted = Object.keys(teams).map(id => ({ id, ...teams[id] }));
+  const teamsSorted = Object.keys(teams).map((id, i) => ({
+    id,
+    ...teams[id],
+    color: teams[id].color || DEFAULT_TEAM_COLORS[i % DEFAULT_TEAM_COLORS.length],
+  }));
   const unassignedPlayers = players.filter(p => !p.teamId || p.teamId === "");
   const getTeamPlayers = (teamId) => players.filter(p => p.teamId === teamId);
 
@@ -30,7 +38,7 @@ export default function TeamTabs({
       {/* Header */}
       <div className="teams-header">
         <div className="teams-header-left">
-          <span className="teams-label">Équipes</span>
+          <span className="teams-label">{label}</span>
           {onTeamCountChange && (
             <div className="team-count-inline">
               {[2, 3, 4].map(count => (
@@ -47,25 +55,25 @@ export default function TeamTabs({
         </div>
         <div className="teams-actions">
           <button className="action-chip" onClick={onAutoBalance} title="Répartir automatiquement">
-            <Shuffle size={14} /> Auto
+            <Shuffle size={14} /> Assignation auto
           </button>
           <button className="action-chip danger" onClick={onResetTeams} title="Réinitialiser">
-            <RotateCcw size={14} />
+            <ArrowCounterClockwise size={14} weight="bold" />
           </button>
         </div>
       </div>
 
       {/* Teams Grid — utilise TeamCard avec animations */}
       <div className="teams-grid">
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="sync">
           {teamsSorted.slice(0, teamCount).map((team, i) => (
             <motion.div
               key={team.id}
               layout
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -10 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 28, delay: i * 0.05 }}
+              initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
+              animate={{ opacity: 1, height: 'auto', overflow: 'visible' }}
+              exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
+              transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1], delay: i * 0.03 }}
             >
               <TeamCard
                 team={team}
@@ -84,11 +92,18 @@ export default function TeamTabs({
 
       {/* Unassigned */}
       {unassignedPlayers.length > 0 && (
-        <div className="unassigned-row">
-          <span className="unassigned-label">Sans équipe</span>
-          <div className="unassigned-chips">
-            {unassignedPlayers.map(p => (
-              <span key={p.uid} className="unassigned-chip">{p.name?.slice(0, 10)}{p.name?.length > 10 ? '…' : ''}</span>
+        <div className="unassigned-section">
+          <span className="unassigned-section-label">Sans équipe · {unassignedPlayers.length}</span>
+          <div className="unassigned-players-list">
+            {unassignedPlayers.map((p, i) => (
+              <motion.div
+                key={p.uid}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.03, duration: 0.15 }}
+              >
+                <PlayerBanner player={p} />
+              </motion.div>
             ))}
           </div>
         </div>

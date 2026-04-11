@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir participé à une dégustation de vins pendant le vandalisme de la statue.",
   "inspector_questions": [
     {
-      "text": "Quel était le nom de l'établissement où a eu lieu la dégustation ?",
-      "hint": "Le groupe a participé à une dégustation de vins organisée dans une cave voûtée."
-    },
-    {
-      "text": "Combien coûtait l'entrée par personne ?",
-      "hint": "L'entrée coûtait 35 euros par personne."
+      "text": "Quel était le nom de l'établissement ?",
+      "hint": "Le groupe a participé à une dégustation dans une cave voûtée."
     },
     {
       "text": "De quelle couleur était le tablier du sommelier ?",
       "hint": "Il portait un tablier bordeaux avec le logo de l'établissement brodé dessus."
     },
     {
+      "text": "Quel vin a été servi en premier ?",
+      "hint": "Le premier vin servi, un Côtes-du-Rhône 2019, avait un goût bizarre, comme du vinaigre."
+    },
+    {
+      "text": "Quel fromage accompagnait la dégustation ?",
+      "hint": "Le fromage Époisses avait une odeur suspecte."
+    },
+    {
+      "text": "Combien affichait l'addition finale ?",
+      "hint": "L'addition finale affichait 187 euros."
+    },
+    {
+      "text": "Décrivez la cave en arrivant.",
+      "hint": "Ça sentait le moisi et l'humidité. Les murs suintaient par endroits et il faisait un froid glacial."
+    },
+    {
       "text": "Par quelle phrase le sommelier commençait-il toujours ses explications ?",
       "hint": "Ses explications commençaient toujours par 'En tant que professionnel certifié...'."
     },
     {
-      "text": "Quel vin a été servi en premier et de quelle année était-il ?",
-      "hint": "Le premier vin servi, un Côtes-du-Rhône 2019, avait un goût bizarre."
+      "text": "Qui du groupe a laissé un avis sur son téléphone avant de sortir ?",
+      "hint": "Quelqu'un du groupe a laissé un avis d'une étoile sur son téléphone avant même de sortir."
     },
     {
-      "text": "Quel type de fromage accompagnait la dégustation ?",
-      "hint": "Le pain qui accompagnait était rassis et le fromage Époisses avait une odeur suspecte."
+      "text": "Racontez dans l'ordre : le premier vin servi, la carafe cassée, et la tentative de vente de bouteilles.",
+      "hint": "Le Côtes-du-Rhône 2019 est servi. Un participant casse sa carafe. Le sommelier tente de vendre des bouteilles."
     },
     {
-      "text": "Qu'a marmonné le sommelier quand la carafe s'est brisée ?",
-      "hint": "Le sommelier a poussé un soupir théâtral et a marmonné 'Pourquoi j'accepte encore les groupes...'"
-    },
-    {
-      "text": "Quel était le montant total de l'addition ?",
-      "hint": "L'addition finale affichait 187 euros."
-    },
-    {
-      "text": "Combien d'étoiles l'avis laissé contenait-il ?",
-      "hint": "Quelqu'un du groupe a laissé un avis d'une étoile sur son téléphone."
-    },
-    {
-      "text": "Vers quelle heure le groupe est-il parti ?",
-      "hint": "À la fin, vers 22h45, le sommelier a tenté de vendre des bouteilles."
+      "text": "Combien de vins différents avez-vous goûtés au total ?",
+      "hint": "Un seul vin est mentionné. Le nombre total n'est pas précisé."
     }
   ],
   "reading_time_seconds": 90

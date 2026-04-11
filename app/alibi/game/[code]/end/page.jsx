@@ -17,15 +17,18 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { usePlayers } from "@/lib/hooks/usePlayers";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { AlibiPartyEndScreen } from "@/components/game-alibi";
 import { TrophyIcon, DefeatIcon } from './_components/AlibiEndIcons';
 import './alibi-end.css';
-import '@/app/alibi/alibi-theme.css';
 
 export function AlibiEndContent({ code, myUid: devUid }) {
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;
+
+  // Safe-area color continuity with the end screen dark background
+  useAppShellBg('#0e0e1a');
 
   const [score, setScore] = useState(null);
   const [myTeam, setMyTeam] = useState(null);
@@ -182,8 +185,8 @@ export function AlibiEndContent({ code, myUid: devUid }) {
     if (!firebaseUser || firebaseUser.isAnonymous) return;
     if (!myTeam || score === null) return;
     statsRecordedRef.current = true;
-    const accusedWon = percentage >= 50;
-    const myTeamWon = (myTeam === 'accused' && accusedWon) || (myTeam === 'detectives' && !accusedWon);
+    const suspectsWon = percentage >= 50;
+    const myTeamWon = (myTeam === 'suspects' && suspectsWon) || (myTeam === 'inspectors' && !suspectsWon);
     recordAlibiGame({ role: myTeam, won: myTeamWon, score: score?.correct || 0 });
   }, [firebaseUser, myTeam, score, percentage]);
 
@@ -284,8 +287,6 @@ export function AlibiEndContent({ code, myUid: devUid }) {
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             data-success={isSuccess}
           >
-            <div className="alibi-end-glow" data-success={isSuccess} />
-
             <div className="alibi-end-icon">
               {isSuccess ? <TrophyIcon size={100} /> : <DefeatIcon size={100} />}
             </div>
@@ -305,13 +306,8 @@ export function AlibiEndContent({ code, myUid: devUid }) {
                 data-success={isSuccess}
                 animate={{
                   scale: displayScore === score.correct ? [1, 1.08, 1] : 1,
-                  textShadow: displayScore === score.correct
-                    ? isSuccess
-                      ? ['0 0 30px rgba(16, 185, 129, 0.6)', '0 0 60px rgba(16, 185, 129, 0.9)', '0 0 30px rgba(16, 185, 129, 0.6)']
-                      : ['0 0 30px rgba(239, 68, 68, 0.6)', '0 0 60px rgba(239, 68, 68, 0.9)', '0 0 30px rgba(239, 68, 68, 0.6)']
-                    : undefined
                 }}
-                transition={{ duration: 0.5, textShadow: { duration: 1.5, repeat: Infinity } }}
+                transition={{ duration: 0.5 }}
               >
                 {displayScore}
               </motion.span>

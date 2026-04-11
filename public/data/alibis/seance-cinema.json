@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé la soirée au cinéma pendant la libération de l'animal.",
   "inspector_questions": [
     {
-      "text": "Quel était le nom du cinéma ?",
-      "hint": "Le groupe est allé au cinéma pour voir un film très attendu."
-    },
-    {
-      "text": "Combien coûtait la place de cinéma ?",
-      "hint": "La séance coûtait 13,50 euros par personne."
-    },
-    {
-      "text": "À quelle heure était la séance ?",
-      "hint": "La séance de 20h30."
-    },
-    {
-      "text": "Qu'était-il écrit sur le badge de l'employé ?",
-      "hint": "Il portait un badge rouge avec l'inscription 'Le cinéma c'est la vie'."
-    },
-    {
       "text": "Quel film le groupe est-il allé voir ?",
       "hint": "Le groupe est allé au cinéma pour voir un film très attendu."
     },
     {
-      "text": "À quel rang étaient les sièges du groupe ?",
+      "text": "Dans quel cinéma la séance avait-elle lieu ?",
+      "hint": "La salle était dans un vieux complexe."
+    },
+    {
+      "text": "À quel rang le groupe était-il assis ?",
       "hint": "Les sièges attribués étaient en rang B, tout devant."
     },
     {
-      "text": "Combien de temps a duré la panne technique ?",
+      "text": "Qu'est-ce qui était écrit sur le badge de l'employé ?",
+      "hint": "Il portait un badge rouge avec l'inscription 'Le cinéma c'est la vie' dessus."
+    },
+    {
+      "text": "Depuis combien de temps l'escalator était-il en panne ?",
+      "hint": "L'escalator était en panne depuis 2 semaines d'après une affiche."
+    },
+    {
+      "text": "Combien de temps la projection s'est-elle interrompue ?",
       "hint": "Il a fallu attendre 15 minutes avant que ça reparte."
     },
     {
-      "text": "Qu'a crié quelqu'un pendant la panne ?",
-      "hint": "Quelqu'un a crié 'C'est une honte !'."
+      "text": "Décrivez le comportement des jeunes assis derrière le groupe.",
+      "hint": "Un groupe de 5 jeunes n'arrêtait pas de parler et de ricaner. L'un consultait son téléphone toutes les 30 secondes."
     },
     {
-      "text": "À quelle heure le groupe est-il sorti du cinéma ?",
-      "hint": "Le groupe est sorti frustré vers 23h."
+      "text": "Quelle réduction le groupe pensait-il avoir ?",
+      "hint": "Il a fait payer le plein tarif alors que le groupe pensait avoir droit à une réduction."
     },
     {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est sorti frustré en regrettant d'avoir dépensé de l'argent."
+      "text": "Que s'est-il passé entre la panne technique et la fin du film ?",
+      "hint": "L'écran est devenu noir. Il a fallu attendre 15 minutes. Le film a repris. La scène finale était tellement mauvaise que des gens ont ri."
+    },
+    {
+      "text": "Combien coûtait la place ?",
+      "hint": "La séance de 20h30 coûtait 13,50 euros par personne."
     }
   ],
   "reading_time_seconds": 90

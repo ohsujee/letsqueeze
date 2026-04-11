@@ -2,13 +2,13 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Users, X, Minus, Plus, ArrowUpDown, TrendingUp, Clock, SortAsc } from 'lucide-react';
+import { MagnifyingGlass, Users, X, Minus, Plus, ArrowsDownUp, TrendUp, Clock, SortAscending } from '@phosphor-icons/react';
 
 const SORT_OPTIONS = [
-  { value: 'default', label: 'Par défaut', icon: ArrowUpDown },
-  { value: 'popular', label: 'Les plus joués', icon: TrendingUp },
+  { value: 'default', label: 'Par défaut', icon: ArrowsDownUp },
+  { value: 'popular', label: 'Les plus joués', icon: TrendUp },
   { value: 'newest', label: 'Nouveautés', icon: Clock },
-  { value: 'alphabetical', label: 'A-Z', icon: SortAsc },
+  { value: 'alphabetical', label: 'A-Z', icon: SortAscending },
 ];
 
 export default function GameFilterBar({
@@ -62,7 +62,7 @@ export default function GameFilterBar({
     <div className="game-filter-bar">
       {/* Search Input with Glow */}
       <div className="game-search-wrapper">
-        <Search className="game-search-icon" size={20} />
+        <MagnifyingGlass className="game-search-icon" size={20} />
         <input
           type="text"
           className="game-search-input"

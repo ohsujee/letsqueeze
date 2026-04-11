@@ -2,8 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 
 export default function LegalPage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
 
   return (

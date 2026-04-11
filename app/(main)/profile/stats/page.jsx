@@ -9,6 +9,7 @@ import { getVisibleGames } from '@/lib/config/games';
 import { GAME_COLORS } from '@/lib/config/colors';
 import { useAuthProtect } from '@/lib/hooks/useAuthProtect';
 import { useUserProfile } from '@/lib/hooks/useUserProfile';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import './stats.css';
 
@@ -32,6 +33,7 @@ function getGameColor(gameId) {
 }
 
 export default function StatsPage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const { user, loading: authLoading } = useAuthProtect();
   const { isFounder: userIsFounder, isSuperFounder: userIsSuperFounder } = useUserProfile();

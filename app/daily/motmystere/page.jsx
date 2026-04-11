@@ -9,6 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
 import { usePostGameAd } from '@/lib/hooks/useInterstitialAd';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import { useHowToPlay } from '@/lib/context/HowToPlayContext';
 import { GameEndTransition } from '@/components/transitions';
 import SuspiciousResultModal from '@/components/ui/SuspiciousResultModal';
@@ -24,6 +25,7 @@ import {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function MotMysterePage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const [serverDate, setServerDate] = useState(null);
 

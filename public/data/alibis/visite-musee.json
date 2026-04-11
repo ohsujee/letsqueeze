@@ -10,40 +10,40 @@
       "hint": "Le groupe est allé visiter un musée pour voir une exposition temporaire."
     },
     {
-      "text": "Combien coûtait l'entrée par personne ?",
-      "hint": "L'entrée coûtait 18 euros par personne."
+      "text": "Quel était le thème de l'exposition temporaire ?",
+      "hint": "Le groupe est allé voir une exposition temporaire."
     },
     {
-      "text": "Qu'était-il écrit sur le badge du vigile ?",
-      "hint": "Il portait un badge jaune avec l'inscription 'La culture pour tous'."
-    },
-    {
-      "text": "Combien de temps a duré l'attente dans la file ?",
-      "hint": "La file d'attente faisait 45 minutes."
-    },
-    {
-      "text": "Quelle était la température dans les salles ?",
-      "hint": "Les salles étaient bondées et surchauffées à 28 degrés."
+      "text": "Qu'est-ce qui était écrit sur le badge du vigile ?",
+      "hint": "Il portait un badge jaune avec l'inscription 'La culture pour tous' dessus."
     },
     {
       "text": "Combien d'oeuvres principales étaient en restauration ?",
-      "hint": "Les 3 oeuvres principales étaient en restauration."
+      "hint": "Les 3 oeuvres principales étaient en restauration et remplacées par des photos floues."
     },
     {
-      "text": "Quel était le thème de l'exposition temporaire ?",
-      "hint": "Le groupe est allé visiter un musée pour voir une exposition temporaire."
+      "text": "Combien coûtait le café au musée ?",
+      "hint": "Le café du musée servait du café tiède à 6,50 euros dans des gobelets en carton."
     },
     {
-      "text": "Combien coûtait le café au café du musée ?",
-      "hint": "Le café du musée servait du café tiède à 6,50 euros."
+      "text": "Combien de temps la file d'attente a-t-elle duré ?",
+      "hint": "La file d'attente faisait 45 minutes."
     },
     {
-      "text": "À quelle heure le groupe est-il sorti du musée ?",
-      "hint": "Le groupe est sorti vers 17h frustré."
+      "text": "Quelle température faisait-il dans les salles ?",
+      "hint": "Les salles étaient bondées et surchauffées à 28 degrés."
     },
     {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est sorti frustré en se disant que c'était de l'argent jeté."
+      "text": "Décrivez la remarque du vigile sur le sac de quelqu'un du groupe.",
+      "hint": "Il a fait une remarque 'C'est quoi tout ce bazar ?' sur le sac de quelqu'un du groupe."
+    },
+    {
+      "text": "Racontez dans l'ordre : la fouille des sacs, la découverte des oeuvres manquantes, et le passage à la boutique.",
+      "hint": "Le vigile fouille les sacs. Les 3 oeuvres sont en restauration. Le groupe passe à la boutique."
+    },
+    {
+      "text": "Qu'est-ce que le groupe a acheté à la boutique du musée ?",
+      "hint": "À la boutique, les prix étaient scandaleux."
     }
   ],
   "reading_time_seconds": 90

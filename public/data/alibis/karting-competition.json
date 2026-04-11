@@ -6,20 +6,28 @@
   "inspector_summary": "Les accusés affirment avoir passé la soirée sur un circuit de karting pendant l'incident de la fontaine.",
   "inspector_questions": [
     {
-      "text": "Combien coûtait la session de karting et combien de temps durait-elle ?",
-      "hint": "La session de 20 minutes coûtait 28 euros par personne."
+      "text": "Quel était le nom du circuit de karting ?",
+      "hint": "Le groupe s'est rendu sur un circuit de karting pour une session."
+    },
+    {
+      "text": "Quel numéro portait le kart attribué au groupe ?",
+      "hint": "Celui attribué au groupe portait le numéro 7."
     },
     {
       "text": "De quelle couleur était la combinaison du responsable ?",
       "hint": "Il portait une combinaison orange avec le logo du circuit imprimé dans le dos."
     },
     {
-      "text": "Quel était le numéro du kart attribué au groupe ?",
-      "hint": "Celui attribué au groupe portait le numéro 7."
+      "text": "Quel kart est tombé en panne pendant la course ?",
+      "hint": "Le kart numéro 3 est tombé en panne en plein milieu du circuit."
     },
     {
-      "text": "Quel numéro de kart est tombé en panne pendant la course ?",
-      "hint": "Le kart numéro 3 est tombé en panne en plein milieu du circuit."
+      "text": "Quel était le meilleur temps au tour affiché ?",
+      "hint": "Le meilleur temps au tour, 47 secondes 3, était écrit sur un tableau blanc à moitié effacé."
+    },
+    {
+      "text": "Décrivez l'état du siège du kart du groupe.",
+      "hint": "Il avait un siège déchiré avec de la mousse jaunie qui dépassait."
     },
     {
       "text": "Dans quel virage le participant s'est-il pris le mur ?",
@@ -30,20 +38,12 @@
       "hint": "Il a hurlé 'C'est une arnaque ce circuit !'"
     },
     {
-      "text": "À quelle position le groupe était-il classé et sur combien de participants ?",
+      "text": "Racontez dans l'ordre : la distribution des casques, la panne du kart, et le crash dans le virage.",
+      "hint": "Les casques sont distribués. Le kart numéro 3 tombe en panne. Un participant se prend le mur dans le virage 4."
+    },
+    {
+      "text": "À quelle place le groupe était-il classé, sur combien ?",
       "hint": "Le groupe était classé 8ème sur 12."
-    },
-    {
-      "text": "Quel était le meilleur temps au tour affiché ?",
-      "hint": "Le meilleur temps au tour, 47 secondes 3, était écrit sur un tableau blanc."
-    },
-    {
-      "text": "Vers quelle heure la session s'est-elle terminée ?",
-      "hint": "À la fin, vers 19h30, le classement affiché sur l'écran était complètement faux."
-    },
-    {
-      "text": "Qui du groupe a réclamé auprès du responsable ?",
-      "hint": "Le groupe a réclamé mais le responsable s'en fichait totalement."
     }
   ],
   "reading_time_seconds": 90

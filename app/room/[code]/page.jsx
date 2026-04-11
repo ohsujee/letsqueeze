@@ -6,7 +6,7 @@ import {
   auth, db, ref, onValue, update, remove, set, get,
   signInAnonymously, onAuthStateChanged,
 } from "@/lib/firebase";
-import TeamTabs from "@/lib/components/TeamTabs";
+import TeamTabs, { DEFAULT_TEAM_COLORS } from "@/lib/components/TeamTabs";
 import QuizSelectorModal from "@/components/ui/QuizSelectorModal";
 import LobbyHeader from "@/components/game/LobbyHeader";
 import PlayerBanner from "@/components/game/PlayerBanner";
@@ -28,6 +28,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import LobbyStartButton from "@/components/game/LobbyStartButton";
 import { storage } from "@/lib/utils/storage";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { GameLaunchCountdown } from "@/components/transitions";
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import { CaretDown, Info, Lightning, UsersThree, ArrowRight, Users } from '@phosphor-icons/react';
@@ -49,6 +50,9 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
+
+  // Safe-area color continuity with the lobby dark background
+  useAppShellBg('#0e0e1a');
 
   const [meta, setMeta] = useState(null);
   const [teams, setTeams] = useState({});
@@ -250,12 +254,11 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
     }
   };
 
-  const teamColors = ["#E84466", "#1EAEE0", "#30C968", "#DDB830", "#B06DEA", "#F07038"];
   const teamNames = ["Équipe Rouge", "Équipe Bleue", "Équipe Verte", "Équipe Jaune"];
 
   const createTeamsForCount = (count) => {
     const newTeams = {};
-    for (let i = 0; i < count; i++) newTeams[`team${i + 1}`] = { name: teamNames[i], color: teamColors[i], score: 0 };
+    for (let i = 0; i < count; i++) newTeams[`team${i + 1}`] = { name: teamNames[i], color: DEFAULT_TEAM_COLORS[i], score: 0 };
     return newTeams;
   };
 
@@ -366,7 +369,7 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
 
   // ── Render ──
   return (
-    <div className="quiz-lobby" style={getFlatCSSVars('quiz')}>
+    <div className="quiz-lobby game-page" style={getFlatCSSVars('quiz')}>
 
       {/* Background — solid color via CSS */}
 
@@ -429,11 +432,11 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
 
         {/* Player settings (non-host) */}
         {!isHost && (
-          <motion.div className="quiz-settings-panel quiz-player-settings" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <div className="quiz-player-settings-info">
-              <span className="quiz-player-settings-emoji">{quizSelection?.categoryEmoji || '🧠'}</span>
+          <motion.div className="lobby-player-settings" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <div className="lobby-player-settings-info">
+              <span className="lobby-player-settings-emoji">{quizSelection?.categoryEmoji || '🧠'}</span>
               <div style={{ minWidth: 0 }}>
-                <div className="quiz-player-settings-name">
+                <div className="lobby-player-settings-name">
                   {quizSelection?.categoryName || 'Quiz en attente'}
                 </div>
                 {hasSelection && (

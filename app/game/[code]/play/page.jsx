@@ -18,6 +18,7 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { useSound } from "@/lib/hooks/useSound";
 import { useAskerRotation } from "@/lib/hooks/useAskerRotation";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
@@ -32,6 +33,9 @@ export function QuizPlayContent({ code, myUid: devUid }) {
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;
+
+  // Safe-area color continuity with the play view dark background
+  useAppShellBg('#0e0e1a');
 
   const [state, setState] = useState(null);
   const [meta, setMeta] = useState(null);

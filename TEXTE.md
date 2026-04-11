@@ -1,16 +1,16 @@
-VM5020 <anonymous>:1 Error: Module [project]/node_modules/@phosphor-icons/react/dist/csr/MusicNote.es.js [app-client] (ecmascript) was instantiated because it was required from module [project]/components/transitions/GameEndTransition.jsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
-    at module evaluation (GameEndTransition.jsx:5:1)
-    at module evaluation (index.js:8:1)
-    at module evaluation (page.jsx:32:1)
-    at module evaluation (page.jsx:7:1)
+/app/globals.css:3238:24
+Parsing CSS source code failed
+  3236 |   background: transparent;
+  3237 | }
+> 3238 | input::placeholder:not(.game-page *) {
+       |                        ^
+  3239 |   color: #9CA3AF;
+  3240 |   font-weight: var(--font-normal);
+  3241 | }
 
+Pseudo-elements like '::before' or '::after' can't be followed by selectors like 'Delim('.')'
 
-The above error occurred in the <ClientPageRoot> component. It was handled by the <ErrorBoundary> error boundary.
-
-ErrorBoundary.jsx:22 ErrorBoundary caught: Error: Module [project]/node_modules/@phosphor-icons/react/dist/csr/MusicNote.es.js [app-client] (ecmascript) was instantiated because it was required from module [project]/components/transitions/GameEndTransition.jsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
-    at module evaluation (GameEndTransition.jsx:5:1)
-    at module evaluation (index.js:8:1)
-    at module evaluation (page.jsx:32:1)
-    at module evaluation (page.jsx:7:1)
- 
-{componentStack: '\n    at ClientPageRoot (<anonymous>)\n    at Segmen…_modules_next_dist_client_aaee43fe._.js:12983:17)'}
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.js [Server Component]

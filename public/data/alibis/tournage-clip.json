@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé l'après-midi sur un tournage de clip pendant le vol des panneaux.",
   "inspector_questions": [
     {
-      "text": "Pour quel artiste ou projet était ce clip ?",
+      "text": "Pour quel artiste ou projet ce clip était-il tourné ?",
       "hint": "Le groupe a participé au tournage d'un clip vidéo amateur."
     },
     {
-      "text": "Qu'était-il écrit sur la casquette du réalisateur ?",
-      "hint": "Il portait une casquette noire avec l'inscription 'DIRECTOR' imprimée en blanc."
-    },
-    {
-      "text": "Quelle était la température dans l'entrepôt ?",
+      "text": "Quelle température faisait-il à l'intérieur de l'entrepôt ?",
       "hint": "Il faisait un froid glacial de 8 degrés à l'intérieur."
     },
     {
-      "text": "Combien de projecteurs y avait-il sur le tournage ?",
-      "hint": "Les 3 projecteurs surchauffaient dangereusement."
+      "text": "Qu'est-ce qui était imprimé sur la casquette du réalisateur ?",
+      "hint": "Il portait une casquette noire avec l'inscription 'DIRECTOR' imprimée en blanc dessus."
     },
     {
       "text": "De quelle couleur était le rideau qui a failli prendre feu ?",
-      "hint": "Les projecteurs ont failli mettre le feu à un rideau rouge."
+      "hint": "Les 3 projecteurs ont failli mettre le feu à un rideau rouge."
     },
     {
-      "text": "Qui du groupe a éteint les projecteurs en urgence ?",
-      "hint": "Quelqu'un du groupe a dû les éteindre en urgence."
-    },
-    {
-      "text": "Qu'a dit le réalisateur pour critiquer le groupe ?",
-      "hint": "Le réalisateur a dit 'Même des mannequins en bois seraient plus expressifs'."
-    },
-    {
-      "text": "Combien de temps a duré le tournage ?",
+      "text": "Combien de temps le tournage a-t-il duré ?",
       "hint": "Le tournage a duré 6 heures pour un résultat médiocre."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Tout le monde est parti vers 19h épuisé."
+      "text": "Qu'a dit le réalisateur pour se moquer du groupe ?",
+      "hint": "Le réalisateur a dit 'Même des mannequins en bois seraient plus expressifs'."
     },
     {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Tout le monde est parti épuisé en doutant que ce clip sorte un jour."
+      "text": "Décrivez les costumes qu'on vous a donnés.",
+      "hint": "Les costumes étaient ridicules et inconfortables. Ils grattaient et sentaient le renfermé."
+    },
+    {
+      "text": "Décrivez le lieu de tournage.",
+      "hint": "Un entrepôt désaffecté qui sentait la moisissure et l'huile de machine."
+    },
+    {
+      "text": "Qui du groupe a dû éteindre les projecteurs en urgence ?",
+      "hint": "Quelqu'un du groupe a dû les éteindre en urgence."
+    },
+    {
+      "text": "Racontez dans l'ordre : l'incident des projecteurs, le problème de maquillage, et la remarque du réalisateur.",
+      "hint": "Les projecteurs ont failli mettre le feu. Le maquillage coulait. Le réalisateur se moque du groupe."
     }
   ],
   "reading_time_seconds": 90

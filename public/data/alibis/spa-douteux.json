@@ -10,14 +10,6 @@
       "hint": "Le groupe s'est rendu dans un spa pour une séance de détente."
     },
     {
-      "text": "Combien coûtait la séance par personne ?",
-      "hint": "La séance coûtait 35 euros par personne."
-    },
-    {
-      "text": "De quelle couleur était le logo brodé sur la tunique de la réceptionniste ?",
-      "hint": "Elle portait une tunique blanche avec le logo du spa brodé en bleu."
-    },
-    {
       "text": "À quelle température était le jacuzzi ?",
       "hint": "Le jacuzzi était tiède, à peine 30 degrés."
     },
@@ -26,24 +18,32 @@
       "hint": "Le sauna était réglé à 90 degrés, beaucoup trop chaud."
     },
     {
-      "text": "Qui du groupe a failli s'évanouir dans le sauna ?",
-      "hint": "Quelqu'un du groupe a failli s'évanouir après 5 minutes."
-    },
-    {
-      "text": "Combien de casiers fonctionnaient dans les vestiaires ?",
+      "text": "Combien de casiers fermaient correctement dans les vestiaires ?",
       "hint": "Seulement 4 casiers sur 12 fermaient correctement."
     },
     {
-      "text": "Qu'a dit l'employé au groupe ?",
+      "text": "De quelle couleur était le carrelage à l'entrée ?",
+      "hint": "Le carrelage beige de l'entrée était mouillé et glissant."
+    },
+    {
+      "text": "Quelle installation était en panne sans que personne ait prévenu ?",
+      "hint": "Le hammam était en panne et personne n'avait prévenu."
+    },
+    {
+      "text": "Décrivez le peignoir qu'on vous a donné.",
+      "hint": "Le peignoir distribué avait une tache marron suspecte sur l'épaule."
+    },
+    {
+      "text": "Qui du groupe a failli s'évanouir dans le sauna ?",
+      "hint": "Quelqu'un du groupe a failli s'évanouir après 5 minutes à cause de la chaleur."
+    },
+    {
+      "text": "Racontez dans l'ordre : le passage aux vestiaires, le jacuzzi, et le sauna.",
+      "hint": "Les vestiaires étaient exigus. Le jacuzzi était tiède avec de l'eau verdâtre. Le sauna était trop chaud."
+    },
+    {
+      "text": "Qu'a dit l'employé quand le groupe parlait ?",
       "hint": "Un employé a fait une remarque 'C'est pas une cour de récré ici'."
-    },
-    {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 17h30 stressé."
-    },
-    {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est parti stressé au lieu d'être détendu."
     }
   ],
   "reading_time_seconds": 90

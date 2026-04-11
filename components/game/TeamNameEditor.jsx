@@ -1,16 +1,21 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
-import { Pencil, Check, X } from 'lucide-react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { PencilSimple, Check, X } from '@phosphor-icons/react';
 import './TeamNameEditor.css';
 
+// Measure text width using canvas — matches actual font rendering
+let _canvas;
+function measureText(text, font) {
+  if (!_canvas) _canvas = document.createElement('canvas');
+  const ctx = _canvas.getContext('2d');
+  ctx.font = font;
+  return ctx.measureText(text || ' ').width;
+}
+
 /**
- * TeamNameEditor — Éditeur de nom d'équipe inline (partagé entre tous les jeux)
- *
- * @param {Object} group - { id, name, color }
- * @param {function} onUpdateName - (newName) => Promise
- * @param {boolean} canEdit - peut éditer
- * @param {boolean} compact - mode compact (pas de label)
+ * TeamNameEditor — Inline name editor, always renders as input.
+ * Non-editing: looks like plain text. Editing: subtle border appears + action buttons.
  */
 export default function TeamNameEditor({
   group,
@@ -19,9 +24,10 @@ export default function TeamNameEditor({
   compact = false
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedName, setEditedName] = useState('');
+  const [editedName, setEditedName] = useState(group?.name || '');
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (!isEditing && group?.name) {
@@ -34,6 +40,11 @@ export default function TeamNameEditor({
     setEditedName(group?.name || '');
     setError('');
     setIsEditing(true);
+    requestAnimationFrame(() => {
+      inputRef.current?.focus();
+      // On mobile, ensure the input is visible above the keyboard
+      setTimeout(() => inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+    });
   }, [canEdit, group?.name]);
 
   const cancelEditing = useCallback(() => {
@@ -54,7 +65,7 @@ export default function TeamNameEditor({
       setIsEditing(false);
       setError('');
     } catch (err) {
-      setError(err.message || 'Erreur de sauvegarde');
+      setError(err.message || 'Erreur');
     } finally {
       setSaving(false);
     }
@@ -70,33 +81,33 @@ export default function TeamNameEditor({
   return (
     <div className={`tne-editor ${compact ? 'tne-compact' : ''}`}>
       <div className="tne-row">
-        {isEditing ? (
+        <input
+          ref={inputRef}
+          type="text"
+          className={`tne-input ${isEditing ? 'tne-active' : ''} ${error ? 'tne-error' : ''}`}
+          value={editedName}
+          onChange={(e) => { setEditedName(e.target.value); if (error) setError(''); }}
+          onKeyDown={handleKeyDown}
+          maxLength={20}
+          readOnly={!isEditing}
+          tabIndex={isEditing ? 0 : -1}
+          style={{ width: Math.ceil(measureText(editedName, '0.85rem Bungee') + 16) + 'px' }}
+        />
+
+        {!isEditing && canEdit && (
+          <button className="tne-btn tne-btn-edit" onClick={startEditing}>
+            <PencilSimple size={13} weight="bold" />
+          </button>
+        )}
+
+        {isEditing && (
           <>
-            <input
-              type="text"
-              className={`tne-input ${error ? 'tne-error' : ''}`}
-              value={editedName}
-              onChange={(e) => { setEditedName(e.target.value); if (error) setError(''); }}
-              onKeyDown={handleKeyDown}
-              maxLength={20}
-              autoFocus
-              placeholder="Nom de l'équipe"
-            />
             <button className="tne-btn tne-btn-save" onClick={saveNameChange} disabled={saving}>
-              <Check size={16} />
+              <Check size={14} weight="bold" />
             </button>
             <button className="tne-btn tne-btn-cancel" onClick={cancelEditing} disabled={saving}>
-              <X size={16} />
+              <X size={14} weight="bold" />
             </button>
-          </>
-        ) : (
-          <>
-            <span className="tne-name">{group.name}</span>
-            {canEdit && (
-              <button className="tne-btn tne-btn-edit" onClick={startEditing}>
-                <Pencil size={13} />
-              </button>
-            )}
           </>
         )}
       </div>

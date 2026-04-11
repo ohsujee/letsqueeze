@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { auth, db, ref, set, update, remove, onValue, onAuthStateChanged } from '@/lib/firebase';
 import { createRoom as createFirebaseRoom } from '@/lib/config/rooms';
 
 import { LolLobbyContent } from '@/app/lol/room/[code]/page';
-import { LolPlayContent } from '@/app/lol/game/[code]/play/page';
-import { LolEndContent } from '@/app/lol/game/[code]/end/page';
+
+// Lazy load non-lobby phases — prevents CSS from all phases loading simultaneously
+const LolPlayContent = lazy(() => import('@/app/lol/game/[code]/play/page').then(m => ({ default: m.LolPlayContent })));
+const LolEndContent = lazy(() => import('@/app/lol/game/[code]/end/page').then(m => ({ default: m.LolEndContent })));
 
 const ROOM_PREFIX = 'rooms_lol';
 
@@ -138,6 +140,14 @@ function ControlButton({ label, color, onClick, disabled = false, filled = true 
     >
       {label}
     </button>
+  );
+}
+
+function PhaseLoader() {
+  return (
+    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0e0e1a' }}>
+      <div style={{ width: 24, height: 24, border: '3px solid #222240', borderTopColor: '#EF4444', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+    </div>
   );
 }
 
@@ -431,7 +441,7 @@ export default function LolSimulator() {
     if (displayPhase === 'playing') {
       return playerEntries.map(([uid, player]) => (
         <SimPanel key={uid} role={uid === myUid ? 'host' : 'player'} label={`Player - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
-          <LolPlayContent code={roomCode} myUid={uid} />
+          <Suspense fallback={<PhaseLoader />}><LolPlayContent code={roomCode} myUid={uid} /></Suspense>
         </SimPanel>
       ));
     }
@@ -439,7 +449,7 @@ export default function LolSimulator() {
     if (displayPhase === 'ended') {
       return playerEntries.map(([uid, player]) => (
         <SimPanel key={uid} role="end" label={`End - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
-          <LolEndContent code={roomCode} myUid={uid} />
+          <Suspense fallback={<PhaseLoader />}><LolEndContent code={roomCode} myUid={uid} /></Suspense>
         </SimPanel>
       ));
     }

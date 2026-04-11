@@ -2,9 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import './privacy.css';
 
 export default function PrivacyPage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
 
   return (

@@ -10,40 +10,40 @@
       "hint": "Le groupe avait rendez-vous dans une salle de sport pour une séance d'essai."
     },
     {
-      "text": "Combien coûtait la séance par personne ?",
-      "hint": "La séance coûtait 25 euros par personne."
+      "text": "Qu'est-ce qui était imprimé sur le débardeur du coach ?",
+      "hint": "Il portait un débardeur noir avec l'inscription 'NO PAIN NO GAIN' imprimée en jaune dessus."
     },
     {
-      "text": "Qu'était-il écrit sur le débardeur du coach ?",
-      "hint": "Il portait un débardeur noir avec l'inscription 'NO PAIN NO GAIN' imprimée en jaune."
+      "text": "Combien de pompes le coach a-t-il données en punition ?",
+      "hint": "Il a donné 30 pompes de punition à tout le groupe pour avoir demandé une pause."
     },
     {
-      "text": "Qu'a dit le coach pour se moquer du groupe ?",
-      "hint": "Il s'est moqué quand quelqu'un n'y arrivait pas en disant 'Ma grand-mère fait mieux'."
-    },
-    {
-      "text": "Qui du groupe a failli vomir ?",
-      "hint": "Quelqu'un a failli vomir tellement c'était intense."
-    },
-    {
-      "text": "Combien de pompes le coach a-t-il donné en punition ?",
-      "hint": "Il a donné 30 pompes de punition à tout le groupe."
-    },
-    {
-      "text": "Combien de casiers fonctionnaient dans les vestiaires ?",
+      "text": "Combien de casiers fermaient correctement dans les vestiaires ?",
       "hint": "Seulement 3 casiers sur 10 fermaient correctement."
     },
     {
-      "text": "À quelle place le groupe était-il classé sur le tableau ?",
+      "text": "De quelle couleur était la moquette à l'entrée ?",
+      "hint": "La moquette grise de l'entrée était usée et tachée."
+    },
+    {
+      "text": "Quel exercice le coach a-t-il fait faire en premier ?",
+      "hint": "Le coach a imposé des exercices impossibles."
+    },
+    {
+      "text": "Qu'a dit le coach quand quelqu'un n'y arrivait pas ?",
+      "hint": "Il s'est moqué en disant 'Ma grand-mère fait mieux'."
+    },
+    {
+      "text": "Qui du groupe a failli vomir pendant la séance ?",
+      "hint": "Quelqu'un a failli vomir tellement c'était intense."
+    },
+    {
+      "text": "Racontez dans l'ordre : les pompes de punition, le malaise d'un membre, et le discours du coach à la fin.",
+      "hint": "Le coach donne 30 pompes. Quelqu'un faillit vomir. Le coach fait un discours condescendant."
+    },
+    {
+      "text": "À quelle place le groupe était-il classé sur le tableau blanc ?",
       "hint": "Le groupe était classé dernier sur 8 équipes."
-    },
-    {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 19h épuisé."
-    },
-    {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est parti épuisé, humilié, en se promettant de ne jamais revenir."
     }
   ],
   "reading_time_seconds": 90

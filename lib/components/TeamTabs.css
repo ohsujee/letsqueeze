@@ -50,7 +50,7 @@
 }
 
 .count-btn-inline.active {
-  background: var(--game-secondary, #7c3aed);
+  background: var(--game-color, #8b5cf6);
   border-bottom-color: var(--game-dark, #5b21b6);
   color: #fff;
 }
@@ -96,66 +96,7 @@
   gap: 8px;
 }
 
-/* Team Card */
-.team-card-compact {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 10px;
-  background: var(--flat-bg-light, #3d2d70);
-  border: none;
-  border-bottom: 2px solid var(--flat-bg-dark, #1e1445);
-  border-radius: 10px;
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.team-card-compact:active {
-  transform: translateY(1px);
-  border-bottom-width: 1px;
-}
-
-.team-color-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  border-radius: 10px 0 0 10px;
-}
-
-.team-info-compact {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 8px;
-}
-
-.team-name-compact {
-  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.team-count-compact {
-  font-family: var(--font-mono, 'Roboto Mono'), monospace;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--flat-text, #c4b5fd);
-  background: var(--flat-bg-dark, #1e1445);
-  padding: 2px 8px;
-  border-radius: 6px;
-}
-
 /* Player Names Preview */
-.team-players-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding-left: 8px;
-}
 
 .player-name-chip {
   font-family: var(--font-body, 'Inter'), sans-serif;
@@ -350,42 +291,24 @@
   border-bottom-width: 1px;
 }
 
-/* Unassigned Players */
-.unassigned-row {
+/* Unassigned Players — section with PlayerBanners */
+.unassigned-section {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: #f59e0b;
-  border: none;
-  border-bottom: 3px solid #d97706;
-  border-radius: 10px;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.unassigned-label {
-  font-size: 0.65rem;
+.unassigned-section-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.7rem;
   font-weight: 700;
-  color: #5C3D00;
+  color: #8a8aa0;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  flex-shrink: 0;
+  letter-spacing: 0.1em;
 }
 
-.unassigned-chips {
+.unassigned-players-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 4px;
-}
-
-.unassigned-chip {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #5C3D00;
-  background: #d97706;
-  padding: 2px 8px;
-  border-radius: 6px;
-}
-
-.unassigned-chip.more {
-  color: #92400e;
 }

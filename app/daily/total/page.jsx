@@ -15,10 +15,12 @@ import TotalReadyScreen from './components/TotalReadyScreen';
 import TotalPlayingScreen from './components/TotalPlayingScreen';
 import TotalSubmissionsRecap from './components/TotalSubmissionsRecap';
 import { useTotalGame } from '@/lib/hooks/useTotalGame';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import { TIMER_SECONDS } from './components/helpers';
 import './total.css';
 
 export default function DailyTotalPage() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const { openManually: openHowToPlay } = useHowToPlay();
   const [showStats, setShowStats] = useState(false);

@@ -3,40 +3,27 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-  },
-  animate: {
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-  },
-};
-
 /**
  * PageTransition - Smooth page transitions for (main) layout
- * Uses pathname as key to trigger animations on route change
  *
- * Mode "popLayout" permet un crossfade où les deux pages sont visibles
- * brièvement, évitant le flash noir entre les pages.
+ * mode="wait" — séquentiel : l'ancienne page sort AVANT que la nouvelle entre.
+ * Évite le double-rendu simultané qui causait des saccades.
+ * Le fond #0e0e1a du layout reste visible entre les deux → pas de flash.
  */
 export default function PageTransition({ children }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="popLayout" initial={false}>
+    <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={pageVariants}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         transition={{
           type: 'tween',
-          ease: 'easeInOut',
-          duration: 0.2,
+          ease: 'easeOut',
+          duration: 0.12,
         }}
         style={{
           flex: 1,

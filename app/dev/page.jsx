@@ -100,7 +100,18 @@ const GAMES = [
 ];
 
 export default function DevIndex() {
-  const [activeTab, setActiveTab] = useState('lobbies');
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window === 'undefined') return 'lobbies';
+    return localStorage.getItem('dev_active_tab') || 'lobbies';
+  });
+
+  // Persist tab selection
+  const handleSetTab = (tabId) => {
+    setActiveTab(tabId);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('dev_active_tab', tabId);
+    }
+  };
 
   return (
     <DevToastProvider>
@@ -153,7 +164,7 @@ export default function DevIndex() {
           ].map(tab => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => handleSetTab(tab.id)}
               style={{
                 flex: 1,
                 padding: '9px 16px',
@@ -234,6 +245,19 @@ function UIPlayground() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+      {/* Card Compare — Old vs New */}
+      <a href="/dev/card-compare" style={{ ...cardStyle, borderLeft: '3px solid #fbbf24', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ fontFamily: 'Bungee, sans-serif', fontSize: '0.9rem', color: '#eef2ff', letterSpacing: '0.03em', marginBottom: '4px' }}>
+            🎨 Card Compare — Old vs New
+          </div>
+          <div style={{ fontSize: '0.7rem', color: 'rgba(238,242,255,0.4)' }}>
+            Compare les anciennes et nouvelles game cards côte à côte
+          </div>
+        </div>
+        <span style={{ color: '#fbbf24', fontSize: '1.2rem' }}>&rarr;</span>
+      </a>
 
       {/* Transitions Preview */}
       <a href="/dev/transitions" style={{ ...cardStyle, borderLeft: '3px solid #8b5cf6', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

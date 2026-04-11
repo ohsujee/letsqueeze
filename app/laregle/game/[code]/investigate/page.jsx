@@ -18,6 +18,7 @@ import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useToast } from "@/lib/hooks/useToast";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { Clock, Pause, Play, AlertTriangle } from "lucide-react";
@@ -30,6 +31,7 @@ import { ChoosingWaitPhase, PlayingInvestPhase, GuessingInvestPhase } from "./_c
 const ACCENT = '#00e5ff';
 
 export function LaRegleInvestigateContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

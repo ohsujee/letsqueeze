@@ -19,7 +19,7 @@
           flex-shrink: 0;
           display: flex;
           flex-direction: column;
-          gap: clamp(4px, 0.8vh, 8px);
+          gap: clamp(3px, 0.5vh, 5px);
           overflow-y: auto;
           overflow-x: hidden;
           padding-right: 0;
@@ -156,7 +156,7 @@
           border-bottom: 3px solid #CC9600;
         }
 
-        .leaderboard-card .player-row.first .player-name {
+        .leaderboard-card .player-row.first .pb-name {
           color: #5C3D00;
         }
 
@@ -177,7 +177,7 @@
           border-bottom: 3px solid #8E9BAD;
         }
 
-        .leaderboard-card .player-row.second .player-name {
+        .leaderboard-card .player-row.second .pb-name {
           color: #2C3E50;
         }
 
@@ -198,7 +198,7 @@
           border-bottom: 3px solid #A05A2E;
         }
 
-        .leaderboard-card .player-row.third .player-name {
+        .leaderboard-card .player-row.third .pb-name {
           color: #4A2000;
         }
 
@@ -214,22 +214,22 @@
           color: #fff;
         }
 
-        .leaderboard-card .player-row.is-me {
+        .leaderboard-card .player-row.pb-me {
           background: var(--game-secondary, #7c3aed) !important;
           border-bottom: 3px solid var(--game-dark, #5b21b6) !important;
         }
 
-        .leaderboard-card .player-row.is-me .player-name {
+        .leaderboard-card .player-row.pb-me .pb-name {
           color: #fff;
         }
 
-        .leaderboard-card .player-row.is-me .rank-number {
+        .leaderboard-card .player-row.pb-me .rank-number {
           background: var(--game-dark, #6d28d9);
           border-bottom-color: var(--game-dark, #5b21b6);
           color: #fff;
         }
 
-        .leaderboard-card .player-row.is-me .player-score {
+        .leaderboard-card .player-row.pb-me .player-score {
           background: var(--game-dark, #6d28d9);
           border-bottom: 2px solid var(--game-dark, #5b21b6);
           color: #fff;
@@ -240,7 +240,7 @@
           filter: grayscale(0.6);
         }
 
-        .leaderboard-card .player-row.disconnected .player-name {
+        .leaderboard-card .player-row.disconnected .pb-name {
           color: #4a4a65;
         }
 
@@ -297,32 +297,17 @@
           justify-content: center;
         }
 
-        .player-name {
-          flex: 1;
-          min-width: 0;
-          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-          font-size: clamp(12px, 1.6vh, 15px);
-          font-weight: 700;
-          color: #eef2ff;
-          display: flex;
-          align-items: center;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+        /* .pb-name — handled by PlayerBanner.css */
+
+        /* Reset PlayerBanner wrapper spacing in leaderboard context */
+        .leaderboard-card .pb-wrapper {
+          padding-top: 0;
         }
 
-        .you-badge {
-          display: inline;
-          font-size: clamp(7px, 1vh, 10px);
-          padding: clamp(2px, 0.3vh, 4px) clamp(4px, 0.6vh, 6px);
-          margin-left: clamp(3px, 1vw, 6px);
+        /* Leaderboard-specific "Toi" badge — game color bg instead of dark overlay */
+        .leaderboard-card .pb-me-badge {
           background: var(--game-secondary, #7c3aed);
-          color: #fff;
-          border-radius: 4px;
-          text-transform: uppercase;
-          font-weight: 700;
-          letter-spacing: 0.05em;
-          flex-shrink: 0;
+          margin-left: clamp(3px, 1vw, 6px);
         }
 
         .score-area {
@@ -459,7 +444,7 @@
           border-bottom: 3px solid color-mix(in srgb, var(--player-team-color) 70%, black);
         }
 
-        .leaderboard-card .player-row.team-colored .player-name {
+        .leaderboard-card .player-row.team-colored .pb-name {
           color: #fff;
         }
 
@@ -475,19 +460,12 @@
           color: #fff;
         }
 
-        .leaderboard-card .player-row.team-colored .you-badge {
+        .leaderboard-card .player-row.team-colored .pb-me-badge {
           background: rgba(0, 0, 0, 0.3);
         }
 
         .leaderboard-card .player-row.team-colored.disconnected {
           opacity: 0.5;
-        }
-
-        /* Podium medals override even on team-colored rows */
-        .leaderboard-card .player-row.team-colored.first .player-rank,
-        .leaderboard-card .player-row.team-colored.second .player-rank,
-        .leaderboard-card .player-row.team-colored.third .player-rank {
-          /* Keep medals visible — no background override needed */
         }
 
         .no-players {

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { storage } from '@/lib/utils/storage';
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
 import { motion } from 'framer-motion';
 
 // Preload images for smooth animation
@@ -26,6 +27,7 @@ const WINK_TIME = 700;
 const FADE_DURATION = 400;
 
 export default function SplashScreen() {
+  useAppShellBg('#0e0e1a');
   const router = useRouter();
   const [isWinking, setIsWinking] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);

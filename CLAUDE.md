@@ -840,6 +840,36 @@ Cette page:
 
 **Pourquoi:** L'AppShell ajoute `padding-bottom: var(--safe-area-bottom)` au conteneur global. Les éléments dans le flux héritent automatiquement de cet espace. Seuls les éléments `position: fixed/sticky` bypasse ce padding et doivent gérer leur propre safe-area.
 
+### Safe Area Background - RÈGLE OBLIGATOIRE
+
+**Toute page** doit appeler le hook `useAppShellBg(color)` avec la couleur de son **élément le plus en haut** (= ce qui doit "déborder" dans le notch / Dynamic Island et la barre de swipe iOS).
+
+**Pourquoi:** L'AppShell applique `background: var(--bg-primary, #0a0a0f)` qui s'affiche dans la safe-area-top (notch) et safe-area-bottom (home indicator). Sans override, la safe-area montre `#0a0a0f` ce qui peut créer une **cassure visuelle** avec le contenu de la page si la page a une couleur différente.
+
+Le hook met à jour `--bg-primary` avec la couleur de la page sur mount, et restore l'ancienne valeur sur unmount → continuité visuelle automatique.
+
+```jsx
+import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
+
+export default function MyPage() {
+  // Couleur de l'élément topmost (header bg, hero section, etc.)
+  useAppShellBg('#0e0e1a');
+
+  return <div>...</div>;
+}
+```
+
+**Couleur à passer:** la couleur **du tout premier pixel** visible en haut de la page. Si le top a un dégradé, prendre la couleur **la plus saturée/sombre** (celle de fin de gradient). Si la page a un thème dynamique selon le rôle (ex: alibi prep avec papier beige pour suspect / manila pour inspecteur), passer la couleur conditionnellement :
+
+```jsx
+useAppShellBg(myTeam === 'inspectors' ? '#c8ad75' : '#f0e8d8');
+```
+
+**Règle bottom — éléments interactifs:**
+Ne **JAMAIS** placer un élément interactif (bouton, input, lien cliquable) dans la zone safe-area-bottom (home indicator iOS / barre de swipe Android). Tous les éléments interactifs doivent être **au-dessus** de cette zone. L'AppShell le gère automatiquement via son `padding-bottom: var(--safe-area-bottom)`.
+
+**Exception:** Les éléments **purement décoratifs (images, fonds, scènes)** peuvent déborder dans la safe-area-bottom — typiquement le fond de scène et la table d'Alibi qui s'étendent jusqu'au bord de l'écran sans gêner l'interaction.
+
 ### Flags Pub
 
 - Toujours reset les flags après lecture
@@ -858,4 +888,4 @@ onValue(ref(db, '.info/serverTimeOffset'), snap => {
 
 ---
 
-*Dernière mise à jour: 2026-01-27*
+*Dernière mise à jour: 2026-04-10 — Règle useAppShellBg obligatoire pour les safe-areas*

@@ -15,6 +15,7 @@ import { useUserProfile } from "@/lib/hooks/useUserProfile";
 import { isPro } from "@/lib/subscription";
 import { showInterstitialAd, initAdMob } from "@/lib/admob";
 import { useToast } from "@/lib/hooks/useToast";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { ShieldStar, Sword, Trophy, Timer, ArrowLeft, ArrowsClockwise } from '@phosphor-icons/react';
 import WordDisplay from '@/components/game/WordDisplay';
 import './mindlink-end.css';
@@ -46,6 +47,7 @@ const WIN_REASONS = {
 };
 
 export function MindLinkEndContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

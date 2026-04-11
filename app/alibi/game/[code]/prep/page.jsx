@@ -11,8 +11,9 @@ import {
   signInAnonymously,
   onAuthStateChanged,
 } from "@/lib/firebase";
-import { motion } from 'framer-motion';
-import { Pause, Play, SkipForward, ChevronUp, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Pause, Play, SkipForward, CaretDown } from '@phosphor-icons/react';
+import { getFlatCSSVars } from '@/lib/config/colors';
 
 // Dynamic import for DOMPurify - only loaded when needed
 let DOMPurifyModule = null;
@@ -30,10 +31,9 @@ import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import './alibi-prep.css';
 import GameStatusBanners from "@/components/game/GameStatusBanners";
-import { ALIBI_GROUP_CONFIG } from "@/lib/config/rooms";
-import '@/app/alibi/alibi-theme.css';
 
 export function AlibiPrepContent({ code, myUid: devUid }) {
   const nextRouter = useRouter();
@@ -51,18 +51,23 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
   const [customQuestions, setCustomQuestions] = useState(["", "", ""]);
   const [showCountdown, setShowCountdown] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  // 'redacted' → 'revealing' → 'visible'
+  const [redactionState, setRedactionState] = useState('redacted');
   const timerRef = useRef(null);
+  const contentRef = useRef(null);
+  const [showScrollHint, setShowScrollHint] = useState(true);
 
-  // Scroll indicators
-  const documentScrollRef = useRef(null);
-  const [canScrollUp, setCanScrollUp] = useState(false);
-  const [canScrollDown, setCanScrollDown] = useState(false);
 
   // Party Mode state
   const [isPartyMode, setIsPartyMode] = useState(false);
   const [myGroupId, setMyGroupId] = useState(null);
   const [groups, setGroups] = useState({});
   const [myGroupAlibi, setMyGroupAlibi] = useState(null);
+
+  // Safe-area color continuity:
+  //  - Suspect view (party mode default): aged paper beige
+  //  - Inspector view (gamemaster only): manila case file
+  useAppShellBg(!isPartyMode && myTeam === 'inspectors' ? '#c8ad75' : '#f0e8d8');
 
   // Centralized players hook
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
@@ -75,32 +80,42 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
     isHost
   });
 
-  // Keep screen awake during game
 
-  // Scroll indicators for document
+  // Redaction lifecycle: redacted (2s) → revealing (2s) → visible
   useEffect(() => {
-    const container = documentScrollRef.current;
-    if (!container) return;
+    if (redactionState === 'redacted') {
+      const t = setTimeout(() => setRedactionState('revealing'), 2000);
+      return () => clearTimeout(t);
+    }
+    if (redactionState === 'revealing') {
+      const t = setTimeout(() => setRedactionState('visible'), 2000);
+      return () => clearTimeout(t);
+    }
+  }, [redactionState]);
 
-    const checkScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } = container;
-      setCanScrollUp(scrollTop > 10);
-      setCanScrollDown(scrollTop < scrollHeight - clientHeight - 10);
+  // Show scroll hint only if content overflows AND user hasn't scrolled to bottom
+  const scrollDismissedRef = useRef(false);
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    const check = () => {
+      const canScroll = el.scrollHeight > el.clientHeight + 20;
+      if (!canScroll) { setShowScrollHint(false); return; }
+      const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 20;
+      if (atBottom || scrollDismissedRef.current) {
+        scrollDismissedRef.current = true;
+        setShowScrollHint(false);
+      } else {
+        setShowScrollHint(true);
+      }
     };
+    const t = setTimeout(check, 300);
+    el.addEventListener('scroll', check);
+    const ro = new ResizeObserver(check);
+    ro.observe(el);
+    return () => { clearTimeout(t); el.removeEventListener('scroll', check); ro.disconnect(); };
+  }, []);
 
-    checkScroll();
-    container.addEventListener('scroll', checkScroll);
-
-    const resizeObserver = new ResizeObserver(checkScroll);
-    resizeObserver.observe(container);
-
-    return () => {
-      container.removeEventListener('scroll', checkScroll);
-      resizeObserver.disconnect();
-    };
-  }, [sanitizedDoc, alibi]);
-
-  // Host disconnect - gère la grace period si l'hôte perd sa connexion
   // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
   useHostDisconnect({
     roomCode: code,
@@ -226,7 +241,7 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
 
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
       const state = snap.val();
-      if (state?.phase === "interrogation" && !showCountdown) {
+      if (state?.phase === "interrogation") {
         setShowCountdown(true);
       }
       if (state?.prepTimeLeft !== undefined) {
@@ -247,7 +262,7 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
       questionsUnsub();
       stateUnsub();
     };
-  }, [code, router, showCountdown]);
+  }, [code, router]);
 
   // Party Mode: get my group's alibi
   useEffect(() => {
@@ -258,9 +273,10 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
     setMyGroupAlibi(groups[myGroupId]?.alibiData || null);
   }, [isPartyMode, myGroupId, groups]);
 
-  // Timer countdown (seulement pour l'hôte)
+  // Timer countdown (seulement pour l'hôte, après déclassification)
   useEffect(() => {
     if (!isHost) return;
+    if (redactionState !== 'visible') return;
 
     if (isPaused) {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -294,7 +310,7 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [timeLeft, code, isHost, isPaused]);
+  }, [timeLeft, code, isHost, isPaused, redactionState]);
 
   const handleTogglePause = async () => {
     if (!isHost || !code) return;
@@ -334,7 +350,7 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
     const parts = text.split(/(\*\*[^*]+\*\*)/g);
     return parts.map((part, i) => {
       if (part.startsWith('**') && part.endsWith('**')) {
-        return <strong key={i} className="text-alibi-glow">{part.slice(2, -2)}</strong>;
+        return <strong key={i} className="text-alibi-highlight">{part.slice(2, -2)}</strong>;
       }
       return part;
     });
@@ -353,7 +369,7 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
       const DOMPurify = await getDOMPurify();
       const sanitized = DOMPurify.sanitize(currentAlibi.accused_document, {
         ALLOWED_TAGS: ['strong', 'em', 'b', 'i', 'u', 'br', 'p', 'span', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4'],
-        ALLOWED_ATTR: ['class', 'style']
+        ALLOWED_ATTR: ['class']
       });
       setSanitizedDoc(sanitized);
     })();
@@ -378,28 +394,28 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
   const myGroup = isPartyMode && myGroupId ? groups[myGroupId] : null;
 
   return (
-    <div className="game-screen game-page">
-      {/* Animated Background */}
-      <div className="animated-background" />
+    <div className={`alibi-prep game-page ${isPartyMode || myTeam === 'suspects' ? 'suspect-view' : myTeam === 'inspectors' ? 'inspector-view' : ''}`} style={getFlatCSSVars('alibi')}>
 
-      {/* Header Fixe */}
-      <header className="game-header">
-        <div className="header-content">
-          <div className="header-title">{currentAlibi?.title || "Alibi"}</div>
+      {/* Header */}
+      <header className="prep-header">
+        <div className="prep-header-content">
+          <div className="prep-header-left">
+            <span className="prep-header-label">Dossier d'enquête</span>
+            <span className="prep-header-title">{currentAlibi?.title || "Alibi"}</span>
+          </div>
 
-          <div className="timer-section">
+          <div className="prep-timer-section">
             {isHost && (
               <motion.button
-                className="pause-btn"
+                className="prep-pause-btn"
                 onClick={handleTogglePause}
-                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 title={isPaused ? "Reprendre" : "Pause"}
               >
-                {isPaused ? <Play size={16} /> : <Pause size={16} />}
+                {isPaused ? <Play size={16} weight="bold" /> : <Pause size={16} weight="bold" />}
               </motion.button>
             )}
-            <span className={`timer-display ${isPaused ? 'paused' : ''} ${isUrgent ? 'urgent' : ''}`}>
+            <span className={`prep-timer-display ${isPaused ? 'paused' : ''} ${isUrgent ? 'urgent' : ''}`}>
               {formatTime(timeLeft)}
             </span>
           </div>
@@ -408,13 +424,13 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
             variant="header"
             confirmMessage="Voulez-vous vraiment quitter ? Tout le monde retournera au lobby."
             onExit={exitGame}
+            color={myTeam === 'inspectors' ? '#5c4420' : '#8a3030'}
           />
         </div>
 
-        {/* Barre de progression */}
-        <div className="progress-bar">
+        <div className="prep-progress-bar">
           <motion.div
-            className={`progress-fill ${isUrgent ? 'urgent' : ''}`}
+            className={`prep-progress-fill ${isUrgent ? 'urgent' : ''}`}
             initial={{ width: '100%' }}
             animate={{ width: `${progressPercent}%` }}
             transition={{ duration: 0.3 }}
@@ -422,164 +438,136 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
         </div>
       </header>
 
-      {/* Contenu Principal */}
-      <main className="prep-content">
+      {/* Main Content */}
+      <main className="prep-content" ref={contentRef}>
         <div className="prep-wrapper">
-          {/* Titre de la phase */}
-          <motion.div
-            className="phase-header"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
+
+          {/* Phase Header */}
+          <motion.div className="prep-phase-header" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             {isPartyMode ? (
               <>
-                {/* Party Mode: everyone memorizes their group's alibi */}
-                <div className="group-badge-prep" style={{ '--group-color': myGroup?.color }}>
-                  <span className="group-dot" style={{ background: myGroup?.color }} />
-                  <span className="group-name">{myGroup?.name || 'Ton groupe'}</span>
+                <div className="prep-group-badge">
+                  <span className="prep-group-dot" style={{ background: myGroup?.color }} />
+                  <span className="prep-group-name">{myGroup?.name || 'Ton groupe'}</span>
                 </div>
-                <h1 className="game-title">🎭 Mémorise ton Alibi</h1>
-                <p className="phase-subtitle">
-                  Tu n'auras plus accès à ce texte pendant l'interrogatoire !
-                </p>
+                <h1 className="prep-title">Mémorise ton Alibi</h1>
+                <p className="prep-subtitle">Tu n'auras plus accès à ce texte pendant l'interrogatoire</p>
               </>
             ) : (
               <>
-                {/* Game Master Mode: inspectors vs suspects */}
-                <h1 className="game-title">
-                  {myTeam === "suspects" ? "🎭 Mémorise ton Alibi" : "🕵️ Prépare tes Questions"}
+                <h1 className="prep-title">
+                  {myTeam === "suspects" ? "Mémorise ton Alibi" : "Prépare tes Questions"}
                 </h1>
-                <p className="phase-subtitle">
+                <p className="prep-subtitle">
                   {myTeam === "suspects"
-                    ? "Tu n'auras plus accès à ce texte pendant l'interrogatoire !"
+                    ? "Tu n'auras plus accès à ce texte pendant l'interrogatoire"
                     : "Les suspects vont devoir défendre cet alibi"}
                 </p>
               </>
             )}
           </motion.div>
 
-          {/* Contrôles Hôte (Game Master Mode only) */}
+          {/* Host: Skip Button */}
           {isHost && !isPartyMode && timeLeft > 0 && (
-            <motion.div
-              className="host-controls"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <motion.button
-                className="btn-skip"
-                onClick={handleSkipPrep}
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <SkipForward size={18} />
-                Lancer l'interrogatoire
+            <motion.div className="prep-host-controls" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
+              <motion.button className="prep-skip-btn" onClick={handleSkipPrep} whileTap={{ scale: 0.98 }}>
+                <SkipForward size={18} weight="bold" /> Passer la préparation
               </motion.button>
             </motion.div>
           )}
 
-          {/* Vue SUSPECTS (Game Master Mode) ou vue PARTY MODE (tous les joueurs) */}
+          {/* Suspect Card / Party Mode Card */}
           {((myTeam === "suspects" && alibi) || (isPartyMode && currentAlibi)) && (
-            <div className="alibi-card-wrapper">
-              {/* Scroll indicator - Up (outside card for visibility) */}
-              <div className={`scroll-indicator up ${canScrollUp ? 'visible' : ''}`}>
-                <ChevronUp size={20} />
-              </div>
+            <motion.div
+              className={`prep-alibi-card ${isPaused ? 'paused' : ''} ${!isPaused ? `redaction-${redactionState}` : ''}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+            >
+                <div className="prep-document-box">
+                  {currentAlibi?.isNewFormat ? renderHTML() : (
+                    <div className="prep-scenario-text">{parseMarkdown(currentAlibi?.scenario)}</div>
+                  )}
+                </div>
 
-              <motion.div
-                className={`alibi-card ${isPaused ? 'paused' : ''}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-              >
-                <div className="card-glow" />
-
-                {currentAlibi?.isNewFormat ? (
-                  <div className="alibi-content">
-                    {/* Document de l'accusé */}
-                    <div className="document-box" ref={documentScrollRef}>
-                      {renderHTML()}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="alibi-content">
-                    <div className="document-box" ref={documentScrollRef}>
-                      <div className="scenario-text">
-                        {parseMarkdown(currentAlibi?.scenario)}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Overlay pause sur l'alibi */}
-                {isPaused && (
-                  <motion.div
-                    className="pause-blur-overlay"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="pause-label">
-                      <Pause size={32} />
-                      <span>PAUSE</span>
-                    </div>
-                  </motion.div>
-                )}
-              </motion.div>
-
-              {/* Scroll indicator - Down (outside card for visibility) */}
-              <div className={`scroll-indicator down ${canScrollDown ? 'visible' : ''}`}>
-                <ChevronDown size={20} />
-              </div>
-            </div>
+            </motion.div>
           )}
 
-          {/* Vue INSPECTEURS (Game Master Mode only) */}
+          {/* Stamps — suspects/party only */}
+          {(myTeam === 'suspects' || isPartyMode) && <AnimatePresence>
+            {redactionState === 'redacted' && !isPaused && (
+              <motion.div key="classified" className="prep-pause-overlay"
+                initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                <motion.div className="prep-pause-label"
+                  initial={{ scale: 2.5, rotate: -20, opacity: 0 }}
+                  animate={{ scale: 1, rotate: -5, opacity: 1 }}
+                  exit={{ scale: 1.5, rotate: -10, opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}>
+                  <span>CLASSIFIÉ</span>
+                </motion.div>
+              </motion.div>
+            )}
+
+            {redactionState === 'revealing' && !isPaused && (
+              <motion.div key="declassified" className="prep-pause-overlay"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}>
+                <motion.div className="prep-declassified-label"
+                  initial={{ scale: 2.5, rotate: -20, opacity: 0 }}
+                  animate={{ scale: 1, rotate: -5, opacity: 1 }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}>
+                  <span>DÉCLASSIFIÉ</span>
+                </motion.div>
+              </motion.div>
+            )}
+
+            {isPaused && (
+              <motion.div key="paused" className="prep-pause-overlay"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}>
+                <motion.div className="prep-pause-label"
+                  initial={{ scale: 2.5, rotate: -20, opacity: 0 }}
+                  animate={{ scale: 1, rotate: -5, opacity: 1 }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}>
+                  <span>CLASSIFIÉ</span>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>}
+
+          {/* Inspector View */}
           {!isPartyMode && myTeam === "inspectors" && alibi && (
-            <div className="inspector-section">
-              {/* Questions */}
-              <motion.div
-                className="questions-card"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="card-glow inspector" />
-                <h2 className="section-title">
-                  ❓ Questions ({alibi?.isNewFormat ? '10' : '7'})
-                </h2>
-                <ol className="questions-list">
+            <div className="prep-inspector-section">
+              <motion.div className="prep-questions-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                <h2 className="prep-section-title">Questions</h2>
+                <ol className="prep-questions-list">
                   {questions.slice(0, alibi?.isNewFormat ? 10 : 7).map((q, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 + i * 0.05 }}
-                    >
-                      {q.text}
+                    <motion.li key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.05 }}>
+                      <div className="prep-question-content">
+                        {q.hint && <div className="prep-question-hint">« {q.hint} »</div>}
+                        <div className="prep-question-row">
+                          <span className="prep-question-number">{i + 1}</span>
+                          <span className="prep-question-text">{q.text}</span>
+                        </div>
+                      </div>
                     </motion.li>
                   ))}
                 </ol>
               </motion.div>
 
-              {/* Questions personnalisées (ancien format) */}
               {!alibi?.isNewFormat && (
-                <motion.div
-                  className="custom-questions-card"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  <div className="card-glow inspector" />
-                  <h2 className="section-title">✏️ Tes Questions (3)</h2>
-                  <p className="custom-hint">Piège les suspects avec tes propres questions !</p>
-                  <div className="custom-inputs">
+                <motion.div className="prep-custom-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                  <h2 className="prep-section-title">Tes Questions</h2>
+                  <p className="prep-custom-hint">Piège les suspects avec tes propres questions !</p>
+                  <div className="prep-custom-inputs">
                     {[0, 1, 2].map((index) => (
-                      <div key={index} className="input-group">
+                      <div key={index} className="prep-input-group">
                         <label>Question {8 + index}</label>
                         <input
                           type="text"
-                          className="game-input"
+                          className="prep-game-input"
                           placeholder="Ex: Quelle était la couleur du café ?"
                           value={customQuestions[index]}
                           onChange={(e) => {
@@ -599,43 +587,34 @@ export function AlibiPrepContent({ code, myUid: devUid }) {
             </div>
           )}
 
-          {/* Aucune équipe / groupe */}
+          {/* No Team */}
           {((!isPartyMode && !myTeam) || (isPartyMode && !myGroupId)) && (
-            <motion.div
-              className="no-team-card"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
+            <motion.div className="prep-no-team" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <p>{isPartyMode ? "Tu n'es assigné à aucun groupe..." : "Tu n'es assigné à aucune équipe..."}</p>
             </motion.div>
           )}
         </div>
       </main>
 
-      {/* Disconnect Alert */}
-      <DisconnectAlert
-        roomCode={code}
-        roomPrefix="rooms_alibi"
-        playerUid={myUid}
-        onReconnect={markActive}
-      />
+      {/* Scroll hint */}
+      <AnimatePresence>
+        {showScrollHint && (
+          <motion.div
+            className="prep-scroll-hint"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 4, 0] }}
+            exit={{ opacity: 0 }}
+            transition={{ y: { duration: 1.2, repeat: Infinity, ease: 'easeInOut' }, opacity: { duration: 0.2 } }}
+          >
+            <CaretDown size={18} weight="bold" />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Game Status Banners */}
-      <GameStatusBanners
-        isHost={isHost}
-        isHostTemporarilyDisconnected={isHostTemporarilyDisconnected}
-        hostDisconnectedAt={hostDisconnectedAt}
-      />
-
-      <AlibiPhaseTransition
-        isVisible={showCountdown}
-        title="L'enquête commence"
-        subtitle="Les inspecteurs vont te questionner..."
-        type="interrogation"
-        onComplete={handleCountdownComplete}
-        duration={3500}
-      />
-
+      {/* Overlays */}
+      <DisconnectAlert roomCode={code} roomPrefix="rooms_alibi" playerUid={myUid} onReconnect={markActive} />
+      <GameStatusBanners isHost={isHost} isHostTemporarilyDisconnected={isHostTemporarilyDisconnected} hostDisconnectedAt={hostDisconnectedAt} />
+      <AlibiPhaseTransition isVisible={showCountdown} title="L'enquête commence" subtitle="Les inspecteurs vont te questionner..." type="interrogation" onComplete={handleCountdownComplete} duration={3500} />
     </div>
   );
 }

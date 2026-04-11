@@ -15,7 +15,6 @@ import {
 } from "@/lib/firebase";
 import { useToast } from "@/lib/hooks/useToast";
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Clock, CheckCircle, XCircle, Users, AlertTriangle, Eye } from 'lucide-react';
 import ExitButton from "@/lib/components/ExitButton";
 import PlayerManager from "@/components/game/PlayerManager";
 import DisconnectAlert from "@/components/game/DisconnectAlert";
@@ -24,20 +23,24 @@ import { usePlayerCleanup } from "@/lib/hooks/usePlayerCleanup";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import { VerdictTransition } from "@/components/game-alibi/VerdictTransition";
-import { AlibiRoundTransition, AlibiSpectatorView } from "@/components/game-alibi";
+import { AlibiRoundTransition } from "@/components/game-alibi";
+import InterrogationScene from "@/components/game-alibi/InterrogationScene";
 import { GameEndTransition } from "@/components/transitions";
 import { hueScenariosService } from "@/lib/hue-module";
 import { useAlibiGroupRotation } from "@/lib/hooks/useAlibiGroupRotation";
 
 import './alibi-play.css';
-import '@/app/alibi/alibi-theme.css';
 
 export function AlibiPlayContent({ code, myUid: devUid }) {
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;
+
+  // Safe-area color continuity with the dark interrogation scene
+  useAppShellBg('#0a0605');
 
   const [myUid, setMyUid] = useState(devUid || null);
   const [myTeam, setMyTeam] = useState(null);
@@ -54,14 +57,12 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
   const { players } = usePlayers({ roomCode: code, roomPrefix: 'rooms_alibi' });
 
   // Room guard - détecte kick et fermeture room
-  const { markVoluntaryLeave, isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
+  const { isHostTemporarilyDisconnected, hostDisconnectedAt } = useRoomGuard({
     roomCode: code,
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
     isHost
   });
-
-  // Keep screen awake during game
 
   // Host disconnect - gère la grace period si l'hôte perd sa connexion
   // UNIVERSAL: Utiliser hostUid - le hook détermine si on est l'hôte
@@ -124,6 +125,22 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
     }
     return players.filter(p => p.team === "suspects");
   }, [players, isPartyMode, accusedGroup]);
+
+  // Derive inspectors — opposing side, for the scene display
+  const inspectors = useMemo(() => {
+    if (isPartyMode && inspectorGroup) {
+      return players.filter(p => p.groupId === inspectorGroup.id);
+    }
+    return players.filter(p => p.team === "inspectors");
+  }, [players, isPartyMode, inspectorGroup]);
+
+  // Spectators — party mode only: players who are neither inspector nor accused this round
+  const spectators = useMemo(() => {
+    if (!isPartyMode) return [];
+    return players.filter(p =>
+      p.groupId && p.groupId !== inspectorGroup?.id && p.groupId !== accusedGroup?.id
+    );
+  }, [players, isPartyMode, inspectorGroup, accusedGroup]);
 
   // Get questions for current context
   // In Party Mode: questions come from accused group's alibi
@@ -298,11 +315,6 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
     return myTeam === 'inspectors';
   }, [isPartyMode, myRole, myTeam]);
 
-  // Qui VOIT la vue inspecteur — basé sur le rôle/team, pas sur le statut d'hôte
-  const canSeeInspectorView = useMemo(() => {
-    if (isPartyMode) return myRole === 'inspector';
-    return myTeam === 'inspectors';
-  }, [isPartyMode, myRole, myTeam]);
 
   // Timer - calculé depuis le timestamp serveur, tourne sur tous les clients
   useEffect(() => {
@@ -347,7 +359,7 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
         verdict: "timeout"
       });
     }
-  }, [timeLeft, allAnswered, questionState, canControl, code, currentQuestion]);
+  }, [timeLeft, allAnswered, questionState, canControl, code]);
 
   // Actions INSPECTEURS
   const startQuestion = async () => {
@@ -483,6 +495,14 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
     return myTeam === 'suspects';
   }, [isPartyMode, myRole, myTeam]);
 
+  // View role for InterrogationScene
+  const sceneViewRole = useMemo(() => {
+    if (isPartyMode && myRole === 'spectator') return 'spectator';
+    if (canControl) return 'inspector';
+    if (canAnswer) return 'suspect';
+    return 'spectator';
+  }, [isPartyMode, myRole, canControl, canAnswer]);
+
   // Actions SUSPECTS / ACCUSED
   const submitAnswer = async () => {
     if (!canAnswer || !myUid || hasAnswered) return;
@@ -498,8 +518,6 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
     setHasAnswered(true);
   };
 
-  const formatTime = (seconds) => `${seconds}s`;
-
   const currentQuestionData = currentQuestions[currentQuestion];
 
   // Progress calculation
@@ -514,10 +532,14 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
   const isUrgent = timeLeft <= 10;
   const isCritical = timeLeft <= 5;
 
+  const sceneQuestion = currentQuestionData ? {
+    text: currentQuestionData.text,
+    hint: currentQuestionData.hint,
+    number: (isPartyMode ? currentRound : currentQuestion) + 1,
+  } : null;
+
   return (
     <div className="interro-screen game-page">
-      {/* Animated Background */}
-      <div className="interro-bg" />
 
       {/* Header */}
       <header
@@ -563,373 +585,26 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="interro-content">
-        <div className="interro-wrapper">
-
-          {/* ========== WAITING STATE ========== */}
-          {questionState === "waiting" && (
-            <>
-              {/* INSPECTORS / Inspector Group - Waiting */}
-              {canSeeInspectorView && (
-                <motion.div
-                  className="interro-waiting"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <div className="interro-phase-header">
-                    {isPartyMode && inspectorGroup && (
-                      <div className="interro-group-badge" style={{ '--group-color': inspectorGroup.color }}>
-                        <span className="group-dot" style={{ background: inspectorGroup.color }} />
-                        <span>🔍 {inspectorGroup.name} interroge</span>
-                      </div>
-                    )}
-                    <h1 className="interro-title">Interrogatoire</h1>
-                    <p className="interro-subtitle">
-                      {isPartyMode
-                        ? `Posez cette question à ${accusedGroup?.name || 'l\'équipe accusée'}`
-                        : 'Posez cette question aux suspects'}
-                    </p>
-                  </div>
-
-                  {/* Hint for inspector - reference passage */}
-                  {currentQuestionData?.hint && (
-                    <motion.div
-                      className="interro-hint-card"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.05 }}
-                    >
-                      <div className="interro-hint-label">📖 Passage de référence</div>
-                      <p className="interro-hint-text">{currentQuestionData.hint}</p>
-                    </motion.div>
-                  )}
-
-                  <motion.div
-                    className="interro-question-card spotlight"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <div className="interro-card-glow" />
-                    <div className="interro-question-badge">Question {isPartyMode ? currentRound + 1 : currentQuestion + 1}</div>
-                    <p className="interro-question-text">{currentQuestionData?.text}</p>
-                  </motion.div>
-
-                  {canControl && (
-                    <motion.button
-                      className="interro-btn-start"
-                      onClick={startQuestion}
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <Clock size={20} />
-                      <span>Lancer le timer (30s)</span>
-                    </motion.button>
-                  )}
-                </motion.div>
-              )}
-
-              {/* SUSPECTS / Accused Group - Waiting */}
-              {canAnswer && (
-                <motion.div
-                  className="interro-waiting"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <div className="interro-phase-header">
-                    {isPartyMode && accusedGroup && (
-                      <div className="interro-group-badge accused" style={{ '--group-color': accusedGroup.color }}>
-                        <span className="group-dot" style={{ background: accusedGroup.color }} />
-                        <span>🎭 {accusedGroup.name}</span>
-                      </div>
-                    )}
-                    <h1 className="interro-title">En attente...</h1>
-                    <p className="interro-subtitle">
-                      {isPartyMode
-                        ? `${inspectorGroup?.name || 'Les inspecteurs'} préparent la question`
-                        : 'Les inspecteurs préparent la question'}
-                    </p>
-                  </div>
-
-                  <motion.div
-                    className="interro-waiting-card"
-                    animate={{
-                      boxShadow: [
-                        '0 0 20px rgba(245, 158, 11, 0.2)',
-                        '0 0 40px rgba(245, 158, 11, 0.4)',
-                        '0 0 20px rgba(245, 158, 11, 0.2)'
-                      ]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    <div className="interro-card-glow" />
-                    <motion.div
-                      className="interro-waiting-icon"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                    >
-                      <Clock size={48} />
-                    </motion.div>
-                    <p className="interro-waiting-text">Prépare-toi à répondre...</p>
-                  </motion.div>
-                </motion.div>
-              )}
-
-              {/* SPECTATORS - Party Mode only */}
-              {isPartyMode && myRole === 'spectator' && (
-                <AlibiSpectatorView
-                  inspectorGroup={inspectorGroup}
-                  accusedGroup={accusedGroup}
-                  question={currentQuestionData}
-                  interrogation={{ state: questionState, responses, verdict }}
-                  progress={gameProgress}
-                  timeLeft={timeLeft}
-                />
-              )}
-            </>
-          )}
-
-          {/* ========== ANSWERING STATE ========== */}
-          {questionState === "answering" && (
-            <>
-              {/* SPECTATORS - Party Mode only */}
-              {isPartyMode && myRole === 'spectator' && (
-                <AlibiSpectatorView
-                  inspectorGroup={inspectorGroup}
-                  accusedGroup={accusedGroup}
-                  question={currentQuestionData}
-                  interrogation={{ state: questionState, responses, verdict }}
-                  progress={gameProgress}
-                  timeLeft={timeLeft}
-                />
-              )}
-
-              {/* SUSPECTS / Accused Group - Answering */}
-              {canAnswer && (
-                <motion.div
-                  className="interro-answering"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  {/* Timer prominent */}
-                  <motion.div
-                    className={`interro-timer-card ${allAnswered ? 'all-answered' : isCritical ? 'critical' : isUrgent ? 'urgent' : ''}`}
-                    animate={!allAnswered && isCritical ? {
-                      scale: [1, 1.02, 1],
-                      boxShadow: [
-                        '0 0 20px rgba(239, 68, 68, 0.4)',
-                        '0 0 40px rgba(239, 68, 68, 0.7)',
-                        '0 0 20px rgba(239, 68, 68, 0.4)'
-                      ]
-                    } : {}}
-                    transition={{ duration: 0.5, repeat: Infinity }}
-                  >
-                    {allAnswered ? (
-                      <>
-                        <CheckCircle size={32} className="timer-check-icon" />
-                        <span className="interro-timer-success">Toutes les réponses envoyées !</span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="interro-timer-big">{formatTime(timeLeft)}</span>
-                        {isCritical && <span className="interro-timer-warning">DÉPÊCHE-TOI !</span>}
-                      </>
-                    )}
-                  </motion.div>
-
-                  {/* Question */}
-                  <motion.div
-                    className="interro-question-card"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <div className="interro-card-glow" />
-                    <div className="interro-question-badge">Question {isPartyMode ? currentRound + 1 : currentQuestion + 1}</div>
-                    <p className="interro-question-text">{currentQuestionData?.text}</p>
-                  </motion.div>
-
-                  {/* Answer input or confirmation */}
-                  {!hasAnswered ? (
-                    <motion.div
-                      className="interro-answer-section"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <textarea
-                        className="interro-textarea"
-                        placeholder="Ta réponse..."
-                        value={myAnswer}
-                        onChange={(e) => setMyAnswer(e.target.value)}
-                        maxLength={500}
-                        autoComplete="off"
-                        autoFocus
-                      />
-                      <motion.button
-                        className="interro-btn-submit"
-                        onClick={submitAnswer}
-                        disabled={!myAnswer.trim()}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Send size={20} />
-                        <span>Valider ma réponse</span>
-                      </motion.button>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      className="interro-answered-card"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                    >
-                      <CheckCircle size={48} />
-                      <p className="interro-answered-title">Réponse envoyée !</p>
-                      <p className="interro-answered-subtitle">
-                        {allAnswered ? "En attente du verdict des inspecteurs..." : "En attente des autres suspects..."}
-                      </p>
-                    </motion.div>
-                  )}
-                </motion.div>
-              )}
-
-              {/* INSPECTORS / Inspector Group - Answering */}
-              {canSeeInspectorView && (
-                <motion.div
-                  className="interro-answering"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  {/* Timer */}
-                  <motion.div
-                    className={`interro-timer-card ${allAnswered ? 'all-answered' : isCritical ? 'critical' : isUrgent ? 'urgent' : ''}`}
-                    animate={!allAnswered && isCritical ? { scale: [1, 1.02, 1] } : {}}
-                    transition={{ duration: 0.5, repeat: Infinity }}
-                  >
-                    {allAnswered ? (
-                      <>
-                        <CheckCircle size={32} className="timer-check-icon" />
-                        <span className="interro-timer-success">Toutes les réponses reçues !</span>
-                      </>
-                    ) : (
-                      <span className="interro-timer-big">{formatTime(timeLeft)}</span>
-                    )}
-                  </motion.div>
-
-                  {/* Hint for inspector - reference passage */}
-                  {currentQuestionData?.hint && (
-                    <motion.div
-                      className="interro-hint-card compact"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                    >
-                      <div className="interro-hint-label">📖 Référence</div>
-                      <p className="interro-hint-text">{currentQuestionData.hint}</p>
-                    </motion.div>
-                  )}
-
-                  {/* Question reminder */}
-                  <motion.div
-                    className="interro-question-card compact"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    <div className="interro-card-glow" />
-                    <div className="interro-question-badge">Question {isPartyMode ? currentRound + 1 : currentQuestion + 1}</div>
-                    <p className="interro-question-text">{currentQuestionData?.text}</p>
-                  </motion.div>
-
-                  {/* Responses counter */}
-                  <div className="interro-responses-counter">
-                    <Users size={16} />
-                    <span>{Object.keys(responses).length} / {suspects.length} réponses</span>
-                  </div>
-
-                  {/* Responses list */}
-                  <div className="interro-responses-list">
-                    {suspects.map((suspect, index) => {
-                      const response = responses[suspect.uid];
-                      return (
-                        <motion.div
-                          key={suspect.uid}
-                          className={`interro-response-card ${response ? 'answered' : 'waiting'}`}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                        >
-                          <div className="interro-response-header">
-                            <span className="interro-response-name">{suspect.name}</span>
-                            {response ? (
-                              <CheckCircle size={18} className="status-success" />
-                            ) : (
-                              <Clock size={18} className="status-waiting" />
-                            )}
-                          </div>
-                          {response ? (
-                            <p className="interro-response-text">{response.answer}</p>
-                          ) : (
-                            <p className="interro-response-pending">En attente de réponse...</p>
-                          )}
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-
-                  {/* Judgment buttons */}
-                  <AnimatePresence>
-                    {allAnswered && canControl && (
-                      <motion.div
-                        className="interro-judgment"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                      >
-                        <p className="interro-judgment-label">Les réponses sont-elles cohérentes ?</p>
-                        <div className="interro-judgment-buttons">
-                          <motion.button
-                            className="interro-btn-judge reject"
-                            onClick={() => judgeAnswers(false)}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <XCircle size={24} />
-                            <span>Refuser</span>
-                          </motion.button>
-                          <motion.button
-                            className="interro-btn-judge accept"
-                            onClick={() => judgeAnswers(true)}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <CheckCircle size={24} />
-                            <span>Valider</span>
-                          </motion.button>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              )}
-            </>
-          )}
-
-          {/* No team / No group */}
-          {((!isPartyMode && !myTeam) || (isPartyMode && !myGroupId)) && (
-            <motion.div
-              className="interro-no-team"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <AlertTriangle size={48} />
-              <p>{isPartyMode ? "Tu n'es assigné à aucun groupe..." : "Tu n'es assigné à aucune équipe..."}</p>
-            </motion.div>
-          )}
-        </div>
-      </main>
+      {/* Immersive interrogation scene — renders the full UI */}
+      <InterrogationScene
+        viewRole={sceneViewRole}
+        questionState={questionState}
+        inspectors={inspectors}
+        suspects={suspects}
+        spectators={spectators}
+        question={sceneQuestion}
+        timeLeft={timeLeft}
+        isUrgent={isUrgent}
+        isCritical={isCritical}
+        hasAnswered={hasAnswered}
+        allAnswered={allAnswered}
+        myAnswer={myAnswer}
+        responses={responses}
+        onMyAnswerChange={setMyAnswer}
+        onStartQuestion={startQuestion}
+        onSubmitAnswer={submitAnswer}
+        onJudge={judgeAnswers}
+      />
 
       {/* Disconnect Alert */}
       <DisconnectAlert

@@ -54,52 +54,27 @@
   padding: 8px 0;
 }
 
-.tc-player {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
+/* PlayerBanner inside TeamCard — override default dark bg */
+.tc-card .pb-wrapper {
+  padding-top: 0;
+}
+
+.tc-card .tc-player-row {
   background: rgba(0, 0, 0, 0.15);
+  border-bottom: none;
   border-radius: 8px;
 }
 
-.tc-player-me {
+.tc-card .tc-player-row.pb-me {
   background: rgba(0, 0, 0, 0.25);
 }
 
-.tc-player-avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  font-weight: 800;
+.tc-card .tc-player-row .pb-name {
   color: #fff;
-  flex-shrink: 0;
 }
 
-.tc-player-name {
-  flex: 1;
-  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.tc-me-badge {
-  font-size: 0.55rem;
-  font-weight: 800;
-  color: #fff;
+.tc-card .tc-player-row .pb-me-badge {
   background: rgba(0, 0, 0, 0.3);
-  padding: 1px 6px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .tc-remove-btn {
@@ -240,18 +215,7 @@
   border-bottom-width: 1px;
 }
 
-.tc-modal-player-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: #fff;
-  flex-shrink: 0;
-}
+/* Modal avatar handled by Avatar component (xs size) */
 
 .tc-modal-player-name {
   flex: 1;

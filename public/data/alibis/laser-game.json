@@ -10,40 +10,40 @@
       "hint": "Le groupe a participé à une session de laser game dans un complexe en périphérie."
     },
     {
-      "text": "Combien coûtait l'entrée par personne ?",
-      "hint": "L'entrée coûtait 14 euros par personne."
+      "text": "De quelle couleur était la moquette dans le couloir d'entrée ?",
+      "hint": "La moquette violette au sol était usée et collante par endroits."
     },
     {
-      "text": "De quelle couleur était la moquette ?",
-      "hint": "La moquette violette au sol était usée et collante."
+      "text": "Combien pesait chaque gilet environ ?",
+      "hint": "Les gilets distribués pesaient au moins 3 kilos chacun."
     },
     {
-      "text": "De quelle couleur était l'inscription sur le t-shirt du responsable ?",
-      "hint": "Il portait un t-shirt noir avec le slogan imprimé en jaune fluo dessus."
+      "text": "Quelle était la surface approximative de l'arène ?",
+      "hint": "L'arène était minuscule, à peine 150 mètres carrés."
     },
     {
-      "text": "Qui du groupe avait le pistolet défectueux ?",
-      "hint": "Le pistolet laser attribué à quelqu'un du groupe avait un problème de visée."
-    },
-    {
-      "text": "Qui du groupe est tombé après avoir été poussé ?",
-      "hint": "Un joueur adverse a poussé quelqu'un du groupe qui est tombé."
-    },
-    {
-      "text": "Combien de temps durait la session ?",
+      "text": "Combien de temps a duré la session ?",
       "hint": "À la fin de la session de 20 minutes."
     },
     {
-      "text": "Qu'affichait le tableau des scores à la fin ?",
-      "hint": "Le tableau des scores était complètement buggé et affichait des scores négatifs."
+      "text": "Décrivez la stratégie du groupe pendant la partie.",
+      "hint": "Des panneaux lumineux ne fonctionnaient plus et certains obstacles étaient cassés."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Tout le monde est reparti frustré vers 21h30."
+      "text": "Quel slogan était imprimé sur le t-shirt du responsable ?",
+      "hint": "Il portait un t-shirt noir avec le slogan du laser game imprimé en jaune fluo dessus."
     },
     {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Tout le monde est reparti frustré avec des courbatures à cause des gilets."
+      "text": "Qui du groupe avait le pistolet laser qui tirait de travers ?",
+      "hint": "Le pistolet laser attribué à quelqu'un du groupe avait un problème de visée."
+    },
+    {
+      "text": "Racontez dans l'ordre : l'enfilage des gilets, l'incident avec le joueur adverse, et la découverte des scores buggés.",
+      "hint": "Les gilets sont distribués. Un joueur adverse pousse quelqu'un. Le tableau des scores affiche des scores négatifs."
+    },
+    {
+      "text": "Qui du groupe s'est fait pousser par le joueur adverse ?",
+      "hint": "Un joueur adverse a poussé quelqu'un du groupe qui est tombé et s'est fait mal au coude."
     }
   ],
   "reading_time_seconds": 90

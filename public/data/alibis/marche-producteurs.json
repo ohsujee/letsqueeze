@@ -6,44 +6,44 @@
   "inspector_summary": "Les accusés affirment avoir passé la matinée au marché de producteurs pendant le vol du scooter.",
   "inspector_questions": [
     {
-      "text": "Vers quelle heure le groupe est-il arrivé au marché ?",
-      "hint": "Le groupe est allé au marché local pour faire des courses, arrivant vers 9h15."
-    },
-    {
-      "text": "Qu'était-il écrit sur la casquette du vendeur de légumes et de quelles couleurs ?",
-      "hint": "Il portait une casquette verte avec 'Producteur Local' brodé dessus en jaune."
+      "text": "Quel était le nom du marché ?",
+      "hint": "Le groupe est allé au marché local pour faire des courses."
     },
     {
       "text": "Combien coûtaient les tomates au kilo ?",
       "hint": "Les tomates proposées étaient molles et tachées, vendues à 4,50 euros le kilo."
     },
     {
-      "text": "Quel fromage avait une croûte verdâtre douteuse ?",
-      "hint": "Un Roquefort en particulier avait une croûte verdâtre douteuse."
-    },
-    {
-      "text": "Quel était le fromage le plus cher sur l'ardoise et à quel prix ?",
+      "text": "Quel fromage était le plus cher sur l'ardoise du fromager ?",
       "hint": "Le plus cher étant un Comté 24 mois à 32 euros le kilo."
     },
     {
-      "text": "De quelle couleur était le papier tue-mouches et combien de mouches y étaient collées ?",
-      "hint": "Un papier tue-mouches jaune au-dessus avec au moins 15 mouches collées dessus."
-    },
-    {
-      "text": "Quel fruit la personne du groupe avait-elle touché ?",
-      "hint": "Un autre s'est fait engueuler par un commerçant pour avoir touché une poire sans acheter."
-    },
-    {
-      "text": "Qu'a crié le commerçant exactement ?",
+      "text": "Qu'a crié le commerçant qui a engueulé quelqu'un du groupe ?",
       "hint": "Le type a crié 'On touche avec les yeux ici !'"
     },
     {
-      "text": "Vers quelle heure le groupe a-t-il quitté le marché ?",
-      "hint": "Le groupe est parti vers 10h45 avec des sacs qui suintaient."
+      "text": "Qu'est-ce qui était écrit sur la casquette du vendeur de légumes ?",
+      "hint": "Il portait une casquette verte avec 'Producteur Local' brodé dessus en jaune."
+    },
+    {
+      "text": "Décrivez ce qu'il y avait au-dessus du stand de charcuterie.",
+      "hint": "Le stand de charcuterie avait un papier tue-mouches jaune au-dessus avec au moins 15 mouches collées dessus."
+    },
+    {
+      "text": "Qu'est-ce que le groupe a finalement acheté au marché ?",
+      "hint": "Le groupe est parti avec des sacs qui suintaient."
     },
     {
       "text": "Qui du groupe a marché dans la flaque d'eau croupie ?",
       "hint": "Quelqu'un du groupe a marché dans une flaque d'eau croupie près des cagettes."
+    },
+    {
+      "text": "Racontez dans l'ordre les stands que le groupe a visités.",
+      "hint": "Le premier stand vendait des légumes. Puis le stand de fromages. Puis le stand de charcuterie."
+    },
+    {
+      "text": "Quel fruit quelqu'un du groupe a-t-il touché sans acheter ?",
+      "hint": "Un autre s'est fait engueuler pour avoir touché une poire sans acheter."
     }
   ],
   "reading_time_seconds": 90

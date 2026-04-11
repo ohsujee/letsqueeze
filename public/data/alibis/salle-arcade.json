@@ -10,40 +10,40 @@
       "hint": "Le groupe est allé dans une salle d'arcade rétro pour jouer."
     },
     {
-      "text": "Combien coûtait l'entrée pour 10 jetons ?",
-      "hint": "L'entrée coûtait 2 euros pour échanger 10 jetons."
-    },
-    {
-      "text": "De quelle couleur était la moquette ?",
-      "hint": "La moquette bleue était tachée et décolorée."
-    },
-    {
       "text": "De quelle couleur était la casquette du gérant ?",
       "hint": "Il portait une casquette rouge avec le logo de l'arcade brodé dessus."
     },
     {
-      "text": "Combien de machines y avait-il dans l'arcade ?",
+      "text": "Combien de jetons obtenait-on pour 2 euros ?",
+      "hint": "L'entrée coûtait 2 euros pour échanger 10 jetons."
+    },
+    {
+      "text": "Combien de machines y avait-il en tout dans l'arcade ?",
       "hint": "La plupart des 15 machines étaient en panne ou fonctionnaient mal."
     },
     {
-      "text": "Combien de jetons la machine défectueuse a-t-elle avalés ?",
-      "hint": "Une machine a avalé 3 jetons d'un coup sans lancer la partie."
-    },
-    {
-      "text": "Qui du groupe a fait tomber des jetons sous la machine ?",
-      "hint": "Quelqu'un du groupe a fait tomber des jetons qui ont roulé sous une machine."
-    },
-    {
-      "text": "Qu'était-il écrit sur le panneau que le gérant a montré ?",
+      "text": "Qu'est-ce qui était écrit sur le panneau que le gérant a montré ?",
       "hint": "Le gérant a refusé en montrant un panneau avec l'inscription 'Aucun remboursement'."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 16h30 frustré."
+      "text": "De quelle couleur était la moquette ?",
+      "hint": "La moquette bleue était tachée et décolorée par endroits."
     },
     {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est parti frustré après avoir gaspillé tout son argent."
+      "text": "À quel jeu le groupe a-t-il le plus joué ?",
+      "hint": "La seule machine qui marchait était monopolisée par un gamin d'environ 8 ans."
+    },
+    {
+      "text": "Qui du groupe a fait tomber des jetons sous une machine ?",
+      "hint": "Quelqu'un du groupe a fait tomber des jetons qui ont roulé sous une machine."
+    },
+    {
+      "text": "Racontez dans l'ordre : la machine qui avale les jetons, la réclamation au gérant, et les jetons tombés sous une machine.",
+      "hint": "Une machine avale 3 jetons. Le groupe réclame un remboursement. Quelqu'un fait tomber des jetons."
+    },
+    {
+      "text": "Combien de jetons la machine défectueuse a-t-elle avalés d'un coup ?",
+      "hint": "Une machine a avalé 3 jetons d'un coup sans lancer la partie."
     }
   ],
   "reading_time_seconds": 90

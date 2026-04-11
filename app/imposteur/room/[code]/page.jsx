@@ -24,6 +24,7 @@ import { usePresence } from "@/lib/hooks/usePresence";
 import LobbyDisconnectAlert from "@/components/game/LobbyDisconnectAlert";
 import { useToast } from "@/lib/hooks/useToast";
 import { useATTPromptInLobby } from "@/lib/hooks/useATTPromptInLobby";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { ArrowRight, Users, Info, CaretDown } from '@phosphor-icons/react';
 import GuestAccountPromptModal from "@/components/ui/GuestAccountPromptModal";
 import { getRandomWordPair } from "@/data/imposteur-words";
@@ -56,6 +57,8 @@ export function ImposteurLobbyContent({ code, myUid: devUid, isHost: devIsHost }
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;
   const toast = useToast();
+
+  useAppShellBg('#04060f');
 
   const [meta, setMeta] = useState(null);
   const [isHost, setIsHost] = useState(devIsHost || false);
@@ -251,7 +254,7 @@ export function ImposteurLobbyContent({ code, myUid: devUid, isHost: devIsHost }
   }
 
   return (
-    <div className="imp-lobby">
+    <div className="imp-lobby game-page">
       <div aria-hidden className="imp-lobby-bg">
         <div className="imp-lobby-bg-dots" />
         <div className="imp-lobby-bg-glow-top" />

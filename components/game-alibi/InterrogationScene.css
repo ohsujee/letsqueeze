@@ -1,0 +1,623 @@
+/* =====================================================
+   INTERROGATION SCENE — Layered composition
+   Background layers (inside .scene-image-wrap, 9:16 ratio):
+     - Mirror backdrop with spectator silhouettes behind glass
+     - Room background WebP (transparent mirror hole)
+     - Table foreground WebP
+   UI layers (inside .scene-ui-wrap, full-scene):
+     - Timer HUD
+     - Dossier frame (centered question box)
+     - Suspect notepad
+   ===================================================== */
+
+.interro-scene {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+  background: #0a0605;
+  font-family: 'Courier New', monospace;
+}
+
+/* ══════════════════════════════
+   SCENE IMAGE WRAPPER
+   Full screen width, natural image aspect ratio (9:16).
+   The mirror div is a CHILD of this wrapper so they share the
+   same coordinate space — the mirror percentages match the
+   image's internal coordinates exactly.
+   ══════════════════════════════ */
+
+.scene-image-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════
+   LAYER 0 — Mirror backdrop (inside scene-image-wrap)
+   Percentages are relative to the image's intrinsic dimensions.
+
+   Mirror position (measured from the room asset 1080×1920):
+     left: 20.19% → right: 79.81%
+     top:  13.59% → bot:   36.98%
+   ══════════════════════════════ */
+
+.scene-mirror {
+  position: absolute;
+  left: 20.19%;
+  top: 13.59%;
+  width: 59.63%;
+  height: 23.39%;
+  z-index: 0;
+  /* Dark blue-grey glass surface */
+  background:
+    linear-gradient(
+      180deg,
+      #1a2540 0%,
+      #1e2838 40%,
+      #0e1828 100%
+    );
+  /* Subtle vignette inside the mirror */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Glass reflection streak (decorative) */
+.scene-mirror::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Diagonal highlight streak (one-way mirror feel) */
+.scene-mirror::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 60%;
+  width: 50%;
+  height: 140%;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.035) 48%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.035) 52%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+/* Spectator silhouettes grid — positioned inside the mirror area */
+.scene-mirror-silhouettes {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 14px;
+  padding: 0 12px 0 12px;
+  flex-wrap: wrap;
+  /* "Behind glass" effect — darken + subtle blur + cool blue tint */
+  filter: brightness(0.65) contrast(0.9) saturate(0.8) blur(0.5px);
+}
+
+/* Silhouette = avatar head + SVG body underneath */
+.scene-mirror-silhouette {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 54px;
+  /* Slight perspective squeeze as if behind a vertical glass surface */
+  transform: scaleY(0.95);
+}
+
+.silhouette-head {
+  position: relative;
+  z-index: 2;
+  /* Pull the head down slightly so it overlaps/nestles into the SVG shoulders */
+  margin-bottom: -10px;
+}
+
+.silhouette-body {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+}
+
+/* ══════════════════════════════
+   LAYER 1 — Room background PNG (inside scene-image-wrap)
+   Covers the full image wrap exactly — percentages match.
+   Has a transparent hole where the mirror is, revealing the
+   mirror backdrop layer underneath.
+   ══════════════════════════════ */
+
+.scene-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════
+   LAYER 2 — Table foreground (above room, below UI)
+   Same coordinate system as scene-bg — sits on top of the room.
+   ══════════════════════════════ */
+
+.scene-table {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════
+   TIMER HUD — Top floating pill
+   ══════════════════════════════ */
+
+.scene-timer-hud {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #1a0e00;
+  border: 1.5px solid #c9a86a;
+  border-bottom: 3px solid #c9a86a;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #c9a86a;
+  letter-spacing: 0.04em;
+  z-index: 10;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.scene-timer-hud.urgent {
+  border-color: #f59e0b;
+  color: #f59e0b;
+  background: #2a1a00;
+}
+
+.scene-timer-hud.critical {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: #2a0a0a;
+  animation: timer-pulse 0.6s ease-in-out infinite;
+}
+
+@keyframes timer-pulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.05); }
+}
+
+/* ══════════════════════════════
+   UI WRAP — Dossier / Notepad
+   Positioned in the lower area (where the table will be)
+   ══════════════════════════════ */
+
+.scene-ui-wrap {
+  /* Matches scene-image-wrap geometry exactly so "bottom" means
+     the bottom edge of the room image, not the bottom of the
+     (taller) viewport container. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  z-index: 9;
+  pointer-events: none;
+}
+
+/* Fullscreen variant — fills the entire scene container so children
+   center on the viewport, not on the 9:16 image region. */
+.scene-ui-wrap.scene-ui-wrap-full {
+  aspect-ratio: auto;
+  inset: 0;
+  bottom: 0;
+}
+
+.scene-ui-wrap > * {
+  pointer-events: auto;
+}
+
+/* ══════════════════════════════
+   DOSSIER FRAME — Simple framed question box (HTML)
+   Clean cream panel with flat cartoon border, drops in from
+   bottom over the scene. Holds question text + controls.
+   ══════════════════════════════ */
+
+.scene-dossier-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  pointer-events: none;
+}
+
+.scene-dossier-frame {
+  width: 100%;
+  max-width: 420px;
+  max-height: 100%;
+  padding: 18px 20px 16px;
+  background: #f0e8d8;
+  border: 3px solid #2a1a08;
+  border-bottom: 6px solid #2a1a08;
+  border-radius: 6px;
+  color: #1a0e00;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.scene-dossier-frame::-webkit-scrollbar {
+  width: 4px;
+}
+.scene-dossier-frame::-webkit-scrollbar-thumb {
+  background: rgba(58, 42, 16, 0.35);
+  border-radius: 2px;
+}
+
+.dossier-page-text-small {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #1a0e00;
+  margin: 0;
+}
+
+.dossier-page-number {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #8a3030;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed rgba(58, 42, 16, 0.4);
+}
+
+.dossier-page-text {
+  font-family: 'Courier New', monospace;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  font-weight: 700;
+  color: #1a0e00;
+  margin: 0;
+}
+
+.dossier-page-hint {
+  padding: 5px 7px;
+  background: rgba(240, 232, 216, 0.6);
+  border-left: 2px solid #cc2020;
+  border-radius: 2px;
+}
+
+.dossier-page-hint .hint-label {
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8a3030;
+  margin-bottom: 2px;
+}
+
+.dossier-page-hint p {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  color: #3a2a10;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.dossier-btn-start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 10px;
+  margin-top: 4px;
+  background: #cc2020;
+  border: none;
+  border-bottom: 3px solid #8a1010;
+  border-radius: 3px;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.dossier-btn-start:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.dossier-responses-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 3px 6px;
+  background: rgba(240, 232, 216, 0.6);
+  border-bottom: 1px solid #8a6a30;
+  border-radius: 2px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #3a2a10;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dossier-responses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dossier-response {
+  padding: 4px 6px;
+  background: rgba(240, 232, 216, 0.6);
+  border: none;
+  border-left: 2px solid #3a6a20;
+  border-bottom: 1px solid rgba(196, 184, 160, 0.8);
+  border-radius: 2px;
+}
+
+.dossier-response.waiting {
+  opacity: 0.7;
+  border-left-color: #8a6a30;
+  border-left-style: dashed;
+}
+
+.dossier-response-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+  color: #3a2a10;
+}
+
+.dossier-response-name {
+  font-family: 'Courier New', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #8a3030;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dossier-response-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  color: #1a0e00;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.dossier-response-pending {
+  font-family: 'Courier New', monospace;
+  font-size: 0.55rem;
+  color: #5a4a20;
+  margin: 0;
+  font-style: italic;
+}
+
+.dossier-judgment {
+  margin-top: 4px;
+  padding-top: 5px;
+  border-top: 1px dashed rgba(58, 42, 16, 0.4);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.dossier-btn-judge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 5px 4px;
+  border: none;
+  border-radius: 2px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  color: #fff;
+}
+
+.dossier-btn-judge.reject {
+  background: #cc2020;
+  border-bottom: 2px solid #8a1010;
+}
+
+.dossier-btn-judge.accept {
+  background: #3a6a20;
+  border-bottom: 2px solid #1a4010;
+}
+
+.dossier-btn-judge:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+/* ══════════════════════════════
+   NOTEPAD — Suspect answering
+   ══════════════════════════════ */
+
+.scene-notepad {
+  width: 100%;
+  max-width: 420px;
+  background: #f0e8d8;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 23px,
+    rgba(140, 100, 50, 0.15) 24px
+  );
+  border: 3px solid #8a6a30;
+  border-bottom: 6px solid #5a4520;
+  border-radius: 4px;
+  padding: 18px 20px;
+  color: #1a0e00;
+  box-shadow:
+    0 4px 0 #5a4520,
+    0 20px 50px rgba(0, 0, 0, 0.8);
+  transform: perspective(800px) rotateX(8deg);
+  transform-origin: bottom center;
+}
+
+.notepad-question {
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 2px dashed rgba(58, 42, 16, 0.4);
+}
+
+.notepad-question-number {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #8a3030;
+  margin-bottom: 4px;
+}
+
+.notepad-question-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #1a0e00;
+  margin: 0;
+}
+
+.notepad-textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px dashed rgba(58, 42, 16, 0.3);
+  color: #1a0e00;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 24px;
+  resize: none;
+  outline: none;
+  margin-bottom: 12px;
+}
+
+.notepad-textarea::placeholder {
+  color: #8a7550;
+  font-style: italic;
+}
+
+.notepad-btn-submit {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #cc2020;
+  border: none;
+  border-bottom: 4px solid #8a1010;
+  border-radius: 3px;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.notepad-btn-submit:active {
+  transform: translateY(3px);
+  border-bottom-width: 1px;
+}
+
+.notepad-btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ══════════════════════════════
+   SPECTATOR VIEW TINT (slight blue filter)
+   ══════════════════════════════ */
+
+.interro-scene-spectator::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 40, 80, 0.1);
+  pointer-events: none;
+  z-index: 8;
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════ */
+
+@media (max-width: 480px) {
+  .scene-ui-wrap {
+    max-width: calc(100% - 24px);
+  }
+
+  .dossier-page-text {
+    font-size: 0.82rem;
+  }
+
+  .notepad-question-text {
+    font-size: 0.85rem;
+  }
+}

@@ -12,6 +12,7 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useGameCompletion } from "@/lib/hooks/useGameCompletion";
 import { recordDeezTestGame } from "@/lib/services/statsService";
 import { useEndPageAd } from "@/lib/hooks/useEndPageAd";
+import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { rankWithTies } from "@/lib/utils/ranking";
 import '@/app/blindtest/blindtest-theme.css';
 
@@ -21,6 +22,7 @@ const DEEZER_PINK = '#FF0092';
 const DEEZER_LIGHT = '#C574FF';
 
 export function BlindTestEndContent({ code, myUid: devUid }) {
+  useAppShellBg('#04060f');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;

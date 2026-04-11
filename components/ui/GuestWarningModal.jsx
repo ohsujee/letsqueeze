@@ -1,27 +1,23 @@
 'use client';
 
 /**
- * GuestWarningModal
+ * GuestWarningModal — Flat Cartoon Style
  * Modal affichée quand un utilisateur veut jouer sans compte
- * Explique les limitations (rejoindre seulement) et propose de se connecter
  */
 
 import { useState, useEffect } from 'react';
 import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { motion, AnimatePresence } from 'framer-motion';
-import { UserX, ArrowRight } from 'lucide-react';
+import { UserMinus, ArrowRight } from '@phosphor-icons/react';
 import { shouldShowAppleSignIn, isIOSDevice } from '@/lib/services/authService';
 import { GoogleIcon, AppleIcon } from '@/components/icons';
 
-// Styles suivant le style guide
 const styles = {
   overlay: {
     position: 'fixed',
     inset: 0,
     zIndex: 1000,
-    background: 'rgba(0, 0, 0, 0.85)',
-    backdropFilter: 'blur(8px)',
-    WebkitBackdropFilter: 'blur(8px)',
+    background: 'rgba(8, 8, 15, 0.92)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -31,24 +27,26 @@ const styles = {
     position: 'relative',
     width: '100%',
     maxWidth: '360px',
-    background: 'linear-gradient(135deg, rgba(20, 20, 30, 0.95) 0%, rgba(16, 16, 26, 0.98) 100%)',
-    borderRadius: '24px',
+    background: '#1a1a2e',
+    borderRadius: '20px',
     padding: '32px 24px',
     textAlign: 'center',
-    border: '1px solid rgba(139, 92, 246, 0.3)',
-    boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+    border: 'none',
+    borderBottom: '4px solid #13132a',
+    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.6)',
   },
   iconContainer: {
     width: '72px',
     height: '72px',
     margin: '0 auto 20px',
-    borderRadius: '20px',
+    borderRadius: '16px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     color: 'white',
-    background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-    boxShadow: '0 4px 20px rgba(245, 158, 11, 0.4)',
+    background: '#f59e0b',
+    border: 'none',
+    borderBottom: '3px solid #b45309',
   },
   title: {
     fontFamily: "'Bungee', cursive",
@@ -61,7 +59,7 @@ const styles = {
   desc: {
     fontFamily: "'Inter', sans-serif",
     fontSize: '0.9375rem',
-    color: 'rgba(255, 255, 255, 0.6)',
+    color: '#6b6b8a',
     margin: '0 0 24px 0',
     lineHeight: 1.6,
   },
@@ -84,12 +82,12 @@ const styles = {
     background: '#ffffff',
     color: '#1f1f1f',
     border: 'none',
-    borderRadius: '14px',
+    borderBottom: '3px solid #d1d5db',
+    borderRadius: '12px',
     fontFamily: "'Space Grotesk', sans-serif",
     fontSize: '0.9375rem',
     fontWeight: 600,
     cursor: 'pointer',
-    boxShadow: '0 4px 20px rgba(255, 255, 255, 0.15)',
   },
   btnApple: {
     display: 'flex',
@@ -101,12 +99,12 @@ const styles = {
     background: '#000000',
     color: '#ffffff',
     border: 'none',
-    borderRadius: '14px',
+    borderBottom: '3px solid #333333',
+    borderRadius: '12px',
     fontFamily: "'Space Grotesk', sans-serif",
     fontSize: '0.9375rem',
     fontWeight: 600,
     cursor: 'pointer',
-    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
   },
   btnSecondary: {
     display: 'flex',
@@ -115,10 +113,11 @@ const styles = {
     gap: '10px',
     width: '100%',
     padding: '14px',
-    background: 'rgba(255, 255, 255, 0.05)',
-    color: 'rgba(255, 255, 255, 0.7)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    borderRadius: '14px',
+    background: '#222240',
+    color: '#6b6b8a',
+    border: 'none',
+    borderBottom: '2px solid #1a1a35',
+    borderRadius: '12px',
     fontFamily: "'Space Grotesk', sans-serif",
     fontSize: '0.875rem',
     fontWeight: 600,
@@ -133,8 +132,8 @@ export default function GuestWarningModal({
   onContinueAsGuest,
   onSignInGoogle,
   onSignInApple,
-  onSignIn, // Legacy prop - utilisé si onSignInGoogle non fourni
-  context = 'onboarding' // 'onboarding' ou 'home'
+  onSignIn,
+  context = 'onboarding'
 }) {
   const [showApple, setShowApple] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
@@ -172,7 +171,7 @@ export default function GuestWarningModal({
           >
             {/* Icon */}
             <div style={styles.iconContainer}>
-              <UserX size={32} />
+              <UserMinus weight="fill" size={32} />
             </div>
 
             {/* Title */}
@@ -199,12 +198,10 @@ export default function GuestWarningModal({
 
             {/* Actions */}
             <div style={styles.actions}>
-              {/* Apple Sign-In - Premier sur iOS */}
               {showApple && isIOS && onSignInApple && (
                 <motion.button
                   style={styles.btnApple}
                   onClick={onSignInApple}
-                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <AppleIcon size={18} />
@@ -212,23 +209,19 @@ export default function GuestWarningModal({
                 </motion.button>
               )}
 
-              {/* Google Sign-In */}
               <motion.button
                 style={styles.btnGoogle}
                 onClick={handleGoogleSignIn}
-                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <GoogleIcon size={18} />
                 <span>Continuer avec Google</span>
               </motion.button>
 
-              {/* Apple Sign-In - Après Google sur non-iOS */}
               {showApple && !isIOS && onSignInApple && (
                 <motion.button
                   style={styles.btnApple}
                   onClick={onSignInApple}
-                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <AppleIcon size={18} />
@@ -236,25 +229,21 @@ export default function GuestWarningModal({
                 </motion.button>
               )}
 
-              {/* Continue as Guest (only in onboarding) */}
               {!isHomeContext && onContinueAsGuest && (
                 <motion.button
                   style={styles.btnSecondary}
                   onClick={onContinueAsGuest}
-                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <span>Continuer quand même</span>
-                  <ArrowRight size={16} />
+                  <ArrowRight weight="bold" size={16} />
                 </motion.button>
               )}
 
-              {/* Close (only in home context) */}
               {isHomeContext && (
                 <motion.button
                   style={styles.btnSecondary}
                   onClick={onClose}
-                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <span>Fermer</span>

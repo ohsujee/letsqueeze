@@ -10,40 +10,40 @@
       "hint": "Le groupe a participé à un tournoi de basket sur un terrain extérieur."
     },
     {
-      "text": "Combien coûtait l'inscription par équipe ?",
+      "text": "Quel nom d'équipe le groupe avait-il choisi ?",
       "hint": "L'inscription coûtait 10 euros par équipe."
-    },
-    {
-      "text": "De quelle couleur était le maillot de l'arbitre ?",
-      "hint": "Il portait un maillot orange avec le logo de la fédération imprimé en noir."
-    },
-    {
-      "text": "De combien de degrés les paniers penchaient-ils ?",
-      "hint": "Les paniers étaient déformés et penchaient à 15 degrés."
-    },
-    {
-      "text": "Qui du groupe s'est foulé la cheville ?",
-      "hint": "Quelqu'un du groupe s'est foulé la cheville à cause d'un trou dans le terrain."
-    },
-    {
-      "text": "Qu'a dit l'arbitre pour menacer les joueurs ?",
-      "hint": "L'arbitre a menacé 'Le prochain qui parle, je l'expulse'."
     },
     {
       "text": "Quel était le score final du match ?",
       "hint": "L'équipe du groupe a perdu 47 à 12."
     },
     {
-      "text": "À quelle place le groupe a-t-il terminé au classement ?",
-      "hint": "Le groupe était 8ème sur 8 équipes."
+      "text": "De quelle couleur étaient les lignes de jeu sur le terrain ?",
+      "hint": "Les lignes de jeu jaunes à peine visibles."
     },
     {
-      "text": "À quelle heure le groupe est-il parti ?",
-      "hint": "Le groupe est parti vers 18h épuisé."
+      "text": "De combien de degrés les paniers penchaient-ils ?",
+      "hint": "Les paniers étaient déformés et penchaient à 15 degrés."
     },
     {
-      "text": "Comment le groupe est-il rentré après ?",
-      "hint": "Le groupe est parti épuisé, dégoûté, avec des courbatures partout."
+      "text": "Qu'a menacé l'arbitre pendant l'altercation ?",
+      "hint": "L'arbitre a menacé 'Le prochain qui parle, je l'expulse'."
+    },
+    {
+      "text": "Décrivez la faute violente qui n'a pas été sifflée.",
+      "hint": "Un joueur adverse a fait un coup de coude au visage qui n'a pas été sifflé."
+    },
+    {
+      "text": "Qui du groupe s'est foulé la cheville ?",
+      "hint": "Quelqu'un du groupe s'est foulé la cheville à cause d'un trou dans le terrain."
+    },
+    {
+      "text": "Racontez dans l'ordre : la cheville foulée, le coup de coude, et l'annonce du classement.",
+      "hint": "Quelqu'un se foule la cheville. Un joueur fait un coup de coude. Le classement est annoncé à la fin."
+    },
+    {
+      "text": "Combien de personnes composaient le public environ ?",
+      "hint": "Le public d'une vingtaine de personnes huait et criait des insultes."
     }
   ],
   "reading_time_seconds": 90
