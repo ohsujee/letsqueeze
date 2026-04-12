@@ -45,6 +45,10 @@ Quand on travaille dans `app/dev/` (pages de prototypage UI) :
 3. **Lire** les originaux pour s'en inspirer, mais les **copier** avant de les altérer
 4. **Les modifications dev ne s'appliquent au vrai jeu** que si l'utilisateur dit explicitement : "applique au vrai jeu", "merge", "passe en prod" ou équivalent
 
+**Exception — `app/dev/simulation/` :**
+
+Les pages de simulation (`app/dev/simulation/{game}/page.jsx`) **importent volontairement les vrais composants** des jeux (ex: `AlibiLobbyContent`, `AlibiPlayContent`) via des props `devUid`/`devIsHost`. C'est la stratégie officielle pour tester rapidement les composants réels dans un contexte simulé multi-device (host + players côte à côte). Ce n'est PAS une violation de la règle ci-dessus car les simulations ne modifient pas le code des composants — elles les consomment en lecture seule. Les props `devUid`/`devIsHost` dans les composants réels sont non-invasifs (fallback sur le comportement normal si `undefined`).
+
 **Pourquoi:** `app/dev/` est un bac à sable d'exploration UI. Un push accidentel ne doit jamais impacter les lobbies en production.
 
 ---
