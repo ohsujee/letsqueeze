@@ -118,6 +118,12 @@
   filter: brightness(0.65) contrast(0.9) saturate(0.8) blur(0.5px);
 }
 
+/* Dense layout (>6 spectators) — tighter gap, smaller silhouettes */
+.scene-mirror-silhouettes.dense {
+  gap: 6px;
+  padding: 0 6px;
+}
+
 /* Silhouette = avatar head + SVG body underneath */
 .scene-mirror-silhouette {
   position: relative;
@@ -130,11 +136,19 @@
   transform: scaleY(0.95);
 }
 
+.scene-mirror-silhouette.silhouette-xs {
+  width: 40px;
+}
+
 .silhouette-head {
   position: relative;
   z-index: 2;
   /* Pull the head down slightly so it overlaps/nestles into the SVG shoulders */
   margin-bottom: -10px;
+}
+
+.silhouette-xs .silhouette-head {
+  margin-bottom: -8px;
 }
 
 .silhouette-body {

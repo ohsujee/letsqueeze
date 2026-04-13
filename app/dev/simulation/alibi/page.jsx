@@ -5,6 +5,7 @@ import { auth, db, ref, set, update, remove, onValue, onAuthStateChanged, get } 
 import { createRoom as createFirebaseRoom } from '@/lib/config/rooms';
 
 import { AlibiLobbyContent } from '@/app/alibi/room/[code]/page';
+import InterrogationScene from '@/components/game-alibi/InterrogationScene';
 
 // Lazy load phases — prevents CSS from all phases loading simultaneously
 const AlibiPrepContent = lazy(() => import('@/app/alibi/game/[code]/prep/page').then(m => ({ default: m.AlibiPrepContent })));
@@ -122,9 +123,89 @@ function PhaseLoader() {
   );
 }
 
+/**
+ * ScenePreview — Standalone InterrogationScene with +/- controls
+ * for spectators (behind mirror) and inspectors (at table).
+ * Renders outside of any Firebase room — pure visual testing.
+ */
+function ScenePreview({ phoneW, phoneH }) {
+  const [spectatorCount, setSpectatorCount] = useState(3);
+  const [inspectorCount, setInspectorCount] = useState(2);
+  const [suspectCount, setSuspectCount] = useState(3);
+
+  const avatarPool = NAMES.map((name, i) => ({
+    uid: `preview_${i}`,
+    name,
+    avatar: { id: ['fox', 'cat', 'dog', 'panda', 'owl', 'rabbit', 'penguin', 'wolf', 'bear', 'parrot', 'sloth', 'turtle', 'snake', 'zebra', 'elephant', 'lion', 'koala', 'monkey', 'frog', 'duck'][i % 20], color: ['#ef4444', '#f59e0b', '#22c55e', '#3b82f6', '#a855f7', '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#6366f1'][i % 10] },
+  }));
+
+  const spectators = avatarPool.slice(0, spectatorCount);
+  const inspectors = avatarPool.slice(0, inspectorCount);
+  const suspects = avatarPool.slice(inspectorCount, inspectorCount + suspectCount);
+
+  const mockQuestion = { number: 3, text: 'Que faisiez-vous entre 21h et 23h le soir du crime ?', hint: 'Cherchez les incohérences dans les réponses.' };
+
+  const mockResponses = {};
+  suspects.forEach((s, i) => {
+    if (i < Math.ceil(suspectCount / 2)) {
+      mockResponses[s.uid] = { answer: `J'étais au bar avec ${NAMES[(i + 3) % NAMES.length]}, on a commandé des cocktails.` };
+    }
+  });
+
+  const CountControl = ({ label, value, setValue, min = 0, max = 15 }) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+      <span style={{ fontSize: '0.6rem', color: 'rgba(238,242,255,0.5)', fontWeight: 700, minWidth: '70px' }}>{label}</span>
+      <button onClick={() => setValue(v => Math.max(min, v - 1))} disabled={value <= min}
+        style={{ width: 22, height: 22, borderRadius: '4px', border: '1px solid rgba(238,242,255,0.15)', background: 'rgba(238,242,255,0.05)', color: value <= min ? 'rgba(238,242,255,0.15)' : '#fff', cursor: value <= min ? 'not-allowed' : 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>−</button>
+      <span style={{ fontSize: '0.75rem', color: '#fff', fontWeight: 700, minWidth: '18px', textAlign: 'center' }}>{value}</span>
+      <button onClick={() => setValue(v => Math.min(max, v + 1))} disabled={value >= max}
+        style={{ width: 22, height: 22, borderRadius: '4px', border: '1px solid rgba(238,242,255,0.15)', background: 'rgba(238,242,255,0.05)', color: value >= max ? 'rgba(238,242,255,0.15)' : '#fff', cursor: value >= max ? 'not-allowed' : 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
+    </div>
+  );
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
+      {/* Controls */}
+      <div style={{
+        display: 'flex', gap: '16px', padding: '10px 16px',
+        background: 'rgba(238,242,255,0.04)', borderRadius: '8px',
+        border: '1px solid rgba(238,242,255,0.08)',
+      }}>
+        <CountControl label="Spectateurs" value={spectatorCount} setValue={setSpectatorCount} max={15} />
+        <CountControl label="Inspecteurs" value={inspectorCount} setValue={setInspectorCount} max={5} />
+        <CountControl label="Suspects" value={suspectCount} setValue={setSuspectCount} max={5} />
+      </div>
+
+      {/* Scene in a phone frame */}
+      <SimPanel role="host" label={`Scene Preview · ${spectatorCount} spec · ${inspectorCount} insp · ${suspectCount} susp`} phoneW={phoneW} phoneH={phoneH}>
+        <InterrogationScene
+          viewRole="inspector"
+          questionState="answering"
+          inspectors={inspectors}
+          suspects={suspects}
+          spectators={spectators}
+          question={mockQuestion}
+          timeLeft={18}
+          isUrgent={false}
+          isCritical={false}
+          hasAnswered={false}
+          allAnswered={false}
+          myAnswer=""
+          responses={mockResponses}
+          onMyAnswerChange={() => {}}
+          onStartQuestion={() => {}}
+          onSubmitAnswer={() => {}}
+          onJudge={() => {}}
+        />
+      </SimPanel>
+    </div>
+  );
+}
+
 const SIM_STORAGE_KEY = 'dev_sim_alibi_roomCode';
 
 export default function AlibiSimulator() {
+  const [simMode, setSimMode] = useState('game'); // 'game' | 'scene'
   const [myUid, setMyUid] = useState(null);
   const [roomCode, setRoomCodeState] = useState(() => {
     if (typeof window === 'undefined') return null;
@@ -341,6 +422,45 @@ export default function AlibiSimulator() {
             Not authenticated. <a href="/dev/signin" style={{ color: GAME_COLOR }}>Sign in first</a>
           </p>
         )}
+
+        <div style={{ marginTop: '32px', borderTop: '1px solid rgba(238,242,255,0.08)', paddingTop: '24px' }}>
+          <button onClick={() => setSimMode('scene')} style={{
+            padding: '10px 24px', background: 'transparent',
+            color: 'rgba(238,242,255,0.5)', border: '1px solid rgba(238,242,255,0.15)',
+            borderRadius: '8px', fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', letterSpacing: '0.04em',
+          }}>
+            🎬 Scene Preview (standalone)
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ===== SCENE PREVIEW MODE =====
+  if (simMode === 'scene') {
+    return (
+      <div style={{
+        flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column',
+        background: '#04060f', fontFamily: "'Space Grotesk', sans-serif", overflow: 'hidden',
+      }}>
+        <div style={{
+          padding: '12px 20px', display: 'flex', alignItems: 'center', gap: '12px',
+          borderBottom: '1px solid rgba(238,242,255,0.06)', flexShrink: 0,
+        }}>
+          <button onClick={() => setSimMode('game')} style={{
+            color: 'rgba(238,242,255,0.4)', background: 'none', border: 'none',
+            fontSize: '0.8rem', cursor: 'pointer', fontFamily: "'Space Grotesk', sans-serif",
+          }}>&larr; Back</button>
+          <span style={{ fontSize: '1.2rem' }}>🎬</span>
+          <h1 style={{
+            fontFamily: 'Bungee, sans-serif', fontSize: '1rem', color: '#eef2ff',
+            margin: 0, letterSpacing: '0.04em',
+          }}>Scene Preview</h1>
+        </div>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '20px', display: 'flex', justifyContent: 'center' }}>
+          <ScenePreview phoneW={device.w} phoneH={device.h} />
+        </div>
       </div>
     );
   }

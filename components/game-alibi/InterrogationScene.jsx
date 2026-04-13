@@ -38,8 +38,9 @@ export default function InterrogationScene({
   onSubmitAnswer,
   onJudge,
 }) {
-  // Show up to 6 spectator avatars behind the one-way mirror
-  const mirrorSpectators = spectators.slice(0, 6);
+  // Dynamic sizing: dense layout when many spectators
+  const isDense = spectators.length > 6;
+  const avatarSize = isDense ? 'xs' : 'sm';
 
   return (
     <div className={`interro-scene interro-scene-${viewRole}`}>
@@ -47,10 +48,10 @@ export default function InterrogationScene({
       <div className="scene-image-wrap" aria-hidden>
         {/* Layer 0 — Mirror backdrop with spectator silhouettes */}
         <div className="scene-mirror">
-          {mirrorSpectators.length > 0 && (
-            <div className="scene-mirror-silhouettes">
-              {mirrorSpectators.map((p) => (
-                <MirrorSilhouette key={p.uid} player={p} />
+          {spectators.length > 0 && (
+            <div className={`scene-mirror-silhouettes ${isDense ? 'dense' : ''}`}>
+              {spectators.map((p) => (
+                <MirrorSilhouette key={p.uid} player={p} avatarSize={avatarSize} />
               ))}
             </div>
           )}
@@ -257,15 +258,15 @@ function Dossier({ isOpen, children }) {
    Creates a "person standing behind the glass" silhouette.
    The avatar sits on top as the head, the SVG is the torso.
    ────────────────────────────────────────────────────────── */
-function MirrorSilhouette({ player }) {
+function MirrorSilhouette({ player, avatarSize = 'sm' }) {
   const initial = (player?.name || '?')[0].toUpperCase();
   return (
-    <div className="scene-mirror-silhouette">
+    <div className={`scene-mirror-silhouette ${avatarSize === 'xs' ? 'silhouette-xs' : ''}`}>
       {/* Head = existing Avatar component */}
       <div className="silhouette-head">
         <Avatar
           initial={initial}
-          size="sm"
+          size={avatarSize}
           avatarId={player?.avatar?.id}
           avatarColor={player?.avatar?.color}
         />
