@@ -14,7 +14,8 @@ function useDailyProgress() {
   const s1 = useDailyGame(DAILY_GAMES[1]?.id);
   const s2 = useDailyGame(DAILY_GAMES[2]?.id);
   const s3 = useDailyGame(DAILY_GAMES[3]?.id);
-  const states = [s0, s1, s2, s3].slice(0, DAILY_GAMES.length);
+  const s4 = useDailyGame(DAILY_GAMES[4]?.id);
+  const states = [s0, s1, s2, s3, s4].slice(0, DAILY_GAMES.length);
   const loaded = states.every((s) => s.loaded);
   return { states, loaded };
 }
