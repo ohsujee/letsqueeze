@@ -58,6 +58,32 @@ La date de démarrage V2 est configurable via env vars `V2_LAUNCH_YEAR/MONTH/DAY
 - `GET /admin/word/{date}` → mot V1 + 999 voisins NumberBatch (pour onglet Punkrecords V1)
 - `GET /admin/v2-word/{date}` → mot V2 + 999 voisins NumberBatch (pour onglet Punkrecords V2)
 
+### Source de vérité pour les mots V1 : proxy sur prod
+
+**Problème rencontré** : répliquer l'algorithme V1 localement dans le beta est fragile, parce que prod filtre la liste de 840 mots par son propre modèle word2vec (qui peut manquer un mot, ex: `cœur`). Le modulo SHA et la permutation dépendent de la longueur effective de la liste, donc si beta a 840 mots et prod 839, les indices divergent → mots complètement différents.
+
+**Solution** : le container beta appelle prod comme source de vérité via HTTP à `https://punkrecords.gigglz.fun/semantic-api/admin/word/{date}` pour obtenir le mot V1 exact. Résultats mis en cache localement (`_V1_WORD_CACHE`). Fallback sur l'algorithme local si prod inaccessible.
+
+**Env vars beta (`/opt/gigglz-api-beta/.env`)** :
+```bash
+PROD_API_URL=https://punkrecords.gigglz.fun/semantic-api
+PROD_API_KEY=8fb7375e1276f6721c6b0912b314b13d6821d09caf484aed1e90669bffd5fb65
+```
+
+**Avantage** : pas de risque de divergence entre les mots V1 joués par les vrais joueurs et les mots exclus de V2.
+
+### V1_HISTORY dynamique (pas figé)
+
+`V1_HISTORY` est **reconstruit à chaque démarrage du container beta** en appelant prod pour chaque date entre `GAME_LAUNCH_DATE` (2026-02-18) et `V2_LAUNCH_DATE`. Donc si on attend 2 semaines avant de merger et que V1 joue 14 nouveaux mots entre-temps :
+
+1. On bump `V2_LAUNCH_DATE` dans `/opt/gigglz-api-beta/.env` à la vraie date de merge
+2. On restart le container beta (`docker-compose restart gigglz-api-beta`)
+3. V1_HISTORY inclut automatiquement les 14 nouveaux mots
+4. Pool V2 recalculé, permutation V2 complètement re-seedée sur la liste réduite
+5. **Aucun recouvrement possible** entre l'historique V1 complet et le futur V2
+
+Pendant la phase "entre snapshot et merge", l'onglet Punkrecords V2 peut temporairement afficher des mots que V1 joue en prod. C'est normal (c'est une projection basée sur le snapshot actuel). Au merge, tout se réaligne.
+
 ### Env vars Vercel à ajouter
 
 ```
@@ -292,13 +318,28 @@ Un simple `docker restart gigglz-api-beta` après changement du `.env` suffit (p
 - [ ] `/opt/gigglz-api/Dockerfile` — inchangé (gensim + simplemma suffisent)
 - [ ] `/opt/gigglz-api/model_cache/` — remplacer `model.bin` par `model.txt` (NumberBatch FR extrait)
 
-### Déploiement
+### Déploiement (jour du merge — stratégie recommandée)
 
-1. Sauvegarder l'ancien modèle : `mv model.bin model.bin.backup`
-2. Copier `model.txt` depuis `/opt/gigglz-api-beta/model_cache/`
-3. Rebuild : `docker-compose build && docker-compose up -d`
-4. Vérifier les logs : coverage 839/840, VALID_VOCAB ~285k
-5. Tester avec un mot cible connu sur le dashboard Punkrecords
+**Étapes du merge V1 → V2 en prod** :
+
+1. **Bump la date V2_LAUNCH_DATE** dans `/opt/gigglz-api-beta/.env` à la date réelle du merge :
+   ```bash
+   V2_LAUNCH_YEAR=YYYY
+   V2_LAUNCH_MONTH=MM
+   V2_LAUNCH_DAY=DD
+   ```
+2. **Restart beta** : `cd /opt/gigglz-api-beta && docker-compose restart`
+   → V1_HISTORY se reconstruit depuis prod et intègre tous les mots joués entre le snapshot initial et le merge
+3. **Vérifier** : `/admin/v2-word/{merge_date}` renvoie bien un mot qui n'est pas dans l'historique V1
+4. **Merger `refacto/tier1` vers `main`** sur GitHub → Vercel redéploie la prod
+5. **Côté app Capacitor** : aucune action requise si la card V2 reste `superFoundersOnly: true` jusqu'au moment où on veut vraiment passer tout le monde sur V2
+6. Pour le **switch définitif** (V2 devient le jeu principal pour tout le monde) :
+   - Option A : renommer la card `semantique-v2` en `semantique` dans `dailyGames.js`, supprimer l'ancienne, route `/daily/semantique` pointe sur V2
+   - Option B : garder les deux en parallèle comme jeux distincts (V1 "Classique", V2 "Plus")
+
+### Déploiement — ancienne approche (rejetée, gardée pour info)
+
+~~Remplacer directement le modèle sur le container prod (gigglz-api)~~ — trop risqué, le beta est déjà opérationnel avec NumberBatch + filtres. Le chemin propre est de faire du V2 un jeu séparé puis de renommer.
 
 ### Recalcul des scores Firebase
 
@@ -347,16 +388,29 @@ Un simple `docker restart gigglz-api-beta` après changement du `.env` suffit (p
 - ✅ Onglet Punkrecords `/semantique-v2` + entrée Sidebar
 - ✅ Endpoints backend `/admin/word/{date}` (V1) et `/admin/v2-word/{date}` (V2) avec 999 voisins
 
+### Fait (suite — bugs et améliorations)
+
+- ✅ Bug fix : liste V1 mismatch (prod filtre par son modèle, NumberBatch n'a pas les mêmes mots) → solution : beta proxy sur prod comme source de vérité
+- ✅ Env vars beta : `PROD_API_URL=https://punkrecords.gigglz.fun/semantic-api`, `PROD_API_KEY=...`
+- ✅ Cache local `_V1_WORD_CACHE` pour éviter les appels répétés à prod
+- ✅ V1_HISTORY reconstruit dynamiquement au démarrage (pas figé en dur)
+- ✅ Commit `504a0c2` + push sur `origin/refacto/tier1`
+- ✅ Env var Vercel `SEMANTIC_V2_API_URL` ajoutée par Sujee
+
 ### À faire
 
-- ⏳ Commit + push de la branche `refacto/tier1`
-- ⏳ Ajouter `SEMANTIC_V2_API_URL=https://punkrecords.gigglz.fun/semantic-api-beta` dans les env vars Vercel
-- ⏳ Tests super-founder via preview deployment (ou app mobile avec URL swap)
-- ⏳ Validation qualitative
+- ⏳ Tests super-founder via preview Vercel ou app mobile (swap capacitor.config.ts)
+- ⏳ Refonte redesign complète du jeu (prévu dans les 1-2 semaines — priorité de Sujee)
+- ⏳ Validation qualitative du modèle V2 sur plusieurs jours
 - ⏳ Décision go/no-go pour le merge vers main
 
-### Après validation et merge
+### Au moment du merge (dans 1-2 semaines environ)
 
-- Ajuster `V2_LAUNCH_YEAR/MONTH/DAY` dans `/opt/gigglz-api-beta/.env` à la date réelle du merge
-- Mettre à jour "Comment jouer" (modal in-game)
-- Archiver ce doc
+1. **Bump** `V2_LAUNCH_YEAR/MONTH/DAY` dans `/opt/gigglz-api-beta/.env` à la vraie date de merge
+2. `docker-compose restart gigglz-api-beta` → V1_HISTORY se reconstruit avec les ~14 mots additionnels joués entretemps → pool V2 ajusté → permutation re-seedée → zéro recouvrement garanti
+3. `git merge refacto/tier1` vers main → Vercel redéploie la prod
+4. **Pendant la phase dev (avant merge)** : acceptable que l'onglet Punkrecords V2 affiche des mots qui seront joués par V1 d'ici le merge. C'est une projection basée sur le snapshot actuel. Au merge, tout se réaligne automatiquement.
+5. Mettre à jour la modal "Comment jouer" du jeu pour mentionner :
+   - Les pluriels courants (yeux, lunettes, cheveux...) sont acceptés tels quels
+   - Le modèle comprend maintenant le sens commun, pas seulement la co-occurrence
+6. Archiver ce doc (`SEMANTIQUE_V2.md` → `docs/archive/`) une fois la migration consolidée
