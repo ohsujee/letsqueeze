@@ -378,9 +378,9 @@ export function ImposteurLobbyContent({ code, myUid: devUid, isHost: devIsHost }
           <LobbyStartButton gameColor={ACCENT} icon={startIcon} label={startLabel} disabled={!canStart} onClick={handleStartGame} />
         )}
         {!isHost && (
-          <div className="imp-footer-player-card">
+          <button className="imp-footer-player-card" onClick={() => shareModalRef.current?.open()}>
             <div className="imp-footer-player-text">Partage le code pour inviter des amis</div>
-          </div>
+          </button>
         )}
       </div>
     </div>

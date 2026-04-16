@@ -187,7 +187,7 @@ export function AlibiEndContent({ code, myUid: devUid }) {
     statsRecordedRef.current = true;
     const suspectsWon = percentage >= 50;
     const myTeamWon = (myTeam === 'suspects' && suspectsWon) || (myTeam === 'inspectors' && !suspectsWon);
-    recordAlibiGame({ role: myTeam, won: myTeamWon, score: score?.correct || 0 });
+    recordAlibiGame({ role: myTeam === 'suspects' ? 'accused' : 'detective', won: myTeamWon, score: percentage });
   }, [firebaseUser, myTeam, score, percentage]);
 
   // Animated score counter + confetti

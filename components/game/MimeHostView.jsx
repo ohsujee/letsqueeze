@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { getDatabase, ref, onValue, update } from 'firebase/database';
 import { getApp } from 'firebase/app';
-import { SkipForward } from 'lucide-react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import BuzzValidationModal from '@/components/game/BuzzValidationModal';
 import TimeUpModal from '@/components/game/TimeUpModal';
 import DisconnectAlert from '@/components/game/DisconnectAlert';
@@ -18,41 +18,43 @@ import { usePlayers } from '@/lib/hooks/usePlayers';
 import { usePlayerCleanup } from '@/lib/hooks/usePlayerCleanup';
 import { useRoomGuard } from '@/lib/hooks/useRoomGuard';
 import useMimeRotation from '@/lib/hooks/useMimeRotation';
+import HostActionFooter from '@/components/game/HostActionFooter';
 import useMimeTimer from '@/lib/hooks/useMimeTimer';
 import useMimeBuzz from '@/lib/hooks/useMimeBuzz';
 import useServerOffset from '@/lib/hooks/useServerOffset';
+import useAutoUnblockPenalty from '@/lib/hooks/useAutoUnblockPenalty';
 import { MIME_CONFIG, calculateMimePoints } from '@/lib/config/rooms';
+import { getFlatCSSVars } from '@/lib/config/colors';
 import './MimeHostView.css';
 
 /**
  * MimeHostView - Vue du mimeur
  * Structure calquée sur Quiz host view
  */
-export default function MimeHostView({ code, isActualHost = true }) {
-  const router = useRouter();
+export default function MimeHostView({ code, isActualHost = true, myUid: devUid, devMode = false }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devMode ? noopRouter : nextRouter;
   const db = getDatabase(getApp());
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
   const [words, setWords] = useState([]);
-  const [myUid, setMyUid] = useState(null);
+  const [myUid, setMyUid] = useState(devUid || null);
   const [showEndTransition, setShowEndTransition] = useState(false);
   const [showTimeUp, setShowTimeUp] = useState(false);
   const endTransitionTriggeredRef = useRef(false);
   const serverOffset = useServerOffset();
   const buzzWindowRef = useRef(null);
 
-  // Keep screen awake
-
-  // Récupérer l'UID
+  // Récupérer l'UID (skip in dev mode — devUid takes priority)
   useEffect(() => {
-    import('firebase/auth').then(({ getAuth, onAuthStateChanged }) => {
-      const auth = getAuth(getApp());
-      const unsub = onAuthStateChanged(auth, (user) => {
-        setMyUid(user?.uid || null);
-      });
-      return () => unsub();
+    if (devUid) return;
+    const auth = getAuth(getApp());
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setMyUid(user?.uid || null);
     });
-  }, []);
+    return () => unsub();
+  }, [devUid]);
 
   // Listeners Firebase
   useEffect(() => {
@@ -81,11 +83,13 @@ export default function MimeHostView({ code, isActualHost = true }) {
   }, [db, code]);
 
   // Hooks
-  const { players, activePlayers, me } = usePlayers({
+  const { players, activePlayers } = usePlayers({
     roomCode: code,
     roomPrefix: 'rooms_mime',
     sort: 'score'
   });
+  // Use myUid (dev-aware) to find me, not auth.currentUser
+  const me = players.find(p => p.uid === myUid);
 
   const { leaveRoom, markActive } = usePlayerCleanup({
     roomCode: code,
@@ -105,6 +109,7 @@ export default function MimeHostView({ code, isActualHost = true }) {
     currentMimeUid,
     currentMimer,
     advanceToNextWord,
+    announceNextMimer,
     currentIndex,
     totalWords
   } = useMimeRotation({ roomCode: code, meta, state, players });
@@ -116,17 +121,22 @@ export default function MimeHostView({ code, isActualHost = true }) {
   const handleTimeUp = useCallback(async () => {
     // Afficher la modal temps écoulé
     setShowTimeUp(true);
-    // Attendre 2 secondes puis passer au mot suivant
+    // 3.5s — laisse le temps aux devineurs de lire le mot révélé
     setTimeout(async () => {
       setShowTimeUp(false);
-      await advanceToNextWord();
-    }, 2000);
-  }, [advanceToNextWord]);
+      // Annonce le prochain mimeur (transition affichée chez tous les clients)
+      await announceNextMimer();
+      // Laisse la transition tourner ~1.6s avant le swap effectif
+      setTimeout(async () => {
+        await advanceToNextWord();
+      }, 1600);
+    }, 3500);
+  }, [advanceToNextWord, announceNextMimer]);
 
   const {
+    timeLeft,
     secondsLeft,
     percentLeft,
-    isRunning,
     isPaused,
     isRevealed,
     isMimingStarted,
@@ -148,7 +158,6 @@ export default function MimeHostView({ code, isActualHost = true }) {
     resolveBuzzes,
     validateCorrect,
     validateWrong,
-    skipWord,
     cancelBuzz
   } = useMimeBuzz({
     roomCode: code,
@@ -179,8 +188,38 @@ export default function MimeHostView({ code, isActualHost = true }) {
     };
   }, [pendingBuzzes, state?.lockUid, isMimer, isActualHost, resolveBuzzes, pauseTimer]);
 
+  // Pauser le timer dès qu'un buzz est verrouillé (utile pour les fake players du simulateur
+  // qui écrivent directement lockUid sans passer par pendingBuzzes)
+  useEffect(() => {
+    if (state?.lockUid && !state?.pausedAt && state?.revealedAt && (isMimer || isActualHost)) {
+      pauseTimer();
+    }
+  }, [state?.lockUid, state?.pausedAt, state?.revealedAt, isMimer, isActualHost, pauseTimer]);
+
+  // Auto-unblock si tous les joueurs éligibles (non-mimeur) sont en pénalité
+  useAutoUnblockPenalty({
+    roomCode: code,
+    roomPrefix: 'rooms_mime',
+    eligiblePlayers: activePlayers.filter(p => p.uid !== state?.currentMimeUid),
+    serverNow: Date.now() + serverOffset,
+    canWrite: isMimer || isActualHost,
+    enabled: !!state?.revealedAt && !state?.pausedAt,
+  });
+
   // Mot actuel
   const currentWord = words[currentIndex] || { word: '???', category: '' };
+
+  // Bar animation state — 100% CSS for native 60fps fluidity
+  const barAnimState = !isMimingStarted ? 'idle' : isPaused ? 'paused' : 'running';
+  const barDelaySec = (() => {
+    if (!isMimingStarted) return 0;
+    const elapsedAcc = state?.elapsedAcc || 0;
+    const revealedAt = state?.revealedAt || 0;
+    const pausedAt = state?.pausedAt || null;
+    const sinceReveal = pausedAt ? (pausedAt - revealedAt) : (Date.now() - revealedAt);
+    const totalElapsedMs = elapsedAcc + Math.max(0, sinceReveal);
+    return -Math.min(totalElapsedMs, MIME_CONFIG.TIMER_DURATION_MS) / 1000;
+  })();
 
   // Gérer la révélation du mot (swipe)
   const handleReveal = useCallback(async () => {
@@ -189,11 +228,17 @@ export default function MimeHostView({ code, isActualHost = true }) {
     }
   }, [isRevealed, revealWord]);
 
-  // Valider bonne réponse
+  // Valider bonne réponse — écrit correctReveal (scores + anim), attend, transition, avance
   const handleCorrect = useCallback(async () => {
     await validateCorrect(secondsLeft);
+    // Reveal vert "X a trouvé" pendant 2.5s
+    await new Promise((r) => setTimeout(r, 2500));
+    // Annonce le prochain mimeur (transition full-screen sur tous les clients)
+    await announceNextMimer();
+    // Laisse la transition tourner ~1.6s avant le swap effectif (état Firebase)
+    await new Promise((r) => setTimeout(r, 1600));
     await advanceToNextWord();
-  }, [validateCorrect, advanceToNextWord, secondsLeft]);
+  }, [validateCorrect, advanceToNextWord, announceNextMimer, secondsLeft]);
 
   // Rejeter mauvaise réponse
   const handleWrong = useCallback(async () => {
@@ -201,33 +246,33 @@ export default function MimeHostView({ code, isActualHost = true }) {
     await resumeTimer();
   }, [validateWrong, resumeTimer]);
 
+  // Passer le mot — transition vers prochain mimeur
+  const handleSkipWord = useCallback(async () => {
+    await announceNextMimer();
+    await new Promise((r) => setTimeout(r, 1600));
+    await advanceToNextWord();
+  }, [announceNextMimer, advanceToNextWord]);
+
+  // Terminer la partie — passe en phase ended
+  const handleEndGame = useCallback(async () => {
+    await update(ref(db, `rooms_mime/${code}/state`), { phase: 'ended' });
+  }, [db, code]);
+
   // Annuler buzz accidentel
   const handleCancel = useCallback(async () => {
     await cancelBuzz();
     await resumeTimer();
   }, [cancelBuzz, resumeTimer]);
 
-  // Skip le mot
-  const handleSkip = useCallback(async () => {
-    await skipWord();
-    await advanceToNextWord();
-  }, [skipWord, advanceToNextWord]);
 
   const progressLabel = totalWords ? `${currentIndex + 1} / ${totalWords}` : '';
 
   if (!meta || !state) {
-    return (
-      <div className="mime-host-page game-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.6)' }}>
-          <div className="loading-spinner" style={{ width: 40, height: 40, border: '3px solid rgba(0,255,102,0.2)', borderTopColor: '#00ff66', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }} />
-          <p>Chargement...</p>
-        </div>
-      </div>
-    );
+    return <div style={{ flex: 1, minHeight: 0, background: '#059669' }} />;
   }
 
   return (
-    <div className="mime-host-page game-page">
+    <div className="mime-host-page game-page" style={getFlatCSSVars('mime')}>
       {/* End transition */}
       <AnimatePresence>
         {showEndTransition && !meta?.closed && (
@@ -262,46 +307,71 @@ export default function MimeHostView({ code, isActualHost = true }) {
 
       {/* Main Content */}
       <main className="game-content">
-        {/* Timer Section - always visible */}
-        <div className="timer-section">
-          <div className="timer-badge">
-            <span className="timer-value">{isMimingStarted ? secondsLeft : 30}</span>
-            <span className="timer-label">sec</span>
-          </div>
-          <div className="timer-bar-container">
+        {/* Timer Section — compact 1 ligne */}
+        <div className="mime-host-timer">
+          <span className="mime-timer-compact">
+            <span className="mime-timer-value">{isMimingStarted ? secondsLeft : 30}</span>s
+          </span>
+          <div className="mime-timer-bar">
             <div
-              className={`timer-bar-fill ${!isMimingStarted ? 'paused' : ''}`}
-              style={{ width: `${isMimingStarted ? percentLeft : 100}%` }}
+              key={`bar-${state?.currentIndex ?? 0}-${state?.revealedAt ?? 0}`}
+              className={`mime-timer-bar-fill ${barAnimState}`}
+              style={{
+                '--bar-duration': `${MIME_CONFIG.TIMER_DURATION_MS / 1000}s`,
+                '--bar-delay': `${barDelaySec}s`,
+              }}
             />
           </div>
-          {/* Points info - always visible */}
-          <div className="points-info">
-            <span className="points-item mimer">
-              Mimeur: <strong>{calculateMimePoints(isMimingStarted ? secondsLeft : 30).mimerPoints} pts</strong>
-            </span>
-            <span className="points-separator">·</span>
-            <span className="points-item guesser">
-              Joueur: <strong>{calculateMimePoints(isMimingStarted ? secondsLeft : 30).guesserPoints} pts</strong>
-            </span>
-          </div>
+          <span className="mime-points-compact">
+            <strong>{calculateMimePoints(isMimingStarted ? timeLeft / 1000 : 30).mimerPoints}</strong> pts
+          </span>
         </div>
 
-        {/* Word Card */}
+        {/* Word Card (ou card reveal pendant les 2.5s post-correct) */}
         <div className="word-card-wrapper">
-          <MimeCard
-            word={currentWord.word}
-            category={currentWord.category}
-            onReveal={handleReveal}
-            revealed={isRevealed}
-            disabled={!!lockedPlayer}
-          />
+          <AnimatePresence mode="wait">
+            {state?.correctReveal ? (
+              <motion.div
+                key="reveal"
+                className="mime-host-reveal"
+                initial={{ rotateX: -90, opacity: 0 }}
+                animate={{ rotateX: 0, opacity: 1 }}
+                exit={{ rotateX: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="mime-host-reveal-label">
+                  <span>✓</span>
+                  <span>{state.correctReveal.name} a trouvé</span>
+                </div>
+                <div className="mime-host-reveal-points">
+                  +{state.correctReveal.mimerPoints} pts
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="word"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <MimeCard
+                  word={currentWord.word}
+                  category={currentWord.category}
+                  onReveal={handleReveal}
+                  revealed={isRevealed}
+                  disabled={!!lockedPlayer}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        {/* Buzz Validation Modal */}
+        {/* Buzz Validation Modal — fermée pendant le reveal pour laisser l'anim */}
         <BuzzValidationModal
-          isOpen={!!lockedPlayer}
+          isOpen={!!lockedPlayer && !state?.correctReveal}
           playerName={lockedPlayer?.name || ''}
-          gameColor="#00ff66"
+          gameColor="#059669"
           points={calculateMimePoints(secondsLeft).guesserPoints}
           onCorrect={handleCorrect}
           onWrong={handleWrong}
@@ -311,50 +381,37 @@ export default function MimeHostView({ code, isActualHost = true }) {
         {/* Time Up Modal */}
         <TimeUpModal
           isOpen={showTimeUp}
-          gameColor="#00ff66"
+          gameColor="#059669"
           answer={currentWord.word}
           answerLabel="Le mot était"
         />
 
-        {/* Action Zone - only show when no one has buzzed */}
-        {!lockedPlayer && (
-          <AnimatePresence mode="wait">
-            {!isMimingStarted ? (
-              <motion.div
-                key="start"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="start-zone"
-              >
-                <button
-                  className={`btn-start-miming ${!isRevealed ? 'disabled' : ''}`}
-                  onClick={isRevealed ? startMiming : undefined}
-                  disabled={!isRevealed}
-                >
-                  <span>Je commence à mimer</span>
-                </button>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="skip"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="skip-zone"
-              >
-                <button className="btn-skip" onClick={handleSkip}>
-                  <SkipForward size={20} />
-                  <span>Passer</span>
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+        {/* Bouton "Lancer le chrono" — visible uniquement avant le démarrage */}
+        {!isMimingStarted && !lockedPlayer && (
+          <div className="start-zone">
+            <button
+              className={`btn-start-miming ${!isRevealed ? 'disabled' : ''}`}
+              onClick={isRevealed ? startMiming : undefined}
+              disabled={!isRevealed}
+            >
+              <span>Lancer le chrono</span>
+            </button>
+          </div>
         )}
 
         {/* Leaderboard (always visible) */}
         <Leaderboard players={players} currentPlayerUid={myUid} />
       </main>
+
+      {/* Host action footer — Passer / Fin avec modales de confirmation */}
+      {(isMimer || isActualHost) && (
+        <HostActionFooter
+          onSkip={handleSkipWord}
+          onEnd={handleEndGame}
+          skipLabel="Passer"
+          skipMessage="Le mot sera passé et personne ne marquera de points."
+        />
+      )}
 
       {/* Disconnect Alert */}
       <DisconnectAlert

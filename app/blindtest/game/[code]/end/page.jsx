@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { db, ref, onValue, update } from "@/lib/firebase";
 import { PodiumPremium } from "@/components/ui/PodiumPremium";
+import { getFlatCSSVars } from '@/lib/config/colors';
 import Leaderboard from "@/components/game/Leaderboard";
 import { motion } from "framer-motion";
 import { EndScreenFooter } from "@/components/transitions";
@@ -147,7 +148,7 @@ export function BlindTestEndContent({ code, myUid: devUid }) {
   };
 
   return (
-    <div className="end-page game-page">
+    <div className="end-page game-page" style={getFlatCSSVars('deeztest')}>
       {/* Main Content */}
       <main className="end-content">
         {/* Header */}

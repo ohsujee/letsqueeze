@@ -1052,37 +1052,13 @@ main {
 }
 
 .game-label {
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: var(--font-weight-semibold);
   color: rgba(255, 255, 255, 0.9);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: 0.875rem;
 }
 
-/* 🎮 GAME TITLE - Guide Compliant with Bungee + Glow */
-.game-title {
-  font-family: 'Bungee', var(--font-title), cursive;
-  font-size: clamp(2rem, 8vw, 4rem);
-  font-weight: 400; /* Bungee only has one weight */
-  color: var(--quiz-primary, #8b5cf6);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  /* Guide: Text glow effect */
-  text-shadow:
-    0 0 10px var(--quiz-glow, #a78bfa),
-    0 0 20px var(--quiz-glow, #a78bfa),
-    0 0 40px var(--quiz-primary, #8b5cf6);
-}
-
-/* Alibi variant */
-.game-title.alibi {
-  color: var(--alibi-primary, #f59e0b);
-  text-shadow:
-    0 0 10px var(--alibi-glow, #fbbf24),
-    0 0 20px var(--alibi-glow, #fbbf24),
-    0 0 40px var(--alibi-primary, #f59e0b);
-}
 
 .question-text {
   font-family: var(--font-display);

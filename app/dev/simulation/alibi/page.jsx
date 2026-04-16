@@ -5,7 +5,6 @@ import { auth, db, ref, set, update, remove, onValue, onAuthStateChanged, get } 
 import { createRoom as createFirebaseRoom } from '@/lib/config/rooms';
 
 import { AlibiLobbyContent } from '@/app/alibi/room/[code]/page';
-import InterrogationScene from '@/components/game-alibi/InterrogationScene';
 
 // Lazy load phases — prevents CSS from all phases loading simultaneously
 const AlibiPrepContent = lazy(() => import('@/app/alibi/game/[code]/prep/page').then(m => ({ default: m.AlibiPrepContent })));
@@ -111,101 +110,17 @@ function ControlButton({ label, color, onClick, disabled = false, filled = true 
 function PlayerPanel({ code, uid, phase, isHost }) {
   if (phase === 'prep') return <Suspense fallback={<PhaseLoader />}><AlibiPrepContent code={code} myUid={uid} /></Suspense>;
   if (phase === 'interrogation') return <Suspense fallback={<PhaseLoader />}><AlibiPlayContent code={code} myUid={uid} /></Suspense>;
-  if (phase === 'ended') return <Suspense fallback={<PhaseLoader />}><AlibiEndContent code={code} myUid={uid} /></Suspense>;
+  if (phase === 'end') return <Suspense fallback={<PhaseLoader />}><AlibiEndContent code={code} myUid={uid} /></Suspense>;
   return <AlibiLobbyContent code={code} myUid={uid} isHost={isHost} />;
 }
 
 function PhaseLoader() {
-  return (
-    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0e0e1a' }}>
-      <div style={{ width: 24, height: 24, border: '3px solid #222240', borderTopColor: GAME_COLOR, borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-    </div>
-  );
-}
-
-/**
- * ScenePreview — Standalone InterrogationScene with +/- controls
- * for spectators (behind mirror) and inspectors (at table).
- * Renders outside of any Firebase room — pure visual testing.
- */
-function ScenePreview({ phoneW, phoneH }) {
-  const [spectatorCount, setSpectatorCount] = useState(3);
-  const [inspectorCount, setInspectorCount] = useState(2);
-  const [suspectCount, setSuspectCount] = useState(3);
-
-  const avatarPool = NAMES.map((name, i) => ({
-    uid: `preview_${i}`,
-    name,
-    avatar: { id: ['fox', 'cat', 'dog', 'panda', 'owl', 'rabbit', 'penguin', 'wolf', 'bear', 'parrot', 'sloth', 'turtle', 'snake', 'zebra', 'elephant', 'lion', 'koala', 'monkey', 'frog', 'duck'][i % 20], color: ['#ef4444', '#f59e0b', '#22c55e', '#3b82f6', '#a855f7', '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#6366f1'][i % 10] },
-  }));
-
-  const spectators = avatarPool.slice(0, spectatorCount);
-  const inspectors = avatarPool.slice(0, inspectorCount);
-  const suspects = avatarPool.slice(inspectorCount, inspectorCount + suspectCount);
-
-  const mockQuestion = { number: 3, text: 'Que faisiez-vous entre 21h et 23h le soir du crime ?', hint: 'Cherchez les incohérences dans les réponses.' };
-
-  const mockResponses = {};
-  suspects.forEach((s, i) => {
-    if (i < Math.ceil(suspectCount / 2)) {
-      mockResponses[s.uid] = { answer: `J'étais au bar avec ${NAMES[(i + 3) % NAMES.length]}, on a commandé des cocktails.` };
-    }
-  });
-
-  const CountControl = ({ label, value, setValue, min = 0, max = 15 }) => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-      <span style={{ fontSize: '0.6rem', color: 'rgba(238,242,255,0.5)', fontWeight: 700, minWidth: '70px' }}>{label}</span>
-      <button onClick={() => setValue(v => Math.max(min, v - 1))} disabled={value <= min}
-        style={{ width: 22, height: 22, borderRadius: '4px', border: '1px solid rgba(238,242,255,0.15)', background: 'rgba(238,242,255,0.05)', color: value <= min ? 'rgba(238,242,255,0.15)' : '#fff', cursor: value <= min ? 'not-allowed' : 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>−</button>
-      <span style={{ fontSize: '0.75rem', color: '#fff', fontWeight: 700, minWidth: '18px', textAlign: 'center' }}>{value}</span>
-      <button onClick={() => setValue(v => Math.min(max, v + 1))} disabled={value >= max}
-        style={{ width: 22, height: 22, borderRadius: '4px', border: '1px solid rgba(238,242,255,0.15)', background: 'rgba(238,242,255,0.05)', color: value >= max ? 'rgba(238,242,255,0.15)' : '#fff', cursor: value >= max ? 'not-allowed' : 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>+</button>
-    </div>
-  );
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
-      {/* Controls */}
-      <div style={{
-        display: 'flex', gap: '16px', padding: '10px 16px',
-        background: 'rgba(238,242,255,0.04)', borderRadius: '8px',
-        border: '1px solid rgba(238,242,255,0.08)',
-      }}>
-        <CountControl label="Spectateurs" value={spectatorCount} setValue={setSpectatorCount} max={15} />
-        <CountControl label="Inspecteurs" value={inspectorCount} setValue={setInspectorCount} max={5} />
-        <CountControl label="Suspects" value={suspectCount} setValue={setSuspectCount} max={5} />
-      </div>
-
-      {/* Scene in a phone frame */}
-      <SimPanel role="host" label={`Scene Preview · ${spectatorCount} spec · ${inspectorCount} insp · ${suspectCount} susp`} phoneW={phoneW} phoneH={phoneH}>
-        <InterrogationScene
-          viewRole="inspector"
-          questionState="answering"
-          inspectors={inspectors}
-          suspects={suspects}
-          spectators={spectators}
-          question={mockQuestion}
-          timeLeft={18}
-          isUrgent={false}
-          isCritical={false}
-          hasAnswered={false}
-          allAnswered={false}
-          myAnswer=""
-          responses={mockResponses}
-          onMyAnswerChange={() => {}}
-          onStartQuestion={() => {}}
-          onSubmitAnswer={() => {}}
-          onJudge={() => {}}
-        />
-      </SimPanel>
-    </div>
-  );
+  return <div style={{ flex: 1, display: 'flex', background: GAME_COLOR }} />;
 }
 
 const SIM_STORAGE_KEY = 'dev_sim_alibi_roomCode';
 
 export default function AlibiSimulator() {
-  const [simMode, setSimMode] = useState('game'); // 'game' | 'scene'
   const [myUid, setMyUid] = useState(null);
   const [roomCode, setRoomCodeState] = useState(() => {
     if (typeof window === 'undefined') return null;
@@ -255,8 +170,8 @@ export default function AlibiSimulator() {
       const timer = setTimeout(() => setDisplayPhase('prep'), 4500);
       return () => clearTimeout(timer);
     }
-    if (phase === 'ended') {
-      const timer = setTimeout(() => setDisplayPhase('ended'), 3500);
+    if (phase === 'end') {
+      const timer = setTimeout(() => setDisplayPhase('end'), 3500);
       return () => clearTimeout(timer);
     }
     setDisplayPhase(phase);
@@ -327,21 +242,31 @@ export default function AlibiSimulator() {
     await update(ref(db), updates);
   }, [roomCode, players]);
 
-  const addPlayer = useCallback(async () => {
+  const addPlayers = useCallback(async (count = 1) => {
     if (!roomCode) return;
     const existingUids = Object.keys(players);
-    if (existingUids.length >= 10) { setError('Max 10 joueurs pour Alibi'); return; }
+    if (existingUids.length >= 20) { setError('Max 20 joueurs'); return; }
+    const updates = {};
+    let added = 0;
     let num = 1;
-    while (existingUids.includes(`fake_p${num}`)) num++;
-    const uid = `fake_p${num}`;
-    const name = NAMES[(num - 1) % NAMES.length] || `P${num}`;
-    try {
-      await set(ref(db, `${ROOM_PREFIX}/${roomCode}/players/${uid}`), {
+    while (added < count && existingUids.length + added < 20) {
+      while (existingUids.includes(`fake_p${num}`)) num++;
+      const uid = `fake_p${num}`;
+      const name = NAMES[(num - 1) % NAMES.length] || `P${num}`;
+      updates[`${ROOM_PREFIX}/${roomCode}/players/${uid}`] = {
         uid, name, score: 0, team: null,
-        status: 'active', joinedAt: Date.now(), isFake: true,
-      });
+        status: 'active', joinedAt: Date.now() + added, isFake: true,
+      };
+      existingUids.push(uid);
+      added++;
+      num++;
+    }
+    try {
+      await update(ref(db), updates);
     } catch (err) { setError(err.message); }
   }, [roomCode, players]);
+
+  const addPlayer = useCallback(() => addPlayers(1), [addPlayers]);
 
   const removePlayer = useCallback(async () => {
     if (!roomCode) return;
@@ -423,44 +348,6 @@ export default function AlibiSimulator() {
           </p>
         )}
 
-        <div style={{ marginTop: '32px', borderTop: '1px solid rgba(238,242,255,0.08)', paddingTop: '24px' }}>
-          <button onClick={() => setSimMode('scene')} style={{
-            padding: '10px 24px', background: 'transparent',
-            color: 'rgba(238,242,255,0.5)', border: '1px solid rgba(238,242,255,0.15)',
-            borderRadius: '8px', fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', letterSpacing: '0.04em',
-          }}>
-            🎬 Scene Preview (standalone)
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // ===== SCENE PREVIEW MODE =====
-  if (simMode === 'scene') {
-    return (
-      <div style={{
-        flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column',
-        background: '#04060f', fontFamily: "'Space Grotesk', sans-serif", overflow: 'hidden',
-      }}>
-        <div style={{
-          padding: '12px 20px', display: 'flex', alignItems: 'center', gap: '12px',
-          borderBottom: '1px solid rgba(238,242,255,0.06)', flexShrink: 0,
-        }}>
-          <button onClick={() => setSimMode('game')} style={{
-            color: 'rgba(238,242,255,0.4)', background: 'none', border: 'none',
-            fontSize: '0.8rem', cursor: 'pointer', fontFamily: "'Space Grotesk', sans-serif",
-          }}>&larr; Back</button>
-          <span style={{ fontSize: '1.2rem' }}>🎬</span>
-          <h1 style={{
-            fontFamily: 'Bungee, sans-serif', fontSize: '1rem', color: '#eef2ff',
-            margin: 0, letterSpacing: '0.04em',
-          }}>Scene Preview</h1>
-        </div>
-        <div style={{ flex: 1, overflowY: 'auto', padding: '20px', display: 'flex', justifyContent: 'center' }}>
-          <ScenePreview phoneW={device.w} phoneH={device.h} />
-        </div>
       </div>
     );
   }
@@ -526,8 +413,10 @@ export default function AlibiSimulator() {
         borderTop: '1px solid rgba(238,242,255,0.08)',
         padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0,
       }}>
-        <ControlButton label="+ Joueur" color={GAME_COLOR} onClick={addPlayer} />
-        <ControlButton label="− Joueur" color="#ef4444" onClick={removePlayer}
+        <ControlButton label="+1" color={GAME_COLOR} onClick={() => addPlayers(1)} />
+        <ControlButton label="+5" color={GAME_COLOR} onClick={() => addPlayers(5)} />
+        <ControlButton label="+10" color={GAME_COLOR} onClick={() => addPlayers(10)} />
+        <ControlButton label="−1" color="#ef4444" onClick={removePlayer}
           disabled={Object.keys(players).filter(uid => uid.startsWith('fake_')).length === 0} filled={false} />
         <ControlButton label="↺ Lobby" color="#eab308" onClick={resetToLobby} filled={false} />
         <ControlButton label="✕ Nouvelle Room" color="#ef4444" onClick={() => { setRoomCode(null); setPhase(null); setPlayers({}); }} filled={false} />

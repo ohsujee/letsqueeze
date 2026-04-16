@@ -22,26 +22,40 @@
 
 /* ══════════════════════════════
    SCENE IMAGE WRAPPER
-   Full screen width, natural image aspect ratio (9:16).
-   The mirror div is a CHILD of this wrapper so they share the
-   same coordinate space — the mirror percentages match the
-   image's internal coordinates exactly.
+   Full-screen backdrop. The inner .scene-image-ratio child
+   carries the 9:16 coordinate system so mirror percentages
+   match the image. On screens taller than 9:16, the ratio
+   box ends and the dark background fills the rest — no gap.
    ══════════════════════════════ */
 
 .scene-image-wrap {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  aspect-ratio: 9 / 16;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
+  background: #0a0605;
+  overflow: hidden;
+}
+
+/* Uniform cover: height fills the screen, width follows 9:16 ratio.
+   On screens taller than 9:16, the box is WIDER than the viewport
+   (e.g. 475px on a 390px-wide iPhone 14 Pro) and gets clipped by
+   the parent's overflow:hidden. The image stretches to fill this box
+   with 100% 100% → uniform zoom, no distortion. Mirror percentages
+   stay correct since the box is always exactly 9:16. */
+.scene-image-ratio {
+  position: relative;
+  height: 100%;
+  min-width: 100%;
+  aspect-ratio: 9 / 16;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* ══════════════════════════════
-   LAYER 0 — Mirror backdrop (inside scene-image-wrap)
-   Percentages are relative to the image's intrinsic dimensions.
+   LAYER 0 — Mirror backdrop (inside scene-image-ratio)
+   Percentages are relative to the 9:16 ratio box, which matches
+   the image's intrinsic dimensions exactly.
 
    Mirror position (measured from the room asset 1080×1920):
      left: 20.19% → right: 79.81%
@@ -103,52 +117,38 @@
   pointer-events: none;
 }
 
-/* Spectator silhouettes grid — positioned inside the mirror area */
+/* Spectator silhouettes — pyramid inside the mirror area.
+   Rows stack from bottom up via flex-direction: column-reverse. */
 .scene-mirror-silhouettes {
   position: relative;
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 14px;
-  padding: 0 12px 0 12px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 4px 4px;
   /* "Behind glass" effect — darken + subtle blur + cool blue tint */
-  filter: brightness(0.65) contrast(0.9) saturate(0.8) blur(0.5px);
+  filter: brightness(0.6) contrast(0.9) saturate(0.7) blur(0.5px);
 }
 
-/* Dense layout (>6 spectators) — tighter gap, smaller silhouettes */
-.scene-mirror-silhouettes.dense {
-  gap: 6px;
-  padding: 0 6px;
-}
+/* ══════════════════════════════
+   SILHOUETTE — Unified avatar + SVG body (shared by mirror & table)
+   ══════════════════════════════ */
 
-/* Silhouette = avatar head + SVG body underneath */
-.scene-mirror-silhouette {
+.scene-silhouette {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
   width: 54px;
-  /* Slight perspective squeeze as if behind a vertical glass surface */
-  transform: scaleY(0.95);
-}
-
-.scene-mirror-silhouette.silhouette-xs {
-  width: 40px;
 }
 
 .silhouette-head {
   position: relative;
   z-index: 2;
-  /* Pull the head down slightly so it overlaps/nestles into the SVG shoulders */
-  margin-bottom: -10px;
-}
-
-.silhouette-xs .silhouette-head {
-  margin-bottom: -8px;
+  margin-bottom: -12px;
 }
 
 .silhouette-body {
@@ -158,6 +158,44 @@
   height: auto;
   display: block;
   filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+}
+
+/* Table inspectors are bigger and imposing */
+.silhouette-table {
+  width: 110px;
+}
+.silhouette-table .silhouette-head {
+  margin-bottom: -16px;
+}
+
+/* Mirror spectators behind glass — slight squeeze */
+.silhouette-mirror {
+  transform: scaleY(0.95);
+}
+
+/* ══════════════════════════════
+   PYRAMID — Interleaved crowd layout
+   Back rows nestle INTO the gaps of the row in front via
+   negative margin-bottom. Creates a natural crowd feel.
+   ══════════════════════════════ */
+
+.pyramid-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pyramid-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  /* Each row overlaps into the row below it */
+  margin-bottom: -28px;
+}
+
+.pyramid-row:last-child {
+  margin-bottom: 0;
 }
 
 /* ══════════════════════════════
@@ -185,10 +223,33 @@
 .scene-table {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 3;
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════
+   LAYER 3 — Inspector silhouettes at the far end of the table
+   Positioned in the middle area of the scene, above the table
+   layer. They appear smaller (perspective: further away).
+   ══════════════════════════════ */
+
+/* Inspectors sit BEHIND the table: z-index 2 (bg=1, table=3).
+   The table foreground starts at ~52% from top. Inspectors are
+   placed so heads+shoulders poke above the table edge.
+   Pyramid layout via PyramidGroup component. */
+
+.scene-table-inspectors {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 46%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   pointer-events: none;
 }
 
@@ -243,29 +304,10 @@
    ══════════════════════════════ */
 
 .scene-ui-wrap {
-  /* Matches scene-image-wrap geometry exactly so "bottom" means
-     the bottom edge of the room image, not the bottom of the
-     (taller) viewport container. */
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  aspect-ratio: 9 / 16;
+  inset: 0;
   z-index: 9;
   pointer-events: none;
-}
-
-/* Fullscreen variant — fills the entire scene container so children
-   center on the viewport, not on the 9:16 image region. */
-.scene-ui-wrap.scene-ui-wrap-full {
-  aspect-ratio: auto;
-  inset: 0;
-  bottom: 0;
-}
-
-.scene-ui-wrap > * {
-  pointer-events: auto;
 }
 
 /* ══════════════════════════════
@@ -274,7 +316,8 @@
    bottom over the scene. Holds question text + controls.
    ══════════════════════════════ */
 
-.scene-dossier-center {
+.scene-dossier-center,
+.scene-notepad-center {
   position: absolute;
   inset: 0;
   display: flex;
@@ -340,54 +383,54 @@
 }
 
 .dossier-page-hint {
-  padding: 5px 7px;
+  padding: 10px 14px;
   background: rgba(240, 232, 216, 0.6);
-  border-left: 2px solid #cc2020;
-  border-radius: 2px;
+  border-left: 3px solid #cc2020;
+  border-radius: 3px;
 }
 
 .dossier-page-hint .hint-label {
   display: block;
   font-family: 'Courier New', monospace;
-  font-size: 0.55rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: #8a3030;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .dossier-page-hint p {
   font-family: 'Courier New', monospace;
-  font-size: 0.62rem;
+  font-size: 0.92rem;
   color: #3a2a10;
   margin: 0;
   font-style: italic;
-  line-height: 1.35;
+  line-height: 1.5;
 }
 
 .dossier-btn-start {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  padding: 7px 10px;
+  gap: 8px;
+  padding: 12px 16px;
   margin-top: 4px;
   background: #cc2020;
   border: none;
-  border-bottom: 3px solid #8a1010;
+  border-bottom: 4px solid #8a1010;
   border-radius: 3px;
   color: #fff;
   font-family: 'Courier New', monospace;
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   cursor: pointer;
 }
 
 .dossier-btn-start:active {
-  transform: translateY(2px);
+  transform: translateY(3px);
   border-bottom-width: 1px;
 }
 
@@ -395,32 +438,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 3px 6px;
+  gap: 6px;
+  padding: 6px 10px;
   background: rgba(240, 232, 216, 0.6);
-  border-bottom: 1px solid #8a6a30;
-  border-radius: 2px;
+  border-bottom: 1.5px solid #8a6a30;
+  border-radius: 3px;
   font-family: 'Courier New', monospace;
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #3a2a10;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .dossier-responses-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .dossier-response {
-  padding: 4px 6px;
+  padding: 8px 12px;
   background: rgba(240, 232, 216, 0.6);
   border: none;
-  border-left: 2px solid #3a6a20;
-  border-bottom: 1px solid rgba(196, 184, 160, 0.8);
-  border-radius: 2px;
+  border-left: 3px solid #3a6a20;
+  border-bottom: 2px solid rgba(196, 184, 160, 0.8);
+  border-radius: 3px;
 }
 
 .dossier-response.waiting {
@@ -429,79 +472,85 @@
   border-left-style: dashed;
 }
 
+.dossier-response.answered {
+  border-left-color: #3a6a20;
+  border-left-style: solid;
+  background: rgba(240, 232, 216, 0.85);
+}
+
 .dossier-response-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
   color: #3a2a10;
 }
 
 .dossier-response-name {
   font-family: 'Courier New', monospace;
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #8a3030;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .dossier-response-text {
   font-family: 'Courier New', monospace;
-  font-size: 0.6rem;
+  font-size: 0.82rem;
   color: #1a0e00;
   margin: 0;
   font-style: italic;
-  line-height: 1.3;
+  line-height: 1.45;
 }
 
 .dossier-response-pending {
   font-family: 'Courier New', monospace;
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   color: #5a4a20;
   margin: 0;
   font-style: italic;
 }
 
 .dossier-judgment {
-  margin-top: 4px;
-  padding-top: 5px;
-  border-top: 1px dashed rgba(58, 42, 16, 0.4);
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 2px dashed rgba(58, 42, 16, 0.4);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px;
+  gap: 8px;
 }
 
 .dossier-btn-judge {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
-  padding: 5px 4px;
+  gap: 6px;
+  padding: 12px 8px;
   border: none;
-  border-radius: 2px;
+  border-radius: 3px;
   font-family: 'Courier New', monospace;
-  font-size: 0.55rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   cursor: pointer;
   color: #fff;
 }
 
 .dossier-btn-judge.reject {
   background: #cc2020;
-  border-bottom: 2px solid #8a1010;
+  border-bottom: 4px solid #8a1010;
 }
 
 .dossier-btn-judge.accept {
   background: #3a6a20;
-  border-bottom: 2px solid #1a4010;
+  border-bottom: 4px solid #1a4010;
 }
 
 .dossier-btn-judge:active {
-  transform: translateY(1px);
-  border-bottom-width: 1px;
+  transform: translateY(2px);
+  border-bottom-width: 2px;
 }
 
 /* ══════════════════════════════
@@ -511,6 +560,7 @@
 .scene-notepad {
   width: 100%;
   max-width: 420px;
+  pointer-events: auto;
   background: #f0e8d8;
   background-image: repeating-linear-gradient(
     transparent,
@@ -618,20 +668,7 @@
   z-index: 8;
 }
 
-/* ══════════════════════════════
-   RESPONSIVE
-   ══════════════════════════════ */
-
-@media (max-width: 480px) {
-  .scene-ui-wrap {
-    max-width: calc(100% - 24px);
-  }
-
-  .dossier-page-text {
-    font-size: 0.82rem;
-  }
-
-  .notepad-question-text {
-    font-size: 0.85rem;
-  }
-}
+/* No responsive overrides needed — .scene-dossier-frame and
+   .scene-notepad already have max-width: 420px which handles
+   narrow screens. Do NOT add max-width to .scene-ui-wrap as
+   it is position:absolute inset:0 and max-width breaks it. */

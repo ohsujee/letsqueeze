@@ -53,6 +53,14 @@
   font-size: 2rem;
 }
 
+/* Podium override — l'avatar remplit 100% de son conteneur */
+.podium-avatar .avatar-container,
+.podium-avatar .avatar-placeholder {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+}
+
 .avatar-image {
   height: 82%;
   width: auto;

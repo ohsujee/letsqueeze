@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SkipForward, X } from '@phosphor-icons/react';
+import './HostActionFooter.css';
 
 /**
  * ConfirmModal — Modal flat réutilisable pour garde-fou
@@ -112,19 +113,37 @@ function ConfirmModal({ isOpen, title, message, confirmLabel, confirmColor, onCo
 
 /**
  * HostActionFooter - Footer d'actions partagé entre Host et Asker (Party Mode)
- * Boutons: Passer, Fin — avec modales de confirmation
+ * Boutons: [extra actions] + Passer + Fin — avec modales de confirmation
  * Réutilisable par tous les jeux.
+ *
+ * @param {function} onSkip - Callback pour passer la question/le mot
+ * @param {function} onEnd - Callback pour terminer la partie
+ * @param {Array} extraActions - Boutons supplémentaires avant Passer/Fin
+ *   Format: [{ label, icon, onClick, disabled?, className? }]
+ * @param {string} skipLabel - Label du bouton Passer (défaut: "Passer")
+ * @param {string} skipMessage - Message de confirmation (défaut: question passée)
  */
-export default function HostActionFooter({ onSkip, onEnd }) {
+export default function HostActionFooter({ onSkip, onEnd, extraActions = [], skipLabel = 'Passer', skipMessage = 'La question sera passée et personne ne marquera de points.' }) {
   const [showSkipConfirm, setShowSkipConfirm] = useState(false);
   const [showEndConfirm, setShowEndConfirm] = useState(false);
 
   return (
     <footer className="game-footer">
       <div className="host-actions">
+        {extraActions.map((action) => (
+          <button
+            key={action.label}
+            className={`action-btn ${action.className || ''}`}
+            onClick={action.onClick}
+            disabled={action.disabled}
+          >
+            {action.icon}
+            <span>{action.label}</span>
+          </button>
+        ))}
         <button className="action-btn action-skip" onClick={() => setShowSkipConfirm(true)}>
           <SkipForward size={18} weight="bold" />
-          <span>Passer</span>
+          <span>{skipLabel}</span>
         </button>
         <button className="action-btn action-end" onClick={() => setShowEndConfirm(true)}>
           <X size={18} weight="bold" />
@@ -134,9 +153,9 @@ export default function HostActionFooter({ onSkip, onEnd }) {
 
       <ConfirmModal
         isOpen={showSkipConfirm}
-        title="Passer la question ?"
-        message="La question sera passée et personne ne marquera de points."
-        confirmLabel="Passer"
+        title={`${skipLabel} ?`}
+        message={skipMessage}
+        confirmLabel={skipLabel}
         confirmColor="#f59e0b"
         onConfirm={() => { setShowSkipConfirm(false); onSkip?.(); }}
         onCancel={() => setShowSkipConfirm(false)}

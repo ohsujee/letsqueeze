@@ -1,0 +1,67 @@
+/* HostActionFooter.css — Footer partagé Passer / Fin pour tous les jeux */
+
+.game-footer {
+  flex-shrink: 0;
+  padding: 8px 16px 12px;
+}
+
+.host-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 12px;
+  background: #1a1a2e;
+  border: none;
+  border-bottom: 3px solid #13132a;
+  border-radius: 10px;
+  color: #eef2ff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.action-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.action-btn span {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.action-btn:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.action-skip {
+  background: #f59e0b;
+  border-bottom-color: #d97706;
+  color: #fff;
+}
+
+.action-skip:hover {
+  transform: translateY(-1px);
+}
+
+.action-end {
+  background: #ef4444;
+  border-bottom-color: #dc2626;
+  color: #fff;
+}
+
+.action-end:hover {
+  transform: translateY(-1px);
+}

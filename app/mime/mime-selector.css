@@ -1,6 +1,4 @@
-/* MIME theme selector modal — extracted from globals.css */
-/* ===========================================
-   MIME THEME SELECTOR MODAL
+/* MIME theme selector modal — Flat Cartoon Style
    =========================================== */
 
 .mime-modal-wrapper {
@@ -31,16 +29,14 @@
   position: relative;
   width: 100%;
   max-width: 500px;
-  max-height: 85vh;
-  background: linear-gradient(180deg, #1a1a24 0%, #12121a 100%);
+  max-height: calc(var(--app-height, 100dvh) * 0.85);
+  background: #14141e;
   border-radius: 24px 24px 0 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   animation: mimeModalSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow:
-    0 -10px 50px rgba(0, 255, 102, 0.15),
-    0 0 0 1px rgba(0, 255, 102, 0.2);
+  border-top: 3px solid var(--game-color, #059669);
 }
 
 @keyframes mimeModalSlideUp {
@@ -57,7 +53,7 @@
 .mime-modal-handle {
   width: 40px;
   height: 4px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 2px;
   margin: 12px auto 8px;
 }
@@ -67,7 +63,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 20px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid var(--flat-bg-dark, #06201a);
 }
 
 .mime-modal-title {
@@ -84,16 +80,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--flat-bg, #0a3028);
   border: none;
+  border-bottom: 2px solid var(--flat-bg-dark, #06201a);
   border-radius: 50%;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--flat-text, #a7f3d0);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .mime-modal-close:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--flat-bg-light, #0e4035);
   color: #ffffff;
 }
 
@@ -116,27 +113,27 @@
 .mime-themes-subtitle {
   font-family: var(--font-body, 'Inter'), sans-serif;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--flat-muted, #6ee7b7);
   margin: 0;
 }
 
 .mime-select-all-btn {
-  background: rgba(0, 255, 102, 0.1);
-  border: 1px solid rgba(0, 255, 102, 0.3);
+  background: var(--flat-bg, #0a3028);
+  border: none;
+  border-bottom: 2px solid var(--flat-bg-dark, #06201a);
   border-radius: 8px;
   padding: 6px 12px;
   font-family: var(--font-body, 'Inter'), sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #00ff66;
+  color: var(--flat-text, #a7f3d0);
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .mime-select-all-btn:hover {
-  background: rgba(0, 255, 102, 0.2);
-  border-color: rgba(0, 255, 102, 0.5);
+  background: var(--flat-bg-light, #0e4035);
 }
 
 .mime-themes-grid {
@@ -158,23 +155,22 @@
   align-items: center;
   gap: 8px;
   padding: 20px 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .mime-theme-card:hover:not(.locked) {
-  background: rgba(0, 255, 102, 0.08);
-  border-color: rgba(0, 255, 102, 0.3);
+  border-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
 }
 
 .mime-theme-card.selected {
-  background: rgba(0, 255, 102, 0.12);
-  border-color: #00ff66;
-  box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+  background: var(--flat-accent, #1a5a48);
+  border: 2px solid var(--game-color, #059669);
+  border-bottom: 3px solid var(--game-dark, #065f46);
 }
 
 .mime-theme-card.locked {
@@ -191,10 +187,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #00ff66, #00cc52);
+  background: var(--game-color, #059669);
   border-radius: 50%;
   color: #0a0a0f;
-  box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+  box-shadow: none;
 }
 
 .mime-theme-lock {
@@ -206,7 +202,8 @@
   gap: 4px;
   padding: 4px 8px;
   background: rgba(139, 92, 246, 0.2);
-  border: 1px solid rgba(139, 92, 246, 0.4);
+  border: none;
+  border-bottom: 2px solid rgba(139, 92, 246, 0.3);
   border-radius: 6px;
   font-size: 0.65rem;
   font-weight: 700;
@@ -228,14 +225,14 @@
 .mime-theme-count {
   font-family: var(--font-body, 'Inter'), sans-serif;
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--flat-muted, #6ee7b7);
 }
 
 .mime-modal-footer {
   padding: 16px 20px;
   padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.3);
+  border-top: 2px solid var(--flat-bg-dark, #06201a);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .mime-validate-btn {
@@ -245,33 +242,27 @@
   align-items: center;
   gap: 4px;
   padding: 16px 24px;
-  background: linear-gradient(180deg, #00ff66 0%, #00cc52 100%);
+  background: var(--game-color, #059669);
   border: none;
-  border-radius: 16px;
+  border-bottom: 4px solid var(--game-dark, #065f46);
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow:
-    0 4px 0 #4d7c0f,
-    0 6px 20px rgba(0, 255, 102, 0.3);
 }
 
 .mime-validate-btn:hover:not(.disabled) {
   transform: translateY(-2px);
-  box-shadow:
-    0 6px 0 #4d7c0f,
-    0 10px 30px rgba(0, 255, 102, 0.4);
+  border-bottom-width: 6px;
 }
 
 .mime-validate-btn:active:not(.disabled) {
   transform: translateY(2px);
-  box-shadow:
-    0 2px 0 #4d7c0f,
-    0 4px 10px rgba(0, 255, 102, 0.2);
+  border-bottom-width: 1px;
 }
 
 .mime-validate-btn.disabled {
-  background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
-  box-shadow: 0 4px 0 #111827;
+  background: #374151;
+  border-bottom: 4px solid #1f2937;
   cursor: not-allowed;
 }
 
@@ -297,26 +288,3 @@
   display: none;
 }
 
-/* Player chips for MIME - neon green variant */
-.lobby-container.mime .player-chip:hover {
-  background: linear-gradient(135deg, rgba(0, 255, 102, 0.15), rgba(0, 255, 102, 0.08));
-  border-color: rgba(0, 255, 102, 0.4);
-  box-shadow: 0 0.5vh 2vh rgba(0, 255, 102, 0.2);
-}
-
-.lobby-container.mime .player-chip.is-me {
-  background: linear-gradient(135deg, rgba(0, 255, 102, 0.25), rgba(0, 255, 102, 0.12));
-  border-color: rgba(0, 255, 102, 0.5);
-}
-
-.lobby-container.mime .chip-avatar {
-  background: linear-gradient(135deg, rgba(0, 255, 102, 0.3), rgba(0, 255, 102, 0.15));
-  border: 2px solid rgba(0, 255, 102, 0.4);
-  color: #00ff66;
-}
-
-.lobby-container.mime .player-chip.is-me .chip-avatar {
-  background: linear-gradient(135deg, #00ff66, #00cc52);
-  border-color: #00ff66;
-  color: #0a0a0f;
-}

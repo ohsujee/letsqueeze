@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, XCircle, Clock, PaperPlaneTilt, Users } from '@phosphor-icons/react';
 import Avatar from '@/components/ui/Avatar';
@@ -15,7 +16,7 @@ import './InterrogationScene.css';
  *   9 — Dossier / notepad / timer HUD (HTML)
  *
  * The dossier is a simple framed box centered on the viewport
- * (see `scene-ui-wrap-full`). Additional decorative SVG elements
+ * (see `scene-ui-wrap`). Additional decorative SVG elements
  * can be layered inside the scene-image-wrap to bring the room
  * to life (lamp, props, inspectors, etc.).
  */
@@ -39,35 +40,53 @@ export default function InterrogationScene({
   onJudge,
 }) {
   // Dynamic sizing: dense layout when many spectators
-  const isDense = spectators.length > 6;
-  const avatarSize = isDense ? 'xs' : 'sm';
+  const mirrorAvatarSize = spectators.length > 6 ? 'xs' : 'sm';
 
   return (
     <div className={`interro-scene interro-scene-${viewRole}`}>
-      {/* Image-space wrapper — shared coordinate system for bg + mirror */}
+      {/* Full-screen backdrop — dark fill so no black bar on tall screens */}
       <div className="scene-image-wrap" aria-hidden>
-        {/* Layer 0 — Mirror backdrop with spectator silhouettes */}
-        <div className="scene-mirror">
-          {spectators.length > 0 && (
-            <div className={`scene-mirror-silhouettes ${isDense ? 'dense' : ''}`}>
-              {spectators.map((p) => (
-                <MirrorSilhouette key={p.uid} player={p} avatarSize={avatarSize} />
-              ))}
+        {/* Inner 9:16 ratio box — shared coordinate system for bg + mirror.
+            Percentages inside this div match the image's internal coordinates. */}
+        <div className="scene-image-ratio">
+          {/* Layer 0 — Mirror backdrop with spectator silhouettes (pyramid) */}
+          <div className="scene-mirror">
+            {spectators.length > 0 && (
+              <div className="scene-mirror-silhouettes">
+                <PyramidGroup
+                  players={spectators}
+                  maxPerRow={4}
+                  avatarSize={mirrorAvatarSize}
+                  silhouetteClass="silhouette-mirror"
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Layer 1 — Room background (WebP with transparent mirror hole) */}
+          <div
+            className="scene-bg"
+            style={{ backgroundImage: "url('/images/alibi/interrogation-room-bg.webp')" }}
+          />
+
+          {/* Layer 2 — Inspector silhouettes BEHIND the table (pyramid) */}
+          {inspectors.length > 0 && (
+            <div className="scene-table-inspectors">
+              <PyramidGroup
+                players={inspectors}
+                maxPerRow={3}
+                avatarSize="md"
+                silhouetteClass="silhouette-table"
+              />
             </div>
           )}
+
+          {/* Layer 3 — Table foreground (covers inspector bodies) */}
+          <div
+            className="scene-table"
+            style={{ backgroundImage: "url('/images/alibi/interrogation-table.webp')" }}
+          />
         </div>
-
-        {/* Layer 1 — Room background (PNG with transparent mirror hole) */}
-        <div
-          className="scene-bg"
-          style={{ backgroundImage: "url('/images/alibi/interrogation-room-bg.webp')" }}
-        />
-
-        {/* Layer 2 — Table foreground (first-person perspective) */}
-        <div
-          className="scene-table"
-          style={{ backgroundImage: "url('/images/alibi/interrogation-table.webp')" }}
-        />
       </div>
 
       {/* Layer 5 — Timer HUD */}
@@ -89,7 +108,7 @@ export default function InterrogationScene({
 
       {/* Layer 4 — Dossier / question frame — full-scene overlay so it
           centers on the viewport, not the 9:16 image area */}
-      <div className="scene-ui-wrap scene-ui-wrap-full">
+      <div className="scene-ui-wrap">
         {/* ─── Inspector view ─── */}
         {viewRole === 'inspector' && question && (
           <Dossier isOpen>
@@ -101,7 +120,7 @@ export default function InterrogationScene({
                 <p className="dossier-page-text">{question.text}</p>
                 {question.hint && (
                   <div className="dossier-page-hint">
-                    <span className="hint-label">📖</span>
+                    <span className="hint-label">📖 Contexte</span>
                     <p>{question.hint}</p>
                   </div>
                 )}
@@ -157,38 +176,40 @@ export default function InterrogationScene({
 
         {/* ─── Suspect: answering (notepad slide-up) ─── */}
         {viewRole === 'suspect' && questionState === 'answering' && !hasAnswered && (
-          <motion.div
-            key="suspect-answering"
-            className="scene-notepad"
-            initial={{ opacity: 0, y: 200, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ type: 'spring', damping: 22, stiffness: 260 }}
-          >
-            <div className="notepad-question">
-              {question?.number !== undefined && (
-                <div className="notepad-question-number">QUESTION {question.number}</div>
-              )}
-              <p className="notepad-question-text">{question?.text}</p>
-            </div>
-            <textarea
-              className="notepad-textarea"
-              placeholder="Ta réponse..."
-              value={myAnswer}
-              onChange={(e) => onMyAnswerChange(e.target.value)}
-              maxLength={500}
-              autoComplete="off"
-              autoFocus
-            />
-            <button
-              className="notepad-btn-submit"
-              onClick={onSubmitAnswer}
-              disabled={!myAnswer.trim()}
+          <div className="scene-notepad-center">
+            <motion.div
+              key="suspect-answering"
+              className="scene-notepad"
+              initial={{ opacity: 0, y: 200, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 100 }}
+              transition={{ type: 'spring', damping: 22, stiffness: 260 }}
             >
-              <PaperPlaneTilt size={18} weight="fill" />
-              <span>Envoyer ma réponse</span>
-            </button>
-          </motion.div>
+              <div className="notepad-question">
+                {question?.number !== undefined && (
+                  <div className="notepad-question-number">QUESTION {question.number}</div>
+                )}
+                <p className="notepad-question-text">{question?.text}</p>
+              </div>
+              <textarea
+                className="notepad-textarea"
+                placeholder="Ta réponse..."
+                value={myAnswer}
+                onChange={(e) => onMyAnswerChange(e.target.value)}
+                maxLength={500}
+                autoComplete="off"
+                autoFocus
+              />
+              <button
+                className="notepad-btn-submit"
+                onClick={onSubmitAnswer}
+                disabled={!myAnswer.trim()}
+              >
+                <PaperPlaneTilt size={18} weight="fill" />
+                <span>Envoyer ma réponse</span>
+              </button>
+            </motion.div>
+          </div>
         )}
 
         {/* ─── Spectator view ─── */}
@@ -254,15 +275,55 @@ function Dossier({ isOpen, children }) {
 }
 
 /* ──────────────────────────────────────────────────────────
-   MirrorSilhouette — avatar with a dark SVG body underneath
-   Creates a "person standing behind the glass" silhouette.
-   The avatar sits on top as the head, the SVG is the torso.
+   buildPyramidRows — Distributes players into staggered rows.
+   Front row (bottom) is widest. Each row behind has 1 fewer
+   person and is positioned between the gaps of the row in front.
+
+   Example with 7 players, maxPerRow=4:
+     Row 2 (back):  [P7]                    ← 1, smallest
+     Row 1 (mid):   [P5]   [P6]             ← 2, between front row gaps
+     Row 0 (front): [P1] [P2] [P3] [P4]     ← 4, widest
+
+   Returns rows ordered back→front (first rendered = behind).
    ────────────────────────────────────────────────────────── */
-function MirrorSilhouette({ player, avatarSize = 'sm' }) {
+function buildPyramidRows(players, maxPerRow) {
+  if (players.length === 0) return [];
+
+  const rowSizes = [];
+  let remaining = players.length;
+  let rowSize = Math.min(maxPerRow, remaining);
+  while (remaining > 0) {
+    const size = Math.min(rowSize, remaining);
+    rowSizes.push(size);
+    remaining -= size;
+    rowSize = Math.max(1, rowSize - 1);
+  }
+  // rowSizes[0] = front (largest), rowSizes[last] = back (smallest)
+
+  const rows = [];
+  let idx = 0;
+  for (let r = rowSizes.length - 1; r >= 0; r--) {
+    const row = [];
+    for (let i = 0; i < rowSizes[r]; i++) {
+      if (idx < players.length) row.push(players[idx++]);
+    }
+    rows.push(row);
+  }
+  // rows[0] = back row, rows[last] = front row
+  return rows;
+}
+
+/* ──────────────────────────────────────────────────────────
+   Silhouette — Unified avatar + SVG body component.
+   Used for both inspectors (at the table) and spectators
+   (behind the mirror). The SVG body uses the player's team
+   color, muted by the CSS context (filter/opacity).
+   ────────────────────────────────────────────────────────── */
+function Silhouette({ player, avatarSize = 'sm', className = '' }) {
   const initial = (player?.name || '?')[0].toUpperCase();
+  const teamColor = player?.teamColor || player?.avatar?.color || '#5a4a30';
   return (
-    <div className={`scene-mirror-silhouette ${avatarSize === 'xs' ? 'silhouette-xs' : ''}`}>
-      {/* Head = existing Avatar component */}
+    <div className={`scene-silhouette ${className}`}>
       <div className="silhouette-head">
         <Avatar
           initial={initial}
@@ -271,48 +332,57 @@ function MirrorSilhouette({ player, avatarSize = 'sm' }) {
           avatarColor={player?.avatar?.color}
         />
       </div>
-
-      {/* Body = SVG bust (shoulders + upper torso) */}
       <svg
         className="silhouette-body"
-        viewBox="0 0 100 60"
+        viewBox="0 0 100 65"
         preserveAspectRatio="xMidYMin meet"
         aria-hidden
       >
-        {/* Shoulders curve — the top center dip (around 50, 2) is where
-            the avatar head nestles. Wide flaring shoulders, then straight
-            sides down to the bottom edge. */}
         <path
-          d="
-            M 0 60
-            L 0 30
-            Q 0 8, 25 4
-            Q 38 2, 50 2
-            Q 62 2, 75 4
-            Q 100 8, 100 30
-            L 100 60
-            Z
-          "
-          fill="#1a1410"
+          d="M 0 65 L 0 28 Q 0 6, 25 3 Q 38 0, 50 0 Q 62 0, 75 3 Q 100 6, 100 28 L 100 65 Z"
+          fill={teamColor}
         />
-        {/* Subtle top-lit highlight on the shoulders (flat hard-edge) */}
         <path
-          d="
-            M 8 30
-            Q 8 14, 28 10
-            Q 38 8, 50 8
-            Q 62 8, 72 10
-            Q 92 14, 92 30
-            L 92 22
-            Q 92 12, 72 8
-            Q 62 6, 50 6
-            Q 38 6, 28 8
-            Q 8 12, 8 22
-            Z
-          "
-          fill="#2a2218"
+          d="M 8 28 Q 8 12, 28 8 Q 40 5, 50 5 Q 60 5, 72 8 Q 92 12, 92 28 L 92 20 Q 92 10, 72 6 Q 60 3, 50 3 Q 40 3, 28 6 Q 8 10, 8 20 Z"
+          fill="rgba(255,255,255,0.08)"
         />
       </svg>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
+   PyramidGroup — Renders players as an interleaved pyramid.
+   Back-row people are nestled BETWEEN front-row people (not
+   stacked above), creating a natural crowd look. Each row
+   behind is slightly smaller (perspective) and overlaps into
+   the row in front via negative margin.
+   ────────────────────────────────────────────────────────── */
+function PyramidGroup({ players, maxPerRow, avatarSize = 'sm', silhouetteClass = '' }) {
+  const rows = useMemo(() => buildPyramidRows(players, maxPerRow), [players, maxPerRow]);
+  if (rows.length === 0) return null;
+
+  return (
+    <div className="pyramid-group">
+      {rows.map((row, rowIdx) => {
+        // rowIdx 0 = back (smallest), rowIdx last = front (largest)
+        const depth = rows.length - 1 - rowIdx; // 0 = front
+        const scale = 1 - depth * 0.15;
+        return (
+          <div
+            key={rowIdx}
+            className="pyramid-row"
+            style={{
+              transform: `scale(${scale})`,
+              zIndex: rowIdx + 1,
+            }}
+          >
+            {row.map((p) => (
+              <Silhouette key={p.uid} player={p} avatarSize={avatarSize} className={silhouetteClass} />
+            ))}
+          </div>
+        );
+      })}
     </div>
   );
 }

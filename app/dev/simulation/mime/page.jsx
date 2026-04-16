@@ -11,7 +11,7 @@ const MimePlayContent = lazy(() => import('@/app/mime/game/[code]/play/page').th
 const MimeEndContent = lazy(() => import('@/app/mime/game/[code]/end/page').then(m => ({ default: m.MimeEndContent })));
 
 const ROOM_PREFIX = 'rooms_mime';
-const GAME_COLOR = '#00ff66';
+const GAME_COLOR = '#059669';
 
 const genCode = () => {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -22,7 +22,7 @@ const genCode = () => {
 
 const PANEL_COLORS = {
   host: { border: '#eab308', labelBg: 'rgba(234,179,8,0.15)' },
-  player: { border: GAME_COLOR, labelBg: 'rgba(0,255,102,0.1)' },
+  player: { border: GAME_COLOR, labelBg: 'rgba(5,150,105,0.1)' },
   end: { border: '#22c55e', labelBg: 'rgba(34,197,94,0.15)' },
 };
 
@@ -32,19 +32,25 @@ const PHASE_TABS = [
   { id: 'ended', label: 'End', color: '#ef4444' },
 ];
 
-const PHONE_W = 360;
-const PHONE_H = 740;
-const LABEL_H = 26;
-const CONTENT_H = PHONE_H - LABEL_H;
+const DEVICE_PRESETS = [
+  { id: 'se', label: 'iPhone SE', w: 375, h: 667 },
+  { id: 's8', label: 'Galaxy S8', w: 360, h: 740 },
+  { id: 'ip14', label: 'iPhone 14', w: 390, h: 844 },
+  { id: 's20', label: 'Galaxy S20', w: 412, h: 915 },
+  { id: 'ip14pm', label: 'iPhone 14 PM', w: 430, h: 932 },
+];
 
-function SimPanel({ role, label, children }) {
+const LABEL_H = 26;
+
+function SimPanel({ role, label, children, phoneW, phoneH }) {
   const colors = PANEL_COLORS[role] || PANEL_COLORS.player;
   const borderColor = colors.border;
   const labelBg = colors.labelBg;
+  const contentH = phoneH - LABEL_H;
 
   return (
     <div style={{
-      width: PHONE_W, height: PHONE_H,
+      width: phoneW, height: phoneH,
       border: `2px solid ${borderColor}40`, borderRadius: '16px',
       overflow: 'hidden', background: '#04060f', flexShrink: 0,
       display: 'flex', flexDirection: 'column',
@@ -61,10 +67,10 @@ function SimPanel({ role, label, children }) {
         }}>{label}</span>
       </div>
       <div className="sim-panel-content" style={{
-        width: PHONE_W, height: CONTENT_H,
+        width: phoneW, height: contentH,
         display: 'flex', flexDirection: 'column', overflow: 'hidden',
         position: 'relative', transform: 'translateZ(0)',
-        '--app-height': `${CONTENT_H}px`, '--safe-area-bottom': '0px', '--safe-area-top': '0px',
+        '--app-height': `${contentH}px`, '--safe-area-bottom': '0px', '--safe-area-top': '0px',
       }}>
         {children}
         <style>{`
@@ -96,9 +102,7 @@ function ControlButton({ label, color, onClick, disabled = false, filled = true 
 
 function PhaseLoader() {
   return (
-    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0e0e1a' }}>
-      <div style={{ width: 24, height: 24, border: '3px solid #222240', borderTopColor: GAME_COLOR, borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-    </div>
+    <div style={{ flex: 1, display: 'flex', background: GAME_COLOR }} />
   );
 }
 
@@ -110,6 +114,7 @@ export default function MimeSimulator() {
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState(null);
   const [displayPhase, setDisplayPhase] = useState(null);
+  const [device, setDevice] = useState(DEVICE_PRESETS[2]); // iPhone 14 par défaut
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => { setMyUid(user?.uid || null); });
@@ -279,7 +284,7 @@ export default function MimeSimulator() {
   const renderPanels = () => {
     if (displayPhase === 'playing') {
       return playerEntries.map(([uid, player]) => (
-        <SimPanel key={uid} role={uid === myUid ? 'host' : 'player'} label={`Play - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
+        <SimPanel key={uid} role={uid === myUid ? 'host' : 'player'} label={`Play - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`} phoneW={device.w} phoneH={device.h}>
           <Suspense fallback={<PhaseLoader />}><MimePlayContent code={roomCode} myUid={uid} /></Suspense>
         </SimPanel>
       ));
@@ -287,7 +292,7 @@ export default function MimeSimulator() {
 
     if (displayPhase === 'ended') {
       return playerEntries.map(([uid, player]) => (
-        <SimPanel key={uid} role="end" label={`End - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
+        <SimPanel key={uid} role="end" label={`End - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`} phoneW={device.w} phoneH={device.h}>
           <Suspense fallback={<PhaseLoader />}><MimeEndContent code={roomCode} myUid={uid} /></Suspense>
         </SimPanel>
       ));
@@ -296,11 +301,11 @@ export default function MimeSimulator() {
     // Lobby
     return (
       <>
-        <SimPanel role="host" label="Host (You) - Lobby">
+        <SimPanel role="host" label="Host (You) - Lobby" phoneW={device.w} phoneH={device.h}>
           <MimeLobbyContent code={roomCode} myUid={myUid} isHost={true} />
         </SimPanel>
         {playerEntries.filter(([uid]) => uid !== myUid).map(([uid, player]) => (
-          <SimPanel key={uid} role="player" label={`Player - ${player.name || uid}`}>
+          <SimPanel key={uid} role="player" label={`Player - ${player.name || uid}`} phoneW={device.w} phoneH={device.h}>
             <MimeLobbyContent code={roomCode} myUid={uid} />
           </SimPanel>
         ))}
@@ -385,9 +390,20 @@ export default function MimeSimulator() {
         <ControlButton label="− Joueur" color="#f59e0b" onClick={removePlayer}
           disabled={Object.keys(players).filter(uid => uid.startsWith('fake_')).length === 0} filled={false} />
         <ControlButton label="↺ Lobby" color="#eab308" onClick={resetToLobby} filled={false} />
+        <div style={{ display: 'flex', gap: '4px', marginLeft: '8px' }}>
+          {DEVICE_PRESETS.map(d => (
+            <button key={d.id} onClick={() => setDevice(d)} style={{
+              padding: '4px 8px', borderRadius: '6px', border: 'none',
+              background: device.id === d.id ? `${GAME_COLOR}4D` : 'transparent',
+              color: device.id === d.id ? GAME_COLOR : 'rgba(238,242,255,0.3)',
+              fontSize: '0.6rem', fontWeight: 700, cursor: 'pointer',
+              fontFamily: "'Space Grotesk', sans-serif", transition: 'all 0.15s ease',
+            }}>{d.label}</button>
+          ))}
+        </div>
         <div style={{ flex: 1 }} />
         <div style={{ fontSize: '0.65rem', color: 'rgba(238,242,255,0.3)', letterSpacing: '0.06em' }}>
-          ROOM <span style={{ color: GAME_COLOR, fontWeight: 700 }}>{roomCode}</span>
+          {device.w}×{device.h}
         </div>
       </div>
 

@@ -13,6 +13,7 @@ import GameStatusBanners from "@/components/game/GameStatusBanners";
 import HostDisconnectAlert from "@/components/game/HostDisconnectAlert";
 import BuzzValidationModal from "@/components/game/BuzzValidationModal";
 import { SkipForward, X, Check, Music, Play, Pause, Bell, RefreshCw, Shuffle } from "lucide-react";
+import HostActionFooter from "@/components/game/HostActionFooter";
 import BlindTestRevealScreen from "@/components/game/BlindTestRevealScreen";
 import { SNIPPET_LEVELS, LOCKOUT_MS, WRONG_PENALTY, getPointsForLevel, AUDIO_SYNC_BUFFER_MS } from "@/lib/constants/blindtest";
 import { usePlayers } from "@/lib/hooks/usePlayers";
@@ -20,6 +21,7 @@ import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useInactivityDetection } from "@/lib/hooks/useInactivityDetection";
 import { useServerTime } from "@/lib/hooks/useServerTime";
+import useAutoUnblockPenalty from "@/lib/hooks/useAutoUnblockPenalty";
 import { useSound } from "@/lib/hooks/useSound";
 import { getRandomUnplayedTrack } from "@/lib/deezer/api";
 import { usePlaylistHistory } from "@/lib/hooks/usePlaylistHistory";
@@ -39,7 +41,7 @@ const DEEZER_LIGHT = '#C574FF';
  * @param {boolean} isActualHost - true si c'est le vrai host (page /host), false si c'est un asker en Party Mode
  * @param {function} onAdvanceAsker - Callback pour avancer à l'asker suivant (Party Mode uniquement)
  */
-export default function BlindTestHostView({ code, isActualHost = true, onAdvanceAsker }) {
+export default function BlindTestHostView({ code, isActualHost = true, onAdvanceAsker, onAnnounceAsker }) {
   const router = useRouter();
 
   const [meta, setMeta] = useState(null);
@@ -138,6 +140,23 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
   const playCorrect = useSound("/sounds/quiz-good-answer.wav");
   const playWrong = useSound("/sounds/quiz-bad-answer.wav");
   const prevLock = useRef(null);
+
+  // Auto-unblock si tous les joueurs éligibles sont en pénalité (party mode exclut l'asker/équipe)
+  const isPartyMode = meta?.gameMasterMode === 'party';
+  const askerUid = isPartyMode ? state?.currentAskerUid : null;
+  const askerTeamId = isPartyMode ? state?.currentAskerTeamId : null;
+  useAutoUnblockPenalty({
+    roomCode: code,
+    roomPrefix: 'rooms_blindtest',
+    eligiblePlayers: players.filter(p =>
+      p.status !== 'left' &&
+      p.uid !== askerUid &&
+      (!askerTeamId || p.teamId !== askerTeamId)
+    ),
+    serverNow,
+    canWrite: canControl,
+    enabled: !state?.lockUid,
+  });
 
   // Buzz system
   const { resetBuzzers, isResolving } = useBlindTestBuzz({
@@ -335,7 +354,11 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
     ).catch(() => {});
     resetForNextTrack();
 
-    // Party Mode: advance to next asker
+    // Party Mode: pré-annonce le prochain asker pour transition fluide
+    if (onAnnounceAsker) {
+      await onAnnounceAsker();
+      await new Promise(r => setTimeout(r, 1600));
+    }
     if (onAdvanceAsker) {
       await onAdvanceAsker();
     }
@@ -681,31 +704,22 @@ export default function BlindTestHostView({ code, isActualHost = true, onAdvance
         )}
 
         {/* Leaderboard */}
-        <Leaderboard players={players} mode={meta?.mode} teams={meta?.teams} />
+        <Leaderboard players={players} currentPlayerUid={myUid} mode={meta?.mode} teams={meta?.teams} />
       </main>
 
-      {/* Footer Actions */}
-      <footer className="game-footer deeztest">
-        <div className="host-actions">
-          <button
-            className="action-btn action-change deeztest"
-            onClick={changeSong}
-            disabled={isChangingSong}
-            title="Changer de chanson"
-          >
-            <Shuffle size={20} />
-            <span>Changer</span>
-          </button>
-          <button className="action-btn action-skip deeztest" onClick={skip}>
-            <SkipForward size={20} />
-            <span>Passer</span>
-          </button>
-          <button className="action-btn action-end deeztest" onClick={end}>
-            <X size={20} />
-            <span>Fin</span>
-          </button>
-        </div>
-      </footer>
+      {/* Footer Actions — composant partagé */}
+      <HostActionFooter
+        onSkip={skip}
+        onEnd={end}
+        skipLabel="Passer"
+        skipMessage="La chanson sera passée et personne ne marquera de points."
+        extraActions={[{
+          label: 'Changer',
+          icon: <Shuffle size={18} />,
+          onClick: changeSong,
+          disabled: isChangingSong,
+        }]}
+      />
     </div>
   );
 }

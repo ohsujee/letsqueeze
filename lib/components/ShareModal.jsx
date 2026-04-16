@@ -5,8 +5,9 @@ import { createPortal } from "react-dom";
 import { useBackHandler } from '@/lib/hooks/useBackHandler';
 import { motion, AnimatePresence } from "framer-motion";
 import { Share2, X, Copy, Check } from "lucide-react";
+import { getFlatCSSVars } from '@/lib/config/colors';
 
-const ShareModal = forwardRef(function ShareModal({ roomCode, joinUrl }, ref) {
+const ShareModal = forwardRef(function ShareModal({ roomCode, joinUrl, gameType = 'quiz' }, ref) {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -42,6 +43,8 @@ const ShareModal = forwardRef(function ShareModal({ roomCode, joinUrl }, ref) {
     setIsOpen(false);
   };
 
+  const flatVars = getFlatCSSVars(gameType);
+
   const modalContent = (
     <AnimatePresence mode="wait">
       {isOpen && (
@@ -59,6 +62,7 @@ const ShareModal = forwardRef(function ShareModal({ roomCode, joinUrl }, ref) {
           {/* Bottom Sheet with Swipe-to-Close */}
           <motion.div
             className="share-modal"
+            style={flatVars}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}

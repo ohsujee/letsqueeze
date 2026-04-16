@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { getApp } from 'firebase/app';
@@ -10,7 +10,6 @@ import Leaderboard from '@/components/game/Leaderboard';
 import GamePlayHeader from '@/components/game/GamePlayHeader';
 import GameStatusBanners from '@/components/game/GameStatusBanners';
 import DisconnectAlert from '@/components/game/DisconnectAlert';
-import MyTurnModal from '@/components/game/MyTurnModal';
 import TimeUpModal from '@/components/game/TimeUpModal';
 import { GameEndTransition } from '@/components/transitions';
 import { usePlayers } from '@/lib/hooks/usePlayers';
@@ -21,18 +20,22 @@ import { useServerTime } from '@/lib/hooks/useServerTime';
 import useMimeRotation from '@/lib/hooks/useMimeRotation';
 import useMimeTimer from '@/lib/hooks/useMimeTimer';
 import { useSound } from '@/lib/hooks/useSound';
-import { calculateMimePoints } from '@/lib/config/rooms';
+import { calculateMimePoints, MIME_CONFIG } from '@/lib/config/rooms';
+import { getFlatCSSVars } from '@/lib/config/colors';
 import './MimeGuesserView.css';
 
 /**
  * MimeGuesserView - Vue des devineurs (pas le mimeur)
  * Structure calquée sur Quiz play page
  */
-export default function MimeGuesserView({ code, myUid }) {
-  const router = useRouter();
+export default function MimeGuesserView({ code, myUid, devMode = false }) {
+  const nextRouter = useRouter();
+  const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
+  const router = devMode ? noopRouter : nextRouter;
   const db = getDatabase(getApp());
   const [meta, setMeta] = useState(null);
   const [state, setState] = useState(null);
+  const [words, setWords] = useState([]);
   const [showEndTransition, setShowEndTransition] = useState(false);
   const [showTimeUp, setShowTimeUp] = useState(false);
   const endTransitionTriggeredRef = useRef(false);
@@ -44,14 +47,13 @@ export default function MimeGuesserView({ code, myUid }) {
   // Sounds
   const playBuzz = useSound('/sounds/quiz-buzzer.wav');
 
-  // Keep screen awake
-
   // Listeners Firebase
   useEffect(() => {
     if (!code) return;
 
     const metaRef = ref(db, `rooms_mime/${code}/meta`);
     const stateRef = ref(db, `rooms_mime/${code}/state`);
+    const wordsRef = ref(db, `rooms_mime/${code}/words`);
 
     const unsubMeta = onValue(metaRef, (snap) => setMeta(snap.val()));
     const unsubState = onValue(stateRef, (snap) => {
@@ -62,19 +64,23 @@ export default function MimeGuesserView({ code, myUid }) {
         setShowEndTransition(true);
       }
     });
+    const unsubWords = onValue(wordsRef, (snap) => setWords(snap.val() || []));
 
     return () => {
       unsubMeta();
       unsubState();
+      unsubWords();
     };
   }, [db, code]);
 
   // Hooks
-  const { players, activePlayers, me } = usePlayers({
+  const { players } = usePlayers({
     roomCode: code,
     roomPrefix: 'rooms_mime',
     sort: 'score'
   });
+  // Use myUid (dev-aware) to find me, not auth.currentUser
+  const me = players.find(p => p.uid === myUid);
 
   const { leaveRoom, markActive } = usePlayerCleanup({
     roomCode: code,
@@ -104,9 +110,9 @@ export default function MimeGuesserView({ code, myUid }) {
   } = useMimeRotation({ roomCode: code, meta, state, players });
 
   const {
+    timeLeft,
     secondsLeft,
     percentLeft,
-    isRunning,
     isPaused,
     isRevealed,
     isMimingStarted
@@ -136,10 +142,10 @@ export default function MimeGuesserView({ code, myUid }) {
       if (!timeUpShownRef.current) {
         timeUpShownRef.current = true;
         setShowTimeUp(true);
-        // Auto-hide after 2 seconds
+        // Auto-hide après 3.5s — laisse le temps de lire le mot révélé
         setTimeout(() => {
           setShowTimeUp(false);
-        }, 2000);
+        }, 3500);
       }
     }
     // Reset the flag when a new word starts (timer resets)
@@ -153,21 +159,28 @@ export default function MimeGuesserView({ code, myUid }) {
   // Buzzer disabled when I'm the mimer
   const isMimer = myUid === currentMimeUid;
   const progressLabel = totalWords ? `${currentIndex + 1} / ${totalWords}` : '';
+  const currentWord = words[currentIndex] || { word: '', category: '' };
+
+  // Bar animation state — drive purely by CSS for 60fps native fluidity
+  const barAnimState = !isMimingStarted ? 'idle' : isPaused ? 'paused' : 'running';
+  // Compute initial offset so the animation starts at the correct visual position
+  // (handles resume after pause via elapsedAcc + revealedAt diff)
+  const barDelaySec = (() => {
+    if (!isMimingStarted) return 0;
+    const elapsedAcc = state?.elapsedAcc || 0;
+    const revealedAt = state?.revealedAt || 0;
+    const pausedAt = state?.pausedAt || null;
+    const sinceReveal = pausedAt ? (pausedAt - revealedAt) : (Date.now() - revealedAt);
+    const totalElapsedMs = elapsedAcc + Math.max(0, sinceReveal);
+    return -Math.min(totalElapsedMs, MIME_CONFIG.TIMER_DURATION_MS) / 1000;
+  })();
 
   if (!meta || !state) {
-    return (
-      <div className="mime-play-page game-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.6)' }}>
-          <div className="loading-spinner" style={{ width: 40, height: 40, border: '3px solid rgba(0,255,102,0.2)', borderTopColor: '#00ff66', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }} />
-          <p>Chargement...</p>
-        </div>
-        <style jsx>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-      </div>
-    );
+    return <div style={{ flex: 1, minHeight: 0, background: '#059669' }} />;
   }
 
   return (
-    <div className={`mime-play-page game-page ${isMyTurn ? 'my-turn' : ''}`}>
+    <div className={`mime-play-page game-page ${isMyTurn ? 'my-turn' : ''}`} style={getFlatCSSVars('mime')}>
       {/* End transition */}
       <AnimatePresence>
         {showEndTransition && !meta?.closed && (
@@ -191,7 +204,7 @@ export default function MimeGuesserView({ code, myUid }) {
               inset: 0,
               zIndex: 50,
               pointerEvents: 'none',
-              boxShadow: 'inset 0 0 60px 5px rgba(0, 255, 102, 0.25)'
+              boxShadow: 'inset 0 0 60px 5px rgba(5, 150, 105, 0.2)'
             }}
           />
         )}
@@ -211,119 +224,136 @@ export default function MimeGuesserView({ code, myUid }) {
         exitMessage="Voulez-vous vraiment quitter ? Votre score sera conservé."
       />
 
-      {/* Buzz notification */}
-      <AnimatePresence>
-        {state?.lockUid && state?.lockUid !== myUid && (
-          <div className="buzz-notification-wrapper">
-            <motion.div
-              className="buzz-notification mime"
-              initial={{ opacity: 0, scale: 0.9, y: -30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -20 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            >
-              <div className="buzz-notification-icon">🔔</div>
-              <div className="buzz-notification-content">
-                <span className="buzz-notification-label">Quelqu'un a buzzé !</span>
-                <span className="buzz-notification-name">
-                  {lockedPlayer?.name || 'Joueur'}
-                </span>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
       {/* Main Content */}
       <main className="game-content">
-        {/* Mime Card (like question card) */}
-        <div className="mime-card">
-          {/* Timer with progress bar - always visible */}
-          <div className="timer-section">
-            <div className="timer-badge">
-              <span className="timer-value">{isMimingStarted ? secondsLeft : 30}</span>
-              <span className="timer-label">sec</span>
-            </div>
-            <div className="timer-bar-container">
-              <div
-                className={`timer-bar-fill ${!isMimingStarted ? 'paused' : ''}`}
-                style={{ width: `${isMimingStarted ? percentLeft : 100}%` }}
-              />
-            </div>
-            {/* Points info - always visible */}
-            <div className="points-info">
-              À gagner: <strong>{calculateMimePoints(isMimingStarted ? secondsLeft : 30).guesserPoints} pts</strong>
-            </div>
-          </div>
+        {/* Mime Card — flip entre état normal, buzz et correct reveal */}
+        <div className="mime-card-wrapper">
+          <AnimatePresence mode="wait">
+            {state?.correctReveal ? (
+              <motion.div
+                key="correct"
+                className="mime-card correct-reveal"
+                initial={{ rotateX: -90, opacity: 0 }}
+                animate={{ rotateX: 0, opacity: 1 }}
+                exit={{ rotateX: 90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <div className="mime-correct-label">
+                  <span>✓</span>
+                  <span>Bonne réponse !</span>
+                </div>
+                <span className="mime-correct-name">
+                  {state.correctReveal.name} <span className="mime-correct-points">+{state.correctReveal.guesserPoints} pts</span>
+                </span>
+              </motion.div>
+            ) : state?.lockUid && state?.lockUid !== myUid ? (
+              <motion.div
+                key="buzz"
+                className="mime-card buzz-active"
+                initial={{ rotateX: -90, opacity: 0 }}
+                animate={{ rotateX: 0, opacity: 1 }}
+                exit={{ rotateX: 90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <div className="mime-buzz-label">
+                  <span>🔔</span>
+                  <span>Buzz de</span>
+                </div>
+                <span className="mime-buzz-name">
+                  {lockedPlayer?.name || 'Joueur'}
+                </span>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="normal"
+                className="mime-card"
+                initial={{ rotateX: -90, opacity: 0 }}
+                animate={{ rotateX: 0, opacity: 1 }}
+                exit={{ rotateX: 90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                {/* Header: timer + bar + points on one line */}
+                <div className="mime-card-header">
+                  <span className="mime-timer-compact">
+                    <span className="mime-timer-value">{isMimingStarted ? secondsLeft : 30}</span>s
+                  </span>
+                  <div className="mime-timer-bar">
+                    <div
+                      key={`bar-${state?.currentIndex ?? 0}-${state?.revealedAt ?? 0}`}
+                      className={`mime-timer-bar-fill ${barAnimState}`}
+                      style={{
+                        '--bar-duration': `${MIME_CONFIG.TIMER_DURATION_MS / 1000}s`,
+                        '--bar-delay': `${barDelaySec}s`,
+                      }}
+                    />
+                  </div>
+                  <span className="mime-points-compact">
+                    <strong>{calculateMimePoints(isMimingStarted ? timeLeft / 1000 : 30).guesserPoints}</strong> pts
+                  </span>
+                </div>
 
-          {/* Content */}
-          <div className="mime-card-content">
-            <AnimatePresence mode="wait">
-              {!isMimingStarted ? (
-                <motion.div
-                  key="waiting"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="mime-status waiting"
-                >
-                  <div className="waiting-text">
-                    <span className="waiting-name">{currentMimer?.name || '...'}</span>
-                    <span className="waiting-action">
-                      {isRevealed ? 'va commencer...' : 'prépare son mime'}
+                {/* Status: 1 ligne unique */}
+                <div className="mime-card-status">
+                  {!isMimingStarted ? (
+                    <span className="mime-status-line">
+                      <strong>{currentMimer?.name || '...'}</strong>
+                      {' '}{isRevealed ? 'va commencer' : 'prépare son mime'}
+                      {!isRevealed && (
+                        <span className="waiting-dots">
+                          <span></span><span></span><span></span>
+                        </span>
+                      )}
                     </span>
-                  </div>
-                  {!isRevealed && (
-                    <div className="waiting-dots">
-                      <span></span><span></span><span></span>
-                    </div>
+                  ) : (
+                    <span className="mime-status-line">
+                      <strong>{currentMimer?.name || '...'}</strong> mime — observe et buzze
+                    </span>
                   )}
-                </motion.div>
-              ) : isPaused && state?.lockUid ? (
-                <motion.div
-                  key="validation"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="mime-status validation"
-                >
-                  <div className="validation-content">
-                    <span className="buzzer-name">{lockedPlayer?.name}</span>
-                    <span className="validation-text">répond...</span>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="active"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="mime-status active"
-                >
-                  <div className="active-line-1">
-                    <span className="active-name">{currentMimer?.name || '...'}</span>
-                    <span className="active-verb">mime !</span>
-                  </div>
-                  <span className="active-hint">Observe et buzze</span>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-          </div>
-
-        {/* My turn modal */}
-        <MyTurnModal
-          isOpen={isMyTurn}
-          gameColor="#00ff66"
-        />
-
-        {/* Time Up Modal */}
+        {/* Time Up Modal — montre le mot aux devineurs (qui ne l'ont pas vu) */}
         <TimeUpModal
           isOpen={showTimeUp}
-          gameColor="#00ff66"
+          gameColor="#059669"
           subtitle="Personne n'a trouvé"
+          answer={currentWord.word}
+          answerLabel="Le mot était"
         />
+
+        {/* Bravo modal — uniquement pour le gagnant */}
+        <AnimatePresence>
+          {state?.correctReveal && state.correctReveal.uid === myUid && (
+            <>
+              <motion.div
+                className="mime-bravo-backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              />
+              <div className="mime-bravo-container">
+                <motion.div
+                  className="mime-bravo-card"
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                >
+                  <div className="mime-bravo-icon">🎉</div>
+                  <h2 className="mime-bravo-title">Bravo !</h2>
+                  <p className="mime-bravo-subtitle">Tu as trouvé la bonne réponse</p>
+                  <div className="mime-bravo-points">
+                    +{state.correctReveal.guesserPoints} pts
+                  </div>
+                </motion.div>
+              </div>
+            </>
+          )}
+        </AnimatePresence>
 
         {/* Leaderboard (always visible like Quiz) */}
         <Leaderboard players={players} currentPlayerUid={myUid} />

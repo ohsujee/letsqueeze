@@ -227,7 +227,8 @@ export function LaReglePlayContent({ code, myUid: devUid }) {
       setTimeLeft(remaining);
 
       if (remaining <= 0 && isHost && currentPhase === 'playing') {
-        // Time's up - go directly to ended
+        // Time's up - go directly to ended (clear interval to avoid repeated writes)
+        clearInterval(interval);
         update(ref(db, `rooms_laregle/${code}/state`), {
           phase: 'ended',
           foundByInvestigators: false

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth,
@@ -9,6 +9,7 @@ import {
   onValue,
   update,
   set,
+  runTransaction,
   serverTimestamp,
   signInAnonymously,
   onAuthStateChanged,
@@ -118,29 +119,35 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
     return groups[myGroupId]?.color || null;
   }, [isPartyMode, myGroupId, groups]);
 
+  // Enrich a player with their group's team color for the scene silhouettes
+  const withTeamColor = useCallback((p) => ({
+    ...p,
+    teamColor: groups[p.groupId]?.color || (p.team === 'inspectors' ? '#d97706' : '#7c3aed'),
+  }), [groups]);
+
   // Derive suspects - in Party Mode, it's the accused group members
   const suspects = useMemo(() => {
     if (isPartyMode && accusedGroup) {
-      return players.filter(p => p.groupId === accusedGroup.id);
+      return players.filter(p => p.groupId === accusedGroup.id).map(withTeamColor);
     }
-    return players.filter(p => p.team === "suspects");
-  }, [players, isPartyMode, accusedGroup]);
+    return players.filter(p => p.team === "suspects").map(withTeamColor);
+  }, [players, isPartyMode, accusedGroup, withTeamColor]);
 
   // Derive inspectors — opposing side, for the scene display
   const inspectors = useMemo(() => {
     if (isPartyMode && inspectorGroup) {
-      return players.filter(p => p.groupId === inspectorGroup.id);
+      return players.filter(p => p.groupId === inspectorGroup.id).map(withTeamColor);
     }
-    return players.filter(p => p.team === "inspectors");
-  }, [players, isPartyMode, inspectorGroup]);
+    return players.filter(p => p.team === "inspectors").map(withTeamColor);
+  }, [players, isPartyMode, inspectorGroup, withTeamColor]);
 
   // Spectators — party mode only: players who are neither inspector nor accused this round
   const spectators = useMemo(() => {
     if (!isPartyMode) return [];
     return players.filter(p =>
       p.groupId && p.groupId !== inspectorGroup?.id && p.groupId !== accusedGroup?.id
-    );
-  }, [players, isPartyMode, inspectorGroup, accusedGroup]);
+    ).map(withTeamColor);
+  }, [players, isPartyMode, inspectorGroup, accusedGroup, withTeamColor]);
 
   // Get questions for current context
   // In Party Mode: questions come from accused group's alibi
@@ -166,6 +173,7 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
   const timerRef = useRef(null);
   const timeoutTriggeredRef = useRef(null);
   const endTransitionTriggeredRef = useRef(false);
+  const isJudgingRef = useRef(false);
 
   // Fonction pour quitter et retourner au lobby
   async function exitGame() {
@@ -259,14 +267,22 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
     return () => metaUnsub();
   }, [code]);
 
-  // Listen to state (for Party Mode rotation)
+  // Listen to state (for Party Mode rotation + phase redirects)
   useEffect(() => {
     if (!code) return;
     const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
-      setState(snap.val());
+      const s = snap.val();
+      setState(s);
+      if (s?.phase === "end" && !endTransitionTriggeredRef.current) {
+        endTransitionTriggeredRef.current = true;
+        setShowEndTransition(true);
+      }
+      if (s?.phase === "lobby") {
+        router.push(`/alibi/room/${code}`);
+      }
     });
     return () => stateUnsub();
-  }, [code]);
+  }, [code, router]);
 
   // Listen to groups (Party Mode)
   useEffect(() => {
@@ -290,22 +306,10 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
       setVerdict(data.verdict || null);
     });
 
-    const stateUnsub = onValue(ref(db, `rooms_alibi/${code}/state`), (snap) => {
-      const state = snap.val();
-      if (state?.phase === "end" && !endTransitionTriggeredRef.current) {
-        endTransitionTriggeredRef.current = true;
-        setShowEndTransition(true);
-      }
-      if (state?.phase === "lobby") {
-        router.push(`/alibi/room/${code}`);
-      }
-    });
-
     return () => {
       interroUnsub();
-      stateUnsub();
     };
-  }, [code, router, isHost]);
+  }, [code]);
 
   // Qui CONTRÔLE (peut écrire Firebase)
   // GMM: membres de l'équipe inspecteurs (pas seulement l'hôte)
@@ -387,27 +391,29 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
   };
 
   const judgeAnswers = async (isCorrect) => {
-    if (!canControl) return;
+    if (!canControl || isJudgingRef.current) return;
+    isJudgingRef.current = true;
 
-    await update(ref(db, `rooms_alibi/${code}/interrogation`), {
-      state: "verdict",
-      verdict: isCorrect ? "correct" : "incorrect"
-    });
-
-    if (isPartyMode && accusedGroup) {
-      // Party Mode: update accused group's score
-      const currentScore = accusedGroup.score || { correct: 0, total: 0 };
-      await update(ref(db, `rooms_alibi/${code}/groups/${accusedGroup.id}/score`), {
-        correct: currentScore.correct + (isCorrect ? 1 : 0),
-        total: currentScore.total + 1
+    try {
+      await update(ref(db, `rooms_alibi/${code}/interrogation`), {
+        state: "verdict",
+        verdict: isCorrect ? "correct" : "incorrect"
       });
-    } else if (isCorrect) {
-      // Game Master Mode: update global score
-      const scoreRef = ref(db, `rooms_alibi/${code}/score/correct`);
-      onValue(scoreRef, (snap) => {
-        const current = snap.val() || 0;
-        update(ref(db, `rooms_alibi/${code}/score`), { correct: current + 1 });
-      }, { onlyOnce: true });
+
+      if (isPartyMode && accusedGroup) {
+        // Party Mode: update accused group's score
+        const currentScore = accusedGroup.score || { correct: 0, total: 0 };
+        await update(ref(db, `rooms_alibi/${code}/groups/${accusedGroup.id}/score`), {
+          correct: currentScore.correct + (isCorrect ? 1 : 0),
+          total: currentScore.total + 1
+        });
+      } else if (isCorrect) {
+        // Game Master Mode: atomic increment via transaction
+        const scoreCorrectRef = ref(db, `rooms_alibi/${code}/score/correct`);
+        await runTransaction(scoreCorrectRef, (current) => (current || 0) + 1);
+      }
+    } finally {
+      isJudgingRef.current = false;
     }
   };
 
@@ -420,10 +426,8 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
         // Dernière question — fin de partie
         await update(ref(db, `rooms_alibi/${code}/state`), { phase: "end" });
       } else {
-        // Avancer au round suivant (= prochaine question avec alternance)
-        await advanceToNextRound();
-        setShowRoundTransition(true);
-        // Reset interrogation pour le nouveau round
+        // Reset interrogation AVANT d'avancer le round pour éviter que
+        // les clients voient le verdict précédent sur le nouveau round
         await update(ref(db, `rooms_alibi/${code}/interrogation`), {
           currentQuestion: 0,
           state: "waiting",
@@ -431,6 +435,8 @@ export function AlibiPlayContent({ code, myUid: devUid }) {
           responses: {},
           verdict: null
         });
+        await advanceToNextRound();
+        setShowRoundTransition(true);
       }
     } else {
       // Game Master Mode: original logic

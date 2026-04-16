@@ -354,6 +354,21 @@
           text-align: center;
         }
 
+        /* Badge "Toi" — même style que le score badge, dark accent */
+        .lb-me-badge {
+          flex-shrink: 0;
+          font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+          font-size: clamp(7px, 1vh, 10px);
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          padding: clamp(3px, 0.4vh, 5px) clamp(5px, 0.7vh, 8px);
+          background: rgba(0, 0, 0, 0.25);
+          color: rgba(255, 255, 255, 0.8);
+          border-radius: 6px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
         /* ===== TEAM FLAT ROWS ===== */
 
         .team-flat-row {

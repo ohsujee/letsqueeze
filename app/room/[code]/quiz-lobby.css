@@ -372,6 +372,13 @@
   border-bottom: 3px solid var(--flat-bg-dark, #1e1445);
   border-radius: 14px;
   text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.quiz-footer-player-card:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
 }
 
 .quiz-footer-player-text {

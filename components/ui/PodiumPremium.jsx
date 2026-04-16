@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useGameAudio } from '@/lib/hooks/useGameAudio';
 import { darkenColor } from '@/lib/utils/colorUtils';
+import Avatar from '@/components/ui/Avatar';
 
 const RANK_STYLES = {
   1: { bg: '#FFD233', dark: '#CC9600', text: '#5C3D00' },
@@ -11,9 +12,9 @@ const RANK_STYLES = {
 };
 
 const SIZES = {
-  large:  { height: 90, avatarSize: 62, fontSize: '1.6rem', scoreSize: '0.85rem', pedestalW: 90, rankFont: '2rem' },
-  medium: { height: 65, avatarSize: 52, fontSize: '1.3rem', scoreSize: '0.75rem', pedestalW: 75, rankFont: '1.5rem' },
-  small:  { height: 45, avatarSize: 48, fontSize: '1.2rem', scoreSize: '0.7rem', pedestalW: 70, rankFont: '1.3rem' },
+  large:  { height: 90, avatarSize: 62, fontSize: '1.6rem', scoreSize: '1.1rem', pedestalW: 90, rankFont: '2rem' },
+  medium: { height: 65, avatarSize: 52, fontSize: '1.3rem', scoreSize: '0.95rem', pedestalW: 75, rankFont: '1.5rem' },
+  small:  { height: 45, avatarSize: 48, fontSize: '1.2rem', scoreSize: '0.85rem', pedestalW: 70, rankFont: '1.3rem' },
 };
 
 function buildPodiumSlots(topPlayers) {
@@ -115,25 +116,22 @@ export const PodiumPremium = ({ topPlayers, disableAnimations = false }) => {
             }}
           >
             {/* Avatar */}
-            <div style={{
+            <div className="podium-avatar" style={{
               width: size.avatarSize,
               height: size.avatarSize,
               borderRadius: '50%',
-              background: bg,
               border: `4px solid ${dark}`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
               marginBottom: 8,
+              overflow: 'hidden',
+              flexShrink: 0,
+              background: player.avatar?.color || bg,
             }}>
-              <span style={{
-                fontFamily: "'Bungee', cursive",
-                fontSize: size.fontSize,
-                color: text,
-                lineHeight: 1,
-              }}>
-                {initial}
-              </span>
+              <Avatar
+                initial={initial}
+                size="md"
+                avatarId={player.avatar?.id}
+                avatarColor={player.avatar?.color || bg}
+              />
             </div>
 
             {/* Nom */}

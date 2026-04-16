@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, update, signInAnonymously, onAuthStateChanged
@@ -59,6 +59,7 @@ export function QuizPlayContent({ code, myUid: devUid }) {
     isCurrentAsker,
     canBuzz,
     advanceToNextAsker,
+    announceNextAsker,
     handleAskerDisconnect
   } = useAskerRotation({
     roomCode: code,
@@ -186,15 +187,23 @@ export function QuizPlayContent({ code, myUid: devUid }) {
     handleAskerDisconnect();
   }, [players, currentAskerUid]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Party Mode: Show transition when asker changes (including first asker)
-  useEffect(() => {
+  // Party Mode: premier asker — useLayoutEffect = sync avant peinture, pas de flash
+  useLayoutEffect(() => {
     if (!isPartyMode || !currentAskerUid) return;
-
-    if (prevAskerUidRef.current !== currentAskerUid) {
+    if (prevAskerUidRef.current === null) {
       setShowAskerTransition(true);
     }
     prevAskerUidRef.current = currentAskerUid;
   }, [isPartyMode, currentAskerUid]);
+
+  // Transition pré-annoncée par announceNextAsker (avant le swap effectif)
+  useEffect(() => {
+    if (state?.transitionToUid) {
+      setShowAskerTransition(true);
+    } else if (!state?.transitionToUid && prevAskerUidRef.current !== null) {
+      // Le swap est fait, transition se ferme naturellement (onComplete duration)
+    }
+  }, [state?.transitionToUid]);
 
   // Sorted players for leaderboard ribbon (must be before ALL conditional returns)
   const sortedPlayers = useMemo(() =>
@@ -207,15 +216,25 @@ export function QuizPlayContent({ code, myUid: devUid }) {
     return idx >= 0 ? idx + 1 : null;
   }, [sortedPlayers, me?.uid]);
 
+  // Asker à afficher dans la transition :
+  //   - Si transitionToUid set (pré-annonce avant swap) → le PROCHAIN asker
+  //   - Sinon → l'asker actuel (premier au mount)
+  const transitionAskerUid = state?.transitionToUid || currentAskerUid;
+  const transitionAskerPlayer = players.find(p => p.uid === transitionAskerUid);
+  const transitionAsker = transitionAskerPlayer ? {
+    uid: transitionAskerPlayer.uid,
+    name: transitionAskerPlayer.name,
+    teamId: transitionAskerPlayer.teamId,
+    teamName: transitionAskerPlayer.teamId && meta?.teams?.[transitionAskerPlayer.teamId]?.name,
+    teamColor: transitionAskerPlayer.teamId && meta?.teams?.[transitionAskerPlayer.teamId]?.color,
+  } : null;
+  const isMeForTransition = myUid === transitionAskerUid;
+
   // Loading state
   if (isValidating) {
+    // Fond plein game color — se fond avec la transition AskerTransition
     return (
-      <div className="player-game-page game-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.6)' }}>
-          <div className="quiz-play-spinner" />
-          <p>Chargement...</p>
-        </div>
-      </div>
+      <div style={{ flex: 1, minHeight: 0, display: 'flex', background: isPartyMode ? '#8b5cf6' : '#0e0e1a' }} />
     );
   }
 
@@ -225,8 +244,8 @@ export function QuizPlayContent({ code, myUid: devUid }) {
       <>
         <AskerTransition
           show={showAskerTransition}
-          asker={currentAsker}
-          isMe={true}
+          asker={transitionAsker}
+          isMe={isMeForTransition}
           onComplete={() => setShowAskerTransition(false)}
           duration={2500}
         />
@@ -234,6 +253,7 @@ export function QuizPlayContent({ code, myUid: devUid }) {
           code={code}
           isActualHost={false}
           onAdvanceAsker={advanceToNextAsker}
+          onAnnounceAsker={announceNextAsker}
           onExit={async () => {
             if (isActualHost) {
               await update(ref(db, `rooms/${code}/state`), { phase: 'ended' });
@@ -264,8 +284,8 @@ export function QuizPlayContent({ code, myUid: devUid }) {
       {/* Party Mode: Transition when asker changes */}
       <AskerTransition
         show={showAskerTransition}
-        asker={currentAsker}
-        isMe={false}
+        asker={transitionAsker}
+        isMe={isMeForTransition}
         onComplete={() => setShowAskerTransition(false)}
         duration={2500}
       />
@@ -338,7 +358,7 @@ export function QuizPlayContent({ code, myUid: devUid }) {
 
         {/* Leaderboard */}
         <div className="quiz-play-leaderboard">
-          <Leaderboard players={players} mode={meta?.mode} teams={meta?.teams} />
+          <Leaderboard players={players} currentPlayerUid={myUid} mode={meta?.mode} teams={meta?.teams} />
         </div>
 
       </main>

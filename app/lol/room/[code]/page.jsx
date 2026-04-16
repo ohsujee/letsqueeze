@@ -243,7 +243,7 @@ export function LolLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
 
       <div className="lol-lobby-footer">
         {isHost && <LobbyStartButton gameColor={ACCENT} icon={startIcon} label={startLabel} disabled={!canStart} onClick={handleStartGame} />}
-        {!isHost && (<div className="lol-footer-player-card"><div className="lol-footer-player-text">Partage le code pour inviter des amis</div></div>)}
+        {!isHost && (<button className="lol-footer-player-card" onClick={() => shareModalRef.current?.open()}><div className="lol-footer-player-text">Partage le code pour inviter des amis</div></button>)}
       </div>
     </div>
   );

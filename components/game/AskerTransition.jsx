@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Microphone, Target, MusicNote, MaskHappy } from '@phosphor-icons/react';
 import { darkenColor } from '@/lib/utils/colorUtils';
@@ -25,7 +25,7 @@ const GAME_PRESETS = {
   mime: {
     IconMe: MaskHappy, IconOther: MaskHappy,
     titleMe: "C'est ton tour de mimer", hintMe: 'Prépare-toi à mimer',
-    hintOther: 'Prépare-toi à deviner !', defaultColor: '#00ff66',
+    hintOther: 'Prépare-toi à deviner !', defaultColor: '#059669',
   },
 };
 
@@ -37,7 +37,7 @@ export default function AskerTransition({
   const hasTeam = !!asker?.teamColor;
   const bgColor = hasTeam ? asker.teamColor : (themeColor || preset.defaultColor);
   const darkerColor = darkenColor(bgColor, 40);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(show && !!asker?.uid);
   const onCompleteRef = useRef(onComplete);
   const timerRef = useRef(null);
   const askerRef = useRef(asker);
@@ -47,7 +47,8 @@ export default function AskerTransition({
 
   const askerUid = asker?.uid;
 
-  useEffect(() => {
+  // useLayoutEffect → visible set AVANT le paint → zéro flash de la page derrière
+  useLayoutEffect(() => {
     if (timerRef.current) { clearTimeout(timerRef.current); timerRef.current = null; }
     if (show && askerUid) {
       setVisible(true);
@@ -75,10 +76,10 @@ export default function AskerTransition({
       {visible && asker && (
         <motion.div
           className="asker-transition-overlay"
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.25 }}
           style={{ background: bgColor }}
         >
           {/* Texte */}

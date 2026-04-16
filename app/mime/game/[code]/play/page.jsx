@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -52,7 +52,7 @@ export function MimePlayContent({ code, myUid: devUid }) {
       const data = snap.val();
       setMeta(data);
       if (data?.closed) {
-        router.push('/');
+        router.push('/home');
       }
     });
 
@@ -82,32 +82,63 @@ export function MimePlayContent({ code, myUid: devUid }) {
     }
   }, [myUid, meta?.hostUid]);
 
-  // Détecter changement de mimeur pour afficher transition (y compris premier mimeur)
-  useEffect(() => {
-    if (state?.currentMimeUid && state.currentMimeUid !== previousMimeUid) {
+  // Premier mimeur : afficher transition AU PREMIER PAINT (useLayoutEffect = sync avant peinture)
+  // → l'utilisateur ne voit jamais la vue de jeu sans la transition par-dessus
+  useLayoutEffect(() => {
+    if (state?.currentMimeUid && previousMimeUid === null) {
       setShowMimerTransition(true);
-      setTimeout(() => setShowMimerTransition(false), 2000);
+      setPreviousMimeUid(state.currentMimeUid);
+    } else if (state?.currentMimeUid && state.currentMimeUid !== previousMimeUid) {
+      // Mimeur a changé via advanceToNextWord — la transition a déjà été affichée
+      // pendant transitionToUid (avant le swap), juste mémoriser le nouveau
       setPreviousMimeUid(state.currentMimeUid);
     }
   }, [state?.currentMimeUid, previousMimeUid]);
 
+  // Auto-hide de la transition initiale après 2s (séparé du show pour éviter race)
+  useEffect(() => {
+    if (showMimerTransition && !state?.transitionToUid) {
+      const t = setTimeout(() => setShowMimerTransition(false), 2000);
+      return () => clearTimeout(t);
+    }
+  }, [showMimerTransition, state?.transitionToUid]);
+
+  // Transition pré-annoncée par announceNextMimer (avant le swap effectif)
+  useEffect(() => {
+    if (state?.transitionToUid) {
+      setShowMimerTransition(true);
+    } else {
+      setShowMimerTransition(false);
+    }
+  }, [state?.transitionToUid]);
+
   if (!meta || !state || !myUid) {
+    // Fond plein game color — même couleur que la transition AskerTransition
+    // Pas de spinner visible, l'utilisateur voit juste le fond coloré
+    // qui se fond directement avec la transition quand les données arrivent
     return (
-      <div className="mime-play loading">
-        <div className="loader" />
-      </div>
+      <div style={{
+        flex: 1,
+        minHeight: 0,
+        display: 'flex',
+        background: '#059669',
+      }} />
     );
   }
 
   // Suis-je le mimeur actuel?
   const isMimer = myUid === state.currentMimeUid;
 
-  // Info du mimeur actuel pour la transition
-  const currentMimer = players.find(p => p.uid === state.currentMimeUid);
-  const mimerAsker = currentMimer ? {
-    uid: currentMimer.uid,
-    name: currentMimer.name,
+  // Info du mimeur pour la transition :
+  //   - Si transitionToUid est set → afficher le PROCHAIN mimeur (annonce)
+  //   - Sinon → afficher le mimeur actuel (premier mimeur au mount)
+  const transitionUid = state.transitionToUid || state.currentMimeUid;
+  const transitionMimer = players.find(p => p.uid === transitionUid);
+  const mimerAsker = transitionMimer ? {
+    uid: transitionMimer.uid,
+    name: transitionMimer.name,
   } : null;
+  const isMeForTransition = myUid === transitionUid;
 
   // Afficher la vue appropriée
   return (
@@ -116,7 +147,7 @@ export function MimePlayContent({ code, myUid: devUid }) {
       <AskerTransition
         show={showMimerTransition}
         asker={mimerAsker}
-        isMe={isMimer}
+        isMe={isMeForTransition}
         onComplete={() => setShowMimerTransition(false)}
         game="mime"
         duration={2000}
@@ -127,11 +158,14 @@ export function MimePlayContent({ code, myUid: devUid }) {
         <MimeHostView
           code={code}
           isActualHost={isHost}
+          myUid={myUid}
+          devMode={!!devUid}
         />
       ) : (
         <MimeGuesserView
           code={code}
           myUid={myUid}
+          devMode={!!devUid}
         />
       )}
     </div>

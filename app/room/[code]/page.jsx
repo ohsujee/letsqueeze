@@ -608,9 +608,9 @@ export function QuizLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
           <LobbyStartButton gameColor={ACCENT} icon={startIcon} label={startLabel} disabled={!canStart} onClick={handleStartGame} />
         )}
         {!isHost && (
-          <div className="quiz-footer-player-card">
+          <button className="quiz-footer-player-card" onClick={() => shareModalRef.current?.open()}>
             <div className="quiz-footer-player-text">Partage le code pour inviter des amis</div>
-          </div>
+          </button>
         )}
       </div>
     </div>

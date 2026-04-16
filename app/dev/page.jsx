@@ -88,7 +88,7 @@ const GAMES = [
     id: 'mime',
     name: 'Mime',
     icon: '🎭',
-    color: '#00ff66',
+    color: '#059669',
     description: 'Jeu local de mime',
     lobbyPath: '/dev/mime',
     gamePath: null,
@@ -407,7 +407,7 @@ const SIMULATION_GAMES = [
   { id: 'deeztest', name: 'DeezTest', icon: '🎵', color: '#A238FF', available: true, path: '/dev/simulation/blindtest' },
   { id: 'alibi', name: 'Alibi', icon: '🕵️', color: '#f59e0b', available: true, path: '/dev/simulation/alibi' },
   { id: 'laregle', name: 'La Règle', icon: '🔍', color: '#06b6d4', available: true, path: '/dev/simulation/laregle' },
-  { id: 'mime', name: 'Mime', icon: '🎭', color: '#00ff66', available: true, path: '/dev/simulation/mime' },
+  { id: 'mime', name: 'Mime', icon: '🎭', color: '#059669', available: true, path: '/dev/simulation/mime' },
 ];
 
 function SimulationList() {

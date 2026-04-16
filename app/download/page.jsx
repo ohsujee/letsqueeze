@@ -30,7 +30,7 @@ const GAMES = [
     img: '/images/optimized/mime-game.webp',
     name: 'Mime',
     desc: 'Faites deviner sans prononcer un seul mot',
-    color: '#00ff66',
+    color: '#059669',
   },
 ];
 

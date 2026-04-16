@@ -7,7 +7,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getApp } from 'firebase/app';
 import { ChevronRight } from 'lucide-react';
 import LobbyStartButton from '@/components/game/LobbyStartButton';
-import LobbyWaitingIndicator from '@/components/game/LobbyWaitingIndicator';
+import PlayerBanner from '@/components/game/PlayerBanner';
 import { motion, AnimatePresence } from 'framer-motion';
 import LobbyHeader from '@/components/game/LobbyHeader';
 import MimeThemeSelectorModal from '@/components/game-mime/MimeThemeSelectorModal';
@@ -21,6 +21,7 @@ import { isPro } from '@/lib/subscription';
 import { useHearts } from '@/lib/hooks/useHearts';
 import { useHeartsLobbyGuard } from '@/lib/hooks/useHeartsLobbyGuard';
 import { useAppShellBg } from '@/lib/hooks/useAppShellBg';
+import { getFlatCSSVars } from '@/lib/config/colors';
 import HeartsModal from '@/components/ui/HeartsModal';
 import { calculateMimeWords, MIME_CONFIG } from '@/lib/config/rooms';
 import '@/components/game/lobby-base.css';
@@ -40,7 +41,7 @@ const MIME_THEMES = [
 ];
 
 export function MimeLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
-  useAppShellBg('#04060f');
+  useAppShellBg('#0e0e1a');
   const nextRouter = useRouter();
   const noopRouter = useMemo(() => ({ push: () => {}, replace: () => {}, back: () => {} }), []);
   const router = devUid ? noopRouter : nextRouter;
@@ -66,8 +67,6 @@ export function MimeLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   const userIsPro = currentUser && subscription ? isPro({ ...currentUser, subscription }) : false;
   const { consumeHeart, canPlay, heartsRemaining, canRecharge, rechargeHearts, isRecharging } = useHearts({ isPro: userIsPro });
   const { showHeartsModal, heartsModalProps } = useHeartsLobbyGuard({ isPro: userIsPro, canPlay, canRecharge, rechargeHearts, isRecharging });
-
-  // Wake lock
 
   // Charger les thèmes depuis les fichiers JSON locaux
   useEffect(() => {
@@ -210,7 +209,7 @@ export function MimeLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
     roomCode: code,
     roomPrefix: 'rooms_mime',
     playerUid: myUid,
-    enabled: !!myUid
+    enabled: !!myUid && !devUid
   });
 
   // Callbacks
@@ -316,7 +315,7 @@ export function MimeLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
       console.error('Error starting game:', error);
       setIsStarting(false);
     }
-  }, [isHost, isStarting, activePlayers, themeSelection, themes, db, code]);
+  }, [isHost, isStarting, activePlayers, themeSelection, db, code, consumeHeart]);
 
   // URL de partage
   const joinUrl = typeof window !== 'undefined'
@@ -331,20 +330,21 @@ export function MimeLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   const selectedThemeNames = themeSelection?.themes?.map(t => t.name).join(', ') || '';
   const totalWords = themeSelection?.themes?.reduce((sum, t) => sum + (t.wordCount || 0), 0) || 0;
 
+  const ACCENT = '#059669';
+  const ACCENT_DARK = '#065f46';
+
   // Loading state
   if (!meta || !state || !myUid) {
     return (
-      <div className="lobby-container mime game-page">
-        <div className="lobby-loading">
-          <div className="loading-spinner" />
-          <p>Chargement...</p>
-        </div>
+      <div className="mime-lobby-loading" style={getFlatCSSVars('mime')}>
+        <div className="mime-lobby-spinner" />
+        <p className="mime-lobby-loading-text">Chargement...</p>
       </div>
     );
   }
 
   return (
-    <div className="lobby-container mime game-page">
+    <div className="mime-lobby game-page" style={getFlatCSSVars('mime')}>
       {/* Hearts Guard */}
       <HeartsModal isOpen={showHeartsModal} heartsRemaining={heartsRemaining} {...heartsModalProps} />
 
@@ -355,14 +355,14 @@ export function MimeLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
         themes={themes}
         currentSelection={themeSelection?.themeIds || []}
         onSelectThemes={handleThemeChange}
-        userIsPro={true} // TODO: intégrer useSubscription
+        userIsPro={true}
       />
 
       {/* Countdown de lancement */}
       <AnimatePresence>
         {showCountdown && (
           <GameLaunchCountdown
-            gameColor="#00ff66"
+            gameColor={ACCENT}
             onComplete={() => {
               router.push(`/mime/game/${code}/play`);
             }}
@@ -371,164 +371,135 @@ export function MimeLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
       </AnimatePresence>
 
       {/* Header */}
-      <LobbyHeader
-        ref={shareModalRef}
-        variant="mime"
-        code={code}
-        isHost={isHost}
-        players={players}
-        hostUid={meta?.hostUid}
-        onHostExit={handleHostExit}
-        onPlayerExit={handlePlayerExit}
-        joinUrl={joinUrl}
-      />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <LobbyHeader
+          ref={shareModalRef}
+          variant="mime"
+          code={code}
+          isHost={isHost}
+          players={players}
+          hostUid={meta?.hostUid}
+          onHostExit={handleHostExit}
+          onPlayerExit={handlePlayerExit}
+          joinUrl={joinUrl}
+        />
+      </div>
 
-      {/* Main Content */}
-      <main className="lobby-main">
-        {isHost ? (
-          // HOST VIEW
-          <>
-            <div className="lobby-content">
-              {/* Theme Selector Card */}
-              <motion.div
-                className="lobby-card quiz-selector mime"
-                onClick={() => setShowThemeSelector(true)}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-              >
-                <div className="quiz-card-content">
-                  <div className="quiz-card-left">
-                    <span className="quiz-card-emoji">🎭</span>
-                  </div>
-                  <div className="quiz-card-center">
-                    <span className="quiz-card-label">Thèmes</span>
-                    <h3 className="quiz-card-title">
-                      {hasSelection
-                        ? `${themeSelection.themeIds.length} thème${themeSelection.themeIds.length > 1 ? 's' : ''}`
-                        : 'Choisis les thèmes'}
-                    </h3>
-                    <p className="quiz-card-meta">
-                      {hasSelection
-                        ? `${selectedThemeNames} • ${totalWords} mots`
-                        : ''}
-                    </p>
-                  </div>
-                  <div className="quiz-card-right">
-                    <span className="quiz-change-hint">{hasSelection ? 'Changer' : 'Choisir'}</span>
-                    <ChevronRight size={20} className="quiz-card-arrow" />
-                  </div>
-                </div>
-              </motion.div>
+      {/* Main content */}
+      <main className="mime-lobby-main">
 
-              {/* Players Card */}
-              <div className="lobby-card lobby-players mime lobby-card-flex">
-                <div className="card-header">
-                  <span className="card-icon">👥</span>
-                  <span className="card-label">Joueurs</span>
-                  <span className="player-count-badge">{activePlayers.length}</span>
+        {/* Host: Theme selector */}
+        {isHost && (
+          <motion.div
+            className="mime-selector-row"
+            onClick={() => setShowThemeSelector(true)}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span className="mime-selector-emoji">🎭</span>
+            <div className="mime-selector-info">
+              <div className="mime-selector-name">
+                {hasSelection
+                  ? `${themeSelection.themeIds.length} thème${themeSelection.themeIds.length > 1 ? 's' : ''}`
+                  : 'Choisis les thèmes'}
+              </div>
+              {hasSelection && (
+                <div className="mime-selector-detail">{selectedThemeNames} • {totalWords} mots</div>
+              )}
+            </div>
+            <div className="mime-selector-action">
+              <span className="mime-selector-action-label">{hasSelection ? 'Changer' : 'Choisir'}</span>
+              <ChevronRight size={16} color="var(--flat-text, #a7f3d0)" />
+            </div>
+          </motion.div>
+        )}
+
+        {/* Player: Theme info (non-host) */}
+        {!isHost && (
+          <motion.div className="mime-player-settings" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <div className="mime-player-settings-info">
+              <span className="mime-player-settings-emoji">🎭</span>
+              <div style={{ minWidth: 0 }}>
+                <div className="mime-player-settings-name">
+                  {hasSelection ? selectedThemeNames : 'En attente des thèmes...'}
                 </div>
-                {players.length === 0 ? (
-                  <div className="empty-state">
-                    <span className="empty-icon">👋</span>
-                    <p className="empty-text">En attente de joueurs...</p>
-                    <button
-                      className="btn btn-primary btn-sm empty-share-btn"
-                      onClick={(e) => {
-                        e.currentTarget.blur(); // Remove focus to prevent stuck gray state
-                        shareModalRef.current?.open();
-                      }}
-                    >
-                      Partager le code
-                    </button>
-                  </div>
-                ) : (
-                  <div className="players-chips">
-                    {players.map((player, index) => {
-                      const isOnEndScreen = player.location === 'end';
-                      return (
-                        <motion.div
-                          key={player.uid}
-                          className={`player-chip ${player.uid === myUid ? 'is-me' : ''} ${isOnEndScreen ? 'on-end-screen' : ''}`}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: index * 0.05 }}
-                        >
-                          <div className="chip-avatar">
-                            {player.name?.charAt(0)?.toUpperCase() || '?'}
-                          </div>
-                          <span className="chip-name">
-                            {player.name}
-                            {isOnEndScreen && ' 📊'}
-                          </span>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
+                {hasSelection && (
+                  <span className="mime-player-settings-detail">{totalWords} mots</span>
                 )}
               </div>
             </div>
-
-            {/* Fixed Start Button */}
-            <div className="lobby-footer">
-              <LobbyStartButton
-                gameColor="#00ff66"
-                icon="🎬"
-                disabled={!canStart}
-                loading={isStarting}
-                onClick={handleStartGame}
-              />
-            </div>
-          </>
-        ) : (
-          // PLAYER VIEW
-          <div className="lobby-player-view mime">
-            {/* Players Header */}
-            <div className="players-header-card">
-              <span className="players-icon">🎭</span>
-              <span className="players-count">{activePlayers.length}</span>
-              <span className="players-label">joueurs connectés</span>
-            </div>
-
-            {/* Theme Info for players */}
-            {hasSelection && (
-              <div className="player-info-card mime">
-                <div className="player-info-text">
-                  <span className="player-info-label">Thèmes sélectionnés</span>
-                  <span className="player-info-title">{selectedThemeNames}</span>
-                </div>
-              </div>
-            )}
-
-            {/* Players List */}
-            <div className="players-list-player">
-              {players.map((player, index) => {
-                const isOnEndScreen = player.location === 'end';
-                return (
-                  <motion.div
-                    key={player.uid}
-                    className={`player-chip-full ${player.uid === myUid ? 'is-me' : ''} ${isOnEndScreen ? 'on-end-screen' : ''}`}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.03 }}
-                  >
-                    <div className="chip-avatar-glow">
-                      {player.name?.charAt(0)?.toUpperCase() || '?'}
-                    </div>
-                    <span className="chip-name-full">
-                      {player.name}
-                      {player.uid === myUid && ' (toi)'}
-                      {isOnEndScreen && ' 📊'}
-                    </span>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Waiting Animation */}
-            <LobbyWaitingIndicator gameColor="#00ff66" />
-          </div>
+          </motion.div>
         )}
+
+        {/* Players section */}
+        <div className="mime-players-section">
+          <div className="mime-players-header">
+            <div className="mime-players-header-left">
+              <span className="mime-players-label">Joueurs</span>
+              <div className="mime-players-count">{activePlayers.length}</div>
+            </div>
+          </div>
+
+          {/* Host hint */}
+          <AnimatePresence initial={false}>
+            {isHost && !canStart && (
+              <motion.div
+                key="hint"
+                initial={{ opacity: 0, maxHeight: 0, marginBottom: 0 }}
+                animate={{ opacity: 1, maxHeight: '80px', marginBottom: '12px' }}
+                exit={{ opacity: 0, maxHeight: 0, marginBottom: 0 }}
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                style={{ overflow: 'hidden', flexShrink: 0 }}
+              >
+                <div className="mime-hint-callout">
+                  <span className="mime-hint-icon">💡</span>
+                  <span className="mime-hint-text">
+                    {!hasSelection
+                      ? 'Sélectionne des thèmes pour pouvoir lancer'
+                      : activePlayers.length < MIME_CONFIG.MIN_PLAYERS
+                        ? `Il faut au moins ${MIME_CONFIG.MIN_PLAYERS} joueurs`
+                        : 'Prêt à lancer !'}
+                  </span>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Player hint (non-host) */}
+          {!isHost && (
+            <motion.div className="mime-player-hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <span className="mime-player-hint-emoji">⏳</span>
+              <span className="mime-player-hint-text">En attente que l'hôte démarre la partie…</span>
+            </motion.div>
+          )}
+
+          {/* Players list */}
+          <div className="mime-players-list">
+            {[...players].sort((a, b) => a.uid === myUid ? -1 : b.uid === myUid ? 1 : 0).map((player, index) => (
+              <motion.div
+                key={player.uid}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05, duration: 0.2 }}
+                style={{ overflow: 'visible' }}
+              >
+                <PlayerBanner player={player} isMe={player.uid === myUid} accentColor={ACCENT} accentDark={ACCENT_DARK} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </main>
+
+      {/* Footer */}
+      <div className="mime-lobby-footer">
+        {isHost && (
+          <LobbyStartButton gameColor={ACCENT} icon="🎬" disabled={!canStart} loading={isStarting} onClick={handleStartGame} />
+        )}
+        {!isHost && (
+          <button className="mime-footer-player-card" onClick={() => shareModalRef.current?.open()}>
+            <div className="mime-footer-player-text">Partage le code pour inviter des amis</div>
+          </button>
+        )}
+      </div>
     </div>
   );
 }

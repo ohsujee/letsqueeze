@@ -79,7 +79,7 @@ export default function LoadingScreen({
         .loading-screen.mime {
           background: radial-gradient(
             ellipse at center,
-            rgba(0, 255, 102, 0.1) 0%,
+            rgba(5, 150, 105, 0.1) 0%,
             #0a0a0f 70%
           );
         }

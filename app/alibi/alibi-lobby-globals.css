@@ -86,31 +86,29 @@
 
 /* Header - Mime variant */
 .lobby-header.mime {
-  border-bottom-color: rgba(0, 255, 102, 0.15);
+  border-bottom-color: rgba(5, 150, 105, 0.15);
 }
 
 .lobby-header.mime .lobby-title {
   text-shadow:
-    0 0 10px rgba(0, 255, 102, 0.5),
-    0 0 20px rgba(0, 255, 102, 0.3),
-    0 0 40px rgba(0, 255, 102, 0.2);
+    0 0 10px rgba(5, 150, 105, 0.5),
+    0 0 20px rgba(5, 150, 105, 0.3),
+    0 0 40px rgba(5, 150, 105, 0.2);
 }
 
 .lobby-header.mime .room-code {
-  color: #00ff66;
-  text-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+  color: #059669;
 }
 
 .lobby-header.mime .help-btn {
-  background: rgba(0, 255, 102, 0.15);
-  border: 2px solid rgba(0, 255, 102, 0.3);
-  color: #00ff66;
+  background: rgba(5, 150, 105, 0.15);
+  border: 2px solid rgba(5, 150, 105, 0.3);
+  color: #059669;
 }
 
 .lobby-header.mime .help-btn:hover {
-  background: rgba(0, 255, 102, 0.25);
-  border-color: rgba(0, 255, 102, 0.5);
-  box-shadow: 0 4px 20px rgba(0, 255, 102, 0.3);
+  background: rgba(5, 150, 105, 0.25);
+  border-color: rgba(5, 150, 105, 0.5);
 }
 
 /* Header - Mind Link variant */

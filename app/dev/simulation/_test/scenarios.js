@@ -455,7 +455,7 @@ const MIME = {
   name: 'Mime',
   url: '/dev/simulation/mime',
   roomPrefix: 'rooms_mime',
-  color: '#00ff66',
+  color: '#059669',
 
   modes: {
     gamemaster: { supported: true, default: true },

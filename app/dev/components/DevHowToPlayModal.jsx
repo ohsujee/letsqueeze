@@ -203,9 +203,9 @@ const GAMES_DATA = {
     id: 'mime',
     title: 'Mime',
     subtitle: 'Fais deviner sans parler !',
-    accentColor: '#00ff66',
-    accentGradient: 'linear-gradient(135deg, #00ff66, #00cc52)',
-    glowColor: 'rgba(0, 255, 102, 0.4)',
+    accentColor: '#059669',
+    accentGradient: 'linear-gradient(135deg, #059669, #047857)',
+    glowColor: 'rgba(52, 211, 153, 0.4)',
     sections: [
       {
         id: 'concept', title: 'Le concept', icon: Target,
@@ -229,7 +229,7 @@ const GAMES_DATA = {
           type: 'scoring',
           items: [
             { label: "Devineur (rapide)", value: "jusqu'à +100 pts", icon: Zap,         color: '#22c55e' },
-            { label: "Mimeur (rapide)",   value: "jusqu'à +50 pts",  icon: CheckCircle, color: '#00ff66' },
+            { label: "Mimeur (rapide)",   value: "jusqu'à +50 pts",  icon: CheckCircle, color: '#059669' },
             { label: "Mauvaise réponse",  value: "-25 pts",           icon: XCircle,     color: '#ef4444' },
             { label: "Pénalité",          value: "8 sec de blocage",  icon: Timer,       color: '#f59e0b' }
           ],

@@ -1,7 +1,8 @@
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { HandPointing } from '@phosphor-icons/react';
 
 interface MimeCardProps {
   word: string;
@@ -11,39 +12,43 @@ interface MimeCardProps {
   disabled?: boolean;
 }
 
-// Couleurs MIME - alignées sur theme.css (--mime-primary, --mime-secondary)
-const MIME_COLORS = {
-  primary: '#00ff66',
-  primaryRgb: '0, 255, 102',
-};
-
 export default function MimeCard({ word, category, onReveal, revealed = false, disabled = false }: MimeCardProps) {
-  const controls = useAnimation();
-  const maxDrag = -120;
-  const revealThreshold = -60; // Seuil pour considérer comme révélé
-  const hasTriggeredReveal = useRef(false);
+  const [isHolding, setIsHolding] = useState(false);
+  const hasTriggeredRevealRef = useRef(false);
 
-  const handleDrag = (_event: any, info: { offset: { y: number } }) => {
-    // Détecter quand le seuil de révélation est atteint via l'offset du drag
-    if (info.offset.y <= revealThreshold && !hasTriggeredReveal.current && onReveal) {
-      hasTriggeredReveal.current = true;
+  const startHold = (e: React.SyntheticEvent) => {
+    if (disabled) return;
+    e.preventDefault();
+    setIsHolding(true);
+    if (!hasTriggeredRevealRef.current && onReveal) {
+      hasTriggeredRevealRef.current = true;
       onReveal();
     }
   };
 
-  const handleDragEnd = () => {
-    // Toujours refermer la carte après le drag (pour cacher le mot)
-    controls.start({
-      y: 0,
-      transition: { type: 'spring', stiffness: 400, damping: 30 }
-    });
+  const cancelHold = () => {
+    setIsHolding(false);
   };
 
-  // Réinitialiser quand le mot change
+  // Reset quand le mot change
   useEffect(() => {
-    hasTriggeredReveal.current = false;
-    controls.start({ y: 0 });
-  }, [word, controls]);
+    hasTriggeredRevealRef.current = false;
+    setIsHolding(false);
+  }, [word]);
+
+  // Window listeners — reset fiable même si on relâche en dehors de la card
+  useEffect(() => {
+    if (!isHolding) return;
+    const handleUp = () => cancelHold();
+    window.addEventListener('mouseup', handleUp);
+    window.addEventListener('touchend', handleUp);
+    window.addEventListener('touchcancel', handleUp);
+    return () => {
+      window.removeEventListener('mouseup', handleUp);
+      window.removeEventListener('touchend', handleUp);
+      window.removeEventListener('touchcancel', handleUp);
+    };
+  }, [isHolding]);
 
   return (
     <div style={{
@@ -56,79 +61,78 @@ export default function MimeCard({ word, category, onReveal, revealed = false, d
       pointerEvents: disabled ? 'none' : 'auto',
     }}>
 
-      {/* === CARTE DU MOT (derrière) === */}
+      {/* === CARTE DU MOT (derrière, visible uniquement pendant le hold) === */}
       <div style={{
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+        inset: 0,
         zIndex: 1,
-        borderRadius: 16,
+        borderRadius: 12,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '16px',
-        background: 'linear-gradient(180deg, #0a0a0f 0%, #050508 100%)',
-        border: `2px solid ${MIME_COLORS.primary}`,
-        boxShadow: `0 0 15px rgba(${MIME_COLORS.primaryRgb}, 0.25)`,
+        background: 'var(--game-color, #059669)',
+        borderBottom: '4px solid var(--game-dark, #065f46)',
       }}>
-        {/* Catégorie */}
         {category && (
           <span style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: 10,
             fontWeight: 600,
-            color: MIME_COLORS.primary,
+            color: 'rgba(255, 255, 255, 0.7)',
             textTransform: 'uppercase',
             letterSpacing: 1,
             marginBottom: 6,
-            opacity: 0.8,
           }}>
             {category}
           </span>
         )}
-        {/* Mot */}
         <span style={{
           fontFamily: "'Bungee', cursive",
           fontSize: 'clamp(1.25rem, 6vw, 1.75rem)',
-          color: '#ffffff',
+          color: '#fff',
           textAlign: 'center',
           padding: '0 12px',
-          textShadow: `0 0 8px rgba(${MIME_COLORS.primaryRgb}, 0.6)`,
           lineHeight: 1.2,
         }}>
           {word}
         </span>
       </div>
 
-      {/* === CARTE COVER (devant, superposée, draggable) === */}
+      {/* === CARTE COVER (devant, slide up pour révéler / slide down pour masquer) === */}
       <motion.div
+        onMouseDown={startHold}
+        onTouchStart={startHold}
+        animate={{
+          y: isHolding ? '-105%' : '0%',
+          rotate: isHolding ? -3 : 0,
+        }}
+        transition={{
+          type: 'spring',
+          stiffness: 320,
+          damping: 28,
+          mass: 0.8,
+        }}
         style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
+          inset: -3,
           zIndex: 10,
-          borderRadius: 16,
+          borderRadius: 14,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(180deg, #111118 0%, #0a0a0f 100%)',
-          border: `2px solid rgba(${MIME_COLORS.primaryRgb}, 0.5)`,
-          boxShadow: `0 4px 15px rgba(0, 0, 0, 0.6)`,
-          cursor: disabled ? 'not-allowed' : 'grab',
+          background: '#1a1a2e',
+          borderBottom: '4px solid #0e0e1a',
+          cursor: disabled ? 'not-allowed' : 'pointer',
           touchAction: 'none',
+          userSelect: 'none',
+          overflow: 'hidden',
+          transformOrigin: 'bottom center',
+          boxShadow: isHolding
+            ? '0 14px 28px rgba(0, 0, 0, 0.4)'
+            : '0 0 0 rgba(0, 0, 0, 0)',
         }}
-        drag={disabled ? false : 'y'}
-        dragConstraints={{ top: maxDrag, bottom: 0 }}
-        dragElastic={0.05}
-        onDrag={handleDrag}
-        onDragEnd={handleDragEnd}
-        animate={controls}
-        whileDrag={{ cursor: 'grabbing' }}
       >
         <div style={{
           display: 'flex',
@@ -137,48 +141,38 @@ export default function MimeCard({ word, category, onReveal, revealed = false, d
           gap: 8,
           padding: 12,
         }}>
-          {/* Titre + Flèche sur la même ligne */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{
-              fontFamily: "'Bungee', cursive",
-              fontSize: 18,
-              color: '#ffffff',
-              textShadow: `0 0 6px rgba(${MIME_COLORS.primaryRgb}, 0.5)`,
-            }}>
-              Ton mot
-            </span>
-            <motion.div
-              style={{
-                width: 28,
-                height: 28,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: `rgba(${MIME_COLORS.primaryRgb}, 0.2)`,
-                border: `2px solid rgba(${MIME_COLORS.primaryRgb}, 0.7)`,
-                borderRadius: '50%',
-              }}
-              animate={{ y: [-3, 3, -3] }}
-              transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <span style={{
-                fontSize: 14,
-                fontWeight: 'bold',
-                color: MIME_COLORS.primary,
-              }}>
-                ↑
-              </span>
-            </motion.div>
-          </div>
+          {/* Icône doigt animée — tap gesture */}
+          <motion.div
+            animate={{ y: [0, -4, 0], scale: [1, 0.92, 1] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+            style={{
+              width: 32,
+              height: 32,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+            }}
+          >
+            <HandPointing size={28} weight="fill" />
+          </motion.div>
 
-          {/* Instruction */}
+          <span style={{
+            fontFamily: "'Bungee', cursive",
+            fontSize: 16,
+            color: '#fff',
+            lineHeight: 1,
+          }}>
+            Ton mot
+          </span>
           <span style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: 11,
             fontWeight: 500,
-            color: 'rgba(255, 255, 255, 0.5)',
+            color: 'rgba(255, 255, 255, 0.6)',
+            textAlign: 'center',
           }}>
-            Glisse vers le haut
+            Reste appuyé pour révéler
           </span>
         </div>
       </motion.div>

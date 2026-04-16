@@ -72,5 +72,6 @@
 
 /* Footer */
 .lr-lobby-footer { position: relative; z-index: 2; padding: 12px 16px 16px; border-top: 1px solid rgba(238, 242, 255, 0.05); flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; background: rgba(4, 6, 15, 0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-.lr-footer-player-card { padding: 14px; background: rgba(238, 242, 255, 0.03); border: 1px solid rgba(238, 242, 255, 0.07); border-radius: 14px; text-align: center; }
+.lr-footer-player-card { padding: 14px; background: rgba(238, 242, 255, 0.03); border: 1px solid rgba(238, 242, 255, 0.07); border-radius: 14px; text-align: center; cursor: pointer; width: 100%; }
+.lr-footer-player-card:active { transform: translateY(2px); }
 .lr-footer-player-text { font-size: 0.75rem; color: rgba(238, 242, 255, 0.35); font-weight: 600; }

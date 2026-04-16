@@ -308,7 +308,7 @@ export function MindLinkLobbyContent({ code, myUid: devUid, isHost: devIsHost })
 
       <div className="ml-lobby-footer">
         {isHost && <LobbyStartButton gameColor={ACCENT} icon={startIcon} label={startLabel} disabled={!canStart} onClick={handleStartGame} />}
-        {!isHost && (<div className="ml-footer-player-card"><div className="ml-footer-player-text">Partage le code pour inviter des amis</div></div>)}
+        {!isHost && (<button className="ml-footer-player-card" onClick={() => shareModalRef.current?.open()}><div className="ml-footer-player-text">Partage le code pour inviter des amis</div></button>)}
       </div>
     </div>
   );

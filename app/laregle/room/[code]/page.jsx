@@ -272,7 +272,7 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
 
       <div className="lr-lobby-footer">
         {isHost && <LobbyStartButton gameColor={ACCENT} icon={startIcon} label={startLabel} disabled={!canStart} onClick={handleStartGame} />}
-        {!isHost && (<div className="lr-footer-player-card"><div className="lr-footer-player-text">Partage le code pour inviter des amis</div></div>)}
+        {!isHost && (<button className="lr-footer-player-card" onClick={() => shareModalRef.current?.open()}><div className="lr-footer-player-text">Partage le code pour inviter des amis</div></button>)}
       </div>
     </div>
   );

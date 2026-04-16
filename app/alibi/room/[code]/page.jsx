@@ -848,9 +848,9 @@ export function AlibiLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
           />
         )}
         {!isHost && (
-          <div className="lobby-footer-player-card">
+          <button className="lobby-footer-player-card" onClick={() => shareModalRef.current?.open()}>
             <span className="lobby-footer-player-text">Partage le code pour inviter des amis</span>
-          </div>
+          </button>
         )}
       </div>
     </div>

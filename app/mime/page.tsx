@@ -13,6 +13,7 @@ import { incrementLifetimeGamesCount } from '@/lib/utils/lifetimeGames';
 import { useHearts } from '@/lib/hooks/useHearts';
 import { storage } from '@/lib/utils/storage';
 import { auth } from '@/lib/firebase';
+import { getFlatCSSVars } from '@/lib/config/colors';
 
 type GamePhase = 'lobby' | 'playing';
 
@@ -77,7 +78,7 @@ export default function MimePage() {
   }
 
   return (
-    <div className="lobby-container mime game-page">
+    <div className="lobby-container mime game-page" style={getFlatCSSVars('mime') as React.CSSProperties}>
       {/* Modal How To Play */}
 
       {/* Header */}

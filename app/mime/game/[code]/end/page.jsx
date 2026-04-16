@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { db, ref, onValue, update } from "@/lib/firebase";
 import { PodiumPremium } from "@/components/ui/PodiumPremium";
+import { getFlatCSSVars } from '@/lib/config/colors';
 import Leaderboard from "@/components/game/Leaderboard";
 import { EndScreenFooter } from "@/components/transitions";
 import { useToast } from "@/lib/hooks/useToast";
@@ -15,7 +16,7 @@ import { useAppShellBg } from "@/lib/hooks/useAppShellBg";
 import { rankWithTies } from "@/lib/utils/ranking";
 
 // Mime colors
-const MIME_GREEN = '#00ff66';
+const MIME_GREEN = '#059669';
 
 export function MimeEndContent({ code, myUid: devUid }) {
   useAppShellBg('#04060f');
@@ -138,8 +139,13 @@ export function MimeEndContent({ code, myUid: devUid }) {
     }
   };
 
+  // Séparer podium (top 3 avec score > 0) et le reste
+  const podiumPlayers = rankedPlayers.filter(p => (p.score || 0) > 0).slice(0, 3);
+  const podiumUids = new Set(podiumPlayers.map(p => p.uid));
+  const remainingPlayers = rankedPlayers.filter(p => !podiumUids.has(p.uid));
+
   return (
-    <div className="end-page game-page">
+    <div className="end-page game-page" style={getFlatCSSVars('mime')}>
       {/* Main Content */}
       <main className="end-content">
         {/* Header */}
@@ -148,23 +154,25 @@ export function MimeEndContent({ code, myUid: devUid }) {
           <span className="title-text">Mime terminé</span>
         </div>
 
-        {/* Podium */}
-        {rankedPlayers.length >= 1 && (
+        {/* Podium (top 3 avec score > 0) */}
+        {podiumPlayers.length > 0 && (
           <div className="podium-section">
-            <PodiumPremium topPlayers={rankedPlayers.slice(0, 3)} />
+            <PodiumPremium topPlayers={podiumPlayers} />
           </div>
         )}
 
-        {/* Leaderboard */}
-        <div className="leaderboard-wrapper">
-          <Leaderboard players={rankedPlayers} currentPlayerUid={myUid} gameColor={MIME_GREEN} />
-        </div>
+        {/* Leaderboard (le reste, sans le podium) */}
+        {remainingPlayers.length > 0 && (
+          <div className="leaderboard-wrapper">
+            <Leaderboard players={remainingPlayers} currentPlayerUid={myUid} rankOffset={podiumPlayers.length} />
+          </div>
+        )}
       </main>
 
       {/* Footer */}
       <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 10, paddingBottom: 'var(--safe-area-bottom, env(safe-area-inset-bottom, 0px))' }}>
       <EndScreenFooter
-        gameColor={MIME_GREEN}
+        gameColor="#059669"
         label={!hostPresent ? "Retour à l'accueil" : isHost ? 'Nouvelle partie' : 'Retour au lobby'}
         onNewGame={async () => {
           if (!hostPresent) {
@@ -198,8 +206,8 @@ export function MimeEndContent({ code, myUid: devUid }) {
           inset: 0;
           z-index: 0;
           background:
-            radial-gradient(ellipse at 50% 0%, rgba(0, 255, 102, 0.1) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 80%, rgba(0, 204, 82, 0.06) 0%, transparent 50%),
+            radial-gradient(ellipse at 20% 80%, rgba(52, 211, 153, 0.08) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 20%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
             var(--bg-primary, #0a0a0f);
           pointer-events: none;
         }
@@ -218,7 +226,7 @@ export function MimeEndContent({ code, myUid: devUid }) {
           width: 100%;
           min-height: 0;
           overflow-y: auto;
-          padding-bottom: 80px;
+          padding-bottom: 100px;
         }
 
         /* ===== HEADER ===== */
@@ -240,8 +248,7 @@ export function MimeEndContent({ code, myUid: devUid }) {
         .title-text {
           font-family: var(--font-title, 'Bungee'), cursive;
           font-size: clamp(1rem, 4vw, 1.3rem);
-          color: ${MIME_GREEN};
-          text-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+          color: var(--game-color, ${MIME_GREEN});
         }
 
         /* ===== PODIUM ===== */
@@ -249,19 +256,15 @@ export function MimeEndContent({ code, myUid: devUid }) {
           flex-shrink: 0;
           position: relative;
           z-index: 2;
-          transform: scale(0.5);
-          transform-origin: center top;
-          margin: 0 0 -200px 0;
+          margin: 0 0 12px 0;
         }
 
-        /* ===== LEADERBOARD ===== */
+        /* ===== LEADERBOARD (joueurs hors podium) ===== */
         .leaderboard-wrapper {
           flex: 1;
           min-height: 150px;
           display: flex;
           overflow: hidden;
-          position: relative;
-          z-index: 3;
         }
       `}</style>
     </div>

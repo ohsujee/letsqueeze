@@ -14,7 +14,7 @@ import './Leaderboard.css';
  * - Largeur fixe pour les scores (4 digits max)
  * - Support mode équipes: affiche les équipes avec scores agrégés
  */
-export default function Leaderboard({ players = [], currentPlayerUid = null, mode = 'individuel', teams = {}, gameColor = '#8b5cf6', rankOffset = 0 }) {
+export default function Leaderboard({ players = [], currentPlayerUid = null, mode = 'individuel', teams = {}, gameColor = null, rankOffset = 0 }) {
   const prevPositionsRef = useRef({});
   const listRef = useRef(null);
   const [positionChanges, setPositionChanges] = useState({});
@@ -172,13 +172,19 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
       setPositionChanges(prev => ({ ...prev, ...newChanges }));
     }
     prevPositionsRef.current = newPositions;
-
-    // Cleanup timers on unmount or re-run
-    return () => {
-      posTimersRef.current.forEach(clearTimeout);
-      posTimersRef.current = [];
-    };
+    // Note: timers intentionally NOT cleared here — chaque re-render (score changé)
+    // relance l'effet et un cleanup agressif annulerait les timers de 3s avant
+    // qu'ils aient pu effacer les flèches → flèches bloquées à l'écran.
+    // Les timers sont clearés uniquement au unmount du composant (useEffect ci-dessous).
   }, [sorted, teamsArray, isTeamMode]);
+
+  // Cleanup des timers uniquement au démontage du composant
+  useEffect(() => {
+    const timers = posTimersRef.current;
+    return () => {
+      timers.forEach(clearTimeout);
+    };
+  }, []);
 
 
   // Check if list is scrollable and update indicators
@@ -227,7 +233,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
   }, [checkScroll, players.length, viewMode]);
 
   return (
-    <div className="leaderboard-card" style={{ '--game-color': gameColor }}>
+    <div className="leaderboard-card" style={gameColor ? { '--game-color': gameColor } : undefined}>
       <div className="leaderboard-header">
         <span className="leaderboard-title">Classement</span>
         {canToggle ? (
@@ -335,7 +341,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                   >
                     <PlayerBanner
                       player={p}
-                      isMe={isMe && !isTeamColored}
+                      isMe={false}
                       rootClassName={`player-row ${rankClass} ${isDisconnected ? 'disconnected' : ''} ${isTeamColored ? 'team-colored' : ''}`}
                       rootStyle={isTeamColored ? { '--player-team-color': playerTeam.color } : undefined}
                       prefix={
@@ -345,6 +351,7 @@ export default function Leaderboard({ players = [], currentPlayerUid = null, mod
                       }
                       suffix={
                         <>
+                          {isMe && <span className="lb-me-badge">Toi</span>}
                           {isDisconnected && <WifiSlash size={12} weight="bold" className="disconnected-icon" />}
                           <div className="score-area">
                             {posChange && (

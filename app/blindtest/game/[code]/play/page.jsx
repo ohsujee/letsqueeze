@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   auth, db, ref, onValue, signInAnonymously, onAuthStateChanged
@@ -52,7 +52,9 @@ export function BlindTestPlayContent({ code, myUid: devUid }) {
   const revealed = !!state?.revealed;
 
   // Centralized players hook
-  const { players, me } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
+  const { players, me: authMe } = usePlayers({ roomCode: code, roomPrefix: 'rooms_blindtest' });
+  // Use myUid (dev-aware) to find me, not auth.currentUser
+  const me = myUid ? (players.find(p => p.uid === myUid) || authMe) : authMe;
 
   // Party Mode: Asker rotation hook
   const {
@@ -62,6 +64,7 @@ export function BlindTestPlayContent({ code, myUid: devUid }) {
     isCurrentAsker,
     canBuzz,
     advanceToNextAsker,
+    announceNextAsker,
     handleAskerDisconnect
   } = useAskerRotation({
     roomCode: code,
@@ -451,15 +454,21 @@ export function BlindTestPlayContent({ code, myUid: devUid }) {
     handleAskerDisconnect();
   }, [players, currentAskerUid]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Party Mode: Show transition when asker changes (including first asker)
-  useEffect(() => {
+  // Party Mode: premier asker — useLayoutEffect = sync avant peinture, pas de flash
+  useLayoutEffect(() => {
     if (!isPartyMode || !currentAskerUid) return;
-
-    if (prevAskerUidRef.current !== currentAskerUid) {
+    if (prevAskerUidRef.current === null) {
       setShowAskerTransition(true);
     }
     prevAskerUidRef.current = currentAskerUid;
   }, [isPartyMode, currentAskerUid]);
+
+  // Transition pré-annoncée par announceNextAsker (avant le swap effectif)
+  useEffect(() => {
+    if (state?.transitionToUid) {
+      setShowAskerTransition(true);
+    }
+  }, [state?.transitionToUid]);
 
   // Can I buzz? (Party Mode check)
   const canIBuzz = !amIAsker && canBuzz(myUid, me?.teamId);
@@ -468,6 +477,18 @@ export function BlindTestPlayContent({ code, myUid: devUid }) {
   const latencyMs = Math.abs(offset);
   const showLatencyWarning = latencyMs > 500;
 
+  // Asker à afficher pendant la transition (pré-annonce ou actuel)
+  const transitionAskerUid = state?.transitionToUid || currentAskerUid;
+  const transitionAskerPlayer = players.find(p => p.uid === transitionAskerUid);
+  const transitionAsker = transitionAskerPlayer ? {
+    uid: transitionAskerPlayer.uid,
+    name: transitionAskerPlayer.name,
+    teamId: transitionAskerPlayer.teamId,
+    teamName: transitionAskerPlayer.teamId && meta?.teams?.[transitionAskerPlayer.teamId]?.name,
+    teamColor: transitionAskerPlayer.teamId && meta?.teams?.[transitionAskerPlayer.teamId]?.color,
+  } : null;
+  const isMeForTransition = myUid === transitionAskerUid;
+
   // ========== PARTY MODE: ASKER VIEW ==========
   if (amIAsker) {
     return (
@@ -475,7 +496,8 @@ export function BlindTestPlayContent({ code, myUid: devUid }) {
         {/* Asker Transition */}
         <AskerTransition
           show={showAskerTransition}
-          asker={currentAsker}
+          asker={transitionAsker}
+          isMe={isMeForTransition}
           isTeamMode={meta?.mode === 'équipes'}
           onComplete={() => setShowAskerTransition(false)}
           themeColor={DEEZER_PURPLE}
@@ -486,6 +508,7 @@ export function BlindTestPlayContent({ code, myUid: devUid }) {
           code={code}
           isActualHost={false}
           onAdvanceAsker={advanceToNextAsker}
+          onAnnounceAsker={announceNextAsker}
         />
       </>
     );
@@ -507,7 +530,8 @@ export function BlindTestPlayContent({ code, myUid: devUid }) {
       {/* Asker Transition (Party Mode) */}
       <AskerTransition
         show={showAskerTransition}
-        asker={currentAsker}
+        asker={transitionAsker}
+        isMe={isMeForTransition}
         isTeamMode={meta?.mode === 'équipes'}
         onComplete={() => setShowAskerTransition(false)}
         themeColor={DEEZER_PURPLE}

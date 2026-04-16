@@ -10,6 +10,7 @@ import { usePlayers } from "@/lib/hooks/usePlayers";
 import { useRoomGuard } from "@/lib/hooks/useRoomGuard";
 import { useHostDisconnect } from "@/lib/hooks/useHostDisconnect";
 import { useServerTime } from "@/lib/hooks/useServerTime";
+import useAutoUnblockPenalty from "@/lib/hooks/useAutoUnblockPenalty";
 import GameStatusBanners from "@/components/game/GameStatusBanners";
 import HostDisconnectAlert from "@/components/game/HostDisconnectAlert";
 import BuzzValidationModal from "@/components/game/BuzzValidationModal";
@@ -27,7 +28,7 @@ import './QuizHostView.css';
  * QuizHostView - Shared component for Quiz host view
  * Used by both the host page and the play page (when player is the asker in Party Mode)
  */
-export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker, onExit }) {
+export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker, onAnnounceAsker, onExit }) {
   const router = useRouter();
 
   const [meta, setMeta] = useState(null);
@@ -98,10 +99,28 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
   // Scoring: 100 pts fixes par bonne réponse (défini dans useQuizActions)
   const { resetBuzzers, validate, wrong, skip, end, isTransitioning } = useQuizActions({
     code, state, meta, quiz, players, conf, canControl,
-    total, onAdvanceAsker, serverOffset,
+    total, onAdvanceAsker, onAnnounceAsker, serverOffset,
   });
 
   const lockedName = state?.lockUid ? (players.find(p => p.uid === state.lockUid)?.name || state.lockUid) : "-";
+
+  // Auto-unblock si tous les joueurs éligibles sont en pénalité
+  // En Party Mode, l'asker (ou l'équipe qui pose) est exclu(e)
+  const isPartyMode = meta?.gameMasterMode === 'party';
+  const askerUid = isPartyMode ? state?.currentAskerUid : null;
+  const askerTeamId = isPartyMode ? state?.currentAskerTeamId : null;
+  useAutoUnblockPenalty({
+    roomCode: code,
+    roomPrefix: 'rooms',
+    eligiblePlayers: players.filter(p =>
+      p.status !== 'left' &&
+      p.uid !== askerUid &&
+      (!askerTeamId || p.teamId !== askerTeamId)
+    ),
+    serverNow: serverNow,
+    canWrite: canControl,
+    enabled: !state?.lockUid && !isTransitioning,
+  });
 
   async function exitAndEndGame() {
     if (code && isActualHost) await update(ref(db, `rooms/${code}/meta`), { closed: true });
@@ -201,7 +220,7 @@ export default function QuizHostView({ code, isActualHost = true, onAdvanceAsker
           questionIndex={qIndex} isEmpty={!q}
           onReport={q ? () => setShowReportModal(true) : undefined}
         />
-        <Leaderboard players={players} mode={meta?.mode} teams={meta?.teams} />
+        <Leaderboard players={players} currentPlayerUid={myUid} mode={meta?.mode} teams={meta?.teams} />
       </main>
 
       <HostActionFooter onSkip={skip} onEnd={end} />
