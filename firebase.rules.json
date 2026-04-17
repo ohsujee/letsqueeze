@@ -632,6 +632,17 @@
             }
           }
         }
+      },
+      "codebreaker": {
+        "$date": {
+          "leaderboard": {
+            ".read": "auth != null",
+            "$uid": {
+              ".write": "auth != null && auth.uid == $uid",
+              ".validate": "newData.hasChildren(['attempts', 'solved', 'name', 'score']) && newData.child('attempts').isNumber() && newData.child('solved').isBoolean() && newData.child('score').isNumber()"
+            }
+          }
+        }
       }
     }
   }

@@ -7,7 +7,6 @@ export const MAX_SUBMISSIONS = 3;
 export function evaluateTokens(tokens) {
   if (tokens.length === 0) return null;
   if (tokens.length === 1 && typeof tokens[0] === 'number') return tokens[0];
-  if (tokens.length < 1) return null;
 
   // Evaluate up to the last number (ignore trailing operator)
   let result = tokens[0];
@@ -41,13 +40,7 @@ export function computeScore(difference, timeMs) {
   return precision + timeBonus;
 }
 
-// ─── Helpers ────────────────────────────────────────────────────────────────
-export function getStreakFlames(count) {
-  if (count < 2) return '';
-  if (count < 4) return ' 🔥';
-  if (count < 7) return ' 🔥🔥';
-  return ' 🔥🔥🔥';
-}
+// getStreakFlames → moved to @/components/daily/dailyHelpers.js
 
 export function formatResult(val) {
   if (val === null) return '—';

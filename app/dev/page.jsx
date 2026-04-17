@@ -489,6 +489,7 @@ function SimulationList() {
 
 const DAILY_GAMES = [
   { id: 'total', name: 'Total', icon: '🧮', color: '#3b82f6', description: 'Trouve le nombre cible avec 6 chiffres', path: '/dev/daily/total', available: true },
+  { id: 'codebreaker', name: 'Code Breaker', icon: '🔮', color: '#6366f1', description: 'Craque le code secret (Mastermind)', path: '/dev/daily/codebreaker', available: true },
   { id: 'motmystere', name: 'Mot Mystère', icon: '🔤', color: '#10b981', description: 'Wordle en français', path: '/dev/daily/motmystere', available: false },
   { id: 'semantique', name: 'Sémantique', icon: '🧠', color: '#a855f7', description: 'Trouve le mot par proximité sémantique', path: '/dev/daily/semantique', available: false },
 ];

@@ -14,7 +14,7 @@ export async function GET(request) {
   }
 
   try {
-    const res = await fetch(`${apiUrl}/word/${date}`, {
+    const res = await fetch(`${apiUrl}/admin/word/${date}`, {
       headers: { 'x-api-key': apiKey },
     });
 

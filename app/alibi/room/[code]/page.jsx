@@ -213,7 +213,7 @@ export function AlibiLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
     heartbeatInterval: 15000,
-    enabled: !!myUid
+    enabled: !!myUid && !devUid
   });
 
   // Player cleanup with auto-rejoin for hard refresh
@@ -249,7 +249,8 @@ export function AlibiLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
     roomPrefix: 'rooms_alibi',
     playerUid: myUid,
     isHost,
-    skipKickRedirect: true // LobbyDisconnectAlert gère le cas kick en lobby
+    skipKickRedirect: true, // LobbyDisconnectAlert gère le cas kick en lobby
+    enabled: !devUid
   });
 
   // Host disconnect - gère la grace period si l'hôte perd sa connexion
@@ -257,7 +258,7 @@ export function AlibiLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
   useHostDisconnect({
     roomCode: code,
     roomPrefix: 'rooms_alibi',
-    hostUid: meta?.hostUid
+    hostUid: devUid ? null : meta?.hostUid
   });
 
   // DB listeners

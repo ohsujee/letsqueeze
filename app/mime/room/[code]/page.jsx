@@ -202,7 +202,8 @@ export function MimeLobbyContent({ code, myUid: devUid, isHost: devIsHost }) {
     roomCode: code,
     roomPrefix: 'rooms_mime',
     playerUid: myUid,
-    isHost
+    isHost,
+    enabled: !devUid
   });
 
   usePresence({

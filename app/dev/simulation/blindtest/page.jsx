@@ -33,19 +33,25 @@ const PHASE_TABS = [
   { id: 'ended', label: 'End', color: '#ef4444' },
 ];
 
-const PHONE_W = 360;
-const PHONE_H = 740;
-const LABEL_H = 26;
-const CONTENT_H = PHONE_H - LABEL_H;
+const DEVICE_PRESETS = [
+  { id: 'se', label: 'iPhone SE', w: 375, h: 667 },
+  { id: 's8', label: 'Galaxy S8', w: 360, h: 740 },
+  { id: 'ip14', label: 'iPhone 14', w: 390, h: 844 },
+  { id: 's20', label: 'Galaxy S20', w: 412, h: 915 },
+  { id: 'ip14pm', label: 'iPhone 14 PM', w: 430, h: 932 },
+];
 
-function SimPanel({ role, label, children }) {
+const LABEL_H = 26;
+
+function SimPanel({ role, label, children, phoneW, phoneH }) {
   const colors = PANEL_COLORS[role] || PANEL_COLORS.player;
   const borderColor = colors.border;
   const labelBg = colors.labelBg;
+  const contentH = phoneH - LABEL_H;
 
   return (
     <div style={{
-      width: PHONE_W, height: PHONE_H,
+      width: phoneW, height: phoneH,
       border: `2px solid ${borderColor}40`, borderRadius: '16px',
       overflow: 'hidden', background: '#04060f', flexShrink: 0,
       display: 'flex', flexDirection: 'column',
@@ -62,13 +68,14 @@ function SimPanel({ role, label, children }) {
         }}>{label}</span>
       </div>
       <div className="sim-panel-content" style={{
-        width: PHONE_W, height: CONTENT_H,
+        width: phoneW, height: contentH,
         display: 'flex', flexDirection: 'column', overflow: 'hidden',
         position: 'relative', transform: 'translateZ(0)',
-        '--app-height': `${CONTENT_H}px`, '--safe-area-bottom': '0px', '--safe-area-top': '0px',
+        '--app-height': `${contentH}px`, '--safe-area-bottom': '0px', '--safe-area-top': '0px',
       }}>
         {children}
         <style>{`
+          .sim-panel-content .playlist-modal-overlay { position: absolute !important; }
           .sim-panel-content .transition-overlay { position: absolute !important; }
           .sim-panel-content .transition-title { font-size: 1.1rem !important; }
           .sim-panel-content .transition-subtitle { font-size: 0.75rem !important; margin: 0 0 1rem 0 !important; }
@@ -109,6 +116,7 @@ export default function BlindTestSimulator() {
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState(null);
   const [displayPhase, setDisplayPhase] = useState(null);
+  const [device, setDevice] = useState(DEVICE_PRESETS[2]);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => { setMyUid(user?.uid || null); });
@@ -277,11 +285,11 @@ export default function BlindTestSimulator() {
     if (displayPhase === 'playing') {
       return (
         <>
-          <SimPanel role="host" label="Host View">
+          <SimPanel role="host" label="Host View" phoneW={device.w} phoneH={device.h}>
             <Suspense fallback={<PhaseLoader />}><BlindTestHostContent code={roomCode} /></Suspense>
           </SimPanel>
           {playerEntries.filter(([uid]) => uid !== myUid).map(([uid, player]) => (
-            <SimPanel key={uid} role="player" label={`Player - ${player.name || uid}`}>
+            <SimPanel key={uid} role="player" label={`Player - ${player.name || uid}`} phoneW={device.w} phoneH={device.h}>
               <Suspense fallback={<PhaseLoader />}><BlindTestPlayContent code={roomCode} myUid={uid} /></Suspense>
             </SimPanel>
           ))}
@@ -291,7 +299,7 @@ export default function BlindTestSimulator() {
 
     if (displayPhase === 'ended') {
       return playerEntries.map(([uid, player]) => (
-        <SimPanel key={uid} role="end" label={`End - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`}>
+        <SimPanel key={uid} role="end" label={`End - ${player.name || uid}${uid === myUid ? ' (You)' : ''}`} phoneW={device.w} phoneH={device.h}>
           <Suspense fallback={<PhaseLoader />}><BlindTestEndContent code={roomCode} myUid={uid} /></Suspense>
         </SimPanel>
       ));
@@ -300,11 +308,11 @@ export default function BlindTestSimulator() {
     // Lobby
     return (
       <>
-        <SimPanel role="host" label="Host (You) - Lobby">
+        <SimPanel role="host" label="Host (You) - Lobby" phoneW={device.w} phoneH={device.h}>
           <BlindTestLobbyContent code={roomCode} myUid={myUid} isHost={true} />
         </SimPanel>
         {playerEntries.filter(([uid]) => uid !== myUid).map(([uid, player]) => (
-          <SimPanel key={uid} role="player" label={`Player - ${player.name || uid}`}>
+          <SimPanel key={uid} role="player" label={`Player - ${player.name || uid}`} phoneW={device.w} phoneH={device.h}>
             <BlindTestLobbyContent code={roomCode} myUid={uid} />
           </SimPanel>
         ))}
@@ -389,7 +397,22 @@ export default function BlindTestSimulator() {
         <ControlButton label="− Joueur" color="#f59e0b" onClick={removePlayer}
           disabled={Object.keys(players).filter(uid => uid.startsWith('fake_')).length === 0} filled={false} />
         <ControlButton label="↺ Lobby" color="#eab308" onClick={resetToLobby} filled={false} />
-        <div style={{ flex: 1 }} />
+
+        {/* Device Selector */}
+        <div style={{ display: 'flex', gap: '2px', padding: '2px', background: 'rgba(238,242,255,0.04)', borderRadius: '6px', border: '1px solid rgba(238,242,255,0.08)' }}>
+          {DEVICE_PRESETS.map(d => (
+            <button key={d.id} onClick={() => setDevice(d)} style={{
+              padding: '4px 8px', border: 'none', borderRadius: '4px', cursor: 'pointer',
+              background: device.id === d.id ? `${GAME_COLOR}4D` : 'transparent',
+              color: device.id === d.id ? GAME_COLOR : 'rgba(238,242,255,0.3)',
+              fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.55rem', fontWeight: 700,
+              letterSpacing: '0.03em', transition: 'all 0.15s ease', whiteSpace: 'nowrap',
+            }}>{d.label}</button>
+          ))}
+        </div>
+        <div style={{ fontSize: '0.55rem', color: 'rgba(238,242,255,0.25)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
+          {device.w}×{device.h}
+        </div>
         <div style={{ fontSize: '0.65rem', color: 'rgba(238,242,255,0.3)', letterSpacing: '0.06em' }}>
           ROOM <span style={{ color: GAME_COLOR, fontWeight: 700 }}>{roomCode}</span>
         </div>

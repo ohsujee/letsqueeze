@@ -38,14 +38,19 @@ export default function DailyGamesSection({ user }) {
       });
   }, [userIsSuperFounder]);
 
-  // Sort: non-completed first, completed at the end
+  // Tri une seule fois quand tout est chargé, sinon ordre par défaut
+  const sortedOnceRef = useRef(null);
   const sortedIndices = useMemo(() => {
-    return [...visibleIndices].sort((a, b) => {
+    if (!loaded) return sortedOnceRef.current || visibleIndices;
+    if (sortedOnceRef.current) return sortedOnceRef.current;
+    const sorted = [...visibleIndices].sort((a, b) => {
       const aDone = states[a]?.todayState === 'completed' ? 1 : 0;
       const bDone = states[b]?.todayState === 'completed' ? 1 : 0;
       return aDone - bDone;
     });
-  }, [visibleIndices, states]);
+    sortedOnceRef.current = sorted;
+    return sorted;
+  }, [visibleIndices, states, loaded]);
 
   const completed = sortedIndices.filter((i) => states[i]?.todayState === 'completed').length;
   const total = sortedIndices.length;

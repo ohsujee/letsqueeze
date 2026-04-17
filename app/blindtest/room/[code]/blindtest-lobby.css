@@ -1,0 +1,542 @@
+/* blindtest-lobby.css — Style flat cartoon */
+
+.blindtest-lobby {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #0e0e1a;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+}
+
+/* ── Loading ── */
+
+.blindtest-lobby-loading {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #0e0e1a;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.blindtest-lobby-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #222240;
+  border-top-color: var(--game-color, #A238FF);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.blindtest-lobby-loading-text {
+  color: #6b6b8a;
+  font-size: 0.85rem;
+}
+
+/* ── Main content ── */
+
+.blindtest-lobby-main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 16px 8px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Settings panel (host) ── */
+
+.blindtest-settings-panel {
+  background: var(--flat-bg, #301560);
+  border: none;
+  border-bottom: 3px solid var(--flat-bg-dark, #200e45);
+  border-radius: 16px;
+  padding: 14px 16px;
+  flex-shrink: 0;
+}
+
+/* ── Playlist selector row ── */
+
+.blindtest-selector-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--flat-bg-light, #402075);
+  border: none;
+  border-bottom: 2px solid var(--flat-bg-dark, #200e45);
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.blindtest-selector-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.blindtest-selector-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.blindtest-selector-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.blindtest-selector-detail {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--flat-muted, #a070d0);
+  margin-top: 2px;
+}
+
+.blindtest-selector-action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.blindtest-selector-action-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--flat-text, #d4a5ff);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── Deezer badges ── */
+
+.blindtest-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.blindtest-deezer-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--game-color, #A238FF);
+  padding: 3px 8px;
+  background: var(--flat-bg-light, #402075);
+  border-radius: 6px;
+  border-bottom: 2px solid var(--flat-bg-dark, #200e45);
+}
+
+.blindtest-audio-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #06b6d4;
+  padding: 3px 8px;
+  background: #0a3040;
+  border-radius: 6px;
+  border-bottom: 2px solid #06202d;
+}
+
+/* ── Divider ── */
+
+.blindtest-settings-divider {
+  height: 2px;
+  background: var(--flat-bg-light, #402075);
+  margin-bottom: 14px;
+}
+
+/* ── Mode segmented control ── */
+
+.blindtest-mode-control {
+  position: relative;
+  display: flex;
+  border-radius: 12px;
+  background: var(--flat-bg-light, #402075);
+  border: none;
+  padding: 4px;
+  gap: 4px;
+}
+
+.blindtest-mode-btn {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  color: var(--flat-muted, #a070d0);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.blindtest-mode-btn.active {
+  color: #fff;
+}
+
+.blindtest-mode-pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  background: var(--game-color, #A238FF);
+  border: none;
+  z-index: -1;
+}
+
+/* ── Player settings (non-host) — overrides lobby-base.css ── */
+
+.blindtest-lobby .lobby-player-settings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.blindtest-player-settings-detail {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--flat-muted, #a070d0);
+}
+
+.blindtest-player-settings-mode {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--flat-text, #d4a5ff);
+  flex-shrink: 0;
+}
+
+/* ── Team management ── */
+
+.blindtest-team-management {
+  background: var(--flat-bg, #301560);
+  border: none;
+  border-bottom: 3px solid var(--flat-bg-dark, #200e45);
+  border-radius: 16px;
+  padding: 14px 16px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+/* ── Players section ── */
+
+.blindtest-players-section {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.blindtest-players-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.blindtest-players-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.blindtest-players-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: #8a8aa0;
+  text-transform: uppercase;
+}
+
+.blindtest-players-count {
+  padding: 2px 9px;
+  background: var(--game-color, #A238FF);
+  border-radius: 6px;
+  font-family: var(--font-title, 'Bungee'), cursive;
+  font-size: 0.7rem;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+/* ── Hint callouts ── */
+
+.blindtest-hint-callout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--flat-bg-light, #402075);
+  border: none;
+  border-bottom: 2px solid var(--flat-bg-dark, #200e45);
+  border-radius: 12px;
+}
+
+.blindtest-hint-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background: var(--flat-bg, #301560);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blindtest-hint-text {
+  font-size: 0.78rem;
+  color: var(--flat-text, #d4a5ff);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.blindtest-player-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: var(--flat-bg-light, #402075);
+  border: none;
+  border-bottom: 2px solid var(--flat-bg-dark, #200e45);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.blindtest-player-hint-emoji {
+  font-size: 0.9rem;
+}
+
+.blindtest-player-hint-text {
+  font-size: 0.78rem;
+  color: var(--flat-text, #d4a5ff);
+  font-weight: 600;
+}
+
+/* ── Players list ── */
+
+.blindtest-players-list-wrapper {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.blindtest-players-list {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: visible;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scrollbar-width: none;
+}
+
+.blindtest-players-list::-webkit-scrollbar { display: none; }
+
+.blindtest-scroll-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: linear-gradient(to bottom, transparent, #0e0e1a);
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+  z-index: 2;
+}
+
+/* ── Footer ── */
+
+.blindtest-lobby-footer {
+  position: relative;
+  z-index: 2;
+  padding: 12px 16px 16px;
+  border-top: 2px solid #222240;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #0e0e1a;
+}
+
+.blindtest-footer-player-card {
+  padding: 14px;
+  background: var(--flat-bg, #301560);
+  border: none;
+  border-bottom: 3px solid var(--flat-bg-dark, #200e45);
+  border-radius: 14px;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.blindtest-footer-player-card:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.blindtest-footer-player-text {
+  font-size: 0.75rem;
+  color: var(--flat-text, #d4a5ff);
+  font-weight: 600;
+}
+
+/* ── Player team view (non-host) ── */
+
+.blindtest-no-team-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--flat-bg-light, #402075);
+  border: none;
+  border-bottom: 2px solid var(--flat-bg-dark, #200e45);
+  border-radius: 14px;
+}
+
+.blindtest-no-team-emoji {
+  font-size: 1.1rem;
+}
+
+.blindtest-no-team-text {
+  font-size: 0.8rem;
+  color: var(--flat-text, #d4a5ff);
+  font-weight: 600;
+}
+
+/* Section labels for player team view */
+.player-team-section-label {
+  font-family: var(--font-display, 'Space Grotesk'), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #8a8aa0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.player-team-divider {
+  height: 2px;
+  background: #222240;
+  margin: 4px 0;
+}
+
+/* ── Focus reset — no browser outline ── */
+
+.blindtest-lobby button:focus,
+.blindtest-lobby div[role="button"]:focus,
+.blindtest-lobby input:focus {
+  outline: none;
+}
+
+/* ── Playlist modal — flat overrides ── */
+
+.blindtest-lobby .playlist-modal-overlay {
+  padding: 0;
+}
+
+.blindtest-lobby .playlist-modal {
+  width: 100%;
+  max-width: 500px;
+  height: 85%;
+  max-height: 700px;
+  min-height: 400px;
+  background: #1a1a2e;
+  border: none;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.blindtest-lobby .playlist-modal-header {
+  border-bottom: 2px solid #222240;
+}
+
+.blindtest-lobby .playlist-search-wrapper .search-icon {
+  color: var(--game-color, #A238FF) !important;
+}
+
+.blindtest-lobby .playlist-search-input {
+  background: var(--flat-bg-dark, #200e45) !important;
+  border-color: var(--flat-bg-light, #402075) !important;
+  color: var(--flat-text, #d4a5ff) !important;
+  box-shadow: none !important;
+}
+
+.blindtest-lobby .playlist-search-input:focus {
+  border-color: var(--game-color, #A238FF) !important;
+  box-shadow: none !important;
+}
+
+.blindtest-lobby .playlist-search-wrapper .search-spinner {
+  border-color: #222240 !important;
+  border-top-color: var(--game-color, #A238FF) !important;
+}
+
+.blindtest-lobby .playlist-section-label {
+  color: var(--game-color, #A238FF);
+}
+
+.blindtest-lobby .playlist-option {
+  background: var(--flat-bg-dark, #200e45);
+  border-radius: 12px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.blindtest-lobby .playlist-option:hover {
+  background: var(--flat-bg-light, #402075);
+}
+
+.blindtest-lobby .playlist-option:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+.blindtest-lobby .playlist-option-placeholder {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  background: var(--flat-bg, #301560);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--flat-text, #d4a5ff);
+}
+
+.blindtest-lobby .playlist-option-arrow {
+  color: var(--flat-muted, #a070d0);
+}
+
+.blindtest-lobby .playlist-empty {
+  color: var(--flat-muted, #a070d0);
+}

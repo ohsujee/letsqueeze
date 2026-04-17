@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Timer, ArrowCounterClockwise, Backspace } from '@phosphor-icons/react';
+import { Timer, ArrowCounterClockwise, Backspace, Star } from '@phosphor-icons/react';
 import { TIMER_SECONDS, OPERATORS, MAX_SUBMISSIONS, formatResult, formatTime } from './helpers';
 
 export default function TotalPlayingScreen({
@@ -31,100 +31,39 @@ export default function TotalPlayingScreen({
 
   return (
     <div className="total-game" style={{ paddingTop: 8 }}>
-      {/* Timer bar */}
-      <div style={{
-        position: 'relative', width: '100%', height: 32,
-        borderRadius: 10,
-        background: 'rgba(8,14,32,0.92)',
-        border: `1px solid ${timerCritical ? 'rgba(239,68,68,0.25)' : timerUrgent ? 'rgba(245,158,11,0.2)' : 'rgba(59,130,246,0.12)'}`,
-        overflow: 'hidden',
-        boxShadow: '0 2px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
-      }}>
+      {/* Timer bar — flat */}
+      <div className={`total-timer-bar ${timerCritical ? 'critical' : timerUrgent ? 'urgent' : ''}`}>
         <motion.div
-          style={{
-            position: 'absolute', top: 0, left: 0, bottom: 0,
-            borderRadius: 10,
-            background: timerCritical
-              ? 'linear-gradient(90deg, #ef4444, #dc2626)'
-              : timerUrgent
-                ? 'linear-gradient(90deg, #f59e0b, #d97706)'
-                : 'linear-gradient(90deg, #3b82f6, #2563eb)',
-            opacity: 0.85,
-            boxShadow: timerCritical
-              ? '0 0 16px rgba(239,68,68,0.5)'
-              : timerUrgent
-                ? '0 0 14px rgba(245,158,11,0.4)'
-                : '0 0 10px rgba(59,130,246,0.35)',
-          }}
+          className="total-timer-fill"
           initial={{ width: '100%' }}
           animate={{ width: `${timerPct}%` }}
           transition={{ duration: 0.5, ease: 'linear' }}
         />
-        <div style={{
-          position: 'relative', zIndex: 1,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          height: '100%', gap: '6px',
-          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-          fontSize: '0.82rem', fontWeight: 700,
-          color: timerCritical ? '#ef4444' : timerUrgent ? '#f59e0b' : 'rgba(238,242,255,0.8)',
-          textShadow: timerCritical
-            ? '0 0 10px rgba(239,68,68,0.6)'
-            : timerUrgent
-              ? '0 0 10px rgba(245,158,11,0.5)'
-              : 'none',
-        }}>
+        <div className="total-timer-text">
           <Timer size={14} weight="fill" />
           {formatTime(timeLeft)}
         </div>
       </div>
 
       {/* Target + live result below */}
-      <div style={{
-        display: 'flex', flexDirection: 'column', alignItems: 'center',
-        padding: '4px 0', flexShrink: 0,
-      }}>
-        <span style={{
-          fontSize: '0.6rem', fontWeight: 700, color: 'rgba(238,242,255,0.35)',
-          textTransform: 'uppercase', letterSpacing: '0.15em',
-          fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-          marginBottom: 4,
-        }}>CIBLE</span>
+      <div className="total-target-area">
+        <span className="total-target-label">CIBLE</span>
         <motion.span
+          className="total-target-number"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, type: 'spring', stiffness: 200 }}
-          style={{
-            fontFamily: "var(--font-title, 'Bungee'), cursive",
-            fontSize: '2.4rem', color: '#fff', lineHeight: 1,
-            textShadow: '0 0 24px rgba(59,130,246,0.6), 0 0 6px rgba(59,130,246,0.3)',
-          }}
         >{puzzle.target}</motion.span>
 
-        {/* Live result — always takes space */}
-        <div style={{
-          marginTop: 6, height: 32,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px',
-        }}>
+        <div className="total-live-result">
           {liveResult !== null ? (
-            <span style={{
-              fontFamily: "var(--font-title, 'Bungee'), cursive",
-              fontSize: '1.5rem', lineHeight: 1,
-              color: liveResult === puzzle.target ? '#10b981'
-                : Math.abs(liveResult - puzzle.target) <= 10 ? '#f59e0b'
-                : 'rgba(238,242,255,0.4)',
-              textShadow: liveResult === puzzle.target ? '0 0 16px rgba(16,185,129,0.5)' : 'none',
-              transition: 'color 0.15s ease',
-            }}>
+            <span className={`total-live-value ${liveResult === puzzle.target ? 'exact' : Math.abs(liveResult - puzzle.target) <= 10 ? 'close' : ''}`}>
               = {formatResult(liveResult)}
               {liveResult === puzzle.target ? ' 🎯' : ''}
             </span>
           ) : bestResult !== null && bestDifference > 0 ? (
-            <span style={{
-              fontSize: '0.7rem', fontWeight: 600,
-              color: 'rgba(59,130,246,0.5)',
-              fontFamily: "var(--font-display, 'Space Grotesk'), sans-serif",
-            }}>
-              ✓ Sauvegardé : {formatResult(bestResult)} (écart : {formatResult(bestDifference)})
+            <span className="total-live-saved">
+              Meilleur essai : {formatResult(bestResult)}, écart {bestResult >= puzzle.target ? '+' : '−'}{formatResult(bestDifference)}
             </span>
           ) : null}
         </div>
@@ -153,33 +92,31 @@ export default function TotalPlayingScreen({
         </div>
       </div>
 
-      {/* Number buttons */}
-      <div className="total-numbers-grid">
-        {puzzle.numbers.map((num, i) => (
-          <motion.button
-            key={i}
-            className={`total-number-btn ${usedIndices.has(i) ? 'used' : ''} ${!expectingNumber ? 'disabled' : ''}`}
-            onClick={() => onTapNumber(num, i)}
-            disabled={usedIndices.has(i) || !expectingNumber}
-            whileTap={!usedIndices.has(i) && expectingNumber ? { scale: 0.9 } : {}}
-          >
-            {num}
-          </motion.button>
-        ))}
-      </div>
-
-      {/* Operator buttons */}
+      {/* Operator buttons — au-dessus comme une vraie calculatrice */}
       <div className="total-operators-row">
         {OPERATORS.map((op) => (
-          <motion.button
+          <button
             key={op}
             className={`total-operator-btn ${expectingNumber ? 'disabled' : ''}`}
             onClick={() => onTapOperator(op)}
             disabled={expectingNumber}
-            whileTap={!expectingNumber ? { scale: 0.9 } : {}}
           >
             {op}
-          </motion.button>
+          </button>
+        ))}
+      </div>
+
+      {/* Number buttons */}
+      <div className="total-numbers-grid">
+        {puzzle.numbers.map((num, i) => (
+          <button
+            key={i}
+            className={`total-number-btn ${usedIndices.has(i) ? 'used' : ''} ${!expectingNumber ? 'disabled' : ''}`}
+            onClick={() => onTapNumber(num, i)}
+            disabled={usedIndices.has(i) || !expectingNumber}
+          >
+            {num}
+          </button>
         ))}
       </div>
 
@@ -227,15 +164,19 @@ export default function TotalPlayingScreen({
             Tes essais apparaîtront ici
           </div>
         ) : (
-          submissions.slice().reverse().map((sub, i) => (
-            <div key={i} className={`total-submission ${sub.difference === 0 ? 'exact' : sub.difference <= 10 ? 'close' : ''}`}>
-              <span className="total-sub-expr">{sub.expression}</span>
-              <span className="total-sub-eq">= {formatResult(sub.result)}</span>
-              <span className="total-sub-diff">
-                {sub.difference === 0 ? '🎯' : `±${formatResult(sub.difference)}`}
-              </span>
-            </div>
-          ))
+          submissions.slice().reverse().map((sub, i, arr) => {
+            const isBest = sub.difference === Math.min(...arr.map(s => s.difference));
+            return (
+              <div key={i} className="total-submission">
+                <span className="total-sub-expr">{sub.expression}</span>
+                <span className="total-sub-eq">= {formatResult(sub.result)}</span>
+                <span className="total-sub-diff">
+                  {sub.difference === 0 ? '🎯' : `${sub.result >= puzzle.target ? '+' : '−'}${formatResult(sub.difference)}`}
+                </span>
+                {isBest && <Star size={12} weight="fill" className="total-sub-star" />}
+              </div>
+            );
+          })
         )}
       </div>
 

@@ -83,8 +83,8 @@ export function LaRegleLobbyContent({ code, myUid: devUid, isHost: devIsHost }) 
     return () => unsub();
   }, [meta?.hostUid, players, devUid]);
 
-  useRoomGuard({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, isHost, skipKickRedirect: true });
-  useHostDisconnect({ roomCode: code, roomPrefix: ROOM_PREFIX, hostUid: meta?.hostUid });
+  useRoomGuard({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, isHost, skipKickRedirect: true, enabled: !devUid });
+  useHostDisconnect({ roomCode: code, roomPrefix: ROOM_PREFIX, hostUid: devUid ? null : meta?.hostUid });
   usePresence({ roomCode: code, roomPrefix: ROOM_PREFIX, playerUid: myUid, heartbeatInterval: 15000, enabled: !!myUid && !devUid });
 
   const { leaveRoom, markVoluntaryLeave, attemptRejoin, isRejoining } = usePlayerCleanup({

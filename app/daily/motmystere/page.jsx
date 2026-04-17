@@ -3,9 +3,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Question, Trophy, ChartBar, GridNine } from '@phosphor-icons/react';
-import { ref, onValue, get } from 'firebase/database';
-import { onAuthStateChanged } from 'firebase/auth';
+import { Trophy, GridNine } from '@phosphor-icons/react';
+import { ref, onValue } from 'firebase/database';
 import { db, auth } from '@/lib/firebase';
 import { useDailyGame } from '@/lib/hooks/useDailyGame';
 import { usePostGameAd } from '@/lib/hooks/useInterstitialAd';
@@ -15,17 +14,23 @@ import { GameEndTransition } from '@/components/transitions';
 import SuspiciousResultModal from '@/components/ui/SuspiciousResultModal';
 import WordleScoreUpdateModal from '@/components/ui/WordleScoreUpdateModal';
 import { showRewardedAd } from '@/lib/admob';
-import WordleLeaderboard from './WordleLeaderboard';
 import LeaderboardErrorBoundary from '@/components/shared/LeaderboardErrorBoundary';
+import DailyHeader from '@/components/daily/DailyHeader';
+import DailyTabs from '@/components/daily/DailyTabs';
+import DailyStatsModal from '@/components/daily/DailyStatsModal';
+import DailyLeaderboard from '@/components/daily/DailyLeaderboard';
+import { getFlatCSSVars } from '@/lib/config/colors';
+import '@/components/daily/daily-base.css';
 import './wordle.css';
 import {
-  WORD_LENGTH, MAX_ATTEMPTS, normalize, computeFeedback, computeScore,
-  WordleGrid, WordleKeyboard, WordleResultBanner, WordleStatsModal
+  WORD_LENGTH, MAX_ATTEMPTS, normalize, computeScore,
+  WordleGrid, WordleKeyboard
 } from './WordleComponents';
+import DailyResultBanner from '@/components/daily/DailyResultBanner';
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function MotMysterePage() {
-  useAppShellBg('#0e0e1a');
+  useAppShellBg('#181818');
   const router = useRouter();
   const [serverDate, setServerDate] = useState(null);
 
@@ -44,7 +49,7 @@ export default function MotMysterePage() {
     return () => unsub();
   }, []);
 
-  const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, writeLeaderboard, resetToday, loaded } =
+  const { todayState, todayDate, streak, stats, progress, startGame, saveProgress, completeGame, writeLeaderboard, loaded } =
     useDailyGame('motmystere', { forceDate: serverDate });
 
   const [revealedWord, setRevealedWord] = useState(null);
@@ -473,43 +478,30 @@ export default function MotMysterePage() {
   // ─── Render ───────────────────────────────────────────────────────────────
   if (!serverDate || !loaded) {
     return (
-      <div className="wordle-page">
-        <div className="wordle-loading">
-          <div className="wordle-spinner" />
-          <p>Chargement du mot du jour…</p>
-        </div>
+      <div className="daily-page wordle-page" style={getFlatCSSVars('motmystere')}>
+        <div className="daily-loading"><div className="daily-spinner" /><p>Chargement du mot du jour…</p></div>
       </div>
     );
   }
 
   return (
-    <div className="wordle-page">
-      {/* Header */}
-      <header className="wordle-header">
-        <button className="wordle-back-btn" onClick={() => router.push('/home')}>
-          <ArrowLeft size={20} weight="fill" />
-        </button>
-        <h1 className="wordle-title">Mot Mystère</h1>
-        <div className="wordle-header-actions">
-          <button className="wordle-help-btn" onClick={() => setShowStats(true)} title="Statistiques">
-            <ChartBar size={18} weight="fill" />
-          </button>
-          <button className="wordle-help-btn" onClick={openHowToPlay} title="Comment jouer">
-            <Question size={18} weight="fill" />
-          </button>
-        </div>
-      </header>
+    <div className="daily-page wordle-page" style={getFlatCSSVars('motmystere')}>
+      <DailyHeader
+        title="Mot Mystère"
+        onBack={() => router.push('/home')}
+        onStats={() => setShowStats(true)}
+        onHelp={openHowToPlay}
+      />
 
-      {/* Tabs — l'erreur s'overlay en absolu, les tabs gardent la hauteur */}
-      <div className="wordle-tabs">
-        <div className="wordle-tabs-content">
-          <button className={`wordle-tab ${activeTab === 'game' ? 'active' : ''}`} onClick={() => setActiveTab('game')}>
-            <GridNine size={14} weight="fill" /> Jeu
-          </button>
-          <button className={`wordle-tab ${activeTab === 'leaderboard' ? 'active' : ''}`} onClick={() => setActiveTab('leaderboard')}>
-            <Trophy size={14} weight="fill" /> Classement
-          </button>
-        </div>
+      <div style={{ position: 'relative' }}>
+        <DailyTabs
+          active={activeTab}
+          onChange={setActiveTab}
+          tabs={[
+            { id: 'game', label: 'Jeu', icon: <GridNine size={14} weight="fill" /> },
+            { id: 'leaderboard', label: 'Classement', icon: <Trophy size={14} weight="fill" /> },
+          ]}
+        />
         <AnimatePresence>
           {wordError && (
             <motion.div
@@ -554,87 +546,114 @@ export default function MotMysterePage() {
         }}
       />
 
-      {/* Modals */}
-      <WordleStatsModal
+      {/* Stats modal (avec distribution en children) */}
+      <DailyStatsModal
         isOpen={showStats}
         onClose={() => setShowStats(false)}
+        title="Mes statistiques"
         stats={stats}
         streak={streak}
-        currentAttempts={guesses.length}
-        solved={solved}
-      />
+      >
+        <p className="wsm-dist-title">Distribution des essais</p>
+        <div className="wsm-distribution">
+          {stats.distribution?.map((count, i) => (
+            <div key={i} className="wsm-dist-row">
+              <span className="wsm-dist-label">{i + 1}</span>
+              <div
+                className={`wsm-dist-bar ${solved && guesses.length === i + 1 ? 'highlight' : ''}`}
+                style={{ width: `${Math.max(8, (count / Math.max(...(stats.distribution || [1]), 1)) * 100)}%` }}
+              >
+                {count}
+              </div>
+            </div>
+          ))}
+        </div>
+      </DailyStatsModal>
 
-      {/* Leaderboard tab */}
-      {activeTab === 'leaderboard' && (
-        <LeaderboardErrorBoundary>
-          <WordleLeaderboard todayDate={todayDate} />
-        </LeaderboardErrorBoundary>
-      )}
+      {/* Carrousel Jeu ↔ Classement */}
+      <div className="daily-tab-carousel">
+        <div className="daily-tab-track" style={{ transform: activeTab === 'leaderboard' ? 'translateX(-100%)' : 'translateX(0)' }}>
+          {/* Slide 1 — Jeu */}
+          <div className="daily-tab-slide">
+            <main className="wordle-main">
+              <p className="wordle-game-date">
+                {new Date(todayDate + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
+                {altMode && <span style={{ marginLeft: 8, fontSize: '0.7rem', color: '#f97316', fontWeight: 700 }}>MOT ALTERNATIF</span>}
+              </p>
+              <div className="wordle-content">
+                <div className="wordle-board-area">
+                  <WordleGrid
+                    guesses={altMode ? altGuesses : guesses}
+                    feedbacks={altMode ? altFeedbacks : feedbacks}
+                    currentGuess={altMode ? altCurrentGuess : currentGuess}
+                    attempts={altMode ? altGuesses.length : guesses.length}
+                    shake={shake}
+                  />
+                </div>
+              </div>
 
-      {/* Game tab */}
-      {activeTab === 'game' && <main className="wordle-main">
-        <p className="wordle-game-date">
-          {new Date(todayDate + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
-          {altMode && <span style={{ marginLeft: 8, fontSize: '0.7rem', color: '#f97316', fontWeight: 700 }}>MOT ALTERNATIF</span>}
-        </p>
-        {/* Content area */}
-        <div className="wordle-content">
-          <div className="wordle-board-area">
-            <WordleGrid
-              guesses={altMode ? altGuesses : guesses}
-              feedbacks={altMode ? altFeedbacks : feedbacks}
-              currentGuess={altMode ? altCurrentGuess : currentGuess}
-              attempts={altMode ? altGuesses.length : guesses.length}
-              shake={shake}
-            />
+              {altMode ? (
+                !altGameOver && (
+                  <WordleKeyboard letterStates={altLetterStates} onKey={handleAltKey} onSubmit={() => handleAltKey('ENTER')} />
+                )
+              ) : (
+                !gameOver && (
+                  <WordleKeyboard letterStates={letterStates} onKey={handleKey} onSubmit={() => handleKey('ENTER')} />
+                )
+              )}
+
+              <AnimatePresence>
+                {altMode ? (
+                  altShowResult && (
+                    <DailyResultBanner
+                      emoji={altSolved ? '🎉' : '😢'}
+                      verdict={altSolved ? 'Bravo !' : 'Raté…'}
+                      sub={altSolved
+                        ? `${altGuesses.length} essai${altGuesses.length > 1 ? 's' : ''} · ${Math.floor(altElapsedMs / 60000) > 0 ? `${Math.floor(altElapsedMs / 60000)}m ` : ''}${Math.floor((altElapsedMs % 60000) / 1000)}s`
+                        : <>Le mot : <strong>{altRevealedWord?.toUpperCase()}</strong></>
+                      }
+                      score={altScore}
+                      stats={stats} streak={streak}
+                      onShowStats={() => setShowStats(true)} onShowLeaderboard={handleShowLeaderboard}
+                    />
+                  )
+                ) : (
+                  showResult && (
+                    <DailyResultBanner
+                      emoji={solved ? '🎉' : '😢'}
+                      verdict={solved ? 'Bravo !' : 'Raté…'}
+                      sub={solved
+                        ? `${guesses.length} essai${guesses.length > 1 ? 's' : ''} · ${Math.floor(elapsedMs / 60000) > 0 ? `${Math.floor(elapsedMs / 60000)}m ` : ''}${Math.floor((elapsedMs % 60000) / 1000)}s`
+                        : <>Le mot : <strong>{revealedWord?.toUpperCase()}</strong></>
+                      }
+                      score={score}
+                      unranked={unranked}
+                      stats={stats} streak={streak}
+                      onShowStats={() => setShowStats(true)} onShowLeaderboard={handleShowLeaderboard}
+                    />
+                  )
+                )}
+              </AnimatePresence>
+            </main>
+          </div>
+
+          {/* Slide 2 — Classement */}
+          <div className="daily-tab-slide">
+            <LeaderboardErrorBoundary>
+              <DailyLeaderboard
+                firebaseNode="daily/wordle"
+                todayDate={todayDate}
+                emptyEmoji="📝"
+                emptyText="Personne encore — sois le premier !"
+                renderMeta={(entry, tab) => tab === 'week'
+                  ? `${entry.days} jour${entry.days > 1 ? 's' : ''}`
+                  : `${entry.attempts} essai${entry.attempts > 1 ? 's' : ''}`
+                }
+              />
+            </LeaderboardErrorBoundary>
           </div>
         </div>
-
-        {/* Keyboard */}
-        {altMode ? (
-          !altGameOver && (
-            <WordleKeyboard letterStates={altLetterStates} onKey={handleAltKey} onSubmit={() => handleAltKey('ENTER')} />
-          )
-        ) : (
-          !gameOver && (
-            <WordleKeyboard letterStates={letterStates} onKey={handleKey} onSubmit={() => handleKey('ENTER')} />
-          )
-        )}
-
-        {/* Result banner */}
-        <AnimatePresence>
-          {altMode ? (
-            altShowResult && (
-              <WordleResultBanner
-                solved={altSolved}
-                attempts={altGuesses.length}
-                timeMs={altElapsedMs}
-                score={altScore}
-                revealedWord={altRevealedWord}
-                stats={stats}
-                streak={streak}
-                onShowStats={() => setShowStats(true)}
-                onShowLeaderboard={handleShowLeaderboard}
-              />
-            )
-          ) : (
-            showResult && (
-              <WordleResultBanner
-                solved={solved}
-                attempts={guesses.length}
-                timeMs={elapsedMs}
-                score={score}
-                revealedWord={revealedWord}
-                stats={stats}
-                streak={streak}
-                onShowStats={() => setShowStats(true)}
-                onShowLeaderboard={handleShowLeaderboard}
-                unranked={unranked}
-              />
-            )
-          )}
-        </AnimatePresence>
-      </main>}
+      </div>
 
       <AnimatePresence>
         {showTransition && (

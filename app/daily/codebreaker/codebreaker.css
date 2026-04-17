@@ -1,0 +1,277 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   CODE BREAKER — Mastermind (flat cartoon)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Board — plateau Mastermind ─────────────────────────────────────────── */
+.cb-board {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  margin: 6px 28px;
+  gap: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: #2c1810;
+  border-radius: 14px;
+  border-bottom: 5px solid #1a0e08;
+  border-left: 2px solid #3a2518;
+  border-right: 2px solid #3a2518;
+  border-top: 2px solid #3a2518;
+}
+
+/* ── Bouclier code secret — intégré au plateau, pas d'encadré séparé ────── */
+.cb-secret-banner {
+  padding: clamp(4px, 0.6dvh, 8px) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2px, 0.4dvh, 6px);
+  flex-shrink: 0;
+
+}
+
+.cb-secret-label {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #d4a574;
+}
+
+.cb-secret-banner.revealed .cb-secret-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cb-secret-inner {
+  padding: 0 8px;
+}
+
+/* Result wrap + dots */
+.cb-result-wrap {
+  padding: 0 14px 10px;
+}
+
+.cb-result-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-left: 3px;
+  vertical-align: middle;
+}
+
+/* ── Lignes ─────────────────────────────────────────────────────────────────── */
+.cb-rows {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-evenly;
+  min-height: 0;
+}
+
+.cb-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: clamp(2px, 0.4dvh, 5px) 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #1a0e08;
+}
+
+.cb-row.current {
+  background: #3a2518;
+  border-bottom: 2px solid #1a0e08;
+  padding: clamp(3px, 0.5dvh, 6px) 8px;
+}
+
+.cb-row-num {
+  font-family: var(--font-title);
+  font-size: clamp(0.9rem, 2dvh, 1.2rem);
+  font-weight: 400;
+  color: #8a6a4a;
+  width: 26px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.cb-row.current .cb-row-num {
+  color: #d4a574;
+}
+
+/* ── Pions (trous) ─────────────────────────────────────────────────────────── */
+.cb-pegs {
+  display: flex;
+  gap: clamp(6px, 2vw, 10px);
+  flex: 1;
+  justify-content: center;
+}
+
+/* ── Trous — aspect creusé dans le bois ────────────────────────────────── */
+.cb-peg {
+  width: clamp(24px, 3.8dvh, 38px);
+  height: clamp(24px, 3.8dvh, 38px);
+  border-radius: 50%;
+  background: #1a0e08;
+  border: 2px solid #241510;
+  cursor: default;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-size: 0.75rem;
+  color: #6a4a30;
+  overflow: hidden;
+}
+
+.cb-peg.filled {
+  border-color: rgba(0, 0, 0, 0.4);
+  border-bottom: 3px solid rgba(0, 0, 0, 0.45);
+}
+
+.cb-peg.active {
+  cursor: pointer;
+  border-color: #4a3020;
+}
+
+.cb-peg.active:hover {
+  border-color: #5a3a28;
+}
+
+.cb-peg.selected {
+  border-color: #d4a574;
+  border-width: 2px;
+}
+
+/* ── Indices (hints 2×2) ───────────────────────────────────────────────────── */
+.cb-hints {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.cb-hint-peg {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.cb-hint-peg.black {
+  background: #ef4444;
+  border-bottom: 1px solid #b91c1c;
+}
+
+.cb-hint-peg.white {
+  background: #e5e7eb;
+  border-bottom: 1px solid #9ca3af;
+}
+
+.cb-hint-peg.empty {
+  background: #1a0e08;
+  border: 1px solid #241510;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONTRÔLES (palette + actions)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cb-controls {
+  flex-shrink: 0;
+  padding: 10px 14px;
+  padding-bottom: 14px;
+  border-top: 2px solid #141414;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cb-palette {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.cb-color-btn {
+  width: clamp(36px, 9vw, 46px);
+  height: clamp(36px, 9vw, 46px);
+  border-radius: 50%;
+  border: none;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: transform 0.12s ease, border-bottom-width 0.12s ease;
+}
+
+.cb-color-btn:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.cb-color-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.cb-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cb-action-btn {
+  width: 48px;
+  height: 42px;
+  border-radius: 10px;
+  background: #1e1e1e;
+  border: none;
+  border-bottom: 3px solid #141414;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.12s ease, border-bottom-width 0.12s ease;
+}
+
+.cb-action-btn:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.cb-action-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.cb-submit-btn {
+  flex: 1;
+  height: 42px;
+  border-radius: 10px;
+  background: #1e1e1e;
+  border: none;
+  border-bottom: 3px solid #141414;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: default;
+  transition: all 0.15s ease;
+}
+
+.cb-submit-btn.active {
+  background: var(--game-color, #6366f1);
+  border-bottom: 4px solid var(--game-dark, #4338ca);
+  color: #fff;
+  cursor: pointer;
+}
+
+.cb-submit-btn.active:active {
+  transform: translateY(3px);
+  border-bottom-width: 1px;
+}
